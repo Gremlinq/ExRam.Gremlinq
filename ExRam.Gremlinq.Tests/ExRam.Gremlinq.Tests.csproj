@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>ExRam.Gremlinq.Tests</Description>
+    <Authors>ExRam EDV GmbH &amp; Co. KG</Authors>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyName>ExRam.Gremlinq.Tests</AssemblyName>
+    <PackageId>ExRam.Gremlinq.Tests</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Json\*.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Json\g_V_FromStandardPort.json" />
+    <EmbeddedResource Include="Json\Language1.json" />
+    <EmbeddedResource Include="Json\Tuple.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq\ExRam.Gremlinq.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="FluentAssertions" Version="4.18.0" />
+    <PackageReference Include="Moq" Version="4.7.1" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+  </ItemGroup>
+
+</Project>
