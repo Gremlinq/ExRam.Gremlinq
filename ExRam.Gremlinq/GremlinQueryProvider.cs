@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq
                         obj[propertyKvp.Key] = this.TransformObject(propertyKvpValue);
                 }
 
-                var type = obj["type"]?.ToString();
+                var type = obj["type"]?.ToString().ToLower();
 
                 if (type == "vertex" || type == "edge")
                 {
@@ -103,8 +103,11 @@ namespace ExRam.Gremlinq
                     var label = obj["label"]?.ToString();
                     if (label != null)
                     {
-                        this.NamingStrategy
-                            .TryGetTypeOfLabel(this.Model, label)
+                        var maybeSuitableType = type == "vertex"
+                            ? this.NamingStrategy.TryGetVertexTypeOfLabel(this.Model, label)
+                            : this.NamingStrategy.TryGetEdgeTypeOfLabel(this.Model, label);
+
+                        maybeSuitableType
                             .IfSome(suitableType =>
                             {
                                 obj.AddFirst(new JProperty("$type", suitableType.AssemblyQualifiedName));

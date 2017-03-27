@@ -13,10 +13,16 @@ namespace ExRam.Gremlinq
                 return type.Name;
             }
 
-            public Option<Type> TryGetTypeOfLabel(IGremlinModel model, string label)
+            public Option<Type> TryGetVertexTypeOfLabel(IGremlinModel model, string label)
             {
                 return model.VertexTypes
                     .Concat(model.EdgeTypes)
+                    .FirstOrDefault(type => type.Name.Equals(label, StringComparison.OrdinalIgnoreCase));
+            }
+
+            public Option<Type> TryGetEdgeTypeOfLabel(IGremlinModel model, string label)
+            {
+                return model.EdgeTypes
                     .FirstOrDefault(type => type.Name.Equals(label, StringComparison.OrdinalIgnoreCase));
             }
         }
