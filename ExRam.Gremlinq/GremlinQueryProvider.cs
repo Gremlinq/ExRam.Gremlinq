@@ -67,9 +67,8 @@ namespace ExRam.Gremlinq
                         if (json.StartsWith("{") || json.StartsWith("["))
                         {
                             var token = JToken.Parse(json);
-                            var rootObject = token as JObject;
 
-                            if (rootObject != null)
+                            if (token is JObject rootObject)
                             {
                                 rootObject = this.TransformObject(rootObject);
                                 return JsonConvert.DeserializeObject<T>(rootObject.ToString(), settings);
@@ -90,8 +89,7 @@ namespace ExRam.Gremlinq
             {
                 foreach (var propertyKvp in obj)
                 {
-                    var propertyKvpValue = propertyKvp.Value as JObject;
-                    if (propertyKvpValue != null)
+                    if (propertyKvp.Value is JObject propertyKvpValue)
                         obj[propertyKvp.Key] = this.TransformObject(propertyKvpValue);
                 }
 
@@ -115,16 +113,14 @@ namespace ExRam.Gremlinq
                             });
                     }
 
-                    var properties = obj["properties"] as JObject;
-                    if (properties != null)
+                    if (obj["properties"] is JObject properties)
                     {
                         foreach (var propertyKvp in properties)
                         {
                             var valueObject = propertyKvp.Value;
 
-                            var valueObjectArray = propertyKvp.Value as JArray;
-                            if (valueObjectArray != null)
-                                valueObject = valueObject.First;
+                            if (propertyKvp.Value is JArray valueObjectArray)
+                                valueObject = valueObjectArray.First;
 
                             var realValue = (valueObject as JObject)?["value"];
                             if (realValue != null)

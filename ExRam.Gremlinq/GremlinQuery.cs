@@ -133,9 +133,7 @@ namespace ExRam.Gremlinq
                     else
                         appendComma = true;
 
-                    var gremlinSubQuery = parameter as IGremlinQuery;
-
-                    if (gremlinSubQuery != null)
+                    if (parameter is IGremlinQuery gremlinSubQuery)
                         builder.Append(CreateQueryString(gremlinSubQuery, parameters, inlineParameters));
                     else
                     {
