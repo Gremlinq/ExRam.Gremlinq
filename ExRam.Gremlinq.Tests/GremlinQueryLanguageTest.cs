@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().or(__.hasLabel('SomeBaseEntity'), __.hasLabel('SomeDerivedEntity'))");
+                .Be("g.V().hasLabel('SomeBaseEntity', 'SomeDerivedEntity')");
 
             query.parameters
                 .Should()
@@ -448,7 +448,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.or(__.hasLabel('SomeBaseEntity'), __.hasLabel('SomeDerivedEntity')))");
+                .Be("g.V().not(__.hasLabel('SomeBaseEntity', 'SomeDerivedEntity'))");
 
             query.parameters
                 .Should()

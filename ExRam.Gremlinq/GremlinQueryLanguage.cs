@@ -235,10 +235,11 @@ namespace ExRam.Gremlinq
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        private static IGremlinQuery<T> HasLabel<T>(this IGremlinQuery<T> query, string label)
+        private static IGremlinQuery<T> HasLabel<T>(this IGremlinQuery<T> query, params string[] labels)
         {
             return query
-                .AddStep<T>("hasLabel", label);
+                // ReSharper disable once CoVariantArrayConversion
+                .AddStep<T>("hasLabel", labels);
         }
 
         public static IGremlinQuery<Vertex> In<T>(this IGremlinQuery query)
@@ -288,23 +289,9 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> OfType<T>(this IGremlinQuery query)
         {
-            var derivedTypeNames = GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy);
-
-            if (derivedTypeNames.Length > 1)
-            {
-                return query.Or<T>(derivedTypeNames
-                    .Select(derivedTypeName => query
-                        .Cast<T>()
-                        .ToAnonymous()
-                        .HasLabel(derivedTypeName)));
-            }
-
-            var ret = query
-                .Cast<T>();
-
-            return derivedTypeNames.Length == 1 
-                ? ret.HasLabel(derivedTypeNames[0]) 
-                : ret;
+            return query
+                .Cast<T>()
+                .HasLabel(GremlinQueryLanguage.GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
