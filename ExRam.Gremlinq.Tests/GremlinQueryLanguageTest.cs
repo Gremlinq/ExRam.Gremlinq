@@ -454,5 +454,44 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .BeEmpty();
         }
+
+        [Fact]
+        public void V_as()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .As(new StepLabel<SomeDerivedEntity>("a"))
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').as('a')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_as_select()
+        {
+            var stepLabel = new StepLabel<SomeDerivedEntity>("a");
+
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .As(stepLabel)
+                .Select(stepLabel)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').as('a').select('a')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
     }
 }
