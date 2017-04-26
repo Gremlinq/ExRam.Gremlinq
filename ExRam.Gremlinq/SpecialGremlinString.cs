@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq
 
         public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterNameProvider parameterNameProvider, bool inlineParameters)
         {
-            return (_value, ImmutableDictionary<string, object>.Empty);
+            return (this._value, ImmutableDictionary<string, object>.Empty);
         }
     }
 }

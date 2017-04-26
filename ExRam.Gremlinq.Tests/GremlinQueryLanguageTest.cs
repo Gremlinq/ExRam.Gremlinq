@@ -71,6 +71,78 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_has_lower_int_property()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Has(t => t.SomeIntProperty < 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', lt(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_lower_or_equal_int_property()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Has(t => t.SomeIntProperty <= 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', lte(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_greater_int_property()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Has(t => t.SomeIntProperty > 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', gt(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_greater_or_equal_int_property()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Has(t => t.SomeIntProperty >= 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', gte(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public void V_ofType_has_string_property()
         {
             var query = GremlinQuery
