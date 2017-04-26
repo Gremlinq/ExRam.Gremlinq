@@ -474,6 +474,26 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_as_not_inlined()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .As(new StepLabel<SomeDerivedEntity>("a"))
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).as(P2)");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "SomeDerivedEntity")
+                .And
+                .Contain("P2", "a");
+        }
+
+        [Fact]
         public void V_as_select()
         {
             var stepLabel = new StepLabel<SomeDerivedEntity>("a");
@@ -492,6 +512,31 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .BeEmpty();
+        }
+
+        [Fact]
+        public void V_as_select_not_inlined()
+        {
+            var stepLabel = new StepLabel<SomeDerivedEntity>("a");
+
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .As(stepLabel)
+                .Select(stepLabel)
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).as(P2).select(P3)");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "SomeDerivedEntity")
+                .And
+                .Contain("P2", "a")
+                .And
+                .Contain("P3", "a"); ;
         }
     }
 }

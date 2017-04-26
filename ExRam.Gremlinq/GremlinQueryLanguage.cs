@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> As<T>(this IGremlinQuery<T> query, StepLabel<T> stepLabel)
         {
             return query
-                .AddStep<T>("as", stepLabel.Label);
+                .AddStep<T>("as", stepLabel);
         }
 
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
@@ -368,13 +368,13 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> Select<T>(this IGremlinQuery query, StepLabel<T> label)
         {
             return query
-                .AddStep<T>("select", label.Label);
+                .AddStep<T>("select", label);
         }
 
         public static IGremlinQuery<(T1, T2)> Select<T1, T2>(this IGremlinQuery query, StepLabel<T1> label1, StepLabel<T2> label2)
         {
             return query
-                .AddStep<(T1, T2)>("select", label1.Label, label2.Label)
+                .AddStep<(T1, T2)>("select", label1, label2)
                 .AddMemberInfoMapping(x => x.Item1, label1.Label)
                 .AddMemberInfoMapping(x => x.Item2, label2.Label);
         }
@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(this IGremlinQuery query, StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
             return query
-                .AddStep<(T1, T2, T3)>("select", label1.Label, label2.Label, label3.Label)
+                .AddStep<(T1, T2, T3)>("select", label1, label2, label3)
                 .AddMemberInfoMapping(x => x.Item1, label1.Label)
                 .AddMemberInfoMapping(x => x.Item2, label2.Label)
                 .AddMemberInfoMapping(x => x.Item3, label3.Label);
@@ -391,7 +391,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(this IGremlinQuery query, StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
             return query
-                .AddStep<(T1, T2, T3, T4)>("select", label1.Label, label2.Label, label3.Label, label4.Label)
+                .AddStep<(T1, T2, T3, T4)>("select", label1, label2, label3, label4)
                 .AddMemberInfoMapping(x => x.Item1, label1.Label)
                 .AddMemberInfoMapping(x => x.Item2, label2.Label)
                 .AddMemberInfoMapping(x => x.Item3, label3.Label)
