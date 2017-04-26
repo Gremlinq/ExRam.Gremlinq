@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
+
 namespace ExRam.Gremlinq
 {
-    internal struct SpecialGremlinString
+    internal struct SpecialGremlinString : IGremlinSerializable
     {
         private readonly string _value;
 
@@ -9,9 +12,9 @@ namespace ExRam.Gremlinq
             this._value = value;
         }
 
-        public override string ToString()
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterNameProvider parameterNameProvider, bool inlineParameters)
         {
-            return this._value;
+            return (_value, ImmutableDictionary<string, object>.Empty);
         }
     }
 }

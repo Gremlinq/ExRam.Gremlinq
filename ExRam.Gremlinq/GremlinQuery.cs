@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq
                                 builder.Append($"'{parameter}'");
                             else
                             {
-                                if (parameter is SpecialGremlinString || inlineParameters)
+                                if (inlineParameters)
                                     builder.Append(parameter);
                                 else
                                 {
