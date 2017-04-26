@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
-    public interface IGremlinQuery
+    public interface IGremlinQuery : IGremlinSerializable
     {
         string GraphName { get; }
         IGremlinQueryProvider Provider { get; }

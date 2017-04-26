@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .AddV(new Description { Id = "id", Value = "A description of something." })
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                     .Has(t => t.SomeIntProperty == 36)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
                 .Has(t => t.Id == "languageId")
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
                 .Has(t => t.Id == local)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
                 .Has(t => t.Id == local.Value)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Tests
                 .To(__ => __
                     .V<SomeDerivedEntity>()
                     .Has(t => t.Id == "entityId"))
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Tests
                         .InE<Describes>(),
                     __ => __
                         .OutE<IsLocalizedIn>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Drop()
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -205,7 +205,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .FilterWithLambda("it.property('str').value().length() == 2")
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByMember(x => x.Name)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -243,7 +243,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByTraversal(__ => __.Values(x => x.Name))
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -262,7 +262,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByLambda("it.property('str').value().length()")
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Values(x => x.Name)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -298,7 +298,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Values(x => x.Name, x => x.Id)
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -315,7 +315,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V()
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -333,7 +333,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V()
                 .OfType<SomeBaseEntity>()
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -351,7 +351,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Repeat(__ => __.Out<Describes>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -371,7 +371,7 @@ namespace ExRam.Gremlinq.Tests
                 .Union(
                     __ => __.Out<Describes>(),
                     __ => __.Out<IsLocalizedIn>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -390,7 +390,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Optional(
                     __ => __.Out<Describes>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V()
                 .Not(__ => __.Out<Describes>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -426,7 +426,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V()
                 .Not(__ => __.OfType<Language>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -444,7 +444,7 @@ namespace ExRam.Gremlinq.Tests
                 .ForGraph("g", this._queryProvider)
                 .V()
                 .Not(__ => __.OfType<SomeBaseEntity>())
-                .ToExecutableQuery(true);
+                .Serialize(true);
 
             query.queryString
                 .Should()

@@ -27,7 +27,7 @@ namespace Dse
                 if (typeof(T) != typeof(string))
                     throw new NotSupportedException("Only string queries are supported.");
 
-                var executableQuery = query.ToExecutableQuery();
+                var executableQuery = query.Serialize(false);
 
                 return this._session
                     .ExecuteGraph(new SimpleGraphStatement(executableQuery.parameters, executableQuery.queryString))

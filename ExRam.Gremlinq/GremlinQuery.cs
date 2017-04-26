@@ -21,6 +21,64 @@ namespace ExRam.Gremlinq
                 this.MemberInfoMappings = memberInfoMappings;
             }
 
+            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterNameProvider parameterNameProvider, bool inlineParameters)
+            {
+                var parameters = new Dictionary<string, object>();
+                var builder = new StringBuilder(this.GraphName);
+
+                foreach (var step in this.Steps)
+                {
+                    var appendComma = false;
+
+                    if (builder.Length > 0)
+                        builder.Append('.');
+
+                    builder.Append(step.Name);
+                    builder.Append("(");
+
+                    foreach (var parameter in step.Parameters)
+                    {
+                        if (appendComma)
+                            builder.Append(", ");
+                        else
+                            appendComma = true;
+
+                        if (parameter is IGremlinSerializable serializable)
+                        {
+                            var (innerQueryString, innerParameters) = serializable.Serialize(parameterNameProvider, inlineParameters);
+                            
+                            builder.Append(innerQueryString);
+
+                            foreach (var kvp in innerParameters)
+                            {
+                                parameters[kvp.Key] = kvp.Value;
+                            }
+                        }
+                        else
+                        {
+                            if (parameter is string && inlineParameters)
+                                builder.Append($"'{parameter}'");
+                            else
+                            {
+                                if (parameter is SpecialGremlinString || inlineParameters)
+                                    builder.Append(parameter);
+                                else
+                                {
+                                    var newParameterName = parameterNameProvider.Get();
+                                    parameters.Add(newParameterName, parameter);
+
+                                    builder.Append(newParameterName);
+                                }
+                            }
+                        }
+                    }
+
+                    builder.Append(")");
+                }
+
+                return (builder.ToString(), parameters);
+            }
+
             public string GraphName { get; }
             public IGremlinQueryProvider Provider { get; }
             public IImmutableList<GremlinStep> Steps { get; }
@@ -42,6 +100,11 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
         {
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.Provider, query.MemberInfoMappings);
+        }
+
+        public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, bool inlineParameters)
+        {
+            return query.Serialize(new DefaultParameterNameProvider(), inlineParameters);
         }
 
         public static T First<T>(this IGremlinQuery<T> query)
@@ -70,15 +133,7 @@ namespace ExRam.Gremlinq
                 .Execute()
                 .ToArray();
         }
-        
-        public static (string queryString, IDictionary<string, object> parameters) ToExecutableQuery(this IGremlinQuery query, bool inlineParameters = false)
-        {
-            var parameters = new Dictionary<string, object>();
-            var queryString = CreateQueryString(query, parameters, inlineParameters);
-
-            return (queryString, parameters);
-        }
-
+       
         internal static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, params object[] parameters)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(new GremlinStep(name, parameters)), query.Provider, query.MemberInfoMappings);
@@ -110,54 +165,6 @@ namespace ExRam.Gremlinq
         internal static IGremlinQuery<T> ReplaceProvider<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps, provider, query.MemberInfoMappings);
-        }
-
-        private static string CreateQueryString(IGremlinQuery query, IDictionary<string, object> parameters, bool inlineParameters)
-        {
-            var builder = new StringBuilder(query.GraphName);
-
-            foreach (var step in query.Steps)
-            {
-                var appendComma = false;
-
-                if (builder.Length > 0)
-                    builder.Append('.');
-
-                builder.Append(step.Name);
-                builder.Append("(");
-
-                foreach (var parameter in step.Parameters)
-                {
-                    if (appendComma)
-                        builder.Append(", ");
-                    else
-                        appendComma = true;
-
-                    if (parameter is IGremlinQuery gremlinSubQuery)
-                        builder.Append(CreateQueryString(gremlinSubQuery, parameters, inlineParameters));
-                    else
-                    {
-                        if (parameter is string && inlineParameters)
-                            builder.Append($"'{parameter}'");
-                        else
-                        {
-                            if (parameter is SpecialGremlinString || inlineParameters)
-                                builder.Append(parameter);
-                            else
-                            {
-                                var newParameterName = $"_P{parameters.Count}";
-                                parameters.Add(newParameterName, parameter);
-
-                                builder.Append(newParameterName);
-                            }
-                        }
-                    }
-                }
-
-                builder.Append(")");
-            }
-
-            return builder.ToString();
         }
     }
 }
