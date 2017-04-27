@@ -600,15 +600,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2).select(P3)");
+                .Be("g.V().hasLabel(P1).as(P2).select(P2)");
 
             query.parameters
                 .Should()
                 .Contain("P1", "SomeDerivedEntity")
                 .And
-                .Contain("P2", "a")
-                .And
-                .Contain("P3", "a"); ;
+                .Contain("P2", "a");
         }
     }
 }

@@ -18,13 +18,13 @@ namespace ExRam.Gremlinq
 
         public string Label { get; }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterNameProvider parameterNameProvider, bool inlineParameters)
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
         {
             if (inlineParameters)
                 return ("'" + this.Label + "'", ImmutableDictionary<string, object>.Empty);
 
-            var parameter = parameterNameProvider.Get();
-            return (parameter, ImmutableDictionary<string, object>.Empty.Add(parameter, this.Label));
+            var parameterName = parameterCache.Cache(this.Label);
+            return (parameterName, ImmutableDictionary<string, object>.Empty.Add(parameterName, this.Label));
         }
     }
 }

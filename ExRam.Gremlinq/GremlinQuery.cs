@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq
                 this.MemberInfoMappings = memberInfoMappings;
             }
 
-            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterNameProvider parameterNameProvider, bool inlineParameters)
+            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
             {
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.GraphName);
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq
 
                         if (parameter is IGremlinSerializable serializable)
                         {
-                            var (innerQueryString, innerParameters) = serializable.Serialize(parameterNameProvider, inlineParameters);
+                            var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache, inlineParameters);
                             
                             builder.Append(innerQueryString);
 
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq
                                     builder.Append(parameter);
                                 else
                                 {
-                                    var newParameterName = parameterNameProvider.Get();
+                                    var newParameterName = parameterCache.Cache(parameter);
                                     parameters.Add(newParameterName, parameter);
 
                                     builder.Append(newParameterName);
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, bool inlineParameters)
         {
-            return query.Serialize(new DefaultParameterNameProvider(), inlineParameters);
+            return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
 
         public static T First<T>(this IGremlinQuery<T> query)
