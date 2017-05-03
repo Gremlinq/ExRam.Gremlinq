@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reactive;
 using LanguageExt;
 using Unit = System.Reactive.Unit;
 
@@ -64,7 +63,9 @@ namespace ExRam.Gremlinq
 
                 query = typeInfo.DeclaredProperties
                     .Where(property => property.PropertyType.IsNativeType())
-                    .Aggregate(query, (current, property) => current.Property(property.Name, property.GetValue(element)));
+                    .Select(property => (name: property.Name, value: property.GetValue(element)))
+                    .Where(tuple => tuple.value != null)
+                    .Aggregate(query, (current, tuple) => current.Property(tuple.name, tuple.value));
 
                 type = typeInfo.BaseType;
             }

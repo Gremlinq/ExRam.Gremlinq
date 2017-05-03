@@ -36,6 +36,23 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddV_with_nulls()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .AddV(new Description { Id = "id" })
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.addV('Description').property('Id', 'id')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public void V_ofType()
         {
             var query = GremlinQuery
