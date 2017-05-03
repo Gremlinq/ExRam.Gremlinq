@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq
                                 else
                                 {
                                     var newParameterName = parameterCache.Cache(parameter);
-                                    parameters.Add(newParameterName, parameter);
+                                    parameters[newParameterName] = parameter;
 
                                     builder.Append(newParameterName);
                                 }
