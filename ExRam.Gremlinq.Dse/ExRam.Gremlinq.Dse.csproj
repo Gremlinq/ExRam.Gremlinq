@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>ExRam.Gremlinq.Dse</Description>
     <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
+    <AssemblyName>ExRam.Gremlinq.Dse</AssemblyName>
+    <PackageId>ExRam.Gremlinq.Dse</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
   <ItemGroup>
