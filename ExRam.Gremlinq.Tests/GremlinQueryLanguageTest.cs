@@ -231,6 +231,46 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddE_to_StepLabel()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .AddV(new Description { Id = "id", Value = "Description" })
+                .As((_, d) => _
+                    .AddE(new Describes())
+                    .To(d))
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.addV(P1).property(P2, P3).property(P4, P1).as(P5).addE(P6).to(P5)");
+
+            query.parameters
+                .Should()
+                .NotBeEmpty();
+        }
+
+        [Fact]
+        public void AddE_from_StepLabel()
+        {
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .AddV(new Description { Id = "id", Value = "Description" })
+                .As((_, d) => _
+                    .AddE(new Describes())
+                    .From(d))
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.addV(P1).property(P2, P3).property(P4, P1).as(P5).addE(P6).from(P5)");
+
+            query.parameters
+                .Should()
+                .NotBeEmpty();
+        }
+
+        [Fact]
         public void And()
         {
             var query = GremlinQuery

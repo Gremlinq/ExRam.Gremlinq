@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq
                 .AddStep<T[]>("fold");
         }
 
-        public static IGremlinQuery<T> From<T>(this IGremlinQuery<T> query, string stepLabel)
+        public static IGremlinQuery<T> From<S, T>(this IGremlinQuery<T> query, StepLabel<S> stepLabel)
         {
             return query
                 .AddStep<T>("from", stepLabel);
@@ -417,10 +417,10 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("tail", limit);
         }
 
-        public static IGremlinQuery<T> To<T>(this IGremlinQuery<T> query, string name)
+        public static IGremlinQuery<T> To<S, T>(this IGremlinQuery<T> query, StepLabel<S> stepLabel)
         {
             return query
-                .AddStep<T>("to", name);
+                .AddStep<T>("to", stepLabel);
         }
 
         public static IGremlinQuery<T> To<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> toVertex)
