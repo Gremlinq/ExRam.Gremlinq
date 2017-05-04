@@ -74,6 +74,20 @@ namespace ExRam.Gremlinq
                                 return JsonConvert.DeserializeObject<T>(rootObject.ToString(), settings);
                             }
 
+                            if (token is JArray array)
+                            {
+                                for (var i = 0; i < array.Count; i++)
+                                {
+                                    var item = array[i];
+                                    if (item is JObject itemObject)
+                                    {
+                                        array[i] = this.TransformObject(itemObject);
+                                    }
+                                }
+
+                                return JsonConvert.DeserializeObject<T>(array.ToString(), settings);
+                            }
+
                             return JsonConvert.DeserializeObject<T>(json, settings);
                         }
 

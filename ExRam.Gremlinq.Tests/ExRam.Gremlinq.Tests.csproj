@@ -17,8 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Json\LanguageArray.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Json\g_V_FromStandardPort.json" />
     <EmbeddedResource Include="Json\Language1.json" />
+    <EmbeddedResource Include="Json\LanguageArray.json" />
     <EmbeddedResource Include="Json\Tuple.json" />
   </ItemGroup>
 
