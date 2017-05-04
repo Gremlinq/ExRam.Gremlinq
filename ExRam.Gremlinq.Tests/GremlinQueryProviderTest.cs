@@ -13,12 +13,14 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string ArrayJson;
         private static readonly string TupleJson;
         private static readonly string LanguageJson1;
+        private static readonly string NestedArrayJson;
 
         static GremlinQueryProviderTest()
         {
             LanguageJson1 = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Language1.json")).ReadToEnd();
             TupleJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Tuple.json")).ReadToEnd();
             ArrayJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.LanguageArray.json")).ReadToEnd();
+            NestedArrayJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.NestedLanguageArray.json")).ReadToEnd();
         }
 
         [Fact]
@@ -103,6 +105,26 @@ namespace ExRam.Gremlinq.Tests
                 .WithNamingStrategy(GraphElementNamingStrategy.Simple)
                 .WithJsonSupport()
                 .Execute(Mock.Of<IGremlinQuery<Language[]>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
+                .First();
+
+            languages.Should().NotBeNull();
+            //language.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            //language.IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
+        public void Nested_Array()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Returns(new[] { NestedArrayJson });
+
+            var languages = queryProviderMock.Object
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
+                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithJsonSupport()
+                .Execute(Mock.Of<IGremlinQuery<Language[][]>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
                 .First();
 
             languages.Should().NotBeNull();

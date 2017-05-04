@@ -18,12 +18,14 @@
 
   <ItemGroup>
     <None Remove="Json\LanguageArray.json" />
+    <None Remove="Json\NestedLanguageArray.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Json\g_V_FromStandardPort.json" />
     <EmbeddedResource Include="Json\Language1.json" />
     <EmbeddedResource Include="Json\LanguageArray.json" />
+    <EmbeddedResource Include="Json\NestedLanguageArray.json" />
     <EmbeddedResource Include="Json\Tuple.json" />
   </ItemGroup>
 
@@ -33,6 +35,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="2.3.4.224" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
     <PackageReference Include="FluentAssertions" Version="4.19.2" />
     <PackageReference Include="Moq" Version="4.7.9" />

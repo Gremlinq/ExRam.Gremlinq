@@ -62,42 +62,32 @@ namespace ExRam.Gremlinq
 
                 return this._baseProvider
                     .Execute(query.Cast<string>())
-                    .Select(json =>
-                    {
-                        if (json.StartsWith("{") || json.StartsWith("["))
-                        {
-                            var token = JToken.Parse(json);
-
-                            if (token is JObject rootObject)
-                            {
-                                rootObject = this.TransformObject(rootObject);
-                                return JsonConvert.DeserializeObject<T>(rootObject.ToString(), settings);
-                            }
-
-                            if (token is JArray array)
-                            {
-                                for (var i = 0; i < array.Count; i++)
-                                {
-                                    var item = array[i];
-                                    if (item is JObject itemObject)
-                                    {
-                                        array[i] = this.TransformObject(itemObject);
-                                    }
-                                }
-
-                                return JsonConvert.DeserializeObject<T>(array.ToString(), settings);
-                            }
-
-                            return JsonConvert.DeserializeObject<T>(json, settings);
-                        }
-
-                        return JToken.Parse($"'{json}'").ToObject<T>();
-                    });
+                    .Select(json => json.StartsWith("{") || json.StartsWith("[")
+                        ? JsonConvert.DeserializeObject<T>(this.TransformToken(JToken.Parse(json)).ToString(), settings)
+                        : JToken.Parse($"'{json}'").ToObject<T>());
             }
 
             public IGremlinModel Model => this._baseProvider.Model;
 
             public IGraphElementNamingStrategy NamingStrategy => this._baseProvider.NamingStrategy;
+
+            private JToken TransformToken(JToken token)
+            {
+                if (token is JObject rootObject)
+                    return this.TransformObject(rootObject);
+
+                if (token is JArray array)
+                {
+                    for (var i = 0; i < array.Count; i++)
+                    {
+                        array[i] = this.TransformToken(array[i]);
+                    }
+
+                    return array;
+                }
+
+                return token;
+            }
 
             private JObject TransformObject(JObject obj)
             {
