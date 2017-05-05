@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq
                     .ReplaceProvider(this);
             }
 
-            public IEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 var settings = new JsonSerializerSettings
                 {
@@ -156,7 +156,7 @@ namespace ExRam.Gremlinq
                     .ReplaceProvider(this);
             }
 
-            public IEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseProvider.Execute(query);
             }
@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq
                     .ReplaceProvider(this);
             }
 
-            public IEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseProvider.Execute(query);
             }
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq
             public IGraphElementNamingStrategy NamingStrategy { get; }
         }
 
-        public static IEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
+        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
         {
             return query.Provider.Execute(query);
         }

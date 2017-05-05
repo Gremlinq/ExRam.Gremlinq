@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using LanguageExt;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq
 {
@@ -107,7 +108,15 @@ namespace ExRam.Gremlinq
             return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
 
+        [Obsolete]
         public static T First<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .FirstAsync()
+                .Result;
+        }
+
+        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query)
         {
             return query
                 .Limit(1)
@@ -115,9 +124,17 @@ namespace ExRam.Gremlinq
                 .First();
         }
 
+        [Obsolete]
         public static Option<T> FirstOrNone<T>(this IGremlinQuery<T> query)
         {
-            var array = query
+            return query
+                .FirstOrNoneAsync()
+                .Result;
+        }
+
+        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query)
+        {
+            var array = await query
                 .Limit(1)
                 .Execute()
                 .ToArray();
@@ -127,13 +144,21 @@ namespace ExRam.Gremlinq
                 : Option<T>.None;
         }
 
+        [Obsolete]
         public static T[] ToArray<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .ToArrayAsync()
+                .Result;
+        }
+
+        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query)
         {
             return query
                 .Execute()
                 .ToArray();
         }
-       
+
         internal static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, params object[] parameters)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(new GremlinStep(name, parameters)), query.Provider, query.MemberInfoMappings);

@@ -17,8 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="app.config" />
     <None Remove="Json\LanguageArray.json" />
     <None Remove="Json\NestedLanguageArray.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.config" />
   </ItemGroup>
 
   <ItemGroup>

@@ -22,7 +22,7 @@ namespace Dse
                 return GremlinQuery.ForGraph("g", this);    //TODO: Get graph name from _session!!
             }
 
-            public IEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 if (typeof(T) != typeof(string))
                     throw new NotSupportedException("Only string queries are supported.");
@@ -30,7 +30,9 @@ namespace Dse
                 var executableQuery = query.Serialize(false);
 
                 return this._session
-                    .ExecuteGraph(new SimpleGraphStatement(executableQuery.parameters, executableQuery.queryString))
+                    .ExecuteGraphAsync(new SimpleGraphStatement(executableQuery.parameters, executableQuery.queryString))
+                    .ToAsyncEnumerable()
+                    .SelectMany(node => node.ToAsyncEnumerable())
                     .Select(node => (T)(object)node.ToString());
             }
 

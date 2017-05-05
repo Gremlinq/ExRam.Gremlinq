@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq
     {
         IGremlinQuery CreateQuery();
 
-        IEnumerable<T> Execute<T>(IGremlinQuery<T> query);
+        IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query);
 
         IGremlinModel Model { get; }
 

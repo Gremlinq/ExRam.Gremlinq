@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace ExRam.Gremlinq.Tests
@@ -24,14 +25,14 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Language_strongly_typed()
+        public async Task Language_strongly_typed()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
-                .Returns(new[] { LanguageJson1 });
+                .Returns(AsyncEnumerable.Return(LanguageJson1));
 
-            var language = queryProviderMock.Object
+            var language = await queryProviderMock.Object
                 .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithNamingStrategy(GraphElementNamingStrategy.Simple)
                 .WithJsonSupport()
@@ -44,14 +45,14 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Language_by_vertex_inheritance()
+        public async Task Language_by_vertex_inheritance()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
-                .Returns(new[] { LanguageJson1 });
+                .Returns(AsyncEnumerable.Return(LanguageJson1));
 
-            var language = queryProviderMock.Object
+            var language = await queryProviderMock.Object
                 .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithNamingStrategy(GraphElementNamingStrategy.Simple)
                 .WithJsonSupport()
@@ -64,19 +65,19 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Tuple()
+        public async Task Tuple()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
-                .Returns(new[] { TupleJson });
+                .Returns(AsyncEnumerable.Return(TupleJson));
 
             var jsonQueryProvider = queryProviderMock.Object
                 .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithNamingStrategy(GraphElementNamingStrategy.Simple)
                 .WithJsonSupport();              
 
-            var tuple = GremlinQuery
+            var tuple = await GremlinQuery
                 .ForGraph("g", jsonQueryProvider)
                 .Cast<(SomeBaseEntity, Language)>()
                 .AddMemberInfoMapping(x => x.Item1, "d730b14d9898459ab919d529939f69f8")
@@ -93,14 +94,14 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Array()
+        public async Task Array()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
-                .Returns(new[] { ArrayJson });
+                .Returns(AsyncEnumerable.Return(ArrayJson));
 
-            var languages = queryProviderMock.Object
+            var languages = await queryProviderMock.Object
                 .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithNamingStrategy(GraphElementNamingStrategy.Simple)
                 .WithJsonSupport()
@@ -113,12 +114,12 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Nested_Array()
+        public async Task Nested_Array()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
-                .Returns(new[] { NestedArrayJson });
+                .Returns(AsyncEnumerable.Return(NestedArrayJson));
 
             var languages = queryProviderMock.Object
                 .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
