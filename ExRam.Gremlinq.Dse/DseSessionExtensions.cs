@@ -4,6 +4,7 @@ using System.Linq;
 using Dse.Graph;
 using ExRam.Gremlinq;
 
+// ReSharper disable once CheckNamespace
 namespace Dse
 {
     public static class DseSessionExtensions
@@ -19,7 +20,7 @@ namespace Dse
 
             public IGremlinQuery CreateQuery()
             {
-                return GremlinQuery.ForGraph("g", this);    //TODO: Get graph name from _session!!
+                return GremlinQuery.ForGraph((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g", this);
             }
 
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
