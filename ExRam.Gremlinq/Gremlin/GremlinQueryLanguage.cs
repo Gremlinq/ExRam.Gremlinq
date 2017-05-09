@@ -479,7 +479,7 @@ namespace ExRam.Gremlinq
                         .ToArray());
         }
 
-        private static bool IsNativeType(this Type type)
+        private static bool IsNativeType(this Type type)   //TODO: Native types are a matter of...what?
         {
             return type.GetTypeInfo().IsValueType || type == typeof(string) || type.IsArray && type.GetElementType().IsNativeType();
         }
