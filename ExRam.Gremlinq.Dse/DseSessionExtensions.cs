@@ -48,5 +48,10 @@ namespace Dse
                 .WithNamingStrategy(namingStrategy)
                 .WithJsonSupport();
         }
+
+        public static IGraphSchemaCreator CreateGraphSchemaCreator(this IDseSession session)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
