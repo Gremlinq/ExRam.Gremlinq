@@ -159,7 +159,7 @@ namespace ExRam.Gremlinq
                 .ToArray();
         }
 
-        internal static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, params object[] parameters)
+        public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, params object[] parameters)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(new GremlinStep(name, parameters)), query.Provider, query.MemberInfoMappings);
         }
