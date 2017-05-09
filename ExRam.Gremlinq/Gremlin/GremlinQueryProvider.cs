@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq
                         : JToken.Parse($"'{json}'").ToObject<T>());
             }
 
-            public IGremlinModel Model => this._baseProvider.Model;
+            public IGraphModel Model => this._baseProvider.Model;
 
             public IGraphElementNamingStrategy NamingStrategy => this._baseProvider.NamingStrategy;
 
@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq
         {
             private readonly IGremlinQueryProvider _baseProvider;
 
-            public ModelGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGremlinModel newModel)
+            public ModelGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel newModel)
             {
                 this.Model = newModel;
                 this._baseProvider = baseProvider;
@@ -161,7 +161,7 @@ namespace ExRam.Gremlinq
                 return this._baseProvider.Execute(query);
             }
 
-            public IGremlinModel Model { get; }
+            public IGraphModel Model { get; }
 
             public IGraphElementNamingStrategy NamingStrategy
             {
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq
                 return this._baseProvider.Execute(query);
             }
 
-            public IGremlinModel Model => this._baseProvider.Model;
+            public IGraphModel Model => this._baseProvider.Model;
 
             public IGraphElementNamingStrategy NamingStrategy { get; }
         }
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq
             return new JsonSupportGremlinQueryProvider(provider);
         }
 
-        public static IGremlinQueryProvider WithModel(this IGremlinQueryProvider provider, IGremlinModel model)
+        public static IGremlinQueryProvider WithModel(this IGremlinQueryProvider provider, IGraphModel model)
         {
             return new ModelGremlinQueryProvider(provider, model);
         }

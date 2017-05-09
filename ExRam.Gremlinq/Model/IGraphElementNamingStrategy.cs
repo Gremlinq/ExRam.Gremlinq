@@ -5,9 +5,9 @@ namespace ExRam.Gremlinq
 {
     public interface IGraphElementNamingStrategy
     {
-        Option<string> TryGetLabelOfType(IGremlinModel model, Type type);
+        Option<string> TryGetLabelOfType(IGraphModel model, Type type);
 
-        Option<Type> TryGetVertexTypeOfLabel(IGremlinModel model, string label);
-        Option<Type> TryGetEdgeTypeOfLabel(IGremlinModel model, string label);
+        Option<Type> TryGetVertexTypeOfLabel(IGraphModel model, string label);
+        Option<Type> TryGetEdgeTypeOfLabel(IGraphModel model, string label);
     }
 }

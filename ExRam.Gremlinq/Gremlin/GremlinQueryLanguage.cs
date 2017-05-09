@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThan, "gt" }
         };
 
-        private static readonly ConcurrentDictionary<(IGremlinModel model, Type type), string[]> TypeLabelDict = new ConcurrentDictionary<(IGremlinModel, Type), string[]>();
+        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), string[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), string[]>();
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
@@ -467,7 +467,7 @@ namespace ExRam.Gremlinq
                     .ToArray());
         }
 
-        private static string[] GetDerivedLabelNames<T>(IGremlinModel model, IGraphElementNamingStrategy namingStrategy)
+        private static string[] GetDerivedLabelNames<T>(IGraphModel model, IGraphElementNamingStrategy namingStrategy)
         {
             return TypeLabelDict
                 .GetOrAdd(

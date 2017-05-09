@@ -8,6 +8,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGraphSchemaCreator
     {
-        Task CreateSchema(IGremlinModel model, CancellationToken ct);
+        Task CreateSchema(IGraphModel model, CancellationToken ct);
     }
 }

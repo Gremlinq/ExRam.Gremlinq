@@ -37,11 +37,11 @@ namespace Dse
                     .Select(node => (T)(object)node.ToString());
             }
 
-            public IGremlinModel Model => GremlinModel.Empty;
+            public IGraphModel Model => GremlinModel.Empty;
             public IGraphElementNamingStrategy NamingStrategy => GraphElementNamingStrategy.Simple;
         }
 
-        public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session, IGremlinModel model, IGraphElementNamingStrategy namingStrategy)
+        public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session, IGraphModel model, IGraphElementNamingStrategy namingStrategy)
         {
             return new DseGraphQueryProvider(session)
                 .WithModel(model)
