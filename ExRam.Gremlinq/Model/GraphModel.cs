@@ -68,5 +68,24 @@ namespace ExRam.Gremlinq
 
             return new GraphModelImpl(model.VertexTypes, model.EdgeTypes.Add(typeof(T)), model.Connections);
         }
+
+        public static IGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IGraphModel model)
+        {
+            var tuple = (typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
+
+            if (model.Connections.Contains(tuple))
+                return model;
+
+            if (!model.VertexTypes.Contains(typeof(TOutVertex)))
+                throw new ArgumentException($"Model does not contain vertex type {typeof(TOutVertex)}.");
+
+            if (!model.VertexTypes.Contains(typeof(TInVertex)))
+                throw new ArgumentException($"Model does not contain vertex type {typeof(TInVertex)}.");
+
+            if (!model.EdgeTypes.Contains(typeof(TEdge)))
+                throw new ArgumentException($"Model does not contain edge type {typeof(TEdge)}.");
+
+            return new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
+        }
     }
 }
