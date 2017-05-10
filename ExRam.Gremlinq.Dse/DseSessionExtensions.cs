@@ -87,19 +87,37 @@ namespace Dse
                 {
                     var type = vertexType;
 
-                    while (type != typeof(object))
+                    while ((type != null) && (type != typeof(object)))
                     {
                         var typeInfo = type.GetTypeInfo();
 
                         foreach (var property in typeInfo.DeclaredProperties)
                         {
+                            var propertyType = property.PropertyType;
+
+                            while (true)
+                            {
+                                if (propertyType.GetTypeInfo().IsEnum)
+                                    propertyType = Enum.GetUnderlyingType(propertyType);
+                                else
+                                {
+                                    var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
+                                    if (maybeNullableType != null)
+                                        propertyType = maybeNullableType;
+                                    else
+                                        break;
+                                }
+                            }
+
                             if (propertyKeys.TryGetValue(property.Name, out var existingType))
                             {
-                                if (existingType != property.PropertyType)  //TODO: Support any kind of inheritance here?
+                                if (existingType != propertyType)  //TODO: Support any kind of inheritance here?
                                     throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
                             }
                             else
-                                propertyKeys.Add(property.Name, property.PropertyType);
+                            {
+                                propertyKeys.Add(property.Name, propertyType);
+                            }
                         }
 
                         type = typeInfo.BaseType;
@@ -111,18 +129,18 @@ namespace Dse
                     {
                         var query = GremlinQuery.ForGraph("schema", queryProvider);
                         query = query
-                            .AddStep<Unit>("propertyKey", kvp.Key);
+                            .AddStep<string>("propertyKey", kvp.Key);
 
                         query = NativeTypeSteps
                             .TryGetValue(kvp.Value)
                             .Match(
-                                step => query.AddStep<Unit>(step),
+                                step => query.AddStep<string>(step),
                                 () => throw new InvalidOperationException());
 
                         return query
-                            .AddStep<Unit>("single")
-                            .AddStep<Unit>("ifNotExists")
-                            .AddStep<Unit>("create");
+                            .AddStep<string>("single")
+                            .AddStep<string>("ifNotExists")
+                            .AddStep<string>("create");
                     })
                     .ToArray();
 
