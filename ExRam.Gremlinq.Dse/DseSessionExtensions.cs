@@ -106,13 +106,13 @@ namespace Dse
                                 .ForGraph("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", label);
 
-                                var properties = type.GetProperties().Select(property => property.Name).ToArray();
-                                if (properties.Length > 0)
-                                    query = query.AddStep<string>("properties", properties);
+                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
+                            if (properties.Length > 0)
+                                query = query.AddStep<string>("properties", properties);
 
-                                return query
-                                    .AddStep<string>("ifNotExists")
-                                    .AddStep<string>("create");
+                            return query
+                                .AddStep<string>("ifNotExists")
+                                .AddStep<string>("create");
                         }));
             }
 
@@ -129,10 +129,23 @@ namespace Dse
                                 .AddStep<string>("edgeLabel", label)
                                 .AddStep<string>("single");
 
+                            query = model.Connections
+                                .Where(tuple => tuple.Item2 == type)
+                                .Aggregate(
+                                    query,
+                                    (closureQuery, tuple) => closureQuery.AddStep<string>(
+                                        "connection",
+                                        namingStrategy
+                                            .TryGetLabelOfType(model, tuple.Item1)
+                                            .IfNone(() => throw new InvalidOperationException()),
+                                        namingStrategy
+                                            .TryGetLabelOfType(model, tuple.Item3)
+                                            .IfNone(() => throw new InvalidOperationException())));
+
                             var properties = type.GetProperties().Select(property => property.Name).ToArray();
                             if (properties.Length > 0)
                                 query = query.AddStep<string>("properties", properties);
-                            
+
                             return query
                                 .AddStep<string>("ifNotExists")
                                 .AddStep<string>("create");
