@@ -9,18 +9,21 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableList<Type> vertexTypes, IImmutableList<Type> edgeTypes)
+            public GraphModelImpl(IImmutableList<Type> vertexTypes, IImmutableList<Type> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
             {
                 this.VertexTypes = vertexTypes;
                 this.EdgeTypes = edgeTypes;
+                this.Connections = connections;
             }
 
             public IImmutableList<Type> VertexTypes { get; }
 
             public IImmutableList<Type> EdgeTypes { get; }
+
+            public IImmutableList<(Type, Type, Type)> Connections { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableList<Type>.Empty, ImmutableList<Type>.Empty);
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableList<Type>.Empty, ImmutableList<Type>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
 
         public static IGraphModel FromAssembly(Assembly assembly, Type vertexBaseType, Type edgeBaseType)
         {
@@ -34,7 +37,8 @@ namespace ExRam.Gremlinq
                     .DefinedTypes
                     .Select(typeInfo => typeInfo.AsType())
                     .Where(edgeBaseType.IsAssignableFrom)
-                    .ToImmutableList());
+                    .ToImmutableList(),
+                ImmutableList<(Type, Type, Type)>.Empty);
         }
 
         public static IGraphModel AddVertexType<T>(this IGraphModel model)
@@ -48,7 +52,7 @@ namespace ExRam.Gremlinq
             if (contraditingEdgeType != null)
                 throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}.");
 
-            return new GraphModelImpl(model.VertexTypes.Add(typeof(T)), model.EdgeTypes);
+            return new GraphModelImpl(model.VertexTypes.Add(typeof(T)), model.EdgeTypes, model.Connections);
         }
 
         public static IGraphModel AddEdgeType<T>(this IGraphModel model)
@@ -62,7 +66,7 @@ namespace ExRam.Gremlinq
             if (contraditingVertexType != null)
                 throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}.");
 
-            return new GraphModelImpl(model.VertexTypes, model.EdgeTypes.Add(typeof(T)));
+            return new GraphModelImpl(model.VertexTypes, model.EdgeTypes.Add(typeof(T)), model.Connections);
         }
     }
 }
