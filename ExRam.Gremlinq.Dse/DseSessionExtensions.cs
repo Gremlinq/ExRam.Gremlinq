@@ -78,7 +78,7 @@ namespace Dse
                 this._session = session;
             }
 
-            public async Task CreateSchema(IGraphModel model, CancellationToken ct)
+            public async Task CreateSchema(IGraphModel model, IGraphElementNamingStrategy namingStrategy, CancellationToken ct)
             {
                 var queryProvider = new DseGraphQueryProvider(this._session);
                 var queries = this
