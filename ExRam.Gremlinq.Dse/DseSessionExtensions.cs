@@ -127,42 +127,33 @@ namespace Dse
 
                 foreach (var vertexType in model.VertexTypes.Concat(model.EdgeTypes))
                 {
-                    var type = vertexType;
-
-                    while (type != null && type != typeof(object))
+                    foreach (var property in vertexType.GetProperties())
                     {
-                        var typeInfo = type.GetTypeInfo();
+                        var propertyType = property.PropertyType;
 
-                        foreach (var property in typeInfo.DeclaredProperties)
+                        while (true)
                         {
-                            var propertyType = property.PropertyType;
-
-                            while (true)
-                            {
-                                if (propertyType.GetTypeInfo().IsEnum)
-                                    propertyType = Enum.GetUnderlyingType(propertyType);
-                                else
-                                {
-                                    var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
-                                    if (maybeNullableType != null)
-                                        propertyType = maybeNullableType;
-                                    else
-                                        break;
-                                }
-                            }
-
-                            if (propertyKeys.TryGetValue(property.Name, out var existingType))
-                            {
-                                if (existingType != propertyType)  //TODO: Support any kind of inheritance here?
-                                    throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
-                            }
+                            if (propertyType.GetTypeInfo().IsEnum)
+                                propertyType = Enum.GetUnderlyingType(propertyType);
                             else
                             {
-                                propertyKeys.Add(property.Name, propertyType);
+                                var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
+                                if (maybeNullableType != null)
+                                    propertyType = maybeNullableType;
+                                else
+                                    break;
                             }
                         }
 
-                        type = typeInfo.BaseType;
+                        if (propertyKeys.TryGetValue(property.Name, out var existingType))
+                        {
+                            if (existingType != propertyType) //TODO: Support any kind of inheritance here?
+                                throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
+                        }
+                        else
+                        {
+                            propertyKeys.Add(property.Name, propertyType);
+                        }
                     }
                 }
 

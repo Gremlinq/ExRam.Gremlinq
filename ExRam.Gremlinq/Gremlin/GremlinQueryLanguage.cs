@@ -55,22 +55,11 @@ namespace ExRam.Gremlinq
 
         private static IGremlinQuery<T> AddProperties<T>(this IGremlinQuery<T> query, T element)
         {
-            var type = typeof(T);
-
-            while (type != typeof(object))
-            {
-                var typeInfo = type.GetTypeInfo();
-
-                query = typeInfo.DeclaredProperties
-                    .Where(property => property.PropertyType.IsNativeType())
-                    .Select(property => (name: property.Name, value: property.GetValue(element)))
-                    .Where(tuple => tuple.value != null)
-                    .Aggregate(query, (current, tuple) => current.Property(tuple.name, tuple.value));
-
-                type = typeInfo.BaseType;
-            }
-
-            return query;
+            return typeof(T).GetProperties()
+                .Where(property => property.PropertyType.IsNativeType())
+                .Select(property => (name: property.Name, value: property.GetValue(element)))
+                .Where(tuple => tuple.value != null)
+                .Aggregate(query, (current, tuple) => current.Property(tuple.name, tuple.value));
         }
 
         public static IGremlinQuery<T> And<T>(this IGremlinQuery<T> query, params Func<IGremlinQuery<T>, IGremlinQuery>[] andTraversals)
