@@ -100,11 +100,20 @@ namespace Dse
                     .SelectMany(type => namingStrategy
                         .TryGetLabelOfType(model, type)
                         .AsEnumerable()
-                        .Select(label => GremlinQuery
-                            .ForGraph("schema", queryProvider)
-                            .AddStep<string>("vertexLabel", label)
-                            .AddStep<string>("ifNotExists")
-                            .AddStep<string>("create")));
+                        .Select(delegate(string label)
+                        {
+                            var query = GremlinQuery
+                                .ForGraph("schema", queryProvider)
+                                .AddStep<string>("vertexLabel", label);
+
+                                var properties = type.GetProperties().Select(property => property.Name).ToArray();
+                                if (properties.Length > 0)
+                                    query = query.AddStep<string>("properties", properties);
+
+                                return query
+                                    .AddStep<string>("ifNotExists")
+                                    .AddStep<string>("create");
+                        }));
             }
 
             private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGraphElementNamingStrategy namingStrategy, IGremlinQueryProvider queryProvider)
@@ -112,13 +121,22 @@ namespace Dse
                 return model.EdgeTypes
                     .SelectMany(type => namingStrategy
                         .TryGetLabelOfType(model, type)
-                        .AsEnumerable())
-                    .Select(label => GremlinQuery
-                        .ForGraph("schema", queryProvider)
-                        .AddStep<string>("edgeLabel", label)
-                        .AddStep<string>("single")
-                        .AddStep<string>("ifNotExists")
-                        .AddStep<string>("create"));
+                        .AsEnumerable()
+                        .Select(label =>
+                        {
+                            var query = GremlinQuery
+                                .ForGraph("schema", queryProvider)
+                                .AddStep<string>("edgeLabel", label)
+                                .AddStep<string>("single");
+
+                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
+                            if (properties.Length > 0)
+                                query = query.AddStep<string>("properties", properties);
+                            
+                            return query
+                                .AddStep<string>("ifNotExists")
+                                .AddStep<string>("create");
+                        }));
             }
 
             private IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(IGraphModel model, IGraphElementNamingStrategy namingStrategy, IGremlinQueryProvider queryProvider)
