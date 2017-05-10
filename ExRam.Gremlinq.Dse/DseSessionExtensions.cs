@@ -80,14 +80,39 @@ namespace Dse
 
             public async Task CreateSchema(IGraphModel model, CancellationToken ct)
             {
-                var propertyKeys = new Dictionary<string, Type>();
                 var queryProvider = new DseGraphQueryProvider(this._session);
+                var queries = this
+                    .CreatePropertyKeyQueries(model, queryProvider)
+                    .Concat(this.CreateVertexLabelQueries(model, queryProvider))
+                    .Concat(this.CreateEdgeLabelQueries(model, queryProvider));
+
+                foreach (var query in queries)
+                {
+                    await queryProvider
+                        .Execute(query)
+                        .LastOrDefault(ct);
+                }
+            }
+
+            private IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
+            {
+                return new IGremlinQuery<string>[0];
+            }
+
+            private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
+            {
+                return new IGremlinQuery<string>[0];
+            }
+
+            private IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
+            {
+                var propertyKeys = new Dictionary<string, Type>();
 
                 foreach (var vertexType in model.VertexTypes.Concat(model.EdgeTypes))
                 {
                     var type = vertexType;
 
-                    while ((type != null) && (type != typeof(object)))
+                    while (type != null && type != typeof(object))
                     {
                         var typeInfo = type.GetTypeInfo();
 
@@ -124,7 +149,7 @@ namespace Dse
                     }
                 }
 
-                var queries = propertyKeys
+                return propertyKeys
                     .Select(kvp =>
                     {
                         var query = GremlinQuery.ForGraph("schema", queryProvider);
@@ -141,15 +166,7 @@ namespace Dse
                             .AddStep<string>("single")
                             .AddStep<string>("ifNotExists")
                             .AddStep<string>("create");
-                    })
-                    .ToArray();
-
-                foreach (var query in queries)
-                {
-                    await queryProvider
-                        .Execute(query)
-                        .LastOrDefault(ct);
-                }
+                    });
             }
         }
 
