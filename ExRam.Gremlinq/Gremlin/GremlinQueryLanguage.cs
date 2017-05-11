@@ -24,9 +24,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
             return query
-                .AddStep<T>("addV", query.Provider
-                    .NamingStrategy
-                    .TryGetLabelOfType(query.Provider.Model, vertex.GetType())
+                .AddStep<T>("addV", query.Provider.Model
+                    .TryGetLabelOfType(vertex.GetType())
                     .IfNone(typeof(T).Name))
                 .AddProperties(vertex);
         }
@@ -46,9 +45,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddE<T>(this IGremlinQuery query, T edge)
         {
             return query
-                .AddStep<T>("addE", query.Provider
-                    .NamingStrategy
-                    .TryGetLabelOfType(query.Provider.Model, edge.GetType())
+                .AddStep<T>("addE", query.Provider.Model
+                    .TryGetLabelOfType(edge.GetType())
                     .IfNone(typeof(T).Name))
                 .AddProperties(edge);
         }
@@ -92,14 +90,14 @@ namespace ExRam.Gremlinq
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<Vertex>("both", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<Vertex>("both", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> BothE<T>(this IGremlinQuery query)
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<T>("bothE", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<T>("bothE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<Vertex> BothV(this IGremlinQuery query)
@@ -249,14 +247,14 @@ namespace ExRam.Gremlinq
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<Vertex>("in", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<Vertex>("in", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> InE<T>(this IGremlinQuery query)
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<T>("inE", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<T>("inE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> InV<T>(this IGremlinQuery query)
@@ -294,7 +292,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 .Cast<T>()
-                .HasLabel(GremlinQueryLanguage.GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .HasLabel(GremlinQueryLanguage.GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
@@ -333,7 +331,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<T>("outE", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<T>("outE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> OutV<T>(this IGremlinQuery query)
@@ -347,7 +345,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model, query.Provider.NamingStrategy));
+                .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> Property<T>(this IGremlinQuery<T> query, string key, object value)
@@ -456,15 +454,15 @@ namespace ExRam.Gremlinq
                     .ToArray());
         }
 
-        private static string[] GetDerivedLabelNames<T>(IGraphModel model, IGraphElementNamingStrategy namingStrategy)
+        private static string[] GetDerivedLabelNames<T>(this IGraphModel model)
         {
             return TypeLabelDict
                 .GetOrAdd(
                     (model, typeof(T)),
                     tuple => tuple.model.VertexTypes
                         .Concat(tuple.model.EdgeTypes)
-                        .Where(type => tuple.type.IsAssignableFrom(type))
-                        .SelectMany(derivedType => namingStrategy.TryGetLabelOfType(model, derivedType).AsEnumerable())
+                        .Where(elementInfo => tuple.type.IsAssignableFrom(elementInfo.ElementType))
+                        .Select(elementInfo => elementInfo.Label)
                         .ToArray());
         }
 

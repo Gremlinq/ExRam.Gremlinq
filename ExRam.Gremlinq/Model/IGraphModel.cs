@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
 {
     public interface IGraphModel
     {
-        IImmutableList<Type> VertexTypes { get; }
-        IImmutableList<Type> EdgeTypes { get; }
-        IImmutableList<(Type, Type, Type)> Connections { get; }
+        IImmutableList<GraphElementInfo> VertexTypes { get; }
+        IImmutableList<GraphElementInfo> EdgeTypes { get; }
+        IImmutableList<(GraphElementInfo, GraphElementInfo, GraphElementInfo)> Connections { get; }
     }
 }

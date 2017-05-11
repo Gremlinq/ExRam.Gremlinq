@@ -33,8 +33,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(LanguageJson1));
 
             var language = await queryProviderMock.Object
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
-                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(Mock.Of<IGremlinQuery<Language>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
                 .First();
@@ -53,8 +52,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(LanguageJson1));
 
             var language = await queryProviderMock.Object
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
-                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(Mock.Of<IGremlinQuery<Vertex>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
                 .First() as Language;
@@ -73,8 +71,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(TupleJson));
 
             var jsonQueryProvider = queryProviderMock.Object
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
-                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport();              
 
             var tuple = await GremlinQuery
@@ -102,8 +99,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(ArrayJson));
 
             var languages = await queryProviderMock.Object
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
-                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(Mock.Of<IGremlinQuery<Language[]>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
                 .First();
@@ -122,8 +118,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(NestedArrayJson));
 
             var languages = queryProviderMock.Object
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
-                .WithNamingStrategy(GraphElementNamingStrategy.Simple)
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(Mock.Of<IGremlinQuery<Language[][]>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
                 .First();

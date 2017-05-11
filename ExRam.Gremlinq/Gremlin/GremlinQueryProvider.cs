@@ -67,10 +67,6 @@ namespace ExRam.Gremlinq
                         : JToken.Parse($"'{json}'").ToObject<T>());
             }
 
-            public IGraphModel Model => this._baseProvider.Model;
-
-            public IGraphElementNamingStrategy NamingStrategy => this._baseProvider.NamingStrategy;
-
             private JToken TransformToken(JToken token)
             {
                 if (token is JObject rootObject)
@@ -106,8 +102,8 @@ namespace ExRam.Gremlinq
                     if (label != null)
                     {
                         var maybeSuitableType = type == "vertex"
-                            ? this.NamingStrategy.TryGetVertexTypeOfLabel(this.Model, label)
-                            : this.NamingStrategy.TryGetEdgeTypeOfLabel(this.Model, label);
+                            ? this.Model.TryGetVertexTypeOfLabel(label)
+                            : this.Model.TryGetEdgeTypeOfLabel(label);
 
                         maybeSuitableType
                             .IfSome(suitableType =>
@@ -137,6 +133,8 @@ namespace ExRam.Gremlinq
 
                 return obj;
             }
+
+            public IGraphModel Model => this._baseProvider.Model;
         }
 
         private sealed class ModelGremlinQueryProvider : IGremlinQueryProvider
@@ -162,38 +160,6 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model { get; }
-
-            public IGraphElementNamingStrategy NamingStrategy
-            {
-                get { return this._baseProvider.NamingStrategy; }
-            }
-        }
-
-        private sealed class NamingStrategyGremlinQueryProvider : IGremlinQueryProvider
-        {
-            private readonly IGremlinQueryProvider _baseProvider;
-
-            public NamingStrategyGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphElementNamingStrategy namingStrategy)
-            {
-                this._baseProvider = baseProvider;
-                this.NamingStrategy = namingStrategy;
-            }
-
-            public IGremlinQuery CreateQuery()
-            {
-                return this._baseProvider
-                    .CreateQuery()
-                    .ReplaceProvider(this);
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                return this._baseProvider.Execute(query);
-            }
-
-            public IGraphModel Model => this._baseProvider.Model;
-
-            public IGraphElementNamingStrategy NamingStrategy { get; }
         }
 
         public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
@@ -209,11 +175,6 @@ namespace ExRam.Gremlinq
         public static IGremlinQueryProvider WithModel(this IGremlinQueryProvider provider, IGraphModel model)
         {
             return new ModelGremlinQueryProvider(provider, model);
-        }
-
-        public static IGremlinQueryProvider WithNamingStrategy(this IGremlinQueryProvider provider, IGraphElementNamingStrategy namingStrategy)
-        {
-            return new NamingStrategyGremlinQueryProvider(provider, namingStrategy);
         }
     }
 }

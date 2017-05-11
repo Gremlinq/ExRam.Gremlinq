@@ -46,7 +46,7 @@ namespace Dse
             }
 
             public IGraphModel Model => GremlinModel.Empty;
-            public IGraphElementNamingStrategy NamingStrategy => GraphElementNamingStrategy.Simple;
+            //public IGraphElementNamingStrategy NamingStrategy => GraphElementNamingStrategy.Simple;
         }
 
         private sealed class DseGraphSchemaCreator : IGraphSchemaCreator
@@ -78,13 +78,13 @@ namespace Dse
                 this._session = session;
             }
 
-            public async Task CreateSchema(IGraphModel model, IGraphElementNamingStrategy namingStrategy, CancellationToken ct)
+            public async Task CreateSchema(IGraphModel model, CancellationToken ct)
             {
                 var queryProvider = new DseGraphQueryProvider(this._session);
                 var queries = this
-                    .CreatePropertyKeyQueries(model, namingStrategy, queryProvider)
-                    .Concat(this.CreateVertexLabelQueries(model, namingStrategy, queryProvider))
-                    .Concat(this.CreateEdgeLabelQueries(model, namingStrategy, queryProvider));
+                    .CreatePropertyKeyQueries(model, queryProvider)
+                    .Concat(this.CreateVertexLabelQueries(model, queryProvider))
+                    .Concat(this.CreateEdgeLabelQueries(model, queryProvider));
 
                 foreach (var query in queries)
                 {
@@ -94,71 +94,61 @@ namespace Dse
                 }
             }
 
-            private IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(IGraphModel model, IGraphElementNamingStrategy namingStrategy, IGremlinQueryProvider queryProvider)
+            private IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
                 return model.VertexTypes
-                    .SelectMany(type => namingStrategy
-                        .TryGetLabelOfType(model, type)
-                        .AsEnumerable()
-                        .Select(delegate(string label)
-                        {
-                            var query = GremlinQuery
-                                .ForGraph("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", label);
+                    .Select(vertexInfo =>
+                    {
+                        var query = GremlinQuery
+                            .ForGraph("schema", queryProvider)
+                            .AddStep<string>("vertexLabel", vertexInfo.Label);
 
-                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
-                            if (properties.Length > 0)
-                                query = query.AddStep<string>("properties", properties);
+                        var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
+                        if (properties.Length > 0)
+                            query = query.AddStep<string>("properties", properties);
 
-                            return query
-                                .AddStep<string>("ifNotExists")
-                                .AddStep<string>("create");
-                        }));
+                        return query
+                            .AddStep<string>("ifNotExists")
+                            .AddStep<string>("create");
+                    });
             }
 
-            private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGraphElementNamingStrategy namingStrategy, IGremlinQueryProvider queryProvider)
+            private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
                 return model.EdgeTypes
-                    .SelectMany(type => namingStrategy
-                        .TryGetLabelOfType(model, type)
-                        .AsEnumerable()
-                        .Select(label =>
-                        {
-                            var query = GremlinQuery
-                                .ForGraph("schema", queryProvider)
-                                .AddStep<string>("edgeLabel", label)
-                                .AddStep<string>("single");
+                    .Select(edgeInfo =>
+                    {
+                        var query = GremlinQuery
+                            .ForGraph("schema", queryProvider)
+                            .AddStep<string>("edgeLabel", edgeInfo.Label)
+                            .AddStep<string>("single");
 
-                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
-                            if (properties.Length > 0)
-                                query = query.AddStep<string>("properties", properties);
+                        var properties = edgeInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
+                        if (properties.Length > 0)
+                            query = query.AddStep<string>("properties", properties);
 
-                            query = model.Connections
-                                .Where(tuple => tuple.Item2 == type)
-                                .Aggregate(
-                                    query,
-                                    (closureQuery, tuple) => closureQuery.AddStep<string>(
-                                        "connection",
-                                        namingStrategy
-                                            .TryGetLabelOfType(model, tuple.Item1)
-                                            .IfNone(() => throw new InvalidOperationException()),
-                                        namingStrategy
-                                            .TryGetLabelOfType(model, tuple.Item3)
-                                            .IfNone(() => throw new InvalidOperationException())));
+                        query = model.Connections
+                            .Where(tuple => tuple.Item2.ElementType == edgeInfo.ElementType)
+                            .Aggregate(
+                                query,
+                                (closureQuery, tuple) => closureQuery.AddStep<string>(
+                                    "connection",
+                                    tuple.Item1.Label,
+                                    tuple.Item3.Label));
 
-                            return query
-                                .AddStep<string>("ifNotExists")
-                                .AddStep<string>("create");
-                        }));
+                        return query
+                            .AddStep<string>("ifNotExists")
+                            .AddStep<string>("create");
+                    });
             }
 
-            private IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(IGraphModel model, IGraphElementNamingStrategy namingStrategy, IGremlinQueryProvider queryProvider)
+            private IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
                 var propertyKeys = new Dictionary<string, Type>();
 
                 foreach (var vertexType in model.VertexTypes.Concat(model.EdgeTypes))
                 {
-                    foreach (var property in vertexType.GetProperties())
+                    foreach (var property in vertexType.ElementType.GetProperties())
                     {
                         var propertyType = property.PropertyType;
 
@@ -209,11 +199,10 @@ namespace Dse
             }
         }
 
-        public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session, IGraphModel model, IGraphElementNamingStrategy namingStrategy)
+        public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session, IGraphModel model)
         {
             return new DseGraphQueryProvider(session)
                 .WithModel(model)
-                .WithNamingStrategy(namingStrategy)
                 .WithJsonSupport();
         }
 

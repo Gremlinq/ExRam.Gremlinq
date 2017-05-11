@@ -5,6 +5,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGraphSchemaCreator
     {
-        Task CreateSchema(IGraphModel model, IGraphElementNamingStrategy namingStrategy, CancellationToken ct);
+        Task CreateSchema(IGraphModel model, CancellationToken ct);
     }
 }

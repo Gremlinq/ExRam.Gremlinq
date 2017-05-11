@@ -9,7 +9,5 @@ namespace ExRam.Gremlinq
         IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query);
 
         IGraphModel Model { get; }
-
-        IGraphElementNamingStrategy NamingStrategy { get; }
     }
 }
