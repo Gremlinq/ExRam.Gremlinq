@@ -32,12 +32,12 @@ namespace ExRam.Gremlinq
             return new GraphModelImpl(
                 assembly
                     .DefinedTypes
-                    .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()) && !typeInfo.IsAbstract)
+                    .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .Select(type => new GraphElementInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType())))
                     .ToImmutableList(),
                 assembly
                     .DefinedTypes
-                    .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()) && !typeInfo.IsAbstract)
+                    .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .Select(type => new GraphElementInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType())))
                     .ToImmutableList(),
                 ImmutableList<(GraphElementInfo, GraphElementInfo, GraphElementInfo)>.Empty);
