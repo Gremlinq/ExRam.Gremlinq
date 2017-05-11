@@ -81,26 +81,50 @@ namespace ExRam.Gremlinq
 
         public static IGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IGraphModel model)
         {
-            var outVertexInfo = model.TryGetVertexInfo(typeof(TOutVertex));
+            return model.AddConnection(typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
+        }
+
+        private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
+        {
+            var outVertexInfo = model.TryGetVertexInfo(outVertexType);
 
             if (outVertexInfo == null)
-                throw new ArgumentException($"Model does not contain vertex type {typeof(TOutVertex)}.");
+                throw new ArgumentException($"Model does not contain vertex type {outVertexType}.");
 
-            var inVertexInfo = model.TryGetVertexInfo(typeof(TInVertex));
+            var inVertexInfo = model.TryGetVertexInfo(inVertexType);
 
             if (inVertexInfo == null)
-                throw new ArgumentException($"Model does not contain vertex type {typeof(TInVertex)}.");
+                throw new ArgumentException($"Model does not contain vertex type {inVertexType}.");
 
-            var edgeInfo = model.TryGetEdgeInfo(typeof(TEdge));
+            var edgeInfo = model.TryGetEdgeInfo(edgeType);
 
             if (edgeInfo == null)
-                throw new ArgumentException($"Model does not contain edge type {typeof(TEdge)}.");
+                throw new ArgumentException($"Model does not contain edge type {edgeType}.");
 
             var tuple = (outVertexInfo.GetValueOrDefault(), edgeInfo.GetValueOrDefault(), inVertexInfo.GetValueOrDefault());
 
             return model.Connections.Contains(tuple)
-                ? model 
+                ? model
                 : new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
+        }
+
+        public static IGraphModel EdgeConnectionClosure(this IGraphModel model)
+        {
+            foreach (var connection in model.Connections)
+            {
+                foreach (var outVertexClosure in model.GetDerivedElementInfos(connection.Item1.ElementType, true))
+                {
+                    foreach (var edgeClosure in model.GetDerivedElementInfos(connection.Item2.ElementType, true))
+                    {
+                        foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3.ElementType, true))
+                        {
+                            model = model.AddConnection(outVertexClosure.ElementType, edgeClosure.ElementType, inVertexClosure.ElementType);
+                        }
+                    }
+                }
+            }
+
+            return model;
         }
 
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
