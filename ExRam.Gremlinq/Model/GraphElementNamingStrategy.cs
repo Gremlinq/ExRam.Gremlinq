@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using LanguageExt;
 
 namespace ExRam.Gremlinq
 {

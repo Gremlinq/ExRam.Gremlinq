@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reactive;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Dse.Graph;
 using ExRam.Gremlinq;
 using LanguageExt;
-using Unit = System.Reactive.Unit;
 
 // ReSharper disable once CheckNamespace
 namespace Dse
@@ -105,6 +102,7 @@ namespace Dse
 
                         var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
                         if (properties.Length > 0)
+                            // ReSharper disable once CoVariantArrayConversion
                             query = query.AddStep<string>("properties", properties);
 
                         return query
@@ -125,6 +123,7 @@ namespace Dse
 
                         var properties = edgeInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
                         if (properties.Length > 0)
+                            // ReSharper disable once CoVariantArrayConversion
                             query = query.AddStep<string>("properties", properties);
 
                         query = model.Connections

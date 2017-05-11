@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq
             var builder = new StringBuilder();
             var dict = new Dictionary<string, object>();
 
-            builder.Append((object) this._name);
+            builder.Append(this._name);
             builder.Append("(");
 
             for (var i = 0; i < this._arguments.Length; i++)

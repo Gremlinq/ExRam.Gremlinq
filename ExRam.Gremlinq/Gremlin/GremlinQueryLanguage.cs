@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 .Cast<T>()
-                .HasLabel(GremlinQueryLanguage.GetDerivedLabelNames<T>(query.Provider.Model));
+                .HasLabel(query.Provider.Model.GetDerivedLabelNames<T>());
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
