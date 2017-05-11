@@ -129,6 +129,10 @@ namespace Dse
                                 .AddStep<string>("edgeLabel", label)
                                 .AddStep<string>("single");
 
+                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
+                            if (properties.Length > 0)
+                                query = query.AddStep<string>("properties", properties);
+
                             query = model.Connections
                                 .Where(tuple => tuple.Item2 == type)
                                 .Aggregate(
@@ -141,10 +145,6 @@ namespace Dse
                                         namingStrategy
                                             .TryGetLabelOfType(model, tuple.Item3)
                                             .IfNone(() => throw new InvalidOperationException())));
-
-                            var properties = type.GetProperties().Select(property => property.Name).ToArray();
-                            if (properties.Length > 0)
-                                query = query.AddStep<string>("properties", properties);
 
                             return query
                                 .AddStep<string>("ifNotExists")
