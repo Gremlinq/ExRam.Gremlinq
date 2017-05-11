@@ -32,15 +32,13 @@ namespace ExRam.Gremlinq
             return new GraphModelImpl(
                 assembly
                     .DefinedTypes
-                    .Select(typeInfo => typeInfo.AsType())
-                    .Where(vertexBaseType.IsAssignableFrom)
-                    .Select(type => new GraphElementInfo(type, namingStrategy.GetLabelForType(type)))
+                    .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()) && !typeInfo.IsAbstract)
+                    .Select(type => new GraphElementInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType())))
                     .ToImmutableList(),
                 assembly
                     .DefinedTypes
-                    .Select(typeInfo => typeInfo.AsType())
-                    .Where(edgeBaseType.IsAssignableFrom)
-                    .Select(type => new GraphElementInfo(type, namingStrategy.GetLabelForType(type)))
+                    .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()) && !typeInfo.IsAbstract)
+                    .Select(type => new GraphElementInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType())))
                     .ToImmutableList(),
                 ImmutableList<(GraphElementInfo, GraphElementInfo, GraphElementInfo)>.Empty);
         }
@@ -128,6 +126,13 @@ namespace ExRam.Gremlinq
                 .Where(elementInfo => elementInfo.Label.Equals(label, StringComparison.OrdinalIgnoreCase))
                 .Select(elementInfo => elementInfo.ElementType)
                 .FirstOrDefault();
+        }
+
+        internal static IEnumerable<GraphElementInfo> GetDerivedElementInfos(this IGraphModel model, Type type, bool includeType)
+        {
+            return model.VertexTypes
+                .Concat(model.EdgeTypes)
+                .Where(elementInfo => (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
         }
 
         private static GraphElementInfo? TryGetVertexInfo(this IGraphModel model, Type type)

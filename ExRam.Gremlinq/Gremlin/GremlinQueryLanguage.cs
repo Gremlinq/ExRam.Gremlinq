@@ -459,9 +459,8 @@ namespace ExRam.Gremlinq
             return TypeLabelDict
                 .GetOrAdd(
                     (model, typeof(T)),
-                    tuple => tuple.model.VertexTypes
-                        .Concat(tuple.model.EdgeTypes)
-                        .Where(elementInfo => tuple.type.IsAssignableFrom(elementInfo.ElementType))
+                    tuple => tuple.model
+                        .GetDerivedElementInfos(typeof(T), true)
                         .Select(elementInfo => elementInfo.Label)
                         .ToArray());
         }
