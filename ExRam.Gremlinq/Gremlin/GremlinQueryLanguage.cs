@@ -92,6 +92,29 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("barrier");
         }
 
+        public static IGremlinQuery<TResult> Choose<TSource, TResult>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> falseChoice)
+        {
+            var anonymous = query.ToAnonymous();
+
+            return query
+                .AddStep<TResult>(
+                    "choose",
+                    traversalPredicate(anonymous),
+                    trueChoice(anonymous),
+                    falseChoice(anonymous));
+        }
+
+        public static IGremlinQuery<TResult> Choose<TSource, TResult>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> trueChoice)
+        {
+            var anonymous = query.ToAnonymous();
+
+            return query
+                .AddStep<TResult>(
+                    "choose",
+                    traversalPredicate(anonymous),
+                    trueChoice(anonymous));
+        }
+
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
         {
             return query
