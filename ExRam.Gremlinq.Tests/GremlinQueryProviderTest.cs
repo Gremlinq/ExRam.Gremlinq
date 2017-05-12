@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Moq;
 using System.Collections.Immutable;
 using System.IO;
@@ -13,6 +14,7 @@ namespace ExRam.Gremlinq.Tests
     {
         private static readonly string ArrayJson;
         private static readonly string TupleJson;
+        private static readonly string TimeFrameJson;
         private static readonly string LanguageJson1;
         private static readonly string NestedArrayJson;
 
@@ -22,6 +24,7 @@ namespace ExRam.Gremlinq.Tests
             TupleJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Tuple.json")).ReadToEnd();
             ArrayJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.LanguageArray.json")).ReadToEnd();
             NestedArrayJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.NestedLanguageArray.json")).ReadToEnd();
+            TimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.TimeFrame.json")).ReadToEnd();
         }
 
         [Fact]
@@ -41,6 +44,26 @@ namespace ExRam.Gremlinq.Tests
             language.Should().NotBeNull();
             language.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
             language.IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
+        public async Task TimeFrame_strongly_typed()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Returns(AsyncEnumerable.Return(TimeFrameJson));
+
+            var timeFrame = await queryProviderMock.Object
+                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(Mock.Of<IGremlinQuery<TimeFrame>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
+                .First();
+
+            timeFrame.Should().NotBeNull();
+            timeFrame.Id.Should().Be("15da4cea93114bfc8c6b23847487d97b");
+            timeFrame.StartTime.Should().Be(new TimeSpan(6, 0, 0));
+            timeFrame.Duration.Should().Be(new TimeSpan(16, 0, 0));
         }
 
         [Fact]

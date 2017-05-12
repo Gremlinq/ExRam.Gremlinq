@@ -20,6 +20,7 @@
     <None Remove="app.config" />
     <None Remove="Json\LanguageArray.json" />
     <None Remove="Json\NestedLanguageArray.json" />
+    <None Remove="Json\TimeFrame.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@
     <EmbeddedResource Include="Json\Language1.json" />
     <EmbeddedResource Include="Json\LanguageArray.json" />
     <EmbeddedResource Include="Json\NestedLanguageArray.json" />
+    <EmbeddedResource Include="Json\TimeFrame.json" />
     <EmbeddedResource Include="Json\Tuple.json" />
   </ItemGroup>
 

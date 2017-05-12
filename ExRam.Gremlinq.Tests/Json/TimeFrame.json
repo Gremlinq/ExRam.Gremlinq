@@ -1,0 +1,67 @@
+﻿{
+  "id": {
+    "~label": "TimeFrame",
+    "community_id": 1844422272,
+    "member_id": 50
+  },
+  "label": "TimeFrame",
+  "type": "vertex",
+  "properties": {
+    "WeekDay": [
+      {
+        "id": {
+          "~type": "WeekDay",
+          "out_vertex": {
+            "~label": "TimeFrame",
+            "community_id": 1844422272,
+            "member_id": 50
+          },
+          "local_id": "00000000-0000-835a-0000-000000000000"
+        },
+        "value": 1
+      }
+    ],
+    "StartTime": [
+      {
+        "id": {
+          "~type": "StartTime",
+          "out_vertex": {
+            "~label": "TimeFrame",
+            "community_id": 1844422272,
+            "member_id": 50
+          },
+          "local_id": "00000000-0000-8368-0000-000000000000"
+        },
+        "value": "PT6H"
+      }
+    ],
+    "Duration": [
+      {
+        "id": {
+          "~type": "Duration",
+          "out_vertex": {
+            "~label": "TimeFrame",
+            "community_id": 1844422272,
+            "member_id": 50
+          },
+          "local_id": "00000000-0000-8341-0000-000000000000"
+        },
+        "value": "PT16H"
+      }
+    ],
+    "Id": [
+      {
+        "id": {
+          "~type": "Id",
+          "out_vertex": {
+            "~label": "TimeFrame",
+            "community_id": 1844422272,
+            "member_id": 50
+          },
+          "local_id": "00000000-0000-8340-0000-000000000000"
+        },
+        "value": "15da4cea93114bfc8c6b23847487d97b"
+      }
+    ]
+  }
+}
