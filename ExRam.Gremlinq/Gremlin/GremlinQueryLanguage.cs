@@ -86,6 +86,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("as", stepLabel);
         }
 
+        public static IGremlinQuery<T> Barrier<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("barrier");
+        }
+
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
         {
             return query
