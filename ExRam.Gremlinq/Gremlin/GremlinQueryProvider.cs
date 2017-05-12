@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using LanguageExt;
@@ -38,6 +40,34 @@ namespace ExRam.Gremlinq
                 }
             }
 
+            private sealed class TimespanConverter : JsonConverter
+            {
+                public override bool CanConvert(Type objectType)
+                {
+                    return objectType == typeof(TimeSpan);
+                }
+
+                public override bool CanRead => true;
+                public override bool CanWrite => true;
+
+                public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                {
+                    if (objectType != typeof(TimeSpan))
+                        throw new ArgumentException();
+
+                    var spanString = reader.Value as string;
+                    if (spanString == null)
+                        return null;
+                    return XmlConvert.ToTimeSpan(spanString);
+                }
+
+                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                {
+                    var duration = (TimeSpan)value;
+                    writer.WriteValue(XmlConvert.ToString(duration));
+                }
+            }
+
             private readonly IGremlinQueryProvider _baseProvider;
 
             public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider)
@@ -56,6 +86,7 @@ namespace ExRam.Gremlinq
             {
                 var settings = new JsonSerializerSettings
                 {
+                    Converters = new[] { new TimespanConverter() },
                     ContractResolver = new MemberInfoMappingsContractResolver(query.MemberInfoMappings),
                     TypeNameHandling = TypeNameHandling.Auto,
                 };
