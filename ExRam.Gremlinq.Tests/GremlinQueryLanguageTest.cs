@@ -177,7 +177,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_with_local_string()
+        public void V_ofType_where_with_local_string()
         {
             var local = "languageId";
 
@@ -197,7 +197,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_with_local_anonymous_type()
+        public void V_ofType_where_with_local_anonymous_type()
         {
             var local = new { Value = "languageId" };
 
@@ -217,7 +217,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_of_type_has_with_expression_parameter_on_both_sides()
+        public void V_of_type_where_with_expression_parameter_on_both_sides()
         {
             GremlinQuery
                 .ForGraph("g", this._queryProvider)
