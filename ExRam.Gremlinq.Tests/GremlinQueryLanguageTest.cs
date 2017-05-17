@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                    .Has(t => t.SomeIntProperty == 36)
+                    .Where(t => t.SomeIntProperty == 36)
                 .Serialize(true);
 
             query.queryString
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                .Has(t => t.SomeIntProperty < 36)
+                .Where(t => t.SomeIntProperty < 36)
                 .Serialize(true);
 
             query.queryString
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                .Has(t => t.SomeIntProperty <= 36)
+                .Where(t => t.SomeIntProperty <= 36)
                 .Serialize(true);
 
             query.queryString
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                .Has(t => t.SomeIntProperty > 36)
+                .Where(t => t.SomeIntProperty > 36)
                 .Serialize(true);
 
             query.queryString
@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                .Has(t => t.SomeIntProperty >= 36)
+                .Where(t => t.SomeIntProperty >= 36)
                 .Serialize(true);
 
             query.queryString
@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
-                .Has(t => t.Id == "languageId")
+                .Where(t => t.Id == "languageId")
                 .Serialize(true);
 
             query.queryString
@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
-                .Has(t => t.Id == local)
+                .Where(t => t.Id == local)
                 .Serialize(true);
 
             query.queryString
@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
-                .Has(t => t.Id == local.Value)
+                .Where(t => t.Id == local.Value)
                 .Serialize(true);
 
             query.queryString
@@ -222,7 +222,7 @@ namespace ExRam.Gremlinq.Tests
             GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<Language>()
-                .Invoking(query => query.Has(t => t.Id == t.IetfLanguageTag))
+                .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
                 .ShouldThrow<InvalidOperationException>();
         }
 
@@ -234,7 +234,7 @@ namespace ExRam.Gremlinq.Tests
                 .AddE(new Describes())
                 .To(__ => __
                     .V<SomeDerivedEntity>()
-                    .Has(t => t.Id == "entityId"))
+                    .Where(t => t.Id == "entityId"))
                 .Serialize(true);
 
             query.queryString

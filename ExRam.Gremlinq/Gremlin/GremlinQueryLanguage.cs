@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("from", fromVertex(query.ToAnonymous()));
         }
 
-        public static IGremlinQuery<T> Has<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
+        public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
             var binaryExpression = predicate.Body as BinaryExpression;
 
