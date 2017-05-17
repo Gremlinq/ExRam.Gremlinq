@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', 36)");
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', eq(36))");
 
             query.parameters
                 .Should()
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('Language').has('Id', 'languageId')");
+                .Be("g.V().hasLabel('Language').has('Id', eq('languageId'))");
 
             query.parameters
                 .Should()
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('Language').has('Id', 'languageId')");
+                .Be("g.V().hasLabel('Language').has('Id', eq('languageId'))");
 
             query.parameters
                 .Should()
@@ -209,7 +209,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('Language').has('Id', 'languageId')");
+                .Be("g.V().hasLabel('Language').has('Id', eq('languageId'))");
 
             query.parameters
                 .Should()
@@ -227,6 +227,24 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_of_type_where_with_stepLabel()
+        {
+            var l = new StepLabel<Language>("l");
+
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<Language>()
+                .As(l)
+                .V<Language>()
+                .Where(l2 => l2 == l)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('Language').as('l').V().hasLabel('Language').where(eq('l'))");
+        }
+
+        [Fact]
         public void AddE_to_traversal()
         {
             var query = GremlinQuery
@@ -239,7 +257,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addE('Describes').to(__.V().hasLabel('SomeDerivedEntity').has('Id', 'entityId'))");
+                .Be("g.addE('Describes').to(__.V().hasLabel('SomeDerivedEntity').has('Id', eq('entityId')))");
 
             query.parameters
                 .Should()

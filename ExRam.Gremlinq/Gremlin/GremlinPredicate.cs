@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq
                     if (parameter is string)
                         builder.Append($"'{parameter}'");
                     else
-                        builder.Append(parameter);
+                        builder.Append((parameter as IGremlinSerializable)?.Serialize(parameterCache, true).queryString ?? parameter);
                 }
                 else
                 {

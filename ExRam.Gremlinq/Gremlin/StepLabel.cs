@@ -26,5 +26,15 @@ namespace ExRam.Gremlinq
             var parameterName = parameterCache.Cache(this.Label);
             return (parameterName, ImmutableDictionary<string, object>.Empty.Add(parameterName, this.Label));
         }
+
+        public static bool operator ==(T a, StepLabel<T> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
+
+        public static bool operator !=(T a, StepLabel<T> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
     }
 }

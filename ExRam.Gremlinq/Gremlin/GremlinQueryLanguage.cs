@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq
     {
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
+            { ExpressionType.Equal, "eq" },
             { ExpressionType.LessThan, "lt" },
             { ExpressionType.LessThanOrEqual, "lte" },
             { ExpressionType.GreaterThanOrEqual, "gte" },
@@ -228,36 +229,40 @@ namespace ExRam.Gremlinq
         {
             var binaryExpression = predicate.Body as BinaryExpression;
 
-            var left = binaryExpression?.Left as MemberExpression;
-
-            if (left != null)
+            if (binaryExpression != null)
             {
-                var memberArgument = left.Expression;
-                if (memberArgument is UnaryExpression && memberArgument.NodeType == ExpressionType.Convert)
-                    memberArgument = ((UnaryExpression) memberArgument).Operand;
+                object constant;
 
-                if (memberArgument == predicate.Parameters[0])
+                var constantExpression = binaryExpression.Right as ConstantExpression;
+                if (constantExpression != null)
+                    constant = constantExpression.Value;
+                else
                 {
-                    object constant;
+                    var getterLambda = Expression
+                        .Lambda<Func<object>>(Expression.Convert(binaryExpression.Right, typeof(object)))
+                        .Compile();
 
-                    var constantExpression = binaryExpression.Right as ConstantExpression;
-                    if (constantExpression != null)
-                        constant = constantExpression.Value;
-                    else
-                    {
-                        var getterLambda = Expression
-                            .Lambda<Func<object>>(Expression.Convert(binaryExpression.Right, typeof(object)))
-                            .Compile();
+                    constant = getterLambda();
+                }
 
-                        constant = getterLambda();
-                    }
+                var predicateArgument = GremlinQueryLanguage.SupportedComparisons
+                    .TryGetValue(binaryExpression.NodeType)
+                    .Map(predicateName => (object) new GremlinPredicate(predicateName, constant))
+                    .IfNone(constant);
 
-                    var predicateArgument = GremlinQueryLanguage.SupportedComparisons
-                        .TryGetValue(binaryExpression.NodeType)
-                        .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
-                        .IfNone(constant);
+                if (binaryExpression.Left is MemberExpression leftMemberExpression)
+                {
+                    var memberArgument = leftMemberExpression.Expression;
+                    if (memberArgument is UnaryExpression && memberArgument.NodeType == ExpressionType.Convert)
+                        memberArgument = ((UnaryExpression) memberArgument).Operand;
 
-                    return query.AddStep<T>("has", left.Member.Name, predicateArgument);
+                    if (memberArgument == predicate.Parameters[0])
+                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                }
+                else if (binaryExpression.Left is ParameterExpression leftParameterExpression)
+                {
+                    if (predicate.Parameters[0] == leftParameterExpression)
+                        return query.AddStep<T>("where", predicateArgument);
                 }
             }
 
