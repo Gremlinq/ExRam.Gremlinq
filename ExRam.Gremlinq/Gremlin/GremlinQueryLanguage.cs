@@ -420,6 +420,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("union", unionTraversals.Select(unionTraversal => unionTraversal(query.ToAnonymous())).ToArray());
         }
 
+        public static IGremlinQuery<T> Until<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> untilTraversal)
+        {
+            return query
+                .AddStep<T>("until", untilTraversal(query.ToAnonymous()));
+        }
+
         public static IGremlinQuery<Vertex> V(this IGremlinQuery query, params object[] ids)
         {
             return query
