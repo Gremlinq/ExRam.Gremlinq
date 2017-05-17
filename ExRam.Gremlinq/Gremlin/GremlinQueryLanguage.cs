@@ -225,50 +225,6 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("from", fromVertex(query.ToAnonymous()));
         }
 
-        public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
-        {
-            var binaryExpression = predicate.Body as BinaryExpression;
-
-            if (binaryExpression != null)
-            {
-                object constant;
-
-                var constantExpression = binaryExpression.Right as ConstantExpression;
-                if (constantExpression != null)
-                    constant = constantExpression.Value;
-                else
-                {
-                    var getterLambda = Expression
-                        .Lambda<Func<object>>(Expression.Convert(binaryExpression.Right, typeof(object)))
-                        .Compile();
-
-                    constant = getterLambda();
-                }
-
-                var predicateArgument = GremlinQueryLanguage.SupportedComparisons
-                    .TryGetValue(binaryExpression.NodeType)
-                    .Map(predicateName => (object) new GremlinPredicate(predicateName, constant))
-                    .IfNone(constant);
-
-                if (binaryExpression.Left is MemberExpression leftMemberExpression)
-                {
-                    var memberArgument = leftMemberExpression.Expression;
-                    if (memberArgument is UnaryExpression && memberArgument.NodeType == ExpressionType.Convert)
-                        memberArgument = ((UnaryExpression) memberArgument).Operand;
-
-                    if (memberArgument == predicate.Parameters[0])
-                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
-                }
-                else if (binaryExpression.Left is ParameterExpression leftParameterExpression)
-                {
-                    if (predicate.Parameters[0] == leftParameterExpression)
-                        return query.AddStep<T>("where", predicateArgument);
-                }
-            }
-
-            throw new NotSupportedException();
-        }
-
         // ReSharper disable once SuggestBaseTypeForParameter
         private static IGremlinQuery<T> HasLabel<T>(this IGremlinQuery<T> query, params string[] labels)
         {
@@ -492,6 +448,50 @@ namespace ExRam.Gremlinq
                         throw new NotSupportedException();
                     })
                     .ToArray());
+        }
+
+        public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
+        {
+            var binaryExpression = predicate.Body as BinaryExpression;
+
+            if (binaryExpression != null)
+            {
+                object constant;
+
+                var constantExpression = binaryExpression.Right as ConstantExpression;
+                if (constantExpression != null)
+                    constant = constantExpression.Value;
+                else
+                {
+                    var getterLambda = Expression
+                        .Lambda<Func<object>>(Expression.Convert(binaryExpression.Right, typeof(object)))
+                        .Compile();
+
+                    constant = getterLambda();
+                }
+
+                var predicateArgument = GremlinQueryLanguage.SupportedComparisons
+                    .TryGetValue(binaryExpression.NodeType)
+                    .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
+                    .IfNone(constant);
+
+                if (binaryExpression.Left is MemberExpression leftMemberExpression)
+                {
+                    var memberArgument = leftMemberExpression.Expression;
+                    if (memberArgument is UnaryExpression && memberArgument.NodeType == ExpressionType.Convert)
+                        memberArgument = ((UnaryExpression)memberArgument).Operand;
+
+                    if (memberArgument == predicate.Parameters[0])
+                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                }
+                else if (binaryExpression.Left is ParameterExpression leftParameterExpression)
+                {
+                    if (predicate.Parameters[0] == leftParameterExpression)
+                        return query.AddStep<T>("where", predicateArgument);
+                }
+            }
+
+            throw new NotSupportedException();
         }
 
         private static string[] GetDerivedLabelNames<T>(this IGraphModel model)
