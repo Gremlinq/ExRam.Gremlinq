@@ -446,6 +446,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("to", toVertex(query.ToAnonymous()));
         }
 
+        public static IGremlinQuery<T> Unfold<T>(this IGremlinQuery<IEnumerable<T>> query)
+        {
+            return query
+                .AddStep<T>("unfold");
+        }
+
         public static IGremlinQuery<T> Union<S, T>(this IGremlinQuery<S> query, params Func<IGremlinQuery<S>, IGremlinQuery<T>>[] unionTraversals)
         {
             return query
