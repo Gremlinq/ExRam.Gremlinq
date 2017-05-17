@@ -38,9 +38,14 @@ namespace ExRam.Gremlinq
                 }
                 else
                 {
-                    var parameterName = parameterCache.Cache(parameter);
-                    dict[parameterName] = parameter;
-                    builder.Append(parameterName);
+                    if (parameter is IGremlinSerializable serializable)
+                        builder.Append(serializable.Serialize(parameterCache, false).queryString);
+                    else
+                    {
+                        var parameterName = parameterCache.Cache(parameter);
+                        dict[parameterName] = parameter;
+                        builder.Append(parameterName);
+                    }
                 }
             }
 

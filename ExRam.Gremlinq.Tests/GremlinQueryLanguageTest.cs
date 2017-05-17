@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
-                    .Where(t => t.SomeIntProperty == 36)
+                .Where(t => t.SomeIntProperty == 36)
                 .Serialize(true);
 
             query.queryString
@@ -242,6 +242,30 @@ namespace ExRam.Gremlinq.Tests
             query.queryString
                 .Should()
                 .Be("g.V().hasLabel('Language').as('l').V().hasLabel('Language').where(eq('l'))");
+        }
+
+        [Fact]
+        public void V_of_type_where_with_stepLabel_not_inlined()
+        {
+            var l = new StepLabel<Language>("l");
+
+            var query = GremlinQuery
+                .ForGraph("g", this._queryProvider)
+                .V<Language>()
+                .As(l)
+                .V<Language>()
+                .Where(l2 => l2 == l)
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).as(P2).V().hasLabel(P1).where(eq(P2))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("P1", "Language").And
+                .Contain("P2", "l");
         }
 
         [Fact]
@@ -474,7 +498,7 @@ namespace ExRam.Gremlinq.Tests
 
         [Fact]
         public void V_OfType_with_inheritance()
-        {           
+        {
             var query = GremlinQuery
                 .ForGraph("g", this._queryProvider)
                 .V()
