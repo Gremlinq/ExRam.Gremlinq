@@ -36,14 +36,20 @@ namespace Dse
                 var executableQuery = query.Serialize(false);
 
                 return this._session
-                    .ExecuteGraphAsync(new SimpleGraphStatement(executableQuery.parameters, executableQuery.queryString))
+                    .ExecuteGraphAsync(new SimpleGraphStatement(executableQuery
+                        .parameters
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value is TimeSpan
+                                ? Duration.FromTimeSpan((TimeSpan)kvp.Value)
+                                : kvp.Value),
+                            executableQuery.queryString))
                     .ToAsyncEnumerable()
                     .SelectMany(node => node.ToAsyncEnumerable())
                     .Select(node => (T)(object)node.ToString());
             }
 
             public IGraphModel Model => GremlinModel.Empty;
-            //public IGraphElementNamingStrategy NamingStrategy => GraphElementNamingStrategy.Simple;
         }
 
         private sealed class DseGraphSchemaCreator : IGraphSchemaCreator
@@ -128,12 +134,14 @@ namespace Dse
 
                         query = model.Connections
                             .Where(tuple => tuple.Item2.ElementType == edgeInfo.ElementType)
+                            .Where(tuple => !tuple.Item1.ElementType.GetTypeInfo().IsAbstract && !tuple.Item2.ElementType.GetTypeInfo().IsAbstract && !tuple.Item3.ElementType.GetTypeInfo().IsAbstract)
                             .Aggregate(
                                 query,
                                 (closureQuery, tuple) => closureQuery.AddStep<string>(
                                     "connection",
                                     tuple.Item1.Label,
                                     tuple.Item3.Label));
+
 
                         return query
                             .AddStep<string>("ifNotExists")
