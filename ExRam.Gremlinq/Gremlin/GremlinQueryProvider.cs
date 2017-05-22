@@ -238,6 +238,33 @@ namespace ExRam.Gremlinq
             public IGraphModel Model => this._baseQueryProvider.Model;
         }
 
+        private sealed class SelectCreateQueryQueryProvider : IGremlinQueryProvider
+        {
+            private readonly Func<IGremlinQuery, IGremlinQuery> _projection;
+            private readonly IGremlinQueryProvider _baseGremlinQueryProvider;
+
+            public SelectCreateQueryQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<IGremlinQuery, IGremlinQuery> projection)
+            {
+                this._projection = projection;
+                this._baseGremlinQueryProvider = baseGremlinQueryProvider;
+            }
+
+            public IGremlinQuery CreateQuery()
+            {
+                return this._projection(
+                    this._baseGremlinQueryProvider
+                        .CreateQuery()
+                        .ReplaceProvider(this));
+            }
+
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            {
+                return this._baseGremlinQueryProvider.Execute(query);
+            }
+
+            public IGraphModel Model => _baseGremlinQueryProvider.Model;
+        }
+
         public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
         {
             return query.Provider.Execute(query);
@@ -256,6 +283,11 @@ namespace ExRam.Gremlinq
         public static IGremlinQueryProvider WithSubgraphStrategy(this IGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
             return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
+        }
+
+        private static IGremlinQueryProvider SelectCreateQuery(this IGremlinQueryProvider provider, Func<IGremlinQuery, IGremlinQuery> projection)
+        {
+            return new SelectCreateQueryQueryProvider(provider, projection);
         }
     }
 }
