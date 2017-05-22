@@ -193,51 +193,6 @@ namespace ExRam.Gremlinq
             public IGraphModel Model { get; }
         }
 
-        private sealed class SubgraphStrategyQueryProvider : IGremlinQueryProvider
-        {
-            private readonly IGremlinQueryProvider _baseQueryProvider;
-            private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _edgeCriterion;
-            private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _vertexCriterion;
-
-            public SubgraphStrategyQueryProvider(IGremlinQueryProvider baseQueryProvider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
-            {
-                this._edgeCriterion = edgeCriterion;
-                this._vertexCriterion = vertexCriterion;
-                this._baseQueryProvider = baseQueryProvider;
-            }
-
-            public IGremlinQuery CreateQuery()
-            {
-                var query = this._baseQueryProvider
-                    .CreateQuery()
-                    .ReplaceProvider(this)
-                    .Cast<Unit>();
-
-                var vertexCriterion = this._vertexCriterion(query.ToAnonymous());
-                var edgeCriterion = this._edgeCriterion(query.ToAnonymous());
-
-                var strategy = GremlinQuery
-                    .ForGraph("SubgraphStrategy", this)
-                    .AddStep<Unit>("build");
-
-                if (vertexCriterion.Steps.Count > 0)
-                    strategy = strategy.AddStep<Unit>("vertices", vertexCriterion);
-
-                if (edgeCriterion.Steps.Count > 0)
-                    strategy = strategy.AddStep<Unit>("edges", edgeCriterion);
-
-                return query
-                    .AddStep<Unit>("withStrategies", strategy.AddStep<Unit>("create"));
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                return this._baseQueryProvider.Execute(query);
-            }
-
-            public IGraphModel Model => this._baseQueryProvider.Model;
-        }
-
         private sealed class SelectCreateQueryQueryProvider : IGremlinQueryProvider
         {
             private readonly Func<IGremlinQuery, IGremlinQuery> _projection;
@@ -282,7 +237,28 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQueryProvider WithSubgraphStrategy(this IGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
-            return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
+            return provider
+                .SelectCreateQuery(query =>
+                {
+                    var castedQuery = query
+                        .Cast<Unit>();
+
+                    var vertexCriterionTraversal = vertexCriterion(castedQuery.ToAnonymous());
+                    var edgeCriterionTraversal = edgeCriterion(castedQuery.ToAnonymous());
+
+                    var strategy = GremlinQuery
+                        .ForGraph("SubgraphStrategy", query.Provider)
+                        .AddStep<Unit>("build");
+
+                    if (vertexCriterionTraversal.Steps.Count > 0)
+                        strategy = strategy.AddStep<Unit>("vertices", vertexCriterionTraversal);
+
+                    if (edgeCriterionTraversal.Steps.Count > 0)
+                        strategy = strategy.AddStep<Unit>("edges", edgeCriterionTraversal);
+
+                    return query
+                        .AddStep<Unit>("withStrategies", strategy.AddStep<Unit>("create"));
+                });
         }
 
         private static IGremlinQueryProvider SelectCreateQuery(this IGremlinQueryProvider provider, Func<IGremlinQuery, IGremlinQuery> projection)
