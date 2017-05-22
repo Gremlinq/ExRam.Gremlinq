@@ -25,7 +25,7 @@ namespace Dse
 
             public IGremlinQuery CreateQuery()
             {
-                return GremlinQuery.ForGraph((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g", this);
+                return GremlinQuery.Create((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g", this);
             }
 
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
@@ -103,7 +103,7 @@ namespace Dse
                     .Select(vertexInfo =>
                     {
                         var query = GremlinQuery
-                            .ForGraph("schema", queryProvider)
+                            .Create("schema", queryProvider)
                             .AddStep<string>("vertexLabel", vertexInfo.Label);
 
                         var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
@@ -123,7 +123,7 @@ namespace Dse
                     .Select(edgeInfo =>
                     {
                         var query = GremlinQuery
-                            .ForGraph("schema", queryProvider)
+                            .Create("schema", queryProvider)
                             .AddStep<string>("edgeLabel", edgeInfo.Label)
                             .AddStep<string>("single");
 
@@ -188,7 +188,7 @@ namespace Dse
                 return propertyKeys
                     .Select(kvp =>
                     {
-                        var query = GremlinQuery.ForGraph("schema", queryProvider);
+                        var query = GremlinQuery.Create("schema", queryProvider);
                         query = query
                             .AddStep<string>("propertyKey", kvp.Key);
 

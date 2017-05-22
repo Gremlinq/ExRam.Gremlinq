@@ -93,9 +93,9 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IGremlinQuery ForGraph(string graphName, IGremlinQueryProvider provider)
+        public static IGremlinQuery Create(string initialIdentifier, IGremlinQueryProvider provider)
         {
-            return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty);
+            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty);
         }
 
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)

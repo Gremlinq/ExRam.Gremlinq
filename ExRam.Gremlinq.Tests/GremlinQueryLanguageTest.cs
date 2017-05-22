@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Tests
         public void AddV()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .AddV(new Description { Id = "id", Value = "A description of something." })
                 .Serialize(true);
 
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Tests
         public void AddV_with_nulls()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .AddV(new Description { Id = "id" })
                 .Serialize(true);
 
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Serialize(true);
 
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_int_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Where(t => t.SomeIntProperty == 36)
                 .Serialize(true);
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_lower_int_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Where(t => t.SomeIntProperty < 36)
                 .Serialize(true);
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_lower_or_equal_int_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Where(t => t.SomeIntProperty <= 36)
                 .Serialize(true);
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_greater_int_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Where(t => t.SomeIntProperty > 36)
                 .Serialize(true);
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_greater_or_equal_int_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Where(t => t.SomeIntProperty >= 36)
                 .Serialize(true);
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_has_string_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .Where(t => t.Id == "languageId")
                 .Serialize(true);
@@ -182,7 +182,7 @@ namespace ExRam.Gremlinq.Tests
             var local = "languageId";
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .Where(t => t.Id == local)
                 .Serialize(true);
@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Tests
             var local = new { Value = "languageId" };
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
                 .Serialize(true);
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_of_type_where_with_expression_parameter_on_both_sides()
         {
             GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
                 .ShouldThrow<InvalidOperationException>();
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Tests
             var l = new StepLabel<Language>("l");
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .As(l)
                 .V<Language>()
@@ -250,7 +250,7 @@ namespace ExRam.Gremlinq.Tests
             var l = new StepLabel<Language>("l");
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<Language>()
                 .As(l)
                 .V<Language>()
@@ -272,7 +272,7 @@ namespace ExRam.Gremlinq.Tests
         public void AddE_to_traversal()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .AddE(new Describes())
                 .To(__ => __
                     .V<SomeDerivedEntity>()
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Tests
         public void AddE_to_StepLabel()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .AddV(new Description { Id = "id", Value = "Description" })
                 .As((_, d) => _
                     .AddE(new Describes())
@@ -312,7 +312,7 @@ namespace ExRam.Gremlinq.Tests
         public void AddE_from_StepLabel()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .AddV(new Description { Id = "id", Value = "Description" })
                 .As((_, d) => _
                     .AddE(new Describes())
@@ -332,7 +332,7 @@ namespace ExRam.Gremlinq.Tests
         public void And()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .And(
                     __ => __
@@ -354,7 +354,7 @@ namespace ExRam.Gremlinq.Tests
         public void Drop()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Drop()
                 .Serialize(true);
@@ -372,7 +372,7 @@ namespace ExRam.Gremlinq.Tests
         public void FilterWithLambda()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .FilterWithLambda("it.property('str').value().length() == 2")
                 .Serialize(true);
@@ -390,7 +390,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_order_ByMember()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByMember(x => x.Name)
@@ -409,7 +409,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_order_ByTraversal()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByTraversal(__ => __.Values(x => x.Name))
@@ -428,7 +428,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_order_ByLambda()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Order()
                 .ByLambda("it.property('str').value().length()")
@@ -447,7 +447,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_values_of_one_property()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Values(x => x.Name)
                 .Serialize(true);
@@ -465,7 +465,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_values_of_two_properties()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Values(x => x.Name, x => x.Id)
                 .Serialize(true);
@@ -483,7 +483,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_without_type()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .Serialize(true);
 
@@ -500,7 +500,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_OfType_with_inheritance()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .OfType<SomeBaseEntity>()
                 .Serialize(true);
@@ -518,7 +518,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Repeat_out_traversal()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Repeat(__ => __.Out<Describes>())
                 .Serialize(true);
@@ -536,7 +536,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Union_two_out_traversals()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .Union(
                     __ => __.Out<Describes>(),
@@ -556,7 +556,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Optional_one_out_traversal()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .Optional(
                     __ => __.Out<Describes>())
@@ -575,7 +575,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Not_one_out_traversal()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .Not(__ => __.Out<Describes>())
                 .Serialize(true);
@@ -593,7 +593,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Optional_one_out_traversal_1()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Serialize(true);
@@ -611,7 +611,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_ofType_Optional_one_out_traversal_2()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V()
                 .Not(__ => __.OfType<SomeBaseEntity>())
                 .Serialize(true);
@@ -629,7 +629,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_as()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .As(new StepLabel<SomeDerivedEntity>("a"))
                 .Serialize(true);
@@ -647,7 +647,7 @@ namespace ExRam.Gremlinq.Tests
         public void V_as_not_inlined()
         {
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .As(new StepLabel<SomeDerivedEntity>("a"))
                 .Serialize(false);
@@ -669,7 +669,7 @@ namespace ExRam.Gremlinq.Tests
             var stepLabel = new StepLabel<SomeDerivedEntity>("a");
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .As(stepLabel)
                 .Select(stepLabel)
@@ -690,7 +690,7 @@ namespace ExRam.Gremlinq.Tests
             var stepLabel = new StepLabel<SomeDerivedEntity>("a");
 
             var query = GremlinQuery
-                .ForGraph("g", this._queryProvider)
+                .Create("g", this._queryProvider)
                 .V<SomeDerivedEntity>()
                 .As(stepLabel)
                 .Select(stepLabel)

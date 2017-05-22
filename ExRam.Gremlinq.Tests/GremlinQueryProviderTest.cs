@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport();              
 
             var tuple = await GremlinQuery
-                .ForGraph("g", jsonQueryProvider)
+                .Create("g", jsonQueryProvider)
                 .Cast<(SomeBaseEntity, Language)>()
                 .AddMemberInfoMapping(x => x.Item1, "d730b14d9898459ab919d529939f69f8")
                 .AddMemberInfoMapping(x => x.Item2, "38233d3440304ce7bae0be402687aced")
