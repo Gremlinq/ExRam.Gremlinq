@@ -36,5 +36,20 @@ namespace ExRam.Gremlinq
         {
             throw new NotImplementedException("Only for expressions.");
         }
+
+        public bool Equals(StepLabel<T> other)
+        {
+            return string.Equals(this.Label, other.Label);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return !object.ReferenceEquals(null, obj) && obj is StepLabel<T> && Equals((StepLabel<T>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Label != null ? this.Label.GetHashCode() : 0;
+        }
     }
 }
