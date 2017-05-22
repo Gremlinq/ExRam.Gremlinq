@@ -13,7 +13,31 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryProvider
     {
-        private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
+        private abstract class GremlinQueryProviderBase : IGremlinQueryProvider
+        {
+            private readonly IGremlinQueryProvider _baseGremlinQueryProvider;
+
+            protected GremlinQueryProviderBase(IGremlinQueryProvider baseGremlinQueryProvider)
+            {
+                this._baseGremlinQueryProvider = baseGremlinQueryProvider;
+            }
+
+            public virtual IGremlinQuery CreateQuery()
+            {
+                return this._baseGremlinQueryProvider
+                    .CreateQuery()
+                    .ReplaceProvider(this);
+            }
+
+            public virtual IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            {
+                return this._baseGremlinQueryProvider.Execute(query);
+            }
+
+            public virtual IGraphModel Model => this._baseGremlinQueryProvider.Model;
+        }
+
+        private sealed class JsonSupportGremlinQueryProvider : GremlinQueryProviderBase
         {
             private sealed class MemberInfoMappingsContractResolver : DefaultContractResolver
             {
@@ -68,21 +92,11 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            private readonly IGremlinQueryProvider _baseProvider;
-
-            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider)
+            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider) : base(baseProvider)
             {
-                this._baseProvider = baseProvider;
             }
 
-            public IGremlinQuery CreateQuery()
-            {
-                return this._baseProvider
-                    .CreateQuery()
-                    .ReplaceProvider(this);
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 var settings = new JsonSerializerSettings
                 {
@@ -91,7 +105,7 @@ namespace ExRam.Gremlinq
                     TypeNameHandling = TypeNameHandling.Auto,
                 };
 
-                return this._baseProvider
+                return base
                     .Execute(query.Cast<string>())
                     .Select(json => json.StartsWith("{") || json.StartsWith("[")
                         ? JsonConvert.DeserializeObject<T>(this.TransformToken(JToken.Parse(json)).ToString(), settings)
@@ -164,60 +178,33 @@ namespace ExRam.Gremlinq
 
                 return obj;
             }
-
-            public IGraphModel Model => this._baseProvider.Model;
         }
 
-        private sealed class ModelGremlinQueryProvider : IGremlinQueryProvider
+        private sealed class ModelGremlinQueryProvider : GremlinQueryProviderBase
         {
-            private readonly IGremlinQueryProvider _baseProvider;
-
-            public ModelGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel newModel)
+            public ModelGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel newModel) : base(baseProvider)
             {
                 this.Model = newModel;
-                this._baseProvider = baseProvider;
             }
 
-            public IGremlinQuery CreateQuery()
-            {
-                return this._baseProvider
-                    .CreateQuery()
-                    .ReplaceProvider(this);
-            }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                return this._baseProvider.Execute(query);
-            }
-
-            public IGraphModel Model { get; }
+            public override IGraphModel Model { get; }
         }
 
-        private sealed class SelectCreateQueryQueryProvider : IGremlinQueryProvider
+        private sealed class SelectCreateQueryQueryProvider : GremlinQueryProviderBase
         {
             private readonly Func<IGremlinQuery, IGremlinQuery> _projection;
-            private readonly IGremlinQueryProvider _baseGremlinQueryProvider;
 
-            public SelectCreateQueryQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<IGremlinQuery, IGremlinQuery> projection)
+            public SelectCreateQueryQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<IGremlinQuery, IGremlinQuery> projection) : base(baseGremlinQueryProvider)
             {
                 this._projection = projection;
-                this._baseGremlinQueryProvider = baseGremlinQueryProvider;
             }
 
-            public IGremlinQuery CreateQuery()
+            public override IGremlinQuery CreateQuery()
             {
-                return this._projection(
-                    this._baseGremlinQueryProvider
-                        .CreateQuery()
-                        .ReplaceProvider(this));
+                return this._projection(base
+                    .CreateQuery()
+                    .ReplaceProvider(this));
             }
-
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                return this._baseGremlinQueryProvider.Execute(query);
-            }
-
-            public IGraphModel Model => _baseGremlinQueryProvider.Model;
         }
 
         public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
