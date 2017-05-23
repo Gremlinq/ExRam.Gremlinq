@@ -93,6 +93,16 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("barrier");
         }
 
+        public static IGremlinQuery<T> Coalesce<S, T>(this IGremlinQuery<S> query, params Func<IGremlinQuery<S>, IGremlinQuery<T>>[] traversals)
+        {
+            return query
+                .AddStep<T>(
+                    "coalesce", 
+                    traversals
+                        .Select(traversal => traversal(query.ToAnonymous()))
+                        .ToArray());
+        }
+
         public static IGremlinQuery<TResult> Choose<TSource, TResult>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> falseChoice)
         {
             var anonymous = query.ToAnonymous();
