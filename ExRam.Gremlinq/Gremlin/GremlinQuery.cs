@@ -108,28 +108,12 @@ namespace ExRam.Gremlinq
             return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
 
-        [Obsolete]
-        public static T First<T>(this IGremlinQuery<T> query)
-        {
-            return query
-                .FirstAsync()
-                .Result;
-        }
-
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query)
         {
             return query
                 .Limit(1)
                 .Execute()
                 .First();
-        }
-
-        [Obsolete]
-        public static Option<T> FirstOrNone<T>(this IGremlinQuery<T> query)
-        {
-            return query
-                .FirstOrNoneAsync()
-                .Result;
         }
 
         public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query)
@@ -142,14 +126,6 @@ namespace ExRam.Gremlinq
             return array.Length > 0
                 ? array[0]
                 : Option<T>.None;
-        }
-
-        [Obsolete]
-        public static T[] ToArray<T>(this IGremlinQuery<T> query)
-        {
-            return query
-                .ToArrayAsync()
-                .Result;
         }
 
         public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query)
