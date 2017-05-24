@@ -98,6 +98,7 @@ namespace ExRam.Gremlinq
             return query
                 .AddStep<T>(
                     "coalesce", 
+                    // ReSharper disable once CoVariantArrayConversion
                     traversals
                         .Select(traversal => traversal(query.ToAnonymous()))
                         .ToArray());
