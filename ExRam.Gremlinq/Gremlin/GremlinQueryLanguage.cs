@@ -206,6 +206,12 @@ namespace ExRam.Gremlinq
                 .OfType<T>();
         }
 
+        public static IGremlinQuery<T> Emit<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("emit");
+        }
+
         public static IGremlinQuery<T> FilterWithLambda<T>(this IGremlinQuery<T> query, string lambda)
         {
             return query
