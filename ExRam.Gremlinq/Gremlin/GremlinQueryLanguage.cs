@@ -406,6 +406,12 @@ namespace ExRam.Gremlinq
                 .AddMemberInfoMapping(x => x.Item4, label4.Label);
         }
 
+        public static IGremlinQuery<T> Times<T>(this IGremlinQuery<T> query, int count)
+        {
+            return query
+                .AddStep<T>("times", count);
+        }
+
         public static IGremlinQuery<T> Tail<T>(this IGremlinQuery<T> query, long limit)
         {
             return query
