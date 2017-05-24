@@ -367,7 +367,7 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("range", low, high);
         }
 
-        public static IGremlinQuery<T> Repeat<T>(this IGremlinQuery query, Func<IGremlinQuery, IGremlinQuery<T>> repeatTraversal)
+        public static IGremlinQuery<T> Repeat<T>(this IGremlinQuery query, Func<IGremlinQuery<Unit>, IGremlinQuery<T>> repeatTraversal)
         {
             return query
                 .AddStep<T>("repeat", repeatTraversal(query.Cast<Unit>().ToAnonymous()));
