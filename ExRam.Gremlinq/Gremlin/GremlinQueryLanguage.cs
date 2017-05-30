@@ -487,14 +487,16 @@ namespace ExRam.Gremlinq
             if (binaryExpression != null)
             {
                 object constant;
+                var left = StripConvert(binaryExpression.Left);
+                var right = StripConvert(binaryExpression.Right);
 
-                var constantExpression = binaryExpression.Right as ConstantExpression;
+                var constantExpression = right as ConstantExpression;
                 if (constantExpression != null)
                     constant = constantExpression.Value;
                 else
                 {
                     var getterLambda = Expression
-                        .Lambda<Func<object>>(Expression.Convert(binaryExpression.Right, typeof(object)))
+                        .Lambda<Func<object>>(Expression.Convert(right, typeof(object)))
                         .Compile();
 
                     constant = getterLambda();
@@ -504,17 +506,15 @@ namespace ExRam.Gremlinq
                     .TryGetValue(binaryExpression.NodeType)
                     .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
                     .IfNone(constant);
-
-                if (binaryExpression.Left is MemberExpression leftMemberExpression)
+                
+                if (left is MemberExpression leftMemberExpression)
                 {
-                    var memberArgument = leftMemberExpression.Expression;
-                    if (memberArgument is UnaryExpression && memberArgument.NodeType == ExpressionType.Convert)
-                        memberArgument = ((UnaryExpression)memberArgument).Operand;
+                    var memberArgument = StripConvert(leftMemberExpression.Expression);
 
                     if (memberArgument == predicate.Parameters[0])
                         return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
                 }
-                else if (binaryExpression.Left is ParameterExpression leftParameterExpression)
+                else if (left is ParameterExpression leftParameterExpression)
                 {
                     if (predicate.Parameters[0] == leftParameterExpression)
                         return query.AddStep<T>("where", predicateArgument);
@@ -522,6 +522,15 @@ namespace ExRam.Gremlinq
             }
 
             throw new NotSupportedException();
+        }
+
+        private static Expression StripConvert(Expression expression)
+        {
+            var unaryExpression = expression as UnaryExpression;
+            if (unaryExpression != null && expression.NodeType == ExpressionType.Convert)
+                return StripConvert(unaryExpression.Operand);
+
+            return expression;
         }
 
         private static string[] GetDerivedLabelNames<T>(this IGraphModel model)
