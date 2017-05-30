@@ -87,6 +87,24 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_has_not_int_property()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Where(t => t.SomeIntProperty != 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', neq(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public void V_ofType_has_lower_int_property()
         {
             var query = GremlinQuery

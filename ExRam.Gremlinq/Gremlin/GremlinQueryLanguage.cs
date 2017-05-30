@@ -14,6 +14,7 @@ namespace ExRam.Gremlinq
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
             { ExpressionType.Equal, "eq" },
+            { ExpressionType.NotEqual, "neq" },
             { ExpressionType.LessThan, "lt" },
             { ExpressionType.LessThanOrEqual, "lte" },
             { ExpressionType.GreaterThanOrEqual, "gte" },
