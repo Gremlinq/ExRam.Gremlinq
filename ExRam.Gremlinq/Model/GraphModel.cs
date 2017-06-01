@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq
                 ImmutableList<(Type, Type, Type)>.Empty);
         }
 
-        public static IGraphModel AddEdgeType<T>(this IGraphModel model, Func<IEdgeInfoBuilder<T>, IEdgeInfoBuilder<T>> builderAction)
+        public static IGraphModel Edge<T>(this IGraphModel model, Func<IEdgeInfoBuilder<T>, IEdgeInfoBuilder<T>> builderAction)
         {
             var type = typeof(T);
 
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq
                     () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.SetItem(type, builderAction(new EdgeInfoBuilder<T>(edgeInfo)).Build()), model.Connections));
         }
 
-        public static IGraphModel AddVertexType<T>(this IGraphModel model, Func<IVertexInfoBuilder<T>, IVertexInfoBuilder<T>> builderAction)
+        public static IGraphModel Vertex<T>(this IGraphModel model, Func<IVertexInfoBuilder<T>, IVertexInfoBuilder<T>> builderAction)
         {
             var type = typeof(T);
 
