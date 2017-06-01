@@ -356,6 +356,12 @@ namespace ExRam.Gremlinq
                 .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
+        public static IGremlinQuery<T> Profile<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("profile");
+        }
+
         public static IGremlinQuery<T> Property<T>(this IGremlinQuery<T> query, string key, object value)
         {
             return query
