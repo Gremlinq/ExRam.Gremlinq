@@ -99,7 +99,7 @@ namespace Dse
 
             private IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
-                return model.VertexTypes
+                return model.VertexTypes.Values
                     .Select(vertexInfo =>
                     {
                         var query = GremlinQuery
@@ -119,7 +119,7 @@ namespace Dse
 
             private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
-                return model.EdgeTypes
+                return model.EdgeTypes.Values
                     .Select(edgeInfo =>
                     {
                         var query = GremlinQuery
@@ -150,7 +150,7 @@ namespace Dse
             {
                 var propertyKeys = new Dictionary<string, Type>();
 
-                foreach (var vertexType in model.VertexTypes.Cast<GraphElementInfo>().Concat(model.EdgeTypes))
+                foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
                 {
                     foreach (var property in vertexType.ElementType.GetProperties())
                     {
