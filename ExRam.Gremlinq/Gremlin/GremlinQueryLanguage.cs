@@ -213,6 +213,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("emit");
         }
 
+        public static IGremlinQuery<T> Explain<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("explain");
+        }
+
         public static IGremlinQuery<T> FilterWithLambda<T>(this IGremlinQuery<T> query, string lambda)
         {
             return query
