@@ -47,8 +47,7 @@ namespace ExRam.Gremlinq
 
             public IVertexInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
             {
-                throw new NotImplementedException();
-                //return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, expression));
+                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, expression));
             }
         }
 

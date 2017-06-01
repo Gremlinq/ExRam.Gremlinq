@@ -6,11 +6,11 @@ namespace ExRam.Gremlinq
 {
     public sealed class VertexInfo : GraphElementInfo
     {
-        public VertexInfo(Type elementType, string label, Option<Expression<Func<object, object>>> primaryKey = default(Option<Expression<Func<object, object>>>)) : base(elementType, label)
+        public VertexInfo(Type elementType, string label, Option<Expression> primaryKey = default(Option<Expression>)) : base(elementType, label)
         {
             PrimaryKey = primaryKey;
         }
 
-        public Option<Expression<Func<object, object>>> PrimaryKey { get; }
+        public Option<Expression> PrimaryKey { get; }
     }
 }
