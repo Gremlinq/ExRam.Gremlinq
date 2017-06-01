@@ -26,6 +26,52 @@ namespace ExRam.Gremlinq
             public IImmutableList<(Type, Type, Type)> Connections { get; }
         }
 
+        private sealed class VertexInfoBuilder<T> : IVertexInfoBuilder<T>
+        {
+            private readonly VertexInfo _info;
+
+            public VertexInfoBuilder(VertexInfo info)
+            {
+                this._info = info;
+            }
+
+            public VertexInfo Build()
+            {
+                return this._info;
+            }
+
+            public IVertexInfoBuilder<T> Label(string label)
+            {
+                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, label, this._info.PrimaryKey));
+            }
+
+            public IVertexInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
+            {
+                throw new NotImplementedException();
+                //return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, expression));
+            }
+        }
+
+        private sealed class EdgeInfoBuilder<T> : IEdgeInfoBuilder<T>
+        {
+            private readonly EdgeInfo _info;
+
+            public EdgeInfoBuilder(EdgeInfo info)
+            {
+                this._info = info;
+            }
+
+            public EdgeInfo Build()
+            {
+                return this._info;
+            }
+
+            public IEdgeInfoBuilder<T> Label(string label)
+            {
+                return new EdgeInfoBuilder<T>(new EdgeInfo(this._info.ElementType, label));
+            }
+        }
+
         public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, VertexInfo>.Empty, ImmutableDictionary<Type, EdgeInfo>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
@@ -51,7 +97,23 @@ namespace ExRam.Gremlinq
                 ImmutableList<(Type, Type, Type)>.Empty);
         }
 
-        public static IGraphModel AddVertexType<T>(this IGraphModel model, string label)
+        public static IGraphModel AddEdgeType<T>(this IGraphModel model, Func<IEdgeInfoBuilder<T>, IEdgeInfoBuilder<T>> builderAction)
+        {
+            var type = typeof(T);
+
+            if (model.VertexTypes.ContainsKey(type))
+                return model;
+
+            return model.VertexTypes.Keys
+                .Where(vertexType => vertexType.IsAssignableFrom(type) || type.IsAssignableFrom(vertexType))
+                .Select(_ => (Option<Type>)_)
+                .FirstOrDefault()
+                .Match(
+                    contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
+                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.Add(type, builderAction(new EdgeInfoBuilder<T>(new EdgeInfo(type, null))).Build()), model.Connections));
+        }
+
+        public static IGraphModel AddVertexType<T>(this IGraphModel model, Func<IVertexInfoBuilder<T>, IVertexInfoBuilder<T>> builderAction)
         {
             var type = typeof(T);
 
@@ -64,23 +126,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexTypes.Add(type, new VertexInfo(typeof(T), label)), model.EdgeTypes, model.Connections));
-        }
-
-        public static IGraphModel AddEdgeType<T>(this IGraphModel model, string label)
-        {
-            var type = typeof(T);
-
-            if (model.EdgeTypes.ContainsKey(type))
-                return model;
-
-            return model.VertexTypes.Keys
-                .Where(vertexType => vertexType.IsAssignableFrom(type) || type.IsAssignableFrom(vertexType))
-                .Select(_ => (Option<Type>)_)
-                .FirstOrDefault()
-                .Match(
-                    contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.Add(type, new EdgeInfo(typeof(T), label)), model.Connections));
+                    () => new GraphModelImpl(model.VertexTypes.Add(type, builderAction(new VertexInfoBuilder<T>(new VertexInfo(type, null))).Build()), model.EdgeTypes, model.Connections));
         }
 
         public static IGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IGraphModel model)
