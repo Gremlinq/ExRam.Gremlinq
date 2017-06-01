@@ -2,9 +2,9 @@ using System;
 
 namespace ExRam.Gremlinq
 {
-    public struct GraphElementInfo
+    public abstract class GraphElementInfo
     {
-        public GraphElementInfo(Type elementType, string label)
+        protected GraphElementInfo(Type elementType, string label)
         {
             this.ElementType = elementType;
             this.Label = label;

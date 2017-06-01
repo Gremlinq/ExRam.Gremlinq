@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq
 {
     public interface IGraphModel
     {
-        IImmutableList<GraphElementInfo> VertexTypes { get; }
-        IImmutableList<GraphElementInfo> EdgeTypes { get; }
-        IImmutableList<(GraphElementInfo, GraphElementInfo, GraphElementInfo)> Connections { get; }
+        IImmutableList<VertexInfo> VertexTypes { get; }
+        IImmutableList<EdgeInfo> EdgeTypes { get; }
+        IImmutableList<(VertexInfo, EdgeInfo, VertexInfo)> Connections { get; }
     }
 }

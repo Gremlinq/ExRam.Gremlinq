@@ -153,7 +153,7 @@ namespace Dse
             {
                 var propertyKeys = new Dictionary<string, Type>();
 
-                foreach (var vertexType in model.VertexTypes.Concat(model.EdgeTypes))
+                foreach (var vertexType in model.VertexTypes.Cast<GraphElementInfo>().Concat(model.EdgeTypes))
                 {
                     foreach (var property in vertexType.ElementType.GetProperties())
                     {
