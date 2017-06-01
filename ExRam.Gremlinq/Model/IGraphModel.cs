@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
@@ -6,6 +7,6 @@ namespace ExRam.Gremlinq
     {
         IImmutableList<VertexInfo> VertexTypes { get; }
         IImmutableList<EdgeInfo> EdgeTypes { get; }
-        IImmutableList<(VertexInfo, EdgeInfo, VertexInfo)> Connections { get; }
+        IImmutableList<(Type, Type, Type)> Connections { get; }
     }
 }

@@ -132,18 +132,15 @@ namespace Dse
                             // ReSharper disable once CoVariantArrayConversion
                             query = query.AddStep<string>("properties", properties);
 
-                        query = model.Connections
-                            .Where(tuple => tuple.Item2.ElementType == edgeInfo.ElementType)
-                            .Where(tuple => !tuple.Item1.ElementType.GetTypeInfo().IsAbstract && !tuple.Item2.ElementType.GetTypeInfo().IsAbstract && !tuple.Item3.ElementType.GetTypeInfo().IsAbstract)
+                        return model.Connections
+                            .Where(tuple => tuple.Item2 == edgeInfo.ElementType)
+                            .Where(tuple => !tuple.Item1.GetTypeInfo().IsAbstract && !tuple.Item2.GetTypeInfo().IsAbstract && !tuple.Item3.GetTypeInfo().IsAbstract)
                             .Aggregate(
                                 query,
                                 (closureQuery, tuple) => closureQuery.AddStep<string>(
                                     "connection",
-                                    tuple.Item1.Label,
-                                    tuple.Item3.Label));
-
-
-                        return query
+                                    model.TryGetLabelOfType(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */)),
+                                    model.TryGetLabelOfType(tuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */))))
                             .AddStep<string>("ifNotExists")
                             .AddStep<string>("create");
                     });

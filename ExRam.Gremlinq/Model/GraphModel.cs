@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableList<VertexInfo> vertexTypes, IImmutableList<EdgeInfo> edgeTypes, IImmutableList<(VertexInfo, EdgeInfo, VertexInfo)> connections)
+            public GraphModelImpl(IImmutableList<VertexInfo> vertexTypes, IImmutableList<EdgeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
             {
                 this.VertexTypes = vertexTypes;
                 this.EdgeTypes = edgeTypes;
@@ -23,10 +23,10 @@ namespace ExRam.Gremlinq
 
             public IImmutableList<EdgeInfo> EdgeTypes { get; }
 
-            public IImmutableList<(VertexInfo, EdgeInfo, VertexInfo)> Connections { get; }
+            public IImmutableList<(Type, Type, Type)> Connections { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableList<VertexInfo>.Empty, ImmutableList<EdgeInfo>.Empty, ImmutableList<(VertexInfo, EdgeInfo, VertexInfo)>.Empty);
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableList<VertexInfo>.Empty, ImmutableList<EdgeInfo>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
         {
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .Select(type => new EdgeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType())))
                     .ToImmutableList(),
-                ImmutableList<(VertexInfo, EdgeInfo, VertexInfo)>.Empty);
+                ImmutableList<(Type, Type, Type)>.Empty);
         }
 
         public static IGraphModel AddVertexType<T>(this IGraphModel model, string label)
@@ -90,17 +90,20 @@ namespace ExRam.Gremlinq
         {
             var outVertexInfo = model
                 .TryGetVertexInfo(outVertexType)
+                .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
 
             var inVertexInfo = model
                 .TryGetVertexInfo(inVertexType)
+                .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
 
-            var edgeInfo = model
+            var connectionEdgeInfo = model
                 .TryGetEdgeInfo(edgeType)
+                .Map(edgeInfo => edgeInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
 
-            var tuple = (outVertexInfo, edgeInfo, inVertexInfo);
+            var tuple = (outVertexInfo, connectionEdgeInfo, inVertexInfo);
 
             return model.Connections.Contains(tuple)
                 ? model
@@ -111,11 +114,11 @@ namespace ExRam.Gremlinq
         {
             foreach (var connection in model.Connections)
             {
-                foreach (var outVertexClosure in model.GetDerivedElementInfos(connection.Item1.ElementType, true))
+                foreach (var outVertexClosure in model.GetDerivedElementInfos(connection.Item1, true))
                 {
-                    foreach (var edgeClosure in model.GetDerivedElementInfos(connection.Item2.ElementType, true))
+                    foreach (var edgeClosure in model.GetDerivedElementInfos(connection.Item2, true))
                     {
-                        foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3.ElementType, true))
+                        foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3, true))
                         {
                             model = model.AddConnection(outVertexClosure.ElementType, edgeClosure.ElementType, inVertexClosure.ElementType);
                         }
