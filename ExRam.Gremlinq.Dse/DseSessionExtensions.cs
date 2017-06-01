@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading;
@@ -106,6 +107,22 @@ namespace Dse
                             .Create("schema", queryProvider)
                             .AddStep<string>("vertexLabel", vertexInfo.Label);
 
+                        this
+                            .TryGetPartitionKeyExpression(model, vertexInfo)
+                            .IfSome(keyExpression =>
+                            {
+                                if (keyExpression is LambdaExpression lambdaExpression)
+                                {
+                                    if (lambdaExpression.Body is MemberExpression memberExpression)
+                                    {
+                                        query = query.AddStep<string>("partitionKey", memberExpression.Member.Name);
+                                        return;
+                                    }
+                                }
+
+                                throw new NotSupportedException();
+                            });
+
                         var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
                         if (properties.Length > 0)
                             // ReSharper disable once CoVariantArrayConversion
@@ -115,6 +132,26 @@ namespace Dse
                             .AddStep<string>("ifNotExists")
                             .AddStep<string>("create");
                     });
+            }
+
+            private Option<Expression> TryGetPartitionKeyExpression(IGraphModel model, VertexInfo vertexInfo)
+            {
+                return vertexInfo.PrimaryKey
+                    .Match(
+                        _ => (Option<Expression>)_,
+                        () =>
+                        {
+                            var baseType = vertexInfo.ElementType.GetTypeInfo().BaseType;
+
+                            if (baseType != null)
+                            {
+                                return model.VertexTypes
+                                    .TryGetValue(baseType)
+                                    .Bind(baseVertexInfo => TryGetPartitionKeyExpression(model, baseVertexInfo));
+                            }
+
+                            return Option<Expression>.None;
+                        });
             }
 
             private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
