@@ -81,6 +81,12 @@ namespace ExRam.Gremlinq
 
         public static IGraphModel FromAssembly(Assembly assembly, Type vertexBaseType, Type edgeBaseType, IGraphElementNamingStrategy namingStrategy)
         {
+            if (vertexBaseType.IsAssignableFrom(edgeBaseType))
+                throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
+
+            if (edgeBaseType.IsAssignableFrom(vertexBaseType))
+                throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
+
             return new GraphModelImpl(
                 assembly
                     .DefinedTypes
