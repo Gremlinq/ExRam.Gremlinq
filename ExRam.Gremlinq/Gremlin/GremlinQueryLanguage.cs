@@ -94,6 +94,13 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("barrier");
         }
 
+        public static IGremlinQuery<T> Coalesce<T>(this IGremlinQuery query, params Func<IGremlinQuery<Unit>, IGremlinQuery<T>>[] traversals)
+        {
+            return query
+                .Cast<Unit>()
+                .Coalesce(traversals);
+        }
+
         public static IGremlinQuery<T> Coalesce<S, T>(this IGremlinQuery<S> query, params Func<IGremlinQuery<S>, IGremlinQuery<T>>[] traversals)
         {
             return query
