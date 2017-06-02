@@ -264,6 +264,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("hasLabel", labels);
         }
 
+        public static IGremlinQuery<T> Identity<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("identity");
+        }
+
         public static IGremlinQuery<Vertex> In<T>(this IGremlinQuery query)
         {
             return query
