@@ -742,5 +742,38 @@ namespace ExRam.Gremlinq.Tests
                 .And
                 .Contain("P2", "a");
         }
+
+        [Fact]
+        public void Branch()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Branch(
+                    _ => _.Values(x => x.Name),
+                    _ => _.Out<Describes>(),
+                    _ => _.In<Describes>())
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).branch(__.values(P2)).option(__.out(P3)).option(__.in(P3))");
+        }
+
+        [Fact]
+        public void BranchOnIdentity()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .BranchOnIdentity(
+                    _ => _.Out<Describes>(),
+                    _ => _.In<Describes>())
+                .Serialize(false);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).branch(__.identity()).option(__.out(P2)).option(__.in(P2))");
+        }
     }
 }

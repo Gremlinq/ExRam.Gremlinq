@@ -155,6 +155,22 @@ namespace ExRam.Gremlinq
                 .AddStep<Vertex>("bothV");
         }
 
+        public static IGremlinQuery<TEnd> BranchOnIdentity<TStart, TEnd>(this IGremlinQuery<TStart> query, params Func<IGremlinQuery<TStart>, IGremlinQuery<TEnd>>[] options)
+        {
+            return query
+                .Branch(_ => _.Identity(), options);
+        }
+
+        public static IGremlinQuery<TEnd> Branch<TStart, TBranch, TEnd>(this IGremlinQuery<TStart> query, Func<IGremlinQuery<TStart>, IGremlinQuery<TBranch>> branchSelector, params Func<IGremlinQuery<TBranch>, IGremlinQuery<TEnd>>[] options)
+        {
+            return options
+                .Aggregate(
+                    query
+                        .AddStep<TBranch>("branch", branchSelector(query.ToAnonymous())),
+                    (branchQuery, option) => branchQuery.AddStep<TBranch>("option", option(branchQuery.ToAnonymous())))
+                .Cast<TEnd>();
+        }
+
         public static IGremlinQuery<T> ByTraversal<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> traversal, GremlinSortOrder sortOrder = GremlinSortOrder.Increasing)
         {
             return query
