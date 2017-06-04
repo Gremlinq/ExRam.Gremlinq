@@ -3,11 +3,17 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
+    public interface IStepLabelFactory
+    {
+        StepLabel<T> Create<T>();
+    }
+
     public interface IGremlinQuery : IGremlinSerializable
     {
         string GraphName { get; }
         IGremlinQueryProvider Provider { get; }
         IImmutableList<GremlinStep> Steps { get; }
+        IStepLabelFactory StepLabelFactory { get; }
         IImmutableDictionary<MemberInfo, string> MemberInfoMappings { get; }
     }
 
