@@ -42,12 +42,17 @@ namespace ExRam.Gremlinq
 
             public IVertexInfoBuilder<T> Label(string label)
             {
-                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, label, this._info.PrimaryKey));
+                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, label, this._info.SecondaryIndexes, this._info.PrimaryKey));
+            }
+
+            public IVertexInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression)
+            {
+                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, this._info.SecondaryIndexes.Add(indexExpression), this._info.PrimaryKey));
             }
 
             public IVertexInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
             {
-                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, expression));
+                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, this._info.SecondaryIndexes, expression));
             }
         }
 
@@ -92,7 +97,7 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => new VertexInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))),
+                        type => new VertexInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()), ImmutableList<Expression>.Empty)),
                 assembly
                     .DefinedTypes
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
@@ -125,7 +130,7 @@ namespace ExRam.Gremlinq
 
             var vertexInfo = model.VertexTypes
                 .TryGetValue(type)
-                .IfNone(new VertexInfo(type, null));
+                .IfNone(new VertexInfo(type, null, ImmutableList<Expression>.Empty));
 
             return model.EdgeTypes.Keys
                 .Where(edgeType => edgeType.IsAssignableFrom(type) || type.IsAssignableFrom(edgeType))

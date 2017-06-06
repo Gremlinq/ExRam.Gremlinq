@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq
     {
         VertexInfo Build();
         IVertexInfoBuilder<T> Label(string label);
+        IVertexInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression);
         IVertexInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression);
     }
 }
