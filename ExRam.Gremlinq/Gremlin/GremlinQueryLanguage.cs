@@ -595,6 +595,7 @@ namespace ExRam.Gremlinq
                     tuple => tuple.model
                         .GetDerivedElementInfos(typeof(T), true)
                         .Select(elementInfo => elementInfo.Label)
+                        .OrderBy(x => x)
                         .ToArray());
         }
 
