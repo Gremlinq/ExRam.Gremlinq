@@ -101,37 +101,65 @@ namespace Dse
             private IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
             {
                 return model.VertexTypes.Values
-                    .Select(vertexInfo =>
+                    .SelectMany(vertexInfo => this.CreateQueriesForVertexInfo(vertexInfo, model, queryProvider));
+            }
+
+            private IEnumerable<IGremlinQuery<string>> CreateQueriesForVertexInfo(VertexInfo vertexInfo, IGraphModel model, IGremlinQueryProvider queryProvider)
+            {
+                var baseQuery = GremlinQuery
+                    .Create("schema", queryProvider)
+                    .AddStep<string>("vertexLabel", vertexInfo.Label);
+
+                var propertyQuery = baseQuery;
+
+                this
+                    .TryGetPartitionKeyExpression(model, vertexInfo)
+                    .IfSome(keyExpression =>
                     {
-                        var query = GremlinQuery
-                            .Create("schema", queryProvider)
-                            .AddStep<string>("vertexLabel", vertexInfo.Label);
-
-                        this
-                            .TryGetPartitionKeyExpression(model, vertexInfo)
-                            .IfSome(keyExpression =>
+                        if (keyExpression is LambdaExpression lambdaExpression)
+                        {
+                            if (lambdaExpression.Body is MemberExpression memberExpression)
                             {
-                                if (keyExpression is LambdaExpression lambdaExpression)
-                                {
-                                    if (lambdaExpression.Body is MemberExpression memberExpression)
-                                    {
-                                        query = query.AddStep<string>("partitionKey", memberExpression.Member.Name);
-                                        return;
-                                    }
-                                }
+                                propertyQuery = propertyQuery.AddStep<string>("partitionKey", memberExpression.Member.Name);
+                                return;
+                            }
+                        }
 
-                                throw new NotSupportedException();
-                            });
-
-                        var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
-                        if (properties.Length > 0)
-                            // ReSharper disable once CoVariantArrayConversion
-                            query = query.AddStep<string>("properties", properties);
-
-                        return query
-                            .AddStep<string>("ifNotExists")
-                            .AddStep<string>("create");
+                        throw new NotSupportedException();
                     });
+
+                var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
+                if (properties.Length > 0)
+                    // ReSharper disable once CoVariantArrayConversion
+                    propertyQuery = propertyQuery.AddStep<string>("properties", properties);
+
+                yield return propertyQuery
+                    .AddStep<string>("ifNotExists")
+                    .AddStep<string>("create");
+
+                var indexExpressions = this.GetSecondaryIndexExpression(model, vertexInfo).ToArray();
+
+                if (indexExpressions.Length > 0)
+                {
+                    var indexQuery = baseQuery
+                        .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                        .AddStep<string>("secondary");
+
+                    foreach (var secondaryIndexExpression in indexExpressions)
+                    {
+                        if (secondaryIndexExpression is LambdaExpression lambdaExpression)
+                        {
+                            var body = lambdaExpression.Body.StripConvert();
+                            if (body is MemberExpression member)
+                            {
+                                indexQuery = indexQuery
+                                    .AddStep<string>("by", member.Member.Name);
+                            }
+                        }
+                    }
+
+                    yield return indexQuery;
+                }
             }
 
             private Option<Expression> TryGetPartitionKeyExpression(IGraphModel model, VertexInfo vertexInfo)
@@ -152,6 +180,22 @@ namespace Dse
 
                             return Option<Expression>.None;
                         });
+            }
+
+            private IEnumerable<Expression> GetSecondaryIndexExpression(IGraphModel model, VertexInfo vertexInfo)
+            {
+                var ret = (IEnumerable<Expression>)vertexInfo.SecondaryIndexes;
+                var baseType = vertexInfo.ElementType.GetTypeInfo().BaseType;
+
+                if (baseType != null)
+                {
+                    ret = ret.Concat(model.VertexTypes
+                        .TryGetValue(baseType)
+                        .AsEnumerable()
+                        .SelectMany(baseVertexInfo => this.GetSecondaryIndexExpression(model, baseVertexInfo)));
+                }
+
+                return ret;
             }
 
             private IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(IGraphModel model, IGremlinQueryProvider queryProvider)
