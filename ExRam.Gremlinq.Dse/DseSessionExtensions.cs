@@ -158,7 +158,8 @@ namespace Dse
                         }
                     }
 
-                    yield return indexQuery;
+                    yield return indexQuery
+                        .AddStep<string>("add");
                 }
             }
 
