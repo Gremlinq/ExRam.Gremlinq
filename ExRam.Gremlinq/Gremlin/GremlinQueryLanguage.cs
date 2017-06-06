@@ -528,8 +528,8 @@ namespace ExRam.Gremlinq
             if (binaryExpression != null)
             {
                 object constant;
-                var left = StripConvert(binaryExpression.Left);
-                var right = StripConvert(binaryExpression.Right);
+                var left = binaryExpression.Left.StripConvert();
+                var right = binaryExpression.Right.StripConvert();
 
                 var constantExpression = right as ConstantExpression;
                 if (constantExpression != null)
@@ -552,9 +552,7 @@ namespace ExRam.Gremlinq
 
                 if (left is MemberExpression leftMemberExpression)
                 {
-                    var memberArgument = StripConvert(leftMemberExpression.Expression);
-
-                    if (predicate.Parameters[0] == memberArgument)
+                    if (predicate.Parameters[0] == leftMemberExpression.Expression.StripConvert())
                     {
                         if (predicateArgument != null)
                             return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
@@ -576,15 +574,6 @@ namespace ExRam.Gremlinq
             }
 
             throw new NotSupportedException();
-        }
-
-        private static Expression StripConvert(Expression expression)
-        {
-            var unaryExpression = expression as UnaryExpression;
-            if (unaryExpression != null && expression.NodeType == ExpressionType.Convert)
-                return StripConvert(unaryExpression.Operand);
-
-            return expression;
         }
 
         private static string[] GetDerivedLabelNames<T>(this IGraphModel model)
