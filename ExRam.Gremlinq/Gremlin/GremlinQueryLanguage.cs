@@ -543,17 +543,28 @@ namespace ExRam.Gremlinq
                     constant = getterLambda();
                 }
 
-                var predicateArgument = GremlinQueryLanguage.SupportedComparisons
-                    .TryGetValue(binaryExpression.NodeType)
-                    .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
-                    .IfNone(constant);
-                
+                var predicateArgument = constant != null
+                    ? GremlinQueryLanguage.SupportedComparisons
+                        .TryGetValue(binaryExpression.NodeType)
+                        .Map(predicateName => (object) new GremlinPredicate(predicateName, constant))
+                        .IfNone(constant)
+                    : null;
+
                 if (left is MemberExpression leftMemberExpression)
                 {
                     var memberArgument = StripConvert(leftMemberExpression.Expression);
 
-                    if (memberArgument == predicate.Parameters[0])
-                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                    if (predicate.Parameters[0] == memberArgument)
+                    {
+                        if (predicateArgument != null)
+                            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+
+                        if (binaryExpression.NodeType == ExpressionType.Equal)
+                            return query.Not(_ => _.AddStep<T>("has", leftMemberExpression.Member.Name));
+
+                        if (binaryExpression.NodeType == ExpressionType.NotEqual)
+                            return query.AddStep<T>("has", leftMemberExpression.Member.Name);
+                    }
                 }
                 else if (left is ParameterExpression leftParameterExpression)
                 {

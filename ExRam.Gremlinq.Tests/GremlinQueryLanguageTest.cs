@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_not_int_property()
+        public void V_ofType_has_unequal_int_property()
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
@@ -116,6 +116,42 @@ namespace ExRam.Gremlinq.Tests
             query.queryString
                 .Should()
                 .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', neq(36))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_no_string_property()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Where(t => t.Name == null)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').not(__.has('Name'))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_string_property_exists()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<SomeDerivedEntity>()
+                .Where(t => t.Name != null)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('SomeDerivedEntity').has('Name')");
 
             query.parameters
                 .Should()
