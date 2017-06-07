@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
 {
-    internal struct SpecialGremlinString : IGremlinSerializable
+    public struct SpecialGremlinString : IGremlinSerializable
     {
         private readonly string _value;
 
