@@ -165,6 +165,87 @@ namespace ExRam.Gremlinq
             return model;
         }
 
+        public static IGraphSchema ToGraphSchema(this IGraphModel model)
+        {
+            var schema = GraphSchema.Empty;
+
+            var propertyKeys = new Dictionary<string, Type>();
+
+            foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
+            {
+                foreach (var property in vertexType.ElementType.GetProperties())
+                {
+                    var propertyType = property.PropertyType;
+
+                    while (true)
+                    {
+                        if (propertyType.GetTypeInfo().IsEnum)
+                            propertyType = Enum.GetUnderlyingType(propertyType);
+                        else
+                        {
+                            var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
+                            if (maybeNullableType != null)
+                                propertyType = maybeNullableType;
+                            else
+                                break;
+                        }
+                    }
+
+                    if (propertyKeys.TryGetValue(property.Name, out var existingType))
+                    {
+                        if (existingType != propertyType) //TODO: Support any kind of inheritance here?
+                            throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
+                    }
+                    else
+                    {
+                        propertyKeys.Add(property.Name, propertyType);
+                    }
+                }
+            }
+
+            schema = propertyKeys
+                .Aggregate(
+                    schema,
+                    (closureSchema, propertyKvp) => closureSchema.Property(propertyKvp.Key, propertyKvp.Value));
+
+            schema = model.VertexTypes.Values
+                .Aggregate(
+                    schema,
+                    (closureSchema, vertexType) => closureSchema.VertexLabel(
+                        vertexType.Label,
+                        vertexType.ElementType
+                            .GetProperties()
+                            .Select(property => property.Name)
+                            .ToImmutableList(),
+                        vertexType
+                            .TryGetPartitionKeyExpression(model)
+                            .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member
+                                .Name)
+                            .AsEnumerable()
+                            .ToImmutableList(),
+                        vertexType
+                            .SecondaryIndexes
+                            .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                            .ToImmutableList()));
+
+            schema = model.EdgeTypes.Values
+                .Aggregate(
+                    schema,
+                    (closureSchema, edgeType) => closureSchema.EdgeLabel(
+                        edgeType.Label,
+                        edgeType.ElementType.GetProperties().Select(property => property.Name).ToImmutableList()));
+
+            schema = model.Connections
+                .Aggregate(
+                    schema,
+                    (closureSchema, connectionTuple) => closureSchema.Connection(
+                        model.TryGetLabelOfType(connectionTuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */)),
+                        model.TryGetLabelOfType(connectionTuple.Item2).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */)),
+                        model.TryGetLabelOfType(connectionTuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */))));
+
+            return schema;
+        }
+        
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
         {
             return model.VertexTypes
@@ -227,6 +308,26 @@ namespace ExRam.Gremlinq
             return model.Connections.Contains(tuple)
                 ? model
                 : new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
+        }
+
+        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IGraphModel model)
+        {
+            return vertexTypeInfo.PrimaryKey
+                .Match(
+                    _ => (Option<Expression>)_,
+                    () =>
+                    {
+                        var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
+
+                        if (baseType != null)
+                        {
+                            return model.VertexTypes
+                                .TryGetValue(baseType)
+                                .Bind(baseVertexInfo => baseVertexInfo.TryGetPartitionKeyExpression(model));
+                        }
+
+                        return Option<Expression>.None;
+                    });
         }
     }
 }
