@@ -146,30 +146,6 @@ namespace ExRam.Gremlinq
             return model.AddConnection(typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
         }
 
-        private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
-        {
-            var outVertexInfo = model.VertexTypes
-                .TryGetValue(outVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
-
-            var inVertexInfo = model.VertexTypes
-                .TryGetValue(inVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
-
-            var connectionEdgeInfo = model.EdgeTypes
-                .TryGetValue(edgeType)
-                .Map(edgeInfo => edgeInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
-
-            var tuple = (outVertexInfo, connectionEdgeInfo, inVertexInfo);
-
-            return model.Connections.Contains(tuple)
-                ? model
-                : new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
-        }
-
         public static IGraphModel EdgeConnectionClosure(this IGraphModel model)
         {
             foreach (var connection in model.Connections)
@@ -227,6 +203,30 @@ namespace ExRam.Gremlinq
                 .Cast<GraphElementInfo>()
                 .Concat(model.EdgeTypes.Values)
                 .Where(elementInfo => (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
+        }
+
+        private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
+        {
+            var outVertexInfo = model.VertexTypes
+                .TryGetValue(outVertexType)
+                .Map(vertexInfo => vertexInfo.ElementType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
+
+            var inVertexInfo = model.VertexTypes
+                .TryGetValue(inVertexType)
+                .Map(vertexInfo => vertexInfo.ElementType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
+
+            var connectionEdgeInfo = model.EdgeTypes
+                .TryGetValue(edgeType)
+                .Map(edgeInfo => edgeInfo.ElementType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
+
+            var tuple = (outVertexInfo, connectionEdgeInfo, inVertexInfo);
+
+            return model.Connections.Contains(tuple)
+                ? model
+                : new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
         }
     }
 }
