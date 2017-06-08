@@ -148,18 +148,18 @@ namespace ExRam.Gremlinq
 
         private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
         {
-            var outVertexInfo = model
-                .TryGetVertexInfo(outVertexType)
+            var outVertexInfo = model.VertexTypes
+                .TryGetValue(outVertexType)
                 .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
 
-            var inVertexInfo = model
-                .TryGetVertexInfo(inVertexType)
+            var inVertexInfo = model.VertexTypes
+                .TryGetValue(inVertexType)
                 .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
 
-            var connectionEdgeInfo = model
-                .TryGetEdgeInfo(edgeType)
+            var connectionEdgeInfo = model.EdgeTypes
+                .TryGetValue(edgeType)
                 .Map(edgeInfo => edgeInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
 
@@ -191,12 +191,12 @@ namespace ExRam.Gremlinq
 
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
         {
-            return model
-                .TryGetVertexInfo(type)
+            return model.VertexTypes
+                .TryGetValue(type)
                 .Match(
                     _ => _,
-                    () => model
-                        .TryGetEdgeInfo(type)
+                    () => model.EdgeTypes
+                        .TryGetValue(type)
                         .Map(_ => (GraphElementInfo) _))
                 .Map(_ => _.Label);
         }
@@ -227,18 +227,6 @@ namespace ExRam.Gremlinq
                 .Cast<GraphElementInfo>()
                 .Concat(model.EdgeTypes.Values)
                 .Where(elementInfo => (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
-        }
-
-        private static Option<VertexInfo> TryGetVertexInfo(this IGraphModel model, Type type)
-        {
-            return model.VertexTypes
-                .TryGetValue(type);
-        }
-
-        private static Option<EdgeInfo> TryGetEdgeInfo(this IGraphModel model, Type type)
-        {
-            return model.EdgeTypes
-                .TryGetValue(type);
         }
     }
 }
