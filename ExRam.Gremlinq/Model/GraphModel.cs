@@ -201,19 +201,19 @@ namespace ExRam.Gremlinq
                 .Map(_ => _.Label);
         }
 
-        public static Option<Type> TryGetVertexTypeOfLabel(this IGraphModel model, string label)
+        internal static Option<Type> TryGetVertexTypeOfLabel(this IGraphModel model, string label)
         {
             return model.VertexTypes.Values
                 .TryGetElementTypeOfLabel(label);
         }
 
-        public static Option<Type> TryGetEdgeTypeOfLabel(this IGraphModel model, string label)
+        internal static Option<Type> TryGetEdgeTypeOfLabel(this IGraphModel model, string label)
         {
             return model.EdgeTypes.Values
                 .TryGetElementTypeOfLabel(label);
         }
 
-        public static Option<Type> TryGetElementTypeOfLabel(this IEnumerable<GraphElementInfo> elementInfos, string label)
+        internal static Option<Type> TryGetElementTypeOfLabel(this IEnumerable<GraphElementInfo> elementInfos, string label)
         {
             return elementInfos
                 .Where(elementInfo => elementInfo.Label.Equals(label, StringComparison.OrdinalIgnoreCase))
