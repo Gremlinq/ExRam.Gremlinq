@@ -5,8 +5,8 @@ namespace ExRam.Gremlinq
 {
     public interface IGraphModel
     {
-        IImmutableDictionary<Type, VertexInfo> VertexTypes { get; }
-        IImmutableDictionary<Type, EdgeInfo> EdgeTypes { get; }
+        IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
+        IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
         IImmutableList<(Type, Type, Type)> Connections { get; }
     }
 }

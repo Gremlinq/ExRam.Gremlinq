@@ -5,9 +5,9 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class VertexInfo : GraphElementInfo
+    public sealed class VertexTypeInfo : GraphElementInfo
     {
-        public VertexInfo(Type elementType, string label, ImmutableList<Expression> secondaryIndexes, Option<Expression> primaryKey = default(Option<Expression>)) : base(elementType, label)
+        public VertexTypeInfo(Type elementType, string label, ImmutableList<Expression> secondaryIndexes, Option<Expression> primaryKey = default(Option<Expression>)) : base(elementType, label)
         {
             SecondaryIndexes = secondaryIndexes;
             PrimaryKey = primaryKey;

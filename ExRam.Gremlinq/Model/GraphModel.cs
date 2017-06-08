@@ -12,71 +12,71 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableDictionary<Type, VertexInfo> vertexTypes, IImmutableDictionary<Type, EdgeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
+            public GraphModelImpl(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
             {
                 this.VertexTypes = vertexTypes;
                 this.EdgeTypes = edgeTypes;
                 this.Connections = connections;
             }
 
-            public IImmutableDictionary<Type, VertexInfo> VertexTypes { get; }
+            public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
 
-            public IImmutableDictionary<Type, EdgeInfo> EdgeTypes { get; }
+            public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
 
             public IImmutableList<(Type, Type, Type)> Connections { get; }
         }
 
-        private sealed class VertexInfoBuilder<T> : IVertexInfoBuilder<T>
+        private sealed class VertexTypeInfoBuilder<T> : IVertexTypeInfoBuilder<T>
         {
-            private readonly VertexInfo _info;
+            private readonly VertexTypeInfo _typeInfo;
 
-            public VertexInfoBuilder(VertexInfo info)
+            public VertexTypeInfoBuilder(VertexTypeInfo typeInfo)
             {
-                this._info = info;
+                this._typeInfo = typeInfo;
             }
 
-            public VertexInfo Build()
+            public VertexTypeInfo Build()
             {
-                return this._info;
+                return this._typeInfo;
             }
 
-            public IVertexInfoBuilder<T> Label(string label)
+            public IVertexTypeInfoBuilder<T> Label(string label)
             {
-                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, label, this._info.SecondaryIndexes, this._info.PrimaryKey));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label, this._typeInfo.SecondaryIndexes, this._typeInfo.PrimaryKey));
             }
 
-            public IVertexInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression)
+            public IVertexTypeInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression)
             {
-                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, this._info.SecondaryIndexes.Add(indexExpression), this._info.PrimaryKey));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes.Add(indexExpression), this._typeInfo.PrimaryKey));
             }
 
-            public IVertexInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
+            public IVertexTypeInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
             {
-                return new VertexInfoBuilder<T>(new VertexInfo(this._info.ElementType, this._info.Label, this._info.SecondaryIndexes, expression));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes, expression));
             }
         }
 
-        private sealed class EdgeInfoBuilder<T> : IEdgeInfoBuilder<T>
+        private sealed class EdgeTypeInfoBuilder<T> : IEdgeTypeInfoBuilder<T>
         {
-            private readonly EdgeInfo _info;
+            private readonly EdgeTypeInfo _typeInfo;
 
-            public EdgeInfoBuilder(EdgeInfo info)
+            public EdgeTypeInfoBuilder(EdgeTypeInfo typeInfo)
             {
-                this._info = info;
+                this._typeInfo = typeInfo;
             }
 
-            public EdgeInfo Build()
+            public EdgeTypeInfo Build()
             {
-                return this._info;
+                return this._typeInfo;
             }
 
-            public IEdgeInfoBuilder<T> Label(string label)
+            public IEdgeTypeInfoBuilder<T> Label(string label)
             {
-                return new EdgeInfoBuilder<T>(new EdgeInfo(this._info.ElementType, label));
+                return new EdgeTypeInfoBuilder<T>(new EdgeTypeInfo(this._typeInfo.ElementType, label));
             }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, VertexInfo>.Empty, ImmutableDictionary<Type, EdgeInfo>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, VertexTypeInfo>.Empty, ImmutableDictionary<Type, EdgeTypeInfo>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
         {
@@ -97,23 +97,23 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => new VertexInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()), ImmutableList<Expression>.Empty)),
+                        type => new VertexTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()), ImmutableList<Expression>.Empty)),
                 assembly
                     .DefinedTypes
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => new EdgeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))),
+                        type => new EdgeTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))),
                 ImmutableList<(Type, Type, Type)>.Empty);
         }
 
-        public static IGraphModel Edge<T>(this IGraphModel model, Func<IEdgeInfoBuilder<T>, IEdgeInfoBuilder<T>> builderAction)
+        public static IGraphModel EdgeType<T>(this IGraphModel model, Func<IEdgeTypeInfoBuilder<T>, IEdgeTypeInfoBuilder<T>> builderAction)
         {
             var type = typeof(T);
 
             var edgeInfo = model.EdgeTypes
                 .TryGetValue(type)
-                .IfNone(new EdgeInfo(type, null));
+                .IfNone(new EdgeTypeInfo(type, null));
 
             return model.VertexTypes.Keys
                 .Where(vertexType => vertexType.IsAssignableFrom(type) || type.IsAssignableFrom(vertexType))
@@ -121,16 +121,16 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.SetItem(type, builderAction(new EdgeInfoBuilder<T>(edgeInfo)).Build()), model.Connections));
+                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.SetItem(type, builderAction(new EdgeTypeInfoBuilder<T>(edgeInfo)).Build()), model.Connections));
         }
 
-        public static IGraphModel Vertex<T>(this IGraphModel model, Func<IVertexInfoBuilder<T>, IVertexInfoBuilder<T>> builderAction)
+        public static IGraphModel VertexType<T>(this IGraphModel model, Func<IVertexTypeInfoBuilder<T>, IVertexTypeInfoBuilder<T>> builderAction)
         {
             var type = typeof(T);
 
             var vertexInfo = model.VertexTypes
                 .TryGetValue(type)
-                .IfNone(new VertexInfo(type, null, ImmutableList<Expression>.Empty));
+                .IfNone(new VertexTypeInfo(type, null, ImmutableList<Expression>.Empty));
 
             return model.EdgeTypes.Keys
                 .Where(edgeType => edgeType.IsAssignableFrom(type) || type.IsAssignableFrom(edgeType))
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexTypes.SetItem(type, builderAction(new VertexInfoBuilder<T>(vertexInfo)).Build()), model.EdgeTypes, model.Connections));
+                    () => new GraphModelImpl(model.VertexTypes.SetItem(type, builderAction(new VertexTypeInfoBuilder<T>(vertexInfo)).Build()), model.EdgeTypes, model.Connections));
         }
 
         public static IGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IGraphModel model)

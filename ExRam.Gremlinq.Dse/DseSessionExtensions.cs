@@ -104,16 +104,16 @@ namespace Dse
                     .SelectMany(vertexInfo => this.CreateQueriesForVertexInfo(vertexInfo, model, queryProvider));
             }
 
-            private IEnumerable<IGremlinQuery<string>> CreateQueriesForVertexInfo(VertexInfo vertexInfo, IGraphModel model, IGremlinQueryProvider queryProvider)
+            private IEnumerable<IGremlinQuery<string>> CreateQueriesForVertexInfo(VertexTypeInfo vertexTypeInfo, IGraphModel model, IGremlinQueryProvider queryProvider)
             {
                 var baseQuery = GremlinQuery
                     .Create("schema", queryProvider)
-                    .AddStep<string>("vertexLabel", vertexInfo.Label);
+                    .AddStep<string>("vertexLabel", vertexTypeInfo.Label);
 
                 var propertyQuery = baseQuery;
 
                 this
-                    .TryGetPartitionKeyExpression(model, vertexInfo)
+                    .TryGetPartitionKeyExpression(model, vertexTypeInfo)
                     .IfSome(keyExpression =>
                     {
                         if (keyExpression is LambdaExpression lambdaExpression)
@@ -128,7 +128,7 @@ namespace Dse
                         throw new NotSupportedException();
                     });
 
-                var properties = vertexInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
+                var properties = vertexTypeInfo.ElementType.GetProperties().Select(property => property.Name).ToArray();
                 if (properties.Length > 0)
                     // ReSharper disable once CoVariantArrayConversion
                     propertyQuery = propertyQuery.AddStep<string>("properties", properties);
@@ -137,7 +137,7 @@ namespace Dse
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create");
 
-                var indexExpressions = this.GetSecondaryIndexExpression(model, vertexInfo).ToArray();
+                var indexExpressions = this.GetSecondaryIndexExpression(model, vertexTypeInfo).ToArray();
 
                 if (indexExpressions.Length > 0)
                 {
@@ -163,14 +163,14 @@ namespace Dse
                 }
             }
 
-            private Option<Expression> TryGetPartitionKeyExpression(IGraphModel model, VertexInfo vertexInfo)
+            private Option<Expression> TryGetPartitionKeyExpression(IGraphModel model, VertexTypeInfo vertexTypeInfo)
             {
-                return vertexInfo.PrimaryKey
+                return vertexTypeInfo.PrimaryKey
                     .Match(
                         _ => (Option<Expression>)_,
                         () =>
                         {
-                            var baseType = vertexInfo.ElementType.GetTypeInfo().BaseType;
+                            var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
 
                             if (baseType != null)
                             {
@@ -183,10 +183,10 @@ namespace Dse
                         });
             }
 
-            private IEnumerable<Expression> GetSecondaryIndexExpression(IGraphModel model, VertexInfo vertexInfo)
+            private IEnumerable<Expression> GetSecondaryIndexExpression(IGraphModel model, VertexTypeInfo vertexTypeInfo)
             {
-                var ret = (IEnumerable<Expression>)vertexInfo.SecondaryIndexes;
-                var baseType = vertexInfo.ElementType.GetTypeInfo().BaseType;
+                var ret = (IEnumerable<Expression>)vertexTypeInfo.SecondaryIndexes;
+                var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
 
                 if (baseType != null)
                 {
