@@ -82,93 +82,54 @@ namespace Dse
         {
             var queryProvider = new DseGraphQueryProvider(session);
 
-            var propertyQueries = schema.PropertySchemaInfos
-                .Select(propertyInfo =>
-                {
-                    var query = GremlinQuery.Create("schema", queryProvider);
-
-                    query = query
-                        .AddStep<string>("propertyKey", propertyInfo.Name);
-
-                    query = NativeTypeSteps
+            await schema.PropertySchemaInfos
+                .Select(propertyInfo => GremlinQuery
+                    .Create("schema", queryProvider)
+                    .AddStep<string>("propertyKey", propertyInfo.Name)
+                    .AddStep<string>(NativeTypeSteps
                         .TryGetValue(propertyInfo.Type)
-                        .Match(
-                            step => query.AddStep<string>(step),
-                            () => throw new InvalidOperationException());
-
-                    return query
-                        .AddStep<string>("single")
-                        .AddStep<string>("ifNotExists")
-                        .AddStep<string>("create");
-                });
-
-            var vertexLabelQueries = schema.VertexSchemaInfos
-                .Select(vertexSchemaInfo =>
-                {
-                    var query = GremlinQuery
-                        .Create("schema", queryProvider)
-                        .AddStep<string>("vertexLabel", vertexSchemaInfo.Label);
-
-                    query = vertexSchemaInfo.PartitionKeyProperties
+                        .IfNone(() => throw new InvalidOperationException()))
+                    .AddStep<string>("single")
+                    .AddStep<string>("ifNotExists")
+                    .AddStep<string>("create"))
+                .Concat(schema.VertexSchemaInfos
+                    .Select(vertexSchemaInfo => vertexSchemaInfo.PartitionKeyProperties
                         .Aggregate(
-                            query,
-                            (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property));
-
-                    if (!vertexSchemaInfo.Properties.IsEmpty)
-                        query = query.AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray());
-
-                    return query.AddStep<string>("create");
-                });
-
-            var indexQueries = schema.VertexSchemaInfos
-                .Where(vertexSchemaInfo => !vertexSchemaInfo.IndexProperties.IsEmpty)
-                .Select(vertexSchemaInfo =>
-                {
-                    var indexQuery = GremlinQuery
-                        .Create("schema", queryProvider)
-                        .AddStep<string>("vertexLabel", vertexSchemaInfo.Label)
-                        .AddStep<string>("index", Guid.NewGuid().ToString("N"))
-                        .AddStep<string>("secondary");
-
-                    indexQuery = vertexSchemaInfo.IndexProperties
+                            GremlinQuery
+                                .Create("schema", queryProvider)
+                                .AddStep<string>("vertexLabel", vertexSchemaInfo.Label),
+                            (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
+                        .AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray())
+                        .AddStep<string>("create")))
+                .Concat(schema.VertexSchemaInfos
+                    .Where(vertexSchemaInfo => !vertexSchemaInfo.IndexProperties.IsEmpty)
+                    .Select(vertexSchemaInfo => vertexSchemaInfo.IndexProperties
                         .Aggregate(
-                            indexQuery,
-                            (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty));
-
-                    return indexQuery
-                        .AddStep<string>("add");
-                });
-
-            var edgeLabelQueries = schema.EdgeSchemaInfos
-                .Select(edgeSchemaInfo =>
-                {
-                    var query = GremlinQuery
-                        .Create("schema", queryProvider)
-                        .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
-                        .AddStep<string>("single");
-
-                    if (!edgeSchemaInfo.Properties.IsEmpty)
-                        // ReSharper disable once CoVariantArrayConversion
-                        query = query.AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray());
-
-                    return schema.Connections
+                            GremlinQuery
+                                .Create("schema", queryProvider)
+                                .AddStep<string>("vertexLabel", vertexSchemaInfo.Label)
+                                .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                                .AddStep<string>("secondary"),
+                            (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
+                        .AddStep<string>("add"))
+                .Concat(schema.EdgeSchemaInfos
+                    .Select(edgeSchemaInfo => schema.Connections
                         .Where(tuple => tuple.Item2 == edgeSchemaInfo.Label)
                         .Aggregate(
-                            query,
+                            GremlinQuery
+                                .Create("schema", queryProvider)
+                                .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
+                                .AddStep<string>("single")
+                                .AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray()),
                             (closureQuery, tuple) => closureQuery.AddStep<string>(
                                 "connection",
                                 tuple.Item1,
                                 tuple.Item3))
                         .AddStep<string>("ifNotExists")
-                        .AddStep<string>("create");
-                });
-
-            var queries = propertyQueries.Concat(vertexLabelQueries).Concat(indexQueries).Concat(edgeLabelQueries).ToArray();
-
-            foreach (var query in queries)
-            {
-                await query.Execute().LastOrDefault(ct);
-            }
+                        .AddStep<string>("create"))))
+                .ToAsyncEnumerable()
+                .SelectMany(query=> query.Execute())
+                .LastOrDefault(ct);
         }
     }
 }
