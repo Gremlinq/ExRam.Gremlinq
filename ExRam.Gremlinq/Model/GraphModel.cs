@@ -8,7 +8,7 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public static class GremlinModel
+    public static class GraphModel
     {
         private sealed class GraphModelImpl : IGraphModel
         {

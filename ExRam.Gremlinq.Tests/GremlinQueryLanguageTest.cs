@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests
         {
             this._queryProvider = Mock
                 .Of<IGremlinQueryProvider>()
-                .WithModel(GremlinModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
         }
 
         [Fact]

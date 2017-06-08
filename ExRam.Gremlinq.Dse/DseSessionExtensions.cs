@@ -50,7 +50,7 @@ namespace Dse
                     .Select(node => (T)(object)node.ToString());
             }
 
-            public IGraphModel Model => GremlinModel.Empty;
+            public IGraphModel Model => GraphModel.Empty;
         }
 
         private sealed class DseGraphSchemaCreator : IGraphSchemaCreator
