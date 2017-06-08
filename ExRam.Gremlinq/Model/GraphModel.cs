@@ -168,7 +168,6 @@ namespace ExRam.Gremlinq
         public static IGraphSchema ToGraphSchema(this IGraphModel model)
         {
             var schema = GraphSchema.Empty;
-
             var propertyKeys = new Dictionary<string, Type>();
 
             foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
@@ -197,9 +196,7 @@ namespace ExRam.Gremlinq
                             throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
                     }
                     else
-                    {
                         propertyKeys.Add(property.Name, propertyType);
-                    }
                 }
             }
 
@@ -235,15 +232,13 @@ namespace ExRam.Gremlinq
                         edgeType.Label,
                         edgeType.ElementType.GetProperties().Select(property => property.Name).ToImmutableList()));
 
-            schema = model.Connections
+            return model.Connections
                 .Aggregate(
                     schema,
                     (closureSchema, connectionTuple) => closureSchema.Connection(
                         model.TryGetLabelOfType(connectionTuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */)),
                         model.TryGetLabelOfType(connectionTuple.Item2).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */)),
                         model.TryGetLabelOfType(connectionTuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Better exception */))));
-
-            return schema;
         }
         
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
