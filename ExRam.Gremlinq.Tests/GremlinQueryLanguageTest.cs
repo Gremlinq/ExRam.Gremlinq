@@ -22,12 +22,12 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddV(new Description { Id = "id", Value = "A description of something." })
+                .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.addV('Description').property('Id', 'id').property('Value', 'A description of something.')");
+                .Be("g.addV('Language').property('Id', 'id').property('IetfLanguageTag', 'en')");
 
             query.parameters
                 .Should()
@@ -39,12 +39,12 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddV(new Description { Id = "id" })
+                .AddV(new Language { Id = "id" })
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.addV('Description').property('Id', 'id')");
+                .Be("g.addV('Language').property('Id', 'id')");
 
             query.parameters
                 .Should()
@@ -56,12 +56,12 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity')");
+                .Be("g.V().hasLabel('User')");
 
             query.parameters
                 .Should()
@@ -73,13 +73,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty == 36)
+                .V<User>()
+                .Where(t => t.Age == 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', eq(36))");
+                .Be("g.V().hasLabel('User').has('Age', eq(36))");
 
             query.parameters
                 .Should()
@@ -91,13 +91,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => (object)t.SomeIntProperty == (object)36)
+                .V<User>()
+                .Where(t => (object)t.Age == (object)36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', eq(36))");
+                .Be("g.V().hasLabel('User').has('Age', eq(36))");
 
             query.parameters
                 .Should()
@@ -109,13 +109,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty != 36)
+                .V<User>()
+                .Where(t => t.Age != 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', neq(36))");
+                .Be("g.V().hasLabel('User').has('Age', neq(36))");
 
             query.parameters
                 .Should()
@@ -127,13 +127,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Where(t => t.Name == null)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').not(__.has('Name'))");
+                .Be("g.V().hasLabel('User').not(__.has('Name'))");
 
             query.parameters
                 .Should()
@@ -145,13 +145,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Where(t => t.Name != null)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('Name')");
+                .Be("g.V().hasLabel('User').has('Name')");
 
             query.parameters
                 .Should()
@@ -163,13 +163,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty < 36)
+                .V<User>()
+                .Where(t => t.Age < 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', lt(36))");
+                .Be("g.V().hasLabel('User').has('Age', lt(36))");
 
             query.parameters
                 .Should()
@@ -181,13 +181,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty <= 36)
+                .V<User>()
+                .Where(t => t.Age <= 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', lte(36))");
+                .Be("g.V().hasLabel('User').has('Age', lte(36))");
 
             query.parameters
                 .Should()
@@ -199,13 +199,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty > 36)
+                .V<User>()
+                .Where(t => t.Age > 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', gt(36))");
+                .Be("g.V().hasLabel('User').has('Age', gt(36))");
 
             query.parameters
                 .Should()
@@ -217,13 +217,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Where(t => t.SomeIntProperty >= 36)
+                .V<User>()
+                .Where(t => t.Age >= 36)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').has('SomeIntProperty', gte(36))");
+                .Be("g.V().hasLabel('User').has('Age', gte(36))");
 
             query.parameters
                 .Should()
@@ -345,15 +345,16 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddE(new Describes())
+                .AddV(new User { Name = "Bob" })
+                .AddE(new LivesIn())
                 .To(__ => __
-                    .V<SomeDerivedEntity>()
-                    .Where(t => t.Id == "entityId"))
+                    .V<Country>()
+                    .Where(t => t.CountryCallingCode == "+49"))
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.addE('Describes').to(__.V().hasLabel('SomeDerivedEntity').has('Id', eq('entityId')))");
+                .Be("g.addV('User').property('Age', 0).property('Name', 'Bob').addE('LivesIn').to(__.V().hasLabel('Country').has('CountryCallingCode', eq('+49')))");
 
             query.parameters
                 .Should()
@@ -365,15 +366,16 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddV(new Description { Id = "id", Value = "Description" })
-                .As((_, d) => _
-                    .AddE(new Describes())
-                    .To(d))
+                .AddV(new Language { IetfLanguageTag = "en" })
+                .As((_, l) => _
+                    .AddV(new Country { CountryCallingCode = "+49" })
+                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .To(l))
                 .Serialize(false);
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).property(P4, P1).as(P5).addE(P6).to(P5)");
+                .Be("g.addV(P1).property(P2, P3).as(P4).addV(P5).property(P6, P7).addE(P8).property(P9, P10).to(P4)");
 
             query.parameters
                 .Should()
@@ -385,15 +387,16 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddV(new Description { Id = "id", Value = "Description" })
-                .As((_, d) => _
-                    .AddE(new Describes())
-                    .From(d))
+                .AddV(new Country { CountryCallingCode = "+49" })
+                .As((_, c) => _
+                    .AddV(new Language { IetfLanguageTag = "en" })
+                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .From(c))
                 .Serialize(false);
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).property(P4, P1).as(P5).addE(P6).from(P5)");
+                .Be("g.addV(P1).property(P2, P3).as(P4).addV(P5).property(P6, P7).addE(P8).property(P9, P10).from(P4)");
 
             query.parameters
                 .Should()
@@ -405,17 +408,17 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .And(
                     __ => __
-                        .InE<Describes>(),
+                        .InE<Knows>(),
                     __ => __
-                        .OutE<IsLocalizedIn>())
+                        .OutE<LivesIn>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').and(__.inE('Describes'), __.outE('IsLocalizedIn'))");
+                .Be("g.V().hasLabel('User').and(__.inE('Knows'), __.outE('LivesIn'))");
 
             query.parameters
                 .Should()
@@ -427,13 +430,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Drop()
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').drop()");
+                .Be("g.V().hasLabel('User').drop()");
 
             query.parameters
                 .Should()
@@ -445,13 +448,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .FilterWithLambda("it.property('str').value().length() == 2")
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').filter({it.property('str').value().length() == 2})");
+                .Be("g.V().hasLabel('User').filter({it.property('str').value().length() == 2})");
 
             query.parameters
                 .Should()
@@ -463,14 +466,14 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Order()
                 .ByMember(x => x.Name)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').order().by('Name', incr)");
+                .Be("g.V().hasLabel('User').order().by('Name', incr)");
 
             query.parameters
                 .Should()
@@ -482,14 +485,14 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Order()
                 .ByTraversal(__ => __.Values(x => x.Name))
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').order().by(__.values('Name'), incr)");
+                .Be("g.V().hasLabel('User').order().by(__.values('Name'), incr)");
 
             query.parameters
                 .Should()
@@ -501,14 +504,14 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Order()
                 .ByLambda("it.property('str').value().length()")
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').order().by({it.property('str').value().length()})");
+                .Be("g.V().hasLabel('User').order().by({it.property('str').value().length()})");
 
             query.parameters
                 .Should()
@@ -520,13 +523,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Values(x => x.Name)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').values('Name')");
+                .Be("g.V().hasLabel('User').values('Name')");
 
             query.parameters
                 .Should()
@@ -538,13 +541,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Values(x => x.Name, x => x.Id)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').values('Name', 'Id')");
+                .Be("g.V().hasLabel('User').values('Name', 'Id')");
 
             query.parameters
                 .Should()
@@ -574,12 +577,12 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
                 .V()
-                .OfType<SomeBaseEntity>()
+                .OfType<Authority>()
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeBaseEntity', 'SomeDerivedEntity')");
+                .Be("g.V().hasLabel('Authority', 'Company', 'User')");
 
             query.parameters
                 .Should()
@@ -591,13 +594,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .Repeat(__ => __.Out<Describes>())
+                .V<User>()
+                .Repeat(__ => __.Out<Knows>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').repeat(__.out('Describes'))");
+                .Be("g.V().hasLabel('User').repeat(__.out('Knows'))");
 
             query.parameters
                 .Should()
@@ -609,15 +612,15 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Union(
-                    __ => __.Out<Describes>(),
-                    __ => __.Out<IsLocalizedIn>())
+                    __ => __.Out<Knows>(),
+                    __ => __.Out<LivesIn>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').union(__.out('Describes'), __.out('IsLocalizedIn'))");
+                .Be("g.V().hasLabel('User').union(__.out('Knows'), __.out('LivesIn'))");
 
             query.parameters
                 .Should()
@@ -631,12 +634,12 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g", this._queryProvider)
                 .V()
                 .Optional(
-                    __ => __.Out<Describes>())
+                    __ => __.Out<Knows>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().optional(__.out('Describes'))");
+                .Be("g.V().optional(__.out('Knows'))");
 
             query.parameters
                 .Should()
@@ -649,12 +652,12 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
                 .V()
-                .Not(__ => __.Out<Describes>())
+                .Not(__ => __.Out<Knows>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.out('Describes'))");
+                .Be("g.V().not(__.out('Knows'))");
 
             query.parameters
                 .Should()
@@ -685,12 +688,12 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
                 .V()
-                .Not(__ => __.OfType<SomeBaseEntity>())
+                .Not(__ => __.OfType<Authority>())
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.hasLabel('SomeBaseEntity', 'SomeDerivedEntity'))");
+                .Be("g.V().not(__.hasLabel('Authority', 'Company', 'User'))");
 
             query.parameters
                 .Should()
@@ -702,13 +705,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .As(new StepLabel<SomeDerivedEntity>("a"))
+                .V<User>()
+                .As(new StepLabel<User>("a"))
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').as('a')");
+                .Be("g.V().hasLabel('User').as('a')");
 
             query.parameters
                 .Should()
@@ -720,8 +723,8 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
-                .As(new StepLabel<SomeDerivedEntity>("a"))
+                .V<User>()
+                .As(new StepLabel<User>("a"))
                 .Serialize(false);
 
             query.queryString
@@ -730,7 +733,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.parameters
                 .Should()
-                .Contain("P1", "SomeDerivedEntity")
+                .Contain("P1", "User")
                 .And
                 .Contain("P2", "a");
         }
@@ -738,18 +741,18 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_select()
         {
-            var stepLabel = new StepLabel<SomeDerivedEntity>("a");
+            var stepLabel = new StepLabel<User>("a");
 
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Serialize(true);
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('SomeDerivedEntity').as('a').select('a')");
+                .Be("g.V().hasLabel('User').as('a').select('a')");
 
             query.parameters
                 .Should()
@@ -759,11 +762,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_select_not_inlined()
         {
-            var stepLabel = new StepLabel<SomeDerivedEntity>("a");
+            var stepLabel = new StepLabel<User>("a");
 
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Serialize(false);
@@ -774,7 +777,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.parameters
                 .Should()
-                .Contain("P1", "SomeDerivedEntity")
+                .Contain("P1", "User")
                 .And
                 .Contain("P2", "a");
         }
@@ -784,11 +787,11 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .Branch(
                     _ => _.Values(x => x.Name),
-                    _ => _.Out<Describes>(),
-                    _ => _.In<Describes>())
+                    _ => _.Out<Knows>(),
+                    _ => _.In<Knows>())
                 .Serialize(false);
 
             query.queryString
@@ -801,10 +804,10 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .V<SomeDerivedEntity>()
+                .V<User>()
                 .BranchOnIdentity(
-                    _ => _.Out<Describes>(),
-                    _ => _.In<Describes>())
+                    _ => _.Out<Knows>(),
+                    _ => _.In<Knows>())
                 .Serialize(false);
 
             query.queryString

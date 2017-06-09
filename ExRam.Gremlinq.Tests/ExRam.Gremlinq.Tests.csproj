@@ -18,9 +18,6 @@
 
   <ItemGroup>
     <None Remove="app.config" />
-    <None Remove="Json\LanguageArray.json" />
-    <None Remove="Json\NestedLanguageArray.json" />
-    <None Remove="Json\TimeFrame.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,12 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Json\g_V_FromStandardPort.json" />
-    <EmbeddedResource Include="Json\Language1.json" />
-    <EmbeddedResource Include="Json\LanguageArray.json" />
-    <EmbeddedResource Include="Json\NestedLanguageArray.json" />
-    <EmbeddedResource Include="Json\TimeFrame.json" />
-    <EmbeddedResource Include="Json\Tuple.json" />
+    <EmbeddedResource Include="Json\Single_Language.json" />
+    <EmbeddedResource Include="Json\Array_of_Languages.json" />
+    <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
+    <EmbeddedResource Include="Json\Single_TimeFrame.json" />
+    <EmbeddedResource Include="Json\Tuple_of_User_Language.json" />
   </ItemGroup>
 
   <ItemGroup>
