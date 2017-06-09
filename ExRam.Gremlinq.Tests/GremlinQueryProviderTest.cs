@@ -22,5 +22,22 @@ namespace ExRam.Gremlinq.Tests
 
             queryProviderMock.Verify(x => x.Execute<Unit>(It.Is<IGremlinQuery<Unit>>(query => (query.Steps[0] is TerminalGremlinStep) && ((TerminalGremlinStep)query.Steps[0]).Name == "withStrategies" && ((TerminalGremlinStep)query.Steps[0]).Parameters.Count == 1)));
         }
+
+        [Fact]
+        public async Task Scalar()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Returns(AsyncEnumerable.Return("36"));
+
+            var value = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(Mock.Of<IGremlinQuery<int>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
+                .First();
+
+            value.Should().Be(36);
+        }
     }
 }

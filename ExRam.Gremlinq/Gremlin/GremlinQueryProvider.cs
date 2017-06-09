@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
@@ -11,6 +14,242 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
+    public static class JsonExtensions
+    {
+        private sealed class EnumerableJsonReader : JsonReader
+        {
+            private readonly IEnumerator<(JsonToken tokenType, object tokenValue)> _enumerator;
+
+            public EnumerableJsonReader(IEnumerator<(JsonToken tokenType, object tokenValue)> enumerator)
+            {
+                this._enumerator = enumerator;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                if (disposing)
+                    this._enumerator.Dispose();
+
+                base.Dispose(disposing);
+            }
+
+            public override bool Read()
+            {
+                return this._enumerator.MoveNext();
+            }
+
+            public override JsonToken TokenType => this._enumerator.Current.tokenType;
+
+            public override object Value => this._enumerator.Current.tokenValue;
+        }
+
+        public static IEnumerable<(JsonToken tokenType, object tokenValue)> ToTokenEnumerable(this JsonReader jsonReader)
+        {
+            while (jsonReader.Read())
+                yield return (jsonReader.TokenType, jsonReader.Value);
+        }
+
+        public static JsonReader ToJsonReader(this IEnumerable<(JsonToken tokenType, object tokenValue)> enumerable)
+        {
+            return new EnumerableJsonReader(enumerable.GetEnumerator());
+        }
+
+        public static IEnumerable<(JsonToken tokenType, object tokenValue)> Apply(this IEnumerable<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> transformation)
+        {
+            using (var e = transformation(source.GetEnumerator()))
+            {
+                while (e.MoveNext())
+                    yield return e.Current;
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> HidePropertyName(this IEnumerator<(JsonToken tokenType, object tokenValue)> enumerator, string property, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> innerTransformation)
+        {
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+
+                if (current.tokenType == JsonToken.PropertyName)
+                {
+                    if (property.Equals(current.tokenValue as string, StringComparison.Ordinal))
+                    {
+                        using (var inner = innerTransformation(enumerator))
+                        {
+                            while (inner.MoveNext())
+                            {
+                                yield return inner.Current;
+                            }
+                        }
+
+                        continue;
+                    }
+                }
+                
+                yield return current;
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> ReadValue(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
+        {
+            var openArrays = 0;
+            var openObjects = 0;
+
+            while (source.MoveNext())
+            {
+                var current = source.Current;
+
+                switch (current.tokenType)
+                {
+                    case JsonToken.StartObject:
+                        openObjects++;
+                        break;
+                    case JsonToken.StartArray:
+                        openArrays++;
+                        break;
+                    case JsonToken.EndObject:
+                        openObjects--;
+                        break;
+                    case JsonToken.EndArray:
+                        openArrays--;
+                        break;
+                }
+
+                yield return current;
+
+                if (openArrays == 0 && openObjects == 0)
+                    break;
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> Unwrap(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
+        {
+            if (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.StartObject)
+                {
+                    var openObjects = 0;
+
+                    while (source.MoveNext())
+                    {
+                        if (source.Current.tokenType == JsonToken.StartObject)
+                            openObjects++;
+                        else if (source.Current.tokenType == JsonToken.EndObject)
+                        {
+                            if (openObjects == 0)
+                                yield break;
+
+                            openObjects--;
+                        }
+
+                        yield return source.Current;
+                    }
+                }
+                else
+                {
+                    yield return source.Current;
+
+                    while (source.MoveNext())
+                        yield return source.Current;
+                }
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> TakeOne(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> innerTransformation)
+        {
+            while (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.StartArray)
+                {
+                    var openArrays = 1;
+
+                    using (var e = innerTransformation(source.ReadValue()))
+                    {
+                        while (e.MoveNext())
+                            yield return e.Current;
+                    }
+
+                    while (source.MoveNext())
+                    {
+                        if (source.Current.tokenType == JsonToken.StartArray)
+                            openArrays++;
+                        else if (source.Current.tokenType == JsonToken.EndArray)
+                            openArrays--;
+
+                        if (openArrays == 0)
+                            yield break;
+                    }
+                }
+                else
+                {
+                    yield return source.Current;
+                }
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> ExtractProperty(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string property)
+        {
+            while (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.PropertyName && property.Equals(source.Current.tokenValue as string))
+                {
+                    using (var e = source.ReadValue())
+                    {
+                        while (e.MoveNext())
+                            yield return e.Current;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyNode(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
+        {
+            while (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.PropertyName)
+                {
+                    yield return source.Current;
+
+                    using (var e = projection(source.ReadValue()))
+                    {
+                        while (e.MoveNext())
+                            yield return e.Current;
+                    }
+                }
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyNode(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string propertyName, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
+        {
+            while (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.PropertyName && propertyName.Equals(source.Current.tokenValue as string))
+                {
+                    yield return source.Current;
+
+                    using (var e = projection(source.ReadValue()))
+                    {
+                        while (e.MoveNext())
+                            yield return e.Current;
+                    }
+
+                    continue;
+                }
+
+                yield return source.Current;
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectToken(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<(JsonToken tokenType, object tokenValue), (JsonToken tokenType, object tokenValue)> projection)
+        {
+            while (source.MoveNext())
+            {
+                yield return projection(source.Current);
+            }
+        }
+    }
+
     public static class GremlinQueryProvider
     {
         private abstract class GremlinQueryProviderBase : IGremlinQueryProvider
@@ -98,80 +337,45 @@ namespace ExRam.Gremlinq
                     Converters = { new TimespanConverter() },
                     ContractResolver = new MemberInfoMappingsContractResolver(query.MemberInfoMappings),
                     TypeNameHandling = TypeNameHandling.Auto,
+                    MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                 };
 
                 return base
                     .Execute(query.Cast<string>())
                     .Select(json => json.StartsWith("{") || json.StartsWith("[")
-                        ? serializer.Deserialize<T>(new JTokenReader(this.TransformToken(JToken.Parse(json))))
+                        ? serializer.Deserialize<T>(new JsonTextReader(new StringReader(json))
+                            .ToTokenEnumerable()
+                            .Apply(e => e
+                                .HidePropertyName(
+                                    "id",
+                                    idSection => idSection
+                                        .Unwrap())
+                                .HidePropertyName(
+                                    "properties",
+                                    propertiesSection => propertiesSection
+                                        .Unwrap()
+                                        .SelectPropertyNode(prop => prop
+                                            .TakeOne(y => y
+                                                .Unwrap()
+                                                .ExtractProperty("value"))))
+                                .SelectToken(tuple => tuple.tokenType == JsonToken.PropertyName && "label".Equals(tuple.tokenValue)
+                                    ? (JsonToken.PropertyName, "$type")
+                                    : tuple)
+                                .SelectPropertyNode("$type", typeNode => typeNode
+                                    .SelectToken(tuple =>
+                                    {
+                                        if (tuple.tokenType == JsonToken.String)
+                                        {
+                                            return this.Model
+                                                .TryGetElementTypeOfLabel(tuple.tokenValue as string)
+                                                .Map(suitableType => (JsonToken.String, (object)suitableType.AssemblyQualifiedName))
+                                                .IfNone(tuple);
+                                        }
+
+                                        return tuple;
+                                    })))
+                            .ToJsonReader())
                         : JToken.Parse($"'{json}'").ToObject<T>());
-            }
-
-            private JToken TransformToken(JToken token)
-            {
-                if (token is JObject rootObject)
-                    return this.TransformObject(rootObject);
-
-                if (token is JArray array)
-                {
-                    for (var i = 0; i < array.Count; i++)
-                    {
-                        array[i] = this.TransformToken(array[i]);
-                    }
-
-                    return array;
-                }
-
-                return token;
-            }
-
-            private JObject TransformObject(JObject obj)
-            {
-                foreach (var propertyKvp in obj)
-                {
-                    if (propertyKvp.Value is JObject propertyKvpValue)
-                        obj[propertyKvp.Key] = this.TransformObject(propertyKvpValue);
-                }
-
-                var type = obj["type"]?.ToString().ToLower();
-
-                if (type == "vertex" || type == "edge")
-                {
-                    obj.Remove("id");
-                    var label = obj["label"]?.ToString();
-                    if (label != null)
-                    {
-                        var maybeSuitableType = type == "vertex"
-                            ? this.Model.TryGetVertexTypeOfLabel(label)
-                            : this.Model.TryGetEdgeTypeOfLabel(label);
-
-                        maybeSuitableType
-                            .IfSome(suitableType =>
-                            {
-                                obj.AddFirst(new JProperty("$type", suitableType.AssemblyQualifiedName));
-                                obj.Remove("type");
-                            });
-                    }
-
-                    if (obj["properties"] is JObject properties)
-                    {
-                        foreach (var propertyKvp in properties)
-                        {
-                            var valueObject = propertyKvp.Value;
-
-                            if (propertyKvp.Value is JArray valueObjectArray)
-                                valueObject = valueObjectArray.First;
-
-                            var realValue = (valueObject as JObject)?["value"];
-                            if (realValue != null)
-                                obj[propertyKvp.Key] = realValue;
-
-                            obj.Remove("properties");
-                        }
-                    }
-                }
-
-                return obj;
             }
         }
 

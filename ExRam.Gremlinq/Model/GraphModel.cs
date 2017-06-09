@@ -107,6 +107,13 @@ namespace ExRam.Gremlinq
                 .TryGetElementTypeOfLabel(label);
         }
 
+        internal static Option<Type> TryGetElementTypeOfLabel(this IGraphModel model, string label)
+        {
+            return model.VertexLabels
+                .Concat(model.EdgeLabels)
+                .TryGetElementTypeOfLabel(label);
+        }
+
         internal static Option<Type> TryGetElementTypeOfLabel(this IEnumerable<KeyValuePair<Type, string>> elementInfos, string label)
         {
             return elementInfos
