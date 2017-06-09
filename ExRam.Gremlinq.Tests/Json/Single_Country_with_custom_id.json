@@ -1,0 +1,25 @@
+﻿{
+  {
+    "id": {
+      "~label": "Country",
+      "Id": "ab44e7c49efe4d479d8f147ed48eb02c"
+    },
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "Iso3166Alpha2Code": [
+        {
+          "id": {
+            "~label": "Iso3166Alpha2Code",
+            "~out_vertex": {
+              "~label": "Country",
+              "Id": "ab44e7c49efe4d479d8f147ed48eb02c"
+            },
+            "~local_id": "00000000-0000-8164-0000-000000000000"
+          },
+          "value": "AT"
+        }
+      ]
+    }
+  }
+}
