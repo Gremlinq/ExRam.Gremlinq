@@ -99,6 +99,7 @@ namespace Dse
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", vertexSchemaInfo.Label),
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
+                        // ReSharper disable once CoVariantArrayConversion
                         .AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray())
                         .AddStep<string>("create")))
                 .Concat(schema.VertexSchemaInfos
@@ -120,6 +121,7 @@ namespace Dse
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
                                 .AddStep<string>("single")
+                                // ReSharper disable once CoVariantArrayConversion
                                 .AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray()),
                             (closureQuery, tuple) => closureQuery.AddStep<string>(
                                 "connection",

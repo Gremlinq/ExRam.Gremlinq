@@ -73,9 +73,9 @@ namespace ExRam.Gremlinq
                         .ToArray());
         }
 
-        public static IGremlinQuery<T> As<S, T>(this IGremlinQuery<S> query, Func<IGremlinQuery<S>, StepLabel<S>, IGremlinQuery<T>> continuation)
+        public static IGremlinQuery<TTarget> As<TSource, TTarget>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, StepLabel<TSource>, IGremlinQuery<TTarget>> continuation)
         {
-            var stepLabel = query.StepLabelFactory.Create<S>();
+            var stepLabel = query.StepLabelFactory.Create<TSource>();
 
             return continuation(
                 query.As(stepLabel),
@@ -101,10 +101,10 @@ namespace ExRam.Gremlinq
                 .Coalesce(traversals);
         }
 
-        public static IGremlinQuery<T> Coalesce<S, T>(this IGremlinQuery<S> query, params Func<IGremlinQuery<S>, IGremlinQuery<T>>[] traversals)
+        public static IGremlinQuery<TTarget> Coalesce<TSource, TTarget>(this IGremlinQuery<TSource> query, params Func<IGremlinQuery<TSource>, IGremlinQuery<TTarget>>[] traversals)
         {
             return query
-                .AddStep<T>(
+                .AddStep<TTarget>(
                     "coalesce", 
                     // ReSharper disable once CoVariantArrayConversion
                     traversals
@@ -260,10 +260,10 @@ namespace ExRam.Gremlinq
                 .AddStep<T[]>("fold");
         }
 
-        public static IGremlinQuery<T> From<S, T>(this IGremlinQuery<T> query, StepLabel<S> stepLabel)
+        public static IGremlinQuery<TSource> From<TSource, TStepLabel>(this IGremlinQuery<TSource> query, StepLabel<TStepLabel> stepLabel)
         {
             return query
-                .AddStep<T>("from", stepLabel);
+                .AddStep<TSource>("from", stepLabel);
         }
 
         public static IGremlinQuery<T> From<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> fromVertex)
@@ -313,16 +313,16 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("limit", limit);
         }
 
-        public static IGremlinQuery<T> Limit<S, T>(this IGremlinQuery<S> query, Func<IGremlinQuery<S>, IGremlinQuery<T>> localTraversal)
+        public static IGremlinQuery<TTarget> Local<TSource, TTarget>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery<TTarget>> localTraversal)
         {
             return query
-                .AddStep<T>("local", localTraversal(query.ToAnonymous()));
+                .AddStep<TTarget>("local", localTraversal(query.ToAnonymous()));
         }
 
-        public static IGremlinQuery<T> Map<S, T>(this IGremlinQuery<S> query, Func<IGremlinQuery<S>, IGremlinQuery<T>> mapping)
+        public static IGremlinQuery<TTarget> Map<TSource, TTarget>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery<TTarget>> mapping)
         {
             return query
-                .AddStep<T>("map", mapping(query.ToAnonymous()));
+                .AddStep<TTarget>("map", mapping(query.ToAnonymous()));
         }
 
         public static IGremlinQuery<T> Not<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> notTraversal)
@@ -460,10 +460,10 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("tail", limit);
         }
 
-        public static IGremlinQuery<T> To<S, T>(this IGremlinQuery<T> query, StepLabel<S> stepLabel)
+        public static IGremlinQuery<TSource> To<TSource, TStepLabel>(this IGremlinQuery<TSource> query, StepLabel<TStepLabel> stepLabel)
         {
             return query
-                .AddStep<T>("to", stepLabel);
+                .AddStep<TSource>("to", stepLabel);
         }
 
         public static IGremlinQuery<T> To<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> toVertex)
@@ -478,11 +478,11 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("unfold");
         }
 
-        public static IGremlinQuery<T> Union<S, T>(this IGremlinQuery<S> query, params Func<IGremlinQuery<S>, IGremlinQuery<T>>[] unionTraversals)
+        public static IGremlinQuery<TTarget> Union<TSource, TTarget>(this IGremlinQuery<TSource> query, params Func<IGremlinQuery<TSource>, IGremlinQuery<TTarget>>[] unionTraversals)
         {
             return query
                 // ReSharper disable once CoVariantArrayConversion
-                .AddStep<T>("union", unionTraversals.Select(unionTraversal => unionTraversal(query.ToAnonymous())).ToArray());
+                .AddStep<TTarget>("union", unionTraversals.Select(unionTraversal => unionTraversal(query.ToAnonymous())).ToArray());
         }
 
         public static IGremlinQuery<T> Until<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> untilTraversal)
@@ -504,9 +504,9 @@ namespace ExRam.Gremlinq
                 .OfType<T>();
         }
 
-        public static IGremlinQuery<T> Values<S, T>(this IGremlinQuery<S> query, params Expression<Func<S, T>>[] projections)
+        public static IGremlinQuery<TTarget> Values<TSource, TTarget>(this IGremlinQuery<TSource> query, params Expression<Func<TSource, TTarget>>[] projections)
         {
-            return query.AddStep<T>(
+            return query.AddStep<TTarget>(
                 "values",
                 // ReSharper disable once CoVariantArrayConversion
                 projections

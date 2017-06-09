@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
-                .AddV(new Language { Id = "id" })
+                .AddV(new Language {Id = "id"})
                 .Serialize(true);
 
             query.queryString

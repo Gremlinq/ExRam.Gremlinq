@@ -83,8 +83,8 @@ namespace ExRam.Gremlinq.Tests
                 .First() as Language;
 
             language.Should().NotBeNull();
-            language.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
-            language.IetfLanguageTag.Should().Be("de");
+            language?.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language?.IetfLanguageTag.Should().Be("de");
         }
 
         [Fact]
