@@ -29,6 +29,7 @@ namespace ExRam.Gremlinq
                     .ReplaceProvider(this);
             }
 
+            // ReSharper disable once MemberHidesStaticFromOuterClass
             public virtual IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseGremlinQueryProvider.Execute(query);
@@ -96,11 +97,12 @@ namespace ExRam.Gremlinq
             {
             }
 
+            // ReSharper disable once MemberHidesStaticFromOuterClass
             public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
-                var settings = new JsonSerializerSettings
+                var serializer = new JsonSerializer
                 {
-                    Converters = new[] { new TimespanConverter() },
+                    Converters = { new TimespanConverter() },
                     ContractResolver = new MemberInfoMappingsContractResolver(query.MemberInfoMappings),
                     TypeNameHandling = TypeNameHandling.Auto,
                 };
@@ -108,7 +110,7 @@ namespace ExRam.Gremlinq
                 return base
                     .Execute(query.Cast<string>())
                     .Select(json => json.StartsWith("{") || json.StartsWith("[")
-                        ? JsonConvert.DeserializeObject<T>(this.TransformToken(JToken.Parse(json)).ToString(), settings)
+                        ? serializer.Deserialize<T>(new JTokenReader(this.TransformToken(JToken.Parse(json))))
                         : JToken.Parse($"'{json}'").ToObject<T>());
             }
 
