@@ -170,6 +170,8 @@ namespace ExRam.Gremlinq
             var schema = GraphSchema.Empty;
             var propertyKeys = new Dictionary<string, Type>();
 
+            model = model.EdgeConnectionClosure();
+
             foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
             {
                 foreach (var property in vertexType.ElementType.GetProperties())
