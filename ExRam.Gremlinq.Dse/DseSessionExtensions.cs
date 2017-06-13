@@ -99,8 +99,10 @@ namespace Dse
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", vertexSchemaInfo.Label),
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
-                        // ReSharper disable once CoVariantArrayConversion
-                        .AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray())
+                        .ConditionalAddStep(
+                            !vertexSchemaInfo.Properties.IsEmpty,
+                            // ReSharper disable once CoVariantArrayConversion
+                            query => query.AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray()))
                         .AddStep<string>("create")))
                 .Concat(schema.VertexSchemaInfos
                     .Where(vertexSchemaInfo => !vertexSchemaInfo.IndexProperties.IsEmpty)
@@ -121,8 +123,10 @@ namespace Dse
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
                                 .AddStep<string>("single")
-                                // ReSharper disable once CoVariantArrayConversion
-                                .AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray()),
+                                .ConditionalAddStep(
+                                    !edgeSchemaInfo.Properties.IsEmpty,
+                                    // ReSharper disable once CoVariantArrayConversion
+                                    query => query.AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray())),
                             (closureQuery, tuple) => closureQuery.AddStep<string>(
                                 "connection",
                                 tuple.Item1,
@@ -132,6 +136,14 @@ namespace Dse
                 .ToAsyncEnumerable()
                 .SelectMany(query=> query.Execute())
                 .LastOrDefault(ct);
+        }
+
+        private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
+        {
+            if (condition)
+                return addStepFunction(query);
+
+            return query;
         }
     }
 }
