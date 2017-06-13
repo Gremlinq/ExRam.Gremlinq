@@ -69,6 +69,23 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_does_not_include_abstract_types()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<Authority>()
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('Company', 'User')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public void V_ofType_has_int_property()
         {
             var query = GremlinQuery
@@ -462,6 +479,42 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Out()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Out<Knows>()
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').out('Knows')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void Out_does_not_include_abstract_edge()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Out<Edge>()
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').out('IsDescribedIn', 'Knows', 'LivesIn', 'Speaks', 'WorksFor')");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
         public void V_ofType_order_ByMember()
         {
             var query = GremlinQuery
@@ -582,7 +635,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('Authority', 'Company', 'User')");
+                .Be("g.V().hasLabel('Company', 'User')");
 
             query.parameters
                 .Should()
@@ -693,7 +746,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.hasLabel('Authority', 'Company', 'User'))");
+                .Be("g.V().not(__.hasLabel('Company', 'User'))");
 
             query.parameters
                 .Should()

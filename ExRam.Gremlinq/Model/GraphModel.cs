@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq
             return model.VertexTypes.Values
                 .Cast<GraphElementInfo>()
                 .Concat(model.EdgeTypes.Values)
-                .Where(elementInfo => (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
+                .Where(elementInfo => !elementInfo.ElementType.GetTypeInfo().IsAbstract && (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
         }
 
         private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
