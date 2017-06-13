@@ -227,6 +227,7 @@ namespace ExRam.Gremlinq
                             .ToImmutableList()));
 
             schema = model.EdgeTypes.Values
+                .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
                 .Aggregate(
                     schema,
                     (closureSchema, edgeType) => closureSchema.EdgeLabel(
