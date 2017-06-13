@@ -83,5 +83,30 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .NotContain(tuple => tuple.Item3 == "Authority");
         }
+
+        [Fact]
+        public void FromAssembly_ToGraphSchema_does_not_include_connections_by_abstract_edges()
+        {
+            var schema = GraphModel
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .AddConnection<User, Edge, User>()
+                .ToGraphSchema();
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "Knows", "User"));
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "Speaks", "User"));
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "WorksFor", "User"));
+
+            schema.Connections
+                .Should()
+                .NotContain(tuple => tuple.Item2 == "Edge");
+        }
     }
 }
