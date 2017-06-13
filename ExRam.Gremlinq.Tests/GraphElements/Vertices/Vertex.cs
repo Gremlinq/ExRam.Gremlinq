@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Tests
 {
-    public class Vertex
+    public abstract class Vertex
     {
 
     }

@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq.Tests
 {
-    public class Edge
+    public abstract class Edge
     {
 
     }
