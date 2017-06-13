@@ -31,5 +31,57 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .NotContain(x => x.Label == "Edge");
         }
+
+        [Fact]
+        public void FromAssembly_ToGraphSchema_includes_edge_connection_closure()
+        {
+            var schema = GraphModel
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .AddConnection<Authority, IsDescribedIn, Language>()
+                .AddConnection<User, WorksFor, Authority>()
+                .ToGraphSchema();
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "IsDescribedIn", "Language"));
+
+            schema.Connections
+                .Should()
+                .Contain(("Company", "IsDescribedIn", "Language"));
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "WorksFor", "User"));
+
+            schema.Connections
+                .Should()
+                .Contain(("User", "WorksFor", "Company"));
+        }
+
+        [Fact]
+        public void FromAssembly_ToGraphSchema_does_not_include_connections_from_abstract_vertices()
+        {
+            var schema = GraphModel
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .AddConnection<Authority, IsDescribedIn, Language>()
+                .ToGraphSchema();
+
+            schema.Connections
+                .Should()
+                .NotContain(tuple => tuple.Item1 == "Authority");
+        }
+
+        [Fact]
+        public void FromAssembly_ToGraphSchema_does_not_include_connections_to_abstract_vertices()
+        {
+            var schema = GraphModel
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .AddConnection<User, WorksFor, Authority>()
+                .ToGraphSchema();
+
+            schema.Connections
+                .Should()
+                .NotContain(tuple => tuple.Item3 == "Authority");
+        }
     }
 }

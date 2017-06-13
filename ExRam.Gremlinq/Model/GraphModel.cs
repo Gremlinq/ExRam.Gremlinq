@@ -237,6 +237,7 @@ namespace ExRam.Gremlinq
                         edgeType.ElementType.GetProperties().Select(property => property.Name).ToImmutableList()));
 
             return model.Connections
+                .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                 .Aggregate(
                     schema,
                     (closureSchema, connectionTuple) => closureSchema.Connection(
