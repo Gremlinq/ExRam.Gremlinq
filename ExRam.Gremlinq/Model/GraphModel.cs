@@ -206,6 +206,7 @@ namespace ExRam.Gremlinq
                     (closureSchema, propertyKvp) => closureSchema.Property(propertyKvp.Key, propertyKvp.Value));
 
             schema = model.VertexTypes.Values
+                .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
                 .Aggregate(
                     schema,
                     (closureSchema, vertexType) => closureSchema.VertexLabel(
