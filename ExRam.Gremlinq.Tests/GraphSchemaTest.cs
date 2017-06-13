@@ -108,5 +108,18 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .NotContain(tuple => tuple.Item2 == "Edge");
         }
+
+        [Fact]
+        public void FromAssembly_ToGraphSchema_includes_index_of_base_types()
+        {
+            var schema = GraphModel
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .VertexType<Authority>(b => b.SecondaryIndex(x => x.Name))
+                .ToGraphSchema();
+
+            schema.VertexSchemaInfos
+                .Should()
+                .Contain(x => x.Label == "User" && x.IndexProperties.Contains("Name"));
+        }
     }
 }

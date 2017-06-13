@@ -223,8 +223,10 @@ namespace ExRam.Gremlinq
                                 .Name)
                             .AsEnumerable()
                             .ToImmutableList(),
-                        vertexType
-                            .SecondaryIndexes
+                        model
+                            .GetElementInfoHierarchy(vertexType)
+                            .OfType<VertexTypeInfo>()
+                            .SelectMany(x => x.SecondaryIndexes)
                             .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
                             .ToImmutableList()));
 
@@ -284,6 +286,22 @@ namespace ExRam.Gremlinq
                 .Cast<GraphElementInfo>()
                 .Concat(model.EdgeTypes.Values)
                 .Where(elementInfo => !elementInfo.ElementType.GetTypeInfo().IsAbstract && (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
+        }
+
+        private static IEnumerable<GraphElementInfo> GetElementInfoHierarchy(this IGraphModel model, GraphElementInfo elementInfo)
+        {
+            do
+            {
+                yield return elementInfo;
+                var baseType = elementInfo.ElementType.GetTypeInfo().BaseType;
+
+                elementInfo = null;
+
+                if (model.VertexTypes.TryGetValue(baseType, out var vertexInfo))
+                    elementInfo = vertexInfo;
+                else if (model.EdgeTypes.TryGetValue(baseType, out var edgeInfo))
+                    elementInfo = edgeInfo;
+            } while (elementInfo != null);
         }
 
         private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
