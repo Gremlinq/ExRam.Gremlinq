@@ -64,13 +64,20 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> And<T>(this IGremlinQuery<T> query, params Func<IGremlinQuery<T>, IGremlinQuery>[] andTraversals)
         {
-            return query
-                .AddStep<T>(
-                    "and",
-                    // ReSharper disable once CoVariantArrayConversion
-                    andTraversals
-                        .Select(andTraversal => andTraversal(query.ToAnonymous()))
-                        .ToArray());
+            return query.And<T>(andTraversals
+                .Select(andTraversal => andTraversal(query.ToAnonymous())));
+        }
+
+        private static IGremlinQuery<T> And<T>(this IGremlinQuery query, IEnumerable<IGremlinQuery> orTraversals)
+        {
+            return query.AddStep<T>(
+                "and",
+                // ReSharper disable once CoVariantArrayConversion
+                orTraversals
+                    .SelectMany(query2 => query2.Steps.Count == 1 && query2.Steps[0].Name == "and"
+                        ? query2.Steps[0].Parameters.OfType<IGremlinQuery>()
+                        : new[] { query2 })
+                    .ToArray());
         }
 
         public static IGremlinQuery<TTarget> As<TSource, TTarget>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, StepLabel<TSource>, IGremlinQuery<TTarget>> continuation)
@@ -355,7 +362,11 @@ namespace ExRam.Gremlinq
             return query.AddStep<T>(
                 "or",
                 // ReSharper disable once CoVariantArrayConversion
-                orTraversals.ToArray());
+                orTraversals
+                    .SelectMany(query2 => query2.Steps.Count == 1 && query2.Steps[0].Name == "or"
+                        ? query2.Steps[0].Parameters.OfType<IGremlinQuery>()
+                        : new [] { query2 })
+                    .ToArray());
         }
 
         public static IGremlinQuery<T> Order<T>(this IGremlinQuery<T> query)
@@ -605,5 +616,13 @@ namespace ExRam.Gremlinq
         {
             return type.GetTypeInfo().IsValueType || type == typeof(string) || type.IsArray && type.GetElementType().IsNativeType();
         }
+
+        //private static IEnumerable<IGremlinQuery> UnwrapOr(this IEnumerable<IGremlinQuery> queries)
+        //{
+        //    foreach(var query in queries)
+        //    {
+
+        //    }
+        //}
     }
 }

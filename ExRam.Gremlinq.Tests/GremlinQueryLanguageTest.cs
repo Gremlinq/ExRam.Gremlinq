@@ -152,12 +152,31 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('User').and(__.and(__.has('Age', eq(36)), __.has('Age', eq(42))), __.has('Age', eq(99)))");
+                .Be("g.V().hasLabel('User').and(__.has('Age', eq(36)), __.has('Age', eq(42)), __.has('Age', eq(99)))");
 
             query.parameters
                 .Should()
                 .BeEmpty();
         }
+
+        [Fact]
+        public void V_ofType_has_disjunction_of_three()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').or(__.has('Age', eq(36)), __.has('Age', eq(42)), __.has('Age', eq(99)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
 
         [Fact]
         public void V_ofType_has_conjunction_with_different_fields()
