@@ -51,8 +51,8 @@ namespace ExRam.Gremlinq.Tests
                 .BeEmpty();
         }
 
-        [Fact(Skip = "Not implemented.")]
-        public void V_ofType_has_ored_int_property()
+        [Fact]
+        public void V_ofType_has_disjunction()
         {
             var query = GremlinQuery
                 .Create("g", this._queryProvider)
@@ -63,6 +63,114 @@ namespace ExRam.Gremlinq.Tests
             query.queryString
                 .Should()
                 .Be("g.V().hasLabel('User').or(__.has('Age', eq(36)), __.has('Age', eq(42)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_disjunction_with_different_fields()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Name == "Some name" || t.Age == 42)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').or(__.has('Name', eq('Some name')), __.has('Age', eq(42)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_conjunction()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Age == 36 && t.Age == 42)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').and(__.has('Age', eq(36)), __.has('Age', eq(42)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_complex_logical_expression()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').and(__.has('Name', eq('Some name')), __.or(__.has('Age', eq(42)), __.has('Age', eq(99))))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_complex_logical_expression_with_null()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').and(__.hasNot('Name'), __.or(__.has('Age', eq(42)), __.has('Age', eq(99))))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_conjunction_of_three()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').and(__.and(__.has('Age', eq(36)), __.has('Age', eq(42))), __.has('Age', eq(99)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
+        [Fact]
+        public void V_ofType_has_conjunction_with_different_fields()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Name == "Some name" && t.Age == 42)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').and(__.has('Name', eq('Some name')), __.has('Age', eq(42)))");
 
             query.parameters
                 .Should()

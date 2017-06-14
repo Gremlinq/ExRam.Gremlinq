@@ -523,13 +523,27 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
-            var binaryExpression = predicate.Body as BinaryExpression;
-
-            if (binaryExpression != null)
+            if (predicate.Body is BinaryExpression binaryExpression)
             {
                 object constant;
                 var left = binaryExpression.Left.StripConvert();
                 var right = binaryExpression.Right.StripConvert();
+
+                if (binaryExpression.NodeType == ExpressionType.OrElse || binaryExpression.NodeType == ExpressionType.AndAlso)
+                {
+                    var leftLambda = Expression.Lambda<Func<T, bool>>(binaryExpression.Left, predicate.Parameters[0]);
+                    var rightLambda = Expression.Lambda<Func<T, bool>>(binaryExpression.Right, predicate.Parameters[0]);
+
+                    return binaryExpression.NodeType == ExpressionType.OrElse
+                        ? query
+                            .Or(
+                                _ => _.Where(leftLambda),
+                                _ => _.Where(rightLambda))
+                        : query
+                            .And(
+                                _ => _.Where(leftLambda),
+                                _ => _.Where(rightLambda));
+                }
 
                 var constantExpression = right as ConstantExpression;
                 if (constantExpression != null)
@@ -546,7 +560,7 @@ namespace ExRam.Gremlinq
                 var predicateArgument = constant != null
                     ? GremlinQueryLanguage.SupportedComparisons
                         .TryGetValue(binaryExpression.NodeType)
-                        .Map(predicateName => (object) new GremlinPredicate(predicateName, constant))
+                        .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
                         .IfNone(constant)
                     : null;
 
