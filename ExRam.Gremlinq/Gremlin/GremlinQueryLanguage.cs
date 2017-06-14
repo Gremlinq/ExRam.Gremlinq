@@ -557,13 +557,12 @@ namespace ExRam.Gremlinq
                         if (predicateArgument != null)
                             return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
 
-                        var step = new GremlinStep("has", leftMemberExpression.Member.Name);
-
-                        if (binaryExpression.NodeType == ExpressionType.Equal)
-                            return query.Not(_ => _.AddStep<T>(step));
-
-                        if (binaryExpression.NodeType == ExpressionType.NotEqual)
-                            return query.AddStep<T>(step);
+                        if (binaryExpression.NodeType == ExpressionType.Equal || binaryExpression.NodeType == ExpressionType.NotEqual)
+                        {
+                            return query.AddStep<T>(new GremlinStep(binaryExpression.NodeType == ExpressionType.Equal
+                                ? "hasNot"
+                                : "has", leftMemberExpression.Member.Name));
+                        }
                     }
                 }
                 else if ((left is ParameterExpression leftParameterExpression) && (predicateArgument != null))

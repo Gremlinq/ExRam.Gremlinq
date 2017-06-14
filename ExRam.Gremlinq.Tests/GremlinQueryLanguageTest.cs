@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel('User').not(__.has('Name'))");
+                .Be("g.V().hasLabel('User').hasNot('Name')");
 
             query.parameters
                 .Should()
