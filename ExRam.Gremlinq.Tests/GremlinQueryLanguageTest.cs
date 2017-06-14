@@ -51,6 +51,24 @@ namespace ExRam.Gremlinq.Tests
                 .BeEmpty();
         }
 
+        [Fact(Skip = "Not implemented.")]
+        public void V_ofType_has_ored_int_property()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Where(t => t.Age == 36 || t.Age == 42)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').or(__.has('Age', eq(36)), __.has('Age', eq(42)))");
+
+            query.parameters
+                .Should()
+                .BeEmpty();
+        }
+
         [Fact]
         public void V_ofType()
         {
