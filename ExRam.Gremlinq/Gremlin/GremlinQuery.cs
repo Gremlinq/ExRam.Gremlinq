@@ -158,6 +158,11 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(step), query.Provider, query.MemberInfoMappings, query.StepLabelFactory);
         }
 
+        internal static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
+        {
+            return query.AddStep<T>(new GremlinStep(name, parameters));
+        }
+
         internal static IGremlinQuery<T> AddMemberInfoMapping<T>(this IGremlinQuery<T> query, Expression<Func<T, object>> memberExpression, string mapping)
         {
             var body = memberExpression.Body;

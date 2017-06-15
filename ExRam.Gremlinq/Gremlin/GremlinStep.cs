@@ -4,10 +4,15 @@ namespace ExRam.Gremlinq
 {
     public struct GremlinStep
     {
-        public GremlinStep(string name, params object[] parameters)
+        public GremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
+        {
+
+        }
+
+        public GremlinStep(string name, IImmutableList<object> parameters)
         {
             this.Name = name;
-            this.Parameters = ImmutableList.Create(parameters);
+            this.Parameters = parameters;
         }
 
         public string Name { get; }
