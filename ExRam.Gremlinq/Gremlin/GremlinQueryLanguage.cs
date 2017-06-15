@@ -145,14 +145,12 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<Vertex>("both", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> BothE<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<T>("bothE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
@@ -288,14 +286,12 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> In<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<Vertex>("in", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
         public static IGremlinQuery<T> InE<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<T>("inE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
@@ -375,7 +371,6 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> OutE<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<T>("outE", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
@@ -389,7 +384,6 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Out<T>(this IGremlinQuery query)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
                 .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model));
         }
 
