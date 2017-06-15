@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThan, "gt" }
         };
 
-        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), string[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), string[]>();
+        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
@@ -279,14 +279,6 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("from", fromVertex(query.ToAnonymous()));
         }
 
-        // ReSharper disable once SuggestBaseTypeForParameter
-        private static IGremlinQuery<T> HasLabel<T>(this IGremlinQuery<T> query, params string[] labels)
-        {
-            return query
-                // ReSharper disable once CoVariantArrayConversion
-                .AddStep<T>("hasLabel", labels);
-        }
-
         public static IGremlinQuery<T> Identity<T>(this IGremlinQuery<T> query)
         {
             return query
@@ -342,7 +334,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 .Cast<T>()
-                .HasLabel(query.Provider.Model.GetDerivedLabelNames<T>());
+                .AddStep<T>("hasLabel", query.Provider.Model.GetDerivedLabelNames<T>());
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
@@ -599,7 +591,7 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        private static string[] GetDerivedLabelNames<T>(this IGraphModel model)
+        private static ImmutableList<object> GetDerivedLabelNames<T>(this IGraphModel model)
         {
             return TypeLabelDict
                 .GetOrAdd(
@@ -608,7 +600,7 @@ namespace ExRam.Gremlinq
                         .GetDerivedElementInfos(typeof(T), true)
                         .Select(elementInfo => elementInfo.Label)
                         .OrderBy(x => x)
-                        .ToArray());
+                        .ToImmutableList<object>());
         }
 
         private static bool IsNativeType(this Type type)   //TODO: Native types are a matter of...what?
