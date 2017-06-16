@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -88,7 +89,7 @@ namespace Dse
                     .AddStep<string>("propertyKey", propertyInfo.Name)
                     .AddStep<string>(NativeTypeSteps
                         .TryGetValue(propertyInfo.Type)
-                        .IfNone(() => throw new InvalidOperationException()))
+                        .IfNone(() => throw new InvalidOperationException($"No native type found for {propertyInfo.Type}.")))
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
@@ -101,8 +102,11 @@ namespace Dse
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
                         .ConditionalAddStep(
                             !vertexSchemaInfo.Properties.IsEmpty,
-                            // ReSharper disable once CoVariantArrayConversion
-                            query => query.AddStep<string>("properties", vertexSchemaInfo.Properties.ToArray()))
+                            query => query.AddStep<string>(
+                                "properties", 
+                                vertexSchemaInfo
+                                    .Properties
+                                    .ToImmutableList<object>()))
                         .AddStep<string>("create")))
                 .Concat(schema.VertexSchemaInfos
                     .Where(vertexSchemaInfo => !vertexSchemaInfo.IndexProperties.IsEmpty)
@@ -125,8 +129,11 @@ namespace Dse
                                 .AddStep<string>("single")
                                 .ConditionalAddStep(
                                     !edgeSchemaInfo.Properties.IsEmpty,
-                                    // ReSharper disable once CoVariantArrayConversion
-                                    query => query.AddStep<string>("properties", edgeSchemaInfo.Properties.ToArray())),
+                                    query => query.AddStep<string>(
+                                        "properties",
+                                        edgeSchemaInfo
+                                            .Properties
+                                            .ToImmutableList<object>())),
                             (closureQuery, tuple) => closureQuery.AddStep<string>(
                                 "connection",
                                 tuple.Item1,
@@ -134,7 +141,7 @@ namespace Dse
                         .AddStep<string>("ifNotExists")
                         .AddStep<string>("create"))))
                 .ToAsyncEnumerable()
-                .SelectMany(query=> query.Execute())
+                .SelectMany(query => query.Execute())
                 .LastOrDefault(ct);
         }
 

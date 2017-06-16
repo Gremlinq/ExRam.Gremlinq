@@ -113,10 +113,9 @@ namespace ExRam.Gremlinq
             return query
                 .AddStep<TTarget>(
                     "coalesce", 
-                    // ReSharper disable once CoVariantArrayConversion
                     traversals
                         .Select(traversal => traversal(query.ToAnonymous()))
-                        .ToArray());
+                        .ToImmutableList<object>());
         }
 
         public static IGremlinQuery<TResult> Choose<TSource, TResult>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TSource>, IGremlinQuery<TResult>> falseChoice)
@@ -477,8 +476,9 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<TTarget> Union<TSource, TTarget>(this IGremlinQuery<TSource> query, params Func<IGremlinQuery<TSource>, IGremlinQuery<TTarget>>[] unionTraversals)
         {
             return query
-                // ReSharper disable once CoVariantArrayConversion
-                .AddStep<TTarget>("union", unionTraversals.Select(unionTraversal => unionTraversal(query.ToAnonymous())).ToArray());
+                .AddStep<TTarget>("union", unionTraversals
+                    .Select(unionTraversal => unionTraversal(query.ToAnonymous()))
+                    .ToImmutableList<object>());
         }
 
         public static IGremlinQuery<T> Until<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> untilTraversal)
@@ -504,7 +504,6 @@ namespace ExRam.Gremlinq
         {
             return query.AddStep<TTarget>(
                 "values",
-                // ReSharper disable once CoVariantArrayConversion
                 projections
                     .Select(projection =>
                     {
@@ -514,7 +513,7 @@ namespace ExRam.Gremlinq
 
                         throw new NotSupportedException();
                     })
-                    .ToArray());
+                    .ToImmutableList<object>());
         }
 
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
@@ -601,13 +600,5 @@ namespace ExRam.Gremlinq
         {
             return type.GetTypeInfo().IsValueType || type == typeof(string) || type.IsArray && type.GetElementType().IsNativeType();
         }
-
-        //private static IEnumerable<IGremlinQuery> UnwrapOr(this IEnumerable<IGremlinQuery> queries)
-        //{
-        //    foreach(var query in queries)
-        //    {
-
-        //    }
-        //}
     }
 }
