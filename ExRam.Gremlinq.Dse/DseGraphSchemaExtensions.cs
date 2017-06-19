@@ -7,12 +7,28 @@ namespace ExRam.Gremlinq.Dse
 {
     public static class DseGraphSchemaExtensions
     {
-        public static DseGraphModel ToDseGraphModel(this IGraphModel model)
+        private sealed class DseGraphModel : IDseGraphModel
+        {
+            public DseGraphModel(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
+            {
+                this.VertexTypes = vertexTypes;
+                this.EdgeTypes = edgeTypes;
+                this.Connections = connections;
+            }
+
+            public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
+
+            public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
+
+            public IImmutableList<(Type, Type, Type)> Connections { get; }
+        }
+
+        public static IDseGraphModel ToDseGraphModel(this IGraphModel model)
         {
             return new DseGraphModel(model.VertexTypes, model.EdgeTypes, ImmutableList<(Type, Type, Type)>.Empty);
         }
 
-        public static DseGraphModel EdgeConnectionClosure(this DseGraphModel model)
+        public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
         {
             foreach (var connection in model.Connections)
             {
@@ -31,12 +47,12 @@ namespace ExRam.Gremlinq.Dse
             return model;
         }
 
-        public static DseGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this DseGraphModel model)
+        public static IDseGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IDseGraphModel model)
         {
             return model.AddConnection(typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
         }
 
-        private static DseGraphModel AddConnection(this DseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
+        private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
         {
             var outVertexInfo = model.VertexTypes
                 .TryGetValue(outVertexType)

@@ -82,7 +82,7 @@ namespace Dse
                 .WithJsonSupport();
         }
 
-        public static async Task CreateSchema(this IDseSession session, DseGraphModel model, CancellationToken ct)
+        public static async Task CreateSchema(this IDseSession session, IDseGraphModel model, CancellationToken ct)
         {
             var queryProvider = new DseGraphQueryProvider(session);
             model = model.EdgeConnectionClosure();
