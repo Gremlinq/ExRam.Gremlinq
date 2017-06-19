@@ -116,12 +116,20 @@ namespace Dse
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
                 .Concat(schema.VertexSchemaInfos
-                    .Where(vertexSchemaInfo => !vertexSchemaInfo.IndexProperties.IsEmpty)
-                    .Select(vertexSchemaInfo => vertexSchemaInfo.IndexProperties
+                    .Select(schemaInfo => (
+                        SchemaInfo: schemaInfo, 
+                        IndexProperties: schema.Model
+                            .GetElementInfoHierarchy(schemaInfo.TypeInfo)
+                            .OfType<VertexTypeInfo>()
+                            .SelectMany(x => x.SecondaryIndexes)
+                            .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                            .ToImmutableList()))
+                    .Where(tuple => !tuple.IndexProperties.IsEmpty)
+                    .Select(tuple => tuple.IndexProperties
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexSchemaInfo.TypeInfo.Label)
+                                .AddStep<string>("vertexLabel", tuple.SchemaInfo.TypeInfo.Label)
                                 .AddStep<string>("index", Guid.NewGuid().ToString("N"))
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
@@ -178,6 +186,22 @@ namespace Dse
 
                         return Option<Expression>.None;
                     });
+        }
+
+        private static IEnumerable<GraphElementInfo> GetElementInfoHierarchy(this IGraphModel model, GraphElementInfo elementInfo)
+        {
+            do
+            {
+                yield return elementInfo;
+                var baseType = elementInfo.ElementType.GetTypeInfo().BaseType;
+
+                elementInfo = null;
+
+                if (model.VertexTypes.TryGetValue(baseType, out var vertexInfo))
+                    elementInfo = vertexInfo;
+                else if (model.EdgeTypes.TryGetValue(baseType, out var edgeInfo))
+                    elementInfo = edgeInfo;
+            } while (elementInfo != null);
         }
     }
 }

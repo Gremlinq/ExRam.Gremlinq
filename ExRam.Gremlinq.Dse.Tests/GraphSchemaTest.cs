@@ -109,17 +109,17 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .NotContain(tuple => tuple.Item2 == "Edge");
         }
 
-        [Fact]
-        public void FromAssembly_ToGraphSchema_includes_index_of_base_types()
-        {
-            var schema = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .VertexType<Authority>(b => b.SecondaryIndex(x => x.Name))
-                .ToGraphSchema();
+        //[Fact]
+        //public void FromAssembly_ToGraphSchema_includes_index_of_base_types()
+        //{
+        //    var schema = GraphModel
+        //        .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+        //        .VertexType<Authority>(b => b.SecondaryIndex(x => x.Name))
+        //        .ToGraphSchema();
 
-            schema.VertexSchemaInfos
-                .Should()
-                .Contain(x => x.TypeInfo.Label == "User" && x.IndexProperties.Contains("Name"));
-        }
+        //    schema.VertexSchemaInfos
+        //        .Should()
+        //        .Contain(x => x.TypeInfo.Label == "User" && x .IndexProperties.Contains("Name"));
+        //}
     }
 }

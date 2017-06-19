@@ -57,13 +57,7 @@ namespace ExRam.Gremlinq.Dse
                 .Aggregate(
                     schema,
                     (closureSchema, vertexType) => closureSchema.VertexLabel(
-                        vertexType,
-                        model
-                            .GetElementInfoHierarchy(vertexType)
-                            .OfType<VertexTypeInfo>()
-                            .SelectMany(x => x.SecondaryIndexes)
-                            .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
-                            .ToImmutableList()));
+                        vertexType));
 
             schema = model.EdgeTypes.Values
                 .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
@@ -93,9 +87,9 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
         }
 
-        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo, ImmutableList<string> indexProperties)
+        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo, indexProperties)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties)
@@ -106,22 +100,6 @@ namespace ExRam.Gremlinq.Dse
         public static DseGraphSchema Connection(this DseGraphSchema schema, string outVertexLabel, string edgeLabel, string inVertexLabel)
         {
             return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections.Add((outVertexLabel, edgeLabel, inVertexLabel)));
-        }
-
-        private static IEnumerable<GraphElementInfo> GetElementInfoHierarchy(this IGraphModel model, GraphElementInfo elementInfo)
-        {
-            do
-            {
-                yield return elementInfo;
-                var baseType = elementInfo.ElementType.GetTypeInfo().BaseType;
-
-                elementInfo = null;
-
-                if (model.VertexTypes.TryGetValue(baseType, out var vertexInfo))
-                    elementInfo = vertexInfo;
-                else if (model.EdgeTypes.TryGetValue(baseType, out var edgeInfo))
-                    elementInfo = edgeInfo;
-            } while (elementInfo != null);
         }
     }
 }
