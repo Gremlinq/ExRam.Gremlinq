@@ -6,21 +6,21 @@ namespace ExRam.Gremlinq.Dse.Tests
 {
     public class DseGraphSchemaTest
     {
-        [Fact]
-        public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()
-        {
-            var schema = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToGraphSchema();
+        //[Fact]
+        //public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()
+        //{
+        //    var schema = GraphModel
+        //        .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+        //        .ToGraphSchema();
 
-            schema.VertexSchemaInfos
-                .Should()
-                .NotContain(x => x.TypeInfo.Label == "Vertex");
+        //    schema.VertexSchemaInfos
+        //        .Should()
+        //        .NotContain(x => x.TypeInfo.Label == "Vertex");
 
-            schema.VertexSchemaInfos
-                .Should()
-                .NotContain(x => x.TypeInfo.Label == "Authority");
-        }
+        //    schema.VertexSchemaInfos
+        //        .Should()
+        //        .NotContain(x => x.TypeInfo.Label == "Authority");
+        //}
 
         [Fact]
         public void FromAssembly_ToGraphSchema_does_not_include_abstract_edge_types()

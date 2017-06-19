@@ -96,30 +96,30 @@ namespace Dse
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
-                .Concat(schema.VertexSchemaInfos
-                    .Select(vertexSchemaInfo => vertexSchemaInfo.TypeInfo
+                .Concat(schema.Model.VertexTypes.Values
+                    .Select(vertexType => vertexType
                         .TryGetPartitionKeyExpression(schema.Model)
                         .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
                         .AsEnumerable()
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexSchemaInfo.TypeInfo.Label),
+                                .AddStep<string>("vertexLabel", vertexType.Label),
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
                         .ConditionalAddStep(
-                            vertexSchemaInfo.TypeInfo.ElementType.GetProperties().Any(),
+                            vertexType.ElementType.GetProperties().Any(),
                             query => query.AddStep<string>(
                                 "properties", 
-                                vertexSchemaInfo
-                                    .TypeInfo.ElementType.GetProperties()
+                                vertexType
+                                    .ElementType.GetProperties()
                                     .Select(x => x.Name)
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
-                .Concat(schema.VertexSchemaInfos
-                    .Select(schemaInfo => (
-                        SchemaInfo: schemaInfo, 
+                .Concat(schema.Model.VertexTypes.Values
+                    .Select(vertexType => (
+                        SchemaInfo: vertexType, 
                         IndexProperties: schema.Model
-                            .GetElementInfoHierarchy(schemaInfo.TypeInfo)
+                            .GetElementInfoHierarchy(vertexType)
                             .OfType<VertexTypeInfo>()
                             .SelectMany(x => x.SecondaryIndexes)
                             .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
@@ -129,7 +129,7 @@ namespace Dse
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", tuple.SchemaInfo.TypeInfo.Label)
+                                .AddStep<string>("vertexLabel", tuple.SchemaInfo.Label)
                                 .AddStep<string>("index", Guid.NewGuid().ToString("N"))
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))

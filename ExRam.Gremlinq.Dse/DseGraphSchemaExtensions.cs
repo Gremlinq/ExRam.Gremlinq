@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Dse
     {
         public static DseGraphSchema ToGraphSchema(this IGraphModel model)
         {
-            var schema = new DseGraphSchema(model, ImmutableList<VertexSchemaInfo>.Empty, ImmutableList<EdgeSchemaInfo>.Empty, ImmutableList<PropertySchemaInfo>.Empty, ImmutableList<(string, string, string)>.Empty);
+            var schema = new DseGraphSchema(model, ImmutableList<EdgeSchemaInfo>.Empty, ImmutableList<PropertySchemaInfo>.Empty, ImmutableList<(string, string, string)>.Empty);
             var propertyKeys = new Dictionary<string, Type>();
 
             model = model.EdgeConnectionClosure();
@@ -84,22 +84,22 @@ namespace ExRam.Gremlinq.Dse
 
         public static DseGraphSchema Property(this DseGraphSchema schema, string name, Type type)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
         }
 
         public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos.Add(new EdgeSchemaInfo(label, properties)), schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos.Add(new EdgeSchemaInfo(label, properties)), schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema Connection(this DseGraphSchema schema, string outVertexLabel, string edgeLabel, string inVertexLabel)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections.Add((outVertexLabel, edgeLabel, inVertexLabel)));
+            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections.Add((outVertexLabel, edgeLabel, inVertexLabel)));
         }
     }
 }
