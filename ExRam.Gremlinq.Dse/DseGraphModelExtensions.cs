@@ -6,7 +6,7 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Dse
 {
-    public static class DseGraphSchemaExtensions
+    public static class DseGraphModelExtensions
     {
         private sealed class DseGraphModel : IDseGraphModel
         {
