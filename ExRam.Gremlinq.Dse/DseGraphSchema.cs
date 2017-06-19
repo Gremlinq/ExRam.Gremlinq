@@ -2,7 +2,7 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Dse
 {
-    public sealed class DseGraphSchema : IGraphSchema
+    public sealed class DseGraphSchema
     {
         public DseGraphSchema(IGraphModel model)
         {
