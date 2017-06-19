@@ -4,8 +4,8 @@
     <Description>ExRam.Gremlinq.Dse.Tests</Description>
     <Authors>ExRam EDV GmbH &amp; Co. KG</Authors>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyName>ExRam.Gremlinq.Tests</AssemblyName>
-    <PackageId>ExRam.Gremlinq.Tests</PackageId>
+    <AssemblyName>ExRam.Gremlinq.Dse.Tests</AssemblyName>
+    <PackageId>ExRam.Gremlinq.Dse.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -18,14 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Dse\ExRam.Gremlinq.Dse.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.3.4.224" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
-    <PackageReference Include="FluentAssertions" Version="4.19.2" />
-    <PackageReference Include="Moq" Version="4.7.9" />
     <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
 
