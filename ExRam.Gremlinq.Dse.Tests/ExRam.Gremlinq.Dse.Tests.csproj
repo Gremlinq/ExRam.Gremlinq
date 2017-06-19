@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="app.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Dse\ExRam.Gremlinq.Dse.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj" />
   </ItemGroup>
