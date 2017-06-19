@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         //{
         //    var schema = GraphModel
         //        .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-        //        .ToGraphSchema();
+        //        .ToDseGraphModel();
 
         //    schema.VertexSchemaInfos
         //        .Should()
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         //{
         //    var model = GraphModel.FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple);
 
-        //    model.ToGraphSchema().EdgeLabel
+        //    model.ToDseGraphModel().EdgeLabel
         //        .Should()
         //        .NotContain(x => x.TypeInfo.Label == "Edge");
         //}
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToGraphSchema()
+                .ToDseGraphModel()
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>();
 
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToGraphSchema()
+                .ToDseGraphModel()
                 .AddConnection<Authority, IsDescribedIn, Language>();
 
             schema.Connections
@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToGraphSchema()
+                .ToDseGraphModel()
                 .AddConnection<User, WorksFor, Authority>();
 
             schema.Connections
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToGraphSchema()
+                .ToDseGraphModel()
                 .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>();
                
 
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         //    var schema = GraphModel
         //        .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
         //        .VertexType<Authority>(b => b.SecondaryIndex(x => x.Name))
-        //        .ToGraphSchema();
+        //        .ToDseGraphModel();
 
         //    schema.VertexSchemaInfos
         //        .Should()

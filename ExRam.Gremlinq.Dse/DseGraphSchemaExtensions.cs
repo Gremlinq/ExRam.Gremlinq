@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Dse
 {
     public static class DseGraphSchemaExtensions
     {
-        public static DseGraphModel ToGraphSchema(this IGraphModel model)
+        public static DseGraphModel ToDseGraphModel(this IGraphModel model)
         {
             return new DseGraphModel(model.VertexTypes, model.EdgeTypes, ImmutableList<(Type, Type, Type)>.Empty);
         }
