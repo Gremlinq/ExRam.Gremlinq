@@ -12,7 +12,9 @@ namespace ExRam.Gremlinq.Dse
     {
         public static DseGraphModel ToGraphSchema(this IGraphModel model)
         {
-            return new DseGraphModel(model.EdgeConnectionClosure());
+            model = model.EdgeConnectionClosure();
+
+            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections);
         }
     }
 }

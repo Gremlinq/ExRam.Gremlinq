@@ -41,19 +41,19 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(IsDescribedIn), typeof(Language)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(Company), typeof(IsDescribedIn), typeof(Language)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(WorksFor), typeof(User)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(WorksFor), typeof(Company)));
         }
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .ToGraphSchema();
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .NotContain(tuple => tuple.Item1 == typeof(Authority));
         }
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .NotContain(tuple => tuple.Item3 == typeof(Authority));
         }
@@ -92,19 +92,19 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>()
                 .ToGraphSchema();
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(Knows), typeof(User)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(Speaks), typeof(User)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .Contain((typeof(User), typeof(WorksFor), typeof(User)));
 
-            schema.Model.Connections
+            schema.Connections
                 .Should()
                 .NotContain(tuple => tuple.Item2 == typeof(Edge));
         }

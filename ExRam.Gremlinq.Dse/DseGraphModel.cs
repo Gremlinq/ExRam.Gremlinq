@@ -1,12 +1,21 @@
+using System;
+using System.Collections.Immutable;
+
 namespace ExRam.Gremlinq.Dse
 {
-    public sealed class DseGraphModel
+    public sealed class DseGraphModel : IGraphModel
     {
-        public DseGraphModel(IGraphModel model)
+        public DseGraphModel(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
         {
-            this.Model = model;
+            this.VertexTypes = vertexTypes;
+            this.EdgeTypes = edgeTypes;
+            this.Connections = connections;
         }
 
-        public IGraphModel Model { get; }
+        public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
+
+        public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
+
+        public IImmutableList<(Type, Type, Type)> Connections { get; }
     }
 }

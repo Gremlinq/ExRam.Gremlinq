@@ -88,7 +88,7 @@ namespace Dse
 
             var propertyKeys = new Dictionary<string, Type>();
             
-            foreach (var vertexType in model.Model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.Model.EdgeTypes.Values))
+            foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
             {
                 foreach (var property in vertexType.ElementType.GetProperties())
                 {
@@ -128,10 +128,10 @@ namespace Dse
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
-                .Concat(model.Model.VertexTypes.Values
+                .Concat(model.VertexTypes.Values
                     .Where(vertexType => !vertexType.ElementType.GetTypeInfo().IsAbstract)
                     .Select(vertexType => vertexType
-                        .TryGetPartitionKeyExpression(model.Model)
+                        .TryGetPartitionKeyExpression(model)
                         .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
                         .AsEnumerable()
                         .Aggregate(
@@ -148,10 +148,10 @@ namespace Dse
                                     .Select(x => x.Name)
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
-                .Concat(model.Model.VertexTypes.Values
+                .Concat(model.VertexTypes.Values
                     .Select(vertexType => (
                         SchemaInfo: vertexType, 
-                        IndexProperties: model.Model
+                        IndexProperties: model
                             .GetElementInfoHierarchy(vertexType)
                             .OfType<VertexTypeInfo>()
                             .SelectMany(x => x.SecondaryIndexes)
@@ -167,9 +167,9 @@ namespace Dse
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                         .AddStep<string>("add"))
-                .Concat(model.Model.EdgeTypes.Values
+                .Concat(model.EdgeTypes.Values
                     .Where(edgeSchemaInfo => !edgeSchemaInfo.ElementType.GetTypeInfo().IsAbstract)
-                    .Select(edgeSchemaInfo => model.Model.Connections
+                    .Select(edgeSchemaInfo => model.Connections
                         .Where(tuple => tuple.Item2 == edgeSchemaInfo.ElementType)
                         .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                         .Aggregate(
