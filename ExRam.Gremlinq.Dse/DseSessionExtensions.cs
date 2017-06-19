@@ -87,7 +87,7 @@ namespace Dse
             var queryProvider = new DseGraphQueryProvider(session);
 
             var propertyKeys = new Dictionary<string, Type>();
-
+            
             foreach (var vertexType in schema.Model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(schema.Model.EdgeTypes.Values))
             {
                 foreach (var property in vertexType.ElementType.GetProperties())
@@ -169,8 +169,9 @@ namespace Dse
                         .AddStep<string>("add"))
                 .Concat(schema.Model.EdgeTypes.Values
                     .Where(edgeSchemaInfo => !edgeSchemaInfo.ElementType.GetTypeInfo().IsAbstract)
-                    .Select(edgeSchemaInfo => schema.Connections
-                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.Label)
+                    .Select(edgeSchemaInfo => schema.Model.Connections
+                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.ElementType)
+                        .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)

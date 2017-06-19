@@ -4,13 +4,11 @@ namespace ExRam.Gremlinq.Dse
 {
     public sealed class DseGraphSchema : IGraphSchema
     {
-        public DseGraphSchema(IGraphModel model, ImmutableList<(string, string, string)> connections)
+        public DseGraphSchema(IGraphModel model)
         {
             this.Model = model;
-            this.Connections = connections;
         }
 
         public IGraphModel Model { get; }
-        public ImmutableList<(string, string, string)> Connections { get; }
     }
 }

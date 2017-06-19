@@ -41,21 +41,21 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "IsDescribedIn", "Language"));
+                .Contain((typeof(User), typeof(IsDescribedIn), typeof(Language)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("Company", "IsDescribedIn", "Language"));
+                .Contain((typeof(Company), typeof(IsDescribedIn), typeof(Language)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "WorksFor", "User"));
+                .Contain((typeof(User), typeof(WorksFor), typeof(User)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "WorksFor", "Company"));
+                .Contain((typeof(User), typeof(WorksFor), typeof(Company)));
         }
 
         [Fact]
@@ -66,9 +66,9 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .ToGraphSchema();
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .NotContain(tuple => tuple.Item1 == "Authority");
+                .NotContain(tuple => tuple.Item1 == typeof(Authority));
         }
 
         [Fact]
@@ -79,9 +79,9 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .NotContain(tuple => tuple.Item3 == "Authority");
+                .NotContain(tuple => tuple.Item3 == typeof(Authority));
         }
 
         [Fact]
@@ -92,21 +92,21 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>()
                 .ToGraphSchema();
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "Knows", "User"));
+                .Contain((typeof(User), typeof(Knows), typeof(User)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "Speaks", "User"));
+                .Contain((typeof(User), typeof(Speaks), typeof(User)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .Contain(("User", "WorksFor", "User"));
+                .Contain((typeof(User), typeof(WorksFor), typeof(User)));
 
-            schema.Connections
+            schema.Model.Connections
                 .Should()
-                .NotContain(tuple => tuple.Item2 == "Edge");
+                .NotContain(tuple => tuple.Item2 == typeof(Edge));
         }
 
         //[Fact]
