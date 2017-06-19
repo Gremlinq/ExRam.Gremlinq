@@ -240,8 +240,8 @@ namespace ExRam.Gremlinq.Dse
                                                 .ToImmutableList<object>())),
                                 (closureQuery, tuple) => closureQuery.AddStep<string>(
                                     "connection",
-                                    tuple.Item1,
-                                    tuple.Item3))
+                                    model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
+                                    model.VertexLabels.TryGetValue(tuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
                             .AddStep<string>("ifNotExists")
                             .AddStep<string>("create"))));
         }
