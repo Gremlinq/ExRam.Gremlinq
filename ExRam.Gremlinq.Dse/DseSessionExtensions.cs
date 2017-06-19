@@ -86,13 +86,45 @@ namespace Dse
         {
             var queryProvider = new DseGraphQueryProvider(session);
 
-            await schema.PropertySchemaInfos
-                .Select(propertyInfo => GremlinQuery
+            var propertyKeys = new Dictionary<string, Type>();
+
+            foreach (var vertexType in schema.Model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(schema.Model.EdgeTypes.Values))
+            {
+                foreach (var property in vertexType.ElementType.GetProperties())
+                {
+                    var propertyType = property.PropertyType;
+
+                    while (true)
+                    {
+                        if (propertyType.GetTypeInfo().IsEnum)
+                            propertyType = Enum.GetUnderlyingType(propertyType);
+                        else
+                        {
+                            var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
+                            if (maybeNullableType != null)
+                                propertyType = maybeNullableType;
+                            else
+                                break;
+                        }
+                    }
+
+                    if (propertyKeys.TryGetValue(property.Name, out var existingType))
+                    {
+                        if (existingType != propertyType) //TODO: Support any kind of inheritance here?
+                            throw new InvalidOperationException($"Property {property.Name} already exists with type {existingType.Name}.");
+                    }
+                    else
+                        propertyKeys.Add(property.Name, propertyType);
+                }
+            }
+
+            await propertyKeys
+                .Select(propertyInfoKvp => GremlinQuery
                     .Create("schema", queryProvider)
-                    .AddStep<string>("propertyKey", propertyInfo.Name)
+                    .AddStep<string>("propertyKey", propertyInfoKvp.Key)
                     .AddStep<string>(NativeTypeSteps
-                        .TryGetValue(propertyInfo.Type)
-                        .IfNone(() => throw new InvalidOperationException($"No native type found for {propertyInfo.Type}.")))
+                        .TryGetValue(propertyInfoKvp.Value)
+                        .IfNone(() => throw new InvalidOperationException($"No native type found for {propertyInfoKvp.Value}.")))
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
