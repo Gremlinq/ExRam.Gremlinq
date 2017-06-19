@@ -39,17 +39,12 @@ namespace ExRam.Gremlinq
 
             public IVertexTypeInfoBuilder<T> Label(string label)
             {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label, this._typeInfo.SecondaryIndexes, this._typeInfo.PrimaryKey));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label, this._typeInfo.SecondaryIndexes));
             }
 
             public IVertexTypeInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression)
             {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes.Add(indexExpression), this._typeInfo.PrimaryKey));
-            }
-
-            public IVertexTypeInfoBuilder<T> PrimaryKey(Expression<Func<T, object>> expression)
-            {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes, expression));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes.Add(indexExpression)));
             }
         }
 

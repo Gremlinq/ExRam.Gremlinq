@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Dse
@@ -9,11 +10,16 @@ namespace ExRam.Gremlinq.Dse
     {
         private sealed class DseGraphModel : IDseGraphModel
         {
-            public DseGraphModel(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
+            public DseGraphModel(
+                IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, 
+                IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, 
+                IImmutableList<(Type, Type, Type)> connections, 
+                IImmutableDictionary<Type, Expression> primaryKeys)
             {
                 this.VertexTypes = vertexTypes;
                 this.EdgeTypes = edgeTypes;
                 this.Connections = connections;
+                this.PrimaryKeys = primaryKeys;
             }
 
             public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
@@ -21,11 +27,13 @@ namespace ExRam.Gremlinq.Dse
             public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
 
             public IImmutableList<(Type, Type, Type)> Connections { get; }
+
+            public IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
         }
 
         public static IDseGraphModel ToDseGraphModel(this IGraphModel model)
         {
-            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, ImmutableList<(Type, Type, Type)>.Empty);
+            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, ImmutableList<(Type, Type, Type)>.Empty, ImmutableDictionary<Type, Expression>.Empty);
         }
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
@@ -52,6 +60,11 @@ namespace ExRam.Gremlinq.Dse
             return model.AddConnection(typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
         }
 
+        public static IDseGraphModel PrimaryKey<T>(this IDseGraphModel model, Expression<Func<T, object>> expression)
+        {
+            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections, model.PrimaryKeys.SetItem(typeof(T), expression));
+        }
+
         private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
         {
             var outVertexInfo = model.VertexTypes
@@ -73,7 +86,7 @@ namespace ExRam.Gremlinq.Dse
 
             return model.Connections.Contains(tuple)
                 ? model
-                : new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
+                : new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple), model.PrimaryKeys);
         }
     }
 }

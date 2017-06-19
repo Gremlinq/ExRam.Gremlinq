@@ -207,9 +207,9 @@ namespace Dse
             return query;
         }
 
-        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IGraphModel model)
+        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IDseGraphModel model)
         {
-            return vertexTypeInfo.PrimaryKey
+            return model.PrimaryKeys.TryGetValue(vertexTypeInfo.ElementType)
                 .Match(
                     _ => (Option<Expression>)_,
                     () =>
