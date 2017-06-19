@@ -158,7 +158,7 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(step), query.Provider, query.MemberInfoMappings, query.StepLabelFactory);
         }
 
-        internal static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
+        public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
         {
             return query.AddStep<T>(new GremlinStep(name, parameters));
         }

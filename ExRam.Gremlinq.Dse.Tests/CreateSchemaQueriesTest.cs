@@ -27,6 +27,25 @@ namespace ExRam.Gremlinq.Dse.Tests
         }
 
         [Fact]
+        public void FromAssembly_ToGraphSchema_includes_properties()
+        {
+            var queries = GraphModel
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+                .ToDseGraphModel()
+                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+                .ToArray();
+
+            queries
+                .Should()
+                .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                    x.Steps.Any(step => step.Name == "properties" && step.Parameters.Contains("Name")));
+
+            queries
+                .Should()
+                .OnlyContain(x => x.Steps.All(step => step.Name != "properties" || step.Parameters.All(y => y is string)));
+        }
+
+        [Fact]
         public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()
         {
             var queries = GraphModel
