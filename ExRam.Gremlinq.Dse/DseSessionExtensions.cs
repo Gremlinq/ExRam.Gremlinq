@@ -154,9 +154,8 @@ namespace Dse
                         SchemaInfo: vertexKvp, 
                         IndexProperties: model
                             .GetElementInfoHierarchy(vertexKvp.Key)
-                            .OfType<VertexTypeInfo>()
                             .SelectMany(x => model.SecondaryIndexes
-                                .TryGetValue(x.ElementType)
+                                .TryGetValue(x)
                                 .AsEnumerable()
                                 .SelectMany(y => y))
                             .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
