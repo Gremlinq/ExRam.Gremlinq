@@ -79,7 +79,12 @@ namespace Dse
                 .WithJsonSupport();
         }
 
-        public static async Task CreateSchema(this IDseSession session, IGraphSchema schema, CancellationToken ct)
+        public static DseGraphSchema ToDseGraphSchema(this IGraphSchema schema)
+        {
+            return new DseGraphSchema(schema);
+        }
+
+        public static async Task CreateSchema(this IDseSession session, DseGraphSchema schema, CancellationToken ct)
         {
             var queryProvider = new DseGraphQueryProvider(session);
 
