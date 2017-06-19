@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq
 
         public static IGraphSchema ToGraphSchema(this IGraphModel model)
         {
-            var schema = GraphSchema.Empty;
+            IGraphSchema schema = new GraphSchema.GraphSchemaImpl(model, ImmutableList<VertexSchemaInfo>.Empty, ImmutableList<EdgeSchemaInfo>.Empty, ImmutableList<PropertySchemaInfo>.Empty, ImmutableList<(string, string, string)>.Empty);
             var propertyKeys = new Dictionary<string, Type>();
 
             model = model.EdgeConnectionClosure();

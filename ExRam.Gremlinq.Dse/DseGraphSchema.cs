@@ -12,6 +12,11 @@ namespace Dse
             this._graphSchemaImplementation = graphSchemaImplementation;
         }
 
+        public IGraphModel Model
+        {
+            get { return this._graphSchemaImplementation.Model; }
+        }
+
         public ImmutableList<VertexSchemaInfo> VertexSchemaInfos
         {
             get { return this._graphSchemaImplementation.VertexSchemaInfos; }
