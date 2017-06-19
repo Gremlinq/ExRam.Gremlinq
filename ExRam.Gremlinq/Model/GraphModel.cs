@@ -12,18 +12,15 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, IImmutableList<(Type, Type, Type)> connections)
+            public GraphModelImpl(IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes)
             {
                 this.VertexTypes = vertexTypes;
                 this.EdgeTypes = edgeTypes;
-                this.Connections = connections;
             }
 
             public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
 
             public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
-
-            public IImmutableList<(Type, Type, Type)> Connections { get; }
         }
 
         private sealed class VertexTypeInfoBuilder<T> : IVertexTypeInfoBuilder<T>
@@ -76,7 +73,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, VertexTypeInfo>.Empty, ImmutableDictionary<Type, EdgeTypeInfo>.Empty, ImmutableList<(Type, Type, Type)>.Empty);
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, VertexTypeInfo>.Empty, ImmutableDictionary<Type, EdgeTypeInfo>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
         {
@@ -103,8 +100,7 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => new EdgeTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))),
-                ImmutableList<(Type, Type, Type)>.Empty);
+                        type => new EdgeTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))));
         }
 
         public static IGraphModel EdgeType<T>(this IGraphModel model, Func<IEdgeTypeInfoBuilder<T>, IEdgeTypeInfoBuilder<T>> builderAction)
@@ -121,7 +117,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.SetItem(type, builderAction(new EdgeTypeInfoBuilder<T>(edgeInfo)).Build()), model.Connections));
+                    () => new GraphModelImpl(model.VertexTypes, model.EdgeTypes.SetItem(type, builderAction(new EdgeTypeInfoBuilder<T>(edgeInfo)).Build())));
         }
 
         public static IGraphModel VertexType<T>(this IGraphModel model, Func<IVertexTypeInfoBuilder<T>, IVertexTypeInfoBuilder<T>> builderAction)
@@ -138,31 +134,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexTypes.SetItem(type, builderAction(new VertexTypeInfoBuilder<T>(vertexInfo)).Build()), model.EdgeTypes, model.Connections));
-        }
-
-        public static IGraphModel AddConnection<TOutVertex, TEdge, TInVertex>(this IGraphModel model)
-        {
-            return model.AddConnection(typeof(TOutVertex), typeof(TEdge), typeof(TInVertex));
-        }
-
-        public static IGraphModel EdgeConnectionClosure(this IGraphModel model)
-        {
-            foreach (var connection in model.Connections)
-            {
-                foreach (var outVertexClosure in model.GetDerivedElementInfos(connection.Item1, true))
-                {
-                    foreach (var edgeClosure in model.GetDerivedElementInfos(connection.Item2, true))
-                    {
-                        foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3, true))
-                        {
-                            model = model.AddConnection(outVertexClosure.ElementType, edgeClosure.ElementType, inVertexClosure.ElementType);
-                        }
-                    }
-                }
-            }
-
-            return model;
+                    () => new GraphModelImpl(model.VertexTypes.SetItem(type, builderAction(new VertexTypeInfoBuilder<T>(vertexInfo)).Build()), model.EdgeTypes));
         }
 
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
@@ -197,36 +169,12 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault();
         }
 
-        internal static IEnumerable<GraphElementInfo> GetDerivedElementInfos(this IGraphModel model, Type type, bool includeType)
+        public static IEnumerable<GraphElementInfo> GetDerivedElementInfos(this IGraphModel model, Type type, bool includeType)
         {
             return model.VertexTypes.Values
                 .Cast<GraphElementInfo>()
                 .Concat(model.EdgeTypes.Values)
                 .Where(elementInfo => !elementInfo.ElementType.GetTypeInfo().IsAbstract && (includeType || elementInfo.ElementType != type) && type.IsAssignableFrom(elementInfo.ElementType));
-        }
-
-        private static IGraphModel AddConnection(this IGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
-        {
-            var outVertexInfo = model.VertexTypes
-                .TryGetValue(outVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
-
-            var inVertexInfo = model.VertexTypes
-                .TryGetValue(inVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
-
-            var connectionEdgeInfo = model.EdgeTypes
-                .TryGetValue(edgeType)
-                .Map(edgeInfo => edgeInfo.ElementType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
-
-            var tuple = (outVertexInfo, connectionEdgeInfo, inVertexInfo);
-
-            return model.Connections.Contains(tuple)
-                ? model
-                : new GraphModelImpl(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple));
         }
     }
 }

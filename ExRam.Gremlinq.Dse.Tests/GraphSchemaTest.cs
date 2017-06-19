@@ -37,9 +37,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+                .ToGraphSchema()
                 .AddConnection<Authority, IsDescribedIn, Language>()
-                .AddConnection<User, WorksFor, Authority>()
-                .ToGraphSchema();
+                .AddConnection<User, WorksFor, Authority>();
 
             schema.Connections
                 .Should()
@@ -63,8 +63,8 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .AddConnection<Authority, IsDescribedIn, Language>()
-                .ToGraphSchema();
+                .ToGraphSchema()
+                .AddConnection<Authority, IsDescribedIn, Language>();
 
             schema.Connections
                 .Should()
@@ -76,8 +76,8 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .AddConnection<User, WorksFor, Authority>()
-                .ToGraphSchema();
+                .ToGraphSchema()
+                .AddConnection<User, WorksFor, Authority>();
 
             schema.Connections
                 .Should()
@@ -89,8 +89,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var schema = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>()
-                .ToGraphSchema();
+                .ToGraphSchema()
+                .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>();
+               
 
             schema.Connections
                 .Should()

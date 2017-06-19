@@ -7,6 +7,5 @@ namespace ExRam.Gremlinq
     {
         IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
         IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
-        IImmutableList<(Type, Type, Type)> Connections { get; }
     }
 }

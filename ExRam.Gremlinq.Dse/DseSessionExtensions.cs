@@ -85,6 +85,7 @@ namespace Dse
         public static async Task CreateSchema(this IDseSession session, DseGraphModel model, CancellationToken ct)
         {
             var queryProvider = new DseGraphQueryProvider(session);
+            model = model.EdgeConnectionClosure();
 
             var propertyKeys = new Dictionary<string, Type>();
             
