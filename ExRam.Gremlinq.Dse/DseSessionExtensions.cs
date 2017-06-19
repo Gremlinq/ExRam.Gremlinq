@@ -97,6 +97,7 @@ namespace Dse
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
                 .Concat(schema.Model.VertexTypes.Values
+                    .Where(vertexType => !vertexType.ElementType.GetTypeInfo().IsAbstract)
                     .Select(vertexType => vertexType
                         .TryGetPartitionKeyExpression(schema.Model)
                         .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
@@ -135,6 +136,7 @@ namespace Dse
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                         .AddStep<string>("add"))
                 .Concat(schema.Model.EdgeTypes.Values
+                    .Where(edgeSchemaInfo => !edgeSchemaInfo.ElementType.GetTypeInfo().IsAbstract)
                     .Select(edgeSchemaInfo => schema.Connections
                         .Where(tuple => tuple.Item2 == edgeSchemaInfo.Label)
                         .Aggregate(

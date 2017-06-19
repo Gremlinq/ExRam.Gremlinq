@@ -52,19 +52,6 @@ namespace ExRam.Gremlinq.Dse
                     schema,
                     (closureSchema, propertyKvp) => closureSchema.Property(propertyKvp.Key, propertyKvp.Value));
 
-            schema = model.VertexTypes.Values
-                .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
-                .Aggregate(
-                    schema,
-                    (closureSchema, vertexType) => closureSchema.VertexLabel(
-                        vertexType));
-
-            schema = model.EdgeTypes.Values
-                .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
-                .Aggregate(
-                    schema,
-                    (closureSchema, edgeType) => closureSchema.EdgeLabel(edgeType));
-
             return model.Connections
                 .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                 .Aggregate(
@@ -83,16 +70,6 @@ namespace ExRam.Gremlinq.Dse
         public static DseGraphSchema Property(this DseGraphSchema schema, string name, Type type)
         {
             return new DseGraphSchema(schema.Model, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
-        }
-
-        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo)
-        {
-            return new DseGraphSchema(schema.Model, schema.PropertySchemaInfos, schema.Connections);
-        }
-
-        public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, EdgeTypeInfo typeInfo)
-        {
-            return new DseGraphSchema(schema.Model, schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema Connection(this DseGraphSchema schema, string outVertexLabel, string edgeLabel, string inVertexLabel)
