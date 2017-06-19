@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Threading;
@@ -96,7 +97,10 @@ namespace Dse
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
                 .Concat(schema.VertexSchemaInfos
-                    .Select(vertexSchemaInfo => vertexSchemaInfo.PartitionKeyProperties
+                    .Select(vertexSchemaInfo => vertexSchemaInfo.TypeInfo
+                        .TryGetPartitionKeyExpression(schema.Model)
+                        .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
+                        .AsEnumerable()
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
@@ -154,6 +158,26 @@ namespace Dse
                 return addStepFunction(query);
 
             return query;
+        }
+
+        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IGraphModel model)
+        {
+            return vertexTypeInfo.PrimaryKey
+                .Match(
+                    _ => (Option<Expression>)_,
+                    () =>
+                    {
+                        var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
+
+                        if (baseType != null)
+                        {
+                            return model.VertexTypes
+                                .TryGetValue(baseType)
+                                .Bind(baseVertexInfo => baseVertexInfo.TryGetPartitionKeyExpression(model));
+                        }
+
+                        return Option<Expression>.None;
+                    });
         }
     }
 }

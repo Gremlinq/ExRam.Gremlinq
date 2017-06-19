@@ -58,12 +58,6 @@ namespace ExRam.Gremlinq.Dse
                     schema,
                     (closureSchema, vertexType) => closureSchema.VertexLabel(
                         vertexType,
-                        vertexType
-                            .TryGetPartitionKeyExpression(model)
-                            .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member
-                                .Name)
-                            .AsEnumerable()
-                            .ToImmutableList(),
                         model
                             .GetElementInfoHierarchy(vertexType)
                             .OfType<VertexTypeInfo>()
@@ -99,9 +93,9 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
         }
 
-        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo, ImmutableList<string> partitionKeyProperties, ImmutableList<string> indexProperties)
+        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo, ImmutableList<string> indexProperties)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo, partitionKeyProperties, indexProperties)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo, indexProperties)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties)
@@ -112,26 +106,6 @@ namespace ExRam.Gremlinq.Dse
         public static DseGraphSchema Connection(this DseGraphSchema schema, string outVertexLabel, string edgeLabel, string inVertexLabel)
         {
             return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections.Add((outVertexLabel, edgeLabel, inVertexLabel)));
-        }
-
-        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IGraphModel model)
-        {
-            return vertexTypeInfo.PrimaryKey
-                .Match(
-                    _ => (Option<Expression>)_,
-                    () =>
-                    {
-                        var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
-
-                        if (baseType != null)
-                        {
-                            return model.VertexTypes
-                                .TryGetValue(baseType)
-                                .Bind(baseVertexInfo => baseVertexInfo.TryGetPartitionKeyExpression(model));
-                        }
-
-                        return Option<Expression>.None;
-                    });
         }
 
         private static IEnumerable<GraphElementInfo> GetElementInfoHierarchy(this IGraphModel model, GraphElementInfo elementInfo)
