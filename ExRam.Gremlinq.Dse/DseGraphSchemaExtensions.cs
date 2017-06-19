@@ -57,11 +57,7 @@ namespace ExRam.Gremlinq.Dse
                 .Aggregate(
                     schema,
                     (closureSchema, vertexType) => closureSchema.VertexLabel(
-                        vertexType.Label,
-                        vertexType.ElementType
-                            .GetProperties()
-                            .Select(property => property.Name)
-                            .ToImmutableList(),
+                        vertexType,
                         vertexType
                             .TryGetPartitionKeyExpression(model)
                             .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member
@@ -103,9 +99,9 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos, schema.EdgeSchemaInfos, schema.PropertySchemaInfos.Add(new PropertySchemaInfo(name, type)), schema.Connections);
         }
 
-        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties, ImmutableList<string> partitionKeyProperties, ImmutableList<string> indexProperties)
+        public static DseGraphSchema VertexLabel(this DseGraphSchema schema, VertexTypeInfo typeInfo, ImmutableList<string> partitionKeyProperties, ImmutableList<string> indexProperties)
         {
-            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(label, properties, partitionKeyProperties, indexProperties)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.VertexSchemaInfos.Add(new VertexSchemaInfo(typeInfo, partitionKeyProperties, indexProperties)), schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties)

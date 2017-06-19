@@ -16,11 +16,11 @@ namespace ExRam.Gremlinq.Dse.Tests
 
             schema.VertexSchemaInfos
                 .Should()
-                .NotContain(x => x.Label == "Vertex");
+                .NotContain(x => x.TypeInfo.Label == "Vertex");
 
             schema.VertexSchemaInfos
                 .Should()
-                .NotContain(x => x.Label == "Authority");
+                .NotContain(x => x.TypeInfo.Label == "Authority");
         }
 
         [Fact]
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Dse.Tests
 
             schema.VertexSchemaInfos
                 .Should()
-                .Contain(x => x.Label == "User" && x.IndexProperties.Contains("Name"));
+                .Contain(x => x.TypeInfo.Label == "User" && x.IndexProperties.Contains("Name"));
         }
     }
 }

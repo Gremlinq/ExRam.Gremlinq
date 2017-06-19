@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Dse.Graph;
@@ -99,14 +100,15 @@ namespace Dse
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexSchemaInfo.Label),
+                                .AddStep<string>("vertexLabel", vertexSchemaInfo.TypeInfo.Label),
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
                         .ConditionalAddStep(
-                            !vertexSchemaInfo.Properties.IsEmpty,
+                            vertexSchemaInfo.TypeInfo.ElementType.GetProperties().Any(),
                             query => query.AddStep<string>(
                                 "properties", 
                                 vertexSchemaInfo
-                                    .Properties
+                                    .TypeInfo.ElementType.GetProperties()
+                                    .Select(x => x.Name)
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
                 .Concat(schema.VertexSchemaInfos
@@ -115,7 +117,7 @@ namespace Dse
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexSchemaInfo.Label)
+                                .AddStep<string>("vertexLabel", vertexSchemaInfo.TypeInfo.Label)
                                 .AddStep<string>("index", Guid.NewGuid().ToString("N"))
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))

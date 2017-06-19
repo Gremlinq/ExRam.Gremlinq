@@ -4,16 +4,14 @@ namespace ExRam.Gremlinq
 {
     public class VertexSchemaInfo
     {
-        public VertexSchemaInfo(string label, ImmutableList<string> properties, ImmutableList<string> partitionKeyProperties, ImmutableList<string> indexProperties)
+        public VertexSchemaInfo(VertexTypeInfo typeInfo, ImmutableList<string> partitionKeyProperties, ImmutableList<string> indexProperties)
         {
-            Label = label;
-            Properties = properties;
+            this.TypeInfo = typeInfo;
             IndexProperties = indexProperties;
             PartitionKeyProperties = partitionKeyProperties;
         }
 
-        public string Label { get; }
-        public ImmutableList<string> Properties { get; }
+        public VertexTypeInfo TypeInfo { get; }
         public ImmutableList<string> IndexProperties { get; }
         public ImmutableList<string> PartitionKeyProperties { get; }
     }
