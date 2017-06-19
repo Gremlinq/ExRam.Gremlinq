@@ -1,10 +1,8 @@
-using System.Collections.Immutable;
-
 namespace ExRam.Gremlinq.Dse
 {
-    public sealed class DseGraphSchema
+    public sealed class DseGraphModel
     {
-        public DseGraphSchema(IGraphModel model)
+        public DseGraphModel(IGraphModel model)
         {
             this.Model = model;
         }

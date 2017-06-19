@@ -82,13 +82,13 @@ namespace Dse
                 .WithJsonSupport();
         }
 
-        public static async Task CreateSchema(this IDseSession session, DseGraphSchema schema, CancellationToken ct)
+        public static async Task CreateSchema(this IDseSession session, DseGraphModel model, CancellationToken ct)
         {
             var queryProvider = new DseGraphQueryProvider(session);
 
             var propertyKeys = new Dictionary<string, Type>();
             
-            foreach (var vertexType in schema.Model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(schema.Model.EdgeTypes.Values))
+            foreach (var vertexType in model.Model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.Model.EdgeTypes.Values))
             {
                 foreach (var property in vertexType.ElementType.GetProperties())
                 {
@@ -128,10 +128,10 @@ namespace Dse
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
-                .Concat(schema.Model.VertexTypes.Values
+                .Concat(model.Model.VertexTypes.Values
                     .Where(vertexType => !vertexType.ElementType.GetTypeInfo().IsAbstract)
                     .Select(vertexType => vertexType
-                        .TryGetPartitionKeyExpression(schema.Model)
+                        .TryGetPartitionKeyExpression(model.Model)
                         .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
                         .AsEnumerable()
                         .Aggregate(
@@ -148,10 +148,10 @@ namespace Dse
                                     .Select(x => x.Name)
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
-                .Concat(schema.Model.VertexTypes.Values
+                .Concat(model.Model.VertexTypes.Values
                     .Select(vertexType => (
                         SchemaInfo: vertexType, 
-                        IndexProperties: schema.Model
+                        IndexProperties: model.Model
                             .GetElementInfoHierarchy(vertexType)
                             .OfType<VertexTypeInfo>()
                             .SelectMany(x => x.SecondaryIndexes)
@@ -167,9 +167,9 @@ namespace Dse
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                         .AddStep<string>("add"))
-                .Concat(schema.Model.EdgeTypes.Values
+                .Concat(model.Model.EdgeTypes.Values
                     .Where(edgeSchemaInfo => !edgeSchemaInfo.ElementType.GetTypeInfo().IsAbstract)
-                    .Select(edgeSchemaInfo => schema.Model.Connections
+                    .Select(edgeSchemaInfo => model.Model.Connections
                         .Where(tuple => tuple.Item2 == edgeSchemaInfo.ElementType)
                         .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                         .Aggregate(
