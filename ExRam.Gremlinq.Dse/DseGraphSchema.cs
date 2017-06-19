@@ -1,40 +1,22 @@
 using System.Collections.Immutable;
-using ExRam.Gremlinq;
 
-namespace Dse
+namespace ExRam.Gremlinq.Dse
 {
-    public class DseGraphSchema : IGraphSchema
+    public sealed class DseGraphSchema : IGraphSchema
     {
-        private readonly IGraphSchema _graphSchemaImplementation;
-
-        public DseGraphSchema(IGraphSchema graphSchemaImplementation)
+        public DseGraphSchema(IGraphModel model, ImmutableList<VertexSchemaInfo> vertexSchemaInfos, ImmutableList<EdgeSchemaInfo> edgeSchemaInfos, ImmutableList<PropertySchemaInfo> propertySchemaInfos, ImmutableList<(string, string, string)> connections)
         {
-            this._graphSchemaImplementation = graphSchemaImplementation;
+            this.Model = model;
+            this.EdgeSchemaInfos = edgeSchemaInfos;
+            this.VertexSchemaInfos = vertexSchemaInfos;
+            this.PropertySchemaInfos = propertySchemaInfos;
+            this.Connections = connections;
         }
 
-        public IGraphModel Model
-        {
-            get { return this._graphSchemaImplementation.Model; }
-        }
-
-        public ImmutableList<VertexSchemaInfo> VertexSchemaInfos
-        {
-            get { return this._graphSchemaImplementation.VertexSchemaInfos; }
-        }
-
-        public ImmutableList<EdgeSchemaInfo> EdgeSchemaInfos
-        {
-            get { return this._graphSchemaImplementation.EdgeSchemaInfos; }
-        }
-
-        public ImmutableList<PropertySchemaInfo> PropertySchemaInfos
-        {
-            get { return this._graphSchemaImplementation.PropertySchemaInfos; }
-        }
-
-        public ImmutableList<(string, string, string)> Connections
-        {
-            get { return this._graphSchemaImplementation.Connections; }
-        }
+        public IGraphModel Model { get; }
+        public ImmutableList<EdgeSchemaInfo> EdgeSchemaInfos { get; }
+        public ImmutableList<VertexSchemaInfo> VertexSchemaInfos { get; }
+        public ImmutableList<PropertySchemaInfo> PropertySchemaInfos { get; }
+        public ImmutableList<(string, string, string)> Connections { get; }
     }
 }

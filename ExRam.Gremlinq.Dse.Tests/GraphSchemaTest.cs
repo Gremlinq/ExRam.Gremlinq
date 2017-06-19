@@ -1,10 +1,11 @@
 using System.Reflection;
-using FluentAssertions;
+using ExRam.Gremlinq.Tests;
 using Xunit;
+using FluentAssertions;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Dse.Tests
 {
-    public class GraphSchemaTest
+    public class DseGraphSchemaTest
     {
         [Fact]
         public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()

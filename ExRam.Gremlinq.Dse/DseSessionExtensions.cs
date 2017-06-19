@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dse.Graph;
 using ExRam.Gremlinq;
+using ExRam.Gremlinq.Dse;
 using LanguageExt;
 
 // ReSharper disable once CheckNamespace
@@ -77,11 +78,6 @@ namespace Dse
             return new DseGraphQueryProvider(session)
                 .WithModel(model)
                 .WithJsonSupport();
-        }
-
-        public static DseGraphSchema ToDseGraphSchema(this IGraphSchema schema)
-        {
-            return new DseGraphSchema(schema);
         }
 
         public static async Task CreateSchema(this IDseSession session, DseGraphSchema schema, CancellationToken ct)
