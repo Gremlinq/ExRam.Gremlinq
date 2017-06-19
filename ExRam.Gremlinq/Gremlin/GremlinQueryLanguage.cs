@@ -591,7 +591,9 @@ namespace ExRam.Gremlinq
                     (model, typeof(T)),
                     tuple => tuple.model
                         .GetDerivedElementInfos(typeof(T), true)
-                        .Select(elementInfo => elementInfo.Label)
+                        .Select(type => tuple.model
+                            .TryGetLabelOfType(type)
+                            .IfNone(() => throw new InvalidOperationException()))
                         .OrderBy(x => x)
                         .ToImmutableList<object>());
         }

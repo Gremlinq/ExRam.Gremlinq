@@ -11,22 +11,22 @@ namespace ExRam.Gremlinq.Dse
         private sealed class DseGraphModel : IDseGraphModel
         {
             public DseGraphModel(
-                IImmutableDictionary<Type, VertexTypeInfo> vertexTypes, 
-                IImmutableDictionary<Type, EdgeTypeInfo> edgeTypes, 
+                IImmutableDictionary<Type, string> vertexLabels, 
+                IImmutableDictionary<Type, string> edgeTypes, 
                 IImmutableList<(Type, Type, Type)> connections, 
                 IImmutableDictionary<Type, Expression> primaryKeys,
                 IImmutableDictionary<Type, IImmutableList<Expression>> secondaryIndexes)
             {
-                this.VertexTypes = vertexTypes;
-                this.EdgeTypes = edgeTypes;
+                this.VertexLabels = vertexLabels;
+                this.EdgeLabels = edgeTypes;
                 this.Connections = connections;
                 this.PrimaryKeys = primaryKeys;
                 this.SecondaryIndexes = secondaryIndexes;
             }
 
-            public IImmutableDictionary<Type, VertexTypeInfo> VertexTypes { get; }
+            public IImmutableDictionary<Type, string> VertexLabels { get; }
 
-            public IImmutableDictionary<Type, EdgeTypeInfo> EdgeTypes { get; }
+            public IImmutableDictionary<Type, string> EdgeLabels { get; }
 
             public IImmutableList<(Type, Type, Type)> Connections { get; }
 
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel ToDseGraphModel(this IGraphModel model)
         {
-            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, ImmutableList<(Type, Type, Type)>.Empty, ImmutableDictionary<Type, Expression>.Empty, ImmutableDictionary<Type, IImmutableList<Expression>>.Empty);
+            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, ImmutableList<(Type, Type, Type)>.Empty, ImmutableDictionary<Type, Expression>.Empty, ImmutableDictionary<Type, IImmutableList<Expression>>.Empty);
         }
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Dse
                     {
                         foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3, true))
                         {
-                            model = model.AddConnection(outVertexClosure.ElementType, edgeClosure.ElementType, inVertexClosure.ElementType);
+                            model = model.AddConnection(outVertexClosure, edgeClosure, inVertexClosure);
                         }
                     }
                 }
@@ -66,15 +66,14 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel PrimaryKey<T>(this IDseGraphModel model, Expression<Func<T, object>> expression)
         {
-            return new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections, model.PrimaryKeys.SetItem(typeof(T), expression), model.SecondaryIndexes);
+            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections, model.PrimaryKeys.SetItem(typeof(T), expression), model.SecondaryIndexes);
         }
-
 
         public static IDseGraphModel SecondaryIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
         {
             return new DseGraphModel(
-                model.VertexTypes,
-                model.EdgeTypes,
+                model.VertexLabels,
+                model.EdgeLabels,
                 model.Connections,
                 model.PrimaryKeys,
                 model.SecondaryIndexes.SetItem(
@@ -88,26 +87,23 @@ namespace ExRam.Gremlinq.Dse
 
         private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
         {
-            var outVertexInfo = model.VertexTypes
+            model.VertexLabels
                 .TryGetValue(outVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
 
-            var inVertexInfo = model.VertexTypes
+            model.VertexLabels
                 .TryGetValue(inVertexType)
-                .Map(vertexInfo => vertexInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
 
-            var connectionEdgeInfo = model.EdgeTypes
+            model.EdgeLabels
                 .TryGetValue(edgeType)
-                .Map(edgeInfo => edgeInfo.ElementType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
 
-            var tuple = (outVertexInfo, connectionEdgeInfo, inVertexInfo);
+            var tuple = (outVertexType, edgeType, inVertexType);
 
             return model.Connections.Contains(tuple)
                 ? model
-                : new DseGraphModel(model.VertexTypes, model.EdgeTypes, model.Connections.Add(tuple), model.PrimaryKeys, model.SecondaryIndexes);
+                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.SecondaryIndexes);
         }
     }
 }

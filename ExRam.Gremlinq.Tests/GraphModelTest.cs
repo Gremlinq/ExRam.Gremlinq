@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
@@ -16,7 +14,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple);
 
-            model.VertexTypes.Keys
+            model.VertexLabels.Keys
                 .Should()
                 .Contain(typeof(Authority));
         }

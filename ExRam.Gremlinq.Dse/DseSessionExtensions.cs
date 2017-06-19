@@ -89,9 +89,9 @@ namespace Dse
 
             var propertyKeys = new Dictionary<string, Type>();
             
-            foreach (var vertexType in model.VertexTypes.Values.Cast<GraphElementInfo>().Concat(model.EdgeTypes.Values))
+            foreach (var type in model.VertexLabels.Keys.Concat(model.EdgeLabels.Keys))
             {
-                foreach (var property in vertexType.ElementType.GetProperties())
+                foreach (var property in type.GetProperties())
                 {
                     var propertyType = property.PropertyType;
 
@@ -129,31 +129,31 @@ namespace Dse
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"))
-                .Concat(model.VertexTypes.Values
-                    .Where(vertexType => !vertexType.ElementType.GetTypeInfo().IsAbstract)
-                    .Select(vertexType => vertexType
+                .Concat(model.VertexLabels
+                    .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
+                    .Select(vertexKvp => vertexKvp.Key
                         .TryGetPartitionKeyExpression(model)
                         .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
                         .AsEnumerable()
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexType.Label),
+                                .AddStep<string>("vertexLabel", vertexKvp.Value),
                             (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
                         .ConditionalAddStep(
-                            vertexType.ElementType.GetProperties().Any(),
+                            vertexKvp.Key.GetProperties().Any(),
                             query => query.AddStep<string>(
-                                "properties", 
-                                vertexType
-                                    .ElementType.GetProperties()
+                                "properties",
+                                vertexKvp.Key
+                                    .GetProperties()
                                     .Select(x => x.Name)
                                     .ToImmutableList<object>()))
                         .AddStep<string>("create")))
-                .Concat(model.VertexTypes.Values
-                    .Select(vertexType => (
-                        SchemaInfo: vertexType, 
+                .Concat(model.VertexLabels
+                    .Select(vertexKvp => (
+                        SchemaInfo: vertexKvp, 
                         IndexProperties: model
-                            .GetElementInfoHierarchy(vertexType)
+                            .GetElementInfoHierarchy(vertexKvp.Key)
                             .OfType<VertexTypeInfo>()
                             .SelectMany(x => model.SecondaryIndexes
                                 .TryGetValue(x.ElementType)
@@ -166,28 +166,28 @@ namespace Dse
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", tuple.SchemaInfo.Label)
+                                .AddStep<string>("vertexLabel", tuple.SchemaInfo.Value)
                                 .AddStep<string>("index", Guid.NewGuid().ToString("N"))
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                         .AddStep<string>("add"))
-                .Concat(model.EdgeTypes.Values
-                    .Where(edgeSchemaInfo => !edgeSchemaInfo.ElementType.GetTypeInfo().IsAbstract)
-                    .Select(edgeSchemaInfo => model.Connections
-                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.ElementType)
+                .Concat(model.EdgeLabels
+                    .Where(edgeKvp => !edgeKvp.Key.GetTypeInfo().IsAbstract)
+                    .Select(edgeKvp => model.Connections
+                        .Where(tuple => tuple.Item2 == edgeKvp.Key)
                         .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
+                                .AddStep<string>("edgeLabel", edgeKvp.Value)
                                 .AddStep<string>("single")
                                 .ConditionalAddStep(
-                                    edgeSchemaInfo.ElementType
+                                    edgeKvp.Key
                                         .GetProperties()
                                         .Any(),
                                     query => query.AddStep<string>(
                                         "properties",
-                                        edgeSchemaInfo.ElementType
+                                        edgeKvp.Key
                                             .GetProperties()
                                             .Select(property => property.Name)
                                             .ToImmutableList<object>())),
@@ -210,40 +210,34 @@ namespace Dse
             return query;
         }
 
-        private static Option<Expression> TryGetPartitionKeyExpression(this VertexTypeInfo vertexTypeInfo, IDseGraphModel model)
+        private static Option<Expression> TryGetPartitionKeyExpression(this Type vertexTypeInfo, IDseGraphModel model)
         {
-            return model.PrimaryKeys.TryGetValue(vertexTypeInfo.ElementType)
+            return model.PrimaryKeys.TryGetValue(vertexTypeInfo)
                 .Match(
                     _ => (Option<Expression>)_,
                     () =>
                     {
-                        var baseType = vertexTypeInfo.ElementType.GetTypeInfo().BaseType;
+                        var baseType = vertexTypeInfo.GetTypeInfo().BaseType;
 
-                        if (baseType != null)
-                        {
-                            return model.VertexTypes
-                                .TryGetValue(baseType)
-                                .Bind(baseVertexInfo => baseVertexInfo.TryGetPartitionKeyExpression(model));
-                        }
+                        if (baseType != null && model.VertexLabels.ContainsKey(baseType))
+                            return baseType.TryGetPartitionKeyExpression(model);
 
                         return Option<Expression>.None;
                     });
         }
 
-        private static IEnumerable<GraphElementInfo> GetElementInfoHierarchy(this IGraphModel model, GraphElementInfo elementInfo)
+        private static IEnumerable<Type> GetElementInfoHierarchy(this IGraphModel model, Type type)
         {
             do
             {
-                yield return elementInfo;
-                var baseType = elementInfo.ElementType.GetTypeInfo().BaseType;
+                yield return type;
+                var baseType = type.GetTypeInfo().BaseType;
 
-                elementInfo = null;
+                type = null;
 
-                if (model.VertexTypes.TryGetValue(baseType, out var vertexInfo))
-                    elementInfo = vertexInfo;
-                else if (model.EdgeTypes.TryGetValue(baseType, out var edgeInfo))
-                    elementInfo = edgeInfo;
-            } while (elementInfo != null);
+                if (model.VertexLabels.ContainsKey(baseType) || model.EdgeLabels.ContainsKey(baseType))
+                    type = baseType;
+            } while (type != null);
         }
     }
 }
