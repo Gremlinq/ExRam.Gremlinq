@@ -272,16 +272,14 @@ namespace ExRam.Gremlinq.Dse
 
         private static IEnumerable<Type> GetElementInfoHierarchy(this IGraphModel model, Type type)
         {
-            do
+            while (type != null)
             {
                 yield return type;
-                var baseType = type.GetTypeInfo().BaseType;
 
-                type = null;
-
-                if (model.VertexLabels.ContainsKey(baseType) || model.EdgeLabels.ContainsKey(baseType))
-                    type = baseType;
-            } while (type != null);
+                type = type.GetTypeInfo().BaseType;
+                if (type == null || !model.VertexLabels.ContainsKey(type) || !model.EdgeLabels.ContainsKey(type))
+                    break;
+            }
         }
     }
 }
