@@ -9,5 +9,7 @@ namespace ExRam.Gremlinq.Dse
         IImmutableList<(Type, Type, Type)> Connections { get; }
 
         IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
+
+        IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
     }
 }

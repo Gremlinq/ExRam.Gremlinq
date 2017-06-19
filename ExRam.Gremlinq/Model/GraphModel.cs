@@ -39,12 +39,7 @@ namespace ExRam.Gremlinq
 
             public IVertexTypeInfoBuilder<T> Label(string label)
             {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label, this._typeInfo.SecondaryIndexes));
-            }
-
-            public IVertexTypeInfoBuilder<T> SecondaryIndex(Expression<Func<T, object>> indexExpression)
-            {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, this._typeInfo.Label, this._typeInfo.SecondaryIndexes.Add(indexExpression)));
+                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label));
             }
         }
 
@@ -89,7 +84,7 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => new VertexTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()), ImmutableList<Expression>.Empty)),
+                        type => new VertexTypeInfo(type.AsType(), namingStrategy.GetLabelForType(type.AsType()))),
                 assembly
                     .DefinedTypes
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
@@ -121,7 +116,7 @@ namespace ExRam.Gremlinq
 
             var vertexInfo = model.VertexTypes
                 .TryGetValue(type)
-                .IfNone(new VertexTypeInfo(type, null, ImmutableList<Expression>.Empty));
+                .IfNone(new VertexTypeInfo(type, null));
 
             return model.EdgeTypes.Keys
                 .Where(edgeType => edgeType.IsAssignableFrom(type) || type.IsAssignableFrom(edgeType))

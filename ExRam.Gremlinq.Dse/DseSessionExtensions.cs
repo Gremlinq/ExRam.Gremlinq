@@ -155,7 +155,10 @@ namespace Dse
                         IndexProperties: model
                             .GetElementInfoHierarchy(vertexType)
                             .OfType<VertexTypeInfo>()
-                            .SelectMany(x => x.SecondaryIndexes)
+                            .SelectMany(x => model.SecondaryIndexes
+                                .TryGetValue(x.ElementType)
+                                .AsEnumerable()
+                                .SelectMany(y => y))
                             .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
                             .ToImmutableList()))
                     .Where(tuple => !tuple.IndexProperties.IsEmpty)
