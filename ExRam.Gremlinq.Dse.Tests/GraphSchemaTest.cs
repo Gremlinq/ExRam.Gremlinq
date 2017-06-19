@@ -1,4 +1,3 @@
-using System.Reflection;
 using ExRam.Gremlinq.Tests;
 using Xunit;
 using FluentAssertions;
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .ToGraphSchema();
 
             schema.VertexSchemaInfos
@@ -26,7 +25,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_ToGraphSchema_does_not_include_abstract_edge_types()
         {
-            var model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple);
+            var model = GraphModel.FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple);
 
             model.ToGraphSchema().EdgeSchemaInfos
                 .Should()
@@ -37,7 +36,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_includes_edge_connection_closure()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
@@ -63,7 +62,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_does_not_include_connections_from_abstract_vertices()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .ToGraphSchema();
 
@@ -76,7 +75,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_does_not_include_connections_to_abstract_vertices()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .AddConnection<User, WorksFor, Authority>()
                 .ToGraphSchema();
 
@@ -89,8 +88,8 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_does_not_include_connections_by_abstract_edges()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
-                .AddConnection<User, Edge, User>()
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+                .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>()
                 .ToGraphSchema();
 
             schema.Connections
@@ -114,7 +113,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public void FromAssembly_ToGraphSchema_includes_index_of_base_types()
         {
             var schema = GraphModel
-                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .VertexType<Authority>(b => b.SecondaryIndex(x => x.Name))
                 .ToGraphSchema();
 
