@@ -134,21 +134,21 @@ namespace Dse
                                 .AddStep<string>("secondary"),
                             (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                         .AddStep<string>("add"))
-                .Concat(schema.EdgeSchemaInfos
+                .Concat(schema.Model.EdgeTypes.Values
                     .Select(edgeSchemaInfo => schema.Connections
-                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.TypeInfo.Label)
+                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.Label)
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("edgeLabel", edgeSchemaInfo.TypeInfo.Label)
+                                .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
                                 .AddStep<string>("single")
                                 .ConditionalAddStep(
-                                    edgeSchemaInfo.TypeInfo.ElementType
+                                    edgeSchemaInfo.ElementType
                                         .GetProperties()
                                         .Any(),
                                     query => query.AddStep<string>(
                                         "properties",
-                                        edgeSchemaInfo.TypeInfo.ElementType
+                                        edgeSchemaInfo.ElementType
                                             .GetProperties()
                                             .Select(property => property.Name)
                                             .ToImmutableList<object>())),

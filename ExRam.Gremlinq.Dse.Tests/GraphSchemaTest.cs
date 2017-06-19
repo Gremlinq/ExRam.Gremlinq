@@ -22,15 +22,15 @@ namespace ExRam.Gremlinq.Dse.Tests
         //        .NotContain(x => x.TypeInfo.Label == "Authority");
         //}
 
-        [Fact]
-        public void FromAssembly_ToGraphSchema_does_not_include_abstract_edge_types()
-        {
-            var model = GraphModel.FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple);
+        //[Fact]
+        //public void FromAssembly_ToGraphSchema_does_not_include_abstract_edge_types()
+        //{
+        //    var model = GraphModel.FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple);
 
-            model.ToGraphSchema().EdgeSchemaInfos
-                .Should()
-                .NotContain(x => x.TypeInfo.Label == "Edge");
-        }
+        //    model.ToGraphSchema().EdgeLabel
+        //        .Should()
+        //        .NotContain(x => x.TypeInfo.Label == "Edge");
+        //}
 
         [Fact]
         public void FromAssembly_ToGraphSchema_includes_edge_connection_closure()
