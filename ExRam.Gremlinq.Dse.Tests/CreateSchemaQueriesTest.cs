@@ -157,14 +157,14 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             var queries = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .VertexLabel<Authority>("Authority")
+                .VertexLabel<Authority>()
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
                 .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>());
 
             queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel") &&
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
                     query.Steps.Any(step => step.Name == "secondary") &&
                     query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
         }

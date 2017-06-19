@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq
                         type => namingStrategy.GetLabelForType(type.AsType())));
         }
 
-        public static IGraphModel EdgeLabel<T>(IGraphModel model, string label)
+        public static IGraphModel EdgeLabel<T>(IGraphModel model, string label = null)
         {
             var type = typeof(T);
 
@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label)));
+                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(T).Name)));
         }
 
-        public static IGraphModel VertexLabel<T>(this IGraphModel model, string label)
+        public static IGraphModel VertexLabel<T>(this IGraphModel model, string label = null)
         {
             var type = typeof(T);
 
@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label), model.EdgeLabels));
+                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(T).Name), model.EdgeLabels));
         }
 
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
