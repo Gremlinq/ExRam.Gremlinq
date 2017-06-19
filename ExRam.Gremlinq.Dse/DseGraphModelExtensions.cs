@@ -131,7 +131,7 @@ namespace ExRam.Gremlinq.Dse
                 : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.SecondaryIndexes);
         }
 
-        public static IEnumerable<IGremlinQuery> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             model = model.EdgeConnectionClosure();
 
