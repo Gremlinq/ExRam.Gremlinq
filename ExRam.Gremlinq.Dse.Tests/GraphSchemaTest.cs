@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Dse.Tests
 
             model.ToGraphSchema().EdgeSchemaInfos
                 .Should()
-                .NotContain(x => x.Label == "Edge");
+                .NotContain(x => x.TypeInfo.Label == "Edge");
         }
 
         [Fact]

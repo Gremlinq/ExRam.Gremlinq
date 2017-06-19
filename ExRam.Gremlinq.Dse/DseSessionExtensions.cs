@@ -136,18 +136,21 @@ namespace Dse
                         .AddStep<string>("add"))
                 .Concat(schema.EdgeSchemaInfos
                     .Select(edgeSchemaInfo => schema.Connections
-                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.Label)
+                        .Where(tuple => tuple.Item2 == edgeSchemaInfo.TypeInfo.Label)
                         .Aggregate(
                             GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("edgeLabel", edgeSchemaInfo.Label)
+                                .AddStep<string>("edgeLabel", edgeSchemaInfo.TypeInfo.Label)
                                 .AddStep<string>("single")
                                 .ConditionalAddStep(
-                                    !edgeSchemaInfo.Properties.IsEmpty,
+                                    edgeSchemaInfo.TypeInfo.ElementType
+                                        .GetProperties()
+                                        .Any(),
                                     query => query.AddStep<string>(
                                         "properties",
-                                        edgeSchemaInfo
-                                            .Properties
+                                        edgeSchemaInfo.TypeInfo.ElementType
+                                            .GetProperties()
+                                            .Select(property => property.Name)
                                             .ToImmutableList<object>())),
                             (closureQuery, tuple) => closureQuery.AddStep<string>(
                                 "connection",

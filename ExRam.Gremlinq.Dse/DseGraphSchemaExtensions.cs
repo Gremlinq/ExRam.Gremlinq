@@ -63,9 +63,7 @@ namespace ExRam.Gremlinq.Dse
                 .Where(x => !x.ElementType.GetTypeInfo().IsAbstract)
                 .Aggregate(
                     schema,
-                    (closureSchema, edgeType) => closureSchema.EdgeLabel(
-                        edgeType.Label,
-                        edgeType.ElementType.GetProperties().Select(property => property.Name).ToImmutableList()));
+                    (closureSchema, edgeType) => closureSchema.EdgeLabel(edgeType));
 
             return model.Connections
                 .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
@@ -92,9 +90,9 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos, schema.PropertySchemaInfos, schema.Connections);
         }
 
-        public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, string label, ImmutableList<string> properties)
+        public static DseGraphSchema EdgeLabel(this DseGraphSchema schema, EdgeTypeInfo typeInfo)
         {
-            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos.Add(new EdgeSchemaInfo(label, properties)), schema.PropertySchemaInfos, schema.Connections);
+            return new DseGraphSchema(schema.Model, schema.EdgeSchemaInfos.Add(new EdgeSchemaInfo(typeInfo)), schema.PropertySchemaInfos, schema.Connections);
         }
 
         public static DseGraphSchema Connection(this DseGraphSchema schema, string outVertexLabel, string edgeLabel, string inVertexLabel)

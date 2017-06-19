@@ -1,16 +1,12 @@
-using System.Collections.Immutable;
-
 namespace ExRam.Gremlinq
 {
     public class EdgeSchemaInfo
     {
-        public EdgeSchemaInfo(string label, ImmutableList<string> properties)
-        {
-            Label = label;
-            Properties = properties;
-        }
+        public EdgeTypeInfo TypeInfo { get; }
 
-        public string Label { get; }
-        public ImmutableList<string> Properties { get; }
+        public EdgeSchemaInfo(EdgeTypeInfo typeInfo)
+        {
+            this.TypeInfo = typeInfo;
+        }
     }
 }
