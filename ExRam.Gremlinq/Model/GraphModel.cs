@@ -23,46 +23,6 @@ namespace ExRam.Gremlinq
             public IImmutableDictionary<Type, string> EdgeLabels { get; }
         }
 
-        private sealed class VertexTypeInfoBuilder<T> : IVertexTypeInfoBuilder<T>
-        {
-            private readonly VertexTypeInfo _typeInfo;
-
-            public VertexTypeInfoBuilder(VertexTypeInfo typeInfo)
-            {
-                this._typeInfo = typeInfo;
-            }
-
-            public VertexTypeInfo Build()
-            {
-                return this._typeInfo;
-            }
-
-            public IVertexTypeInfoBuilder<T> Label(string label)
-            {
-                return new VertexTypeInfoBuilder<T>(new VertexTypeInfo(this._typeInfo.ElementType, label));
-            }
-        }
-
-        private sealed class EdgeTypeInfoBuilder<T> : IEdgeTypeInfoBuilder<T>
-        {
-            private readonly EdgeTypeInfo _typeInfo;
-
-            public EdgeTypeInfoBuilder(EdgeTypeInfo typeInfo)
-            {
-                this._typeInfo = typeInfo;
-            }
-
-            public EdgeTypeInfo Build()
-            {
-                return this._typeInfo;
-            }
-
-            public IEdgeTypeInfoBuilder<T> Label(string label)
-            {
-                return new EdgeTypeInfoBuilder<T>(new EdgeTypeInfo(this._typeInfo.ElementType, label));
-            }
-        }
-
         public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
