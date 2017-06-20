@@ -203,8 +203,7 @@ namespace ExRam.Gremlinq.Dse
                 .Concat(model.VertexLabels
                     .Select(vertexKvp => (
                         Label: vertexKvp.Value,
-                        SecondaryIndexProperties: model
-                            .GetElementInfoHierarchy(vertexKvp.Key)
+                        SecondaryIndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
                             .SelectMany(x => model.SecondaryIndexes
                                 .TryGetValue(x)
                                 .AsEnumerable()
@@ -251,37 +250,25 @@ namespace ExRam.Gremlinq.Dse
 
         private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
         {
-            if (condition)
-                return addStepFunction(query);
-
-            return query;
+            return condition ? addStepFunction(query) : query;
         }
 
-        private static Option<Expression> TryGetPartitionKeyExpression(this Type vertexTypeInfo, IDseGraphModel model)
+        private static Option<Expression> TryGetPartitionKeyExpression(this Type vertexType, IDseGraphModel model)
         {
-            return model.PrimaryKeys.TryGetValue(vertexTypeInfo)
-                .Match(
-                    _ => (Option<Expression>)_,
-                    () =>
-                    {
-                        var baseType = vertexTypeInfo.GetTypeInfo().BaseType;
-
-                        if (baseType != null && model.VertexLabels.ContainsKey(baseType))
-                            return baseType.TryGetPartitionKeyExpression(model);
-
-                        return Option<Expression>.None;
-                    });
+            return vertexType
+                .GetTypeHierarchy(model)
+                .SelectMany(type => model.PrimaryKeys
+                    .TryGetValue(type)
+                    .AsEnumerable())
+                .FirstOrDefault();
         }
 
-        private static IEnumerable<Type> GetElementInfoHierarchy(this IGraphModel model, Type type)
+        private static IEnumerable<Type> GetTypeHierarchy(this Type type, IGraphModel model)
         {
-            while (type != null)
+            while (type != null && model.VertexLabels.ContainsKey(type) || model.EdgeLabels.ContainsKey(type))
             {
                 yield return type;
-
                 type = type.GetTypeInfo().BaseType;
-                if (type == null || !model.VertexLabels.ContainsKey(type) || !model.EdgeLabels.ContainsKey(type))
-                    break;
             }
         }
     }
