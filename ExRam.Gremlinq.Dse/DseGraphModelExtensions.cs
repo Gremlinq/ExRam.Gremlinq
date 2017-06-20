@@ -190,6 +190,7 @@ namespace ExRam.Gremlinq.Dse
         private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableList<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)
         {
             return model.VertexLabels
+                .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
                 .Select(vertexKvp => (
                     Label: vertexKvp.Value,
                     IndexProperties: vertexKvp.Key.GetTypeHierarchy(model)

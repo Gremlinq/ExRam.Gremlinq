@@ -144,12 +144,6 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
-                                  query.Steps.Any(step => step.Name == "secondary") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
-
-            this._queries
-                .Should()
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.Any(step => step.Name == "secondary") &&
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
