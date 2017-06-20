@@ -103,13 +103,7 @@ namespace ExRam.Gremlinq.Dse
                 model.EdgeLabels,
                 model.Connections,
                 model.PrimaryKeys,
-                model.MaterializedIndexes.SetItem(
-                    typeof(T),
-                    model.SecondaryIndexes
-                        .TryGetValue(typeof(T))
-                        .Match(
-                            list => list.Add(indexExpression),
-                            () => ImmutableList.Create<Expression>(indexExpression))),
+                model.MaterializedIndexes.Add(typeof(T), indexExpression),
                 model.SecondaryIndexes);
         }
 
@@ -121,13 +115,7 @@ namespace ExRam.Gremlinq.Dse
                 model.Connections,
                 model.PrimaryKeys,
                 model.MaterializedIndexes,
-                model.SecondaryIndexes.SetItem(
-                    typeof(T),
-                    model.SecondaryIndexes
-                        .TryGetValue(typeof(T))
-                        .Match(
-                            list => list.Add(indexExpression),
-                            () => ImmutableList.Create<Expression>(indexExpression))));
+                model.SecondaryIndexes.Add(typeof(T), indexExpression));
         }
 
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
