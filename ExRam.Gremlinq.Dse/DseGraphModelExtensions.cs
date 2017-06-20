@@ -112,32 +112,21 @@ namespace ExRam.Gremlinq.Dse
                             list => list.Add(indexExpression),
                             () => ImmutableList.Create<Expression>(indexExpression))));
         }
-
-        private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
-        {
-            model.VertexLabels
-                .TryGetValue(outVertexType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
-
-            model.VertexLabels
-                .TryGetValue(inVertexType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
-
-            model.EdgeLabels
-                .TryGetValue(edgeType)
-                .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
-
-            var tuple = (outVertexType, edgeType, inVertexType);
-
-            return model.Connections.Contains(tuple)
-                ? model
-                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes);
-        }
-
+        
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
-            model = model.EdgeConnectionClosure();
+            model = model
+                .EdgeConnectionClosure();
 
+            return model
+                .CreatePropertyKeyQueries(queryProvider)
+                .Concat(model.CreateVertexLabelQueries(queryProvider))
+                .Concat(model.CreateVertexIndexQueries(queryProvider))
+                .Concat(model.CreateEdgeLabelQueries(queryProvider));
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
             var propertyKeys = new Dictionary<string, Type>();
 
             foreach (var type in model.VertexLabels.Keys.Concat(model.EdgeLabels.Keys))
@@ -179,73 +168,106 @@ namespace ExRam.Gremlinq.Dse
                         .IfNone(() => throw new InvalidOperationException($"No native type found for {propertyInfoKvp.Value}.")))
                     .AddStep<string>("single")
                     .AddStep<string>("ifNotExists")
-                    .AddStep<string>("create"))
-                .Concat(model.VertexLabels
-                    .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
-                    .Select(vertexKvp => vertexKvp.Key
-                        .TryGetPartitionKeyExpression(model)
-                        .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
-                        .AsEnumerable()
-                        .Aggregate(
-                            GremlinQuery
-                                .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexKvp.Value),
-                            (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
-                        .ConditionalAddStep(
-                            vertexKvp.Key.GetProperties().Any(),
-                            query => query.AddStep<string>(
-                                "properties",
-                                vertexKvp.Key
+                    .AddStep<string>("create"));
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.VertexLabels
+                .Select(vertexKvp => (
+                    Label: vertexKvp.Value,
+                    SecondaryIndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
+                        .SelectMany(x => model.SecondaryIndexes
+                            .TryGetValue(x)
+                            .AsEnumerable()
+                            .SelectMany(y => y))
+                        .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                        .ToImmutableList()))
+                .Where(tuple => !tuple.SecondaryIndexProperties.IsEmpty)
+                .Select(tuple => tuple.SecondaryIndexProperties
+                    .Aggregate(
+                        GremlinQuery
+                            .Create("schema", queryProvider)
+                            .AddStep<string>("vertexLabel", tuple.Label)
+                            .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                            .AddStep<string>("secondary"),
+                        (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
+                    .AddStep<string>("add"));
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.VertexLabels
+                .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
+                .Select(vertexKvp => vertexKvp.Key
+                    .TryGetPartitionKeyExpression(model)
+                    .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
+                    .AsEnumerable()
+                    .Aggregate(
+                        GremlinQuery
+                            .Create("schema", queryProvider)
+                            .AddStep<string>("vertexLabel", vertexKvp.Value),
+                        (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
+                    .ConditionalAddStep(
+                        vertexKvp.Key.GetProperties().Any(),
+                        query => query.AddStep<string>(
+                            "properties",
+                            vertexKvp.Key
+                                .GetProperties()
+                                .Select(x => x.Name)
+                                .ToImmutableList<object>()))
+                    .AddStep<string>("create"));
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.EdgeLabels
+                .Where(edgeKvp => !edgeKvp.Key.GetTypeInfo().IsAbstract)
+                .Select(edgeKvp => model.Connections
+                    .Where(tuple => tuple.Item2 == edgeKvp.Key)
+                    .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
+                    .Aggregate(
+                        GremlinQuery
+                            .Create("schema", queryProvider)
+                            .AddStep<string>("edgeLabel", edgeKvp.Value)
+                            .AddStep<string>("single")
+                            .ConditionalAddStep(
+                                edgeKvp.Key
                                     .GetProperties()
-                                    .Select(x => x.Name)
-                                    .ToImmutableList<object>()))
-                        .AddStep<string>("create")))
-                .Concat(model.VertexLabels
-                    .Select(vertexKvp => (
-                        Label: vertexKvp.Value,
-                        SecondaryIndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
-                            .SelectMany(x => model.SecondaryIndexes
-                                .TryGetValue(x)
-                                .AsEnumerable()
-                                .SelectMany(y => y))
-                            .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
-                            .ToImmutableList()))
-                    .Where(tuple => !tuple.SecondaryIndexProperties.IsEmpty)
-                    .Select(tuple => tuple.SecondaryIndexProperties
-                        .Aggregate(
-                            GremlinQuery
-                                .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", tuple.Label)
-                                .AddStep<string>("index", Guid.NewGuid().ToString("N"))
-                                .AddStep<string>("secondary"),
-                            (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
-                        .AddStep<string>("add")))
-                .Concat(model.EdgeLabels
-                    .Where(edgeKvp => !edgeKvp.Key.GetTypeInfo().IsAbstract)
-                    .Select(edgeKvp => model.Connections
-                        .Where(tuple => tuple.Item2 == edgeKvp.Key)
-                        .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
-                        .Aggregate(
-                            GremlinQuery
-                                .Create("schema", queryProvider)
-                                .AddStep<string>("edgeLabel", edgeKvp.Value)
-                                .AddStep<string>("single")
-                                .ConditionalAddStep(
+                                    .Any(),
+                                query => query.AddStep<string>(
+                                    "properties",
                                     edgeKvp.Key
                                         .GetProperties()
-                                        .Any(),
-                                    query => query.AddStep<string>(
-                                        "properties",
-                                        edgeKvp.Key
-                                            .GetProperties()
-                                            .Select(property => property.Name)
-                                            .ToImmutableList<object>())),
-                            (closureQuery, tuple) => closureQuery.AddStep<string>(
-                                "connection",
-                                model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
-                                model.VertexLabels.TryGetValue(tuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
-                        .AddStep<string>("ifNotExists")
-                        .AddStep<string>("create")));
+                                        .Select(property => property.Name)
+                                        .ToImmutableList<object>())),
+                        (closureQuery, tuple) => closureQuery.AddStep<string>(
+                            "connection",
+                            model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
+                            model.VertexLabels.TryGetValue(tuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
+                    .AddStep<string>("ifNotExists")
+                    .AddStep<string>("create"));
+        }
+
+        private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
+        {
+            model.VertexLabels
+                .TryGetValue(outVertexType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {outVertexType}."));
+
+            model.VertexLabels
+                .TryGetValue(inVertexType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain vertex type {inVertexType}."));
+
+            model.EdgeLabels
+                .TryGetValue(edgeType)
+                .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
+
+            var tuple = (outVertexType, edgeType, inVertexType);
+
+            return model.Connections.Contains(tuple)
+                ? model
+                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes);
         }
 
         private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
