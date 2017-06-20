@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .FromAssembly(typeof(Gremlinq.Tests.Vertex).Assembly, typeof(Gremlinq.Tests.Vertex), typeof(Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
+                .MaterializedIndex<Authority>(x => x.PhoneNumber)
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>()
                 .AddConnection<User, Gremlinq.Tests.Edge, User>()
@@ -140,6 +141,16 @@ namespace ExRam.Gremlinq.Dse.Tests
         }
 
         [Fact]
+        public void FromAssembly_CreateSchemaQueries_does_not_include_secondary_index_for_abstract_type()
+        {
+            this._queries
+                .Should()
+                .NotContain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
+                                    query.Steps.Any(step => step.Name == "secondary") &&
+                                    query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+        }
+
+        [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_inherited_type()
         {
             this._queries
@@ -147,6 +158,26 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.Any(step => step.Name == "secondary") &&
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+        }
+
+        [Fact]
+        public void FromAssembly_CreateSchemaQueries_does_not_include_materialized_index_for_abstract_type()
+        {
+            this._queries
+                .Should()
+                .NotContain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
+                                     query.Steps.Any(step => step.Name == "materialized") &&
+                                     query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+        }
+
+        [Fact]
+        public void FromAssembly_CreateSchemaQueries_includes_materialized_index_for_inherited_type()
+        {
+            this._queries
+                .Should()
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.Any(step => step.Name == "materialized") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
         }
     }
 }
