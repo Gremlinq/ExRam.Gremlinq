@@ -13,5 +13,8 @@ namespace ExRam.Gremlinq.Dse
         IImmutableDictionary<Type, IImmutableList<Expression>> MaterializedIndexes { get; }
 
         IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
+
+        IImmutableDictionary<Type, Expression> SearchIndexes { get; }
+
     }
 }

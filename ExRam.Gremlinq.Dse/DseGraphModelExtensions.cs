@@ -19,7 +19,8 @@ namespace ExRam.Gremlinq.Dse
                 IImmutableList<(Type, Type, Type)> connections, 
                 IImmutableDictionary<Type, Expression> primaryKeys,
                 IImmutableDictionary<Type, IImmutableList<Expression>> materializedIndexes,
-                IImmutableDictionary<Type, IImmutableList<Expression>> secondaryIndexes)
+                IImmutableDictionary<Type, IImmutableList<Expression>> secondaryIndexes,
+                IImmutableDictionary<Type, Expression> searchIndexes)
             {
                 this.VertexLabels = vertexLabels;
                 this.EdgeLabels = edgeTypes;
@@ -27,6 +28,7 @@ namespace ExRam.Gremlinq.Dse
                 this.PrimaryKeys = primaryKeys;
                 this.MaterializedIndexes = materializedIndexes;
                 this.SecondaryIndexes = secondaryIndexes;
+                this.SearchIndexes = searchIndexes;
             }
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
@@ -40,6 +42,8 @@ namespace ExRam.Gremlinq.Dse
             public IImmutableDictionary<Type, IImmutableList<Expression>> MaterializedIndexes { get; }
 
             public IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
+
+            public IImmutableDictionary<Type, Expression> SearchIndexes { get; }
         }
 
         private static readonly IReadOnlyDictionary<Type, string> NativeTypeSteps = new Dictionary<Type, string>
@@ -64,7 +68,14 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel ToDseGraphModel(this IGraphModel model)
         {
-            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, ImmutableList<(Type, Type, Type)>.Empty, ImmutableDictionary<Type, Expression>.Empty, ImmutableDictionary<Type, IImmutableList<Expression>>.Empty, ImmutableDictionary<Type, IImmutableList<Expression>>.Empty);
+            return new DseGraphModel(
+                model.VertexLabels, 
+                model.EdgeLabels, 
+                ImmutableList<(Type, Type, Type)>.Empty, 
+                ImmutableDictionary<Type, Expression>.Empty, 
+                ImmutableDictionary<Type, IImmutableList<Expression>>.Empty, 
+                ImmutableDictionary<Type, IImmutableList<Expression>>.Empty,
+                ImmutableDictionary<Type, Expression>.Empty);
         }
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
@@ -93,7 +104,14 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel PrimaryKey<T>(this IDseGraphModel model, Expression<Func<T, object>> expression)
         {
-            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections, model.PrimaryKeys.SetItem(typeof(T), expression), model.MaterializedIndexes, model.SecondaryIndexes);
+            return new DseGraphModel(
+                model.VertexLabels, 
+                model.EdgeLabels, 
+                model.Connections, 
+                model.PrimaryKeys.SetItem(typeof(T), expression),
+                model.MaterializedIndexes, 
+                model.SecondaryIndexes,
+                model.SearchIndexes);
         }
 
         public static IDseGraphModel MaterializedIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
@@ -104,7 +122,8 @@ namespace ExRam.Gremlinq.Dse
                 model.Connections,
                 model.PrimaryKeys,
                 model.MaterializedIndexes.Add(typeof(T), indexExpression),
-                model.SecondaryIndexes);
+                model.SecondaryIndexes,
+                model.SearchIndexes);
         }
 
         public static IDseGraphModel SecondaryIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
@@ -115,7 +134,20 @@ namespace ExRam.Gremlinq.Dse
                 model.Connections,
                 model.PrimaryKeys,
                 model.MaterializedIndexes,
-                model.SecondaryIndexes.Add(typeof(T), indexExpression));
+                model.SecondaryIndexes.Add(typeof(T), indexExpression),
+                model.SearchIndexes);
+        }
+
+        public static IDseGraphModel SearchIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
+        {
+            return new DseGraphModel(
+                model.VertexLabels,
+                model.EdgeLabels,
+                model.Connections,
+                model.PrimaryKeys,
+                model.MaterializedIndexes,
+                model.SecondaryIndexes,
+                model.SearchIndexes.SetItem(typeof(T), indexExpression));
         }
 
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -284,7 +316,7 @@ namespace ExRam.Gremlinq.Dse
 
             return model.Connections.Contains(tuple)
                 ? model
-                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes);
+                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes);
         }
 
         private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
