@@ -126,7 +126,8 @@ namespace ExRam.Gremlinq.Dse
             return model
                 .CreatePropertyKeyQueries(queryProvider)
                 .Concat(model.CreateVertexLabelQueries(queryProvider))
-                .Concat(model.CreateVertexIndexQueries(queryProvider))
+                .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider))
+                .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider))
                 .Concat(model.CreateEdgeLabelQueries(queryProvider));
         }
 
@@ -176,26 +177,36 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("create"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateVertexIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexSecondaryIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.CreateIndexQueries(model.SecondaryIndexes, "secondary", queryProvider);
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexMaterializedIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.CreateIndexQueries(model.MaterializedIndexes, "materialized", queryProvider);
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableList<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)
         {
             return model.VertexLabels
                 .Select(vertexKvp => (
                     Label: vertexKvp.Value,
-                    SecondaryIndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
-                        .SelectMany(x => model.SecondaryIndexes
+                    IndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
+                        .SelectMany(x => indexDictionary
                             .TryGetValue(x)
                             .AsEnumerable()
                             .SelectMany(y => y))
                         .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
                         .ToImmutableList()))
-                .Where(tuple => !tuple.SecondaryIndexProperties.IsEmpty)
-                .Select(tuple => tuple.SecondaryIndexProperties
+                .Where(tuple => !tuple.IndexProperties.IsEmpty)
+                .Select(tuple => tuple.IndexProperties
                     .Aggregate(
                         GremlinQuery
                             .Create("schema", queryProvider)
                             .AddStep<string>("vertexLabel", tuple.Label)
                             .AddStep<string>("index", Guid.NewGuid().ToString("N"))
-                            .AddStep<string>("secondary"),
+                            .AddStep<string>(keyword),
                         (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                     .AddStep<string>("add"));
         }
