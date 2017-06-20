@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Net;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Dse.Graph;
 using ExRam.Gremlinq;
-using ExRam.Gremlinq.Dse;
-using LanguageExt;
 
 // ReSharper disable once CheckNamespace
 namespace Dse

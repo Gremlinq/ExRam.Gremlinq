@@ -5,8 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
-using System.Threading;
-using Dse;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Dse
