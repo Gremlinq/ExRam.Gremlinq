@@ -96,6 +96,23 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections, model.PrimaryKeys.SetItem(typeof(T), expression), model.MaterializedIndexes, model.SecondaryIndexes);
         }
 
+        public static IDseGraphModel MaterializedIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
+        {
+            return new DseGraphModel(
+                model.VertexLabels,
+                model.EdgeLabels,
+                model.Connections,
+                model.PrimaryKeys,
+                model.MaterializedIndexes.SetItem(
+                    typeof(T),
+                    model.SecondaryIndexes
+                        .TryGetValue(typeof(T))
+                        .Match(
+                            list => list.Add(indexExpression),
+                            () => ImmutableList.Create<Expression>(indexExpression))),
+                model.SecondaryIndexes);
+        }
+
         public static IDseGraphModel SecondaryIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
         {
             return new DseGraphModel(
@@ -112,7 +129,7 @@ namespace ExRam.Gremlinq.Dse
                             list => list.Add(indexExpression),
                             () => ImmutableList.Create<Expression>(indexExpression))));
         }
-        
+
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             model = model
