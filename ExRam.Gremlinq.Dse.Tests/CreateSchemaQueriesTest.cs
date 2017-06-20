@@ -172,7 +172,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         }
 
         [Fact]
-        public void FromAssembly_CreateSchemaQueries_includes_index_of_base_types()
+        public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_inherited_type()
         {
             var queries = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
@@ -184,8 +184,14 @@ namespace ExRam.Gremlinq.Dse.Tests
             queries
                 .Should()
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
-                    query.Steps.Any(step => step.Name == "secondary") &&
-                    query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+                                  query.Steps.Any(step => step.Name == "secondary") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+
+            queries
+                .Should()
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.Any(step => step.Name == "secondary") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
         }
     }
 }
