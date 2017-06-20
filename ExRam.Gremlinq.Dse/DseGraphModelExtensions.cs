@@ -160,6 +160,7 @@ namespace ExRam.Gremlinq.Dse
                 .Concat(model.CreateVertexLabelQueries(queryProvider))
                 .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider))
                 .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider))
+                .Concat(model.CreateVertexSearchIndexQueries(queryProvider))
                 .Concat(model.CreateEdgeLabelQueries(queryProvider));
         }
 
@@ -217,6 +218,32 @@ namespace ExRam.Gremlinq.Dse
         private static IEnumerable<IGremlinQuery<string>> CreateVertexMaterializedIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             return model.CreateIndexQueries(model.MaterializedIndexes, "materialized", queryProvider);
+        }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexSearchIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.VertexLabels
+                .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
+                .Select(vertexKvp => (
+                    Label: vertexKvp.Value,
+                    IndexProperties: vertexKvp.Key
+                        .GetTypeHierarchy(model)
+                        .SelectMany(x => model.SearchIndexes
+                            .TryGetValue(x)
+                            .AsEnumerable())
+                        .Take(1)
+                        .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                        .ToImmutableList()))
+                .Where(tuple => !tuple.IndexProperties.IsEmpty)
+                .Select(tuple => tuple.IndexProperties
+                    .Aggregate(
+                        GremlinQuery
+                            .Create("schema", queryProvider)
+                            .AddStep<string>("vertexLabel", tuple.Label)
+                            .AddStep<string>("index", "search")
+                            .AddStep<string>("search"),
+                        (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
+                    .AddStep<string>("add"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableList<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)

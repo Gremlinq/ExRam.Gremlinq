@@ -17,6 +17,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
                 .MaterializedIndex<Authority>(x => x.PhoneNumber)
+                .SearchIndex<Country>(x => x.CountryCallingCode)
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>()
                 .AddConnection<User, Gremlinq.Tests.Edge, User>()
@@ -178,6 +179,17 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.Any(step => step.Name == "materialized") &&
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+        }
+
+        [Fact]
+        public void FromAssembly_CreateSchemaQueries_includes_search_index()
+        {
+            this._queries
+                .Should()
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Country") &&
+                                  query.Steps.Any(step => step.Name == "index" && (string)step.Parameters[0] == "search") &&
+                                  query.Steps.Any(step => step.Name == "search") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "CountryCallingCode"));
         }
     }
 }
