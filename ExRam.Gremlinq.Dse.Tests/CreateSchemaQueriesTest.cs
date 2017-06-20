@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Dse.Tests
     public class DseGraphSchemaTest
     {
         [Fact]
-        public void FromAssembly_ToGraphSchema_includes_non_abstract_vertex_types()
+        public void FromAssembly_CreateSchemaQueries_includes_non_abstract_vertex_types()
         {
             var queries = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         }
 
         [Fact]
-        public void FromAssembly_ToGraphSchema_includes_properties()
+        public void FromAssembly_CreateSchemaQueries_includes_properties()
         {
             var queries = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         }
 
         [Fact]
-        public void FromAssembly_ToGraphSchema_does_not_include_abstract_vertex_types()
+        public void FromAssembly_CreateSchemaQueries_does_not_include_abstract_vertex_types()
         {
             var queries = GraphModel
                 .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
