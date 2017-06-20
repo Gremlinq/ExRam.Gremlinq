@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Dse
 
         IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
 
+        IImmutableDictionary<Type, IImmutableList<Expression>> MaterializedIndexes { get; }
+
         IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
     }
 }
