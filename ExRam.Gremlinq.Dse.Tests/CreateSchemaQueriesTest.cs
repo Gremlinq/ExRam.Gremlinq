@@ -8,20 +8,29 @@ namespace ExRam.Gremlinq.Dse.Tests
 {
     public class DseGraphSchemaTest
     {
+        private readonly IGremlinQuery<string>[] _queries;
+
+        public DseGraphSchemaTest()
+        {
+            this._queries = GraphModel
+                .FromAssembly(typeof(Gremlinq.Tests.Vertex).Assembly, typeof(Gremlinq.Tests.Vertex), typeof(Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
+                .ToDseGraphModel()
+                .SecondaryIndex<Authority>(x => x.Name)
+                .AddConnection<Authority, IsDescribedIn, Language>()
+                .AddConnection<User, WorksFor, Authority>()
+                .AddConnection<User, Gremlinq.Tests.Edge, User>()
+                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+                .ToArray();
+        }
+
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_non_abstract_vertex_types()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
-                .ToArray();
-
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Company"));
         }
@@ -29,18 +38,12 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_properties()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
-                .ToArray();
-
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                     x.Steps.Any(step => step.Name == "properties" && step.Parameters.Contains("Name")));
 
-            queries
+            this._queries
                 .Should()
                 .OnlyContain(x => x.Steps.All(step => step.Name != "properties" || step.Parameters.All(y => y is string)));
         }
@@ -48,17 +51,11 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_abstract_vertex_types()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
-                .ToArray();
-
-            queries
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Vertex"));
 
-            queries
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority"));
         }
@@ -66,10 +63,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_non_abstract_edge_types()
         {
-            GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor"));
         }
@@ -77,10 +71,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_abstract_edge_types()
         {
-            GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
@@ -88,30 +79,22 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_edge_connection_closure()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .AddConnection<Authority, IsDescribedIn, Language>()
-                .AddConnection<User, WorksFor, Authority>()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
-                .ToArray();
-
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
                     x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" &&  (string)step.Parameters[1] == "Language"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
                     x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "Company" && (string)step.Parameters[1] == "Language"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                     x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                     x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "Company"));
@@ -120,11 +103,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_from_abstract_vertices()
         {
-            GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .AddConnection<Authority, IsDescribedIn, Language>()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Authority"));
         }
@@ -132,11 +111,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_to_abstract_vertices()
         {
-            GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .AddConnection<User, WorksFor, Authority>()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[1] == "Authority"));
         }
@@ -144,29 +119,22 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_by_abstract_edges()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .ToDseGraphModel()
-                .AddConnection<User, ExRam.Gremlinq.Tests.Edge, User>()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
-                .ToArray();
-
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Knows") &&
                                  x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Speaks") &&
                                  x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                                  x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            queries
+            this._queries
                 .Should()
                 .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
@@ -174,20 +142,13 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_inherited_type()
         {
-            var queries = GraphModel
-                .FromAssembly(typeof(ExRam.Gremlinq.Tests.Vertex).Assembly, typeof(ExRam.Gremlinq.Tests.Vertex), typeof(ExRam.Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
-                .VertexLabel<Authority>()
-                .ToDseGraphModel()
-                .SecondaryIndex<Authority>(x => x.Name)
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>());
-
-            queries
+            this._queries
                 .Should()
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
                                   query.Steps.Any(step => step.Name == "secondary") &&
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
 
-            queries
+            this._queries
                 .Should()
                 .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.Any(step => step.Name == "secondary") &&
