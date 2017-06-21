@@ -5,8 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
-using ExRam.Gremlinq;
-using ExRam.Gremlinq.Dse;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Dse
@@ -38,8 +36,9 @@ namespace ExRam.Gremlinq.Dse
             model = model
                 .EdgeConnectionClosure();
 
-            return Enumerable.Concat<IGremlinQuery<string>>(model
-                    .CreatePropertyKeyQueries(queryProvider), model.CreateVertexLabelQueries(queryProvider))
+            return model
+                .CreatePropertyKeyQueries(queryProvider)
+                .Concat(model.CreateVertexLabelQueries(queryProvider))
                 .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider))
                 .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider))
                 .Concat(model.CreateVertexSearchIndexQueries(queryProvider))
@@ -109,10 +108,11 @@ namespace ExRam.Gremlinq.Dse
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
                 .Select(vertexKvp => (
                     Label: vertexKvp.Value,
-                    IndexProperties: Enumerable.SelectMany<Type, Expression>(vertexKvp.Key
-                            .GetTypeHierarchy(model), x => model.SearchIndexes
-                            .TryGetValue(x)
-                            .AsEnumerable())
+                    IndexProperties: vertexKvp.Key
+                        .GetTypeHierarchy(model)
+                        .SelectMany(x => model.SearchIndexes
+                        .TryGetValue(x)
+                        .AsEnumerable())
                         .Take(1)
                         .Select(indexExpression => ((indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
                         .ToImmutableList()))
@@ -134,7 +134,8 @@ namespace ExRam.Gremlinq.Dse
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
                 .Select(vertexKvp => (
                     Label: vertexKvp.Value,
-                    IndexProperties: Enumerable.SelectMany<Type, Expression>(vertexKvp.Key.GetTypeHierarchy(model), x => indexDictionary
+                    IndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
+                        .SelectMany(x => indexDictionary
                             .TryGetValue(x)
                             .AsEnumerable()
                             .SelectMany(y => y))
@@ -156,21 +157,24 @@ namespace ExRam.Gremlinq.Dse
         {
             return model.VertexLabels
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
-                .Select(vertexKvp => GremlinQuery.AddStep<string>(OptionExtensions.Map<Expression, string>(vertexKvp.Key
-                            .TryGetPartitionKeyExpression(model), keyExpression => ((keyExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)
-                        .AsEnumerable()
-                        .Aggregate(
-                            GremlinQuery
-                                .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", vertexKvp.Value),
-                            (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
-                        .ConditionalAddStep(
-                            vertexKvp.Key.GetProperties().Any(),
-                            query => GremlinQuery.AddStep<string>(query, "properties",
+                .Select(vertexKvp => vertexKvp.Key
+                    .TryGetPartitionKeyExpression(model)
+                    .Map(keyExpression => ((keyExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                    .AsEnumerable()
+                    .Aggregate(
+                        GremlinQuery
+                            .Create("schema", queryProvider)
+                            .AddStep<string>("vertexLabel", vertexKvp.Value),
+                        (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
+                    .ConditionalAddStep(
+                        vertexKvp.Key.GetProperties().Any(),
+                        query => query
+                            .AddStep<string>("properties",
                                 vertexKvp.Key
                                     .GetProperties()
                                     .Select(x => x.Name)
-                                    .ToImmutableList<object>())), "create"));
+                                    .ToImmutableList<object>()))
+                            .AddStep<string>("create"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -182,7 +186,7 @@ namespace ExRam.Gremlinq.Dse
                     .AsEnumerable()
                     .SelectMany(x => x)
                     .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract)
-                    .Aggregate<ValueTuple<Type, Type>, IGremlinQuery<string>>(
+                    .Aggregate(
                         GremlinQuery
                             .Create("schema", queryProvider)
                             .AddStep<string>("edgeLabel", edgeKvp.Value)
@@ -191,12 +195,14 @@ namespace ExRam.Gremlinq.Dse
                                 edgeKvp.Key
                                     .GetProperties()
                                     .Any(),
-                                query => GremlinQuery.AddStep<string>(query, "properties",
+                                query => query.AddStep<string>(
+                                    "properties",
                                     edgeKvp.Key
                                         .GetProperties()
                                         .Select(property => property.Name)
                                         .ToImmutableList<object>())),
-                        (closureQuery, tuple) => GremlinQuery.AddStep<string>(closureQuery, "connection",
+                        (closureQuery, tuple) => closureQuery.AddStep<string>(
+                            "connection",
                             model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
                             model.VertexLabels.TryGetValue(tuple.Item2).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
                     .AddStep<string>("ifNotExists")
@@ -206,13 +212,13 @@ namespace ExRam.Gremlinq.Dse
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             return model.EdgeIndexes.Keys
-                .SelectMany(type => Enumerable.Where<Type>(type
-                        .GetTypeHierarchy(model), inheritedType => !IntrospectionExtensions.GetTypeInfo(inheritedType).IsAbstract)
+                .SelectMany(type => type
+                    .GetTypeHierarchy(model).Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
                     .SelectMany(inheritedType => model
                         .EdgeIndexes[inheritedType]
                         .Where(index => index.direction != EdgeDirection.None)
-                        .SelectMany(index => Enumerable.Where<Type>(index.vertexType
-                                .GetTypeHierarchy(model), inheritedVertexType => !IntrospectionExtensions.GetTypeInfo(inheritedVertexType).IsAbstract)
+                        .SelectMany(index => index.vertexType
+                            .GetTypeHierarchy(model).Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", inheritedVertexType.Name)
@@ -224,7 +230,7 @@ namespace ExRam.Gremlinq.Dse
                                             ? "inE"
                                             : "bothE",
                                     type.Name)
-                                .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)))));
+                                .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)))));
         }
 
         private static IEnumerable<Type> GetTypeHierarchy(this Type type, IGraphModel model)
@@ -243,8 +249,8 @@ namespace ExRam.Gremlinq.Dse
 
         private static Option<Expression> TryGetPartitionKeyExpression(this Type vertexType, IDseGraphModel model)
         {
-            return Enumerable.SelectMany<Type, Expression>(vertexType
-                    .GetTypeHierarchy(model), type => model.PrimaryKeys
+            return vertexType
+                .GetTypeHierarchy(model).SelectMany(type => model.PrimaryKeys
                     .TryGetValue(type)
                     .AsEnumerable())
                 .FirstOrDefault();

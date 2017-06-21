@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .FromAssembly(typeof(Gremlinq.Tests.Vertex).Assembly, typeof(Gremlinq.Tests.Vertex), typeof(Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
+                .SecondaryIndex<TimeFrame>(x => x.StartTime)
                 .MaterializedIndex<Authority>(x => x.PhoneNumber)
                 .SearchIndex<Country>(x => x.CountryCallingCode)
                 .AddConnection<Authority, IsDescribedIn, Language>()
@@ -161,6 +162,16 @@ namespace ExRam.Gremlinq.Dse.Tests
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
         }
 
+        [Fact]
+        public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_value_type_expression()
+        {
+            this._queries
+                .Should()
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "TimeFrame") &&
+                                  query.Steps.Any(step => step.Name == "secondary") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "StartTime"));
+        }
+        
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_materialized_index_for_abstract_type()
         {
