@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .SecondaryIndex<TimeFrame>(x => x.StartTime)
                 .MaterializedIndex<Authority>(x => x.PhoneNumber)
                 .SearchIndex<Country>(x => x.CountryCallingCode)
+                .EdgeIndex<User, WorksFor>(x => x.From, EdgeDirection.Out)
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>()
                 .AddConnection<User, Gremlinq.Tests.Edge, User>()
@@ -201,6 +202,17 @@ namespace ExRam.Gremlinq.Dse.Tests
                                   query.Steps.Any(step => step.Name == "index" && (string)step.Parameters[0] == "search") &&
                                   query.Steps.Any(step => step.Name == "search") &&
                                   query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "CountryCallingCode"));
+        }
+
+        [Fact]
+        public void FromAssembly_CreateSchemaQueries_includes_edge_index()
+        {
+            this._queries
+                .Should()
+                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.Any(step => step.Name == "index") &&
+                                  query.Steps.Any(step => step.Name == "outE" && (string)step.Parameters[0] == "WorksFor") &&
+                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "From"));
         }
     }
 }
