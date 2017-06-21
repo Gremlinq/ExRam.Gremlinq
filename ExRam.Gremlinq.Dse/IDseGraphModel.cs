@@ -4,24 +4,6 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Dse
 {
-    public enum EdgeDirection
-    {
-        Out,
-        In
-    }
-
-    //public struct EdgeIndex
-    //{
-    //    public EdgeIndex(Expression expression, EdgeDirection direction)
-    //    {
-    //        this.Expression = expression;
-    //        this.Direction = direction;
-    //    }
-
-    //    public Expression Expression { get; }
-    //    public EdgeDirection Direction { get; }
-    //}
-
     public interface IDseGraphModel : IGraphModel
     {
         IImmutableDictionary<Type, IImmutableSet<(Type, Type)>> Connections { get; }
