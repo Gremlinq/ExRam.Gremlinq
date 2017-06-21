@@ -13,25 +13,30 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQuery
     {
-        private sealed class StepLabelFactoryImpl : IStepLabelFactory
+        private sealed class IdentifierFactoryImpl : IIdentifierFactory
         {
             private int _label;
 
-            public StepLabel<T> Create<T>()
+            public StepLabel<T> CreateStepLabel<T>()
             {
                 return new StepLabel<T>("l" + Interlocked.Increment(ref this._label));
+            }
+
+            public string CreateIndexName()
+            {
+                return "i" + Interlocked.Increment(ref this._label);
             }
         }
 
         private class GremlinQueryImpl : IGremlinQuery
         {
-            public GremlinQueryImpl(string graphName, IImmutableList<GremlinStep> steps, IGremlinQueryProvider provider, IImmutableDictionary<MemberInfo, string> memberInfoMappings, IStepLabelFactory stepLabelFactory)
+            public GremlinQueryImpl(string graphName, IImmutableList<GremlinStep> steps, IGremlinQueryProvider provider, IImmutableDictionary<MemberInfo, string> memberInfoMappings, IIdentifierFactory identifierFactory)
             {
                 this.Steps = steps;
                 this.Provider = provider;
                 this.GraphName = graphName;
                 this.MemberInfoMappings = memberInfoMappings;
-                this.StepLabelFactory = stepLabelFactory;
+                this.IdentifierFactory = identifierFactory;
             }
 
             public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
@@ -95,25 +100,25 @@ namespace ExRam.Gremlinq
             public string GraphName { get; }
             public IGremlinQueryProvider Provider { get; }
             public IImmutableList<GremlinStep> Steps { get; }
-            public IStepLabelFactory StepLabelFactory { get; }
+            public IIdentifierFactory IdentifierFactory { get; }
             public IImmutableDictionary<MemberInfo, string> MemberInfoMappings { get; }
         }
 
         private sealed class GremlinQueryImpl<T> : GremlinQueryImpl, IGremlinQuery<T>
         {
-            public GremlinQueryImpl(string graphName, IImmutableList<GremlinStep> steps, IGremlinQueryProvider provider, IImmutableDictionary<MemberInfo, string> memberInfoMappings, IStepLabelFactory stepLabelFactory) : base(graphName, steps, provider, memberInfoMappings, stepLabelFactory)
+            public GremlinQueryImpl(string graphName, IImmutableList<GremlinStep> steps, IGremlinQueryProvider provider, IImmutableDictionary<MemberInfo, string> memberInfoMappings, IIdentifierFactory identifierFactory) : base(graphName, steps, provider, memberInfoMappings, identifierFactory)
             {
             }
         }
 
         public static IGremlinQuery Create(string initialIdentifier, IGremlinQueryProvider provider)
         {
-            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty, new StepLabelFactoryImpl());
+            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty, new IdentifierFactoryImpl());
         }
 
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
         {
-            return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.Provider, query.MemberInfoMappings, query.StepLabelFactory);
+            return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, bool inlineParameters)
@@ -155,7 +160,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, GremlinStep step)
         {
-            return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(step), query.Provider, query.MemberInfoMappings, query.StepLabelFactory);
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Add(step), query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
         public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
@@ -173,22 +178,22 @@ namespace ExRam.Gremlinq
             if (memberExpressionBody == null)
                 throw new ArgumentException();
 
-            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings.SetItem(memberExpressionBody.Member, mapping), query.StepLabelFactory);
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings.SetItem(memberExpressionBody.Member, mapping), query.IdentifierFactory);
         }
 
         internal static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
         {
-            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings, query.StepLabelFactory);
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
         internal static IGremlinQuery ReplaceProvider(this IGremlinQuery query, IGremlinQueryProvider provider)
         {
-            return new GremlinQueryImpl(query.GraphName, query.Steps, provider, query.MemberInfoMappings, query.StepLabelFactory);
+            return new GremlinQueryImpl(query.GraphName, query.Steps, provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
         internal static IGremlinQuery<T> ReplaceProvider<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
-            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, provider, query.MemberInfoMappings, query.StepLabelFactory);
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
     }
 }
