@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphModel(
                 model.VertexLabels, 
                 model.EdgeLabels, 
-                ImmutableDictionary<Type, IImmutableSet<(Type, Type)>>.Empty, 
+                ImmutableDictionary<Type, IImmutableSet<(Type, Type)>>.Empty,
                 ImmutableDictionary<Type, Expression>.Empty, 
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty, 
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty,
@@ -107,50 +107,66 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel PrimaryKey<T>(this IDseGraphModel model, Expression<Func<T, object>> expression)
         {
-            return new DseGraphModel(
-                model.VertexLabels, 
-                model.EdgeLabels, 
-                model.Connections, 
-                model.PrimaryKeys.SetItem(typeof(T), expression),
-                model.MaterializedIndexes, 
-                model.SecondaryIndexes,
-                model.SearchIndexes);
+            var newPrimaryKeys = model.PrimaryKeys.SetItem(typeof(T), expression);
+
+            return newPrimaryKeys != model.PrimaryKeys
+                ? new DseGraphModel(
+                    model.VertexLabels, 
+                    model.EdgeLabels, 
+                    model.Connections,
+                    newPrimaryKeys,
+                    model.MaterializedIndexes, 
+                    model.SecondaryIndexes,
+                    model.SearchIndexes)
+                : model;
         }
 
         public static IDseGraphModel MaterializedIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
         {
-            return new DseGraphModel(
-                model.VertexLabels,
-                model.EdgeLabels,
-                model.Connections,
-                model.PrimaryKeys,
-                model.MaterializedIndexes.Add(typeof(T), indexExpression),
-                model.SecondaryIndexes,
-                model.SearchIndexes);
+            var newMaterializedIndexes = model.MaterializedIndexes.Add(typeof(T), indexExpression);
+
+            return newMaterializedIndexes != model.MaterializedIndexes
+                ? new DseGraphModel(
+                    model.VertexLabels,
+                    model.EdgeLabels,
+                    model.Connections,
+                    model.PrimaryKeys,
+                    model.MaterializedIndexes.Add(typeof(T), indexExpression),
+                    model.SecondaryIndexes,
+                    model.SearchIndexes)
+                : model;
         }
 
         public static IDseGraphModel SecondaryIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
         {
-            return new DseGraphModel(
-                model.VertexLabels,
-                model.EdgeLabels,
-                model.Connections,
-                model.PrimaryKeys,
-                model.MaterializedIndexes,
-                model.SecondaryIndexes.Add(typeof(T), indexExpression),
-                model.SearchIndexes);
+            var newSecondaryIndexes = model.SecondaryIndexes.Add(typeof(T), indexExpression);
+
+            return newSecondaryIndexes != model.SecondaryIndexes 
+                ? new DseGraphModel(
+                    model.VertexLabels,
+                    model.EdgeLabels,
+                    model.Connections,
+                    model.PrimaryKeys,
+                    model.MaterializedIndexes,
+                    newSecondaryIndexes,
+                    model.SearchIndexes)
+                :  model;
         }
 
         public static IDseGraphModel SearchIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression)
         {
-            return new DseGraphModel(
-                model.VertexLabels,
-                model.EdgeLabels,
-                model.Connections,
-                model.PrimaryKeys,
-                model.MaterializedIndexes,
-                model.SecondaryIndexes,
-                model.SearchIndexes.SetItem(typeof(T), indexExpression));
+            var newSearchIndexes = model.SearchIndexes.SetItem(typeof(T), indexExpression);
+
+            return newSearchIndexes != model.SearchIndexes
+                ? new DseGraphModel(
+                    model.VertexLabels,
+                    model.EdgeLabels,
+                    model.Connections,
+                    model.PrimaryKeys,
+                    model.MaterializedIndexes,
+                    model.SecondaryIndexes,
+                    newSearchIndexes)
+                : model;
         }
 
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -344,7 +360,11 @@ namespace ExRam.Gremlinq.Dse
                 .TryGetValue(edgeType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
 
-            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(edgeType, (outVertexType, inVertexType)), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes);
+            var newConnections = model.Connections.Add(edgeType, (outVertexType, inVertexType));
+
+            return newConnections != model.Connections
+                ? new DseGraphModel(model.VertexLabels, model.EdgeLabels, newConnections, model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes)
+                : model;
         }
 
         private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
