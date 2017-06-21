@@ -134,7 +134,8 @@ namespace ExRam.Gremlinq.Dse
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
                 .Select(vertexKvp => (
                     Label: vertexKvp.Value,
-                    IndexProperties: vertexKvp.Key.GetTypeHierarchy(model)
+                    IndexProperties: vertexKvp.Key
+                        .GetTypeHierarchy(model)
                         .SelectMany(x => indexDictionary
                             .TryGetValue(x)
                             .AsEnumerable()
@@ -212,13 +213,15 @@ namespace ExRam.Gremlinq.Dse
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             return model.EdgeIndexes.Keys
-                .SelectMany(type => type
-                    .GetTypeHierarchy(model).Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
+                .SelectMany(type => model
+                    .GetDerivedElementInfos(type, true)
+                    .Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
                     .SelectMany(inheritedType => model
                         .EdgeIndexes[inheritedType]
                         .Where(index => index.direction != EdgeDirection.None)
-                        .SelectMany(index => index.vertexType
-                            .GetTypeHierarchy(model).Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
+                        .SelectMany(index => model
+                            .GetDerivedElementInfos(index.vertexType, true)
+                            .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", inheritedVertexType.Name)
@@ -230,7 +233,8 @@ namespace ExRam.Gremlinq.Dse
                                             ? "inE"
                                             : "bothE",
                                     type.Name)
-                                .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)))));
+                                .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                                .AddStep<string>("add")))));
         }
 
         private static IEnumerable<Type> GetTypeHierarchy(this Type type, IGraphModel model)
