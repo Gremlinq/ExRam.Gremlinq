@@ -178,6 +178,22 @@ namespace ExRam.Gremlinq.Dse
                 : model;
         }
 
+        public static IDseGraphModel EdgeIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression, EdgeDirection direction)
+        {
+            var newEdgeIndexes = model.EdgeIndexes.Add(typeof(T), (indexExpression, direction));
+
+            return newEdgeIndexes != model.EdgeIndexes
+                ? new DseGraphModel(
+                    model.VertexLabels,
+                    model.EdgeLabels,
+                    model.Connections,
+                    model.PrimaryKeys,
+                    model.MaterializedIndexes,
+                    model.SecondaryIndexes,
+                    model.SearchIndexes,
+                    newEdgeIndexes)
+                : model;
+        }
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             model = model
