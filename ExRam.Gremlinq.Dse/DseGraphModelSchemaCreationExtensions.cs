@@ -215,8 +215,8 @@ namespace ExRam.Gremlinq.Dse
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider, IIdentifierFactory identifierFactory)
         {
             return model.EdgeIndexes.Keys
-                .SelectMany(type => model
-                    .GetDerivedElementInfos(type, true)
+                .SelectMany(edgeType => model
+                    .GetDerivedElementInfos(edgeType, true)
                     .Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
                     .SelectMany(inheritedType => model
                         .EdgeIndexes[inheritedType]
@@ -226,7 +226,7 @@ namespace ExRam.Gremlinq.Dse
                             .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery
                                 .Create("schema", queryProvider)
-                                .AddStep<string>("vertexLabel", inheritedVertexType.Name)
+                                .AddStep<string>("vertexLabel", model.GetLabelOfType(inheritedVertexType))
                                 .AddStep<string>("index", identifierFactory.CreateIndexName())
                                 .AddStep<string>(
                                     index.direction == EdgeDirection.Out
@@ -234,7 +234,7 @@ namespace ExRam.Gremlinq.Dse
                                         : index.direction == EdgeDirection.In
                                             ? "inE"
                                             : "bothE",
-                                    type.Name)
+                                    model.GetLabelOfType(edgeType))
                                 .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
                                 .AddStep<string>("add")))));
         }

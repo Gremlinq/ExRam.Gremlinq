@@ -78,6 +78,13 @@ namespace ExRam.Gremlinq
                     () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(T).Name), model.EdgeLabels));
         }
 
+        public static string GetLabelOfType(this IGraphModel model, Type type)
+        {
+            return model
+                .TryGetLabelOfType(type)
+                .IfNone(() => throw new ArgumentException($"Cannot find label of type {type} in model."));
+        }
+
         public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
         {
             return model.VertexLabels
