@@ -16,10 +16,10 @@ namespace ExRam.Gremlinq.Dse
             public DseGraphModel(
                 IImmutableDictionary<Type, string> vertexLabels, 
                 IImmutableDictionary<Type, string> edgeTypes,
-                IImmutableDictionary<Type, IImmutableList<(Type, Type)>> connections, 
+                IImmutableDictionary<Type, IImmutableSet<(Type, Type)>> connections, 
                 IImmutableDictionary<Type, Expression> primaryKeys,
-                IImmutableDictionary<Type, IImmutableList<Expression>> materializedIndexes,
-                IImmutableDictionary<Type, IImmutableList<Expression>> secondaryIndexes,
+                IImmutableDictionary<Type, IImmutableSet<Expression>> materializedIndexes,
+                IImmutableDictionary<Type, IImmutableSet<Expression>> secondaryIndexes,
                 IImmutableDictionary<Type, Expression> searchIndexes)
             {
                 this.VertexLabels = vertexLabels;
@@ -35,13 +35,13 @@ namespace ExRam.Gremlinq.Dse
 
             public IImmutableDictionary<Type, string> EdgeLabels { get; }
 
-            public IImmutableDictionary<Type, IImmutableList<(Type, Type)>> Connections { get; }
+            public IImmutableDictionary<Type, IImmutableSet<(Type, Type)>> Connections { get; }
 
             public IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
 
-            public IImmutableDictionary<Type, IImmutableList<Expression>> MaterializedIndexes { get; }
+            public IImmutableDictionary<Type, IImmutableSet<Expression>> MaterializedIndexes { get; }
 
-            public IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
+            public IImmutableDictionary<Type, IImmutableSet<Expression>> SecondaryIndexes { get; }
 
             public IImmutableDictionary<Type, Expression> SearchIndexes { get; }
         }
@@ -71,10 +71,10 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphModel(
                 model.VertexLabels, 
                 model.EdgeLabels, 
-                ImmutableDictionary<Type, IImmutableList<(Type, Type)>>.Empty, 
+                ImmutableDictionary<Type, IImmutableSet<(Type, Type)>>.Empty, 
                 ImmutableDictionary<Type, Expression>.Empty, 
-                ImmutableDictionary<Type, IImmutableList<Expression>>.Empty, 
-                ImmutableDictionary<Type, IImmutableList<Expression>>.Empty,
+                ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty, 
+                ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty,
                 ImmutableDictionary<Type, Expression>.Empty);
         }
 
@@ -249,7 +249,7 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("add"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableList<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)
         {
             return model.VertexLabels
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)

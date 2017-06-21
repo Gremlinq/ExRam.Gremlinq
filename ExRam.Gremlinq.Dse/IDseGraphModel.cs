@@ -6,13 +6,13 @@ namespace ExRam.Gremlinq.Dse
 {
     public interface IDseGraphModel : IGraphModel
     {
-        IImmutableDictionary<Type, IImmutableList<(Type, Type)>> Connections { get; }
+        IImmutableDictionary<Type, IImmutableSet<(Type, Type)>> Connections { get; }
 
         IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
 
-        IImmutableDictionary<Type, IImmutableList<Expression>> MaterializedIndexes { get; }
+        IImmutableDictionary<Type, IImmutableSet<Expression>> MaterializedIndexes { get; }
 
-        IImmutableDictionary<Type, IImmutableList<Expression>> SecondaryIndexes { get; }
+        IImmutableDictionary<Type, IImmutableSet<Expression>> SecondaryIndexes { get; }
 
         IImmutableDictionary<Type, Expression> SearchIndexes { get; }
 

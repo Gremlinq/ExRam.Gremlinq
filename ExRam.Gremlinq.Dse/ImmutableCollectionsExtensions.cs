@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Dse
 {
     internal static class ImmutableCollectionsExtensions
     {
-        public static IImmutableDictionary<TKey, IImmutableList<TValue>> Add<TKey, TValue>(this IImmutableDictionary<TKey, IImmutableList<TValue>> dictionary, TKey key, TValue value)
+        public static IImmutableDictionary<TKey, IImmutableSet<TValue>> Add<TKey, TValue>(this IImmutableDictionary<TKey, IImmutableSet<TValue>> dictionary, TKey key, TValue value)
         {
             return dictionary.SetItem(
                 key,
@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Dse
                     .TryGetValue(key)
                     .Match(
                         list => list.Add(value),
-                        () => ImmutableList.Create(value)));
+                        () => ImmutableHashSet.Create(value)));
         }
     }
 }
