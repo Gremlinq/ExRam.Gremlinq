@@ -6,28 +6,12 @@ using System.Reflection;
 using System.Text;
 using LanguageExt;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq
 {
     public static class GremlinQuery
     {
-        private sealed class IdentifierFactoryImpl : IIdentifierFactory
-        {
-            private int _label;
-
-            public StepLabel<T> CreateStepLabel<T>()
-            {
-                return new StepLabel<T>("l" + Interlocked.Increment(ref this._label));
-            }
-
-            public string CreateIndexName()
-            {
-                return "i" + Interlocked.Increment(ref this._label);
-            }
-        }
-
         private class GremlinQueryImpl : IGremlinQuery
         {
             public GremlinQueryImpl(string graphName, IImmutableList<GremlinStep> steps, IGremlinQueryProvider provider, IImmutableDictionary<MemberInfo, string> memberInfoMappings, IIdentifierFactory identifierFactory)
@@ -113,7 +97,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery Create(string initialIdentifier, IGremlinQueryProvider provider)
         {
-            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty, new IdentifierFactoryImpl());
+            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty, IdentifierFactory.CreateDefault());
         }
 
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
