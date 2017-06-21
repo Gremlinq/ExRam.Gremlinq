@@ -33,17 +33,19 @@ namespace ExRam.Gremlinq.Dse
 
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
+            var identifierFactory = IdentifierFactory.CreateDefault();
+            
             model = model
                 .EdgeConnectionClosure();
 
             return model
                 .CreatePropertyKeyQueries(queryProvider)
                 .Concat(model.CreateVertexLabelQueries(queryProvider))
-                .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider))
-                .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider))
+                .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider, identifierFactory))
+                .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider, identifierFactory))
                 .Concat(model.CreateVertexSearchIndexQueries(queryProvider))
                 .Concat(model.CreateEdgeLabelQueries(queryProvider))
-                .Concat(model.CreateEdgeIndexQueries(queryProvider));
+                .Concat(model.CreateEdgeIndexQueries(queryProvider, identifierFactory));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -92,14 +94,14 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("create"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateVertexSecondaryIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexSecondaryIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider, IIdentifierFactory identifierFactory)
         {
-            return model.CreateIndexQueries(model.SecondaryIndexes, "secondary", queryProvider);
+            return model.CreateIndexQueries(model.SecondaryIndexes, "secondary", queryProvider, identifierFactory);
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateVertexMaterializedIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateVertexMaterializedIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider, IIdentifierFactory identifierFactory)
         {
-            return model.CreateIndexQueries(model.MaterializedIndexes, "materialized", queryProvider);
+            return model.CreateIndexQueries(model.MaterializedIndexes, "materialized", queryProvider, identifierFactory);
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateVertexSearchIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -128,7 +130,7 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("add"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IGremlinQueryProvider queryProvider, IIdentifierFactory identifierFactory)
         {
             return model.VertexLabels
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)
@@ -148,7 +150,7 @@ namespace ExRam.Gremlinq.Dse
                         GremlinQuery
                             .Create("schema", queryProvider)
                             .AddStep<string>("vertexLabel", tuple.Label)
-                            .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                            .AddStep<string>("index", identifierFactory.CreateIndexName())
                             .AddStep<string>(keyword),
                         (closureQuery, indexProperty) => closureQuery.AddStep<string>("by", indexProperty))
                     .AddStep<string>("add"));
@@ -210,7 +212,7 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("create"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider, IIdentifierFactory identifierFactory)
         {
             return model.EdgeIndexes.Keys
                 .SelectMany(type => model
@@ -225,7 +227,7 @@ namespace ExRam.Gremlinq.Dse
                             .Select(inheritedVertexType => GremlinQuery
                                 .Create("schema", queryProvider)
                                 .AddStep<string>("vertexLabel", inheritedVertexType.Name)
-                                .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                                .AddStep<string>("index", identifierFactory.CreateIndexName())
                                 .AddStep<string>(
                                     index.direction == EdgeDirection.Out
                                         ? "outE"
