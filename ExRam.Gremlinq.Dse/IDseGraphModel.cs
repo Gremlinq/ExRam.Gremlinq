@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Dse
 {
     public interface IDseGraphModel : IGraphModel
     {
-        IImmutableList<(Type, Type, Type)> Connections { get; }
+        IImmutableDictionary<Type, IImmutableList<(Type, Type)>> Connections { get; }
 
         IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
 

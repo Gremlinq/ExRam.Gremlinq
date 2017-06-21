@@ -15,8 +15,8 @@ namespace ExRam.Gremlinq.Dse
         {
             public DseGraphModel(
                 IImmutableDictionary<Type, string> vertexLabels, 
-                IImmutableDictionary<Type, string> edgeTypes, 
-                IImmutableList<(Type, Type, Type)> connections, 
+                IImmutableDictionary<Type, string> edgeTypes,
+                IImmutableDictionary<Type, IImmutableList<(Type, Type)>> connections, 
                 IImmutableDictionary<Type, Expression> primaryKeys,
                 IImmutableDictionary<Type, IImmutableList<Expression>> materializedIndexes,
                 IImmutableDictionary<Type, IImmutableList<Expression>> secondaryIndexes,
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Dse
 
             public IImmutableDictionary<Type, string> EdgeLabels { get; }
 
-            public IImmutableList<(Type, Type, Type)> Connections { get; }
+            public IImmutableDictionary<Type, IImmutableList<(Type, Type)>> Connections { get; }
 
             public IImmutableDictionary<Type, Expression> PrimaryKeys { get; }
 
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Dse
             return new DseGraphModel(
                 model.VertexLabels, 
                 model.EdgeLabels, 
-                ImmutableList<(Type, Type, Type)>.Empty, 
+                ImmutableDictionary<Type, IImmutableList<(Type, Type)>>.Empty, 
                 ImmutableDictionary<Type, Expression>.Empty, 
                 ImmutableDictionary<Type, IImmutableList<Expression>>.Empty, 
                 ImmutableDictionary<Type, IImmutableList<Expression>>.Empty,
@@ -80,15 +80,18 @@ namespace ExRam.Gremlinq.Dse
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
         {
-            foreach (var connection in model.Connections)
+            foreach (var kvp in model.Connections)
             {
-                foreach (var outVertexClosure in model.GetDerivedElementInfos(connection.Item1, true))
+                foreach (var edgeClosure in model.GetDerivedElementInfos(kvp.Key, true))
                 {
-                    foreach (var edgeClosure in model.GetDerivedElementInfos(connection.Item2, true))
+                    foreach (var tuple in kvp.Value)
                     {
-                        foreach (var inVertexClosure in model.GetDerivedElementInfos(connection.Item3, true))
+                        foreach (var outVertexClosure in model.GetDerivedElementInfos(tuple.Item1, true))
                         {
-                            model = model.AddConnection(outVertexClosure, edgeClosure, inVertexClosure);
+                            foreach (var inVertexClosure in model.GetDerivedElementInfos(tuple.Item2, true))
+                            {
+                                model = model.AddConnection(outVertexClosure, edgeClosure, inVertexClosure);
+                            }
                         }
                     }
                 }
@@ -300,8 +303,10 @@ namespace ExRam.Gremlinq.Dse
             return model.EdgeLabels
                 .Where(edgeKvp => !edgeKvp.Key.GetTypeInfo().IsAbstract)
                 .Select(edgeKvp => model.Connections
-                    .Where(tuple => tuple.Item2 == edgeKvp.Key)
-                    .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract && !x.Item3.GetTypeInfo().IsAbstract)
+                    .TryGetValue(edgeKvp.Key)
+                    .AsEnumerable()
+                    .SelectMany(x => x)
+                    .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract)
                     .Aggregate(
                         GremlinQuery
                             .Create("schema", queryProvider)
@@ -320,7 +325,7 @@ namespace ExRam.Gremlinq.Dse
                         (closureQuery, tuple) => closureQuery.AddStep<string>(
                             "connection",
                             model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
-                            model.VertexLabels.TryGetValue(tuple.Item3).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
+                            model.VertexLabels.TryGetValue(tuple.Item2).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"));
         }
@@ -339,11 +344,7 @@ namespace ExRam.Gremlinq.Dse
                 .TryGetValue(edgeType)
                 .IfNone(() => throw new ArgumentException($"Model does not contain edge type {edgeType}."));
 
-            var tuple = (outVertexType, edgeType, inVertexType);
-
-            return model.Connections.Contains(tuple)
-                ? model
-                : new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(tuple), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes);
+            return new DseGraphModel(model.VertexLabels, model.EdgeLabels, model.Connections.Add(edgeType, (outVertexType, inVertexType)), model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes);
         }
 
         private static IGremlinQuery<TSource> ConditionalAddStep<TSource>(this IGremlinQuery<TSource> query, bool condition, Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>> addStepFunction)
