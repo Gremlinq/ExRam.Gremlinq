@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Dse
                 IImmutableDictionary<Type, IImmutableSet<Expression>> materializedIndexes,
                 IImmutableDictionary<Type, IImmutableSet<Expression>> secondaryIndexes,
                 IImmutableDictionary<Type, Expression> searchIndexes,
-                IImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>> edgeIndexes)
+                IImmutableDictionary<Type, IImmutableSet<(Type vertexType, Expression indexExpression, EdgeDirection direction)>> edgeIndexes)
             {
                 this.VertexLabels = vertexLabels;
                 this.EdgeLabels = edgeTypes;
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Dse
 
             public IImmutableDictionary<Type, Expression> SearchIndexes { get; }
 
-            public IImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>> EdgeIndexes { get; }
+            public IImmutableDictionary<Type, IImmutableSet<(Type vertexType, Expression indexExpression, EdgeDirection direction)>> EdgeIndexes { get; }
         }
 
         private static readonly IReadOnlyDictionary<Type, string> NativeTypeSteps = new Dictionary<Type, string>
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Dse
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty, 
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty,
                 ImmutableDictionary<Type, Expression>.Empty,
-                ImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>>.Empty);
+                ImmutableDictionary<Type, IImmutableSet<(Type vertexType, Expression indexExpression, EdgeDirection direction)>>.Empty);
         }
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
@@ -178,9 +178,9 @@ namespace ExRam.Gremlinq.Dse
                 : model;
         }
 
-        public static IDseGraphModel EdgeIndex<T>(this IDseGraphModel model, Expression<Func<T, object>> indexExpression, EdgeDirection direction)
+        public static IDseGraphModel EdgeIndex<TVertex, TEdge>(this IDseGraphModel model, Expression<Func<TEdge, object>> indexExpression, EdgeDirection direction)
         {
-            var newEdgeIndexes = model.EdgeIndexes.Add(typeof(T), (indexExpression, direction));
+            var newEdgeIndexes = model.EdgeIndexes.Add(typeof(TEdge), (typeof(TVertex), indexExpression, direction));
 
             return newEdgeIndexes != model.EdgeIndexes
                 ? new DseGraphModel(

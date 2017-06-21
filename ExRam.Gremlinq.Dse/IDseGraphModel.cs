@@ -16,6 +16,6 @@ namespace ExRam.Gremlinq.Dse
 
         IImmutableDictionary<Type, Expression> SearchIndexes { get; }
 
-        IImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>> EdgeIndexes { get; }
+        IImmutableDictionary<Type, IImmutableSet<(Type vertexType, Expression indexExpression, EdgeDirection direction)>> EdgeIndexes { get; }
     }
 }
