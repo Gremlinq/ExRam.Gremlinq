@@ -1,8 +1,13 @@
+using System;
+
 namespace ExRam.Gremlinq
 {
+    [Flags]
     public enum EdgeDirection
     {
-        Out,
-        In
+        None = 0,
+        Out = 1,
+        In = 2,
+        Both = 3
     }
 }
