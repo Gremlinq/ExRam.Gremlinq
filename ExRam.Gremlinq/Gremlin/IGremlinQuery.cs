@@ -3,11 +3,6 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
-    public interface IStepLabelFactory
-    {
-        StepLabel<T> Create<T>();
-    }
-
     public interface IGremlinQuery : IGremlinSerializable
     {
         string GraphName { get; }
