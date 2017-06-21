@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq.Dse
                 IImmutableDictionary<Type, Expression> primaryKeys,
                 IImmutableDictionary<Type, IImmutableSet<Expression>> materializedIndexes,
                 IImmutableDictionary<Type, IImmutableSet<Expression>> secondaryIndexes,
-                IImmutableDictionary<Type, Expression> searchIndexes)
+                IImmutableDictionary<Type, Expression> searchIndexes,
+                IImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>> edgeIndexes)
             {
                 this.VertexLabels = vertexLabels;
                 this.EdgeLabels = edgeTypes;
@@ -29,6 +30,7 @@ namespace ExRam.Gremlinq.Dse
                 this.MaterializedIndexes = materializedIndexes;
                 this.SecondaryIndexes = secondaryIndexes;
                 this.SearchIndexes = searchIndexes;
+                this.EdgeIndexes = edgeIndexes;
             }
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
@@ -44,6 +46,8 @@ namespace ExRam.Gremlinq.Dse
             public IImmutableDictionary<Type, IImmutableSet<Expression>> SecondaryIndexes { get; }
 
             public IImmutableDictionary<Type, Expression> SearchIndexes { get; }
+
+            public IImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>> EdgeIndexes { get; }
         }
 
         private static readonly IReadOnlyDictionary<Type, string> NativeTypeSteps = new Dictionary<Type, string>
@@ -75,7 +79,8 @@ namespace ExRam.Gremlinq.Dse
                 ImmutableDictionary<Type, Expression>.Empty, 
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty, 
                 ImmutableDictionary<Type, IImmutableSet<Expression>>.Empty,
-                ImmutableDictionary<Type, Expression>.Empty);
+                ImmutableDictionary<Type, Expression>.Empty,
+                ImmutableDictionary<Type, IImmutableSet<(Expression, EdgeDirection)>>.Empty);
         }
 
         public static IDseGraphModel EdgeConnectionClosure(this IDseGraphModel model)
@@ -117,7 +122,8 @@ namespace ExRam.Gremlinq.Dse
                     newPrimaryKeys,
                     model.MaterializedIndexes, 
                     model.SecondaryIndexes,
-                    model.SearchIndexes)
+                    model.SearchIndexes,
+                    model.EdgeIndexes)
                 : model;
         }
 
@@ -133,7 +139,8 @@ namespace ExRam.Gremlinq.Dse
                     model.PrimaryKeys,
                     model.MaterializedIndexes.Add(typeof(T), indexExpression),
                     model.SecondaryIndexes,
-                    model.SearchIndexes)
+                    model.SearchIndexes,
+                    model.EdgeIndexes)
                 : model;
         }
 
@@ -149,7 +156,8 @@ namespace ExRam.Gremlinq.Dse
                     model.PrimaryKeys,
                     model.MaterializedIndexes,
                     newSecondaryIndexes,
-                    model.SearchIndexes)
+                    model.SearchIndexes,
+                    model.EdgeIndexes)
                 :  model;
         }
 
@@ -165,7 +173,8 @@ namespace ExRam.Gremlinq.Dse
                     model.PrimaryKeys,
                     model.MaterializedIndexes,
                     model.SecondaryIndexes,
-                    newSearchIndexes)
+                    newSearchIndexes,
+                    model.EdgeIndexes)
                 : model;
         }
 
@@ -363,7 +372,15 @@ namespace ExRam.Gremlinq.Dse
             var newConnections = model.Connections.Add(edgeType, (outVertexType, inVertexType));
 
             return newConnections != model.Connections
-                ? new DseGraphModel(model.VertexLabels, model.EdgeLabels, newConnections, model.PrimaryKeys, model.MaterializedIndexes, model.SecondaryIndexes, model.SearchIndexes)
+                ? new DseGraphModel(
+                    model.VertexLabels, 
+                    model.EdgeLabels, 
+                    newConnections, 
+                    model.PrimaryKeys, 
+                    model.MaterializedIndexes, 
+                    model.SecondaryIndexes, 
+                    model.SearchIndexes,
+                    model.EdgeIndexes)
                 : model;
         }
 
