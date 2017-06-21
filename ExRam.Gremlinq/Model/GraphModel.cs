@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault();
         }
 
-        public static IEnumerable<Type> GetDerivedElementInfos(this IGraphModel model, Type type, bool includeType)
+        public static IEnumerable<Type> GetDerivedTypes(this IGraphModel model, Type type, bool includeType)
         {
             return model.VertexLabels.Keys
                 .Concat(model.EdgeLabels.Keys)

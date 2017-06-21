@@ -216,13 +216,13 @@ namespace ExRam.Gremlinq.Dse
         {
             return model.EdgeIndexes.Keys
                 .SelectMany(edgeType => model
-                    .GetDerivedElementInfos(edgeType, true)
+                    .GetDerivedTypes(edgeType, true)
                     .Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
                     .SelectMany(inheritedType => model
                         .EdgeIndexes[inheritedType]
                         .Where(index => index.direction != EdgeDirection.None)
                         .SelectMany(index => model
-                            .GetDerivedElementInfos(index.vertexType, true)
+                            .GetDerivedTypes(index.vertexType, true)
                             .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery
                                 .Create("schema", queryProvider)

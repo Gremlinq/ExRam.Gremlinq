@@ -590,7 +590,7 @@ namespace ExRam.Gremlinq
                 .GetOrAdd(
                     (model, typeof(T)),
                     tuple => tuple.model
-                        .GetDerivedElementInfos(typeof(T), true)
+                        .GetDerivedTypes(typeof(T), true)
                         .Select(type => tuple.model
                             .TryGetLabelOfType(type)
                             .IfNone(() => throw new InvalidOperationException()))

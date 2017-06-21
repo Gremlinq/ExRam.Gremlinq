@@ -63,13 +63,13 @@ namespace ExRam.Gremlinq.Dse
         {
             foreach (var kvp in model.Connections)
             {
-                foreach (var edgeClosure in model.GetDerivedElementInfos(kvp.Key, true))
+                foreach (var edgeClosure in model.GetDerivedTypes(kvp.Key, true))
                 {
                     foreach (var tuple in kvp.Value)
                     {
-                        foreach (var outVertexClosure in model.GetDerivedElementInfos(tuple.Item1, true))
+                        foreach (var outVertexClosure in model.GetDerivedTypes(tuple.Item1, true))
                         {
-                            foreach (var inVertexClosure in model.GetDerivedElementInfos(tuple.Item2, true))
+                            foreach (var inVertexClosure in model.GetDerivedTypes(tuple.Item2, true))
                             {
                                 model = model.AddConnection(outVertexClosure, edgeClosure, inVertexClosure);
                             }
