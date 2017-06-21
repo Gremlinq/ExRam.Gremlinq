@@ -152,6 +152,11 @@ namespace ExRam.Gremlinq
             return query.AddStep<T>(new GremlinStep(name, parameters));
         }
 
+        public static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
+        {
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
+        }
+        
         internal static IGremlinQuery<T> AddMemberInfoMapping<T>(this IGremlinQuery<T> query, Expression<Func<T, object>> memberExpression, string mapping)
         {
             var body = memberExpression.Body;
@@ -163,11 +168,6 @@ namespace ExRam.Gremlinq
                 throw new ArgumentException();
 
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings.SetItem(memberExpressionBody.Member, mapping), query.IdentifierFactory);
-        }
-
-        internal static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
-        {
-            return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
         internal static IGremlinQuery ReplaceProvider(this IGremlinQuery query, IGremlinQueryProvider provider)
