@@ -194,6 +194,7 @@ namespace ExRam.Gremlinq.Dse
                     newEdgeIndexes)
                 : model;
         }
+
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
         {
             model = model
@@ -205,7 +206,8 @@ namespace ExRam.Gremlinq.Dse
                 .Concat(model.CreateVertexMaterializedIndexQueries(queryProvider))
                 .Concat(model.CreateVertexSecondaryIndexQueries(queryProvider))
                 .Concat(model.CreateVertexSearchIndexQueries(queryProvider))
-                .Concat(model.CreateEdgeLabelQueries(queryProvider));
+                .Concat(model.CreateEdgeLabelQueries(queryProvider))
+                .Concat(model.CreateEdgeIndexQueries(queryProvider));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
@@ -370,6 +372,33 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep<string>("ifNotExists")
                     .AddStep<string>("create"));
         }
+
+        private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        {
+            return model.EdgeIndexes.Keys
+                .SelectMany(type => type
+                    .GetTypeHierarchy(model)
+                    .Where(inheritedType => !inheritedType.GetTypeInfo().IsAbstract)
+                    .SelectMany(inheritedType => model
+                        .EdgeIndexes[inheritedType]
+                        .Where(index => index.direction != EdgeDirection.None)
+                        .SelectMany(index => index.vertexType
+                            .GetTypeHierarchy(model)
+                            .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
+                            .Select(inheritedVertexType => GremlinQuery
+                                .Create("schema", queryProvider)
+                                .AddStep<string>("vertexLabel", inheritedVertexType.Name)
+                                .AddStep<string>("index", Guid.NewGuid().ToString("N"))
+                                .AddStep<string>(
+                                    index.direction == EdgeDirection.Out
+                                        ? "outE" 
+                                        : index.direction == EdgeDirection.In
+                                            ? "inE"
+                                            : "bothE",
+                                    type.Name)
+                                .AddStep<string>("by", ((index.indexExpression as LambdaExpression)?.Body as MemberExpression)?.Member.Name)))));
+        }
+
 
         private static IDseGraphModel AddConnection(this IDseGraphModel model, Type outVertexType, Type edgeType, Type inVertexType)
         {
