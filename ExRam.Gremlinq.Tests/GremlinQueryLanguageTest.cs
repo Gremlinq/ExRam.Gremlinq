@@ -177,7 +177,6 @@ namespace ExRam.Gremlinq.Tests
                 .BeEmpty();
         }
 
-
         [Fact]
         public void V_ofType_has_conjunction_with_different_fields()
         {
@@ -1011,6 +1010,20 @@ namespace ExRam.Gremlinq.Tests
             query.queryString
                 .Should()
                 .Be("g.V().hasLabel(P1).branch(__.identity()).option(__.out(P2)).option(__.in(P2))");
+        }
+
+        [Fact]
+        public void Set_Property()
+        {
+            var query = GremlinQuery
+                .Create("g", this._queryProvider)
+                .V<User>()
+                .Property(x => x.Age, 36)
+                .Serialize(true);
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel('User').property('Age', 36)");
         }
     }
 }

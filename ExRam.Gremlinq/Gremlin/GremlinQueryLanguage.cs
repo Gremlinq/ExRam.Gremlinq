@@ -391,8 +391,21 @@ namespace ExRam.Gremlinq
             return query
                 .AddStep<T>("profile");
         }
+        
+        public static IGremlinQuery<TSource> Property<TSource, TProperty>(this IGremlinQuery<TSource> query, Expression<Func<TSource, TProperty>> propertyExpression, TProperty property)
+        {
+            if (propertyExpression.Body is MemberExpression memberExpression)
+            {
+                if (memberExpression.Expression == propertyExpression.Parameters[0])
+                {
+                    return query.Property(memberExpression.Member.Name, property);
+                }
+            }
 
-        public static IGremlinQuery<T> Property<T>(this IGremlinQuery<T> query, string key, object value)
+            throw new NotSupportedException();
+        }
+
+        private static IGremlinQuery<T> Property<T>(this IGremlinQuery<T> query, string key, object value)
         {
             return query
                 .AddStep<T>("property", key, value);
