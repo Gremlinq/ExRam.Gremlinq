@@ -240,6 +240,13 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("emit");
         }
 
+        public static IGremlinQuery Emit(this IGremlinQuery query)
+        {
+            return query
+                .Cast<Unit>()
+                .Emit();
+        }
+
         public static IGremlinQuery<T> Explain<T>(this IGremlinQuery<T> query)
         {
             return query
