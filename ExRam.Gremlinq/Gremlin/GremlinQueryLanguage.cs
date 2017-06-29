@@ -68,6 +68,21 @@ namespace ExRam.Gremlinq
             }
         }
 
+        private sealed class DerivedLabelNamesGremlinStep<T> : NonTerminalGremlinStep
+        {
+            private readonly string _stepName;
+
+            public DerivedLabelNamesGremlinStep(string stepName)
+            {
+                this._stepName = stepName;
+            }
+
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                yield return new TerminalGremlinStep(this._stepName, GetDerivedLabelNames<T>(model));
+            }
+        }
+        
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
             { ExpressionType.Equal, "eq" },
@@ -187,13 +202,13 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("both", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("both"));
         }
 
         public static IGremlinQuery<T> BothE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("bothE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("bothE"));
         }
 
         public static IGremlinQuery<Vertex> BothV(this IGremlinQuery query)
@@ -335,13 +350,13 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> In<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("in", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("in"));
         }
 
         public static IGremlinQuery<T> InE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("inE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("inE"));
         }
 
         public static IGremlinQuery<T> InV<T>(this IGremlinQuery query)
@@ -379,7 +394,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 .Cast<T>()
-                .AddStep<T>("hasLabel", query.Provider.Model.GetDerivedLabelNames<T>());
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("hasLabel"));
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
@@ -420,7 +435,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> OutE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("outE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("outE"));
         }
 
         public static IGremlinQuery<T> OutV<T>(this IGremlinQuery query)
@@ -433,7 +448,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Out<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("out"));
         }
 
         public static IGremlinQuery<T> Profile<T>(this IGremlinQuery<T> query)
