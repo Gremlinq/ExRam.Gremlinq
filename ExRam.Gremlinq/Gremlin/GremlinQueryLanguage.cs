@@ -112,11 +112,11 @@ namespace ExRam.Gremlinq
                 .Select(andTraversal => andTraversal(query.ToAnonymous())));
         }
 
-        private static IGremlinQuery<T> And<T>(this IGremlinQuery query, IEnumerable<IGremlinQuery> orTraversals)
+        private static IGremlinQuery<T> And<T>(this IGremlinQuery query, IEnumerable<IGremlinQuery> andTraversals)
         {
             return query.AddStep<T>(
                 "and",
-                orTraversals.Aggregate(
+                andTraversals.Aggregate(
                     ImmutableList<object>.Empty,
                     (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
                         ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
