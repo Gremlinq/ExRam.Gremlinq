@@ -20,7 +20,7 @@ namespace Dse
 
             public IGremlinQuery CreateQuery()
             {
-                return GremlinQuery.Create((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g", this);
+                return GremlinQuery.Create((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g");
             }
 
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)

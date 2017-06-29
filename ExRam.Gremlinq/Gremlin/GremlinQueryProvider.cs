@@ -236,7 +236,7 @@ namespace ExRam.Gremlinq
                     var edgeCriterionTraversal = edgeCriterion(castedQuery.ToAnonymous());
 
                     var strategy = GremlinQuery
-                        .Create("SubgraphStrategy", query.Provider)
+                        .Create("SubgraphStrategy")
                         .AddStep<Unit>("build");
 
                     if (vertexCriterionTraversal.Steps.Count > 0)

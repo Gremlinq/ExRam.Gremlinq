@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq.Dse
 
             return propertyKeys
                 .Select(propertyInfoKvp => GremlinQuery
-                    .Create("schema", queryProvider)
+                    .Create("schema")
                     .AddStep<string>("propertyKey", propertyInfoKvp.Key)
                     .AddStep<string>(NativeTypeSteps
                         .TryGetValue(propertyInfoKvp.Value)
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Dse
                 .Select(tuple => tuple.IndexProperties
                     .Aggregate(
                         GremlinQuery
-                            .Create("schema", queryProvider)
+                            .Create("schema")
                             .AddStep<string>("vertexLabel", tuple.Label)
                             .AddStep<string>("index", "search")
                             .AddStep<string>("search"),
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Dse
                 .Select(tuple => tuple.IndexProperties
                     .Aggregate(
                         GremlinQuery
-                            .Create("schema", queryProvider)
+                            .Create("schema")
                             .AddStep<string>("vertexLabel", tuple.Label)
                             .AddStep<string>("index", identifierFactory.CreateIndexName())
                             .AddStep<string>(keyword),
@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq.Dse
                     .AsEnumerable()
                     .Aggregate(
                         GremlinQuery
-                            .Create("schema", queryProvider)
+                            .Create("schema")
                             .AddStep<string>("vertexLabel", vertexKvp.Value),
                         (closureQuery, property) => closureQuery.AddStep<string>("partitionKey", property))
                     .ConditionalAddStep(
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Dse
                     .Where(x => !x.Item1.GetTypeInfo().IsAbstract && !x.Item2.GetTypeInfo().IsAbstract)
                     .Aggregate(
                         GremlinQuery
-                            .Create("schema", queryProvider)
+                            .Create("schema")
                             .AddStep<string>("edgeLabel", edgeKvp.Value)
                             .AddStep<string>("single")
                             .ConditionalAddStep(
@@ -225,7 +225,7 @@ namespace ExRam.Gremlinq.Dse
                             .GetDerivedTypes(index.vertexType, true)
                             .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery
-                                .Create("schema", queryProvider)
+                                .Create("schema")
                                 .AddStep<string>("vertexLabel", model.GetLabelOfType(inheritedVertexType))
                                 .AddStep<string>("index", identifierFactory.CreateIndexName())
                                 .AddStep<string>(
