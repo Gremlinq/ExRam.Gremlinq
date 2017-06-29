@@ -1,5 +1,5 @@
 ﻿{
-  "d730b14d9898459ab919d529939f69f8": {
+  "Item1": {
     "id": {
       "~label": "User",
       "community_id": 1074679808,
@@ -52,7 +52,7 @@
       ]
     }
   },
-  "38233d3440304ce7bae0be402687aced": {
+  "Item2": {
     "id": {
       "~label": "Language",
       "community_id": 1990512128,

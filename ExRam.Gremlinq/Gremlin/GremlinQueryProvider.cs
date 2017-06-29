@@ -272,11 +272,11 @@ namespace ExRam.Gremlinq
 
         private sealed class JsonSupportGremlinQueryProvider : GremlinQueryProviderBase
         {
-            private sealed class MemberInfoMappingsContractResolver : DefaultContractResolver
+            private sealed class StepLabelMappingsContractResolver : DefaultContractResolver
             {
-                private readonly IImmutableDictionary<MemberInfo, string> _mappings;
+                private readonly IImmutableDictionary<string, StepLabel> _mappings;
 
-                public MemberInfoMappingsContractResolver(IImmutableDictionary<MemberInfo, string> mappings)
+                public StepLabelMappingsContractResolver(IImmutableDictionary<string, StepLabel> mappings)
                 {
                     this._mappings = mappings;
                 }
@@ -286,11 +286,11 @@ namespace ExRam.Gremlinq
                     var property = base.CreateProperty(member, memberSerialization);
 
                     this._mappings
-                        .TryGetValue(member)
+                        .TryGetValue(member.Name)
                         .IfSome(
                             mapping =>
                             {
-                                property.PropertyName = mapping;
+                                property.PropertyName = mapping.Label;
                             });
 
                     return property;
@@ -335,7 +335,7 @@ namespace ExRam.Gremlinq
                 var serializer = new JsonSerializer
                 {
                     Converters = { new TimespanConverter() },
-                    ContractResolver = new MemberInfoMappingsContractResolver(query.MemberInfoMappings),
+                    ContractResolver = new StepLabelMappingsContractResolver(query.StepLabelMappings),
                     TypeNameHandling = TypeNameHandling.Auto,
                     MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                 };

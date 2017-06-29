@@ -4,11 +4,22 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
 {
-    public struct StepLabel<T> : IGremlinSerializable
+    public abstract class StepLabel : IGremlinSerializable
     {
-        public StepLabel(string label)
+        protected StepLabel(string label)
         {
             this.Label = label;
+        }
+        
+        public abstract (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters);
+
+        public string Label { get; }
+    }
+
+    public class StepLabel<T> : StepLabel
+    {
+        public StepLabel(string label) : base(label)
+        {
         }
 
         public static StepLabel<T> CreateNew()
@@ -16,9 +27,7 @@ namespace ExRam.Gremlinq
             return new StepLabel<T>(Guid.NewGuid().ToString("N"));
         }
 
-        public string Label { get; }
-
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
+        public override (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
         {
             if (inlineParameters)
                 return ("'" + this.Label + "'", ImmutableDictionary<string, object>.Empty);

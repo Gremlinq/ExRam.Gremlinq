@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Tests
             var value = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<int>>(x => x.MemberInfoMappings == ImmutableDictionary<MemberInfo, string>.Empty))
+                .Execute(Mock.Of<IGremlinQuery<int>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
                 .First();
 
             value.Should().Be(36);

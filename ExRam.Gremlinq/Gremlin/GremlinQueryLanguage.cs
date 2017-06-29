@@ -498,27 +498,27 @@ namespace ExRam.Gremlinq
         {
             return query
                 .AddStep<(T1, T2)>("select", label1, label2)
-                .AddMemberInfoMapping(x => x.Item1, label1.Label)
-                .AddMemberInfoMapping(x => x.Item2, label2.Label);
+                .AddStepLabelBinding(x => x.Item1, label1)
+                .AddStepLabelBinding(x => x.Item2, label2);
         }
 
         public static IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(this IGremlinQuery query, StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
             return query
                 .AddStep<(T1, T2, T3)>("select", label1, label2, label3)
-                .AddMemberInfoMapping(x => x.Item1, label1.Label)
-                .AddMemberInfoMapping(x => x.Item2, label2.Label)
-                .AddMemberInfoMapping(x => x.Item3, label3.Label);
+                .AddStepLabelBinding(x => x.Item1, label1)
+                .AddStepLabelBinding(x => x.Item2, label2)
+                .AddStepLabelBinding(x => x.Item3, label3);
         }
 
         public static IGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(this IGremlinQuery query, StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
             return query
                 .AddStep<(T1, T2, T3, T4)>("select", label1, label2, label3, label4)
-                .AddMemberInfoMapping(x => x.Item1, label1.Label)
-                .AddMemberInfoMapping(x => x.Item2, label2.Label)
-                .AddMemberInfoMapping(x => x.Item3, label3.Label)
-                .AddMemberInfoMapping(x => x.Item4, label4.Label);
+                .AddStepLabelBinding(x => x.Item1, label1)
+                .AddStepLabelBinding(x => x.Item2, label2)
+                .AddStepLabelBinding(x => x.Item3, label3)
+                .AddStepLabelBinding(x => x.Item4, label4);
         }
 
         public static IGremlinQuery<T> Times<T>(this IGremlinQuery<T> query, int count)

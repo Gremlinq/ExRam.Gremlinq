@@ -1,5 +1,4 @@
 using System.Collections.Immutable;
-using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
@@ -8,7 +7,7 @@ namespace ExRam.Gremlinq
         string GraphName { get; }
         IImmutableList<GremlinStep> Steps { get; }
         IIdentifierFactory IdentifierFactory { get; }
-        IImmutableDictionary<MemberInfo, string> MemberInfoMappings { get; }
+        IImmutableDictionary<string, StepLabel> StepLabelMappings { get; }
     }
 
     // ReSharper disable once UnusedTypeParameter
