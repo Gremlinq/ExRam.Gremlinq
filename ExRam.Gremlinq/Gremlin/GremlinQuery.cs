@@ -130,9 +130,14 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
         {
-            return query.AddStep<T>(new TerminalGremlinStep(name, parameters));
+            return query.InsertStep<T>(query.Steps.Count, new TerminalGremlinStep(name, parameters));
         }
 
+        public static IGremlinQuery<T> InsertStep<T>(this IGremlinQuery query, int index, GremlinStep step)
+        {
+            return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Insert(index, step), query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
+        }
+        
         public static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
