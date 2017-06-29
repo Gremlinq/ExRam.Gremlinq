@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public struct TerminalGremlinStep : IGremlinSerializable
+    public class TerminalGremlinStep : GremlinStep, IGremlinSerializable
     {
         public TerminalGremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
         {
@@ -15,11 +15,6 @@ namespace ExRam.Gremlinq
         {
             this.Name = name;
             this.Parameters = parameters;
-        }
-        
-        public IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
-        {
-            yield return this;
         }
 
         public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)

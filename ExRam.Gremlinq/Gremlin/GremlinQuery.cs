@@ -28,11 +28,11 @@ namespace ExRam.Gremlinq
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.GraphName);
 
-                foreach (var unresolvedStep in this.Steps)
+                foreach (var step in this.Steps)
                 {
-                    foreach (var resolvedStep in unresolvedStep.Resolve(this.Provider.Model))
+                    foreach (var terminalStep in Resolve(step, this.Provider.Model))
                     {
-                        var (innerQueryString, innerParameters) = resolvedStep.Serialize(parameterCache, inlineParameters);
+                        var (innerQueryString, innerParameters) = terminalStep.Serialize(parameterCache, inlineParameters);
 
                         builder.Append('.');
                         builder.Append(innerQueryString);
@@ -45,6 +45,21 @@ namespace ExRam.Gremlinq
                 }
 
                 return (builder.ToString(), parameters);
+            }
+            
+            private IEnumerable<TerminalGremlinStep> Resolve(GremlinStep step, IGraphModel model)
+            {
+                if (step is TerminalGremlinStep terminal)
+                    yield return terminal;
+                else if (step is NonTerminalGremlinStep nonTerminal)
+                {
+                    foreach (var innerTerminal in nonTerminal.Resolve(model))
+                    {
+                        yield return innerTerminal;
+                    }
+                }
+                else
+                    throw new ArgumentException();
             }
 
             public string GraphName { get; }
