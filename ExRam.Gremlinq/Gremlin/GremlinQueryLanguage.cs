@@ -588,7 +588,7 @@ namespace ExRam.Gremlinq
 
                         if (binaryExpression.NodeType == ExpressionType.Equal || binaryExpression.NodeType == ExpressionType.NotEqual)
                         {
-                            return query.AddStep<T>(new GremlinStep(binaryExpression.NodeType == ExpressionType.Equal
+                            return query.AddStep<T>(new TerminalGremlinStep(binaryExpression.NodeType == ExpressionType.Equal
                                 ? "hasNot"
                                 : "has", leftMemberExpression.Member.Name));
                         }

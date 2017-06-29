@@ -4,20 +4,20 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public struct GremlinStep : IGremlinSerializable
+    public struct TerminalGremlinStep : IGremlinSerializable
     {
-        public GremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
+        public TerminalGremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
         {
 
         }
 
-        public GremlinStep(string name, IImmutableList<object> parameters)
+        public TerminalGremlinStep(string name, IImmutableList<object> parameters)
         {
             this.Name = name;
             this.Parameters = parameters;
         }
         
-        public IEnumerable<GremlinStep> Resolve(IGraphModel model)
+        public IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
             yield return this;
         }

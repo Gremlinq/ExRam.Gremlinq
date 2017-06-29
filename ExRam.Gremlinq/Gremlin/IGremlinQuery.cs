@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq
     {
         string GraphName { get; }
         IGremlinQueryProvider Provider { get; }
-        IImmutableList<GremlinStep> Steps { get; }
+        IImmutableList<TerminalGremlinStep> Steps { get; }
         IIdentifierFactory IdentifierFactory { get; }
         IImmutableDictionary<MemberInfo, string> MemberInfoMappings { get; }
     }
