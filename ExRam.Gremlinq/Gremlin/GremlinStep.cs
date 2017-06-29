@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
@@ -13,6 +14,11 @@ namespace ExRam.Gremlinq
         {
             this.Name = name;
             this.Parameters = parameters;
+        }
+        
+        public IEnumerable<GremlinStep> Resolve(IGraphModel model)
+        {
+            yield return this;
         }
 
         public string Name { get; }

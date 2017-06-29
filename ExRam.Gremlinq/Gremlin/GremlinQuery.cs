@@ -28,54 +28,57 @@ namespace ExRam.Gremlinq
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.GraphName);
 
-                foreach (var step in this.Steps)
+                foreach (var unresolvedStep in this.Steps)
                 {
-                    var appendComma = false;
-
-                    if (builder.Length > 0)
-                        builder.Append('.');
-
-                    builder.Append(step.Name);
-                    builder.Append("(");
-
-                    foreach (var parameter in step.Parameters)
+                    foreach (var resolvedStep in unresolvedStep.Resolve(this.Provider.Model))
                     {
-                        if (appendComma)
-                            builder.Append(", ");
-                        else
-                            appendComma = true;
+                        var appendComma = false;
 
-                        if (parameter is IGremlinSerializable serializable)
+                        if (builder.Length > 0)
+                            builder.Append('.');
+
+                        builder.Append(resolvedStep.Name);
+                        builder.Append("(");
+
+                        foreach (var parameter in resolvedStep.Parameters)
                         {
-                            var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache, inlineParameters);
-                            
-                            builder.Append(innerQueryString);
+                            if (appendComma)
+                                builder.Append(", ");
+                            else
+                                appendComma = true;
 
-                            foreach (var kvp in innerParameters)
+                            if (parameter is IGremlinSerializable serializable)
                             {
-                                parameters[kvp.Key] = kvp.Value;
+                                var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache, inlineParameters);
+
+                                builder.Append(innerQueryString);
+
+                                foreach (var kvp in innerParameters)
+                                {
+                                    parameters[kvp.Key] = kvp.Value;
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (parameter is string && inlineParameters)
-                                builder.Append($"'{parameter}'");
                             else
                             {
-                                if (inlineParameters)
-                                    builder.Append(parameter);
+                                if (parameter is string && inlineParameters)
+                                    builder.Append($"'{parameter}'");
                                 else
                                 {
-                                    var newParameterName = parameterCache.Cache(parameter);
-                                    parameters[newParameterName] = parameter;
+                                    if (inlineParameters)
+                                        builder.Append(parameter);
+                                    else
+                                    {
+                                        var newParameterName = parameterCache.Cache(parameter);
+                                        parameters[newParameterName] = parameter;
 
-                                    builder.Append(newParameterName);
+                                        builder.Append(newParameterName);
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    builder.Append(")");
+                        builder.Append(")");
+                    }
                 }
 
                 return (builder.ToString(), parameters);
