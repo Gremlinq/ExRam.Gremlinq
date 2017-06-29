@@ -13,8 +13,9 @@ namespace Dse
         {
             private readonly IDseSession _session;
 
-            public DseGraphQueryProvider(IDseSession session)
+            public DseGraphQueryProvider(IDseSession session, IGraphModel model)
             {
+                this.Model = model;
                 this._session = session;
             }
 
@@ -43,13 +44,13 @@ namespace Dse
                     .Select(node => (T)(object)node.ToString());
             }
 
-            public IGraphModel Model => GraphModel.Empty;
+            public IGraphModel Model { get; }
         }
 
         public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session, IGraphModel model)
         {
-            return new DseGraphQueryProvider(session)
-                .WithModel(model)
+            return new DseGraphQueryProvider(session, model)
+                //.WithModel(model)
                 .WithJsonSupport();
         }
     }
