@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq
 
         public string Label { get; }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
         {
             if (inlineParameters)
                 return ("'" + this.Label + "'", ImmutableDictionary<string, object>.Empty);

@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq
                 this.IdentifierFactory = identifierFactory;
             }
 
-            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
+            public (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
             {
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.GraphName);
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq
                 {
                     foreach (var terminalStep in Resolve(step, this.Provider.Model))
                     {
-                        var (innerQueryString, innerParameters) = terminalStep.Serialize(parameterCache, inlineParameters);
+                        var (innerQueryString, innerParameters) = terminalStep.Serialize(graphModel, parameterCache, inlineParameters);
 
                         builder.Append('.');
                         builder.Append(innerQueryString);
@@ -86,9 +86,9 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, bool inlineParameters)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, IGraphModel graphModel, bool inlineParameters)
         {
-            return query.Serialize(new DefaultParameterCache(), inlineParameters);
+            return query.Serialize(graphModel, new DefaultParameterCache(), inlineParameters);
         }
 
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query)
