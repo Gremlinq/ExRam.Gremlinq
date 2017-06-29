@@ -32,52 +32,15 @@ namespace ExRam.Gremlinq
                 {
                     foreach (var resolvedStep in unresolvedStep.Resolve(this.Provider.Model))
                     {
-                        var appendComma = false;
+                        var (innerQueryString, innerParameters) = resolvedStep.Serialize(parameterCache, inlineParameters);
 
-                        if (builder.Length > 0)
-                            builder.Append('.');
-
-                        builder.Append(resolvedStep.Name);
-                        builder.Append("(");
-
-                        foreach (var parameter in resolvedStep.Parameters)
+                        builder.Append('.');
+                        builder.Append(innerQueryString);
+                        
+                        foreach (var kvp in innerParameters)
                         {
-                            if (appendComma)
-                                builder.Append(", ");
-                            else
-                                appendComma = true;
-
-                            if (parameter is IGremlinSerializable serializable)
-                            {
-                                var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache, inlineParameters);
-
-                                builder.Append(innerQueryString);
-
-                                foreach (var kvp in innerParameters)
-                                {
-                                    parameters[kvp.Key] = kvp.Value;
-                                }
-                            }
-                            else
-                            {
-                                if (parameter is string && inlineParameters)
-                                    builder.Append($"'{parameter}'");
-                                else
-                                {
-                                    if (inlineParameters)
-                                        builder.Append(parameter);
-                                    else
-                                    {
-                                        var newParameterName = parameterCache.Cache(parameter);
-                                        parameters[newParameterName] = parameter;
-
-                                        builder.Append(newParameterName);
-                                    }
-                                }
-                            }
+                            parameters[kvp.Key] = kvp.Value;
                         }
-
-                        builder.Append(")");
                     }
                 }
 
