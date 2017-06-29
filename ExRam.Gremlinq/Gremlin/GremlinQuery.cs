@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq
 
                 foreach (var step in this.Steps)
                 {
-                    foreach (var terminalStep in Resolve(step, this.Provider.Model))
+                    foreach (var terminalStep in Resolve(step, graphModel))
                     {
                         var (innerQueryString, innerParameters) = terminalStep.Serialize(graphModel, parameterCache, inlineParameters);
 
@@ -91,19 +91,19 @@ namespace ExRam.Gremlinq
             return query.Serialize(graphModel, new DefaultParameterCache(), inlineParameters);
         }
 
-        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query)
+        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
             return query
                 .Limit(1)
-                .Execute()
+                .Execute(provider)
                 .First();
         }
 
-        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query)
+        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
             var array = await query
                 .Limit(1)
-                .Execute()
+                .Execute(provider)
                 .ToArray();
 
             return array.Length > 0
@@ -111,10 +111,10 @@ namespace ExRam.Gremlinq
                 : Option<T>.None;
         }
 
-        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query)
+        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
             return query
-                .Execute()
+                .Execute(provider)
                 .ToArray();
         }
 

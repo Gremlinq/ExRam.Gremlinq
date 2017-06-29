@@ -209,9 +209,9 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query)
+        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
-            return query.Provider.Execute(query);
+            return provider.Execute(query);
         }
 
         public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider)

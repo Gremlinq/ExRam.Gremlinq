@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Tests
                 .Cast<(User, Language)>()
                 .AddMemberInfoMapping(x => x.Item1, "d730b14d9898459ab919d529939f69f8")
                 .AddMemberInfoMapping(x => x.Item2, "38233d3440304ce7bae0be402687aced")
-                .Execute()
+                .Execute(jsonQueryProvider)
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
