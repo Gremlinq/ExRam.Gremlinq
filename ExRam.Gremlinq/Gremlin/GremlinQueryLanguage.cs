@@ -12,41 +12,38 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryLanguage
     {
-        private sealed class AddVGremlinStep<T> : NonTerminalGremlinStep
+        private abstract class AddElementGremlinStep : NonTerminalGremlinStep
         {
-            private readonly T _value;
+            private readonly object _value;
+            private readonly string _stepName;
 
-            public AddVGremlinStep(T value)
+            protected AddElementGremlinStep(string stepName, object value)
             {
                 this._value = value;
+                this._stepName = stepName;
             }
 
             public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
             {
                 yield return new TerminalGremlinStep(
-                    "addV",
+                    this._stepName,
                     model
                         .TryGetLabelOfType(this._value.GetType())
-                        .IfNone(typeof(T).Name));
+                        .IfNone(this._value.GetType().Name));
             }
         }
 
-        private sealed class AddEGremlinStep<T> : NonTerminalGremlinStep
+        private sealed class AddVGremlinStep : AddElementGremlinStep
         {
-            private readonly T _value;
-
-            public AddEGremlinStep(T value)
+            public AddVGremlinStep(object value) : base("addV", value)
             {
-                this._value = value;
             }
+        }
 
-            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        private sealed class AddEGremlinStep : AddElementGremlinStep
+        {
+            public AddEGremlinStep(object value) : base("addE", value)
             {
-                yield return new TerminalGremlinStep(
-                    "addE",
-                    model
-                        .TryGetLabelOfType(this._value.GetType())
-                        .IfNone(typeof(T).Name));
             }
         }
         
@@ -86,7 +83,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
             return query
-                .AddStep<T>(new AddVGremlinStep<T>(vertex))
+                .AddStep<T>(new AddVGremlinStep(vertex))
                 .AddStep<T>(new AddElementPropertiesStep(vertex));
         }
 
@@ -105,7 +102,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddE<T>(this IGremlinQuery query, T edge)
         {
             return query
-                .AddStep<T>(new AddEGremlinStep<T>(edge))
+                .AddStep<T>(new AddEGremlinStep(edge))
                 .AddStep<T>(new AddElementPropertiesStep(edge));
         }
 
@@ -122,7 +119,7 @@ namespace ExRam.Gremlinq
                 orTraversals.Aggregate(
                     ImmutableList<object>.Empty,
                     (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
-                        ? list.AddRange(((TerminalGremlinStep) query2.Steps[0]).Parameters)
+                        ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
                         : list.Add(query2)));
         }
 
