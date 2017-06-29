@@ -12,6 +12,65 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryLanguage
     {
+        private sealed class AddVGremlinStep<T> : NonTerminalGremlinStep
+        {
+            private readonly T _value;
+
+            public AddVGremlinStep(T value)
+            {
+                this._value = value;
+            }
+
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                yield return new TerminalGremlinStep(
+                    "addV",
+                    model
+                        .TryGetLabelOfType(this._value.GetType())
+                        .IfNone(typeof(T).Name));
+            }
+        }
+
+        private sealed class AddEGremlinStep<T> : NonTerminalGremlinStep
+        {
+            private readonly T _value;
+
+            public AddEGremlinStep(T value)
+            {
+                this._value = value;
+            }
+
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                yield return new TerminalGremlinStep(
+                    "addE",
+                    model
+                        .TryGetLabelOfType(this._value.GetType())
+                        .IfNone(typeof(T).Name));
+            }
+        }
+        
+        private sealed class AddElementPropertiesStep : NonTerminalGremlinStep
+        {
+            private readonly object _element;
+
+            public AddElementPropertiesStep(object element)
+            {
+                this._element = element;
+            }
+            
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                return this._element
+                    .GetType()
+                    .GetProperties()
+                    .Where(property => property.PropertyType.IsNativeType())
+                    .Select(property => (name: property.Name, value: property.GetValue(this._element)))
+                    .Where(tuple => tuple.value != null)
+                    .Select(tuple => new TerminalGremlinStep("property", tuple.name, tuple.value));
+            }
+        }
+
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
             { ExpressionType.Equal, "eq" },
@@ -27,10 +86,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
             return query
-                .AddStep<T>("addV", query.Provider.Model
-                    .TryGetLabelOfType(vertex.GetType())
-                    .IfNone(typeof(T).Name))
-                .AddProperties(vertex);
+                .AddStep<T>(new AddVGremlinStep<T>(vertex))
+                .AddStep<T>(new AddElementPropertiesStep(vertex));
         }
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query)
@@ -48,19 +105,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddE<T>(this IGremlinQuery query, T edge)
         {
             return query
-                .AddStep<T>("addE", query.Provider.Model
-                    .TryGetLabelOfType(edge.GetType())
-                    .IfNone(typeof(T).Name))
-                .AddProperties(edge);
-        }
-
-        private static IGremlinQuery<T> AddProperties<T>(this IGremlinQuery<T> query, T element)
-        {
-            return typeof(T).GetProperties()
-                .Where(property => property.PropertyType.IsNativeType())
-                .Select(property => (name: property.Name, value: property.GetValue(element)))
-                .Where(tuple => tuple.value != null)
-                .Aggregate(query, (current, tuple) => current.Property(tuple.name, tuple.value));
+                .AddStep<T>(new AddEGremlinStep<T>(edge))
+                .AddStep<T>(new AddElementPropertiesStep(edge));
         }
 
         public static IGremlinQuery<T> And<T>(this IGremlinQuery<T> query, params Func<IGremlinQuery<T>, IGremlinQuery>[] andTraversals)
