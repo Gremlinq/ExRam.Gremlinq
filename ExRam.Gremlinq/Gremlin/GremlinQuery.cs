@@ -74,9 +74,9 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IGremlinQuery Create(string initialIdentifier)
+        public static IGremlinQuery Create(string graphName = null)
         {
-            return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<MemberInfo, string>.Empty, IdentifierFactory.CreateDefault());
+            return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<MemberInfo, string>.Empty, IdentifierFactory.CreateDefault());
         }
         
         public static IGremlinQuery<T> WithGraphName<T>(this IGremlinQuery<T> query, string graphName)
