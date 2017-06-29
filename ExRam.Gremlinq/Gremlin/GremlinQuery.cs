@@ -140,7 +140,12 @@ namespace ExRam.Gremlinq
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps.Insert(index, step), query.StepLabelMappings, query.IdentifierFactory);
         }
-        
+
+        public static IGremlinQuery ReplaceSteps(this IGremlinQuery query, IImmutableList<GremlinStep> steps)
+        {
+            return new GremlinQueryImpl(query.GraphName, steps, query.StepLabelMappings, query.IdentifierFactory);
+        }
+
         public static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
         {
             return new GremlinQueryImpl<T>(query.GraphName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);

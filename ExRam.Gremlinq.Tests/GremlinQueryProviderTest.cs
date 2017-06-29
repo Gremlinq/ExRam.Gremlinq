@@ -24,6 +24,25 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void RewriteStepsTest()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var subgraphStrategyProvider = queryProviderMock.Object.RewriteSteps<AddElementPropertiesStep>(
+                step =>
+                {
+                    if (step.Element is User)
+                        return new ReplaceElementPropertyStep(step, "replaced", 36);
+
+                    return step;
+                });
+
+            subgraphStrategyProvider
+                .Execute(GremlinQuery.Create("g").AddV(new User()));
+
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[1] is ReplaceElementPropertyStep)));
+        }
+
+        [Fact]
         public async Task Scalar()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();

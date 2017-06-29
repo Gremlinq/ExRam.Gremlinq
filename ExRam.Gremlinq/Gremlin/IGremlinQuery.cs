@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq
         string GraphName { get; }
         IImmutableList<GremlinStep> Steps { get; }
         IIdentifierFactory IdentifierFactory { get; }
+        //(int depth, int index) TreeLocation { get; }
         IImmutableDictionary<string, StepLabel> StepLabelMappings { get; }
     }
 

@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using LanguageExt;
@@ -11,78 +9,7 @@ using Unit = System.Reactive.Unit;
 namespace ExRam.Gremlinq
 {
     public static class GremlinQueryLanguage
-    {
-        private abstract class AddElementGremlinStep : NonTerminalGremlinStep
-        {
-            private readonly object _value;
-            private readonly string _stepName;
-
-            protected AddElementGremlinStep(string stepName, object value)
-            {
-                this._value = value;
-                this._stepName = stepName;
-            }
-
-            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
-            {
-                yield return new TerminalGremlinStep(
-                    this._stepName,
-                    model
-                        .TryGetLabelOfType(this._value.GetType())
-                        .IfNone(this._value.GetType().Name));
-            }
-        }
-
-        private sealed class AddVGremlinStep : AddElementGremlinStep
-        {
-            public AddVGremlinStep(object value) : base("addV", value)
-            {
-            }
-        }
-
-        private sealed class AddEGremlinStep : AddElementGremlinStep
-        {
-            public AddEGremlinStep(object value) : base("addE", value)
-            {
-            }
-        }
-        
-        private sealed class AddElementPropertiesStep : NonTerminalGremlinStep
-        {
-            private readonly object _element;
-
-            public AddElementPropertiesStep(object element)
-            {
-                this._element = element;
-            }
-            
-            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
-            {
-                return this._element
-                    .GetType()
-                    .GetProperties()
-                    .Where(property => property.PropertyType.IsNativeType())
-                    .Select(property => (name: property.Name, value: property.GetValue(this._element)))
-                    .Where(tuple => tuple.value != null)
-                    .Select(tuple => new TerminalGremlinStep("property", tuple.name, tuple.value));
-            }
-        }
-
-        private sealed class DerivedLabelNamesGremlinStep<T> : NonTerminalGremlinStep
-        {
-            private readonly string _stepName;
-
-            public DerivedLabelNamesGremlinStep(string stepName)
-            {
-                this._stepName = stepName;
-            }
-
-            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
-            {
-                yield return new TerminalGremlinStep(this._stepName, GetDerivedLabelNames<T>(model));
-            }
-        }
-        
+    {      
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
             { ExpressionType.Equal, "eq" },
@@ -92,8 +19,6 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThanOrEqual, "gte" },
             { ExpressionType.GreaterThan, "gt" }
         };
-
-        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
@@ -660,25 +585,6 @@ namespace ExRam.Gremlinq
             }
 
             throw new NotSupportedException();
-        }
-
-        private static ImmutableList<object> GetDerivedLabelNames<T>(this IGraphModel model)
-        {
-            return TypeLabelDict
-                .GetOrAdd(
-                    (model, typeof(T)),
-                    tuple => tuple.model
-                        .GetDerivedTypes(typeof(T), true)
-                        .Select(type => tuple.model
-                            .TryGetLabelOfType(type)
-                            .IfNone(() => throw new InvalidOperationException()))
-                        .OrderBy(x => x)
-                        .ToImmutableList<object>());
-        }
-
-        private static bool IsNativeType(this Type type)   //TODO: Native types are a matter of...what?
-        {
-            return type.GetTypeInfo().IsValueType || type == typeof(string) || type.IsArray && type.GetElementType().IsNativeType();
         }
     }
 }

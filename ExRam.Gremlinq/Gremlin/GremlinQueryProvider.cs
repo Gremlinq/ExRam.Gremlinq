@@ -425,6 +425,60 @@ namespace ExRam.Gremlinq
             }
         }
 
+        private sealed class RewriteStepsQueryProvider<TStep> : GremlinQueryProviderBase where TStep : GremlinStep
+        {
+            private readonly Func<TStep, GremlinStep> _replacementStepFactory;
+
+            public RewriteStepsQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<TStep, GremlinStep> replacementStepFactory) : base(baseGremlinQueryProvider)
+            {
+                this._replacementStepFactory = replacementStepFactory;
+            }
+
+            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            {
+                return base.Execute(RewriteSteps(query).Cast<T>());
+            }
+                    
+            private IGremlinQuery RewriteSteps(IGremlinQuery query)
+            {
+                var steps = query.Steps;
+
+                for (var i = 0; i < steps.Count; i++)
+                {
+                    var step = query.Steps[i];
+                    
+                    if (step is TerminalGremlinStep terminal)
+                    {
+                        var parameters = terminal.Parameters;
+
+                        for (var j = 0; j < parameters.Count; j++)
+                        {
+                            var parameter = parameters[j];
+
+                            if (parameter is IGremlinQuery subQuery)
+                                parameters = parameters.SetItem(j, RewriteSteps(subQuery));
+                        }
+
+                        // ReSharper disable once PossibleUnintendedReferenceComparison
+                        if (parameters != terminal.Parameters)
+                            step = new TerminalGremlinStep(terminal.Name, parameters);
+                    }
+                    else if (step is TStep replacedStep)
+                    {
+                        step = this._replacementStepFactory(replacedStep);
+                    }
+
+                    if (step != query.Steps[i])
+                        steps = steps.SetItem(i, step);
+                }
+
+                // ReSharper disable once PossibleUnintendedReferenceComparison
+                return steps != query.Steps
+                    ? query.ReplaceSteps(steps) 
+                    : query;
+            }
+        }
+
         public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
         {
             return provider.Execute(query);
@@ -443,6 +497,11 @@ namespace ExRam.Gremlinq
         public static IGremlinQueryProvider WithSubgraphStrategy(this IGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
             return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
+        }
+        
+        public static IGremlinQueryProvider RewriteSteps<TStep>(this IGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : GremlinStep
+        {
+            return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
         }
     }
 }
