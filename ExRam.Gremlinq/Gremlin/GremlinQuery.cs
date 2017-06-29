@@ -80,6 +80,11 @@ namespace ExRam.Gremlinq
         {
             return new GremlinQueryImpl(initialIdentifier, ImmutableList<GremlinStep>.Empty, provider, ImmutableDictionary<MemberInfo, string>.Empty, IdentifierFactory.CreateDefault());
         }
+        
+        public static IGremlinQuery<T> WithGraphName<T>(this IGremlinQuery<T> query, string graphName)
+        {
+            return new GremlinQueryImpl<T>(graphName, query.Steps, query.Provider, query.MemberInfoMappings, query.IdentifierFactory);
+        }
 
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
         {

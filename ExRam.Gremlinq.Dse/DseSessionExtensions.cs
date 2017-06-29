@@ -28,7 +28,11 @@ namespace Dse
                 if (typeof(T) != typeof(string))
                     throw new NotSupportedException("Only string queries are supported.");
 
-                var executableQuery = query.Serialize(this.Model, false);
+                if (query.GraphName == null)
+                    query = query.WithGraphName((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g");
+
+                var executableQuery = query
+                    .Serialize(this.Model, false);
 
                 return this._session
                     .ExecuteGraphAsync(new SimpleGraphStatement(executableQuery
