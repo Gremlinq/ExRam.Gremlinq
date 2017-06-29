@@ -32,11 +32,11 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Company"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Company"));
         }
 
         [Fact]
@@ -44,12 +44,12 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
-                    x.Steps.Any(step => step.Name == "properties" && step.Parameters.Contains("Name")));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                    x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "properties" && step.Parameters.Contains("Name")));
 
             this._queries
                 .Should()
-                .OnlyContain(x => x.Steps.All(step => step.Name != "properties" || step.Parameters.All(y => y is string)));
+                .OnlyContain(x => x.Steps.OfType<TerminalGremlinStep>().All(step => step.Name != "properties" || step.Parameters.All(y => y is string)));
         }
 
         [Fact]
@@ -57,11 +57,11 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Vertex"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Vertex"));
 
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority"));
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor"));
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
 
         [Fact]
@@ -85,23 +85,23 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
-                    x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" &&  (string)step.Parameters[1] == "Language"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
+                    x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" &&  (string)step.Parameters[1] == "Language"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
-                    x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "Company" && (string)step.Parameters[1] == "Language"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
+                    x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "Company" && (string)step.Parameters[1] == "Language"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
-                    x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
+                    x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
-                    x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "Company"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
+                    x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "Company"));
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Authority"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Authority"));
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[1] == "Authority"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[1] == "Authority"));
         }
 
         [Fact]
@@ -125,22 +125,22 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Knows") &&
-                                 x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Knows") &&
+                                 x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Speaks") &&
-                                 x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Speaks") &&
+                                 x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
             this._queries
                 .Should()
-                .Contain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
-                                 x.Steps.Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
+                .Contain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
+                                 x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
             this._queries
                 .Should()
-                .NotContain(x => x.Steps.Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
+                .NotContain(x => x.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
 
         [Fact]
@@ -148,9 +148,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
-                                    query.Steps.Any(step => step.Name == "secondary") &&
-                                    query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+                .NotContain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
+                                    query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "secondary") &&
+                                    query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
         }
 
         [Fact]
@@ -158,9 +158,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
-                                  query.Steps.Any(step => step.Name == "secondary") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
+                .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "secondary") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "Name"));
         }
 
         [Fact]
@@ -168,9 +168,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "TimeFrame") &&
-                                  query.Steps.Any(step => step.Name == "secondary") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "StartTime"));
+                .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "TimeFrame") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "secondary") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "StartTime"));
         }
         
         [Fact]
@@ -178,9 +178,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .NotContain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
-                                     query.Steps.Any(step => step.Name == "materialized") &&
-                                     query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+                .NotContain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
+                                     query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "materialized") &&
+                                     query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
         }
 
         [Fact]
@@ -188,9 +188,9 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
-                                  query.Steps.Any(step => step.Name == "materialized") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+                .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "materialized") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
         }
 
         [Fact]
@@ -198,10 +198,10 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Country") &&
-                                  query.Steps.Any(step => step.Name == "index" && (string)step.Parameters[0] == "search") &&
-                                  query.Steps.Any(step => step.Name == "search") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "CountryCallingCode"));
+                .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Country") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "index" && (string)step.Parameters[0] == "search") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "search") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "CountryCallingCode"));
         }
 
         [Fact]
@@ -209,10 +209,10 @@ namespace ExRam.Gremlinq.Dse.Tests
         {
             this._queries
                 .Should()
-                .Contain(query => query.Steps.Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
-                                  query.Steps.Any(step => step.Name == "index") &&
-                                  query.Steps.Any(step => step.Name == "outE" && (string)step.Parameters[0] == "WorksFor") &&
-                                  query.Steps.Any(step => step.Name == "by" && (string)step.Parameters[0] == "From"));
+                .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "index") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "outE" && (string)step.Parameters[0] == "WorksFor") &&
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "From"));
         }
     }
 }

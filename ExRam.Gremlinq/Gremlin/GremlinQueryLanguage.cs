@@ -12,6 +12,77 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryLanguage
     {
+        private abstract class AddElementGremlinStep : NonTerminalGremlinStep
+        {
+            private readonly object _value;
+            private readonly string _stepName;
+
+            protected AddElementGremlinStep(string stepName, object value)
+            {
+                this._value = value;
+                this._stepName = stepName;
+            }
+
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                yield return new TerminalGremlinStep(
+                    this._stepName,
+                    model
+                        .TryGetLabelOfType(this._value.GetType())
+                        .IfNone(this._value.GetType().Name));
+            }
+        }
+
+        private sealed class AddVGremlinStep : AddElementGremlinStep
+        {
+            public AddVGremlinStep(object value) : base("addV", value)
+            {
+            }
+        }
+
+        private sealed class AddEGremlinStep : AddElementGremlinStep
+        {
+            public AddEGremlinStep(object value) : base("addE", value)
+            {
+            }
+        }
+        
+        private sealed class AddElementPropertiesStep : NonTerminalGremlinStep
+        {
+            private readonly object _element;
+
+            public AddElementPropertiesStep(object element)
+            {
+                this._element = element;
+            }
+            
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                return this._element
+                    .GetType()
+                    .GetProperties()
+                    .Where(property => property.PropertyType.IsNativeType())
+                    .Select(property => (name: property.Name, value: property.GetValue(this._element)))
+                    .Where(tuple => tuple.value != null)
+                    .Select(tuple => new TerminalGremlinStep("property", tuple.name, tuple.value));
+            }
+        }
+
+        private sealed class DerivedLabelNamesGremlinStep<T> : NonTerminalGremlinStep
+        {
+            private readonly string _stepName;
+
+            public DerivedLabelNamesGremlinStep(string stepName)
+            {
+                this._stepName = stepName;
+            }
+
+            public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+            {
+                yield return new TerminalGremlinStep(this._stepName, GetDerivedLabelNames<T>(model));
+            }
+        }
+        
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
             { ExpressionType.Equal, "eq" },
@@ -27,10 +98,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
             return query
-                .AddStep<T>("addV", query.Provider.Model
-                    .TryGetLabelOfType(vertex.GetType())
-                    .IfNone(typeof(T).Name))
-                .AddProperties(vertex);
+                .AddStep<T>(new AddVGremlinStep(vertex))
+                .AddStep<T>(new AddElementPropertiesStep(vertex));
         }
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query)
@@ -48,19 +117,8 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> AddE<T>(this IGremlinQuery query, T edge)
         {
             return query
-                .AddStep<T>("addE", query.Provider.Model
-                    .TryGetLabelOfType(edge.GetType())
-                    .IfNone(typeof(T).Name))
-                .AddProperties(edge);
-        }
-
-        private static IGremlinQuery<T> AddProperties<T>(this IGremlinQuery<T> query, T element)
-        {
-            return typeof(T).GetProperties()
-                .Where(property => property.PropertyType.IsNativeType())
-                .Select(property => (name: property.Name, value: property.GetValue(element)))
-                .Where(tuple => tuple.value != null)
-                .Aggregate(query, (current, tuple) => current.Property(tuple.name, tuple.value));
+                .AddStep<T>(new AddEGremlinStep(edge))
+                .AddStep<T>(new AddElementPropertiesStep(edge));
         }
 
         public static IGremlinQuery<T> And<T>(this IGremlinQuery<T> query, params Func<IGremlinQuery<T>, IGremlinQuery>[] andTraversals)
@@ -69,14 +127,14 @@ namespace ExRam.Gremlinq
                 .Select(andTraversal => andTraversal(query.ToAnonymous())));
         }
 
-        private static IGremlinQuery<T> And<T>(this IGremlinQuery query, IEnumerable<IGremlinQuery> orTraversals)
+        private static IGremlinQuery<T> And<T>(this IGremlinQuery query, IEnumerable<IGremlinQuery> andTraversals)
         {
             return query.AddStep<T>(
                 "and",
-                orTraversals.Aggregate(
+                andTraversals.Aggregate(
                     ImmutableList<object>.Empty,
-                    (list, query2) => query2.Steps.Count == 1 && query2.Steps[0].Name == "and"
-                        ? list.AddRange(query2.Steps[0].Parameters)
+                    (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
+                        ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
                         : list.Add(query2)));
         }
 
@@ -144,13 +202,13 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Both<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("both", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("both"));
         }
 
         public static IGremlinQuery<T> BothE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("bothE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("bothE"));
         }
 
         public static IGremlinQuery<Vertex> BothV(this IGremlinQuery query)
@@ -292,13 +350,13 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> In<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("in", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("in"));
         }
 
         public static IGremlinQuery<T> InE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("inE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("inE"));
         }
 
         public static IGremlinQuery<T> InV<T>(this IGremlinQuery query)
@@ -336,7 +394,7 @@ namespace ExRam.Gremlinq
         {
             return query
                 .Cast<T>()
-                .AddStep<T>("hasLabel", query.Provider.Model.GetDerivedLabelNames<T>());
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("hasLabel"));
         }
 
         public static IGremlinQuery<T> Optional<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery<T>> optionalTraversal)
@@ -357,8 +415,8 @@ namespace ExRam.Gremlinq
                 "or",
                 orTraversals.Aggregate(
                     ImmutableList<object>.Empty,
-                    (list, query2) => query2.Steps.Count == 1 && query2.Steps[0].Name == "or"
-                        ? list.AddRange(query2.Steps[0].Parameters)
+                    (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "or"
+                        ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
                         : list.Add(query2)));
         }
 
@@ -377,7 +435,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> OutE<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<T>("outE", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<T>(new DerivedLabelNamesGremlinStep<T>("outE"));
         }
 
         public static IGremlinQuery<T> OutV<T>(this IGremlinQuery query)
@@ -390,7 +448,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<Vertex> Out<T>(this IGremlinQuery query)
         {
             return query
-                .AddStep<Vertex>("out", GetDerivedLabelNames<T>(query.Provider.Model));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<T>("out"));
         }
 
         public static IGremlinQuery<T> Profile<T>(this IGremlinQuery<T> query)
@@ -588,7 +646,7 @@ namespace ExRam.Gremlinq
 
                         if (binaryExpression.NodeType == ExpressionType.Equal || binaryExpression.NodeType == ExpressionType.NotEqual)
                         {
-                            return query.AddStep<T>(new GremlinStep(binaryExpression.NodeType == ExpressionType.Equal
+                            return query.AddStep<T>(new TerminalGremlinStep(binaryExpression.NodeType == ExpressionType.Equal
                                 ? "hasNot"
                                 : "has", leftMemberExpression.Member.Name));
                         }
