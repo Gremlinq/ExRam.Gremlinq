@@ -75,8 +75,8 @@ namespace ExRam.Gremlinq
                 "and",
                 orTraversals.Aggregate(
                     ImmutableList<object>.Empty,
-                    (list, query2) => query2.Steps.Count == 1 && query2.Steps[0].Name == "and"
-                        ? list.AddRange(query2.Steps[0].Parameters)
+                    (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
+                        ? list.AddRange(((TerminalGremlinStep) query2.Steps[0]).Parameters)
                         : list.Add(query2)));
         }
 
@@ -357,8 +357,8 @@ namespace ExRam.Gremlinq
                 "or",
                 orTraversals.Aggregate(
                     ImmutableList<object>.Empty,
-                    (list, query2) => query2.Steps.Count == 1 && query2.Steps[0].Name == "or"
-                        ? list.AddRange(query2.Steps[0].Parameters)
+                    (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "or"
+                        ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
                         : list.Add(query2)));
         }
 
