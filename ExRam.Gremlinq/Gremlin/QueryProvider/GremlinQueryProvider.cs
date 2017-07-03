@@ -267,6 +267,8 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model => this._baseGremlinQueryProvider.Model;
+            
+            public IGremlinQuery TraversalSource => this._baseGremlinQueryProvider.TraversalSource;
         }
 
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
@@ -397,6 +399,8 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model => this._baseProvider.Model;
+            
+            public IGremlinQuery TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class ModelGremlinQueryProvider : IModelGremlinQueryProvider
@@ -418,6 +422,7 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model { get; }
+            public IGremlinQuery TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class SubgraphStrategyQueryProvider : GremlinQueryProviderBase
