@@ -273,6 +273,8 @@ namespace ExRam.Gremlinq
 
             private sealed class JsonGremlinDeserializer : IGremlinDeserializer
             {
+                private readonly IGremlinQuery _query;
+
                 private sealed class StepLabelMappingsContractResolver : DefaultContractResolver
                 {
                     private readonly IImmutableDictionary<string, StepLabel> _mappings;
@@ -326,25 +328,23 @@ namespace ExRam.Gremlinq
                     }
                 }
                 
-                private readonly IGraphModel _model;
-                private readonly JsonSerializer _serializer;
-                
-                public JsonGremlinDeserializer(IGremlinQuery query, IGraphModel model)
+                public JsonGremlinDeserializer(IGremlinQuery query)
                 {
-                    this._model = model;
-                    this._serializer = new JsonSerializer
+                    this._query = query;
+                }
+                
+                public IAsyncEnumerable<T> Deserialize<T>(string rawData, IGraphModel model)
+                {
+                    var serializer = new JsonSerializer
                     {
                         Converters = { new TimespanConverter() },
-                        ContractResolver = new StepLabelMappingsContractResolver(query.StepLabelMappings),
+                        ContractResolver = new StepLabelMappingsContractResolver(this._query.StepLabelMappings),
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                     };
-                }
-                
-                public IAsyncEnumerable<T> Deserialize<T>(string rawData)
-                {
+                    
                     return AsyncEnumerable.Return(rawData.StartsWith("{") || rawData.StartsWith("[")
-                        ? this._serializer.Deserialize<T>(new JsonTextReader(new StringReader(rawData))
+                        ? serializer.Deserialize<T>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .HidePropertyName(
@@ -367,7 +367,7 @@ namespace ExRam.Gremlinq
                                     {
                                         if (tuple.tokenType == JsonToken.String)
                                         {
-                                            return this._model
+                                            return model
                                                 .TryGetElementTypeOfLabel(tuple.tokenValue as string)
                                                 .Map(suitableType => (JsonToken.String, (object)suitableType.AssemblyQualifiedName))
                                                 .IfNone(tuple);
@@ -389,7 +389,7 @@ namespace ExRam.Gremlinq
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseProvider
-                    .Execute(query, new JsonGremlinDeserializer(query, this._baseProvider.Model));
+                    .Execute(query, new JsonGremlinDeserializer(query));
             }
         }
 
@@ -409,7 +409,7 @@ namespace ExRam.Gremlinq
 
                 return this._baseProvider
                     .Execute(serialized.queryString, serialized.parameters)
-                    .SelectMany(serializer.Deserialize<T>);
+                    .SelectMany(rawData => serializer.Deserialize<T>(rawData, this.Model));
             }
 
             public IGraphModel Model { get; }

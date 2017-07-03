@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGremlinDeserializer
     {
-        IAsyncEnumerable<T> Deserialize<T>(string rawData);
+        IAsyncEnumerable<T> Deserialize<T>(string rawData, IGraphModel model);
     }
 }
