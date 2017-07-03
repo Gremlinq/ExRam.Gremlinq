@@ -6,10 +6,14 @@ using System.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class DerivedLabelNamesGremlinStep<T> : NonTerminalGremlinStep
+    public abstract class DerivedLabelNamesGremlinStep : NonTerminalGremlinStep
+    {
+        protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
+    }
+
+    public sealed class DerivedLabelNamesGremlinStep<T> : DerivedLabelNamesGremlinStep
     {
         private readonly string _stepName;
-        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
 
         public DerivedLabelNamesGremlinStep(string stepName)
         {
