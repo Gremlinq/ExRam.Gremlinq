@@ -265,6 +265,8 @@ namespace ExRam.Gremlinq
             {
                 return this._baseGremlinQueryProvider.Execute(query);
             }
+
+            public IGraphModel Model => this._baseGremlinQueryProvider.Model;
         }
 
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
@@ -393,6 +395,8 @@ namespace ExRam.Gremlinq
                     .SelectMany(rawData => new JsonGremlinDeserializer(query)
                         .Deserialize<T>(rawData, this._baseProvider.Model));
             }
+
+            public IGraphModel Model => this._baseProvider.Model;
         }
 
         private sealed class ModelGremlinQueryProvider : IModelGremlinQueryProvider
