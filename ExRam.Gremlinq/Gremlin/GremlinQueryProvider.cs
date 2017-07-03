@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml;
 using Newtonsoft.Json;
@@ -526,6 +527,21 @@ namespace ExRam.Gremlinq
             return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
         }
         
+        public static IGremlinQueryProvider OverrideElementProperty<TSource, TProperty>(this IGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        {
+            return provider
+                .RewriteSteps<AddElementPropertiesStep>(step =>
+                {
+                    if (step.Element is TSource source)
+                    {
+                        if (overrideCriterion(source))
+                            return new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value);
+                    }
+
+                    return step;
+                });
+        }
+
         public static IGremlinQueryProvider RewriteSteps<TStep>(this IGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : GremlinStep
         {
             return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
