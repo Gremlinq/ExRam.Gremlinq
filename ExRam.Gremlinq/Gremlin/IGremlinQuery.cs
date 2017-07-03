@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq
 {
     public interface IGremlinQuery : IGremlinSerializable
     {
-        string GraphName { get; }
+        string TraversalSourceName { get; }
         IImmutableList<GremlinStep> Steps { get; }
         IIdentifierFactory IdentifierFactory { get; }
         //(int depth, int index) TreeLocation { get; }
