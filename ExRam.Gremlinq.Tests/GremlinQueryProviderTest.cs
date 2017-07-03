@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Tests
                 step =>
                 {
                     if (step.Element is User)
-                        return new ReplaceElementPropertyStep(step, "replaced", 36);
+                        return new ReplaceElementPropertyStep<User, int>(step, user => user.Age, 36);
 
                     return step;
                 });
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Tests
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create("g").AddV(new User()));
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[1] is ReplaceElementPropertyStep)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[1] is ReplaceElementPropertyStep<User, int>)));
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Tests
             var value = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<int>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<int>())
                 .First();
 
             value.Should().Be(36);

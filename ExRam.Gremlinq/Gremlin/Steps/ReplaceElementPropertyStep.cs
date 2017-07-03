@@ -1,18 +1,22 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class ReplaceElementPropertyStep : NonTerminalGremlinStep
+    public sealed class ReplaceElementPropertyStep<TSource, TValue> : NonTerminalGremlinStep
     {
         private readonly string _key;
-        private readonly object _value;
+        private readonly TValue _value;
         private readonly AddElementPropertiesStep _baseStep;
 
-        public ReplaceElementPropertyStep(AddElementPropertiesStep baseStep, string key, object value) : base()
+        public ReplaceElementPropertyStep(AddElementPropertiesStep baseStep, Expression<Func<TSource, TValue>> memberExpression, TValue value)
         {
-            this._baseStep = baseStep;
-            this._key = key;
             this._value = value;
+            this._baseStep = baseStep;
+
+            if ((this._key = (memberExpression.Body as MemberExpression)?.Member.Name) == null)
+                throw new ArgumentException();    
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
