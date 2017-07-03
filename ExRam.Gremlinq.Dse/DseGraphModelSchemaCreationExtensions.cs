@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Dse
             //{ typeof(?), new GremlinStep("Varint") },
         };
 
-        public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, IGremlinQueryProvider queryProvider)
+        public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model, ITypedGremlinQueryProvider queryProvider)
         {
             var identifierFactory = IdentifierFactory.CreateDefault();
             

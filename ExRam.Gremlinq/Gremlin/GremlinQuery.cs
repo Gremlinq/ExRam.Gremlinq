@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq
             return query.Serialize(graphModel, new DefaultParameterCache(), inlineParameters);
         }
 
-        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
+        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
         {
             return query
                 .Limit(1)
@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq
                 .First();
         }
 
-        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
+        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
         {
             var array = await query
                 .Limit(1)
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq
                 : Option<T>.None;
         }
 
-        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
+        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
         {
             return query
                 .Execute(provider)
@@ -158,12 +158,12 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>(query.TraversalSourceName, query.Steps, query.StepLabelMappings.SetItem(memberExpressionBody.Member.Name, stepLabel), query.IdentifierFactory);
         }
 
-        internal static IGremlinQuery ReplaceProvider(this IGremlinQuery query, IGremlinQueryProvider provider)
+        internal static IGremlinQuery ReplaceProvider(this IGremlinQuery query, ITypedGremlinQueryProvider provider)
         {
             return new GremlinQueryImpl(query.TraversalSourceName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        internal static IGremlinQuery<T> ReplaceProvider<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
+        internal static IGremlinQuery<T> ReplaceProvider<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
         {
             return new GremlinQueryImpl<T>(query.TraversalSourceName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);
         }

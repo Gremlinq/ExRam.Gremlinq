@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategyTest()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _, _ => _);
 
             subgraphStrategyProvider
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void RewriteStepsTest()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             var subgraphStrategyProvider = queryProviderMock.Object.RewriteSteps<AddElementPropertiesStep>(
                 step =>
                 {

@@ -251,27 +251,27 @@ namespace ExRam.Gremlinq
 
     public static class GremlinQueryProvider
     {
-        private abstract class GremlinQueryProviderBase : IGremlinQueryProvider
+        private abstract class TypedGremlinQueryProviderBase : ITypedGremlinQueryProvider
         {
-            private readonly IGremlinQueryProvider _baseGremlinQueryProvider;
+            private readonly ITypedGremlinQueryProvider _baseTypedGremlinQueryProvider;
 
-            protected GremlinQueryProviderBase(IGremlinQueryProvider baseGremlinQueryProvider)
+            protected TypedGremlinQueryProviderBase(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider)
             {
-                this._baseGremlinQueryProvider = baseGremlinQueryProvider;
+                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
             }
 
             // ReSharper disable once MemberHidesStaticFromOuterClass
             public virtual IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
-                return this._baseGremlinQueryProvider.Execute(query);
+                return this._baseTypedGremlinQueryProvider.Execute(query);
             }
 
-            public IGraphModel Model => this._baseGremlinQueryProvider.Model;
+            public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
             
-            public IGremlinQuery TraversalSource => this._baseGremlinQueryProvider.TraversalSource;
+            public IGremlinQuery TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
         }
 
-        private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
+        private sealed class JsonSupportTypedGremlinQueryProvider : ITypedGremlinQueryProvider
         {
             private readonly IModelGremlinQueryProvider _baseProvider;
 
@@ -384,7 +384,7 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            public JsonSupportGremlinQueryProvider(IModelGremlinQueryProvider baseProvider)
+            public JsonSupportTypedGremlinQueryProvider(IModelGremlinQueryProvider baseProvider)
             {
                 this._baseProvider = baseProvider;
             }
@@ -425,12 +425,12 @@ namespace ExRam.Gremlinq
             public IGremlinQuery TraversalSource => this._baseProvider.TraversalSource;
         }
 
-        private sealed class SubgraphStrategyQueryProvider : GremlinQueryProviderBase
+        private sealed class SubgraphStrategyQueryProvider : TypedGremlinQueryProviderBase
         {
             private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _edgeCriterion;
             private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _vertexCriterion;
 
-            public SubgraphStrategyQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion) : base(baseGremlinQueryProvider)
+            public SubgraphStrategyQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion) : base(baseTypedGremlinQueryProvider)
             {
                 this._edgeCriterion = edgeCriterion;
                 this._vertexCriterion = vertexCriterion;
@@ -461,11 +461,11 @@ namespace ExRam.Gremlinq
             }
         }
 
-        private sealed class RewriteStepsQueryProvider<TStep> : GremlinQueryProviderBase where TStep : GremlinStep
+        private sealed class RewriteStepsQueryProvider<TStep> : TypedGremlinQueryProviderBase where TStep : GremlinStep
         {
             private readonly Func<TStep, GremlinStep> _replacementStepFactory;
 
-            public RewriteStepsQueryProvider(IGremlinQueryProvider baseGremlinQueryProvider, Func<TStep, GremlinStep> replacementStepFactory) : base(baseGremlinQueryProvider)
+            public RewriteStepsQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, GremlinStep> replacementStepFactory) : base(baseTypedGremlinQueryProvider)
             {
                 this._replacementStepFactory = replacementStepFactory;
             }
@@ -515,14 +515,14 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query, IGremlinQueryProvider provider)
+        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
         {
             return provider.Execute(query);
         }
 
-        public static IGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider provider)
+        public static ITypedGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider provider)
         {
-            return new JsonSupportGremlinQueryProvider(provider);
+            return new JsonSupportTypedGremlinQueryProvider(provider);
         }
 
         public static IModelGremlinQueryProvider WithModel(this INativeGremlinQueryProvider provider, IGraphModel model)
@@ -530,12 +530,12 @@ namespace ExRam.Gremlinq
             return new ModelGremlinQueryProvider(provider, model);
         }
 
-        public static IGremlinQueryProvider WithSubgraphStrategy(this IGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
+        public static ITypedGremlinQueryProvider WithSubgraphStrategy(this ITypedGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
             return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
         }
         
-        public static IGremlinQueryProvider OverrideElementProperty<TSource, TProperty>(this IGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        public static ITypedGremlinQueryProvider OverrideElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
                 .RewriteSteps<AddElementPropertiesStep>(step =>
@@ -550,7 +550,7 @@ namespace ExRam.Gremlinq
                 });
         }
 
-        public static IGremlinQueryProvider RewriteSteps<TStep>(this IGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : GremlinStep
+        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : GremlinStep
         {
             return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
         }

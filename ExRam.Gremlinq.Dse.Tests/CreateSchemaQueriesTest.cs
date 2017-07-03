@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .AddConnection<Authority, IsDescribedIn, Language>()
                 .AddConnection<User, WorksFor, Authority>()
                 .AddConnection<User, Gremlinq.Tests.Edge, User>()
-                .CreateSchemaQueries(Mock.Of<IGremlinQueryProvider>())
+                .CreateSchemaQueries(Mock.Of<ITypedGremlinQueryProvider>())
                 .ToArray();
         }
 
