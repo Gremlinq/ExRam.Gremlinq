@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace ExRam.Gremlinq.Tests

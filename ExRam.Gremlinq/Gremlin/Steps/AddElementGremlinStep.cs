@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ExRam.Gremlinq;
 
 namespace ExRam.Gremlinq
 {
@@ -19,7 +18,7 @@ namespace ExRam.Gremlinq
             yield return new TerminalGremlinStep(
                 this._stepName,
                 model
-                    .TryGetLabelOfType(this._value.GetType()).IfNone((string) this._value.GetType().Name));
+                    .TryGetLabelOfType(this._value.GetType()).IfNone(this._value.GetType().Name));
         }
     }
 }
