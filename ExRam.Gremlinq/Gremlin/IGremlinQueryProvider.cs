@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq
     {
         IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query);
 
+        IGremlinQuery TraversalSource { get; }
+        
         IGraphModel Model { get; }
     }
 }

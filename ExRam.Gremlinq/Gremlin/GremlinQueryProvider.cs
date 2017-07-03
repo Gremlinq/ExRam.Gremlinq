@@ -267,6 +267,8 @@ namespace ExRam.Gremlinq
                 return this._baseGremlinQueryProvider.Execute(query);
             }
 
+            public IGremlinQuery TraversalSource => this._baseGremlinQueryProvider.TraversalSource;
+
             public virtual IGraphModel Model => this._baseGremlinQueryProvider.Model;
         }
 

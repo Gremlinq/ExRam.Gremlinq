@@ -17,15 +17,14 @@ namespace Dse
             {
                 this.Model = model;
                 this._session = session;
+
+                this.TraversalSource = GremlinQuery.Create((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g");
             }
 
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 if (typeof(T) != typeof(string))
                     throw new NotSupportedException("Only string queries are supported.");
-
-                if (query.GraphName == null)
-                    query = query.WithGraphName((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g");
 
                 var executableQuery = query
                     .Serialize(this.Model, false);
@@ -43,6 +42,8 @@ namespace Dse
                     .SelectMany(node => node.ToAsyncEnumerable())
                     .Select(node => (T)(object)node.ToString());
             }
+
+            public IGremlinQuery TraversalSource { get; }
 
             public IGraphModel Model { get; }
         }

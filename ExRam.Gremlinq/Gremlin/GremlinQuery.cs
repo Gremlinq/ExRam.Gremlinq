@@ -78,12 +78,7 @@ namespace ExRam.Gremlinq
         {
             return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
         }
-        
-        public static IGremlinQuery<T> WithGraphName<T>(this IGremlinQuery<T> query, string graphName)
-        {
-            return new GremlinQueryImpl<T>(graphName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);
-        }
-
+   
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
         {
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
