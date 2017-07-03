@@ -266,86 +266,86 @@ namespace ExRam.Gremlinq
             {
                 return this._baseGremlinQueryProvider.Execute(query);
             }
-
-            public IGremlinQuery TraversalSource => this._baseGremlinQueryProvider.TraversalSource;
-
-            public virtual IGraphModel Model => this._baseGremlinQueryProvider.Model;
         }
 
-        private sealed class JsonSupportGremlinQueryProvider : GremlinQueryProviderBase
+        private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {
-            private sealed class StepLabelMappingsContractResolver : DefaultContractResolver
+            private readonly IModelGremlinQueryProvider _baseProvider;
+
+            private sealed class JsonGremlinDeserializer : IGremlinDeserializer
             {
-                private readonly IImmutableDictionary<string, StepLabel> _mappings;
-
-                public StepLabelMappingsContractResolver(IImmutableDictionary<string, StepLabel> mappings)
+                private sealed class StepLabelMappingsContractResolver : DefaultContractResolver
                 {
-                    this._mappings = mappings;
+                    private readonly IImmutableDictionary<string, StepLabel> _mappings;
+
+                    public StepLabelMappingsContractResolver(IImmutableDictionary<string, StepLabel> mappings)
+                    {
+                        this._mappings = mappings;
+                    }
+
+                    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+                    {
+                        var property = base.CreateProperty(member, memberSerialization);
+
+                        this._mappings
+                            .TryGetValue(member.Name)
+                            .IfSome(
+                                mapping =>
+                                {
+                                    property.PropertyName = mapping.Label;
+                                });
+
+                        return property;
+                    }
                 }
 
-                protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+                private sealed class TimespanConverter : JsonConverter
                 {
-                    var property = base.CreateProperty(member, memberSerialization);
+                    public override bool CanConvert(Type objectType)
+                    {
+                        return objectType == typeof(TimeSpan);
+                    }
 
-                    this._mappings
-                        .TryGetValue(member.Name)
-                        .IfSome(
-                            mapping =>
-                            {
-                                property.PropertyName = mapping.Label;
-                            });
+                    public override bool CanRead => true;
+                    public override bool CanWrite => true;
 
-                    return property;
+                    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                    {
+                        if (objectType != typeof(TimeSpan))
+                            throw new ArgumentException();
+
+                        var spanString = reader.Value as string;
+                        if (spanString == null)
+                            return null;
+                        return XmlConvert.ToTimeSpan(spanString);
+                    }
+
+                    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                    {
+                        var duration = (TimeSpan)value;
+                        writer.WriteValue(XmlConvert.ToString(duration));
+                    }
                 }
-            }
-
-            private sealed class TimespanConverter : JsonConverter
-            {
-                public override bool CanConvert(Type objectType)
+                
+                private readonly IGraphModel _model;
+                private readonly JsonSerializer _serializer;
+                
+                public JsonGremlinDeserializer(IGremlinQuery query, IGraphModel model)
                 {
-                    return objectType == typeof(TimeSpan);
+                    this._model = model;
+                    this._serializer = new JsonSerializer
+                    {
+                        Converters = { new TimespanConverter() },
+                        ContractResolver = new StepLabelMappingsContractResolver(query.StepLabelMappings),
+                        TypeNameHandling = TypeNameHandling.Auto,
+                        MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
+                    };
                 }
-
-                public override bool CanRead => true;
-                public override bool CanWrite => true;
-
-                public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                
+                public IAsyncEnumerable<T> Deserialize<T>(string rawData)
                 {
-                    if (objectType != typeof(TimeSpan))
-                        throw new ArgumentException();
-
-                    var spanString = reader.Value as string;
-                    if (spanString == null)
-                        return null;
-                    return XmlConvert.ToTimeSpan(spanString);
-                }
-
-                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-                {
-                    var duration = (TimeSpan)value;
-                    writer.WriteValue(XmlConvert.ToString(duration));
-                }
-            }
-
-            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider) : base(baseProvider)
-            {
-            }
-
-            // ReSharper disable once MemberHidesStaticFromOuterClass
-            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                var serializer = new JsonSerializer
-                {
-                    Converters = { new TimespanConverter() },
-                    ContractResolver = new StepLabelMappingsContractResolver(query.StepLabelMappings),
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
-                };
-
-                return base
-                    .Execute(query.Cast<string>())
-                    .Select(json => json.StartsWith("{") || json.StartsWith("[")
-                        ? serializer.Deserialize<T>(new JsonTextReader(new StringReader(json))
+                    return AsyncEnumerable.Return(rawData.StartsWith("{") || rawData.StartsWith("[")
+                        ? this._serializer.Deserialize<T>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .HidePropertyName(
@@ -368,7 +368,7 @@ namespace ExRam.Gremlinq
                                     {
                                         if (tuple.tokenType == JsonToken.String)
                                         {
-                                            return this.Model
+                                            return this._model
                                                 .TryGetElementTypeOfLabel(tuple.tokenValue as string)
                                                 .Map(suitableType => (JsonToken.String, (object)suitableType.AssemblyQualifiedName))
                                                 .IfNone(tuple);
@@ -377,18 +377,43 @@ namespace ExRam.Gremlinq
                                         return tuple;
                                     })))
                             .ToJsonReader())
-                        : JToken.Parse($"'{json}'").ToObject<T>());
+                        : JToken.Parse($"'{rawData}'").ToObject<T>());
+                }
+            }
+
+            public JsonSupportGremlinQueryProvider(IModelGremlinQueryProvider baseProvider)
+            {
+                this._baseProvider = baseProvider;
+            }
+
+            // ReSharper disable once MemberHidesStaticFromOuterClass
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            {
+                return this._baseProvider
+                    .Execute(query, new JsonGremlinDeserializer(query, this._baseProvider.Model));
             }
         }
 
-        private sealed class ModelGremlinQueryProvider : GremlinQueryProviderBase
+        private sealed class ModelGremlinQueryProvider : IModelGremlinQueryProvider
         {
-            public ModelGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel newModel) : base(baseProvider)
+            private readonly INativeGremlinQueryProvider _baseProvider;
+
+            public ModelGremlinQueryProvider(INativeGremlinQueryProvider baseProvider, IGraphModel newModel)
             {
                 this.Model = newModel;
+                this._baseProvider = baseProvider;
             }
 
-            public override IGraphModel Model { get; }
+            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query, IGremlinDeserializer serializer)
+            {
+                var serialized = query.Serialize(this.Model, false);
+
+                return this._baseProvider
+                    .Execute(serialized.queryString, serialized.parameters)
+                    .SelectMany(serializer.Deserialize<T>);
+            }
+
+            public IGraphModel Model { get; }
         }
 
         private sealed class SubgraphStrategyQueryProvider : GremlinQueryProviderBase
@@ -486,12 +511,12 @@ namespace ExRam.Gremlinq
             return provider.Execute(query);
         }
 
-        public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider)
+        public static IGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider provider)
         {
             return new JsonSupportGremlinQueryProvider(provider);
         }
 
-        public static IGremlinQueryProvider WithModel(this IGremlinQueryProvider provider, IGraphModel model)
+        public static IModelGremlinQueryProvider WithModel(this INativeGremlinQueryProvider provider, IGraphModel model)
         {
             return new ModelGremlinQueryProvider(provider, model);
         }

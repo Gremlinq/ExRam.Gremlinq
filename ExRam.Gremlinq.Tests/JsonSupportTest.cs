@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
 using System.Collections.Immutable;
@@ -32,9 +33,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(SingleLanguageJson));
 
             var language = await queryProviderMock.Object
@@ -51,9 +52,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(SingleTimeFrameJson));
 
             var timeFrame = await queryProviderMock.Object
@@ -71,9 +72,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(SingleLanguageJson));
 
             var language = await queryProviderMock.Object
@@ -90,9 +91,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(TupleOfUserLanguageJson));
 
             var jsonQueryProvider = queryProviderMock.Object
@@ -116,9 +117,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Array()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(ArrayOfLanguages));
 
             var languages = await queryProviderMock.Object
@@ -138,9 +139,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Nested_Array()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(NestedArrayOfLanguagesJson));
 
             var languages = await queryProviderMock.Object

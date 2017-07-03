@@ -9,15 +9,10 @@ namespace ExRam.Gremlinq.Tests
     public class GremlinQueryLanguageTest
     {
         private readonly IGraphModel _model;
-        private readonly IGremlinQueryProvider _queryProvider;
 
         public GremlinQueryLanguageTest()
         {
             this._model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple);
-            
-            this._queryProvider = Mock
-                .Of<IGremlinQueryProvider>()
-                .WithModel(this._model);
         }
 
         [Fact]

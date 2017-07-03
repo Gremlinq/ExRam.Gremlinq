@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reactive;
@@ -45,9 +46,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Scalar()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<string>>()))
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return("36"));
 
             var value = await queryProviderMock.Object
