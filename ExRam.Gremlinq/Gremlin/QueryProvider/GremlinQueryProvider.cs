@@ -389,7 +389,9 @@ namespace ExRam.Gremlinq
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseProvider
-                    .Execute(query, new JsonGremlinDeserializer(query));
+                    .Execute(query)
+                    .SelectMany(rawData => new JsonGremlinDeserializer(query)
+                        .Deserialize<T>(rawData, this._baseProvider.Model));
             }
         }
 
@@ -403,13 +405,12 @@ namespace ExRam.Gremlinq
                 this._baseProvider = baseProvider;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query, IGremlinDeserializer serializer)
+            public IAsyncEnumerable<string> Execute(IGremlinQuery query)
             {
                 var serialized = query.Serialize(this.Model, false);
 
                 return this._baseProvider
-                    .Execute(serialized.queryString, serialized.parameters)
-                    .SelectMany(rawData => serializer.Deserialize<T>(rawData, this.Model));
+                    .Execute(serialized.queryString, serialized.parameters);
             }
 
             public IGraphModel Model { get; }

@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize<T>(this IGremlinQuery<T> query, IGraphModel graphModel, bool inlineParameters)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query, IGraphModel graphModel, bool inlineParameters)
         {
             return query.Serialize(graphModel, new DefaultParameterCache(), inlineParameters);
         }
