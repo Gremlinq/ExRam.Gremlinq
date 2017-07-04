@@ -511,30 +511,27 @@ namespace ExRam.Gremlinq
             return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
         }
         
-        public static ITypedGremlinQueryProvider OverrideElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        public static ITypedGremlinQueryProvider ReplaceElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
-                .RewriteSteps<AddElementPropertiesStep>(step =>
-                {
-                    if (step.Element is TSource source)
-                    {
-                        if (overrideCriterion(source))
-                            return new[] { new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value) };
-                    }
-
-                    return Option<IEnumerable<GremlinStep>>.None;
-                });
+                .DecorateElementProperty(overrideCriterion, step => new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
         }
 
         public static ITypedGremlinQueryProvider SetDefautElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
+                .DecorateElementProperty(overrideCriterion, step => new SetDefaultElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
+        }
+
+        public static ITypedGremlinQueryProvider DecorateElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Func<AddElementPropertiesStep, DecorateAddElementPropertiesStep<TSource, TProperty>> replacementStepFactory)
+        {
+            return provider
                 .RewriteSteps<AddElementPropertiesStep>(step =>
                 {
                     if (step.Element is TSource source)
                     {
                         if (overrideCriterion(source))
-                            return new[] { new SetDefaultElementPropertyStep<TSource, TProperty>(step, memberExpression, value) };
+                            return new[] { replacementStepFactory(step) };
                     }
 
                     return Option<IEnumerable<GremlinStep>>.None;
