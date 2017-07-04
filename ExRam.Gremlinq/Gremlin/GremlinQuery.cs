@@ -21,14 +21,14 @@ namespace ExRam.Gremlinq
                 this.IdentifierFactory = identifierFactory;
             }
 
-            public (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
+            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
             {
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.TraversalSourceName);
 
-                foreach (var terminalStep in this.Resolve(graphModel).Steps.OfType<TerminalGremlinStep>())
+                foreach (var terminalStep in this.Steps.OfType<IGremlinSerializable>())
                 {
-                    var (innerQueryString, innerParameters) = terminalStep.Serialize(graphModel, parameterCache, inlineParameters);
+                    var (innerQueryString, innerParameters) = terminalStep.Serialize(parameterCache, inlineParameters);
 
                     builder.Append('.');
                     builder.Append(innerQueryString);
@@ -65,9 +65,9 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query, IGraphModel graphModel, bool inlineParameters)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query, bool inlineParameters)
         {
-            return query.Serialize(graphModel, new DefaultParameterCache(), inlineParameters);
+            return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
 
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
@@ -129,29 +129,48 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
         {
-            return query
-                .ReplaceSteps(query.Steps
-                    .SelectMany(step => step
-                        .Resolve(model))
-                    .Cast<GremlinStep>()
-                    .ToImmutableList());
-        }
+            var steps = query.Steps;
 
-        private static IEnumerable<TerminalGremlinStep> Resolve(this GremlinStep step, IGraphModel model)
-        {
-            if (step is TerminalGremlinStep terminal)
-                yield return terminal;
-            else if (step is NonTerminalGremlinStep nonTerminal)
+            for (var i = 0; i < steps.Count; i++)
             {
-                foreach (var innerTerminal in nonTerminal.Resolve(model))
+                var step = steps[i];
+
+                if (step is TerminalGremlinStep terminal)
                 {
-                    yield return innerTerminal;
+                    var parameters = terminal.Parameters;
+
+                    for (var j = 0; j < parameters.Count; j++)
+                    {
+                        var parameter = parameters[j];
+
+                        if (parameter is IGremlinQuery subQuery)
+                            parameters = parameters.SetItem(j, subQuery.Resolve(model));
+                    }
+
+                    // ReSharper disable once PossibleUnintendedReferenceComparison
+                    if (parameters != terminal.Parameters)
+                        step = new TerminalGremlinStep(terminal.Name, parameters);
+
+                    if (step != steps[i])
+                        steps = steps.SetItem(i, step);
+                }
+                else if (step is NonTerminalGremlinStep nonTerminal)
+                {
+                    steps = steps
+                        .RemoveAt(i)
+                        .InsertRange(i, nonTerminal
+                            .Resolve(model));
+
+                    i--;
                 }
             }
-            else
-                throw new ArgumentException();
+
+            // ReSharper disable once PossibleUnintendedReferenceComparison
+            return steps != query.Steps
+                ? query.ReplaceSteps(steps)
+                : query;
         }
-        
+
         internal static IGremlinQuery<T> AddStepLabelBinding<T>(this IGremlinQuery<T> query, Expression<Func<T, object>> memberExpression, StepLabel stepLabel)
         {
             var body = memberExpression.Body;

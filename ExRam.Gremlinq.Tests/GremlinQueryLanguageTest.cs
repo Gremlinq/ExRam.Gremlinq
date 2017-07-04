@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -37,7 +38,8 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .AddV(new Language {Id = "id"})
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -55,7 +57,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -73,7 +76,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -91,7 +95,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -109,7 +114,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -127,7 +133,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -145,7 +152,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -163,7 +171,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -181,7 +190,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -198,7 +208,8 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V<User>()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -215,7 +226,8 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V<Authority>()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -233,7 +245,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -251,7 +264,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -269,7 +283,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age != 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -287,7 +302,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name == null)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -305,7 +321,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Name != null)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -323,7 +340,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age < 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -341,7 +359,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age <= 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -359,7 +378,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age > 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -377,7 +397,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age >= 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -395,7 +416,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<Language>()
                 .Where(t => t.Id == "languageId")
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -415,7 +437,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<Language>()
                 .Where(t => t.Id == local)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -435,7 +458,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -467,7 +491,8 @@ namespace ExRam.Gremlinq.Tests
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2 == l)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -485,7 +510,8 @@ namespace ExRam.Gremlinq.Tests
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2 == l)
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -508,7 +534,8 @@ namespace ExRam.Gremlinq.Tests
                 .To(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -529,7 +556,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddV(new Country { CountryCallingCode = "+49" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -550,7 +578,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddV(new Language { IetfLanguageTag = "en" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -572,7 +601,8 @@ namespace ExRam.Gremlinq.Tests
                         .InE<Knows>(),
                     __ => __
                         .OutE<LivesIn>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -590,7 +620,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Drop()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -608,7 +639,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .FilterWithLambda("it.property('str').value().length() == 2")
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -626,7 +658,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Out<Knows>()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -644,7 +677,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Out<Edge>()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -663,7 +697,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Order()
                 .ByMember(x => x.Name)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -682,7 +717,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Order()
                 .ByTraversal(__ => __.Values(x => x.Name))
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -701,7 +737,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Order()
                 .ByLambda("it.property('str').value().length()")
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -719,7 +756,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Values(x => x.Name)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -737,7 +775,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Values(x => x.Name, x => x.Id)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -754,7 +793,8 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -772,7 +812,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V()
                 .OfType<Authority>()
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -790,7 +831,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Repeat(__ => __.Out<Knows>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -810,7 +852,8 @@ namespace ExRam.Gremlinq.Tests
                 .Union(
                     __ => __.Out<Knows>(),
                     __ => __.Out<LivesIn>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -829,7 +872,8 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Optional(
                     __ => __.Out<Knows>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -847,7 +891,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V()
                 .Not(__ => __.Out<Knows>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -865,7 +910,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V()
                 .Not(__ => __.OfType<Language>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -883,7 +929,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V()
                 .Not(__ => __.OfType<Authority>())
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -901,7 +948,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .As(new StepLabel<User>("a"))
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -919,7 +967,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .As(new StepLabel<User>("a"))
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -942,7 +991,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()
@@ -963,7 +1013,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -986,7 +1037,8 @@ namespace ExRam.Gremlinq.Tests
                     _ => _.Values(x => x.Name),
                     _ => _.Out<Knows>(),
                     _ => _.In<Knows>())
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -1002,7 +1054,8 @@ namespace ExRam.Gremlinq.Tests
                 .BranchOnIdentity(
                     _ => _.Out<Knows>(),
                     _ => _.In<Knows>())
-                .Serialize(this._model, false);
+                .Resolve(this._model)
+                .Serialize(false);
 
             query.queryString
                 .Should()
@@ -1016,7 +1069,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Property(x => x.Age, 36)
-                .Serialize(this._model, true);
+                .Resolve(this._model)
+                .Serialize(true);
 
             query.queryString
                 .Should()

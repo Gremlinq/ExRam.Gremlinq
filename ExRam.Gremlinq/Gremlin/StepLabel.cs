@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
             this.Label = label;
         }
         
-        public abstract (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters);
+        public abstract (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters);
 
         public string Label { get; }
     }
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq
             return new StepLabel<T>(Guid.NewGuid().ToString("N"));
         }
 
-        public override (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
+        public override (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
         {
             if (inlineParameters)
                 return ("'" + this.Label + "'", ImmutableDictionary<string, object>.Empty);

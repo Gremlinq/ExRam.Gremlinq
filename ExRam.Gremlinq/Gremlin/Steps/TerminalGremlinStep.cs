@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IGraphModel graphModel, IParameterCache parameterCache, bool inlineParameters)
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
         {
             var parameters = new Dictionary<string, object>();
             var builder = new StringBuilder();
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq
 
                 if (parameter is IGremlinSerializable serializable)
                 {
-                    var (innerQueryString, innerParameters) = serializable.Serialize(graphModel, parameterCache, inlineParameters);
+                    var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache, inlineParameters);
 
                     builder.Append(innerQueryString);
 

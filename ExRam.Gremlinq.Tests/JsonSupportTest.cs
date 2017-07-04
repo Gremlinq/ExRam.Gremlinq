@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Tests
             var language = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<Language>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<Language>())
                 .First();
 
             language.Should().NotBeNull();
@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Tests
             var timeFrame = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<TimeFrame>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<TimeFrame>())
                 .First();
 
             timeFrame.Should().NotBeNull();
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Tests
             var language = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<Vertex>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<Vertex>())
                 .First() as Language;
 
             language.Should().NotBeNull();
@@ -125,7 +125,7 @@ namespace ExRam.Gremlinq.Tests
             var languages = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<Language[]>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<Language[]>())
                 .First();
 
             languages.Should().NotBeNull();
@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Tests
             var languages = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(Mock.Of<IGremlinQuery<Language[][]>>(x => x.StepLabelMappings == ImmutableDictionary<string, StepLabel>.Empty))
+                .Execute(GremlinQuery.Create("g").Cast<Language[][]>())
                 .First();
 
             languages.Should().NotBeNull();

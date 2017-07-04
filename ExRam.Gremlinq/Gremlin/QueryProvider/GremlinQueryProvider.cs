@@ -415,7 +415,9 @@ namespace ExRam.Gremlinq
 
             public IAsyncEnumerable<string> Execute(IGremlinQuery query)
             {
-                var serialized = query.Serialize(this.Model, false);
+                var serialized = query
+                    .Resolve(this.Model)
+                    .Serialize(false);
 
                 return this._baseProvider
                     .Execute(serialized.queryString, serialized.parameters);
