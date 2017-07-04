@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq
                         }
                     }
                     else
-                        throw new ArgumentException("Query contains non-serializable step. Please call Resolve on the query first.");
+                        throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
 
                 return (builder.ToString(), parameters);
@@ -135,6 +135,11 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
         {
+            return query.RewriteSteps(x => Option<IEnumerable<GremlinStep>>.Some(x.Resolve(model)));
+        }
+
+        public static IGremlinQuery RewriteSteps(this IGremlinQuery query, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
+        {
             var steps = query.Steps;
 
             for (var i = 0; i < steps.Count; i++)
@@ -150,7 +155,7 @@ namespace ExRam.Gremlinq
                         var parameter = parameters[j];
 
                         if (parameter is IGremlinQuery subQuery)
-                            parameters = parameters.SetItem(j, subQuery.Resolve(model));
+                            parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
                     }
 
                     // ReSharper disable once PossibleUnintendedReferenceComparison
@@ -159,12 +164,15 @@ namespace ExRam.Gremlinq
                 }
                 else if (step is NonTerminalGremlinStep nonTerminal)
                 {
-                    steps = steps
-                        .RemoveAt(i)
-                        .InsertRange(i, nonTerminal
-                            .Resolve(model));
+                    resolveFunction(nonTerminal)
+                        .IfSome(resolvedSteps =>
+                        {
+                            steps = steps
+                                .RemoveAt(i)
+                                .InsertRange(i, resolvedSteps);
 
-                    i--;
+                            i--;
+                        });
                 }
             }
 

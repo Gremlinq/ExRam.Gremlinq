@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
+using LanguageExt;
 using Moq;
 using Xunit;
+using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq.Tests
 {
@@ -31,9 +32,9 @@ namespace ExRam.Gremlinq.Tests
                 step =>
                 {
                     if (step.Element is User)
-                        return new ReplaceElementPropertyStep<User, int>(step, user => user.Age, 36);
+                        return new[] { new ReplaceElementPropertyStep<User, int>(step, user => user.Age, 36) };
 
-                    return step;
+                    return Option<IEnumerable<GremlinStep>>.None;
                 });
 
             subgraphStrategyProvider

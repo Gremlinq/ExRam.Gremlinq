@@ -466,9 +466,9 @@ namespace ExRam.Gremlinq
 
         private sealed class RewriteStepsQueryProvider<TStep> : TypedGremlinQueryProviderBase where TStep : NonTerminalGremlinStep
         {
-            private readonly Func<TStep, GremlinStep> _replacementStepFactory;
+            private readonly Func<TStep, Option<IEnumerable<GremlinStep>>> _replacementStepFactory;
 
-            public RewriteStepsQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, GremlinStep> replacementStepFactory) : base(baseTypedGremlinQueryProvider)
+            public RewriteStepsQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) : base(baseTypedGremlinQueryProvider)
             {
                 this._replacementStepFactory = replacementStepFactory;
             }
@@ -480,23 +480,14 @@ namespace ExRam.Gremlinq
                     
             private IGremlinQuery RewriteSteps(IGremlinQuery query)
             {
-                var steps = query.Steps;
+                return query
+                    .RewriteSteps(step =>
+                    {
+                        if (step is TStep replacedStep)
+                            return this._replacementStepFactory(replacedStep);
 
-                for (var i = 0; i < steps.Count; i++)
-                {
-                    var step = query.Steps[i];
-                    
-                    if (step is TStep replacedStep)
-                        step = this._replacementStepFactory(replacedStep);
-
-                    if (step != query.Steps[i])
-                        steps = steps.SetItem(i, step);
-                }
-
-                // ReSharper disable once PossibleUnintendedReferenceComparison
-                return steps != query.Steps
-                    ? query.ReplaceSteps(steps) 
-                    : query;
+                        return Option<IEnumerable<GremlinStep>>.None;
+                    });
             }
         }
 
@@ -528,14 +519,14 @@ namespace ExRam.Gremlinq
                     if (step.Element is TSource source)
                     {
                         if (overrideCriterion(source))
-                            return new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value);
+                            return new[] { new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value) };
                     }
 
-                    return step;
+                    return Option<IEnumerable<GremlinStep>>.None;
                 });
         }
 
-        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : NonTerminalGremlinStep
+        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
         {
             return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
         }
