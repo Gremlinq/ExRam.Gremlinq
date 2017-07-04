@@ -463,7 +463,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        private sealed class RewriteStepsQueryProvider<TStep> : TypedGremlinQueryProviderBase where TStep : GremlinStep
+        private sealed class RewriteStepsQueryProvider<TStep> : TypedGremlinQueryProviderBase where TStep : NonTerminalGremlinStep
         {
             private readonly Func<TStep, GremlinStep> _replacementStepFactory;
 
@@ -485,26 +485,8 @@ namespace ExRam.Gremlinq
                 {
                     var step = query.Steps[i];
                     
-                    if (step is TerminalGremlinStep terminal)
-                    {
-                        var parameters = terminal.Parameters;
-
-                        for (var j = 0; j < parameters.Count; j++)
-                        {
-                            var parameter = parameters[j];
-
-                            if (parameter is IGremlinQuery subQuery)
-                                parameters = parameters.SetItem(j, RewriteSteps(subQuery));
-                        }
-
-                        // ReSharper disable once PossibleUnintendedReferenceComparison
-                        if (parameters != terminal.Parameters)
-                            step = new TerminalGremlinStep(terminal.Name, parameters);
-                    }
-                    else if (step is TStep replacedStep)
-                    {
+                    if (step is TStep replacedStep)
                         step = this._replacementStepFactory(replacedStep);
-                    }
 
                     if (step != query.Steps[i])
                         steps = steps.SetItem(i, step);
@@ -552,7 +534,7 @@ namespace ExRam.Gremlinq
                 });
         }
 
-        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : GremlinStep
+        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, GremlinStep> replacementStepFactory) where TStep : NonTerminalGremlinStep
         {
             return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
         }
