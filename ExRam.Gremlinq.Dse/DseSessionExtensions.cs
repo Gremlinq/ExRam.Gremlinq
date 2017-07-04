@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using Dse.Graph;
 using ExRam.Gremlinq;
 
@@ -35,7 +36,7 @@ namespace Dse
                     .Select(node => node.ToString());
             }
 
-            public IGremlinQuery TraversalSource { get; }
+            public IGremlinQuery<Unit> TraversalSource { get; }
         }
 
         public static INativeGremlinQueryProvider CreateQueryProvider(this IDseSession session)

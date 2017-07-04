@@ -1,7 +1,9 @@
+using System.Reactive;
+
 namespace ExRam.Gremlinq
 {
     public interface IHasTraversalSource
     {
-        IGremlinQuery TraversalSource { get; }
+        IGremlinQuery<Unit> TraversalSource { get; }
     }
 }

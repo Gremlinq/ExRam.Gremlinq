@@ -6,6 +6,7 @@ using System.Text;
 using LanguageExt;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {
@@ -55,9 +56,9 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IGremlinQuery Create(string graphName = null)
+        public static IGremlinQuery<Unit> Create(string graphName = null)
         {
-            return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
+            return new GremlinQueryImpl<Unit>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
         }
 
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
@@ -65,7 +66,7 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query, bool inlineParameters)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query, bool inlineParameters)
         {
             return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
@@ -179,11 +180,6 @@ namespace ExRam.Gremlinq
                 throw new ArgumentException();
 
             return new GremlinQueryImpl<T>(query.TraversalSourceName, query.Steps, query.StepLabelMappings.SetItem(memberExpressionBody.Member.Name, stepLabel), query.IdentifierFactory);
-        }
-
-        internal static IGremlinQuery ReplaceProvider(this IGremlinQuery query, ITypedGremlinQueryProvider provider)
-        {
-            return new GremlinQueryImpl(query.TraversalSourceName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);
         }
 
         internal static IGremlinQuery<T> ReplaceProvider<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)

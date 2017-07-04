@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
+using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {
@@ -268,7 +269,7 @@ namespace ExRam.Gremlinq
 
             public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
             
-            public IGremlinQuery TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
+            public IGremlinQuery<Unit> TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
         }
 
         private sealed class JsonSupportTypedGremlinQueryProvider : ITypedGremlinQueryProvider
@@ -400,7 +401,7 @@ namespace ExRam.Gremlinq
 
             public IGraphModel Model => this._baseProvider.Model;
             
-            public IGremlinQuery TraversalSource => this._baseProvider.TraversalSource;
+            public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class ModelGremlinQueryProvider : IModelGremlinQueryProvider
@@ -424,7 +425,7 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model { get; }
-            public IGremlinQuery TraversalSource => this._baseProvider.TraversalSource;
+            public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class SubgraphStrategyQueryProvider : TypedGremlinQueryProviderBase
