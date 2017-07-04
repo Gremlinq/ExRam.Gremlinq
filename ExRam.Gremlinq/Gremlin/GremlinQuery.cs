@@ -27,17 +27,22 @@ namespace ExRam.Gremlinq
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.TraversalSourceName);
 
-                foreach (var terminalStep in this.Steps.OfType<IGremlinSerializable>())
+                foreach (var step in this.Steps)
                 {
-                    var (innerQueryString, innerParameters) = terminalStep.Serialize(parameterCache, inlineParameters);
-
-                    builder.Append('.');
-                    builder.Append(innerQueryString);
-
-                    foreach (var kvp in innerParameters)
+                    if (step is IGremlinSerializable serializableStep)
                     {
-                        parameters[kvp.Key] = kvp.Value;
+                        var (innerQueryString, innerParameters) = serializableStep.Serialize(parameterCache, inlineParameters);
+
+                        builder.Append('.');
+                        builder.Append(innerQueryString);
+
+                        foreach (var kvp in innerParameters)
+                        {
+                            parameters[kvp.Key] = kvp.Value;
+                        }
                     }
+                    else
+                        throw new ArgumentException("Query contains non-serializable step. Please call Resolve on the query first.");
                 }
 
                 return (builder.ToString(), parameters);
