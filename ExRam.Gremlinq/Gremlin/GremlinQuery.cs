@@ -149,10 +149,7 @@ namespace ExRam.Gremlinq
 
                     // ReSharper disable once PossibleUnintendedReferenceComparison
                     if (parameters != terminal.Parameters)
-                        step = new TerminalGremlinStep(terminal.Name, parameters);
-
-                    if (step != steps[i])
-                        steps = steps.SetItem(i, step);
+                        steps = steps.SetItem(i, new TerminalGremlinStep(terminal.Name, parameters));
                 }
                 else if (step is NonTerminalGremlinStep nonTerminal)
                 {
