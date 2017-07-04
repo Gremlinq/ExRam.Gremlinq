@@ -15,10 +15,12 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
+            var type = this._value.GetType();
+            
             yield return new TerminalGremlinStep(
                 this._stepName,
                 model
-                    .TryGetLabelOfType(this._value.GetType()).IfNone(this._value.GetType().Name));
+                    .TryGetLabelOfType(type).IfNone(type.Name));
         }
     }
 }
