@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq
             yield return new TerminalGremlinStep(
                 this._stepName,
                 model
-                    .TryGetLabelOfType(type).IfNone(type.Name));
+                    .TryGetLabelOfType(type)
+                    .IfNone(type.Name));
         }
     }
 }
