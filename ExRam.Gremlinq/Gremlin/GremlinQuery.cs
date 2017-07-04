@@ -26,38 +26,20 @@ namespace ExRam.Gremlinq
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.TraversalSourceName);
 
-                foreach (var step in this.Steps)
+                foreach (var terminalStep in this.Resolve(graphModel).Steps.OfType<TerminalGremlinStep>())
                 {
-                    foreach (var terminalStep in Resolve(step, graphModel))
-                    {
-                        var (innerQueryString, innerParameters) = terminalStep.Serialize(graphModel, parameterCache, inlineParameters);
+                    var (innerQueryString, innerParameters) = terminalStep.Serialize(graphModel, parameterCache, inlineParameters);
 
-                        builder.Append('.');
-                        builder.Append(innerQueryString);
-                        
-                        foreach (var kvp in innerParameters)
-                        {
-                            parameters[kvp.Key] = kvp.Value;
-                        }
+                    builder.Append('.');
+                    builder.Append(innerQueryString);
+
+                    foreach (var kvp in innerParameters)
+                    {
+                        parameters[kvp.Key] = kvp.Value;
                     }
                 }
 
                 return (builder.ToString(), parameters);
-            }
-            
-            private IEnumerable<TerminalGremlinStep> Resolve(GremlinStep step, IGraphModel model)
-            {
-                if (step is TerminalGremlinStep terminal)
-                    yield return terminal;
-                else if (step is NonTerminalGremlinStep nonTerminal)
-                {
-                    foreach (var innerTerminal in nonTerminal.Resolve(model))
-                    {
-                        yield return innerTerminal;
-                    }
-                }
-                else
-                    throw new ArgumentException();
             }
 
             public string TraversalSourceName { get; }
@@ -77,7 +59,7 @@ namespace ExRam.Gremlinq
         {
             return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
         }
-   
+
         public static IGremlinQuery<T> ToAnonymous<T>(this IGremlinQuery<T> query)
         {
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
@@ -143,6 +125,31 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> Cast<T>(this IGremlinQuery query)
         {
             return new GremlinQueryImpl<T>(query.TraversalSourceName, query.Steps, query.StepLabelMappings, query.IdentifierFactory);
+        }
+
+        public static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
+        {
+            return query
+                .ReplaceSteps(query.Steps
+                    .SelectMany(step => step
+                        .Resolve(model))
+                    .Cast<GremlinStep>()
+                    .ToImmutableList());
+        }
+
+        private static IEnumerable<TerminalGremlinStep> Resolve(this GremlinStep step, IGraphModel model)
+        {
+            if (step is TerminalGremlinStep terminal)
+                yield return terminal;
+            else if (step is NonTerminalGremlinStep nonTerminal)
+            {
+                foreach (var innerTerminal in nonTerminal.Resolve(model))
+                {
+                    yield return innerTerminal;
+                }
+            }
+            else
+                throw new ArgumentException();
         }
         
         internal static IGremlinQuery<T> AddStepLabelBinding<T>(this IGremlinQuery<T> query, Expression<Func<T, object>> memberExpression, StepLabel stepLabel)
