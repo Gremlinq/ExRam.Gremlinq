@@ -526,6 +526,21 @@ namespace ExRam.Gremlinq
                 });
         }
 
+        public static ITypedGremlinQueryProvider SetDefautElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        {
+            return provider
+                .RewriteSteps<AddElementPropertiesStep>(step =>
+                {
+                    if (step.Element is TSource source)
+                    {
+                        if (overrideCriterion(source))
+                            return new[] { new SetDefaultElementPropertyStep<TSource, TProperty>(step, memberExpression, value) };
+                    }
+
+                    return Option<IEnumerable<GremlinStep>>.None;
+                });
+        }
+
         public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
         {
             return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
