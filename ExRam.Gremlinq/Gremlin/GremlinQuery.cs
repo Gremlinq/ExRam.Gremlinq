@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using LanguageExt;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Unit = System.Reactive.Unit;
 
@@ -76,31 +77,31 @@ namespace ExRam.Gremlinq
             return query.Serialize(new DefaultParameterCache(), inlineParameters);
         }
 
-        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
+        public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
         {
             return query
                 .Limit(1)
                 .Execute(provider)
-                .First();
+                .First(ct);
         }
 
-        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
+        public static async Task<Option<T>> FirstOrNoneAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
         {
             var array = await query
                 .Limit(1)
                 .Execute(provider)
-                .ToArray();
+                .ToArray(ct);
 
             return array.Length > 0
                 ? array[0]
                 : Option<T>.None;
         }
 
-        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
+        public static Task<T[]> ToArrayAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
         {
             return query
                 .Execute(provider)
-                .ToArray();
+                .ToArray(ct);
         }
 
         public static IGremlinQuery<T> AddStep<T>(this IGremlinQuery query, string name, params object[] parameters)
