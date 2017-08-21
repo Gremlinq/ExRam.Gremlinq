@@ -550,8 +550,8 @@ namespace ExRam.Gremlinq
 
                 if (binaryExpression.NodeType == ExpressionType.OrElse || binaryExpression.NodeType == ExpressionType.AndAlso)
                 {
-                    var leftLambda = Expression.Lambda<Func<T, bool>>(binaryExpression.Left, predicate.Parameters[0]);
-                    var rightLambda = Expression.Lambda<Func<T, bool>>(binaryExpression.Right, predicate.Parameters[0]);
+                    var leftLambda = Expression.Lambda<Func<T, bool>>(left, predicate.Parameters[0]);
+                    var rightLambda = Expression.Lambda<Func<T, bool>>(right, predicate.Parameters[0]);
 
                     return binaryExpression.NodeType == ExpressionType.OrElse
                         ? query
