@@ -522,87 +522,90 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
-            return query.Where(predicate, true);
-        }
+            var boolComparison = true;
+            var body = predicate.Body;
 
-        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate, bool defaultBooleanComparisonValue)
-        {
-            if (predicate.Body is UnaryExpression unaryExpression)
+            if (body is UnaryExpression unaryExpression)
             {
                 if (unaryExpression.NodeType == ExpressionType.Not)
-                    return query.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters), false);
+                {
+                    boolComparison = false;
+                    body = unaryExpression.Operand;
+                }
             }
 
-            if (predicate.Body is MemberExpression memberExpression)
+            if (body is MemberExpression memberExpression)
             {
                 if (memberExpression.Member is PropertyInfo property)
                 {
                     if (property.PropertyType == typeof(bool))
-                        return query.Where(Expression.Lambda<Func<T, bool>>(Expression.Equal(memberExpression, Expression.Constant(defaultBooleanComparisonValue)), predicate.Parameters));
+                        return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(boolComparison), ExpressionType.Equal);
                 }
             }
+            else if (predicate.Body is BinaryExpression binaryExpression)
+                return query.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
 
-            if (predicate.Body is BinaryExpression binaryExpression)
+            throw new NotSupportedException();
+        }
+
+        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType)
+        {
+            object constant;
+
+            if (nodeType == ExpressionType.OrElse || nodeType == ExpressionType.AndAlso)
             {
-                object constant;
-                var left = binaryExpression.Left.StripConvert();
-                var right = binaryExpression.Right.StripConvert();
+                var leftLambda = Expression.Lambda<Func<T, bool>>(left, parameter);
+                var rightLambda = Expression.Lambda<Func<T, bool>>(right, parameter);
 
-                if (binaryExpression.NodeType == ExpressionType.OrElse || binaryExpression.NodeType == ExpressionType.AndAlso)
+                return nodeType == ExpressionType.OrElse
+                    ? query
+                        .Or(
+                            _ => _.Where(leftLambda),
+                            _ => _.Where(rightLambda))
+                    : query
+                        .And(
+                            _ => _.Where(leftLambda),
+                            _ => _.Where(rightLambda));
+            }
+
+            var constantExpression = right as ConstantExpression;
+            if (constantExpression != null)
+                constant = constantExpression.Value;
+            else
+            {
+                var getterLambda = Expression
+                    .Lambda<Func<object>>(Expression.Convert(right, typeof(object)))
+                    .Compile();
+
+                constant = getterLambda();
+            }
+
+            var predicateArgument = constant != null
+                ? GremlinQueryLanguage.SupportedComparisons
+                    .TryGetValue(nodeType)
+                    .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
+                    .IfNone(constant)
+                : null;
+
+            if (left is MemberExpression leftMemberExpression)
+            {
+                if (parameter == leftMemberExpression.Expression.StripConvert())
                 {
-                    var leftLambda = Expression.Lambda<Func<T, bool>>(left, predicate.Parameters[0]);
-                    var rightLambda = Expression.Lambda<Func<T, bool>>(right, predicate.Parameters[0]);
+                    if (predicateArgument != null)
+                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
 
-                    return binaryExpression.NodeType == ExpressionType.OrElse
-                        ? query
-                            .Or(
-                                _ => _.Where(leftLambda),
-                                _ => _.Where(rightLambda))
-                        : query
-                            .And(
-                                _ => _.Where(leftLambda),
-                                _ => _.Where(rightLambda));
-                }
-
-                var constantExpression = right as ConstantExpression;
-                if (constantExpression != null)
-                    constant = constantExpression.Value;
-                else
-                {
-                    var getterLambda = Expression
-                        .Lambda<Func<object>>(Expression.Convert(right, typeof(object)))
-                        .Compile();
-
-                    constant = getterLambda();
-                }
-
-                var predicateArgument = constant != null
-                    ? GremlinQueryLanguage.SupportedComparisons
-                        .TryGetValue(binaryExpression.NodeType)
-                        .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
-                        .IfNone(constant)
-                    : null;
-
-                if (left is MemberExpression leftMemberExpression)
-                {
-                    if (predicate.Parameters[0] == leftMemberExpression.Expression.StripConvert())
+                    if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
                     {
-                        if (predicateArgument != null)
-                            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
-
-                        if (binaryExpression.NodeType == ExpressionType.Equal || binaryExpression.NodeType == ExpressionType.NotEqual)
-                        {
-                            return query.AddStep<T>(new TerminalGremlinStep(binaryExpression.NodeType == ExpressionType.Equal
-                                ? "hasNot"
-                                : "has", leftMemberExpression.Member.Name));
-                        }
+                        return query.AddStep<T>(new TerminalGremlinStep(nodeType == ExpressionType.Equal
+                            ? "hasNot"
+                            : "has", leftMemberExpression.Member.Name));
                     }
                 }
-                else if ((left is ParameterExpression leftParameterExpression) && (predicateArgument != null))
-                {
-                    if (predicate.Parameters[0] == leftParameterExpression)
-                        return query.AddStep<T>("where", predicateArgument);
-                }
+            }
+            else if (left is ParameterExpression leftParameterExpression && predicateArgument != null)
+            {
+                if (parameter == leftParameterExpression)
+                    return query.AddStep<T>("where", predicateArgument);
             }
 
             throw new NotSupportedException();
