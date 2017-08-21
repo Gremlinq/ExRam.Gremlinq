@@ -11,5 +11,7 @@ namespace ExRam.Gremlinq.Tests
         public virtual TimeSpan Duration { get; set; }
 
         public string Id { get; set; }
+
+        public bool Enabled { get; set; }
     }
 }

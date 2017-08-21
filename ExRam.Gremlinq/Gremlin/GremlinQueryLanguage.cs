@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Reflection;
 using LanguageExt;
 using Unit = System.Reactive.Unit;
 
@@ -521,6 +522,26 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
+            return query.Where(predicate, true);
+        }
+
+        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate, bool defaultBooleanComparisonValue)
+        {
+            if (predicate.Body is UnaryExpression unaryExpression)
+            {
+                if (unaryExpression.NodeType == ExpressionType.Not)
+                    return query.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters), false);
+            }
+
+            if (predicate.Body is MemberExpression memberExpression)
+            {
+                if (memberExpression.Member is PropertyInfo property)
+                {
+                    if (property.PropertyType == typeof(bool))
+                        return query.Where(Expression.Lambda<Func<T, bool>>(Expression.Equal(memberExpression, Expression.Constant(defaultBooleanComparisonValue)), predicate.Parameters));
+                }
+            }
+
             if (predicate.Body is BinaryExpression binaryExpression)
             {
                 object constant;

@@ -422,6 +422,91 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_has_bool_property_with_explicit_comparison1()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<TimeFrame>()
+                // ReSharper disable once RedundantBoolCompare
+                .Where(t => t.Enabled == true)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "TimeFrame").And
+                .Contain("P2", "Enabled").And
+                .Contain("P3", true);
+        }
+
+        [Fact]
+        public void V_ofType_has_bool_property_with_explicit_comparison2()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<TimeFrame>()
+                .Where(t => t.Enabled == false)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "TimeFrame").And
+                .Contain("P2", "Enabled").And
+                .Contain("P3", false);
+        }
+
+        [Fact]
+        public void V_ofType_has_bool_property_with_implicit_comparison1()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<TimeFrame>()
+                .Where(t => t.Enabled)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "TimeFrame").And
+                .Contain("P2", "Enabled").And
+                .Contain("P3", true);
+        }
+
+        [Fact]
+        public void V_ofType_has_bool_property_with_implicit_comparison2()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<TimeFrame>()
+                .Where(t => !t.Enabled)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+
+            query.parameters
+                .Should()
+                .Contain("P1", "TimeFrame").And
+                .Contain("P2", "Enabled").And
+                .Contain("P3", false);
+        }
+
+        [Fact]
         public void V_ofType_has_greater_int_property()
         {
             var query = GremlinQuery
