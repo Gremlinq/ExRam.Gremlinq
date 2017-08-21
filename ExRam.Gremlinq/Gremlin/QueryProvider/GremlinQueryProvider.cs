@@ -418,7 +418,7 @@ namespace ExRam.Gremlinq
             {
                 var serialized = query
                     .Resolve(this.Model)
-                    .Serialize(false);
+                    .Serialize();
 
                 return this._baseProvider
                     .Execute(serialized.queryString, serialized.parameters);

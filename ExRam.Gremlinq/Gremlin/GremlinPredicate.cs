@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
         {
             var builder = new StringBuilder();
             var dict = new Dictionary<string, object>();
@@ -29,23 +29,13 @@ namespace ExRam.Gremlinq
                 if (i != 0)
                     builder.Append(", ");
 
-                if (inlineParameters)
-                {
-                    if (parameter is string)
-                        builder.Append($"'{parameter}'");
-                    else
-                        builder.Append((parameter as IGremlinSerializable)?.Serialize(parameterCache, true).queryString ?? parameter);
-                }
+                if (parameter is IGremlinSerializable serializable)
+                    builder.Append(serializable.Serialize(parameterCache).queryString);
                 else
                 {
-                    if (parameter is IGremlinSerializable serializable)
-                        builder.Append(serializable.Serialize(parameterCache, false).queryString);
-                    else
-                    {
-                        var parameterName = parameterCache.Cache(parameter);
-                        dict[parameterName] = parameter;
-                        builder.Append(parameterName);
-                    }
+                    var parameterName = parameterCache.Cache(parameter);
+                    dict[parameterName] = parameter;
+                    builder.Append(parameterName);
                 }
             }
 

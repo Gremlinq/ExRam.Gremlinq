@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq
                 this.IdentifierFactory = identifierFactory;
             }
 
-            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
+            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
             {
                 var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.TraversalSourceName);
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq
                 {
                     if (step is IGremlinSerializable serializableStep)
                     {
-                        var (innerQueryString, innerParameters) = serializableStep.Serialize(parameterCache, inlineParameters);
+                        var (innerQueryString, innerParameters) = serializableStep.Serialize(parameterCache);
 
                         builder.Append('.');
                         builder.Append(innerQueryString);
@@ -72,9 +72,9 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<T>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query, bool inlineParameters)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query)
         {
-            return query.Serialize(new DefaultParameterCache(), inlineParameters);
+            return query.Serialize(new DefaultParameterCache());
         }
 
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))

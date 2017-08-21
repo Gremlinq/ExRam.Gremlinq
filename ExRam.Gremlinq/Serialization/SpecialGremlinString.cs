@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq
             this._value = value;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache, bool inlineParameters)
+        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
         {
             return (this._value, ImmutableDictionary<string, object>.Empty);
         }
