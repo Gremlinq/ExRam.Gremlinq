@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IEnumerator<(JsonToken tokenType, object tokenValue)> HidePropertyName(this IEnumerator<(JsonToken tokenType, object tokenValue)> enumerator, string property, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> innerTransformation)
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> UnwrapObject(this IEnumerator<(JsonToken tokenType, object tokenValue)> enumerator, string property, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> innerTransformation)
         {
             while (enumerator.MoveNext())
             {
@@ -73,18 +73,31 @@ namespace ExRam.Gremlinq
                 {
                     if (property.Equals(current.tokenValue as string, StringComparison.Ordinal))
                     {
-                        using (var inner = innerTransformation(enumerator))
+                        if (enumerator.MoveNext())
                         {
-                            while (inner.MoveNext())
+                            if (enumerator.Current.tokenType == JsonToken.StartObject)
                             {
-                                yield return inner.Current;
+                                using (var inner = innerTransformation(enumerator))
+                                {
+                                    while (inner.MoveNext())
+                                    {
+                                        yield return inner.Current;
+                                    }
+                                }
+
+                                continue;
                             }
+
+                            yield return (JsonToken.PropertyName, property);
+                            yield return (enumerator.Current.tokenType, enumerator.Current.tokenValue);
+
+                            continue;
                         }
 
-                        continue;
+                        yield break;
                     }
                 }
-                
+
                 yield return current;
             }
         }
@@ -121,36 +134,23 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IEnumerator<(JsonToken tokenType, object tokenValue)> Unwrap(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> UntilEndObject(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
         {
-            if (source.MoveNext())
+            var openObjects = 0;
+
+            while (source.MoveNext())
             {
                 if (source.Current.tokenType == JsonToken.StartObject)
+                    openObjects++;
+                else if (source.Current.tokenType == JsonToken.EndObject)
                 {
-                    var openObjects = 0;
+                    if (openObjects == 0)
+                        yield break;
 
-                    while (source.MoveNext())
-                    {
-                        if (source.Current.tokenType == JsonToken.StartObject)
-                            openObjects++;
-                        else if (source.Current.tokenType == JsonToken.EndObject)
-                        {
-                            if (openObjects == 0)
-                                yield break;
-
-                            openObjects--;
-                        }
-
-                        yield return source.Current;
-                    }
+                    openObjects--;
                 }
-                else
-                {
-                    yield return source.Current;
 
-                    while (source.MoveNext())
-                        yield return source.Current;
-                }
+                yield return source.Current;
             }
         }
 
@@ -352,17 +352,16 @@ namespace ExRam.Gremlinq
                         ? serializer.Deserialize<T>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
-                                .HidePropertyName(
+                                .UnwrapObject(
                                     "id",
                                     idSection => idSection
-                                        .Unwrap())
-                                .HidePropertyName(
+                                        .UntilEndObject())
+                                .UnwrapObject(
                                     "properties",
                                     propertiesSection => propertiesSection
-                                        .Unwrap()
+                                        .UntilEndObject()
                                         .SelectPropertyNode(prop => prop
                                             .TakeOne(y => y
-                                                .Unwrap()
                                                 .ExtractProperty("value"))))
                                 .SelectToken(tuple => tuple.tokenType == JsonToken.PropertyName && "label".Equals(tuple.tokenValue)
                                     ? (JsonToken.PropertyName, "$type")
