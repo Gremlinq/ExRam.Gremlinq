@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Threading;
+using System.Xml;
 using ExRam.Gremlinq;
 using Newtonsoft.Json.Linq;
 
@@ -20,9 +23,16 @@ namespace Microsoft.Azure.Documents.Client
 
             public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
             {
-                foreach(var kvp in parameters)
+                foreach(var kvp in parameters.OrderByDescending(x => x.Key.Length))
                 {
                     var value = kvp.Value;
+
+                    if (value is Enum)
+                        value = (int)value;
+                    else if (value is DateTimeOffset)
+                        value = ((DateTimeOffset)value).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
+                    else if (value is TimeSpan)
+                        value = XmlConvert.ToString((TimeSpan)value);
 
                     if (value is string)
                         value = $"'{value}'";
@@ -32,12 +42,24 @@ namespace Microsoft.Azure.Documents.Client
                     query = query.Replace(kvp.Key, (string)value);
                 }
 
+                Console.WriteLine(query);
+
                 var documentQuery = this._session.CreateGremlinQuery<JToken>(query);
 
                 return AsyncEnumerable
                     .Repeat(Unit.Default)
                     .TakeWhile(_ => documentQuery.HasMoreResults)
-                    .SelectMany((_, ct) => documentQuery.ExecuteNextAsync<JToken>(ct))
+                    .SelectMany(async (_, ct) =>
+                    {
+                        try
+                        {
+                            return await documentQuery.ExecuteNextAsync<JToken>(ct);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception(query, ex);
+                        }
+                    })
                     .SelectMany(x => x.ToAsyncEnumerable())
                     .Select(x => x.ToString());
             }
