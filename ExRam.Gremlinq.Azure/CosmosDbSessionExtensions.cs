@@ -31,6 +31,8 @@ namespace Microsoft.Azure.Documents.Client
                         value = (int)value;
                     else if (value is DateTimeOffset)
                         value = ((DateTimeOffset)value).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
+                    else if (value is DateTime)
+                        value = ((DateTime)value).ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
                     else if (value is TimeSpan)
                         value = XmlConvert.ToString((TimeSpan)value);
 
