@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq
 
         public string Cache(object parameter)
         {
-            return this._cache.GetOrAdd(parameter, _ => "P" + Interlocked.Increment(ref this._current));
+            return this._cache.GetOrAdd(parameter, _ => "_P" + Interlocked.Increment(ref this._current));
         }
     }
 }

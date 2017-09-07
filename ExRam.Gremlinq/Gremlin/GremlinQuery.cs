@@ -90,7 +90,8 @@ namespace ExRam.Gremlinq
             var array = await query
                 .Limit(1)
                 .Execute(provider)
-                .ToArray(ct);
+                .ToArray(ct)
+                .ConfigureAwait(false);
 
             return array.Length > 0
                 ? array[0]
