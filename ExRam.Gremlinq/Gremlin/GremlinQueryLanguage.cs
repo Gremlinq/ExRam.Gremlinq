@@ -243,12 +243,6 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("filter", new SpecialGremlinString($"{{{lambda}}}"));
         }
 
-        public static IGremlinQuery<T> Filter<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> filterTraversal)
-        {
-            return query
-                .AddStep<T>("filter", filterTraversal(query.ToAnonymous()));
-        }
-
         public static IGremlinQuery<T[]> Fold<T>(this IGremlinQuery<T> query)
         {
             return query
@@ -520,6 +514,12 @@ namespace ExRam.Gremlinq
                     .ToImmutableList<object>());
         }
 
+        public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> filterTraversal)
+        {
+            return query
+                .AddStep<T>("where", filterTraversal(query.ToAnonymous()));
+        }
+        
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
             var boolComparison = true;
