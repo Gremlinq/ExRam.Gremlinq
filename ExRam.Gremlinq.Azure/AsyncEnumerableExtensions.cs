@@ -19,9 +19,9 @@ namespace Microsoft.Azure.Documents.Client
                     return AsyncEnumerable.CreateEnumerator(
                         async ct =>
                         {
-                            if (await e.MoveNext(ct))
+                            if (await e.MoveNext(ct).ConfigureAwait(false))
                             {
-                                current = await selector(e.Current, ct);
+                                current = await selector(e.Current, ct).ConfigureAwait(false);
                                 return true;
                             }
 

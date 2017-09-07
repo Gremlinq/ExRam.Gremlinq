@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Documents.Client
                     {
                         try
                         {
-                            return await documentQuery.ExecuteNextAsync<JToken>(ct);
+                            return await documentQuery.ExecuteNextAsync<JToken>(ct).ConfigureAwait(false);
                         }
                         catch (Exception ex)
                         {
