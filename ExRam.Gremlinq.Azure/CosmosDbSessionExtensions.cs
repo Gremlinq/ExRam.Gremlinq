@@ -35,6 +35,8 @@ namespace Microsoft.Azure.Documents.Client
                         value = ((DateTime)value).ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
                     else if (value is TimeSpan)
                         value = XmlConvert.ToString((TimeSpan)value);
+                    else if (value is byte[])
+                        value = Convert.ToBase64String((byte[])value);
 
                     if (value is string)
                         value = $"'{value}'";
