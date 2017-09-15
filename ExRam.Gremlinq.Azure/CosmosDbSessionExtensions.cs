@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Threading;
 using System.Xml;
 using ExRam.Gremlinq;
 using Newtonsoft.Json.Linq;
@@ -23,20 +22,28 @@ namespace Microsoft.Azure.Documents.Client
 
             public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
             {
-                foreach(var kvp in parameters.OrderByDescending(x => x.Key.Length))
+                foreach (var kvp in parameters.OrderByDescending(x => x.Key.Length))
                 {
                     var value = kvp.Value;
 
-                    if (value is Enum)
-                        value = (int)value;
-                    else if (value is DateTimeOffset)
-                        value = ((DateTimeOffset)value).ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
-                    else if (value is DateTime)
-                        value = ((DateTime)value).ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
-                    else if (value is TimeSpan)
-                        value = XmlConvert.ToString((TimeSpan)value);
-                    else if (value is byte[])
-                        value = Convert.ToBase64String((byte[])value);
+                    switch (value)
+                    {
+                        case Enum _:
+                            value = (int)value;
+                            break;
+                        case DateTimeOffset x:
+                            value = x.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
+                            break;
+                        case DateTime x:
+                            value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
+                            break;
+                        case TimeSpan x:
+                            value = XmlConvert.ToString(x);
+                            break;
+                        case byte[] x:
+                            value = Convert.ToBase64String(x);
+                            break;
+                    }
 
                     if (value is string)
                         value = $"'{value}'";
