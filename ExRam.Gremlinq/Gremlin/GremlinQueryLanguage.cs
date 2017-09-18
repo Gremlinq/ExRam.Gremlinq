@@ -171,8 +171,7 @@ namespace ExRam.Gremlinq
             if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)
                 body = ((UnaryExpression)body).Operand;
 
-            var memberExpression = body as MemberExpression;
-            if (memberExpression != null)
+            if (body is MemberExpression memberExpression)
             {
                 return query
                     .AddStep<T>("by", memberExpression.Member.Name, new SpecialGremlinString(sortOrder.ToString().Substring(0, 4).ToLower()));
@@ -505,8 +504,7 @@ namespace ExRam.Gremlinq
                 projections
                     .Select(projection =>
                     {
-                        var memberExpression = projection.Body as MemberExpression;
-                        if (memberExpression != null)
+                        if (projection.Body is MemberExpression memberExpression)
                             return memberExpression.Member.Name;
 
                         throw new NotSupportedException();
@@ -568,8 +566,7 @@ namespace ExRam.Gremlinq
                             _ => _.Where(rightLambda));
             }
 
-            var constantExpression = right as ConstantExpression;
-            if (constantExpression != null)
+            if (right is ConstantExpression constantExpression)
                 constant = constantExpression.Value;
             else
             {
@@ -587,25 +584,26 @@ namespace ExRam.Gremlinq
                     .IfNone(constant)
                 : null;
 
-            if (left is MemberExpression leftMemberExpression)
+            switch (left)
             {
-                if (parameter == leftMemberExpression.Expression.StripConvert())
-                {
-                    if (predicateArgument != null)
-                        return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
-
-                    if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
+                case MemberExpression leftMemberExpression:
+                    if (parameter == leftMemberExpression.Expression.StripConvert())
                     {
-                        return query.AddStep<T>(new TerminalGremlinStep(nodeType == ExpressionType.Equal
-                            ? "hasNot"
-                            : "has", leftMemberExpression.Member.Name));
+                        if (predicateArgument != null)
+                            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+
+                        if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
+                        {
+                            return query.AddStep<T>(new TerminalGremlinStep(nodeType == ExpressionType.Equal
+                                ? "hasNot"
+                                : "has", leftMemberExpression.Member.Name));
+                        }
                     }
-                }
-            }
-            else if (left is ParameterExpression leftParameterExpression && predicateArgument != null)
-            {
-                if (parameter == leftParameterExpression)
-                    return query.AddStep<T>("where", predicateArgument);
+                    break;
+                case ParameterExpression leftParameterExpression when predicateArgument != null:
+                    if (parameter == leftParameterExpression)
+                        return query.AddStep<T>("where", predicateArgument);
+                    break;
             }
 
             throw new NotSupportedException();

@@ -148,33 +148,38 @@ namespace ExRam.Gremlinq
             {
                 var step = steps[i];
 
-                if (step is TerminalGremlinStep terminal)
+                switch (step)
                 {
-                    var parameters = terminal.Parameters;
-
-                    for (var j = 0; j < parameters.Count; j++)
-                    {
-                        var parameter = parameters[j];
-
-                        if (parameter is IGremlinQuery subQuery)
-                            parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
-                    }
-
-                    // ReSharper disable once PossibleUnintendedReferenceComparison
-                    if (parameters != terminal.Parameters)
-                        steps = steps.SetItem(i, new TerminalGremlinStep(terminal.Name, parameters));
-                }
-                else if (step is NonTerminalGremlinStep nonTerminal)
-                {
-                    resolveFunction(nonTerminal)
-                        .IfSome(resolvedSteps =>
+                    case TerminalGremlinStep terminal:
                         {
-                            steps = steps
-                                .RemoveAt(i)
-                                .InsertRange(i, resolvedSteps);
+                            var parameters = terminal.Parameters;
 
-                            i--;
-                        });
+                            for (var j = 0; j < parameters.Count; j++)
+                            {
+                                var parameter = parameters[j];
+
+                                if (parameter is IGremlinQuery subQuery)
+                                    parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
+                            }
+
+                            // ReSharper disable once PossibleUnintendedReferenceComparison
+                            if (parameters != terminal.Parameters)
+                                steps = steps.SetItem(i, new TerminalGremlinStep(terminal.Name, parameters));
+                            break;
+                        }
+                    case NonTerminalGremlinStep nonTerminal:
+                        {
+                            resolveFunction(nonTerminal)
+                            .IfSome(resolvedSteps =>
+                            {
+                                steps = steps
+                                    .RemoveAt(i)
+                                    .InsertRange(i, resolvedSteps);
+
+                                i--;
+                            });
+                            break;
+                        }
                 }
             }
 
@@ -190,8 +195,7 @@ namespace ExRam.Gremlinq
             if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)
                 body = ((UnaryExpression)body).Operand;
 
-            var memberExpressionBody = body as MemberExpression;
-            if (memberExpressionBody == null)
+            if (!(body is MemberExpression memberExpressionBody))
                 throw new ArgumentException();
 
             return new GremlinQueryImpl<T>(query.TraversalSourceName, query.Steps, query.StepLabelMappings.SetItem(memberExpressionBody.Member.Name, stepLabel), query.IdentifierFactory);
