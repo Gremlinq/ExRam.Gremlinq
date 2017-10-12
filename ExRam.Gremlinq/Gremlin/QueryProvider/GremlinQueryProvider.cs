@@ -140,14 +140,17 @@ namespace ExRam.Gremlinq
 
             while (source.MoveNext())
             {
-                if (source.Current.tokenType == JsonToken.StartObject)
-                    openObjects++;
-                else if (source.Current.tokenType == JsonToken.EndObject)
+                switch (source.Current.tokenType)
                 {
-                    if (openObjects == 0)
-                        yield break;
+                    case JsonToken.StartObject:
+                        openObjects++;
+                        break;
+                    case JsonToken.EndObject:
+                        if (openObjects == 0)
+                            yield break;
 
-                    openObjects--;
+                        openObjects--;
+                        break;
                 }
 
                 yield return source.Current;
@@ -170,10 +173,15 @@ namespace ExRam.Gremlinq
 
                     while (source.MoveNext())
                     {
-                        if (source.Current.tokenType == JsonToken.StartArray)
-                            openArrays++;
-                        else if (source.Current.tokenType == JsonToken.EndArray)
-                            openArrays--;
+                        switch (source.Current.tokenType)
+                        {
+                            case JsonToken.StartArray:
+                                openArrays++;
+                                break;
+                            case JsonToken.EndArray:
+                                openArrays--;
+                                break;
+                        }
 
                         if (openArrays == 0)
                             yield break;
@@ -320,9 +328,9 @@ namespace ExRam.Gremlinq
                         if (objectType != typeof(TimeSpan))
                             throw new ArgumentException();
 
-                        var spanString = reader.Value as string;
-                        if (spanString == null)
+                        if (!(reader.Value is string spanString))
                             return null;
+
                         return XmlConvert.ToTimeSpan(spanString);
                     }
 

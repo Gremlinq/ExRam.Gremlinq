@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq
             var seen = false;
             foreach (var step in this.BaseStep.Resolve(model))
             {
-                seen |= (step.Name == "property" && step.Parameters.Count > 0 && step.Parameters[0] as string == this.Key);
+                seen |= step.Name == "property" && step.Parameters.Count > 0 && step.Parameters[0] as string == this.Key;
                 yield return step;
             }
 
