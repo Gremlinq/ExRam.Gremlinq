@@ -7,6 +7,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Graphs;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Options;
 
 namespace ExRam.Gremlinq.Azure
 {
@@ -15,11 +16,19 @@ namespace ExRam.Gremlinq.Azure
         private readonly DocumentClient _client;
         private readonly DocumentCollection _graph;
 
-        public DocumentClientGremlinQueryProvider(DocumentClient client, DocumentCollection graph)
+        public DocumentClientGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration)
         {
-            this._graph = graph;
-            this._client = client;
-            this.TraversalSource = GremlinQuery.Create("g");
+            this._client =  new DocumentClient(
+                new Uri(configuration.Value.EndPoint),
+                configuration.Value.AuthKey,
+                new ConnectionPolicy { ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Tcp });
+
+            this._graph = this._client.CreateDocumentCollectionIfNotExistsAsync(
+                UriFactory.CreateDatabaseUri(configuration.Value.Database),
+                new DocumentCollection { Id = configuration.Value.GraphName },
+                new RequestOptions { OfferThroughput = 1000 }).Result;  //TODO: Async!
+
+            this.TraversalSource = GremlinQuery.Create(configuration.Value.TraversalSource);
         }
 
         public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
