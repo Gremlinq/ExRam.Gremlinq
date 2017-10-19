@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>ExRam.Gremlinq.Dse.Tests</Description>
     <Authors>ExRam EDV GmbH &amp; Co. KG</Authors>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>netcoreapp20</TargetFramework>
     <AssemblyName>ExRam.Gremlinq.Dse.Tests</AssemblyName>
     <PackageId>ExRam.Gremlinq.Dse.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>

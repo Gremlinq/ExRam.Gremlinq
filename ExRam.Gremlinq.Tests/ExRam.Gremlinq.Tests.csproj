@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>ExRam.Gremlinq.Tests</Description>
     <Authors>ExRam EDV GmbH &amp; Co. KG</Authors>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>netcoreapp20</TargetFramework>
     <AssemblyName>ExRam.Gremlinq.Tests</AssemblyName>
     <PackageId>ExRam.Gremlinq.Tests</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
