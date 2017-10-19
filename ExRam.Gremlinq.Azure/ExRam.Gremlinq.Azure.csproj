@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.0</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
