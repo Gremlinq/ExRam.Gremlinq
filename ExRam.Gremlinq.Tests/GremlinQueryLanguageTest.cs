@@ -25,15 +25,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).property(P4, P5)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "Id").And
-                .Contain("P3", "id").And
-                .Contain("P4", "IetfLanguageTag").And
-                .Contain("P5", "en");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "Id").And
+                .Contain("_P3", "id").And
+                .Contain("_P4", "IetfLanguageTag").And
+                .Contain("_P5", "en");
         }
 
         [Fact]
@@ -47,13 +47,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3)");
+                .Be("g.addV(_P1).property(_P2, _P3)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "Id").And
-                .Contain("P3", "id");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "Id").And
+                .Contain("_P3", "id");
         }
 
         [Fact]
@@ -68,14 +68,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).or(__.has(P2, eq(P3)), __.has(P2, eq(P4)))");
+                .Be("g.V().hasLabel(_P1).or(__.has(_P2, eq(_P3)), __.has(_P2, eq(_P4)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36).And
-                .Contain("P4", 42);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 42);
         }
 
         [Fact]
@@ -90,15 +90,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).or(__.has(P2, eq(P3)), __.has(P4, eq(P5)))");
+                .Be("g.V().hasLabel(_P1).or(__.has(_P2, eq(_P3)), __.has(_P4, eq(_P5)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Some name").And
-                .Contain("P4", "Age").And
-                .Contain("P5", 42);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Some name").And
+                .Contain("_P4", "Age").And
+                .Contain("_P5", 42);
         }
 
         [Fact]
@@ -113,14 +113,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.has(P2, eq(P3)), __.has(P2, eq(P4)))");
+                .Be("g.V().hasLabel(_P1).and(__.has(_P2, eq(_P3)), __.has(_P2, eq(_P4)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36).And
-                .Contain("P4", 42);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 42);
         }
 
         [Fact]
@@ -135,16 +135,16 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.has(P2, eq(P3)), __.or(__.has(P4, eq(P5)), __.has(P4, eq(P6))))");
+                .Be("g.V().hasLabel(_P1).and(__.has(_P2, eq(_P3)), __.or(__.has(_P4, eq(_P5)), __.has(_P4, eq(_P6))))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Some name").And
-                .Contain("P4", "Age").And
-                .Contain("P5", 42).And
-                .Contain("P6", 99);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Some name").And
+                .Contain("_P4", "Age").And
+                .Contain("_P5", 42).And
+                .Contain("_P6", 99);
         }
 
         [Fact]
@@ -159,15 +159,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.hasNot(P2), __.or(__.has(P3, eq(P4)), __.has(P3, eq(P5))))");
+                .Be("g.V().hasLabel(_P1).and(__.hasNot(_P2), __.or(__.has(_P3, eq(_P4)), __.has(_P3, eq(_P5))))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Age").And
-                .Contain("P4", 42).And
-                .Contain("P5", 99);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Age").And
+                .Contain("_P4", 42).And
+                .Contain("_P5", 99);
         }
 
         [Fact]
@@ -182,15 +182,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.has(P2, eq(P3)), __.has(P2, eq(P4)), __.has(P2, eq(P5)))");
+                .Be("g.V().hasLabel(_P1).and(__.has(_P2, eq(_P3)), __.has(_P2, eq(_P4)), __.has(_P2, eq(_P5)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36).And
-                .Contain("P4", 42).And
-                .Contain("P5", 99);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 42).And
+                .Contain("_P5", 99);
         }
 
         [Fact]
@@ -205,15 +205,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).or(__.has(P2, eq(P3)), __.has(P2, eq(P4)), __.has(P2, eq(P5)))");
+                .Be("g.V().hasLabel(_P1).or(__.has(_P2, eq(_P3)), __.has(_P2, eq(_P4)), __.has(_P2, eq(_P5)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36).And
-                .Contain("P4", 42).And
-                .Contain("P5", 99);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 42).And
+                .Contain("_P5", 99);
         }
 
         [Fact]
@@ -228,15 +228,15 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.has(P2, eq(P3)), __.has(P4, eq(P5)))");
+                .Be("g.V().hasLabel(_P1).and(__.has(_P2, eq(_P3)), __.has(_P4, eq(_P5)))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Some name").And
-                .Contain("P4", "Age").And
-                .Contain("P5", 42);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Some name").And
+                .Contain("_P4", "Age").And
+                .Contain("_P5", 42);
         }
 
         [Fact]
@@ -250,11 +250,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1)");
+                .Be("g.V().hasLabel(_P1)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User");
+                .Contain("_P1", "User");
         }
 
         [Fact]
@@ -268,12 +268,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1, P2)");
+                .Be("g.V().hasLabel(_P1, _P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Company").And
-                .Contain("P2", "User");
+                .Contain("_P1", "Company").And
+                .Contain("_P2", "User");
         }
 
         [Fact]
@@ -288,13 +288,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -309,13 +309,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -330,13 +330,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, neq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, neq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -351,12 +351,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).hasNot(P2)");
+                .Be("g.V().hasLabel(_P1).hasNot(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name");
         }
 
         [Fact]
@@ -371,12 +371,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2)");
+                .Be("g.V().hasLabel(_P1).has(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name");
         }
 
         [Fact]
@@ -391,13 +391,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, lt(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, lt(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -412,13 +412,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, lte(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, lte(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -434,13 +434,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "TimeFrame").And
-                .Contain("P2", "Enabled").And
-                .Contain("P3", true);
+                .Contain("_P1", "TimeFrame").And
+                .Contain("_P2", "Enabled").And
+                .Contain("_P3", true);
         }
 
         [Fact]
@@ -455,13 +455,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "TimeFrame").And
-                .Contain("P2", "Enabled").And
-                .Contain("P3", false);
+                .Contain("_P1", "TimeFrame").And
+                .Contain("_P2", "Enabled").And
+                .Contain("_P3", false);
         }
 
         [Fact]
@@ -476,13 +476,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "TimeFrame").And
-                .Contain("P2", "Enabled").And
-                .Contain("P3", true);
+                .Contain("_P1", "TimeFrame").And
+                .Contain("_P2", "Enabled").And
+                .Contain("_P3", true);
         }
 
         [Fact]
@@ -497,13 +497,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "TimeFrame").And
-                .Contain("P2", "Enabled").And
-                .Contain("P3", false);
+                .Contain("_P1", "TimeFrame").And
+                .Contain("_P2", "Enabled").And
+                .Contain("_P3", false);
         }
 
         [Fact]
@@ -518,13 +518,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, gt(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, gt(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -539,13 +539,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, gte(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, gte(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
 
         [Fact]
@@ -560,13 +560,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "Id").And
-                .Contain("P3", "languageId");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "Id").And
+                .Contain("_P3", "languageId");
         }
 
         [Fact]
@@ -583,13 +583,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "Id").And
-                .Contain("P3", "languageId");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "Id").And
+                .Contain("_P3", "languageId");
         }
 
         [Fact]
@@ -606,13 +606,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).has(P2, eq(P3))");
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "Id").And
-                .Contain("P3", "languageId");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "Id").And
+                .Contain("_P3", "languageId");
         }
 
         [Fact]
@@ -641,12 +641,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2).V().hasLabel(P1).where(eq(P2))");
+                .Be("g.V().hasLabel(_P1).as(_P2).V().hasLabel(_P1).where(eq(_P2))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "l");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "l");
         }
 
         [Fact]
@@ -665,13 +665,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2).V().hasLabel(P1).where(eq(P2))");
+                .Be("g.V().hasLabel(_P1).as(_P2).V().hasLabel(_P1).where(eq(_P2))");
 
             query
                 .parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "l");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "l");
         }
 
         [Fact]
@@ -689,20 +689,20 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).property(P4, P5).addE(P6).to(__.V().hasLabel(P7).has(P8, eq(P9)))");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).addE(_P6).to(__.V().hasLabel(_P7).has(_P8, eq(_P9)))");
 
             query
                 .parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 0).And
-                .Contain("P4", "Name").And
-                .Contain("P5", "Bob").And
-                .Contain("P6", "LivesIn").And
-                .Contain("P7", "Country").And
-                .Contain("P8", "CountryCallingCode").And
-                .Contain("P9", "+49");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 0).And
+                .Contain("_P4", "Name").And
+                .Contain("_P5", "Bob").And
+                .Contain("_P6", "LivesIn").And
+                .Contain("_P7", "Country").And
+                .Contain("_P8", "CountryCallingCode").And
+                .Contain("_P9", "+49");
         }
 
         [Fact]
@@ -720,21 +720,21 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).as(P4).addV(P5).property(P6, P7).addE(P8).property(P9, P10).to(P4)");
+                .Be("g.addV(_P1).property(_P2, _P3).as(_P4).addV(_P5).property(_P6, _P7).addE(_P8).property(_P9, _P10).to(_P4)");
 
             query
                 .parameters
                 .Should()
-                .Contain("P1", "Language").And
-                .Contain("P2", "IetfLanguageTag").And
-                .Contain("P3", "en").And
-                .Contain("P4", "l1").And
-                .Contain("P5", "Country").And
-                .Contain("P6", "CountryCallingCode").And
-                .Contain("P7", "+49").And
-                .Contain("P8", "IsDescribedIn").And
-                .Contain("P9", "Text").And
-                .Contain("P10", "Germany");
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "IetfLanguageTag").And
+                .Contain("_P3", "en").And
+                .Contain("_P4", "l1").And
+                .Contain("_P5", "Country").And
+                .Contain("_P6", "CountryCallingCode").And
+                .Contain("_P7", "+49").And
+                .Contain("_P8", "IsDescribedIn").And
+                .Contain("_P9", "Text").And
+                .Contain("_P10", "Germany");
         }
 
         [Fact]
@@ -752,20 +752,20 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(P1).property(P2, P3).as(P4).addV(P5).property(P6, P7).addE(P8).property(P9, P10).from(P4)");
+                .Be("g.addV(_P1).property(_P2, _P3).as(_P4).addV(_P5).property(_P6, _P7).addE(_P8).property(_P9, _P10).from(_P4)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Country").And
-                .Contain("P2", "CountryCallingCode").And
-                .Contain("P3", "+49").And
-                .Contain("P4", "l1").And
-                .Contain("P5", "Language").And
-                .Contain("P6", "IetfLanguageTag").And
-                .Contain("P7", "en").And
-                .Contain("P8", "IsDescribedIn").And
-                .Contain("P9", "Text").And
-                .Contain("P10", "Germany");
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "CountryCallingCode").And
+                .Contain("_P3", "+49").And
+                .Contain("_P4", "l1").And
+                .Contain("_P5", "Language").And
+                .Contain("_P6", "IetfLanguageTag").And
+                .Contain("_P7", "en").And
+                .Contain("_P8", "IsDescribedIn").And
+                .Contain("_P9", "Text").And
+                .Contain("_P10", "Germany");
         }
 
         [Fact]
@@ -784,13 +784,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).and(__.inE(P2), __.outE(P3))");
+                .Be("g.V().hasLabel(_P1).and(__.inE(_P2), __.outE(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Knows").And
-                .Contain("P3", "LivesIn");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Knows").And
+                .Contain("_P3", "LivesIn");
         }
 
         [Fact]
@@ -805,11 +805,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).drop()");
+                .Be("g.V().hasLabel(_P1).drop()");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User");
+                .Contain("_P1", "User");
         }
 
         [Fact]
@@ -824,11 +824,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).filter({it.property('str').value().length() == 2})");
+                .Be("g.V().hasLabel(_P1).filter({it.property('str').value().length() == 2})");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User");
+                .Contain("_P1", "User");
         }
 
         [Fact]
@@ -843,12 +843,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).out(P2)");
+                .Be("g.V().hasLabel(_P1).out(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Knows");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Knows");
         }
 
         [Fact]
@@ -863,16 +863,16 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).out(P2, P3, P4, P5, P6)");
+                .Be("g.V().hasLabel(_P1).out(_P2, _P3, _P4, _P5, _P6)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "IsDescribedIn").And
-                .Contain("P3", "Knows").And
-                .Contain("P4", "LivesIn").And
-                .Contain("P5", "Speaks").And
-                .Contain("P6", "WorksFor");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "IsDescribedIn").And
+                .Contain("_P3", "Knows").And
+                .Contain("_P4", "LivesIn").And
+                .Contain("_P5", "Speaks").And
+                .Contain("_P6", "WorksFor");
         }
 
         [Fact]
@@ -888,12 +888,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).order().by(P2, incr)");
+                .Be("g.V().hasLabel(_P1).order().by(_P2, incr)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name");
         }
 
         [Fact]
@@ -909,12 +909,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).order().by(__.values(P2), incr)");
+                .Be("g.V().hasLabel(_P1).order().by(__.values(_P2), incr)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name");
         }
 
         [Fact]
@@ -930,11 +930,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).order().by({it.property('str').value().length()})");
+                .Be("g.V().hasLabel(_P1).order().by({it.property('str').value().length()})");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User");
+                .Contain("_P1", "User");
         }
 
         [Fact]
@@ -949,12 +949,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).values(P2)");
+                .Be("g.V().hasLabel(_P1).values(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name");
         }
 
         [Fact]
@@ -969,13 +969,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).values(P2, P3)");
+                .Be("g.V().hasLabel(_P1).values(_P2, _P3)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Id");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Id");
         }
 
         [Fact]
@@ -1008,12 +1008,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1, P2)");
+                .Be("g.V().hasLabel(_P1, _P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Company").And
-                .Contain("P2", "User");
+                .Contain("_P1", "Company").And
+                .Contain("_P2", "User");
         }
 
         [Fact]
@@ -1028,12 +1028,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).repeat(__.out(P2))");
+                .Be("g.V().hasLabel(_P1).repeat(__.out(_P2))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Knows");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Knows");
         }
 
         [Fact]
@@ -1050,13 +1050,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).union(__.out(P2), __.out(P3))");
+                .Be("g.V().hasLabel(_P1).union(__.out(_P2), __.out(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Knows").And
-                .Contain("P3", "LivesIn");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Knows").And
+                .Contain("_P3", "LivesIn");
         }
 
         [Fact]
@@ -1072,11 +1072,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().optional(__.out(P1))");
+                .Be("g.V().optional(__.out(_P1))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Knows");
+                .Contain("_P1", "Knows");
         }
 
         [Fact]
@@ -1091,11 +1091,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.out(P1))");
+                .Be("g.V().not(__.out(_P1))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Knows");
+                .Contain("_P1", "Knows");
         }
 
         [Fact]
@@ -1110,11 +1110,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.hasLabel(P1))");
+                .Be("g.V().not(__.hasLabel(_P1))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Language");
+                .Contain("_P1", "Language");
         }
 
         [Fact]
@@ -1129,12 +1129,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().not(__.hasLabel(P1, P2))");
+                .Be("g.V().not(__.hasLabel(_P1, _P2))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "Company").And
-                .Contain("P2", "User");
+                .Contain("_P1", "Company").And
+                .Contain("_P2", "User");
         }
 
         [Fact]
@@ -1149,12 +1149,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2)");
+                .Be("g.V().hasLabel(_P1).as(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "a");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "a");
         }
 
         [Fact]
@@ -1169,12 +1169,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2)");
+                .Be("g.V().hasLabel(_P1).as(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "a");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "a");
         }
 
         [Fact]
@@ -1192,12 +1192,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2).select(P2)");
+                .Be("g.V().hasLabel(_P1).as(_P2).select(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "a");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "a");
         }
 
         [Fact]
@@ -1215,12 +1215,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).as(P2).select(P2)");
+                .Be("g.V().hasLabel(_P1).as(_P2).select(_P2)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "a");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "a");
         }
 
         [Fact]
@@ -1238,13 +1238,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).branch(__.values(P2)).option(__.out(P3)).option(__.in(P3))");
+                .Be("g.V().hasLabel(_P1).branch(__.values(_P2)).option(__.out(_P3)).option(__.in(_P3))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Name").And
-                .Contain("P3", "Knows");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Knows");
         }
 
         [Fact]
@@ -1261,12 +1261,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).branch(__.identity()).option(__.out(P2)).option(__.in(P2))");
+                .Be("g.V().hasLabel(_P1).branch(__.identity()).option(__.out(_P2)).option(__.in(_P2))");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Knows");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Knows");
         }
 
         [Fact]
@@ -1281,13 +1281,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(P1).property(P2, P3)");
+                .Be("g.V().hasLabel(_P1).property(_P2, _P3)");
 
             query.parameters
                 .Should()
-                .Contain("P1", "User").And
-                .Contain("P2", "Age").And
-                .Contain("P3", 36);
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
         }
     }
 }
