@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Graphs" Version="0.3.0-preview" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.0.0" />
-    <PackageReference Include="Mono.CSharp" Version="4.0.0.143" />
   </ItemGroup>
 
   <ItemGroup>
