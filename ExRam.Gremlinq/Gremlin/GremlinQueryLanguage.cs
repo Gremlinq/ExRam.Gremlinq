@@ -590,7 +590,12 @@ namespace ExRam.Gremlinq
                     if (parameter == leftMemberExpression.Expression.StripConvert())
                     {
                         if (predicateArgument != null)
+                        {
+                            if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
+                                return query.AddStep<T>("has", leftMemberExpression.Member.Name, query.ToAnonymous().AddStep<T>("where", predicateArgument));
+
                             return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                        }
 
                         if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
                         {

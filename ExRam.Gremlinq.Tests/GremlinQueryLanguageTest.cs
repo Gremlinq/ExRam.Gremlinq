@@ -650,6 +650,32 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_of_type_where_value_equals_stepLabel()
+        {
+            var l = new StepLabel<string>("l");
+
+            var query = GremlinQuery
+                .Create("g")
+                .V<Language>()
+                .Values(x => x.IetfLanguageTag)
+                .As(l)
+                .V<Language>()
+                .Where(l2 => l2.IetfLanguageTag == l)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).values(_P2).as(_P3).V().hasLabel(_P1).has(_P2, __.where(eq(_P3)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "IetfLanguageTag").And
+                .Contain("_P3", "l");
+        }
+
+        [Fact]
         public void V_of_type_where_with_stepLabel_not_inlined()
         {
             var l = new StepLabel<Language>("l");
