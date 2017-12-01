@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Azure
                         value = (int)value;
                         break;
                     case DateTimeOffset x:
-                        value = x.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz");
+                        value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
                         break;
                     case DateTime x:
                         value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
