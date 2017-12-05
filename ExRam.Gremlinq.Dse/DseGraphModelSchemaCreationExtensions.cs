@@ -27,6 +27,7 @@ namespace ExRam.Gremlinq.Dse
             { typeof(short), "Smallint" },
             { typeof(string), "Text" },
             { typeof(DateTime), "Timestamp" },
+            { typeof(DateTimeOffset), "Timestamp" },
             { typeof(Guid), "Uuid" }
             //{ typeof(?), new GremlinStep("Varint") },
         };
