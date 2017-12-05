@@ -703,9 +703,15 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_to_traversal()
         {
+            var now = DateTimeOffset.UtcNow;
+
             var query = GremlinQuery
                 .Create("g")
-                .AddV(new User { Name = "Bob" })
+                .AddV(new User
+                {
+                    Name = "Bob",
+                    RegistrationDate = now
+                })
                 .AddE(new LivesIn())
                 .To(__ => __
                     .V<Country>()
@@ -715,7 +721,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).addE(_P6).to(__.V().hasLabel(_P7).has(_P8, eq(_P9)))");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V().hasLabel(_P9).has(_P10, eq(_P11)))");
 
             query
                 .parameters
@@ -723,12 +729,14 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 0).And
-                .Contain("_P4", "Name").And
-                .Contain("_P5", "Bob").And
-                .Contain("_P6", "LivesIn").And
-                .Contain("_P7", "Country").And
-                .Contain("_P8", "CountryCallingCode").And
-                .Contain("_P9", "+49");
+                .Contain("_P4", "RegistrationDate").And
+                .Contain("_P5", now).And
+                .Contain("_P6", "Name").And
+                .Contain("_P7", "Bob").And
+                .Contain("_P8", "LivesIn").And
+                .Contain("_P9", "Country").And
+                .Contain("_P10", "CountryCallingCode").And
+                .Contain("_P11", "+49");
         }
 
         [Fact]

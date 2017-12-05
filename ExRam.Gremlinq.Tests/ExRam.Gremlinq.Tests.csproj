@@ -21,6 +21,7 @@
     <EmbeddedResource Include="Json\Array_of_Languages.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
     <EmbeddedResource Include="Json\Single_TimeFrame.json" />
+    <EmbeddedResource Include="Json\Single_User.json" />
     <EmbeddedResource Include="Json\Tuple_of_User_Language.json" />
   </ItemGroup>
 

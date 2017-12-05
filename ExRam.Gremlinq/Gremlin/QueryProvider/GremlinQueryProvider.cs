@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -340,7 +341,47 @@ namespace ExRam.Gremlinq
                         writer.WriteValue(XmlConvert.ToString(duration));
                     }
                 }
-                
+
+                private sealed class AssumeUtcDateTimeOffsetConverter : JsonConverter
+                {
+                    public override bool CanConvert(Type objectType)
+                    {
+                        return objectType == typeof(DateTimeOffset);
+                    }
+
+                    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                    {
+                        return reader.Value != null
+                            ? DateTimeOffset.Parse(reader.Value.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
+                            : (object)null;
+                    }
+
+                    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                    {
+                        writer.WriteValue(((DateTimeOffset)value).ToString(serializer.DateFormatString));
+                    }
+                }
+
+                private sealed class AssumeUtcDateTimeConverter : JsonConverter
+                {
+                    public override bool CanConvert(Type objectType)
+                    {
+                        return objectType == typeof(DateTimeOffset);
+                    }
+
+                    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                    {
+                        return reader.Value != null
+                            ? DateTime.Parse(reader.Value.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
+                            : (object)null;
+                    }
+
+                    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                    {
+                        writer.WriteValue(((DateTime)value).ToString(serializer.DateFormatString));
+                    }
+                }
+
                 public JsonGremlinDeserializer(IGremlinQuery query)
                 {
                     this._query = query;
@@ -350,7 +391,7 @@ namespace ExRam.Gremlinq
                 {
                     var serializer = new JsonSerializer
                     {
-                        Converters = { new TimespanConverter() },
+                        Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter() },
                         ContractResolver = new StepLabelMappingsContractResolver(this._query.StepLabelMappings),
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
