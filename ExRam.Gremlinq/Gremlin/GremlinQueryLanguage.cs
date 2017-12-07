@@ -303,6 +303,13 @@ namespace ExRam.Gremlinq
                 .AddStep<TTarget>("map", mapping(query.ToAnonymous()));
         }
 
+        public static IGremlinQuery<TSource> Match<TSource>(this IGremlinQuery<TSource> query, params Func<IGremlinQuery<TSource>, IGremlinQuery<TSource>>[] matchTraversals)
+        {
+            return query
+                // ReSharper disable once CoVariantArrayConversion
+                .AddStep<TSource>("match", matchTraversals.Select(traversal => traversal(query.ToAnonymous())).ToArray());
+        }
+
         public static IGremlinQuery<T> Not<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> notTraversal)
         {
             return query
