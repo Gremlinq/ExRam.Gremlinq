@@ -6,6 +6,7 @@ using System.Xml;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Graphs;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
 
@@ -13,11 +14,13 @@ namespace ExRam.Gremlinq.Azure
 {
     public sealed class DocumentClientGremlinQueryProvider : INativeGremlinQueryProvider
     {
+        private readonly ILogger _logger;
         private readonly DocumentClient _client;
         private readonly DocumentCollection _graph;
 
-        public DocumentClientGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration)
+        public DocumentClientGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
         {
+            this._logger = logger;
             this._client =  new DocumentClient(
                 new Uri(configuration.Value.EndPoint),
                 configuration.Value.AuthKey,
@@ -64,7 +67,7 @@ namespace ExRam.Gremlinq.Azure
                 query = query.Replace(kvp.Key, (string)value);
             }
 
-            Console.WriteLine(query);
+            this._logger.LogTrace("Executing Gremlin query {0}.", query);
 
             var documentQuery = this._client.CreateGremlinQuery<JToken>(this._graph, query);
 
