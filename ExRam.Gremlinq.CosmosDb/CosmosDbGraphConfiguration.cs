@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Azure
+﻿namespace ExRam.Gremlinq.CosmosDb
 {
     public class CosmosDbGraphConfiguration
     {

@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
 
-namespace ExRam.Gremlinq.Azure
+namespace ExRam.Gremlinq.CosmosDb
 {
     public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider
     {

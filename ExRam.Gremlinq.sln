@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq", "ExRam.Gremlinq\ExRam.Gremlinq.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Dse", "ExRam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Dse.Tests", "ExRam.Gremlinq.Dse.Tests\ExRam.Gremlinq.Dse.Tests.csproj", "{396747AA-A003-4B45-B92B-D76E84FF3C86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Azure", "ExRam.Gremlinq.Azure\ExRam.Gremlinq.Azure.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.CosmosDb", "ExRam.Gremlinq.CosmosDb\ExRam.Gremlinq.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
 	EndGlobalSection
 EndGlobal
