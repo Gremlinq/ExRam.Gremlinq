@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -16,7 +17,7 @@ namespace ExRam.Gremlinq.Azure
     {
         private readonly ILogger _logger;
         private readonly DocumentClient _client;
-        private readonly DocumentCollection _graph;
+        private readonly Task<ResourceResponse<DocumentCollection>> _graph;
 
         public DocumentClientGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
         {
@@ -29,7 +30,7 @@ namespace ExRam.Gremlinq.Azure
             this._graph = this._client.CreateDocumentCollectionIfNotExistsAsync(
                 UriFactory.CreateDatabaseUri(configuration.Value.Database),
                 new DocumentCollection { Id = configuration.Value.GraphName },
-                new RequestOptions { OfferThroughput = 1000 }).Result;  //TODO: Async!
+                new RequestOptions { OfferThroughput = 1000 });
 
             this.TraversalSource = GremlinQuery.Create(configuration.Value.TraversalSource);
         }
@@ -69,12 +70,12 @@ namespace ExRam.Gremlinq.Azure
 
             this._logger.LogTrace("Executing Gremlin query {0}.", query);
 
-            var documentQuery = this._client.CreateGremlinQuery<JToken>(this._graph, query);
-
-            return AsyncEnumerable
-                .Repeat(Unit.Default)
-                .TakeWhile(_ => documentQuery.HasMoreResults)
-                .SelectMany(async (_, ct) =>
+            return this._graph
+                .Map(graph => this._client.CreateGremlinQuery<JToken>(graph, query))
+                .ToAsyncEnumerable()
+                .Repeat()
+                .TakeWhile(documentQuery => documentQuery.HasMoreResults)
+                .SelectMany(async (documentQuery, ct) =>
                 {
                     try
                     {
