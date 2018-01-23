@@ -13,13 +13,13 @@ using Microsoft.Extensions.Options;
 
 namespace ExRam.Gremlinq.Azure
 {
-    public sealed class DocumentClientGremlinQueryProvider : INativeGremlinQueryProvider
+    public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider
     {
         private readonly ILogger _logger;
         private readonly DocumentClient _client;
         private readonly Task<ResourceResponse<DocumentCollection>> _graph;
 
-        public DocumentClientGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
+        public CosmosDbGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
         {
             this._logger = logger;
             this._client =  new DocumentClient(
