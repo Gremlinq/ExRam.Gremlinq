@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        public static IGremlinQuery<T> ByLambda<T>(this IGremlinQuery<T> query, string lambdaString) //TODO: Quick and dirty
+        public static IGremlinQuery<T> ByLambda<T>(this IGremlinQuery<T> query, string lambdaString)
         {
             return query
                 .AddStep<T>("by", new SpecialGremlinString($"{{{lambdaString}}}"));
