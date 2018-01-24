@@ -206,8 +206,6 @@ namespace ExRam.Gremlinq
                         while (e.MoveNext())
                             yield return e.Current;
                     }
-
-                    break;
                 }
             }
         }
