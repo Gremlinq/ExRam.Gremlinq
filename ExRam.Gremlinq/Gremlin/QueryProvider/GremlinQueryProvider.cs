@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq
                         {
                             if (enumerator.Current.tokenType == JsonToken.StartObject)
                             {
-                                using (var inner = innerTransformation(enumerator))
+                                using (var inner = innerTransformation(enumerator.UntilEndObject()))
                                 {
                                     while (inner.MoveNext())
                                     {
@@ -401,12 +401,10 @@ namespace ExRam.Gremlinq
                             .Apply(e => e
                                 .UnwrapObject(
                                     "id",
-                                    idSection => idSection
-                                        .UntilEndObject())
+                                    idSection => idSection)
                                 .UnwrapObject(
                                     "properties",
                                     propertiesSection => propertiesSection
-                                        .UntilEndObject()
                                         .SelectPropertyNode(prop => prop
                                             .TakeOne(y => y
                                                 .ExtractProperty("value"))))
