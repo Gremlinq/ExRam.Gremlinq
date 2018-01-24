@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyNode(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyValue(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
         {
             while (source.MoveNext())
             {
@@ -227,7 +227,30 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyNode(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string propertyName, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectArray(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
+        {
+            while (source.MoveNext())
+            {
+                if (source.Current.tokenType == JsonToken.StartArray)
+                {
+                    yield return source.Current;
+
+                    using (var e = projection(source.ReadValue()))
+                    {
+                        while (e.MoveNext())
+                            yield return e.Current;
+                    }
+                }
+
+                if (source.Current.tokenType == JsonToken.EndArray)
+                {
+                    yield return source.Current;
+                    yield break;
+                }
+            }
+        }
+
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyValue(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string propertyName, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
         {
             while (source.MoveNext())
             {
@@ -327,10 +350,7 @@ namespace ExRam.Gremlinq
                         if (objectType != typeof(TimeSpan))
                             throw new ArgumentException();
 
-                        if (!(reader.Value is string spanString))
-                            return null;
-
-                        return XmlConvert.ToTimeSpan(spanString);
+                        return XmlConvert.ToTimeSpan(serializer.Deserialize<string>(reader));
                     }
 
                     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -349,8 +369,10 @@ namespace ExRam.Gremlinq
 
                     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
                     {
-                        return reader.Value != null
-                            ? DateTimeOffset.Parse(reader.Value.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
+                        var stringValue = serializer.Deserialize<string>(reader);
+
+                        return stringValue != null
+                            ? DateTimeOffset.Parse(stringValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
                             : (object)null;
                     }
 
@@ -369,8 +391,10 @@ namespace ExRam.Gremlinq
 
                     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
                     {
-                        return reader.Value != null
-                            ? DateTime.Parse(reader.Value.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
+                        var stringValue = serializer.Deserialize<string>(reader);
+
+                        return stringValue != null
+                            ? DateTime.Parse(stringValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
                             : (object)null;
                     }
 
@@ -380,6 +404,34 @@ namespace ExRam.Gremlinq
                     }
                 }
 
+                private sealed class ArrayConverter : JsonConverter
+                {
+                    public override bool CanConvert(Type objectType)
+                    {
+                        return ((objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType);
+                    }
+
+                    public override bool CanRead => true;
+                    public override bool CanWrite => false;
+
+                    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                    {
+                        var token = JToken.Load(reader);
+
+                        if (token.Type == JTokenType.Array)
+                        {
+                            if (!objectType.IsArray)
+                                return token[0].ToObject(objectType);
+                        }
+
+                        return token.ToObject(objectType);
+                    }
+
+                    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
                 public JsonGremlinDeserializer(IGremlinQuery query)
                 {
                     this._query = query;
@@ -389,7 +441,7 @@ namespace ExRam.Gremlinq
                 {
                     var serializer = new JsonSerializer
                     {
-                        Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter() },
+                        Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter(), new ArrayConverter() },
                         ContractResolver = new StepLabelMappingsContractResolver(this._query.StepLabelMappings),
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
@@ -405,27 +457,23 @@ namespace ExRam.Gremlinq
                                 .UnwrapObject(
                                     "properties",
                                     propertiesSection => propertiesSection
-                                        .SelectPropertyNode(prop => prop
-                                            .TakeOne(y => y
+                                        .SelectPropertyValue(array => array
+                                            .SelectArray(arrayItem => arrayItem
                                                 .ExtractProperty("value"))))
                                 .SelectToken(tuple => tuple.tokenType == JsonToken.PropertyName && "label".Equals(tuple.tokenValue)
                                     ? (JsonToken.PropertyName, "$type")
                                     : tuple)
-                                .SelectPropertyNode("$type", typeNode => typeNode
-                                    .SelectToken(tuple =>
-                                    {
-                                        if (tuple.tokenType == JsonToken.String)
-                                        {
-                                            return model
-                                                .TryGetElementTypeOfLabel(tuple.tokenValue as string)
-                                                .Map(suitableType => (JsonToken.String, (object)suitableType.AssemblyQualifiedName))
-                                                .IfNone(tuple);
-                                        }
-
-                                        return tuple;
-                                    })))
+                                .SelectPropertyValue("$type", typeNode => typeNode
+                                    .SelectToken(tuple => tuple.tokenType == JsonToken.String
+                                        ? model
+                                            .TryGetElementTypeOfLabel(tuple.tokenValue as string)
+                                            .Map(suitableType => (JsonToken.String, (object) suitableType.AssemblyQualifiedName))
+                                            .IfNone(tuple)
+                                        : tuple)))
                             .ToJsonReader())
-                        : JToken.Parse($"'{rawData}'").ToObject<T>());
+                        : JToken
+                            .Parse($"'{rawData}'")
+                            .ToObject<T>());
                 }
             }
 
