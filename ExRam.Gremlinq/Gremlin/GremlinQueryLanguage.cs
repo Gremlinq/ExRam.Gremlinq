@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
@@ -547,8 +548,15 @@ namespace ExRam.Gremlinq
                         return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(boolComparison), ExpressionType.Equal);
                 }
             }
-            else if (predicate.Body is BinaryExpression binaryExpression)
+            else if (body is BinaryExpression binaryExpression)
                 return query.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+            else if (body is MethodCallExpression methodCallExpression)
+            {
+                var methodInfo = methodCallExpression.Method;
+
+                if (methodInfo.DeclaringType == typeof(Enumerable) && methodInfo.Name == nameof(Enumerable.Contains) && methodInfo.GetParameters().Length == 2)
+                    return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
+            }
 
             throw new NotSupportedException();
         }

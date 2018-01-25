@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Xunit;
@@ -54,6 +55,27 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P1", "Language").And
                 .Contain("_P2", "Id").And
                 .Contain("_P3", "id");
+        }
+
+        [Fact]
+        public void V_ofType_contains_phoneNumber()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => t.PhoneNumbers.Contains("+4912345"))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumbers").And
+                .Contain("_P3", "+4912345");
         }
 
         [Fact]
