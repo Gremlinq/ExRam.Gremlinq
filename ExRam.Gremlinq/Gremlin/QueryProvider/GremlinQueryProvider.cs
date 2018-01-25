@@ -232,20 +232,17 @@ namespace ExRam.Gremlinq
             while (source.MoveNext())
             {
                 if (source.Current.tokenType == JsonToken.StartArray)
-                {
                     yield return source.Current;
-
-                    using (var e = projection(source.ReadValue()))
-                    {
-                        while (e.MoveNext())
-                            yield return e.Current;
-                    }
-                }
-
-                if (source.Current.tokenType == JsonToken.EndArray)
+                else if (source.Current.tokenType == JsonToken.EndArray)
                 {
                     yield return source.Current;
                     yield break;
+                }
+
+                using (var e = projection(source.ReadValue()))
+                {
+                    while (e.MoveNext())
+                        yield return e.Current;
                 }
             }
         }
@@ -408,6 +405,9 @@ namespace ExRam.Gremlinq
                 {
                     public override bool CanConvert(Type objectType)
                     {
+                        if (objectType.IsArray)
+                            return this.CanConvert(objectType.GetElementType());
+
                         return ((objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType);
                     }
 

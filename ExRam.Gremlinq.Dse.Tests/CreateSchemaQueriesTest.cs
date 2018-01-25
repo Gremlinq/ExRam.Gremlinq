@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
                 .SecondaryIndex<TimeFrame>(x => x.StartTime)
-                .MaterializedIndex<Authority>(x => x.PhoneNumber)
+                .MaterializedIndex<Authority>(x => x.PhoneNumbers)
                 .SearchIndex<Country>(x => x.CountryCallingCode)
                 .EdgeIndex<User, WorksFor>(x => x.From, EdgeDirection.Out)
                 .AddConnection<Authority, IsDescribedIn, Language>()
@@ -180,7 +180,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .Should()
                 .NotContain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
                                      query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "materialized") &&
-                                     query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+                                     query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumbers"));
         }
 
         [Fact]
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Dse.Tests
                 .Should()
                 .Contain(query => query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "materialized") &&
-                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumber"));
+                                  query.Steps.OfType<TerminalGremlinStep>().Any(step => step.Name == "by" && (string)step.Parameters[0] == "PhoneNumbers"));
         }
 
         [Fact]

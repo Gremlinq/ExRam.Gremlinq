@@ -62,15 +62,25 @@ namespace ExRam.Gremlinq.Dse
                     while (true)
                     {
                         if (propertyType.GetTypeInfo().IsEnum)
-                            propertyType = Enum.GetUnderlyingType(propertyType);
-                        else
                         {
-                            var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
-                            if (maybeNullableType != null)
-                                propertyType = maybeNullableType;
-                            else
-                                break;
+                            propertyType = Enum.GetUnderlyingType(propertyType);
+                            continue;
                         }
+
+                        var maybeNullableType = Nullable.GetUnderlyingType(propertyType);
+                        if (maybeNullableType != null)
+                        {
+                            propertyType = maybeNullableType;
+                            continue;
+                        }
+
+                        if (propertyType.IsArray)
+                        {
+                            propertyType = propertyType.GetElementType();
+                            continue;
+                        }
+                        
+                        break;
                     }
 
                     if (propertyKeys.TryGetValue(property.Name, out var existingType))

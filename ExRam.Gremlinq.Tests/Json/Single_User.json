@@ -48,6 +48,32 @@
         },
         "value": "12/01/2017 15:28:24"
       }
+    ],
+    "PhoneNumbers": [
+      {
+        "id": {
+          "~type": "PhoneNumbers",
+          "out_vertex": {
+            "~label": "PhoneNumbers",
+            "community_id": 1074679809,
+            "member_id": 4252
+          },
+          "local_id": "00000000-0000-808b-0000-000000000001"
+        },
+        "value": "+123456"
+      },
+      {
+        "id": {
+          "~type": "PhoneNumbers",
+          "out_vertex": {
+            "~label": "PhoneNumbers",
+            "community_id": 1074679810,
+            "member_id": 4252
+          },
+          "local_id": "00000000-0000-808b-0000-000000000001"
+        },
+        "value": "+234567"
+      }
     ]
   }
 }
