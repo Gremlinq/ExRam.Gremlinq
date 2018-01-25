@@ -418,15 +418,12 @@ namespace ExRam.Gremlinq
                     {
                         var token = JToken.Load(reader);
 
-                        if (token is JArray array)
+                        if (token is JArray array && !objectType.IsArray)
                         {
-                            if (!objectType.IsArray)
-                            {
-                                if (array.Count != 1)
-                                    throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
+                            if (array.Count != 1)
+                                throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
 
-                                return array[0].ToObject(objectType);
-                            }
+                            return array[0].ToObject(objectType);
                         }
 
                         return token.ToObject(objectType);
