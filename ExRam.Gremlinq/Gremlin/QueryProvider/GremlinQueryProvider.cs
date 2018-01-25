@@ -418,10 +418,15 @@ namespace ExRam.Gremlinq
                     {
                         var token = JToken.Load(reader);
 
-                        if (token.Type == JTokenType.Array)
+                        if (token is JArray array)
                         {
                             if (!objectType.IsArray)
-                                return token[0].ToObject(objectType);
+                            {
+                                if (array.Count != 1)
+                                    throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
+
+                                return array[0].ToObject(objectType);
+                            }
                         }
 
                         return token.ToObject(objectType);
@@ -432,6 +437,7 @@ namespace ExRam.Gremlinq
                         throw new NotSupportedException();
                     }
                 }
+
                 public JsonGremlinDeserializer(IGremlinQuery query)
                 {
                     this._query = query;
