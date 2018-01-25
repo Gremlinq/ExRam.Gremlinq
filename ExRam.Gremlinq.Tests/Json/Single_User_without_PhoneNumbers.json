@@ -1,0 +1,53 @@
+﻿{
+  "id": {
+    "~label": "User",
+    "community_id": 1074679808,
+    "member_id": 4252
+  },
+  "label": "User",
+  "type": "vertex",
+  "properties": {
+    "Id": [
+      {
+        "id": {
+          "~type": "Id",
+          "out_vertex": {
+            "~label": "SomeBaseEntity",
+            "community_id": 1074679808,
+            "member_id": 4252
+          },
+          "local_id": "00000000-0000-8034-0000-000000000000"
+        },
+        "value": "d13ef3f51c86496eb2c22823601446ad"
+      }
+    ],
+    "Age": [
+      {
+        "id": {
+          "~type": "Age",
+          "out_vertex": {
+            "~label": "Age",
+            "community_id": 1074679808,
+            "member_id": 4252
+          },
+          "local_id": "00000000-0000-808b-0000-000000000000"
+        },
+        "value": "36"
+      }
+    ],
+    "RegistrationDate": [
+      {
+        "id": {
+          "~type": "RegistrationDate",
+          "out_vertex": {
+            "~label": "RegistrationDate",
+            "community_id": 1074679808,
+            "member_id": 4252
+          },
+          "local_id": "00000000-0000-808b-0000-000000000001"
+        },
+        "value": "12/01/2017 15:28:24"
+      }
+    ]
+  }
+}

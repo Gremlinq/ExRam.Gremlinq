@@ -307,13 +307,50 @@ namespace ExRam.Gremlinq
             {
                 private readonly IGremlinQuery _query;
 
-                private sealed class StepLabelMappingsContractResolver : DefaultContractResolver
+                private sealed class GremlinContractResolver : DefaultContractResolver
                 {
+                    private sealed class EmptyListValueProvider : IValueProvider
+                    {
+                        private readonly object _defaultValue;
+                        private readonly IValueProvider _innerProvider;
+
+                        public EmptyListValueProvider(IValueProvider innerProvider, Type elementType)
+                        {
+                            this._innerProvider = innerProvider;
+                            this._defaultValue = Array.CreateInstance(elementType, 0);
+                        }
+
+                        public void SetValue(object target, object value)
+                        {
+                            this._innerProvider.SetValue(target, value ?? this._defaultValue);
+                        }
+
+                        public object GetValue(object target)
+                        {
+                            return this._innerProvider.GetValue(target) ?? this._defaultValue;
+                        }
+                    }
+
                     private readonly IImmutableDictionary<string, StepLabel> _mappings;
 
-                    public StepLabelMappingsContractResolver(IImmutableDictionary<string, StepLabel> mappings)
+                    public GremlinContractResolver(IImmutableDictionary<string, StepLabel> mappings)
                     {
                         this._mappings = mappings;
+                    }
+
+                    protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
+                    {
+                        var provider = base.CreateMemberValueProvider(member);
+
+                        if (member is PropertyInfo propertyMember)
+                        {
+                            var propertyType = propertyMember.PropertyType;
+
+                            if (propertyType.IsArray)
+                                return new EmptyListValueProvider(provider, propertyType.GetElementType());
+                        }
+
+                        return provider;
                     }
 
                     protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -444,8 +481,9 @@ namespace ExRam.Gremlinq
                 {
                     var serializer = new JsonSerializer
                     {
+                        DefaultValueHandling = DefaultValueHandling.Populate,
                         Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter(), new ArrayConverter() },
-                        ContractResolver = new StepLabelMappingsContractResolver(this._query.StepLabelMappings),
+                        ContractResolver = new GremlinContractResolver(this._query.StepLabelMappings),
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                     };

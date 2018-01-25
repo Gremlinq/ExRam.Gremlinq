@@ -22,12 +22,14 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string TupleOfUserLanguageJson;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string CountryWithCustomLowerCaseId;
+        private static readonly string SingleUserWithoutPhoneNumbersJson;
 
         static JsonSupportTest()
         {
             // ReSharper disable AssignNullToNotNullAttribute
             SingleLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Language.json")).ReadToEnd();
             SingleUserJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User.json")).ReadToEnd();
+            SingleUserWithoutPhoneNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_without_PhoneNumbers.json")).ReadToEnd();
             TupleOfUserLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Tuple_of_User_Language.json")).ReadToEnd();
             ArrayOfLanguages = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Array_of_Languages.json")).ReadToEnd();
             NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
@@ -76,6 +78,27 @@ namespace ExRam.Gremlinq.Tests
             user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
+            user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
+        }
+
+        [Fact]
+        public async Task User_without_PhoneNumbers_strongly_typed()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(SingleUserWithoutPhoneNumbersJson));
+
+            var user = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").Cast<User>())
+                .First();
+
+            user.Should().NotBeNull();
+            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.Age.Should().Be(36);
+            user.PhoneNumbers.Should().BeEmpty();
             user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
         }
 
