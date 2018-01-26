@@ -58,6 +58,33 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddV_with_multi_property()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .AddV(new User { Id = "id", PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).property(_P8, _P10)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 0).And
+                .Contain("_P4", "RegistrationDate").And
+                .Contain("_P5", DateTimeOffset.MinValue).And
+                .Contain("_P6", "Id").And
+                .Contain("_P7", "id").And
+                .Contain("_P8", "PhoneNumbers").And
+                .Contain("_P9", "+4912345").And
+                .Contain("_P10", "+4923456");
+        }
+
+        [Fact]
         public void V_ofType_contains_phoneNumber()
         {
             var query = GremlinQuery

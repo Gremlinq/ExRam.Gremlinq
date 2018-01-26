@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,9 +19,24 @@ namespace ExRam.Gremlinq
                 .GetType()
                 .GetProperties()
                 .Where(property => IsNativeType(property.PropertyType))
-                .Select(property => (name: property.Name, value: property.GetValue(this.Element)))
-                .Where(tuple => tuple.value != null)
-                .Select(tuple => new TerminalGremlinStep("property", tuple.name, tuple.value));
+                .SelectMany(property =>
+                {
+                    var value = property.GetValue(this.Element);
+
+                    if (value != null)
+                    {
+                        if (property.PropertyType.IsArray)  //TODO: Other types?
+                        {
+                            return ((IEnumerable)value)
+                                .Cast<object>()
+                                .Select(item => new TerminalGremlinStep("property", property.Name, item));
+                        }
+
+                        return new[] { new TerminalGremlinStep("property", property.Name, value) };
+                    }
+
+                    return Array.Empty<TerminalGremlinStep>();
+                });
         }
 
         private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?
