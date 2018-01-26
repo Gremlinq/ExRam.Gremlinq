@@ -472,6 +472,11 @@ namespace ExRam.Gremlinq
                     }
                 }
 
+                private static readonly JsonConverter Converter1 = new TimespanConverter();
+                private static readonly JsonConverter Converter2 = new AssumeUtcDateTimeOffsetConverter();
+                private static readonly JsonConverter Converter3 = new AssumeUtcDateTimeConverter();
+                private static readonly JsonConverter Converter4 = new ArrayConverter();
+
                 public JsonGremlinDeserializer(IGremlinQuery query)
                 {
                     this._query = query;
@@ -482,7 +487,7 @@ namespace ExRam.Gremlinq
                     var serializer = new JsonSerializer
                     {
                         DefaultValueHandling = DefaultValueHandling.Populate,
-                        Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter(), new ArrayConverter() },
+                        Converters = { Converter1, Converter2, Converter3, Converter4 },
                         ContractResolver = new GremlinContractResolver(this._query.StepLabelMappings),
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
