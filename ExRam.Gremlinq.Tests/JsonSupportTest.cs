@@ -22,6 +22,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string TupleOfUserLanguageJson;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string CountryWithCustomLowerCaseId;
+        private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SingleUserWithoutPhoneNumbersJson;
 
         static JsonSupportTest()
@@ -34,6 +35,7 @@ namespace ExRam.Gremlinq.Tests
             ArrayOfLanguages = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Array_of_Languages.json")).ReadToEnd();
             NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
+            SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
             CountryWithCustomId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_id.json")).ReadToEnd();
             CountryWithCustomLowerCaseId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_lowercase_id.json")).ReadToEnd();
             CountryWithCustomLowerCaseId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_lowercase_id.json")).ReadToEnd();
@@ -163,6 +165,26 @@ namespace ExRam.Gremlinq.Tests
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return(SingleTimeFrameJson));
+
+            var timeFrame = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").Cast<TimeFrame>())
+                .First();
+
+            timeFrame.Should().NotBeNull();
+            timeFrame.Id.Should().Be("15da4cea93114bfc8c6b23847487d97b");
+            timeFrame.StartTime.Should().Be(new TimeSpan(6, 0, 0));
+            timeFrame.Duration.Should().Be(new TimeSpan(16, 0, 0));
+        }
+
+        [Fact]
+        public async Task TimeFrame_with_numbers_strongly_typed()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(SingleTimeFrameWithNumbersJson));
 
             var timeFrame = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))

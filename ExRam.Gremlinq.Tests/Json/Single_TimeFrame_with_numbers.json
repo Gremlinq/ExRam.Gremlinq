@@ -32,7 +32,7 @@
           },
           "local_id": "00000000-0000-8368-0000-000000000000"
         },
-        "value": "PT6H"
+        "value": 21600
       }
     ],
     "Duration": [
@@ -40,13 +40,13 @@
         "id": {
           "~type": "Duration",
           "out_vertex": {
-            "~label": "TimeFrame",
+            "~label": "Duration",
             "community_id": 1844422274,
             "member_id": 50
           },
           "local_id": "00000000-0000-8341-0000-000000000000"
         },
-        "value": "PT16H"
+        "value": 57600
       }
     ],
     "Id": [

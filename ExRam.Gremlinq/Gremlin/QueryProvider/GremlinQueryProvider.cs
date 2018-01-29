@@ -384,7 +384,11 @@ namespace ExRam.Gremlinq
                         if (objectType != typeof(TimeSpan))
                             throw new ArgumentException();
 
-                        return XmlConvert.ToTimeSpan(serializer.Deserialize<string>(reader));
+                        var str = serializer.Deserialize<string>(reader);
+
+                        return double.TryParse(str, out var number) 
+                            ? TimeSpan.FromSeconds(number) 
+                            : XmlConvert.ToTimeSpan(str);
                     }
 
                     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
