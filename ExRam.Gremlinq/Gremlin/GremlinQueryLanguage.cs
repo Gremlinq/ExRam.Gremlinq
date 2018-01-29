@@ -448,6 +448,15 @@ namespace ExRam.Gremlinq
                 .AddStepLabelBinding(x => x.Item4, label4);
         }
 
+        public static IGremlinQuery<T> Sum<T>(this IGremlinQuery<T> query, bool local = false)
+        {
+            return local
+                ? query
+                    .AddStep<T>("sum")
+                : query
+                    .AddStep<T>("sum", new SpecialGremlinString("local"));
+        }
+
         public static IGremlinQuery<T> Times<T>(this IGremlinQuery<T> query, int count)
         {
             return query
