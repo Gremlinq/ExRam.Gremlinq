@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.CosmosDb
                         value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
                         break;
                     case TimeSpan x:
-                        value = XmlConvert.ToString(x);
+                        value = x.TotalSeconds;
                         break;
                     case byte[] x:
                         value = Convert.ToBase64String(x);
