@@ -106,6 +106,46 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_contains_a_phoneNumber()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => t.PhoneNumbers.Any())
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumbers");
+        }
+
+        [Fact]
+        public void V_ofType_contains_no_phoneNumber()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => !t.PhoneNumbers.Any())
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).hasNot(_P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumbers");
+        }
+
+        [Fact]
         public void V_ofType_has_disjunction()
         {
             var query = GremlinQuery
@@ -332,6 +372,29 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<User>()
                 .Where(t => t.Age == 36)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
+        }
+
+        [Fact]
+        public void V_ofType_has_int_expression_property()
+        {
+            var i = 18;
+
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => t.Age == i + i)
                 .Resolve(this._model)
                 .Serialize();
 

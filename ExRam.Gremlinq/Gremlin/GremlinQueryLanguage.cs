@@ -563,8 +563,14 @@ namespace ExRam.Gremlinq
             {
                 var methodInfo = methodCallExpression.Method;
 
-                if (methodInfo.DeclaringType == typeof(Enumerable) && methodInfo.Name == nameof(Enumerable.Contains) && methodInfo.GetParameters().Length == 2)
-                    return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
+                if (methodInfo.DeclaringType == typeof(Enumerable))
+                {
+                    if (methodInfo.Name == nameof(Enumerable.Contains) && methodInfo.GetParameters().Length == 2)
+                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
+
+                    if (methodInfo.Name == nameof(Enumerable.Any) && methodInfo.GetParameters().Length == 1)
+                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), boolComparison ? ExpressionType.NotEqual : ExpressionType.Equal);
+                }
             }
 
             throw new NotSupportedException();
