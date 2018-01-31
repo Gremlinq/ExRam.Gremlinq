@@ -106,6 +106,27 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_does_not_contain_specific_phoneNumber()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => !t.PhoneNumbers.Contains("+4912345"))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2, eq(_P3)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumbers").And
+                .Contain("_P3", "+4912345");
+        }
+
+        [Fact]
         public void V_ofType_contains_a_phoneNumber()
         {
             var query = GremlinQuery
@@ -166,6 +187,29 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P3", "+4912345").And
                 .Contain("_P4", "+4923456");
         }
+
+        [Fact]
+        public void V_ofType_not_intersects_phoneNumbers()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2, within(_P3, _P4)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumbers").And
+                .Contain("_P3", "+4912345").And
+                .Contain("_P4", "+4923456");
+        }
+
 
         [Fact]
         public void V_ofType_has_disjunction()
