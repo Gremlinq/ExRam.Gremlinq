@@ -631,13 +631,13 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+                .Be("g.V().hasLabel(_P1).hasNot(_P2, eq(_P3))");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "TimeFrame").And
                 .Contain("_P2", "Enabled").And
-                .Contain("_P3", false);
+                .Contain("_P3", true);
         }
 
         [Fact]
