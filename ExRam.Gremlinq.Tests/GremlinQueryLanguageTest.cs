@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).hasNot(_P2)");
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2))");
 
             query.parameters
                 .Should()
@@ -631,7 +631,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).hasNot(_P2, eq(_P3))");
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2, eq(_P3)))");
 
             query.parameters
                 .Should()

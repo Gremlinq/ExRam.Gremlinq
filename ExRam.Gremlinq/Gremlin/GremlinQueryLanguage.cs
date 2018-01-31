@@ -537,16 +537,12 @@ namespace ExRam.Gremlinq
         
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Expression<Func<T, bool>> predicate)
         {
-            var boolComparison = true;
             var body = predicate.Body;
 
             if (body is UnaryExpression unaryExpression)
             {
                 if (unaryExpression.NodeType == ExpressionType.Not)
-                {
-                    boolComparison = false;
-                    body = unaryExpression.Operand;
-                }
+                    return query.Not(_ => _.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters)));
             }
 
             if (body is MemberExpression memberExpression)
@@ -554,7 +550,7 @@ namespace ExRam.Gremlinq
                 if (memberExpression.Member is PropertyInfo property)
                 {
                     if (property.PropertyType == typeof(bool))
-                        return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(boolComparison), ExpressionType.Equal);
+                        return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
                 }
             }
             else if (body is BinaryExpression binaryExpression)
@@ -569,7 +565,7 @@ namespace ExRam.Gremlinq
                         return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
 
                     if (methodInfo.Name == nameof(Enumerable.Any) && methodInfo.GetParameters().Length == 1)
-                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), boolComparison ? ExpressionType.NotEqual : ExpressionType.Equal);
+                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                 }
 
                 if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
