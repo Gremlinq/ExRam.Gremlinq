@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).and(__.hasNot(_P2), __.or(__.has(_P3, eq(_P4)), __.has(_P3, eq(_P5))))");
+                .Be("g.V().hasLabel(_P1).and(__.not(__.has(_P2)), __.or(__.has(_P3, eq(_P4)), __.has(_P3, eq(_P5))))");
 
             query.parameters
                 .Should()
@@ -485,7 +485,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).hasNot(_P2)");
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2))");
 
             query.parameters
                 .Should()

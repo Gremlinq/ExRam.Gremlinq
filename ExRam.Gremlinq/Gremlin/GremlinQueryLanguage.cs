@@ -606,6 +606,9 @@ namespace ExRam.Gremlinq
 
             var constant = right.GetValue();
 
+            if (constant == null && nodeType == ExpressionType.Equal)
+                return query.Not(__ => __.Where(parameter, left, right, ExpressionType.NotEqual));
+
             var predicateArgument = constant != null
                 ? GremlinQueryLanguage.SupportedComparisons
                     .TryGetValue(nodeType)
@@ -620,15 +623,9 @@ namespace ExRam.Gremlinq
                     if (predicateArgument != null)
                         return query.Where(leftMemberExpression, predicateArgument);
 
-                    if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
-                    {
-                        return query.AddStep<T>(
-                            nodeType == ExpressionType.Equal
-                                ? "hasNot"
-                                : "has", 
-                            leftMemberExpression.Member.Name);
-                    }
-                    break;
+                    return query.AddStep<T>(
+                        "has", 
+                        leftMemberExpression.Member.Name);
                 }
                 case ParameterExpression leftParameterExpression when predicateArgument != null && parameter == leftParameterExpression:
                     return query.AddStep<T>("where", predicateArgument);
