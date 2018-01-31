@@ -571,6 +571,20 @@ namespace ExRam.Gremlinq
                     if (methodInfo.Name == nameof(Enumerable.Any) && methodInfo.GetParameters().Length == 1)
                         return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), boolComparison ? ExpressionType.NotEqual : ExpressionType.Equal);
                 }
+
+                if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
+                {
+                    if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
+                    {
+                        if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
+                        {
+                            var constant = methodCallExpression.Arguments[1].GetValue();
+
+                            if (constant is IEnumerable arrayConstant)
+                                return query.Where(innerMemberExpression, new GremlinPredicate("within", arrayConstant.Cast<object>().ToArray()));
+                        }
+                    }
+                }
             }
 
             throw new NotSupportedException();
@@ -578,8 +592,6 @@ namespace ExRam.Gremlinq
 
         private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType)
         {
-            object constant;
-
             if (nodeType == ExpressionType.OrElse || nodeType == ExpressionType.AndAlso)
             {
                 var leftLambda = Expression.Lambda<Func<T, bool>>(left, parameter);
@@ -596,16 +608,7 @@ namespace ExRam.Gremlinq
                             _ => _.Where(rightLambda));
             }
 
-            if (right is ConstantExpression constantExpression)
-                constant = constantExpression.Value;
-            else
-            {
-                var getterLambda = Expression
-                    .Lambda<Func<object>>(Expression.Convert(right, typeof(object)))
-                    .Compile();
-
-                constant = getterLambda();
-            }
+            var constant = right.GetValue();
 
             var predicateArgument = constant != null
                 ? GremlinQueryLanguage.SupportedComparisons
@@ -616,32 +619,34 @@ namespace ExRam.Gremlinq
 
             switch (left)
             {
-                case MemberExpression leftMemberExpression:
-                    if (parameter == leftMemberExpression.Expression.StripConvert())
+                case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression.StripConvert():
+                {
+                    if (predicateArgument != null)
+                        return query.Where(leftMemberExpression, predicateArgument);
+
+                    if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
                     {
-                        if (predicateArgument != null)
-                        {
-                            if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
-                                return query.AddStep<T>("has", leftMemberExpression.Member.Name, query.ToAnonymous().AddStep<T>("where", predicateArgument));
-
-                            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
-                        }
-
-                        if (nodeType == ExpressionType.Equal || nodeType == ExpressionType.NotEqual)
-                        {
-                            return query.AddStep<T>(new TerminalGremlinStep(nodeType == ExpressionType.Equal
+                        return query.AddStep<T>(
+                            nodeType == ExpressionType.Equal
                                 ? "hasNot"
-                                : "has", leftMemberExpression.Member.Name));
-                        }
+                                : "has", 
+                            leftMemberExpression.Member.Name);
                     }
                     break;
-                case ParameterExpression leftParameterExpression when predicateArgument != null:
-                    if (parameter == leftParameterExpression)
-                        return query.AddStep<T>("where", predicateArgument);
-                    break;
+                }
+                case ParameterExpression leftParameterExpression when predicateArgument != null && parameter == leftParameterExpression:
+                    return query.AddStep<T>("where", predicateArgument);
             }
 
             throw new NotSupportedException();
+        }
+
+        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression leftMemberExpression, object predicateArgument)
+        {
+            if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
+                return query.AddStep<T>("has", leftMemberExpression.Member.Name, query.ToAnonymous().AddStep<T>("where", predicateArgument));
+
+            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
         }
     }
 }
