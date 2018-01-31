@@ -619,14 +619,7 @@ namespace ExRam.Gremlinq
             switch (left)
             {
                 case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression.StripConvert():
-                {
-                    if (predicateArgument != null)
-                        return query.Where(leftMemberExpression, predicateArgument);
-
-                    return query.AddStep<T>(
-                        "has", 
-                        leftMemberExpression.Member.Name);
-                }
+                    return query.Where(leftMemberExpression, predicateArgument);
                 case ParameterExpression leftParameterExpression when predicateArgument != null && parameter == leftParameterExpression:
                     return query.AddStep<T>("where", predicateArgument);
             }
@@ -636,10 +629,15 @@ namespace ExRam.Gremlinq
 
         private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression leftMemberExpression, object predicateArgument)
         {
-            if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
-                return query.AddStep<T>("has", leftMemberExpression.Member.Name, query.ToAnonymous().AddStep<T>("where", predicateArgument));
+            if (predicateArgument != null)
+            {
+                if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
+                    return query.Where(leftMemberExpression, query.ToAnonymous().AddStep<T>("where", predicateArgument));
 
-            return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+            }
+
+            return query.AddStep<T>("has", leftMemberExpression.Member.Name);
         }
     }
 }
