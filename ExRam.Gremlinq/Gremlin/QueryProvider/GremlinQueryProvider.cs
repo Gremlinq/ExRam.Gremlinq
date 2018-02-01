@@ -584,23 +584,27 @@ namespace ExRam.Gremlinq
             public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 var castedQuery = query
-                    .Cast<Unit>();
+                    .Cast<Unit>()
+                    .ToAnonymous();
 
-                var vertexCriterionTraversal = this._vertexCriterion(castedQuery.ToAnonymous());
-                var edgeCriterionTraversal = this._edgeCriterion(castedQuery.ToAnonymous());
+                var vertexCriterionTraversal = this._vertexCriterion(castedQuery);
+                var edgeCriterionTraversal = this._edgeCriterion(castedQuery);
 
-                var strategy = GremlinQuery
-                    .Create("SubgraphStrategy")
-                    .AddStep<Unit>("build");
+                if (vertexCriterionTraversal.Steps.Count > 0 || edgeCriterionTraversal.Steps.Count > 0)
+                {
+                    var strategy = GremlinQuery
+                        .Create("SubgraphStrategy")
+                        .AddStep<Unit>("build");
 
-                if (vertexCriterionTraversal.Steps.Count > 0)
-                    strategy = strategy.AddStep<Unit>("vertices", vertexCriterionTraversal);
+                    if (vertexCriterionTraversal.Steps.Count > 0)
+                        strategy = strategy.AddStep<Unit>("vertices", vertexCriterionTraversal);
 
-                if (edgeCriterionTraversal.Steps.Count > 0)
-                    strategy = strategy.AddStep<Unit>("edges", edgeCriterionTraversal);
+                    if (edgeCriterionTraversal.Steps.Count > 0)
+                        strategy = strategy.AddStep<Unit>("edges", edgeCriterionTraversal);
 
-                query = query
-                    .InsertStep<T>(0, new TerminalGremlinStep("withStrategies", strategy.AddStep<Unit>("create")));
+                    query = query
+                        .InsertStep<T>(0, new TerminalGremlinStep("withStrategies", strategy.AddStep<Unit>("create")));
+                }
 
                 return base.Execute(query);
             }
