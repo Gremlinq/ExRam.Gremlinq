@@ -543,9 +543,10 @@ namespace ExRam.Gremlinq
             {
                 case UnaryExpression unaryExpression:
                 {
-                        if (unaryExpression.NodeType == ExpressionType.Not)
-                            return query.Not(_ => _.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters)));
-                        break;
+                    if (unaryExpression.NodeType == ExpressionType.Not)
+                        return query.Not(_ => _.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters)));
+
+                    break;
                 }
                 case MemberExpression memberExpression:
                 {
