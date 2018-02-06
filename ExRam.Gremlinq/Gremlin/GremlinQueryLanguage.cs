@@ -539,47 +539,56 @@ namespace ExRam.Gremlinq
         {
             var body = predicate.Body;
 
-            if (body is UnaryExpression unaryExpression)
+            switch (body)
             {
-                if (unaryExpression.NodeType == ExpressionType.Not)
-                    return query.Not(_ => _.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters)));
-            }
-
-            if (body is MemberExpression memberExpression)
-            {
-                if (memberExpression.Member is PropertyInfo property)
+                case UnaryExpression unaryExpression:
                 {
-                    if (property.PropertyType == typeof(bool))
-                        return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
+                        if (unaryExpression.NodeType == ExpressionType.Not)
+                            return query.Not(_ => _.Where(Expression.Lambda<Func<T, bool>>(unaryExpression.Operand, predicate.Parameters)));
+                        break;
                 }
-            }
-            else if (body is BinaryExpression binaryExpression)
-                return query.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
-            else if (body is MethodCallExpression methodCallExpression)
-            {
-                var methodInfo = methodCallExpression.Method;
-
-                if (methodInfo.DeclaringType == typeof(Enumerable))
+                case MemberExpression memberExpression:
                 {
-                    if (methodInfo.Name == nameof(Enumerable.Contains) && methodInfo.GetParameters().Length == 2)
-                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
-
-                    if (methodInfo.Name == nameof(Enumerable.Any) && methodInfo.GetParameters().Length == 1)
-                        return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
-                }
-
-                if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
-                {
-                    if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
+                    if (memberExpression.Member is PropertyInfo property)
                     {
-                        if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
-                        {
-                            var constant = methodCallExpression.Arguments[1].GetValue();
+                        if (property.PropertyType == typeof(bool))
+                            return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
+                    }
 
-                            if (constant is IEnumerable arrayConstant)
-                                return query.Where(innerMemberExpression, new GremlinPredicate("within", arrayConstant.Cast<object>().ToArray()));
+                    break;
+                }
+                case BinaryExpression binaryExpression:
+                    return query.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                case MethodCallExpression methodCallExpression:
+                {
+                    var methodInfo = methodCallExpression.Method;
+
+                    if (methodInfo.DeclaringType == typeof(Enumerable))
+                    {
+                        switch (methodInfo.Name)
+                        {
+                            case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
+                                return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
+                            case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
+                                return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
                     }
+
+                    if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
+                    {
+                        if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
+                        {
+                            if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
+                            {
+                                var constant = methodCallExpression.Arguments[1].GetValue();
+
+                                if (constant is IEnumerable arrayConstant)
+                                    return query.Where(innerMemberExpression, new GremlinPredicate("within", arrayConstant.Cast<object>().ToArray()));
+                            }
+                        }
+                    }
+
+                    break;
                 }
             }
 
@@ -632,7 +641,10 @@ namespace ExRam.Gremlinq
             if (predicateArgument != null)
             {
                 if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
+                {
+                    // ReSharper disable once TailRecursiveCall
                     return query.Where(leftMemberExpression, query.ToAnonymous().AddStep<T>("where", predicateArgument));
+                }
 
                 return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
             }

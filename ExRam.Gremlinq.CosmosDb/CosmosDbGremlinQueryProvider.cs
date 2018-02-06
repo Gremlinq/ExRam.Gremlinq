@@ -60,10 +60,9 @@ namespace ExRam.Gremlinq.CosmosDb
                         break;
                 }
 
-                if (value is string)
-                    value = $"'{value}'";
-                else
-                    value = value.ToString().ToLower();
+                value = value is string
+                    ? $"'{value}'" 
+                    : value.ToString().ToLower();
 
                 query = query.Replace(kvp.Key, (string)value);
             }

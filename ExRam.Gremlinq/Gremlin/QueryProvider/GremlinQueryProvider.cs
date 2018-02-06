@@ -231,12 +231,14 @@ namespace ExRam.Gremlinq
         {
             while (source.MoveNext())
             {
-                if (source.Current.tokenType == JsonToken.StartArray)
-                    yield return source.Current;
-                else if (source.Current.tokenType == JsonToken.EndArray)
+                switch (source.Current.tokenType)
                 {
-                    yield return source.Current;
-                    yield break;
+                    case JsonToken.StartArray:
+                        yield return source.Current;
+                        break;
+                    case JsonToken.EndArray:
+                        yield return source.Current;
+                        yield break;
                 }
 
                 using (var e = projection(source.ReadValue()))
@@ -446,10 +448,10 @@ namespace ExRam.Gremlinq
                 {
                     public override bool CanConvert(Type objectType)
                     {
-                        if (objectType.IsArray)
-                            return this.CanConvert(objectType.GetElementType());
-
-                        return ((objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType);
+                        return objectType.IsArray
+                            // ReSharper disable once TailRecursiveCall
+                            ? this.CanConvert(objectType.GetElementType())
+                            : (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
                     }
 
                     public override bool CanRead => true;

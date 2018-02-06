@@ -43,10 +43,9 @@ namespace ExRam.Gremlinq.Tests
             var subgraphStrategyProvider = queryProviderMock.Object.RewriteSteps<AddElementPropertiesStep>(
                 step =>
                 {
-                    if (step.Element is User)
-                        return new[] { new ReplaceElementPropertyStep<User, int>(step, user => user.Age, 36) };
-
-                    return Option<IEnumerable<GremlinStep>>.None;
+                    return step.Element is User
+                        ? new[] { new ReplaceElementPropertyStep<User, int>(step, user => user.Age, 36) }
+                        : Option<IEnumerable<GremlinStep>>.None;
                 });
 
             subgraphStrategyProvider

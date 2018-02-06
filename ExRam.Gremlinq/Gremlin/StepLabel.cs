@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq
 
         public override bool Equals(object obj)
         {
-            return !object.ReferenceEquals(null, obj) && obj is StepLabel<T> && Equals((StepLabel<T>) obj);
+            return obj is StepLabel<T> label && this.Equals(label);
         }
 
         public override int GetHashCode()

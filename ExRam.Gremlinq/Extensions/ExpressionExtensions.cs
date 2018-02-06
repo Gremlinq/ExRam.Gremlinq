@@ -5,7 +5,10 @@
         public static Expression StripConvert(this Expression expression)
         {
             if (expression is UnaryExpression unaryExpression && expression.NodeType == ExpressionType.Convert)
+            {
+                // ReSharper disable once TailRecursiveCall
                 return unaryExpression.Operand.StripConvert();
+            }
 
             return expression;
         }
