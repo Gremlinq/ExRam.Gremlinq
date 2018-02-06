@@ -16,12 +16,24 @@ namespace ExRam.Gremlinq.Tests
         public void WithSubgraphStrategyTest()
         {
             var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
+            var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
+
+            subgraphStrategyProvider
+                .Execute(GremlinQuery.Create("g").Cast<Unit>());
+
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[0] is TerminalGremlinStep && ((TerminalGremlinStep)query.Steps[0]).Name == "withStrategies" && ((TerminalGremlinStep)query.Steps[0]).Parameters.Count == 1)));
+        }
+
+        [Fact]
+        public void WithSubgraphStrategy_is_ommitted_if_empty()
+        {
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _, _ => _);
 
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create("g").Cast<Unit>());
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => (query.Steps[0] is TerminalGremlinStep) && ((TerminalGremlinStep)query.Steps[0]).Name == "withStrategies" && ((TerminalGremlinStep)query.Steps[0]).Parameters.Count == 1)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps.Count == 0)));
         }
 
         [Fact]
