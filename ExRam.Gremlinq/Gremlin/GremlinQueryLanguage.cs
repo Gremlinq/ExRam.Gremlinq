@@ -448,7 +448,7 @@ namespace ExRam.Gremlinq
                 .AddStepLabelBinding(x => x.Item4, label4);
         }
 
-        public static IGremlinQuery<T> SideEffect<T>(this IGremlinQuery<T> query, Func<IGremlinQuery, IGremlinQuery> sideEffectTraversal)
+        public static IGremlinQuery<T> SideEffect<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> sideEffectTraversal)
         {
             return query
                 .AddStep<T>("sideEffect", sideEffectTraversal(query.ToAnonymous()));
