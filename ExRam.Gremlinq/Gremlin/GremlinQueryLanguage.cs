@@ -454,6 +454,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("sideEffect", sideEffectTraversal(query.ToAnonymous()));
         }
 
+        public static IGremlinQuery<T> Skip<T>(this IGremlinQuery<T> query, long skip)
+        {
+            return query
+                .AddStep<T>("skip", skip);
+        }
+
         public static IGremlinQuery<T> Sum<T>(this IGremlinQuery<T> query, bool local = false)
         {
             return local
