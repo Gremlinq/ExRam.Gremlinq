@@ -800,7 +800,8 @@ namespace ExRam.Gremlinq.Tests
                 .Create("g")
                 .V<Language>()
                 .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
-                .ShouldThrow<InvalidOperationException>();
+                .Should()
+                .Throw<InvalidOperationException>();
         }
 
         [Fact]
