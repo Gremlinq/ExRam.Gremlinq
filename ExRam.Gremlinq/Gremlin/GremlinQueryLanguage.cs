@@ -448,6 +448,12 @@ namespace ExRam.Gremlinq
                 .AddStepLabelBinding(x => x.Item4, label4);
         }
 
+        public static IGremlinQuery<T> SideEffect<T>(this IGremlinQuery<T> query, Func<IGremlinQuery, IGremlinQuery> sideEffectTraversal)
+        {
+            return query
+                .AddStep<T>("sideEffect", sideEffectTraversal(query.ToAnonymous()));
+        }
+
         public static IGremlinQuery<T> Sum<T>(this IGremlinQuery<T> query, bool local = false)
         {
             return local
