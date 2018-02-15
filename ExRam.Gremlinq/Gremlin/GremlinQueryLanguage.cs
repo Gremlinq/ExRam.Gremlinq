@@ -286,6 +286,12 @@ namespace ExRam.Gremlinq
                 .OfType<T>();
         }
 
+        public static IGremlinQuery<T> Inject<T>(this IGremlinQuery<T> query, params T[] elements)
+        {
+            return query
+                .AddStep<T>("inject", elements);
+        }
+
         public static IGremlinQuery<T> Limit<T>(this IGremlinQuery<T> query, long limit)
         {
             return query
