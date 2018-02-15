@@ -574,23 +574,12 @@ namespace ExRam.Gremlinq
 
         private sealed class SubgraphStrategyQueryProvider : TypedGremlinQueryProviderBase
         {
-            private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _edgeCriterion;
-            private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _vertexCriterion;
+            private readonly Option<TerminalGremlinStep> _maybeSubgraphStrategyStep; 
 
             public SubgraphStrategyQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion) : base(baseTypedGremlinQueryProvider)
             {
-                this._edgeCriterion = edgeCriterion;
-                this._vertexCriterion = vertexCriterion;
-            }
-
-            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
-            {
-                var castedQuery = query
-                    .Cast<Unit>()
-                    .ToAnonymous();
-
-                var vertexCriterionTraversal = this._vertexCriterion(castedQuery);
-                var edgeCriterionTraversal = this._edgeCriterion(castedQuery);
+                var vertexCriterionTraversal = vertexCriterion(GremlinQuery.Anonymous);
+                var edgeCriterionTraversal = edgeCriterion(GremlinQuery.Anonymous);
 
                 if (vertexCriterionTraversal.Steps.Count > 0 || edgeCriterionTraversal.Steps.Count > 0)
                 {
@@ -604,11 +593,14 @@ namespace ExRam.Gremlinq
                     if (edgeCriterionTraversal.Steps.Count > 0)
                         strategy = strategy.AddStep<Unit>("edges", edgeCriterionTraversal);
 
-                    query = query
-                        .InsertStep<T>(0, new TerminalGremlinStep("withStrategies", strategy.AddStep<Unit>("create")));
+                    this._maybeSubgraphStrategyStep = new TerminalGremlinStep("withStrategies", strategy.AddStep<Unit>("create"));
                 }
+            }
 
-                return base.Execute(query);
+            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            {
+                return base.Execute(this._maybeSubgraphStrategyStep
+                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<T>(0, subgraphStrategyStep)));
             }
         }
 
