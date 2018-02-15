@@ -62,6 +62,8 @@ namespace ExRam.Gremlinq
             }
         }
 
+        public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery.Create().ToAnonymous();
+
         public static IGremlinQuery<Unit> Create(string graphName = null)
         {
             return new GremlinQueryImpl<Unit>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
