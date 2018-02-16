@@ -199,6 +199,12 @@ namespace ExRam.Gremlinq
                 .AddStep<T>("choose", traversalPredicate, trueChoice);
         }
 
+        public static IGremlinQuery<T> Dedup<T>(this IGremlinQuery<T> query)
+        {
+            return query
+                .AddStep<T>("dedup");
+        }
+
         public static IGremlinQuery<Unit> Drop(this IGremlinQuery query)
         {
             return query
