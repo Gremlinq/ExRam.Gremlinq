@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq
                 "id");
         }
 
-        public static IGraphModel EdgeLabel<T>(IGraphModel model, string label = null)
+        public static IGraphModel EdgeLabel<T>(this IGraphModel model, string label = null)
         {
             var type = typeof(T);
 
