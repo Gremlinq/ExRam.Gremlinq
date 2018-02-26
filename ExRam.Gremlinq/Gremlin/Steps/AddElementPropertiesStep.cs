@@ -22,6 +22,9 @@ namespace ExRam.Gremlinq
                 .SelectMany(property =>
                 {
                     var value = property.GetValue(this.Element);
+                    var propertyName = property.Name == model.IdPropertyName
+                        ? (object)new SpecialGremlinString("T.id")
+                        : property.Name;
 
                     if (value != null)
                     {
@@ -29,10 +32,10 @@ namespace ExRam.Gremlinq
                         {
                             return ((IEnumerable)value)
                                 .Cast<object>()
-                                .Select(item => new TerminalGremlinStep("property", property.Name, item));
+                                .Select(item => new TerminalGremlinStep("property", propertyName, item));
                         }
 
-                        return new[] { new TerminalGremlinStep("property", property.Name, value) };
+                        return new[] { new TerminalGremlinStep("property", propertyName, value) };
                     }
 
                     return Array.Empty<TerminalGremlinStep>();

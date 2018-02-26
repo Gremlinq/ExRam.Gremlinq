@@ -12,7 +12,9 @@ namespace ExRam.Gremlinq.Tests
 
         public GremlinQueryLanguageTest()
         {
-            this._model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple);
+            this._model = GraphModel
+                .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
+                .WithIdPropertyName("Id");
         }
 
         [Fact]
@@ -26,15 +28,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5)");
+                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "Id").And
-                .Contain("_P3", "id").And
-                .Contain("_P4", "IetfLanguageTag").And
-                .Contain("_P5", "en");
+                .Contain("_P2", "id").And
+                .Contain("_P3", "IetfLanguageTag").And
+                .Contain("_P4", "en");
         }
 
         [Fact]
@@ -48,13 +49,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3)");
+                .Be("g.addV(_P1).property(T.id, _P2)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "Id").And
-                .Contain("_P3", "id");
+                .Contain("_P2", "id");
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).property(_P8, _P10)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(T.id, _P6).property(_P7, _P8).property(_P7, _P9)");
 
             query.parameters
                 .Should()
@@ -77,11 +77,10 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P3", 0).And
                 .Contain("_P4", "RegistrationDate").And
                 .Contain("_P5", DateTimeOffset.MinValue).And
-                .Contain("_P6", "Id").And
-                .Contain("_P7", "id").And
-                .Contain("_P8", "PhoneNumbers").And
-                .Contain("_P9", "+4912345").And
-                .Contain("_P10", "+4923456");
+                .Contain("_P6", "id").And
+                .Contain("_P7", "PhoneNumbers").And
+                .Contain("_P8", "+4912345").And
+                .Contain("_P9", "+4923456");
         }
 
         [Fact]
