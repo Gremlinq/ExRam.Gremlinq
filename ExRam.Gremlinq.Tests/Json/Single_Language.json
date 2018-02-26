@@ -1,38 +1,12 @@
 ﻿{
-  "id": {
-    "~label": "Language",
-    "community_id": 1990512128,
-    "member_id": 2215
-  },
+  "id": "be66544bcdaa4ee9990eaf006585153b",
   "label": "Language",
   "type": "vertex",
   "properties": {
     "IetfLanguageTag": [
       {
-        "id": {
-          "~type": "IetfLanguageTag",
-          "out_vertex": {
-            "~label": "Language",
-            "community_id": 1990512128,
-            "member_id": 2215
-          },
-          "local_id": "00000000-0000-8037-0000-000000000000"
-        },
+        "id": 1,
         "value": "de"
-      }
-    ],
-    "Id": [
-      {
-        "id": {
-          "~type": "Id",
-          "out_vertex": {
-            "~label": "Language",
-            "community_id": 1990512128,
-            "member_id": 2215
-          },
-          "local_id": "00000000-0000-8034-0000-000000000000"
-        },
-        "value": "be66544bcdaa4ee9990eaf006585153b"
       }
     ]
   }

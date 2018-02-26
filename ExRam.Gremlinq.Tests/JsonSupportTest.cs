@@ -14,14 +14,11 @@ namespace ExRam.Gremlinq.Tests
     public class JsonSupportTest
     {
         private static readonly string SingleUserJson;
-        private static readonly string CountryWithFlatId;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleLanguageJson;
-        private static readonly string CountryWithCustomId;
         private static readonly string SingleTimeFrameJson;
         private static readonly string TupleOfUserLanguageJson;
         private static readonly string NestedArrayOfLanguagesJson;
-        private static readonly string CountryWithCustomLowerCaseId;
         private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SingleUserWithoutPhoneNumbersJson;
 
@@ -36,10 +33,6 @@ namespace ExRam.Gremlinq.Tests
             NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
             SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
-            CountryWithCustomId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_id.json")).ReadToEnd();
-            CountryWithCustomLowerCaseId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_lowercase_id.json")).ReadToEnd();
-            CountryWithCustomLowerCaseId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_custom_lowercase_id.json")).ReadToEnd();
-            CountryWithFlatId = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Country_with_flat_id.json")).ReadToEnd();
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
@@ -102,60 +95,6 @@ namespace ExRam.Gremlinq.Tests
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().BeEmpty();
             user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
-        }
-
-        [Fact]
-        public async Task Country_strongly_typed()
-        {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(CountryWithCustomId));
-
-            var country = await queryProviderMock.Object
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
-                .WithJsonSupport()
-                .Execute(GremlinQuery.Create("g").Cast<Country>())
-                .First();
-
-            country.Should().NotBeNull();
-            country.Id.Should().Be("ab44e7c49efe4d479d8f147ed48eb02c");
-        }
-
-        [Fact]
-        public async Task Country_lowercase_id_strongly_typed()
-        {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(CountryWithCustomLowerCaseId));
-
-            var country = await queryProviderMock.Object
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
-                .WithJsonSupport()
-                .Execute(GremlinQuery.Create("g").Cast<Country>())
-                .First();
-
-            country.Should().NotBeNull();
-            country.Id.Should().Be("ab44e7c49efe4d479d8f147ed48eb02c");
-        }
-
-        [Fact]
-        public async Task Country_flat_id_strongly_typed()
-        {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(CountryWithFlatId));
-
-            var country = await queryProviderMock.Object
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
-                .WithJsonSupport()
-                .Execute(GremlinQuery.Create("g").Cast<Country>())
-                .First();
-
-            country.Should().NotBeNull();
-            country.Id.Should().Be("ab44e7c49efe4d479d8f147ed48eb02c");
         }
 
         [Fact]

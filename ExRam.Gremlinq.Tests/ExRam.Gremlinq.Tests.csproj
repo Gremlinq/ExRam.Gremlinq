@@ -9,16 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Json\Single_Country_with_custom_id.json" />
-    <None Remove="Json\Single_Country_with_custom_lowercase_id.json" />
     <None Remove="Json\Single_TimeFrame_with_numbers.json" />
     <None Remove="Json\Single_User_without_PhoneNumbers.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Json\Single_Country_with_custom_lowercase_id.json" />
-    <EmbeddedResource Include="Json\Single_Country_with_flat_id.json" />
-    <EmbeddedResource Include="Json\Single_Country_with_custom_id.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />
     <EmbeddedResource Include="Json\Array_of_Languages.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
