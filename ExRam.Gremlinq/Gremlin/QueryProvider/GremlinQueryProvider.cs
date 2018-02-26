@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -158,6 +159,15 @@ namespace ExRam.Gremlinq
             }
         }
         
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> Log(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
+        {
+            while (source.MoveNext())
+            {
+                Debug.WriteLine(source.Current);
+                yield return source.Current;
+            }
+        }
+
         public static IEnumerator<(JsonToken tokenType, object tokenValue)> ExtractProperty(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string property)
         {
             while (source.MoveNext())
@@ -194,15 +204,15 @@ namespace ExRam.Gremlinq
         {
             while (source.MoveNext())
             {
-                switch (source.Current.tokenType)
+                if ((source.Current.tokenType == JsonToken.StartArray) || (source.Current.tokenType == JsonToken.EndArray))
                 {
-                    case JsonToken.StartArray:
-                        yield return source.Current;
-                        break;
-                    case JsonToken.EndArray:
-                        yield return source.Current;
+                    yield return source.Current;
+
+                    if (source.Current.tokenType == JsonToken.EndArray)
                         yield break;
                 }
+                else
+                    source = source.Pushback();
 
                 using (var e = projection(source.ReadValue()))
                 {
@@ -212,24 +222,31 @@ namespace ExRam.Gremlinq
             }
         }
 
+        public static IEnumerator<(JsonToken tokenType, object tokenValue)> Pushback(this IEnumerator<(JsonToken tokenType, object tokenValue)> source)
+        {
+            yield return source.Current;
+
+            using (source)
+            {
+                while (source.MoveNext())
+                    yield return source.Current;
+            }
+        }
+
         public static IEnumerator<(JsonToken tokenType, object tokenValue)> SelectPropertyValue(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string propertyName, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> projection)
         {
             while (source.MoveNext())
             {
+                yield return source.Current;
+
                 if (source.Current.tokenType == JsonToken.PropertyName && propertyName.Equals(source.Current.tokenValue as string))
                 {
-                    yield return source.Current;
-
                     using (var e = projection(source.ReadValue()))
                     {
                         while (e.MoveNext())
                             yield return e.Current;
                     }
-
-                    continue;
                 }
-
-                yield return source.Current;
             }
         }
 
