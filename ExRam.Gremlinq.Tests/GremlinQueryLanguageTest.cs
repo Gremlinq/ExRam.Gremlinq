@@ -737,13 +737,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+                .Be("g.V().hasLabel(_P1).has(T.id, eq(_P2))");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "Id").And
-                .Contain("_P3", "languageId");
+                .Contain("_P2", "languageId");
         }
 
         [Fact]
@@ -760,13 +759,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+                .Be("g.V().hasLabel(_P1).has(T.id, eq(_P2))");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "Id").And
-                .Contain("_P3", "languageId");
+                .Contain("_P2", "languageId");
         }
 
         [Fact]
@@ -783,13 +781,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, eq(_P3))");
+                .Be("g.V().hasLabel(_P1).has(T.id, eq(_P2))");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "Id").And
-                .Contain("_P3", "languageId");
+                .Contain("_P2", "languageId");
         }
 
         [Fact]

@@ -671,10 +671,10 @@ namespace ExRam.Gremlinq
                     return query.Where(leftMemberExpression, query.ToAnonymous().AddStep<T>("where", predicateArgument));
                 }
 
-                return query.AddStep<T>("has", leftMemberExpression.Member.Name, predicateArgument);
+                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, predicateArgument));
             }
 
-            return query.AddStep<T>("has", leftMemberExpression.Member.Name);
+            return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name));
         }
     }
 }
