@@ -11,18 +11,21 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes)
+            public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes, string idPropertyName)
             {
                 this.VertexLabels = vertexLabels;
                 this.EdgeLabels = edgeTypes;
+                this.IdPropertyName = idPropertyName;
             }
+
+            public string IdPropertyName { get; }
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
 
             public IImmutableDictionary<Type, string> EdgeLabels { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty);
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty, "id");
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
         {
@@ -49,7 +52,8 @@ namespace ExRam.Gremlinq
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
                     .ToImmutableDictionary(
                         type => type.AsType(),
-                        type => namingStrategy.GetLabelForType(type.AsType())));
+                        type => namingStrategy.GetLabelForType(type.AsType())),
+                "id");
         }
 
         public static IGraphModel EdgeLabel<T>(IGraphModel model, string label = null)
@@ -62,7 +66,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(T).Name)));
+                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(T).Name), model.IdPropertyName));
         }
 
         public static IGraphModel VertexLabel<T>(this IGraphModel model, string label = null)
@@ -75,7 +79,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(T).Name), model.EdgeLabels));
+                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(T).Name), model.EdgeLabels, model.IdPropertyName));
         }
 
         public static string GetLabelOfType(this IGraphModel model, Type type)

@@ -7,5 +7,7 @@ namespace ExRam.Gremlinq
     {
         IImmutableDictionary<Type, string> VertexLabels { get; }
         IImmutableDictionary<Type, string> EdgeLabels { get; }
+
+        string IdPropertyName { get; }
     }
 }

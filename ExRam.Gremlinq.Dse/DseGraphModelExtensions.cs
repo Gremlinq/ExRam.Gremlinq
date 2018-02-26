@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Dse
         private sealed class DseGraphModel : IDseGraphModel
         {
             public DseGraphModel(
-                IImmutableDictionary<Type, string> vertexLabels, 
+                IImmutableDictionary<Type, string> vertexLabels,
                 IImmutableDictionary<Type, string> edgeTypes,
                 IImmutableDictionary<Type, IImmutableSet<(Type, Type)>> connections, 
                 IImmutableDictionary<Type, Expression> primaryKeys,
@@ -28,6 +28,8 @@ namespace ExRam.Gremlinq.Dse
                 this.SearchIndexes = searchIndexes;
                 this.EdgeIndexes = edgeIndexes;
             }
+
+            public string IdPropertyName => "id";
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
 
