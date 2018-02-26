@@ -86,6 +86,14 @@ namespace ExRam.Gremlinq
                     () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(T).Name), model.IdPropertyName));
         }
 
+        public static IGraphModel WithIdPropertyName(this IGraphModel model, string idPropertyName)
+        {
+            return new GraphModelImpl(
+                model.VertexLabels,
+                model.EdgeLabels,
+                idPropertyName);
+        }
+
         public static IGraphModel VertexLabel<T>(this IGraphModel model, string label = null)
         {
             var type = typeof(T);
