@@ -157,44 +157,7 @@ namespace ExRam.Gremlinq
                 yield return source.Current;
             }
         }
-
-        public static IEnumerator<(JsonToken tokenType, object tokenValue)> TakeOne(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IEnumerator<(JsonToken tokenType, object tokenValue)>> innerTransformation)
-        {
-            while (source.MoveNext())
-            {
-                if (source.Current.tokenType == JsonToken.StartArray)
-                {
-                    var openArrays = 1;
-
-                    using (var e = innerTransformation(source.ReadValue()))
-                    {
-                        while (e.MoveNext())
-                            yield return e.Current;
-                    }
-
-                    while (source.MoveNext())
-                    {
-                        switch (source.Current.tokenType)
-                        {
-                            case JsonToken.StartArray:
-                                openArrays++;
-                                break;
-                            case JsonToken.EndArray:
-                                openArrays--;
-                                break;
-                        }
-
-                        if (openArrays == 0)
-                            yield break;
-                    }
-                }
-                else
-                {
-                    yield return source.Current;
-                }
-            }
-        }
-
+        
         public static IEnumerator<(JsonToken tokenType, object tokenValue)> ExtractProperty(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, string property)
         {
             while (source.MoveNext())
