@@ -40,20 +40,37 @@ namespace ExRam.Gremlinq
             if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                 throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-            return new GraphModelImpl(
-                assembly
+            return GraphModel.Empty
+                .AddVertexTypes(assembly
                     .DefinedTypes
                     .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
+                    .Select(typeInfo => typeInfo.AsType())
                     .ToImmutableDictionary(
-                        type => type.AsType(),
-                        type => namingStrategy.GetLabelForType(type.AsType())),
-                assembly
+                        type => type,
+                        namingStrategy.GetLabelForType))
+                .AddEdgeTypes(assembly
                     .DefinedTypes
                     .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
+                    .Select(typeInfo => typeInfo.AsType())
                     .ToImmutableDictionary(
-                        type => type.AsType(),
-                        type => namingStrategy.GetLabelForType(type.AsType())),
-                "id");
+                        type => type,
+                        namingStrategy.GetLabelForType));
+        }
+
+        private static IGraphModel AddVertexTypes(this IGraphModel model, IEnumerable<KeyValuePair<Type, string>> types)
+        {
+            return new GraphModelImpl(
+                model.VertexLabels.AddRange(types),
+                model.EdgeLabels,
+                model.IdPropertyName);
+        }
+
+        private static IGraphModel AddEdgeTypes(this IGraphModel model, IEnumerable<KeyValuePair<Type, string>> types)
+        {
+            return new GraphModelImpl(
+                model.VertexLabels,
+                model.EdgeLabels.AddRange(types),
+                model.IdPropertyName);
         }
 
         public static IGraphModel EdgeLabel<T>(this IGraphModel model, string label = null)
