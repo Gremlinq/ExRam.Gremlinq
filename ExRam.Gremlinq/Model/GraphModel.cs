@@ -11,21 +11,21 @@ namespace ExRam.Gremlinq
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes, string idPropertyName)
+            public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes, Option<string> idPropertyName = default(Option<string>))
             {
                 this.VertexLabels = vertexLabels;
                 this.EdgeLabels = edgeTypes;
                 this.IdPropertyName = idPropertyName;
             }
 
-            public string IdPropertyName { get; }
+            public Option<string> IdPropertyName { get; }
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
 
             public IImmutableDictionary<Type, string> EdgeLabels { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty, "id");
+        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty);
 
         public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
         {

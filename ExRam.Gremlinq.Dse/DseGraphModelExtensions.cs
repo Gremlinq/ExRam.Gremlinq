@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Dse
                 this.EdgeIndexes = edgeIndexes;
             }
 
-            public string IdPropertyName => "id";
+            public Option<string> IdPropertyName => Option<string>.None;
 
             public IImmutableDictionary<Type, string> VertexLabels { get; }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Immutable;
+using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
@@ -8,6 +9,6 @@ namespace ExRam.Gremlinq
         IImmutableDictionary<Type, string> VertexLabels { get; }
         IImmutableDictionary<Type, string> EdgeLabels { get; }
 
-        string IdPropertyName { get; }
+        Option<string> IdPropertyName { get; }
     }
 }
