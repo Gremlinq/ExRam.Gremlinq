@@ -444,7 +444,15 @@ namespace ExRam.Gremlinq
                         if (token is JArray array && !objectType.IsArray)
                         {
                             if (array.Count != 1)
+                            {
+                                if (objectType == typeof(LanguageExt.Unit))
+                                    return LanguageExt.Unit.Default;
+
+                                if (objectType == typeof(Unit))
+                                    return Unit.Default;
+
                                 throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
+                            }
 
                             return array[0].ToObject(objectType);
                         }
