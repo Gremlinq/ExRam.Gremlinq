@@ -14,12 +14,12 @@ namespace ExRam.Gremlinq
     {      
         private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
         {
-            { ExpressionType.Equal, "eq" },
-            { ExpressionType.NotEqual, "neq" },
-            { ExpressionType.LessThan, "lt" },
-            { ExpressionType.LessThanOrEqual, "lte" },
-            { ExpressionType.GreaterThanOrEqual, "gte" },
-            { ExpressionType.GreaterThan, "gt" }
+            { ExpressionType.Equal, "P.eq" },
+            { ExpressionType.NotEqual, "P.neq" },
+            { ExpressionType.LessThan, "P.lt" },
+            { ExpressionType.LessThanOrEqual, "P.lte" },
+            { ExpressionType.GreaterThanOrEqual, "P.gte" },
+            { ExpressionType.GreaterThan, "P.gt" }
         };
 
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
