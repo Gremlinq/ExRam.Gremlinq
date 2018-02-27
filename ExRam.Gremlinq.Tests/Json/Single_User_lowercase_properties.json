@@ -1,0 +1,29 @@
+﻿{
+  "id": "d13ef3f51c86496eb2c22823601446ad",
+  "label": "User",
+  "type": "vertex",
+  "properties": {
+    "age": [
+      {
+        "id": 1,
+        "value": "36"
+      }
+    ],
+    "registrationDate": [
+      {
+        "id": 2,
+        "value": "12/01/2017 15:28:24"
+      }
+    ],
+    "phoneNumbers": [
+      {
+        "id": 3,
+        "value": "+123456"
+      },
+      {
+        "id": 4,
+        "value": "+234567"
+      }
+    ]
+  }
+}
