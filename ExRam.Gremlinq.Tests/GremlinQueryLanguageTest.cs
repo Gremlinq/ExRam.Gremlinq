@@ -1097,7 +1097,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).order().by(_P2, incr)");
+                .Be("g.V().hasLabel(_P1).order().by(_P2, Order.incr)");
 
             query.parameters
                 .Should()
@@ -1118,7 +1118,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).order().by(__.values(_P2), incr)");
+                .Be("g.V().hasLabel(_P1).order().by(__.values(_P2), Order.incr)");
 
             query.parameters
                 .Should()
