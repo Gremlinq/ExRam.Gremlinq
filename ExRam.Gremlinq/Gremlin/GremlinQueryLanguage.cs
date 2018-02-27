@@ -476,7 +476,7 @@ namespace ExRam.Gremlinq
         {
             return local
                 ? query
-                    .AddStep<T>("sum", new SpecialGremlinString("local"))
+                    .AddStep<T>("sum", new SpecialGremlinString("Scope.local"))
                 : query
                     .AddStep<T>("sum");
         }
