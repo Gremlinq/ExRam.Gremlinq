@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<T> ByTraversal<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> traversal, GremlinSortOrder sortOrder = GremlinSortOrder.Increasing)
         {
             return query
-                .AddStep<T>("by", traversal(query.ToAnonymous()), new SpecialGremlinString(sortOrder.ToString().Substring(0, 4).ToLower()));
+                .AddStep<T>("by", traversal(query.ToAnonymous()), new SpecialGremlinString("Order." + sortOrder.ToString().Substring(0, 4).ToLower()));
         }
 
         public static IGremlinQuery<T> ByMember<T>(this IGremlinQuery<T> query, Expression<Func<T, object>> projection, GremlinSortOrder sortOrder = GremlinSortOrder.Increasing)
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq
             if (body is MemberExpression memberExpression)
             {
                 return query
-                    .AddStep<T>("by", memberExpression.Member.Name, new SpecialGremlinString(sortOrder.ToString().Substring(0, 4).ToLower()));
+                    .AddStep<T>("by", memberExpression.Member.Name, new SpecialGremlinString("Order." + sortOrder.ToString().Substring(0, 4).ToLower()));
             }
 
             throw new NotSupportedException();
