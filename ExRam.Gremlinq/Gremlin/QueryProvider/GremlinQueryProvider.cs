@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq
         {
             while (source.MoveNext())
             {
-                if ((source.Current.tokenType == JsonToken.StartArray) || (source.Current.tokenType == JsonToken.EndArray))
+                if (source.Current.tokenType == JsonToken.StartArray || source.Current.tokenType == JsonToken.EndArray)
                 {
                     yield return source.Current;
 

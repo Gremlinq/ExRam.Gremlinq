@@ -598,8 +598,7 @@ namespace ExRam.Gremlinq
                                 return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
                     }
-
-                    if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
+                    else if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
                     {
                         if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
                         {
