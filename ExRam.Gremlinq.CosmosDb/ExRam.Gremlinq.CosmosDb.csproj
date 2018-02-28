@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20;net462</TargetFrameworks>
-    <Version>2.4.11</Version>
+    <Version>2.4.12</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
