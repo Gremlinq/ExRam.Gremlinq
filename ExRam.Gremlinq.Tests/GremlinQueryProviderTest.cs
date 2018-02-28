@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Tests
             var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("36"));
+                .Returns(AsyncEnumerable.Return("[ 36 ]"));
 
             var value = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))

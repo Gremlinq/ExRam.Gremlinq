@@ -368,8 +368,8 @@ namespace ExRam.Gremlinq
 
                         var str = serializer.Deserialize<string>(reader);
 
-                        return double.TryParse(str, out var number) 
-                            ? TimeSpan.FromSeconds(number) 
+                        return double.TryParse(str, out var number)
+                            ? TimeSpan.FromSeconds(number)
                             : XmlConvert.ToTimeSpan(str);
                     }
 
@@ -475,7 +475,7 @@ namespace ExRam.Gremlinq
                 {
                     this._query = query;
                 }
-                
+
                 public IAsyncEnumerable<T> Deserialize<T>(string rawData, IGraphModel model)
                 {
                     var serializer = new JsonSerializer
@@ -486,9 +486,9 @@ namespace ExRam.Gremlinq
                         TypeNameHandling = TypeNameHandling.Auto,
                         MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                     };
-                    
-                    return AsyncEnumerable.Return(rawData.StartsWith("{") || rawData.StartsWith("[")
-                        ? serializer.Deserialize<T>(new JsonTextReader(new StringReader(rawData))
+
+                    return serializer
+                        .Deserialize<T[]>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .UnwrapObject(
@@ -507,13 +507,11 @@ namespace ExRam.Gremlinq
                                     .SelectToken(tuple => tuple.tokenType == JsonToken.String
                                         ? model
                                             .TryGetElementTypeOfLabel(tuple.tokenValue as string)
-                                            .Map(suitableType => (JsonToken.String, (object) suitableType.AssemblyQualifiedName))
+                                            .Map(suitableType => (JsonToken.String, (object)suitableType.AssemblyQualifiedName))
                                             .IfNone(tuple)
                                         : tuple)))
                             .ToJsonReader())
-                        : JToken
-                            .Parse($"'{rawData}'")
-                            .ToObject<T>());
+                        .ToAsyncEnumerable();
                 }
             }
 

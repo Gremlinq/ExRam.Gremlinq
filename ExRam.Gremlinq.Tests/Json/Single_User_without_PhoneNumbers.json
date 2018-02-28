@@ -1,19 +1,21 @@
-﻿{
-  "id": "d13ef3f51c86496eb2c22823601446ad",
-  "label": "User",
-  "type": "vertex",
-  "properties": {
-    "Age": [
-      {
-        "id": 1,
-        "value": "36"
-      }
-    ],
-    "RegistrationDate": [
-      {
-        "id": 2,
-        "value": "12/01/2017 15:28:24"
-      }
-    ]
+﻿[
+  {
+    "id": "d13ef3f51c86496eb2c22823601446ad",
+    "label": "User",
+    "type": "vertex",
+    "properties": {
+      "Age": [
+        {
+          "id": 1,
+          "value": "36"
+        }
+      ],
+      "RegistrationDate": [
+        {
+          "id": 2,
+          "value": "12/01/2017 15:28:24"
+        }
+      ]
+    }
   }
-}
+]

@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public async Task Empty()
+        public async Task Empty1()
         {
             var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
             queryProviderMock
@@ -50,7 +50,22 @@ namespace ExRam.Gremlinq.Tests
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(GremlinQuery.Create("g").V().Drop())
-                .First();
+                .FirstOrDefault();
+        }
+
+        [Fact]
+        public async Task Empty2()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[]"));
+
+            await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").V<User>())
+                .ToArray();
         }
 
         [Fact]

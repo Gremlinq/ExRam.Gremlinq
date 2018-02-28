@@ -1,25 +1,27 @@
-﻿{
-  "id": "15da4cea93114bfc8c6b23847487d97b",
-  "label": "TimeFrame",
-  "type": "vertex",
-  "properties": {
-    "WeekDay": [
-      {
-        "id": 1,
-        "value": 1
-      }
-    ],
-    "StartTime": [
-      {
-        "id": 2,
-        "value": 21600
-      }
-    ],
-    "Duration": [
-      {
-        "id": 3,
-        "value": 57600
-      }
-    ]
+﻿[
+  {
+    "id": "15da4cea93114bfc8c6b23847487d97b",
+    "label": "TimeFrame",
+    "type": "vertex",
+    "properties": {
+      "WeekDay": [
+        {
+          "id": 1,
+          "value": 1
+        }
+      ],
+      "StartTime": [
+        {
+          "id": 2,
+          "value": 21600
+        }
+      ],
+      "Duration": [
+        {
+          "id": 3,
+          "value": 57600
+        }
+      ]
+    }
   }
-}
+]

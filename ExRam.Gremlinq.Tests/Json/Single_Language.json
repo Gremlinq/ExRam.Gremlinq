@@ -1,13 +1,15 @@
-﻿{
-  "id": "be66544bcdaa4ee9990eaf006585153b",
-  "label": "Language",
-  "type": "vertex",
-  "properties": {
-    "IetfLanguageTag": [
-      {
-        "id": 1,
-        "value": "de"
-      }
-    ]
+﻿[
+  {
+    "id": "be66544bcdaa4ee9990eaf006585153b",
+    "label": "Language",
+    "type": "vertex",
+    "properties": {
+      "IetfLanguageTag": [
+        {
+          "id": 1,
+          "value": "de"
+        }
+      ]
+    }
   }
-}
+]

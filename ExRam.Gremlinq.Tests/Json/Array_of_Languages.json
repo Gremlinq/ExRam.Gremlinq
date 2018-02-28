@@ -1,28 +1,30 @@
 ﻿[
-  {
-    "id": "f788f4dcfe2b48b4a5abf40af17892d7",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": 1,
-          "value": "de"
-        }
-      ]
+  [
+    {
+      "id": "f788f4dcfe2b48b4a5abf40af17892d7",
+      "label": "Language",
+      "type": "vertex",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "id": 1,
+            "value": "de"
+          }
+        ]
+      }
+    },
+    {
+      "id": "9556f62ca30147568702924c648d494c",
+      "label": "Language",
+      "type": "vertex",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "id": 2,
+            "value": "en"
+          }
+        ]
+      }
     }
-  },
-  {
-    "id": "9556f62ca30147568702924c648d494c",
-    "label": "Language",
-    "type": "vertex",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": 2,
-          "value": "en"
-        }
-      ]
-    }
-  }
+  ]
 ]
