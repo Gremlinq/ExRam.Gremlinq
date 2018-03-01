@@ -876,6 +876,30 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_where_with_scalar()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Values(x => x.Age)
+                .Where(_ => _ == 36)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).values(_P2).is(P.eq(_P3))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
+        }
+
+
+        [Fact]
         public void AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
