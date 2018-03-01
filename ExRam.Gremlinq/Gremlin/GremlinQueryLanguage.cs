@@ -653,10 +653,14 @@ namespace ExRam.Gremlinq
             {
                 case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression.StripConvert():
                     return query.Where(leftMemberExpression, predicateArgument);
-                case ParameterExpression leftParameterExpression when predicateArgument != null && constant is StepLabel && parameter == leftParameterExpression:
-                    return query.AddStep<T>("where", predicateArgument);
                 case ParameterExpression leftParameterExpression when predicateArgument != null && parameter == leftParameterExpression:
-                    return query.AddStep<T>("is", predicateArgument);
+                {
+                    return query.AddStep<T>(
+                        constant is StepLabel 
+                            ? "where" 
+                            : "is",
+                        predicateArgument);
+                }
             }
 
             throw new NotSupportedException();
