@@ -593,7 +593,7 @@ namespace ExRam.Gremlinq
                                         return query.Where(rightMember, GremlinPredicate.Within(enumerable.Cast<object>().ToArray()));
                                 }
 
-                                throw new NotImplementedException();
+                                throw new NotSupportedException();
                             }
                             case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
                                 return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
@@ -646,7 +646,7 @@ namespace ExRam.Gremlinq
 
             switch (left)
             {
-                case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression.StripConvert():
+                case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
                     return query.Where(leftMemberExpression, predicateArgument);
                 case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                 {
