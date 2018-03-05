@@ -259,6 +259,55 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_Age_is_not_contained_in_some_array()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2, P.within(_P3, _P4, _P5)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 37).And
+                .Contain("_P5", 38);
+        }
+
+        [Fact]
+        public void V_ofType_Age_is_not_contained_in_some_enumerable()
+        {
+            var enumerable = new[] { "36", "37", "38" }
+                .Select(int.Parse);
+
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(t => !enumerable.Contains(t.Age))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).not(__.has(_P2, P.within(_P3, _P4, _P5)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36).And
+                .Contain("_P4", 37).And
+                .Contain("_P5", 38);
+        }
+
+        [Fact]
         public void V_ofType_has_disjunction()
         {
             var query = GremlinQuery
