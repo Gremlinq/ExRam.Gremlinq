@@ -642,18 +642,16 @@ namespace ExRam.Gremlinq
             if (constant == null && nodeType == ExpressionType.Equal)
                 return query.Not(__ => __.Where(parameter, left, right, ExpressionType.NotEqual));
 
-            var predicateArgument = constant != null
-                ? GremlinQueryLanguage.SupportedComparisons
-                    .TryGetValue(nodeType)
-                    .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
-                    .IfNone(() => throw new NotSupportedException())
-                : null;
+            var predicateArgument = GremlinQueryLanguage.SupportedComparisons
+                .TryGetValue(nodeType)
+                .Map(predicateName => new GremlinPredicate(predicateName, constant))
+                .IfNone(() => throw new NotSupportedException());
 
             switch (left)
             {
                 case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression.StripConvert():
                     return query.Where(leftMemberExpression, predicateArgument);
-                case ParameterExpression leftParameterExpression when predicateArgument != null && parameter == leftParameterExpression:
+                case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                 {
                     return query.AddStep<T>(
                         constant is StepLabel 
@@ -666,20 +664,15 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression leftMemberExpression, object predicateArgument)
+        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression leftMemberExpression, GremlinPredicate predicateArgument)
         {
-            if (predicateArgument != null)
-            {
-                if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
-                {
-                    // ReSharper disable once TailRecursiveCall
-                    return query.Where(leftMemberExpression, query.ToAnonymous().AddStep<T>("where", predicateArgument));
-                }
+            if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
+                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, (object)query.ToAnonymous().AddStep<T>("where", predicateArgument)));
+            
+            if (predicateArgument.Arguments.Length == 1 && predicateArgument.Arguments[0] == null)
+                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name));
 
-                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, predicateArgument));
-            }
-
-            return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name));
+            return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, predicateArgument));
         }
     }
 }
