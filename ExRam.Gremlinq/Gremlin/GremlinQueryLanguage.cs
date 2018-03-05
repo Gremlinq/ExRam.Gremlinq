@@ -646,7 +646,7 @@ namespace ExRam.Gremlinq
                 ? GremlinQueryLanguage.SupportedComparisons
                     .TryGetValue(nodeType)
                     .Map(predicateName => (object)new GremlinPredicate(predicateName, constant))
-                    .IfNone(constant)
+                    .IfNone(() => throw new NotSupportedException())
                 : null;
 
             switch (left)
