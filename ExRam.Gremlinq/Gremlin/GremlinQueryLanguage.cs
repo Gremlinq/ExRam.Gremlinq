@@ -593,7 +593,18 @@ namespace ExRam.Gremlinq
                         switch (methodInfo.Name)
                         {
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
-                                return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], methodCallExpression.Arguments[1], ExpressionType.Equal);
+                            {
+                                if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
+                                    return query.Where(leftMember, new GremlinPredicate("P.eq", methodCallExpression.Arguments[1].GetValue()));
+
+                                if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
+                                {
+                                    if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
+                                        return query.Where(rightMember, new GremlinPredicate("P.within", enumerable.Cast<object>().ToArray()));
+                                }
+
+                                throw new NotImplementedException();
+                            }
                             case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
                                 return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
@@ -637,10 +648,10 @@ namespace ExRam.Gremlinq
                             _ => _.Where(rightLambda));
             }
 
-            var constant = right.GetValue();
-
-            if (constant == null && nodeType == ExpressionType.Equal)
+            if (right is ConstantExpression constantExpression && constantExpression.Value == null && nodeType == ExpressionType.Equal)
                 return query.Not(__ => __.Where(parameter, left, right, ExpressionType.NotEqual));
+
+            var constant = right.GetValue();
 
             var predicateArgument = GremlinQueryLanguage.SupportedComparisons
                 .TryGetValue(nodeType)
