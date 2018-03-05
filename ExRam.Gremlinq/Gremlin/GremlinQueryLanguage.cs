@@ -12,16 +12,6 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryLanguage
     {      
-        private static readonly IReadOnlyDictionary<ExpressionType, string> SupportedComparisons = new Dictionary<ExpressionType, string>
-        {
-            { ExpressionType.Equal, "P.eq" },
-            { ExpressionType.NotEqual, "P.neq" },
-            { ExpressionType.LessThan, "P.lt" },
-            { ExpressionType.LessThanOrEqual, "P.lte" },
-            { ExpressionType.GreaterThanOrEqual, "P.gte" },
-            { ExpressionType.GreaterThan, "P.gt" }
-        };
-
         public static IGremlinQuery<T> AddV<T>(this IGremlinQuery query, T vertex)
         {
             return query
@@ -595,12 +585,12 @@ namespace ExRam.Gremlinq
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
                             {
                                 if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
-                                    return query.Where(leftMember, new GremlinPredicate("P.eq", methodCallExpression.Arguments[1].GetValue()));
+                                    return query.Where(leftMember, GremlinPredicate.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
                                 {
                                     if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
-                                        return query.Where(rightMember, new GremlinPredicate("P.within", enumerable.Cast<object>().ToArray()));
+                                        return query.Where(rightMember, GremlinPredicate.Within(enumerable.Cast<object>().ToArray()));
                                 }
 
                                 throw new NotImplementedException();
@@ -618,7 +608,7 @@ namespace ExRam.Gremlinq
                                 var constant = methodCallExpression.Arguments[1].GetValue();
 
                                 if (constant is IEnumerable arrayConstant)
-                                    return query.Where(innerMemberExpression, new GremlinPredicate("within", arrayConstant.Cast<object>().ToArray()));
+                                    return query.Where(innerMemberExpression, GremlinPredicate.Within(arrayConstant.Cast<object>().ToArray()));
                             }
                         }
                     }
@@ -652,11 +642,7 @@ namespace ExRam.Gremlinq
                 return query.Not(__ => __.Where(parameter, left, right, ExpressionType.NotEqual));
 
             var constant = right.GetValue();
-
-            var predicateArgument = GremlinQueryLanguage.SupportedComparisons
-                .TryGetValue(nodeType)
-                .Map(predicateName => new GremlinPredicate(predicateName, constant))
-                .IfNone(() => throw new NotSupportedException());
+            var predicateArgument = GremlinPredicate.ForExpressionType(nodeType, constant);
 
             switch (left)
             {
