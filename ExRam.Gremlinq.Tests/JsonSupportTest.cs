@@ -25,7 +25,6 @@ namespace ExRam.Gremlinq.Tests
 
         static JsonSupportTest()
         {
-            // ReSharper disable AssignNullToNotNullAttribute
             SingleLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Language.json")).ReadToEnd();
             SingleUserJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User.json")).ReadToEnd();
             SingleUserLowercasePropertiesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_lowercase_properties.json")).ReadToEnd();
@@ -35,7 +34,6 @@ namespace ExRam.Gremlinq.Tests
             NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
             SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
-            // ReSharper restore AssignNullToNotNullAttribute
         }
 
         [Fact]

@@ -620,8 +620,6 @@ namespace ExRam.Gremlinq
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    stringValue = stringValue ?? string.Empty;
-
                                     return query.AddStep<T>(
                                         "has",
                                         argumentExpression.Member.Name,
@@ -695,15 +693,15 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression leftMemberExpression, GremlinPredicate predicateArgument)
+        private static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, MemberExpression memberExpression, GremlinPredicate predicateArgument)
         {
             if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
-                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, (object)query.ToAnonymous().AddStep<T>("where", predicateArgument)));
+                return query.AddStep<T>(new HasStep(memberExpression.Member.Name, (object)query.ToAnonymous().AddStep<T>("where", predicateArgument)));
             
             if (predicateArgument.Arguments.Length == 1 && predicateArgument.Arguments[0] == null)
-                return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name));
+                return query.AddStep<T>(new HasStep(memberExpression.Member.Name));
 
-            return query.AddStep<T>(new HasStep(leftMemberExpression.Member.Name, predicateArgument));
+            return query.AddStep<T>(new HasStep(memberExpression.Member.Name, predicateArgument));
         }
     }
 }

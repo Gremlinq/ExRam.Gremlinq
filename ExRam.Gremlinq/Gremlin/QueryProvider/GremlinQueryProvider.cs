@@ -270,7 +270,6 @@ namespace ExRam.Gremlinq
                 this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
             }
 
-            // ReSharper disable once MemberHidesStaticFromOuterClass
             public virtual IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseTypedGremlinQueryProvider.Execute(query);
@@ -520,7 +519,6 @@ namespace ExRam.Gremlinq
                 this._baseProvider = baseProvider;
             }
 
-            // ReSharper disable once MemberHidesStaticFromOuterClass
             public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
             {
                 return this._baseProvider
