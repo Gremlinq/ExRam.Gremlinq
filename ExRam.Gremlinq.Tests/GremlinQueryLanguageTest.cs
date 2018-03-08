@@ -308,6 +308,33 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void CountryCallingCode_is_prefix_of_some_string()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<CountryCallingCode>()
+                .Where(c => "+49123".StartsWith(c.Prefix))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "CountryCallingCode").And
+                .Contain("_P2", "Prefix").And
+                .Contain("_P3", "").And
+                .Contain("_P4", "+").And
+                .Contain("_P5", "+4").And
+                .Contain("_P6", "+49").And
+                .Contain("_P7", "+491").And
+                .Contain("_P8", "+4912").And
+                .Contain("_P9", "+49123");
+        }
+
+        [Fact]
         public void V_ofType_has_disjunction()
         {
             var query = GremlinQuery
@@ -994,7 +1021,6 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 36);
         }
-
 
         [Fact]
         public void AddE_to_traversal()
