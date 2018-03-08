@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Tests
     {
         public int Age { get; set; }
 
-        public DateTimeOffset RegistrationDate { get; set; } 
+        public string PhoneNumber { get; set; }
+
+        public DateTimeOffset RegistrationDate { get; set; }
     }
 }

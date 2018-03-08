@@ -335,6 +335,105 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void CountryCallingCode_is_prefix_of_some_string_variable()
+        {
+            var str = "+49123";
+
+            var query = GremlinQuery
+                .Create("g")
+                .V<CountryCallingCode>()
+                .Where(c => str.StartsWith(c.Prefix))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "CountryCallingCode").And
+                .Contain("_P2", "Prefix").And
+                .Contain("_P3", "").And
+                .Contain("_P4", "+").And
+                .Contain("_P5", "+4").And
+                .Contain("_P6", "+49").And
+                .Contain("_P7", "+491").And
+                .Contain("_P8", "+4912").And
+                .Contain("_P9", "+49123");
+        }
+
+        [Fact]
+        public void CountryCallingCode_is_prefix_of_some_string_processed_variable()
+        {
+            var str = "+49123xxx";
+
+            var query = GremlinQuery
+                .Create("g")
+                .V<CountryCallingCode>()
+                .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "CountryCallingCode").And
+                .Contain("_P2", "Prefix").And
+                .Contain("_P3", "").And
+                .Contain("_P4", "+").And
+                .Contain("_P5", "+4").And
+                .Contain("_P6", "+49").And
+                .Contain("_P7", "+491").And
+                .Contain("_P8", "+4912").And
+                .Contain("_P9", "+49123");
+        }
+
+        [Fact]
+        public void User_PhoneNumber_has_some_prefix()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(c => c.PhoneNumber.StartsWith("+49123"))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4))");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumber").And
+                .Contain("_P3", "+49123").And
+                .Contain("_P4", "+49124");
+        }
+
+        [Fact]
+        public void User_PhoneNumber_has_empty_prefix()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Where(c => c.PhoneNumber.StartsWith(""))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User");
+        }
+
+        [Fact]
         public void V_ofType_has_disjunction()
         {
             var query = GremlinQuery

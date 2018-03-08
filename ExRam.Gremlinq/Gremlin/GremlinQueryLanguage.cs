@@ -616,19 +616,32 @@ namespace ExRam.Gremlinq
                     {
                         if (methodInfo.Name == nameof(string.StartsWith))
                         {
-                            if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
+                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
                                     stringValue = stringValue ?? string.Empty;
 
-                                        return query.AddStep<T>(
-                                            "has",
-                                            leftMember.Member.Name,
-                                            new OrGremlinPredicate(Enumerable
-                                                .Range(0, stringValue.Length + 1)
-                                                .Select(i => GremlinPredicate.Eq(stringValue.Substring(0, i)))
-                                                .ToArray()));
+                                    return query.AddStep<T>(
+                                        "has",
+                                        argumentExpression.Member.Name,
+                                        new OrGremlinPredicate(Enumerable
+                                            .Range(0, stringValue.Length + 1)
+                                            .Select(i => GremlinPredicate.Eq(stringValue.Substring(0, i)))
+                                            .ToArray()));
+                                }
+                            }
+                            else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
+                            {
+                                if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
+                                {
+                                    if (lowerBound.Length == 0)
+                                        return query;
+
+                                    var upperBoundChars = lowerBound.ToCharArray();
+                                    upperBoundChars[upperBoundChars.Length - 1]++;
+
+                                    return query.Where(memberExpression, GremlinPredicate.Within(lowerBound, new string(upperBoundChars)));
                                 }
                             }
                         }
