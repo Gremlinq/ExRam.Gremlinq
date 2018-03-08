@@ -686,14 +686,18 @@ namespace ExRam.Gremlinq
                 }
             }
             else
-            { 
+            {
                 var predicateArgument = GremlinPredicate.ForExpressionType(nodeType, rightConstant);
 
                 switch (left)
                 {
                     case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
                     {
-                        return query.Has(leftMemberExpression, predicateArgument);
+                        return query.Has(
+                            leftMemberExpression,
+                            rightConstant is StepLabel
+                                ? query.ToAnonymous().AddStep<T>("where", predicateArgument)
+                                : (object)predicateArgument);
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
@@ -709,18 +713,9 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        private static IGremlinQuery<T> Has<T>(this IGremlinQuery<T> query, Expression expression, Option<GremlinPredicate> maybePredicateArgument = default(Option<GremlinPredicate>))
+        private static IGremlinQuery<T> Has<T>(this IGremlinQuery<T> query, Expression expression, Option<object> maybeArgument = default(Option<object>))
         {
-            return maybePredicateArgument
-                .Match(
-                    predicateArgument =>
-                    {
-                        if (predicateArgument is GremlinPredicate gremlinPredicate && gremlinPredicate.Arguments.Length > 0 && gremlinPredicate.Arguments[0] is StepLabel)
-                            return query.AddStep<T>(HasStep.FromExpression(expression, (object)query.ToAnonymous().AddStep<T>("where", predicateArgument)));
-
-                        return query.AddStep<T>(HasStep.FromExpression(expression, predicateArgument));
-                    },
-                    () => query.AddStep<T>(HasStep.FromExpression(expression)));
+            return query.AddStep<T>(HasStep.FromExpression(expression, maybeArgument));
         }
     }
 }
