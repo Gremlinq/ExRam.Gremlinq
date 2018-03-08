@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
@@ -23,6 +25,20 @@ namespace ExRam.Gremlinq
             yield return this._value.Match(
                 value => new TerminalGremlinStep("has", key, value),
                 () => new TerminalGremlinStep("has", key));
+        }
+
+        internal static HasStep FromExpression(Expression expression, Option<object> value = default(Option<object>))
+        {
+            string name;
+
+            if (expression is MemberExpression leftMemberExpression)
+                name = leftMemberExpression.Member.Name;
+            else if (expression is ParameterExpression leftParameterExpression)
+                name = leftParameterExpression.Name;
+            else
+                throw new NotSupportedException();
+
+            return new HasStep(name, value);
         }
     }
 }
