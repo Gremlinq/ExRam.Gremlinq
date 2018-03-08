@@ -7,6 +7,8 @@ namespace ExRam.Gremlinq
 {
     public sealed class HasStep : NonTerminalGremlinStep
     {
+        private static string Name = "has";
+
         private readonly string _key;
         private readonly Option<object> _value;
 
@@ -23,8 +25,8 @@ namespace ExRam.Gremlinq
                 : (object)this._key;
 
             yield return this._value.Match(
-                value => new TerminalGremlinStep("has", key, value),
-                () => new TerminalGremlinStep("has", key));
+                value => new TerminalGremlinStep(Name, key, value),
+                () => new TerminalGremlinStep(Name, key));
         }
 
         internal static HasStep FromExpression(Expression expression, Option<object> value = default(Option<object>))

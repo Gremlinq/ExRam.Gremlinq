@@ -620,9 +620,8 @@ namespace ExRam.Gremlinq
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    return query.AddStep<T>(
-                                        "has",
-                                        argumentExpression.Member.Name,
+                                    return query.Has(
+                                        argumentExpression,
                                         new OrGremlinPredicate(Enumerable
                                             .Range(0, stringValue.Length + 1)
                                             .Select(i => GremlinPredicate.Eq(stringValue.Substring(0, i)))
