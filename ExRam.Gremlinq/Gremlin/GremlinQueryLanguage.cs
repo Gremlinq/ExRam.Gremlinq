@@ -714,7 +714,16 @@ namespace ExRam.Gremlinq
 
         private static IGremlinQuery<T> Has<T>(this IGremlinQuery<T> query, Expression expression, Option<object> maybeArgument = default(Option<object>))
         {
-            return query.AddStep<T>(HasStep.FromExpression(expression, maybeArgument));
+            string name;
+
+            if (expression is MemberExpression leftMemberExpression)
+                name = leftMemberExpression.Member.Name;
+            else if (expression is ParameterExpression leftParameterExpression)
+                name = leftParameterExpression.Name;
+            else
+                throw new NotSupportedException();
+
+            return query.AddStep<T>(new HasStep(name, maybeArgument));
         }
     }
 }

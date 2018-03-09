@@ -28,19 +28,5 @@ namespace ExRam.Gremlinq
                 value => new TerminalGremlinStep(Name, key, value),
                 () => new TerminalGremlinStep(Name, key));
         }
-
-        internal static HasStep FromExpression(Expression expression, Option<object> value = default(Option<object>))
-        {
-            string name;
-
-            if (expression is MemberExpression leftMemberExpression)
-                name = leftMemberExpression.Member.Name;
-            else if (expression is ParameterExpression leftParameterExpression)
-                name = leftParameterExpression.Name;
-            else
-                throw new NotSupportedException();
-
-            return new HasStep(name, value);
-        }
     }
 }
