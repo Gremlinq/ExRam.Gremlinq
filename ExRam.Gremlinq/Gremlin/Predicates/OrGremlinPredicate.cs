@@ -12,22 +12,16 @@ namespace ExRam.Gremlinq
             this._predicates = predicates;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
+        public string Serialize(IParameterCache parameterCache)
         {
             var builder = new StringBuilder();
-            var dict = new Dictionary<string, object>();
 
             for (var i = 0; i < this._predicates.Length; i++)
             {
                 if (i != 0)
                     builder.Append(".or(");
 
-                var (subQuery, subDict) = this._predicates[i].Serialize(parameterCache);
-
-                foreach(var kvp in subDict)
-                {
-                    dict.Add(kvp.Key, kvp.Value);
-                }
+                var subQuery = this._predicates[i].Serialize(parameterCache);
 
                 builder.Append(subQuery);
 
@@ -35,7 +29,7 @@ namespace ExRam.Gremlinq
                     builder.Append(")");
             }
 
-            return (builder.ToString(), dict);
+            return builder.ToString();
         }
     }
 }

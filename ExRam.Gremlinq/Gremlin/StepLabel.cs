@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
             this.Label = label;
         }
         
-        public abstract (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache);
+        public abstract string Serialize(IParameterCache parameterCache);
 
         public string Label { get; }
     }
@@ -27,10 +27,9 @@ namespace ExRam.Gremlinq
             return new StepLabel<T>(Guid.NewGuid().ToString("N"));
         }
 
-        public override (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
+        public override string Serialize(IParameterCache parameterCache)
         {
-            var parameterName = parameterCache.Cache(this.Label);
-            return (parameterName, ImmutableDictionary<string, object>.Empty.Add(parameterName, this.Label));
+            return parameterCache.Cache(this.Label);
         }
 
         public static bool operator ==(T a, StepLabel<T> b)

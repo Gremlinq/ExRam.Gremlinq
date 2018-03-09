@@ -26,10 +26,9 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
+        public string Serialize(IParameterCache parameterCache)
         {
             var builder = new StringBuilder();
-            var dict = new Dictionary<string, object>();
 
             builder.Append(this._name);
             builder.Append("(");
@@ -42,17 +41,13 @@ namespace ExRam.Gremlinq
                     builder.Append(", ");
 
                 if (parameter is IGremlinSerializable serializable)
-                    builder.Append(serializable.Serialize(parameterCache).queryString);
+                    builder.Append(serializable.Serialize(parameterCache));
                 else
-                {
-                    var parameterName = parameterCache.Cache(parameter);
-                    dict[parameterName] = parameter;
-                    builder.Append(parameterName);
-                }
+                    builder.Append(parameterCache.Cache(parameter));
             }
 
             builder.Append(")");
-            return (builder.ToString(), dict);
+            return builder.ToString();
         }
 
         public static GremlinPredicate Eq(object argument)

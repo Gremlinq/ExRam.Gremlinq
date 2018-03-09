@@ -17,9 +17,8 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
+        public string Serialize(IParameterCache parameterCache)
         {
-            var parameters = new Dictionary<string, object>();
             var builder = new StringBuilder();
             
             var appendComma = false;
@@ -36,26 +35,16 @@ namespace ExRam.Gremlinq
 
                 if (parameter is IGremlinSerializable serializable)
                 {
-                    var (innerQueryString, innerParameters) = serializable.Serialize(parameterCache);
+                    var innerQueryString = serializable.Serialize(parameterCache);
 
                     builder.Append(innerQueryString);
-
-                    foreach (var kvp in innerParameters)
-                    {
-                        parameters[kvp.Key] = kvp.Value;
-                    }
                 }
                 else
-                {
-                    var newParameterName = parameterCache.Cache(parameter);
-                    parameters[newParameterName] = parameter;
-
-                    builder.Append(newParameterName);
-                }
+                    builder.Append(parameterCache.Cache(parameter));
             }
 
             builder.Append(")");
-            return (builder.ToString(), parameters);
+            return builder.ToString();
         }
         
         public string Name { get; }

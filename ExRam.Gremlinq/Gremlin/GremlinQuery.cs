@@ -23,30 +23,24 @@ namespace ExRam.Gremlinq
                 this.IdentifierFactory = identifierFactory;
             }
 
-            public (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache)
+            public string Serialize(IParameterCache parameterCache)
             {
-                var parameters = new Dictionary<string, object>();
                 var builder = new StringBuilder(this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
                     {
-                        var (innerQueryString, innerParameters) = serializableStep.Serialize(parameterCache);
+                        var innerQueryString = serializableStep.Serialize(parameterCache);
 
                         builder.Append('.');
                         builder.Append(innerQueryString);
-
-                        foreach (var kvp in innerParameters)
-                        {
-                            parameters[kvp.Key] = kvp.Value;
-                        }
                     }
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
 
-                return (builder.ToString(), parameters);
+                return builder.ToString();
             }
 
             public string TraversalSourceName { get; }
@@ -76,7 +70,10 @@ namespace ExRam.Gremlinq
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query)
         {
-            return query.Serialize(new DefaultParameterCache());
+            var cache = new DefaultParameterCache();
+            var queryString = query.Serialize(cache);
+
+            return (queryString, cache.GetDictionary());
         }
 
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))

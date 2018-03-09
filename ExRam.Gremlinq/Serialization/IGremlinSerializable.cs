@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGremlinSerializable
     {
-        (string queryString, IDictionary<string, object> parameters) Serialize(IParameterCache parameterCache);
+        string Serialize(IParameterCache parameterCache);
     }
 }
