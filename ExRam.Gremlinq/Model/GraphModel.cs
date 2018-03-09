@@ -78,6 +78,7 @@ namespace ExRam.Gremlinq
             var type = typeof(T);
 
             return model.VertexLabels.Keys
+                // ReSharper disable once ImplicitlyCapturedClosure
                 .Where(vertexType => vertexType.IsAssignableFrom(type) || type.IsAssignableFrom(vertexType))
                 .Select(_ => (Option<Type>)_)
                 .FirstOrDefault()
@@ -99,6 +100,7 @@ namespace ExRam.Gremlinq
             var type = typeof(T);
 
             return model.EdgeLabels.Keys
+                // ReSharper disable once ImplicitlyCapturedClosure
                 .Where(edgeType => edgeType.IsAssignableFrom(type) || type.IsAssignableFrom(edgeType))
                 .Select(_ => (Option<Type>)_)
                 .FirstOrDefault()

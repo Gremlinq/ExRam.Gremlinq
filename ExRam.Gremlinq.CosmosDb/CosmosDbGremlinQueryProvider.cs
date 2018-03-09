@@ -74,6 +74,7 @@ namespace ExRam.Gremlinq.CosmosDb
                 .ToAsyncEnumerable()
                 .Repeat()
                 .TakeWhile(documentQuery => documentQuery.HasMoreResults)
+                // ReSharper disable once ImplicitlyCapturedClosure
                 .SelectMany(async (documentQuery, ct) =>
                 {
                     try

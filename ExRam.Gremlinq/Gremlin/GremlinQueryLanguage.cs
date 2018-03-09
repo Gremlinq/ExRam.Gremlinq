@@ -580,6 +580,7 @@ namespace ExRam.Gremlinq
 
                     if (methodInfo.DeclaringType == typeof(Enumerable))
                     {
+                        // ReSharper disable once SwitchStatementMissingSomeCases
                         switch (methodInfo.Name)
                         {
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
@@ -636,9 +637,14 @@ namespace ExRam.Gremlinq
                                         return query;
 
                                     var upperBoundChars = lowerBound.ToCharArray();
-                                    upperBoundChars[upperBoundChars.Length - 1]++;
+                                    var ultimateChar = upperBoundChars[upperBoundChars.Length - 1];
 
-                                    return query.Has(memberExpression, GremlinPredicate.Within(lowerBound, new string(upperBoundChars)));
+                                    if (ultimateChar < char.MaxValue)
+                                    {
+                                        upperBoundChars[upperBoundChars.Length - 1]++;
+
+                                        return query.Has(memberExpression, GremlinPredicate.Within(lowerBound, new string(upperBoundChars)));
+                                    }
                                 }
                             }
                         }
@@ -676,6 +682,7 @@ namespace ExRam.Gremlinq
         {
             if (rightConstant == null)
             {
+                // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (nodeType)
                 {
                     case ExpressionType.Equal:
@@ -716,12 +723,21 @@ namespace ExRam.Gremlinq
         {
             string name;
 
-            if (expression is MemberExpression leftMemberExpression)
-                name = leftMemberExpression.Member.Name;
-            else if (expression is ParameterExpression leftParameterExpression)
-                name = leftParameterExpression.Name;
-            else
-                throw new NotSupportedException();
+            switch (expression)
+            {
+                case MemberExpression leftMemberExpression:
+                {
+                    name = leftMemberExpression.Member.Name;
+                    break;
+                }
+                case ParameterExpression leftParameterExpression:
+                { 
+                    name = leftParameterExpression.Name;
+                    break;
+                }
+                default:
+                    throw new NotSupportedException();
+            }
 
             return query.AddStep<T>(new HasStep(name, maybeArgument));
         }

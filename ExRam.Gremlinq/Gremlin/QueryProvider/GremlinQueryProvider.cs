@@ -113,6 +113,7 @@ namespace ExRam.Gremlinq
             {
                 var current = source.Current;
 
+                // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (current.tokenType)
                 {
                     case JsonToken.StartObject:
@@ -142,17 +143,22 @@ namespace ExRam.Gremlinq
 
             while (source.MoveNext())
             {
+                // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (source.Current.tokenType)
                 {
                     case JsonToken.StartObject:
+                    { 
                         openObjects++;
                         break;
+                    }
                     case JsonToken.EndObject:
+                    { 
                         if (openObjects == 0)
                             yield break;
 
                         openObjects--;
                         break;
+                    }
                 }
 
                 yield return source.Current;
