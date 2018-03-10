@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,8 @@ namespace ExRam.Gremlinq
 {
     public sealed class AddElementPropertiesStep : NonTerminalGremlinStep
     {
+        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
+
         public AddElementPropertiesStep(object element)
         {
             this.Element = element;
@@ -15,10 +18,12 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            return this.Element
-                .GetType()
-                .GetProperties()
-                .Where(property => IsNativeType(property.PropertyType))
+            return TypeProperties.GetOrAdd(
+                this.Element.GetType(),
+                type => type             
+                    .GetProperties()
+                    .Where(property => IsNativeType(property.PropertyType))
+                    .ToArray())
                 .SelectMany(property =>
                 {
                     var value = property.GetValue(this.Element);
