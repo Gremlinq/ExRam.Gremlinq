@@ -23,24 +23,20 @@ namespace ExRam.Gremlinq
                 this.IdentifierFactory = identifierFactory;
             }
 
-            public string Serialize(IParameterCache parameterCache)
+            public void Serialize(StringBuilder builder, IParameterCache parameterCache)
             {
-                var builder = new StringBuilder(this.TraversalSourceName);
+                builder.Append(this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
                     {
-                        var innerQueryString = serializableStep.Serialize(parameterCache);
-
                         builder.Append('.');
-                        builder.Append(innerQueryString);
+                        serializableStep.Serialize(builder, parameterCache);
                     }
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
-
-                return builder.ToString();
             }
 
             public string TraversalSourceName { get; }
@@ -71,9 +67,11 @@ namespace ExRam.Gremlinq
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query)
         {
             var cache = new DefaultParameterCache();
-            var queryString = query.Serialize(cache);
+            var stringBuilder = new StringBuilder();
 
-            return (queryString, cache.GetDictionary());
+            query.Serialize(stringBuilder, cache);
+
+            return (stringBuilder.ToString(), cache.GetDictionary());
         }
 
         public static Task<T> FirstAsync<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))

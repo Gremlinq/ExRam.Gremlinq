@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using System.Text;
 
 namespace ExRam.Gremlinq
 {
     public interface IGremlinSerializable
     {
-        string Serialize(IParameterCache parameterCache);
+        void Serialize(StringBuilder builder, IParameterCache parameterCache);
     }
 }

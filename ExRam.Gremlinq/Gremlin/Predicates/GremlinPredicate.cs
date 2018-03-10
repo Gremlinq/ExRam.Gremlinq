@@ -26,10 +26,8 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public string Serialize(IParameterCache parameterCache)
+        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
         {
-            var builder = new StringBuilder();
-
             builder.Append(this._name);
             builder.Append("(");
 
@@ -41,13 +39,12 @@ namespace ExRam.Gremlinq
                     builder.Append(", ");
 
                 if (parameter is IGremlinSerializable serializable)
-                    builder.Append(serializable.Serialize(parameterCache));
+                    serializable.Serialize(builder, parameterCache);
                 else
                     builder.Append(parameterCache.Cache(parameter));
             }
 
             builder.Append(")");
-            return builder.ToString();
         }
 
         public static GremlinPredicate Eq(object argument)

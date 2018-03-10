@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+using System.Text;
 
 namespace ExRam.Gremlinq
 {
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq
             this.Label = label;
         }
         
-        public abstract string Serialize(IParameterCache parameterCache);
+        public abstract void Serialize(StringBuilder builder, IParameterCache parameterCache);
 
         public string Label { get; }
     }
@@ -27,9 +26,9 @@ namespace ExRam.Gremlinq
             return new StepLabel<T>(Guid.NewGuid().ToString("N"));
         }
 
-        public override string Serialize(IParameterCache parameterCache)
+        public override void Serialize(StringBuilder builder, IParameterCache parameterCache)
         {
-            return parameterCache.Cache(this.Label);
+            builder.Append(parameterCache.Cache(this.Label));
         }
 
         public static bool operator ==(T a, StepLabel<T> b)

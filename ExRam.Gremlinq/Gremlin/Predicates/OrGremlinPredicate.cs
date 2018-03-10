@@ -12,24 +12,18 @@ namespace ExRam.Gremlinq
             this._predicates = predicates;
         }
 
-        public string Serialize(IParameterCache parameterCache)
+        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
         {
-            var builder = new StringBuilder();
-
             for (var i = 0; i < this._predicates.Length; i++)
             {
                 if (i != 0)
                     builder.Append(".or(");
 
-                var subQuery = this._predicates[i].Serialize(parameterCache);
-
-                builder.Append(subQuery);
+                this._predicates[i].Serialize(builder, parameterCache);
 
                 if (i != 0)
                     builder.Append(")");
             }
-
-            return builder.ToString();
         }
     }
 }

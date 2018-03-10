@@ -17,10 +17,8 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public string Serialize(IParameterCache parameterCache)
+        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
         {
-            var builder = new StringBuilder();
-            
             var appendComma = false;
 
             builder.Append(this.Name);
@@ -34,17 +32,12 @@ namespace ExRam.Gremlinq
                     appendComma = true;
 
                 if (parameter is IGremlinSerializable serializable)
-                {
-                    var innerQueryString = serializable.Serialize(parameterCache);
-
-                    builder.Append(innerQueryString);
-                }
+                    serializable.Serialize(builder, parameterCache);
                 else
                     builder.Append(parameterCache.Cache(parameter));
             }
 
             builder.Append(")");
-            return builder.ToString();
         }
         
         public string Name { get; }

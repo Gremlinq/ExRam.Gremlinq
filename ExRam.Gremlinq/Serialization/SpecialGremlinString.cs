@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Collections.Immutable;
+using System.Text;
 
 namespace ExRam.Gremlinq
 {
@@ -12,9 +11,9 @@ namespace ExRam.Gremlinq
             this._value = value;
         }
 
-        public string Serialize(IParameterCache parameterCache)
+        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
         {
-            return this._value;
+            builder.Append(this._value);
         }
     }
 }
