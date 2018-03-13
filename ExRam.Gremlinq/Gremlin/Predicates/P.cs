@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThan, P.Gt }
         };
 
-        public P(object name, params object[] arguments)
+        private P(object name, params object[] arguments)
         {
             this._name = name;
             this._arguments = arguments;

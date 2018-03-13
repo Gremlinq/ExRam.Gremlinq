@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
 
         private readonly object _name;
 
-        public T(object name)
+        private T(object name)
         {
             this._name = name;
         }
