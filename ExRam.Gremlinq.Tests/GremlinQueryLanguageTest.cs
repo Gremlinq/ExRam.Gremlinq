@@ -1424,12 +1424,11 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).values(_P2)");
+                .Be("g.V().hasLabel(_P1).values(T.id)");
 
             query.parameters
                 .Should()
-                .Contain("_P1", "User").And
-                .Contain("_P2", "T.id");
+                .Contain("_P1", "User");
         }
 
         [Fact]
@@ -1444,13 +1443,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).values(_P2, _P3)");
+                .Be("g.V().hasLabel(_P1).values(_P2, T.id)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", "Name").And
-                .Contain("_P3", "T.id");
+                .Contain("_P2", "Name");
         }
 
         [Fact]

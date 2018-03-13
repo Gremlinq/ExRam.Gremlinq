@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq
                 {
                     var value = property.GetValue(this.Element);
                     var propertyName = property.Name == model.IdPropertyName
-                        ? (object)new SpecialGremlinString("T.id")
+                        ? (object)T.Id
                         : property.Name;
 
                     if (value != null)

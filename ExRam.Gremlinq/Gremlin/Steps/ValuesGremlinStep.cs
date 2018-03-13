@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq
                             var name = memberExpression.Member.Name;
 
                             return name == model.IdPropertyName
-                                ? "T.id" 
+                                ? (object)T.Id 
                                 : name;
                         }
 

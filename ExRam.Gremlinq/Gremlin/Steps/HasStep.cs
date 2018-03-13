@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
             var key = this._key == model.IdPropertyName
-                ? new SpecialGremlinString("T.id")
+                ? T.Id
                 : (object)this._key;
 
             yield return this._value.Match(
