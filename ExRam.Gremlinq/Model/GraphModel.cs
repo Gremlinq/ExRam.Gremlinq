@@ -73,9 +73,9 @@ namespace ExRam.Gremlinq
                 model.IdPropertyName);
         }
 
-        public static IGraphModel EdgeLabel<T>(this IGraphModel model, string label = null)
+        public static IGraphModel EdgeLabel<TElement>(this IGraphModel model, string label = null)
         {
-            var type = typeof(T);
+            var type = typeof(TElement);
 
             return model.VertexLabels.Keys
                 // ReSharper disable once ImplicitlyCapturedClosure
@@ -84,7 +84,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(T).Name), model.IdPropertyName));
+                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(TElement).Name), model.IdPropertyName));
         }
 
         public static IGraphModel WithIdPropertyName(this IGraphModel model, string idPropertyName)
@@ -95,9 +95,9 @@ namespace ExRam.Gremlinq
                 idPropertyName);
         }
 
-        public static IGraphModel VertexLabel<T>(this IGraphModel model, string label = null)
+        public static IGraphModel VertexLabel<TElement>(this IGraphModel model, string label = null)
         {
-            var type = typeof(T);
+            var type = typeof(TElement);
 
             return model.EdgeLabels.Keys
                 // ReSharper disable once ImplicitlyCapturedClosure
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq
                 .FirstOrDefault()
                 .Match(
                     contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(T).Name), model.EdgeLabels, model.IdPropertyName));
+                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(TElement).Name), model.EdgeLabels, model.IdPropertyName));
         }
 
         public static string GetLabelOfType(this IGraphModel model, Type type)

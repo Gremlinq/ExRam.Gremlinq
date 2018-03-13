@@ -2,7 +2,7 @@ namespace ExRam.Gremlinq
 {
     public interface IIdentifierFactory
     {
-        StepLabel<T> CreateStepLabel<T>();
+        StepLabel<TElement> CreateStepLabel<TElement>();
         string CreateIndexName();
     }
 }

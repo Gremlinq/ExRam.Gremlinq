@@ -15,15 +15,15 @@ namespace ExRam.Gremlinq
         public string Label { get; }
     }
 
-    public class StepLabel<T> : StepLabel
+    public class StepLabel<TElement> : StepLabel
     {
         public StepLabel(string label) : base(label)
         {
         }
 
-        public static StepLabel<T> CreateNew()
+        public static StepLabel<TElement> CreateNew()
         {
-            return new StepLabel<T>(Guid.NewGuid().ToString("N"));
+            return new StepLabel<TElement>(Guid.NewGuid().ToString("N"));
         }
 
         public override void Serialize(StringBuilder builder, IParameterCache parameterCache)
@@ -31,24 +31,24 @@ namespace ExRam.Gremlinq
             builder.Append(parameterCache.Cache(this.Label));
         }
 
-        public static bool operator ==(T a, StepLabel<T> b)
+        public static bool operator ==(TElement a, StepLabel<TElement> b)
         {
             throw new NotImplementedException("Only for expressions.");
         }
 
-        public static bool operator !=(T a, StepLabel<T> b)
+        public static bool operator !=(TElement a, StepLabel<TElement> b)
         {
             throw new NotImplementedException("Only for expressions.");
         }
 
-        public bool Equals(StepLabel<T> other)
+        public bool Equals(StepLabel<TElement> other)
         {
             return string.Equals(this.Label, other.Label);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is StepLabel<T> label && this.Equals(label);
+            return obj is StepLabel<TElement> label && this.Equals(label);
         }
 
         public override int GetHashCode()

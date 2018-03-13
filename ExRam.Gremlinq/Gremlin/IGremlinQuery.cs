@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq
     }
 
     // ReSharper disable once UnusedTypeParameter
-    public interface IGremlinQuery<out T> : IGremlinQuery
+    public interface IGremlinQuery<out TElement> : IGremlinQuery
     {
 
     }

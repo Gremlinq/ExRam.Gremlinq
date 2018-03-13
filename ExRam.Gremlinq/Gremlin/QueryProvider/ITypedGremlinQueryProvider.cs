@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq
 {
     public interface ITypedGremlinQueryProvider : IHasModel, IHasTraversalSource
     {
-        IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query);
+        IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query);
     }
 }

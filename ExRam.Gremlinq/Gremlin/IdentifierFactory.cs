@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq
             
         }
 
-        public StepLabel<T> CreateStepLabel<T>()
+        public StepLabel<TElement> CreateStepLabel<TElement>()
         {
-            return new StepLabel<T>("l" + Interlocked.Increment(ref this._label));
+            return new StepLabel<TElement>("l" + Interlocked.Increment(ref this._label));
         }
 
         public string CreateIndexName()

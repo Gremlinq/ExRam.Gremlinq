@@ -276,7 +276,7 @@ namespace ExRam.Gremlinq
                 this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
             }
 
-            public virtual IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public virtual IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return this._baseTypedGremlinQueryProvider.Execute(query);
             }
@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq
                     this._query = query;
                 }
 
-                public IAsyncEnumerable<T> Deserialize<T>(string rawData, IGraphModel model)
+                public IAsyncEnumerable<TElement> Deserialize<TElement>(string rawData, IGraphModel model)
                 {
                     var serializer = new JsonSerializer
                     {
@@ -493,7 +493,7 @@ namespace ExRam.Gremlinq
                     };
 
                     return serializer
-                        .Deserialize<T[]>(new JsonTextReader(new StringReader(rawData))
+                        .Deserialize<TElement[]>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .UnwrapObject(
@@ -525,12 +525,12 @@ namespace ExRam.Gremlinq
                 this._baseProvider = baseProvider;
             }
 
-            public IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return this._baseProvider
                     .Execute(query)
                     .SelectMany(rawData => new JsonGremlinDeserializer(query)
-                        .Deserialize<T>(rawData, this._baseProvider.Model));
+                        .Deserialize<TElement>(rawData, this._baseProvider.Model));
             }
 
             public IGraphModel Model => this._baseProvider.Model;
@@ -587,10 +587,10 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public override IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return base.Execute(this._maybeSubgraphStrategyStep
-                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<T>(0, subgraphStrategyStep)));
+                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<TElement>(0, subgraphStrategyStep)));
             }
         }
 
@@ -603,9 +603,9 @@ namespace ExRam.Gremlinq
                 this._replacementStepFactory = replacementStepFactory;
             }
 
-            public override IAsyncEnumerable<T> Execute<T>(IGremlinQuery<T> query)
+            public override IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
-                return base.Execute(RewriteSteps(query).Cast<T>());
+                return base.Execute(RewriteSteps(query).Cast<TElement>());
             }
                     
             private IGremlinQuery RewriteSteps(IGremlinQuery query)
@@ -621,7 +621,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IAsyncEnumerable<T> Execute<T>(this IGremlinQuery<T> query, ITypedGremlinQueryProvider provider)
+        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)
         {
             return provider.Execute(query);
         }

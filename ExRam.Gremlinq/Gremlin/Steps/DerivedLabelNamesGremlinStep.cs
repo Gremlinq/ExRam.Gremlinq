@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
         protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
     }
 
-    public sealed class DerivedLabelNamesGremlinStep<T> : DerivedLabelNamesGremlinStep
+    public sealed class DerivedLabelNamesGremlinStep<TElement> : DerivedLabelNamesGremlinStep
     {
         private readonly string _stepName;
 
@@ -29,8 +29,8 @@ namespace ExRam.Gremlinq
         {
             return TypeLabelDict
                 .GetOrAdd(
-                    (model, typeof(T)),
-                    tuple => tuple.model.GetDerivedTypes(typeof(T), true)
+                    (model, typeof(TElement)),
+                    tuple => tuple.model.GetDerivedTypes(typeof(TElement), true)
                         .Select(type => tuple.model.TryGetLabelOfType(type)
                             .IfNone(() => throw new InvalidOperationException()))
                         .OrderBy(x => x)
