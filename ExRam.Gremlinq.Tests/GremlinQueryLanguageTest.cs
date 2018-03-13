@@ -1413,6 +1413,26 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_values_of_Id_property()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .Values(x => x.Id)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).values(_P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "T.id");
+        }
+
+        [Fact]
         public void V_ofType_values_of_two_properties()
         {
             var query = GremlinQuery
@@ -1430,7 +1450,7 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Name").And
-                .Contain("_P3", "Id");
+                .Contain("_P3", "T.id");
         }
 
         [Fact]

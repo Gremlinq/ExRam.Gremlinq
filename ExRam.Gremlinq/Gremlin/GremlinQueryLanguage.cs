@@ -530,17 +530,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TTarget> Values<TSource, TTarget>(this IGremlinQuery<TSource> query, params Expression<Func<TSource, TTarget>>[] projections)
         {
-            return query.AddStep<TTarget>(
-                "values",
-                projections
-                    .Select(projection =>
-                    {
-                        if (projection.Body is MemberExpression memberExpression)
-                            return memberExpression.Member.Name;
-
-                        throw new NotSupportedException();
-                    })
-                    .ToImmutableList<object>());
+            return query.AddStep<TTarget>(new ValuesGremlinStep<TSource, TTarget>(projections));
         }
 
         public static IGremlinQuery<T> Where<T>(this IGremlinQuery<T> query, Func<IGremlinQuery<T>, IGremlinQuery> filterTraversal)
