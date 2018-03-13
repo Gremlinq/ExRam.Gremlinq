@@ -23,17 +23,11 @@ namespace ExRam.Gremlinq
                     .Select(projection =>
                     {
                         if (projection.Body is MemberExpression memberExpression)
-                        {
-                            var name = memberExpression.Member.Name;
-
-                            return name == model.IdPropertyName
-                                ? (object)T.Id 
-                                : name;
-                        }
+                            return model.GetIdentifier(memberExpression.Member.Name);
 
                         throw new NotSupportedException();
                     })
-                    .ToImmutableList<object>());
+                    .ToImmutableList());
         }
     }
 }

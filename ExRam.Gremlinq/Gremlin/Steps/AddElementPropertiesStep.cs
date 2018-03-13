@@ -27,9 +27,7 @@ namespace ExRam.Gremlinq
                 .SelectMany(property =>
                 {
                     var value = property.GetValue(this.Element);
-                    var propertyName = property.Name == model.IdPropertyName
-                        ? (object)T.Id
-                        : property.Name;
+                    var propertyName = model.GetIdentifier(property.Name);
 
                     if (value != null)
                     {
