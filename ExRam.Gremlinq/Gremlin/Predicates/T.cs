@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq
     {
         public static readonly T Id = new T("id");
 
-        private readonly object _name;
+        private readonly string _name;
 
-        private T(object name)
+        private T(string name)
         {
             this._name = name;
         }

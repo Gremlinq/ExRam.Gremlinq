@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq
 {
     internal struct P : IGremlinSerializable
     {
-        private readonly object _name;
+        private readonly string _name;
         private readonly object[] _arguments;
 
         private static readonly IReadOnlyDictionary<ExpressionType, Func<object, P>> SupportedComparisons = new Dictionary<ExpressionType, Func<object, P>>
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThan, P.Gt }
         };
 
-        private P(object name, params object[] arguments)
+        private P(string name, params object[] arguments)
         {
             this._name = name;
             this._arguments = arguments;
