@@ -2,11 +2,11 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    internal struct OrGremlinPredicate : IGremlinSerializable
+    internal struct OrP : IGremlinSerializable
     {
-        private readonly GremlinPredicate[] _predicates;
+        private readonly P[] _predicates;
 
-        public OrGremlinPredicate(params GremlinPredicate[] predicates)
+        public OrP(params P[] predicates)
         {
             this._predicates = predicates;
         }

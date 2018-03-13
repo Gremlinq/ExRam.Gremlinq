@@ -576,12 +576,12 @@ namespace ExRam.Gremlinq
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
                             {
                                 if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
-                                    return query.Has(leftMember, GremlinPredicate.Eq(methodCallExpression.Arguments[1].GetValue()));
+                                    return query.Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
                                 {
                                     if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
-                                        return query.Has(rightMember, GremlinPredicate.Within(enumerable.Cast<object>().ToArray()));
+                                        return query.Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
                                 }
 
                                 throw new NotSupportedException();
@@ -599,7 +599,7 @@ namespace ExRam.Gremlinq
                                 var constant = methodCallExpression.Arguments[1].GetValue();
 
                                 if (constant is IEnumerable arrayConstant)
-                                    return query.Has(innerMemberExpression, GremlinPredicate.Within(arrayConstant.Cast<object>().ToArray()));
+                                    return query.Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
                             }
                         }
                     }
@@ -613,9 +613,9 @@ namespace ExRam.Gremlinq
                                 {
                                     return query.Has(
                                         argumentExpression,
-                                        new OrGremlinPredicate(Enumerable
+                                        new OrP(Enumerable
                                             .Range(0, stringValue.Length + 1)
-                                            .Select(i => GremlinPredicate.Eq(stringValue.Substring(0, i)))
+                                            .Select(i => P.Eq(stringValue.Substring(0, i)))
                                             .ToArray()));
                                 }
                             }
@@ -633,7 +633,7 @@ namespace ExRam.Gremlinq
                                     {
                                         upperBoundChars[upperBoundChars.Length - 1]++;
 
-                                        return query.Has(memberExpression, GremlinPredicate.Within(lowerBound, new string(upperBoundChars)));
+                                        return query.Has(memberExpression, P.Within(lowerBound, new string(upperBoundChars)));
                                     }
                                 }
                             }
@@ -683,7 +683,7 @@ namespace ExRam.Gremlinq
             }
             else
             {
-                var predicateArgument = GremlinPredicate.ForExpressionType(nodeType, rightConstant);
+                var predicateArgument = P.ForExpressionType(nodeType, rightConstant);
 
                 switch (left)
                 {
