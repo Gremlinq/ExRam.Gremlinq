@@ -1424,7 +1424,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).values(T.id)");
+                .Be("g.V().hasLabel(_P1).id()");
 
             query.parameters
                 .Should()
@@ -1443,7 +1443,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).values(_P2, T.id)");
+                .Be("g.V().hasLabel(_P1).union(__.values(_P2), __.id())");
 
             query.parameters
                 .Should()
