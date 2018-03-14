@@ -257,6 +257,12 @@ namespace ExRam.Gremlinq
                 .AddStep<TElement>("from", fromVertex(query.ToAnonymous()));
         }
 
+        public static IGremlinQuery<object> Id(this IGremlinQuery query)
+        {
+            return query
+                .AddStep<object>("id");
+        }
+
         public static IGremlinQuery<TElement> Identity<TElement>(this IGremlinQuery<TElement> query)
         {
             return query

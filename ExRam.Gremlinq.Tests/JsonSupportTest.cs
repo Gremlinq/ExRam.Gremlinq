@@ -67,6 +67,82 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public async Task String_Ids()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[ \"id1\", \"id2\" ]"));
+
+            var ids = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").V().Id())
+                .ToArray();
+
+            ids.Should().HaveCount(2);
+            ids[0].Should().Be("id1");
+            ids[1].Should().Be("id2");
+        }
+
+        [Fact]
+        public async Task String_Ids2()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[ \"1\", \"2\" ]"));
+
+            var ids = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").V().Id())
+                .ToArray();
+
+            ids.Should().HaveCount(2);
+            ids[0].Should().Be("1");
+            ids[1].Should().Be("2");
+        }
+
+        [Fact]
+        public async Task Int_Ids()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[ 1, 2 ]"));
+
+            var ids = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").V().Id())
+                .ToArray();
+
+            ids.Should().HaveCount(2);
+            ids[0].Should().Be(1);
+            ids[1].Should().Be(2);
+        }
+
+        [Fact]
+        public async Task Mixed_Ids()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[ 1, \"id2\" ]"));
+
+            var ids = await queryProviderMock.Object
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create("g").V().Id())
+                .ToArray();
+
+            ids.Should().HaveCount(2);
+            ids[0].Should().Be(1);
+            ids[1].Should().Be("id2");
+        }
+
+        [Fact]
         public async Task Language_strongly_typed()
         {
             var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
