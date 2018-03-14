@@ -11,6 +11,11 @@ using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {
+    public static class GremlinQuery<TElement>
+    {
+        public static readonly IGremlinQuery<TElement> Anonymous = GremlinQuery.Create<TElement>("__");
+    }
+
     public static class GremlinQuery
     {
         private class GremlinQueryImpl : IGremlinQuery
@@ -50,16 +55,21 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery.Create().ToAnonymous();
+        public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery<Unit>.Anonymous;
 
         public static IGremlinQuery<Unit> Create(string graphName = null)
         {
-            return new GremlinQueryImpl<Unit>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
+            return GremlinQuery.Create<Unit>(graphName);
+        }
+
+        public static IGremlinQuery<TElement> Create<TElement>(string graphName = null)
+        {
+            return new GremlinQueryImpl<TElement>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
         }
 
         public static IGremlinQuery<TElement> ToAnonymous<TElement>(this IGremlinQuery<TElement> query)
         {
-            return new GremlinQueryImpl<TElement>("__", ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
+            return GremlinQuery<TElement>.Anonymous;
         }
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
