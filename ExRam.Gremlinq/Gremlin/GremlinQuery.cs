@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq
     {
         private class GremlinQueryImpl : IGremlinQuery
         {
-            public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<string, StepLabel> stepLabelBindings, IIdentifierFactory identifierFactory)
+            public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, IIdentifierFactory identifierFactory)
             {
                 this.Steps = steps;
                 this.TraversalSourceName = traversalSourceName;
@@ -42,12 +42,12 @@ namespace ExRam.Gremlinq
             public string TraversalSourceName { get; }
             public IImmutableList<GremlinStep> Steps { get; }
             public IIdentifierFactory IdentifierFactory { get; }
-            public IImmutableDictionary<string, StepLabel> StepLabelMappings { get; }
+            public IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
         }
 
         private sealed class GremlinQueryImpl<TElement> : GremlinQueryImpl, IGremlinQuery<TElement>
         {
-            public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<string, StepLabel> stepLabelBindings, IIdentifierFactory identifierFactory) : base(traversalSourceName, steps, stepLabelBindings, identifierFactory)
+            public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, IIdentifierFactory identifierFactory) : base(traversalSourceName, steps, stepLabelBindings, identifierFactory)
             {
             }
         }
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<Unit> Create(string graphName = null)
         {
-            return new GremlinQueryImpl<Unit>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<string, StepLabel>.Empty, IdentifierFactory.CreateDefault());
+            return new GremlinQueryImpl<Unit>(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty, IdentifierFactory.CreateDefault());
         }
 
         public static IGremlinQuery<TElement> ToAnonymous<TElement>(this IGremlinQuery<TElement> query)
@@ -64,9 +64,9 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<TElement>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings, query.IdentifierFactory);
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinSerializable query)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
         {
-            var cache = new DefaultParameterCache();
+            var cache = new DefaultParameterCache(query.StepLabelMappings);
             var stringBuilder = new StringBuilder();
 
             query.Serialize(stringBuilder, cache);
@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ArgumentException();
 
-            return new GremlinQueryImpl<TElement>(query.TraversalSourceName, query.Steps, query.StepLabelMappings.SetItem(memberExpressionBody.Member.Name, stepLabel), query.IdentifierFactory);
+            return new GremlinQueryImpl<TElement>(query.TraversalSourceName, query.Steps, query.StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name), query.IdentifierFactory);
         }
 
         internal static IGremlinQuery<TElement> ReplaceProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)

@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TTarget> As<TSource, TTarget>(this IGremlinQuery<TSource> query, Func<IGremlinQuery<TSource>, StepLabel<TSource>, IGremlinQuery<TTarget>> continuation)
         {
-            var stepLabel = query.IdentifierFactory.CreateStepLabel<TSource>();
+            var stepLabel = new StepLabel<TSource>();
 
             return continuation(
                 query.As(stepLabel),

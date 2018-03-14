@@ -1026,7 +1026,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_of_type_where_with_stepLabel()
         {
-            var l = new StepLabel<Language>("l");
+            var l = new StepLabel<Language>();
 
             var query = GremlinQuery
                 .Create("g")
@@ -1044,13 +1044,13 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "l");
+                .Contain("_P2", "l1");
         }
 
         [Fact]
         public void V_of_type_where_value_equals_stepLabel()
         {
-            var l = new StepLabel<string>("l");
+            var l = new StepLabel<string>();
 
             var query = GremlinQuery
                 .Create("g")
@@ -1070,13 +1070,13 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .Contain("_P1", "Language").And
                 .Contain("_P2", "IetfLanguageTag").And
-                .Contain("_P3", "l");
+                .Contain("_P3", "l1");
         }
 
         [Fact]
         public void V_of_type_where_with_stepLabel_not_inlined()
         {
-            var l = new StepLabel<Language>("l");
+            var l = new StepLabel<Language>();
 
             var query = GremlinQuery
                 .Create("g")
@@ -1095,7 +1095,7 @@ namespace ExRam.Gremlinq.Tests
                 .parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "l");
+                .Contain("_P2", "l1");
         }
 
         [Fact]
@@ -1616,7 +1616,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V<User>()
-                .As(new StepLabel<User>("a"))
+                .As(new StepLabel<User>())
                 .Resolve(this._model)
                 .Serialize();
 
@@ -1627,7 +1627,7 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", "a");
+                .Contain("_P2", "l1");
         }
 
         [Fact]
@@ -1636,7 +1636,7 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V<User>()
-                .As(new StepLabel<User>("a"))
+                .As(new StepLabel<User>())
                 .Resolve(this._model)
                 .Serialize();
 
@@ -1647,13 +1647,13 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", "a");
+                .Contain("_P2", "l1");
         }
 
         [Fact]
         public void V_as_select()
         {
-            var stepLabel = new StepLabel<User>("a");
+            var stepLabel = new StepLabel<User>();
 
             var query = GremlinQuery
                 .Create("g")
@@ -1670,13 +1670,13 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", "a");
+                .Contain("_P2", "l1");
         }
 
         [Fact]
         public void V_as_select_not_inlined()
         {
-            var stepLabel = new StepLabel<User>("a");
+            var stepLabel = new StepLabel<User>();
 
             var query = GremlinQuery
                 .Create("g")
@@ -1693,7 +1693,30 @@ namespace ExRam.Gremlinq.Tests
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", "a");
+                .Contain("_P2", "l1");
+        }
+
+        [Fact]
+        public void V_as_as_select()
+        {
+            var query = GremlinQuery
+                .Create("g")
+                .V<User>()
+                .As((_, stepLabel1) => _
+                    .As((__, stepLabel2) => __
+                        .Select(stepLabel1, stepLabel2)))
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).as(_P2).as(_P3).select(_P2, _P3)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Item1").And
+                .Contain("_P3", "Item2");
         }
 
         [Fact]

@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
         IImmutableList<GremlinStep> Steps { get; }
         IIdentifierFactory IdentifierFactory { get; }
         //(int depth, int index) TreeLocation { get; }
-        IImmutableDictionary<string, StepLabel> StepLabelMappings { get; }
+        IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
     // ReSharper disable once UnusedTypeParameter

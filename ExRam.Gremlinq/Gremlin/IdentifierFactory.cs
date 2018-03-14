@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq
 
         public StepLabel<TElement> CreateStepLabel<TElement>()
         {
-            return new StepLabel<TElement>("l" + Interlocked.Increment(ref this._label));
+            return new StepLabel<TElement>();
         }
 
         public string CreateIndexName()

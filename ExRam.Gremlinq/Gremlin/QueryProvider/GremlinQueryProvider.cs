@@ -318,9 +318,9 @@ namespace ExRam.Gremlinq
                         }
                     }
 
-                    private readonly IImmutableDictionary<string, StepLabel> _mappings;
+                    private readonly IImmutableDictionary<StepLabel, string> _mappings;
 
-                    public GremlinContractResolver(IImmutableDictionary<string, StepLabel> mappings)
+                    public GremlinContractResolver(IImmutableDictionary<StepLabel, string> mappings)
                     {
                         this._mappings = mappings;
                     }
@@ -340,20 +340,20 @@ namespace ExRam.Gremlinq
                         return provider;
                     }
 
-                    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-                    {
-                        var property = base.CreateProperty(member, memberSerialization);
+                    //protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+                    //{
+                    //    var property = base.CreateProperty(member, memberSerialization);
 
-                        this._mappings
-                            .TryGetValue(member.Name)
-                            .IfSome(
-                                mapping =>
-                                {
-                                    property.PropertyName = mapping.Label;
-                                });
+                    //    this._mappings
+                    //        .TryGetValue(member.Name)
+                    //        .IfSome(
+                    //            mapping =>
+                    //            {
+                    //                property.PropertyName = mapping.Label;
+                    //            });
 
-                        return property;
-                    }
+                    //    return property;
+                    //}
                 }
 
                 private sealed class TimespanConverter : JsonConverter
