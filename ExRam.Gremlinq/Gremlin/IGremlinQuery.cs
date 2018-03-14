@@ -6,8 +6,6 @@ namespace ExRam.Gremlinq
     {
         string TraversalSourceName { get; }
         IImmutableList<GremlinStep> Steps { get; }
-        IIdentifierFactory IdentifierFactory { get; }
-        //(int depth, int index) TreeLocation { get; }
         IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
