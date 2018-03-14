@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> ToAnonymous<TElement>(this IGremlinQuery<TElement> query)
         {
-            return new GremlinQueryImpl<TElement>("__", ImmutableList<GremlinStep>.Empty, query.StepLabelMappings);
+            return new GremlinQueryImpl<TElement>("__", ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
         }
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
