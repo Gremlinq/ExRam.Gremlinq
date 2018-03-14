@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -292,8 +291,6 @@ namespace ExRam.Gremlinq
 
             private sealed class JsonGremlinDeserializer : IGremlinDeserializer
             {
-                private readonly IGremlinQuery _query;
-
                 private sealed class GremlinContractResolver : DefaultContractResolver
                 {
                     private sealed class EmptyListValueProvider : IValueProvider
@@ -318,13 +315,6 @@ namespace ExRam.Gremlinq
                         }
                     }
 
-                    private readonly IImmutableDictionary<StepLabel, string> _mappings;
-
-                    public GremlinContractResolver(IImmutableDictionary<StepLabel, string> mappings)
-                    {
-                        this._mappings = mappings;
-                    }
-
                     protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
                     {
                         var provider = base.CreateMemberValueProvider(member);
@@ -339,21 +329,6 @@ namespace ExRam.Gremlinq
 
                         return provider;
                     }
-
-                    //protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-                    //{
-                    //    var property = base.CreateProperty(member, memberSerialization);
-
-                    //    this._mappings
-                    //        .TryGetValue(member.Name)
-                    //        .IfSome(
-                    //            mapping =>
-                    //            {
-                    //                property.PropertyName = mapping.Label;
-                    //            });
-
-                    //    return property;
-                    //}
                 }
 
                 private sealed class TimespanConverter : JsonConverter
@@ -471,28 +446,18 @@ namespace ExRam.Gremlinq
                     }
                 }
 
-                private static readonly JsonConverter Converter1 = new TimespanConverter();
-                private static readonly JsonConverter Converter2 = new AssumeUtcDateTimeOffsetConverter();
-                private static readonly JsonConverter Converter3 = new AssumeUtcDateTimeConverter();
-                private static readonly JsonConverter Converter4 = new ArrayConverter();
-
-                public JsonGremlinDeserializer(IGremlinQuery query)
+                private static readonly JsonSerializer Deserializer = new JsonSerializer
                 {
-                    this._query = query;
-                }
+                    DefaultValueHandling = DefaultValueHandling.Populate,
+                    Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter(), new ArrayConverter() },
+                    ContractResolver = new GremlinContractResolver(),
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
+                };
 
                 public IAsyncEnumerable<TElement> Deserialize<TElement>(string rawData, IGraphModel model)
                 {
-                    var serializer = new JsonSerializer
-                    {
-                        DefaultValueHandling = DefaultValueHandling.Populate,
-                        Converters = { Converter1, Converter2, Converter3, Converter4 },
-                        ContractResolver = new GremlinContractResolver(this._query.StepLabelMappings),
-                        TypeNameHandling = TypeNameHandling.Auto,
-                        MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
-                    };
-
-                    return serializer
+                    return JsonGremlinDeserializer.Deserializer
                         .Deserialize<TElement[]>(new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
@@ -529,7 +494,7 @@ namespace ExRam.Gremlinq
             {
                 return this._baseProvider
                     .Execute(query)
-                    .SelectMany(rawData => new JsonGremlinDeserializer(query)
+                    .SelectMany(rawData => new JsonGremlinDeserializer()
                         .Deserialize<TElement>(rawData, this._baseProvider.Model));
             }
 
