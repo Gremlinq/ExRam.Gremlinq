@@ -449,7 +449,13 @@ namespace ExRam.Gremlinq
                 private static readonly JsonSerializer Deserializer = new JsonSerializer
                 {
                     DefaultValueHandling = DefaultValueHandling.Populate,
-                    Converters = { new TimespanConverter(), new AssumeUtcDateTimeOffsetConverter(), new AssumeUtcDateTimeConverter(), new ArrayConverter() },
+                    Converters =
+                    {
+                        new TimespanConverter(),
+                        new AssumeUtcDateTimeOffsetConverter(),
+                        new AssumeUtcDateTimeConverter(),
+                        new ArrayConverter()
+                    },
                     ContractResolver = new GremlinContractResolver(),
                     TypeNameHandling = TypeNameHandling.Auto,
                     MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
