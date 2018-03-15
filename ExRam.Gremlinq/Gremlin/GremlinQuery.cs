@@ -422,10 +422,10 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>("range", low, high);
             }
 
-            public IGremlinQuery<Unit> Repeat<TUnit>(Func<IGremlinQuery<Unit>, IGremlinQuery<TUnit>> repeatTraversal)
+            public IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal)
             {
                 return this
-                    .AddStep<Unit>("repeat", repeatTraversal(this.Cast<Unit>().ToAnonymous()));
+                    .AddStep<TElement>("repeat", repeatTraversal(this.ToAnonymous()));
             }
 
             public IGremlinQuery<TStep> Select<TStep>(StepLabel<TStep> label)

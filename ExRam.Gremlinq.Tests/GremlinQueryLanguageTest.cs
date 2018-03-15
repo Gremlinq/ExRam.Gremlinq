@@ -1495,7 +1495,9 @@ namespace ExRam.Gremlinq.Tests
             var query = GremlinQuery
                 .Create("g")
                 .V<User>()
-                .Repeat(__ => __.Out<Knows>())
+                .Repeat(__ => __
+                    .Out<Knows>()
+                    .OfType<User>())
                 .Resolve(this._model)
                 .Serialize();
 

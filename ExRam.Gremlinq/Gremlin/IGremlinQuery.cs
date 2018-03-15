@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> Property<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, TProperty property);
         IGremlinQuery<TElement> Property(string key, object value);
         IGremlinQuery<TElement> Range(long low, long high);
-        IGremlinQuery<Unit> Repeat<TUnit>(Func<IGremlinQuery<Unit>, IGremlinQuery<TUnit>> repeatTraversal);
+        IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal);
         IGremlinQuery<TStep> Select<TStep>(StepLabel<TStep> label);
         IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
         IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);
