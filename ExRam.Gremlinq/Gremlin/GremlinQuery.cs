@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq
 
     public static class GremlinQuery
     {
-        private class GremlinQueryImpl : IGremlinQuery
+        private sealed class GremlinQueryImpl<TElement> : IGremlinQuery<TElement>
         {
             public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings)
             {
@@ -47,14 +47,7 @@ namespace ExRam.Gremlinq
             public IImmutableList<GremlinStep> Steps { get; }
             public IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
         }
-
-        private sealed class GremlinQueryImpl<TElement> : GremlinQueryImpl, IGremlinQuery<TElement>
-        {
-            public GremlinQueryImpl(string traversalSourceName, IImmutableList<GremlinStep> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings) : base(traversalSourceName, steps, stepLabelBindings)
-            {
-            }
-        }
-
+        
         public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery<Unit>.Anonymous;
 
         public static IGremlinQuery<Unit> Create(string graphName = null)
@@ -132,7 +125,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery ReplaceSteps(this IGremlinQuery query, IImmutableList<GremlinStep> steps)
         {
-            return new GremlinQueryImpl(query.TraversalSourceName, steps, query.StepLabelMappings);
+            return new GremlinQueryImpl<Unit>(query.TraversalSourceName, steps, query.StepLabelMappings);
         }
 
         public static IGremlinQuery<TElement> Cast<TElement>(this IGremlinQuery query)
