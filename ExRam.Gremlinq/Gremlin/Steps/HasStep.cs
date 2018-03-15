@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class HasStep : NonTerminalGremlinStep
     {
-        private static string Name = "has";
+        private const string Name = "has";
 
         private readonly string _key;
         private readonly Option<object> _value;

@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq
                 .Cast<object>()
                 .ToArray();
 
-            if (numberOfIdSteps > 1 || (numberOfIdSteps > 0 && propertyKeys.Length > 0))
+            if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
                 throw new NotSupportedException();
 
             if (numberOfIdSteps > 0)
