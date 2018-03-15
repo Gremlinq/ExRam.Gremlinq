@@ -759,9 +759,9 @@ namespace ExRam.Gremlinq
             return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, query.Steps.Insert(index, step), query.StepLabelMappings);
         }
 
-        public static IGremlinQuery ReplaceSteps(this IGremlinQuery query, IImmutableList<GremlinStep> steps)
+        public static IGremlinQuery<TElement> ReplaceSteps<TElement>(this IGremlinQuery<TElement> query, IImmutableList<GremlinStep> steps)
         {
-            return new GremlinQuery<Unit>.GremlinQueryImpl(query.TraversalSourceName, steps, query.StepLabelMappings);
+            return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, steps, query.StepLabelMappings);
         }
 
         public static IGremlinQuery<TElement> Cast<TElement>(this IGremlinQuery query)
@@ -769,12 +769,12 @@ namespace ExRam.Gremlinq
             return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, query.Steps, query.StepLabelMappings);
         }
 
-        public static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
+        public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
             return query.RewriteSteps(x => Option<IEnumerable<GremlinStep>>.Some(x.Resolve(model)));
         }
 
-        public static IGremlinQuery RewriteSteps(this IGremlinQuery query, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
+        public static IGremlinQuery<TElement> RewriteSteps<TElement>(this IGremlinQuery<TElement> query, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
         {
             var steps = query.Steps;
 
@@ -793,7 +793,7 @@ namespace ExRam.Gremlinq
                                 var parameter = parameters[j];
 
                                 if (parameter is IGremlinQuery subQuery)
-                                    parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
+                                    parameters = parameters.SetItem(j, subQuery.Cast<Unit>().RewriteSteps(resolveFunction));
                             }
 
                             // ReSharper disable once PossibleUnintendedReferenceComparison

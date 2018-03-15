@@ -519,7 +519,7 @@ namespace ExRam.Gremlinq
                 this._baseProvider = baseProvider;
             }
 
-            public IAsyncEnumerable<string> Execute(IGremlinQuery query)
+            public IAsyncEnumerable<string> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 var serialized = query
                     .Resolve(this.Model)
@@ -579,7 +579,7 @@ namespace ExRam.Gremlinq
                 return base.Execute(RewriteSteps(query).Cast<TElement>());
             }
                     
-            private IGremlinQuery RewriteSteps(IGremlinQuery query)
+            private IGremlinQuery<TElement> RewriteSteps<TElement>(IGremlinQuery<TElement> query)
             {
                 return query
                     .RewriteSteps(step =>
