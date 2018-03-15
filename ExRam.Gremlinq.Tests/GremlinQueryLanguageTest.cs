@@ -1503,7 +1503,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).repeat(__.out(_P2))");
+                .Be("g.V().hasLabel(_P1).repeat(__.out(_P2).hasLabel(_P1))");
 
             query.parameters
                 .Should()

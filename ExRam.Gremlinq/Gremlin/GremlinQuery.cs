@@ -52,19 +52,15 @@ namespace ExRam.Gremlinq
 
             public IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals)
             {
-                return this.And(andTraversals
-                    .Select(andTraversal => andTraversal(this.ToAnonymous())));
-            }
-
-            public IGremlinQuery<TElement> And(IEnumerable<IGremlinQuery> andTraversals)
-            {
                 return this.AddStep<TElement>(
                     "and",
-                    andTraversals.Aggregate(
-                        ImmutableList<object>.Empty,
-                        (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
-                            ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
-                            : list.Add(query2)));
+                    andTraversals
+                        .Select(andTraversal => andTraversal(this.ToAnonymous()))
+                        .Aggregate(
+                            ImmutableList<object>.Empty,
+                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
+                                ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
+                                : list.Add(query2)));
             }
 
             public IGremlinQuery<TTarget> As<TTarget>(Func<IGremlinQuery<TElement>, StepLabel<TElement>, IGremlinQuery<TTarget>> continuation)
@@ -86,13 +82,6 @@ namespace ExRam.Gremlinq
             {
                 return this
                     .AddStep<TElement>("barrier");
-            }
-
-            public IGremlinQuery<TElement> Coalesce(params Func<IGremlinQuery<Unit>, IGremlinQuery<TElement>>[] traversals)
-            {
-                return this
-                    .Cast<Unit>()
-                    .Coalesce(traversals);
             }
 
             public IGremlinQuery<TTarget> Coalesce<TTarget>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] traversals)
@@ -134,10 +123,10 @@ namespace ExRam.Gremlinq
                     .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
             }
 
-            public IGremlinQuery<TElement> BothE()
+            public IGremlinQuery<TEdge> BothE<TEdge>()
             {
                 return this
-                    .AddStep<TElement>(new DerivedLabelNamesGremlinStep<TElement>("bothE"));
+                    .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("bothE"));
             }
 
             public IGremlinQuery<Vertex> BothV()
@@ -189,18 +178,6 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>("by", new SpecialGremlinString($"{{{lambdaString}}}"));
             }
 
-            public IGremlinQuery<TElement> Choose(IGremlinQuery traversalPredicate, IGremlinQuery<TElement> trueChoice, IGremlinQuery<TElement> falseChoice)
-            {
-                return this
-                    .AddStep<TElement>("choose", traversalPredicate, trueChoice, falseChoice);
-            }
-
-            public IGremlinQuery<TElement> Choose(IGremlinQuery traversalPredicate, IGremlinQuery<TElement> trueChoice)
-            {
-                return this
-                    .AddStep<TElement>("choose", traversalPredicate, trueChoice);
-            }
-
             public IGremlinQuery<TElement> Dedup()
             {
                 return this
@@ -217,13 +194,6 @@ namespace ExRam.Gremlinq
             {
                 return this
                     .AddStep<Edge>("E", ids);
-            }
-
-            public IGremlinQuery<TEdge> E<TEdge>(params object[] ids)
-            {
-                return this
-                    .E(ids)
-                    .OfType<TEdge>();
             }
 
             public IGremlinQuery<TElement> Emit()
@@ -337,27 +307,23 @@ namespace ExRam.Gremlinq
                     .AddStep<TTarget>(new DerivedLabelNamesGremlinStep<TTarget>("hasLabel"));
             }
 
-            public IGremlinQuery<TElement> Optional(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> optionalTraversal)
+            public IGremlinQuery<TTarget> Optional<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> optionalTraversal)
             {
                 return this
-                    .AddStep<TElement>("optional", optionalTraversal(this.ToAnonymous()));
+                    .AddStep<TTarget>("optional", optionalTraversal(this.ToAnonymous()));
             }
 
             public IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals)
             {
-                return this.Or(
-                    orTraversals.Select(andTraversal => andTraversal(this.ToAnonymous())));
-            }
-
-            public IGremlinQuery<TElement> Or(IEnumerable<IGremlinQuery> orTraversals)
-            {
                 return this.AddStep<TElement>(
                     "or",
-                    orTraversals.Aggregate(
-                        ImmutableList<object>.Empty,
-                        (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "or"
-                            ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
-                            : list.Add(query2)));
+                    orTraversals
+                        .Select(andTraversal => andTraversal(this.ToAnonymous()))
+                        .Aggregate(
+                            ImmutableList<object>.Empty,
+                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "or"
+                                ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
+                                : list.Add(query2)));
             }
 
             public IGremlinQuery<TElement> Order()
@@ -366,10 +332,10 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>("order");
             }
 
-            public IGremlinQuery<TElement> OtherV()
+            public IGremlinQuery<Edge> OtherV()
             {
                 return this
-                    .AddStep<TElement>("otherV");
+                    .AddStep<Edge>("otherV");
             }
 
             public IGremlinQuery<TEdge> OutE<TEdge>()
@@ -532,13 +498,6 @@ namespace ExRam.Gremlinq
                     .AddStep<Vertex>("V", ids);
             }
 
-            public IGremlinQuery<TVertex> V<TVertex>(params object[] ids)
-            {
-                return this
-                    .V(ids)
-                    .OfType<TVertex>();
-            }
-
             public IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections)
             {
                 return this.AddStep<TTarget>(new ValuesGremlinStep<TElement, TTarget>(projections));
@@ -550,114 +509,6 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public IGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate)
-            {
-                var body = predicate.Body;
-
-                switch (body)
-                {
-                    case UnaryExpression unaryExpression:
-                        {
-                            if (unaryExpression.NodeType == ExpressionType.Not)
-                                return this.Not(_ => _.Where(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
-
-                            break;
-                        }
-                    case MemberExpression memberExpression:
-                        {
-                            if (memberExpression.Member is PropertyInfo property)
-                            {
-                                if (property.PropertyType == typeof(bool))
-                                    return this.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
-                            }
-
-                            break;
-                        }
-                    case BinaryExpression binaryExpression:
-                        return this.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
-                    case MethodCallExpression methodCallExpression:
-                        {
-                            var methodInfo = methodCallExpression.Method;
-
-                            if (methodInfo.DeclaringType == typeof(Enumerable))
-                            {
-                                // ReSharper disable once SwitchStatementMissingSomeCases
-                                switch (methodInfo.Name)
-                                {
-                                    case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
-                                        {
-                                            if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
-                                                return this.Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
-
-                                            if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
-                                            {
-                                                if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
-                                                    return this.Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
-                                            }
-
-                                            throw new NotSupportedException();
-                                        }
-                                    case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
-                                        return this.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
-                                }
-                            }
-                            else if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
-                            {
-                                if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
-                                {
-                                    if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
-                                    {
-                                        var constant = methodCallExpression.Arguments[1].GetValue();
-
-                                        if (constant is IEnumerable arrayConstant)
-                                            return this.Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
-                                    }
-                                }
-                            }
-                            else if (methodInfo.DeclaringType == typeof(string))
-                            {
-                                if (methodInfo.Name == nameof(string.StartsWith))
-                                {
-                                    if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
-                                    {
-                                        if (methodCallExpression.Object.GetValue() is string stringValue)
-                                        {
-                                            return this.Has(
-                                                argumentExpression,
-                                                new OrP(Enumerable
-                                                    .Range(0, stringValue.Length + 1)
-                                                    .Select(i => P.Eq(stringValue.Substring(0, i)))
-                                                    .ToArray()));
-                                        }
-                                    }
-                                    else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
-                                    {
-                                        if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
-                                        {
-                                            if (lowerBound.Length == 0)
-                                                return this;
-
-                                            var upperBoundChars = lowerBound.ToCharArray();
-                                            var ultimateChar = upperBoundChars[upperBoundChars.Length - 1];
-
-                                            if (ultimateChar < char.MaxValue)
-                                            {
-                                                upperBoundChars[upperBoundChars.Length - 1]++;
-
-                                                return this.Has(memberExpression, P.Within(lowerBound, new string(upperBoundChars)));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
-                }
-
-                throw new NotSupportedException();
-            }
-            
             public void Serialize(StringBuilder builder, IParameterCache parameterCache)
             {
                 builder.Append(this.TraversalSourceName);
@@ -754,6 +605,13 @@ namespace ExRam.Gremlinq
             return query.InsertStep<TElement>(query.Steps.Count, new TerminalGremlinStep(name, parameters));
         }
 
+        public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)
+        {
+            return query
+                .E(ids)
+                .OfType<TEdge>();
+        }
+
         public static IGremlinQuery<TElement> InsertStep<TElement>(this IGremlinQuery query, int index, GremlinStep step)
         {
             return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, query.Steps.Insert(index, step), query.StepLabelMappings);
@@ -821,6 +679,13 @@ namespace ExRam.Gremlinq
             return steps != query.Steps
                 ? query.ReplaceSteps(steps)
                 : query;
+        }
+
+        public static IGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
+        {
+            return query
+                .V(ids)
+                .OfType<TVertex>();
         }
 
         internal static IGremlinQuery<TElement> AddStepLabelBinding<TElement>(this IGremlinQuery<TElement> query, Expression<Func<TElement, object>> memberExpression, StepLabel stepLabel)
@@ -897,6 +762,114 @@ namespace ExRam.Gremlinq
                             predicateArgument);
                     }
                 }
+            }
+
+            throw new NotSupportedException();
+        }
+
+        public static IGremlinQuery<TElement> Where<TElement>(this IGremlinQuery<TElement> query, Expression<Func<TElement, bool>> predicate)
+        {
+            var body = predicate.Body;
+
+            switch (body)
+            {
+                case UnaryExpression unaryExpression:
+                    {
+                        if (unaryExpression.NodeType == ExpressionType.Not)
+                            return query.Not(_ => _.Where(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
+
+                        break;
+                    }
+                case MemberExpression memberExpression:
+                    {
+                        if (memberExpression.Member is PropertyInfo property)
+                        {
+                            if (property.PropertyType == typeof(bool))
+                                return query.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
+                        }
+
+                        break;
+                    }
+                case BinaryExpression binaryExpression:
+                    return query.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                case MethodCallExpression methodCallExpression:
+                    {
+                        var methodInfo = methodCallExpression.Method;
+
+                        if (methodInfo.DeclaringType == typeof(Enumerable))
+                        {
+                            // ReSharper disable once SwitchStatementMissingSomeCases
+                            switch (methodInfo.Name)
+                            {
+                                case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
+                                    {
+                                        if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
+                                            return query.Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
+
+                                        if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
+                                        {
+                                            if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
+                                                return query.Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
+                                        }
+
+                                        throw new NotSupportedException();
+                                    }
+                                case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
+                                    return query.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
+                            }
+                        }
+                        else if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
+                        {
+                            if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
+                            {
+                                if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
+                                {
+                                    var constant = methodCallExpression.Arguments[1].GetValue();
+
+                                    if (constant is IEnumerable arrayConstant)
+                                        return query.Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
+                                }
+                            }
+                        }
+                        else if (methodInfo.DeclaringType == typeof(string))
+                        {
+                            if (methodInfo.Name == nameof(string.StartsWith))
+                            {
+                                if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
+                                {
+                                    if (methodCallExpression.Object.GetValue() is string stringValue)
+                                    {
+                                        return query.Has(
+                                            argumentExpression,
+                                            new OrP(Enumerable
+                                                .Range(0, stringValue.Length + 1)
+                                                .Select(i => P.Eq(stringValue.Substring(0, i)))
+                                                .ToArray()));
+                                    }
+                                }
+                                else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
+                                {
+                                    if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
+                                    {
+                                        if (lowerBound.Length == 0)
+                                            return query;
+
+                                        var upperBoundChars = lowerBound.ToCharArray();
+                                        var ultimateChar = upperBoundChars[upperBoundChars.Length - 1];
+
+                                        if (ultimateChar < char.MaxValue)
+                                        {
+                                            upperBoundChars[upperBoundChars.Length - 1]++;
+
+                                            return query.Has(memberExpression, P.Within(lowerBound, new string(upperBoundChars)));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        break;
+                    }
             }
 
             throw new NotSupportedException();
