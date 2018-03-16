@@ -546,15 +546,15 @@ namespace ExRam.Gremlinq
                 {
                     var strategy = GremlinQuery
                         .Create("SubgraphStrategy")
-                        .AddStep<Unit>("build");
+                        .AddStep("build");
 
                     if (vertexCriterionTraversal.Steps.Count > 0)
-                        strategy = strategy.AddStep<Unit>("vertices", vertexCriterionTraversal);
+                        strategy = strategy.AddStep("vertices", vertexCriterionTraversal);
 
                     if (edgeCriterionTraversal.Steps.Count > 0)
-                        strategy = strategy.AddStep<Unit>("edges", edgeCriterionTraversal);
+                        strategy = strategy.AddStep("edges", edgeCriterionTraversal);
 
-                    this._maybeSubgraphStrategyStep = new TerminalGremlinStep("withStrategies", strategy.AddStep<Unit>("create"));
+                    this._maybeSubgraphStrategyStep = new TerminalGremlinStep("withStrategies", strategy.AddStep("create"));
                 }
             }
 
