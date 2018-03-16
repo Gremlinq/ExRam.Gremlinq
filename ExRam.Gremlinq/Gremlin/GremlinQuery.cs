@@ -270,6 +270,11 @@ namespace ExRam.Gremlinq
                     .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("in"));
             }
 
+            public IGremlinQuery<TTarget> InsertStep<TTarget>(int index, GremlinStep step)
+            {
+                return new GremlinQuery<TTarget>.GremlinQueryImpl<Unit, Unit>(this.TraversalSourceName, this.Steps.Insert(index, step), this.StepLabelMappings);
+            }
+
             public IGremlinQuery<TEdge> InE<TEdge>()
             {
                 return this
@@ -630,11 +635,6 @@ namespace ExRam.Gremlinq
             return query
                 .E(ids)
                 .OfType<TEdge>();
-        }
-
-        public static IGremlinQuery<TElement> InsertStep<TElement>(this IGremlinQuery query, int index, GremlinStep step)
-        {
-            return new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(query.TraversalSourceName, query.Steps.Insert(index, step), query.StepLabelMappings);
         }
 
         public static IGremlinQuery<TElement> ReplaceSteps<TElement>(this IGremlinQuery<TElement> query, IImmutableList<GremlinStep> steps)
