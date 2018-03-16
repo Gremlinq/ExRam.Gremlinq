@@ -94,6 +94,7 @@ namespace ExRam.Gremlinq
     {
         new IGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
         IGremlinQuery<TTarget, TEdge> CastAdjacentVertex<TTarget>();
+        new IGremlinQuery<TAdjacentVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
     }
 
     // ReSharper disable UnusedTypeParameter
@@ -103,5 +104,6 @@ namespace ExRam.Gremlinq
         new IGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
         IGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();
         IGremlinQuery<TOutVertex, TTarget, TEdge> CastInVertex<TTarget>();
+        new IGremlinQuery<TOutVertex, TInVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
     }
 }
