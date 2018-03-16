@@ -617,7 +617,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery query, GremlinStep step)
         {
-            return new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(query.TraversalSourceName, query.Steps.Add(step), query.StepLabelMappings);
+            return query.InsertStep<TElement>(query.Steps.Count, step);
         }
 
         public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery query, string name, ImmutableList<object> parameters)
