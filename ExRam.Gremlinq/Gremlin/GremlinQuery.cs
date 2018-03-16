@@ -532,7 +532,7 @@ namespace ExRam.Gremlinq
 
         public static readonly IGremlinQuery<TElement> Anonymous = GremlinQuery<TElement>.Create("__");
 
-        public static IGremlinQuery<TElement> Create(string graphName = null)
+        public static IGremlinQuery<TElement> Create(string graphName = "g")
         {
             return new GremlinQueryImpl(graphName, ImmutableList<GremlinStep>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
         }
@@ -542,7 +542,7 @@ namespace ExRam.Gremlinq
     {
         public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery<Unit>.Anonymous;
 
-        public static IGremlinQuery<Unit> Create(string graphName = null)
+        public static IGremlinQuery<Unit> Create(string graphName = "g")
         {
             return GremlinQuery<Unit>.Create(graphName);
         }
