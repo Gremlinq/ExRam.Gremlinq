@@ -91,13 +91,16 @@ namespace ExRam.Gremlinq
     // ReSharper disable once UnusedTypeParameter
     public interface IGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>
     {
-
+        new IGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
+        IGremlinQuery<TTarget, TEdge> CastAdjacentVertex<TTarget>();
     }
 
     // ReSharper disable UnusedTypeParameter
     public interface IGremlinQuery<TOutVertex, TInVertex, TEdge> : IGremlinQuery<TEdge>
     // ReSharper restore UnusedTypeParameter
     {
-
+        new IGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
+        IGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();
+        IGremlinQuery<TOutVertex, TTarget, TEdge> CastInVertex<TTarget>();
     }
 }
