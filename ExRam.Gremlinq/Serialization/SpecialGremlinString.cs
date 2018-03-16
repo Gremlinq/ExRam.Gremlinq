@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq
             this._value = value;
         }
 
-        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
+        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.Append(this._value);
+            builder.AppendConstant(this._value, parameterCache);
         }
     }
 }

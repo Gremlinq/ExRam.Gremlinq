@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGremlinSerializable
     {
-        void Serialize(StringBuilder builder, IParameterCache parameterCache);
+        void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache);
     }
 }

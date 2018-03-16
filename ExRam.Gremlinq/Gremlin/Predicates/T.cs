@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace ExRam.Gremlinq
@@ -33,11 +34,10 @@ namespace ExRam.Gremlinq
             return !obj1.Equals(obj2);
         }
 
-        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
+        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.Append(nameof(T));
-            builder.Append(".");
-            builder.Append(this._name);
+            builder.AppendIdentifier(nameof(T));
+            builder.AppendField(this._name);
         }
     }
 }

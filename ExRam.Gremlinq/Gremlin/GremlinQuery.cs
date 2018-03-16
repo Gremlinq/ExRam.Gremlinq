@@ -171,13 +171,13 @@ namespace ExRam.Gremlinq
                     .Cast<TEnd>();
             }
 
-            public IGremlinQuery<TElement> ByTraversal(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal, GremlinSortOrder sortOrder = GremlinSortOrder.Increasing)
+            public IGremlinQuery<TElement> ByTraversal(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal, Gremlinq.Order sortOrder = Gremlinq.Order.incr)
             {
                 return this
-                    .AddStep("by", traversal(this.ToAnonymous()), new SpecialGremlinString("Order." + sortOrder.ToString().Substring(0, 4).ToLower()));
+                    .AddStep("by", traversal(this.ToAnonymous()), sortOrder);
             }
 
-            public IGremlinQuery<TElement> ByMember(Expression<Func<TElement, object>> projection, GremlinSortOrder sortOrder = GremlinSortOrder.Increasing)
+            public IGremlinQuery<TElement> ByMember(Expression<Func<TElement, object>> projection, Order sortOrder = Gremlinq.Order.incr)
             {
                 var body = projection.Body;
                 if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)
@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq
                 if (body is MemberExpression memberExpression)
                 {
                     return this
-                        .AddStep("by", memberExpression.Member.Name, new SpecialGremlinString("Order." + sortOrder.ToString().Substring(0, 4).ToLower()));
+                        .AddStep("by", memberExpression.Member.Name, sortOrder);
                 }
 
                 throw new NotSupportedException();
@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TElement> ByLambda(string lambdaString)
             {
                 return this
-                    .AddStep("by", new SpecialGremlinString($"{{{lambdaString}}}"));
+                    .AddStep("by", new Lambda(lambdaString));
             }
 
             public IGremlinQuery<TElement> Dedup()
@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TElement> FilterWithLambda(string lambda)
             {
                 return this
-                    .AddStep("filter", new SpecialGremlinString($"{{{lambda}}}"));
+                    .AddStep("filter", new Lambda(lambda));
             }
 
             public IGremlinQuery<TElement[]> Fold()
@@ -539,17 +539,14 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public void Serialize(StringBuilder builder, IParameterCache parameterCache)
+            public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
             {
-                builder.Append(this.TraversalSourceName);
+                builder.AppendIdentifier(this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
-                    {
-                        builder.Append('.');
                         serializableStep.Serialize(builder, parameterCache);
-                    }
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
@@ -587,7 +584,10 @@ namespace ExRam.Gremlinq
             var cache = new DefaultParameterCache(query.StepLabelMappings);
             var stringBuilder = new StringBuilder();
 
-            query.Serialize(stringBuilder, cache);
+            using (var methodStringBuilder = stringBuilder.ToMethodStringBuilder())
+            {
+                query.Serialize(methodStringBuilder, cache);
+            }
 
             return (stringBuilder.ToString(), cache.GetDictionary());
         }

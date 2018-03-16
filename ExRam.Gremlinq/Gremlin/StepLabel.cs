@@ -5,14 +5,14 @@ namespace ExRam.Gremlinq
 {
     public abstract class StepLabel : IGremlinSerializable
     {
-        public abstract void Serialize(StringBuilder builder, IParameterCache parameterCache);
+        public abstract void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache);
     }
 
     public class StepLabel<TElement> : StepLabel
     {
-        public override void Serialize(StringBuilder builder, IParameterCache parameterCache)
+        public override void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.Append(parameterCache.Cache(this));
+            builder.AppendConstant(this, parameterCache);
         }
 
         public static bool operator ==(TElement a, StepLabel<TElement> b)

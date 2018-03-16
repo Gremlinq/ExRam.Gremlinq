@@ -16,29 +16,11 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public void Serialize(StringBuilder builder, IParameterCache parameterCache)
+        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
         {
-            var appendComma = false;
-
-            builder.Append(this.Name);
-            builder.Append("(");
-
-            foreach (var parameter in this.Parameters)
-            {
-                if (appendComma)
-                    builder.Append(", ");
-                else
-                    appendComma = true;
-
-                if (parameter is IGremlinSerializable serializable)
-                    serializable.Serialize(builder, parameterCache);
-                else
-                    builder.Append(parameterCache.Cache(parameter));
-            }
-
-            builder.Append(")");
+            builder.AppendMethod(this.Name, this.Parameters, parameterCache);
         }
-        
+
         public string Name { get; }
         public IImmutableList<object> Parameters { get; }
     }
