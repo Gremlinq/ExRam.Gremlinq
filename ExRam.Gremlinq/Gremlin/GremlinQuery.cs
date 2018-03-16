@@ -84,6 +84,11 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>("barrier");
             }
 
+            public IGremlinQuery<TTarget> Cast<TTarget>()
+            {
+                return new GremlinQuery<TTarget>.GremlinQueryImpl(this.TraversalSourceName, this.Steps, this.StepLabelMappings);
+            }
+
             public IGremlinQuery<TTarget> Coalesce<TTarget>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] traversals)
             {
                 return this
@@ -620,11 +625,6 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<TElement> ReplaceSteps<TElement>(this IGremlinQuery<TElement> query, IImmutableList<GremlinStep> steps)
         {
             return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, steps, query.StepLabelMappings);
-        }
-
-        public static IGremlinQuery<TElement> Cast<TElement>(this IGremlinQuery query)
-        {
-            return new GremlinQuery<TElement>.GremlinQueryImpl(query.TraversalSourceName, query.Steps, query.StepLabelMappings);
         }
 
         public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
