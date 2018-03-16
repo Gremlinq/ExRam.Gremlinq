@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Tests
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
 
             subgraphStrategyProvider
-                .Execute(GremlinQuery.Create("g").Cast<Unit>());
+                .Execute(GremlinQuery.Create().Cast<Unit>());
 
             queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[0] is TerminalGremlinStep && ((TerminalGremlinStep)query.Steps[0]).Name == "withStrategies" && ((TerminalGremlinStep)query.Steps[0]).Parameters.Count == 1)));
         }
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Tests
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _, _ => _);
 
             subgraphStrategyProvider
-                .Execute(GremlinQuery.Create("g").Cast<Unit>());
+                .Execute(GremlinQuery.Create().Cast<Unit>());
 
             queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps.Count == 0)));
         }
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Tests
                 });
 
             subgraphStrategyProvider
-                .Execute(GremlinQuery.Create("g").AddV(new User()));
+                .Execute(GremlinQuery.Create().AddV(new User()));
 
             queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[1] is ReplaceElementPropertyStep<User, int>)));
         }
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Tests
             var value = await queryProviderMock.Object
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create("g").Cast<int>())
+                .Execute(GremlinQuery.Create().Cast<int>())
                 .First();
 
             value.Should().Be(36);

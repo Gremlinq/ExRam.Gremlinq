@@ -2,7 +2,6 @@ using System.Linq;
 using ExRam.Gremlinq.Tests;
 using Xunit;
 using FluentAssertions;
-using Moq;
 
 namespace ExRam.Gremlinq.Dse.Tests
 {
