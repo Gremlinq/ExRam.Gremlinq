@@ -469,13 +469,9 @@ namespace ExRam.Gremlinq
                     .AddStep("skip", skip);
             }
 
-            public IGremlinQuery<TElement> Sum(bool local = false)
+            public IGremlinQuery<TElement> Sum(Scope scope)
             {
-                return local
-                    ? this
-                        .AddStep("sum", new SpecialGremlinString("Scope.local"))
-                    : this
-                        .AddStep("sum");
+                return this.AddStep("sum", scope);
             }
 
             public IGremlinQuery<TElement> Times(int count)

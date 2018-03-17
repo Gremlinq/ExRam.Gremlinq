@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal);
         IGremlinQuery<TElement> SideEffect(Func<IGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         IGremlinQuery<TElement> Skip(long skip);
-        IGremlinQuery<TElement> Sum(bool local = false);
+        IGremlinQuery<TElement> Sum(Scope scope);
         IGremlinQuery<TElement> Times(int count);
         IGremlinQuery<TElement> Tail(long limit);
         IGremlinQuery<TElement> To<TStepLabel>(StepLabel<TStepLabel> stepLabel);

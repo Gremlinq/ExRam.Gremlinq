@@ -1393,6 +1393,48 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_sum_With_local_scope()
+        {
+            var query = GremlinQuery
+                .Create()
+                .V<User>()
+                .Values(x => x.Age)
+                .Sum(Scope.local)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).values(_P2).sum(Scope.local)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age");
+        }
+
+        [Fact]
+        public void V_ofType_sum_With_global_scope()
+        {
+            var query = GremlinQuery
+                .Create()
+                .V<User>()
+                .Values(x => x.Age)
+                .Sum(Scope.global)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).values(_P2).sum(Scope.global)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age");
+        }
+
+        [Fact]
         public void V_ofType_values_of_one_property()
         {
             var query = GremlinQuery
