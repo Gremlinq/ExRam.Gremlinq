@@ -9,7 +9,6 @@ namespace ExRam.Gremlinq
     public sealed class DefaultParameterCache : IParameterCache
     {
         private int _current;
-        private int _label;
 
         private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
         private readonly ConcurrentDictionary<object, string> _cache = new ConcurrentDictionary<object, string>();
@@ -29,7 +28,7 @@ namespace ExRam.Gremlinq
                     {
                         return this._stepLabelMappings.TryGetValue(stepLabel, out var mapping) 
                             ? this.Cache(mapping) 
-                            : this.Cache("l" + Interlocked.Increment(ref this._label));
+                            : this.Cache("l" + Interlocked.Increment(ref this._current));
                     }
 
                     return "_P" + Interlocked.Increment(ref this._current);
