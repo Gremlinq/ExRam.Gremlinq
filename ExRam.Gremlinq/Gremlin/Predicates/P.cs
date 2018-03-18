@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             return builder
                 .AppendIdentifier(nameof(P))

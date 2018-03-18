@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq
             return !obj1.Equals(obj2);
         }
 
-        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             return builder
                 .AppendIdentifier(nameof(T))

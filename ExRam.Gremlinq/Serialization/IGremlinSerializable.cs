@@ -2,6 +2,6 @@ namespace ExRam.Gremlinq
 {
     public interface IGremlinSerializable
     {
-        MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache);
+        GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache);
     }
 }

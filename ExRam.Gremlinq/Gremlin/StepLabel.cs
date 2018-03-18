@@ -4,12 +4,12 @@ namespace ExRam.Gremlinq
 {
     public abstract class StepLabel : IGremlinSerializable
     {
-        public abstract MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache);
+        public abstract GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache);
     }
 
     public class StepLabel<TElement> : StepLabel
     {
-        public override MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public override GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             return builder.AppendConstant(this, parameterCache);
         }

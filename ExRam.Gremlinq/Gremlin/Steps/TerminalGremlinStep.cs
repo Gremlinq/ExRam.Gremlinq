@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             return builder.AppendMethod(this.Name, this.Parameters, parameterCache);
         }

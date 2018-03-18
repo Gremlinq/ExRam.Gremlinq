@@ -9,7 +9,7 @@
             this._lambda = lambda;
         }
 
-        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             return builder.AppendLambda(this._lambda);
         }

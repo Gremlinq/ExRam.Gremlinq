@@ -535,7 +535,7 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+            public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
             {
                 builder = builder.AppendIdentifier(this.TraversalSourceName);
 
@@ -579,13 +579,10 @@ namespace ExRam.Gremlinq
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
         {
-            var cache = new DefaultParameterCache(query.StepLabelMappings);
             var stringBuilder = new StringBuilder();
+            var cache = new DefaultParameterCache(query.StepLabelMappings);
 
-            var methodStringBuilder = stringBuilder.ToMethodStringBuilder();
-            {
-                query.Serialize(methodStringBuilder, cache);
-            }
+            query.Serialize(new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, stringBuilder), cache);
 
             return (stringBuilder.ToString(), cache.GetDictionary());
         }

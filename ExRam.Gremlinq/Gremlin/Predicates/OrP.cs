@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
             this._predicates = predicates;
         }
 
-        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
         {
             for (var i = 0; i < this._predicates.Length; i++)
             {
