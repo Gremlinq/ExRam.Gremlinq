@@ -26,10 +26,11 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.AppendIdentifier(nameof(P));
-            builder.AppendMethod(this._name, this._arguments, parameterCache);
+            return builder
+                .AppendIdentifier(nameof(P))
+                .AppendMethod(this._name, this._arguments, parameterCache);
         }
 
         public static P Eq(object argument)

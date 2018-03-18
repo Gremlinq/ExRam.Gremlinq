@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.AppendMethod(this.Name, this.Parameters, parameterCache);
+            return builder.AppendMethod(this.Name, this.Parameters, parameterCache);
         }
 
         public string Name { get; }

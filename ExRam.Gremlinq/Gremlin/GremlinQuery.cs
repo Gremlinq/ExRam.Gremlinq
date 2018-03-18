@@ -535,17 +535,19 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+            public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
             {
-                builder.AppendIdentifier(this.TraversalSourceName);
+                builder = builder.AppendIdentifier(this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
-                        serializableStep.Serialize(builder, parameterCache);
+                        builder = serializableStep.Serialize(builder, parameterCache);
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
+
+                return builder;
             }
 
             public string TraversalSourceName { get; }
@@ -580,7 +582,7 @@ namespace ExRam.Gremlinq
             var cache = new DefaultParameterCache(query.StepLabelMappings);
             var stringBuilder = new StringBuilder();
 
-            using (var methodStringBuilder = stringBuilder.ToMethodStringBuilder())
+            var methodStringBuilder = stringBuilder.ToMethodStringBuilder();
             {
                 query.Serialize(methodStringBuilder, cache);
             }

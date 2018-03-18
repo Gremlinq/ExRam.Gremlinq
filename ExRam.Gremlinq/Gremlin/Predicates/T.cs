@@ -34,10 +34,11 @@ namespace ExRam.Gremlinq
             return !obj1.Equals(obj2);
         }
 
-        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.AppendIdentifier(nameof(T));
-            builder.AppendField(this._name);
+            return builder
+                .AppendIdentifier(nameof(T))
+                .AppendField(this._name);
         }
     }
 }

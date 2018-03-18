@@ -11,15 +11,16 @@ namespace ExRam.Gremlinq
             this._predicates = predicates;
         }
 
-        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
         {
             for (var i = 0; i < this._predicates.Length; i++)
             {
-                if (i != 0)
-                    builder.AppendMethod("or", new object[] { this._predicates[i] }, parameterCache);
-                else
-                    this._predicates[i].Serialize(builder, parameterCache);
+                builder = i != 0 
+                    ? builder.AppendMethod("or", new object[] { this._predicates[i] }, parameterCache) 
+                    : this._predicates[i].Serialize(builder, parameterCache);
             }
+
+            return builder;
         }
     }
 }

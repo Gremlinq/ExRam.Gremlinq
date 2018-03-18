@@ -9,9 +9,9 @@
             this._lambda = lambda;
         }
 
-        public void Serialize(IMethodStringBuilder builder, IParameterCache parameterCache)
+        public MethodStringBuilder Serialize(MethodStringBuilder builder, IParameterCache parameterCache)
         {
-            builder.AppendLambda(this._lambda);
+            return builder.AppendLambda(this._lambda);
         }
     }
 }
