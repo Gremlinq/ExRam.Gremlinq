@@ -426,11 +426,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1)");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4))");
 
             query.parameters
                 .Should()
-                .Contain("_P1", "User");
+                .Contain("_P1", "User").And
+                .Contain("_P2", "PhoneNumber").And
+                .Contain("_P3", "").And
+                .Contain("_P4", char.MinValue.ToString());
         }
 
         [Fact]

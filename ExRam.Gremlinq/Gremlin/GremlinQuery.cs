@@ -883,18 +883,19 @@ namespace ExRam.Gremlinq
                                 {
                                     if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
                                     {
-                                        if (lowerBound.Length == 0)
-                                            return query;
+                                        string upperBound;
 
-                                        var upperBoundChars = lowerBound.ToCharArray();
-                                        var ultimateChar = upperBoundChars[upperBoundChars.Length - 1];
-
-                                        if (ultimateChar < char.MaxValue)
+                                        if (lowerBound.Length == 0 || lowerBound[lowerBound.Length - 1] == char.MaxValue)
+                                            upperBound = lowerBound + char.MinValue;
+                                        else
                                         {
+                                            var upperBoundChars = lowerBound.ToCharArray();
+                                            
                                             upperBoundChars[upperBoundChars.Length - 1]++;
-
-                                            return query.Has(memberExpression, P.Within(lowerBound, new string(upperBoundChars)));
+                                            upperBound = new string(upperBoundChars);
                                         }
+
+                                        return query.Has(memberExpression, P.Within(lowerBound, upperBound));
                                     }
                                 }
                             }
