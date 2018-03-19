@@ -579,14 +579,9 @@ namespace ExRam.Gremlinq
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
         {
-            var stringBuilder = new StringBuilder();
-            var builder = query.Serialize(new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, stringBuilder, ImmutableDictionary<object, string>.Empty, query.StepLabelMappings));
-
-            return (
-                stringBuilder.ToString(), 
-                builder
-                    .Variables
-                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
+            return query
+                .Serialize(new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, new StringBuilder(), ImmutableDictionary<object, string>.Empty, query.StepLabelMappings))
+                .ToExpression();
         }
 
         public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))

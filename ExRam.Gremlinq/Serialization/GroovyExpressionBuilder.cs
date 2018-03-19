@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 
 namespace ExRam.Gremlinq
@@ -15,14 +16,15 @@ namespace ExRam.Gremlinq
 
         private readonly State _state;
         private readonly StringBuilder _stringBuilder;
+        private readonly IImmutableDictionary<object, string> _variables;
         private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
-        
+
         public GroovyExpressionBuilder(State state, StringBuilder stringBuilder, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
         {
             this._state = state;
-            this.Variables = variables;
-            this._stepLabelMappings = stepLabelMappings;
+            this._variables = variables;
             this._stringBuilder = stringBuilder;
+            this._stepLabelMappings = stepLabelMappings;
         }
 
         public GroovyExpressionBuilder AppendIdentifier(string className)
@@ -31,7 +33,7 @@ namespace ExRam.Gremlinq
                 throw new InvalidOperationException();
 
             this._stringBuilder.Append(className);
-            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, this.Variables, this._stepLabelMappings);
+            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, this._variables, this._stepLabelMappings);
         }
 
         public GroovyExpressionBuilder AppendLambda(string lambda)
@@ -59,7 +61,7 @@ namespace ExRam.Gremlinq
                 if (setComma)
                     this._stringBuilder.Append(", ");
 
-                subMethodBuilder = new GroovyExpressionBuilder(State.Idle, this._stringBuilder, subMethodBuilder.Variables, subMethodBuilder._stepLabelMappings);
+                subMethodBuilder = new GroovyExpressionBuilder(State.Idle, this._stringBuilder, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
                 {
                     subMethodBuilder = parameter is IGremlinSerializable serializable
                         ? serializable.Serialize(subMethodBuilder)
@@ -71,7 +73,7 @@ namespace ExRam.Gremlinq
 
             this._stringBuilder.Append(")");
 
-            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, subMethodBuilder.Variables, subMethodBuilder._stepLabelMappings);
+            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
         }
 
         public GroovyExpressionBuilder AppendField(string fieldName)
@@ -97,13 +99,22 @@ namespace ExRam.Gremlinq
                     .AppendField(Enum.GetName(constant.GetType(), constant));
             }
 
-            var (newVariables, newStepLabelMappings) = this.Cache(constant, this.Variables, this._stepLabelMappings, out var key);
+            var (newVariables, newStepLabelMappings) = Cache(constant, this._variables, this._stepLabelMappings, out var key);
             this._stringBuilder.Append(key);
 
             return new GroovyExpressionBuilder(this._state, this._stringBuilder, newVariables, newStepLabelMappings);
         }
 
-        private (IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings) Cache(object constant, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings, out string key)
+        public (string queryString, IDictionary<string, object> parameters) ToExpression()
+        {
+             return (
+                this._stringBuilder.ToString(),
+                this._variables
+                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
+
+        }
+
+        private static (IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings) Cache(object constant, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings, out string key)
         {
             if (constant is StepLabel stepLabel)
             {
@@ -113,7 +124,7 @@ namespace ExRam.Gremlinq
                     stepLabelMappings = stepLabelMappings.Add(stepLabel, stepLabelMapping);
                 }
 
-                return this.Cache(stepLabelMapping, variables, stepLabelMappings, out key);
+                return Cache(stepLabelMapping, variables, stepLabelMappings, out key);
             }
 
             if (variables.TryGetValue(constant, out key))
@@ -122,7 +133,5 @@ namespace ExRam.Gremlinq
             key = "_P" + (variables.Count + 1);
             return (variables.Add(constant, key), stepLabelMappings);
         }
-
-        public IImmutableDictionary<object, string> Variables { get; }
     }
 }
