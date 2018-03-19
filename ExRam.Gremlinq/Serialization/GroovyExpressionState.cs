@@ -43,35 +43,54 @@ namespace ExRam.Gremlinq
             return this;
         }
 
-        public GroovyExpressionState AppendMethod(StringBuilder builder, string methodName, IEnumerable<object> parameters)
+        public GroovyExpressionState AppendMethod(StringBuilder stringBuilder, string methodName, object parameter)
         {
             var setComma = false;
-            var subMethodBuilder = this;
+            var methodExpressionState = new GroovyExpressionState(State.Idle, this._variables, this._stepLabelMappings);
+            
+            if (this._state == State.Chaining)
+                stringBuilder.Append(".");
+
+            stringBuilder.Append(methodName);
+            stringBuilder.Append("(");
+
+            methodExpressionState = parameter is IGremlinSerializable serializable
+                ? serializable.Serialize(stringBuilder, methodExpressionState)
+                : methodExpressionState.AppendConstant(stringBuilder, parameter);
+
+            stringBuilder.Append(")");
+
+            return new GroovyExpressionState(State.Chaining, methodExpressionState._variables, methodExpressionState._stepLabelMappings);
+        }
+
+        public GroovyExpressionState AppendMethod(StringBuilder stringBuilder, string methodName, IEnumerable<object> parameters)
+        {
+            var setComma = false;
+            var methodExpressionState = this;
 
             if (this._state == State.Chaining)
-                builder.Append(".");
+                stringBuilder.Append(".");
 
-            builder.Append(methodName);
-            builder.Append("(");
+            stringBuilder.Append(methodName);
+            stringBuilder.Append("(");
             
             foreach (var parameter in parameters)
             {
                 if (setComma)
-                    builder.Append(", ");
+                    stringBuilder.Append(", ");
 
-                subMethodBuilder = new GroovyExpressionState(State.Idle, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
-                {
-                    subMethodBuilder = parameter is IGremlinSerializable serializable
-                        ? serializable.Serialize(builder, subMethodBuilder)
-                        : subMethodBuilder.AppendConstant(builder, parameter);
-                }
-
+                methodExpressionState = new GroovyExpressionState(State.Idle, methodExpressionState._variables, methodExpressionState._stepLabelMappings);
+                
+                methodExpressionState = parameter is IGremlinSerializable serializable
+                    ? serializable.Serialize(stringBuilder, methodExpressionState)
+                    : methodExpressionState.AppendConstant(stringBuilder, parameter);
+                
                 setComma = true;
             }
 
-            builder.Append(")");
+            stringBuilder.Append(")");
 
-            return new GroovyExpressionState(State.Chaining, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
+            return new GroovyExpressionState(State.Chaining, methodExpressionState._variables, methodExpressionState._stepLabelMappings);
         }
 
         public GroovyExpressionState AppendField(StringBuilder builder, string fieldName)

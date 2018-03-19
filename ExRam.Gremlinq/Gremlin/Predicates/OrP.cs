@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq
             for (var i = 0; i < this._predicates.Length; i++)
             {
                 state = i != 0 
-                    ? state.AppendMethod(stringBuilder, "or", new object[] { this._predicates[i] }) 
+                    ? state.AppendMethod(stringBuilder, "or", this._predicates[i]) 
                     : this._predicates[i].Serialize(stringBuilder, state);
             }
 

@@ -28,9 +28,12 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return state
-                .AppendIdentifier(stringBuilder, nameof(P))
-                .AppendMethod(stringBuilder, this._name, this._arguments);
+            var ret = state
+                .AppendIdentifier(stringBuilder, nameof(P));
+
+            return this._arguments.Length == 1
+                ? ret.AppendMethod(stringBuilder, this._name, this._arguments[0])
+                : ret.AppendMethod(stringBuilder, this._name, this._arguments);
         }
 
         public static P Eq(object argument)
