@@ -26,11 +26,11 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder, IParameterCache parameterCache)
+        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
         {
             return builder
                 .AppendIdentifier(nameof(P))
-                .AppendMethod(this._name, this._arguments, parameterCache);
+                .AppendMethod(this._name, this._arguments);
         }
 
         public static P Eq(object argument)
