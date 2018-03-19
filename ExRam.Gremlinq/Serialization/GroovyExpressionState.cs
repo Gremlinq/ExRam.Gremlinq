@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq
             var (newVariables, newStepLabelMappings) = Cache(constant, this._variables, this._stepLabelMappings, out var key);
             builder.Append(key);
 
-            return new GroovyExpressionState(this._state, newVariables, newStepLabelMappings);
+            return new GroovyExpressionState(State.Chaining, newVariables, newStepLabelMappings);
         }
 
         public IDictionary<string, object> GetVariables()
