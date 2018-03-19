@@ -722,10 +722,8 @@ namespace ExRam.Gremlinq
 
         internal static IGremlinQuery<TElement> AddStepLabelBinding<TElement>(this IGremlinQuery<TElement> query, Expression<Func<TElement, object>> memberExpression, StepLabel stepLabel)
         {
-            var body = memberExpression.Body;
-            if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)
-                body = ((UnaryExpression)body).Operand;
-
+            var body = memberExpression.Body.StripConvert();
+            
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ArgumentException();
 
