@@ -582,7 +582,7 @@ namespace ExRam.Gremlinq
             var stringBuilder = new StringBuilder();
 
             var groovyBuilder = query
-                .Serialize(stringBuilder, new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, ImmutableDictionary<object, string>.Empty, query.StepLabelMappings));
+                .Serialize(stringBuilder, GroovyExpressionBuilder.FromQuery(query));
 
             return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }

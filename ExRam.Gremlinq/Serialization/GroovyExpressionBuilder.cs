@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
 {
     public struct GroovyExpressionBuilder
     {
-        public enum State
+        private enum State
         {
             Idle,
             Chaining,
@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq
         private readonly IImmutableDictionary<object, string> _variables;
         private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
 
-        public GroovyExpressionBuilder(State state, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
+        private GroovyExpressionBuilder(State state, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
         {
             this._state = state;
             this._variables = variables;
@@ -107,6 +107,11 @@ namespace ExRam.Gremlinq
         {
             return this._variables
                 .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+        }
+
+        public static GroovyExpressionBuilder FromQuery(IGremlinQuery query)
+        {
+            return new GroovyExpressionBuilder(State.Idle, ImmutableDictionary<object, string>.Empty, query.StepLabelMappings);
         }
 
         private static (IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings) Cache(object constant, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings, out string key)
