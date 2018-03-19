@@ -34,9 +34,9 @@ namespace ExRam.Gremlinq
             return !obj1.Equals(obj2);
         }
 
-        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return builder
+            return state
                 .AppendIdentifier(stringBuilder, nameof(T))
                 .AppendField(stringBuilder, this._name);
         }

@@ -5,14 +5,14 @@ namespace ExRam.Gremlinq
 {
     public abstract class StepLabel : IGremlinSerializable
     {
-        public abstract GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder);
+        public abstract GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state);
     }
 
     public class StepLabel<TElement> : StepLabel
     {
-        public override GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return builder.AppendConstant(stringBuilder, this);
+            return state.AppendConstant(stringBuilder, this);
         }
 
         public static bool operator ==(TElement a, StepLabel<TElement> b)

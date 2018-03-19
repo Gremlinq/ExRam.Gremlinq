@@ -535,19 +535,19 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+            public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
             {
-                builder = builder.AppendIdentifier(stringBuilder, this.TraversalSourceName);
+                state = state.AppendIdentifier(stringBuilder, this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
-                        builder = serializableStep.Serialize(stringBuilder, builder);
+                        state = serializableStep.Serialize(stringBuilder, state);
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
 
-                return builder;
+                return state;
             }
 
             public string TraversalSourceName { get; }
@@ -582,7 +582,7 @@ namespace ExRam.Gremlinq
             var stringBuilder = new StringBuilder();
 
             var groovyBuilder = query
-                .Serialize(stringBuilder, GroovyExpressionBuilder.FromQuery(query));
+                .Serialize(stringBuilder, GroovyExpressionState.FromQuery(query));
 
             return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }

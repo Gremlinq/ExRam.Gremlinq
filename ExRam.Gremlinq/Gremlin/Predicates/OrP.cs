@@ -11,16 +11,16 @@ namespace ExRam.Gremlinq
             this._predicates = predicates;
         }
 
-        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
             for (var i = 0; i < this._predicates.Length; i++)
             {
-                builder = i != 0 
-                    ? builder.AppendMethod(stringBuilder, "or", new object[] { this._predicates[i] }) 
-                    : this._predicates[i].Serialize(stringBuilder, builder);
+                state = i != 0 
+                    ? state.AppendMethod(stringBuilder, "or", new object[] { this._predicates[i] }) 
+                    : this._predicates[i].Serialize(stringBuilder, state);
             }
 
-            return builder;
+            return state;
         }
     }
 }

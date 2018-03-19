@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return builder.AppendMethod(stringBuilder, this.Name, this.Parameters);
+            return state.AppendMethod(stringBuilder, this.Name, this.Parameters);
         }
 
         public string Name { get; }

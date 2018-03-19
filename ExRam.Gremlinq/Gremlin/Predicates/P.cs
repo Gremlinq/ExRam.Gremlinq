@@ -26,9 +26,9 @@ namespace ExRam.Gremlinq
             this._arguments = arguments;
         }
 
-        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return builder
+            return state
                 .AppendIdentifier(stringBuilder, nameof(P))
                 .AppendMethod(stringBuilder, this._name, this._arguments);
         }

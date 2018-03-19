@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq
             this._lambda = lambda;
         }
 
-        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
+        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return builder.AppendLambda(stringBuilder, this._lambda);
+            return state.AppendLambda(stringBuilder, this._lambda);
         }
     }
 }
