@@ -15,79 +15,77 @@ namespace ExRam.Gremlinq
         }
 
         private readonly State _state;
-        private readonly StringBuilder _stringBuilder;
         private readonly IImmutableDictionary<object, string> _variables;
         private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
 
-        public GroovyExpressionBuilder(State state, StringBuilder stringBuilder, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
+        public GroovyExpressionBuilder(State state, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
         {
             this._state = state;
             this._variables = variables;
-            this._stringBuilder = stringBuilder;
             this._stepLabelMappings = stepLabelMappings;
         }
 
-        public GroovyExpressionBuilder AppendIdentifier(string className)
+        public GroovyExpressionBuilder AppendIdentifier(StringBuilder builder, string className)
         {
             if (this._state != State.Idle)
                 throw new InvalidOperationException();
 
-            this._stringBuilder.Append(className);
-            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, this._variables, this._stepLabelMappings);
+            builder.Append(className);
+            return new GroovyExpressionBuilder(State.Chaining, this._variables, this._stepLabelMappings);
         }
 
-        public GroovyExpressionBuilder AppendLambda(string lambda)
+        public GroovyExpressionBuilder AppendLambda(StringBuilder builder, string lambda)
         {
-            this._stringBuilder.Append("{");
-            this._stringBuilder.Append(lambda);
-            this._stringBuilder.Append("}");
+            builder.Append("{");
+            builder.Append(lambda);
+            builder.Append("}");
 
             return this;
         }
 
-        public GroovyExpressionBuilder AppendMethod(string methodName, IEnumerable<object> parameters)
+        public GroovyExpressionBuilder AppendMethod(StringBuilder builder, string methodName, IEnumerable<object> parameters)
         {
             var setComma = false;
             var subMethodBuilder = this;
 
             if (this._state == State.Chaining)
-                this._stringBuilder.Append(".");
+                builder.Append(".");
 
-            this._stringBuilder.Append(methodName);
-            this._stringBuilder.Append("(");
+            builder.Append(methodName);
+            builder.Append("(");
             
             foreach (var parameter in parameters)
             {
                 if (setComma)
-                    this._stringBuilder.Append(", ");
+                    builder.Append(", ");
 
-                subMethodBuilder = new GroovyExpressionBuilder(State.Idle, this._stringBuilder, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
+                subMethodBuilder = new GroovyExpressionBuilder(State.Idle, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
                 {
                     subMethodBuilder = parameter is IGremlinSerializable serializable
-                        ? serializable.Serialize(subMethodBuilder)
-                        : subMethodBuilder.AppendConstant(parameter);
+                        ? serializable.Serialize(builder, subMethodBuilder)
+                        : subMethodBuilder.AppendConstant(builder, parameter);
                 }
 
                 setComma = true;
             }
 
-            this._stringBuilder.Append(")");
+            builder.Append(")");
 
-            return new GroovyExpressionBuilder(State.Chaining, this._stringBuilder, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
+            return new GroovyExpressionBuilder(State.Chaining, subMethodBuilder._variables, subMethodBuilder._stepLabelMappings);
         }
 
-        public GroovyExpressionBuilder AppendField(string fieldName)
+        public GroovyExpressionBuilder AppendField(StringBuilder builder, string fieldName)
         {
             if (this._state != State.Chaining)
                 throw new InvalidOperationException();
 
-            this._stringBuilder.Append(".");
-            this._stringBuilder.Append(fieldName);
+            builder.Append(".");
+            builder.Append(fieldName);
 
             return this;
         }
 
-        public GroovyExpressionBuilder AppendConstant(object constant)
+        public GroovyExpressionBuilder AppendConstant(StringBuilder builder, object constant)
         {
             if (this._state == State.Chaining)
                 throw new InvalidOperationException();
@@ -95,23 +93,20 @@ namespace ExRam.Gremlinq
             if (constant is Enum)
             {
                 return this
-                    .AppendIdentifier(constant.GetType().Name)
-                    .AppendField(Enum.GetName(constant.GetType(), constant));
+                    .AppendIdentifier(builder, constant.GetType().Name)
+                    .AppendField(builder, Enum.GetName(constant.GetType(), constant));
             }
 
             var (newVariables, newStepLabelMappings) = Cache(constant, this._variables, this._stepLabelMappings, out var key);
-            this._stringBuilder.Append(key);
+            builder.Append(key);
 
-            return new GroovyExpressionBuilder(this._state, this._stringBuilder, newVariables, newStepLabelMappings);
+            return new GroovyExpressionBuilder(this._state, newVariables, newStepLabelMappings);
         }
 
-        public (string queryString, IDictionary<string, object> parameters) ToExpression()
+        public IDictionary<string, object> GetVariables()
         {
-             return (
-                this._stringBuilder.ToString(),
-                this._variables
-                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
-
+            return this._variables
+                .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
         }
 
         private static (IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings) Cache(object constant, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings, out string key)

@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text;
 
 namespace ExRam.Gremlinq
 {
@@ -15,9 +16,9 @@ namespace ExRam.Gremlinq
             this.Parameters = parameters;
         }
 
-        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
+        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
         {
-            return builder.AppendMethod(this.Name, this.Parameters);
+            return builder.AppendMethod(stringBuilder, this.Name, this.Parameters);
         }
 
         public string Name { get; }

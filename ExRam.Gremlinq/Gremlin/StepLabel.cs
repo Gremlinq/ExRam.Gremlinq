@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Text;
 
 namespace ExRam.Gremlinq
 {
     public abstract class StepLabel : IGremlinSerializable
     {
-        public abstract GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder);
+        public abstract GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder);
     }
 
     public class StepLabel<TElement> : StepLabel
     {
-        public override GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
+        public override GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
         {
-            return builder.AppendConstant(this);
+            return builder.AppendConstant(stringBuilder, this);
         }
 
         public static bool operator ==(TElement a, StepLabel<TElement> b)

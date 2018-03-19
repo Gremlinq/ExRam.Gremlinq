@@ -34,11 +34,11 @@ namespace ExRam.Gremlinq
             return !obj1.Equals(obj2);
         }
 
-        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
+        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
         {
             return builder
-                .AppendIdentifier(nameof(T))
-                .AppendField(this._name);
+                .AppendIdentifier(stringBuilder, nameof(T))
+                .AppendField(stringBuilder, this._name);
         }
     }
 }

@@ -535,14 +535,14 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
+            public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
             {
-                builder = builder.AppendIdentifier(this.TraversalSourceName);
+                builder = builder.AppendIdentifier(stringBuilder, this.TraversalSourceName);
 
                 foreach (var step in this.Steps)
                 {
                     if (step is IGremlinSerializable serializableStep)
-                        builder = serializableStep.Serialize(builder);
+                        builder = serializableStep.Serialize(stringBuilder, builder);
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
                 }
@@ -579,9 +579,12 @@ namespace ExRam.Gremlinq
 
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
         {
-            return query
-                .Serialize(new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, new StringBuilder(), ImmutableDictionary<object, string>.Empty, query.StepLabelMappings))
-                .ToExpression();
+            var stringBuilder = new StringBuilder();
+
+            var groovyBuilder = query
+                .Serialize(stringBuilder, new GroovyExpressionBuilder(GroovyExpressionBuilder.State.Idle, ImmutableDictionary<object, string>.Empty, query.StepLabelMappings));
+
+            return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }
 
         public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))

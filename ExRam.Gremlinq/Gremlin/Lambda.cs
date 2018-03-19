@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq
+﻿using System.Text;
+
+namespace ExRam.Gremlinq
 {
     public struct Lambda : IGremlinSerializable
     {
@@ -9,9 +11,9 @@
             this._lambda = lambda;
         }
 
-        public GroovyExpressionBuilder Serialize(GroovyExpressionBuilder builder)
+        public GroovyExpressionBuilder Serialize(StringBuilder stringBuilder, GroovyExpressionBuilder builder)
         {
-            return builder.AppendLambda(this._lambda);
+            return builder.AppendLambda(stringBuilder, this._lambda);
         }
     }
 }
