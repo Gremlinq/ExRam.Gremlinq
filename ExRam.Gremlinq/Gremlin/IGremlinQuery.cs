@@ -6,7 +6,7 @@ using System.Reactive;
 
 namespace ExRam.Gremlinq
 {
-    public interface IGremlinQuery : IGremlinSerializable
+    public interface IGremlinQuery : IGroovySerializable
     {
         IGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
         IGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new();

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class TerminalGremlinStep : GremlinStep, IGremlinSerializable
+    public sealed class TerminalGremlinStep : GremlinStep, IGroovySerializable
     {
         public TerminalGremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    internal struct P : IGremlinSerializable
+    internal struct P : IGroovySerializable
     {
         private readonly string _name;
         private readonly object[] _arguments;

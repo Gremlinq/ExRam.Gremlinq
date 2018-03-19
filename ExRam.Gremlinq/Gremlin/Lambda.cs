@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq
 {
-    public struct Lambda : IGremlinSerializable
+    public struct Lambda : IGroovySerializable
     {
         private readonly string _lambda;
 

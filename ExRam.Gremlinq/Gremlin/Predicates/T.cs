@@ -3,7 +3,7 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    internal struct T : IGremlinSerializable
+    internal struct T : IGroovySerializable
     {
         public static readonly T Id = new T("id");
 

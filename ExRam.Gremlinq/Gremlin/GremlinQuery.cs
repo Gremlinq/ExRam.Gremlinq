@@ -541,7 +541,7 @@ namespace ExRam.Gremlinq
 
                 foreach (var step in this.Steps)
                 {
-                    if (step is IGremlinSerializable serializableStep)
+                    if (step is IGroovySerializable serializableStep)
                         state = serializableStep.Serialize(stringBuilder, state);
                     else
                         throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");

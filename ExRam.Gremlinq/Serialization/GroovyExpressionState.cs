@@ -45,7 +45,6 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState AppendMethod(StringBuilder stringBuilder, string methodName, object parameter)
         {
-            var setComma = false;
             var methodExpressionState = new GroovyExpressionState(State.Idle, this._variables, this._stepLabelMappings);
             
             if (this._state == State.Chaining)
@@ -54,7 +53,7 @@ namespace ExRam.Gremlinq
             stringBuilder.Append(methodName);
             stringBuilder.Append("(");
 
-            methodExpressionState = parameter is IGremlinSerializable serializable
+            methodExpressionState = parameter is IGroovySerializable serializable
                 ? serializable.Serialize(stringBuilder, methodExpressionState)
                 : methodExpressionState.AppendConstant(stringBuilder, parameter);
 
@@ -81,7 +80,7 @@ namespace ExRam.Gremlinq
 
                 methodExpressionState = new GroovyExpressionState(State.Idle, methodExpressionState._variables, methodExpressionState._stepLabelMappings);
                 
-                methodExpressionState = parameter is IGremlinSerializable serializable
+                methodExpressionState = parameter is IGroovySerializable serializable
                     ? serializable.Serialize(stringBuilder, methodExpressionState)
                     : methodExpressionState.AppendConstant(stringBuilder, parameter);
                 
