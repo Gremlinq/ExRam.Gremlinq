@@ -519,9 +519,10 @@ namespace ExRam.Gremlinq
                 this._baseProvider = baseProvider;
             }
 
-            public IAsyncEnumerable<string> Execute<TElement>(IGremlinQuery<TElement> query)
+            public IAsyncEnumerable<string> Execute(IGremlinQuery query)
             {
                 var serialized = query
+                    .Cast<Unit>()
                     .Resolve(this.Model)
                     .Serialize();
 
