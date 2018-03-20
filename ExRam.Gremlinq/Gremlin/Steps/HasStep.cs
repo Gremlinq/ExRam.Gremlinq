@@ -21,8 +21,8 @@ namespace ExRam.Gremlinq
             var key = model.GetIdentifier(this._key);
 
             yield return this._value.Match(
-                value => new TerminalGremlinStep(Name, key, value),
-                () => new TerminalGremlinStep(Name, key));
+                value => new MethodGremlinStep(Name, key, value),
+                () => new MethodGremlinStep(Name, key));
         }
     }
 }

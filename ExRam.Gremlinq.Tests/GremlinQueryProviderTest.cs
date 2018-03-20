@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Tests
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create().Cast<Unit>());
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[0] is TerminalGremlinStep && ((TerminalGremlinStep)query.Steps[0]).Name == "withStrategies" && ((TerminalGremlinStep)query.Steps[0]).Parameters.Count == 1)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[0] is MethodGremlinStep && ((MethodGremlinStep)query.Steps[0]).Name == "withStrategies" && ((MethodGremlinStep)query.Steps[0]).Parameters.Count == 1)));
         }
 
         [Fact]

@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq
         {
             var type = this._value.GetType();
             
-            yield return new TerminalGremlinStep(
+            yield return new MethodGremlinStep(
                 this._stepName,
                 model
                     .TryGetLabelOfType(type)

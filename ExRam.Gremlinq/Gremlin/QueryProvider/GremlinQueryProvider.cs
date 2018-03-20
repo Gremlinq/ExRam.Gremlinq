@@ -554,7 +554,7 @@ namespace ExRam.Gremlinq
                     if (edgeCriterionTraversal.Steps.Count > 0)
                         strategy = strategy.AddStep("edges", edgeCriterionTraversal);
 
-                    this._maybeSubgraphStrategyStep = new TerminalGremlinStep("withStrategies", strategy.AddStep("create"));
+                    this._maybeSubgraphStrategyStep = new MethodGremlinStep("withStrategies", strategy.AddStep("create"));
                 }
             }
 

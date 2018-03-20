@@ -35,13 +35,13 @@ namespace ExRam.Gremlinq
                         {
                             return ((IEnumerable)value)
                                 .Cast<object>()
-                                .Select(item => new TerminalGremlinStep("property", propertyName, item));
+                                .Select(item => new MethodGremlinStep("property", propertyName, item));
                         }
 
-                        return new[] { new TerminalGremlinStep("property", propertyName, value) };
+                        return new[] { new MethodGremlinStep("property", propertyName, value) };
                     }
 
-                    return Array.Empty<TerminalGremlinStep>();
+                    return Array.Empty<MethodGremlinStep>();
                 });
         }
 

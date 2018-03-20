@@ -40,10 +40,10 @@ namespace ExRam.Gremlinq
                 throw new NotSupportedException();
 
             if (numberOfIdSteps > 0)
-                yield return new TerminalGremlinStep("id");
+                yield return new MethodGremlinStep("id");
             else
             {
-                yield return new TerminalGremlinStep(
+                yield return new MethodGremlinStep(
                     "values",
                     propertyKeys
                         .ToImmutableList());

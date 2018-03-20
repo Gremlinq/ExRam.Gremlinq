@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            yield return new TerminalGremlinStep(this._stepName, GetDerivedLabelNames(model));
+            yield return new MethodGremlinStep(this._stepName, GetDerivedLabelNames(model));
         }
 
         private static ImmutableList<object> GetDerivedLabelNames(IGraphModel model)

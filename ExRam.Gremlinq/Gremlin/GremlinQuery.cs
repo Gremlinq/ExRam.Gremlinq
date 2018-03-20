@@ -58,8 +58,8 @@ namespace ExRam.Gremlinq
                         .Select(andTraversal => andTraversal(this.ToAnonymous()))
                         .Aggregate(
                             ImmutableList<object>.Empty,
-                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "and"
-                                ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
+                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as MethodGremlinStep)?.Name == "and"
+                                ? list.AddRange(((MethodGremlinStep)query2.Steps[0]).Parameters)
                                 : list.Add(query2)));
             }
 
@@ -351,8 +351,8 @@ namespace ExRam.Gremlinq
                         .Select(andTraversal => andTraversal(this.ToAnonymous()))
                         .Aggregate(
                             ImmutableList<object>.Empty,
-                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as TerminalGremlinStep)?.Name == "or"
-                                ? list.AddRange(((TerminalGremlinStep)query2.Steps[0]).Parameters)
+                            (list, query2) => query2.Steps.Count == 1 && (query2.Steps[0] as MethodGremlinStep)?.Name == "or"
+                                ? list.AddRange(((MethodGremlinStep)query2.Steps[0]).Parameters)
                                 : list.Add(query2)));
             }
 
@@ -617,7 +617,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
         {
-            return query.AddStep(new TerminalGremlinStep(name, parameters));
+            return query.AddStep(new MethodGremlinStep(name, parameters));
         }
 
         public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, GremlinStep step)
@@ -627,13 +627,13 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
         {
-            return query.InsertStep<TElement>(query.Steps.Count, new TerminalGremlinStep(name, parameters));
+            return query.InsertStep<TElement>(query.Steps.Count, new MethodGremlinStep(name, parameters));
         }
 
         
         public static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
         {
-            return query.AddStep<TElement, TTarget>(new TerminalGremlinStep(name, parameters));
+            return query.AddStep<TElement, TTarget>(new MethodGremlinStep(name, parameters));
         }
 
         public static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, GremlinStep step)
@@ -643,7 +643,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
         {
-            return query.InsertStep<TTarget>(query.Steps.Count, new TerminalGremlinStep(name, parameters));
+            return query.InsertStep<TTarget>(query.Steps.Count, new MethodGremlinStep(name, parameters));
         }
 
         
@@ -674,7 +674,7 @@ namespace ExRam.Gremlinq
 
                 switch (step)
                 {
-                    case TerminalGremlinStep terminal:
+                    case MethodGremlinStep terminal:
                         {
                             var parameters = terminal.Parameters;
 
@@ -688,7 +688,7 @@ namespace ExRam.Gremlinq
 
                             // ReSharper disable once PossibleUnintendedReferenceComparison
                             if (parameters != terminal.Parameters)
-                                steps = steps.SetItem(i, new TerminalGremlinStep(terminal.Name, parameters));
+                                steps = steps.SetItem(i, new MethodGremlinStep(terminal.Name, parameters));
                             break;
                         }
                     case NonTerminalGremlinStep nonTerminal:

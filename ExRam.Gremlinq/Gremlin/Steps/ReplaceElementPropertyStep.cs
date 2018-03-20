@@ -14,10 +14,13 @@ namespace ExRam.Gremlinq
         {
             foreach (var step in this.BaseStep.Resolve(model))
             {
-                if (step.Name == "property" && step.Parameters.Count > 0 && step.Parameters[0] as string == this.Key)
-                    yield return new TerminalGremlinStep("property", this.Key, this.Value);
-                else
-                    yield return step;
+                if (step is MethodGremlinStep methodStep)
+                {
+                    if (methodStep.Name == "property" && methodStep.Parameters.Count > 0 && methodStep.Parameters[0] as string == this.Key)
+                        yield return new MethodGremlinStep("property", this.Key, this.Value);
+                    else
+                        yield return step;
+                }
             }
         }
     }
