@@ -662,53 +662,58 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> RewriteSteps<TElement>(this IGremlinQuery<TElement> query, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
         {
-            var steps = query.Steps;
+            return query.ReplaceSteps(query.Steps
+                .RewriteSteps(resolveFunction)
+                .ToImmutableList());
+        }
 
-            for (var i = 0; i < steps.Count; i++)
+        public static IEnumerable<GremlinStep> RewriteSteps(this IEnumerable<GremlinStep> steps, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
+        {
+            foreach(var step in steps)
             {
-                var step = steps[i];
-
                 switch (step)
                 {
                     case MethodGremlinStep terminal:
+                    {
+                        var parameters = terminal.Parameters;
+
+                        for (var j = 0; j < parameters.Count; j++)
                         {
-                            var parameters = terminal.Parameters;
+                            var parameter = parameters[j];
 
-                            for (var j = 0; j < parameters.Count; j++)
-                            {
-                                var parameter = parameters[j];
-
-                                if (parameter is IGremlinQuery subQuery)
-                                    parameters = parameters.SetItem(j, subQuery.Cast<Unit>().RewriteSteps(resolveFunction));
-                            }
-
-                            // ReSharper disable once PossibleUnintendedReferenceComparison
-                            if (parameters != terminal.Parameters)
-                                steps = steps.SetItem(i, new MethodGremlinStep(terminal.Name, parameters));
-                            break;
+                            if (parameter is IGremlinQuery subQuery)
+                                parameters = parameters.SetItem(j, subQuery.Cast<Unit>().RewriteSteps(resolveFunction));
                         }
-                    //case IdentifierGremlinStep identifierGremlinStep:
 
+                        // ReSharper disable once PossibleUnintendedReferenceComparison
+                        if (parameters != terminal.Parameters)
+                            yield return new MethodGremlinStep(terminal.Name, parameters);
+                        else
+                            yield return terminal;
+
+                        break;
+                    }
+                    case TerminalGremlinStep terminalStep:
+                    {
+                        yield return terminalStep;
+                        break;
+                    }
                     case NonTerminalGremlinStep nonTerminal:
-                        {
-                            resolveFunction(nonTerminal)
-                            .IfSome(resolvedSteps =>
-                            {
-                                steps = steps
-                                    .RemoveAt(i)
-                                    .InsertRange(i, resolvedSteps);
+                    {
+                        var newEnumerable = resolveFunction(nonTerminal)
+                            .Match(
+                                _ => RewriteSteps(_, resolveFunction),
+                                () => new[] { nonTerminal }.AsEnumerable());
 
-                                i--;
-                            });
-                            break;
+                        foreach (var terminalStep in newEnumerable)
+                        {
+                            yield return terminalStep;
                         }
+                       
+                        break;
+                    }
                 }
             }
-
-            // ReSharper disable once PossibleUnintendedReferenceComparison
-            return steps != query.Steps
-                ? query.ReplaceSteps(steps)
-                : query;
         }
 
         public static IGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
