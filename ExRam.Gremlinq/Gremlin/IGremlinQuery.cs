@@ -34,7 +34,6 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TTarget> OfType<TTarget>();
         IGremlinQuery<Vertex> V(params object[] ids);
 
-        string TraversalSourceName { get; }
         IImmutableList<GremlinStep> Steps { get; }
         IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }

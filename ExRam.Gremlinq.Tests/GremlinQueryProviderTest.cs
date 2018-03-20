@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Tests
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create().Cast<Unit>());
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[0] is MethodGremlinStep && ((MethodGremlinStep)query.Steps[0]).Name == "withStrategies" && ((MethodGremlinStep)query.Steps[0]).Parameters.Count == 1)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[1] is MethodGremlinStep && ((MethodGremlinStep)query.Steps[1]).Name == "withStrategies" && ((MethodGremlinStep)query.Steps[1]).Parameters.Count == 1)));
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Tests
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create().Cast<Unit>());
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps.Count == 0)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps.Count == 1)));
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Tests
             subgraphStrategyProvider
                 .Execute(GremlinQuery.Create().AddV(new User()));
 
-            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[1] is ReplaceElementPropertyStep<User, int>)));
+            queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<User>>(query => query.Steps[2] is ReplaceElementPropertyStep<User, int>)));
         }
 
         [Fact]

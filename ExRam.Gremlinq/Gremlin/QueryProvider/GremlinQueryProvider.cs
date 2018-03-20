@@ -542,7 +542,7 @@ namespace ExRam.Gremlinq
                 var vertexCriterionTraversal = vertexCriterion(GremlinQuery.Anonymous);
                 var edgeCriterionTraversal = edgeCriterion(GremlinQuery.Anonymous);
 
-                if (vertexCriterionTraversal.Steps.Count > 0 || edgeCriterionTraversal.Steps.Count > 0)
+                if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
                 {
                     var strategy = GremlinQuery
                         .Create("SubgraphStrategy")
@@ -561,7 +561,7 @@ namespace ExRam.Gremlinq
             public override IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return base.Execute(this._maybeSubgraphStrategyStep
-                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<TElement>(0, subgraphStrategyStep)));
+                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<TElement>(1, subgraphStrategyStep)));
             }
         }
 
