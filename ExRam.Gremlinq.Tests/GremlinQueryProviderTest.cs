@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategyTest()
         {
-            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
+            var queryProviderMock = new Mock<IModelGremlinQueryProvider>();
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
 
             subgraphStrategyProvider
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategy_is_ommitted_if_empty()
         {
-            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
+            var queryProviderMock = new Mock<IModelGremlinQueryProvider>();
             var subgraphStrategyProvider = queryProviderMock.Object.WithSubgraphStrategy(_ => _, _ => _);
 
             subgraphStrategyProvider
