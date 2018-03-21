@@ -4,9 +4,6 @@
     <TargetFrameworks>netstandard20</TargetFrameworks>
     <Version>2.5.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard20|AnyCPU'">
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   
