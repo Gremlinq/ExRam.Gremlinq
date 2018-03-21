@@ -68,19 +68,46 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(T.id, _P6).property(_P7, _P8).property(_P7, _P9)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(T.id, _P8).property(_P9, _P10).property(_P9, _P11)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 0).And
-                .Contain("_P4", "RegistrationDate").And
-                .Contain("_P5", DateTimeOffset.MinValue).And
-                .Contain("_P6", "id").And
-                .Contain("_P7", "PhoneNumbers").And
-                .Contain("_P8", "+4912345").And
-                .Contain("_P9", "+4923456");
+                .Contain("_P4", "Gender").And
+                .Contain("_P5", 0).And
+                .Contain("_P6", "RegistrationDate").And
+                .Contain("_P7", DateTimeOffset.MinValue).And
+                .Contain("_P8", "id").And
+                .Contain("_P9", "PhoneNumbers").And
+                .Contain("_P10", "+4912345").And
+                .Contain("_P11", "+4923456");
+        }
+
+        [Fact]
+        public void AddV_with_enum_property()
+        {
+            var query = GremlinQuery
+                .Create()
+                .AddV(new User { Id = "id", Gender = Gender.Female })
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(T.id, _P8)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 0).And
+                .Contain("_P4", "Gender").And
+                .Contain("_P5", 1).And
+                .Contain("_P6", "RegistrationDate").And
+                .Contain("_P7", DateTimeOffset.MinValue).And
+                .Contain("_P8", "id");
         }
 
         [Fact]
@@ -1145,7 +1172,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V().hasLabel(_P9).has(_P10, P.eq(_P11)))");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).addE(_P10).to(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
 
             query
                 .parameters
@@ -1153,14 +1180,16 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 0).And
-                .Contain("_P4", "RegistrationDate").And
-                .Contain("_P5", now).And
-                .Contain("_P6", "Name").And
-                .Contain("_P7", "Bob").And
-                .Contain("_P8", "LivesIn").And
-                .Contain("_P9", "Country").And
-                .Contain("_P10", "CountryCallingCode").And
-                .Contain("_P11", "+49");
+                .Contain("_P4", "Gender").And
+                .Contain("_P5", 0).And
+                .Contain("_P6", "RegistrationDate").And
+                .Contain("_P7", now).And
+                .Contain("_P8", "Name").And
+                .Contain("_P9", "Bob").And
+                .Contain("_P10", "LivesIn").And
+                .Contain("_P11", "Country").And
+                .Contain("_P12", "CountryCallingCode").And
+                .Contain("_P13", "+49");
         }
 
         [Fact]

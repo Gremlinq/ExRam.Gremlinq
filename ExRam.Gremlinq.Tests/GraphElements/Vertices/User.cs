@@ -8,6 +8,8 @@ namespace ExRam.Gremlinq.Tests
 
         public string PhoneNumber { get; set; }
 
+        public Gender Gender { get; set; }
+
         public DateTimeOffset RegistrationDate { get; set; }
     }
 }
