@@ -657,7 +657,9 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> ReplaceSteps<TElement>(this IGremlinQuery<TElement> query, IImmutableList<GremlinStep> steps)
         {
-            return new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(steps, query.StepLabelMappings);
+            return ReferenceEquals(steps, query.Steps) 
+                ? query 
+                : new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(steps, query.StepLabelMappings);
         }
 
         public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
@@ -667,15 +669,12 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> RewriteSteps<TElement>(this IGremlinQuery<TElement> query, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
         {
-            return query.ReplaceSteps(query.Steps
-                .RewriteSteps(resolveFunction)
-                .ToImmutableList());
-        }
+            var steps = query.Steps;
 
-        public static IEnumerable<GremlinStep> RewriteSteps(this IEnumerable<GremlinStep> steps, Func<NonTerminalGremlinStep, Option<IEnumerable<GremlinStep>>> resolveFunction)
-        {
-            foreach(var step in steps)
+            for(var index = 0; index < steps.Count; index++)
             {
+                var step = steps[index];
+
                 switch (step)
                 {
                     case MethodGremlinStep terminal:
@@ -692,33 +691,30 @@ namespace ExRam.Gremlinq
 
                         // ReSharper disable once PossibleUnintendedReferenceComparison
                         if (parameters != terminal.Parameters)
-                            yield return new MethodGremlinStep(terminal.Name, parameters);
-                        else
-                            yield return terminal;
+                            steps = steps.SetItem(index, new MethodGremlinStep(terminal.Name, parameters));
 
-                        break;
-                    }
-                    case TerminalGremlinStep terminalStep:
-                    {
-                        yield return terminalStep;
                         break;
                     }
                     case NonTerminalGremlinStep nonTerminal:
                     {
-                        var newEnumerable = resolveFunction(nonTerminal)
-                            .Match(
-                                _ => RewriteSteps(_, resolveFunction),
-                                () => new[] { nonTerminal }.AsEnumerable());
+                        var newTuple = resolveFunction(nonTerminal)
+                            .Fold(
+                                (steps, index),
+                                (tuple, newSteps) => (
+                                    tuple.steps
+                                        .RemoveAt(tuple.index)
+                                        .InsertRange(tuple.index, newSteps),
+                                    tuple.index - 1));
 
-                        foreach (var terminalStep in newEnumerable)
-                        {
-                            yield return terminalStep;
-                        }
-                       
+                        index = newTuple.index;
+                        steps = newTuple.steps;
+
                         break;
                     }
                 }
             }
+
+            return query.ReplaceSteps(steps);
         }
 
         public static IGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
