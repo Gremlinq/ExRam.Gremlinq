@@ -177,6 +177,7 @@ namespace ExRam.Gremlinq.Tests
             user.Should().NotBeNull();
             user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
             user.Age.Should().Be(36);
+            user.Gender.Should().Be(Gender.Female);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
         }

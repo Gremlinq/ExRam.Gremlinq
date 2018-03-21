@@ -16,13 +16,19 @@
           "value": "12/01/2017 15:28:24"
         }
       ],
-      "PhoneNumbers": [
+      "Gender": [
         {
           "id": 3,
+          "value":  1
+        }
+      ],
+      "PhoneNumbers": [
+        {
+          "id": 4,
           "value": "+123456"
         },
         {
-          "id": 4,
+          "id": 5,
           "value": "+234567"
         }
       ]
