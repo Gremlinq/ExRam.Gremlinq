@@ -170,13 +170,13 @@ namespace ExRam.Gremlinq
                     .Cast<TEnd>();
             }
 
-            public IGremlinQuery<TElement> ByTraversal(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal, Gremlinq.Order sortOrder = Gremlinq.Order.incr)
+            public IGremlinQuery<TElement> ByTraversal(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal, Order sortOrder)
             {
                 return this
                     .AddStep("by", traversal(this.ToAnonymous()), sortOrder);
             }
 
-            public IGremlinQuery<TElement> ByMember(Expression<Func<TElement, object>> projection, Order sortOrder = Gremlinq.Order.incr)
+            public IGremlinQuery<TElement> ByMember(Expression<Func<TElement, object>> projection, Order sortOrder)
             {
                 var body = projection.Body;
                 if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)

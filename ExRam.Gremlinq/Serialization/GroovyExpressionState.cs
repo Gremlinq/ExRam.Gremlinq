@@ -108,13 +108,6 @@ namespace ExRam.Gremlinq
             if (this._state == State.Chaining)
                 throw new InvalidOperationException();
 
-            if (constant is Enum)
-            {
-                return this
-                    .AppendIdentifier(builder, constant.GetType().Name)
-                    .AppendField(builder, Enum.GetName(constant.GetType(), constant));
-            }
-
             var (newVariables, newStepLabelMappings) = Cache(constant, this._variables, this._stepLabelMappings, out var key);
             builder.Append(key);
 

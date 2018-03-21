@@ -1340,7 +1340,7 @@ namespace ExRam.Gremlinq.Tests
                 .Create()
                 .V<User>()
                 .Order()
-                .ByMember(x => x.Name)
+                .ByMember(x => x.Name, Order.Increasing)
                 .Resolve(this._model)
                 .Serialize();
 
@@ -1361,7 +1361,7 @@ namespace ExRam.Gremlinq.Tests
                 .Create()
                 .V<User>()
                 .Order()
-                .ByTraversal(__ => __.Values(x => x.Name))
+                .ByTraversal(__ => __.Values(x => x.Name), Order.Increasing)
                 .Resolve(this._model)
                 .Serialize();
 
@@ -1402,7 +1402,7 @@ namespace ExRam.Gremlinq.Tests
                 .Create()
                 .V<User>()
                 .Values(x => x.Age)
-                .Sum(Scope.local)
+                .Sum(Scope.Local)
                 .Resolve(this._model)
                 .Serialize();
 
@@ -1423,7 +1423,7 @@ namespace ExRam.Gremlinq.Tests
                 .Create()
                 .V<User>()
                 .Values(x => x.Age)
-                .Sum(Scope.global)
+                .Sum(Scope.Global)
                 .Resolve(this._model)
                 .Serialize();
 
