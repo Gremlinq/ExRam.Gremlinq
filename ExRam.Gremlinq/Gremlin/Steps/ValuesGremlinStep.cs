@@ -37,9 +37,15 @@ namespace ExRam.Gremlinq
                 .ToArray();
 
             if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
-                throw new NotSupportedException();
-
-            if (numberOfIdSteps > 0)
+            {
+                yield return new MethodGremlinStep("union",
+                    GremlinQuery.Anonymous.AddStep(new MethodGremlinStep(
+                        "values",
+                        propertyKeys
+                            .ToImmutableList())),
+                    GremlinQuery.Anonymous.Id());
+            }
+            else if (numberOfIdSteps > 0)
                 yield return new MethodGremlinStep("id");
             else
             {
