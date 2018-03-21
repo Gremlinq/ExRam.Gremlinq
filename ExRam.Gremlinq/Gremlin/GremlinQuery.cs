@@ -936,5 +936,28 @@ namespace ExRam.Gremlinq
 
             return query.AddStep(new HasStep(name, maybeArgument));
         }
+
+        public static IGremlinQuery<Unit> WithSubgraphStrategy(this IGremlinQuery<Unit> query, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
+        {
+            var vertexCriterionTraversal = vertexCriterion(GremlinQuery.Anonymous);
+            var edgeCriterionTraversal = edgeCriterion(GremlinQuery.Anonymous);
+
+            if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
+            {
+                var strategy = GremlinQuery
+                    .Create("SubgraphStrategy")
+                    .AddStep("build");
+
+                if (vertexCriterionTraversal.Steps.Count > 0)
+                    strategy = strategy.AddStep("vertices", vertexCriterionTraversal);
+
+                if (edgeCriterionTraversal.Steps.Count > 0)
+                    strategy = strategy.AddStep("edges", edgeCriterionTraversal);
+
+                return query.AddStep(new MethodGremlinStep("withStrategies", strategy.AddStep("create")));
+            }
+
+            return query;
+        }
     }
 }

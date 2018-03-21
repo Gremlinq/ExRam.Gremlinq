@@ -534,45 +534,6 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
         }
 
-        private sealed class SubgraphStrategyQueryProvider : IModelGremlinQueryProvider
-        {
-            private readonly Option<TerminalGremlinStep> _maybeSubgraphStrategyStep;
-            private readonly IModelGremlinQueryProvider _baseTypedGremlinQueryProvider;
-
-            public SubgraphStrategyQueryProvider(IModelGremlinQueryProvider baseTypedGremlinQueryProvider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
-            {
-                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
-
-                var vertexCriterionTraversal = vertexCriterion(GremlinQuery.Anonymous);
-                var edgeCriterionTraversal = edgeCriterion(GremlinQuery.Anonymous);
-
-                if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
-                {
-                    var strategy = GremlinQuery
-                        .Create("SubgraphStrategy")
-                        .AddStep("build");
-
-                    if (vertexCriterionTraversal.Steps.Count > 0)
-                        strategy = strategy.AddStep("vertices", vertexCriterionTraversal);
-
-                    if (edgeCriterionTraversal.Steps.Count > 0)
-                        strategy = strategy.AddStep("edges", edgeCriterionTraversal);
-
-                    this._maybeSubgraphStrategyStep = new MethodGremlinStep("withStrategies", strategy.AddStep("create"));
-                }
-            }
-
-            public IAsyncEnumerable<string> Execute(IGremlinQuery query)
-            {
-                return this._baseTypedGremlinQueryProvider.Execute(this._maybeSubgraphStrategyStep
-                    .Fold(query, (_, subgraphStrategyStep) => _.InsertStep<Unit>(1, subgraphStrategyStep)));
-            }
-
-            public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
-
-            public IGremlinQuery<Unit> TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
-        }
-
         private sealed class RewriteStepsQueryProvider<TStep> : IModelGremlinQueryProvider where TStep : NonTerminalGremlinStep
         {
             private readonly IModelGremlinQueryProvider _baseTypedGremlinQueryProvider;
@@ -621,12 +582,7 @@ namespace ExRam.Gremlinq
         {
             return new ModelGremlinQueryProvider(provider, model);
         }
-
-        public static IModelGremlinQueryProvider WithSubgraphStrategy(this IModelGremlinQueryProvider provider, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
-        {
-            return new SubgraphStrategyQueryProvider(provider, vertexCriterion, edgeCriterion);
-        }
-        
+       
         public static IModelGremlinQueryProvider ReplaceElementProperty<TSource, TProperty>(this IModelGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
