@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq
             var keys = this._projections
                 .Select(projection =>
                 {
-                    if (projection.Body is MemberExpression memberExpression)
+                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
                         return model.GetIdentifier(memberExpression.Member.Name);
 
                     throw new NotSupportedException();

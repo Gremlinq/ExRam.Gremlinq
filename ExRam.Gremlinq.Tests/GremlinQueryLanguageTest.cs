@@ -1526,6 +1526,27 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_values_of_three_properties()
+        {
+            var query = GremlinQuery
+                .Create()
+                .V<User>()
+                .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
+                .Resolve(this._model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).union(__.values(_P2, _P3), __.id())");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "Gender");
+        }
+
+        [Fact]
         public void V_without_type()
         {
             var query = GremlinQuery
