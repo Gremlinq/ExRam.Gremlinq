@@ -541,26 +541,18 @@ namespace ExRam.Gremlinq
 
             public RewriteStepsQueryProvider(IModelGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory)
             {
-                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
                 this._replacementStepFactory = replacementStepFactory;
+                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
             }
 
             public IAsyncEnumerable<string> Execute(IGremlinQuery query)
             {
-                return this._baseTypedGremlinQueryProvider.Execute(RewriteSteps(query).Cast<Unit>());
-            }
-
-            private IGremlinQuery RewriteSteps(IGremlinQuery query)
-            {
-                return query
+                return this._baseTypedGremlinQueryProvider.Execute(query
                     .Cast<Unit>()
-                    .RewriteSteps(step =>
-                    {
-                        if (step is TStep replacedStep)
-                            return this._replacementStepFactory(replacedStep);
-
-                        return Option<IEnumerable<GremlinStep>>.None;
-                    });
+                    .RewriteSteps(step => step is TStep replacedStep
+                        ? this._replacementStepFactory(replacedStep)
+                        : Option<IEnumerable<GremlinStep>>.None)
+                    .Cast<Unit>());
             }
 
             public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
