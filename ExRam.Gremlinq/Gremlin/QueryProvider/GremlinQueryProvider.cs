@@ -287,6 +287,27 @@ namespace ExRam.Gremlinq
 
             public IGremlinQuery<Unit> TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
         }
+        
+        private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : INativeGremlinQueryProvider<TNativeTarget>
+        {
+            private readonly Func<TNativeSource, TNativeTarget> _projection;
+            private readonly INativeGremlinQueryProvider<TNativeSource> _provider;
+
+            public SelectNativeGremlinQueryProvider(INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
+            {
+                this._provider = provider;
+                this._projection = projection;
+            }
+
+            public IAsyncEnumerable<TNativeTarget> Execute(string query, IDictionary<string, object> parameters)
+            {
+                return this._provider
+                    .Execute(query, parameters)
+                    .Select(this._projection);
+            }
+
+            public IGremlinQuery<Unit> TraversalSource => this._provider.TraversalSource;
+        }
 
         public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)
         {
@@ -333,6 +354,11 @@ namespace ExRam.Gremlinq
         public static IModelGremlinQueryProvider<TNative> RewriteSteps<TStep, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
         {
             return new RewriteStepsQueryProvider<TStep, TNative>(provider, replacementStepFactory);
+        }
+
+        public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
+        {
+            return new SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget>(provider, projection);
         }
     }
 }
