@@ -16,25 +16,6 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryProvider
     {
-        private abstract class TypedGremlinQueryProviderBase : ITypedGremlinQueryProvider
-        {
-            private readonly ITypedGremlinQueryProvider _baseTypedGremlinQueryProvider;
-
-            protected TypedGremlinQueryProviderBase(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider)
-            {
-                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
-            }
-
-            public virtual IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
-                return this._baseTypedGremlinQueryProvider.Execute(query);
-            }
-
-            public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
-            
-            public IGremlinQuery<Unit> TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
-        }
-
         private sealed class JsonSupportTypedGremlinQueryProvider : ITypedGremlinQueryProvider
         {
             private readonly IModelGremlinQueryProvider<string> _baseProvider;
