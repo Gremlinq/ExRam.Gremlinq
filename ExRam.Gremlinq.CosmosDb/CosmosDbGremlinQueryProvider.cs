@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace ExRam.Gremlinq.CosmosDb
 {
-    public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider
+    public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider<string>
     {
         private readonly ILogger _logger;
         private readonly DocumentClient _client;

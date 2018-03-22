@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
-    public interface IModelGremlinQueryProvider : IHasModel, IHasTraversalSource
+    public interface IModelGremlinQueryProvider<out TNative> : IHasModel, IHasTraversalSource
     {
-        IAsyncEnumerable<string> Execute(IGremlinQuery query);
+        IAsyncEnumerable<TNative> Execute(IGremlinQuery query);
     }
 }

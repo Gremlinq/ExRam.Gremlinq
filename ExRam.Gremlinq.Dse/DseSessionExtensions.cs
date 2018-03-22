@@ -10,7 +10,7 @@ namespace Dse
 {
     public static class DseSessionExtensions
     {
-        private sealed class DseGraphNativeQueryProvider : INativeGremlinQueryProvider
+        private sealed class DseGraphNativeQueryProvider : INativeGremlinQueryProvider<string>
         {
             private readonly IDseSession _session;
 
@@ -39,7 +39,7 @@ namespace Dse
             public IGremlinQuery<Unit> TraversalSource { get; }
         }
 
-        public static INativeGremlinQueryProvider CreateQueryProvider(this IDseSession session)
+        public static INativeGremlinQueryProvider<string> CreateQueryProvider(this IDseSession session)
         {
             return new DseGraphNativeQueryProvider(session);
         }

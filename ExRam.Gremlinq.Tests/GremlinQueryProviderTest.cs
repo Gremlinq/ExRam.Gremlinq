@@ -39,8 +39,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void RewriteStepsTest()
         {
-            var queryProviderMock = new Mock<IModelGremlinQueryProvider>();
-            var subgraphStrategyProvider = queryProviderMock.Object.RewriteSteps<AddElementPropertiesStep>(
+            var queryProviderMock = new Mock<IModelGremlinQueryProvider<string>>();
+            var subgraphStrategyProvider = queryProviderMock.Object.RewriteSteps<AddElementPropertiesStep, string>(
                 step =>
                 {
                     return step.Element is User
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Scalar()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider>();
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(AsyncEnumerable.Return("[ 36 ]"));
