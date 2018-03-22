@@ -468,9 +468,6 @@ namespace ExRam.Gremlinq
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .UnwrapObject(
-                                    "id",
-                                    idSection => idSection)
-                                .UnwrapObject(
                                     "properties",
                                     propertiesSection => propertiesSection
                                         .SelectPropertyValue(array => array
