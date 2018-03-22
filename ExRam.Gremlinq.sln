@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Dse.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.CosmosDb", "ExRam.Gremlinq.CosmosDb\ExRam.Gremlinq.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.WebSocket", "ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj", "{8A621708-9F8A-4727-9D96-71B07CAF61A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
