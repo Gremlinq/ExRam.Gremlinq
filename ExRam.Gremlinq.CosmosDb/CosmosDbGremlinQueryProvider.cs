@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace ExRam.Gremlinq.CosmosDb
 {
-    public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider<string>
+    public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider<JToken>
     {
         private readonly ILogger _logger;
         private readonly DocumentClient _client;
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.CosmosDb
             this.TraversalSource = GremlinQuery.Create(configuration.Value.TraversalSource);
         }
 
-        public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
+        public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
         {
             foreach (var kvp in parameters.OrderByDescending(x => x.Key.Length))
             {
@@ -85,8 +85,8 @@ namespace ExRam.Gremlinq.CosmosDb
                         throw new Exception(query, ex);
                     }
                 })
-                .SelectMany(x => x.ToAsyncEnumerable())
-                .Select(x => x.ToString());
+                .SelectMany(x => x.ToAsyncEnumerable());
+                //.Select(x => x.ToString());
         }
 
         public IGremlinQuery<Unit> TraversalSource { get; }
