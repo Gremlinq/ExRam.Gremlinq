@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using LanguageExt;
 using Moq;
+using Newtonsoft.Json.Linq;
 using Xunit;
 using Unit = System.Reactive.Unit;
 
@@ -63,6 +64,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return("[ 36 ]"));
 
             var value = await queryProviderMock.Object
+                .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
                 .Execute(GremlinQuery.Create().Cast<int>())

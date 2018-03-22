@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq
     {
         private sealed class JsonSupportTypedGremlinQueryProvider : ITypedGremlinQueryProvider
         {
-            private readonly IModelGremlinQueryProvider<string> _baseProvider;
+            private readonly IModelGremlinQueryProvider<JToken> _baseProvider;
 
             private sealed class JsonGremlinDeserializer : IGremlinDeserializer
             {
@@ -192,10 +192,10 @@ namespace ExRam.Gremlinq
                     MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead
                 };
 
-                public IAsyncEnumerable<TElement> Deserialize<TElement>(string rawData, IGraphModel model)
+                public IAsyncEnumerable<TElement> Deserialize<TElement>(JToken rawData, IGraphModel model)
                 {
                     return JsonGremlinDeserializer.Deserializer
-                        .Deserialize<TElement[]>(new JsonTextReader(new StringReader(rawData))
+                        .Deserialize<TElement[]>(new JTokenReader(rawData)// new JsonTextReader(new StringReader(rawData))
                             .ToTokenEnumerable()
                             .Apply(e => e
                                 .UnwrapObject(
@@ -219,7 +219,7 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            public JsonSupportTypedGremlinQueryProvider(IModelGremlinQueryProvider<string> baseProvider)
+            public JsonSupportTypedGremlinQueryProvider(IModelGremlinQueryProvider<JToken> baseProvider)
             {
                 this._baseProvider = baseProvider;
             }
@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq
             return provider.Execute(query);
         }
 
-        public static ITypedGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider<string> provider)
+        public static ITypedGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider<JToken> provider)
         {
             return new JsonSupportTypedGremlinQueryProvider(provider);
         }
