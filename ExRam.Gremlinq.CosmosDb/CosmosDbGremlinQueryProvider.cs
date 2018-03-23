@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Graphs;
+using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
@@ -15,23 +12,19 @@ namespace ExRam.Gremlinq.CosmosDb
     public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider<JToken>
     {
         private readonly ILogger _logger;
-        private readonly DocumentClient _client;
-        private readonly Task<ResourceResponse<DocumentCollection>> _graph;
+        private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
 
         public CosmosDbGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
         {
             this._logger = logger;
-            this._client =  new DocumentClient(
-                new Uri(configuration.Value.EndPoint),
+
+            this._baseProvider = new WebSocketNativeGremlinQueryProvider(
+                configuration.Value.EndPoint,
+                443,
+                "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
                 configuration.Value.AuthKey,
-                new ConnectionPolicy { ConnectionMode = ConnectionMode.Direct, ConnectionProtocol = Protocol.Tcp });
-
-            this._graph = this._client.CreateDocumentCollectionIfNotExistsAsync(
-                UriFactory.CreateDatabaseUri(configuration.Value.Database),
-                new DocumentCollection { Id = configuration.Value.GraphName },
-                new RequestOptions { OfferThroughput = 1000 });
-
-            this.TraversalSource = GremlinQuery.Create(configuration.Value.TraversalSource);
+                configuration.Value.TraversalSource,
+                logger);
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
@@ -60,35 +53,15 @@ namespace ExRam.Gremlinq.CosmosDb
                 }
 
                 value = value is string
-                    ? $"'{value}'" 
+                    ? $"'{value}'"
                     : value.ToString().ToLower();
 
                 query = query.Replace(kvp.Key, (string)value);
             }
 
-            this._logger.LogTrace("Executing Gremlin query {0}.", query);
-
-            return this._graph
-                .Map(graph => this._client.CreateGremlinQuery<JToken>(graph, query))
-                .ToAsyncEnumerable()
-                .Repeat()
-                .TakeWhile(documentQuery => documentQuery.HasMoreResults)
-                // ReSharper disable once ImplicitlyCapturedClosure
-                .SelectMany(async (documentQuery, ct) =>
-                {
-                    try
-                    {
-                        return await documentQuery.ExecuteNextAsync<JToken>(ct).ConfigureAwait(false);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception(query, ex);
-                    }
-                })
-                .SelectMany(x => x.ToAsyncEnumerable());
-                //.Select(x => x.ToString());
+            return this._baseProvider.Execute(query, new Dictionary<string, object>());
         }
 
-        public IGremlinQuery<Unit> TraversalSource { get; }
+        public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
     }
 }
