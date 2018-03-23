@@ -14,6 +14,7 @@
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
     <EmbeddedResource Include="Json\Single_TimeFrame_with_numbers.json" />
     <EmbeddedResource Include="Json\Single_TimeFrame.json" />
+    <EmbeddedResource Include="Json\Single_IsDescribedIn.json" />
     <EmbeddedResource Include="Json\Single_User_lowercase_properties.json" />
     <EmbeddedResource Include="Json\Single_User_without_PhoneNumbers.json" />
     <EmbeddedResource Include="Json\Single_User.json" />

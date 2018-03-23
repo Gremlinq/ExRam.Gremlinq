@@ -1,0 +1,15 @@
+﻿[
+  {
+    "id": "22174b26-f1a4-4dcb-a1df-accdd89c4b56",
+    "label": "IsDescribedIn",
+    "type": "edge",
+    "inVLabel": "Language",
+    "outVLabel": "Language",
+    "inV": "x-language:de",
+    "outV": "x-language:de",
+    "properties": {
+      "Text": "Deutsch",
+      "ActiveFrom": 1521805004907
+    }
+  }
+]

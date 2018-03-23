@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string SingleUserJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleLanguageJson;
+        private static readonly string SingleIsDescribedIn;
         private static readonly string SingleTimeFrameJson;
         private static readonly string TupleOfUserLanguageJson;
         private static readonly string NestedArrayOfLanguagesJson;
@@ -34,8 +35,28 @@ namespace ExRam.Gremlinq.Tests
             NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
             SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
+            SingleIsDescribedIn = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_IsDescribedIn.json")).ReadToEnd();
         }
 
+        [Fact]
+        public async Task IsDescribedIn()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(SingleIsDescribedIn));
+
+            var array = await queryProviderMock.Object
+                .Select(JToken.Parse)
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create().V<IsDescribedIn>())
+                .ToArray();
+
+            array.Should().HaveCount(1);
+            array[0].Text.Should().Be("Deutsch");
+        }
+        
         [Fact]
         public async Task Empty1()
         {
