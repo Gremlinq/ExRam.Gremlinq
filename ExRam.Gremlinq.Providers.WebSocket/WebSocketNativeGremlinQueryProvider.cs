@@ -33,40 +33,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
         {
-            foreach (var kvp in parameters.OrderByDescending(x => x.Key.Length))
-            {
-                var value = kvp.Value;
-
-                switch (value)
-                {
-                    case Enum _:
-                        value = (int)value;
-                        break;
-                    case DateTimeOffset x:
-                        value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
-                        break;
-                    case DateTime x:
-                        value = x.ToUniversalTime().ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffZ");
-                        break;
-                    case TimeSpan x:
-                        value = x.TotalSeconds;
-                        break;
-                    case byte[] x:
-                        value = Convert.ToBase64String(x);
-                        break;
-                }
-
-                value = value is string
-                    ? $"'{value}'"
-                    : value.ToString().ToLower();
-
-                query = query.Replace(kvp.Key, (string)value);
-            }
-
             this._logger.LogTrace("Executing Gremlin query {0}.", query);
 
             return this._gremlinClient
-                .SubmitAsync<JToken>(query)
+                .SubmitAsync<JToken>(query, new Dictionary<string, object>(parameters))
                 .ToAsyncEnumerable()
                 .SelectMany(x => x.ToAsyncEnumerable());
         }
