@@ -431,7 +431,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4))");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.between(_P3, _P4))");
 
             query.parameters
                 .Should()
@@ -453,7 +453,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4))");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.between(_P3, _P4))");
 
             query.parameters
                 .Should()

@@ -36,6 +36,11 @@ namespace ExRam.Gremlinq
                 : ret.AppendMethod(stringBuilder, this._name, this._arguments);
         }
 
+        public static P Between(object lower, object upper)
+        {
+            return new P("between", lower, upper);
+        }
+
         public static P Eq(object argument)
         {
             return new P("eq", argument);

@@ -900,7 +900,7 @@ namespace ExRam.Gremlinq
                                             upperBound = new string(upperBoundChars);
                                         }
 
-                                        return query.Has(memberExpression, P.Within(lowerBound, upperBound));
+                                        return query.Has(memberExpression, P.Between(lowerBound, upperBound));
                                     }
                                 }
                             }
