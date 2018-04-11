@@ -878,9 +878,10 @@ namespace ExRam.Gremlinq
                                     {
                                         return query.Has(
                                             argumentExpression,
-                                            new OrP(Enumerable
+                                            P.Within(Enumerable
                                                 .Range(0, stringValue.Length + 1)
-                                                .Select(i => P.Eq(stringValue.Substring(0, i)))
+                                                .Select(i => stringValue.Substring(0, i))
+                                                .Cast<object>()
                                                 .ToArray()));
                                     }
                                 }

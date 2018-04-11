@@ -346,7 +346,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4, _P5, _P6, _P7, _P8, _P9))");
 
             query.parameters
                 .Should()
@@ -375,7 +375,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4, _P5, _P6, _P7, _P8, _P9))");
 
             query.parameters
                 .Should()
@@ -404,7 +404,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).has(_P2, P.eq(_P3).or(P.eq(_P4)).or(P.eq(_P5)).or(P.eq(_P6)).or(P.eq(_P7)).or(P.eq(_P8)).or(P.eq(_P9)))");
+                .Be("g.V().hasLabel(_P1).has(_P2, P.within(_P3, _P4, _P5, _P6, _P7, _P8, _P9))");
 
             query.parameters
                 .Should()
