@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Tests
                 "[ [ 36 ], [ { \"key1\": \"value1\" } ], [ { \"key1\": \"value1\", \"key2\": \"value2\" } ] ] "
             };
 
-            foreach(var json in jsons)
+            foreach (var json in jsons)
             {
                 var token = JToken.Parse(json);
                 var transformed = token.Transform(JsonTransformRules.Identity).IfNone(JValue.CreateNull());
