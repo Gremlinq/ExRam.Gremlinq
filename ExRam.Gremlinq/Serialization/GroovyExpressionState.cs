@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
         private enum State
         {
             Idle,
-            Chaining,
+            Chaining
         }
 
         private readonly State _state;

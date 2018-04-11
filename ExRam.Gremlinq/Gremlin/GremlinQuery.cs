@@ -588,7 +588,7 @@ namespace ExRam.Gremlinq
             return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }
 
-        public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
+        public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
         {
             return query
                 .Limit(1)
@@ -596,7 +596,7 @@ namespace ExRam.Gremlinq
                 .First(ct);
         }
 
-        public static async Task<Option<TElement>> FirstOrNoneAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
+        public static async Task<Option<TElement>> FirstOrNoneAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
         {
             var array = await query
                 .Limit(1)
@@ -609,7 +609,7 @@ namespace ExRam.Gremlinq
                 : Option<TElement>.None;
         }
 
-        public static Task<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default(CancellationToken))
+        public static Task<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
         {
             return query
                 .Execute(provider)
@@ -913,7 +913,7 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        internal static IGremlinQuery<TElement> Has<TElement>(this IGremlinQuery<TElement> query, Expression expression, Option<object> maybeArgument = default(Option<object>))
+        internal static IGremlinQuery<TElement> Has<TElement>(this IGremlinQuery<TElement> query, Expression expression, Option<object> maybeArgument = default)
         {
             string name;
 

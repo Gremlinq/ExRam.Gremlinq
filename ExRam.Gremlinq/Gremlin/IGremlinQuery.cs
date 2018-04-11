@@ -88,7 +88,6 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
-    // ReSharper disable once UnusedTypeParameter
     public interface IGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>
     {
         new IGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
@@ -96,9 +95,7 @@ namespace ExRam.Gremlinq
         new IGremlinQuery<TAdjacentVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
     }
 
-    // ReSharper disable UnusedTypeParameter
     public interface IGremlinQuery<TOutVertex, TInVertex, TEdge> : IGremlinQuery<TEdge>
-    // ReSharper restore UnusedTypeParameter
     {
         new IGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
         IGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();

@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq
         private readonly string _key;
         private readonly Option<object> _value;
 
-        public HasStep(string key, Option<object> value = default(Option<object>))
+        public HasStep(string key, Option<object> value = default)
         {
             this._key = key;
             this._value = value;
