@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Gremlin.Net" Version="3.3.2-rc1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
