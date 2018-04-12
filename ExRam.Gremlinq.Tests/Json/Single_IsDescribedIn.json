@@ -2,7 +2,6 @@
   {
     "id": "22174b26-f1a4-4dcb-a1df-accdd89c4b56",
     "label": "IsDescribedIn",
-    "type": "edge",
     "inVLabel": "Language",
     "outVLabel": "Language",
     "inV": "x-language:de",

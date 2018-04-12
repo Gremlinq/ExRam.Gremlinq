@@ -28,9 +28,9 @@ namespace ExRam.Gremlinq
                     {
                         if (token is JObject jObject)
                         {
-                            var value = jObject["value"];
-                            if (value != null && jObject.Parent?.Parent?.Parent?.Parent?.Parent is JObject element && (element["type"]?.ToString().Equals("vertex", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault())
-                                return recurse(value);
+                            return jObject
+                                .TryGetValue("value")
+                                .Bind(recurse);
                         }
 
                         return Option<JToken>.None;
