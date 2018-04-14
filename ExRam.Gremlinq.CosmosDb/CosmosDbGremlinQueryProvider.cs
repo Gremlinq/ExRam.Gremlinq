@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
@@ -19,10 +20,12 @@ namespace ExRam.Gremlinq.CosmosDb
             this._logger = logger;
 
             this._baseProvider = new WebSocketNativeGremlinQueryProvider(
-                configuration.Value.EndPoint,
-                443,
-                "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
-                configuration.Value.AuthKey,
+                new GremlinServer(
+                    configuration.Value.EndPoint,
+                    443,
+                    true,
+                    "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
+                    configuration.Value.AuthKey),
                 configuration.Value.TraversalSource,
                 logger);
         }

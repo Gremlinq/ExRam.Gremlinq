@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using System.Threading.Tasks;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
@@ -23,11 +21,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         private readonly ILogger _logger;
         private readonly GremlinClient _gremlinClient;
 
-        public WebSocketNativeGremlinQueryProvider(string host, int port, string username, string password, string traversalSourceName, ILogger logger)
+        public WebSocketNativeGremlinQueryProvider(GremlinServer server, string traversalSourceName, ILogger logger)
         {
             this._logger = logger;
 
-            this._gremlinClient = new GremlinClient(new GremlinServer(host, port, true, username, password), new NullGraphSonReader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType);
+            this._gremlinClient = new GremlinClient(server, new NullGraphSonReader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType);
             this.TraversalSource = GremlinQuery.Create(traversalSourceName);
         }
 
