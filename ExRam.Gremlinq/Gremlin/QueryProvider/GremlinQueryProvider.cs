@@ -29,6 +29,28 @@ namespace ExRam.Gremlinq
                             .Map(value => value as JObject)
                             .Bind(valueObject => valueObject.TryGetValue("value"))
                         : Option<JToken>.None)
+                    .Lazy((token, recurse) =>
+                    {
+                        if (token is JObject jObject && (jObject["@type"]?.ToString().Equals("g:Map", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault())
+                        {
+                            return jObject.TryGetValue("@value")
+                                .Map(value => value as JArray)
+                                .Bind(array =>
+                                {
+                                    var mapObject = new JObject();
+
+                                    for (var i = 0; i < array.Count - 1; i += 2)
+                                    {
+                                        if (array[i] is JValue value && value.Value is string key)
+                                            mapObject[key] = array[i + 1];
+                                    }
+
+                                    return recurse(mapObject);
+                                });
+                        }
+
+                        return Option<JToken>.None;
+                    })
                     .Lazy((token, recurse) => token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken
                         ? recurse(valueToken)
                         : Option<JToken>.None)

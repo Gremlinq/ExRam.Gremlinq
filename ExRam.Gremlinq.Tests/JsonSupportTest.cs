@@ -24,6 +24,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SingleUserWithoutPhoneNumbersJson;
         private static readonly string SingleUserLowercasePropertiesJson;
+        private static readonly string Graphson3TupleOfUserLanguageJson;
 
         static JsonSupportTest()
         {
@@ -37,6 +38,7 @@ namespace ExRam.Gremlinq.Tests
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
             SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
             SingleIsDescribedIn = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_IsDescribedIn.json")).ReadToEnd();
+            Graphson3TupleOfUserLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Graphson3_Tuple_of_User_Language.json")).ReadToEnd();
 
             Graphson3ReferenceVertex = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Graphson3ReferenceVertex.json")).ReadToEnd();
         }
@@ -374,6 +376,33 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport();              
+
+            var tuple = await GremlinQuery
+                .Create()
+                .Cast<(User, Language)>()
+                .Execute(jsonQueryProvider)
+                .First();
+
+            tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            tuple.Item1.Name.Should().Be("Name of some base entity");
+            tuple.Item1.Age.Should().Be(36);
+
+            tuple.Item2.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            tuple.Item2.IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
+        public async Task Graphson3_Tuple()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(Graphson3TupleOfUserLanguageJson));
+
+            var jsonQueryProvider = queryProviderMock.Object
+                .Select(JToken.Parse)
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport();
 
             var tuple = await GremlinQuery
                 .Create()

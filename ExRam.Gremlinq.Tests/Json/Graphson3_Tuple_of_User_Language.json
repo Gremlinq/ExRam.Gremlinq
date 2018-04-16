@@ -1,0 +1,69 @@
+﻿{
+  "@type": "g:List",
+  "@value": [
+    {
+      "@type": "g:Map",
+      "@value": [
+        "Item1",
+        {
+          "@type": "g:Vertex",
+          "@value": {
+            "id": "d13ef3f51c86496eb2c22823601446ad",
+            "label": "User",
+            "properties": {
+              "Name": [
+                {
+                  "@type": "g:VertexProperty",
+                  "@value": {
+                    "id": {
+                      "@type": "g:Int64",
+                      "@value": 1
+                    },
+                    "value": "Name of some base entity"
+                  }
+                }
+              ],
+              "Age": [
+                {
+                  "@type": "g:VertexProperty",
+                  "@value": {
+                    "id": {
+                      "@type": "g:Int64",
+                      "@value": 2
+                    },
+                    "value": {
+                      "@type": "g:Int32",
+                      "@value": 36
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "Item2",
+        {
+          "@type": "g:Vertex",
+          "@value": {
+            "id": "be66544bcdaa4ee9990eaf006585153b",
+            "label": "Language",
+            "properties": {
+              "IetfLanguageTag": [
+                {
+                  "@type": "g:VertexProperty",
+                  "@value": {
+                    "id": {
+                      "@type": "g:Int32",
+                      "@value": 3
+                    },
+                    "value": "de"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
