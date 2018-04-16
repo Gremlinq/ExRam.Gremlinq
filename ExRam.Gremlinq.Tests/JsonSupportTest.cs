@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Tests
                 .ToArray();
 
             array.Should().HaveCount(1);
-            array[0].Text.Should().Be("Deutsch");
+            array[0].Text.Should().Be("Deutschland");
         }
 
         [Fact]
