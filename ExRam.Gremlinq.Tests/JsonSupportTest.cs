@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string SingleIsDescribedIn;
         private static readonly string SingleTimeFrameJson;
         private static readonly string TupleOfUserLanguageJson;
+        private static readonly string Graphson3ReferenceVertex;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SingleUserWithoutPhoneNumbersJson;
@@ -36,6 +37,30 @@ namespace ExRam.Gremlinq.Tests
             SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
             SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
             SingleIsDescribedIn = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_IsDescribedIn.json")).ReadToEnd();
+
+            Graphson3ReferenceVertex = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Graphson3ReferenceVertex.json")).ReadToEnd();
+        }
+
+        [Fact]
+        public async Task GraphSon3ReferenceVertex()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(Graphson3ReferenceVertex));
+
+            var array = await queryProviderMock.Object
+                .Select(JToken.Parse)
+                .WithModel(GraphModel.Empty)
+                .WithJsonSupport()
+                .Execute(GremlinQuery.Create().V<JObject>())
+                .ToArray();
+
+            array.Should().HaveCount(1);
+            array[0]["id"].ToObject<int>().Should().Be(1);
+            array[0]["label"].ToObject<string>().Should().Be("person");
+            array[0]["name"].ToObject<string[]>().Should().BeEquivalentTo("marko");
+            array[0]["location"].ToObject<string[]>().Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");
         }
 
         [Fact]

@@ -24,9 +24,12 @@ namespace ExRam.Gremlinq
 
                 this._transformRule = JsonTransformRules
                     .Empty
+                    .Lazy((token, recurse) => token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken
+                        ? recurse(valueToken)
+                        : Option<JToken>.None)
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && jObject.Parent?.Parent?.Parent?.Parent is JProperty parentProperty && parentProperty.Name.Equals("properties", StringComparison.OrdinalIgnoreCase))
+                        if (token is JObject jObject && (jObject.Parent?.Parent is JObject typedVertexProperty && typedVertexProperty["@type"]?.ToString() == "g:VertexProperty" || jObject.Parent?.Parent?.Parent?.Parent is JProperty parentProperty && parentProperty.Name.Equals("properties", StringComparison.OrdinalIgnoreCase)))
                         {
                             return jObject
                                 .TryGetValue("value")
@@ -64,7 +67,7 @@ namespace ExRam.Gremlinq
 
                             propertiesObject.Parent.Remove();
 
-                            return jObject;
+                            return recurse(jObject);
                         }
 
                         return Option<JToken>.None;
