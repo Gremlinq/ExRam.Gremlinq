@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq
                     .Empty
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject)
+                        if (token is JObject jObject && jObject.Parent?.Parent?.Parent?.Parent is JProperty parentProperty && parentProperty.Name.Equals("properties", StringComparison.OrdinalIgnoreCase))
                         {
                             return jObject
                                 .TryGetValue("value")
