@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using Gremlin.Net.Driver;
@@ -8,37 +9,49 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public sealed class WebSocketNativeGremlinQueryProvider : INativeGremlinQueryProvider<JToken>
+    public static class GremlinClientExtensions
     {
-        private sealed class NullGraphSonReader : GraphSON2Reader
+        private sealed class GremlinClientNativeGremlinQueryProvider : INativeGremlinQueryProvider<JToken>, IDisposable
         {
-            public override dynamic ToObject(JToken jToken)
+            private sealed class NullGraphSonReader : GraphSON2Reader
             {
-                return new[] { jToken };
+                public override dynamic ToObject(JToken jToken)
+                {
+                    return new[] { jToken };
+                }
             }
+
+            private readonly ILogger _logger;
+            private readonly IGremlinClient _gremlinClient;
+
+            public GremlinClientNativeGremlinQueryProvider(IGremlinClient gremlinClient, string traversalSourceName, ILogger logger)
+            {
+                this._logger = logger;
+                this._gremlinClient = gremlinClient;
+                this.TraversalSource = GremlinQuery.Create(traversalSourceName);
+            }
+
+            public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
+            {
+                this._logger.LogTrace("Executing Gremlin query {0}.", query);
+
+                return this._gremlinClient
+                    .SubmitAsync<JToken>(query, new Dictionary<string, object>(parameters))
+                    .ToAsyncEnumerable()
+                    .SelectMany(x => x.ToAsyncEnumerable());
+            }
+
+            public void Dispose()
+            {
+                this._gremlinClient.Dispose();
+            }
+
+            public IGremlinQuery<Unit> TraversalSource { get; }
         }
 
-        private readonly ILogger _logger;
-        private readonly GremlinClient _gremlinClient;
-
-        public WebSocketNativeGremlinQueryProvider(GremlinServer server, string traversalSourceName, ILogger logger)
+        public static INativeGremlinQueryProvider<JToken> ToNativeGremlinQueryProvider(this IGremlinClient client, string traversalSourceName, ILogger logger)
         {
-            this._logger = logger;
-
-            this._gremlinClient = new GremlinClient(server, new NullGraphSonReader(), new GraphSON2Writer(), GremlinClient.GraphSON2MimeType);
-            this.TraversalSource = GremlinQuery.Create(traversalSourceName);
+            return new GremlinClientNativeGremlinQueryProvider(client, traversalSourceName, logger);
         }
-
-        public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
-        {
-            this._logger.LogTrace("Executing Gremlin query {0}.", query);
-
-            return this._gremlinClient
-                .SubmitAsync<JToken>(query, new Dictionary<string, object>(parameters))
-                .ToAsyncEnumerable()
-                .SelectMany(x => x.ToAsyncEnumerable());
-        }
-
-        public IGremlinQuery<Unit> TraversalSource { get; }
     }
 }

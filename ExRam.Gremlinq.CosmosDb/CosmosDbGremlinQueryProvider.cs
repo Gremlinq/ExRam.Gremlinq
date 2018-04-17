@@ -19,15 +19,17 @@ namespace ExRam.Gremlinq.CosmosDb
         {
             this._logger = logger;
 
-            this._baseProvider = new WebSocketNativeGremlinQueryProvider(
-                new GremlinServer(
-                    configuration.Value.EndPoint,
-                    443,
-                    true,
-                    "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
-                    configuration.Value.AuthKey),
-                configuration.Value.TraversalSource,
-                logger);
+            this._baseProvider = 
+                new GremlinClient(
+                    new GremlinServer(
+                        configuration.Value.EndPoint,
+                        443,
+                        true,
+                        "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
+                        configuration.Value.AuthKey))
+                .ToNativeGremlinQueryProvider(
+                    configuration.Value.TraversalSource,
+                    logger);
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
