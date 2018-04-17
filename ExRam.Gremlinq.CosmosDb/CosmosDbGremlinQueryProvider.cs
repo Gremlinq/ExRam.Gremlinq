@@ -2,6 +2,7 @@
 using System.Reactive;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
+using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Options;
@@ -10,6 +11,15 @@ namespace ExRam.Gremlinq.CosmosDb
 {
     public sealed class CosmosDbGremlinQueryProvider : INativeGremlinQueryProvider<JToken>
     {
+        // ReSharper disable once InconsistentNaming
+        private sealed class NullGraphSSON2Reader : GraphSON2Reader
+        {
+            public override dynamic ToObject(JToken jToken)
+            {
+                return new[] { jToken };
+            }
+        }
+
         private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
 
         public CosmosDbGremlinQueryProvider(IOptions<CosmosDbGraphConfiguration> configuration, ILogger logger)
@@ -21,7 +31,10 @@ namespace ExRam.Gremlinq.CosmosDb
                         443,
                         true,
                         "/dbs/" + configuration.Value.Database + "/colls/" + configuration.Value.GraphName,
-                        configuration.Value.AuthKey))
+                        configuration.Value.AuthKey),
+                    new NullGraphSSON2Reader(),
+                    new GraphSON2Writer(),
+                    GremlinClient.GraphSON2MimeType)
                 .ToNativeGremlinQueryProvider(
                     configuration.Value.TraversalSource,
                     logger);

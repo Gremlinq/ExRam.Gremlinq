@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using Gremlin.Net.Driver;
-using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
@@ -13,14 +12,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private sealed class GremlinClientNativeGremlinQueryProvider : INativeGremlinQueryProvider<JToken>, IDisposable
         {
-            private sealed class NullGraphSonReader : GraphSON2Reader
-            {
-                public override dynamic ToObject(JToken jToken)
-                {
-                    return new[] { jToken };
-                }
-            }
-
             private readonly ILogger _logger;
             private readonly IGremlinClient _gremlinClient;
 
