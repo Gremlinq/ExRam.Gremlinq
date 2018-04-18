@@ -89,16 +89,14 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-                var stringValue = serializer.Deserialize<string>(reader);
+                var milliseconds = serializer.Deserialize<long>(reader);
 
-                return stringValue != null
-                    ? DateTimeOffset.Parse(stringValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
-                    : (object)null;
+                return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                writer.WriteValue(((DateTimeOffset)value).ToString(serializer.DateFormatString));
+                writer.WriteValue(((DateTimeOffset)value).ToUnixTimeMilliseconds());
             }
         }
 
@@ -106,21 +104,19 @@ namespace ExRam.Gremlinq
         {
             public override bool CanConvert(Type objectType)
             {
-                return objectType == typeof(DateTimeOffset);
+                return objectType == typeof(DateTime);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-                var stringValue = serializer.Deserialize<string>(reader);
+                var milliseconds = serializer.Deserialize<long>(reader);
 
-                return stringValue != null
-                    ? DateTime.Parse(stringValue, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal)
-                    : (object)null;
+                return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).Ticks, DateTimeKind.Utc);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                writer.WriteValue(((DateTime)value).ToString(serializer.DateFormatString));
+                writer.WriteValue(((DateTimeOffset)(DateTime)value).ToUnixTimeMilliseconds());
             }
         }
 

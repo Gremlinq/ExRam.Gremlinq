@@ -255,7 +255,7 @@ namespace ExRam.Gremlinq.Tests
             user.Age.Should().Be(36);
             user.Gender.Should().Be(Gender.Female);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
-            user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
+            user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
@@ -277,7 +277,7 @@ namespace ExRam.Gremlinq.Tests
             user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
-            user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
+            user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
@@ -299,7 +299,7 @@ namespace ExRam.Gremlinq.Tests
             user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().BeEmpty();
-            user.RegistrationDate.Should().Be(new DateTimeOffset(2017, 12, 1, 15, 28, 24, TimeSpan.Zero));
+            user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
