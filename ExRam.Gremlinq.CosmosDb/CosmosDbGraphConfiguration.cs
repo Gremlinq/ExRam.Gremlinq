@@ -2,10 +2,12 @@
 {
     public class CosmosDbGraphConfiguration
     {
-        public string EndPoint { get; set; }
+        public string Hostname { get; set; }
+        public int Port { get; set; } = 443;
+        public bool EnableSsl { get; set; } = true;
         public string AuthKey { get; set; }
         public string Database { get; set; }
         public string GraphName { get; set; }
-        public string TraversalSource { get; set; }
+        public string TraversalSource { get; set; } = "g";
     }
 }
