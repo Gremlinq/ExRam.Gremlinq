@@ -58,9 +58,6 @@ namespace ExRam.Gremlinq
                 return objectType == typeof(TimeSpan);
             }
 
-            public override bool CanRead => true;
-            public override bool CanWrite => true;
-
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 if (objectType != typeof(TimeSpan))
@@ -69,15 +66,17 @@ namespace ExRam.Gremlinq
                 var str = serializer.Deserialize<string>(reader);
 
                 return double.TryParse(str, out var number)
-                    ? TimeSpan.FromSeconds(number)
+                    ? TimeSpan.FromMilliseconds(number)
                     : XmlConvert.ToTimeSpan(str);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                var duration = (TimeSpan)value;
-                writer.WriteValue(XmlConvert.ToString(duration));
+                writer.WriteValue(XmlConvert.ToString((TimeSpan)value));
             }
+
+            public override bool CanRead => true;
+            public override bool CanWrite => true;
         }
 
         private sealed class AssumeUtcDateTimeOffsetConverter : JsonConverter
@@ -89,9 +88,7 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-                var milliseconds = serializer.Deserialize<long>(reader);
-
-                return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds);
+                return DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
