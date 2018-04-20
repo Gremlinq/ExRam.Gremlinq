@@ -9,11 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Json\Graphson3ReferenceVertex.json" />
-    <None Remove="Json\Graphson3_Tuple_of_User_Language.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />
     <EmbeddedResource Include="Json\Array_of_Languages.json" />
@@ -21,6 +16,7 @@
     <EmbeddedResource Include="Json\Single_TimeFrame_with_numbers.json" />
     <EmbeddedResource Include="Json\Single_TimeFrame.json" />
     <EmbeddedResource Include="Json\Single_IsDescribedIn.json" />
+    <EmbeddedResource Include="Json\Single_Company.json" />
     <EmbeddedResource Include="Json\Single_User_lowercase_properties.json" />
     <EmbeddedResource Include="Json\Single_User_without_PhoneNumbers.json" />
     <EmbeddedResource Include="Json\Single_User.json" />

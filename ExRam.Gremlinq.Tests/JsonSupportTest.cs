@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Tests
     {
         private static readonly string SingleUserJson;
         private static readonly string ArrayOfLanguages;
+        private static readonly string SingleCompanyJson;
         private static readonly string SingleLanguageJson;
         private static readonly string SingleIsDescribedIn;
         private static readonly string SingleTimeFrameJson;
@@ -29,6 +30,7 @@ namespace ExRam.Gremlinq.Tests
         static JsonSupportTest()
         {
             SingleLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Language.json")).ReadToEnd();
+            SingleCompanyJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Company.json")).ReadToEnd();
             SingleUserJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User.json")).ReadToEnd();
             SingleUserLowercasePropertiesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_lowercase_properties.json")).ReadToEnd();
             SingleUserWithoutPhoneNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_without_PhoneNumbers.json")).ReadToEnd();
@@ -213,6 +215,26 @@ namespace ExRam.Gremlinq.Tests
             ids.Should().HaveCount(2);
             ids[0].Should().Be(1);
             ids[1].Should().Be("id2");
+        }
+
+        [Fact]
+        public async Task DateTime_is_UTC()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return(SingleCompanyJson));
+
+            var user = await queryProviderMock.Object
+                .Select(JToken.Parse)
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithJsonSupport()
+                .Execute(GremlinQuery<Company>.Create())
+                .First();
+
+            user.Should().NotBeNull();
+            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.FoundingDate.Kind.Should().Be(DateTimeKind.Utc);
         }
 
         [Fact]
