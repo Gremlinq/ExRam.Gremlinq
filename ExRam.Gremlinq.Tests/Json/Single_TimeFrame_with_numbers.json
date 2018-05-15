@@ -12,13 +12,13 @@
       "StartTime": [
         {
           "id": 2,
-          "value": 21600
+          "value": 21600000
         }
       ],
       "Duration": [
         {
           "id": 3,
-          "value": 57600
+          "value": 57600000
         }
       ]
     }
