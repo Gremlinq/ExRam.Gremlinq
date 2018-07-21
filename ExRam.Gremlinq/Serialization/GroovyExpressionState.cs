@@ -135,6 +135,7 @@ namespace ExRam.Gremlinq
                     stepLabelMappings = stepLabelMappings.Add(stepLabel, stepLabelMapping);
                 }
 
+                // ReSharper disable once TailRecursiveCall
                 return Cache(stepLabelMapping, variables, stepLabelMappings, out key);
             }
 

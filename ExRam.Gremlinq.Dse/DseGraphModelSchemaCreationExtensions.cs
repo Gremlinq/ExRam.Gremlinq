@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using LanguageExt;
-using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq.Dse
 {
@@ -50,7 +49,7 @@ namespace ExRam.Gremlinq.Dse
                 .Concat(model.CreateEdgeIndexQueries(identifierFactory));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(this IDseGraphModel model)
+        private static IEnumerable<IGremlinQuery<string>> CreatePropertyKeyQueries(this IGraphModel model)
         {
             var propertyKeys = new Dictionary<string, Type>();
 
@@ -142,7 +141,7 @@ namespace ExRam.Gremlinq.Dse
                     .AddStep("add"));
         }
 
-        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IDseGraphModel model, IImmutableDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IIdentifierFactory identifierFactory)
+        private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IGraphModel model, IReadOnlyDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IIdentifierFactory identifierFactory)
         {
             return model.VertexLabels
                 .Where(vertexKvp => !vertexKvp.Key.GetTypeInfo().IsAbstract)

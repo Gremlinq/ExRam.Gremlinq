@@ -8,7 +8,9 @@ namespace ExRam.Gremlinq
         public abstract GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state);
     }
 
+#pragma warning disable 660,661
     public class StepLabel<TElement> : StepLabel
+#pragma warning restore 660,661
     {
         public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {

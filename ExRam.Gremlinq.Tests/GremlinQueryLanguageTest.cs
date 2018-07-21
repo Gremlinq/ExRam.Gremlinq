@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void CountryCallingCode_is_prefix_of_some_string_variable()
         {
-            var str = "+49123";
+            const string str = "+49123";
 
             var query = GremlinQuery
                 .Create()
@@ -393,7 +393,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void CountryCallingCode_is_prefix_of_some_string_processed_variable()
         {
-            var str = "+49123xxx";
+            const string str = "+49123xxx";
 
             var query = GremlinQuery
                 .Create()
@@ -707,7 +707,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_int_expression_property()
         {
-            var i = 18;
+            const int i = 18;
 
             var query = GremlinQuery
                 .Create()
@@ -1001,7 +1001,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_where_with_local_string()
         {
-            var local = "languageId";
+            const string local = "languageId";
 
             var query = GremlinQuery
                 .Create()

@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
+    // ReSharper disable once UnusedMember.Global
     public static class GremlinClientExtensions
     {
         private sealed class GremlinClientNativeGremlinQueryProvider : INativeGremlinQueryProvider<JToken>, IDisposable

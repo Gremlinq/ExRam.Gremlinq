@@ -27,8 +27,8 @@ namespace Dse
                     .ExecuteGraphAsync(new SimpleGraphStatement(parameters
                         .ToDictionary(
                             kvp => kvp.Key,
-                            kvp => kvp.Value is TimeSpan
-                                ? Duration.FromTimeSpan((TimeSpan)kvp.Value)
+                            kvp => kvp.Value is TimeSpan span
+                                ? Duration.FromTimeSpan(span)
                                 : kvp.Value),
                         query))
                     .ToAsyncEnumerable()
