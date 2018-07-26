@@ -1,23 +1,16 @@
 ﻿using Gremlin.Net.Driver;
-using Microsoft.Extensions.Options;
 
 namespace ExRam.Gremlinq.CosmosDb
 {
     public class CosmosDbGremlinServer : GremlinServer
     {
-        public CosmosDbGremlinServer(IOptions<CosmosDbGraphConfiguration> configuration) : this(configuration.Value)
+        public CosmosDbGremlinServer(string hostname, int port = 8182, bool enableSsl = false, string database = null, string graphName = null, string authKey = null) : base(
+            hostname,
+            port,
+            enableSsl,
+            $"/dbs/{database}/colls/{graphName}",
+            authKey)
         {
-
-        }
-
-        private CosmosDbGremlinServer(CosmosDbGraphConfiguration configuration) : base(
-            configuration.Hostname,
-            configuration.Port,
-            configuration.EnableSsl,
-            $"/dbs/{configuration.Database}/colls/{configuration.GraphName}",
-            configuration.AuthKey)
-        {
-
         }
     }
 }
