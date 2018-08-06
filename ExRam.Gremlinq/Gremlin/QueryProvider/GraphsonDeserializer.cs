@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
 using System.Xml;
+using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {
@@ -137,8 +137,8 @@ namespace ExRam.Gremlinq
                 {
                     if (array.Count != 1)
                     {
-                        if (objectType == typeof(LanguageExt.Unit))
-                            return LanguageExt.Unit.Default;
+                        if (objectType == typeof(Unit))
+                            return Unit.Default;
 
                         if (objectType == typeof(Unit))
                             return Unit.Default;

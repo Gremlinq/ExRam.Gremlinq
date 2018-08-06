@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
+using LanguageExt;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 

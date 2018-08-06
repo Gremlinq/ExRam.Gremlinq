@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
-using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {

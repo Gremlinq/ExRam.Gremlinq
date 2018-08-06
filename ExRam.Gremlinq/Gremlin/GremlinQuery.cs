@@ -9,7 +9,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq
 {

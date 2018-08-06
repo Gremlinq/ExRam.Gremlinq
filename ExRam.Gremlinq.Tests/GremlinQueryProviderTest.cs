@@ -7,7 +7,6 @@ using LanguageExt;
 using Moq;
 using Newtonsoft.Json.Linq;
 using Xunit;
-using Unit = System.Reactive.Unit;
 
 namespace ExRam.Gremlinq.Tests
 {

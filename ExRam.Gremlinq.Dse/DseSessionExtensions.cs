@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive;
 using Dse.Graph;
 using ExRam.Gremlinq;
+using LanguageExt;
 
 // ReSharper disable once CheckNamespace
 namespace Dse
