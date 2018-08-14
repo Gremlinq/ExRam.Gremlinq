@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard20</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   
   <ItemGroup>

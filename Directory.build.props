@@ -1,7 +1,9 @@
 <Project>
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.65" />
   </ItemGroup>
