@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20;net462</TargetFrameworks>
-    <Version>3.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.65" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
