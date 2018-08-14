@@ -1,63 +1,81 @@
 # ExRam.Gremlinq
-ExRam.Gremlinq is a simple ORM for Gremlin-enabled graph databases in a very early stage.
+ExRam.Gremlinq is a strongly typed Gremlin Server driver for .Net / .Net Core.
 
-## Current Features
+## Features
 
 ### Fluent Linq-style API:
-Currently, the most common Gremlin steps are supported. Assuming an existing instance of an `IGremlinQueryProvider`, gremlin queries are fluently built starting with `CreateQuery()`:
+Build strongly typed gremlin queries:
     
-    IGremlinQueryProvider provider = ...
-    IGremlinQuery query = provider
-        .CreateQuery()
-        .V<SomeVertexType>()
-        .Has(x => x.SomeProperty == 36);
-     
-### Basic definition of a graph schema:
-To map graph element labels to CLR types, a basic fluent schema API is supported.
+	//Get all vertices with label "SomeVertexType" that have a property "SomeProperty" of value 36.
 
-    IGremlinModel model = GremlinModel.Empty
-        .AddVertexType<SomeVertexType>()
-        .AddVertexType<SomeOtherVertexType>()
-        .AddEdgeType<AnEgdeType>()
-        .AddEdgeType<AnotherEdgeType>();
+    var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Age == 36);
 
-The model can then be attached to an existing `IGremlinQueryProvider`:
+	//Add a vertex with label "SomeVertexType" and add a property "SomeProperty" of value 36.
+	var query = GremlinQuery.Create()
+	    .AddV(new Person { Age = 36 });
 
-    var queryProviderWithModel = provider
-        .WithModel(model);
+	//Above query can also be written differently:
+	var query = GremlinQuery.Create()
+	    .AddV<Person>()
+        .Property(x => x.Age, 36);
 
-Queries will use the class hierarchy from the model to automatically add the correct `hasLabel` steps to the gremlin-query. Automatic schema creation is vendor specific and currently not supported (help wanted!).
-        
-### Inheritance
-Queries can use the class hierarchy information from an `IGremlinModel` to support inheritance:
+	//Anonymous traversals are supported seamlessly:
+	var query = GremlinQuery.Create()
+	    .AddV<Person>()
+	    .AddE<WorksAt>()
+	    .To(__ => __
+	        .AddV<Company>());
 
-    public class SomeBaseVertexType { }
-    
-    public class SomeInheritedVertexType { }
-    
-    IGremlinQuery query = provider
-        .WithModel(GremlinModel.Empty
-            .AddVertexType<SomeBaseVertexType>()
-            .AddVertexType<SomeInheritedVertexType>())
-        .CreateQuery()
-        .V<SomeVertexBaseType>(); //Will include vertices of both `SomeBaseVertexType` and `SomeInheritedVertexType`.
- 
- ### Object mapping from json-data
- Query results are typically provides as json documents. ExRam.Gremlinq supports mapping json-data to CLR types by adding `WithJsonSupport`:
- 
-     IGremlinQueryProvider jsonSupportingProvider = provider
-         .WithJsonSupport();
-      
-      
- ### Customizable label-name to CLR-type mapping
- ExRam.Gremlinq enables you to define the graph element labels for CLR types by means of `IGraphElementNamingStrategy`.
- 
- ### Binding to vendor-specific drivers
- Currently, a simple binding to the [DataStax C#-driver for DSE](https://github.com/datastax/csharp-driver-dse) is provided in a separate project. Given an instance of `IDseSession`, you can create an `IGremlinQueryProvider` from it using
- 
-     IDseSession session = ...
-     IGremlinQueryProvider provider = session
-         .CreateQueryProvider(someModel, someNamingStrategy);
-         
- ## Getting involved
- This project, the repo, the documentation, just about everything is in an early stage. We at @ExRam are currently evaluating graph databases (more specifically DataStax Enterprise Graph). This work in progress reflects our progress regarding this. If you want to contribute to this, please we will happily accept pull requests!
+	//Navigate through the graph:
+	var query = GremlinQuery.Create()
+        .V<Person>('bob')
+	    .Out<WorksAt>();
+
+	//Deal easily with step labels:
+	var query = GremlinQuery.Create()
+        .V<Person>('bob')
+	    .As((p, __ => __
+            .Out<WorksAt>()
+            .As((c, ___) => ___
+                .Select(p, c)));
+
+    //Formulate more complex queries
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Age == 36 && x.Name == "Bob");
+
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Age != 36);
+
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Age < 36 && x.Name == "Bob");
+
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Name.StartsWith("B"));
+
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Pets.Contains("Daisy"));
+
+	var query = GremlinQuery.Create()
+        .V<Person>()
+        .Has(x => x.Pets.Any());
+		
+	var query = GremlinQuery
+	    .Create()
+        .V<Person>()
+        .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }));
+
+	var query = GremlinQuery
+	    .Create()
+        .V<Person>()
+        .Where(t => new[] { 36, 37, 38 }.Contains(t.Age));
+
+### Development
+
+The library is still under development. The API might change without notice. Help on this project is appreciated!
