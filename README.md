@@ -1,5 +1,14 @@
 # ExRam.Gremlinq
+
 ExRam.Gremlinq is a strongly typed Gremlin Server driver for .Net / .Net Core.
+
+## Packages
+
+Package  | Link | 
+-------- | :------------: | 
+ExRam.Gremlinq | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.svg)](https://www.nuget.org/packages/ExRam.Gremlinq) |
+ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket) |
+ExRam.Gremlinq.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.CosmosDb) |
 
 ## Features
 
