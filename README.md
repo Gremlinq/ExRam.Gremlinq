@@ -1,6 +1,6 @@
 # ExRam.Gremlinq
 
-ExRam.Gremlinq is a strongly typed Gremlin Server driver for .Net / .Net Core.
+ExRam.Gremlinq is a strongly typed Server driver for Apache TinkerPop™ Gremlin enabled databases.
 
 ## Packages
 
