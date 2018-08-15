@@ -1,6 +1,6 @@
 # ExRam.Gremlinq
 
-ExRam.Gremlinq is a strongly typed Server driver for Apache TinkerPop™ Gremlin enabled databases.
+ExRam.Gremlinq is a strongly typed Server driver for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 ## Packages
 
