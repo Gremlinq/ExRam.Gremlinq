@@ -17,33 +17,33 @@ Build strongly typed gremlin queries:
     
 	//Get all vertices with label "SomeVertexType" that have a property "SomeProperty" of value 36.
 
-    var query = GremlinQuery.Create()
+    var query = g
         .V<Person>()
         .Has(x => x.Age == 36);
 
 	//Add a vertex with label "SomeVertexType" and add a property "SomeProperty" of value 36.
-	var query = GremlinQuery.Create()
+	var query = g
 	    .AddV(new Person { Age = 36 });
 
 	//Above query can also be written differently:
-	var query = GremlinQuery.Create()
+	var query = g
 	    .AddV<Person>()
         .Property(x => x.Age, 36);
 
 	//Anonymous traversals are supported seamlessly:
-	var query = GremlinQuery.Create()
+	var query = g
 	    .AddV<Person>()
 	    .AddE<WorksAt>()
 	    .To(__ => __
 	        .AddV<Company>());
 
 	//Navigate through the graph:
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>('bob')
 	    .Out<WorksAt>();
 
 	//Deal easily with step labels:
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>('bob')
 	    .As((p, __ => __
             .Out<WorksAt>()
@@ -51,37 +51,35 @@ Build strongly typed gremlin queries:
                 .Select(p, c)));
 
     //Formulate more complex queries
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Age == 36 && x.Name == "Bob");
 
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Age != 36);
 
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Age < 36 && x.Name == "Bob");
 
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Name.StartsWith("B"));
 
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Pets.Contains("Daisy"));
 
-	var query = GremlinQuery.Create()
+	var query = g
         .V<Person>()
         .Has(x => x.Pets.Any());
 		
-	var query = GremlinQuery
-	    .Create()
+	var query = g
         .V<Person>()
         .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }));
 
-	var query = GremlinQuery
-	    .Create()
+	var query = g
         .V<Person>()
         .Where(t => new[] { 36, 37, 38 }.Contains(t.Age));
 
