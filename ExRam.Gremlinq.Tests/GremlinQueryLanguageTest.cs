@@ -20,8 +20,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
                 .Resolve(this._model)
                 .Serialize();
@@ -41,8 +40,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_nulls()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new Language {Id = "id"})
                 .Resolve(this._model)
                 .Serialize();
@@ -60,8 +58,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_multi_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new User { Id = "id", PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Resolve(this._model)
                 .Serialize();
@@ -88,8 +85,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_enum_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new User { Id = "id", Gender = Gender.Female })
                 .Resolve(this._model)
                 .Serialize();
@@ -113,8 +109,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_specific_phoneNumber()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .Resolve(this._model)
@@ -134,8 +129,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_does_not_contain_specific_phoneNumber()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .Resolve(this._model)
@@ -155,8 +149,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_a_phoneNumber()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Any())
                 .Resolve(this._model)
@@ -175,8 +168,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_no_phoneNumber()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .Resolve(this._model)
@@ -195,8 +187,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_intersects_phoneNumbers()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Resolve(this._model)
@@ -217,8 +208,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_not_intersects_phoneNumbers()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Resolve(this._model)
@@ -239,8 +229,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Age_is_contained_in_some_array()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Resolve(this._model)
@@ -265,8 +254,7 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Resolve(this._model)
@@ -288,8 +276,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Age_is_not_contained_in_some_array()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Resolve(this._model)
@@ -314,8 +301,7 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Resolve(this._model)
@@ -337,8 +323,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void CountryCallingCode_is_prefix_of_some_string()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
                 .Resolve(this._model)
@@ -366,8 +351,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123";
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
                 .Resolve(this._model)
@@ -395,8 +379,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123xxx";
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
                 .Resolve(this._model)
@@ -422,8 +405,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void User_PhoneNumber_has_some_prefix()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
                 .Resolve(this._model)
@@ -444,8 +426,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void User_PhoneNumber_has_empty_prefix()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
                 .Resolve(this._model)
@@ -466,8 +447,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Resolve(this._model)
@@ -488,8 +468,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction_with_different_fields()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
                 .Resolve(this._model)
@@ -511,8 +490,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Resolve(this._model)
@@ -533,8 +511,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_complex_logical_expression()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Resolve(this._model)
@@ -557,8 +534,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_complex_logical_expression_with_null()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Resolve(this._model)
@@ -580,8 +556,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction_of_three()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Resolve(this._model)
@@ -603,8 +578,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction_of_three()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Resolve(this._model)
@@ -626,8 +600,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction_with_different_fields()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
                 .Resolve(this._model)
@@ -649,8 +622,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Resolve(this._model)
                 .Serialize();
@@ -667,8 +639,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_does_not_include_abstract_types()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Authority>()
                 .Resolve(this._model)
                 .Serialize();
@@ -686,8 +657,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36)
                 .Resolve(this._model)
@@ -709,8 +679,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const int i = 18;
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == i + i)
                 .Resolve(this._model)
@@ -730,8 +699,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_converted_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
                 .Resolve(this._model)
@@ -751,8 +719,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_unequal_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age != 36)
                 .Resolve(this._model)
@@ -772,8 +739,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_no_string_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == null)
                 .Resolve(this._model)
@@ -792,8 +758,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_string_property_exists()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Name != null)
                 .Resolve(this._model)
@@ -812,8 +777,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_lower_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age < 36)
                 .Resolve(this._model)
@@ -833,8 +797,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_lower_or_equal_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age <= 36)
                 .Resolve(this._model)
@@ -854,8 +817,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_explicit_comparison1()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<TimeFrame>()
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
@@ -876,8 +838,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_explicit_comparison2()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
                 .Resolve(this._model)
@@ -897,8 +858,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_implicit_comparison1()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
                 .Resolve(this._model)
@@ -918,8 +878,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_implicit_comparison2()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
                 .Resolve(this._model)
@@ -939,8 +898,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_greater_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age > 36)
                 .Resolve(this._model)
@@ -960,8 +918,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_greater_or_equal_int_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Where(t => t.Age >= 36)
                 .Resolve(this._model)
@@ -981,8 +938,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_string_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == "languageId")
                 .Resolve(this._model)
@@ -1003,8 +959,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const string local = "languageId";
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == local)
                 .Resolve(this._model)
@@ -1025,8 +980,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var local = new { Value = "languageId" };
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
                 .Resolve(this._model)
@@ -1045,8 +999,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_of_type_where_with_expression_parameter_on_both_sides()
         {
-            GremlinQuery
-                .Create()
+            g
                 .V<Language>()
                 .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
                 .Should()
@@ -1058,8 +1011,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<Language>();
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
@@ -1082,8 +1034,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<string>();
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
                 .As(l)
@@ -1108,8 +1059,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<Language>();
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
@@ -1131,8 +1081,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_where_with_scalar()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
@@ -1156,8 +1105,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var now = DateTimeOffset.UtcNow;
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -1195,8 +1143,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_to_StepLabel()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
@@ -1227,8 +1174,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_from_StepLabel()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
@@ -1258,8 +1204,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void And()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .And(
                     __ => __
@@ -1283,8 +1228,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Drop()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Drop()
                 .Resolve(this._model)
@@ -1302,8 +1246,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void FilterWithLambda()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .FilterWithLambda("it.property('str').value().length() == 2")
                 .Resolve(this._model)
@@ -1321,8 +1264,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Out<Knows>()
                 .Resolve(this._model)
@@ -1341,8 +1283,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out_does_not_include_abstract_edge()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Out<Edge>()
                 .Resolve(this._model)
@@ -1365,8 +1306,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByMember()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Order()
                 .ByMember(x => x.Name, Order.Increasing)
@@ -1386,8 +1326,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByTraversal()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Order()
                 .ByTraversal(__ => __.Values(x => x.Name), Order.Increasing)
@@ -1407,8 +1346,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByLambda()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Order()
                 .ByLambda("it.property('str').value().length()")
@@ -1427,8 +1365,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_sum_With_local_scope()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Sum(Scope.Local)
@@ -1448,8 +1385,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_sum_With_global_scope()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Sum(Scope.Global)
@@ -1469,8 +1405,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_one_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Name)
                 .Resolve(this._model)
@@ -1489,8 +1424,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_Id_property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Id)
                 .Resolve(this._model)
@@ -1508,8 +1442,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_two_properties()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => x.Name, x => x.Id)
                 .Resolve(this._model)
@@ -1528,8 +1461,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_three_properties()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
                 .Resolve(this._model)
@@ -1549,8 +1481,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_without_type()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .Resolve(this._model)
                 .Serialize();
@@ -1567,8 +1498,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_OfType_with_inheritance()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .OfType<Authority>()
                 .Resolve(this._model)
@@ -1587,8 +1517,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Repeat_out_traversal()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Repeat(__ => __
                     .Out<Knows>()
@@ -1609,8 +1538,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Union_two_out_traversals()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Union(
                     __ => __.Out<Knows>(),
@@ -1632,8 +1560,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .Optional(
                     __ => __.Out<Knows>())
@@ -1652,8 +1579,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Not_one_out_traversal()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .Not(__ => __.Out<Knows>())
                 .Resolve(this._model)
@@ -1671,8 +1597,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal_1()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Resolve(this._model)
@@ -1690,8 +1615,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal_2()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V()
                 .Not(__ => __.OfType<Authority>())
                 .Resolve(this._model)
@@ -1710,8 +1634,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .As(new StepLabel<User>())
                 .Resolve(this._model)
@@ -1730,8 +1653,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_not_inlined()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .As(new StepLabel<User>())
                 .Resolve(this._model)
@@ -1752,8 +1674,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var stepLabel = new StepLabel<User>();
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
@@ -1775,8 +1696,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var stepLabel = new StepLabel<User>();
 
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
@@ -1796,8 +1716,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_as_select()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
@@ -1819,8 +1738,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Branch()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Branch(
                     _ => _.Values(x => x.Name),
@@ -1843,8 +1761,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void BranchOnIdentity()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .BranchOnIdentity(
                     _ => _.Out<Knows>(),
@@ -1865,8 +1782,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Set_Property()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .V<User>()
                 .Property(x => x.Age, 36)
                 .Resolve(this._model)

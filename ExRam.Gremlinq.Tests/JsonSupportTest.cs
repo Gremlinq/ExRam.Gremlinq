@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.Empty)
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V<JObject>())
+                .Execute(g.V<JObject>())
                 .ToArray();
 
             array.Should().HaveCount(1);
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V<IsDescribedIn>())
+                .Execute(g.V<IsDescribedIn>())
                 .ToArray();
 
             array.Should().HaveCount(1);
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V<IsDescribedIn>())
+                .Execute(g.V<IsDescribedIn>())
                 .ToArray();
 
             array.Should().HaveCount(1);
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V().Drop())
+                .Execute(g.V().Drop())
                 .FirstOrDefault();
         }
 
@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V<User>())
+                .Execute(g.V<User>())
                 .ToArray();
         }
 
@@ -149,7 +149,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V().Id())
+                .Execute(g.V().Id())
                 .ToArray();
 
             ids.Should().HaveCount(2);
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V().Id())
+                .Execute(g.V().Id())
                 .ToArray();
 
             ids.Should().HaveCount(2);
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V().Id())
+                .Execute(g.V().Id())
                 .ToArray();
 
             ids.Should().HaveCount(2);
@@ -209,7 +209,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().V().Id())
+                .Execute(GremlinQuery.Create("g").V().Id())
                 .ToArray();
 
             ids.Should().HaveCount(2);
@@ -400,7 +400,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport();              
 
             var tuple = await GremlinQuery
-                .Create()
+                .Create("g")
                 .Cast<(User, Language)>()
                 .Execute(jsonQueryProvider)
                 .First();
@@ -427,7 +427,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport();
 
             var tuple = await GremlinQuery
-                .Create()
+                .Create("g")
                 .Cast<(User, Language)>()
                 .Execute(jsonQueryProvider)
                 .First();

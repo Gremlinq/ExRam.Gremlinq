@@ -15,8 +15,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategyTest()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
 
             query.Steps.Should().HaveCount(2);
@@ -28,8 +27,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategy_is_ommitted_if_empty()
         {
-            var query = GremlinQuery
-                .Create()
+            var query = g
                 .WithSubgraphStrategy(_ => _, _ => _);
 
             query.Steps.Should().HaveCount(1);
@@ -49,7 +47,7 @@ namespace ExRam.Gremlinq.Tests
                 });
 
             subgraphStrategyProvider
-                .Execute(GremlinQuery.Create().AddV(new User()));
+                .Execute(g.AddV(new User()));
 
             queryProviderMock.Verify(x => x.Execute(It.Is<IGremlinQuery<Unit>>(query => query.Steps[2] is ReplaceElementPropertyStep<User, int>)));
         }
@@ -66,7 +64,7 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create().Cast<int>())
+                .Execute(GremlinQuery.Create("g").Cast<int>())
                 .First();
 
             value.Should().Be(36);

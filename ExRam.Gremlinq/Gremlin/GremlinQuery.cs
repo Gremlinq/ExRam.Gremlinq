@@ -567,7 +567,7 @@ namespace ExRam.Gremlinq
     {
         public static readonly IGremlinQuery<Unit> Anonymous = GremlinQuery<Unit>.Anonymous;
 
-        public static IGremlinQuery<Unit> Create(string graphName = "g")
+        public static IGremlinQuery<Unit> Create(string graphName)
         {
             return GremlinQuery<Unit>.Create(graphName);
         }
