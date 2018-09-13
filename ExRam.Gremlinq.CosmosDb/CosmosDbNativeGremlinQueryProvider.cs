@@ -28,8 +28,6 @@ namespace ExRam.Gremlinq.CosmosDb
 
                 return this._nativeGremlinQueryProviderImplementation.Execute(query, parameters);
             }
-
-            public IGremlinQuery<Unit> TraversalSource => this._nativeGremlinQueryProviderImplementation.TraversalSource;
         }
 
         private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
@@ -37,16 +35,12 @@ namespace ExRam.Gremlinq.CosmosDb
         public CosmosDbNativeGremlinQueryProvider(IGremlinClient client, ILogger logger)
         {
             this._baseProvider = new WorkaroundCosmosDbBugsQueryProvider(client
-                .ToNativeGremlinQueryProvider(
-                    "g",
-                    logger));
+                .ToNativeGremlinQueryProvider(logger));
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
         {
             return this._baseProvider.Execute(query, parameters);
         }
-
-        public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
     }
 }

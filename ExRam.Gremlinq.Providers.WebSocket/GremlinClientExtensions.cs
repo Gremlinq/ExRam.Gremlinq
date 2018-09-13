@@ -16,11 +16,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             private readonly ILogger _logger;
             private readonly IGremlinClient _gremlinClient;
 
-            public GremlinClientNativeGremlinQueryProvider(IGremlinClient gremlinClient, string traversalSourceName, ILogger logger)
+            public GremlinClientNativeGremlinQueryProvider(IGremlinClient gremlinClient, ILogger logger)
             {
                 this._logger = logger;
                 this._gremlinClient = gremlinClient;
-                this.TraversalSource = GremlinQuery.Create(traversalSourceName);
             }
 
             public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
@@ -37,13 +36,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             {
                 this._gremlinClient.Dispose();
             }
-
-            public IGremlinQuery<Unit> TraversalSource { get; }
         }
 
-        public static INativeGremlinQueryProvider<JToken> ToNativeGremlinQueryProvider(this IGremlinClient client, string traversalSourceName, ILogger logger)
+        public static INativeGremlinQueryProvider<JToken> ToNativeGremlinQueryProvider(this IGremlinClient client, ILogger logger)
         {
-            return new GremlinClientNativeGremlinQueryProvider(client, traversalSourceName, logger);
+            return new GremlinClientNativeGremlinQueryProvider(client, logger);
         }
     }
 }

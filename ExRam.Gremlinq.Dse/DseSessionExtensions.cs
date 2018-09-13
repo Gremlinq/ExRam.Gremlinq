@@ -17,8 +17,6 @@ namespace Dse
             public DseGraphNativeQueryProvider(IDseSession session)
             {
                 this._session = session;
-
-                this.TraversalSource = GremlinQuery.Create((this._session.Cluster as IDseCluster)?.Configuration.GraphOptions.Source ?? "g");
             }
 
             public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
@@ -35,8 +33,6 @@ namespace Dse
                     .SelectMany(node => node.ToAsyncEnumerable())
                     .Select(node => node.ToString());
             }
-
-            public IGremlinQuery<Unit> TraversalSource { get; }
         }
 
         public static INativeGremlinQueryProvider<string> CreateQueryProvider(this IDseSession session)

@@ -113,8 +113,6 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model => this._baseProvider.Model;
-            
-            public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class ModelGremlinQueryProvider<TNative> : IModelGremlinQueryProvider<TNative>
@@ -139,7 +137,6 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model { get; }
-            public IGremlinQuery<Unit> TraversalSource => this._baseProvider.TraversalSource;
         }
 
         private sealed class RewriteStepsQueryProvider<TStep, TNative> : IModelGremlinQueryProvider<TNative> where TStep : NonTerminalGremlinStep
@@ -164,8 +161,6 @@ namespace ExRam.Gremlinq
             }
 
             public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
-
-            public IGremlinQuery<Unit> TraversalSource => this._baseTypedGremlinQueryProvider.TraversalSource;
         }
         
         private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : INativeGremlinQueryProvider<TNativeTarget>
@@ -185,8 +180,6 @@ namespace ExRam.Gremlinq
                     .Execute(query, parameters)
                     .Select(this._projection);
             }
-
-            public IGremlinQuery<Unit> TraversalSource => this._provider.TraversalSource;
         }
 
         public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)
