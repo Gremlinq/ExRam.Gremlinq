@@ -6,7 +6,7 @@ using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq.CosmosDb
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public class GremlinqClient : IGremlinClient
     {
