@@ -182,9 +182,13 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)
+        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query)
         {
-            return provider.Execute(query);
+            var queryProvider = query
+                .TryGetTypedGremlinQueryProvider()
+                .IfNone(() => throw new ArgumentException("Could not find an instance of ITypedGremlinQueryProvider in the query"));
+
+            return queryProvider.Execute(query);
         }
 
         public static ITypedGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider<JToken> provider)

@@ -401,8 +401,9 @@ namespace ExRam.Gremlinq.Tests
 
             var tuple = await GremlinQuery
                 .Create("g")
+                .SetTypedGremlinQueryProvider(jsonQueryProvider)
                 .Cast<(User, Language)>()
-                .Execute(jsonQueryProvider)
+                .Execute()
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
@@ -428,8 +429,9 @@ namespace ExRam.Gremlinq.Tests
 
             var tuple = await GremlinQuery
                 .Create("g")
+                .SetTypedGremlinQueryProvider(jsonQueryProvider)
                 .Cast<(User, Language)>()
-                .Execute(jsonQueryProvider)
+                .Execute()
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");

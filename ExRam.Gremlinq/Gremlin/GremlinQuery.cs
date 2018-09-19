@@ -577,6 +577,12 @@ namespace ExRam.Gremlinq
             return GremlinQuery<TElement>.Anonymous;
         }
 
+        public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider queryProvider)
+        {
+            return query
+                .AddStep(new SetTypedGremlinQueryProviderGremlinStep(queryProvider));
+        }
+
         public static (string queryString, IDictionary<string, object> parameters) Serialize(this ITopGroovySerializable query)
         {
             var stringBuilder = new StringBuilder();
@@ -587,19 +593,19 @@ namespace ExRam.Gremlinq
             return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }
 
-        public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
+        public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
             return query
                 .Limit(1)
-                .Execute(provider)
+                .Execute()
                 .First(ct);
         }
 
-        public static async Task<Option<TElement>> FirstOrNoneAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
+        public static async Task<Option<TElement>> FirstOrNoneAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
             var array = await query
                 .Limit(1)
-                .Execute(provider)
+                .Execute()
                 .ToArray(ct)
                 .ConfigureAwait(false);
 
@@ -608,10 +614,10 @@ namespace ExRam.Gremlinq
                 : Option<TElement>.None;
         }
 
-        public static Task<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider, CancellationToken ct = default)
+        public static Task<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
             return query
-                .Execute(provider)
+                .Execute()
                 .ToArray(ct);
         }
 
@@ -957,6 +963,15 @@ namespace ExRam.Gremlinq
             }
 
             return query;
+        }
+
+        internal static Option<ITypedGremlinQueryProvider> TryGetTypedGremlinQueryProvider(this IGremlinQuery query)
+        {
+            return query
+                .Steps
+                .OfType<SetTypedGremlinQueryProviderGremlinStep>()
+                .Select(x => Option<ITypedGremlinQueryProvider>.Some(x.TypedGremlinQueryProvider))
+                .LastOrDefault();
         }
     }
 }
