@@ -48,5 +48,10 @@ namespace ExRam.Gremlinq
                 .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
         }
 
+        public static IGremlinQuery<Unit> SetModel(IGraphModel model)
+        {
+            return _g
+                .SetModel(model);
+        }
     }
 }
