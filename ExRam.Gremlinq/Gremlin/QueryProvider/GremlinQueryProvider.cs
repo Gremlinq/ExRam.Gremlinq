@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
-            private readonly IModelGremlinQueryProvider<JToken> _baseProvider;
+            private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
 
-            public JsonSupportTypedGremlinQueryProvider(IModelGremlinQueryProvider<JToken> baseProvider)
+            public JsonSupportTypedGremlinQueryProvider(INativeGremlinQueryProvider<JToken> baseProvider)
             {
                 this._baseProvider = baseProvider;
             }
@@ -103,38 +103,18 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy(JsonTransformRules.Identity);
 
+                var serialized = query
+                    .Resolve()
+                    .Serialize();
+
                 return this._baseProvider
-                    .Execute(query)
+                    .Execute(serialized.queryString, serialized.parameters)
                     .SelectMany(rawData => Serializer
                         .Deserialize<TElement[]>(new JTokenReader(rawData
                             .Transform(transformRule)
                             .IfNone(EmptyJArray)))
                         .ToAsyncEnumerable());
             }
-        }
-
-        private sealed class ModelGremlinQueryProvider<TNative> : IModelGremlinQueryProvider<TNative>
-        {
-            private readonly INativeGremlinQueryProvider<TNative> _baseProvider;
-
-            public ModelGremlinQueryProvider(INativeGremlinQueryProvider<TNative> baseProvider, IGraphModel newModel)
-            {
-                this.Model = newModel;
-                this._baseProvider = baseProvider;
-            }
-
-            public IAsyncEnumerable<TNative> Execute(IGremlinQuery query)
-            {
-                var serialized = query
-                    .Cast<Unit>()
-                    .Resolve()
-                    .Serialize();
-
-                return this._baseProvider
-                    .Execute(serialized.queryString, serialized.parameters);
-            }
-
-            public IGraphModel Model { get; }
         }
 
         private sealed class RewriteStepsQueryProvider<TStep, TNative> : IModelGremlinQueryProvider<TNative> where TStep : NonTerminalGremlinStep
@@ -187,14 +167,9 @@ namespace ExRam.Gremlinq
             return queryProvider.Execute(query);
         }
 
-        public static ITypedGremlinQueryProvider WithJsonSupport(this IModelGremlinQueryProvider<JToken> provider)
+        public static ITypedGremlinQueryProvider WithJsonSupport(this INativeGremlinQueryProvider<JToken> provider)
         {
             return new JsonSupportTypedGremlinQueryProvider(provider);
-        }
-
-        public static IModelGremlinQueryProvider<TNative> WithModel<TNative>(this INativeGremlinQueryProvider<TNative> provider, IGraphModel model)
-        {
-            return new ModelGremlinQueryProvider<TNative>(provider, model);
         }
        
         public static IModelGremlinQueryProvider<TNative> ReplaceElementProperty<TSource, TProperty, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)

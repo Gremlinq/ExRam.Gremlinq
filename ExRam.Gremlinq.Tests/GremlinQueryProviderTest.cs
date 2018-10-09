@@ -62,9 +62,11 @@ namespace ExRam.Gremlinq.Tests
 
             var value = await queryProviderMock.Object
                 .Select(JToken.Parse)
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery.Create("g").Cast<int>())
+                .Execute(GremlinQuery
+                    .Create("g")
+                    .SetModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .Cast<int>())
                 .First();
 
             value.Should().Be(36);
