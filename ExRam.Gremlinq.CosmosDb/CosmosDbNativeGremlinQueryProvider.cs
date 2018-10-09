@@ -34,8 +34,7 @@ namespace ExRam.Gremlinq.CosmosDb
 
         public CosmosDbNativeGremlinQueryProvider(IGremlinClient client, ILogger logger)
         {
-            this._baseProvider = new WorkaroundCosmosDbBugsQueryProvider(client
-                .ToNativeGremlinQueryProvider(logger));
+            this._baseProvider = new WorkaroundCosmosDbBugsQueryProvider(new GremlinClientNativeGremlinQueryProvider(client, logger));
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
