@@ -2,7 +2,7 @@
 
 namespace LanguageExt
 {
-    public static class OptionExtensions
+    internal static class OptionExtensions
     {
         public static Option<T> IfNone<T>(this Option<T> option, Func<Option<T>> none)
         {
