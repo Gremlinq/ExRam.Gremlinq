@@ -14,15 +14,15 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public GremlinClientNativeGremlinQueryProvider(IGremlinClient gremlinClient, ILogger logger)
         {
-            this._logger = logger;
-            this._gremlinClient = gremlinClient;
+            _logger = logger;
+            _gremlinClient = gremlinClient;
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
         {
-            this._logger.LogTrace("Executing Gremlin query {0}.", query);
+            _logger.LogTrace("Executing Gremlin query {0}.", query);
 
-            return this._gremlinClient
+            return _gremlinClient
                 .SubmitAsync<JToken>(query, new Dictionary<string, object>(parameters))
                 .ToAsyncEnumerable()
                 .SelectMany(x => x.ToAsyncEnumerable());
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public void Dispose()
         {
-            this._gremlinClient.Dispose();
+            _gremlinClient.Dispose();
         }
     }
 }

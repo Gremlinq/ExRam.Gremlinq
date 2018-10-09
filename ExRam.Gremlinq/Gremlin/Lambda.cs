@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq
 
         public Lambda(string lambda)
         {
-            this._lambda = lambda;
+            _lambda = lambda;
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return state.AppendLambda(stringBuilder, this._lambda);
+            return state.AppendLambda(stringBuilder, _lambda);
         }
     }
 }

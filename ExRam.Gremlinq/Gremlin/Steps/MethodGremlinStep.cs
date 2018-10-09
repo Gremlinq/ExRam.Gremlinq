@@ -12,13 +12,13 @@ namespace ExRam.Gremlinq
 
         public MethodGremlinStep(string name, IImmutableList<object> parameters)
         {
-            this.Name = name;
-            this.Parameters = parameters;
+            Name = name;
+            Parameters = parameters;
         }
 
         public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return state.AppendMethod(stringBuilder, this.Name, this.Parameters);
+            return state.AppendMethod(stringBuilder, Name, Parameters);
         }
 
         public string Name { get; }

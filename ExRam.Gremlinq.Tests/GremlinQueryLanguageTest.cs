@@ -9,17 +9,16 @@ namespace ExRam.Gremlinq.Tests
 {
     public class GremlinQueryLanguageTest
     {
-        private readonly IGraphModel _model;
         private readonly IGremlinQuery<Unit> _g;
-             
+
         public GremlinQueryLanguageTest()
         {
-            this._model = GraphModel
+            var model = GraphModel
                 .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
                 .WithIdPropertyName("Id");
 
-            this._g = g
-                .SetModel(_model);
+            _g = g
+                .SetModel(model);
         }
 
         [Fact]
@@ -1106,6 +1105,26 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_where_with_traversal()
+        {
+            var query = _g
+                .V<User>()
+                .Where(_ => _.Out<LivesIn>())
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).where(__.out(_P2))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "LivesIn");
+        }
+
+        [Fact]
         public void AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
@@ -1177,6 +1196,46 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddE_from_traversal()
+        {
+            var now = DateTimeOffset.UtcNow;
+
+            var query = _g
+                .AddV(new User
+                {
+                    Name = "Bob",
+                    RegistrationDate = now
+                })
+                .AddE(new LivesIn())
+                .From(__ => __
+                    .V<Country>()
+                    .Where(t => t.CountryCallingCode == "+49"))
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).addE(_P10).from(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 0).And
+                .Contain("_P4", "Gender").And
+                .Contain("_P5", 0).And
+                .Contain("_P6", "RegistrationDate").And
+                .Contain("_P7", now).And
+                .Contain("_P8", "Name").And
+                .Contain("_P9", "Bob").And
+                .Contain("_P10", "LivesIn").And
+                .Contain("_P11", "Country").And
+                .Contain("_P12", "CountryCallingCode").And
+                .Contain("_P13", "+49");
+        }
+
+        [Fact]
         public void AddE_from_StepLabel()
         {
             var query = _g
@@ -1204,6 +1263,40 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P8", "IsDescribedIn").And
                 .Contain("_P9", "Text").And
                 .Contain("_P10", "Germany");
+        }
+
+        [Fact]
+        public void AddE_InV()
+        {
+            var query = _g
+                .AddV<User>()
+                .AddE<LivesIn>()
+                .To(__ => __
+                    .V<Country>("id"))
+                .InV()
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).inV()");
+        }
+
+        [Fact]
+        public void AddE_OutV()
+        {
+            var query = _g
+                .AddV<User>()
+                .AddE<LivesIn>()
+                .To(__ => __
+                    .V<Country>("id"))
+                .OutV()
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).outV()");
         }
 
         [Fact]
@@ -1253,7 +1346,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .FilterWithLambda("it.property('str').value().length() == 2")
+                .Filter("it.property('str').value().length() == 2")
                 .Resolve()
                 .Serialize();
 
@@ -1313,8 +1406,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByMember(x => x.Name, Order.Increasing)
+                .OrderBy(x => x.Name)
                 .Resolve()
                 .Serialize();
 
@@ -1333,8 +1425,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByTraversal(__ => __.Values(x => x.Name), Order.Increasing)
+                .OrderBy(__ => __.Values(x => x.Name))
                 .Resolve()
                 .Serialize();
 
@@ -1353,8 +1444,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByLambda("it.property('str').value().length()")
+                .OrderBy("it.property('str').value().length()")
                 .Resolve()
                 .Serialize();
 
@@ -1740,49 +1830,49 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P3", "Item2");
         }
 
-        [Fact]
-        public void Branch()
-        {
-            var query = _g
-                .V<User>()
-                .Branch(
-                    _ => _.Values(x => x.Name),
-                    _ => _.Out<Knows>(),
-                    _ => _.In<Knows>())
-                .Resolve()
-                .Serialize();
+        //[Fact]
+        //public void Branch()
+        //{
+        //    var query = _g
+        //        .V<User>()
+        //        .Branch(
+        //            _ => _.Values(x => x.Name),
+        //            _ => _.Out<Knows>(),
+        //            _ => _.In<Knows>())
+        //        .Resolve()
+        //        .Serialize();
 
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).branch(__.values(_P2)).option(__.out(_P3)).option(__.in(_P3))");
+        //    query.queryString
+        //        .Should()
+        //        .Be("g.V().hasLabel(_P1).branch(__.values(_P2)).option(__.out(_P3)).option(__.in(_P3))");
 
-            query.parameters
-                .Should()
-                .Contain("_P1", "User").And
-                .Contain("_P2", "Name").And
-                .Contain("_P3", "Knows");
-        }
+        //    query.parameters
+        //        .Should()
+        //        .Contain("_P1", "User").And
+        //        .Contain("_P2", "Name").And
+        //        .Contain("_P3", "Knows");
+        //}
 
-        [Fact]
-        public void BranchOnIdentity()
-        {
-            var query = _g
-                .V<User>()
-                .BranchOnIdentity(
-                    _ => _.Out<Knows>(),
-                    _ => _.In<Knows>())
-                .Resolve()
-                .Serialize();
+        //[Fact]
+        //public void BranchOnIdentity()
+        //{
+        //    var query = _g
+        //        .V<User>()
+        //        .BranchOnIdentity(
+        //            _ => _.Out<Knows>(),
+        //            _ => _.In<Knows>())
+        //        .Resolve()
+        //        .Serialize();
 
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).branch(__.identity()).option(__.out(_P2)).option(__.in(_P2))");
+        //    query.queryString
+        //        .Should()
+        //        .Be("g.V().hasLabel(_P1).branch(__.identity()).option(__.out(_P2)).option(__.in(_P2))");
 
-            query.parameters
-                .Should()
-                .Contain("_P1", "User").And
-                .Contain("_P2", "Knows");
-        }
+        //    query.parameters
+        //        .Should()
+        //        .Contain("_P1", "User").And
+        //        .Contain("_P2", "Knows");
+        //}
 
         [Fact]
         public void Set_Property()
@@ -1802,6 +1892,31 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 36);
+        }
+
+        [Fact]
+        public void Coalesce()
+        {
+            var query = _g
+                .V()
+                .Coalesce(
+                     _ => _
+                        .Identity())
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().coalesce(__.identity())");
+        }
+
+        [Fact]
+        public void Anonymous()
+        {
+            var query = GremlinQuery.Anonymous
+                .Serialize();
+
+            query.queryString.Should().Be("__.identity()");
         }
     }
 }

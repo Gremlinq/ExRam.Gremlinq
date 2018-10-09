@@ -11,14 +11,14 @@ namespace ExRam.Gremlinq
 
         private Order(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
             return state
                 .AppendIdentifier(stringBuilder, nameof(Order))
-                .AppendField(stringBuilder, this._name);
+                .AppendField(stringBuilder, _name);
         }
     }
 }

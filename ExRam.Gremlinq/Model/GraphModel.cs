@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq
         {
             public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes, Option<string> idPropertyName = default)
             {
-                this.VertexLabels = vertexLabels;
-                this.EdgeLabels = edgeTypes;
-                this.IdPropertyName = idPropertyName;
+                VertexLabels = vertexLabels;
+                EdgeLabels = edgeTypes;
+                IdPropertyName = idPropertyName;
             }
 
             public Option<string> IdPropertyName { get; }

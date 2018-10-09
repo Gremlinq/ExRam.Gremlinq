@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq
 
         private T(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         public override bool Equals(object obj)
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq
 
         public override int GetHashCode()
         {
-            return this._name.GetHashCode();
+            return _name.GetHashCode();
         }
 
         public static bool operator ==(T obj1, T obj2)
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq
         {
             return state
                 .AppendIdentifier(stringBuilder, nameof(T))
-                .AppendField(stringBuilder, this._name);
+                .AppendField(stringBuilder, _name);
         }
     }
 }

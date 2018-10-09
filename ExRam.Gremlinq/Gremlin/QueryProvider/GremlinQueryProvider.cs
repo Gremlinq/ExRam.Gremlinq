@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq
 
             public JsonSupportTypedGremlinQueryProvider(INativeGremlinQueryProvider<JToken> baseProvider)
             {
-                this._baseProvider = baseProvider;
+                _baseProvider = baseProvider;
             }
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq
                     .Resolve()
                     .Serialize();
 
-                return this._baseProvider
+                return _baseProvider
                     .Execute(serialized.queryString, serialized.parameters)
                     .SelectMany(rawData => Serializer
                         .Deserialize<TElement[]>(new JTokenReader(rawData
@@ -123,15 +123,15 @@ namespace ExRam.Gremlinq
 
             public SelectNativeGremlinQueryProvider(INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
             {
-                this._provider = provider;
-                this._projection = projection;
+                _provider = provider;
+                _projection = projection;
             }
 
             public IAsyncEnumerable<TNativeTarget> Execute(string query, IDictionary<string, object> parameters)
             {
-                return this._provider
+                return _provider
                     .Execute(query, parameters)
-                    .Select(this._projection);
+                    .Select(_projection);
             }
         }
 

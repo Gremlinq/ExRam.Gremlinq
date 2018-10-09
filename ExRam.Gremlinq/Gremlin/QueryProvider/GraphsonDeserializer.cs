@@ -19,18 +19,18 @@ namespace ExRam.Gremlinq
 
                 public EmptyListValueProvider(IValueProvider innerProvider, Type elementType)
                 {
-                    this._innerProvider = innerProvider;
-                    this._defaultValue = Array.CreateInstance(elementType, 0);
+                    _innerProvider = innerProvider;
+                    _defaultValue = Array.CreateInstance(elementType, 0);
                 }
 
                 public void SetValue(object target, object value)
                 {
-                    this._innerProvider.SetValue(target, value ?? this._defaultValue);
+                    _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
 
                 public object GetValue(object target)
                 {
-                    return this._innerProvider.GetValue(target) ?? this._defaultValue;
+                    return _innerProvider.GetValue(target) ?? _defaultValue;
                 }
             }
 
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq
             {
                 return objectType.IsArray
                     // ReSharper disable once TailRecursiveCall
-                    ? this.CanConvert(objectType.GetElementType())
+                    ? CanConvert(objectType.GetElementType())
                     : (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
             }
 

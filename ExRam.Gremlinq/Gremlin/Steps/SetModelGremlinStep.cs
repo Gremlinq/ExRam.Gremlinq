@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq
     {
         public SetModelGremlinStep(IGraphModel model)
         {
-            this.Model = model;
+            Model = model;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)

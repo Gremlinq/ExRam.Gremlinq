@@ -8,16 +8,16 @@ namespace ExRam.Gremlinq
 
         public OrP(params P[] predicates)
         {
-            this._predicates = predicates;
+            _predicates = predicates;
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            for (var i = 0; i < this._predicates.Length; i++)
+            for (var i = 0; i < _predicates.Length; i++)
             {
                 state = i != 0
-                    ? state.AppendMethod(stringBuilder, "or", this._predicates[i]) 
-                    : this._predicates[i].Serialize(stringBuilder, state);
+                    ? state.AppendMethod(stringBuilder, "or", _predicates[i]) 
+                    : _predicates[i].Serialize(stringBuilder, state);
             }
 
             return state;

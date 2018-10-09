@@ -9,16 +9,16 @@ namespace ExRam.Gremlinq
 
         protected AddElementGremlinStep(string stepName, object value)
         {
-            this._value = value;
-            this._stepName = stepName;
+            _value = value;
+            _stepName = stepName;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            var type = this._value.GetType();
+            var type = _value.GetType();
             
             yield return new MethodGremlinStep(
-                this._stepName,
+                _stepName,
                 model
                     .TryGetLabelOfType(type)
                     .IfNone(type.Name));

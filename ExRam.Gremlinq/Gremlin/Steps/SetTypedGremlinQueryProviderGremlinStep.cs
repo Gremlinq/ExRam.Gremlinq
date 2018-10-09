@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq
     {
         public SetTypedGremlinQueryProviderGremlinStep(ITypedGremlinQueryProvider typedGremlinQueryProvider)
         {
-            this.TypedGremlinQueryProvider = typedGremlinQueryProvider;
+            TypedGremlinQueryProvider = typedGremlinQueryProvider;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)

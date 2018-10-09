@@ -13,20 +13,20 @@ namespace ExRam.Gremlinq
 
         public AddElementPropertiesStep(object element)
         {
-            this.Element = element;
+            Element = element;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
             return TypeProperties.GetOrAdd(
-                this.Element.GetType(),
+                Element.GetType(),
                 type => type             
                     .GetProperties()
                     .Where(property => IsNativeType(property.PropertyType))
                     .ToArray())
                 .SelectMany(property =>
                 {
-                    var value = property.GetValue(this.Element);
+                    var value = property.GetValue(Element);
                     var propertyName = model.GetIdentifier(property.Name);
 
                     if (value != null)

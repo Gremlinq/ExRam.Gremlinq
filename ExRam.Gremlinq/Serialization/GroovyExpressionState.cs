@@ -20,18 +20,18 @@ namespace ExRam.Gremlinq
 
         private GroovyExpressionState(State state, IImmutableDictionary<object, string> variables, IImmutableDictionary<StepLabel, string> stepLabelMappings)
         {
-            this._state = state;
-            this._variables = variables;
-            this._stepLabelMappings = stepLabelMappings;
+            _state = state;
+            _variables = variables;
+            _stepLabelMappings = stepLabelMappings;
         }
 
         public GroovyExpressionState AppendIdentifier(StringBuilder builder, string className)
         {
-            if (this._state != State.Idle)
+            if (_state != State.Idle)
                 throw new InvalidOperationException();
 
             builder.Append(className);
-            return new GroovyExpressionState(State.Chaining, this._variables, this._stepLabelMappings);
+            return new GroovyExpressionState(State.Chaining, _variables, _stepLabelMappings);
         }
 
         public GroovyExpressionState AppendLambda(StringBuilder builder, string lambda)
@@ -45,9 +45,9 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState AppendMethod(StringBuilder stringBuilder, string methodName, object parameter)
         {
-            var methodExpressionState = new GroovyExpressionState(State.Idle, this._variables, this._stepLabelMappings);
+            var methodExpressionState = new GroovyExpressionState(State.Idle, _variables, _stepLabelMappings);
             
-            if (this._state == State.Chaining)
+            if (_state == State.Chaining)
                 stringBuilder.Append(".");
 
             stringBuilder.Append(methodName);
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq
             var setComma = false;
             var methodExpressionState = this;
 
-            if (this._state == State.Chaining)
+            if (_state == State.Chaining)
                 stringBuilder.Append(".");
 
             stringBuilder.Append(methodName);
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState AppendField(StringBuilder builder, string fieldName)
         {
-            if (this._state != State.Chaining)
+            if (_state != State.Chaining)
                 throw new InvalidOperationException();
 
             builder.Append(".");
@@ -105,10 +105,10 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState AppendConstant(StringBuilder builder, object constant)
         {
-            if (this._state == State.Chaining)
+            if (_state == State.Chaining)
                 throw new InvalidOperationException();
 
-            var (newVariables, newStepLabelMappings) = Cache(constant, this._variables, this._stepLabelMappings, out var key);
+            var (newVariables, newStepLabelMappings) = Cache(constant, _variables, _stepLabelMappings, out var key);
             builder.Append(key);
 
             return new GroovyExpressionState(State.Chaining, newVariables, newStepLabelMappings);
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq
 
         public IDictionary<string, object> GetVariables()
         {
-            return this._variables
+            return _variables
                 .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
         }
 

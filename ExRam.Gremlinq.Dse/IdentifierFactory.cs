@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Dse
 
         public string CreateIndexName()
         {
-            return "i" + Interlocked.Increment(ref this._label);
+            return "i" + Interlocked.Increment(ref _label);
         }
         
         public static IIdentifierFactory CreateDefault()
