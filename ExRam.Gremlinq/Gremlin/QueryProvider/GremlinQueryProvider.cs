@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
@@ -116,28 +115,7 @@ namespace ExRam.Gremlinq
                         .ToAsyncEnumerable());
             }
         }
-
-        private sealed class RewriteStepsQueryProvider<TStep> : ITypedGremlinQueryProvider where TStep : NonTerminalGremlinStep
-        {
-            private readonly ITypedGremlinQueryProvider _baseTypedGremlinQueryProvider;
-            private readonly Func<TStep, Option<IEnumerable<GremlinStep>>> _replacementStepFactory;
-
-            public RewriteStepsQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory)
-            {
-                this._replacementStepFactory = replacementStepFactory;
-                this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
-            }
-
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
-                return this._baseTypedGremlinQueryProvider.Execute(query
-                    .RewriteSteps(step => step is TStep replacedStep
-                        ? this._replacementStepFactory(replacedStep)
-                        : Option<IEnumerable<GremlinStep>>.None)
-                    .Cast<TElement>());
-            }
-        }
-        
+       
         private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : INativeGremlinQueryProvider<TNativeTarget>
         {
             private readonly Func<TNativeSource, TNativeTarget> _projection;
@@ -171,38 +149,6 @@ namespace ExRam.Gremlinq
             return new JsonSupportTypedGremlinQueryProvider(provider);
         }
        
-        public static ITypedGremlinQueryProvider ReplaceElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
-        {
-            return provider
-                .DecorateElementProperty(overrideCriterion, step => new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
-        }
-
-        public static ITypedGremlinQueryProvider SetDefautElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
-        {
-            return provider
-                .DecorateElementProperty(overrideCriterion, step => new SetDefaultElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
-        }
-
-        public static ITypedGremlinQueryProvider DecorateElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Func<AddElementPropertiesStep, DecorateAddElementPropertiesStep<TSource, TProperty>> replacementStepFactory)
-        {
-            return provider
-                .RewriteSteps<AddElementPropertiesStep>(step =>
-                {
-                    if (step.Element is TSource source)
-                    {
-                        if (overrideCriterion(source))
-                            return new[] { replacementStepFactory(step) };
-                    }
-
-                    return Option<IEnumerable<GremlinStep>>.None;
-                });
-        }
-
-        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
-        {
-            return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
-        }
-
         public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
         {
             return new SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget>(provider, projection);
