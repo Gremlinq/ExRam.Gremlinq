@@ -96,13 +96,13 @@ namespace ExRam.Gremlinq.Dse
             return propertyKeys
                 .Select(propertyInfoKvp => GremlinQuery<string>
                     .Create("schema")
-                    .AddStep("propertyKey", propertyInfoKvp.Key)
-                    .AddStep(NativeTypeSteps
+                    .Call("propertyKey", propertyInfoKvp.Key)
+                    .Call(NativeTypeSteps
                         .TryGetValue(propertyInfoKvp.Value)
                         .IfNone(() => throw new InvalidOperationException($"No native type found for {propertyInfoKvp.Value}.")))
-                    .AddStep("single")
-                    .AddStep("ifNotExists")
-                    .AddStep("create"));
+                    .Call("single")
+                    .Call("ifNotExists")
+                    .Call("create"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateVertexSecondaryIndexQueries(this IDseGraphModel model, IIdentifierFactory identifierFactory)
@@ -134,11 +134,11 @@ namespace ExRam.Gremlinq.Dse
                     .Aggregate(
                         GremlinQuery<string>
                             .Create("schema")
-                            .AddStep("vertexLabel", tuple.Label)
-                            .AddStep("index", "search")
-                            .AddStep("search"),
-                        (closureQuery, indexProperty) => closureQuery.AddStep("by", indexProperty))
-                    .AddStep("add"));
+                            .Call("vertexLabel", tuple.Label)
+                            .Call("index", "search")
+                            .Call("search"),
+                        (closureQuery, indexProperty) => closureQuery.Call("by", indexProperty))
+                    .Call("add"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateIndexQueries(this IGraphModel model, IReadOnlyDictionary<Type, IImmutableSet<Expression>> indexDictionary, string keyword, IIdentifierFactory identifierFactory)
@@ -160,11 +160,11 @@ namespace ExRam.Gremlinq.Dse
                     .Aggregate(
                         GremlinQuery<string>
                             .Create("schema")
-                            .AddStep("vertexLabel", tuple.Label)
-                            .AddStep("index", identifierFactory.CreateIndexName())
-                            .AddStep(keyword),
-                        (closureQuery, indexProperty) => closureQuery.AddStep("by", indexProperty))
-                    .AddStep("add"));
+                            .Call("vertexLabel", tuple.Label)
+                            .Call("index", identifierFactory.CreateIndexName())
+                            .Call(keyword),
+                        (closureQuery, indexProperty) => closureQuery.Call("by", indexProperty))
+                    .Call("add"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateVertexLabelQueries(this IDseGraphModel model)
@@ -178,17 +178,17 @@ namespace ExRam.Gremlinq.Dse
                     .Aggregate(
                         GremlinQuery<string>
                             .Create("schema")
-                            .AddStep("vertexLabel", vertexKvp.Value),
-                        (closureQuery, property) => closureQuery.AddStep("partitionKey", property))
+                            .Call("vertexLabel", vertexKvp.Value),
+                        (closureQuery, property) => closureQuery.Call("partitionKey", property))
                     .ConditionalAddStep(
                         vertexKvp.Key.GetProperties().Any(),
                         query => query
-                            .AddStep("properties",
+                            .Call("properties",
                                 vertexKvp.Key
                                     .GetProperties()
                                     .Select(x => x.Name)
                                     .ToImmutableList<object>()))
-                            .AddStep("create"));
+                            .Call("create"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeLabelQueries(this IDseGraphModel model)
@@ -203,24 +203,24 @@ namespace ExRam.Gremlinq.Dse
                     .Aggregate(
                         GremlinQuery<string>
                             .Create("schema")
-                            .AddStep("edgeLabel", edgeKvp.Value)
-                            .AddStep("single")
+                            .Call("edgeLabel", edgeKvp.Value)
+                            .Call("single")
                             .ConditionalAddStep(
                                 edgeKvp.Key
                                     .GetProperties()
                                     .Any(),
-                                query => query.AddStep(
+                                query => query.Call(
                                     "properties",
                                     edgeKvp.Key
                                         .GetProperties()
                                         .Select(property => property.Name)
                                         .ToImmutableList<object>())),
-                        (closureQuery, tuple) => closureQuery.AddStep(
+                        (closureQuery, tuple) => closureQuery.Call(
                             "connection",
                             model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),
                             model.VertexLabels.TryGetValue(tuple.Item2).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ ))))
-                    .AddStep("ifNotExists")
-                    .AddStep("create"));
+                    .Call("ifNotExists")
+                    .Call("create"));
         }
 
         private static IEnumerable<IGremlinQuery<string>> CreateEdgeIndexQueries(this IDseGraphModel model, IIdentifierFactory identifierFactory)
@@ -237,17 +237,17 @@ namespace ExRam.Gremlinq.Dse
                             .Where(inheritedVertexType => !inheritedVertexType.GetTypeInfo().IsAbstract)
                             .Select(inheritedVertexType => GremlinQuery<string>
                                 .Create("schema")
-                                .AddStep("vertexLabel", model.GetLabelOfType(inheritedVertexType))
-                                .AddStep("index", identifierFactory.CreateIndexName())
-                                .AddStep(
+                                .Call("vertexLabel", model.GetLabelOfType(inheritedVertexType))
+                                .Call("index", identifierFactory.CreateIndexName())
+                                .Call(
                                     index.direction == EdgeDirection.Out
                                         ? "outE"
                                         : index.direction == EdgeDirection.In
                                             ? "inE"
                                             : "bothE",
                                     model.GetLabelOfType(edgeType))
-                                .AddStep("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
-                                .AddStep("add")))));
+                                .Call("by", ((index.indexExpression as LambdaExpression)?.Body.StripConvert() as MemberExpression)?.Member.Name)
+                                .Call("add")))));
         }
 
         private static IEnumerable<Type> GetTypeHierarchy(this Type type, IGraphModel model)
