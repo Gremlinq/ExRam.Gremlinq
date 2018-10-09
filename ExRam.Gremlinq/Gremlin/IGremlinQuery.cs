@@ -88,18 +88,28 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
-    public interface IGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>
+    public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>
     {
-        new IGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
-        IGremlinQuery<TTarget, TEdge> CastAdjacentVertex<TTarget>();
-        new IGremlinQuery<TAdjacentVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
+
     }
 
-    public interface IGremlinQuery<TOutVertex, TInVertex, TEdge> : IGremlinQuery<TEdge>
+    public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>
     {
-        new IGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
-        IGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();
-        IGremlinQuery<TOutVertex, TTarget, TEdge> CastInVertex<TTarget>();
-        new IGremlinQuery<TOutVertex, TInVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
+
+    }
+
+    public interface IEGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>
+    {
+        //new IEGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
+        //IEGremlinQuery<TTarget, TEdge> CastAdjacentVertex<TTarget>();
+        //new IEGremlinQuery<TAdjacentVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
+    }
+
+    public interface IEGremlinQuery<TOutVertex, TInVertex, TEdge> : IGremlinQuery<TEdge>
+    {
+        //new IEGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
+        //IEGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();
+        //IEGremlinQuery<TOutVertex, TTarget, TEdge> CastInVertex<TTarget>();
+        //new IEGremlinQuery<TOutVertex, TInVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
     }
 }

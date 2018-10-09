@@ -12,7 +12,11 @@ using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq
 {
-    internal sealed class GremlinQueryImpl<TElement> : IGremlinQuery<TElement>
+    internal sealed class GremlinQueryImpl<TElement> :
+        IVGremlinQuery<TElement>,
+        IEGremlinQuery<TElement>,
+        IEGremlinQuery<Unit, TElement>,
+        IEGremlinQuery<Unit, Unit, TElement>
     {
         public GremlinQueryImpl(IImmutableList<GremlinStep> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings)
         {
@@ -83,12 +87,12 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<TTarget>(this.Steps, this.StepLabelMappings);
         }
 
-        //public IGremlinQuery<TTarget, Unit, TElement> CastOutVertex<TTarget>()
+        //public IEGremlinQuery<TTarget, Unit, TElement> CastOutVertex<TTarget>()
         //{
         //    return new GremlinQueryImpl<TTarget, TInVertex, TElement>(this.Steps, this.StepLabelMappings);
         //}
 
-        //public IGremlinQuery<TOutVertex, TTarget, TElement> CastInVertex<TTarget>()
+        //public IEGremlinQuery<TOutVertex, TTarget, TElement> CastInVertex<TTarget>()
         //{
         //    return new GremlinQueryImpl<TOutVertex, TTarget, TElement>(this.Steps, this.StepLabelMappings);
         //}
