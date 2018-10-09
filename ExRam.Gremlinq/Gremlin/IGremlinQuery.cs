@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> InsertStep<TElement>(int index, GremlinStep step);
         IGremlinQuery<TVertex> InV<TVertex>();
         IGremlinQuery<TEdge> InE<TEdge>();
-        IGremlinQuery<Edge> OtherV();
+        IGremlinQuery<Vertex> OtherV();
         IGremlinQuery<TEdge> OutE<TEdge>();
         IGremlinQuery<TVertex> OutV<TVertex>();
         IGremlinQuery<Vertex> Out<TEdge>();

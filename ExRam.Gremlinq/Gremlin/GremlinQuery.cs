@@ -360,10 +360,10 @@ namespace ExRam.Gremlinq
                     .AddStep("order");
             }
 
-            public IGremlinQuery<Edge> OtherV()
+            public IGremlinQuery<Vertex> OtherV()
             {
                 return this
-                    .AddStep<TElement, Edge>("otherV");
+                    .AddStep<TElement, Vertex>("otherV");
             }
 
             public IGremlinQuery<TEdge> OutE<TEdge>()
