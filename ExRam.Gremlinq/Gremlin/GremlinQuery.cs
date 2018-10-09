@@ -142,7 +142,7 @@ namespace ExRam.Gremlinq
                 .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
         }
 
-        IGremlinQuery<TEdge> IGremlinQuery.BothE<TEdge>()
+        IEGremlinQuery<TEdge> IVGremlinQuery<TElement>.BothE<TEdge>()
         {
             return this
                 .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("bothE"));
