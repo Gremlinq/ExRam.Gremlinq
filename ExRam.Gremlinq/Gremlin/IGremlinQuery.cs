@@ -12,9 +12,9 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new();
         IGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new();
-        IGremlinQuery<Vertex> Both();
+
         IGremlinQuery<TEdge> BothE<TEdge>();
-        IGremlinQuery<Vertex> BothV();
+        
         IGremlinQuery<TElement> Cast<TElement>();
         IGremlinQuery<Unit> Drop();
         IGremlinQuery<Edge> E(params object[] ids);
@@ -90,12 +90,12 @@ namespace ExRam.Gremlinq
 
     public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>
     {
-
+        IVGremlinQuery<Vertex> Both();
     }
 
     public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>
     {
-
+        IVGremlinQuery<Vertex> BothV();
     }
 
     public interface IEGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>

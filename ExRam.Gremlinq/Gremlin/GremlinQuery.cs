@@ -84,8 +84,14 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<TTarget> IGremlinQuery.Cast<TTarget>()
         {
+            return this.Cast<TTarget>();
+        }
+
+        private GremlinQueryImpl<TTarget> Cast<TTarget>()
+        {
             return new GremlinQueryImpl<TTarget>(this.Steps, this.StepLabelMappings);
         }
+
 
         //public IEGremlinQuery<TTarget, Unit, TElement> CastOutVertex<TTarget>()
         //{
@@ -130,7 +136,7 @@ namespace ExRam.Gremlinq
                     trueChoice(anonymous));
         }
 
-        IGremlinQuery<Vertex> IGremlinQuery.Both()
+        IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.Both()
         {
             return this
                 .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
@@ -142,7 +148,7 @@ namespace ExRam.Gremlinq
                 .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("bothE"));
         }
 
-        IGremlinQuery<Vertex> IGremlinQuery.BothV()
+        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.BothV()
         {
             return this
                 .Call<Vertex>("bothV");
@@ -160,7 +166,7 @@ namespace ExRam.Gremlinq
                 .Aggregate(
                     this
                         .Call<TBranch>("branch", branchSelector(this.ToAnonymous())),
-                    (branchQuery, option) => branchQuery.Call("option", option(branchQuery.ToAnonymous())))
+                    (branchQuery, option) => branchQuery.Call<TBranch>("option", option(branchQuery.ToAnonymous())))
                 .Cast<TEnd>();
         }
 
@@ -319,6 +325,11 @@ namespace ExRam.Gremlinq
         }
 
         IGremlinQuery<TTarget> IGremlinQuery.OfType<TTarget>()
+        {
+            return this.OfType<TTarget>();
+        }
+
+        private GremlinQueryImpl<TTarget> OfType<TTarget>()
         {
             return this
                 .AddStep<TTarget>(new DerivedLabelNamesGremlinStep<TTarget>("hasLabel"));
@@ -536,12 +547,12 @@ namespace ExRam.Gremlinq
             return state;
         }
 
-        private IGremlinQuery<TTarget> Call<TTarget>(string name, params object[] parameters)
+        private GremlinQueryImpl<TTarget> Call<TTarget>(string name, params object[] parameters)
         {
             return this.Call<TTarget>(name, parameters.ToImmutableList());
         }
 
-        private IGremlinQuery<TTarget> Call<TTarget>(string name, ImmutableList<object> parameters)
+        private GremlinQueryImpl<TTarget> Call<TTarget>(string name, ImmutableList<object> parameters)
         {
             return this.AddStep<TTarget>(new MethodGremlinStep(name, parameters));
         }
