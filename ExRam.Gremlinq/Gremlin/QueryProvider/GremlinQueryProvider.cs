@@ -117,25 +117,24 @@ namespace ExRam.Gremlinq
             }
         }
 
-        private sealed class RewriteStepsQueryProvider<TStep, TNative> : IModelGremlinQueryProvider<TNative> where TStep : NonTerminalGremlinStep
+        private sealed class RewriteStepsQueryProvider<TStep> : ITypedGremlinQueryProvider where TStep : NonTerminalGremlinStep
         {
-            private readonly IModelGremlinQueryProvider<TNative> _baseTypedGremlinQueryProvider;
+            private readonly ITypedGremlinQueryProvider _baseTypedGremlinQueryProvider;
             private readonly Func<TStep, Option<IEnumerable<GremlinStep>>> _replacementStepFactory;
 
-            public RewriteStepsQueryProvider(IModelGremlinQueryProvider<TNative> baseTypedGremlinQueryProvider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory)
+            public RewriteStepsQueryProvider(ITypedGremlinQueryProvider baseTypedGremlinQueryProvider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory)
             {
                 this._replacementStepFactory = replacementStepFactory;
                 this._baseTypedGremlinQueryProvider = baseTypedGremlinQueryProvider;
             }
 
-            public IAsyncEnumerable<TNative> Execute(IGremlinQuery query)
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return this._baseTypedGremlinQueryProvider.Execute(query
-                    .Cast<Unit>()
                     .RewriteSteps(step => step is TStep replacedStep
                         ? this._replacementStepFactory(replacedStep)
                         : Option<IEnumerable<GremlinStep>>.None)
-                    .Cast<Unit>());
+                    .Cast<TElement>());
             }
         }
         
@@ -172,22 +171,22 @@ namespace ExRam.Gremlinq
             return new JsonSupportTypedGremlinQueryProvider(provider);
         }
        
-        public static IModelGremlinQueryProvider<TNative> ReplaceElementProperty<TSource, TProperty, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        public static ITypedGremlinQueryProvider ReplaceElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
                 .DecorateElementProperty(overrideCriterion, step => new ReplaceElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
         }
 
-        public static IModelGremlinQueryProvider<TNative> SetDefautElementProperty<TSource, TProperty, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
+        public static ITypedGremlinQueryProvider SetDefautElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Expression<Func<TSource, TProperty>> memberExpression, TProperty value)
         {
             return provider
                 .DecorateElementProperty(overrideCriterion, step => new SetDefaultElementPropertyStep<TSource, TProperty>(step, memberExpression, value));
         }
 
-        public static IModelGremlinQueryProvider<TNative> DecorateElementProperty<TSource, TProperty, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TSource, bool> overrideCriterion, Func<AddElementPropertiesStep, DecorateAddElementPropertiesStep<TSource, TProperty>> replacementStepFactory)
+        public static ITypedGremlinQueryProvider DecorateElementProperty<TSource, TProperty>(this ITypedGremlinQueryProvider provider, Func<TSource, bool> overrideCriterion, Func<AddElementPropertiesStep, DecorateAddElementPropertiesStep<TSource, TProperty>> replacementStepFactory)
         {
             return provider
-                .RewriteSteps<AddElementPropertiesStep, TNative>(step =>
+                .RewriteSteps<AddElementPropertiesStep>(step =>
                 {
                     if (step.Element is TSource source)
                     {
@@ -199,9 +198,9 @@ namespace ExRam.Gremlinq
                 });
         }
 
-        public static IModelGremlinQueryProvider<TNative> RewriteSteps<TStep, TNative>(this IModelGremlinQueryProvider<TNative> provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
+        public static ITypedGremlinQueryProvider RewriteSteps<TStep>(this ITypedGremlinQueryProvider provider, Func<TStep, Option<IEnumerable<GremlinStep>>> replacementStepFactory) where TStep : NonTerminalGremlinStep
         {
-            return new RewriteStepsQueryProvider<TStep, TNative>(provider, replacementStepFactory);
+            return new RewriteStepsQueryProvider<TStep>(provider, replacementStepFactory);
         }
 
         public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
