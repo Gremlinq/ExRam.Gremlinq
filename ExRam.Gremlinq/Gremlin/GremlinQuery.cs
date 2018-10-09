@@ -385,10 +385,10 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement, Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("out"));
             }
 
-            public IGremlinQuery<TElement> Profile()
+            public IGremlinQuery<string> Profile()
             {
                 return this
-                    .AddStep("profile");
+                    .AddStep<TElement, string>("profile");
             }
 
             public IGremlinQuery<TElement> Property<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, TProperty property)

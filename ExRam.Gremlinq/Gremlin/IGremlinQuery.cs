@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TOther> Optional<TOther>(Func<IGremlinQuery<TElement>, IGremlinQuery<TOther>> optionalTraversal);
         IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
         IGremlinQuery<TElement> Order();
-        IGremlinQuery<TElement> Profile();  //TODO: Wrong signature
+        IGremlinQuery<string> Profile();
         IGremlinQuery<TElement> Property<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, TProperty property);
         IGremlinQuery<TElement> Property(string key, object value);
         IGremlinQuery<TElement> Range(long low, long high);
