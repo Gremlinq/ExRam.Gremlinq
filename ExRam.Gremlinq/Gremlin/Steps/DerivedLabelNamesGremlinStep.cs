@@ -17,12 +17,12 @@ namespace ExRam.Gremlinq
 
         public DerivedLabelNamesGremlinStep(string stepName)
         {
-            this._stepName = stepName;
+            _stepName = stepName;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            yield return new MethodGremlinStep(this._stepName, GetDerivedLabelNames(model));
+            yield return new MethodGremlinStep(_stepName, GetDerivedLabelNames(model));
         }
 
         private static ImmutableList<object> GetDerivedLabelNames(IGraphModel model)

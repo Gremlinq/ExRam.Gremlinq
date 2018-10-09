@@ -12,15 +12,15 @@ namespace ExRam.Gremlinq
 
         public HasStep(string key, Option<object> value = default)
         {
-            this._key = key;
-            this._value = value;
+            _key = key;
+            _value = value;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            var key = model.GetIdentifier(this._key);
+            var key = model.GetIdentifier(_key);
 
-            yield return this._value.Match(
+            yield return _value.Match(
                 value => new MethodGremlinStep(Name, key, value),
                 () => new MethodGremlinStep(Name, key));
         }

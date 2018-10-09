@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.CosmosDb
 
             public WorkaroundCosmosDbBugsQueryProvider(INativeGremlinQueryProvider<JToken> nativeGremlinQueryProviderImplementation)
             {
-                this._nativeGremlinQueryProviderImplementation = nativeGremlinQueryProviderImplementation;
+                _nativeGremlinQueryProviderImplementation = nativeGremlinQueryProviderImplementation;
             }
 
             public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.CosmosDb
                     .Select(kvp => kvp.Value is long l ? new KeyValuePair<string, object>(kvp.Key, (int)l) : kvp)
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-                return this._nativeGremlinQueryProviderImplementation.Execute(query, parameters);
+                return _nativeGremlinQueryProviderImplementation.Execute(query, parameters);
             }
         }
 
@@ -34,12 +34,12 @@ namespace ExRam.Gremlinq.CosmosDb
 
         public CosmosDbNativeGremlinQueryProvider(IGremlinClient client, ILogger logger)
         {
-            this._baseProvider = new WorkaroundCosmosDbBugsQueryProvider(new GremlinClientNativeGremlinQueryProvider(client, logger));
+            _baseProvider = new WorkaroundCosmosDbBugsQueryProvider(new GremlinClientNativeGremlinQueryProvider(client, logger));
         }
 
         public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
         {
-            return this._baseProvider.Execute(query, parameters);
+            return _baseProvider.Execute(query, parameters);
         }
     }
 }

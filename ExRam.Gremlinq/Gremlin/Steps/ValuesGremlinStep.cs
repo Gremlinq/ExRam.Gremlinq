@@ -12,12 +12,12 @@ namespace ExRam.Gremlinq
 
         public ValuesGremlinStep(Expression<Func<TSource, TTarget>>[] projections)
         {
-            this._projections = projections;
+            _projections = projections;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
         {
-            var keys = this._projections
+            var keys = _projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)

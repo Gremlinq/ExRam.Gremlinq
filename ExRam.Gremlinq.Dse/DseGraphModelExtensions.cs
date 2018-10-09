@@ -19,14 +19,14 @@ namespace ExRam.Gremlinq.Dse
                 IImmutableDictionary<Type, Expression> searchIndexes,
                 IImmutableDictionary<Type, IImmutableSet<(Type vertexType, Expression indexExpression, EdgeDirection direction)>> edgeIndexes)
             {
-                this.VertexLabels = vertexLabels;
-                this.EdgeLabels = edgeTypes;
-                this.Connections = connections;
-                this.PrimaryKeys = primaryKeys;
-                this.MaterializedIndexes = materializedIndexes;
-                this.SecondaryIndexes = secondaryIndexes;
-                this.SearchIndexes = searchIndexes;
-                this.EdgeIndexes = edgeIndexes;
+                VertexLabels = vertexLabels;
+                EdgeLabels = edgeTypes;
+                Connections = connections;
+                PrimaryKeys = primaryKeys;
+                MaterializedIndexes = materializedIndexes;
+                SecondaryIndexes = secondaryIndexes;
+                SearchIndexes = searchIndexes;
+                EdgeIndexes = edgeIndexes;
             }
 
             public Option<string> IdPropertyName => Option<string>.None;

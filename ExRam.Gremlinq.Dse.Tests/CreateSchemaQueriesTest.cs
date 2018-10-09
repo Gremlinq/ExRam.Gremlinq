@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Dse.Tests
 
         public DseGraphSchemaTest()
         {
-            this._queries = GraphModel
+            _queries = GraphModel
                 .FromAssembly(typeof(Gremlinq.Tests.Vertex).Assembly, typeof(Gremlinq.Tests.Vertex), typeof(Gremlinq.Tests.Edge), GraphElementNamingStrategy.Simple)
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
@@ -29,11 +29,11 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_non_abstract_vertex_types()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Company"));
         }
@@ -41,12 +41,12 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_properties()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                     x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "properties" && step.Parameters.Contains("Name")));
 
-            this._queries
+            _queries
                 .Should()
                 .OnlyContain(x => x.Steps.OfType<MethodGremlinStep>().All(step => step.Name != "properties" || step.Parameters.All(y => y is string)));
         }
@@ -54,11 +54,11 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_abstract_vertex_types()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Vertex"));
 
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority"));
         }
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_non_abstract_edge_types()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor"));
         }
@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_abstract_edge_types()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
@@ -82,22 +82,22 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_edge_connection_closure()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
                     x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" &&  (string)step.Parameters[1] == "Language"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "IsDescribedIn") &&
                     x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "Company" && (string)step.Parameters[1] == "Language"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                     x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                     x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "Company"));
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_from_abstract_vertices()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Authority"));
         }
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_to_abstract_vertices()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[1] == "Authority"));
         }
@@ -122,22 +122,22 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_connections_by_abstract_edges()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Knows") &&
                                  x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Speaks") &&
                                  x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            this._queries
+            _queries
                 .Should()
                 .Contain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "WorksFor") &&
                                  x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "connection" && (string)step.Parameters[0] == "User" && (string)step.Parameters[1] == "User"));
 
-            this._queries
+            _queries
                 .Should()
                 .NotContain(x => x.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "edgeLabel" && (string)step.Parameters[0] == "Edge"));
         }
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_secondary_index_for_abstract_type()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
                                     query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "secondary") &&
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_inherited_type()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "secondary") &&
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_secondary_index_for_value_type_expression()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "TimeFrame") &&
                                   query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "secondary") &&
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_does_not_include_materialized_index_for_abstract_type()
         {
-            this._queries
+            _queries
                 .Should()
                 .NotContain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Authority") &&
                                      query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "materialized") &&
@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_materialized_index_for_inherited_type()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "materialized") &&
@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_search_index()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "Country") &&
                                   query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "index" && (string)step.Parameters[0] == "search") &&
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         [Fact]
         public void FromAssembly_CreateSchemaQueries_includes_edge_index()
         {
-            this._queries
+            _queries
                 .Should()
                 .Contain(query => query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "vertexLabel" && (string)step.Parameters[0] == "User") &&
                                   query.Steps.OfType<MethodGremlinStep>().Any(step => step.Name == "index") &&

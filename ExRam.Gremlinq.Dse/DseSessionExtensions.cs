@@ -16,12 +16,12 @@ namespace Dse
 
             public DseGraphNativeQueryProvider(IDseSession session)
             {
-                this._session = session;
+                _session = session;
             }
 
             public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
             {
-                return this._session
+                return _session
                     .ExecuteGraphAsync(new SimpleGraphStatement(parameters
                         .ToDictionary(
                             kvp => kvp.Key,

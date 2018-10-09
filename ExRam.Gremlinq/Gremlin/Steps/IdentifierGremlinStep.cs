@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq
 
         public IdentifierGremlinStep(string variable)
         {
-            this._variable = variable;
+            _variable = variable;
         }
 
         public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return state.AppendIdentifier(stringBuilder, this._variable);
+            return state.AppendIdentifier(stringBuilder, _variable);
         }
     }
 }
