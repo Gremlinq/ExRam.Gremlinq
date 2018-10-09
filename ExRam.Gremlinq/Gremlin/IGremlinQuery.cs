@@ -97,14 +97,14 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<Vertex> BothV();
     }
 
-    public interface IEGremlinQuery<TAdjacentVertex, TEdge> : IGremlinQuery<TEdge>
+    public interface IEGremlinQuery<TAdjacentVertex, TEdge> : IEGremlinQuery<TEdge>
     {
         //new IEGremlinQuery<TAdjacentVertex, TTarget> Cast<TTarget>();
         //IEGremlinQuery<TTarget, TEdge> CastAdjacentVertex<TTarget>();
         //new IEGremlinQuery<TAdjacentVertex, TElement> InsertStep<TElement>(int index, GremlinStep step);
     }
 
-    public interface IEGremlinQuery<TOutVertex, TInVertex, TEdge> : IGremlinQuery<TEdge>
+    public interface IEGremlinQuery<TOutVertex, TInVertex, TEdge> : IEGremlinQuery<TEdge>
     {
         //new IEGremlinQuery<TOutVertex, TInVertex, TTarget> Cast<TTarget>();
         //IEGremlinQuery<TTarget, TInVertex, TEdge> CastOutVertex<TTarget>();
