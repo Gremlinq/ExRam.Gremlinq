@@ -136,10 +136,10 @@ namespace ExRam.Gremlinq
                     trueChoice(anonymous));
         }
 
-        IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.Both()
+        IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.Both<TEdge>()
         {
             return this
-                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
+                .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("both"));
         }
 
         IEGremlinQuery<TEdge> IVGremlinQuery<TElement>.BothE<TEdge>()

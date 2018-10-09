@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq
 
     public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>
     {
-        IVGremlinQuery<Vertex> Both();
+        IVGremlinQuery<Vertex> Both<TEdge>();
         IEGremlinQuery<TEdge> BothE<TEdge>();
     }
 
