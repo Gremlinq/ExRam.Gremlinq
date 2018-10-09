@@ -378,7 +378,9 @@ namespace ExRam.Gremlinq.Tests
                 .Select(JToken.Parse)
                 .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .WithJsonSupport()
-                .Execute(GremlinQuery<Vertex>.Create())
+                .Execute(GremlinQuery<Vertex>
+                    .Create()
+                    .SetModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)))
                 .First() as Language;
 
             language.Should().NotBeNull();

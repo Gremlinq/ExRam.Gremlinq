@@ -14,14 +14,16 @@ namespace ExRam.Gremlinq
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
-            private readonly JsonTransformRule _transformRule;
             private readonly IModelGremlinQueryProvider<JToken> _baseProvider;
 
             public JsonSupportTypedGremlinQueryProvider(IModelGremlinQueryProvider<JToken> baseProvider)
             {
                 this._baseProvider = baseProvider;
+            }
 
-                this._transformRule = JsonTransformRules
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            {
+                var transformRule = JsonTransformRules
                     .Empty
                     .Lazy((token, recurse) => token is JObject jObject && (jObject["@type"]?.ToString().Equals("g:Property", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault()
                         ? jObject.TryGetValue("@value")
@@ -70,8 +72,9 @@ namespace ExRam.Gremlinq
                         {
                             return jObject
                                 .TryGetValue("label")
-                                .Bind(labelToken => baseProvider.Model
-                                    .TryGetElementTypeOfLabel(labelToken.ToString()))
+                                .Bind(labelToken => query
+                                    .TryGetModel()
+                                    .Bind(model => model.TryGetElementTypeOfLabel(labelToken.ToString())))
                                 .Bind(type =>
                                 {
                                     jObject.AddFirst(new JProperty("$type", type.AssemblyQualifiedName));
@@ -99,15 +102,12 @@ namespace ExRam.Gremlinq
                         return Option<JToken>.None;
                     })
                     .Lazy(JsonTransformRules.Identity);
-            }
 
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
                 return this._baseProvider
                     .Execute(query)
                     .SelectMany(rawData => Serializer
                         .Deserialize<TElement[]>(new JTokenReader(rawData
-                            .Transform(this._transformRule)
+                            .Transform(transformRule)
                             .IfNone(EmptyJArray)))
                         .ToAsyncEnumerable());
             }
