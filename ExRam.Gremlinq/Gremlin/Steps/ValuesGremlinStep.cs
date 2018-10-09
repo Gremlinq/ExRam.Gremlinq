@@ -41,8 +41,7 @@ namespace ExRam.Gremlinq
                 yield return new MethodGremlinStep("union",
                     GremlinQuery.Anonymous.Call(
                         "values",
-                        propertyKeys
-                            .ToImmutableList()),
+                        propertyKeys),
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)

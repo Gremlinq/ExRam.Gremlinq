@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
             {
                 return this
-                    .AddStep<TElement, TVertex>(new AddVGremlinStep(vertex))
+                    .AddStep<TVertex>(new AddVGremlinStep(vertex))
                     .AddStep(new AddElementPropertiesStep(vertex));
             }
 
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TEdge> AddE<TEdge>(TEdge edge)
             {
                 return this
-                    .AddStep<TElement, TEdge>(new AddEGremlinStep(edge))
+                    .AddStep<TEdge>(new AddEGremlinStep(edge))
                     .AddStep(new AddElementPropertiesStep(edge));
             }
 
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TTarget> Coalesce<TTarget>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] traversals)
             {
                 return this
-                    .Call<TElement, TTarget>(
+                    .Call<TTarget>(
                         "coalesce",
                         traversals
                             .Select(traversal => traversal(this.ToAnonymous()))
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq
                 var anonymous = this.ToAnonymous();
 
                 return this
-                    .Call<TElement, TResult>(
+                    .Call<TResult>(
                         "choose",
                         traversalPredicate(anonymous),
                         trueChoice(anonymous),
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq
                 var anonymous = this.ToAnonymous();
 
                 return this
-                    .Call<TElement, TResult>(
+                    .Call<TResult>(
                         "choose",
                         traversalPredicate(anonymous),
                         trueChoice(anonymous));
@@ -138,19 +138,19 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Vertex> Both()
             {
                 return this
-                    .AddStep<TElement, Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
+                    .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TElement>("both"));
             }
 
             public IGremlinQuery<TEdge> BothE<TEdge>()
             {
                 return this
-                    .AddStep<TElement, TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("bothE"));
+                    .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("bothE"));
             }
 
             public IGremlinQuery<Vertex> BothV()
             {
                 return this
-                    .Call<TElement, Vertex>("bothV");
+                    .Call<Vertex>("bothV");
             }
 
             public IGremlinQuery<TEnd> BranchOnIdentity<TEnd>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TEnd>>[] options)
@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq
                 return options
                     .Aggregate(
                         this
-                            .Call<TElement, TBranch>("branch", branchSelector(this.ToAnonymous())),
+                            .Call<TBranch>("branch", branchSelector(this.ToAnonymous())),
                         (branchQuery, option) => branchQuery.Call("option", option(branchQuery.ToAnonymous())))
                     .Cast<TEnd>();
             }
@@ -205,13 +205,13 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Unit> Drop()
             {
                 return this
-                    .Call<TElement, Unit>("drop");
+                    .Call<Unit>("drop");
             }
 
             public IGremlinQuery<Edge> E(params object[] ids)
             {
                 return this
-                    .Call<TElement, Edge>("E", ids);
+                    .Call<Edge>("E", ids);
             }
 
             public IGremlinQuery<TElement> Emit()
@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TElement[]> Fold()
             {
                 return this
-                    .Call<TElement, TElement[]>("fold");
+                    .Call<TElement[]>("fold");
             }
 
             public IGremlinQuery<TElement> From<TStepLabel>(StepLabel<TStepLabel> stepLabel)
@@ -253,7 +253,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<object> Id()
             {
                 return this
-                    .Call<TElement, object>("id");
+                    .Call<object>("id");
             }
 
             public IGremlinQuery<TElement> Identity()
@@ -265,7 +265,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Vertex> In<TEdge>()
             {
                 return this
-                    .AddStep<TElement, Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("in"));
+                    .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("in"));
             }
 
             IGremlinQuery<TTarget> IGremlinQuery.InsertStep<TTarget>(int index, GremlinStep step)
@@ -281,13 +281,13 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TEdge> InE<TEdge>()
             {
                 return this
-                    .AddStep<TElement, TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("inE"));
+                    .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("inE"));
             }
 
             public IGremlinQuery<TVertex> InV<TVertex>()
             {
                 return this
-                    .Call<TElement, Vertex>("inV")
+                    .Call<Vertex>("inV")
                     .OfType<TVertex>();
             }
 
@@ -306,13 +306,13 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TTarget> Local<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal)
             {
                 return this
-                    .Call<TElement, TTarget>("local", localTraversal(this.ToAnonymous()));
+                    .Call<TTarget>("local", localTraversal(this.ToAnonymous()));
             }
 
             public IGremlinQuery<TTarget> Map<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> mapping)
             {
                 return this
-                    .Call<TElement, TTarget>("map", mapping(this.ToAnonymous()));
+                    .Call<TTarget>("map", mapping(this.ToAnonymous()));
             }
 
             public IGremlinQuery<TElement> Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals)
@@ -331,14 +331,13 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TTarget> OfType<TTarget>()
             {
                 return this
-                    .Cast<TTarget>()
-                    .AddStep(new DerivedLabelNamesGremlinStep<TTarget>("hasLabel"));
+                    .AddStep<TTarget>(new DerivedLabelNamesGremlinStep<TTarget>("hasLabel"));
             }
 
             public IGremlinQuery<TTarget> Optional<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> optionalTraversal)
             {
                 return this
-                    .Call<TElement, TTarget>("optional", optionalTraversal(this.ToAnonymous()));
+                    .Call<TTarget>("optional", optionalTraversal(this.ToAnonymous()));
             }
 
             public IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals)
@@ -363,32 +362,32 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Vertex> OtherV()
             {
                 return this
-                    .Call<TElement, Vertex>("otherV");
+                    .Call<Vertex>("otherV");
             }
 
             public IGremlinQuery<TEdge> OutE<TEdge>()
             {
                 return this
-                    .AddStep<TElement, TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("outE"));
+                    .AddStep<TEdge>(new DerivedLabelNamesGremlinStep<TEdge>("outE"));
             }
 
             public IGremlinQuery<TVertex> OutV<TVertex>()
             {
                 return this
-                    .Call<TElement, Vertex>("outV")
+                    .Call<Vertex>("outV")
                     .OfType<TVertex>();
             }
 
             public IGremlinQuery<Vertex> Out<TEdge>()
             {
                 return this
-                    .AddStep<TElement, Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("out"));
+                    .AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TEdge>("out"));
             }
 
             public IGremlinQuery<string> Profile()
             {
                 return this
-                    .Call<TElement, string>("profile");
+                    .Call<string>("profile");
             }
 
             public IGremlinQuery<TElement> Property<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, TProperty property)
@@ -425,13 +424,13 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<TStep> Select<TStep>(StepLabel<TStep> label)
             {
                 return this
-                    .Call<TElement, TStep>("select", label);
+                    .Call<TStep>("select", label);
             }
 
             public IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
             {
                 return this
-                    .Call<TElement, (T1, T2)>("select", label1, label2)
+                    .Call<(T1, T2)>("select", label1, label2)
                     .AddStepLabelBinding(x => x.Item1, label1)
                     .AddStepLabelBinding(x => x.Item2, label2);
             }
@@ -439,7 +438,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
             {
                 return this
-                    .Call<TElement, (T1, T2, T3)>("select", label1, label2, label3)
+                    .Call<(T1, T2, T3)>("select", label1, label2, label3)
                     .AddStepLabelBinding(x => x.Item1, label1)
                     .AddStepLabelBinding(x => x.Item2, label2)
                     .AddStepLabelBinding(x => x.Item3, label3);
@@ -448,7 +447,7 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
             {
                 return this
-                    .Call<TElement, (T1, T2, T3, T4)>("select", label1, label2, label3, label4)
+                    .Call<(T1, T2, T3, T4)>("select", label1, label2, label3, label4)
                     .AddStepLabelBinding(x => x.Item1, label1)
                     .AddStepLabelBinding(x => x.Item2, label2)
                     .AddStepLabelBinding(x => x.Item3, label3)
@@ -498,14 +497,15 @@ namespace ExRam.Gremlinq
 
             public IGremlinQuery<TElement> Unfold(IGremlinQuery<IEnumerable<TElement>> query)
             {
-                return query
-                    .Call< IEnumerable<TElement>, TElement >("unfold");
+                throw new NotImplementedException();    //Bug!
+                //return query
+                //    .Call<TElement>("unfold");
             }
 
             public IGremlinQuery<TTarget> Union<TTarget>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] unionTraversals)
             {
                 return this
-                    .Call<TElement, TTarget>("union", unionTraversals
+                    .Call<TTarget>("union", unionTraversals
                         .Select(unionTraversal => unionTraversal(this.ToAnonymous()))
                         .ToImmutableList<object>());
             }
@@ -519,12 +519,12 @@ namespace ExRam.Gremlinq
             public IGremlinQuery<Vertex> V(params object[] ids)
             {
                 return this
-                    .Call<TElement, Vertex>("V", ids);
+                    .Call<Vertex>("V", ids);
             }
 
             public IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections)
             {
-                return this.AddStep<TElement, TTarget>(new ValuesGremlinStep<TElement, TTarget>(projections));
+                return this.AddStep<TTarget>(new ValuesGremlinStep<TElement, TTarget>(projections));
             }
 
             public IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal)
@@ -544,6 +544,26 @@ namespace ExRam.Gremlinq
                 }
 
                 return state;
+            }
+
+            private IGremlinQuery<TTarget> Call<TTarget>(string name, params object[] parameters)
+            {
+                return this.Call<TTarget>(name, parameters.ToImmutableList());
+            }
+
+            private IGremlinQuery<TTarget> Call<TTarget>(string name, ImmutableList<object> parameters)
+            {
+                return this.AddStep<TTarget>(new MethodGremlinStep(name, parameters));
+            }
+
+            private IGremlinQuery<TElement> AddStep(GremlinStep step)
+            {
+                return this.AddStep<TElement>(step);
+            }
+
+            private IGremlinQuery<TTarget> AddStep<TTarget>(GremlinStep step)
+            {
+                return this.InsertStep<TTarget>(this.Steps.Count, step);
             }
 
             public IImmutableList<GremlinStep> Steps { get; }
@@ -629,27 +649,12 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> Call<TElement>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
         {
-            return query.Call<TElement, TElement>(name, parameters);
-        }
-
-        internal static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
-        {
-            return query.Call<TElement, TTarget>(name, parameters.ToImmutableList());
-        }
-
-        internal static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
-        {
-            return query.AddStep<TElement, TTarget>(new MethodGremlinStep(name, parameters));
+            return query.InsertStep<TElement>(query.Steps.Count, new MethodGremlinStep(name, parameters));
         }
 
         internal static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, GremlinStep step)
         {
-            return query.AddStep<TElement, TElement>(step);
-        }
-
-        internal static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, GremlinStep step)
-        {
-            return query.InsertStep<TTarget>(query.Steps.Count, step);
+            return query.InsertStep<TElement>(query.Steps.Count, step);
         }
         
         public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)
@@ -661,7 +666,7 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> ReplaceSteps<TElement>(this IGremlinQuery<TElement> query, IImmutableList<GremlinStep> steps)
         {
-            return ReferenceEquals(steps, query.Steps) 
+            return ReferenceEquals(steps, query.Steps)
                 ? query 
                 : new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(steps, query.StepLabelMappings);
         }
