@@ -577,6 +577,12 @@ namespace ExRam.Gremlinq
             return GremlinQuery<TElement>.Anonymous;
         }
 
+        public static IGremlinQuery<TElement> SetModel<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
+        {
+            return query
+                .AddStep(new SetModelGremlinStep(model));
+        }
+
         public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider queryProvider)
         {
             return query
@@ -971,6 +977,15 @@ namespace ExRam.Gremlinq
                 .Steps
                 .OfType<SetTypedGremlinQueryProviderGremlinStep>()
                 .Select(x => Option<ITypedGremlinQueryProvider>.Some(x.TypedGremlinQueryProvider))
+                .LastOrDefault();
+        }
+
+        internal static Option<IGraphModel> TryGetModel(this IGremlinQuery query)
+        {
+            return query
+                .Steps
+                .OfType<SetModelGremlinStep>()
+                .Select(x => Option<IGraphModel>.Some(x.Model))
                 .LastOrDefault();
         }
     }
