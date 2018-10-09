@@ -39,10 +39,10 @@ namespace ExRam.Gremlinq
             if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
             {
                 yield return new MethodGremlinStep("union",
-                    GremlinQuery.Anonymous.AddStep(new MethodGremlinStep(
+                    GremlinQuery.Anonymous.Call(
                         "values",
                         propertyKeys
-                            .ToImmutableList())),
+                            .ToImmutableList()),
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)

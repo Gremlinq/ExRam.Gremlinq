@@ -624,30 +624,30 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> Call<TElement>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
         {
-            return query.AddStep(new MethodGremlinStep(name, parameters));
+            return query.Call(name, parameters.ToImmutableList());
         }
 
         public static IGremlinQuery<TElement> Call<TElement>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
         {
-            return query.InsertStep<TElement>(query.Steps.Count, new MethodGremlinStep(name, parameters));
+            return query.Call<TElement, TElement>(name, parameters);
         }
 
-        public static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
+        internal static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
+        {
+            return query.Call<TElement, TTarget>(name, parameters.ToImmutableList());
+        }
+
+        internal static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
         {
             return query.AddStep<TElement, TTarget>(new MethodGremlinStep(name, parameters));
         }
 
-        public static IGremlinQuery<TTarget> Call<TElement, TTarget>(this IGremlinQuery<TElement> query, string name, ImmutableList<object> parameters)
+        internal static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, GremlinStep step)
         {
-            return query.InsertStep<TTarget>(query.Steps.Count, new MethodGremlinStep(name, parameters));
+            return query.AddStep<TElement, TElement>(step);
         }
 
-        public static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, GremlinStep step)
-        {
-            return query.InsertStep<TElement>(query.Steps.Count, step);
-        }
-
-        public static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, GremlinStep step)
+        internal static IGremlinQuery<TTarget> AddStep<TElement, TTarget>(this IGremlinQuery<TElement> query, GremlinStep step)
         {
             return query.InsertStep<TTarget>(query.Steps.Count, step);
         }
