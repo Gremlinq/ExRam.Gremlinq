@@ -111,8 +111,6 @@ namespace ExRam.Gremlinq
                             .IfNone(EmptyJArray)))
                         .ToAsyncEnumerable());
             }
-
-            public IGraphModel Model => this._baseProvider.Model;
         }
 
         private sealed class ModelGremlinQueryProvider<TNative> : IModelGremlinQueryProvider<TNative>
@@ -159,8 +157,6 @@ namespace ExRam.Gremlinq
                         : Option<IEnumerable<GremlinStep>>.None)
                     .Cast<Unit>());
             }
-
-            public IGraphModel Model => this._baseTypedGremlinQueryProvider.Model;
         }
         
         private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : INativeGremlinQueryProvider<TNativeTarget>
