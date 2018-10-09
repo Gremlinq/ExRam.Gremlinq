@@ -673,8 +673,12 @@ namespace ExRam.Gremlinq
                 : new GremlinQuery<TElement>.GremlinQueryImpl<Unit, Unit>(steps, query.StepLabelMappings);
         }
 
-        public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
+        public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query)
         {
+            var model = query
+                .TryGetModel()
+                .IfNone(() => throw new ArgumentException("No IGraphModel set on the query."));
+
             return query
                 .RewriteSteps(x => Option<IEnumerable<GremlinStep>>.Some(x.Resolve(model)))
                 .Cast<TElement>();

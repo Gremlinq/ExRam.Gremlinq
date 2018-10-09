@@ -127,7 +127,7 @@ namespace ExRam.Gremlinq
             {
                 var serialized = query
                     .Cast<Unit>()
-                    .Resolve(this.Model)
+                    .Resolve()
                     .Serialize();
 
                 return this._baseProvider
