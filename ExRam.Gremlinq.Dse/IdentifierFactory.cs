@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Dse
 {
     public sealed class IdentifierFactory : IIdentifierFactory
     {

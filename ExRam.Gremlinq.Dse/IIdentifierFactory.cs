@@ -1,4 +1,4 @@
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Dse
 {
     public interface IIdentifierFactory
     {
