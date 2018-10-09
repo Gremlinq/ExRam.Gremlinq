@@ -6,9 +6,4 @@ namespace ExRam.Gremlinq
     {
         GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state);
     }
-
-    public interface ITopGroovySerializable : IGroovySerializable
-    {
-        GroovyExpressionState Serialize(StringBuilder stringBuilder);
-    }
 }

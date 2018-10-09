@@ -533,11 +533,6 @@ namespace ExRam.Gremlinq
                     .AddStep("where", filterTraversal(this.ToAnonymous()));
             }
 
-            public GroovyExpressionState Serialize(StringBuilder stringBuilder)
-            {
-                return this.Serialize(stringBuilder, GroovyExpressionState.FromQuery(this));
-            }
-
             public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
             {
                 foreach (var step in this.Steps)
@@ -589,12 +584,12 @@ namespace ExRam.Gremlinq
                 .AddStep(new SetTypedGremlinQueryProviderGremlinStep(queryProvider));
         }
 
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this ITopGroovySerializable query)
+        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
         {
             var stringBuilder = new StringBuilder();
 
             var groovyBuilder = query
-                .Serialize(stringBuilder);
+                .Serialize(stringBuilder, GroovyExpressionState.FromQuery(query));
 
             return (stringBuilder.ToString(), groovyBuilder.GetVariables());
         }
