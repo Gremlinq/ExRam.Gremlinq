@@ -1105,6 +1105,26 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_where_with_traversal()
+        {
+            var query = _g
+                .V<User>()
+                .Where(_ => _.Out<LivesIn>())
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).where(__.out(_P2))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "LivesIn");
+        }
+
+        [Fact]
         public void AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
