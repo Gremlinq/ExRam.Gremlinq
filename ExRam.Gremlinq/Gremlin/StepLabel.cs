@@ -42,4 +42,15 @@ namespace ExRam.Gremlinq
     {
 
     }
+
+    public class OutEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
+    {
+
+    }
+
+
+    public class InEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
+    {
+
+    }
 }

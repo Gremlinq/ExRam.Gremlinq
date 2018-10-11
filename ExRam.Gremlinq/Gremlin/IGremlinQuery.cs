@@ -24,6 +24,8 @@ namespace ExRam.Gremlinq
         
         IGremlinQuery<TElement> InsertStep<TElement>(int index, GremlinStep step);
 
+        TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+
         IGremlinQuery<TTarget> OfType<TTarget>();
 
         IGremlinQuery<string> Profile();
@@ -31,6 +33,9 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);
         IVGremlinQuery<TVertex> Select<TVertex>(VStepLabel<TVertex> label);
         IEGremlinQuery<TEdge> Select<TEdge>(EStepLabel<TEdge> label);
+        IEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(EStepLabel<TEdge, TAdjacentVertex> label);
+        IOutEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(OutEStepLabel<TEdge, TAdjacentVertex> label);
+        IInEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(InEStepLabel<TEdge, TAdjacentVertex> label);
 
         IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
         IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);
@@ -57,9 +62,10 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> Inject(params TElement[] elements);
         IGremlinQuery<TElement> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
-        IGremlinQuery<TTarget> Map<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> mapping);
+        TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         IGremlinQuery<TElement> Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals);
         IGremlinQuery<TElement> Not(Func<IGremlinQuery<TElement>, IGremlinQuery> notTraversal);
+        IGremlinQuery<TElement> Optional(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> optionalTraversal);
         IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
         IGremlinQuery<TElement> OrderBy(Expression<Func<TElement, object>> projection);
         IGremlinQuery<TElement> OrderBy(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal);
@@ -68,13 +74,16 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> OrderByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal);
         IGremlinQuery<TElement> Property(string key, object value);
         IGremlinQuery<TElement> Range(long low, long high);
+
+        IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal);
+        IGremlinQuery<TElement> RepeatUntil(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal, Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+
         IGremlinQuery<TElement> SideEffect(Func<IGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         IGremlinQuery<TElement> Skip(long skip);
         IGremlinQuery<TElement> Sum(Scope scope);
         IGremlinQuery<TElement> Times(int count);
         IGremlinQuery<TElement> Tail(long limit);
-        IGremlinQuery<TElement> Unfold(IGremlinQuery<IEnumerable<TElement>> query);
-        IGremlinQuery<TElement> Until(Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+        IGremlinQuery<TItem> Unfold<TItem>();
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
 
         IGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
@@ -104,6 +113,7 @@ namespace ExRam.Gremlinq
         new IVGremlinQuery<TVertex> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IVGremlinQuery<TVertex>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
+        TTargetQuery Map<TTargetQuery>(Func<IVGremlinQuery<TVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         IVGremlinQuery<TVertex> Not(Func<IVGremlinQuery<TVertex>, IGremlinQuery> notTraversal);
 
         new IVGremlinQuery<TTarget> OfType<TTarget>();
@@ -114,11 +124,12 @@ namespace ExRam.Gremlinq
         new IVGremlinQuery<TVertex> OrderByDescending(Expression<Func<TVertex, object>> projection);
         IVGremlinQuery<TVertex> OrderByDescending(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
         IVGremlinQuery<Vertex> Out<TEdge>();
-        IGremlinQuery<TOther> Optional<TOther>(Func<IVGremlinQuery<TVertex>, IGremlinQuery<TOther>> optionalTraversal);
+        IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         new IVGremlinQuery<TVertex> Range(long low, long high);
         IVGremlinQuery<TVertex> Repeat(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal);
+        IVGremlinQuery<TVertex> RepeatUntil(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal, Func<IVGremlinQuery<TVertex>, IGremlinQuery> untilTraversal);
 
         IVGremlinQuery<TVertex> SideEffect(Func<IVGremlinQuery<TVertex>, IGremlinQuery> sideEffectTraversal);
         new IVGremlinQuery<TVertex> Skip(long skip);
@@ -150,6 +161,8 @@ namespace ExRam.Gremlinq
         new IEGremlinQuery<TEdge> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IEGremlinQuery<TEdge>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
+        TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+
         new IEGremlinQuery<TTarget> OfType<TTarget>();
         new IEGremlinQuery<TEdge> OrderBy(Expression<Func<TEdge, object>> projection);
         IEGremlinQuery<TEdge> OrderBy(Func<IEGremlinQuery<TEdge>, IGremlinQuery> traversal);
@@ -160,6 +173,8 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<Vertex> OutV();
 
         new IEGremlinQuery<TEdge> Range(long low, long high);
+        IEGremlinQuery<TEdge> Repeat(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal);
+        IEGremlinQuery<TEdge> RepeatUntil(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal, Func<IEGremlinQuery<TEdge>, IGremlinQuery> untilTraversal);
 
         IEGremlinQuery<TEdge> SideEffect(Func<IEGremlinQuery<TEdge>, IGremlinQuery> sideEffectTraversal);
         new IEGremlinQuery<TEdge> Skip(long skip);
@@ -175,9 +190,18 @@ namespace ExRam.Gremlinq
 
     public interface IOutEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
+        TTargetQuery As<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IOutEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
+        TTargetQuery Map<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+
         new IOutEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Expression<Func<TEdge, object>> projection);
+        IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(string lambda);
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
         new IVGremlinQuery<TAdjacentVertex> OutV();
 
         new IOutEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
@@ -186,10 +210,20 @@ namespace ExRam.Gremlinq
 
     public interface IInEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
+        TTargetQuery As<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
-        new IInEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IVGremlinQuery<TAdjacentVertex> InV();
+
+        TTargetQuery Map<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+
+        new IInEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Expression<Func<TEdge, object>> projection);
+        IInEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(string lambda);
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        IInEGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
 
         new IInEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
         IInEGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
@@ -203,6 +237,8 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
+
+        TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
 
@@ -219,7 +255,16 @@ namespace ExRam.Gremlinq
 
         new IVGremlinQuery<TInVertex> InV();
 
+        TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+
         new IEGremlinQuery<TTarget, TOutVertex, TInVertex> OfType<TTarget>();
+
+        new IEGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(Expression<Func<TEdge, object>> projection);
+        IEGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
+        new IEGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(string lambda);
+        new IEGremlinQuery<TEdge, TOutVertex, TInVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        IEGremlinQuery<TEdge, TOutVertex, TInVertex> OrderByDescending(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
+
         new IVGremlinQuery<TOutVertex> OutV();
 
         new IEGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Expression<Func<TEdge, bool>> predicate);
