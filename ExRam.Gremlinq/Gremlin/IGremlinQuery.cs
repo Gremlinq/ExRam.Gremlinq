@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq
 
         new IVGremlinQuery<TVertex> Emit();
         IVGremlinQuery<Vertex> In<TEdge>();
-        IEGremlinQuery<TEdge> InE<TEdge>();
+        IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
 
         new IVGremlinQuery<TVertex> Limit(long limit);
         IGremlinQuery<TTarget> Local<TTarget>(Func<IVGremlinQuery<TVertex>, IGremlinQuery<TTarget>> localTraversal);
@@ -111,11 +111,12 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TVertex> OrderByDescending(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
         IVGremlinQuery<Vertex> Out<TEdge>();
         IGremlinQuery<TOther> Optional<TOther>(Func<IVGremlinQuery<TVertex>, IGremlinQuery<TOther>> optionalTraversal);
-        IEGremlinQuery<TEdge> OutE<TEdge>();
+        IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         new IVGremlinQuery<TVertex> Range(long low, long high);
         IVGremlinQuery<TVertex> Repeat(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal);
 
+        IVGremlinQuery<TVertex> SideEffect(Func<IVGremlinQuery<TVertex>, IGremlinQuery> sideEffectTraversal);
         new IVGremlinQuery<TVertex> Skip(long skip);
 
         new IVGremlinQuery<TVertex> Tail(long limit);
@@ -154,6 +155,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Range(long low, long high);
 
+        IEGremlinQuery<TEdge> SideEffect(Func<IEGremlinQuery<TEdge>, IGremlinQuery> sideEffectTraversal);
         new IEGremlinQuery<TEdge> Skip(long skip);
 
         new IEGremlinQuery<TEdge> Tail(long limit);
@@ -163,6 +165,20 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
         IEGremlinQuery<TEdge> Where(Func<IEGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
+    }
+
+    public interface IOutEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
+    {
+        new IOutEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
+
+        new IVGremlinQuery<TAdjacentVertex> OutV();
+    }
+
+    public interface IInEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
+    {
+        new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
+
+        new IVGremlinQuery<TAdjacentVertex> InV();
     }
 
     public interface IEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
@@ -181,7 +197,7 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
 
-    public interface IEGremlinQuery<TEdge, TOutVertex, TInVertex> : IEGremlinQuery<TEdge>
+    public interface IEGremlinQuery<TEdge, TOutVertex, TInVertex> : IEGremlinQuery<TEdge, TOutVertex>, IOutEGremlinQuery<TEdge, TOutVertex>, IInEGremlinQuery<TEdge, TInVertex>
     {
         new IEGremlinQuery<TOtherEdge, TOutVertex, TInVertex> Cast<TOtherEdge>();
 
