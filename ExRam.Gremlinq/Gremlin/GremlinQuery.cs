@@ -79,34 +79,30 @@ namespace ExRam.Gremlinq
         #endregion
 
         #region As
-        TTargetQuery IVGremlinQuery<TElement>.As<TTargetQuery>(Func<IVGremlinQuery<TElement>, StepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
+        TTargetQuery IVGremlinQuery<TElement>.As<TTargetQuery>(Func<IVGremlinQuery<TElement>, VStepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
 
         TTargetQuery IGremlinQuery<TElement>.As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
 
-        private TTargetQuery As<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, StepLabel<TElement>, TTargetQuery> continuation)
+        TTargetQuery IEGremlinQuery<TElement>.As<TTargetQuery>(Func<IEGremlinQuery<TElement>, EStepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
+
+        TTargetQuery IEGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IEGremlinQuery<TElement, TOutVertex>, EStepLabel<TElement, TOutVertex>, TTargetQuery> continuation) => As(continuation);
+
+        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel<TElement>, new()
             where TTargetQuery : IGremlinQuery
         {
-            var stepLabel = new StepLabel<TElement>();
+            var stepLabel = new TStepLabel();
 
             return continuation(
                 this.As(stepLabel),
                 stepLabel);
         }
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel)
-        {
-            return As(stepLabel);
-        }
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
-        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel)
-        {
-            return As(stepLabel);
-        }
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel)
-        {
-            return Call("as", stepLabel);
-        }
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => Call("as", stepLabel);
         #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Barrier() => Call("barrier");
@@ -249,11 +245,21 @@ namespace ExRam.Gremlinq
         #endregion
 
         #region Local
-        IGremlinQuery<TTarget> IGremlinQuery<TElement>.Local<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal) => Call<TTarget>("local", localTraversal(Anonymous));
+        TTargetQuery IEGremlinQuery<TElement>.Local<TTargetQuery>(Func<IEGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
 
-        IGremlinQuery<TTarget> IVGremlinQuery<TElement>.Local<TTarget>(Func<IVGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal) => Call<TTarget>("local", localTraversal(Anonymous));
+        TTargetQuery IVGremlinQuery<TElement>.Local<TTargetQuery>(Func<IVGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
 
-        IGremlinQuery<TTarget> IEGremlinQuery<TElement>.Local<TTarget>(Func<IEGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal) => Call<TTarget>("local", localTraversal(Anonymous));
+        TTargetQuery IGremlinQuery<TElement>.Local<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
+
+        private TTargetQuery Local<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery> localTraversal)
+            where TTargetQuery : IGremlinQuery
+        {
+            return this
+                .Call(
+                    "local",
+                    localTraversal(Anonymous))
+                .CastQuery<TTargetQuery>();
+        }
         #endregion
 
         IGremlinQuery<TTarget> IGremlinQuery<TElement>.Map<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> mapping) => Call<TTarget>("map", mapping(Anonymous));
@@ -398,7 +404,13 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Repeat(Func<IVGremlinQuery<TElement>, IVGremlinQuery<TElement>> repeatTraversal) => Call("repeat", repeatTraversal(Anonymous));
 
         #region Select
-        IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Call<TStep>("select", label);
+        IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Select<TStep, Unit, Unit>(label);
+
+        IVGremlinQuery<TVertex> IGremlinQuery.Select<TVertex>(VStepLabel<TVertex> label) => Select<TVertex, Unit, Unit>(label);
+
+        IEGremlinQuery<TEdge> IGremlinQuery.Select<TEdge>(EStepLabel<TEdge> label) => Select<TEdge, Unit, Unit>(label);
+
+        private GremlinQueryImpl<TSelectedElement, TSelectedOutVertex, TSelectedInVertex> Select<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(StepLabel<TSelectedElement> stepLabel) => Call<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>("select", stepLabel);
 
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {

@@ -27,4 +27,19 @@ namespace ExRam.Gremlinq
             throw new NotImplementedException("Only for expressions.");
         }
     }
+
+    public class VStepLabel<TVertex> : StepLabel<TVertex>
+    {
+       
+    }
+
+    public class EStepLabel<TEdge> : StepLabel<TEdge>
+    {
+
+    }
+
+    public class EStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
+    {
+
+    }
 }
