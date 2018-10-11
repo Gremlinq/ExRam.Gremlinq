@@ -1406,8 +1406,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByMember(x => x.Name, Order.Increasing)
+                .OrderBy(x => x.Name)
                 .Resolve()
                 .Serialize();
 
@@ -1426,8 +1425,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByTraversal(__ => __.Values(x => x.Name), Order.Increasing)
+                .OrderBy(__ => __.Values(x => x.Name))
                 .Resolve()
                 .Serialize();
 
@@ -1446,8 +1444,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .Order()
-                .ByLambda("it.property('str').value().length()")
+                .OrderBy("it.property('str').value().length()")
                 .Resolve()
                 .Serialize();
 

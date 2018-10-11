@@ -219,68 +219,6 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
-        #region Branch
-        //IGremlinQuery<TEnd> IGremlinQuery<TElement>.BranchOnIdentity<TEnd>(params Func<IGremlinQuery<TElement>, IGremlinQuery<TEnd>>[] options)
-        //{
-        //    return ((IGremlinQuery<TElement>)this)
-        //        .Branch(_ => _.Identity(), options);
-        //}
-
-        //IGremlinQuery<TEnd> IGremlinQuery<TElement>.Branch<TBranch, TEnd>(Func<IGremlinQuery<TElement>, IGremlinQuery<TBranch>> branchSelector, params Func<IVGremlinQuery<TElement>, IGremlinQuery<TEnd>>[] options)
-        //{
-        //    return options
-        //        .Aggregate(
-        //            this
-        //                .Call<TBranch>("branch", branchSelector(this.Anonymous)),
-        //            (branchQuery, option) => branchQuery.Call<TBranch>("option", option(branchQuery.Anonymous)))
-        //        .Cast<TEnd>();
-        //}
-
-        //IGremlinQuery<TTarget> IVGremlinQuery<TElement>.Branch<TBranch, TTarget>(Func<IVGremlinQuery<TElement>, IGremlinQuery<TBranch>> branchSelector, params Func<IVGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] options)
-        //{
-        //    return options
-        //        .Aggregate(
-        //            this
-        //                .Call<TBranch>("branch", branchSelector(this.Anonymous)),
-        //            (branchQuery, option) => branchQuery.Call<TBranch>("option", option(branchQuery.Anonymous)))
-        //        .Cast<TTarget>();
-        //}
-
-        //private GremlinQueryImpl<TTarget, TE, TInVertex> Branch<TBranch, TTarget>(Func<IVGremlinQuery<TElement>, IGremlinQuery<TBranch>> branchSelector, params Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>>[] options)
-        //{
-        //    return options
-        //        .Aggregate(
-        //            this
-        //                .Call<TBranch>("branch", branchSelector(this.Anonymous)),
-        //            (branchQuery, option) => branchQuery.Call<TBranch>("option", option(branchQuery.Anonymous)))
-        //        .Cast<TTarget>();
-        //}
-        #endregion
-
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.ByTraversal(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal, Order sortOrder)
-        {
-            return Call("by", traversal(Anonymous), sortOrder);
-        }
-
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.ByMember(Expression<Func<TElement, object>> projection, Order sortOrder)
-        {
-            var body = projection.Body;
-            if (body is UnaryExpression && body.NodeType == ExpressionType.Convert)
-                body = ((UnaryExpression)body).Operand;
-
-            if (body is MemberExpression memberExpression)
-            {
-                return Call("by", memberExpression.Member.Name, sortOrder);
-            }
-
-            throw new NotSupportedException();
-        }
-
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.ByLambda(string lambdaString)
-        {
-            return Call("by", new Lambda(lambdaString));
-        }
-
         #region Dedup
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Dedup()
         {
@@ -288,6 +226,11 @@ namespace ExRam.Gremlinq
         }
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Dedup()
+        {
+            return Dedup();
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Dedup()
         {
             return Dedup();
         }
@@ -319,13 +262,18 @@ namespace ExRam.Gremlinq
             return Emit();
         }
 
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Emit()
+        {
+            return Emit();
+        }
+
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Emit()
         {
             return Call("emit");
         }
         #endregion
 
-        IGremlinQuery<string> IGremlinQuery<TElement>.Explain()
+        IGremlinQuery<string> IGremlinQuery.Explain()
         {
             return Call<string>("explain");
         }
@@ -349,6 +297,16 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTargetVertex>> fromVertexTraversal)
         {
             return Call<TElement, TTargetVertex, TOutVertex>("from", fromVertexTraversal(Anonymous));
+        }
+
+        IEGremlinQuery<TElement, TTargetVertex> IEGremlinQuery<TElement>.From<TTargetVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTargetVertex>> fromVertexTraversal)
+        {
+            return Call<TElement, TTargetVertex, Unit>("from", fromVertexTraversal(Anonymous));
+         }
+
+        IEGremlinQuery<TElement, TTargetVertex> IEGremlinQuery<TElement>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
+        {
+            return Call<TElement, TTargetVertex, Unit>("from", stepLabel);
         }
         #endregion
 
@@ -394,15 +352,39 @@ namespace ExRam.Gremlinq
             return Call("inject", elements);
         }
 
+        #region Limit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long limit)
         {
             return Call("limit", limit);
         }
 
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Limit(long limit)
+        {
+            return Call("limit", limit);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Limit(long limit)
+        {
+            return Call("limit", limit);
+        }
+        #endregion
+
+        #region Local
         IGremlinQuery<TTarget> IGremlinQuery<TElement>.Local<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal)
         {
             return Call<TTarget>("local", localTraversal(Anonymous));
         }
+
+        IGremlinQuery<TTarget> IVGremlinQuery<TElement>.Local<TTarget>(Func<IVGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal)
+        {
+            return Call<TTarget>("local", localTraversal(Anonymous));
+        }
+
+        IGremlinQuery<TTarget> IEGremlinQuery<TElement>.Local<TTarget>(Func<IEGremlinQuery<TElement>, IGremlinQuery<TTarget>> localTraversal)
+        {
+            return Call<TTarget>("local", localTraversal(Anonymous));
+        }
+        #endregion
 
         IGremlinQuery<TTarget> IGremlinQuery<TElement>.Map<TTarget>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTarget>> mapping)
         {
@@ -479,11 +461,113 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Order()
+        #region OrderBy{Descending} projection
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection)
         {
-            return Call("order");
+            return OrderBy(projection, Order.Increasing);
         }
 
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection)
+        {
+            return OrderBy(projection, Order.Increasing);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection)
+        {
+            return OrderBy(projection, Order.Increasing);
+        }
+
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection)
+        {
+            return OrderBy(projection, Order.Decreasing);
+        }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection)
+        {
+            return OrderBy(projection, Order.Decreasing);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection)
+        {
+            return OrderBy(projection, Order.Decreasing);
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(Expression<Func<TElement, object>> projection, Order order)
+        {
+            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+            {
+                return this
+                    .Call("order")
+                    .Call("by", memberExpression.Member.Name, order);
+            }
+
+            throw new NotSupportedException();
+        }
+        #endregion
+
+        #region OrderBy{Descending} traversal
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Increasing);
+        }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.OrderBy(Func<IVGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Increasing);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.OrderBy(Func<IEGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Increasing);
+        }
+
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.OrderByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Decreasing);
+        }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.OrderByDescending(Func<IVGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Decreasing);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.OrderByDescending(Func<IEGremlinQuery<TElement>, IGremlinQuery> traversal)
+        {
+            return OrderBy(traversal, Order.Decreasing);
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal, Order order)
+        {
+            return this
+                .Call("order")
+                .Call("by", traversal(Anonymous), order);
+        }
+        #endregion
+
+        #region OrderBy{Descending} lambda
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(string lambda)
+        {
+            return OrderBy(lambda);
+        }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.OrderBy(string lambda)
+        {
+            return OrderBy(lambda);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.OrderBy(string lambda)
+        {
+            throw new NotImplementedException();
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(string lambda)
+        {
+            return this
+                .Call("order")
+                .Call("by", new Lambda(lambda));
+        }
+        #endregion
+        
         IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OtherV()
         {
             return Call<Vertex>("otherV");
@@ -511,25 +595,12 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
-        IGremlinQuery<string> IGremlinQuery<TElement>.Profile()
+        IGremlinQuery<string> IGremlinQuery.Profile()
         {
             return Call<string>("profile");
         }
 
         #region Property
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Property<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, TProperty property)
-        {
-            if (propertyExpression.Body is MemberExpression memberExpression)
-            {
-                if (memberExpression.Expression == propertyExpression.Parameters[0])
-                {
-                    return ((IGremlinQuery<TElement>)this).Property(memberExpression.Member.Name, property);
-                }
-            }
-
-            throw new NotSupportedException();
-        }
-
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Property(string key, object value)
         {
             return Call("property", key, value);
@@ -539,6 +610,17 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Range(long low, long high)
         {
             return Call("range", low, high);
+        }
+        
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Range(long low, long high)
+        {
+            return Call("range", low, high);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Range(long low, long high)
+        {
+            return Call("range", low, high);
+
         }
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Repeat(Func<IVGremlinQuery<TElement>, IVGremlinQuery<TElement>> repeatTraversal)
@@ -582,10 +664,22 @@ namespace ExRam.Gremlinq
             return Call("sideEffect", sideEffectTraversal(Anonymous));
         }
 
+        #region Skip
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Skip(long skip)
         {
             return Call("skip", skip);
         }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Skip(long skip)
+        {
+            return Call("skip", skip);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Skip(long skip)
+        {
+            return Call("skip", skip);
+        }
+        #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Sum(Scope scope)
         {
@@ -597,10 +691,22 @@ namespace ExRam.Gremlinq
             return Call("times", count);
         }
 
+        #region Tail
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Tail(long limit)
         {
             return Call("tail", limit);
         }
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Tail(long limit)
+        {
+            return Call("tail", limit);
+        }
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Tail(long limit)
+        {
+            return Call("tail", limit);
+        }
+        #endregion
 
         #region To
         IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
@@ -611,6 +717,16 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTargetVertex>> toVertexTraversal)
         {
             return Call<TElement, TOutVertex, TTargetVertex>("to", toVertexTraversal(Anonymous));
+        }
+
+        IEGremlinQuery<TElement, TTargetVertex> IEGremlinQuery<TElement>.To<TTargetVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTargetVertex>> toVertexTraversal)
+        {
+            return Call<TElement, TTargetVertex, Unit>("to", toVertexTraversal(Anonymous));
+        }
+
+        IEGremlinQuery<TElement, TTargetVertex> IEGremlinQuery<TElement>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel)
+        {
+            return Call<TElement, TTargetVertex, Unit>("to", stepLabel);
         }
         #endregion
 
@@ -993,7 +1109,7 @@ namespace ExRam.Gremlinq
             var type = typeof(GremlinQueryImpl<,,>).MakeGenericType(elementType, outVertexType, inVertexType);
             return (TTargetQuery)Activator.CreateInstance(type, this.Steps, this.StepLabelMappings);
         }
-        
+
         public IImmutableList<GremlinStep> Steps { get; }
         public IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
@@ -1020,10 +1136,18 @@ namespace ExRam.Gremlinq
             return GremlinQuery<TElement>.Create(graphName);
         }
 
-        //internal TTargetQuery CastQuery<TTargetQuery, TNewElement>(IGremlinQuery query) where TTargetQuery : IGremlinQuery<TNewElement>
-        //{
-        //    return GremlinQuery
-        //}
+        public static IGremlinQuery<TElement> Property<TElement, TProperty>(this IGremlinQuery<TElement> query, Expression<Func<TElement, TProperty>> propertyExpression, TProperty property)
+        {
+            if (propertyExpression.Body is MemberExpression memberExpression)
+            {
+                if (memberExpression.Expression == propertyExpression.Parameters[0])
+                {
+                    return query.Property(memberExpression.Member.Name, property);
+                }
+            }
+
+            throw new NotSupportedException();
+        }
 
         public static IGremlinQuery<TElement> SetModel<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
