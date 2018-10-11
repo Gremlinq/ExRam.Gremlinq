@@ -279,6 +279,10 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TTarget, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OfType<TTarget>() => OfType<TTarget>();
 
+        IOutEGremlinQuery<TTarget, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>();
+
+        IInEGremlinQuery<TTarget, TInVertex> IInEGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfType<TTarget>();
+
         private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfType<TTarget>() => AddStep<TTarget>(new DerivedLabelNamesGremlinStep<TTarget>("hasLabel"));
         #endregion
 
@@ -371,7 +375,7 @@ namespace ExRam.Gremlinq
         IOutEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.OutE<TNewEdge>() => AddStep<TNewEdge, TElement, Unit>(new DerivedLabelNamesGremlinStep<TNewEdge>("outE"));
 
         IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OutV() => Call<Vertex, Unit, Unit>("outV");
-
+        
         IVGremlinQuery<TOutVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OutV() => Call<TOutVertex, Unit, Unit>("outV");
 
         IVGremlinQuery<TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OutV() => Call<TOutVertex, Unit, Unit>("outV");
@@ -503,6 +507,10 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Where(Func<IVGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.Where(Func<IOutEGremlinQuery<TElement, TOutVertex>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
+
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Where(Func<IInEGremlinQuery<TElement, TInVertex>, IGremlinQuery> filterTraversal) => this.Where(filterTraversal);
+
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal) => Call("where", filterTraversal(Anonymous));
         #endregion
 
@@ -516,6 +524,10 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
         IEGremlinQuery<TElement, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
+
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => this.Where(predicate);
+
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => this.Where(predicate);
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(Expression<Func<TElement, bool>> predicate)
         {
