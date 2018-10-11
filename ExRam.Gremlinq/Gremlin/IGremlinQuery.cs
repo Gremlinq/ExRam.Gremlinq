@@ -136,8 +136,8 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Emit();
 
-        IEGremlinQuery<TEdge, TTargetVertex> From<TTargetVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
-        IEGremlinQuery<TEdge, TTargetVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
+        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
+        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         IVGremlinQuery<Vertex> InV();
 
@@ -160,8 +160,8 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Tail(long limit);
 
-        IEGremlinQuery<TEdge, TTargetVertex> To<TTargetVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
-        IEGremlinQuery<TEdge, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
+        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TInVertex>> toVertexTraversal);
+        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
         IEGremlinQuery<TEdge> Where(Func<IEGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
@@ -171,14 +171,22 @@ namespace ExRam.Gremlinq
     {
         new IOutEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
+        new IOutEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IVGremlinQuery<TAdjacentVertex> OutV();
+
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
+        IOutEGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
 
     public interface IInEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
+        new IInEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IVGremlinQuery<TAdjacentVertex> InV();
+
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
+        IInEGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
 
     public interface IEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
