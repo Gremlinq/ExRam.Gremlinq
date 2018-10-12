@@ -1893,5 +1893,21 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 36);
         }
+
+        [Fact]
+        public void Coalesce()
+        {
+            var query = _g
+                .V()
+                .Coalesce(
+                     _ => _
+                        .Identity())
+                .Resolve()
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().coalesce(__.identity())");
+        }
     }
 }

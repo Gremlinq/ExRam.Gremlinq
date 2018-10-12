@@ -878,7 +878,7 @@ namespace ExRam.Gremlinq
 
                 var genericTypeDef = typeof(TTargetQuery).GetGenericTypeDefinition();
 
-                if (genericTypeDef != typeof(IVGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<,>) && genericTypeDef != typeof(IEGremlinQuery<,,>))
+                if (genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<,>) && genericTypeDef != typeof(IEGremlinQuery<,,>))
                     throw new NotSupportedException();
 
                 elementType = typeof(TTargetQuery).GetGenericArguments()[0];
