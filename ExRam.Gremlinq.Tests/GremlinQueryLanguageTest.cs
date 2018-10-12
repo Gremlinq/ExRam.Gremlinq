@@ -1918,5 +1918,27 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString.Should().Be("__.identity()");
         }
+
+        [Fact]
+        public void WithSubgraphStrategyTest()
+        {
+            var query = g
+                .WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
+
+            query.Steps.Should().HaveCount(2);
+            query.Steps[1].Should().BeOfType<MethodGremlinStep>();
+            query.Steps[1].As<MethodGremlinStep>().Name.Should().Be("withStrategies");
+            query.Steps[1].As<MethodGremlinStep>().Parameters.Should().HaveCount(1);
+        }
+
+        [Fact]
+        public void WithSubgraphStrategy_is_ommitted_if_empty()
+        {
+            var query = g
+                .WithSubgraphStrategy(_ => _, _ => _);
+
+            query.Steps.Should().HaveCount(1);
+            query.Steps[0].Should().BeOfType<IdentifierGremlinStep>();
+        }
     }
 }

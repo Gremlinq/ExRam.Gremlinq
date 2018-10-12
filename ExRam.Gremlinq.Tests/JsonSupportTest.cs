@@ -513,5 +513,25 @@ namespace ExRam.Gremlinq.Tests
             languages[1][1].Id.Should().Be("4da59ae1600f4b60a4e319b70661d8f2");
             languages[1][1].IetfLanguageTag.Should().Be("en");
         }
+
+        [Fact]
+        public async Task Scalar()
+        {
+            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
+                .Returns(AsyncEnumerable.Return("[ 36 ]"));
+
+            var value = await queryProviderMock.Object
+                .Select(JToken.Parse)
+                .WithJsonSupport()
+                .Execute(GremlinQuery
+                    .Create("g")
+                    .SetModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .Cast<int>())
+                .First();
+
+            value.Should().Be(36);
+        }
     }
 }
