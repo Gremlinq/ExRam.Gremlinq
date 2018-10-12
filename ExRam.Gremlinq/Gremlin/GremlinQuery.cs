@@ -848,6 +848,9 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
+            if (Steps.Count == 1 && Steps[0] is IdentifierGremlinStep identifierStep && identifierStep.Identifier == "__")
+                return this.Identity().Serialize(stringBuilder, state);
+
             foreach (var step in Steps)
             {
                 if (step is IGroovySerializable serializableStep)

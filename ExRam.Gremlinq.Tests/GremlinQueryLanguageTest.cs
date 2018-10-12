@@ -1909,5 +1909,14 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .Be("g.V().coalesce(__.identity())");
         }
+
+        [Fact]
+        public void Anonymous()
+        {
+            var query = GremlinQuery.Anonymous
+                .Serialize();
+
+            query.queryString.Should().Be("__.identity()");
+        }
     }
 }
