@@ -29,20 +29,19 @@ namespace ExRam.Gremlinq.Tests
 
         static JsonSupportTest()
         {
-            SingleLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Language.json")).ReadToEnd();
-            SingleCompanyJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_Company.json")).ReadToEnd();
-            SingleUserJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User.json")).ReadToEnd();
-            SingleUserLowercasePropertiesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_lowercase_properties.json")).ReadToEnd();
-            SingleUserWithoutPhoneNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_User_without_PhoneNumbers.json")).ReadToEnd();
-            TupleOfUserLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Tuple_of_User_Language.json")).ReadToEnd();
-            ArrayOfLanguages = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Array_of_Languages.json")).ReadToEnd();
-            NestedArrayOfLanguagesJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Nested_array_of_Languages.json")).ReadToEnd();
-            SingleTimeFrameJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame.json")).ReadToEnd();
-            SingleTimeFrameWithNumbersJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_TimeFrame_with_numbers.json")).ReadToEnd();
-            SingleIsDescribedIn = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Single_IsDescribedIn.json")).ReadToEnd();
-            Graphson3TupleOfUserLanguageJson = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Graphson3_Tuple_of_User_Language.json")).ReadToEnd();
-
-            Graphson3ReferenceVertex = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("ExRam.Gremlinq.Tests.Json.Graphson3ReferenceVertex.json")).ReadToEnd();
+            SingleLanguageJson = GetJson("Single_Language");
+            SingleCompanyJson = GetJson("Single_Company");
+            SingleUserJson = GetJson("Single_User");
+            SingleUserLowercasePropertiesJson = GetJson("Single_User_lowercase_properties");
+            SingleUserWithoutPhoneNumbersJson = GetJson("Single_User_without_PhoneNumbers");
+            TupleOfUserLanguageJson = GetJson("Tuple_of_User_Language");
+            ArrayOfLanguages = GetJson("Array_of_Languages");
+            NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
+            SingleTimeFrameJson = GetJson("Single_TimeFrame");
+            SingleTimeFrameWithNumbersJson = GetJson("Single_TimeFrame_with_numbers");
+            SingleIsDescribedIn = GetJson("Single_IsDescribedIn");
+            Graphson3TupleOfUserLanguageJson = GetJson("Graphson3_Tuple_of_User_Language");
+            Graphson3ReferenceVertex = GetJson("Graphson3ReferenceVertex");
         }
 
         [Fact]
@@ -532,6 +531,11 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             value.Should().Be(36);
+        }
+
+        private static string GetJson(string name)
+        {
+            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Tests.Json.{name}.json")).ReadToEnd();
         }
     }
 }
