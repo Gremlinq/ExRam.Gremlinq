@@ -38,17 +38,20 @@ namespace ExRam.Gremlinq
 
     }
 
+    // ReSharper disable once UnusedTypeParameter
     public class EStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
     {
 
     }
 
+    // ReSharper disable once UnusedTypeParameter
     public class OutEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
     {
 
     }
 
 
+    // ReSharper disable once UnusedTypeParameter
     public class InEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
     {
 

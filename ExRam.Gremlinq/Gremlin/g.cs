@@ -7,50 +7,49 @@ namespace ExRam.Gremlinq
     public static class g
     {
         // ReSharper disable once UnusedMember.Global
-        // ReSharper disable once RedundantArgumentDefaultValue
-        internal static readonly IGremlinQuery<Unit> _g = GremlinQuery.Create("g");
+        internal static readonly IGremlinQuery<Unit> G = GremlinQuery.Create("g");
 
         public static IGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
         {
-            return _g.AddV(vertex);
+            return G.AddV(vertex);
         }
 
         public static IGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new()
         {
-            return _g.AddV<TVertex>();
+            return G.AddV<TVertex>();
         }
 
         public static IGremlinQuery<Vertex> V(params object[] ids)
         {
-            return _g.V(ids);
+            return G.V(ids);
         }
 
         public static IGremlinQuery<TVertex> V<TVertex>(params object[] ids)
         {
-            return _g.V<TVertex>(ids);
+            return G.V<TVertex>(ids);
         }
 
         public static IGremlinQuery<Edge> E(params object[] ids)
         {
-            return _g.E(ids);
+            return G.E(ids);
         }
 
         public static IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements)
         {
-            return _g
+            return G
                 .Cast<TElement>()
                 .Inject(elements);
         }
 
         public static IGremlinQuery<Unit> WithSubgraphStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
-            return _g
+            return G
                 .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
         }
 
         public static IGremlinQuery<Unit> SetModel(IGraphModel model)
         {
-            return _g
+            return G
                 .SetModel(model);
         }
     }
