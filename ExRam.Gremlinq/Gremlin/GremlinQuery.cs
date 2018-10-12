@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => Call("filter", new Lambda(lambda));
 
         IGremlinQuery<TElement[]> IGremlinQuery<TElement>.Fold() => Call<TElement[]>("fold");
-
+        
         #region From
         IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => Call<TElement, TTargetVertex, TOutVertex>("from", stepLabel);
 
@@ -220,7 +220,23 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<object> IGremlinQuery.Id() => Call<object>("id");
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Call("identity");
+        #region Identity
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Identity();
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Identity() => Identity();
+
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
+
+        IEGremlinQuery<TElement, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Identity() => Identity();
+
+        IEGremlinQuery<TElement, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.Identity() => Identity();
+
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Identity() => Identity();
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Identity() => Call("identity");
+        #endregion
 
         IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<Vertex>(new DerivedLabelNamesGremlinStep<TNewEdge>("in"));
 

@@ -107,6 +107,7 @@ namespace ExRam.Gremlinq
         new IVGremlinQuery<TVertex> Dedup();
 
         new IVGremlinQuery<TVertex> Emit();
+        new IVGremlinQuery<TVertex> Identity();
         IVGremlinQuery<Vertex> In<TEdge>();
         IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
 
@@ -156,6 +157,7 @@ namespace ExRam.Gremlinq
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
+        new IEGremlinQuery<TEdge> Identity();
         IVGremlinQuery<Vertex> InV();
 
         new IEGremlinQuery<TEdge> Limit(long limit);
@@ -196,6 +198,8 @@ namespace ExRam.Gremlinq
 
         TTargetQuery Map<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> Identity();
+
         new IOutEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Expression<Func<TEdge, object>> projection);
         IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
@@ -214,6 +218,7 @@ namespace ExRam.Gremlinq
 
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> Identity();
         new IVGremlinQuery<TAdjacentVertex> InV();
 
         TTargetQuery Map<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -238,6 +243,8 @@ namespace ExRam.Gremlinq
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
+        new IEGremlinQuery<TEdge, TAdjacentVertex> Identity();
+
         TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
@@ -253,6 +260,7 @@ namespace ExRam.Gremlinq
     {
         new IEGremlinQuery<TOtherEdge, TOutVertex, TInVertex> Cast<TOtherEdge>();
 
+        new IEGremlinQuery<TEdge, TOutVertex, TInVertex> Identity();
         new IVGremlinQuery<TInVertex> InV();
 
         TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
