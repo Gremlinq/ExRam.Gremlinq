@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TResult> Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice);
         IGremlinQuery<TElement> Dedup();
         IGremlinQuery<TElement> Emit();
-        IGremlinQuery<TElement> FilterWithLambda(string lambda);
+        IGremlinQuery<TElement> Filter(string lambda);
         IGremlinQuery<TElement[]> Fold();
         IGremlinQuery<TElement> Identity();
         IGremlinQuery<TElement> Inject(params TElement[] elements);

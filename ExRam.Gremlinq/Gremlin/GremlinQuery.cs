@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<string> IGremlinQuery.Explain() => Call<string>("explain");
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.FilterWithLambda(string lambda) => Call("filter", new Lambda(lambda));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => Call("filter", new Lambda(lambda));
 
         IGremlinQuery<TElement[]> IGremlinQuery<TElement>.Fold() => Call<TElement[]>("fold");
 

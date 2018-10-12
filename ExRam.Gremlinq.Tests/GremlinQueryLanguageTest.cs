@@ -1346,7 +1346,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = _g
                 .V<User>()
-                .FilterWithLambda("it.property('str').value().length() == 2")
+                .Filter("it.property('str').value().length() == 2")
                 .Resolve()
                 .Serialize();
 
