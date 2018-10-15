@@ -9,24 +9,21 @@ namespace ExRam.Gremlinq.Tests
 {
     public class GremlinQueryTest
     {
-        private readonly IGremlinQuery<Unit> _g;
+        private readonly IGraphModel _model;
 
         public GremlinQueryTest()
         {
-            var model = GraphModel
+            _model = GraphModel
                 .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
                 .WithIdPropertyName("Id");
-
-            _g = g
-                .SetModel(model);
         }
 
         [Fact]
         public void AddV()
         {
-            var query = _g
+            var query = g
                 .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -44,9 +41,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_nulls()
         {
-            var query = _g
+            var query = g
                 .AddV(new Language {Id = "id"})
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -62,9 +59,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_multi_property()
         {
-            var query = _g
+            var query = g
                 .AddV(new User { Id = "id", PhoneNumbers = new[] { "+4912345", "+4923456" } })
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -89,9 +86,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_enum_property()
         {
-            var query = _g
+            var query = g
                 .AddV(new User { Id = "id", Gender = Gender.Female })
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -113,10 +110,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_specific_phoneNumber()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -133,10 +130,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_does_not_contain_specific_phoneNumber()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -153,10 +150,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_a_phoneNumber()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Any())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -172,10 +169,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_contains_no_phoneNumber()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Any())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -191,10 +188,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_intersects_phoneNumbers()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -212,10 +209,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_not_intersects_phoneNumbers()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -233,10 +230,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Age_is_contained_in_some_array()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -258,10 +255,10 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -280,10 +277,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Age_is_not_contained_in_some_array()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -305,10 +302,10 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -327,10 +324,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void CountryCallingCode_is_prefix_of_some_string()
         {
-            var query = _g
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -355,10 +352,10 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123";
 
-            var query = _g
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -383,10 +380,10 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123xxx";
 
-            var query = _g
+            var query = g
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -409,10 +406,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void User_PhoneNumber_has_some_prefix()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -430,10 +427,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void User_PhoneNumber_has_empty_prefix()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -451,10 +448,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -472,10 +469,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction_with_different_fields()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -494,10 +491,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -515,10 +512,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_complex_logical_expression()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -538,10 +535,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_complex_logical_expression_with_null()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -560,10 +557,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction_of_three()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -582,10 +579,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_disjunction_of_three()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -604,10 +601,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_conjunction_with_different_fields()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -626,9 +623,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType()
         {
-            var query = _g
+            var query = g
                 .V<User>()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -643,9 +640,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_does_not_include_abstract_types()
         {
-            var query = _g
+            var query = g
                 .V<Authority>()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -661,10 +658,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -683,10 +680,10 @@ namespace ExRam.Gremlinq.Tests
         {
             const int i = 18;
 
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age == i + i)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -703,10 +700,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_converted_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -723,10 +720,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_unequal_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age != 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -743,10 +740,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_no_string_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name == null)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -762,10 +759,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_string_property_exists()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Name != null)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -781,10 +778,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_lower_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age < 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -801,10 +798,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_lower_or_equal_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age <= 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -821,11 +818,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_explicit_comparison1()
         {
-            var query = _g
+            var query = g
                 .V<TimeFrame>()
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -842,10 +839,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_explicit_comparison2()
         {
-            var query = _g
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -862,10 +859,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_implicit_comparison1()
         {
-            var query = _g
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -882,10 +879,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_bool_property_with_implicit_comparison2()
         {
-            var query = _g
+            var query = g
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -902,10 +899,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_greater_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age > 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -922,10 +919,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_greater_or_equal_int_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(t => t.Age >= 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -942,10 +939,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_has_string_property()
         {
-            var query = _g
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == "languageId")
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -963,10 +960,10 @@ namespace ExRam.Gremlinq.Tests
         {
             const string local = "languageId";
 
-            var query = _g
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == local)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -984,10 +981,10 @@ namespace ExRam.Gremlinq.Tests
         {
             var local = new { Value = "languageId" };
 
-            var query = _g
+            var query = g
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1015,12 +1012,12 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<Language>();
 
-            var query = _g
+            var query = g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2 == l)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1038,13 +1035,13 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<string>();
 
-            var query = _g
+            var query = g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1063,12 +1060,12 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<Language>();
 
-            var query = _g
+            var query = g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2 == l)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1085,11 +1082,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_where_with_scalar()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1107,10 +1104,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_where_with_traversal()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Where(_ => _.Out<LivesIn>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1129,7 +1126,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var now = DateTimeOffset.UtcNow;
 
-            var query = _g
+            var query = g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -1139,7 +1136,7 @@ namespace ExRam.Gremlinq.Tests
                 .To(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1167,13 +1164,13 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_to_StepLabel()
         {
-            var query = _g
+            var query = g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1200,7 +1197,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var now = DateTimeOffset.UtcNow;
 
-            var query = _g
+            var query = g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -1210,7 +1207,7 @@ namespace ExRam.Gremlinq.Tests
                 .From(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1238,13 +1235,13 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_from_StepLabel()
         {
-            var query = _g
+            var query = g
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1268,13 +1265,13 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_InV()
         {
-            var query = _g
+            var query = g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
                 .InV()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1285,13 +1282,13 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_OutV()
         {
-            var query = _g
+            var query = g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
                 .OutV()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1302,14 +1299,14 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void And()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .And(
                     __ => __
                         .InE<Knows>(),
                     __ => __
                         .OutE<LivesIn>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1326,10 +1323,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Drop()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Drop()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1344,10 +1341,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void FilterWithLambda()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Filter("it.property('str').value().length() == 2")
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1362,10 +1359,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Out<Knows>()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1381,10 +1378,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out_does_not_include_abstract_edge()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Out<Edge>()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1404,10 +1401,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByMember()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .OrderBy(x => x.Name)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1423,10 +1420,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByTraversal()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1442,10 +1439,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_order_ByLambda()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .OrderBy("it.property('str').value().length()")
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1460,11 +1457,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_sum_With_local_scope()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Sum(Scope.Local)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1480,11 +1477,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_sum_With_global_scope()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Age)
                 .Sum(Scope.Global)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1500,10 +1497,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_one_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Name)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1519,10 +1516,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_Id_property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Id)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1537,10 +1534,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_two_properties()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => x.Name, x => x.Id)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1556,10 +1553,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_values_of_three_properties()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1576,9 +1573,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_without_type()
         {
-            var query = _g
+            var query = g
                 .V()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1593,10 +1590,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_OfType_with_inheritance()
         {
-            var query = _g
+            var query = g
                 .V()
                 .OfType<Authority>()
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1612,12 +1609,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Repeat_out_traversal()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Repeat(__ => __
                     .Out<Knows>()
                     .OfType<User>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1633,12 +1630,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Union_two_out_traversals()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Union(
                     __ => __.Out<Knows>(),
                     __ => __.Out<LivesIn>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1655,11 +1652,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal()
         {
-            var query = _g
+            var query = g
                 .V()
                 .Optional(
                     __ => __.Out<Knows>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1674,10 +1671,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Not_one_out_traversal()
         {
-            var query = _g
+            var query = g
                 .V()
                 .Not(__ => __.Out<Knows>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1692,10 +1689,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal_1()
         {
-            var query = _g
+            var query = g
                 .V()
                 .Not(__ => __.OfType<Language>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1710,10 +1707,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_ofType_Optional_one_out_traversal_2()
         {
-            var query = _g
+            var query = g
                 .V()
                 .Not(__ => __.OfType<Authority>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1729,10 +1726,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .As(new StepLabel<User>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1748,10 +1745,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_not_inlined()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .As(new StepLabel<User>())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1769,11 +1766,11 @@ namespace ExRam.Gremlinq.Tests
         {
             var stepLabel = new StepLabel<User>();
 
-            var query = _g
+            var query = g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1791,11 +1788,11 @@ namespace ExRam.Gremlinq.Tests
         {
             var stepLabel = new StepLabel<User>();
 
-            var query = _g
+            var query = g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1811,12 +1808,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_as_as_select()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1833,13 +1830,13 @@ namespace ExRam.Gremlinq.Tests
         //[Fact]
         //public void Branch()
         //{
-        //    var query = _g
+        //    var query = g
         //        .V<User>()
         //        .Branch(
         //            _ => _.Values(x => x.Name),
         //            _ => _.Out<Knows>(),
         //            _ => _.In<Knows>())
-        //        .Resolve()
+        //        .Resolve(_model)
         //        .Serialize();
 
         //    query.queryString
@@ -1856,12 +1853,12 @@ namespace ExRam.Gremlinq.Tests
         //[Fact]
         //public void BranchOnIdentity()
         //{
-        //    var query = _g
+        //    var query = g
         //        .V<User>()
         //        .BranchOnIdentity(
         //            _ => _.Out<Knows>(),
         //            _ => _.In<Knows>())
-        //        .Resolve()
+        //        .Resolve(_model)
         //        .Serialize();
 
         //    query.queryString
@@ -1877,10 +1874,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Set_Property()
         {
-            var query = _g
+            var query = g
                 .V<User>()
                 .Property(x => x.Age, 36)
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString
@@ -1897,12 +1894,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Coalesce()
         {
-            var query = _g
+            var query = g
                 .V()
                 .Coalesce(
                      _ => _
                         .Identity())
-                .Resolve()
+                .Resolve(_model)
                 .Serialize();
 
             query.queryString

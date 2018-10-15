@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using LanguageExt;
@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<Vertex> V(params object[] ids);
 
         IGremlinQuery<TElement> Cast<TElement>();
+        IGremlinQuery<long> Count();
         IGremlinQuery<Unit> Drop();
         IGremlinQuery<string> Explain();
 

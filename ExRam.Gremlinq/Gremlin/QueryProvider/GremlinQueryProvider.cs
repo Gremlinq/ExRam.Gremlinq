@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using LanguageExt;
@@ -13,10 +13,12 @@ namespace ExRam.Gremlinq
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
+            private readonly IGraphModel _model;
             private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
 
-            public JsonSupportTypedGremlinQueryProvider(INativeGremlinQueryProvider<JToken> baseProvider)
+            public JsonSupportTypedGremlinQueryProvider(INativeGremlinQueryProvider<JToken> baseProvider, IGraphModel model)
             {
+                _model = model;
                 _baseProvider = baseProvider;
             }
 
@@ -71,9 +73,7 @@ namespace ExRam.Gremlinq
                         {
                             return jObject
                                 .TryGetValue("label")
-                                .Bind(labelToken => query
-                                    .TryGetModel()
-                                    .Bind(model => model.TryGetElementTypeOfLabel(labelToken.ToString())))
+                                .Bind(labelToken => _model.TryGetElementTypeOfLabel(labelToken.ToString()))
                                 .Bind(type =>
                                 {
                                     jObject.AddFirst(new JProperty("$type", type.AssemblyQualifiedName));
@@ -103,7 +103,7 @@ namespace ExRam.Gremlinq
                     .Lazy(JsonTransformRules.Identity);
 
                 var serialized = query
-                    .Resolve()
+                    .Resolve(_model)
                     .Serialize();
 
                 return _baseProvider
@@ -144,9 +144,9 @@ namespace ExRam.Gremlinq
             return queryProvider.Execute(query);
         }
 
-        public static ITypedGremlinQueryProvider WithJsonSupport(this INativeGremlinQueryProvider<JToken> provider)
+        public static ITypedGremlinQueryProvider WithJsonSupport(this INativeGremlinQueryProvider<JToken> provider, IGraphModel model)
         {
-            return new JsonSupportTypedGremlinQueryProvider(provider);
+            return new JsonSupportTypedGremlinQueryProvider(provider, model);
         }
        
         public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)

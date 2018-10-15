@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -148,6 +148,8 @@ namespace ExRam.Gremlinq
                 .CastQuery<TTargetQuery>();
         }
         #endregion
+
+        IGremlinQuery<long> IGremlinQuery.Count() => Call<long>("count");
 
         #region Choose
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> falseChoice)
@@ -956,12 +958,6 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        public static IGremlinQuery<TElement> SetModel<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
-        {
-            return query
-                .AddStep(new SetModelGremlinStep(model));
-        }
-
         public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider queryProvider)
         {
             return query
@@ -1035,12 +1031,8 @@ namespace ExRam.Gremlinq
                 : new GremlinQueryImpl<TElement, Unit, Unit>(steps, query.StepLabelMappings);
         }
 
-        public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query)
+        public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
-            var model = query
-                .TryGetModel()
-                .IfNone(() => throw new ArgumentException("No IGraphModel set on the query."));
-
             return query
                 .RewriteSteps(x => Option<IEnumerable<GremlinStep>>.Some(x.Resolve(model)))
                 .Cast<TElement>();
@@ -1153,15 +1145,6 @@ namespace ExRam.Gremlinq
                 .Steps
                 .OfType<SetTypedGremlinQueryProviderGremlinStep>()
                 .Select(x => Option<ITypedGremlinQueryProvider>.Some(x.TypedGremlinQueryProvider))
-                .LastOrDefault();
-        }
-
-        internal static Option<IGraphModel> TryGetModel(this IGremlinQuery query)
-        {
-            return query
-                .Steps
-                .OfType<SetModelGremlinStep>()
-                .Select(x => Option<IGraphModel>.Some(x.Model))
                 .LastOrDefault();
         }
     }

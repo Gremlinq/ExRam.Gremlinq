@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
@@ -19,12 +19,12 @@ namespace ExRam.Gremlinq
             return G.AddV<TVertex>();
         }
 
-        public static IGremlinQuery<Vertex> V(params object[] ids)
+        public static IVGremlinQuery<Vertex> V(params object[] ids)
         {
             return G.V(ids);
         }
 
-        public static IGremlinQuery<TVertex> V<TVertex>(params object[] ids)
+        public static IVGremlinQuery<TVertex> V<TVertex>(params object[] ids)
         {
             return G.V<TVertex>(ids);
         }
@@ -47,10 +47,10 @@ namespace ExRam.Gremlinq
                 .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
         }
 
-        public static IGremlinQuery<Unit> SetModel(IGraphModel model)
-        {
-            return G
-                .SetModel(model);
-        }
+        //public static IGremlinQuery<Unit> SetModel(IGraphModel model)
+        //{
+        //    return G
+        //        .SetModel(model);
+        //}
     }
 }
