@@ -14,9 +14,9 @@ namespace ExRam.Gremlinq
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
             private readonly IGraphModel _model;
-            private readonly INativeGremlinQueryProvider<JToken> _baseProvider;
+            private readonly ITypedGremlinQueryProvider _baseProvider;
 
-            public JsonSupportTypedGremlinQueryProvider(INativeGremlinQueryProvider<JToken> baseProvider, IGraphModel model)
+            public JsonSupportTypedGremlinQueryProvider(ITypedGremlinQueryProvider baseProvider, IGraphModel model)
             {
                 _model = model;
                 _baseProvider = baseProvider;
@@ -102,12 +102,11 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy(JsonTransformRules.Identity);
 
-                var serialized = query
-                    .Resolve(_model)
-                    .Serialize();
 
                 return _baseProvider
-                    .Execute(serialized.queryString, serialized.parameters)
+                    .Execute(query
+                        .Resolve(_model)
+                        .Cast<JToken>())
                     .Select(token => token
                         .Transform(transformRule)
                         .IfNone(EmptyJArray))
@@ -118,24 +117,29 @@ namespace ExRam.Gremlinq
             }
         }
        
-        private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : INativeGremlinQueryProvider<TNativeTarget>
-        {
-            private readonly Func<TNativeSource, TNativeTarget> _projection;
-            private readonly INativeGremlinQueryProvider<TNativeSource> _provider;
+        //private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : ITypedGremlinQueryProvider
+        //{
+        //    private readonly Func<TNativeSource, TNativeTarget> _projection;
+        //    private readonly ITypedGremlinQueryProvider _provider;
 
-            public SelectNativeGremlinQueryProvider(INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
-            {
-                _provider = provider;
-                _projection = projection;
-            }
+        //    public SelectNativeGremlinQueryProvider(ITypedGremlinQueryProvider provider, Func<TNativeSource, TNativeTarget> projection)
+        //    {
+        //        _provider = provider;
+        //        _projection = projection;
+        //    }
 
-            public IAsyncEnumerable<TNativeTarget> Execute(string query, IDictionary<string, object> parameters)
-            {
-                return _provider
-                    .Execute(query, parameters)
-                    .Select(_projection);
-            }
-        }
+        //    public IAsyncEnumerable<TNativeTarget> Execute(string query, IDictionary<string, object> parameters)
+        //    {
+
+        //    }
+
+        //    public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+        //    {
+        //        return _provider
+        //            .Execute(query.Cast<TNativeSource>())
+        //            .Select(_projection);
+        //    }
+        //}
 
         public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query)
         {
@@ -146,14 +150,14 @@ namespace ExRam.Gremlinq
             return queryProvider.Execute(query);
         }
 
-        public static ITypedGremlinQueryProvider WithJsonSupport(this INativeGremlinQueryProvider<JToken> provider, IGraphModel model)
+        public static ITypedGremlinQueryProvider WithJsonSupport(this ITypedGremlinQueryProvider provider, IGraphModel model)
         {
             return new JsonSupportTypedGremlinQueryProvider(provider, model);
         }
        
-        public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
-        {
-            return new SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget>(provider, projection);
-        }
+        //public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
+        //{
+        //    return new SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget>(provider, projection);
+        //}
     }
 }

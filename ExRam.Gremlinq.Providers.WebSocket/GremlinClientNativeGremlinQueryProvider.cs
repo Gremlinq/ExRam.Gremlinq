@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class GremlinClientNativeGremlinQueryProvider : INativeGremlinQueryProvider<JToken>, IDisposable
+    public class GremlinClientNativeGremlinQueryProvider : ITypedGremlinQueryProvider, IDisposable
     {
         // ReSharper disable once InconsistentNaming
         private sealed class NullGraphSSON3Reader : GraphSON2Reader
@@ -49,19 +49,27 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _gremlinClient = client;
         }
 
-        public IAsyncEnumerable<JToken> Execute(string query, IDictionary<string, object> parameters)
-        {
-            _logger.LogTrace("Executing Gremlin query {0}.", query);
-
-            return _gremlinClient
-                .SubmitAsync<JToken>(query, new Dictionary<string, object>(parameters))
-                .ToAsyncEnumerable()
-                .SelectMany(x => x.ToAsyncEnumerable());
-        }
-
         public void Dispose()
         {
             _gremlinClient.Dispose();
+        }
+
+        public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+        {
+            if (typeof(TElement) != typeof(JToken))
+                throw new NotSupportedException();
+
+            var serialized = query
+                .Serialize();
+
+            _logger.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
+
+            return _gremlinClient
+                .SubmitAsync<JToken>(serialized.queryString, new Dictionary<string, object>(serialized.parameters))
+                .ToAsyncEnumerable()
+                .SelectMany(x => x
+                    .ToAsyncEnumerable()
+                    .Select(y => (TElement)(object)y));
         }
     }
 }

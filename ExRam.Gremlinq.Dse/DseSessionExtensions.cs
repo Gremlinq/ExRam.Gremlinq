@@ -10,7 +10,7 @@ namespace Dse
 {
     public static class DseSessionExtensions
     {
-        private sealed class DseGraphNativeQueryProvider : INativeGremlinQueryProvider<string>
+        private sealed class DseGraphNativeQueryProvider : ITypedGremlinQueryProvider
         {
             private readonly IDseSession _session;
 
@@ -19,23 +19,30 @@ namespace Dse
                 _session = session;
             }
 
-            public IAsyncEnumerable<string> Execute(string query, IDictionary<string, object> parameters)
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
+                if (typeof(TElement) != typeof(string))
+                    throw new NotSupportedException();
+
+                var serialized = query
+                    .Serialize();
+
                 return _session
-                    .ExecuteGraphAsync(new SimpleGraphStatement(parameters
-                        .ToDictionary(
-                            kvp => kvp.Key,
-                            kvp => kvp.Value is TimeSpan span
-                                ? Duration.FromTimeSpan(span)
-                                : kvp.Value),
-                        query))
+                    .ExecuteGraphAsync(new SimpleGraphStatement(
+                        serialized.parameters
+                            .ToDictionary(
+                                kvp => kvp.Key,
+                                kvp => kvp.Value is TimeSpan span
+                                    ? Duration.FromTimeSpan(span)
+                                    : kvp.Value),
+                        serialized.queryString))
                     .ToAsyncEnumerable()
                     .SelectMany(node => node.ToAsyncEnumerable())
-                    .Select(node => node.ToString());
+                    .Select(node => (TElement)(object)node.ToString());
             }
         }
 
-        public static INativeGremlinQueryProvider<string> CreateQueryProvider(this IDseSession session)
+        public static ITypedGremlinQueryProvider CreateQueryProvider(this IDseSession session)
         {
             return new DseGraphNativeQueryProvider(session);
         }

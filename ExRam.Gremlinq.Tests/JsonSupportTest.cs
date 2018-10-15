@@ -47,13 +47,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task GraphSon3ReferenceVertex()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(Graphson3ReferenceVertex));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(Graphson3ReferenceVertex)));
 
             var array = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.Empty)
                 .Execute(g
                     .V<JObject>())
@@ -69,13 +68,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task IsDescribedIn()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleIsDescribedIn));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleIsDescribedIn)));
 
             var array = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g.V<IsDescribedIn>())
                 .ToArray();
@@ -87,13 +85,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task IsDescribedIn_with_Graphson3()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}")));
 
             var array = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V<IsDescribedIn>())
@@ -106,13 +103,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Empty1()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
 
             await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V()
@@ -123,13 +119,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Empty2()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
 
             await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V<User>())
@@ -139,13 +134,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task String_Ids()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[ \"id1\", \"id2\" ]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"id1\", \"id2\" ]")));
 
             var ids = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V()
@@ -160,13 +154,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task String_Ids2()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[ \"1\", \"2\" ]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"1\", \"2\" ]")));
 
             var ids = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V()
@@ -181,13 +174,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Int_Ids()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[ 1, 2 ]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, 2 ]")));
 
             var ids = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(g
                     .V().Id())
@@ -201,13 +193,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Mixed_Ids()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[ 1, \"id2\" ]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, \"id2\" ]")));
 
             var ids = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery
                     .Create("g")
@@ -223,13 +214,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleCompanyJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleCompanyJson)));
 
             var user = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<Company>
                     .Create())
@@ -243,13 +233,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleLanguageJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
 
             var language = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<Language>
                     .Create())
@@ -263,13 +252,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleUserJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserJson)));
 
             var user = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<User>
                     .Create())
@@ -286,13 +274,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_lowercase_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleUserLowercasePropertiesJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserLowercasePropertiesJson)));
 
             var user = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<User>
                     .Create())
@@ -308,13 +295,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_without_PhoneNumbers_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleUserWithoutPhoneNumbersJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserWithoutPhoneNumbersJson)));
 
             var user = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<User>
                     .Create())
@@ -330,13 +316,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleTimeFrameJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameJson)));
 
             var timeFrame = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<TimeFrame>
                     .Create())
@@ -351,13 +336,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleTimeFrameWithNumbersJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameWithNumbersJson)));
 
             var timeFrame = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<TimeFrame>
                     .Create())
@@ -372,13 +356,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(SingleLanguageJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
 
             var language = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<Vertex>
                     .Create())
@@ -392,13 +375,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(TupleOfUserLanguageJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
 
             var jsonQueryProvider = queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));              
 
             var tuple = await GremlinQuery
@@ -419,13 +401,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Graphson3_Tuple()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(Graphson3TupleOfUserLanguageJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(Graphson3TupleOfUserLanguageJson)));
 
             var jsonQueryProvider = queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
 
             var tuple = await GremlinQuery
@@ -446,13 +427,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Array()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(ArrayOfLanguages));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(ArrayOfLanguages)));
 
             var languages = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<Language[]>
                     .Create())
@@ -469,13 +449,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Nested_Array()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return(NestedArrayOfLanguagesJson));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(NestedArrayOfLanguagesJson)));
 
             var languages = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery<Language[][]>.Create())
                 .First();
@@ -497,13 +476,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Scalar()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("[ 36 ]"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 36 ]")));
 
             var value = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery
                     .Create("g")
@@ -516,13 +494,12 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Count()
         {
-            var queryProviderMock = new Mock<INativeGremlinQueryProvider<string>>();
+            var queryProviderMock = new Mock<ITypedGremlinQueryProvider>();
             queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
-                .Returns(AsyncEnumerable.Return("36"));
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse("36")));
 
             var value = await queryProviderMock.Object
-                .Select(JToken.Parse)
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
                 .Execute(GremlinQuery
                     .Create("g")
