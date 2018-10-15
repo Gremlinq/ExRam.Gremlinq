@@ -108,10 +108,12 @@ namespace ExRam.Gremlinq
 
                 return _baseProvider
                     .Execute(serialized.queryString, serialized.parameters)
-                    .SelectMany(rawData => Serializer
-                        .Deserialize<TElement[]>(new JTokenReader(rawData
-                            .Transform(transformRule)
-                            .IfNone(EmptyJArray)))
+                    .Select(token => token
+                        .Transform(transformRule)
+                        .IfNone(EmptyJArray))
+                    .Select(token => token is JArray ? token : new JArray(token))
+                    .SelectMany(token => Serializer
+                        .Deserialize<TElement[]>(new JTokenReader(token))
                         .ToAsyncEnumerable());
             }
         }
