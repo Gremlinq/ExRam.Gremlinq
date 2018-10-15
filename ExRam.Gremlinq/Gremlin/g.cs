@@ -46,5 +46,11 @@ namespace ExRam.Gremlinq
             return G
                 .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
         }
+
+        public static IGremlinQuery<Unit> SetTypedGremlinQueryProvider(ITypedGremlinQueryProvider queryProvider)
+        {
+            return G
+                .SetTypedGremlinQueryProvider(queryProvider);
+        }
     }
 }
