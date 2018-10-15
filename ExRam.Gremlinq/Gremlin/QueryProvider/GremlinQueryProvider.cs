@@ -102,7 +102,6 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy(JsonTransformRules.Identity);
 
-
                 return _baseProvider
                     .Execute(query
                         .Resolve(_model)
