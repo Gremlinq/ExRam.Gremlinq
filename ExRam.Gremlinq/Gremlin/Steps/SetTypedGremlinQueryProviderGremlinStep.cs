@@ -5,9 +5,9 @@ namespace ExRam.Gremlinq
 {
     public sealed class SetTypedGremlinQueryProviderGremlinStep : NonTerminalGremlinStep
     {
-        public SetTypedGremlinQueryProviderGremlinStep(ITypedGremlinQueryProvider typedGremlinQueryProvider)
+        public SetTypedGremlinQueryProviderGremlinStep(IGremlinQueryProvider gremlinQueryProvider)
         {
-            TypedGremlinQueryProvider = typedGremlinQueryProvider;
+            GremlinQueryProvider = gremlinQueryProvider;
         }
 
         public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
@@ -15,6 +15,6 @@ namespace ExRam.Gremlinq
             return Enumerable.Empty<TerminalGremlinStep>();
         }
 
-        public ITypedGremlinQueryProvider TypedGremlinQueryProvider { get; }
+        public IGremlinQueryProvider GremlinQueryProvider { get; }
     }
 }

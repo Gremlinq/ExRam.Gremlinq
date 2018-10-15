@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class GremlinClientNativeGremlinQueryProvider : ITypedGremlinQueryProvider, IDisposable
+    public class GremlinClientNativeGremlinQueryProvider : IGremlinQueryProvider, IDisposable
     {
         // ReSharper disable once InconsistentNaming
         private sealed class NullGraphSSON3Reader : GraphSON2Reader

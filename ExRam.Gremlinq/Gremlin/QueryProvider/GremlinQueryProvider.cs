@@ -8,15 +8,15 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQueryProvider
     {
-        private sealed class JsonSupportTypedGremlinQueryProvider : ITypedGremlinQueryProvider
+        private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
             private readonly IGraphModel _model;
-            private readonly ITypedGremlinQueryProvider _baseProvider;
+            private readonly IGremlinQueryProvider _baseProvider;
 
-            public JsonSupportTypedGremlinQueryProvider(ITypedGremlinQueryProvider baseProvider, IGraphModel model)
+            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
             {
                 _model = model;
                 _baseProvider = baseProvider;
@@ -117,12 +117,12 @@ namespace ExRam.Gremlinq
             }
         }
        
-        //private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : ITypedGremlinQueryProvider
+        //private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : IGremlinQueryProvider
         //{
         //    private readonly Func<TNativeSource, TNativeTarget> _projection;
-        //    private readonly ITypedGremlinQueryProvider _provider;
+        //    private readonly IGremlinQueryProvider _provider;
 
-        //    public SelectNativeGremlinQueryProvider(ITypedGremlinQueryProvider provider, Func<TNativeSource, TNativeTarget> projection)
+        //    public SelectNativeGremlinQueryProvider(IGremlinQueryProvider provider, Func<TNativeSource, TNativeTarget> projection)
         //    {
         //        _provider = provider;
         //        _projection = projection;
@@ -145,14 +145,14 @@ namespace ExRam.Gremlinq
         {
             var queryProvider = query
                 .TryGetTypedGremlinQueryProvider()
-                .IfNone(() => throw new ArgumentException("Could not find an instance of ITypedGremlinQueryProvider in the query"));
+                .IfNone(() => throw new ArgumentException("Could not find an instance of IGremlinQueryProvider in the query"));
 
             return queryProvider.Execute(query);
         }
 
-        public static ITypedGremlinQueryProvider WithJsonSupport(this ITypedGremlinQueryProvider provider, IGraphModel model)
+        public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider, IGraphModel model)
         {
-            return new JsonSupportTypedGremlinQueryProvider(provider, model);
+            return new JsonSupportGremlinQueryProvider(provider, model);
         }
        
         //public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)

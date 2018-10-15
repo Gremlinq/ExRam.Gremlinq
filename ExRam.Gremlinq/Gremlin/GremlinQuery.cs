@@ -967,7 +967,7 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider queryProvider)
+        public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, IGremlinQueryProvider queryProvider)
         {
             return query
                 .AddStep(new SetTypedGremlinQueryProviderGremlinStep(queryProvider));
@@ -1120,7 +1120,7 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps, query.StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name));
         }
 
-        internal static IGremlinQuery<TElement> ReplaceProvider<TElement>(this IGremlinQuery<TElement> query, ITypedGremlinQueryProvider provider)
+        internal static IGremlinQuery<TElement> ReplaceProvider<TElement>(this IGremlinQuery<TElement> query, IGremlinQueryProvider provider)
         {
             return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps, query.StepLabelMappings);
         }
@@ -1148,12 +1148,12 @@ namespace ExRam.Gremlinq
             return query;
         }
 
-        internal static Option<ITypedGremlinQueryProvider> TryGetTypedGremlinQueryProvider(this IGremlinQuery query)
+        internal static Option<IGremlinQueryProvider> TryGetTypedGremlinQueryProvider(this IGremlinQuery query)
         {
             return query
                 .Steps
                 .OfType<SetTypedGremlinQueryProviderGremlinStep>()
-                .Select(x => Option<ITypedGremlinQueryProvider>.Some(x.TypedGremlinQueryProvider))
+                .Select(x => Option<IGremlinQueryProvider>.Some(x.GremlinQueryProvider))
                 .LastOrDefault();
         }
     }

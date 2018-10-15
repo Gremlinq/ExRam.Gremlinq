@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
-    public interface ITypedGremlinQueryProvider
+    public interface IGremlinQueryProvider
     {
         IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query);
     }
