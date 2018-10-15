@@ -1908,6 +1908,16 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Limit_overflow()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Limit((long)int.MaxValue + 1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
         public void Anonymous()
         {
             var query = GremlinQuery.Anonymous

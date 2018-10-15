@@ -265,7 +265,16 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Limit(long limit) => Limit(limit);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Limit(long limit) => Call("limit", limit);
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Limit(long limit)
+        {
+            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+            // 4 billion should be enough for everyone (tm).
+            if (limit > int.MaxValue || limit < 0)
+                throw new ArgumentException("Parameter out of range.", nameof(limit));
+
+            return Call("limit", (int)limit);
+        }
+
         #endregion
 
         #region Local
