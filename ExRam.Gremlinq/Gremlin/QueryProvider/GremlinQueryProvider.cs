@@ -116,30 +116,6 @@ namespace ExRam.Gremlinq
                         .ToAsyncEnumerable());
             }
         }
-       
-        //private sealed class SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget> : IGremlinQueryProvider
-        //{
-        //    private readonly Func<TNativeSource, TNativeTarget> _projection;
-        //    private readonly IGremlinQueryProvider _provider;
-
-        //    public SelectNativeGremlinQueryProvider(IGremlinQueryProvider provider, Func<TNativeSource, TNativeTarget> projection)
-        //    {
-        //        _provider = provider;
-        //        _projection = projection;
-        //    }
-
-        //    public IAsyncEnumerable<TNativeTarget> Execute(string query, IDictionary<string, object> parameters)
-        //    {
-
-        //    }
-
-        //    public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-        //    {
-        //        return _provider
-        //            .Execute(query.Cast<TNativeSource>())
-        //            .Select(_projection);
-        //    }
-        //}
 
         public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query)
         {
@@ -154,10 +130,5 @@ namespace ExRam.Gremlinq
         {
             return new JsonSupportGremlinQueryProvider(provider, model);
         }
-       
-        //public static INativeGremlinQueryProvider<TNativeTarget> Select<TNativeSource, TNativeTarget>(this INativeGremlinQueryProvider<TNativeSource> provider, Func<TNativeSource, TNativeTarget> projection)
-        //{
-        //    return new SelectNativeGremlinQueryProvider<TNativeSource, TNativeTarget>(provider, projection);
-        //}
     }
 }
