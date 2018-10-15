@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class GremlinClientNativeGremlinQueryProvider : IGremlinQueryProvider, IDisposable
+    public class GremlinClientQueryProvider : IGremlinQueryProvider, IDisposable
     {
         // ReSharper disable once InconsistentNaming
         private sealed class NullGraphSSON3Reader : GraphSON2Reader
@@ -23,12 +23,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
 
-        public GremlinClientNativeGremlinQueryProvider(GremlinServer server) : this(server, NullLogger.Instance)
+        public GremlinClientQueryProvider(GremlinServer server) : this(server, NullLogger.Instance)
         {
 
         }
 
-        public GremlinClientNativeGremlinQueryProvider(GremlinServer server, ILogger logger) : this(
+        public GremlinClientQueryProvider(GremlinServer server, ILogger logger) : this(
              new GremlinClient(
                 server,
                 new NullGraphSSON3Reader(),
@@ -38,12 +38,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         { 
         }
 
-        public GremlinClientNativeGremlinQueryProvider(IGremlinClient client) : this(client, NullLogger.Instance)
+        public GremlinClientQueryProvider(IGremlinClient client) : this(client, NullLogger.Instance)
         {
 
         }
 
-        public GremlinClientNativeGremlinQueryProvider(IGremlinClient client, ILogger logger)
+        public GremlinClientQueryProvider(IGremlinClient client, ILogger logger)
         {
             _logger = logger;
             _gremlinClient = client;
