@@ -498,6 +498,19 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Range(long low, long high) => Call("range", low, high);
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Range(long low, long high) => Call("range", low, high);
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Range(long low, long high)
+        {
+            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+            // 4 billion should be enough for everyone (tm).
+            if (low > int.MaxValue || low < 0)
+                throw new ArgumentException("Parameter out of range.", nameof(low));
+
+            if (high > int.MaxValue || high < 0)
+                throw new ArgumentException("Parameter out of range.", nameof(high));
+
+            return Call("range", (int)low, (int)high);
+        }
         #endregion
 
         #region Repeat
@@ -585,7 +598,16 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Skip(long skip) => Skip( skip);
         
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Skip(long skip) => Call("skip", skip);
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Skip(long skip)
+        {
+            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+            // 4 billion should be enough for everyone (tm).
+            if (skip > int.MaxValue || skip < 0)
+                throw new ArgumentException("Parameter out of range.", nameof(skip));
+
+            return Call("skip", (int)skip);
+        }
+
         #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Sum(Scope scope) => Call("sum", scope);
@@ -599,7 +621,15 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Tail(long limit) => Tail(limit);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Tail(long limit) => Call("tail", limit);
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Tail(long limit)
+        {
+            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+            // 4 billion should be enough for everyone (tm).
+            if (limit > int.MaxValue || limit < 0)
+                throw new ArgumentException("Parameter out of range.", nameof(limit));
+
+            return Call("tail", (int)limit);
+        }
         #endregion
 
         #region To
