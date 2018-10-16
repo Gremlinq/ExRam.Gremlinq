@@ -6,23 +6,23 @@ using System.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class DerivedLabelNamesGremlinStep : NonTerminalGremlinStep
+    public abstract class DerivedLabelNamesStep : NonTerminalStep
     {
         protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
     }
 
-    public sealed class DerivedLabelNamesGremlinStep<TElement> : DerivedLabelNamesGremlinStep
+    public sealed class DerivedLabelNamesStep<TElement> : DerivedLabelNamesStep
     {
         private readonly string _stepName;
 
-        public DerivedLabelNamesGremlinStep(string stepName)
+        public DerivedLabelNamesStep(string stepName)
         {
             _stepName = stepName;
         }
 
-        public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
-            yield return new MethodGremlinStep(_stepName, GetDerivedLabelNames(model));
+            yield return new MethodStep(_stepName, GetDerivedLabelNames(model));
         }
 
         private static ImmutableList<object> GetDerivedLabelNames(IGraphModel model)

@@ -4,13 +4,14 @@ using System.Linq;
 using Dse.Graph;
 using ExRam.Gremlinq;
 using LanguageExt;
+using IQueryProvider = ExRam.Gremlinq.IQueryProvider;
 
 // ReSharper disable once CheckNamespace
 namespace Dse
 {
     public static class DseSessionExtensions
     {
-        private sealed class DseGraphNativeQueryProvider : IGremlinQueryProvider
+        private sealed class DseGraphNativeQueryProvider : IQueryProvider
         {
             private readonly IDseSession _session;
 
@@ -42,7 +43,7 @@ namespace Dse
             }
         }
 
-        public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session)
+        public static IQueryProvider CreateQueryProvider(this IDseSession session)
         {
             return new DseGraphNativeQueryProvider(session);
         }

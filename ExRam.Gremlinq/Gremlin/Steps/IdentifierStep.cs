@@ -2,9 +2,9 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class IdentifierGremlinStep : TerminalGremlinStep
+    public sealed class IdentifierStep : TerminalStep
     {
-        public IdentifierGremlinStep(string identifier)
+        public IdentifierStep(string identifier)
         {
             this.Identifier = identifier;
         }

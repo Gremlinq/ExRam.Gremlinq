@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq
 {
-    public interface IGremlinQueryProvider
+    public interface IQueryProvider
     {
         IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query);
     }

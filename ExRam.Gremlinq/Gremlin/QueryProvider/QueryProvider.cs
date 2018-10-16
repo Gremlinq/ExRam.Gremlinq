@@ -6,17 +6,17 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public static class GremlinQueryProvider
+    public static class QueryProvider
     {
-        private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
+        private sealed class JsonSupportQueryProvider : IQueryProvider
         {
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
             private readonly IGraphModel _model;
-            private readonly IGremlinQueryProvider _baseProvider;
+            private readonly IQueryProvider _baseProvider;
 
-            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
+            public JsonSupportQueryProvider(IQueryProvider baseProvider, IGraphModel model)
             {
                 _model = model;
                 _baseProvider = baseProvider;
@@ -120,14 +120,14 @@ namespace ExRam.Gremlinq
         {
             var queryProvider = query
                 .TryGetTypedGremlinQueryProvider()
-                .IfNone(() => throw new ArgumentException("Could not find an instance of IGremlinQueryProvider in the query"));
+                .IfNone(() => throw new ArgumentException("Could not find an instance of IQueryProvider in the query"));
 
             return queryProvider.Execute(query);
         }
 
-        public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider, IGraphModel model)
+        public static IQueryProvider WithJsonSupport(this IQueryProvider provider, IGraphModel model)
         {
-            return new JsonSupportGremlinQueryProvider(provider, model);
+            return new JsonSupportQueryProvider(provider, model);
         }
     }
 }

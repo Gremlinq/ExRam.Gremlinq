@@ -1,6 +1,6 @@
 namespace ExRam.Gremlinq
 {
-    public abstract class GremlinStep
+    public abstract class Step
     {
         
     }

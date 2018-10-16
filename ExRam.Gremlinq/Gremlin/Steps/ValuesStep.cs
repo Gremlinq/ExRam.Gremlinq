@@ -6,16 +6,16 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class ValuesGremlinStep<TSource, TTarget> : NonTerminalGremlinStep
+    public sealed class ValuesStep<TSource, TTarget> : NonTerminalStep
     {
         private readonly Expression<Func<TSource, TTarget>>[] _projections;
 
-        public ValuesGremlinStep(Expression<Func<TSource, TTarget>>[] projections)
+        public ValuesStep(Expression<Func<TSource, TTarget>>[] projections)
         {
             _projections = projections;
         }
 
-        public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
             var keys = _projections
                 .Select(projection =>
@@ -38,17 +38,17 @@ namespace ExRam.Gremlinq
 
             if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
             {
-                yield return new MethodGremlinStep("union",
+                yield return new MethodStep("union",
                     GremlinQuery.Anonymous.Call(
                         "values",
                         propertyKeys),
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)
-                yield return new MethodGremlinStep("id");
+                yield return new MethodStep("id");
             else
             {
-                yield return new MethodGremlinStep(
+                yield return new MethodStep(
                     "values",
                     propertyKeys
                         .ToImmutableList());

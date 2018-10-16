@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class AddElementPropertiesStep : NonTerminalGremlinStep
+    public sealed class AddElementPropertiesStep : NonTerminalStep
     {
         private static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq
             Element = element;
         }
 
-        public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
             return TypeProperties.GetOrAdd(
                 Element.GetType(),
@@ -35,13 +35,13 @@ namespace ExRam.Gremlinq
                         {
                             return ((IEnumerable)value)
                                 .Cast<object>()
-                                .Select(item => new MethodGremlinStep("property", propertyName, item));
+                                .Select(item => new MethodStep("property", propertyName, item));
                         }
 
-                        return new[] { new MethodGremlinStep("property", propertyName, value) };
+                        return new[] { new MethodStep("property", propertyName, value) };
                     }
 
-                    return Array.Empty<MethodGremlinStep>();
+                    return Array.Empty<MethodStep>();
                 });
         }
 

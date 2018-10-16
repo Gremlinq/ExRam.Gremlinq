@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class HasStep : NonTerminalGremlinStep
+    public sealed class HasStep : NonTerminalStep
     {
         private const string Name = "has";
 
@@ -16,13 +16,13 @@ namespace ExRam.Gremlinq
             _value = value;
         }
 
-        public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
             var key = model.GetIdentifier(_key);
 
             yield return _value.Match(
-                value => new MethodGremlinStep(Name, key, value),
-                () => new MethodGremlinStep(Name, key));
+                value => new MethodStep(Name, key, value),
+                () => new MethodStep(Name, key));
         }
     }
 }

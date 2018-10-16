@@ -3,14 +3,14 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class MethodGremlinStep : TerminalGremlinStep
+    public sealed class MethodStep : TerminalStep
     {
-        public MethodGremlinStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
+        public MethodStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
         {
 
         }
 
-        public MethodGremlinStep(string name, IImmutableList<object> parameters)
+        public MethodStep(string name, IImmutableList<object> parameters)
         {
             Name = name;
             Parameters = parameters;
