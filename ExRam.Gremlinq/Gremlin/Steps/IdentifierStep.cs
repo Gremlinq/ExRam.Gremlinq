@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 
 namespace ExRam.Gremlinq
 {
@@ -6,12 +6,12 @@ namespace ExRam.Gremlinq
     {
         public IdentifierStep(string identifier)
         {
-            this.Identifier = identifier;
+            Identifier = identifier;
         }
 
         public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            return state.AppendIdentifier(stringBuilder, this.Identifier);
+            return state.AppendIdentifier(stringBuilder, Identifier);
         }
 
         public string Identifier { get; }

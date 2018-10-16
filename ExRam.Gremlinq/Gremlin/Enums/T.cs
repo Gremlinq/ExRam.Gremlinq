@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 
 namespace ExRam.Gremlinq
 {
@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq
 
         public override bool Equals(object obj)
         {
-            return obj is T variable && this._name == variable._name;
+            return obj is T variable && _name == variable._name;
         }
 
         public override int GetHashCode()

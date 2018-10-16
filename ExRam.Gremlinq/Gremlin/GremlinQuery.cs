@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq
             var stepLabel = new TStepLabel();
 
             return continuation(
-                this.As(stepLabel),
+                As(stepLabel),
                 stepLabel);
         }
 
@@ -132,8 +132,10 @@ namespace ExRam.Gremlinq
         #endregion
 
         #region Coalesce
+        // ReSharper disable once CoVariantArrayConversion
         TTargetQuery IVGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IVGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
+        // ReSharper disable once CoVariantArrayConversion
         TTargetQuery IGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals)
@@ -280,7 +282,6 @@ namespace ExRam.Gremlinq
         #region Local
         TTargetQuery IEGremlinQuery<TElement>.Local<TTargetQuery>(Func<IEGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
 
-
         TTargetQuery IVGremlinQuery<TElement>.Local<TTargetQuery>(Func<IVGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
 
         TTargetQuery IGremlinQuery<TElement>.Local<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);
@@ -321,6 +322,7 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
+        // ReSharper disable once CoVariantArrayConversion
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => Call("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray());
 
         #region Not
@@ -659,9 +661,9 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => this.Where(predicate);
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => this.Where(predicate);
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(Expression<Func<TElement, bool>> predicate)
         {
@@ -672,7 +674,7 @@ namespace ExRam.Gremlinq
                 case UnaryExpression unaryExpression:
                 {
                     if (unaryExpression.NodeType == ExpressionType.Not)
-                        return this.Not(_ => _.Where(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
+                        return Not(_ => _.Where(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
 
                     break;
                 }
@@ -681,13 +683,13 @@ namespace ExRam.Gremlinq
                     if (memberExpression.Member is PropertyInfo property)
                     {
                         if (property.PropertyType == typeof(bool))
-                            return this.Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
+                            return Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
                     }
 
                     break;
                 }
                 case BinaryExpression binaryExpression:
-                    return this.Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                    return Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
                 case MethodCallExpression methodCallExpression:
                 {
                     var methodInfo = methodCallExpression.Method;
@@ -700,18 +702,18 @@ namespace ExRam.Gremlinq
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
                             {
                                 if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
-                                    return this.Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                                    return Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
                                 {
                                     if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
-                                        return this.Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
+                                        return Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
                                 }
 
                                 throw new NotSupportedException();
                             }
                             case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
-                                return this.Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
+                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
                     }
                     else if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
@@ -723,7 +725,7 @@ namespace ExRam.Gremlinq
                                 var constant = methodCallExpression.Arguments[1].GetValue();
 
                                 if (constant is IEnumerable arrayConstant)
-                                    return this.Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
+                                    return Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
                             }
                         }
                     }
@@ -735,7 +737,7 @@ namespace ExRam.Gremlinq
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    return this.Has(
+                                    return Has(
                                         argumentExpression,
                                         P.Within(Enumerable
                                             .Range(0, stringValue.Length + 1)
@@ -760,7 +762,7 @@ namespace ExRam.Gremlinq
                                         upperBound = new string(upperBoundChars);
                                     }
 
-                                    return this.Has(memberExpression, P.Between(lowerBound, upperBound));
+                                    return Has(memberExpression, P.Between(lowerBound, upperBound));
                                 }
                             }
                         }
@@ -781,17 +783,15 @@ namespace ExRam.Gremlinq
                 var rightLambda = Expression.Lambda<Func<TElement, bool>>(right, parameter);
 
                 return nodeType == ExpressionType.OrElse
-                    ? this
-                        .Or(
-                            _ => _.Where(leftLambda),
-                            _ => _.Where(rightLambda))
-                    : this
-                        .And(
-                            _ => _.Where(leftLambda),
-                            _ => _.Where(rightLambda));
+                    ? Or(
+                        _ => _.Where(leftLambda),
+                        _ => _.Where(rightLambda))
+                    : And(
+                        _ => _.Where(leftLambda),
+                        _ => _.Where(rightLambda));
             }
 
-            return this.Where(parameter, left, right.GetValue(), nodeType);
+            return Where(parameter, left, right.GetValue(), nodeType);
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(ParameterExpression parameter, Expression left, object rightConstant, ExpressionType nodeType)
@@ -802,9 +802,9 @@ namespace ExRam.Gremlinq
                 switch (nodeType)
                 {
                     case ExpressionType.Equal:
-                        return this.Not(__ => __.Has(left));
+                        return Not(__ => __.Has(left));
                     case ExpressionType.NotEqual:
-                        return this.Has(left);
+                        return Has(left);
                 }
             }
             else
@@ -815,7 +815,7 @@ namespace ExRam.Gremlinq
                 {
                     case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
                     {
-                        return this.Has(
+                        return Has(
                             leftMemberExpression,
                             rightConstant is StepLabel
                                 ? GremlinQuery
@@ -825,7 +825,7 @@ namespace ExRam.Gremlinq
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
-                        return this.Call(
+                        return Call(
                             rightConstant is StepLabel
                                 ? "where"
                                 : "is",
@@ -858,13 +858,13 @@ namespace ExRam.Gremlinq
                     throw new NotSupportedException();
             }
 
-            return this.AddStep(new HasStep(name, maybeArgument));
+            return AddStep(new HasStep(name, maybeArgument));
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
             if (Steps.Count == 1 && Steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
-                return this.Identity().Serialize(stringBuilder, state);
+                return Identity().Serialize(stringBuilder, state);
 
             foreach (var step in Steps)
             {
@@ -925,7 +925,7 @@ namespace ExRam.Gremlinq
             }
 
             var type = typeof(GremlinQueryImpl<,,>).MakeGenericType(elementType, outVertexType, inVertexType);
-            return (TTargetQuery)Activator.CreateInstance(type, this.Steps, this.StepLabelMappings);
+            return (TTargetQuery)Activator.CreateInstance(type, Steps, StepLabelMappings);
         }
 
         public IImmutableList<Step> Steps { get; }
@@ -1069,7 +1069,7 @@ namespace ExRam.Gremlinq
                                 parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
                         }
 
-                        if (!object.ReferenceEquals(parameters, terminal.Parameters))
+                        if (!ReferenceEquals(parameters, terminal.Parameters))
                             steps = steps.SetItem(index, new MethodStep(terminal.Name, parameters));
 
                         break;
@@ -1127,13 +1127,12 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<Unit> WithSubgraphStrategy(this IGremlinQuery<Unit> query, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
-            var vertexCriterionTraversal = vertexCriterion(GremlinQuery.Anonymous);
-            var edgeCriterionTraversal = edgeCriterion(GremlinQuery.Anonymous);
+            var vertexCriterionTraversal = vertexCriterion(Anonymous);
+            var edgeCriterionTraversal = edgeCriterion(Anonymous);
 
             if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
             {
-                var strategy = GremlinQuery
-                    .Create("SubgraphStrategy")
+                var strategy = Create("SubgraphStrategy")
                     .Call("build");
 
                 if (vertexCriterionTraversal.Steps.Count > 0)

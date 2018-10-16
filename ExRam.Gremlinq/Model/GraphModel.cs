@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq
             if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                 throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-            return GraphModel.Empty
+            return Empty
                 .AddVertexTypes(assembly
                     .DefinedTypes
                     .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -12,12 +12,12 @@ namespace ExRam.Gremlinq
 
         private static readonly IReadOnlyDictionary<ExpressionType, Func<object, P>> SupportedComparisons = new Dictionary<ExpressionType, Func<object, P>>
         {
-            { ExpressionType.Equal, P.Eq },
-            { ExpressionType.NotEqual, P.Neq },
-            { ExpressionType.LessThan, P.Lt },
-            { ExpressionType.LessThanOrEqual, P.Lte },
-            { ExpressionType.GreaterThanOrEqual, P.Gte },
-            { ExpressionType.GreaterThan, P.Gt }
+            { ExpressionType.Equal, Eq },
+            { ExpressionType.NotEqual, Neq },
+            { ExpressionType.LessThan, Lt },
+            { ExpressionType.LessThanOrEqual, Lte },
+            { ExpressionType.GreaterThanOrEqual, Gte },
+            { ExpressionType.GreaterThan, Gt }
         };
 
         private P(string name, params object[] arguments)
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq
 
         public static P ForExpressionType(ExpressionType expressionType, object argument)
         {
-            return P.SupportedComparisons[expressionType](argument);
+            return SupportedComparisons[expressionType](argument);
         }
 
         public static P Within(params object[] arguments)
