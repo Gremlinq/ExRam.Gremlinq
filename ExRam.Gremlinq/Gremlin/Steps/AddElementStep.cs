@@ -2,22 +2,22 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class AddElementGremlinStep : NonTerminalGremlinStep
+    public abstract class AddElementStep : NonTerminalStep
     {
         private readonly object _value;
         private readonly string _stepName;
 
-        protected AddElementGremlinStep(string stepName, object value)
+        protected AddElementStep(string stepName, object value)
         {
             _value = value;
             _stepName = stepName;
         }
 
-        public override IEnumerable<TerminalGremlinStep> Resolve(IGraphModel model)
+        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
             var type = _value.GetType();
             
-            yield return new MethodGremlinStep(
+            yield return new MethodStep(
                 _stepName,
                 model
                     .TryGetLabelOfType(type)

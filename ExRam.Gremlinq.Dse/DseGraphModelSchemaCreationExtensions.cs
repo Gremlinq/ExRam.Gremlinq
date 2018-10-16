@@ -21,15 +21,15 @@ namespace ExRam.Gremlinq.Dse
             { typeof(TimeSpan), "Duration" },
             { typeof(IPAddress), "Inet" },
             { typeof(int), "Int" },
-            //{ typeof(?), new GremlinStep("Linestring") },
-            //{ typeof(?), new GremlinStep("Point") },
-            //{ typeof(?), new GremlinStep("Polygon") },
+            //{ typeof(?), new Step("Linestring") },
+            //{ typeof(?), new Step("Point") },
+            //{ typeof(?), new Step("Polygon") },
             { typeof(short), "Smallint" },
             { typeof(string), "Text" },
             { typeof(DateTime), "Timestamp" },
             { typeof(DateTimeOffset), "Timestamp" },
             { typeof(Guid), "Uuid" }
-            //{ typeof(?), new GremlinStep("Varint") },
+            //{ typeof(?), new Step("Varint") },
         };
 
         public static IEnumerable<IGremlinQuery<string>> CreateSchemaQueries(this IDseGraphModel model)

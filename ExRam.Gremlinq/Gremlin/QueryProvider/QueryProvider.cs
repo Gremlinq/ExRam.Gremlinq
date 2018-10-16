@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public static class GremlinQueryProvider
+    public static class QueryProvider
     {
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {

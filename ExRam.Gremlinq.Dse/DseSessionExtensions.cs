@@ -10,11 +10,11 @@ namespace Dse
 {
     public static class DseSessionExtensions
     {
-        private sealed class DseGraphNativeQueryProvider : IGremlinQueryProvider
+        private sealed class DseGraphNativeGremlinQueryProvider : IGremlinQueryProvider
         {
             private readonly IDseSession _session;
 
-            public DseGraphNativeQueryProvider(IDseSession session)
+            public DseGraphNativeGremlinQueryProvider(IDseSession session)
             {
                 _session = session;
             }
@@ -44,7 +44,7 @@ namespace Dse
 
         public static IGremlinQueryProvider CreateQueryProvider(this IDseSession session)
         {
-            return new DseGraphNativeQueryProvider(session);
+            return new DseGraphNativeGremlinQueryProvider(session);
         }
     }
 }
