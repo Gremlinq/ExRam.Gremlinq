@@ -200,7 +200,7 @@ namespace ExRam.Gremlinq
                     {
                         foreach (var metaProperty in metaPropertiesObject.Properties())
                         {
-                            meta.Add(metaProperty.Name, metaProperty.Value.ToObject(typeof(object)));
+                            meta.Properties.Add(metaProperty.Name, metaProperty.Value.ToObject(typeof(object)));
                         }
                     }
                 }

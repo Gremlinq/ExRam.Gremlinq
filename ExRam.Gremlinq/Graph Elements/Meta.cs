@@ -16,15 +16,7 @@ namespace ExRam.Gremlinq
 
         }
 
-        public void Add(string key, object value)
-        {
-            _properties.Add(key, value);
-        }
-
-        public object this[string key]
-        {
-            get => _properties[key];
-        }
+        public IDictionary<string, object> Properties => _properties;
 
         public static implicit operator T(Meta<T> meta)
         {

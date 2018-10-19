@@ -526,8 +526,8 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             c.Name.Value.Should().Be("GER");
-            c.Name["de"].Should().Be("Deutschland");
-            c.Name["en"].Should().Be("Germany");
+            c.Name.Properties["de"].Should().Be("Deutschland");
+            c.Name.Properties["en"].Should().Be("Germany");
         }
 
         private static string GetJson(string name)
