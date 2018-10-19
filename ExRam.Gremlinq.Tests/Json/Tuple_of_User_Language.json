@@ -3,6 +3,7 @@
     "Item1": {
       "id": "d13ef3f51c86496eb2c22823601446ad",
       "label": "User",
+      "type": "vertex",
       "properties": {
         "Name": [
           {
@@ -21,6 +22,7 @@
     "Item2": {
       "id": "be66544bcdaa4ee9990eaf006585153b",
       "label": "Language",
+      "type": "vertex",
       "properties": {
         "IetfLanguageTag": [
           {

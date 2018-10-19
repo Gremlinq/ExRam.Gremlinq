@@ -2,6 +2,7 @@
   {
     "id": "15da4cea93114bfc8c6b23847487d97b",
     "label": "TimeFrame",
+    "type": "vertex",
     "properties": {
       "WeekDay": [
         {

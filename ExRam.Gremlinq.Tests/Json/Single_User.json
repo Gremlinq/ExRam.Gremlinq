@@ -2,6 +2,7 @@
   {
     "id": "d13ef3f51c86496eb2c22823601446ad",
     "label": "User",
+    "type": "vertex",
     "properties": {
       "Age": [
         {
@@ -18,7 +19,7 @@
       "Gender": [
         {
           "id": 3,
-          "value":  1
+          "value": 1
         }
       ],
       "PhoneNumbers": [

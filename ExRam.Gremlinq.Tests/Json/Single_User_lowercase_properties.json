@@ -2,6 +2,7 @@
   {
     "id": "d13ef3f51c86496eb2c22823601446ad",
     "label": "User",
+    "type": "vertex",
     "properties": {
       "age": [
         {
