@@ -21,6 +21,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string SingleTimeFrameJson;
         private static readonly string TupleOfUserLanguageJson;
         private static readonly string Graphson3ReferenceVertex;
+        private static readonly string CountryWithMetaProperties;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SingleUserWithoutPhoneNumbersJson;
@@ -42,6 +43,7 @@ namespace ExRam.Gremlinq.Tests
             SingleIsDescribedIn = GetJson("Single_IsDescribedIn");
             Graphson3TupleOfUserLanguageJson = GetJson("Graphson3_Tuple_of_User_Language");
             Graphson3ReferenceVertex = GetJson("Graphson3ReferenceVertex");
+            CountryWithMetaProperties = GetJson("Country_with_meta_properties");
         }
 
         [Fact]
@@ -507,6 +509,25 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             value.Should().Be(36);
+        }
+
+        [Fact]
+        public async Task Meta_Properties()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(CountryWithMetaProperties)));
+
+            var c = await queryProviderMock.Object
+                .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge),
+                    GraphElementNamingStrategy.Simple))
+                .Execute(g.V<Country>())
+                .First();
+
+            c.Name.Value.Should().Be("GER");
+            c.Name["de"].Should().Be("Deutschland");
+            c.Name["en"].Should().Be("Germany");
         }
 
         private static string GetJson(string name)

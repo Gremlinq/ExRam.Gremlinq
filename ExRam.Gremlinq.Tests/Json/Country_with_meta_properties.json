@@ -1,0 +1,19 @@
+﻿[
+  {
+    "id": "acca70cde9144cee8b817cff650d88de",
+    "type": "vertex",
+    "label": "Country",
+    "properties": {
+      "Name": [
+        {
+          "id": 1,
+          "value": "GER",
+          "properties": {
+            "de": "Deutschland",
+            "en": "Germany"
+          }
+        }
+      ]
+    }
+  }
+]
