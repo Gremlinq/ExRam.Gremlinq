@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Reflection;
 using System.Xml;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace ExRam.Gremlinq
 {
@@ -190,7 +188,7 @@ namespace ExRam.Gremlinq
                 return (object)Populate((dynamic)Activator.CreateInstance(objectType, true), token);
             }
 
-            private Meta<TMeta> Populate<TMeta>(Meta<TMeta> meta, JToken jToken)
+            private static Meta<TMeta> Populate<TMeta>(Meta<TMeta> meta, JToken jToken)
             {
                 if (jToken is JObject jObject)
                 {

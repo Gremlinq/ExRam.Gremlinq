@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using FluentAssertions;
-using LanguageExt;
 using Xunit;
 
 namespace ExRam.Gremlinq.Tests

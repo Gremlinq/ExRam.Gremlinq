@@ -922,11 +922,11 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TTarget, TNewOutVertex, TNewInVertex> Call<TTarget, TNewOutVertex, TNewInVertex>(string name, params object[] parameters) => Call<TTarget, TNewOutVertex, TNewInVertex>(name, parameters.ToImmutableList());
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Call(string name, ImmutableList<object> parameters) => AddStep<TElement>(new MethodStep(name, parameters));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Call(string name, IImmutableList<object> parameters) => AddStep<TElement>(new MethodStep(name, parameters));
 
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> Call<TTarget>(string name, ImmutableList<object> parameters) => AddStep<TTarget>(new MethodStep(name, parameters));
+        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> Call<TTarget>(string name, IImmutableList<object> parameters) => AddStep<TTarget>(new MethodStep(name, parameters));
 
-        private GremlinQueryImpl<TTarget, TNewOutVertex, TNewInVertex> Call<TTarget, TNewOutVertex, TNewInVertex>(string name, ImmutableList<object> parameters) => AddStep<TTarget, TNewOutVertex, TNewInVertex>(new MethodStep(name, parameters));
+        private GremlinQueryImpl<TTarget, TNewOutVertex, TNewInVertex> Call<TTarget, TNewOutVertex, TNewInVertex>(string name, IImmutableList<object> parameters) => AddStep<TTarget, TNewOutVertex, TNewInVertex>(new MethodStep(name, parameters));
         #endregion
 
         #region AddStep
