@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -79,7 +79,13 @@ namespace ExRam.Gremlinq.Dse
                             propertyType = propertyType.GetElementType();
                             continue;
                         }
-                        
+
+                        if (propertyType.IsConstructedGenericType && propertyType.GetGenericTypeDefinition() == typeof(Meta<>))
+                        {
+                            propertyType = propertyType.GetGenericArguments()[0];
+                            continue;
+                        }
+
                         break;
                     }
 
