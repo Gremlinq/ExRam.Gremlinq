@@ -139,9 +139,6 @@ namespace ExRam.Gremlinq
                         if (objectType == typeof(Unit))
                             return Unit.Default;
 
-                        if (objectType == typeof(Unit))
-                            return Unit.Default;
-
                         throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
                     }
 
