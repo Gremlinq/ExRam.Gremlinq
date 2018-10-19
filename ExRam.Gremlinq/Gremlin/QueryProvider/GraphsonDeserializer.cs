@@ -120,10 +120,7 @@ namespace ExRam.Gremlinq
         {
             public override bool CanConvert(Type objectType)
             {
-                return objectType.IsArray
-                    // ReSharper disable once TailRecursiveCall
-                    ? CanConvert(objectType.GetElementType())
-                    : (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
+                return !objectType.IsArray && (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
             }
 
             public override bool CanRead => true;
@@ -133,7 +130,7 @@ namespace ExRam.Gremlinq
             {
                 var token = JToken.Load(reader);
 
-                if (token is JArray array && !objectType.IsArray)
+                if (token is JArray array)
                 {
                     if (array.Count != 1)
                     {
