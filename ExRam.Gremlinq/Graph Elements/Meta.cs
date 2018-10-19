@@ -26,6 +26,16 @@ namespace ExRam.Gremlinq
             get => _properties[key];
         }
 
+        public static implicit operator T(Meta<T> meta)
+        {
+            return meta.Value;
+        }
+
+        public static implicit operator Meta<T>(T value)
+        {
+            return new Meta<T>(value);
+        }
+
         public T Value { get; set; }
     }
 }
