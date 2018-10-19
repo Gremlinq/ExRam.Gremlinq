@@ -26,14 +26,14 @@ namespace ExRam.Gremlinq
             {
                 var transformRule = JsonTransformRules
                     .Empty
-                    .Lazy((token, recurse) => token is JObject jObject && (jObject["@type"]?.ToString().Equals("g:Property", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault()
+                    .Lazy((token, recurse) => token is JObject jObject && jObject.Has("@type", "g:Property")
                         ? jObject.TryGetValue("@value")
                             .Map(value => value as JObject)
                             .Bind(valueObject => valueObject.TryGetValue("value"))
                         : Option<JToken>.None)
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && (jObject["@type"]?.ToString().Equals("g:Map", StringComparison.OrdinalIgnoreCase)).GetValueOrDefault())
+                        if (token is JObject jObject && jObject.Has("@type", "g:Map"))
                         {
                             return jObject.TryGetValue("@value")
                                 .Map(value => value as JArray)
