@@ -125,9 +125,6 @@ namespace ExRam.Gremlinq
                 return !objectType.IsArray && (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
             }
 
-            public override bool CanRead => true;
-            public override bool CanWrite => false;
-
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
@@ -142,7 +139,7 @@ namespace ExRam.Gremlinq
                         throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
                     }
 
-                    return ToObject(array[0], objectType);
+                    token = array[0];
                 }
 
                 return ToObject(token, objectType);
@@ -160,6 +157,72 @@ namespace ExRam.Gremlinq
             {
                 throw new NotSupportedException();
             }
+
+            public override bool CanRead => true;
+            public override bool CanWrite => false;
+        }
+
+        private sealed class MetaPropertyConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType.IsConstructedGenericType && objectType.GetGenericTypeDefinition() == typeof(Meta<>);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+                JsonSerializer serializer)
+            {
+                var token = JToken.Load(reader);
+
+                if (token is JArray array)
+                {
+                    if (array.Count != 1)
+                    {
+                        if (objectType == typeof(Unit))
+                            return Unit.Default;
+
+                        throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
+                    }
+
+                    token = array[0];
+                }
+
+                if (token is JObject obj)
+                {
+                    return (object)Populate((dynamic)Activator.CreateInstance(objectType, true), obj);
+                }
+
+                throw new NotImplementedException();
+            }
+
+            private Meta<T> Populate<T>(Meta<T> meta, JToken jToken)
+            {
+                if (jToken is JObject jObject)
+                {
+                    meta.Value = (T)jObject["value"]?.ToObject(typeof(T));
+
+                    if (jObject["properties"] is JObject metaPropertiesObject)
+                    {
+                        foreach (var metaProperty in metaPropertiesObject.Properties())
+                        {
+                            meta.Add(metaProperty.Name, metaProperty.Value.ToObject(typeof(object)));
+                        }
+                    }
+
+                    return meta;
+                }
+
+                throw new NotImplementedException();
+
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override bool CanRead => true;
+            public override bool CanWrite => false;
         }
 
         public GraphsonDeserializer()
@@ -169,6 +232,7 @@ namespace ExRam.Gremlinq
             Converters.Add(new AssumeUtcDateTimeOffsetConverter());
             Converters.Add(new AssumeUtcDateTimeConverter());
             Converters.Add(new ScalarConverter());
+            Converters.Add(new MetaPropertyConverter());
             ContractResolver = new GremlinContractResolver();
             TypeNameHandling = TypeNameHandling.Auto;
             MetadataPropertyHandling = MetadataPropertyHandling.Default;
