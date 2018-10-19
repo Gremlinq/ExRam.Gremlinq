@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq
         {
             public override bool CanConvert(Type objectType)
             {
-                return objectType.IsConstructedGenericType && objectType.GetGenericTypeDefinition() == typeof(Meta<>);
+                return typeof(IMeta).IsAssignableFrom(objectType);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
