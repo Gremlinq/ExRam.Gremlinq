@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq
     internal interface IMeta
     {
         object Value { get; }
+        IDictionary<string, object> Properties { get; }
     }
 
     public sealed class Meta<T> : IMeta
