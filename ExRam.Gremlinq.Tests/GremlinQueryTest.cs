@@ -84,6 +84,62 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddV_with_Meta_without_properties()
+        {
+            var query = g
+                .AddV(new Country { Id = "id", Name = "GER"})
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "id").And
+                .Contain("_P3", "Name").And
+                .Contain("_P4", "GER");
+        }
+
+        [Fact]
+        public void AddV_with_Meta_with_properties()
+        {
+            var query = g
+                .AddV(new Country
+                {
+                    Id = "id",
+                    Name = new Meta<string>("GER")
+                    {
+                        Properties =
+                        {
+                            { "de", "Deutschland" },
+                            { "en", "Germany" }
+                        }
+                    }
+                })
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4, _P5, _P6, _P7, _P8)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "id").And
+                .Contain("_P3", "Name").And
+                .Contain("_P4", "GER").And
+                .Contain("_P5", "de").And
+                .Contain("_P6", "Deutschland").And
+                .Contain("_P7", "en").And
+                .Contain("_P8", "Germany");
+        }
+
+
+        [Fact]
         public void AddV_with_enum_property()
         {
             var query = g

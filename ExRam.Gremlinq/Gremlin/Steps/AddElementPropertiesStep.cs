@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
@@ -22,7 +23,7 @@ namespace ExRam.Gremlinq
                 Element.GetType(),
                 type => type             
                     .GetProperties()
-                    .Where(property => IsNativeType(property.PropertyType))
+                    .Where(property => IsMetaType(property.PropertyType) ||  IsNativeType(property.PropertyType))
                     .ToArray())
                 .SelectMany(property =>
                 {
@@ -38,6 +39,17 @@ namespace ExRam.Gremlinq
                                 .Select(item => new MethodStep("property", propertyName, item));
                         }
 
+                        if (value is IMeta meta)
+                        {
+                            var metaProperties = meta.Properties
+                                .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
+                                .Prepend(meta.Value)
+                                .Prepend(propertyName)
+                                .ToImmutableList();
+
+                            return new[] { new MethodStep("property", metaProperties) };
+                        }
+
                         return new[] { new MethodStep("property", propertyName, value) };
                     }
 
@@ -49,7 +61,12 @@ namespace ExRam.Gremlinq
         {
             return type.GetTypeInfo().IsValueType || type == typeof(string) || type.IsArray && IsNativeType(type.GetElementType());
         }
-        
+
+        private static bool IsMetaType(Type type)
+        {
+            return typeof(IMeta).IsAssignableFrom(type);
+        }
+
         public object Element { get; }
     }
 }
