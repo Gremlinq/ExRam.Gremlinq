@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq
         new IEGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
         IVGremlinQuery<TVertex> And(params Func<IVGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
         TTargetQuery As<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        new IVGremlinQuery<TVertex> As(StepLabel<TVertex> stepLabel);
+        IVGremlinQuery<TVertex> As(VStepLabel<TVertex> stepLabel);
 
         IVGremlinQuery<Vertex> Both<TEdge>();
         IEGremlinQuery<TEdge> BothE<TEdge>();
@@ -146,6 +146,7 @@ namespace ExRam.Gremlinq
     public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>
     {
         TTargetQuery As<TTargetQuery>(Func<IEGremlinQuery<TEdge>, EStepLabel<TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        IEGremlinQuery<TEdge> As(EStepLabel<TEdge> stepLabel);
 
         IVGremlinQuery<Vertex> BothV();
         new IEGremlinQuery<TOtherEdge> Cast<TOtherEdge>();
@@ -193,6 +194,7 @@ namespace ExRam.Gremlinq
     public interface IOutEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
         TTargetQuery As<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        IOutEGremlinQuery<TEdge, TAdjacentVertex> As(OutEStepLabel<TEdge, TAdjacentVertex> stepLabel);
 
         new IOutEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
@@ -215,6 +217,7 @@ namespace ExRam.Gremlinq
     public interface IInEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
         TTargetQuery As<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        IInEGremlinQuery<TEdge, TAdjacentVertex> As(InEStepLabel<TEdge, TAdjacentVertex> stepLabel);
 
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
@@ -237,6 +240,7 @@ namespace ExRam.Gremlinq
     public interface IEGremlinQuery<TEdge, TAdjacentVertex> : IEGremlinQuery<TEdge>
     {
         TTargetQuery As<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        IEGremlinQuery<TEdge, TAdjacentVertex> As(EStepLabel<TEdge, TAdjacentVertex> stepLabel);
 
         new IEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 

@@ -82,17 +82,17 @@ namespace ExRam.Gremlinq
 
         #region As
         TTargetQuery IVGremlinQuery<TElement>.As<TTargetQuery>(Func<IVGremlinQuery<TElement>, VStepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
-
+        
         TTargetQuery IGremlinQuery<TElement>.As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
 
         TTargetQuery IEGremlinQuery<TElement>.As<TTargetQuery>(Func<IEGremlinQuery<TElement>, EStepLabel<TElement>, TTargetQuery> continuation) => As(continuation);
-
+        
         TTargetQuery IEGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IEGremlinQuery<TElement, TOutVertex>, EStepLabel<TElement, TOutVertex>, TTargetQuery> continuation) => As(continuation);
-
+        
         TTargetQuery IOutEGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOutEGremlinQuery<TElement, TOutVertex>, EStepLabel<TElement, TOutVertex>, TTargetQuery> continuation) => As(continuation);
-
+        
         TTargetQuery IInEGremlinQuery<TElement, TInVertex>.As<TTargetQuery>(Func<IInEGremlinQuery<TElement, TInVertex>, EStepLabel<TElement, TInVertex>, TTargetQuery> continuation) => As(continuation);
-
+        
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel<TElement>, new()
             where TTargetQuery : IGremlinQuery
@@ -106,7 +106,15 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
-        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.As(InEStepLabel<TElement, TInVertex> stepLabel) => As(stepLabel);
+
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.As(OutEStepLabel<TElement, TOutVertex> stepLabel) => As(stepLabel);
+
+        IEGremlinQuery<TElement, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.As(EStepLabel<TElement, TOutVertex> stepLabel) => As(stepLabel);
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.As(EStepLabel<TElement> stepLabel) => As(stepLabel);
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(VStepLabel<TElement> stepLabel) => As(stepLabel);
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => Call("as", stepLabel);
         #endregion
