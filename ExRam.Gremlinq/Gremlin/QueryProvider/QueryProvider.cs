@@ -53,9 +53,23 @@ namespace ExRam.Gremlinq
 
                         return Option<JToken>.None;
                     })
-                    .Lazy((token, recurse) => token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken
-                        ? recurse(valueToken)
-                        : Option<JToken>.None)
+                    .Lazy((token, recurse) =>
+                    {
+                        if (token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken)
+                        {
+                            if (valueToken is JObject valueObject)
+                            {
+                                if (jObject.Has("@type", "g:Vertex"))
+                                    valueObject.Add("type", "vertex");
+                                else if (jObject.Has("@type", "g:Edge"))
+                                    valueObject.Add("type", "edge");
+                            }
+
+                            return recurse(valueToken);
+                        }
+
+                        return Option<JToken>.None;
+                    })
                     .Lazy((token, recurse) =>
                     {
                         if (token is JObject jObject && jObject.ContainsKey("label") && !jObject.ContainsKey("$type"))
@@ -74,7 +88,7 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && jObject.ContainsKey("label") && jObject["properties"] is JObject propertiesObject)
+                        if (token is JObject jObject && (jObject.Has("type", "vertex") || jObject.Has("type", "edge")) && jObject["properties"] is JObject propertiesObject)
                         {
                             foreach (var item in propertiesObject)
                             {
