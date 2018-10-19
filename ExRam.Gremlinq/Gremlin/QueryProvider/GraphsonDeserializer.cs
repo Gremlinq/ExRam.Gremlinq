@@ -187,19 +187,14 @@ namespace ExRam.Gremlinq
                     token = array[0];
                 }
 
-                if (token is JObject obj)
-                {
-                    return (object)Populate((dynamic)Activator.CreateInstance(objectType, true), obj);
-                }
-
-                throw new NotImplementedException();
+                return (object)Populate((dynamic)Activator.CreateInstance(objectType, true), token);
             }
 
-            private Meta<T> Populate<T>(Meta<T> meta, JToken jToken)
+            private Meta<TMeta> Populate<TMeta>(Meta<TMeta> meta, JToken jToken)
             {
                 if (jToken is JObject jObject)
                 {
-                    meta.Value = (T)jObject["value"]?.ToObject(typeof(T));
+                    meta.Value = (TMeta)jObject["value"]?.ToObject(typeof(TMeta));
 
                     if (jObject["properties"] is JObject metaPropertiesObject)
                     {
@@ -208,12 +203,11 @@ namespace ExRam.Gremlinq
                             meta.Add(metaProperty.Name, metaProperty.Value.ToObject(typeof(object)));
                         }
                     }
-
-                    return meta;
                 }
+                else
+                    meta.Value = (TMeta)jToken.ToObject(typeof(TMeta));
 
-                throw new NotImplementedException();
-
+                return meta;
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
