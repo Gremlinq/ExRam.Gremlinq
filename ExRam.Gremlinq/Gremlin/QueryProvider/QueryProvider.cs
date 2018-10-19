@@ -69,11 +69,10 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && !jObject.ContainsKey("$type"))
+                        if (token is JObject jObject && jObject.ContainsKey("label") && !jObject.ContainsKey("$type"))
                         {
-                            return jObject
-                                .TryGetValue("label")
-                                .Bind(labelToken => _model.TryGetElementTypeOfLabel(labelToken.ToString()))
+                            return _model
+                                .TryGetElementTypeOfLabel(jObject["label"].ToString())
                                 .Bind(type =>
                                 {
                                     jObject.AddFirst(new JProperty("$type", type.AssemblyQualifiedName));
@@ -86,7 +85,7 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && jObject["properties"] is JObject propertiesObject)
+                        if (token is JObject jObject && jObject.ContainsKey("label") && jObject["properties"] is JObject propertiesObject)
                         {
                             foreach (var item in propertiesObject)
                             {
