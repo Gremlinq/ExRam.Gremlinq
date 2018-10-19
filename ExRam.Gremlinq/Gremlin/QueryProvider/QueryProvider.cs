@@ -58,17 +58,6 @@ namespace ExRam.Gremlinq
                         : Option<JToken>.None)
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && (jObject.Parent?.Parent is JObject typedVertexProperty && typedVertexProperty["@type"]?.ToString() == "g:VertexProperty" || jObject.Parent?.Parent?.Parent?.Parent is JProperty parentProperty && parentProperty.Name.Equals("properties", StringComparison.OrdinalIgnoreCase)))
-                        {
-                            return jObject
-                                .TryGetValue("value")
-                                .Bind(recurse);
-                        }
-
-                        return Option<JToken>.None;
-                    })
-                    .Lazy((token, recurse) =>
-                    {
                         if (token is JObject jObject && jObject.ContainsKey("label") && !jObject.ContainsKey("$type"))
                         {
                             return _model

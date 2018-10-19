@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Reflection;
 using System.Xml;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace ExRam.Gremlinq
 {
@@ -116,7 +118,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        private sealed class ArrayConverter : JsonConverter
+        private sealed class ScalarConverter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
             {
@@ -143,8 +145,16 @@ namespace ExRam.Gremlinq
                         throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
                     }
 
-                    return array[0].ToObject(objectType);
+                    return ToObject(array[0], objectType);
                 }
+
+                return ToObject(token, objectType);
+            }
+
+            private static object ToObject(JToken token, Type objectType)
+            {
+                if (token is JObject jObject && jObject.ContainsKey("value"))
+                    return ToObject(jObject["value"], objectType);
 
                 return token.ToObject(objectType);
             }
@@ -161,7 +171,7 @@ namespace ExRam.Gremlinq
             Converters.Add(new TimespanConverter());
             Converters.Add(new AssumeUtcDateTimeOffsetConverter());
             Converters.Add(new AssumeUtcDateTimeConverter());
-            Converters.Add(new ArrayConverter());
+            Converters.Add(new ScalarConverter());
             ContractResolver = new GremlinContractResolver();
             TypeNameHandling = TypeNameHandling.Auto;
             MetadataPropertyHandling = MetadataPropertyHandling.Default;
