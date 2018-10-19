@@ -2,7 +2,12 @@
 
 namespace ExRam.Gremlinq
 {
-    public sealed class Meta<T>
+    internal interface IMeta
+    {
+        object Value { get; }
+    }
+
+    public sealed class Meta<T> : IMeta
     {
         private readonly Dictionary<string, object> _properties = new Dictionary<string, object>();
 
@@ -29,5 +34,7 @@ namespace ExRam.Gremlinq
         }
 
         public T Value { get; set; }
+
+        object IMeta.Value => Value;
     }
 }
