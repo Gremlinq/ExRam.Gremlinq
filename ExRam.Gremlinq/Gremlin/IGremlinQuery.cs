@@ -150,6 +150,7 @@ namespace ExRam.Gremlinq
     {
         IGremlinQuery<Property> Properties(params string[] keys);
         IVPropertiesGremlinQuery<TElement> Property(string key, object value);
+        IVPropertiesGremlinQuery<TElement> SideEffect(Func<IVPropertiesGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
     }
 
     public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>
