@@ -497,12 +497,12 @@ namespace ExRam.Gremlinq
         
         IGremlinQuery<string> IGremlinQuery.Profile() => Call<string>("profile");
 
-        #region Prperties
+        #region Properties
         IVPropertiesGremlinQuery<VertexProperty> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
 
         IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
         {
-            return Call<Property, Unit, Unit>("properties", keys.ToImmutableList());
+            return Call<Property, Unit, Unit>("properties", keys.ToImmutableList<object>());
         }
 
         private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
@@ -519,7 +519,7 @@ namespace ExRam.Gremlinq
 
                         throw new NotSupportedException();
                     })
-                    .ToImmutableList());
+                    .ToImmutableList<object>());
         }
         #endregion
         
@@ -536,6 +536,11 @@ namespace ExRam.Gremlinq
             }
 
             throw new NotSupportedException();
+        }
+
+        IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, object value)
+        {
+            return Call("property", key, value);
         }
         #endregion
 
