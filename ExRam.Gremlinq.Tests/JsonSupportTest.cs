@@ -573,6 +573,26 @@ namespace ExRam.Gremlinq.Tests
             properties[0].Properties.Should().Contain("metaKey", "MetaValue");
         }
 
+        [Fact]
+        public async Task MetaProperties()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("Properties"))));
+
+            var properties = await queryProviderMock.Object
+                .WithJsonSupport(GraphModel.Empty)
+                .Execute(g.V().Properties().Properties())
+                .ToArray(default);
+
+            properties.Should().HaveCount(2);
+            properties[0].Key.Should().Be("metaKey1");
+            properties[0].Value.Should().Be("metaValue1");
+            properties[1].Key.Should().Be("metaKey2");
+            properties[1].Value.Should().Be(36);
+        }
+
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Tests.Json.{name}.json")).ReadToEnd();

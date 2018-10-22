@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq
 
     public interface IVPropertiesGremlinQuery<TElement> : IGremlinQuery<TElement>
     {
-
+        IGremlinQuery<Property> Properties(params string[] keys);
     }
 
     public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>

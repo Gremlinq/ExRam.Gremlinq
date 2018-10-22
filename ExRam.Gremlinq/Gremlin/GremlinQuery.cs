@@ -500,6 +500,11 @@ namespace ExRam.Gremlinq
         #region Prperties
         IVPropertiesGremlinQuery<VertexProperty> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
 
+        IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
+        {
+            return Call<Property, Unit, Unit>("properties", keys.ToImmutableList());
+        }
+
         private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
         {
             return Call<VertexProperty, Unit, Unit>(
