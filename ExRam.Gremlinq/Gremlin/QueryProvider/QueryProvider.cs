@@ -26,17 +26,15 @@ namespace ExRam.Gremlinq
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
             private readonly IGraphModel _model;
+            private readonly JsonTransformRule _baseRule;
             private readonly IGremlinQueryProvider _baseProvider;
 
             public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
             {
                 _model = model;
                 _baseProvider = baseProvider;
-            }
 
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
-                var transformRule = JsonTransformRules
+                _baseRule = JsonTransformRules
                     .Empty
                     .Lazy((token, recurse) => token is JObject jObject && jObject.Has("@type", "g:Property")
                         ? jObject.TryGetValue("@value")
@@ -67,7 +65,8 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken)
+                        if (token is JObject jObject && jObject.ContainsKey("@type") &&
+                            jObject["@value"] is JToken valueToken)
                         {
                             if (valueToken is JObject valueObject)
                             {
@@ -82,6 +81,29 @@ namespace ExRam.Gremlinq
 
                         return Option<JToken>.None;
                     })
+                    .Lazy((token, recurse) =>
+                    {
+                        if (token is JObject jObject &&
+                            (jObject.Has("type", "vertex") || jObject.Has("type", "edge")) &&
+                            jObject["properties"] is JObject propertiesObject)
+                        {
+                            foreach (var item in propertiesObject)
+                            {
+                                jObject[item.Key] = recurse(item.Value).IfNone(jObject[item.Key]);
+                            }
+
+                            propertiesObject.Parent.Remove();
+
+                            return recurse(jObject);
+                        }
+
+                        return Option<JToken>.None;
+                    });
+            }
+
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            {
+                var transformRule = _baseRule
                     .Lazy((token, recurse) =>
                     {
                         if (token is JObject jObject && jObject.ContainsKey("label") && !jObject.ContainsKey("$type"))
@@ -105,22 +127,6 @@ namespace ExRam.Gremlinq
 
                                     return recurse(jObject);
                                 });
-                        }
-
-                        return Option<JToken>.None;
-                    })
-                    .Lazy((token, recurse) =>
-                    {
-                        if (token is JObject jObject && (jObject.Has("type", "vertex") || jObject.Has("type", "edge")) && jObject["properties"] is JObject propertiesObject)
-                        {
-                            foreach (var item in propertiesObject)
-                            {
-                                jObject[item.Key] = recurse(item.Value).IfNone(jObject[item.Key]);
-                            }
-
-                            propertiesObject.Parent.Remove();
-
-                            return recurse(jObject);
                         }
 
                         return Option<JToken>.None;
