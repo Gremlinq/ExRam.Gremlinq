@@ -10,6 +10,18 @@ namespace ExRam.Gremlinq
     {
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {
+            // ReSharper disable once ClassNeverInstantiated.Local
+            private sealed class VertexImpl : Vertex
+            {
+
+            }
+
+            // ReSharper disable once ClassNeverInstantiated.Local
+            private sealed class EdgeImpl : Vertex
+            {
+
+            }
+
             private static readonly JArray EmptyJArray = new JArray();
             private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
@@ -76,6 +88,17 @@ namespace ExRam.Gremlinq
                         {
                             return _model
                                 .TryGetElementTypeOfLabel(jObject["label"].ToString())
+                                .Filter(type => typeof(TElement).IsAssignableFrom(type))
+                                .IfNone(() =>
+                                {
+                                    if (typeof(TElement) == typeof(Vertex))
+                                        return typeof(VertexImpl);
+
+                                    if (typeof(TElement) == typeof(Edge))
+                                        return typeof(EdgeImpl);
+
+                                    return Option<Type>.None;
+                                })
                                 .Bind(type =>
                                 {
                                     jObject.AddFirst(new JProperty("$type", type.AssemblyQualifiedName));

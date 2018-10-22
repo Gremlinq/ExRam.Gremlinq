@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace ExRam.Gremlinq.Tests
 {
@@ -9,8 +9,6 @@ namespace ExRam.Gremlinq.Tests
         public virtual TimeSpan StartTime { get; set; }
 
         public virtual TimeSpan Duration { get; set; }
-
-        public string Id { get; set; }
 
         public bool Enabled { get; set; }
     }

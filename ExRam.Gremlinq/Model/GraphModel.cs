@@ -43,15 +43,19 @@ namespace ExRam.Gremlinq
             return Empty
                 .AddVertexTypes(assembly
                     .DefinedTypes
-                    .Where(typeInfo => vertexBaseType.IsAssignableFrom(typeInfo.AsType()))
-                    .Select(typeInfo => typeInfo.AsType())
+                    .Cast<Type>()
+                    .Prepend(vertexBaseType)
+                    .Where(vertexBaseType.IsAssignableFrom)
+                    .Select(typeInfo => typeInfo)
                     .ToImmutableDictionary(
                         type => type,
                         namingStrategy.GetLabelForType))
                 .AddEdgeTypes(assembly
                     .DefinedTypes
-                    .Where(typeInfo => edgeBaseType.IsAssignableFrom(typeInfo.AsType()))
-                    .Select(typeInfo => typeInfo.AsType())
+                    .Cast<Type>()
+                    .Prepend(edgeBaseType)
+                    .Where(edgeBaseType.IsAssignableFrom)
+                    .Select(typeInfo => typeInfo)
                     .ToImmutableDictionary(
                         type => type,
                         namingStrategy.GetLabelForType));

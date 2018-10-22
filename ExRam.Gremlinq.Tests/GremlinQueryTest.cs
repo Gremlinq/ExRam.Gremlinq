@@ -27,14 +27,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(T.id, _P4)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Language").And
-                .Contain("_P2", "id").And
-                .Contain("_P3", "IetfLanguageTag").And
-                .Contain("_P4", "en");
+                .Contain("_P2", "IetfLanguageTag").And
+                .Contain("_P3", "en").And
+                .Contain("_P4", "id");
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(T.id, _P8).property(_P9, _P10).property(_P9, _P11)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).property(_P8, _P10).property(T.id, _P11)");
 
             query.parameters
                 .Should()
@@ -76,10 +76,10 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P5", 0).And
                 .Contain("_P6", "RegistrationDate").And
                 .Contain("_P7", DateTimeOffset.MinValue).And
-                .Contain("_P8", "id").And
-                .Contain("_P9", "PhoneNumbers").And
-                .Contain("_P10", "+4912345").And
-                .Contain("_P11", "+4923456");
+                .Contain("_P8", "PhoneNumbers").And
+                .Contain("_P9", "+4912345").And
+                .Contain("_P10", "+4923456").And
+                .Contain("_P11", "id");
         }
 
         [Fact]
@@ -92,14 +92,14 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4)");
+                .Be("g.addV(_P1).property(_P2, _P3).property(T.id, _P4)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Country").And
-                .Contain("_P2", "id").And
-                .Contain("_P3", "Name").And
-                .Contain("_P4", "GER");
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "GER").And
+                .Contain("_P4", "id");
         }
 
         [Fact]
@@ -123,18 +123,18 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(T.id, _P2).property(_P3, _P4, _P5, _P6, _P7, _P8)");
+                .Be("g.addV(_P1).property(_P2, _P3, _P4, _P5, _P6, _P7).property(T.id, _P8)");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "Country").And
-                .Contain("_P2", "id").And
-                .Contain("_P3", "Name").And
-                .Contain("_P4", "GER").And
-                .Contain("_P5", "de").And
-                .Contain("_P6", "Deutschland").And
-                .Contain("_P7", "en").And
-                .Contain("_P8", "Germany");
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "GER").And
+                .Contain("_P4", "de").And
+                .Contain("_P5", "Deutschland").And
+                .Contain("_P6", "en").And
+                .Contain("_P7", "Germany").And
+                .Contain("_P8", "id");
         }
 
 
