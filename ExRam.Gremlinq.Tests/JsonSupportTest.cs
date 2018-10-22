@@ -420,6 +420,34 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public async Task Tuple_vertex_vertex()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
+
+            var jsonQueryProvider = queryProviderMock.Object
+                .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
+
+            var tuple = await GremlinQuery
+                .Create("g")
+                .SetTypedGremlinQueryProvider(jsonQueryProvider)
+                .Cast<(Vertex, Vertex)>()
+                .Execute()
+                .First();
+
+            tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            tuple.Item1.Should().BeOfType<User>();
+            tuple.Item1.As<User>().Name.Should().Be("Name of some base entity");
+            tuple.Item1.As<User>().Age.Should().Be(36);
+
+            tuple.Item2.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            tuple.Item2.Should().BeOfType<Language>();
+            tuple.Item2.As<Language>().IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
         public async Task Graphson3_Tuple()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();

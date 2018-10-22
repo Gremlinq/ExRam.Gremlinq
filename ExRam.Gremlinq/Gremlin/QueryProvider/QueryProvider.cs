@@ -65,8 +65,7 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject && jObject.ContainsKey("@type") &&
-                            jObject["@value"] is JToken valueToken)
+                        if (token is JObject jObject && jObject.ContainsKey("@type") && jObject["@value"] is JToken valueToken)
                         {
                             if (valueToken is JObject valueObject)
                             {
@@ -83,9 +82,7 @@ namespace ExRam.Gremlinq
                     })
                     .Lazy((token, recurse) =>
                     {
-                        if (token is JObject jObject &&
-                            (jObject.Has("type", "vertex") || jObject.Has("type", "edge")) &&
-                            jObject["properties"] is JObject propertiesObject)
+                        if (token is JObject jObject && (jObject.Has("type", "vertex") || jObject.Has("type", "edge")) && jObject["properties"] is JObject propertiesObject)
                         {
                             foreach (var item in propertiesObject)
                             {
@@ -110,7 +107,7 @@ namespace ExRam.Gremlinq
                         {
                             return _model
                                 .TryGetElementTypeOfLabel(jObject["label"].ToString())
-                                .Filter(type => typeof(TElement).IsAssignableFrom(type))
+                                //.Filter(type => typeof(TElement).IsAssignableFrom(type))
                                 .IfNone(() =>
                                 {
                                     if (typeof(TElement) == typeof(Vertex))
