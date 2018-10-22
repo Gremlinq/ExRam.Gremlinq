@@ -569,6 +569,8 @@ namespace ExRam.Gremlinq.Tests
             properties[1].Value.Should().Be("Some string");
             properties[2].Label.Should().Be("Property3");
             properties[2].Value.Should().Be(36);
+
+            properties[0].Properties.Should().Contain("metaKey", "MetaValue");
         }
 
         private static string GetJson(string name)
