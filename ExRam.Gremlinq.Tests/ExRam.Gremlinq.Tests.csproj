@@ -9,8 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Json\Properties.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
     <EmbeddedResource Include="Json\Country_with_meta_properties.json" />
+    <EmbeddedResource Include="Json\Properties.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />
     <EmbeddedResource Include="Json\Array_of_Languages.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />

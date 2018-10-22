@@ -549,6 +549,28 @@ namespace ExRam.Gremlinq.Tests
             c.Name.Properties["en"].Should().Be("Germany");
         }
 
+        [Fact]
+        public async Task Properties()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("Properties"))));
+
+            var properties = await queryProviderMock.Object
+                .WithJsonSupport(GraphModel.Empty)
+                .Execute(g.V().Properties())
+                .ToArray(default);
+
+            properties.Should().HaveCount(3);
+            properties[0].Label.Should().Be("Property1");
+            properties[0].Value.Should().Be(1540202009475);
+            properties[1].Label.Should().Be("Property2");
+            properties[1].Value.Should().Be("Some string");
+            properties[2].Label.Should().Be("Property3");
+            properties[2].Value.Should().Be(36);
+        }
+
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Tests.Json.{name}.json")).ReadToEnd();
