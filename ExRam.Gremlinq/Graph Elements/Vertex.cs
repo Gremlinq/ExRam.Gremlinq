@@ -1,7 +1,6 @@
 ﻿namespace ExRam.Gremlinq
 {
-    public sealed class Vertex
+    public abstract class Vertex : Element
     {
-
     }
 }

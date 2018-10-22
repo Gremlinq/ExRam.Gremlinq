@@ -1,6 +1,6 @@
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class Edge
+    public abstract class Edge : Element
     {
 
     }
