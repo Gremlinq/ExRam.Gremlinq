@@ -14,6 +14,7 @@ namespace ExRam.Gremlinq
 {
     internal sealed class GremlinQueryImpl<TElement, TOutVertex, TInVertex> :
         IVGremlinQuery<TElement>,
+        IVPropertiesGremlinQuery<TElement>,
         IEGremlinQuery<TElement, TOutVertex, TInVertex>
     {
         public static readonly GremlinQueryImpl<TElement, TOutVertex, TInVertex> Anonymous = Create("__");
@@ -493,9 +494,30 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.Out<TNewEdge>() => AddStep<Vertex>(new DerivedLabelNamesStep<TNewEdge>("out"));
         #endregion
-
+        
         IGremlinQuery<string> IGremlinQuery.Profile() => Call<string>("profile");
 
+        #region Prperties
+        IVPropertiesGremlinQuery<Property> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
+
+        private GremlinQueryImpl<Property, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
+        {
+            return Call<Property, Unit, Unit>(
+                "properties",
+                projections
+                    .Select(projection =>
+                    {
+                        if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                        {
+                            return memberExpression.Member.Name;
+                        }
+
+                        throw new NotSupportedException();
+                    })
+                    .ToImmutableList());
+        }
+        #endregion
+        
         #region Property
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Property(string key, object value) => Call("property", key, value);
         #endregion

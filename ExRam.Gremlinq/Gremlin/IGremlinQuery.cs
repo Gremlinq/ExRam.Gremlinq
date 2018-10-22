@@ -128,6 +128,8 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
+        IVPropertiesGremlinQuery<Property> Properties(params Expression<Func<TVertex, object>>[] projections);
+
         new IVGremlinQuery<TVertex> Range(long low, long high);
         IVGremlinQuery<TVertex> Repeat(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal);
         IVGremlinQuery<TVertex> RepeatUntil(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal, Func<IVGremlinQuery<TVertex>, IGremlinQuery> untilTraversal);
@@ -141,6 +143,11 @@ namespace ExRam.Gremlinq
 
         new IVGremlinQuery<TVertex> Where(Expression<Func<TVertex, bool>> predicate);
         IVGremlinQuery<TVertex> Where(Func<IVGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
+    }
+
+    public interface IVPropertiesGremlinQuery<TElement> : IGremlinQuery<TElement>
+    {
+
     }
 
     public interface IEGremlinQuery<TEdge> : IGremlinQuery<TEdge>
