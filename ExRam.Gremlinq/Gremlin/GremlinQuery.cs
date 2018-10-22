@@ -524,7 +524,19 @@ namespace ExRam.Gremlinq
         #endregion
         
         #region Property
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Property(string key, object value) => Call("property", key, value);
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value)
+        {
+            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+            {
+                return Call("property", memberExpression.Member.Name, value);
+            }
+
+            throw new NotSupportedException();
+        }
         #endregion
 
         #region Range
@@ -1017,19 +1029,6 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<TElement> Create<TElement>(string graphName)
         {
             return GremlinQuery<TElement>.Create(graphName);
-        }
-
-        public static IGremlinQuery<TElement> Property<TElement, TProperty>(this IGremlinQuery<TElement> query, Expression<Func<TElement, TProperty>> propertyExpression, TProperty property)
-        {
-            if (propertyExpression.Body is MemberExpression memberExpression)
-            {
-                if (memberExpression.Expression == propertyExpression.Parameters[0])
-                {
-                    return query.Property(memberExpression.Member.Name, property);
-                }
-            }
-
-            throw new NotSupportedException();
         }
 
         public static IGremlinQuery<TElement> SetTypedGremlinQueryProvider<TElement>(this IGremlinQuery<TElement> query, IGremlinQueryProvider gremlinQueryProvider)

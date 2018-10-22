@@ -72,7 +72,6 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TElement> OrderBy(string lambda);
         IGremlinQuery<TElement> OrderByDescending(Expression<Func<TElement, object>> projection);
         IGremlinQuery<TElement> OrderByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal);
-        IGremlinQuery<TElement> Property(string key, object value);
         IGremlinQuery<TElement> Range(long low, long high);
 
         IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal);
@@ -129,6 +128,7 @@ namespace ExRam.Gremlinq
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         IVPropertiesGremlinQuery<VertexProperty> Properties(params Expression<Func<TVertex, object>>[] projections);
+        IVGremlinQuery<TVertex> Property<TValue>(Expression<Func<TVertex, TValue>> projection, TValue value);
 
         new IVGremlinQuery<TVertex> Range(long low, long high);
         IVGremlinQuery<TVertex> Repeat(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal);
@@ -181,6 +181,8 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TEdge> OrderByDescending(Func<IEGremlinQuery<TEdge>, IGremlinQuery> traversal);
         IVGremlinQuery<Vertex> OtherV();
         IVGremlinQuery<Vertex> OutV();
+
+        IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue>> projection, TValue value);
 
         new IEGremlinQuery<TEdge> Range(long low, long high);
         IEGremlinQuery<TEdge> Repeat(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal);
