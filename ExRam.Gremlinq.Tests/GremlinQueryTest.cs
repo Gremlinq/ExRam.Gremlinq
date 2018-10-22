@@ -1963,6 +1963,59 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Properties()
+        {
+            var query = g
+                .V()
+                .Properties()
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().properties()");
+        }
+
+        [Fact]
+        public void Properties_with_projection()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "Name");
+        }
+
+        [Fact]
+        public void Meta_Properties()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).properties()");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "Name");
+        }
+
+        [Fact]
         public void Limit_overflow()
         {
             g
