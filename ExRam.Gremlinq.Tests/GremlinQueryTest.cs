@@ -2016,6 +2016,27 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Meta_Properties_with_key()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Properties("metaKey")
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).properties(_P3)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Country").And
+                .Contain("_P2", "Name").And
+                .Contain("_P3", "metaKey");
+        }
+
+        [Fact]
         public void Limit_overflow()
         {
             g

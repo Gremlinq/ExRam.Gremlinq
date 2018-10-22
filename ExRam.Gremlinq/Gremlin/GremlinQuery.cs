@@ -525,10 +525,14 @@ namespace ExRam.Gremlinq
         
         #region Property
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
+ 
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value)
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Property<TProperty>(Expression<Func<TElement, TProperty>> projection, object value)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
@@ -545,11 +549,11 @@ namespace ExRam.Gremlinq
         #endregion
 
         #region Range
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Range(long low, long high) => Call("range", low, high);
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Range(long low, long high) => Range(low, high);
 
-        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Range(long low, long high) => Call("range", low, high);
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Range(long low, long high) => Range(low, high);
 
-        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Range(long low, long high) => Call("range", low, high);
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Range(long low, long high) => Range(low, high);
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Range(long low, long high)
         {
