@@ -498,11 +498,11 @@ namespace ExRam.Gremlinq
         IGremlinQuery<string> IGremlinQuery.Profile() => Call<string>("profile");
 
         #region Prperties
-        IVPropertiesGremlinQuery<Property> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
+        IVPropertiesGremlinQuery<VertexProperty> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
 
-        private GremlinQueryImpl<Property, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
+        private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
         {
-            return Call<Property, Unit, Unit>(
+            return Call<VertexProperty, Unit, Unit>(
                 "properties",
                 projections
                     .Select(projection =>

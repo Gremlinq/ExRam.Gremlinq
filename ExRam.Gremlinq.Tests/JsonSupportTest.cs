@@ -550,12 +550,12 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public async Task Properties()
+        public async Task VertexProperties()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
             queryProviderMock
                 .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("Properties"))));
+                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("VertexProperties"))));
 
             var properties = await queryProviderMock.Object
                 .WithJsonSupport(GraphModel.Empty)

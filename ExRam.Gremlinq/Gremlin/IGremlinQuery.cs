@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
-        IVPropertiesGremlinQuery<Property> Properties(params Expression<Func<TVertex, object>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty> Properties(params Expression<Func<TVertex, object>>[] projections);
 
         new IVGremlinQuery<TVertex> Range(long low, long high);
         IVGremlinQuery<TVertex> Repeat(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> repeatTraversal);
