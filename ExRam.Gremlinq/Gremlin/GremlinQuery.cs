@@ -668,7 +668,11 @@ namespace ExRam.Gremlinq
 
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Sum(Scope scope) => Call("sum", scope);
+        #region Sum
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => Call("sum", Scope.Local);
+
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => Call("sum", Scope.Global);
+        #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => Call("times", count);
 

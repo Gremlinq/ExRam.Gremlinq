@@ -1515,7 +1515,7 @@ namespace ExRam.Gremlinq.Tests
             var query = g
                 .V<User>()
                 .Values(x => x.Age)
-                .Sum(Scope.Local)
+                .SumLocal()
                 .Resolve(_model)
                 .Serialize();
 
@@ -1535,7 +1535,7 @@ namespace ExRam.Gremlinq.Tests
             var query = g
                 .V<User>()
                 .Values(x => x.Age)
-                .Sum(Scope.Global)
+                .SumGlobal()
                 .Resolve(_model)
                 .Serialize();
 
