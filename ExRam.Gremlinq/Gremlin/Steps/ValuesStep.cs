@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq
             _projections = projections;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             var keys = _projections
                 .Select(projection =>

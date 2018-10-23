@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq
             _stepName = stepName;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             var type = _value.GetType();
             

@@ -1134,19 +1134,18 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
-            return query
-                .RewriteSteps(x => Option<IEnumerable<Step>>.Some(x.Resolve(model)))
-                .Cast<TElement>();
+            return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps.Resolve(model).ToImmutableList(), query.StepLabelMappings);
         }
 
-        public static IGremlinQuery<Unit> RewriteSteps(this IGremlinQuery query, Func<NonTerminalStep, Option<IEnumerable<Step>>> resolveFunction)
+        private static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
         {
-            var steps = query.Steps;
+            return new GremlinQueryImpl<Unit, Unit, Unit>(query.Steps.Resolve(model).ToImmutableList(), query.StepLabelMappings);
+        }
 
-            for(var index = 0; index < steps.Count; index++)
+        public static IEnumerable<Step> Resolve(this IEnumerable<Step> steps, IGraphModel model)
+        {
+            foreach(var step in steps)
             {
-                var step = steps[index];
-
                 switch (step)
                 {
                     case MethodStep terminal:
@@ -1158,36 +1157,33 @@ namespace ExRam.Gremlinq
                             var parameter = parameters[j];
 
                             if (parameter is IGremlinQuery subQuery)
-                                parameters = parameters.SetItem(j, subQuery.RewriteSteps(resolveFunction));
+                                parameters = parameters.SetItem(j, subQuery.Resolve(model));
                         }
 
                         if (!ReferenceEquals(parameters, terminal.Parameters))
-                            steps = steps.SetItem(index, new MethodStep(terminal.Name, parameters));
+                            yield return new MethodStep(terminal.Name, parameters);
+                        else
+                            yield return terminal;
 
                         break;
                     }
                     case NonTerminalStep nonTerminal:
                     {
-                        var newTuple = resolveFunction(nonTerminal)
-                            .Fold(
-                                (steps, index),
-                                (tuple, newSteps) => (
-                                    tuple.steps
-                                        .RemoveAt(tuple.index)
-                                        .InsertRange(tuple.index, newSteps),
-                                    tuple.index - 1));
+                        foreach (var resolvedStep in nonTerminal.Resolve(model).Resolve(model))
+                        {
+                            yield return resolvedStep;
+                        }
 
-                        index = newTuple.index;
-                        steps = newTuple.steps;
+                        break;
+                    }
+                    default:
+                    {
+                        yield return step;
 
                         break;
                     }
                 }
             }
-
-            return query
-                .Cast<Unit>()
-                .ReplaceSteps(steps);
         }
 
         public static IVGremlinQuery<TNewVertex> V<TNewVertex>(this IGremlinQuery query, params object[] ids)

@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq
             _value = value;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             var key = model.GetIdentifier(_key);
 

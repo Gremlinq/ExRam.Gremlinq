@@ -15,17 +15,16 @@ namespace ExRam.Gremlinq
             Element = element;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             return TypeProperties
                 .GetOrAdd(
                     Element.GetType(),
-                    type => type             
+                    type => type
                         .GetProperties()
                         .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
                         .ToArray())
-                .Select(property => new PropertyStep(property, property.GetValue(Element)))
-                .SelectMany(_ => _.Resolve(model));
+                .Select(property => new PropertyStep(property, property.GetValue(Element)));
         }
 
         private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?

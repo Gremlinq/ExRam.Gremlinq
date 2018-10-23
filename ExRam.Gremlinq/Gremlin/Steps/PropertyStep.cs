@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq
             _memberExpression = memberExpression;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             if (_value != null)
             {

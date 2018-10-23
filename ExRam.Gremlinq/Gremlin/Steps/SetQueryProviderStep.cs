@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq
             GremlinQueryProvider = gremlinQueryProvider;
         }
 
-        public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
+        public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             return Enumerable.Empty<TerminalStep>();
         }
