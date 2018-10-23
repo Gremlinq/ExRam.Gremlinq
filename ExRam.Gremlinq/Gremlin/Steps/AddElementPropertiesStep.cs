@@ -25,36 +25,16 @@ namespace ExRam.Gremlinq
                     .GetProperties()
                     .Where(property => IsMetaType(property.PropertyType) ||  IsNativeType(property.PropertyType))
                     .ToArray())
-                .SelectMany(property =>
+                .Select(property =>
                 {
                     var value = property.GetValue(Element);
-                    var propertyName = model.GetIdentifier(property.Name);
 
-                    if (value != null)
-                    {
-                        if (property.PropertyType.IsArray)  //TODO: Other types?
-                        {
-                            return ((IEnumerable)value)
-                                .Cast<object>()
-                                .Select(item => new MethodStep("property", propertyName, item));
-                        }
-
-                        if (value is IMeta meta)
-                        {
-                            var metaProperties = meta.Properties
-                                .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
-                                .Prepend(meta.Value)
-                                .Prepend(propertyName)
-                                .ToImmutableList();
-
-                            return new[] { new MethodStep("property", metaProperties) };
-                        }
-
-                        return new[] { new MethodStep("property", propertyName, value) };
-                    }
-
-                    return Array.Empty<MethodStep>();
-                });
+                    return value != null
+                        ? new PropertyStep(property, value)
+                        : null;
+                })
+                .Where(step => step != null)
+                .SelectMany(_ => _.Resolve(model));
         }
 
         private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?

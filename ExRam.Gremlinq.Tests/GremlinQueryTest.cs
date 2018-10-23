@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(T.id, _P4)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, T.id, _P4)");
 
             query.parameters
                 .Should()
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(T.id, _P2)");
+                .Be("g.addV(_P1).property(Cardinality.single, T.id, _P2)");
 
             query.parameters
                 .Should()
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).property(_P8, _P10).property(T.id, _P11)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).property(Cardinality.list, _P8, _P9).property(Cardinality.list, _P8, _P10).property(Cardinality.single, T.id, _P11)");
 
             query.parameters
                 .Should()
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(T.id, _P4)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, T.id, _P4)");
 
             query.parameters
                 .Should()
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3, _P4, _P5, _P6, _P7).property(T.id, _P8)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3, _P4, _P5, _P6, _P7).property(Cardinality.single, T.id, _P8)");
 
             query.parameters
                 .Should()
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(T.id, _P8)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).property(Cardinality.single, T.id, _P8)");
 
             query.parameters
                 .Should()
@@ -1196,7 +1196,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).addE(_P10).to(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).property(Cardinality.single, _P8, _P9).addE(_P10).to(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
 
             query
                 .parameters
@@ -1230,7 +1230,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).as(_P4).addV(_P5).property(_P6, _P7).addE(_P8).property(_P9, _P10).to(_P4)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).as(_P4).addV(_P5).property(Cardinality.single, _P6, _P7).addE(_P8).property(Cardinality.single, _P9, _P10).to(_P4)");
 
             query
                 .parameters
@@ -1267,7 +1267,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).property(_P8, _P9).addE(_P10).from(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).property(Cardinality.single, _P8, _P9).addE(_P10).from(__.V().hasLabel(_P11).has(_P12, P.eq(_P13)))");
 
             query
                 .parameters
@@ -1301,7 +1301,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).as(_P4).addV(_P5).property(_P6, _P7).addE(_P8).property(_P9, _P10).from(_P4)");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).as(_P4).addV(_P5).property(Cardinality.single, _P6, _P7).addE(_P8).property(Cardinality.single, _P9, _P10).from(_P4)");
 
             query.parameters
                 .Should()
@@ -1331,7 +1331,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).inV()");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).inV()");
         }
 
         [Fact]
@@ -1348,7 +1348,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.addV(_P1).property(_P2, _P3).property(_P4, _P5).property(_P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).outV()");
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3).property(Cardinality.single, _P4, _P5).property(Cardinality.single, _P6, _P7).addE(_P8).to(__.V(_P9).hasLabel(_P10)).outV()");
         }
 
         [Fact]
@@ -1937,7 +1937,7 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).property(_P2, _P3)");
+                .Be("g.V().hasLabel(_P1).property(Cardinality.single, _P2, _P3)");
 
             query.parameters
                 .Should()

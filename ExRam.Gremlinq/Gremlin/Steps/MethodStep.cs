@@ -1,9 +1,9 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class MethodStep : TerminalStep
+    public class MethodStep : TerminalStep
     {
         public MethodStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
         {

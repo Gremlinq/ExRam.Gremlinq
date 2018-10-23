@@ -536,7 +536,7 @@ namespace ExRam.Gremlinq
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                return Call("property", memberExpression.Member.Name, value);
+                return AddStep(new PropertyStep(memberExpression, value));
             }
 
             throw new NotSupportedException();
