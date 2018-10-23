@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
             return state
-                .AppendIdentifier(stringBuilder, GetType().Name)
+                .AppendIdentifier(stringBuilder, typeof(TEnum).Name)
                 .AppendField(stringBuilder, Name);
         }
 
