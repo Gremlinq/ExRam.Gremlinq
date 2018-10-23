@@ -27,23 +27,26 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
-            var type = _property?.PropertyType ?? _memberExpression.Type;
-            var name = model.GetIdentifier(_property?.Name ?? _memberExpression.Member.Name);
+            if (_value != null)
+            {
+                var type = _property?.PropertyType ?? _memberExpression.Type;
+                var name = model.GetIdentifier(_property?.Name ?? _memberExpression.Member.Name);
 
-            if (!type.IsArray || type == typeof(byte[]))
-            {
-                yield return Resolve(Cardinality.Single, name, _value);
-            }
-            else
-            {
-                foreach (var item in (IEnumerable)_value)
+                if (!type.IsArray || type == typeof(byte[]))
                 {
-                    yield return Resolve(Cardinality.List, name, item);
+                    yield return Resolve(Cardinality.Single, name, _value);
+                }
+                else
+                {
+                    foreach (var item in (IEnumerable)_value)
+                    {
+                        yield return Resolve(Cardinality.List, name, item);
+                    }
                 }
             }
         }
 
-        private MethodStep Resolve(Cardinality cardinality, object name, object value)
+        private static MethodStep Resolve(Cardinality cardinality, object name, object value)
         {
             if (value is IMeta meta)
             {
@@ -52,7 +55,7 @@ namespace ExRam.Gremlinq
                     .Prepend(meta.Value)
                     .Prepend(name)
                     .Prepend(cardinality)
-                    .ToImmutableList<object>();
+                    .ToImmutableList();
 
                 return new MethodStep("property", metaProperties);
             }

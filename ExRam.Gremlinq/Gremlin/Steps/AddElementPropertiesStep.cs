@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
@@ -19,21 +17,14 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<TerminalStep> Resolve(IGraphModel model)
         {
-            return TypeProperties.GetOrAdd(
-                Element.GetType(),
-                type => type             
-                    .GetProperties()
-                    .Where(property => IsMetaType(property.PropertyType) ||  IsNativeType(property.PropertyType))
-                    .ToArray())
-                .Select(property =>
-                {
-                    var value = property.GetValue(Element);
-
-                    return value != null
-                        ? new PropertyStep(property, value)
-                        : null;
-                })
-                .Where(step => step != null)
+            return TypeProperties
+                .GetOrAdd(
+                    Element.GetType(),
+                    type => type             
+                        .GetProperties()
+                        .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
+                        .ToArray())
+                .Select(property => new PropertyStep(property, property.GetValue(Element)))
                 .SelectMany(_ => _.Resolve(model));
         }
 
