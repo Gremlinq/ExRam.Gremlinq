@@ -38,9 +38,14 @@ namespace ExRam.Gremlinq
                 }
                 else
                 {
-                    foreach (var item in (IEnumerable)_value)
+                    if (type.GetElementType().IsInstanceOfType(_value))
+                        yield return Resolve(Cardinality.List, name, _value);
+                    else
                     {
-                        yield return Resolve(Cardinality.List, name, item);
+                        foreach (var item in (IEnumerable)_value)
+                        {
+                            yield return Resolve(Cardinality.List, name, item);
+                        }
                     }
                 }
             }

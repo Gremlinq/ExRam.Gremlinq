@@ -83,6 +83,27 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Property_on_existing()
+        {
+            var query = g
+                .V<User>("id")
+                .Property(x => x.PhoneNumbers, "+4912345")
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V(_P1).hasLabel(_P2).property(Cardinality.list, _P3, _P4)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "id").And
+                .Contain("_P2", "User").And
+                .Contain("_P3", "PhoneNumbers").And
+                .Contain("_P4", "+4912345");
+        }
+
+        [Fact]
         public void AddV_with_Meta_without_properties()
         {
             var query = g
