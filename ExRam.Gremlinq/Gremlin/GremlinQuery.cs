@@ -879,6 +879,16 @@ namespace ExRam.Gremlinq
                         _ => _.Where(rightLambda));
             }
 
+            if (right is MemberExpression memberExpression && memberExpression.Expression == parameter)
+            {
+                if (nodeType != ExpressionType.Equal)
+                    throw new NotSupportedException("Please switch the expression operands!");
+
+                var temp = right;
+                right = left;
+                left = temp;
+            }
+
             return Where(parameter, left, right.GetValue(), nodeType);
         }
 
@@ -903,6 +913,9 @@ namespace ExRam.Gremlinq
                 {
                     case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
                     {
+                        if (leftMemberExpression.Expression.Type == typeof(VertexProperty) && leftMemberExpression.Member.Name == nameof(VertexProperty.Value))
+                            return Call("hasValue", (object)predicateArgument);
+
                         return Has(
                             leftMemberExpression,
                             rightConstant is StepLabel

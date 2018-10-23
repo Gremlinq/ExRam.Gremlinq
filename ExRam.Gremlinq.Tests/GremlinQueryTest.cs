@@ -2037,6 +2037,36 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Properties_Where()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Value == "de")
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
+        }
+
+        [Fact]
+        public void Properties_Where_reversed()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => "de" == x.Value)
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
+        }
+
+        [Fact]
         public void Limit_overflow()
         {
             g
