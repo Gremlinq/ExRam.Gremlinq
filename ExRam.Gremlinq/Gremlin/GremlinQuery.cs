@@ -986,7 +986,7 @@ namespace ExRam.Gremlinq
                 if (step is IGroovySerializable serializableStep)
                     state = serializableStep.Serialize(stringBuilder, state);
                 else
-                    throw new ArgumentException("Query contains non-serializable step. Please call RewriteSteps on the query first.");
+                    throw new ArgumentException("Query contains non-serializable step. Please call Resolve on the query first.");
             }
 
             return state;
