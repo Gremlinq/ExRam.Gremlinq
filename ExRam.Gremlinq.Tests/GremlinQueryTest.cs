@@ -2107,6 +2107,23 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Inject()
+        {
+            var query = g
+                .Inject(36, 37, 38)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.inject(_P1, _P2, _P3)");
+
+            query.parameters.Should()
+                .Contain("_P1", 36).And
+                .Contain("_P2", 37).And
+                .Contain("_P3", 38);
+        }
+
+        [Fact]
         public void WithSubgraphStrategyTest()
         {
             var query = g

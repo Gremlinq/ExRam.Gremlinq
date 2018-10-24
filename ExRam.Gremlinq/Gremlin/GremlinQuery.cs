@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TInVertex> IInEGremlinQuery<TElement, TInVertex>.InV() => Call<TInVertex, Unit, Unit>("inV");
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => Call("inject", elements);
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => Call("inject", elements.Cast<object>().ToImmutableList());
 
         #region Limit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long limit) => Limit(limit);
