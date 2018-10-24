@@ -949,12 +949,12 @@ namespace ExRam.Gremlinq
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
-        #endregion
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal)
         {
             return Has(predicate.Body, (object)propertyTraversal(Anonymous.Cast<TProjection>()));
         }
+        #endregion
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Has(Expression expression, Option<object> maybeArgument = default)
         {
