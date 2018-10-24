@@ -87,6 +87,7 @@ namespace ExRam.Gremlinq
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
 
         IGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
+        IGremlinQuery<TElement> Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
         IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
@@ -144,6 +145,7 @@ namespace ExRam.Gremlinq
         TTargetQuery Union<TTargetQuery>(params Func<IVGremlinQuery<TVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
 
         new IVGremlinQuery<TVertex> Where(Expression<Func<TVertex, bool>> predicate);
+        new IVGremlinQuery<TVertex> Where<TProjection>(Expression<Func<TVertex, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
         IVGremlinQuery<TVertex> Where(Func<IVGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
     }
 
@@ -202,6 +204,7 @@ namespace ExRam.Gremlinq
         IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
+        new IEGremlinQuery<TEdge> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
         IEGremlinQuery<TEdge> Where(Func<IEGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
     }
 

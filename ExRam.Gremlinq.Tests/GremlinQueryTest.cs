@@ -1198,6 +1198,30 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_where_with_property_traversal()
+        {
+            var query = g
+                .V<User>()
+                .Where(
+                    x => x.Age,
+                    _ => _
+                        .Inject(36))
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).has(_P2, __.inject(_P3))");
+
+            query
+                .parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", "Age").And
+                .Contain("_P3", 36);
+        }
+
+        [Fact]
         public void AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
