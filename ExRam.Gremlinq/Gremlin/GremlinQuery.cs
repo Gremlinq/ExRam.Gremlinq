@@ -9,7 +9,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using LanguageExt.SomeHelp;
 
 namespace ExRam.Gremlinq
 {
@@ -1148,15 +1147,15 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps.Resolve(model).ToImmutableList(), query.StepLabelMappings);
+            return new GremlinQueryImpl<TElement, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.Steps.Resolve(model))), query.StepLabelMappings);
         }
 
         private static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
         {
-            return new GremlinQueryImpl<Unit, Unit, Unit>(query.Steps.Resolve(model).ToImmutableList(), query.StepLabelMappings);
+            return new GremlinQueryImpl<Unit, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.Steps.Resolve(model))), query.StepLabelMappings);
         }
 
-        public static IEnumerable<Step> Resolve(this IEnumerable<Step> steps, IGraphModel model)
+        public static IEnumerable<TerminalStep> Resolve(this IEnumerable<Step> steps, IGraphModel model)
         {
             foreach(var step in steps)
             {
@@ -1190,12 +1189,14 @@ namespace ExRam.Gremlinq
 
                         break;
                     }
-                    default:
+                    case TerminalStep terminalStep:
                     {
-                        yield return step;
+                        yield return terminalStep;
 
                         break;
                     }
+                    default:
+                        throw new NotImplementedException();
                 }
             }
         }
