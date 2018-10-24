@@ -2125,6 +2125,7 @@ namespace ExRam.Gremlinq.Tests
         public void Anonymous()
         {
             var query = GremlinQuery.Anonymous
+                .Resolve(GraphModel.Empty)
                 .Serialize();
 
             query.queryString.Should().Be("__.identity()");
@@ -2135,6 +2136,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var query = g
                 .Inject(36, 37, 38)
+                .Resolve(GraphModel.Empty)
                 .Serialize();
 
             query.queryString

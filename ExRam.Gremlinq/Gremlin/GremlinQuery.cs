@@ -981,9 +981,6 @@ namespace ExRam.Gremlinq
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            if (Steps.Count == 1 && Steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
-                return Identity().Serialize(stringBuilder, state);
-
             foreach (var step in Steps)
             {
                 if (step is IGroovySerializable serializableStep)
@@ -1147,12 +1144,21 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuery<TElement> Resolve<TElement>(this IGremlinQuery<TElement> query, IGraphModel model)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.Steps.Resolve(model))), query.StepLabelMappings);
+            return new GremlinQueryImpl<TElement, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.GetSteps().Resolve(model))), query.StepLabelMappings);
         }
 
-        private static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
+        internal static IGremlinQuery Resolve(this IGremlinQuery query, IGraphModel model)
         {
-            return new GremlinQueryImpl<Unit, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.Steps.Resolve(model))), query.StepLabelMappings);
+            return new GremlinQueryImpl<Unit, Unit, Unit>(ImmutableList.Create<Step>(new ResolutionStep(query.GetSteps().Resolve(model))), query.StepLabelMappings);
+        }
+
+        private static IEnumerable<Step> GetSteps(this IGremlinQuery query)
+        {
+            var steps = query.Steps;
+            if (steps.Count == 1 && steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
+                return new Step[] {identifierStep, new ResolvedMethodStep("identity", Enumerable.Empty<object>())};
+
+            return steps;
         }
 
         public static IEnumerable<TerminalStep> Resolve(this IEnumerable<Step> steps, IGraphModel model)
@@ -1161,25 +1167,6 @@ namespace ExRam.Gremlinq
             {
                 switch (step)
                 {
-                    case MethodStep terminal:
-                    {
-                        var parameters = terminal.Parameters;
-
-                        for (var j = 0; j < parameters.Count; j++)
-                        {
-                            var parameter = parameters[j];
-
-                            if (parameter is IGremlinQuery subQuery)
-                                parameters = parameters.SetItem(j, subQuery.Resolve(model));
-                        }
-
-                        if (!ReferenceEquals(parameters, terminal.Parameters))
-                            yield return new MethodStep(terminal.Name, parameters);
-                        else
-                            yield return terminal;
-
-                        break;
-                    }
                     case NonTerminalStep nonTerminal:
                     {
                         foreach (var resolvedStep in nonTerminal.Resolve(model).Resolve(model))
