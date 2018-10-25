@@ -38,6 +38,25 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddV_without_id()
+        {
+            var query = g
+                .AddV(new Language { IetfLanguageTag = "en" })
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.addV(_P1).property(Cardinality.single, _P2, _P3)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Language").And
+                .Contain("_P2", "IetfLanguageTag").And
+                .Contain("_P3", "en");
+        }
+
+        [Fact]
         public void AddV_with_nulls()
         {
             var query = g
