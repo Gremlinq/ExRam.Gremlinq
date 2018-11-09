@@ -312,7 +312,7 @@ namespace ExRam.Gremlinq
             if (limit > int.MaxValue || limit < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(limit));
 
-            return Call("limit", (int)limit);
+            return AddStep(new LimitStep((int)limit));
         }
 
         #endregion
@@ -368,7 +368,7 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Not(Func<IVGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Not(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> notTraversal) => Call("not", notTraversal(Anonymous));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Not(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> notTraversal) => AddStep(new NotStep(notTraversal(Anonymous)));
         #endregion
 
         #region OfType
@@ -828,7 +828,14 @@ namespace ExRam.Gremlinq
                                 if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
                                 {
                                     if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
+                                    {
+                                        var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
+
+                                        if (objectArray.Length == 0)
+                                            return Limit(0);
+
                                         return Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
+                                    }
                                 }
 
                                 throw new NotSupportedException();

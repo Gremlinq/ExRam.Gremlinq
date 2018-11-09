@@ -370,6 +370,27 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void V_ofType_Age_is_contained_in_empty_enumerable()
+        {
+            var enumerable = Enumerable.Empty<int>();
+
+            var query = g
+                .V<User>()
+                .Where(t => enumerable.Contains(t.Age))
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).limit(_P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User").And
+                .Contain("_P2", 0);
+        }
+
+        [Fact]
         public void V_ofType_Age_is_not_contained_in_some_array()
         {
             var query = g
@@ -390,7 +411,7 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P4", 37).And
                 .Contain("_P5", 38);
         }
-
+        
         [Fact]
         public void V_ofType_Age_is_not_contained_in_some_enumerable()
         {
@@ -414,6 +435,26 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P3", 36).And
                 .Contain("_P4", 37).And
                 .Contain("_P5", 38);
+        }
+
+        [Fact]
+        public void V_ofType_Age_is_not_contained_in_empty_enumerable()
+        {
+            var enumerable = Enumerable.Empty<int>();
+
+            var query = g
+                .V<User>()
+                .Where(t => !enumerable.Contains(t.Age))
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User");
         }
 
         [Fact]
