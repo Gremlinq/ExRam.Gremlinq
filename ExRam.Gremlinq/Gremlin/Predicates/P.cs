@@ -80,5 +80,8 @@ namespace ExRam.Gremlinq
         {
             return new P("within", arguments);
         }
+
+        internal static readonly P True = new P("true");
+        internal static readonly P False = new P("false");
     }
 }

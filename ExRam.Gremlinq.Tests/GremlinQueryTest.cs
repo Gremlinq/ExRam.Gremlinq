@@ -382,12 +382,12 @@ namespace ExRam.Gremlinq.Tests
 
             query.queryString
                 .Should()
-                .Be("g.V().hasLabel(_P1).limit(_P2)");
+                .Be("g.V().hasLabel(_P1).has(_P2, __.not(__.identity()))");
 
             query.parameters
                 .Should()
                 .Contain("_P1", "User").And
-                .Contain("_P2", 0);
+                .Contain("_P2", "Age");
         }
 
         [Fact]
