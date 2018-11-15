@@ -833,7 +833,7 @@ namespace ExRam.Gremlinq
 
                                         return objectArray.Length == 0
                                             ? Has(rightMember, P.False)
-                                            : Has(rightMember, P.Within(enumerable.Cast<object>().ToArray()));
+                                            : Has(rightMember, P.Within(objectArray));
                                     }
                                 }
 
