@@ -201,6 +201,30 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Where_property_array_intersects_empty_array()
+        {
+            g
+                .V<User>()
+                .Where(t => t.PhoneNumbers.Intersects(new string[0]))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).has(_b, __.not(__.identity()))")
+                .WithParameters("User", "PhoneNumbers");
+        }
+
+        [Fact]
+        public void Where_property_array_does_not_intersect_empty_array()
+        {
+            g
+                .V<User>()
+                .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a)")
+                .WithParameters("User");
+        }
+
+        [Fact]
         public void Where_property_is_contained_in_array()
         {
             g

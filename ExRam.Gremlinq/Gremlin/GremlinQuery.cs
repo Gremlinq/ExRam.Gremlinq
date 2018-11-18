@@ -851,8 +851,14 @@ namespace ExRam.Gremlinq
                             {
                                 var constant = methodCallExpression.Arguments[1].GetValue();
 
-                                if (constant is IEnumerable arrayConstant)
-                                    return Has(innerMemberExpression, P.Within(arrayConstant.Cast<object>().ToArray()));
+                                if (constant is IEnumerable enumerable)
+                                {
+                                    var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
+
+                                    return objectArray.Length == 0
+                                        ? Has(innerMemberExpression, P.False)
+                                        : Has(innerMemberExpression, P.Within(objectArray));
+                                }
                             }
                         }
                     }
