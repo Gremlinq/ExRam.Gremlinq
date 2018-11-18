@@ -849,13 +849,11 @@ namespace ExRam.Gremlinq
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    return Has(
+                                    return HasWithin(
                                         argumentExpression,
-                                        P.Within(Enumerable
+                                        Enumerable
                                             .Range(0, stringValue.Length + 1)
-                                            .Select(i => stringValue.Substring(0, i))
-                                            .Cast<object>()
-                                            .ToArray()));
+                                            .Select(i => stringValue.Substring(0, i)));
                                 }
                             }
                             else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
@@ -1003,14 +1001,19 @@ namespace ExRam.Gremlinq
         {
             if (enumerableExpression.GetValue() is IEnumerable enumerable)
             {
-                var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
-
-                return objectArray.Length == 0
-                    ? Has(expression, P.False)
-                    : Has(expression, P.Within(objectArray));
+                return HasWithin(expression, enumerable);
             }
 
             throw new NotSupportedException();
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(Expression expression, IEnumerable enumerable)
+        {
+            var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
+
+            return objectArray.Length == 0
+                ? Has(expression, P.False)
+                : Has(expression, P.Within(objectArray));
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
