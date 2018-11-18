@@ -20,13 +20,13 @@ namespace ExRam.Gremlinq
             var key = model.GetIdentifier(_key);
 
             yield return Value
-                .Map(v =>
+                .Bind<object>(v =>
                 {
                     if (v == P.False)
-                        return GremlinQuery.Anonymous.Not(_ => _.Identity());
+                        return (object)GremlinQuery.Anonymous.Not(_ => _.Identity());
 
                     if (v == P.True)
-                        return GremlinQuery.Anonymous.Identity();
+                        return default;
 
                     return v;
                 })
