@@ -17,6 +17,42 @@ namespace ExRam.Gremlinq.Tests
                 .WithIdPropertyName("Id");
         }
 
+
+        [Fact]
+        public void V_of_concrete_type()
+        {
+            var query = g
+                .V<User>()
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User");
+        }
+
+        [Fact]
+        public void V_of_abstract_type()
+        {
+            var query = g
+                .V<Authority>()
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1, _P2)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "Company").And
+                .Contain("_P2", "User");
+        }
+
         [Fact]
         public void AddV()
         {
@@ -102,27 +138,6 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Property_on_existing()
-        {
-            var query = g
-                .V<User>("id")
-                .Property(x => x.PhoneNumbers, "+4912345")
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V(_P1).hasLabel(_P2).property(Cardinality.list, _P3, _P4)");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "id").And
-                .Contain("_P2", "User").And
-                .Contain("_P3", "PhoneNumbers").And
-                .Contain("_P4", "+4912345");
-        }
-
-        [Fact]
         public void AddV_with_Meta_without_properties()
         {
             var query = g
@@ -176,8 +191,7 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P7", "Germany").And
                 .Contain("_P8", "id");
         }
-
-
+        
         [Fact]
         public void AddV_with_enum_property()
         {
@@ -203,7 +217,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_contains_specific_phoneNumber()
+        public void Where_property_array_contains_element()
         {
             var query = g
                 .V<User>()
@@ -223,7 +237,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_does_not_contain_specific_phoneNumber()
+        public void Where_property_array_does_not_contain_element()
         {
             var query = g
                 .V<User>()
@@ -243,7 +257,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_contains_a_phoneNumber()
+        public void Where_property_array_is_not_empty()
         {
             var query = g
                 .V<User>()
@@ -262,7 +276,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_contains_no_phoneNumber()
+        public void Where_property_array_is_empty()
         {
             var query = g
                 .V<User>()
@@ -281,7 +295,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_intersects_phoneNumbers()
+        public void Where_property_array_intersects_aray()
         {
             var query = g
                 .V<User>()
@@ -302,7 +316,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_not_intersects_phoneNumbers()
+        public void Where_property_array_does_not_intersect_array()
         {
             var query = g
                 .V<User>()
@@ -323,7 +337,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Age_is_contained_in_some_array()
+        public void Where_property_is_contained_in_array()
         {
             var query = g
                 .V<User>()
@@ -345,7 +359,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Age_is_contained_in_some_enumerable()
+        public void Where_property_is_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
@@ -370,7 +384,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Age_is_contained_in_empty_enumerable()
+        public void Where_property_is_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
@@ -391,7 +405,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Age_is_not_contained_in_some_array()
+        public void Where_property_is_not_contained_in_array()
         {
             var query = g
                 .V<User>()
@@ -413,7 +427,7 @@ namespace ExRam.Gremlinq.Tests
         }
         
         [Fact]
-        public void V_ofType_Age_is_not_contained_in_some_enumerable()
+        public void Where_property_is_not_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
@@ -438,7 +452,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Age_is_not_contained_in_empty_enumerable()
+        public void Where_property_is_not_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
@@ -458,7 +472,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void CountryCallingCode_is_prefix_of_some_string()
+        public void Where_property_is_prefix_of_constant()
         {
             var query = g
                 .V<CountryCallingCode>()
@@ -484,7 +498,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void CountryCallingCode_is_prefix_of_some_string_variable()
+        public void Where_property_is_prefix_of_variable()
         {
             const string str = "+49123";
 
@@ -512,7 +526,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void CountryCallingCode_is_prefix_of_some_string_processed_variable()
+        public void Where_property_is_prefix_of_expression()
         {
             const string str = "+49123xxx";
 
@@ -540,7 +554,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void User_PhoneNumber_has_some_prefix()
+        public void Where_property_starts_with_constant()
         {
             var query = g
                 .V<User>()
@@ -561,7 +575,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void User_PhoneNumber_has_empty_prefix()
+        public void Where_property_starts_with_empty_constant()
         {
             var query = g
                 .V<User>()
@@ -582,7 +596,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_disjunction()
+        public void Where_disjunction()
         {
             var query = g
                 .V<User>()
@@ -603,7 +617,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_disjunction_with_different_fields()
+        public void Where_disjunction_with_different_fields()
         {
             var query = g
                 .V<User>()
@@ -625,7 +639,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_conjunction()
+        public void Where_conjunction()
         {
             var query = g
                 .V<User>()
@@ -646,7 +660,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_complex_logical_expression()
+        public void Where_complex_logical_expression()
         {
             var query = g
                 .V<User>()
@@ -669,7 +683,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_complex_logical_expression_with_null()
+        public void Where_complex_logical_expression_with_null()
         {
             var query = g
                 .V<User>()
@@ -691,7 +705,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_conjunction_of_three()
+        public void Where_has_conjunction_of_three()
         {
             var query = g
                 .V<User>()
@@ -713,7 +727,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_disjunction_of_three()
+        public void Where_has_disjunction_of_three()
         {
             var query = g
                 .V<User>()
@@ -735,7 +749,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_conjunction_with_different_fields()
+        public void Where_conjunction_with_different_fields()
         {
             var query = g
                 .V<User>()
@@ -757,42 +771,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType()
-        {
-            var query = g
-                .V<User>()
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1)");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "User");
-        }
-
-        [Fact]
-        public void V_ofType_does_not_include_abstract_types()
-        {
-            var query = g
-                .V<Authority>()
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1, _P2)");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "Company").And
-                .Contain("_P2", "User");
-        }
-
-        [Fact]
-        public void V_ofType_has_int_property()
+        public void Where_property_equals_constant()
         {
             var query = g
                 .V<User>()
@@ -812,7 +791,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_int_expression_property()
+        public void Where_property_equals_expression()
         {
             const int i = 18;
 
@@ -834,7 +813,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_converted_int_property()
+        public void Where_property_equals_converted_expression()
         {
             var query = g
                 .V<User>()
@@ -854,7 +833,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_unequal_int_property()
+        public void Where_property_not_equals_constant()
         {
             var query = g
                 .V<User>()
@@ -874,7 +853,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_no_string_property()
+        public void Where_property_is_not_present()
         {
             var query = g
                 .V<User>()
@@ -893,7 +872,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_string_property_exists()
+        public void Where_property_is_present()
         {
             var query = g
                 .V<User>()
@@ -912,7 +891,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_lower_int_property()
+        public void Where_property_is_lower_than_constant()
         {
             var query = g
                 .V<User>()
@@ -932,7 +911,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_lower_or_equal_int_property()
+        public void Where_property_is_lower_or_equal_than_constant()
         {
             var query = g
                 .V<User>()
@@ -952,7 +931,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_bool_property_with_explicit_comparison1()
+        public void Where_bool_property_explicit_comparison1()
         {
             var query = g
                 .V<TimeFrame>()
@@ -973,7 +952,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_bool_property_with_explicit_comparison2()
+        public void Where_bool_property_explicit_comparison2()
         {
             var query = g
                 .V<TimeFrame>()
@@ -993,7 +972,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_bool_property_with_implicit_comparison1()
+        public void Where_bool_property_implicit_comparison1()
         {
             var query = g
                 .V<TimeFrame>()
@@ -1013,7 +992,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_bool_property_with_implicit_comparison2()
+        public void Where_bool_property_implicit_comparison2()
         {
             var query = g
                 .V<TimeFrame>()
@@ -1033,7 +1012,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_greater_int_property()
+        public void Where_property_is_greater_than_constant()
         {
             var query = g
                 .V<User>()
@@ -1053,7 +1032,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_greater_or_equal_int_property()
+        public void Where_property_is_greater_or_equal_than_constant()
         {
             var query = g
                 .V<User>()
@@ -1073,7 +1052,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_has_string_property()
+        public void Where_property_equals_string_constant()
         {
             var query = g
                 .V<Language>()
@@ -1092,7 +1071,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_where_with_local_string()
+        public void Where_property_equals_local_string_constant()
         {
             const string local = "languageId";
 
@@ -1113,7 +1092,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_where_with_local_anonymous_type()
+        public void Where_property_equals_value_of_anonymous_object()
         {
             var local = new { Value = "languageId" };
 
@@ -1134,7 +1113,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_of_type_where_with_expression_parameter_on_both_sides()
+        public void Where_source_expression_on_both_sides()
         {
             g
                 .V<Language>()
@@ -1144,7 +1123,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_of_type_where_with_stepLabel()
+        public void Where_current_element_equals_stepLabel()
         {
             var l = new StepLabel<Language>();
 
@@ -1167,7 +1146,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_of_type_where_value_equals_stepLabel()
+        public void Where_property_equals_stepLabel()
         {
             var l = new StepLabel<string>();
 
@@ -1192,31 +1171,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_of_type_where_with_stepLabel_not_inlined()
-        {
-            var l = new StepLabel<Language>();
-
-            var query = g
-                .V<Language>()
-                .As(l)
-                .V<Language>()
-                .Where(l2 => l2 == l)
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).as(_P2).V().hasLabel(_P1).where(P.eq(_P2))");
-
-            query
-                .parameters
-                .Should()
-                .Contain("_P1", "Language").And
-                .Contain("_P2", "l1");
-        }
-
-        [Fact]
-        public void V_where_with_scalar()
+        public void Where_scalar_element_equals_constant()
         {
             var query = g
                 .V<User>()
@@ -1238,7 +1193,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_where_with_traversal()
+        public void Where_traversal()
         {
             var query = g
                 .V<User>()
@@ -1258,7 +1213,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_where_with_property_traversal()
+        public void Where_property_traversal()
         {
             var query = g
                 .V<User>()
@@ -1559,7 +1514,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_order_ByMember()
+        public void OrderBy_member()
         {
             var query = g
                 .V<User>()
@@ -1578,7 +1533,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_order_ByTraversal()
+        public void OrderBy_traversal()
         {
             var query = g
                 .V<User>()
@@ -1597,7 +1552,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_order_ByLambda()
+        public void OrderBy_lambda()
         {
             var query = g
                 .V<User>()
@@ -1615,7 +1570,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_sum_With_local_scope()
+        public void SumLocal()
         {
             var query = g
                 .V<User>()
@@ -1635,7 +1590,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_sum_With_global_scope()
+        public void SumGlobal()
         {
             var query = g
                 .V<User>()
@@ -1655,7 +1610,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_values_of_one_property()
+        public void Values_one_member()
         {
             var query = g
                 .V<User>()
@@ -1674,25 +1629,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_values_of_Id_property()
-        {
-            var query = g
-                .V<User>()
-                .Values(x => x.Id)
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).id()");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "User");
-        }
-
-        [Fact]
-        public void V_ofType_values_of_two_properties()
+        public void Values_two_members()
         {
             var query = g
                 .V<User>()
@@ -1711,7 +1648,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_values_of_three_properties()
+        public void Values_three_members()
         {
             var query = g
                 .V<User>()
@@ -1731,7 +1668,25 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_without_type()
+        public void Values_id_member()
+        {
+            var query = g
+                .V<User>()
+                .Values(x => x.Id)
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).id()");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "User");
+        }
+
+        [Fact]
+        public void V_untyped()
         {
             var query = g
                 .V()
@@ -1748,7 +1703,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_OfType_with_inheritance()
+        public void OfType_abstract()
         {
             var query = g
                 .V()
@@ -1767,7 +1722,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Repeat_out_traversal()
+        public void Repeat_Out()
         {
             var query = g
                 .V<User>()
@@ -1788,7 +1743,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Union_two_out_traversals()
+        public void Union()
         {
             var query = g
                 .V<User>()
@@ -1810,7 +1765,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Optional_one_out_traversal()
+        public void Optional()
         {
             var query = g
                 .V()
@@ -1829,7 +1784,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Not_one_out_traversal()
+        public void Not1()
         {
             var query = g
                 .V()
@@ -1847,7 +1802,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Optional_one_out_traversal_1()
+        public void Not2()
         {
             var query = g
                 .V()
@@ -1865,7 +1820,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_ofType_Optional_one_out_traversal_2()
+        public void Not3()
         {
             var query = g
                 .V()
@@ -1884,7 +1839,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_as()
+        public void As_explicit_label()
         {
             var query = g
                 .V<User>()
@@ -1903,26 +1858,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_as_not_inlined()
-        {
-            var query = g
-                .V<User>()
-                .As(new StepLabel<User>())
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).as(_P2)");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "User").And
-                .Contain("_P2", "l1");
-        }
-
-        [Fact]
-        public void V_as_select()
+        public void Select()
         {
             var stepLabel = new StepLabel<User>();
 
@@ -1944,29 +1880,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void V_as_select_not_inlined()
-        {
-            var stepLabel = new StepLabel<User>();
-
-            var query = g
-                .V<User>()
-                .As(stepLabel)
-                .Select(stepLabel)
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).as(_P2).select(_P2)");
-
-            query.parameters
-                .Should()
-                .Contain("_P1", "User").And
-                .Contain("_P2", "l1");
-        }
-
-        [Fact]
-        public void V_as_as_select()
+        public void As_inlined_nested_Select()
         {
             var query = g
                 .V<User>()
@@ -2032,7 +1946,7 @@ namespace ExRam.Gremlinq.Tests
         //}
 
         [Fact]
-        public void Set_Property()
+        public void Property_single()
         {
             var query = g
                 .V<User>()
@@ -2049,6 +1963,27 @@ namespace ExRam.Gremlinq.Tests
                 .Contain("_P1", "User").And
                 .Contain("_P2", "Age").And
                 .Contain("_P3", 36);
+        }
+
+        [Fact]
+        public void Property_list()
+        {
+            var query = g
+                .V<User>("id")
+                .Property(x => x.PhoneNumbers, "+4912345")
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V(_P1).hasLabel(_P2).property(Cardinality.list, _P3, _P4)");
+
+            query.parameters
+                .Should()
+                .Contain("_P1", "id").And
+                .Contain("_P2", "User").And
+                .Contain("_P3", "PhoneNumbers").And
+                .Contain("_P4", "+4912345");
         }
 
         [Fact]
@@ -2082,7 +2017,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Properties_with_projection()
+        public void Properties_of_member()
         {
             var query = g
                 .V<Country>()
@@ -2098,6 +2033,36 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .Contain("_P1", "Country").And
                 .Contain("_P2", "Name");
+        }
+
+        [Fact]
+        public void Properties_Where()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Value == "de")
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
+        }
+
+        [Fact]
+        public void Properties_Where_reversed()
+        {
+            var query = g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => "de" == x.Value)
+                .Resolve(_model)
+                .Serialize();
+
+            query.queryString
+                .Should()
+                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
         }
 
         [Fact]
@@ -2142,36 +2107,6 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Properties_Where()
-        {
-            var query = g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x.Value == "de")
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
-        }
-
-        [Fact]
-        public void Properties_Where_reversed()
-        {
-            var query = g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => "de" == x.Value)
-                .Resolve(_model)
-                .Serialize();
-
-            query.queryString
-                .Should()
-                .Be("g.V().hasLabel(_P1).properties(_P2).hasValue(P.eq(_P3))");
-        }
-
-        [Fact]
         public void Limit_overflow()
         {
             g
@@ -2210,7 +2145,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void WithSubgraphStrategyTest()
+        public void WithSubgraphStrategy()
         {
             var query = g
                 .WithSubgraphStrategy(_ => _.OfType<User>(), _ => _);
@@ -2222,7 +2157,7 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void WithSubgraphStrategy_is_ommitted_if_empty()
+        public void WithSubgraphStrategy_empty()
         {
             var query = g
                 .WithSubgraphStrategy(_ => _, _ => _);
