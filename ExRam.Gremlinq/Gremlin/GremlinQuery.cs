@@ -815,51 +815,30 @@ namespace ExRam.Gremlinq
                 {
                     var methodInfo = methodCallExpression.Method;
 
-                    if (methodInfo.DeclaringType == typeof(Enumerable))
+                    if (methodInfo.DeclaringType == typeof(Enumerable) || methodInfo.DeclaringType == typeof(EnumerableExtensions))
                     {
                         // ReSharper disable once SwitchStatementMissingSomeCases
                         switch (methodInfo.Name)
                         {
+                            case nameof(EnumerableExtensions.Intersects) when methodInfo.GetParameters().Length == 2:
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
                             {
-                                if (methodCallExpression.Arguments[0] is MemberExpression leftMember && leftMember.Expression == predicate.Parameters[0])
-                                    return Has(leftMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
-
-                                if (methodCallExpression.Arguments[1] is MemberExpression rightMember && rightMember.Expression == predicate.Parameters[0])
+                                if (methodCallExpression.Arguments[0] is MemberExpression sourceMember)
                                 {
-                                    if (methodCallExpression.Arguments[0].GetValue() is IEnumerable enumerable)
-                                    {
-                                        var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
+                                    if (methodInfo.Name == nameof(EnumerableExtensions.Intersects))
+                                        return HasWithin(sourceMember, methodCallExpression.Arguments[1]);
 
-                                        return objectArray.Length == 0
-                                            ? Has(rightMember, P.False)
-                                            : Has(rightMember, P.Within(objectArray));
-                                    }
+                                    if (sourceMember.Expression == predicate.Parameters[0])
+                                        return Has(sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
                                 }
 
-                                throw new NotSupportedException();
+                                if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
+                                    return HasWithin(argument, methodCallExpression.Arguments[0]);
+
+                                break;
                             }
                             case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
                                 return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
-                        }
-                    }
-                    else if (methodInfo.DeclaringType == typeof(EnumerableExtensions))
-                    {
-                        if (methodInfo.Name == nameof(EnumerableExtensions.Intersects) && methodInfo.GetParameters().Length == 2)
-                        {
-                            if (methodCallExpression.Arguments[0] is MemberExpression innerMemberExpression)
-                            {
-                                var constant = methodCallExpression.Arguments[1].GetValue();
-
-                                if (constant is IEnumerable enumerable)
-                                {
-                                    var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
-
-                                    return objectArray.Length == 0
-                                        ? Has(innerMemberExpression, P.False)
-                                        : Has(innerMemberExpression, P.Within(objectArray));
-                                }
-                            }
                         }
                     }
                     else if (methodInfo.DeclaringType == typeof(string))
@@ -1018,6 +997,20 @@ namespace ExRam.Gremlinq
             }
 
             return AddStep(new HasStep(name, maybeArgument));
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(Expression expression, Expression enumerableExpression)
+        {
+            if (enumerableExpression.GetValue() is IEnumerable enumerable)
+            {
+                var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
+
+                return objectArray.Length == 0
+                    ? Has(expression, P.False)
+                    : Has(expression, P.Within(objectArray));
+            }
+
+            throw new NotSupportedException();
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
