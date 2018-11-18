@@ -47,7 +47,17 @@ namespace ExRam.Gremlinq.Tests
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    _tuple.parameters.Should().Contain($"_P{i + 1}", parameters[i]);
+                    var label = i;
+                    string key = null;
+
+                    while (label > 0 || key == null)
+                    {
+                        key = (char)('a' + label % 26) + key;
+                        label = label / 26;
+                    }
+
+                    key = "_" + key;
+                    _tuple.parameters.Should().Contain(key, parameters[i]);
                 }
 
                 return this;

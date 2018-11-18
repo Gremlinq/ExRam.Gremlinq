@@ -142,7 +142,15 @@ namespace ExRam.Gremlinq
             if (variables.TryGetValue(constant, out key))
                 return (variables, stepLabelMappings);
 
-            key = "_P" + (variables.Count + 1);
+            var next = variables.Count;
+            
+            while (next > 0 || key == null)
+            {
+                key = (char)('a' + next % 26) + key;
+                next = next / 26;
+            }
+
+            key = "_" + key;
             return (variables.Add(constant, key), stepLabelMappings);
         }
     }
