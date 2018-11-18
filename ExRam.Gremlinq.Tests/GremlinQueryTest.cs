@@ -319,6 +319,18 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Where_property_is_prefix_of_empty_string()
+        {
+            g
+                .V<CountryCallingCode>()
+                .Where(c => "".StartsWith(c.Prefix))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c))")
+                .WithParameters("CountryCallingCode", "Prefix", "");
+        }
+
+        [Fact]
         public void Where_property_is_prefix_of_variable()
         {
             const string str = "+49123";
@@ -359,15 +371,15 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Where_property_starts_with_empty_constant()
+        public void Where_property_starts_with_empty_string()
         {
             g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.between(_c, _d))")
-                .WithParameters("User", "PhoneNumber", "", char.MinValue.ToString());
+                .SerializeTo("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("User", "PhoneNumber");
         }
 
         [Fact]

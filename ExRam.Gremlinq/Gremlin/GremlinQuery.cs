@@ -862,7 +862,10 @@ namespace ExRam.Gremlinq
                                 {
                                     string upperBound;
 
-                                    if (lowerBound.Length == 0 || lowerBound[lowerBound.Length - 1] == char.MaxValue)
+                                    if (lowerBound.Length == 0)
+                                        return Has(memberExpression);
+
+                                    if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
                                         upperBound = lowerBound + char.MinValue;
                                     else
                                     {
