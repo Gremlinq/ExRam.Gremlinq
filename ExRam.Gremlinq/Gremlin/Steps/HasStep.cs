@@ -5,15 +5,29 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class HasStep : NonTerminalStep
+    public sealed class HasStep : HasStepBase
     {
-        private const string Name = "has";
+        public HasStep(Expression expression, Option<object> value = default) : base("has", expression, value)
+        {
+        }
+    }
 
+    public sealed class HasNotStep : HasStepBase
+    {
+        public HasNotStep(Expression expression) : base("hasNot", expression)
+        {
+        }
+    }
+
+    public abstract class HasStepBase : NonTerminalStep
+    {
+        private readonly string _name;
         private readonly Expression _expression;
 
-        public HasStep(Expression expression, Option<object> value = default)
+        protected HasStepBase(string name, Expression expression, Option<object> value = default)
         {
             Value = value;
+            _name = name;
             _expression = expression;
         }
 
@@ -51,8 +65,8 @@ namespace ExRam.Gremlinq
                     return v;
                 })
                 .Match(
-                    value => new MethodStep(Name, key, value),
-                    () => new MethodStep(Name, key));
+                    value => new MethodStep(_name, key, value),
+                    () => new MethodStep(_name, key));
         }
 
         internal Option<object> Value { get; }

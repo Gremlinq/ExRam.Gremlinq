@@ -925,7 +925,7 @@ namespace ExRam.Gremlinq
                 switch (nodeType)
                 {
                     case ExpressionType.Equal:
-                        return Not(__ => __.Has(left));
+                        return AddStep(new HasNotStep(left));
                     case ExpressionType.NotEqual:
                         return Has(left);
                 }

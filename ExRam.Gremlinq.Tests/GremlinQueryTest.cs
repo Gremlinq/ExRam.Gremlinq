@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Tests
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.not(__.has(_b)), __.or(__.has(_c, P.eq(_d)), __.has(_c, P.eq(_e))))")
+                .SerializeTo("g.V().hasLabel(_a).and(__.hasNot(_b), __.or(__.has(_c, P.eq(_d)), __.has(_c, P.eq(_e))))")
                 .WithParameters("User", "Name", "Age", 42, 99);
         }
 
@@ -536,7 +536,7 @@ namespace ExRam.Gremlinq.Tests
                 .Where(t => t.Name == null)
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b))")
+                .SerializeTo("g.V().hasLabel(_a).hasNot(_b)")
                 .WithParameters("User", "Name");
         }
 
