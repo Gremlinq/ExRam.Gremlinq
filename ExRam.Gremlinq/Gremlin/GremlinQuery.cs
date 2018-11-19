@@ -979,25 +979,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Has(Expression expression, Option<object> maybeArgument = default)
         {
-            string name;
-
-            switch (expression)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    name = leftMemberExpression.Member.Name;
-                    break;
-                }
-                case ParameterExpression leftParameterExpression:
-                {
-                    name = leftParameterExpression.Name;
-                    break;
-                }
-                default:
-                    throw new NotSupportedException();
-            }
-
-            return AddStep(new HasStep(name, maybeArgument));
+            return AddStep(new HasStep(expression, maybeArgument));
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(Expression expression, Expression enumerableExpression)

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
@@ -7,17 +9,35 @@ namespace ExRam.Gremlinq
     {
         private const string Name = "has";
 
-        private readonly string _key;
+        private readonly Expression _expression;
 
-        public HasStep(string key, Option<object> value = default)
+        public HasStep(Expression expression, Option<object> value = default)
         {
-            _key = key;
             Value = value;
+            _expression = expression;
         }
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            var key = model.GetIdentifier(_key);
+            string name;
+
+            switch (_expression)
+            {
+                case MemberExpression leftMemberExpression:
+                {
+                    name = leftMemberExpression.Member.Name;
+                    break;
+                }
+                case ParameterExpression leftParameterExpression:
+                {
+                    name = leftParameterExpression.Name;
+                    break;
+                }
+                default:
+                    throw new NotSupportedException();
+            }
+
+            var key = model.GetIdentifier(name);
 
             yield return Value
                 .Bind<object>(v =>
