@@ -829,7 +829,7 @@ namespace ExRam.Gremlinq
                                         return HasWithin(sourceMember, methodCallExpression.Arguments[1]);
 
                                     if (sourceMember.Expression == predicate.Parameters[0])
-                                        return Has(sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                                        return AddStep(new HasStep(sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue())));
                                 }
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
@@ -863,7 +863,7 @@ namespace ExRam.Gremlinq
                                     string upperBound;
 
                                     if (lowerBound.Length == 0)
-                                        return Has(memberExpression);
+                                        return AddStep(new HasStep(memberExpression));
 
                                     if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
                                         upperBound = lowerBound + char.MinValue;
@@ -875,7 +875,7 @@ namespace ExRam.Gremlinq
                                         upperBound = new string(upperBoundChars);
                                     }
 
-                                    return Has(memberExpression, P.Between(lowerBound, upperBound));
+                                    return AddStep(new HasStep(memberExpression, P.Between(lowerBound, upperBound)));
                                 }
                             }
                         }
@@ -927,7 +927,7 @@ namespace ExRam.Gremlinq
                     case ExpressionType.Equal:
                         return AddStep(new HasNotStep(left));
                     case ExpressionType.NotEqual:
-                        return Has(left);
+                        return AddStep(new HasStep(left));
                 }
             }
             else
@@ -941,13 +941,13 @@ namespace ExRam.Gremlinq
                         if (leftMemberExpression.Expression.Type == typeof(VertexProperty) && leftMemberExpression.Member.Name == nameof(VertexProperty.Value))
                             return Call("hasValue", (object)predicateArgument);
 
-                        return Has(
+                        return AddStep(new HasStep(
                             leftMemberExpression,
                             rightConstant is StepLabel
                                 ? GremlinQuery
                                     .Anonymous
                                     .Call("where", predicateArgument)
-                                : (object)predicateArgument);
+                                : (object)predicateArgument));
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
@@ -973,14 +973,9 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal)
         {
-            return Has(predicate.Body, (object)propertyTraversal(Anonymous.Cast<TProjection>()));
+            return AddStep(new HasStep(predicate.Body, (object)propertyTraversal(Anonymous.Cast<TProjection>())));
         }
         #endregion
-
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Has(Expression expression, Option<object> maybeArgument = default)
-        {
-            return AddStep(new HasStep(expression, maybeArgument));
-        }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(Expression expression, Expression enumerableExpression)
         {
@@ -996,9 +991,11 @@ namespace ExRam.Gremlinq
         {
             var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
 
-            return objectArray.Length == 0
-                ? Has(expression, P.False)
-                : Has(expression, P.Within(objectArray));
+            return AddStep(new HasStep(
+                expression,
+                objectArray.Length == 0
+                    ? P.False
+                    : P.Within(objectArray)));
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
