@@ -48,6 +48,9 @@ namespace ExRam.Gremlinq
                     if (v == P.True)
                         return default;
 
+                    if (v is P.Eq eq)
+                        return eq.Argument;
+
                     return v;
                 })
                 .Match(

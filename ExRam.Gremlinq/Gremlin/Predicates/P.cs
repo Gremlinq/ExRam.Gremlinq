@@ -10,18 +10,18 @@ namespace ExRam.Gremlinq
         #region Nested
         public abstract class SingleArgumentP : P
         {
-            private readonly object _argument;
-
             protected SingleArgumentP(string name, object argument) : base(name)
             {
-                _argument = argument;
+                Argument = argument;
             }
 
             public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
             {
                 return base.Serialize(stringBuilder, state)
-                    .AppendMethod(stringBuilder, Name, _argument);
+                    .AppendMethod(stringBuilder, Name, Argument);
             }
+
+            public object Argument { get; }
         }
 
         private sealed class Constant : P
