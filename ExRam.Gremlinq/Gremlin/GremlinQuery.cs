@@ -829,7 +829,7 @@ namespace ExRam.Gremlinq
                                         return HasWithin(sourceMember, methodCallExpression.Arguments[1]);
 
                                     if (sourceMember.Expression == predicate.Parameters[0])
-                                        return AddStep(new HasStep(sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue())));
+                                        return AddStep(new HasStep(sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue())));
                                 }
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
@@ -875,7 +875,7 @@ namespace ExRam.Gremlinq
                                         upperBound = new string(upperBoundChars);
                                     }
 
-                                    return AddStep(new HasStep(memberExpression, P.Between(lowerBound, upperBound)));
+                                    return AddStep(new HasStep(memberExpression, new P.Between(lowerBound, upperBound)));
                                 }
                             }
                         }
@@ -995,7 +995,7 @@ namespace ExRam.Gremlinq
                 expression,
                 objectArray.Length == 0
                     ? P.False
-                    : P.Within(objectArray)));
+                    : new P.Within(objectArray)));
         }
 
         public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)

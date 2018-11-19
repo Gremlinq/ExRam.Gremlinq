@@ -5,70 +5,133 @@ using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class P : IGroovySerializable
+    public abstract class P : IGroovySerializable
     {
-        private readonly string _name;
-        private readonly object[] _arguments;
+        #region Nested
+        public abstract class SingleArgumentP : P
+        {
+            private readonly object _argument;
+
+            protected SingleArgumentP(string name, object argument) : base(name)
+            {
+                _argument = argument;
+            }
+
+            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            {
+                return base.Serialize(stringBuilder, state)
+                    .AppendMethod(stringBuilder, Name, _argument);
+            }
+        }
+
+        private sealed class Constant : P
+        {
+            public Constant() : base("")
+            {
+            }
+
+            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public sealed class Eq : SingleArgumentP
+        {
+            public Eq(object argument) : base("eq", argument)
+            {
+            }
+        }
+
+        public sealed class Neq : SingleArgumentP
+        {
+            public Neq(object argument) : base("neq", argument)
+            {
+            }
+        }
+
+        public sealed class Lt : SingleArgumentP
+        {
+            public Lt(object argument) : base("lt", argument)
+            {
+            }
+        }
+
+        public sealed class Lte : SingleArgumentP
+        {
+            public Lte(object argument) : base("lte", argument)
+            {
+            }
+        }
+
+        public sealed class Gte : SingleArgumentP
+        {
+            public Gte(object argument) : base("gte", argument)
+            {
+            }
+        }
+
+        public sealed class Gt : SingleArgumentP
+        {
+            public Gt(object argument) : base("gt", argument)
+            {
+            }
+        }
+
+        public sealed class Within : P
+        {
+            private readonly object[] _arguments;
+
+            public Within(object[] arguments) : base("within")
+            {
+                _arguments = arguments;
+            }
+
+            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            {
+                return base.Serialize(stringBuilder, state)
+                    .AppendMethod(stringBuilder, Name, _arguments);
+            }
+        }
+
+        public sealed class Between : P
+        {
+            private readonly object _lower;
+            private readonly object _upper;
+
+            public Between(object lower, object upper) : base("between")
+            {
+                _lower = lower;
+                _upper = upper;
+            }
+
+            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            {
+                return base.Serialize(stringBuilder, state)
+                    .AppendMethod(stringBuilder, Name, new[]{ _lower, _upper });
+            }
+        }
+        #endregion
 
         private static readonly IReadOnlyDictionary<ExpressionType, Func<object, P>> SupportedComparisons = new Dictionary<ExpressionType, Func<object, P>>
         {
-            { ExpressionType.Equal, Eq },
-            { ExpressionType.NotEqual, Neq },
-            { ExpressionType.LessThan, Lt },
-            { ExpressionType.LessThanOrEqual, Lte },
-            { ExpressionType.GreaterThanOrEqual, Gte },
-            { ExpressionType.GreaterThan, Gt }
+            { ExpressionType.Equal, _ => new Eq(_) },
+            { ExpressionType.NotEqual, _ => new Neq(_) },
+            { ExpressionType.LessThan, _ => new Lt(_) },
+            { ExpressionType.LessThanOrEqual, _ => new Lte(_) },
+            { ExpressionType.GreaterThanOrEqual, _ => new Gte(_) },
+            { ExpressionType.GreaterThan, _ => new Gt(_) }
         };
 
-        private P(string name, params object[] arguments)
+        private P(string name)
         {
-            _name = name;
-            _arguments = arguments;
+            Name = name;
         }
 
-        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+        public virtual GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
         {
-            var ret = state
+            return state
                 .AppendIdentifier(stringBuilder, nameof(P));
-
-            return _arguments.Length == 1
-                ? ret.AppendMethod(stringBuilder, _name, _arguments[0])
-                : ret.AppendMethod(stringBuilder, _name, _arguments);
-        }
-
-        public static P Between(object lower, object upper)
-        {
-            return new P("between", lower, upper);
-        }
-
-        public static P Eq(object argument)
-        {
-            return new P("eq", argument);
-        }
-
-        public static P Neq(object argument)
-        {
-            return new P("neq", argument);
-        }
-
-        public static P Lt(object argument)
-        {
-            return new P("lt", argument);
-        }
-
-        public static P Lte(object argument)
-        {
-            return new P("lte", argument);
-        }
-
-        public static P Gt(object argument)
-        {
-            return new P("gt", argument);
-        }
-
-        public static P Gte(object argument)
-        {
-            return new P("gte", argument);
         }
 
         public static P ForExpressionType(ExpressionType expressionType, object argument)
@@ -76,12 +139,9 @@ namespace ExRam.Gremlinq
             return SupportedComparisons[expressionType](argument);
         }
 
-        public static P Within(params object[] arguments)
-        {
-            return new P("within", arguments);
-        }
+        public string Name { get; }
 
-        internal static readonly P True = new P("true");
-        internal static readonly P False = new P("false");
+        internal static readonly P True = new Constant();
+        internal static readonly P False = new Constant();
     }
 }
