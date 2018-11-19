@@ -951,11 +951,10 @@ namespace ExRam.Gremlinq
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
-                        return Call(
+                        return AddStep(
                             rightConstant is StepLabel
-                                ? "where"
-                                : "is",
-                            predicateArgument);
+                                ? new MethodStep("where", predicateArgument)
+                                : (Step)new IsStep(predicateArgument));
                     }
                 }
             }

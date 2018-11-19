@@ -741,7 +741,7 @@ namespace ExRam.Gremlinq.Tests
                 .Where(_ => _ == 36)
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).is(P.eq(_c))")
+                .SerializeTo("g.V().hasLabel(_a).values(_b).is(_c)")
                 .WithParameters("User", "Age", 36);
         }
 

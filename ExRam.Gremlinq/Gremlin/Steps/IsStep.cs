@@ -2,11 +2,11 @@
 
 namespace ExRam.Gremlinq
 {
-    public sealed class HasValueStep : NonTerminalStep
+    public sealed class IsStep : NonTerminalStep
     {
         private readonly object _argument;
 
-        public HasValueStep(object argument)
+        public IsStep(object argument)
         {
             _argument = argument;
         }
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             yield return new MethodStep(
-                "hasValue",
+                "is",
                 _argument is P.Eq eq
                     ? eq.Argument
                     : _argument);
