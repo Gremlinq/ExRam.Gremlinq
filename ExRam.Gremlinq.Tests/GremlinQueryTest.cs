@@ -1302,7 +1302,7 @@ namespace ExRam.Gremlinq.Tests
                 .Where(x => x.Value == "de")
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(P.eq(_c))")
+                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 
@@ -1315,7 +1315,7 @@ namespace ExRam.Gremlinq.Tests
                 .Where(x => "de" == x.Value)
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(P.eq(_c))")
+                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 

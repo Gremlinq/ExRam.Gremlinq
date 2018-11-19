@@ -939,7 +939,7 @@ namespace ExRam.Gremlinq
                     case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
                     {
                         if (leftMemberExpression.Expression.Type == typeof(VertexProperty) && leftMemberExpression.Member.Name == nameof(VertexProperty.Value))
-                            return Call("hasValue", (object)predicateArgument);
+                            return AddStep(new HasValueStep(predicateArgument));
 
                         return AddStep(new HasStep(
                             leftMemberExpression,
