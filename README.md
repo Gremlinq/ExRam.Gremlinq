@@ -1,6 +1,10 @@
+
+
+![](https://github.com/apache/tinkerpop/blob/master/docs/static/images/gremlin-help-wanted.png)
+
 # ExRam.Gremlinq
 
-ExRam.Gremlinq is a strongly typed Server driver for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
+ExRam.Gremlinq is .NET Object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 ## Packages
 
