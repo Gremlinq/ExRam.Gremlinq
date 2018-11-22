@@ -19,13 +19,13 @@ ExRam.Gremlinq.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Co
 ### Fluent Linq-style API:
 Build strongly typed gremlin queries:
     
-	//Get all vertices with label "SomeVertexType" that have a property "SomeProperty" of value 36.
+	//Get all vertices with label "Person" that have a property "Age" of value 36.
 
     var query = g
         .V<Person>()
         .Has(x => x.Age == 36);
 
-	//Add a vertex with label "SomeVertexType" and add a property "SomeProperty" of value 36.
+	//Add a vertex with label "Person" and add a property "Age" of value 36.
 	var query = g
 	    .AddV(new Person { Age = 36 });
 
