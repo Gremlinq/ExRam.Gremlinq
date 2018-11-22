@@ -10,29 +10,18 @@ namespace ExRam.Gremlinq
     {
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {
-            // ReSharper disable once ClassNeverInstantiated.Local
-            private sealed class VertexImpl : Vertex
-            {
-
-            }
-
-            // ReSharper disable once ClassNeverInstantiated.Local
-            private sealed class EdgeImpl : Vertex
-            {
-
-            }
-
             private static readonly JArray EmptyJArray = new JArray();
-            private static readonly GraphsonDeserializer Serializer = new GraphsonDeserializer();
 
             private readonly IGraphModel _model;
             private readonly JsonTransformRule _baseRule;
+            private readonly GraphsonDeserializer _serializer;
             private readonly IGremlinQueryProvider _baseProvider;
 
             public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
             {
                 _model = model;
                 _baseProvider = baseProvider;
+                _serializer = new GraphsonDeserializer(model);
 
                 _baseRule = JsonTransformRules
                     .Empty
@@ -95,50 +84,21 @@ namespace ExRam.Gremlinq
                         }
 
                         return Option<JToken>.None;
-                    });
+                    })
+                    .Lazy(JsonTransformRules.Identity);
             }
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
-                var transformRule = _baseRule
-                    .Lazy((token, recurse) =>
-                    {
-                        if (token is JObject jObject && jObject.ContainsKey("label") && !jObject.ContainsKey("$type"))
-                        {
-                            return _model
-                                .TryGetElementTypeOfLabel(jObject["label"].ToString())
-                                //.Filter(type => typeof(TElement).IsAssignableFrom(type))
-                                .IfNone(() =>
-                                {
-                                    if (typeof(TElement) == typeof(Vertex))
-                                        return typeof(VertexImpl);
-
-                                    if (typeof(TElement) == typeof(Edge))
-                                        return typeof(EdgeImpl);
-
-                                    return Option<Type>.None;
-                                })
-                                .Bind(type =>
-                                {
-                                    jObject.AddFirst(new JProperty("$type", type.AssemblyQualifiedName));
-
-                                    return recurse(jObject);
-                                });
-                        }
-
-                        return Option<JToken>.None;
-                    })
-                    .Lazy(JsonTransformRules.Identity);
-
                 return _baseProvider
                     .Execute(query
                         .Resolve(_model)
                         .Cast<JToken>())
                     .Select(token => token
-                        .Transform(transformRule)
+                        .Transform(_baseRule)
                         .IfNone(EmptyJArray))
                     .Select(token => token is JArray ? token : new JArray(token))
-                    .SelectMany(token => Serializer
+                    .SelectMany(token => _serializer
                         .Deserialize<TElement[]>(new JTokenReader(token))
                         .ToAsyncEnumerable());
             }

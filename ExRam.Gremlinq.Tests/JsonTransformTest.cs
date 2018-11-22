@@ -50,9 +50,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Deserializing_arrays_from_empty_JArray_yields_empty_array()
         {
-            new GraphsonDeserializer().Deserialize<int[]>(new JTokenReader(new JArray())).Should().BeEmpty();
-            new GraphsonDeserializer().Deserialize<string[]>(new JTokenReader(new JArray())).Should().BeEmpty();
-            new GraphsonDeserializer().Deserialize<object[]>(new JTokenReader(new JArray())).Should().BeEmpty();
+            new GraphsonDeserializer(GraphModel.Empty).Deserialize<int[]>(new JTokenReader(new JArray())).Should().BeEmpty();
+            new GraphsonDeserializer(GraphModel.Empty).Deserialize<string[]>(new JTokenReader(new JArray())).Should().BeEmpty();
+            new GraphsonDeserializer(GraphModel.Empty).Deserialize<object[]>(new JTokenReader(new JArray())).Should().BeEmpty();
         }
     }
 }

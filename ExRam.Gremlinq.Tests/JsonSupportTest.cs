@@ -62,8 +62,8 @@ namespace ExRam.Gremlinq.Tests
             array.Should().HaveCount(1);
             array[0]["id"].ToObject<int>().Should().Be(1);
             array[0]["label"].ToObject<string>().Should().Be("person");
-            array[0]["name"].ToObject<string[]>(new GraphsonDeserializer()).Should().BeEquivalentTo("marko");
-            array[0]["location"].ToObject<string[]>(new GraphsonDeserializer()).Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");
+            array[0]["name"].ToObject<string[]>(new GraphsonDeserializer(GraphModel.Empty)).Should().BeEquivalentTo("marko");
+            array[0]["location"].ToObject<string[]>(new GraphsonDeserializer(GraphModel.Empty)).Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");
         }
 
         [Fact]

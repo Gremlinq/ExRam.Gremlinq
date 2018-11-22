@@ -217,7 +217,66 @@ namespace ExRam.Gremlinq
             public override bool CanWrite => false;
         }
 
-        public GraphsonDeserializer()
+        private sealed class ElementConverter : JsonConverter
+        {
+            // ReSharper disable once ClassNeverInstantiated.Local
+            private sealed class VertexImpl : Vertex
+            {
+
+            }
+
+            // ReSharper disable once ClassNeverInstantiated.Local
+            private sealed class EdgeImpl : Vertex
+            {
+
+            }
+
+            private readonly IGraphModel _model;
+
+            public ElementConverter(IGraphModel model)
+            {
+                _model = model;
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                var jObject = JObject.Load(reader);
+
+                var newObjectType = _model
+                    .TryGetElementTypeOfLabel(jObject["label"].ToString())
+                    .Filter(objectType.IsAssignableFrom)
+                    .IfNone(() =>
+                    {
+                        if (objectType == typeof(Vertex))
+                            return typeof(VertexImpl);
+
+                        if (objectType == typeof(Edge))
+                            return typeof(EdgeImpl);
+
+                        return objectType;
+                    });
+
+                serializer.Converters.Remove(this);
+                var ret = jObject.ToObject(newObjectType, serializer);
+                serializer.Converters.Add(this);
+
+                return ret;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override bool CanConvert(Type objectType)
+            {
+                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.VertexLabels.ContainsKey(objectType) || _model.EdgeLabels.ContainsKey(objectType));
+            }
+
+            public override bool CanWrite => false;
+        }
+
+        public GraphsonDeserializer(IGraphModel model)
         {
             DefaultValueHandling = DefaultValueHandling.Populate;
             Converters.Add(new TimespanConverter());
@@ -225,9 +284,9 @@ namespace ExRam.Gremlinq
             Converters.Add(new AssumeUtcDateTimeConverter());
             Converters.Add(new ScalarConverter());
             Converters.Add(new MetaPropertyConverter());
+            Converters.Add(new ElementConverter(model));
             ContractResolver = new GremlinContractResolver();
             TypeNameHandling = TypeNameHandling.Auto;
-            MetadataPropertyHandling = MetadataPropertyHandling.Default;
         }
     }
 }
