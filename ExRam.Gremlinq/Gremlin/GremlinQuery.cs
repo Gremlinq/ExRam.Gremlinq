@@ -255,11 +255,13 @@ namespace ExRam.Gremlinq
         #region From
         IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => Call<TElement, TTargetVertex, TOutVertex>("from", stepLabel);
 
-        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal) => Call<TElement, TTargetVertex, TOutVertex>("from", fromVertexTraversal(Anonymous));
+        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal) => From<TElement, TTargetVertex, TOutVertex>(fromVertexTraversal);
 
-        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => Call<TElement, TNewOutVertex, Unit>("from", fromVertexTraversal(Anonymous));
+        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => From<TElement, TNewOutVertex, Unit>(fromVertexTraversal);
 
         IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => Call<TElement, TNewOutVertex, Unit>("from", stepLabel);
+
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> fromVertexTraversal) => Call<TNewElement, TNewOutVertex, TNewInVertex>("from", fromVertexTraversal(Anonymous));
         #endregion
 
         IGremlinQuery<object> IGremlinQuery.Id() => Call<object>("id");
@@ -726,11 +728,13 @@ namespace ExRam.Gremlinq
         #region To
         IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => Call<TElement, TOutVertex, TTargetVertex>("to", stepLabel);
 
-        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => Call<TElement, TOutVertex, TTargetVertex>("to", toVertexTraversal(Anonymous));
+        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => To<TElement, TOutVertex, TTargetVertex>(toVertexTraversal);
 
-        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TNewInVertex>> toVertexTraversal) => Call<TElement, Unit, TNewInVertex>("to", toVertexTraversal(Anonymous));
+        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TNewInVertex>> toVertexTraversal) => To<TElement, Unit, TNewInVertex>(toVertexTraversal);
 
         IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => Call<TElement, Unit, TNewInVertex>("to", stepLabel);
+
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> toVertexTraversal) => Call<TNewElement, TNewOutVertex, TNewInVertex>("to", toVertexTraversal(Anonymous));
         #endregion
 
         IGremlinQuery<TItem> IGremlinQuery<TElement>.Unfold<TItem>()
