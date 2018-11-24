@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
-        new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
+        IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
         new IEGremlinQuery<TEdge, TAdjacentVertex> Identity();
