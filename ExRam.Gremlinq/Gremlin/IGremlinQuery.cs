@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
 
-        new IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
+        IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
         new IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
         new IEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);

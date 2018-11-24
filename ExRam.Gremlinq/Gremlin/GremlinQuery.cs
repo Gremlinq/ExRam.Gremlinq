@@ -726,7 +726,7 @@ namespace ExRam.Gremlinq
         #region To
         IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => Call<TElement, TOutVertex, TTargetVertex>("to", stepLabel);
 
-        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => Call<TElement, TOutVertex, TTargetVertex>("to", toVertexTraversal(Anonymous));
+        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => Call<TElement, TOutVertex, TTargetVertex>("to", toVertexTraversal(Anonymous));
 
         IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(Func<IGremlinQuery<TElement>, IGremlinQuery<TNewInVertex>> toVertexTraversal) => Call<TElement, Unit, TNewInVertex>("to", toVertexTraversal(Anonymous));
 
