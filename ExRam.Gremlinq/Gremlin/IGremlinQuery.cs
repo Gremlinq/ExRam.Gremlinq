@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Emit();
 
-        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
+        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IEGremlinQuery<TEdge>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Identity();
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Tail(long limit);
 
-        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery<TEdge>, IGremlinQuery<TInVertex>> toVertexTraversal);
+        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IEGremlinQuery<TEdge>, IGremlinQuery<TInVertex>> toVertexTraversal);
         IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
