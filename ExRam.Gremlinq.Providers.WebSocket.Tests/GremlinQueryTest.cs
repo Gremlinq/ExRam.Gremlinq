@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests;
@@ -28,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var data = await _g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .ToArrayAsync();
+                .ToArray();
 
             data.Should().HaveCount(1);
             data[0].Id.Should().Be(1);
@@ -40,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var data = await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
-                .ToArrayAsync();
+                .ToArray();
 
             data.Should().HaveCount(1);
             data[0].IetfLanguageTag.Should().Be("en");
@@ -51,7 +52,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var data = await _g
                 .AddV(new Language { Id = 2 })
-                .ToArrayAsync();
+                .ToArray();
 
             data.Should().HaveCount(1);
             data[0].Id.Should().Be(2);
@@ -63,7 +64,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var data = await _g
                 .AddV(new User { Id = 3, PhoneNumbers = new[] { "+4912345", "+4923456" } })
-                .ToArrayAsync();
+                .ToArray();
 
             data.Should().HaveCount(1);
             data[0].Id.Should().Be(3);
@@ -75,7 +76,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var data = await _g
                 .AddV(new Country { Id = 4, Name = "GER" })
-                .ToArrayAsync();
+                .ToArray();
 
             data.Should().HaveCount(1);
             data[0].Id.Should().Be(4);

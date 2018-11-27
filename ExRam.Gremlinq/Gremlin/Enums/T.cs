@@ -1,6 +1,8 @@
 ﻿namespace ExRam.Gremlinq
 {
+#pragma warning disable 660,661
     public sealed class T : GremlinEnum<T>
+#pragma warning restore 660,661
     {
         public static readonly T Id = new T("id");
 
@@ -8,14 +10,14 @@
         {
         }
 
-        public static bool operator ==(T obj1, T obj2)
+        public static bool operator ==(T left, T right)
         {
-            return obj1.Equals(obj2);
+            return Equals(left, right);
         }
 
-        public static bool operator !=(T obj1, T obj2)
+        public static bool operator !=(T left, T right)
         {
-            return !obj1.Equals(obj2);
+            return !Equals(left, right);
         }
     }
 }
