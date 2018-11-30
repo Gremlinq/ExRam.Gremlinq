@@ -232,6 +232,26 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public async Task Language_unknown_type()
+        {
+            var queryProviderMock = new Mock<IGremlinQueryProvider>();
+            queryProviderMock
+                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
+                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
+
+            var language = await queryProviderMock.Object
+                .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .Execute(GremlinQuery<object>
+                    .Create())
+                .First();
+
+            language.Should().NotBeNull();
+            language.Should().BeOfType<Language>();
+            language.As<Language>().Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language.As<Language>().IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
         public async Task Language_strongly_typed()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();

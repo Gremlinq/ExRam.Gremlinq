@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
 using LanguageExt;
@@ -240,24 +241,27 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
-                var jObject = JObject.Load(reader);
+                var jToken = JToken.Load(reader);
 
-                var newObjectType = _model
-                    .TryGetElementTypeOfLabel(jObject["label"].ToString())
-                    .Filter(objectType.IsAssignableFrom)
-                    .IfNone(() =>
-                    {
-                        if (objectType == typeof(Vertex))
-                            return typeof(VertexImpl);
+                if (jToken is JObject)
+                {
+                    objectType = _model
+                        .TryGetElementTypeOfLabel(jToken["label"].ToString())
+                        .Filter(objectType.IsAssignableFrom)
+                        .IfNone(() =>
+                        {
+                            if (objectType == typeof(Vertex))
+                                return typeof(VertexImpl);
 
-                        if (objectType == typeof(Edge))
-                            return typeof(EdgeImpl);
+                            if (objectType == typeof(Edge))
+                                return typeof(EdgeImpl);
 
-                        return objectType;
-                    });
+                            return objectType;
+                        });
+                }
 
                 serializer.Converters.Remove(this);
-                var ret = jObject.ToObject(newObjectType, serializer);
+                var ret = jToken.ToObject(objectType, serializer);
                 serializer.Converters.Add(this);
 
                 return ret;
@@ -270,7 +274,7 @@ namespace ExRam.Gremlinq
 
             public override bool CanConvert(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.VertexLabels.ContainsKey(objectType) || _model.EdgeLabels.ContainsKey(objectType));
+                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.VertexLabels.Keys.Any(objectType.IsAssignableFrom) || _model.EdgeLabels.Keys.Any(objectType.IsAssignableFrom));
             }
 
             public override bool CanWrite => false;
