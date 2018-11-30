@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class GraphsonDeserializer : JsonSerializer
     {
+        #region Nested
         private sealed class GremlinContractResolver : DefaultContractResolver
         {
             private sealed class EmptyListValueProvider : IValueProvider
@@ -66,7 +67,7 @@ namespace ExRam.Gremlinq
                 var str = serializer.Deserialize<string>(reader);
 
                 return double.TryParse(str, out var number)
-                    ? TimeSpan.FromMilliseconds(number)
+                    ? System.TimeSpan.FromMilliseconds(number)
                     : XmlConvert.ToTimeSpan(str);
             }
 
@@ -168,8 +169,7 @@ namespace ExRam.Gremlinq
                 return typeof(IMeta).IsAssignableFrom(objectType);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-                JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -217,9 +217,27 @@ namespace ExRam.Gremlinq
             public override bool CanRead => true;
             public override bool CanWrite => false;
         }
+        #endregion
 
         private sealed class ElementConverter : JsonConverter
         {
+            private sealed class ModelIndependentJsonSerializer : JsonSerializer
+            {
+                public ModelIndependentJsonSerializer()
+                {
+                    DefaultValueHandling = DefaultValueHandling.Populate;
+                    Converters.Add(TimeSpan);
+                    Converters.Add(UtcDateTimeOffset);
+                    Converters.Add(UtcDateTime);
+                    Converters.Add(Scalar);
+                    Converters.Add(MetaProperty);
+                    ContractResolver = new GremlinContractResolver();
+                    TypeNameHandling = TypeNameHandling.Auto;
+                }
+            }
+
+            private static readonly JsonSerializer ModelIndependentSerializer = new ModelIndependentJsonSerializer();
+
             // ReSharper disable once ClassNeverInstantiated.Local
             private sealed class VertexImpl : Vertex
             {
@@ -260,11 +278,7 @@ namespace ExRam.Gremlinq
                         });
                 }
 
-                serializer.Converters.Remove(this);
-                var ret = jToken.ToObject(objectType, serializer);
-                serializer.Converters.Add(this);
-
-                return ret;
+                return jToken.ToObject(objectType, ModelIndependentSerializer);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -280,17 +294,21 @@ namespace ExRam.Gremlinq
             public override bool CanWrite => false;
         }
 
+        private static readonly JsonConverter TimeSpan = new TimespanConverter();
+        private static readonly JsonConverter UtcDateTimeOffset = new AssumeUtcDateTimeOffsetConverter();
+        private static readonly JsonConverter UtcDateTime = new AssumeUtcDateTimeConverter();
+        private static readonly JsonConverter Scalar = new ScalarConverter();
+        private static readonly JsonConverter MetaProperty = new MetaPropertyConverter();
+
         public GraphsonDeserializer(IGraphModel model)
         {
             DefaultValueHandling = DefaultValueHandling.Populate;
-            Converters.Add(new TimespanConverter());
-            Converters.Add(new AssumeUtcDateTimeOffsetConverter());
-            Converters.Add(new AssumeUtcDateTimeConverter());
-            Converters.Add(new ScalarConverter());
-            Converters.Add(new MetaPropertyConverter());
+            Converters.Add(TimeSpan);
+            Converters.Add(UtcDateTimeOffset);
+            Converters.Add(UtcDateTime);
+            Converters.Add(Scalar);
+            Converters.Add(MetaProperty);
             Converters.Add(new ElementConverter(model));
-            ContractResolver = new GremlinContractResolver();
-            TypeNameHandling = TypeNameHandling.Auto;
         }
     }
 }
