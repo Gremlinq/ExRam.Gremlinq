@@ -225,14 +225,14 @@ namespace ExRam.Gremlinq
             {
                 public ModelIndependentJsonSerializer()
                 {
-                    DefaultValueHandling = DefaultValueHandling.Populate;
                     Converters.Add(TimeSpan);
                     Converters.Add(UtcDateTimeOffset);
                     Converters.Add(UtcDateTime);
                     Converters.Add(Scalar);
                     Converters.Add(MetaProperty);
+
+                    DefaultValueHandling = DefaultValueHandling.Populate;
                     ContractResolver = new GremlinContractResolver();
-                    TypeNameHandling = TypeNameHandling.Auto;
                 }
             }
 
@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
 
             public override bool CanConvert(Type objectType)
@@ -302,13 +302,14 @@ namespace ExRam.Gremlinq
 
         public GraphsonDeserializer(IGraphModel model)
         {
-            DefaultValueHandling = DefaultValueHandling.Populate;
             Converters.Add(TimeSpan);
             Converters.Add(UtcDateTimeOffset);
             Converters.Add(UtcDateTime);
             Converters.Add(Scalar);
             Converters.Add(MetaProperty);
             Converters.Add(new ElementConverter(model));
+
+            DefaultValueHandling = DefaultValueHandling.Populate;
         }
     }
 }
