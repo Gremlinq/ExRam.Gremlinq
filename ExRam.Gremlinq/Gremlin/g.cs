@@ -19,6 +19,16 @@ namespace ExRam.Gremlinq
             return G.AddV<TVertex>();
         }
 
+        public static IEGremlinQuery<TEdge> AddE<TEdge>(TEdge edge)
+        {
+            return G.AddE(edge);
+        }
+
+        public static IEGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new()
+        {
+            return G.AddE<TEdge>();
+        }
+
         public static IVGremlinQuery<Vertex> V(params object[] ids)
         {
             return G.V(ids);
