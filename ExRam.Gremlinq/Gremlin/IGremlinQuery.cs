@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Emit();
 
-        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IEGremlinQuery<TEdge>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
+        IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery, IGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Identity();
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TEdge> Tail(long limit);
 
-        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IEGremlinQuery<TEdge>, IGremlinQuery<TInVertex>> toVertexTraversal);
+        IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
         IInEGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
-        IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
+        IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IVGremlinQuery<TAdjacentVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
         new IEGremlinQuery<TEdge, TAdjacentVertex> Identity();
@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq
 
         new IEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
 
-        IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
+        IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IVGremlinQuery<TAdjacentVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
         new IEGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
         new IEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
