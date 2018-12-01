@@ -92,7 +92,6 @@ namespace ExRam.Gremlinq
                     .Select(token => token
                         .Transform(_baseRule)
                         .IfNone(EmptyJArray))
-                    .Select(token => token is JArray ? token : new JArray(token))
                     .SelectMany(token => _serializer
                         .Deserialize<TElement[]>(new JTokenReader(token))
                         .ToAsyncEnumerable());

@@ -561,24 +561,6 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public async Task Count()
-        {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("36")));
-
-            var value = await queryProviderMock.Object
-                .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
-                .Execute(GremlinQuery
-                    .Create("g")
-                    .Cast<int>())
-                .First();
-
-            value.Should().Be(36);
-        }
-
-        [Fact]
         public async Task Meta_Properties()
         {
             var queryProviderMock = new Mock<IGremlinQueryProvider>();
