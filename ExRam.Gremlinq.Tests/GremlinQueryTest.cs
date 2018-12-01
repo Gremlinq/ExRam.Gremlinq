@@ -41,6 +41,28 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddE_types1()
+        {
+            g
+                .AddE<LivesIn>()
+                .From(_ => _.AddV<User>())
+                .To(_ => _.AddV<Country>())
+                .Should()
+                .BeAssignableTo<IEGremlinQuery<LivesIn, User, Country>>();
+        }
+
+        [Fact]
+        public void AddE_types2()
+        {
+            g
+                .AddE<LivesIn>()
+                .To(_ => _.AddV<Country>())
+                .From(_ => _.AddV<User>())
+                .Should()
+                .BeAssignableTo<IEGremlinQuery<LivesIn, User, Country>>();
+        }
+
+        [Fact]
         public void AddV()
         {
             g
