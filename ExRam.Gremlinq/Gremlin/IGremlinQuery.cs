@@ -234,6 +234,8 @@ namespace ExRam.Gremlinq
         IOutEGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
         new IVGremlinQuery<TAdjacentVertex> OutV();
 
+        new IEGremlinQuery<TEdge, TAdjacentVertex, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
+
         new IOutEGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
         IOutEGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
@@ -245,6 +247,8 @@ namespace ExRam.Gremlinq
         IInEGremlinQuery<TEdge, TAdjacentVertex> As(InEStepLabel<TEdge, TAdjacentVertex> stepLabel);
 
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
+
+        new IEGremlinQuery<TEdge, TOutVertex, TAdjacentVertex> From<TOutVertex>(Func<IGremlinQuery, IGremlinQuery<TOutVertex>> fromVertexTraversal);
 
         new IInEGremlinQuery<TEdge, TAdjacentVertex> Identity();
         new IVGremlinQuery<TAdjacentVertex> InV();
