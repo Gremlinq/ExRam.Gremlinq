@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Dse\ExRam.Gremlinq.Dse.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)"/>
+    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)"/>
   </ItemGroup>
 
   <ItemGroup>

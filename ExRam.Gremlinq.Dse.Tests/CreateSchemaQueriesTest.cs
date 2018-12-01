@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Reflection;
 using ExRam.Gremlinq.Tests;
 using Xunit;
 using FluentAssertions;
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Dse.Tests
         public DseGraphSchemaTest()
         {
             _queries = GraphModel
-                .FromAssembly(typeof(GraphModelTest).Assembly, typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
+                .FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple)
                 .ToDseGraphModel()
                 .SecondaryIndex<Authority>(x => x.Name)
                 .SecondaryIndex<TimeFrame>(x => x.StartTime)
