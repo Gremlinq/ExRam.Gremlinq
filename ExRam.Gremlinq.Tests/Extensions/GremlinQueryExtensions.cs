@@ -8,11 +8,9 @@ namespace ExRam.Gremlinq.Tests
     {
         public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
         {
-            private readonly IGremlinQuery _query;
-
             public GremlinQueryAssertions(IGremlinQuery query)
             {
-                _query = query;
+                Subject = query;
             }
 
             protected override string Identifier
@@ -22,7 +20,7 @@ namespace ExRam.Gremlinq.Tests
 
             public SerializedGremlinQueryAssertions SerializeTo(string serialization)
             {
-                var tuple = _query.Serialize();
+                var tuple = Subject.Serialize();
 
                 tuple.queryString
                     .Should()
