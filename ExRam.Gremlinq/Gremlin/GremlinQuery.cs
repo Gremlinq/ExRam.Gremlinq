@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq
             var stepLabel = new TStepLabel();
 
             return continuation(
-                AddStep<TElement>(new MethodStep.MethodStep1("aggregate", stepLabel)),
+                AddStep<TElement>(MethodStep.Create("aggregate", stepLabel)),
                 stepLabel);
         }
         #endregion
@@ -141,10 +141,10 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(VStepLabel<TElement> stepLabel) => As(stepLabel);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => AddStep<TElement>(new MethodStep.MethodStep1("as", stepLabel));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => AddStep<TElement>(MethodStep.Create("as", stepLabel));
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Barrier() => AddStep<TElement>(new MethodStep.MethodStep0("barrier"));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Barrier() => AddStep<TElement>(MethodStep.Create("barrier"));
 
         #region Cast
         IGremlinQuery<TTarget> IGremlinQuery.Cast<TTarget>() => Cast<TTarget>();
@@ -174,28 +174,28 @@ namespace ExRam.Gremlinq
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStepN("coalesce", traversals
+            return this.AddStep<TElement>(MethodStep.Create("coalesce", traversals
                     .Select(traversal => (object)traversal(Anonymous))
                     .ToArray()))
                 .CastQuery<TTargetQuery>();
         }
         #endregion
 
-        IGremlinQuery<long> IGremlinQuery.Count() => AddStep<long>(new MethodStep.MethodStep0("count"));
+        IGremlinQuery<long> IGremlinQuery.Count() => AddStep<long>(MethodStep.Create("count"));
 
         #region Choose
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> falseChoice)
         {
             var anonymous = Anonymous;
 
-            return AddStep<TResult>(new MethodStep.MethodStep3("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
+            return AddStep<TResult>(MethodStep.Create("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
         }
 
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice)
         {
             var anonymous = Anonymous;
 
-            return AddStep<TResult>(new MethodStep.MethodStep2("choose", traversalPredicate(anonymous), trueChoice(anonymous)));
+            return AddStep<TResult>(MethodStep.Create("choose", traversalPredicate(anonymous), trueChoice(anonymous)));
         }
         #endregion
 
@@ -204,7 +204,7 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TNewEdge> IVGremlinQuery<TElement>.BothE<TNewEdge>() => AddStep<TNewEdge>(new DerivedLabelNamesStep<TNewEdge>("bothE"));
 
-        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.BothV() => AddStep<Vertex>(new MethodStep.MethodStep0("bothV"));
+        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.BothV() => AddStep<Vertex>(MethodStep.Create("bothV"));
         #endregion
 
         #region Dedup
@@ -214,12 +214,12 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Dedup() => Dedup();
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Dedup() => AddStep<TElement>(new MethodStep.MethodStep0("dedup"));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Dedup() => AddStep<TElement>(MethodStep.Create("dedup"));
         #endregion
 
-        IGremlinQuery<Unit> IGremlinQuery.Drop() => AddStep<Unit>(new MethodStep.MethodStep0("drop"));
+        IGremlinQuery<Unit> IGremlinQuery.Drop() => AddStep<Unit>(MethodStep.Create("drop"));
 
-        IEGremlinQuery<Edge> IGremlinQuery.E(params object[] ids) => AddStep<Edge>(new MethodStep.MethodStepN("E", ids));
+        IEGremlinQuery<Edge> IGremlinQuery.E(params object[] ids) => AddStep<Edge>(MethodStep.Create("E", ids));
 
         #region Emit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Emit() => Emit();
@@ -228,32 +228,32 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Emit() => Emit();
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Emit() => AddStep<TElement>(new MethodStep.MethodStep0("emit"));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Emit() => AddStep<TElement>(MethodStep.Create("emit"));
         #endregion
 
-        IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string>(new MethodStep.MethodStep0("explain"));
+        IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string>(MethodStep.Create("explain"));
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => AddStep<TElement>(new MethodStep.MethodStep1("filter", new Lambda(lambda)));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => AddStep<TElement>(MethodStep.Create("filter", new Lambda(lambda)));
 
-        IGremlinQuery<TElement[]> IGremlinQuery<TElement>.Fold() => AddStep<TElement[]>(new MethodStep.MethodStep0("fold"));
+        IGremlinQuery<TElement[]> IGremlinQuery<TElement>.Fold() => AddStep<TElement[]>(MethodStep.Create("fold"));
 
         #region From (step label)
-        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit>(new MethodStep.MethodStep1("from", stepLabel));
+        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit>(MethodStep.Create("from", stepLabel));
 
-        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex>(new MethodStep.MethodStep1("from", stepLabel));
+        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex>(MethodStep.Create("from", stepLabel));
         #endregion
 
         #region From (traversal)
-        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(Func<IVGremlinQuery<TOutVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal) => AddStep<TElement, TTargetVertex, TOutVertex>(new MethodStep.MethodStep1("from", fromVertexTraversal(GremlinQueryImpl<TOutVertex, Unit, Unit>.Anonymous)));
+        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(Func<IVGremlinQuery<TOutVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal) => AddStep<TElement, TTargetVertex, TOutVertex>(MethodStep.Create("from", fromVertexTraversal(GremlinQueryImpl<TOutVertex, Unit, Unit>.Anonymous)));
 
         IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(Func<IGremlinQuery, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => From<TElement, TNewOutVertex, Unit>(fromVertexTraversal);
 
         IEGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEGremlinQuery<TElement, TInVertex>.From<TNewOutVertex>(Func<IGremlinQuery, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => From<TElement, TNewOutVertex, TInVertex>(fromVertexTraversal);
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex>(new MethodStep.MethodStep1("from", fromVertexTraversal(Anonymous)));
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex>(MethodStep.Create("from", fromVertexTraversal(Anonymous)));
         #endregion
 
-        IGremlinQuery<object> IGremlinQuery.Id() => AddStep<object>(new MethodStep.MethodStep0("id"));
+        IGremlinQuery<object> IGremlinQuery.Id() => AddStep<object>(MethodStep.Create("id"));
 
         #region Identity
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Identity();
@@ -270,7 +270,7 @@ namespace ExRam.Gremlinq
 
         IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Identity() => Identity();
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Identity() => AddStep<TElement>(new MethodStep.MethodStep0("identity"));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Identity() => AddStep<TElement>(MethodStep.Create("identity"));
         #endregion
 
         IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<Vertex>(new DerivedLabelNamesStep<TNewEdge>("in"));
@@ -280,14 +280,14 @@ namespace ExRam.Gremlinq
         IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement>(new DerivedLabelNamesStep<TNewEdge>("inE"));
 
         #region InV
-        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.InV() => AddStep<Vertex, Unit, Unit>(new MethodStep.MethodStep0("inV"));
+        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.InV() => AddStep<Vertex, Unit, Unit>(MethodStep.Create("inV"));
 
-        IVGremlinQuery<TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(new MethodStep.MethodStep0("inV"));
+        IVGremlinQuery<TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(MethodStep.Create("inV"));
 
-        IVGremlinQuery<TInVertex> IInEGremlinQuery<TElement, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(new MethodStep.MethodStep0("inV"));
+        IVGremlinQuery<TInVertex> IInEGremlinQuery<TElement, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(MethodStep.Create("inV"));
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(new MethodStep.MethodStepN("inject", elements.Cast<object>().ToArray()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(MethodStep.Create("inject", elements.Cast<object>().ToArray()));
 
         #region Limit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long limit) => Limit(limit);
@@ -318,7 +318,7 @@ namespace ExRam.Gremlinq
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery> localTraversal)
             where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep1("local", localTraversal(Anonymous)))
+            return this.AddStep<TElement>(MethodStep.Create("local", localTraversal(Anonymous)))
                 .CastQuery<TTargetQuery>();
         }
         #endregion
@@ -342,13 +342,13 @@ namespace ExRam.Gremlinq
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep1("map", mapping(Anonymous)))
+            return this.AddStep<TElement>(MethodStep.Create("map", mapping(Anonymous)))
                 .CastQuery<TTargetQuery>();
         }
         #endregion
 
         // ReSharper disable once CoVariantArrayConversion
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(new MethodStep.MethodStepN("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray<object>()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(MethodStep.Create("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray<object>()));
 
         #region Not
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Not(Func<IGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
@@ -381,7 +381,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Optional(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> optionalTraversal) => Optional(optionalTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Optional(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> optionalTraversal) => AddStep<TElement>(new MethodStep.MethodStep1("optional", optionalTraversal(Anonymous)));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Optional(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> optionalTraversal) => AddStep<TElement>(MethodStep.Create("optional", optionalTraversal(Anonymous)));
         #endregion
 
         #region Or
@@ -428,7 +428,7 @@ namespace ExRam.Gremlinq
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStep2("by", memberExpression.Member.Name, order));
+                return this.AddStep<TElement>(MethodStep.Create("order")).AddStep<TElement>(MethodStep.Create("by", memberExpression.Member.Name, order));
             }
 
             throw new NotSupportedException();
@@ -462,7 +462,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal, Order order)
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStep2("by", traversal(Anonymous), order));
+            return this.AddStep<TElement>(MethodStep.Create("order")).AddStep<TElement>(MethodStep.Create("by", traversal(Anonymous), order));
         }
         #endregion
 
@@ -481,37 +481,37 @@ namespace ExRam.Gremlinq
         
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(string lambda)
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStep1("by", new Lambda(lambda)));
+            return this.AddStep<TElement>(MethodStep.Create("order")).AddStep<TElement>(MethodStep.Create("by", new Lambda(lambda)));
         }
         #endregion
 
-        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OtherV() => AddStep<Vertex>(new MethodStep.MethodStep0("otherV"));
+        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OtherV() => AddStep<Vertex>(MethodStep.Create("otherV"));
 
         #region OutX
         IOutEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.OutE<TNewEdge>() => AddStep<TNewEdge, TElement, Unit>(new DerivedLabelNamesStep<TNewEdge>("outE"));
 
-        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OutV() => AddStep<Vertex, Unit, Unit>(new MethodStep.MethodStep0("outV"));
+        IVGremlinQuery<Vertex> IEGremlinQuery<TElement>.OutV() => AddStep<Vertex, Unit, Unit>(MethodStep.Create("outV"));
         
-        IVGremlinQuery<TOutVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OutV() => AddStep<TOutVertex, Unit, Unit>(new MethodStep.MethodStep0("outV"));
+        IVGremlinQuery<TOutVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OutV() => AddStep<TOutVertex, Unit, Unit>(MethodStep.Create("outV"));
 
-        IVGremlinQuery<TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OutV() => AddStep<TOutVertex, Unit, Unit>(new MethodStep.MethodStep0("outV"));
+        IVGremlinQuery<TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OutV() => AddStep<TOutVertex, Unit, Unit>(MethodStep.Create("outV"));
 
         IVGremlinQuery<Vertex> IVGremlinQuery<TElement>.Out<TNewEdge>() => AddStep<Vertex>(new DerivedLabelNamesStep<TNewEdge>("out"));
         #endregion
         
-        IGremlinQuery<string> IGremlinQuery.Profile() => AddStep<string>(new MethodStep.MethodStep0("profile"));
+        IGremlinQuery<string> IGremlinQuery.Profile() => AddStep<string>(MethodStep.Create("profile"));
 
         #region Properties
         IVPropertiesGremlinQuery<VertexProperty> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
 
         IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
         {
-            return AddStep<Property, Unit, Unit>(new MethodStep.MethodStepN("properties", keys.ToArray<object>()));
+            return AddStep<Property, Unit, Unit>(MethodStep.Create("properties", keys.ToArray<object>()));
         }
 
         private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
         {
-            return AddStep<VertexProperty, Unit, Unit>(new MethodStep.MethodStepN("properties", projections
+            return AddStep<VertexProperty, Unit, Unit>(MethodStep.Create("properties", projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
@@ -546,7 +546,7 @@ namespace ExRam.Gremlinq
 
         IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, object value)
         {
-            return AddStep<TElement>(new MethodStep.MethodStep2("property", key, value));
+            return AddStep<TElement>(MethodStep.Create("property", key, value));
         }
         #endregion
 
@@ -567,7 +567,7 @@ namespace ExRam.Gremlinq
             if (high > int.MaxValue || high < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(high));
 
-            return AddStep<TElement>(new MethodStep.MethodStep2("range", (int)low, (int)high));
+            return AddStep<TElement>(MethodStep.Create("range", (int)low, (int)high));
         }
         #endregion
 
@@ -578,7 +578,7 @@ namespace ExRam.Gremlinq
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Repeat(Func<IEGremlinQuery<TElement>, IEGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
         
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Repeat(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> repeatTraversal) => AddStep<TElement>(new MethodStep.MethodStep1("repeat", repeatTraversal(Anonymous)));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Repeat(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> repeatTraversal) => AddStep<TElement>(MethodStep.Create("repeat", repeatTraversal(Anonymous)));
         #endregion
 
         #region RepeatUntil
@@ -590,7 +590,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> RepeatUntil(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> repeatTraversal, Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> untilTraversal)
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep1("repeat", repeatTraversal(Anonymous))).AddStep<TElement>(new MethodStep.MethodStep1("until", untilTraversal(Anonymous)));
+            return this.AddStep<TElement>(MethodStep.Create("repeat", repeatTraversal(Anonymous))).AddStep<TElement>(MethodStep.Create("until", untilTraversal(Anonymous)));
         }
         #endregion
 
@@ -607,18 +607,18 @@ namespace ExRam.Gremlinq
 
         IInEGremlinQuery<TEdge, TAdjacentVertex> IGremlinQuery.Select<TEdge, TAdjacentVertex>(InEStepLabel<TEdge, TAdjacentVertex> label) => Select<TEdge, Unit, TAdjacentVertex>(label);
 
-        private GremlinQueryImpl<TSelectedElement, TSelectedOutVertex, TSelectedInVertex> Select<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(StepLabel<TSelectedElement> stepLabel) => AddStep<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(new MethodStep.MethodStep1("select", stepLabel));
+        private GremlinQueryImpl<TSelectedElement, TSelectedOutVertex, TSelectedInVertex> Select<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(StepLabel<TSelectedElement> stepLabel) => AddStep<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(MethodStep.Create("select", stepLabel));
 
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {
-            return this.AddStep<(T1, T2)>(new MethodStep.MethodStep2("select", label1, label2))
+            return this.AddStep<(T1, T2)>(MethodStep.Create("select", label1, label2))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2);
         }
 
         IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
-            return this.AddStep<(T1, T2, T3)>(new MethodStep.MethodStep3("select", label1, label2, label3))
+            return this.AddStep<(T1, T2, T3)>(MethodStep.Create("select", label1, label2, label3))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2)
                 .AddStepLabelBinding(x => x.Item3, label3);
@@ -626,7 +626,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
-            return this.AddStep<(T1, T2, T3, T4)>(new MethodStep.MethodStep4("select", label1, label2, label3, label4))
+            return this.AddStep<(T1, T2, T3, T4)>(MethodStep.Create("select", label1, label2, label3, label4))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2)
                 .AddStepLabelBinding(x => x.Item3, label3)
@@ -643,7 +643,7 @@ namespace ExRam.Gremlinq
 
         IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.SideEffect(Func<IVPropertiesGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> SideEffect(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> sideEffectTraversal) => AddStep<TElement>(new MethodStep.MethodStep1("sideEffect", sideEffectTraversal(Anonymous)));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> SideEffect(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> sideEffectTraversal) => AddStep<TElement>(MethodStep.Create("sideEffect", sideEffectTraversal(Anonymous)));
         #endregion
 
         #region Skip
@@ -660,18 +660,18 @@ namespace ExRam.Gremlinq
             if (skip > int.MaxValue || skip < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(skip));
 
-            return AddStep<TElement>(new MethodStep.MethodStep1("skip", (int)skip));
+            return AddStep<TElement>(MethodStep.Create("skip", (int)skip));
         }
 
         #endregion
 
         #region Sum
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(new MethodStep.MethodStep1("sum", Scope.Local));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Local));
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(new MethodStep.MethodStep1("sum", Scope.Global));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Global));
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => AddStep<TElement>(new MethodStep.MethodStep1("times", count));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => AddStep<TElement>(MethodStep.Create("times", count));
 
         #region Tail
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Tail(long limit) => Tail(limit);
@@ -687,36 +687,36 @@ namespace ExRam.Gremlinq
             if (limit > int.MaxValue || limit < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(limit));
 
-            return AddStep<TElement>(new MethodStep.MethodStep1("tail", (int)limit));
+            return AddStep<TElement>(MethodStep.Create("tail", (int)limit));
         }
         #endregion
 
         #region To (step label)
-        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TElement, Unit, TNewInVertex>(new MethodStep.MethodStep1("to", stepLabel));
+        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TElement, Unit, TNewInVertex>(MethodStep.Create("to", stepLabel));
 
-        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TOutVertex, TTargetVertex>(new MethodStep.MethodStep1("to", stepLabel));
+        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TOutVertex, TTargetVertex>(MethodStep.Create("to", stepLabel));
         #endregion
 
         #region To (traversal)
-        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IVGremlinQuery<TOutVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TTargetVertex>(new MethodStep.MethodStep1("to", toVertexTraversal(GremlinQueryImpl<TOutVertex, Unit, Unit>.Anonymous)));
+        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(Func<IVGremlinQuery<TOutVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal) => AddStep<TElement, TOutVertex, TTargetVertex>(MethodStep.Create("to", toVertexTraversal(GremlinQueryImpl<TOutVertex, Unit, Unit>.Anonymous)));
 
         IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(Func<IGremlinQuery, IGremlinQuery<TNewInVertex>> toVertexTraversal) => To<TElement, Unit, TNewInVertex>(toVertexTraversal);
 
         IEGremlinQuery<TElement, TOutVertex, TNewInVertex> IOutEGremlinQuery<TElement, TOutVertex>.To<TNewInVertex>(Func<IGremlinQuery, IGremlinQuery<TNewInVertex>> toVertexTraversal) => To<TElement, TOutVertex, TNewInVertex>(toVertexTraversal);
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> toVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex>(new MethodStep.MethodStep1("to", toVertexTraversal(Anonymous)));
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> toVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex>(MethodStep.Create("to", toVertexTraversal(Anonymous)));
         #endregion
 
         IGremlinQuery<TItem> IGremlinQuery<TElement>.Unfold<TItem>()
         {
-            return AddStep<TItem>(new MethodStep.MethodStep0("unfold"));
+            return AddStep<TItem>(MethodStep.Create("unfold"));
         }
         
         TTargetQuery IVGremlinQuery<TElement>.Union<TTargetQuery>(params Func<IVGremlinQuery<TElement>, TTargetQuery>[] unionTraversals)
         {
             return this
                 .AddStep<TElement>(
-                    new MethodStep.MethodStepN(
+                    MethodStep.Create(
                         "union",
                         unionTraversals
                             .Select(unionTraversal => (object)unionTraversal(Anonymous))
@@ -724,12 +724,12 @@ namespace ExRam.Gremlinq
                 .CastQuery<TTargetQuery>();
         }
 
-        IVGremlinQuery<Vertex> IGremlinQuery.V(params object[] ids) => AddStep<Vertex>(new MethodStep.MethodStepN("V", ids));
+        IVGremlinQuery<Vertex> IGremlinQuery.V(params object[] ids) => AddStep<Vertex>(MethodStep.Create("V", ids));
 
         IGremlinQuery<TTarget> IGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => AddStep<TTarget>(new ValuesStep<TElement, TTarget>(projections));
 
         #region Where (Traversal)
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => AddStep<TElement>(new MethodStep.MethodStep1("where", filterTraversal(Anonymous)));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => AddStep<TElement>(MethodStep.Create("where", filterTraversal(Anonymous)));
 
         IEGremlinQuery<TElement, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.Where(Func<IEGremlinQuery<TElement, TOutVertex>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
@@ -743,7 +743,7 @@ namespace ExRam.Gremlinq
 
         IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Where(Func<IInEGremlinQuery<TElement, TInVertex>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal) => AddStep<TElement>(new MethodStep.MethodStep1("where", filterTraversal(Anonymous)));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal) => AddStep<TElement>(MethodStep.Create("where", filterTraversal(Anonymous)));
         #endregion
 
         #region Where (Predicate)
@@ -920,14 +920,14 @@ namespace ExRam.Gremlinq
                             leftMemberExpression,
                             rightConstant is StepLabel
                                 ? (IGremlinQuery<Unit>) GremlinQuery
-                                    .Anonymous.AddStep(new MethodStep.MethodStep1("where", predicateArgument))
+                                    .Anonymous.AddStep(MethodStep.Create("where", predicateArgument))
                                 : (object)predicateArgument));
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
                         return AddStep(
                             rightConstant is StepLabel
-                                ? new MethodStep.MethodStep1("where", predicateArgument)
+                                ? MethodStep.Create("where", predicateArgument)
                                 : (Step)new IsStep(predicateArgument));
                     }
                 }
@@ -1190,19 +1190,19 @@ namespace ExRam.Gremlinq
 
             if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
             {
-                var strategy = (IGremlinQuery<Unit>) Create("SubgraphStrategy").AddStep(new MethodStep.MethodStep0("build"));
+                var strategy = (IGremlinQuery<Unit>) Create("SubgraphStrategy").AddStep(MethodStep.Create("build"));
 
                 if (vertexCriterionTraversal.Steps.Count > 0)
                 {
-                    strategy = strategy.AddStep(new MethodStep.MethodStep1("vertices", vertexCriterionTraversal));
+                    strategy = strategy.AddStep(MethodStep.Create("vertices", vertexCriterionTraversal));
                 }
 
                 if (edgeCriterionTraversal.Steps.Count > 0)
                 {
-                    strategy = strategy.AddStep(new MethodStep.MethodStep1("edges", edgeCriterionTraversal));
+                    strategy = strategy.AddStep(MethodStep.Create("edges", edgeCriterionTraversal));
                 }
 
-                return query.AddStep(new MethodStep.MethodStep1("withStrategies", strategy.AddStep(new MethodStep.MethodStep0("create"))));
+                return query.AddStep(MethodStep.Create("withStrategies", strategy.AddStep(MethodStep.Create("create"))));
             }
 
             return query;

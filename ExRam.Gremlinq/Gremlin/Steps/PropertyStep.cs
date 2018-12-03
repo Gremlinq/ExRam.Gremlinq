@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq
                     .Prepend(cardinality)
                     .ToArray();
 
-                return new MethodStep.MethodStepN("property", metaProperties);
+                return MethodStep.Create("property", metaProperties);
             }
 
-            return new MethodStep.MethodStep3("property", cardinality, name, value);
+            return MethodStep.Create("property", cardinality, name, value);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq
 {
     public abstract class MethodStep : NonTerminalStep
     {
-        public class MethodStep0 : MethodStep
+        public sealed class MethodStep0 : MethodStep
         {
             public MethodStep0(string name) : base(name)
             {
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStep1 : MethodStep
+        public sealed class MethodStep1 : MethodStep
         {
             private readonly object _parameter;
 
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStep2 : MethodStep
+        public sealed class MethodStep2 : MethodStep
         {
             private readonly object _parameter1;
             private readonly object _parameter2;
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStep3 : MethodStep
+        public sealed class MethodStep3 : MethodStep
         {
             private readonly object _parameter1;
             private readonly object _parameter2;
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStep4 : MethodStep
+        public sealed class MethodStep4 : MethodStep
         {
             private readonly object _parameter1;
             private readonly object _parameter2;
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStepN : MethodStep
+        public sealed class MethodStepN : MethodStep
         {
             public MethodStepN(string name, object[] parameters) : base(name)
             {
@@ -127,6 +127,36 @@ namespace ExRam.Gremlinq
         }
 
         protected abstract IEnumerable<object> ResolveParameters(IGraphModel model);
+
+        public static MethodStep Create(string name)
+        {
+            return new MethodStep0(name);
+        }
+
+        public static MethodStep Create(string name, object parameter)
+        {
+            return new MethodStep1(name, parameter);
+        }
+
+        public static MethodStep Create(string name, object parameter1, object parameter2)
+        {
+            return new MethodStep2(name, parameter1, parameter2);
+        }
+
+        public static MethodStep Create(string name, object parameter1, object parameter2, object parameter3)
+        {
+            return new MethodStep3(name, parameter1, parameter2, parameter3);
+        }
+
+        public static MethodStep Create(string name, object parameter1, object parameter2, object parameter3, object parameter4)
+        {
+            return new MethodStep4(name, parameter1, parameter2, parameter3, parameter4);
+        }
+
+        public static MethodStep Create(string name, object[] parameters)
+        {
+            return new MethodStepN(name, parameters);
+        }
 
         public string Name { get; }
     }

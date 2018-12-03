@@ -54,8 +54,8 @@ namespace ExRam.Gremlinq
                     return v;
                 })
                 .Match(
-                    value => (MethodStep)new MethodStep.MethodStep2(_name, key, value),
-                    () => new MethodStep.MethodStep1(_name, key));
+                    value => (MethodStep)MethodStep.Create(_name, key, value),
+                    () => MethodStep.Create(_name, key));
         }
 
         internal Option<object> Value { get; }
