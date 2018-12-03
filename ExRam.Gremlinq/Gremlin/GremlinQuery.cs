@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq
         {
             var anonymous = Anonymous;
 
-            return AddStep<TResult>(new MethodStep.MethodStepN("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
+            return AddStep<TResult>(new MethodStep.MethodStep3("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
         }
 
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice)
@@ -618,7 +618,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
-            return this.AddStep<(T1, T2, T3)>(new MethodStep.MethodStepN("select", label1, label2, label3))
+            return this.AddStep<(T1, T2, T3)>(new MethodStep.MethodStep3("select", label1, label2, label3))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2)
                 .AddStepLabelBinding(x => x.Item3, label3);

@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq
                 return new MethodStep.MethodStepN("property", metaProperties);
             }
 
-            return new MethodStep.MethodStepN("property", cardinality, name, value);
+            return new MethodStep.MethodStep3("property", cardinality, name, value);
         }
     }
 }
