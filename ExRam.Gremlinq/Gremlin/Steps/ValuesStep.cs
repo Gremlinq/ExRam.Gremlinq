@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)
-                yield return MethodStep.Create("id");
+                yield return new ResolvedMethodStep("id");
             else
             {
                 yield return MethodStep.Create(

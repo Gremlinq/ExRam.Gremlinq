@@ -4,19 +4,6 @@ namespace ExRam.Gremlinq
 {
     public abstract class MethodStep : NonTerminalStep
     {
-        public sealed class MethodStep0 : MethodStep
-        {
-            public MethodStep0(string name) : base(name)
-            {
-
-            }
-
-            protected override IEnumerable<object> ResolveParameters(IGraphModel model)
-            {
-                yield break;
-            }
-        }
-
         public sealed class MethodStep1 : MethodStep
         {
             private readonly object _parameter;
@@ -127,11 +114,6 @@ namespace ExRam.Gremlinq
         }
 
         protected abstract IEnumerable<object> ResolveParameters(IGraphModel model);
-
-        public static MethodStep Create(string name)
-        {
-            return new MethodStep0(name);
-        }
 
         public static MethodStep Create(string name, object parameter)
         {
