@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq
         {
             var type = _value.GetType();
             
-            yield return new MethodStep.MethodStepN(
+            yield return new MethodStep.MethodStep1(
                 _stepName,
                 model
                     .TryGetLabelOfType(type)

@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new MethodStep.MethodStepN(
+            yield return new MethodStep.MethodStep1(
                 "hasValue",
                 _argument is P.Eq eq
                     ? eq.Argument

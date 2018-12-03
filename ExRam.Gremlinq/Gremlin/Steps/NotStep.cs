@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             if (_traversal.Steps.Count == 0 || !(_traversal.Steps[_traversal.Steps.Count - 1] is HasStep hasStep) || !hasStep.Value.Exists(hasStepValue => hasStepValue == P.False))
-                yield return new MethodStep.MethodStepN("not", _traversal);
+                yield return new MethodStep.MethodStep1("not", _traversal);
         }
     }
 }
