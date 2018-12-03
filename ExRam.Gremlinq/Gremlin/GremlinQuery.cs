@@ -99,12 +99,8 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> And(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery>[] andTraversals)
         {
-            return AddStep<TElement>(new MethodStep("and", andTraversals
+            return AddStep<TElement>(new AndStep(andTraversals
                 .Select(andTraversal => andTraversal(Anonymous))
-                .SelectMany(
-                    query2 => query2.Steps.Count == 2 && (query2.Steps[1] as MethodStep)?.Name == "and"
-                        ? ((MethodStep)query2.Steps[1]).Parameters
-                        : new object[]{ query2 })
                 .ToArray()));
         }
         #endregion
@@ -397,12 +393,8 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Or(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery>[] orTraversals)
         {
-            return AddStep<TElement>(new MethodStep("or", orTraversals
-                .Select(andTraversal => andTraversal(Anonymous))
-                .SelectMany(
-                    query2 => query2.Steps.Count == 2 && (query2.Steps[1] as MethodStep)?.Name == "or"
-                        ? ((MethodStep)query2.Steps[1]).Parameters
-                        : new[] { query2 })
+            return AddStep<TElement>(new OrStep(orTraversals
+                .Select(orTraversal => orTraversal(Anonymous))
                 .ToArray()));
         }
         #endregion
