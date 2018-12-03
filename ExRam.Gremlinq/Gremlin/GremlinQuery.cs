@@ -919,9 +919,8 @@ namespace ExRam.Gremlinq
                         return AddStep(new HasStep(
                             leftMemberExpression,
                             rightConstant is StepLabel
-                                ? GremlinQuery
-                                    .Anonymous
-                                    .Call("where", predicateArgument)
+                                ? (IGremlinQuery<Unit>) GremlinQuery
+                                    .Anonymous.AddStep(new MethodStep("where", predicateArgument))
                                 : (object)predicateArgument));
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
@@ -1092,11 +1091,6 @@ namespace ExRam.Gremlinq
                 .ToArray(ct);
         }
 
-        public static IGremlinQuery<TElement> Call<TElement>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
-        {
-            return query.InsertStep<TElement>(query.Steps.Count, new MethodStep(name, parameters));
-        }
-
         internal static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, Step step)
         {
             return query.InsertStep<TElement>(query.Steps.Count, step);
@@ -1196,16 +1190,19 @@ namespace ExRam.Gremlinq
 
             if (vertexCriterionTraversal.Steps.Count > 1 || edgeCriterionTraversal.Steps.Count > 1)
             {
-                var strategy = Create("SubgraphStrategy")
-                    .Call("build");
+                var strategy = (IGremlinQuery<Unit>) Create("SubgraphStrategy").AddStep(new MethodStep("build"));
 
                 if (vertexCriterionTraversal.Steps.Count > 0)
-                    strategy = strategy.Call("vertices", vertexCriterionTraversal);
+                {
+                    strategy = strategy.AddStep(new MethodStep("vertices", vertexCriterionTraversal));
+                }
 
                 if (edgeCriterionTraversal.Steps.Count > 0)
-                    strategy = strategy.Call("edges", edgeCriterionTraversal);
+                {
+                    strategy = strategy.AddStep(new MethodStep("edges", edgeCriterionTraversal));
+                }
 
-                return query.AddStep(new MethodStep("withStrategies", strategy.Call("create")));
+                return query.AddStep(new MethodStep("withStrategies", (IGremlinQuery<Unit>) strategy.AddStep(new MethodStep("create"))));
             }
 
             return query;

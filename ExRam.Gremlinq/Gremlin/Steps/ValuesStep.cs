@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
+using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
@@ -39,9 +40,7 @@ namespace ExRam.Gremlinq
             if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
             {
                 yield return new MethodStep("union",
-                    GremlinQuery.Anonymous.Call(
-                        "values",
-                        propertyKeys),
+                    GremlinQuery.Anonymous.AddStep(new MethodStep("values", propertyKeys)),
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)
