@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Dse
                                 vertexKvp.Key
                                     .GetProperties()
                                     .Select(x => x.Name)
-                                    .ToImmutableList<object>()))
+                                    .ToArray<object>()))
                             .Call("create"));
         }
 
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Dse
                                     edgeKvp.Key
                                         .GetProperties()
                                         .Select(property => property.Name)
-                                        .ToImmutableList<object>())),
+                                        .ToArray<object>())),
                         (closureQuery, tuple) => closureQuery.Call(
                             "connection",
                             model.VertexLabels.TryGetValue(tuple.Item1).IfNone(() => throw new InvalidOperationException(/* TODO: Message */ )),

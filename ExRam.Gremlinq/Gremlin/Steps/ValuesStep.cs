@@ -50,8 +50,7 @@ namespace ExRam.Gremlinq
             {
                 yield return new MethodStep(
                     "values",
-                    propertyKeys
-                        .ToImmutableList());
+                    propertyKeys);
             }
         }
     }

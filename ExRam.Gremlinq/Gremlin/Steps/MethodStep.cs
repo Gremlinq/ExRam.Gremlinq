@@ -1,16 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
     public class MethodStep : NonTerminalStep
     {
-        public MethodStep(string name, params object[] parameters) : this(name, ImmutableList.Create(parameters))
+        public MethodStep(string name) : this(name, Array.Empty<object>())
         {
 
         }
 
-        public MethodStep(string name, IImmutableList<object> parameters)
+        public MethodStep(string name, object parameter) : this(name, new[] { parameter })
+        {
+
+        }
+
+        public MethodStep(string name, object parameter1, object parameter2) : this(name, new[] { parameter1, parameter2 })
+        {
+
+        }
+
+        public MethodStep(string name, object parameter1, object parameter2, object parameter3) : this(name, new[] { parameter1, parameter2, parameter3 })
+        {
+
+        }
+
+        public MethodStep(string name, object parameter1, object parameter2, object parameter3, object parameter4) : this(name, new[] { parameter1, parameter2, parameter3, parameter4  })
+        {
+
+        }
+
+        public MethodStep(string name, object[] parameters)
         {
             Name = name;
             Parameters = parameters;
@@ -33,6 +53,6 @@ namespace ExRam.Gremlinq
         }
 
         public string Name { get; }
-        public IImmutableList<object> Parameters { get; }
+        public object[] Parameters { get; }
     }
 }

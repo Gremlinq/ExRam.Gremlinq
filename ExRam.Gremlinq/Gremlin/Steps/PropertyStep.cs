@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq
                     .Prepend(meta.Value)
                     .Prepend(name)
                     .Prepend(cardinality)
-                    .ToImmutableList();
+                    .ToArray();
 
                 return new MethodStep("property", metaProperties);
             }

@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
 {
     public abstract class DerivedLabelNamesStep : NonTerminalStep
     {
-        protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), ImmutableList<object>> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), ImmutableList<object>>();
+        protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), object[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), object[]>();
     }
 
     public sealed class DerivedLabelNamesStep<TElement> : DerivedLabelNamesStep
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq
             yield return new MethodStep(_stepName, GetDerivedLabelNames(model));
         }
 
-        private static ImmutableList<object> GetDerivedLabelNames(IGraphModel model)
+        private static object[] GetDerivedLabelNames(IGraphModel model)
         {
             return TypeLabelDict
                 .GetOrAdd(
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq
                         .Select(type => tuple.model.TryGetLabelOfType(type)
                             .IfNone(() => throw new InvalidOperationException()))
                         .OrderBy(x => x)
-                        .ToImmutableList<object>());
+                        .ToArray<object>());
         }
     }
 }
