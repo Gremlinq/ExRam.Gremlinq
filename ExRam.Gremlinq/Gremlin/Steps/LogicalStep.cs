@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new MethodStep(
+            yield return new MethodStep.MethodStepN(
                 Name,
                 Traversals
                     .SelectMany(traversal => FlattenTraversals(traversal))
