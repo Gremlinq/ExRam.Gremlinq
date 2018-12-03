@@ -9,17 +9,30 @@ namespace ExRam.Gremlinq
         {
             Traversals = traversals;
         }
-        
+
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             yield return new MethodStep("and", Traversals
-                .SelectMany(
-                    query2 => query2.Steps.Count == 2 && query2.Steps[1] is AndStep andStep
-                        ? andStep.Traversals
-                        : new object[] { query2 })
-                .ToArray());
+                .SelectMany(FlattenTraversals)
+                .ToArray<object>());
         }
 
+        private static IEnumerable<IGremlinQuery> FlattenTraversals(IGremlinQuery query)
+        {
+            if (query.Steps.Count == 2 && query.Steps[1] is AndStep andStep)
+            {
+                foreach (var subTraversal in andStep.Traversals)
+                {
+                    foreach (var flattenedSubTraversal in FlattenTraversals(subTraversal))
+                    {
+                        yield return flattenedSubTraversal;
+                    }
+                }
+            }
+            else
+                yield return query;
+        }
+    
         public IGremlinQuery[] Traversals { get; }
     }
 }

@@ -911,6 +911,62 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void And_nested()
+        {
+            g
+                .V<User>()
+                .And(
+                    __ => __
+                        .OutE<LivesIn>(),
+                    __ => __
+                        .And(
+                            ___ => ___
+                                .InE<Knows>(),
+                            ___ => ___
+                                .OutE<Knows>()))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .WithParameters("User", "LivesIn", "Knows");
+        }
+
+        [Fact]
+        public void Or()
+        {
+            g
+                .V<User>()
+                .Or(
+                    __ => __
+                        .InE<Knows>(),
+                    __ => __
+                        .OutE<LivesIn>())
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
+                .WithParameters("User", "Knows", "LivesIn");
+        }
+
+        [Fact]
+        public void Or_nested()
+        {
+            g
+                .V<User>()
+                .Or(
+                    __ => __
+                        .OutE<LivesIn>(),
+                    __ => __
+                        .Or(
+                            ___ => ___
+                                .InE<Knows>(),
+                            ___ => ___
+                                .OutE<Knows>()))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .WithParameters("User", "LivesIn", "Knows");
+        }
+
+        [Fact]
         public void Drop()
         {
             g

@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class OrStep : NonTerminalStep
     {
-        public OrStep(IGremlinQuery[] traversals)
+        public OrStep(IEnumerable<IGremlinQuery> traversals)
         {
             Traversals = traversals;
         }
@@ -13,13 +13,26 @@ namespace ExRam.Gremlinq
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
             yield return new MethodStep("or", Traversals
-                .SelectMany(
-                    query2 => query2.Steps.Count == 2 && query2.Steps[1] is OrStep orStep
-                        ? orStep.Traversals
-                        : new object[] { query2 })
-                .ToArray());
+                .SelectMany(FlattenTraversals)
+                .ToArray<object>());
         }
 
-        public IGremlinQuery[] Traversals { get; }
+        private static IEnumerable<IGremlinQuery> FlattenTraversals(IGremlinQuery query)
+        {
+            if (query.Steps.Count == 2 && query.Steps[1] is OrStep orStep)
+            {
+                foreach (var subTraversal in orStep.Traversals)
+                {
+                    foreach (var flattenedSubTraversal in FlattenTraversals(subTraversal))
+                    {
+                        yield return flattenedSubTraversal;
+                    }
+                }
+            }
+            else
+                yield return query;
+        }
+
+        public IEnumerable<IGremlinQuery> Traversals { get; }
     }
 }
