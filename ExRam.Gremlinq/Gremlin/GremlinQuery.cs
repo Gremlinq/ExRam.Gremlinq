@@ -195,7 +195,7 @@ namespace ExRam.Gremlinq
         {
             var anonymous = Anonymous;
 
-            return AddStep<TResult>(new MethodStep.MethodStepN("choose", traversalPredicate(anonymous), trueChoice(anonymous)));
+            return AddStep<TResult>(new MethodStep.MethodStep2("choose", traversalPredicate(anonymous), trueChoice(anonymous)));
         }
         #endregion
 
@@ -428,7 +428,7 @@ namespace ExRam.Gremlinq
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStepN("by", memberExpression.Member.Name, order));
+                return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStep2("by", memberExpression.Member.Name, order));
             }
 
             throw new NotSupportedException();
@@ -462,7 +462,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal, Order order)
         {
-            return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStepN("by", traversal(Anonymous), order));
+            return this.AddStep<TElement>(new MethodStep.MethodStep0("order")).AddStep<TElement>(new MethodStep.MethodStep2("by", traversal(Anonymous), order));
         }
         #endregion
 
@@ -546,7 +546,7 @@ namespace ExRam.Gremlinq
 
         IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, object value)
         {
-            return AddStep<TElement>(new MethodStep.MethodStepN("property", key, value));
+            return AddStep<TElement>(new MethodStep.MethodStep2("property", key, value));
         }
         #endregion
 
@@ -567,7 +567,7 @@ namespace ExRam.Gremlinq
             if (high > int.MaxValue || high < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(high));
 
-            return AddStep<TElement>(new MethodStep.MethodStepN("range", (int)low, (int)high));
+            return AddStep<TElement>(new MethodStep.MethodStep2("range", (int)low, (int)high));
         }
         #endregion
 
@@ -611,7 +611,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {
-            return this.AddStep<(T1, T2)>(new MethodStep.MethodStepN("select", label1, label2))
+            return this.AddStep<(T1, T2)>(new MethodStep.MethodStep2("select", label1, label2))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2);
         }

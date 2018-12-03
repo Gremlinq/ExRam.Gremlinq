@@ -33,14 +33,26 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public class MethodStepN : MethodStep
+        public class MethodStep2 : MethodStep
         {
-            public MethodStepN(string name, object parameter1, object parameter2) : this(name,
-                new[] {parameter1, parameter2})
-            {
+            private readonly object _parameter1;
+            private readonly object _parameter2;
 
+            public MethodStep2(string name, object parameter1, object parameter2) : base(name)
+            {
+                _parameter1 = parameter1;
+                _parameter2 = parameter2;
             }
 
+            protected override IEnumerable<object> ResolveParameters(IGraphModel model)
+            {
+                yield return _parameter1 is IGremlinQuery query1 ? query1.Resolve(model) : _parameter1;
+                yield return _parameter2 is IGremlinQuery query2 ? query2.Resolve(model) : _parameter2;
+            }
+        }
+
+        public class MethodStepN : MethodStep
+        {
             public MethodStepN(string name, object parameter1, object parameter2, object parameter3) : this(name,
                 new[] {parameter1, parameter2, parameter3})
             {
