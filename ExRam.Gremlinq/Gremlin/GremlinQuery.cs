@@ -626,7 +626,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
-            return this.AddStep<(T1, T2, T3, T4)>(new MethodStep.MethodStepN("select", label1, label2, label3, label4))
+            return this.AddStep<(T1, T2, T3, T4)>(new MethodStep.MethodStep4("select", label1, label2, label3, label4))
                 .AddStepLabelBinding(x => x.Item1, label1)
                 .AddStepLabelBinding(x => x.Item2, label2)
                 .AddStepLabelBinding(x => x.Item3, label3)
