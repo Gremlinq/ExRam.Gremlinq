@@ -5,13 +5,21 @@ namespace ExRam.Gremlinq
 {
     public abstract class MethodStep : NonTerminalStep
     {
-        public class MethodStepN : MethodStep
+        public class MethodStep0 : MethodStep
         {
-            public MethodStepN(string name) : this(name, Array.Empty<object>())
+            public MethodStep0(string name) : base(name)
             {
 
             }
 
+            protected override IEnumerable<object> ResolveParameters(IGraphModel model)
+            {
+                yield break;
+            }
+        }
+
+        public class MethodStepN : MethodStep
+        {
             public MethodStepN(string name, object parameter) : this(name, new[] {parameter})
             {
 
@@ -41,11 +49,6 @@ namespace ExRam.Gremlinq
                 Parameters = parameters;
             }
 
-            public override IEnumerable<Step> Resolve(IGraphModel model)
-            {
-                yield return new ResolvedMethodStep(Name, ResolveParameters(model));
-            }
-
             protected override IEnumerable<object> ResolveParameters(IGraphModel model)
             {
                 foreach (var parameter in Parameters)
@@ -64,6 +67,11 @@ namespace ExRam.Gremlinq
         protected MethodStep(string name)
         {
             Name = name;
+        }
+
+        public override IEnumerable<Step> Resolve(IGraphModel model)
+        {
+            yield return new ResolvedMethodStep(Name, ResolveParameters(model));
         }
 
         protected abstract IEnumerable<object> ResolveParameters(IGraphModel model);
