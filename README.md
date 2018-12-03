@@ -1,5 +1,3 @@
-
-
 ![](https://github.com/apache/tinkerpop/blob/master/docs/static/images/gremlin-help-wanted.png)
 
 # ExRam.Gremlinq
@@ -90,3 +88,7 @@ Build strongly typed gremlin queries:
 ### Development
 
 The library is still under development. The API might change without notice. Help on this project is appreciated!
+
+### Acknowledgements
+
+The graphic on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
