@@ -281,7 +281,7 @@ namespace ExRam.Gremlinq.Dse
 
         private static IGremlinQuery<TElement> Call<TElement>(this IGremlinQuery<TElement> query, string name, params object[] parameters)
         {
-            return query.InsertStep<TElement>(query.Steps.Count, new ResolvedMethodStep(name, parameters));
+            return query.InsertStep<TElement>(query.Steps.Count, MethodStep.Create(name, parameters));
         }
     }
 }

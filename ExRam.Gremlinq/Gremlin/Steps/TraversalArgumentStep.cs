@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new ResolvedMethodStep(_name, _traversals.Select(x => x.Resolve(model)));
+            yield return MethodStep.Create(_name, _traversals.Select(x => x.Resolve(model)).ToArray<object>());
         }
     }
 }

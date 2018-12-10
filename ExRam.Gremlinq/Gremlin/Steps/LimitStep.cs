@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new ResolvedMethodStep("limit", Limit);
+            yield return MethodStep.Create("limit", Limit);
         }
 
         public int Limit { get; }

@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new ResolvedMethodStep("by", _traversal.Resolve(model), _order);
+            yield return MethodStep.Create("by", _traversal.Resolve(model), _order);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq
             }
         }
 
-        private static ResolvedMethodStep Resolve(Cardinality cardinality, object name, object value)
+        private static MethodStep Resolve(Cardinality cardinality, object name, object value)
         {
             if (value is IMeta meta)
             {
@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq
                     .Prepend(cardinality)
                     .ToArray();
 
-                return new ResolvedMethodStep("property", metaProperties);
+                return MethodStep.Create("property", metaProperties);
             }
 
-            return new ResolvedMethodStep("property", cardinality, name, value);
+            return MethodStep.Create("property", cardinality, name, value);
         }
     }
 }

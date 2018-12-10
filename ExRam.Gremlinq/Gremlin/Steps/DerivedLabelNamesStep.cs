@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new ResolvedMethodStep(_stepName, GetDerivedLabelNames(model));
+            yield return MethodStep.Create(_stepName, GetDerivedLabelNames(model));
         }
 
         private static object[] GetDerivedLabelNames(IGraphModel model)
