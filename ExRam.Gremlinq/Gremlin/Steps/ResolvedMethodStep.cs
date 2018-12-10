@@ -33,6 +33,11 @@ namespace ExRam.Gremlinq
 
         }
 
+        public ResolvedMethodStep(string name, params object[] parameters) : this(name, (IEnumerable<object>)parameters)
+        {
+
+        }
+
         public ResolvedMethodStep(string name, IEnumerable<object> parameters)
         {
             _name = name;

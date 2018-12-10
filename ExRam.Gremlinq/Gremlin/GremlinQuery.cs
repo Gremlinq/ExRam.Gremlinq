@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq
             var stepLabel = new TStepLabel();
 
             return continuation(
-                AddStep<TElement>(MethodStep.Create("aggregate", stepLabel)),
+                AddStep<TElement>(new ResolvedMethodStep("aggregate", stepLabel)),
                 stepLabel);
         }
         #endregion
@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(VStepLabel<TElement> stepLabel) => As(stepLabel);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => AddStep<TElement>(MethodStep.Create("as", stepLabel));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel<TElement> stepLabel) => AddStep<TElement>(new ResolvedMethodStep("as", stepLabel));
         #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Barrier() => AddStep<TElement>(ResolvedMethodStep.Barrier);
@@ -233,14 +233,14 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string>(ResolvedMethodStep.Explain);
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => AddStep<TElement>(MethodStep.Create("filter", new Lambda(lambda)));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => AddStep<TElement>(new ResolvedMethodStep("filter", new Lambda(lambda)));
 
         IGremlinQuery<TElement[]> IGremlinQuery<TElement>.Fold() => AddStep<TElement[]>(ResolvedMethodStep.Fold);
 
         #region From (step label)
-        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit>(MethodStep.Create("from", stepLabel));
+        IOutEGremlinQuery<TElement, TNewOutVertex> IEGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit>(new ResolvedMethodStep("from", stepLabel));
 
-        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex>(MethodStep.Create("from", stepLabel));
+        IEGremlinQuery<TElement, TTargetVertex, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex>(new ResolvedMethodStep("from", stepLabel));
         #endregion
 
         #region From (traversal)
@@ -287,7 +287,7 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TInVertex> IInEGremlinQuery<TElement, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(ResolvedMethodStep.InV);
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(MethodStep.Create("inject", elements.Cast<object>().ToArray()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(new ResolvedMethodStep("inject", elements.Cast<object>()));
 
         #region Limit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long limit) => Limit(limit);
@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq
         
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> OrderBy(string lambda)
         {
-            return this.AddStep<TElement>(ResolvedMethodStep.Order).AddStep<TElement>(MethodStep.Create("by", new Lambda(lambda)));
+            return this.AddStep<TElement>(ResolvedMethodStep.Order).AddStep<TElement>(new ResolvedMethodStep("by", new Lambda(lambda)));
         }
         #endregion
 
@@ -607,7 +607,7 @@ namespace ExRam.Gremlinq
 
         IInEGremlinQuery<TEdge, TAdjacentVertex> IGremlinQuery.Select<TEdge, TAdjacentVertex>(InEStepLabel<TEdge, TAdjacentVertex> label) => Select<TEdge, Unit, TAdjacentVertex>(label);
 
-        private GremlinQueryImpl<TSelectedElement, TSelectedOutVertex, TSelectedInVertex> Select<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(StepLabel<TSelectedElement> stepLabel) => AddStep<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(MethodStep.Create("select", stepLabel));
+        private GremlinQueryImpl<TSelectedElement, TSelectedOutVertex, TSelectedInVertex> Select<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(StepLabel<TSelectedElement> stepLabel) => AddStep<TSelectedElement, TSelectedOutVertex, TSelectedInVertex>(new ResolvedMethodStep("select", stepLabel));
 
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {
@@ -660,18 +660,18 @@ namespace ExRam.Gremlinq
             if (skip > int.MaxValue || skip < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(skip));
 
-            return AddStep<TElement>(MethodStep.Create("skip", (int)skip));
+            return AddStep<TElement>(new ResolvedMethodStep("skip", (int)skip));
         }
 
         #endregion
 
         #region Sum
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Local));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(new ResolvedMethodStep("sum", Scope.Local));
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Global));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(new ResolvedMethodStep("sum", Scope.Global));
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => AddStep<TElement>(MethodStep.Create("times", count));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => AddStep<TElement>(new ResolvedMethodStep("times", count));
 
         #region Tail
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Tail(long limit) => Tail(limit);
@@ -687,14 +687,14 @@ namespace ExRam.Gremlinq
             if (limit > int.MaxValue || limit < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(limit));
 
-            return AddStep<TElement>(MethodStep.Create("tail", (int)limit));
+            return AddStep<TElement>(new ResolvedMethodStep("tail", (int)limit));
         }
         #endregion
 
         #region To (step label)
-        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TElement, Unit, TNewInVertex>(MethodStep.Create("to", stepLabel));
+        IInEGremlinQuery<TElement, TNewInVertex> IEGremlinQuery<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TElement, Unit, TNewInVertex>(new ResolvedMethodStep("to", stepLabel));
 
-        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TOutVertex, TTargetVertex>(MethodStep.Create("to", stepLabel));
+        IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TOutVertex, TTargetVertex>(new ResolvedMethodStep("to", stepLabel));
         #endregion
 
         #region To (traversal)
@@ -919,15 +919,15 @@ namespace ExRam.Gremlinq
                         return AddStep(new HasStep(
                             leftMemberExpression,
                             rightConstant is StepLabel
-                                ? (IGremlinQuery<Unit>) GremlinQuery
-                                    .Anonymous.AddStep(MethodStep.Create("where", predicateArgument))
+                                ? GremlinQuery
+                                    .Anonymous.AddStep(new ResolvedMethodStep("where", predicateArgument))
                                 : (object)predicateArgument));
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
                         return AddStep(
                             rightConstant is StepLabel
-                                ? MethodStep.Create("where", predicateArgument)
+                                ? new ResolvedMethodStep("where", predicateArgument)
                                 : (Step)new IsStep(predicateArgument));
                     }
                 }

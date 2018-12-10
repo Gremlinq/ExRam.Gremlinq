@@ -4,20 +4,20 @@ namespace ExRam.Gremlinq
 {
     public abstract class MethodStep : NonTerminalStep
     {
-        public sealed class MethodStep1 : MethodStep
-        {
-            private readonly object _parameter;
+        //public sealed class MethodStep1 : MethodStep
+        //{
+        //    private readonly object _parameter;
 
-            public MethodStep1(string name, object parameter) : base(name)
-            {
-                _parameter = parameter;
-            }
+        //    public MethodStep1(string name, object parameter) : base(name)
+        //    {
+        //        _parameter = parameter;
+        //    }
 
-            protected override IEnumerable<object> ResolveParameters(IGraphModel model)
-            {
-                yield return _parameter is IGremlinQuery query ? query.Resolve(model) : _parameter;
-            }
-        }
+        //    protected override IEnumerable<object> ResolveParameters(IGraphModel model)
+        //    {
+        //        yield return _parameter is IGremlinQuery query ? query.Resolve(model) : _parameter;
+        //    }
+        //}
 
         public sealed class MethodStep2 : MethodStep
         {
@@ -115,10 +115,10 @@ namespace ExRam.Gremlinq
 
         protected abstract IEnumerable<object> ResolveParameters(IGraphModel model);
 
-        public static MethodStep Create(string name, object parameter)
-        {
-            return new MethodStep1(name, parameter);
-        }
+        //public static MethodStep Create(string name, object parameter)
+        //{
+        //    return new MethodStep1(name, parameter);
+        //}
 
         public static MethodStep Create(string name, object parameter1, object parameter2)
         {
