@@ -301,7 +301,10 @@ namespace ExRam.Gremlinq
             if (limit > int.MaxValue || limit < 0)
                 throw new ArgumentException("Parameter out of range.", nameof(limit));
 
-            return AddStep(new LimitStep((int)limit));
+            return AddStep(
+                limit == 1
+                    ? (Step)MethodStep.Limit1
+                    : new LimitStep((int)limit));
         }
 
         #endregion

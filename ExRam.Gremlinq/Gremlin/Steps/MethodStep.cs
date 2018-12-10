@@ -24,7 +24,8 @@ namespace ExRam.Gremlinq
         public static readonly MethodStep Profile = Create("profile");
         public static readonly MethodStep Count = Create("count");
         public static readonly MethodStep Build = Create("build");
-
+        public static readonly MethodStep Limit1 = Create("limit", 1);
+        
         public sealed class MethodStep0 : MethodStep
         {
             public MethodStep0(string name) : base(name)
