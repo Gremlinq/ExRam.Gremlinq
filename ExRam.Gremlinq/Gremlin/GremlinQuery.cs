@@ -1267,11 +1267,6 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps, query.StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name));
         }
 
-        internal static IGremlinQuery<TElement> ReplaceProvider<TElement>(this IGremlinQuery<TElement> query, IGremlinQueryProvider provider)
-        {
-            return new GremlinQueryImpl<TElement, Unit, Unit>(query.Steps, query.StepLabelMappings);
-        }
-
         public static IGremlinQuery<Unit> WithSubgraphStrategy(this IGremlinQuery<Unit> query, Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
             var vertexCriterionTraversal = vertexCriterion(Anonymous);
