@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq
         {
             var anonymous = Anonymous;
 
-            return AddStep<TResult>(MethodStep.Create("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
+            return AddStep<TResult>(new TraversalArgumentStep("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
         }
 
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice)

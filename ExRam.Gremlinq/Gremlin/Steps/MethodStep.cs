@@ -37,26 +37,26 @@ namespace ExRam.Gremlinq
         //    }
         //}
 
-        public sealed class MethodStep3 : MethodStep
-        {
-            private readonly object _parameter1;
-            private readonly object _parameter2;
-            private readonly object _parameter3;
+        //public sealed class MethodStep3 : MethodStep
+        //{
+        //    private readonly object _parameter1;
+        //    private readonly object _parameter2;
+        //    private readonly object _parameter3;
 
-            public MethodStep3(string name, object parameter1, object parameter2, object parameter3) : base(name)
-            {
-                _parameter1 = parameter1;
-                _parameter2 = parameter2;
-                _parameter3 = parameter3;
-            }
+        //    public MethodStep3(string name, object parameter1, object parameter2, object parameter3) : base(name)
+        //    {
+        //        _parameter1 = parameter1;
+        //        _parameter2 = parameter2;
+        //        _parameter3 = parameter3;
+        //    }
 
-            protected override IEnumerable<object> ResolveParameters(IGraphModel model)
-            {
-                yield return _parameter1 is IGremlinQuery query1 ? query1.Resolve(model) : _parameter1;
-                yield return _parameter2 is IGremlinQuery query2 ? query2.Resolve(model) : _parameter2;
-                yield return _parameter3 is IGremlinQuery query3 ? query3.Resolve(model) : _parameter3;
-            }
-        }
+        //    protected override IEnumerable<object> ResolveParameters(IGraphModel model)
+        //    {
+        //        yield return _parameter1 is IGremlinQuery query1 ? query1.Resolve(model) : _parameter1;
+        //        yield return _parameter2 is IGremlinQuery query2 ? query2.Resolve(model) : _parameter2;
+        //        yield return _parameter3 is IGremlinQuery query3 ? query3.Resolve(model) : _parameter3;
+        //    }
+        //}
 
         public sealed class MethodStep4 : MethodStep
         {
@@ -125,10 +125,10 @@ namespace ExRam.Gremlinq
         //    return new MethodStep2(name, parameter1, parameter2);
         //}
 
-        public static MethodStep Create(string name, object parameter1, object parameter2, object parameter3)
-        {
-            return new MethodStep3(name, parameter1, parameter2, parameter3);
-        }
+        //public static MethodStep Create(string name, object parameter1, object parameter2, object parameter3)
+        //{
+        //    return new MethodStep3(name, parameter1, parameter2, parameter3);
+        //}
 
         public static MethodStep Create(string name, object parameter1, object parameter2, object parameter3, object parameter4)
         {
