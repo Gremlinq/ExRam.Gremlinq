@@ -1051,6 +1051,95 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void OrderByDescending_member()
+        {
+            g
+                .V<User>()
+                .OrderByDescending(x => x.Name)
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.decr)")
+                .WithParameters("User", "Name");
+        }
+
+        [Fact]
+        public void OrderByDescending_traversal()
+        {
+            g
+                .V<User>()
+                .OrderByDescending(__ => __.Values(x => x.Name))
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
+                .WithParameters("User", "Name");
+        }
+        
+        [Fact]
+        public void OrderBy_ThenBy_member()
+        {
+            g
+                .V<User>()
+                .OrderBy(x => x.Name)
+                .ThenBy(x => x.Age)
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
+                .WithParameters("User", "Name", "Age");
+        }
+
+        [Fact]
+        public void OrderBy_ThenBy_traversal()
+        {
+            g
+                .V<User>()
+                .OrderBy(__ => __.Values(x => x.Name))
+                .ThenBy(__ => __.Gender)
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
+                .WithParameters("User", "Name", "Gender");
+        }
+
+        [Fact]
+        public void OrderBy_ThenBy_lambda()
+        {
+            g
+                .V<User>()
+                .OrderBy("it.property('str1').value().length()")
+                .ThenBy("it.property('str2').value().length()")
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
+                .WithParameters("User");
+        }
+
+        [Fact]
+        public void OrderBy_ThenByDescending_member()
+        {
+            g
+                .V<User>()
+                .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.Age)
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
+                .WithParameters("User", "Name", "Age");
+        }
+
+        [Fact]
+        public void OrderBy_ThenByDescending_traversal()
+        {
+            g
+                .V<User>()
+                .OrderBy(__ => __.Values(x => x.Name))
+                .ThenByDescending(__ => __.Gender)
+                .Resolve(_model)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
+                .WithParameters("User", "Name", "Gender");
+        }
+
+        [Fact]
         public void SumLocal()
         {
             g
