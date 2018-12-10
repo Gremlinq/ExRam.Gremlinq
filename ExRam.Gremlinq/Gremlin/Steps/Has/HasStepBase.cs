@@ -40,20 +40,22 @@ namespace ExRam.Gremlinq
             var key = model.GetIdentifier(name);
 
             yield return Value
-                .Bind<MethodStep>(v =>
+                .Bind<object>(v =>
                 {
                     if (v == P.False)
-                        return MethodStep.Create(_name, key, GremlinQuery.Anonymous.Not(_ => _.Identity()).Resolve(model));
+                        return (object)GremlinQuery.Anonymous.Not(_ => _.Identity()).Resolve(GraphModel.Empty);
 
                     if (v == P.True)
                         return default;
 
                     if (v is P.Eq eq)
-                        return MethodStep.Create(_name, key, eq.Argument);
+                        return eq.Argument;
 
-                    return MethodStep.Create(_name, key, v);
+                    return v;
                 })
-                .IfNone(() => MethodStep.Create(_name, key));
+                .Match(
+                    v => MethodStep.Create(_name, key, v),
+                    () => MethodStep.Create(_name, key));
         }
 
         internal Option<object> Value { get; }
