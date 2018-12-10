@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ExRam.Gremlinq
@@ -110,9 +111,9 @@ namespace ExRam.Gremlinq
 
         public sealed class MethodStepN : MethodStep
         {
-            private readonly object[] _parameters;
+            private readonly IEnumerable<object> _parameters;
 
-            public MethodStepN(string name, object[] parameters) : base(name)
+            public MethodStepN(string name, IEnumerable<object> parameters) : base(name)
             {
                 _parameters = parameters;
             }
@@ -153,7 +154,7 @@ namespace ExRam.Gremlinq
             return new MethodStep4(name, parameter1, parameter2, parameter3, parameter4);
         }
 
-        public static MethodStep Create(string name, object[] parameters)
+        public static MethodStep Create(string name, IEnumerable<object> parameters)
         {
             return new MethodStepN(name, parameters);
         }

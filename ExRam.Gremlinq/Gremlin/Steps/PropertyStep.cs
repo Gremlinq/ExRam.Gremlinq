@@ -56,11 +56,10 @@ namespace ExRam.Gremlinq
             if (value is IMeta meta)
             {
                 var metaProperties = meta.Properties
-                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                    .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
                     .Prepend(meta.Value)
                     .Prepend(name)
-                    .Prepend(cardinality)
-                    .ToArray();
+                    .Prepend(cardinality);
 
                 return MethodStep.Create("property", metaProperties);
             }

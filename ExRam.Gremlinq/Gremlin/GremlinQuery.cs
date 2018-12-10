@@ -285,7 +285,7 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TInVertex> IInEGremlinQuery<TElement, TInVertex>.InV() => AddStep<TInVertex, Unit, Unit>(MethodStep.InV);
         #endregion
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(MethodStep.Create("inject", elements.Cast<object>().ToArray()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => AddStep<TElement>(MethodStep.Create("inject", elements.Cast<object>()));
 
         #region Limit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long limit) => Limit(limit);
@@ -504,7 +504,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
         {
-            return AddStep<Property, Unit, Unit>(MethodStep.Create("properties", keys.ToArray<object>()));
+            return AddStep<Property, Unit, Unit>(MethodStep.Create("properties", keys));
         }
 
         private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
@@ -518,8 +518,7 @@ namespace ExRam.Gremlinq
                     }
 
                     throw new NotSupportedException();
-                })
-                .ToArray<object>()));
+                })));
         }
         #endregion
         

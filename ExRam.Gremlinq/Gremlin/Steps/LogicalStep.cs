@@ -27,8 +27,7 @@ namespace ExRam.Gremlinq
                 Name,
                 Traversals
                     .SelectMany(traversal => FlattenTraversals(traversal))
-                    .Select(traversal => traversal.Resolve(model))
-                    .ToArray<object>());
+                    .Select(traversal => (object)traversal.Resolve(model)));
         }
 
         private IEnumerable<IGremlinQuery> FlattenTraversals(IGremlinQuery query)
