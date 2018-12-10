@@ -695,9 +695,9 @@ namespace ExRam.Gremlinq
         #endregion
 
         #region Sum
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Local));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => AddStep<TElement>(MethodStep.SumLocal);
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(MethodStep.Create("sum", Scope.Global));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => AddStep<TElement>(MethodStep.SumGlobal);
         #endregion
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => AddStep<TElement>(MethodStep.Create("times", count));
