@@ -306,7 +306,6 @@ namespace ExRam.Gremlinq
                     ? (Step)MethodStep.Limit1
                     : new LimitStep((int)limit));
         }
-
         #endregion
 
         #region Local
