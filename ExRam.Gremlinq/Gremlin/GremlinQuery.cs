@@ -174,8 +174,8 @@ namespace ExRam.Gremlinq
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep<TElement>(MethodStep.Create("coalesce", traversals
-                    .Select(traversal => (object)traversal(Anonymous))
+            return this.AddStep<TElement>(new TraversalArgumentStep("coalesce", traversals
+                    .Select(traversal => (IGremlinQuery)traversal(Anonymous))
                     .ToArray()))
                 .CastQuery<TTargetQuery>();
         }
@@ -219,7 +219,7 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<Unit> IGremlinQuery.Drop() => AddStep<Unit>(ResolvedMethodStep.Drop);
 
-        IEGremlinQuery<Edge> IGremlinQuery.E(params object[] ids) => AddStep<Edge>(MethodStep.Create("E", ids));
+        IEGremlinQuery<Edge> IGremlinQuery.E(params object[] ids) => AddStep<Edge>(new ResolvedMethodStep("E", ids));
 
         #region Emit
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Emit() => Emit();
@@ -348,7 +348,7 @@ namespace ExRam.Gremlinq
         #endregion
 
         // ReSharper disable once CoVariantArrayConversion
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(MethodStep.Create("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray<object>()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(new TraversalArgumentStep("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray()));
 
         #region Not
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Not(Func<IGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
@@ -506,12 +506,12 @@ namespace ExRam.Gremlinq
 
         IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
         {
-            return AddStep<Property, Unit, Unit>(MethodStep.Create("properties", keys.ToArray<object>()));
+            return AddStep<Property, Unit, Unit>(new ResolvedMethodStep("properties", keys.ToArray<object>()));
         }
 
         private GremlinQueryImpl<VertexProperty, Unit, Unit> Properties(params Expression<Func<TElement, object>>[] projections)
         {
-            return AddStep<VertexProperty, Unit, Unit>(MethodStep.Create("properties", projections
+            return AddStep<VertexProperty, Unit, Unit>(new ResolvedMethodStep("properties", projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
@@ -716,15 +716,15 @@ namespace ExRam.Gremlinq
         {
             return this
                 .AddStep<TElement>(
-                    MethodStep.Create(
+                    new TraversalArgumentStep(
                         "union",
                         unionTraversals
-                            .Select(unionTraversal => (object)unionTraversal(Anonymous))
+                            .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymous))
                             .ToArray()))
                 .CastQuery<TTargetQuery>();
         }
 
-        IVGremlinQuery<Vertex> IGremlinQuery.V(params object[] ids) => AddStep<Vertex>(MethodStep.Create("V", ids));
+        IVGremlinQuery<Vertex> IGremlinQuery.V(params object[] ids) => AddStep<Vertex>(new ResolvedMethodStep("V", ids));
 
         IGremlinQuery<TTarget> IGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => AddStep<TTarget>(new ValuesStep<TElement, TTarget>(projections));
 
