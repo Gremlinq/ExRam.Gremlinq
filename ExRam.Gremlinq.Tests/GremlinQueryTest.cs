@@ -17,7 +17,6 @@ namespace ExRam.Gremlinq.Tests
                 .WithIdPropertyName("Id");
         }
 
-
         [Fact]
         public void V_of_concrete_type()
         {
@@ -230,8 +229,8 @@ namespace ExRam.Gremlinq.Tests
                 .Where(t => t.PhoneNumbers.Intersects(new string[0]))
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, __.not(__.identity()))")
-                .WithParameters("User", "PhoneNumbers");
+                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("User");
         }
 
         [Fact]
@@ -283,8 +282,8 @@ namespace ExRam.Gremlinq.Tests
                 .Where(t => enumerable.Contains(t.Age))
                 .Resolve(_model)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, __.not(__.identity()))")
-                .WithParameters("User", "Age");
+                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("User");
         }
 
         [Fact]
