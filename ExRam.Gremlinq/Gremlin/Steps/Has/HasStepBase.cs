@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq
                     return v;
                 })
                 .Match(
-                    value => (MethodStep)MethodStep.Create(_name, key, value),
+                    value => MethodStep.Create(_name, key, value),
                     () => MethodStep.Create(_name, key));
         }
 

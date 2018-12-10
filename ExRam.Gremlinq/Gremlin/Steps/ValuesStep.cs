@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq
                     GremlinQuery.Anonymous.Id());
             }
             else if (numberOfIdSteps > 0)
-                yield return new ResolvedMethodStep.Id;
+                yield return ResolvedMethodStep.Id;
             else
             {
                 yield return MethodStep.Create(
