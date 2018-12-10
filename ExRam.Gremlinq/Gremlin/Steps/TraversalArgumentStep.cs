@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ExRam.Gremlinq
 {
     public sealed class TraversalArgumentStep : NonTerminalStep
     {
         private readonly string _name;
-        private readonly IGremlinQuery _traversal;
+        private readonly IGremlinQuery[] _traversals;
 
-        public TraversalArgumentStep(string name, IGremlinQuery traversal)
+        public TraversalArgumentStep(string name, params IGremlinQuery[] traversals)
         {
             _name = name;
-            _traversal = traversal;
+            _traversals = traversals;
         }
 
         public override IEnumerable<Step> Resolve(IGraphModel model)
         {
-            yield return new ResolvedMethodStep(_name, new[] { _traversal.Resolve(model) });
+            yield return new ResolvedMethodStep(_name, _traversals.Select(x => x.Resolve(model)));
         }
     }
 }
