@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class TraversalArgumentStep : NonTerminalStep
+    public abstract class MultiTraversalArgumentStep : NonTerminalStep
     {
         private readonly string _name;
-        private readonly IGremlinQuery[] _traversals;
+        private readonly IEnumerable<IGremlinQuery> _traversals;
 
-        public TraversalArgumentStep(string name, params IGremlinQuery[] traversals)
+        protected MultiTraversalArgumentStep(string name, IEnumerable<IGremlinQuery> traversals)
         {
             _name = name;
             _traversals = traversals;

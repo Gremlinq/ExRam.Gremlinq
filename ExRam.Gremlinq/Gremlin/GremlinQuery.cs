@@ -174,9 +174,9 @@ namespace ExRam.Gremlinq
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep<TElement>(new TraversalArgumentStep("coalesce", traversals
-                    .Select(traversal => (IGremlinQuery)traversal(Anonymous))
-                    .ToArray()))
+            return this
+                .AddStep<TElement>(new CoalesceStep(traversals
+                    .Select(traversal => (IGremlinQuery)traversal(Anonymous))))
                 .CastQuery<TTargetQuery>();
         }
         #endregion
@@ -186,9 +186,7 @@ namespace ExRam.Gremlinq
         #region Choose
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> falseChoice)
         {
-            var anonymous = Anonymous;
-
-            return AddStep<TResult>(new TraversalArgumentStep("choose", traversalPredicate(anonymous), trueChoice(anonymous), falseChoice(anonymous)));
+            return AddStep<TResult>(new ChooseStep(traversalPredicate(Anonymous), trueChoice(Anonymous), falseChoice(Anonymous)));
         }
 
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice)
@@ -348,7 +346,7 @@ namespace ExRam.Gremlinq
         #endregion
 
         // ReSharper disable once CoVariantArrayConversion
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(new TraversalArgumentStep("match", matchTraversals.Select(traversal => traversal(Anonymous)).ToArray()));
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Match(params Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>>[] matchTraversals) => AddStep<TElement>(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymous))));
 
         #region Not
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Not(Func<IGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
@@ -645,7 +643,7 @@ namespace ExRam.Gremlinq
 
         IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.SideEffect(Func<IVPropertiesGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> SideEffect(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> sideEffectTraversal) => AddStep<TElement>(new TraversalArgumentStep("sideEffect", sideEffectTraversal(Anonymous)));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> SideEffect(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> sideEffectTraversal) => AddStep<TElement>(new SideEffectStep(sideEffectTraversal(Anonymous)));
         #endregion
 
         #region Skip
@@ -718,11 +716,9 @@ namespace ExRam.Gremlinq
         {
             return this
                 .AddStep<TElement>(
-                    new TraversalArgumentStep(
-                        "union",
+                    new UnionStep(
                         unionTraversals
-                            .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymous))
-                            .ToArray()))
+                            .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymous))))
                 .CastQuery<TTargetQuery>();
         }
 

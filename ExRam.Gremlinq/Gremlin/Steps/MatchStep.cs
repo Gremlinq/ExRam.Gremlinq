@@ -1,8 +1,10 @@
-﻿namespace ExRam.Gremlinq
+﻿using System.Collections.Generic;
+
+namespace ExRam.Gremlinq
 {
-    public sealed class MatchStep : SingleTraversalArgumentStep
+    public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(IGremlinQuery traversal) : base("match", traversal)
+        public MatchStep(IEnumerable<IGremlinQuery> traversals) : base("match", traversals)
         {
         }
     }
