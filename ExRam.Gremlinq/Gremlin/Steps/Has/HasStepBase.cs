@@ -12,7 +12,9 @@ namespace ExRam.Gremlinq
 
         protected HasStepBase(string name, Expression expression, Option<object> value = default)
         {
-            Value = value;
+            Value = value
+                .IfNone(P.True);
+
             _name = name;
             _expression = expression;
         }
@@ -39,24 +41,21 @@ namespace ExRam.Gremlinq
 
             var key = model.GetIdentifier(name);
 
-            yield return Value
-                .Bind<Step>(v =>
-                {
-                    if (v == P.False)
-                        return new NotStep(GremlinQuery.Anonymous.Resolve(model));
-
-                    if (v == P.True)
-                        return default;
-
-                    if (v is P.Eq eq)
-                        return MethodStep.Create(_name, key, eq.Argument);
-
-                    return MethodStep.Create(_name, key, v);
-                })
-                .IfNone(
-                    () => MethodStep.Create(_name, key));
+            if (Value == P.False)
+                yield return new NotStep(GremlinQuery.Anonymous.Resolve(model));
+            else if (Value == P.True)
+                yield return MethodStep.Create(_name, key);
+            else
+            {
+                yield return MethodStep.Create(
+                    _name,
+                    key,
+                    Value is P.Eq eq
+                        ? eq.Argument
+                        : Value);
+            }
         }
 
-        internal Option<object> Value { get; }
+        internal object Value { get; }
     }
 }
