@@ -1,22 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class MultiTraversalArgumentStep : NonTerminalStep
+    public abstract class MultiTraversalArgumentStep : Step
     {
-        private readonly string _name;
-        private readonly IEnumerable<IGremlinQuery> _traversals;
+        public IEnumerable<IGremlinQuery> Traversals { get; }
 
-        protected MultiTraversalArgumentStep(string name, IEnumerable<IGremlinQuery> traversals)
+        protected MultiTraversalArgumentStep(IEnumerable<IGremlinQuery> traversals)
         {
-            _name = name;
-            _traversals = traversals;
-        }
-
-        public override IEnumerable<Step> Resolve(IGraphModel model)
-        {
-            yield return MethodStep.Create(_name, _traversals.Select(x => (object)x.Resolve(model)));
+            Traversals = traversals;
         }
     }
 }

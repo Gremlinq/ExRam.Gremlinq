@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public abstract class DerivedLabelNamesStep : NonTerminalStep
+    public abstract class DerivedLabelNamesStep : Step
     {
-        protected static readonly ConcurrentDictionary<(IGraphModel model, Type type), object[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), object[]>();
+        protected DerivedLabelNamesStep(string stepName)
+        {
+            StepName = stepName;
+        }
+
+        public string StepName { get; }
     }
 
     public sealed class DerivedLabelNamesStep<TElement> : DerivedLabelNamesStep
@@ -20,28 +20,13 @@ namespace ExRam.Gremlinq
         public static DerivedLabelNamesStep<TElement> InE = new DerivedLabelNamesStep<TElement>("inE");
         public static DerivedLabelNamesStep<TElement> BothE = new DerivedLabelNamesStep<TElement>("bothE");
 
-        private readonly string _stepName;
-
-        private DerivedLabelNamesStep(string stepName)
+        private DerivedLabelNamesStep(string stepName) : base(stepName)
         {
-            _stepName = stepName;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            yield return MethodStep.Create(_stepName, GetDerivedLabelNames(model));
-        }
-
-        private static object[] GetDerivedLabelNames(IGraphModel model)
-        {
-            return TypeLabelDict
-                .GetOrAdd(
-                    (model, typeof(TElement)),
-                    tuple => tuple.model.GetDerivedTypes(typeof(TElement), true)
-                        .Select(type => tuple.model.TryGetLabelOfType(type)
-                            .IfNone(() => throw new InvalidOperationException()))
-                        .OrderBy(x => x)
-                        .ToArray<object>());
+            visitor.Visit(this);
         }
     }
 }

@@ -2,8 +2,13 @@
 {
     public sealed class RepeatStep : SingleTraversalArgumentStep
     {
-        public RepeatStep(IGremlinQuery traversal) : base("repeat", traversal)
+        public RepeatStep(IGremlinQuery traversal) : base(traversal)
         {
+        }
+
+        public override void Accept(IQueryElementVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

@@ -1,19 +1,15 @@
-﻿using System.Text;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public abstract class GremlinEnum<TEnum> : IGroovySerializable where TEnum : GremlinEnum<TEnum>
+    public abstract class GremlinEnum<TEnum> : IQueryElement where TEnum : GremlinEnum<TEnum>
     {
         protected GremlinEnum(string name)
         {
             Name = name;
         }
 
-        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+        public void Accept(IQueryElementVisitor visitor)
         {
-            return state
-                .AppendIdentifier(stringBuilder, typeof(TEnum).Name)
-                .AppendField(stringBuilder, Name);
+            visitor.Visit(this);
         }
 
         public override bool Equals(object obj)

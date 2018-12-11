@@ -1,27 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public abstract class AddElementStep : NonTerminalStep
+    public abstract class AddElementStep : Step
     {
-        private readonly object _value;
-        private readonly string _stepName;
+        public object Value { get; }
 
-        protected AddElementStep(string stepName, object value)
+        protected AddElementStep(object value)
         {
-            _value = value;
-            _stepName = stepName;
-        }
-
-        public override IEnumerable<Step> Resolve(IGraphModel model)
-        {
-            var type = _value.GetType();
-            
-            yield return MethodStep.Create(
-                _stepName,
-                model
-                    .TryGetLabelOfType(type)
-                    .IfNone(type.Name));
+            Value = value;
         }
     }
 }

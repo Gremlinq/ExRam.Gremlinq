@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class NotStep : NonTerminalStep
+    public sealed class NotStep : SingleTraversalArgumentStep
     {
-        private readonly IGremlinQuery _traversal;
-
-        public NotStep(IGremlinQuery traversal)
+        public NotStep(IGremlinQuery traversal) : base(traversal)
         {
-            _traversal = traversal;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            if (_traversal.Steps.Count == 0 || !(_traversal.Steps[_traversal.Steps.Count - 1] is HasStep hasStep) || hasStep.Value != P.False)
-                yield return MethodStep.Create("not", _traversal.Resolve(model));
+            visitor.Visit(this);
         }
     }
 }

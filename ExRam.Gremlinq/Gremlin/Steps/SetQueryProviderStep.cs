@@ -1,18 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class SetQueryProviderStep : NonTerminalStep
+    public sealed class SetQueryProviderStep : Step
     {
         public SetQueryProviderStep(IGremlinQueryProvider gremlinQueryProvider)
         {
             GremlinQueryProvider = gremlinQueryProvider;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            return Enumerable.Empty<TerminalStep>();
         }
 
         public IGremlinQueryProvider GremlinQueryProvider { get; }

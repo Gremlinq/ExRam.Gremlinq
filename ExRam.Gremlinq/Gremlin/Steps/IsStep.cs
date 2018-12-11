@@ -1,23 +1,17 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class IsStep : NonTerminalStep
+    public sealed class IsStep : Step
     {
-        private readonly object _argument;
-
         public IsStep(object argument)
         {
-            _argument = argument;
+            Argument = argument;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            yield return MethodStep.Create(
-                "is",
-                _argument is P.Eq eq
-                    ? eq.Argument
-                    : _argument);
+            visitor.Visit(this);
         }
+
+        public object Argument { get; }
     }
 }

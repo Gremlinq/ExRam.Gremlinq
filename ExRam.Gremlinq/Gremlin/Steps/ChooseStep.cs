@@ -1,27 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class ChooseStep : NonTerminalStep
+    public sealed class ChooseStep : Step
     {
-        private readonly IGremlinQuery _ifTraversal;
-        private readonly IGremlinQuery _thenTraversal;
-        private readonly IGremlinQuery _elseTraversal;
-
-        public ChooseStep(IGremlinQuery ifTraversal, IGremlinQuery thenTraversal, IGremlinQuery elseTraversal)
+        public ChooseStep(IGremlinQuery ifTraversal, IGremlinQuery thenTraversal, Option<IGremlinQuery> elseTraversal = default)
         {
-            _ifTraversal = ifTraversal;
-            _thenTraversal = thenTraversal;
-            _elseTraversal = elseTraversal;
+            IfTraversal = ifTraversal;
+            ThenTraversal = thenTraversal;
+            ElseTraversal = elseTraversal;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            yield return MethodStep.Create(
-                "choose",
-                _ifTraversal.Resolve(model),
-                _thenTraversal.Resolve(model),
-                _elseTraversal.Resolve(model));
+            visitor.Visit(this);
         }
+
+        public IGremlinQuery IfTraversal { get; }
+        public IGremlinQuery ThenTraversal { get; }
+        public Option<IGremlinQuery> ElseTraversal { get; }
     }
 }

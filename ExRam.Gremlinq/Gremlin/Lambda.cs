@@ -1,19 +1,17 @@
-﻿using System.Text;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public struct Lambda : IGroovySerializable
+    public struct Lambda : IQueryElement
     {
-        private readonly string _lambda;
+        public string LambdaString { get; }
 
-        public Lambda(string lambda)
+        public Lambda(string lambdaString)
         {
-            _lambda = lambda;
+            LambdaString = lambdaString;
         }
 
-        public GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+        public void Accept(IQueryElementVisitor visitor)
         {
-            return state.AppendLambda(stringBuilder, _lambda);
+            visitor.Visit(this);
         }
     }
 }

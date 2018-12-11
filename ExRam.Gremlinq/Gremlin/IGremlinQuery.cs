@@ -5,7 +5,7 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public interface IGremlinQuery : IGroovySerializable
+    public interface IGremlinQuery
     {
         IEGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
         IEGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new();

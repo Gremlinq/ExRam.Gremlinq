@@ -1,17 +1,15 @@
-﻿using System.Text;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class IdentifierStep : TerminalStep
+    public sealed class IdentifierStep : Step
     {
         public IdentifierStep(string identifier)
         {
             Identifier = identifier;
         }
 
-        public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            return state.AppendIdentifier(stringBuilder, Identifier);
+            visitor.Visit(this);
         }
 
         public string Identifier { get; }

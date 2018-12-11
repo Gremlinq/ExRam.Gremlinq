@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
-    public sealed class LimitStep : NonTerminalStep
+    public sealed class LimitStep : Step
     {
+        public static readonly LimitStep Limit1 = new LimitStep(1);
+
         public LimitStep(int limit)
         {
             Limit = limit;
         }
 
-        public override IEnumerable<Step> Resolve(IGraphModel model)
+        public override void Accept(IQueryElementVisitor visitor)
         {
-            yield return MethodStep.Create("limit", Limit);
+            visitor.Visit(this);
         }
 
         public int Limit { get; }

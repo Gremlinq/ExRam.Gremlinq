@@ -2,8 +2,13 @@
 {
     public sealed class MapStep : SingleTraversalArgumentStep
     {
-        public MapStep(IGremlinQuery traversal) : base("map", traversal)
+        public MapStep(IGremlinQuery traversal) : base(traversal)
         {
+        }
+
+        public override void Accept(IQueryElementVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

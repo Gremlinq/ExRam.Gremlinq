@@ -2,8 +2,13 @@
 {
     public sealed class AddVStep : AddElementStep
     {
-        public AddVStep(object value) : base("addV", value)
+        public AddVStep(object value) : base(value)
         {
+        }
+
+        public override void Accept(IQueryElementVisitor visitor)
+        {
+            visitor.Visit(this);
         }
     }
 }

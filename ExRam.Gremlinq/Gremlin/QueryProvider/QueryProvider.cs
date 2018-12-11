@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq
             {
                 return _baseProvider
                     .Execute(query
-                        .Resolve(_model)
+                        .WithModel(_model)
                         .Cast<JToken>())
                     .Select(token => token
                         .Transform(_baseRule)

@@ -1,4 +1,4 @@
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
     public sealed class Scope : GremlinEnum<Scope>
     {

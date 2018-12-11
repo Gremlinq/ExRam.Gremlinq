@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class P : IGroovySerializable
+    public abstract class P : IQueryElement
     {
         #region Nested
         public abstract class SingleArgumentP : P
         {
-            protected SingleArgumentP(string name, object argument) : base(name)
+            protected SingleArgumentP(object argument)
             {
                 Argument = argument;
-            }
-
-            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
-            {
-                return base.Serialize(stringBuilder, state)
-                    .AppendMethod(stringBuilder, Name, Argument);
             }
 
             public object Argument { get; }
@@ -26,11 +19,7 @@ namespace ExRam.Gremlinq
 
         private sealed class Constant : P
         {
-            public Constant() : base("")
-            {
-            }
-
-            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            public override void Accept(IQueryElementVisitor visitor)
             {
                 throw new InvalidOperationException();
             }
@@ -38,78 +27,106 @@ namespace ExRam.Gremlinq
 
         public sealed class Eq : SingleArgumentP
         {
-            public Eq(object argument) : base("eq", argument)
+            public Eq(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Neq : SingleArgumentP
         {
-            public Neq(object argument) : base("neq", argument)
+            public Neq(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Lt : SingleArgumentP
         {
-            public Lt(object argument) : base("lt", argument)
+            public Lt(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Lte : SingleArgumentP
         {
-            public Lte(object argument) : base("lte", argument)
+            public Lte(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Gte : SingleArgumentP
         {
-            public Gte(object argument) : base("gte", argument)
+            public Gte(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Gt : SingleArgumentP
         {
-            public Gt(object argument) : base("gt", argument)
+            public Gt(object argument) : base(argument)
             {
+            }
+
+            public override void Accept(IQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
             }
         }
 
         public sealed class Within : P
         {
-            private readonly object[] _arguments;
+            public object[] Arguments { get; }
 
-            public Within(object[] arguments) : base("within")
+            public Within(object[] arguments) : base()
             {
-                _arguments = arguments;
+                Arguments = arguments;
             }
 
-            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            public override void Accept(IQueryElementVisitor visitor)
             {
-                return base.Serialize(stringBuilder, state)
-                    .AppendMethod(stringBuilder, Name, _arguments);
+                visitor.Visit(this);
             }
         }
 
         public sealed class Between : P
         {
-            private readonly object _lower;
-            private readonly object _upper;
-
-            public Between(object lower, object upper) : base("between")
+            public Between(object lower, object upper) : base()
             {
-                _lower = lower;
-                _upper = upper;
+                Lower = lower;
+                Upper = upper;
             }
 
-            public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
+            public override void Accept(IQueryElementVisitor visitor)
             {
-                return base.Serialize(stringBuilder, state)
-                    .AppendMethod(stringBuilder, Name, new[]{ _lower, _upper });
+                visitor.Visit(this);
             }
+
+            public object Lower { get; }
+            public object Upper { get; }
         }
         #endregion
 
@@ -123,23 +140,16 @@ namespace ExRam.Gremlinq
             { ExpressionType.GreaterThan, _ => new Gt(_) }
         };
 
-        private P(string name)
+        private P()
         {
-            Name = name;
         }
 
-        public virtual GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
-        {
-            return state
-                .AppendIdentifier(stringBuilder, nameof(P));
-        }
+        public abstract void Accept(IQueryElementVisitor visitor);
 
         public static P ForExpressionType(ExpressionType expressionType, object argument)
         {
             return SupportedComparisons[expressionType](argument);
         }
-
-        public string Name { get; }
 
         internal static readonly P True = new Constant();
         internal static readonly P False = new Constant();

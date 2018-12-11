@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Text;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class StepLabel : IGroovySerializable
+    public abstract class StepLabel : IQueryElement
     {
-        public abstract GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state);
+        public void Accept(IQueryElementVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 
 #pragma warning disable 660,661
     public class StepLabel<TElement> : StepLabel
 #pragma warning restore 660,661
     {
-        public override GroovyExpressionState Serialize(StringBuilder stringBuilder, GroovyExpressionState state)
-        {
-            return state.AppendConstant(stringBuilder, this);
-        }
-
         public static bool operator ==(TElement a, StepLabel<TElement> b)
         {
             throw new NotImplementedException("Only for expressions.");
