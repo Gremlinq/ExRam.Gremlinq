@@ -849,6 +849,9 @@ namespace ExRam.Gremlinq
 
         private void Property(Cardinality cardinality, object name, object value)
         {
+            if (ReferenceEquals(name, T.Id) && cardinality != Cardinality.Single)
+                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+
             if (value is IMeta meta)
             {
                 var metaProperties = meta.Properties
@@ -860,7 +863,12 @@ namespace ExRam.Gremlinq
                 Method("property", metaProperties);
             }
             else
-                Method("property", cardinality, name, value);
+            {
+                if (ReferenceEquals(name, T.Id))
+                    Method("property", name, value);
+                else
+                    Method("property", cardinality, name, value);
+            }
         }
 
         private void Visit(P.SingleArgumentP p, string name)
