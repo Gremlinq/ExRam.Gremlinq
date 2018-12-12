@@ -1196,42 +1196,6 @@ namespace ExRam.Gremlinq
             return query.AddStep(new SetModelStep(model));
         }
 
-        //private static IEnumerable<Step> GetSteps(this IGremlinQuery query)
-        //{
-        //    var steps = query.Steps;
-        //    if (steps.Instance == 1 && steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
-        //        return new Step[] { identifierStep, MethodStep.Instance };
-
-        //    return steps;
-        //}
-
-        /*public static IEnumerable<Step> WithModel(this IEnumerable<Step> steps, IGraphModel model)
-        {
-            foreach(var step in steps)
-            {
-                switch (step)
-                {
-                    case Step nonTerminal:
-                    {
-                        foreach (var resolvedStep in nonTerminal.Serialize(model, TODO, TODO).WithModel(model))
-                        {
-                            yield return resolvedStep;
-                        }
-
-                        break;
-                    }
-                    case Step terminalStep:
-                    {
-                        yield return terminalStep;
-
-                        break;
-                    }
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-        }*/
-
         public static IVGremlinQuery<TNewVertex> V<TNewVertex>(this IGremlinQuery query, params object[] ids)
         {
             return query
