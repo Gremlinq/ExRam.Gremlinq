@@ -1,6 +1,6 @@
 ﻿using Gremlin.Net.Driver;
 
-namespace ExRam.Gremlinq.CosmosDb
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public class CosmosDbGremlinServer : GremlinServer
     {

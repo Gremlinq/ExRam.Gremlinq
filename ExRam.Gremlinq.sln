@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq", "ExRam.Gre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests", "ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.CosmosDb", "ExRam.Gremlinq.CosmosDb\ExRam.Gremlinq.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket", "ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj", "{8A621708-9F8A-4727-9D96-71B07CAF61A2}"
 EndProject
