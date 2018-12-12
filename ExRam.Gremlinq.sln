@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.We
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.WebSocket.Tests", "ExRam.Gremlinq.Providers.WebSocket.Tests\ExRam.Gremlinq.Providers.WebSocket.Tests.csproj", "{60B5F66F-A08C-4ACC-AE50-1FE286829790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +37,17 @@ Global
 		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A621708-9F8A-4727-9D96-71B07CAF61A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B5F66F-A08C-4ACC-AE50-1FE286829790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B5F66F-A08C-4ACC-AE50-1FE286829790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B5F66F-A08C-4ACC-AE50-1FE286829790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B5F66F-A08C-4ACC-AE50-1FE286829790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4620AFD8-78E5-4299-988C-9A3A7D71A9DA} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
+		{60B5F66F-A08C-4ACC-AE50-1FE286829790} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
