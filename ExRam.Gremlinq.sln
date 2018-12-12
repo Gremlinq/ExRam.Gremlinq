@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq", "ExRam.Gre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests", "ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Dse", "ExRam.Gremlinq.Dse\ExRam.Gremlinq.Dse.csproj", "{E13E5BF6-0224-4FA9-BFE2-B6507998DDF0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Dse.Tests", "ExRam.Gremlinq.Dse.Tests\ExRam.Gremlinq.Dse.Tests.csproj", "{396747AA-A003-4B45-B92B-D76E84FF3C86}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.CosmosDb", "ExRam.Gremlinq.CosmosDb\ExRam.Gremlinq.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.WebSocket", "ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj", "{8A621708-9F8A-4727-9D96-71B07CAF61A2}"
@@ -31,14 +27,6 @@ Global
 		{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E13E5BF6-0224-4FA9-BFE2-B6507998DDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E13E5BF6-0224-4FA9-BFE2-B6507998DDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E13E5BF6-0224-4FA9-BFE2-B6507998DDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E13E5BF6-0224-4FA9-BFE2-B6507998DDF0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{396747AA-A003-4B45-B92B-D76E84FF3C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{396747AA-A003-4B45-B92B-D76E84FF3C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{396747AA-A003-4B45-B92B-D76E84FF3C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{396747AA-A003-4B45-B92B-D76E84FF3C86}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CFD6C6F-137F-4402-ACF2-A7775824282D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,7 +41,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4620AFD8-78E5-4299-988C-9A3A7D71A9DA} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
-		{396747AA-A003-4B45-B92B-D76E84FF3C86} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
