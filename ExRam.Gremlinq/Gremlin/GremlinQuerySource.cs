@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using LanguageExt;
-using LanguageExt.SomeHelp;
 
 namespace ExRam.Gremlinq
 {

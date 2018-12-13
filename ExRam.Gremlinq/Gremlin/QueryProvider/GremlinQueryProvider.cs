@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
 
@@ -21,13 +22,13 @@ namespace ExRam.Gremlinq
             private static readonly JArray EmptyJArray = new JArray();
 
             private readonly JsonTransformRule _baseRule;
-            private readonly GraphsonDeserializer _serializer;
             private readonly IGremlinQueryProvider _baseProvider;
 
-            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
+            private static readonly ConditionalWeakTable<IGraphModel, GraphsonDeserializer> Serializers = new ConditionalWeakTable<IGraphModel, GraphsonDeserializer>();
+
+            public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider)
             {
                 _baseProvider = baseProvider;
-                _serializer = new GraphsonDeserializer(model);
 
                 _baseRule = JsonTransformRules
                     .Empty
@@ -91,13 +92,17 @@ namespace ExRam.Gremlinq
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
+                var serializer = Serializers.GetValue(
+                    query.Model,
+                    model => new GraphsonDeserializer(model));
+
                 return _baseProvider
                     .Execute(query
                         .Cast<JToken>())
                     .Select(token => token
                         .Transform(_baseRule)
                         .IfNone(EmptyJArray))
-                    .SelectMany(token => _serializer
+                    .SelectMany(token => serializer
                         .Deserialize<TElement[]>(new JTokenReader(token))
                         .ToAsyncEnumerable());
             }
@@ -105,9 +110,9 @@ namespace ExRam.Gremlinq
 
         public static readonly IGremlinQueryProvider Invalid = new InvalidQueryProvider();
 
-        public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider, IGraphModel model)
+        public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider)
         {
-            return new JsonSupportGremlinQueryProvider(provider, model);
+            return new JsonSupportGremlinQueryProvider(provider);
         }
     }
 }
