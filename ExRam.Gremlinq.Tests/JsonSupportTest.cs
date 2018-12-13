@@ -228,7 +228,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             user.Should().NotBeNull();
-            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.Id.Should().Be(8);
             user.FoundingDate.Kind.Should().Be(DateTimeKind.Utc);
         }
 
@@ -248,7 +248,7 @@ namespace ExRam.Gremlinq.Tests
 
             language.Should().NotBeNull();
             language.Should().BeOfType<Language>();
-            language.As<Language>().Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language.As<Language>().Id.Should().Be(10);
             language.As<Language>().IetfLanguageTag.Should().Be("de");
         }
 
@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             language.Should().NotBeNull();
-            language.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language.Id.Should().Be(10);
             language.IetfLanguageTag.Should().Be("de");
         }
 
@@ -285,7 +285,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             language.Should().NotBeNull();
-            language.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language.Id.Should().Be(10);
             language.Label.Should().Be("Language");
         }
 
@@ -305,7 +305,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             user.Should().NotBeNull();
-            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.Id.Should().Be(13);
             user.Age.Should().Be(36);
             user.Gender.Should().Be(Gender.Female);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             user.Should().NotBeNull();
-            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.Id.Should().Be(14);
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
@@ -348,7 +348,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             user.Should().NotBeNull();
-            user.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            user.Id.Should().Be(15);
             user.Age.Should().Be(36);
             user.PhoneNumbers.Should().BeEmpty();
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
@@ -369,7 +369,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             timeFrame.Should().NotBeNull();
-            timeFrame.Id.Should().Be("15da4cea93114bfc8c6b23847487d97b");
+            timeFrame.Id.Should().Be(11);
             timeFrame.StartTime.Should().Be(new TimeSpan(6, 0, 0));
             timeFrame.Duration.Should().Be(new TimeSpan(16, 0, 0));
         }
@@ -389,7 +389,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             timeFrame.Should().NotBeNull();
-            timeFrame.Id.Should().Be("15da4cea93114bfc8c6b23847487d97b");
+            timeFrame.Id.Should().Be(12);
             timeFrame.StartTime.Should().Be(new TimeSpan(6, 0, 0));
             timeFrame.Duration.Should().Be(new TimeSpan(16, 0, 0));
         }
@@ -409,7 +409,7 @@ namespace ExRam.Gremlinq.Tests
                 .First() as Language;
 
             language.Should().NotBeNull();
-            language?.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            language?.Id.Should().Be(10);
             language?.IetfLanguageTag.Should().Be("de");
         }
 
@@ -428,11 +428,11 @@ namespace ExRam.Gremlinq.Tests
                 .Cast<(User, Language)>()
                 .First();
 
-            tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Name.Should().Be("Name of some base entity");
             tuple.Item1.Age.Should().Be(36);
 
-            tuple.Item2.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            tuple.Item2.Id.Should().Be(17);
             tuple.Item2.IetfLanguageTag.Should().Be("de");
         }
 
@@ -451,12 +451,12 @@ namespace ExRam.Gremlinq.Tests
                 .Cast<(Vertex, Vertex)>()
                 .First();
 
-            tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Should().BeOfType<User>();
             tuple.Item1.As<User>().Name.Should().Be("Name of some base entity");
             tuple.Item1.As<User>().Age.Should().Be(36);
 
-            tuple.Item2.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            tuple.Item2.Id.Should().Be(17);
             tuple.Item2.Should().BeOfType<Language>();
             tuple.Item2.As<Language>().IetfLanguageTag.Should().Be("de");
         }
@@ -476,11 +476,11 @@ namespace ExRam.Gremlinq.Tests
                 .Cast<(User, Language)>()
                 .First();
 
-            tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
+            tuple.Item1.Id.Should().Be(4);
             tuple.Item1.Name.Should().Be("Name of some base entity");
             tuple.Item1.Age.Should().Be(36);
 
-            tuple.Item2.Id.Should().Be("be66544bcdaa4ee9990eaf006585153b");
+            tuple.Item2.Id.Should().Be(5);
             tuple.Item2.IetfLanguageTag.Should().Be("de");
         }
 
@@ -500,9 +500,9 @@ namespace ExRam.Gremlinq.Tests
 
             languages.Should().NotBeNull();
             languages.Should().HaveCount(2);
-            languages[0].Id.Should().Be("f788f4dcfe2b48b4a5abf40af17892d7");
+            languages[0].Id.Should().Be(1);
             languages[0].IetfLanguageTag.Should().Be("de");
-            languages[1].Id.Should().Be("9556f62ca30147568702924c648d494c");
+            languages[1].Id.Should().Be(2);
             languages[1].IetfLanguageTag.Should().Be("en");
         }
 
@@ -524,13 +524,13 @@ namespace ExRam.Gremlinq.Tests
             languages.Should().HaveCount(2);
             languages[0].Should().NotBeNull();
             languages[0].Should().HaveCount(1);
-            languages[0][0].Id.Should().Be("4da59ae1600f4b60a4e319b70661d8f2");
+            languages[0][0].Id.Should().Be(6);
             languages[0][0].IetfLanguageTag.Should().Be("en");
             languages[1].Should().NotBeNull();
             languages[1].Should().HaveCount(2);
-            languages[1][0].Id.Should().Be("bd3530fc586e43a1b43e8fdb2771c8f8");
+            languages[1][0].Id.Should().Be(7);
             languages[1][0].IetfLanguageTag.Should().Be("de");
-            languages[1][1].Id.Should().Be("4da59ae1600f4b60a4e319b70661d8f2");
+            languages[1][1].Id.Should().Be(8);
             languages[1][1].IetfLanguageTag.Should().Be("en");
         }
 

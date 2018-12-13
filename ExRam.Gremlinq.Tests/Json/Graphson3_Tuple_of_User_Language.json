@@ -8,7 +8,7 @@
         {
           "@type": "g:Vertex",
           "@value": {
-            "id": "d13ef3f51c86496eb2c22823601446ad",
+            "id": 4,
             "label": "User",
             "properties": {
               "Name": [
@@ -45,7 +45,7 @@
         {
           "@type": "g:Vertex",
           "@value": {
-            "id": "be66544bcdaa4ee9990eaf006585153b",
+            "id": 5,
             "label": "Language",
             "properties": {
               "IetfLanguageTag": [

@@ -1,7 +1,7 @@
 ﻿[
   {
     "Item1": {
-      "id": "d13ef3f51c86496eb2c22823601446ad",
+      "id": 16,
       "label": "User",
       "type": "vertex",
       "properties": {
@@ -20,7 +20,7 @@
       }
     },
     "Item2": {
-      "id": "be66544bcdaa4ee9990eaf006585153b",
+      "id": 17,
       "label": "Language",
       "type": "vertex",
       "properties": {

@@ -1,7 +1,7 @@
 ﻿[
   [
     {
-      "id": "f788f4dcfe2b48b4a5abf40af17892d7",
+      "id": 1,
       "label": "Language",
       "type":  "vertex",
       "properties": {
@@ -14,7 +14,7 @@
       }
     },
     {
-      "id": "9556f62ca30147568702924c648d494c",
+      "id": 2,
       "label": "Language",
       "type": "vertex",
       "properties": {

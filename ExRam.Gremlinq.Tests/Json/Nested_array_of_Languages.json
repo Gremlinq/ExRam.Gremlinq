@@ -2,7 +2,7 @@
   [
     [
       {
-        "id": "4da59ae1600f4b60a4e319b70661d8f2",
+        "id": 6,
         "label": "Language",
         "type": "vertex",
         "properties": {
@@ -17,7 +17,7 @@
     ],
     [
       {
-        "id": "bd3530fc586e43a1b43e8fdb2771c8f8",
+        "id": 7,
         "label": "Language",
         "type": "vertex",
         "properties": {
@@ -30,7 +30,7 @@
         }
       },
       {
-        "id": "4da59ae1600f4b60a4e319b70661d8f2",
+        "id": 8,
         "label": "Language",
         "type": "vertex",
         "properties": {

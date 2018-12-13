@@ -65,10 +65,10 @@ namespace ExRam.Gremlinq.Tests
         public void AddV()
         {
             _g
-                .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
-                .WithParameters("Language", "id", "IetfLanguageTag", "en");
+                .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithModel(GraphModel
                     .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
                     .WithIdPropertyName("PhoneNumbers"))
-                .AddV(new User { Id = "id", PhoneNumbers = new[] { "123", "456" } })
+                .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
                 .Invoking(x => x.Serialize())
                 .Should()
                 .Throw<NotSupportedException>();
@@ -90,38 +90,38 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c)")
-                .WithParameters("Language", "IetfLanguageTag", "en");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .WithParameters("Language", 0, "IetfLanguageTag", "en");
         }
 
         [Fact]
         public void AddV_with_nulls()
         {
             _g
-                .AddV(new Language {Id = "id"})
+                .AddV(new Language { Id = 1 })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b)")
-                .WithParameters("Language", "id");
+                .WithParameters("Language", 1);
         }
 
         [Fact]
         public void AddV_with_multi_property()
         {
             _g
-                .AddV(new User { Id = "id", PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .AddV(new User { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
-                .WithParameters("User", "id", "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456");
+                .WithParameters("User", 1, "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
         public void AddV_with_Meta_without_properties()
         {
             _g
-                .AddV(new Country { Id = "id", Name = "GER"})
+                .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
-                .WithParameters("Country", "id", "Name", "GER");
+                .WithParameters("Country", 1, "Name", "GER");
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new Country
                 {
-                    Id = "id",
+                    Id = 1,
                     Name = new Meta<string>("GER")
                     {
                         Properties =
@@ -142,17 +142,17 @@ namespace ExRam.Gremlinq.Tests
                 })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
-                .WithParameters("Country", "id", "Name", "GER", "de", "Deutschland", "en", "Germany");
+                .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
         
         [Fact]
         public void AddV_with_enum_property()
         {
             _g
-                .AddV(new User { Id = "id", Gender = Gender.Female })
+                .AddV(new User { Id = 1, Gender = Gender.Female })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
-                .WithParameters("User", "id", "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
+                .WithParameters("User", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
         [Fact]
@@ -639,44 +639,44 @@ namespace ExRam.Gremlinq.Tests
         {
             _g
                 .V<Language>()
-                .Where(t => t.Id == "languageId")
+                .Where(t => t.Id == 1)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .WithParameters("Language", 1);
         }
 
         [Fact]
         public void Where_property_equals_local_string_constant()
         {
-            const string local = "languageId";
+            const int local = 1;
 
             _g
                 .V<Language>()
                 .Where(t => t.Id == local)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .WithParameters("Language", local);
         }
 
         [Fact]
         public void Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = "languageId" };
+            var local = new { Value = 1 };
 
             _g
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .WithParameters("Language", 1);
         }
 
         [Fact]
         public void Where_source_expression_on_both_sides()
         {
             _g
-                .V<Language>()
-                .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
+                .V<User>()
+                .Invoking(query => query.Where(t => t.Name == t.PhoneNumber))
                 .Should()
                 .Throw<InvalidOperationException>();
         }
@@ -765,8 +765,8 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).property(T.id, _b).to(__.V().hasLabel(_k).has(_l, _m))")
+                .WithParameters("User", 0, "Age", "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -779,8 +779,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
-                .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).as(_e).addV(_f).property(T.id, _b).property(Cardinality.single, _g, _h).addE(_i).property(T.id, _b).property(Cardinality.single, _j, _k).to(_e)")
+                .WithParameters("Language", 0, "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
         }
 
         [Fact]
@@ -799,8 +799,8 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).property(T.id, _b).from(__.V().hasLabel(_k).has(_l, _m))")
+                .WithParameters("User", 0, "Age", "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -813,8 +813,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
-                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).as(_e).addV(_f).property(T.id, _b).property(Cardinality.single, _g, _h).addE(_i).property(T.id, _b).property(Cardinality.single, _j, _k).from(_e)")
+                .WithParameters("Country", 0, "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
         }
 
         [Fact]
@@ -827,7 +827,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .InV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).property(T.id, _b).to(__.V(_i).hasLabel(_j)).inV()");
         }
 
         [Fact]
@@ -840,7 +840,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .OutV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).property(T.id, _b).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -1110,7 +1110,7 @@ namespace ExRam.Gremlinq.Tests
         {
             _g
                 .V<User>()
-                .Values(x => x.Name, x => x.Id)
+                .Values<object>(x => x.Name, x => x.Id)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).union(__.values(_b), __.id())")
                 .WithParameters("User", "Name");
