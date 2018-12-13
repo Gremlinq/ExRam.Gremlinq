@@ -84,7 +84,12 @@ namespace ExRam.Gremlinq
 
         private IGremlinQuery<Unit> Create()
         {
-            var ret = new GremlinQueryImpl<Unit, Unit, Unit>(_model, _queryProvider, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty)
+            var ret =
+                new GremlinQueryImpl<Unit, Unit, Unit>(
+                    _model,
+                    new JsonSupportGremlinQueryProvider(_queryProvider),
+                    ImmutableList<Step>.Empty,
+                    ImmutableDictionary<StepLabel, string>.Empty)
                 .AddStep(new IdentifierStep(_name));
 
             foreach (var strategy in _strategies)
