@@ -11,11 +11,4 @@
         public string Name { get; }
         public IGremlinQuery[] Traversals { get; }
     }
-
-    public abstract class LogicalStep<TStep> : LogicalStep where TStep : LogicalStep
-    {
-        protected LogicalStep(string name, IGremlinQuery[] traversals) : base(name, traversals)
-        {
-        }
-    }
 }

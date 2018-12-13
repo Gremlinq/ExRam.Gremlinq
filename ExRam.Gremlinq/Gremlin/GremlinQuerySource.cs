@@ -5,8 +5,11 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQuerySource
     {
+        // ReSharper disable once InconsistentNaming
+        #pragma warning disable IDE1006 // Naming Styles
         public static readonly IGremlinQuerySource g = Create("g");
-
+        #pragma warning restore IDE1006 // Naming Styles
+    
         public static IGremlinQuerySource Create(string name)
         {
             return new GremlinQuerySourceImpl(name, GraphModel.Empty, GremlinQueryProvider.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);

@@ -271,10 +271,9 @@ namespace ExRam.Gremlinq
                             if (objectType == typeof(Vertex))
                                 return typeof(VertexImpl);
 
-                            if (objectType == typeof(Edge))
-                                return typeof(EdgeImpl);
-
-                            return objectType;
+                            return objectType == typeof(Edge)
+                                ? typeof(EdgeImpl)
+                                : objectType;
                         });
                 }
 

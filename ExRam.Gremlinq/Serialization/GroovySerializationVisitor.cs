@@ -52,8 +52,7 @@ namespace ExRam.Gremlinq
         {
             Visit(step, "has");
         }
-
-
+        
         public void Visit(RepeatStep step)
         {
             Visit(step, "repeat");
@@ -414,7 +413,7 @@ namespace ExRam.Gremlinq
 
         public void Visit(AndStep step)
         {
-            Visit(step, "and");
+            VisitLogicalStep(step, "and");
         }
 
         public void Visit(ByTraversalStep step)
@@ -537,7 +536,7 @@ namespace ExRam.Gremlinq
 
         public void Visit(OrStep step)
         {
-            Visit(step, "or");
+            VisitLogicalStep(step, "or");
         }
 
         public void Visit(PropertyStep step)
@@ -783,11 +782,11 @@ namespace ExRam.Gremlinq
             Method(stepName, step.Traversal);
         }
 
-        private void Visit<TStep>(LogicalStep<TStep> step, string stepName) where TStep : LogicalStep
+        private void VisitLogicalStep<TStep>(TStep step, string stepName) where TStep : LogicalStep
         {
             Method(stepName,
                 step.Traversals
-                    .SelectMany(traversal => FlattenTraversals<TStep>(traversal)));
+                    .SelectMany(FlattenTraversals<TStep>));
         }
 
         private void Visit(HasStepBase step, string stepName)
@@ -810,7 +809,7 @@ namespace ExRam.Gremlinq
 
         private void Property(Cardinality cardinality, object name, object value)
         {
-            if (ReferenceEquals(name, T.Id) && cardinality != Cardinality.Single)
+            if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
             if (value is IMeta meta)
@@ -840,9 +839,9 @@ namespace ExRam.Gremlinq
 
         private static IEnumerable<IGremlinQuery> FlattenTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
         {
-            if (query.Steps.Count == 2 && query.Steps[1] is TStep andStep)
+            if (query.Steps.Count == 2 && query.Steps[1] is TStep otherStep)
             {
-                foreach (var subTraversal in andStep.Traversals)
+                foreach (var subTraversal in otherStep.Traversals)
                 {
                     foreach (var flattenedSubTraversal in FlattenTraversals<TStep>(subTraversal))
                     {

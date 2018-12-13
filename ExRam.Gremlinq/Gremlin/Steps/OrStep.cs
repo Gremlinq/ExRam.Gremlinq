@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq
 {
-    public sealed class OrStep : LogicalStep<OrStep>
+    public sealed class OrStep : LogicalStep
     {
         public OrStep(IGremlinQuery[] traversals) : base("or", traversals)
         {
