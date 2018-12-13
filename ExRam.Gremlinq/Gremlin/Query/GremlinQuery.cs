@@ -815,7 +815,14 @@ namespace ExRam.Gremlinq
 
         IVGremlinQuery<Vertex> IGremlinQuery.V(params object[] ids) => AddStep<Vertex>(new VStep(ids));
 
-        IGremlinQuery<TTarget> IGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections)
+        #region Values
+        IGremlinQuery<TTarget> IEGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values(projections);
+
+        IGremlinQuery<TTarget> IVGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values(projections);
+
+        IGremlinQuery<TTarget> IVPropertiesGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values(projections);
+
+        private GremlinQueryImpl<TTarget, Unit, Unit> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections)
         {
             var keys = projections
                 .Select(projection =>
@@ -827,8 +834,9 @@ namespace ExRam.Gremlinq
                 })
                 .ToArray();
 
-            return AddStep<TTarget>(new ValuesStep(keys));
+            return AddStep<TTarget, Unit, Unit>(new ValuesStep(keys));
         }
+        #endregion
 
         #region Where (Traversal)
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => AddStep<TElement>(new WhereTraversalStep(filterTraversal(Anonymize())));
