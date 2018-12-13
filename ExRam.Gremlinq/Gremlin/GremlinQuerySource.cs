@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq
 
         public IGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies)
         {
-            return new GremlinQuerySource(_name, _model, _queryProvider, strategies.ToImmutableList());
+            return new GremlinQuerySource(_name, _model, _queryProvider, _strategies.AddRange(strategies));
         }
 
         public IGremlinQuerySource WithModel(IGraphModel model)

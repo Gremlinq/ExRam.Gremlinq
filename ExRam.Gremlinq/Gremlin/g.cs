@@ -49,19 +49,19 @@ namespace ExRam.Gremlinq
                 .Inject(elements);
         }
 
-        //public static IGremlinQuery<Unit> WithSubgraphStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
-        //{
-        //    return G
-        //        .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
-        //}
-
         public static IGremlinQuerySource WithModel(IGraphModel model)
         {
             return G
                 .WithModel(model);
         }
 
-        public static IGremlinQuerySource SetQueryProvider(IGremlinQueryProvider gremlinQueryProvider)
+        public static IGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies)
+        {
+            return G
+                .WithStrategies(strategies);
+        }
+        
+        public static IGremlinQuerySource WithQueryProvider(IGremlinQueryProvider gremlinQueryProvider)
         {
             return G
                 .WithQueryProvider(gremlinQueryProvider);

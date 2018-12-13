@@ -414,7 +414,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));              
 
             var tuple = await g
-                .SetQueryProvider(jsonQueryProvider)
+                .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(User, Language)>()
                 .Execute()
@@ -440,7 +440,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
 
             var tuple = await g
-                .SetQueryProvider(jsonQueryProvider)
+                .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(Vertex, Vertex)>()
                 .Execute()
@@ -468,7 +468,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithJsonSupport(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple));
 
             var tuple = await g
-                .SetQueryProvider(jsonQueryProvider)
+                .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(User, Language)>()
                 .Execute()
