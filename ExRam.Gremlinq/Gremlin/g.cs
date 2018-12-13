@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq
     public static class g
     {
         // ReSharper disable once UnusedMember.Global
-        internal static readonly IGremlinQuerySource G = new GremlinQuerySource("g", GraphModel.Empty, null, ImmutableList<IGremlinQueryStrategy>.Empty);
+        internal static readonly IGremlinQuerySource G = new GremlinQuerySource("g", GraphModel.Empty, GremlinQueryProvider.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
 
         public static IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
         {

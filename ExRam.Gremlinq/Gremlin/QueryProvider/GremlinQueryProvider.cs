@@ -6,8 +6,16 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public static class QueryProvider
+    public static class GremlinQueryProvider
     {
+        private sealed class InvalidQueryProvider : IGremlinQueryProvider
+        {
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            {
+                return AsyncEnumerable.Throw<TElement>(new InvalidOperationException());
+            }
+        }
+
         private sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
         {
             private static readonly JArray EmptyJArray = new JArray();
@@ -95,13 +103,11 @@ namespace ExRam.Gremlinq
             }
         }
 
+        public static readonly IGremlinQueryProvider Invalid = new InvalidQueryProvider();
+
         public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query)
         {
-            var queryProvider = query
-                .TryGetTypedGremlinQueryProvider()
-                .IfNone(() => throw new ArgumentException("Could not find an instance of IGremlinQueryProvider in the query"));
-
-            return queryProvider.Execute(query);
+            return query.QueryProvider.Execute(query);
         }
 
         public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider, IGraphModel model)

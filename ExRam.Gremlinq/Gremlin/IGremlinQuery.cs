@@ -43,6 +43,7 @@ namespace ExRam.Gremlinq
 
         IGraphModel Model { get; }
         IImmutableList<Step> Steps { get; }
+        IGremlinQueryProvider QueryProvider { get; }
         IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 

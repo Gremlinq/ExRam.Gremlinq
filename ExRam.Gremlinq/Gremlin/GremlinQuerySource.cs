@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 using LanguageExt;
+using LanguageExt.SomeHelp;
 
 namespace ExRam.Gremlinq
 {
@@ -85,9 +86,8 @@ namespace ExRam.Gremlinq
 
         private IGremlinQuery<Unit> Create()
         {
-            var ret = new GremlinQueryImpl<Unit, Unit, Unit>(_model, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty)
-                .AddStep(new IdentifierStep(_name))
-                .SetTypedGremlinQueryProvider(_queryProvider);
+            var ret = new GremlinQueryImpl<Unit, Unit, Unit>(_model, _queryProvider, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty)
+                .AddStep(new IdentifierStep(_name));
 
             foreach (var strategy in _strategies)
             {
