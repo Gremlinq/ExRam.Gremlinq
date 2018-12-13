@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq
 {
-    public static class JsonReaderExtensions
+    internal static class JsonReaderExtensions
     {
         private sealed class EnumerableJsonReader : JsonReader
         {

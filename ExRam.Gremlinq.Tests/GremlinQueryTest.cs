@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using ExRam.Gremlinq.GraphElements;
 using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.GremlinQuerySource;
@@ -1406,7 +1407,7 @@ namespace ExRam.Gremlinq.Tests
         public void WithSubgraphStrategy()
         {
             _g
-                .WithStrategies(new SubgraphStrategy(_ => _.OfType<User>(), _ => _))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
                 .V()
                 .Should()
                 .SerializeTo("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create()).V()")
@@ -1417,7 +1418,7 @@ namespace ExRam.Gremlinq.Tests
         public void WithSubgraphStrategy_empty()
         {
             _g
-                .WithStrategies(new SubgraphStrategy(_ => _, _ => _))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .Should()
                 .SerializeTo("g.V()")

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq
 {
-    public static class EnumeratorExtensions
+    internal static class EnumeratorExtensions
     {
         private sealed class PebbleEnumerator<TSource> : IPebbleEnumerator<TSource>
         {

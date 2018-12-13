@@ -2,15 +2,18 @@
 
 namespace ExRam.Gremlinq
 {
-    public sealed class LocalStep : SingleTraversalArgumentStep
+    public sealed class WherePredicateStep : Step
     {
-        public LocalStep(IGremlinQuery traversal) : base(traversal)
+        public WherePredicateStep(P predicate)
         {
+            Predicate = predicate;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }
+
+        public P Predicate { get; }
     }
 }

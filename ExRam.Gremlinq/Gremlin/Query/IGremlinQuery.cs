@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using ExRam.Gremlinq.GraphElements;
 using LanguageExt;
 
 namespace ExRam.Gremlinq

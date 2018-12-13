@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using ExRam.Gremlinq.GraphElements;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -245,7 +246,7 @@ namespace ExRam.Gremlinq
             }
 
             // ReSharper disable once ClassNeverInstantiated.Local
-            private sealed class EdgeImpl : Vertex
+            private sealed class EdgeImpl : Edge
             {
 
             }

@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Tests
+﻿using ExRam.Gremlinq.GraphElements;
+
+namespace ExRam.Gremlinq.Tests
 {
     public abstract class Authority : Vertex
     {

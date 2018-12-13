@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq
+﻿using ExRam.Gremlinq.GraphElements;
+
+namespace ExRam.Gremlinq
 {
     public interface IGremlinQuerySource
     {

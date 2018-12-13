@@ -1,6 +1,8 @@
-﻿namespace ExRam.Gremlinq
+﻿using ExRam.Gremlinq.Serialization;
+
+namespace ExRam.Gremlinq
 {
-    public struct Lambda : IQueryElement
+    public struct Lambda : IGremlinQueryElement
     {
         public string LambdaString { get; }
 
@@ -9,7 +11,7 @@
             LambdaString = lambdaString;
         }
 
-        public void Accept(IQueryElementVisitor visitor)
+        public void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

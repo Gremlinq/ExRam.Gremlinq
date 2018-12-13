@@ -1,7 +1,9 @@
-﻿namespace ExRam.Gremlinq
+﻿using ExRam.Gremlinq.Serialization;
+
+namespace ExRam.Gremlinq
 {
-    public abstract class Step : IQueryElement
+    public abstract class Step : IGremlinQueryElement
     {
-        public abstract void Accept(IQueryElementVisitor visitor);
+        public abstract void Accept(IGremlinQueryElementVisitor visitor);
     }
 }

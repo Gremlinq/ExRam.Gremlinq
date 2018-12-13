@@ -3,12 +3,12 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class SubgraphStrategy : IGremlinQueryStrategy
+    public sealed class SubgraphQueryStrategy : IGremlinQueryStrategy
     {
         private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _edgeCriterion;
         private readonly Func<IGremlinQuery<Unit>, IGremlinQuery> _vertexCriterion;
 
-        public SubgraphStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
+        public SubgraphQueryStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
         {
             _edgeCriterion = edgeCriterion;
             _vertexCriterion = vertexCriterion;

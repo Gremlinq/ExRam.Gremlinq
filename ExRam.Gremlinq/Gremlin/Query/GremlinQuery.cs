@@ -9,6 +9,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Serialization;
 
 // ReSharper disable ArrangeThisQualifier
 

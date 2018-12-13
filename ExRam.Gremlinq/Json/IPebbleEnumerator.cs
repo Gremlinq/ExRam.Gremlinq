@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq
 {
-    public interface IPebbleEnumerator<out TSource> : IEnumerator<TSource>
+    internal interface IPebbleEnumerator<out TSource> : IEnumerator<TSource>
     {
         void DropPebble();
         void LiftPebble();

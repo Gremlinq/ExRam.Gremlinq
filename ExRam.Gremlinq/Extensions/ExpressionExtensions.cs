@@ -1,6 +1,6 @@
 ﻿namespace System.Linq.Expressions
 {
-    public static class ExpressionExtensions
+    internal static class ExpressionExtensions
     {
         public static Expression StripConvert(this Expression expression)
         {

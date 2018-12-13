@@ -1,6 +1,6 @@
-﻿namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq.Serialization
 {
-    public interface IQueryElementVisitor
+    public interface IGremlinQueryElementVisitor
     {
         void Visit(IGremlinQuery query);
 

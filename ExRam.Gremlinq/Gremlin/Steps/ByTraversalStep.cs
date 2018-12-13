@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
@@ -11,7 +12,7 @@ namespace ExRam.Gremlinq
             Lambda = lambda;
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }
@@ -25,7 +26,7 @@ namespace ExRam.Gremlinq
             Member = member;
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }
@@ -45,7 +46,7 @@ namespace ExRam.Gremlinq
             Traversal = traversal;
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

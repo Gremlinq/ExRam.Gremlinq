@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq.GraphElements
 {
     public abstract class Element
     {

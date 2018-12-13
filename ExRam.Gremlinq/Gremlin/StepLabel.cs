@@ -1,10 +1,11 @@
 ﻿using System;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class StepLabel : IQueryElement
+    public abstract class StepLabel : IGremlinQueryElement
     {
-        public void Accept(IQueryElementVisitor visitor)
+        public void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using ExRam.Gremlinq.GraphElements;
 using FluentAssertions;
 using Xunit;
 

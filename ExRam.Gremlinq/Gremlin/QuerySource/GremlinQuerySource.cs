@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using ExRam.Gremlinq.GraphElements;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
@@ -22,8 +23,7 @@ namespace ExRam.Gremlinq
             private readonly IGremlinQueryProvider _queryProvider;
             private readonly ImmutableList<IGremlinQueryStrategy> _strategies;
 
-            public GremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryProvider queryProvider,
-                ImmutableList<IGremlinQueryStrategy> strategies)
+            public GremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryProvider queryProvider, ImmutableList<IGremlinQueryStrategy> strategies)
             {
                 _name = name;
                 _model = model;

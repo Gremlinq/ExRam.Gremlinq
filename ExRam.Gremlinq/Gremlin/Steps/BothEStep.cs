@@ -1,4 +1,5 @@
 ﻿using System;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
@@ -8,7 +9,7 @@ namespace ExRam.Gremlinq
         {
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

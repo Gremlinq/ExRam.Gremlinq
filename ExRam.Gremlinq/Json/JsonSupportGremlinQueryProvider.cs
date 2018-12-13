@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
@@ -36,18 +35,5 @@ namespace ExRam.Gremlinq
                         .ToJsonReader())
                     .ToAsyncEnumerable());
         }
-    }
-
-    internal static class GremlinQueryProvider
-    {
-        private sealed class InvalidQueryProvider : IGremlinQueryProvider
-        {
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
-                return AsyncEnumerable.Throw<TElement>(new InvalidOperationException());
-            }
-        }
-
-        public static readonly IGremlinQueryProvider Invalid = new InvalidQueryProvider();
     }
 }

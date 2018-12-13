@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq
 {
-    public static class JsonTransform
+    internal static class JsonTransform
     {
         private sealed class JsonTransformImpl : IJsonTransform
         {

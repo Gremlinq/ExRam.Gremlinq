@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
-    public abstract class P : IQueryElement
+    public abstract class P : IGremlinQueryElement
     {
         #region Nested
         public abstract class SingleArgumentP : P
@@ -19,7 +20,7 @@ namespace ExRam.Gremlinq
 
         private sealed class Constant : P
         {
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 throw new InvalidOperationException();
             }
@@ -31,7 +32,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -43,7 +44,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -55,7 +56,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -67,7 +68,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -79,7 +80,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -91,7 +92,7 @@ namespace ExRam.Gremlinq
             {
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -106,7 +107,7 @@ namespace ExRam.Gremlinq
                 Arguments = arguments;
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -120,7 +121,7 @@ namespace ExRam.Gremlinq
                 Upper = upper;
             }
 
-            public override void Accept(IQueryElementVisitor visitor)
+            public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
             }
@@ -144,7 +145,7 @@ namespace ExRam.Gremlinq
         {
         }
 
-        public abstract void Accept(IQueryElementVisitor visitor);
+        public abstract void Accept(IGremlinQueryElementVisitor visitor);
 
         public static P ForExpressionType(ExpressionType expressionType, object argument)
         {

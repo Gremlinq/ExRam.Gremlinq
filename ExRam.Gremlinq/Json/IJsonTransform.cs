@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq
 {
-    public interface IJsonTransform
+    internal interface IJsonTransform
     {
         IEnumerator<(JsonToken tokenType, object tokenValue)> Transform(IPebbleEnumerator<(JsonToken tokenType, object tokenValue)> enumerator, IJsonTransform recurse);
     }

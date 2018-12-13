@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
@@ -21,7 +22,7 @@ namespace ExRam.Gremlinq
             Value = value;
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

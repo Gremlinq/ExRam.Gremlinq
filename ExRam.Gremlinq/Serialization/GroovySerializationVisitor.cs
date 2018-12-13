@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ExRam.Gremlinq.GraphElements;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Serialization
 {
-    public sealed class GroovySerializationVisitor : IQueryElementVisitor
+    public sealed class GroovySerializationVisitor : IGremlinQueryElementVisitor
     {
         private enum State
         {
@@ -640,7 +641,7 @@ namespace ExRam.Gremlinq
 
         private void Visit(object parameter)
         {
-            if (parameter is IQueryElement queryElement)
+            if (parameter is IGremlinQueryElement queryElement)
                 queryElement.Accept(this);
             else
             {

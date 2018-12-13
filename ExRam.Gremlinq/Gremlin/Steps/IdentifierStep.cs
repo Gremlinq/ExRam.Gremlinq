@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq
+﻿using ExRam.Gremlinq.Serialization;
+
+namespace ExRam.Gremlinq
 {
     public sealed class IdentifierStep : Step
     {
@@ -7,7 +9,7 @@
             Identifier = identifier;
         }
 
-        public override void Accept(IQueryElementVisitor visitor)
+        public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

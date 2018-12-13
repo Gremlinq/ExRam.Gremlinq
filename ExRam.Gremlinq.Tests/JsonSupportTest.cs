@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.GraphElements;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using static ExRam.Gremlinq.GremlinQuerySource;

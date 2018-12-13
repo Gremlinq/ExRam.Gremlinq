@@ -1,13 +1,15 @@
-﻿namespace ExRam.Gremlinq
+﻿using ExRam.Gremlinq.Serialization;
+
+namespace ExRam.Gremlinq
 {
-    public abstract class GremlinEnum<TEnum> : IQueryElement where TEnum : GremlinEnum<TEnum>
+    public abstract class GremlinEnum<TEnum> : IGremlinQueryElement where TEnum : GremlinEnum<TEnum>
     {
         protected GremlinEnum(string name)
         {
             Name = name;
         }
 
-        public void Accept(IQueryElementVisitor visitor)
+        public void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }

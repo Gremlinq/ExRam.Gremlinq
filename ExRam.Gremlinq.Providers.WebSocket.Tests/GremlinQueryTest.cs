@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.GraphElements;
 using ExRam.Gremlinq.Tests;
 using FluentAssertions;
 using Xunit;
