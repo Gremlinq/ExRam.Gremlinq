@@ -105,11 +105,6 @@ namespace ExRam.Gremlinq
 
         public static readonly IGremlinQueryProvider Invalid = new InvalidQueryProvider();
 
-        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQuery<TElement> query)
-        {
-            return query.QueryProvider.Execute(query);
-        }
-
         public static IGremlinQueryProvider WithJsonSupport(this IGremlinQueryProvider provider, IGraphModel model)
         {
             return new JsonSupportGremlinQueryProvider(provider, model);

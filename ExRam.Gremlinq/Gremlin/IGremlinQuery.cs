@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using LanguageExt;
@@ -43,7 +44,6 @@ namespace ExRam.Gremlinq
 
         IGraphModel Model { get; }
         IImmutableList<Step> Steps { get; }
-        IGremlinQueryProvider QueryProvider { get; }
         IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq
         IOrderedGremlinQuery<TElement> ThenByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal);
     }
 
-    public interface IGremlinQuery<TElement> : IGremlinQuery
+    public interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
     {
         IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
         TTargetQuery Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;

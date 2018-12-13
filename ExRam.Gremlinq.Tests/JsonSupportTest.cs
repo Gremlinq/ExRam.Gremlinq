@@ -417,7 +417,6 @@ namespace ExRam.Gremlinq.Tests
                 .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(User, Language)>()
-                .Execute()
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
@@ -443,7 +442,6 @@ namespace ExRam.Gremlinq.Tests
                 .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(Vertex, Vertex)>()
-                .Execute()
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
@@ -471,7 +469,6 @@ namespace ExRam.Gremlinq.Tests
                 .WithQueryProvider(jsonQueryProvider)
                 .V()
                 .Cast<(User, Language)>()
-                .Execute()
                 .First();
 
             tuple.Item1.Id.Should().Be("d13ef3f51c86496eb2c22823601446ad");
