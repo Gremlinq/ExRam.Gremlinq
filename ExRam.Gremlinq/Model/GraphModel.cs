@@ -43,7 +43,6 @@ namespace ExRam.Gremlinq
             return Empty
                 .AddVertexTypes(assembly
                     .DefinedTypes
-                    .Cast<Type>()
                     .Prepend(vertexBaseType)
                     .Where(vertexBaseType.IsAssignableFrom)
                     .Select(typeInfo => typeInfo)
@@ -52,7 +51,6 @@ namespace ExRam.Gremlinq
                         namingStrategy.GetLabelForType))
                 .AddEdgeTypes(assembly
                     .DefinedTypes
-                    .Cast<Type>()
                     .Prepend(edgeBaseType)
                     .Where(edgeBaseType.IsAssignableFrom)
                     .Select(typeInfo => typeInfo)

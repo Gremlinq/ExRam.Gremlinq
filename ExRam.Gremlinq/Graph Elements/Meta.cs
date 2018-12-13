@@ -8,11 +8,11 @@ namespace ExRam.Gremlinq
         IDictionary<string, object> Properties { get; }
     }
 
-    public sealed class Meta<T> : IMeta
+    public sealed class Meta<TElement> : IMeta
     {
         private readonly Dictionary<string, object> _properties = new Dictionary<string, object>();
 
-        public Meta(T value)
+        public Meta(TElement value)
         {
             Value = value;
         }
@@ -24,17 +24,17 @@ namespace ExRam.Gremlinq
 
         public IDictionary<string, object> Properties => _properties;
 
-        public static implicit operator T(Meta<T> meta)
+        public static implicit operator TElement(Meta<TElement> meta)
         {
             return meta.Value;
         }
 
-        public static implicit operator Meta<T>(T value)
+        public static implicit operator Meta<TElement>(TElement value)
         {
-            return new Meta<T>(value);
+            return new Meta<TElement>(value);
         }
 
-        public T Value { get; set; }
+        public TElement Value { get; set; }
 
         object IMeta.Value => Value;
     }

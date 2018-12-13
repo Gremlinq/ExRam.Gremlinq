@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
-    public sealed class GraphsonDeserializer : JsonSerializer
+    internal sealed class GraphsonDeserializer : JsonSerializer
     {
         #region Nested
         private sealed class GremlinContractResolver : DefaultContractResolver

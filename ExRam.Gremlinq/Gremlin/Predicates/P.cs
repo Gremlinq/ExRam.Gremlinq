@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq
         {
             public object[] Arguments { get; }
 
-            public Within(object[] arguments) : base()
+            public Within(object[] arguments)
             {
                 Arguments = arguments;
             }
@@ -114,7 +114,7 @@ namespace ExRam.Gremlinq
 
         public sealed class Between : P
         {
-            public Between(object lower, object upper) : base()
+            public Between(object lower, object upper)
             {
                 Lower = lower;
                 Upper = upper;

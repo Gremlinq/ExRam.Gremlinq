@@ -1050,6 +1050,13 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
+        public IAsyncEnumerator<TElement> GetEnumerator()
+        {
+            return _queryProvider
+                .Execute(this)
+                .GetEnumerator();
+        }
+
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(Expression expression, Expression enumerableExpression)
         {
             if (enumerableExpression.GetValue() is IEnumerable enumerable)
@@ -1163,11 +1170,6 @@ namespace ExRam.Gremlinq
         public IGraphModel Model { get; }
         public IImmutableList<Step> Steps { get; }
         public IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
-
-        public IAsyncEnumerator<TElement> GetEnumerator()
-        {
-            return _queryProvider.Execute(this).GetEnumerator();
-        }
     }
 
     public static class GremlinQuery
@@ -1199,14 +1201,14 @@ namespace ExRam.Gremlinq
             return (groovyBuilder.Builder.ToString(), groovyBuilder.GetVariables());
         }
 
-        public static Task<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        public static Task<TElement> First<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
-            return query
-                .Limit(1)
-                .First(ct);
+            return AsyncEnumerable.First(
+                query.Limit(1),
+                ct);
         }
 
-        public static async Task<Option<TElement>> FirstOrNoneAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        public static async Task<Option<TElement>> FirstOrNone<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
             var array = await query
                 .Limit(1)
@@ -1218,34 +1220,28 @@ namespace ExRam.Gremlinq
                 : Option<TElement>.None;
         }
 
-        public static Task<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
-        {
-            return query
-                .ToArray(ct);
-        }
-
         internal static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, Step step)
         {
             return query.InsertStep<TElement>(query.Steps.Count, step);
         }
         
-        public static IGremlinQuery<TNewEdge> E<TNewEdge>(this IGremlinQuery query, params object[] ids)
+        public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)
         {
             return query
                 .E(ids)
-                .OfType<TNewEdge>();
+                .OfType<TEdge>();
         }
 
-        public static IVGremlinQuery<TNewVertex> V<TNewVertex>(this IGremlinQuery query, params object[] ids)
+        public static IVGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
         {
             return query
                 .V(ids)
-                .OfType<TNewVertex>();
+                .OfType<TVertex>();
         }
 
-        public static IGremlinQuery<TItem> Unfold<TItem>(this IGremlinQuery<TItem[]> query)
+        public static IGremlinQuery<TElement> Unfold<TElement>(this IGremlinQuery<TElement[]> query)
         {
-            return query.Unfold<TItem>();
+            return query.Unfold<TElement>();
         }
     }
 }
