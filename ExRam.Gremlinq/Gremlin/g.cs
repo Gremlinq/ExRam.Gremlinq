@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq
         public static IGremlinQuerySource SetQueryProvider(IGremlinQueryProvider gremlinQueryProvider)
         {
             return G
-                .SetQueryProvider(gremlinQueryProvider);
+                .WithQueryProvider(gremlinQueryProvider);
         }
     }
 }

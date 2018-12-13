@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq
             return new GremlinQuerySource(_name, model, _queryProvider, _strategies);
         }
 
-        public IGremlinQuerySource SetQueryProvider(IGremlinQueryProvider queryProvider)
+        public IGremlinQuerySource WithQueryProvider(IGremlinQueryProvider queryProvider)
         {
             return new GremlinQuerySource(_name, _model, queryProvider, _strategies);
         }

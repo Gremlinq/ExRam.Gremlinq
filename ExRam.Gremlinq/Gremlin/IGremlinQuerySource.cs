@@ -13,6 +13,6 @@
 
         IGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
         IGremlinQuerySource WithModel(IGraphModel model);
-        IGremlinQuerySource SetQueryProvider(IGremlinQueryProvider gremlinQueryProvider);
+        IGremlinQuerySource WithQueryProvider(IGremlinQueryProvider gremlinQueryProvider);
     }
 }
