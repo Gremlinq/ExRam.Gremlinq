@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Xunit;
+using static ExRam.Gremlinq.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests
 {

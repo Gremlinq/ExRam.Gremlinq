@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Xunit;
+using static ExRam.Gremlinq.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests
 {
