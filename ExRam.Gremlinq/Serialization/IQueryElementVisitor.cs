@@ -7,7 +7,6 @@
         void Visit(HasNotStep step);
         void Visit(HasStep step);
         void Visit(HasValueStep step);
-        void Visit(AddElementPropertiesStep step);
         void Visit(AddEStep step);
         void Visit(AddVStep step);
         void Visit(AndStep step);

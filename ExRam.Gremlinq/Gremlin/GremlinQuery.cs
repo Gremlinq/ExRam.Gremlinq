@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -8,7 +9,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using LanguageExt.SomeHelp;
 
 // ReSharper disable ArrangeThisQualifier
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq
         {
             return this
                 .AddStep<TNewVertex>(new AddVStep(vertex))
-                .AddStep(new AddElementPropertiesStep(vertex));
+                .AddElementProperties(vertex);
         }
         #endregion
 
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq
         {
             return this
                 .AddStep<TNewEdge, TElement, Unit>(new AddEStep(newEdge))
-                .AddStep(new AddElementPropertiesStep(newEdge));
+                .AddElementProperties(newEdge);
         }
         #endregion
 
@@ -1098,6 +1098,37 @@ namespace ExRam.Gremlinq
             return (TTargetQuery)Activator.CreateInstance(type, Steps, StepLabelMappings);
         }
 
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> AddElementProperties(object element)
+        {
+            var propertySteps = GremlinQuery.TypeProperties
+                .GetOrAdd(
+                    element.GetType(),
+                    type => type
+                        .GetProperties()
+                        .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
+                        .ToArray())
+                .Select(property => new PropertyStep(property, property.GetValue(element)));
+
+            var ret = this;
+
+            foreach (var propertyStep in propertySteps)
+            {
+                ret = ret.AddStep(propertyStep);
+            }
+
+            return ret;
+        }
+
+        private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?
+        {
+            return type.GetTypeInfo().IsValueType || type == typeof(string) || type == typeof(object) || type.IsArray && IsNativeType(type.GetElementType());
+        }
+
+        private static bool IsMetaType(Type type)
+        {
+            return typeof(IMeta).IsAssignableFrom(type);
+        }
+
         public IImmutableList<Step> Steps { get; }
         public IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
@@ -1112,6 +1143,8 @@ namespace ExRam.Gremlinq
 
     public static class GremlinQuery
     {
+        internal static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
+
         public static readonly IGremlinQuery<Unit> Anonymous = GremlinQueryImpl<Unit, Unit, Unit>.Anonymous;
 
         public static IGremlinQuery<Unit> Create(string graphName)

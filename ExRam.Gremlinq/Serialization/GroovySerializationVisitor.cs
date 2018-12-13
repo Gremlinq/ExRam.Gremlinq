@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 
 namespace ExRam.Gremlinq
@@ -19,7 +18,6 @@ namespace ExRam.Gremlinq
             InMethodAfterFirstParameter
         }
 
-        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
         private static readonly ConcurrentDictionary<(IGraphModel model, Type type), object[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), object[]>();
 
         private State _state;
@@ -420,24 +418,6 @@ namespace ExRam.Gremlinq
                 step.Argument is P.Eq eq
                     ? eq.Argument
                     : step.Argument);
-        }
-
-        public void Visit(AddElementPropertiesStep step)
-        {
-            //TODO: Get rid of that
-            var propertySteps = TypeProperties
-                .GetOrAdd(
-                    step.Element.GetType(),
-                    type => type
-                        .GetProperties()
-                        .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
-                        .ToArray())
-                .Select(property => new PropertyStep(property, property.GetValue(step.Element)));
-
-            foreach (var propertyStep in propertySteps)
-            {
-                propertyStep.Accept(this);
-            }
         }
 
         public void Visit(AddEStep step)
@@ -893,16 +873,6 @@ namespace ExRam.Gremlinq
                 yield return query;
         }
         
-        private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?
-        {
-            return type.GetTypeInfo().IsValueType || type == typeof(string) || type == typeof(object) || type.IsArray && IsNativeType(type.GetElementType());
-        }
-
-        private static bool IsMetaType(Type type)
-        {
-            return typeof(IMeta).IsAssignableFrom(type);
-        }
-
         public StringBuilder Builder { get; }
     }
 }
