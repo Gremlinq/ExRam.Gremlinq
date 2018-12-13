@@ -67,8 +67,8 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new Language { Id = "id", IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(T.id, _d)")
-                .WithParameters("Language", "IetfLanguageTag", "en", "id");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .WithParameters("Language", "id", "IetfLanguageTag", "en");
         }
 
         [Fact]
@@ -110,8 +110,8 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new User { Id = "id", PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.list, _h, _i).property(Cardinality.list, _h, _j).property(T.id, _k)")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456", "id");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
+                .WithParameters("User", "id", "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
@@ -120,8 +120,8 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new Country { Id = "id", Name = "GER"})
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(T.id, _d)")
-                .WithParameters("Country", "Name", "GER", "id");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .WithParameters("Country", "id", "Name", "GER");
         }
 
         [Fact]
@@ -141,8 +141,8 @@ namespace ExRam.Gremlinq.Tests
                     }
                 })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c, _d, _e, _f, _g).property(T.id, _h)")
-                .WithParameters("Country", "Name", "GER", "de", "Deutschland", "en", "Germany", "id");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
+                .WithParameters("Country", "id", "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
         
         [Fact]
@@ -151,8 +151,8 @@ namespace ExRam.Gremlinq.Tests
             _g
                 .AddV(new User { Id = "id", Gender = Gender.Female })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(T.id, _h)")
-                .WithParameters("User", "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue, "id");
+                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
+                .WithParameters("User", "id", "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
         [Fact]

@@ -575,7 +575,7 @@ namespace ExRam.Gremlinq
             var beforeState = _state;
             _state = State.Idle;
 
-            foreach (var step in steps)
+            foreach (var step in steps.WorkaroundTINKERPOP_2112())
             {
                 step.Accept(this);
             }
