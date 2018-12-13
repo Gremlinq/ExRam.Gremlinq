@@ -2,11 +2,15 @@
 {
     public abstract class AddElementStep : Step
     {
-        public object Value { get; }
-
-        protected AddElementStep(object value)
+        protected AddElementStep(IGraphModel model, object value)
         {
-            Value = value;
+            var type = value.GetType();
+
+            Label = model
+                .TryGetLabelOfType(type)
+                .IfNone(type.Name);
         }
+
+        public string Label { get; }
     }
 }

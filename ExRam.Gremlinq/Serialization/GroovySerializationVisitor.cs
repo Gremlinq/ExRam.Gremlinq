@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace ExRam.Gremlinq
@@ -18,19 +16,15 @@ namespace ExRam.Gremlinq
             InMethodAfterFirstParameter
         }
 
-        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), object[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), object[]>();
-
         private State _state;
 
-        private readonly IGraphModel _model;
         private readonly Dictionary<object, string> _variables;
         private readonly Stack<State> _stateQueue = new Stack<State>();
         private readonly Dictionary<StepLabel, string> _stepLabelMappings;
 
-        private GroovySerializationVisitor(State state, IGraphModel model, Dictionary<object, string> variables, Dictionary<StepLabel, string> stepLabelMappings, StringBuilder stringBuilder)
+        private GroovySerializationVisitor(State state, Dictionary<object, string> variables, Dictionary<StepLabel, string> stepLabelMappings, StringBuilder stringBuilder)
         {
             _state = state;
-            _model = model;
             _variables = variables;
             _stepLabelMappings = stepLabelMappings;
 
@@ -39,7 +33,7 @@ namespace ExRam.Gremlinq
 
         public static GroovySerializationVisitor Create(IGraphModel model)
         {
-            return new GroovySerializationVisitor(State.Idle, model, new Dictionary<object, string>(), new Dictionary<StepLabel, string>(), new StringBuilder());
+            return new GroovySerializationVisitor(State.Idle, new Dictionary<object, string>(), new Dictionary<StepLabel, string>(), new StringBuilder());
         }
 
         public IDictionary<string, object> GetVariables()
@@ -87,23 +81,11 @@ namespace ExRam.Gremlinq
 
         public void Visit(ValuesStep step)
         {
-            var model = _model;
-
-            var keys = step.Projections
-                .Select(projection =>
-                {
-                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return model.GetIdentifier(memberExpression.Member.Name);
-
-                    throw new NotSupportedException();
-                })
-                .ToArray();
-
-            var numberOfIdSteps = keys
+            var numberOfIdSteps = step.Keys
                 .OfType<T>()
                 .Count(x => x == T.Id);
 
-            var propertyKeys = keys
+            var propertyKeys = step.Keys
                 .OfType<string>()
                 .Cast<object>()
                 .ToArray();
@@ -459,17 +441,44 @@ namespace ExRam.Gremlinq
             Visit(step, "coalesce");
         }
 
-        public void Visit<TElement>(DerivedLabelNamesStep<TElement> step)
+        public void Visit(BothStep step)
         {
-            Method(step.StepName,
-                TypeLabelDict
-                    .GetOrAdd(
-                        (_model, typeof(TElement)),
-                        tuple => tuple.model.GetDerivedTypes(typeof(TElement), true)
-                            .Select(type => tuple.model.TryGetLabelOfType(type)
-                                .IfNone(() => throw new InvalidOperationException()))
-                            .OrderBy(x => x)
-                            .ToArray<object>()));
+            Visit(step, "both");
+        }
+
+        public void Visit(BothEStep step)
+        {
+            Visit(step, "bothE");
+        }
+
+        public void Visit(InStep step)
+        {
+            Visit(step, "in");
+        }
+
+        public void Visit(InEStep step)
+        {
+            Visit(step, "inE");
+        }
+
+        public void Visit(OutStep step)
+        {
+            Visit(step, "out");
+        }
+
+        public void Visit(OutEStep step)
+        {
+            Visit(step, "outE");
+        }
+
+        public void Visit(HasLabelStep step)
+        {
+            Visit(step, "hasLabel");
+        }
+
+        public void Visit(DerivedLabelNamesStep step, string stepName)
+        {
+            Method(stepName, step.Labels);
         }
 
         public void Visit(EdgesStep step)
@@ -535,20 +544,17 @@ namespace ExRam.Gremlinq
         {
             if (step.Value != null)
             {
-                var type = step.Property?.PropertyType ?? step.MemberExpression.Type;
-                var name = _model.GetIdentifier(step.Property?.Name ?? step.MemberExpression.Member.Name);
-
-                if (!type.IsArray || type == typeof(byte[]))
-                    Property(Cardinality.Single, name, step.Value);
+                if (!step.Type.IsArray || step.Type == typeof(byte[]))
+                    Property(Cardinality.Single, step.Key, step.Value);
                 else
                 {
-                    if (type.GetElementType().IsInstanceOfType(step.Value))
-                        Property(Cardinality.List, name, step.Value);
+                    if (step.Type.GetElementType().IsInstanceOfType(step.Value))
+                        Property(Cardinality.List, step.Key, step.Value);
                     else
                     {
                         foreach (var item in (IEnumerable)step.Value)
                         {
-                            Property(Cardinality.List, name, item);
+                            Property(Cardinality.List, step.Key, item);
                         }
                     }
                 }
@@ -763,12 +769,7 @@ namespace ExRam.Gremlinq
 
         private void Visit(AddElementStep step, string stepName)
         {
-            var type = step.Value.GetType();
-
-            Method(stepName,
-                _model
-                    .TryGetLabelOfType(type)
-                    .IfNone(type.Name));
+            Method(stepName, step.Label);
         }
 
         private void Visit(MultiTraversalArgumentStep step, string stepName)
@@ -791,36 +792,16 @@ namespace ExRam.Gremlinq
 
         private void Visit(HasStepBase step, string stepName)
         {
-            string memberName;
-
-            switch (step.Expression)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    memberName = leftMemberExpression.Member.Name;
-                    break;
-                }
-                case ParameterExpression leftParameterExpression:
-                {
-                    memberName = leftParameterExpression.Name;
-                    break;
-                }
-                default:
-                    throw new NotSupportedException();
-            }
-
-            var key = _model.GetIdentifier(memberName);
-
             if (step.Value == P.False)
-                new NotStep(GremlinQuery.Anonymous).Accept(this);
+                new NotStep(GremlinQuery.Anonymous(GraphModel.Empty)).Accept(this);
             else
             {
                 if (step.Value == P.True)
-                    Method(stepName, key);
+                    Method(stepName, step.Key);
                 else
                     Method(
                         stepName,
-                        key,
+                        step.Key,
                         step.Value is P.Eq eq
                             ? eq.Argument
                             : step.Value);

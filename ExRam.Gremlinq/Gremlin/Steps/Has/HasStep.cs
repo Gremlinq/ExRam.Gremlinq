@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class HasStep : HasStepBase
     {
-        public HasStep(Expression expression, Option<object> value = default) : base(expression, value)
+        public HasStep(IGraphModel model, Expression expression, Option<object> value = default) : base(model, expression, value)
         {
         }
 

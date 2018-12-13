@@ -2,7 +2,7 @@
 {
     public sealed class AddVStep : AddElementStep
     {
-        public AddVStep(object value) : base(value)
+        public AddVStep(IGraphModel model, object value) : base(model, value)
         {
         }
 

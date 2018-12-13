@@ -1,5 +1,4 @@
-﻿using System;
-using LanguageExt;
+﻿using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq
 {
@@ -7,7 +6,7 @@ namespace ExRam.Gremlinq
     public static class g
     {
         // ReSharper disable once UnusedMember.Global
-        internal static readonly IGremlinQuery<Unit> G = GremlinQuery.Create("g");
+        internal static readonly IGremlinQuerySource G = new GremlinQuerySource("g", GraphModel.Empty, null, ImmutableList<IGremlinQueryStrategy>.Empty);
 
         public static IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
         {
@@ -47,27 +46,25 @@ namespace ExRam.Gremlinq
         public static IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements)
         {
             return G
-                .Cast<TElement>()
                 .Inject(elements);
         }
 
-        public static IGremlinQuery<Unit> WithSubgraphStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
-        {
-            return G
-                .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
-        }
+        //public static IGremlinQuery<Unit> WithSubgraphStrategy(Func<IGremlinQuery<Unit>, IGremlinQuery> vertexCriterion, Func<IGremlinQuery<Unit>, IGremlinQuery> edgeCriterion)
+        //{
+        //    return G
+        //        .WithSubgraphStrategy(vertexCriterion, edgeCriterion);
+        //}
 
-        
-        public static IGremlinQuery<Unit> WithModel(IGraphModel model)
+        public static IGremlinQuerySource WithModel(IGraphModel model)
         {
             return G
                 .WithModel(model);
         }
 
-        public static IGremlinQuery<Unit> SetQueryProvider(IGremlinQueryProvider gremlinQueryProvider)
+        public static IGremlinQuerySource SetQueryProvider(IGremlinQueryProvider gremlinQueryProvider)
         {
             return G
-                .SetTypedGremlinQueryProvider(gremlinQueryProvider);
+                .SetQueryProvider(gremlinQueryProvider);
         }
     }
 }

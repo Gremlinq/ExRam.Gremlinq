@@ -1,16 +1,16 @@
-﻿namespace ExRam.Gremlinq
-{
-    public sealed class SetModelStep : Step
-    {
-        public SetModelStep(IGraphModel model)
-        {
-            Model = model;
-        }
+﻿//namespace ExRam.Gremlinq
+//{
+//    public sealed class SetModelStep : Step
+//    {
+//        public SetModelStep(IGraphModel model)
+//        {
+//            Model = model;
+//        }
 
-        public override void Accept(IQueryElementVisitor visitor)
-        {
-        }
+//        public override void Accept(IQueryElementVisitor visitor)
+//        {
+//        }
 
-        public IGraphModel Model { get; }
-    }
-}
+//        public IGraphModel Model { get; }
+//    }
+//}

@@ -1,32 +1,25 @@
-﻿namespace ExRam.Gremlinq
+﻿using System;
+using System.Collections.Concurrent;
+using System.Linq;
+
+namespace ExRam.Gremlinq
 {
     public abstract class DerivedLabelNamesStep : Step
     {
-        protected DerivedLabelNamesStep(string stepName)
+        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), string[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), string[]>();
+
+        protected DerivedLabelNamesStep(IGraphModel model, Type type)
         {
-            StepName = stepName;
+            Labels = TypeLabelDict
+                .GetOrAdd(
+                    (model, type),
+                    tuple => tuple.model.GetDerivedTypes(tuple.type, true)
+                        .Select(closureType => tuple.model.TryGetLabelOfType(closureType)
+                            .IfNone(() => throw new InvalidOperationException()))
+                        .OrderBy(x => x)
+                        .ToArray());
         }
 
-        public string StepName { get; }
-    }
-
-    public sealed class DerivedLabelNamesStep<TElement> : DerivedLabelNamesStep
-    {
-        public static DerivedLabelNamesStep<TElement> HasLabel = new DerivedLabelNamesStep<TElement>("hasLabel");
-        public static DerivedLabelNamesStep<TElement> Out = new DerivedLabelNamesStep<TElement>("out");
-        public static DerivedLabelNamesStep<TElement> In = new DerivedLabelNamesStep<TElement>("in");
-        public static DerivedLabelNamesStep<TElement> Both = new DerivedLabelNamesStep<TElement>("both");
-        public static DerivedLabelNamesStep<TElement> OutE = new DerivedLabelNamesStep<TElement>("outE");
-        public static DerivedLabelNamesStep<TElement> InE = new DerivedLabelNamesStep<TElement>("inE");
-        public static DerivedLabelNamesStep<TElement> BothE = new DerivedLabelNamesStep<TElement>("bothE");
-
-        private DerivedLabelNamesStep(string stepName) : base(stepName)
-        {
-        }
-
-        public override void Accept(IQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
+        public string[] Labels { get; }
     }
 }

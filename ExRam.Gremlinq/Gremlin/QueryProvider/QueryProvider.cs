@@ -12,14 +12,12 @@ namespace ExRam.Gremlinq
         {
             private static readonly JArray EmptyJArray = new JArray();
 
-            private readonly IGraphModel _model;
             private readonly JsonTransformRule _baseRule;
             private readonly GraphsonDeserializer _serializer;
             private readonly IGremlinQueryProvider _baseProvider;
 
             public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider, IGraphModel model)
             {
-                _model = model;
                 _baseProvider = baseProvider;
                 _serializer = new GraphsonDeserializer(model);
 
@@ -87,7 +85,6 @@ namespace ExRam.Gremlinq
             {
                 return _baseProvider
                     .Execute(query
-                        .WithModel(_model)
                         .Cast<JToken>())
                     .Select(token => token
                         .Transform(_baseRule)

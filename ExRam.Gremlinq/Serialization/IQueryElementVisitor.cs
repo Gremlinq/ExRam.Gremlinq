@@ -13,7 +13,15 @@
         void Visit(ByTraversalStep step);
         void Visit(ChooseStep step);
         void Visit(CoalesceStep step);
-        void Visit<TElement>(DerivedLabelNamesStep<TElement> step);
+
+        void Visit(BothStep step);
+        void Visit(BothEStep step);
+        void Visit(InStep step);
+        void Visit(InEStep step);
+        void Visit(OutStep step);
+        void Visit(OutEStep step);
+        void Visit(HasLabelStep step);
+
         void Visit(EdgesStep step);
         void Visit(FromTraversalStep step);
         void Visit(IdentifierStep step);

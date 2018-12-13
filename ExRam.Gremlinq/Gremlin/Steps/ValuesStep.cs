@@ -1,14 +1,12 @@
-﻿using System.Linq.Expressions;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
     public sealed class ValuesStep : Step
     {
-        public LambdaExpression[] Projections { get; }
+        public object[] Keys { get; }
 
-        public ValuesStep(LambdaExpression[] projections)
+        public ValuesStep(object[] keys)
         {
-            Projections = projections;
+            Keys = keys;
         }
 
         public override void Accept(IQueryElementVisitor visitor)

@@ -1,29 +1,33 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ExRam.Gremlinq
 {
     public sealed class PropertyStep : Step
     {
-        public object Value { get; }
-        public PropertyInfo Property { get; }
-        public MemberExpression MemberExpression { get; }
-
-        public PropertyStep(PropertyInfo property, object value)
+        public PropertyStep(IGraphModel model, PropertyInfo property, object value) : this(property.PropertyType, model.GetIdentifier(property.Name), value)
         {
-            Value = value;
-            Property = property;
         }
 
-        public PropertyStep(MemberExpression memberExpression, object value)
+        public PropertyStep(IGraphModel model, MemberExpression memberExpression, object value) : this(memberExpression.Type, model.GetIdentifier(memberExpression.Member.Name), value)
         {
+        }
+
+        private PropertyStep(Type type, object key, object value)
+        {
+            Key = key;
+            Type = type;
             Value = value;
-            MemberExpression = memberExpression;
         }
 
         public override void Accept(IQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }
+
+        public Type Type { get; }
+        public object Key { get; }
+        public object Value { get; }
     }
 }

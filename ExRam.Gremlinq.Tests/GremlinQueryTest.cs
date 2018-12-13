@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Tests
 {
     public class GremlinQueryTest
     {
-        private readonly IGremlinQuery<Unit> _g;
+        private readonly IGremlinQuerySource _g;
 
         public GremlinQueryTest()
         {
@@ -1386,7 +1386,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Anonymous()
         {
-            GremlinQuery.Anonymous
+            GremlinQuery.Anonymous(GraphModel.Empty)
                 .Should()
                 .SerializeTo("__.identity()")
                 .WithoutParameters();
@@ -1396,7 +1396,6 @@ namespace ExRam.Gremlinq.Tests
         public void Inject()
         {
             _g
-                .Cast<int>()
                 .Inject(36, 37, 38)
                 .Should()
                 .SerializeTo("g.inject(_a, _b, _c)")
@@ -1407,9 +1406,10 @@ namespace ExRam.Gremlinq.Tests
         public void WithSubgraphStrategy()
         {
             _g
-                .WithSubgraphStrategy(_ => _.OfType<User>(), _ => _)
+                .WithStrategies(new SubgraphStrategy(_ => _.OfType<User>(), _ => _))
+                .V()
                 .Should()
-                .SerializeTo("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create())")
+                .SerializeTo("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create()).V()")
                 .WithParameters("User");
         }
 
@@ -1417,9 +1417,10 @@ namespace ExRam.Gremlinq.Tests
         public void WithSubgraphStrategy_empty()
         {
             _g
-                .WithSubgraphStrategy(_ => _, _ => _)
+                .WithStrategies(new SubgraphStrategy(_ => _, _ => _))
+                .V()
                 .Should()
-                .SerializeTo("g")
+                .SerializeTo("g.V()")
                 .WithoutParameters();
         }
     }
