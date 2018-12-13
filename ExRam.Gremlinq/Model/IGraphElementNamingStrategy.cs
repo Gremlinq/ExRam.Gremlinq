@@ -1,9 +1,9 @@
-using System;
+﻿//using System;
 
-namespace ExRam.Gremlinq
-{
-    public interface IGraphElementNamingStrategy
-    {
-        string GetLabelForType(Type type);
-    }
-}
+//namespace ExRam.Gremlinq
+//{
+//    public interface IGraphElementNamingStrategy
+//    {
+//        string GetLabelForType(Type type);
+//    }
+//}

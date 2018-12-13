@@ -10,11 +10,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void FromAssembly_includes_abstract_types()
         {
-            var model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple);
+            var model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge));
 
-            model.VertexLabels.Keys
+            model.TryGetLabel(typeof(Authority)).IsSome
                 .Should()
-                .Contain(typeof(Authority));
+                .BeTrue();
         }
     }
 }

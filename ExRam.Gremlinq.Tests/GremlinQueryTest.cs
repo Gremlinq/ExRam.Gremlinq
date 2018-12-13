@@ -16,8 +16,7 @@ namespace ExRam.Gremlinq.Tests
         {
             _g = g
                 .WithModel(GraphModel
-                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
-                    .WithIdPropertyName("Id"));
+                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "Id"));
         }
 
         [Fact]
@@ -77,8 +76,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .WithModel(GraphModel
-                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
-                    .WithIdPropertyName("PhoneNumbers"))
+                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "PhoneNumbers"))
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
                 .Invoking(x => x.Serialize())
                 .Should()

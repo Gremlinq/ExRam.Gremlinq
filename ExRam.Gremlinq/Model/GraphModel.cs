@@ -9,140 +9,106 @@ namespace ExRam.Gremlinq
 {
     public static class GraphModel
     {
-        private sealed class GraphModelImpl : IGraphModel
+        private sealed class EmptyGraphModel : IGraphModel
         {
-            public GraphModelImpl(IImmutableDictionary<Type, string> vertexLabels, IImmutableDictionary<Type, string> edgeTypes, Option<string> idPropertyName = default)
+            public Option<string> TryGetLabel(Type elementType)
             {
-                VertexLabels = vertexLabels;
-                EdgeLabels = edgeTypes;
-                IdPropertyName = idPropertyName;
+                return default;
+            }
+
+            public Option<Type> TryGetType(string label)
+            {
+                return default;
+            }
+
+            public string[] TryGetDerivedLabels(Type elementType)
+            {
+                return Array.Empty<string>();
             }
 
             public Option<string> IdPropertyName { get; }
-
-            public IImmutableDictionary<Type, string> VertexLabels { get; }
-
-            public IImmutableDictionary<Type, string> EdgeLabels { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(ImmutableDictionary<Type, string>.Empty, ImmutableDictionary<Type, string>.Empty);
-
-        public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, IGraphElementNamingStrategy namingStrategy)
+        private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            return FromAssembly(assembly, typeof(TVertex), typeof(TEdge), namingStrategy);
-        }
+            private readonly IImmutableDictionary<Type, string> _vertexLabels;
+            private readonly IImmutableDictionary<Type, string> _edgeLabels;
 
-        public static IGraphModel FromAssembly(Assembly assembly, Type vertexBaseType, Type edgeBaseType, IGraphElementNamingStrategy namingStrategy)
-        {
-            if (vertexBaseType.IsAssignableFrom(edgeBaseType))
-                throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
+            public AssemblyGraphModelImpl(Assembly assembly, Type vertexBaseType, Type edgeBaseType, string idPropertyName)
+            {
+                if (vertexBaseType.IsAssignableFrom(edgeBaseType))
+                    throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
 
-            if (edgeBaseType.IsAssignableFrom(vertexBaseType))
-                throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
+                if (edgeBaseType.IsAssignableFrom(vertexBaseType))
+                    throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-            return Empty
-                .AddVertexTypes(assembly
+                _vertexLabels = assembly
                     .DefinedTypes
                     .Prepend(vertexBaseType)
                     .Where(vertexBaseType.IsAssignableFrom)
                     .Select(typeInfo => typeInfo)
                     .ToImmutableDictionary(
                         type => type,
-                        namingStrategy.GetLabelForType))
-                .AddEdgeTypes(assembly
+                        type => type.Name);
+
+                _edgeLabels = assembly
                     .DefinedTypes
                     .Prepend(edgeBaseType)
                     .Where(edgeBaseType.IsAssignableFrom)
                     .Select(typeInfo => typeInfo)
                     .ToImmutableDictionary(
                         type => type,
-                        namingStrategy.GetLabelForType));
+                        type => type.Name);
+
+                IdPropertyName = idPropertyName;
+            }
+
+            public Option<string> TryGetLabel(Type elementType)
+            {
+                return _vertexLabels
+                    .TryGetValue(elementType)
+                    .Match(
+                        _ => _,
+                        () => _edgeLabels
+                            .TryGetValue(elementType));
+            }
+
+            public Option<Type> TryGetType(string label)
+            {
+                return _vertexLabels
+                    .Concat(_edgeLabels)
+                    .TryGetElementTypeOfLabel(label);
+            }
+
+            public string[] TryGetDerivedLabels(Type elementType)
+            {
+                return GetDerivedTypes(elementType, true)
+                    .Select(closureType => TryGetLabel(closureType)
+                        .IfNone(() => throw new InvalidOperationException()))
+                    .OrderBy(x => x)
+                    .ToArray();
+            }
+
+            private IEnumerable<Type> GetDerivedTypes(Type type, bool includeType)
+            {
+                return _vertexLabels.Keys
+                    .Concat(_edgeLabels.Keys)
+                    .Where(kvp => !kvp.GetTypeInfo().IsAbstract && (includeType || kvp != type) && type.IsAssignableFrom(kvp));
+            }
+
+            public Option<string> IdPropertyName { get; }
         }
 
-        private static IGraphModel AddVertexTypes(this IGraphModel model, IEnumerable<KeyValuePair<Type, string>> types)
+        public static readonly IGraphModel Empty = new EmptyGraphModel();
+
+        public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, string idPropertyName = "Id")
         {
-            return new GraphModelImpl(
-                model.VertexLabels.AddRange(types),
-                model.EdgeLabels,
-                model.IdPropertyName);
+            return FromAssembly(assembly, typeof(TVertex), typeof(TEdge), idPropertyName);
         }
 
-        private static IGraphModel AddEdgeTypes(this IGraphModel model, IEnumerable<KeyValuePair<Type, string>> types)
+        public static IGraphModel FromAssembly(Assembly assembly, Type vertexBaseType, Type edgeBaseType, string idPropertyName = "Id")
         {
-            return new GraphModelImpl(
-                model.VertexLabels,
-                model.EdgeLabels.AddRange(types),
-                model.IdPropertyName);
-        }
-
-        public static IGraphModel EdgeLabel<TElement>(this IGraphModel model, string label = null)
-        {
-            var type = typeof(TElement);
-
-            return model.VertexLabels.Keys
-                .Where(vertexType => vertexType.IsAssignableFrom(type) || type.IsAssignableFrom(vertexType))
-                .Select(_ => (Option<Type>)_)
-                .FirstOrDefault()
-                .Match(
-                    contraditingVertexType => throw new ArgumentException($"Proposed edge type is inheritance hierarchy of vertex type {contraditingVertexType}."),
-                    () => new GraphModelImpl(model.VertexLabels, model.EdgeLabels.SetItem(type, label ?? typeof(TElement).Name), model.IdPropertyName));
-        }
-
-        public static IGraphModel WithIdPropertyName(this IGraphModel model, string idPropertyName)
-        {
-            return new GraphModelImpl(
-                model.VertexLabels,
-                model.EdgeLabels,
-                idPropertyName);
-        }
-
-        public static IGraphModel VertexLabel<TElement>(this IGraphModel model, string label = null)
-        {
-            var type = typeof(TElement);
-
-            return model.EdgeLabels.Keys
-                .Where(edgeType => edgeType.IsAssignableFrom(type) || type.IsAssignableFrom(edgeType))
-                .Select(_ => (Option<Type>)_)
-                .FirstOrDefault()
-                .Match(
-                    contraditingEdgeType => throw new ArgumentException($"Proposed vertex type is inheritance hierarchy of edge type {contraditingEdgeType}."),
-                    () => new GraphModelImpl(model.VertexLabels.SetItem(type, label ?? typeof(TElement).Name), model.EdgeLabels, model.IdPropertyName));
-        }
-
-        public static string GetLabelOfType(this IGraphModel model, Type type)
-        {
-            return model
-                .TryGetLabelOfType(type)
-                .IfNone(() => throw new ArgumentException($"Cannot find label of type {type} in model."));
-        }
-
-        public static Option<string> TryGetLabelOfType(this IGraphModel model, Type type)
-        {
-            return model.VertexLabels
-                .TryGetValue(type)
-                .Match(
-                    _ => _,
-                    () => model.EdgeLabels
-                        .TryGetValue(type));
-        }
-
-        internal static Option<Type> TryGetVertexTypeOfLabel(this IGraphModel model, string label)
-        {
-            return model.VertexLabels
-                .TryGetElementTypeOfLabel(label);
-        }
-
-        internal static Option<Type> TryGetEdgeTypeOfLabel(this IGraphModel model, string label)
-        {
-            return model.EdgeLabels
-                .TryGetElementTypeOfLabel(label);
-        }
-
-        internal static Option<Type> TryGetElementTypeOfLabel(this IGraphModel model, string label)
-        {
-            return model.VertexLabels
-                .Concat(model.EdgeLabels)
-                .TryGetElementTypeOfLabel(label);
+            return new AssemblyGraphModelImpl(assembly, vertexBaseType, edgeBaseType, idPropertyName);
         }
 
         internal static Option<Type> TryGetElementTypeOfLabel(this IEnumerable<KeyValuePair<Type, string>> elementInfos, string label)
@@ -151,13 +117,6 @@ namespace ExRam.Gremlinq
                 .Where(elementInfo => elementInfo.Value.Equals(label, StringComparison.OrdinalIgnoreCase))
                 .Select(elementInfo => elementInfo.Key)
                 .FirstOrDefault();
-        }
-
-        public static IEnumerable<Type> GetDerivedTypes(this IGraphModel model, Type type, bool includeType)
-        {
-            return model.VertexLabels.Keys
-                .Concat(model.EdgeLabels.Keys)
-                .Where(kvp => !kvp.GetTypeInfo().IsAbstract && (includeType || kvp != type) && type.IsAssignableFrom(kvp));
         }
     }
 }

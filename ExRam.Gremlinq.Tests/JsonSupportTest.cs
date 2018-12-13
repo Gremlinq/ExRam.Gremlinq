@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleIsDescribedIn)));
 
             var array = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V<IsDescribedIn>()
                 .ToArray();
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}")));
 
             var array = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V<IsDescribedIn>()
                 .ToArray();
@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
 
             await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V()
                 .Drop()
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
 
             await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V<User>()
                 .ToArray();
@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"id1\", \"id2\" ]")));
 
             var ids = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V()
                 .Id()
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"1\", \"2\" ]")));
 
             var ids = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V()
                 .Id()
@@ -183,7 +183,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, 2 ]")));
 
             var ids = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V()
                 .Id()
@@ -203,7 +203,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, \"id2\" ]")));
 
             var ids = await g
-                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                 .WithQueryProvider(queryProviderMock.Object)
                 .V()
                 .Id()
@@ -223,7 +223,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleCompanyJson)));
 
             var user = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<Company>());
 
@@ -241,7 +241,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
 
             var language = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<object>());
 
@@ -260,7 +260,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
 
             var language = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<Language>());
 
@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserJson)));
 
             var user = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<User>());
 
@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserLowercasePropertiesJson)));
 
             var user = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<User>());
 
@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserWithoutPhoneNumbersJson)));
 
             var user = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<User>());
 
@@ -357,7 +357,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameJson)));
 
             var timeFrame = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<TimeFrame>());
 
@@ -376,7 +376,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameWithNumbersJson)));
 
             var timeFrame = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<TimeFrame>());
 
@@ -395,7 +395,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
 
             var language = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V()) as Language;
 
@@ -413,7 +413,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
 
             var tuple = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V()
                     .Cast<(User, Language)>());
@@ -435,7 +435,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
 
             var tuple = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V()
                     .Cast<(Vertex, Vertex)>());
@@ -459,7 +459,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(Graphson3TupleOfUserLanguageJson)));
 
             var tuple = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V()
                     .Cast<(User, Language)>());
@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(ArrayOfLanguages)));
 
             var languages = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<Language[]>());
 
@@ -502,7 +502,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(NestedArrayOfLanguagesJson)));
 
             var languages = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<Language[][]>());
 
@@ -529,7 +529,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse("[ 36 ]")));
 
             var value = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<int>());
 
@@ -545,7 +545,7 @@ namespace ExRam.Gremlinq.Tests
                 .Returns(AsyncEnumerable.Return(JToken.Parse(CountryWithMetaProperties)));
 
             var c = await AsyncEnumerable.First(g
-                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge), GraphElementNamingStrategy.Simple))
+                    .WithModel(GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge)))
                     .WithQueryProvider(queryProviderMock.Object)
                     .V<Country>());
 

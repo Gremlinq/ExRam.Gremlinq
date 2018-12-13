@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 
 namespace ExRam.Gremlinq
 {
@@ -13,11 +12,7 @@ namespace ExRam.Gremlinq
             Labels = TypeLabelDict
                 .GetOrAdd(
                     (model, type),
-                    tuple => tuple.model.GetDerivedTypes(tuple.type, true)
-                        .Select(closureType => tuple.model.TryGetLabelOfType(closureType)
-                            .IfNone(() => throw new InvalidOperationException()))
-                        .OrderBy(x => x)
-                        .ToArray());
+                    tuple => tuple.model.TryGetDerivedLabels(tuple.type));
         }
 
         public string[] Labels { get; }

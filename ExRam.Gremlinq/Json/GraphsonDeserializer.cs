@@ -265,7 +265,7 @@ namespace ExRam.Gremlinq
                 if (jToken is JObject)
                 {
                     objectType = _model
-                        .TryGetElementTypeOfLabel(jToken["label"].ToString())
+                        .TryGetType(jToken["label"].ToString())
                         .Filter(objectType.IsAssignableFrom)
                         .IfNone(() =>
                         {
@@ -288,7 +288,7 @@ namespace ExRam.Gremlinq
 
             public override bool CanConvert(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.VertexLabels.Keys.Any(objectType.IsAssignableFrom) || _model.EdgeLabels.Keys.Any(objectType.IsAssignableFrom));
+                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.TryGetDerivedLabels(objectType).Length > 0);
             }
 
             public override bool CanWrite => false;

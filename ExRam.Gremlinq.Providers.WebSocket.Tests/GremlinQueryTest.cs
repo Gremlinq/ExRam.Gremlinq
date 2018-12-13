@@ -17,8 +17,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         public GremlinQueryTest()
         {
             var model = GraphModel
-                .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), GraphElementNamingStrategy.Simple)
-                .WithIdPropertyName("Id");
+                .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "Id");
 
             _g = g
                 .WithModel(model)

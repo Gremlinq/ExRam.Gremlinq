@@ -7,7 +7,7 @@
             var type = value.GetType();
 
             Label = model
-                .TryGetLabelOfType(type)
+                .TryGetLabel(type)
                 .IfNone(type.Name);
         }
 

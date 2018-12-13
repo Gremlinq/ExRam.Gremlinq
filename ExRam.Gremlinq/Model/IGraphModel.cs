@@ -1,13 +1,16 @@
-using System;
-using System.Collections.Immutable;
+﻿using System;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
 {
     public interface IGraphModel
     {
-        IImmutableDictionary<Type, string> VertexLabels { get; }
-        IImmutableDictionary<Type, string> EdgeLabels { get; }
+        Option<string> TryGetLabel(Type elementType);
+        Option<Type> TryGetType(string label);
+        string[] TryGetDerivedLabels(Type elementType);
+
+        //IImmutableDictionary<Type, string> VertexLabels { get; }
+        //IImmutableDictionary<Type, string> EdgeLabels { get; }
 
         Option<string> IdPropertyName { get; }
     }
