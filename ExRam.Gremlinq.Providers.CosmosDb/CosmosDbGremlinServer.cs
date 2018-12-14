@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public class CosmosDbGremlinServer : GremlinServer
     {
-        public CosmosDbGremlinServer(string hostname, int port = 8182, bool enableSsl = false, string database = null, string graphName = null, string authKey = null) : base(
+        public CosmosDbGremlinServer(string hostname, string database, string graphName, string authKey, int port = 8182, bool enableSsl = false) : base(
             hostname,
             port,
             enableSsl,

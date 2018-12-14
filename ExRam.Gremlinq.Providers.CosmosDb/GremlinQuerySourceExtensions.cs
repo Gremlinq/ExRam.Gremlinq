@@ -5,10 +5,10 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQuerySourceExtensions
     {
-        public static IGremlinQuerySource WithCosmosDbRemote(this IGremlinQuerySource source, string hostname, int port = 8182, bool enableSsl = false, string database = null, string graphName = null, string authKey = null)
+        public static IGremlinQuerySource WithCosmosDbRemote(this IGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8182, bool enableSsl = false)
         {
             return source
-                .WithQueryProvider(new ClientGremlinQueryProvider(new CosmosDbGremlinServer(hostname, port, enableSsl, database, graphName, authKey)));
+                .WithQueryProvider(new ClientGremlinQueryProvider(new CosmosDbGremlinServer(hostname, database, graphName, authKey, port, enableSsl)));
         }
     }
 }
