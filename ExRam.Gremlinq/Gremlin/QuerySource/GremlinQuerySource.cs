@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq
     
         public static IGremlinQuerySource Create(string name)
         {
-            return new GremlinQuerySourceImpl(name, GraphModel.Empty, GremlinQueryProvider.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
+            return new GremlinQuerySourceImpl(name, GraphModel.Dynamic(), GremlinQueryProvider.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
         }
 
         private sealed class GremlinQuerySourceImpl : IGremlinQuerySource

@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using ExRam.Gremlinq.GraphElements;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace ExRam.Gremlinq.Tests
@@ -10,7 +8,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void FromAssembly_includes_abstract_types()
         {
-            var model = GraphModel.FromAssembly(Assembly.GetExecutingAssembly(), typeof(Vertex), typeof(Edge));
+            var model = GraphModel.Dynamic();
 
             model.TryGetLabel(typeof(Authority)).IsSome
                 .Should()

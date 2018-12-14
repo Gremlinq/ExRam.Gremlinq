@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using ExRam.Gremlinq.GraphElements;
 using FluentAssertions;
 using Xunit;
@@ -10,19 +9,10 @@ namespace ExRam.Gremlinq.Tests
 {
     public class GremlinQueryTest
     {
-        private readonly IGremlinQuerySource _g;
-
-        public GremlinQueryTest()
-        {
-            _g = g
-                .WithModel(GraphModel
-                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "Id"));
-        }
-
         [Fact]
         public void V_of_concrete_type()
         {
-            _g
+            g
                 .V<User>()
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a)")
@@ -32,7 +22,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_of_abstract_type()
         {
-            _g
+            g
                 .V<Authority>()
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a, _b)")
@@ -64,7 +54,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV()
         {
-            _g
+            g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
@@ -76,7 +66,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .WithModel(GraphModel
-                    .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "PhoneNumbers"))
+                    .FromExecutingAssembly<User, Edge>(x => x.PhoneNumbers, x => x.Id))
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
                 .Invoking(x => x.Serialize())
                 .Should()
@@ -86,7 +76,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_without_id()
         {
-            _g
+            g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
@@ -96,7 +86,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_nulls()
         {
-            _g
+            g
                 .AddV(new Language { Id = 1 })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b)")
@@ -106,7 +96,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_multi_property()
         {
-            _g
+            g
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
@@ -116,7 +106,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_Meta_without_properties()
         {
-            _g
+            g
                 .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
@@ -126,7 +116,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_Meta_with_properties()
         {
-            _g
+            g
                 .AddV(new Country
                 {
                     Id = 1,
@@ -147,7 +137,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddV_with_enum_property()
         {
-            _g
+            g
                 .AddV(new User { Id = 1, Gender = Gender.Female })
                 .Should()
                 .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
@@ -157,7 +147,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_contains_element()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .Should()
@@ -168,7 +158,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_does_not_contain_element()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .Should()
@@ -179,7 +169,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_is_not_empty()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Any())
                 .Should()
@@ -190,7 +180,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_is_empty()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .Should()
@@ -201,7 +191,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_intersects_aray()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Should()
@@ -212,7 +202,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_does_not_intersect_array()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Should()
@@ -223,7 +213,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_intersects_empty_array()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new string[0]))
                 .Should()
@@ -234,7 +224,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_array_does_not_intersect_empty_array()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
                 .Should()
@@ -245,7 +235,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_contained_in_array()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
@@ -259,7 +249,7 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            _g
+            g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
@@ -272,7 +262,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var enumerable = Enumerable.Empty<int>();
 
-            _g
+            g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
@@ -283,7 +273,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_not_contained_in_array()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
@@ -297,7 +287,7 @@ namespace ExRam.Gremlinq.Tests
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            _g
+            g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
@@ -310,7 +300,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var enumerable = Enumerable.Empty<int>();
 
-            _g
+            g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
@@ -321,7 +311,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_prefix_of_constant()
         {
-            _g
+            g
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
                 .Should()
@@ -332,7 +322,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_prefix_of_empty_string()
         {
-            _g
+            g
                 .V<CountryCallingCode>()
                 .Where(c => "".StartsWith(c.Prefix))
                 .Should()
@@ -345,7 +335,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123";
 
-            _g
+            g
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
                 .Should()
@@ -358,7 +348,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const string str = "+49123xxx";
 
-            _g
+            g
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
                 .Should()
@@ -369,7 +359,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_starts_with_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
                 .Should()
@@ -380,7 +370,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_starts_with_empty_string()
         {
-            _g
+            g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
                 .Should()
@@ -391,7 +381,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_disjunction()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Should()
@@ -402,7 +392,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_disjunction_with_different_fields()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
                 .Should()
@@ -413,7 +403,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_conjunction()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Should()
@@ -424,7 +414,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_complex_logical_expression()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
@@ -435,7 +425,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_complex_logical_expression_with_null()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Should()
@@ -446,7 +436,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_has_conjunction_of_three()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Should()
@@ -457,7 +447,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_has_disjunction_of_three()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Should()
@@ -468,7 +458,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_conjunction_with_different_fields()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
                 .Should()
@@ -479,7 +469,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_equals_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == 36)
                 .Should()
@@ -492,7 +482,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const int i = 18;
 
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age == i + i)
                 .Should()
@@ -503,7 +493,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_equals_converted_expression()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
                 .Should()
@@ -514,7 +504,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_not_equals_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age != 36)
                 .Should()
@@ -525,7 +515,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_not_present()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name == null)
                 .Should()
@@ -536,7 +526,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_present()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Name != null)
                 .Should()
@@ -547,7 +537,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_lower_than_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age < 36)
                 .Should()
@@ -558,7 +548,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_lower_or_equal_than_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age <= 36)
                 .Should()
@@ -569,7 +559,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_bool_property_explicit_comparison1()
         {
-            _g
+            g
                 .V<TimeFrame>()
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
@@ -581,7 +571,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_bool_property_explicit_comparison2()
         {
-            _g
+            g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
                 .Should()
@@ -592,7 +582,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_bool_property_implicit_comparison1()
         {
-            _g
+            g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
                 .Should()
@@ -603,7 +593,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_bool_property_implicit_comparison2()
         {
-            _g
+            g
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
                 .Should()
@@ -614,7 +604,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_greater_than_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age > 36)
                 .Should()
@@ -625,7 +615,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_is_greater_or_equal_than_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Where(t => t.Age >= 36)
                 .Should()
@@ -636,7 +626,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_equals_string_constant()
         {
-            _g
+            g
                 .V<Language>()
                 .Where(t => t.Id == 1)
                 .Should()
@@ -649,7 +639,7 @@ namespace ExRam.Gremlinq.Tests
         {
             const int local = 1;
 
-            _g
+            g
                 .V<Language>()
                 .Where(t => t.Id == local)
                 .Should()
@@ -662,7 +652,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var local = new { Value = 1 };
 
-            _g
+            g
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
                 .Should()
@@ -673,7 +663,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_source_expression_on_both_sides()
         {
-            _g
+            g
                 .V<User>()
                 .Invoking(query => query.Where(t => t.Name == t.PhoneNumber))
                 .Should()
@@ -685,7 +675,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<Language>();
 
-            _g
+            g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
@@ -700,7 +690,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var l = new StepLabel<string>();
 
-            _g
+            g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
                 .As(l)
@@ -714,7 +704,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_scalar_element_equals_constant()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
@@ -726,7 +716,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .Where(_ => _.Out<LivesIn>())
                 .Should()
@@ -737,7 +727,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Where_property_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .Where(
                     x => x.Age,
@@ -753,7 +743,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var now = DateTimeOffset.UtcNow;
 
-            _g
+            g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -771,7 +761,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_to_StepLabel()
         {
-            _g
+            g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
@@ -787,7 +777,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var now = DateTimeOffset.UtcNow;
 
-            _g
+            g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -805,7 +795,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_from_StepLabel()
         {
-            _g
+            g
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
@@ -819,7 +809,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_InV()
         {
-            _g
+            g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
@@ -832,7 +822,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void AddE_OutV()
         {
-            _g
+            g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
@@ -845,7 +835,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void And()
         {
-            _g
+            g
                 .V<User>()
                 .And(
                     __ => __
@@ -860,7 +850,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void And_nested()
         {
-            _g
+            g
                 .V<User>()
                 .And(
                     __ => __
@@ -879,7 +869,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Or()
         {
-            _g
+            g
                 .V<User>()
                 .Or(
                     __ => __
@@ -894,7 +884,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Or_nested()
         {
-            _g
+            g
                 .V<User>()
                 .Or(
                     __ => __
@@ -913,7 +903,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Drop()
         {
-            _g
+            g
                 .V<User>()
                 .Drop()
                 .Should()
@@ -924,7 +914,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void FilterWithLambda()
         {
-            _g
+            g
                 .V<User>()
                 .Filter("it.property('str').value().length() == 2")
                 .Should()
@@ -935,7 +925,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out()
         {
-            _g
+            g
                 .V<User>()
                 .Out<Knows>()
                 .Should()
@@ -946,7 +936,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Out_does_not_include_abstract_edge()
         {
-            _g
+            g
                 .V<User>()
                 .Out<Edge>()
                 .Should()
@@ -957,7 +947,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_member()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .Should()
@@ -968,7 +958,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .Should()
@@ -979,7 +969,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_lambda()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy("it.property('str').value().length()")
                 .Should()
@@ -990,7 +980,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderByDescending_member()
         {
-            _g
+            g
                 .V<User>()
                 .OrderByDescending(x => x.Name)
                 .Should()
@@ -1001,7 +991,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderByDescending_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .Should()
@@ -1012,7 +1002,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_ThenBy_member()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
@@ -1024,7 +1014,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_ThenBy_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
@@ -1036,7 +1026,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_ThenBy_lambda()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
@@ -1048,7 +1038,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_ThenByDescending_member()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
@@ -1060,7 +1050,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OrderBy_ThenByDescending_traversal()
         {
-            _g
+            g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
@@ -1072,7 +1062,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void SumLocal()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => x.Age)
                 .SumLocal()
@@ -1084,7 +1074,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void SumGlobal()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => x.Age)
                 .SumGlobal()
@@ -1096,7 +1086,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Values_one_member()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => x.Name)
                 .Should()
@@ -1107,7 +1097,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Values_two_members()
         {
-            _g
+            g
                 .V<User>()
                 .Values<object>(x => x.Name, x => x.Id)
                 .Should()
@@ -1118,7 +1108,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Values_three_members()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
                 .Should()
@@ -1129,7 +1119,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Values_id_member()
         {
-            _g
+            g
                 .V<User>()
                 .Values(x => x.Id)
                 .Should()
@@ -1140,7 +1130,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void V_untyped()
         {
-            _g
+            g
                 .V()
                 .Should()
                 .SerializeTo("g.V()")
@@ -1150,7 +1140,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void OfType_abstract()
         {
-            _g
+            g
                 .V()
                 .OfType<Authority>()
                 .Should()
@@ -1161,7 +1151,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Repeat_Out()
         {
-            _g
+            g
                 .V<User>()
                 .Repeat(__ => __
                     .Out<Knows>()
@@ -1174,7 +1164,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Union()
         {
-            _g
+            g
                 .V<User>()
                 .Union(
                     __ => __.Out<Knows>(),
@@ -1187,7 +1177,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Optional()
         {
-            _g
+            g
                 .V()
                 .Optional(
                     __ => __.Out<Knows>())
@@ -1199,7 +1189,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Not1()
         {
-            _g
+            g
                 .V()
                 .Not(__ => __.Out<Knows>())
                 .Should()
@@ -1210,7 +1200,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Not2()
         {
-            _g
+            g
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Should()
@@ -1221,7 +1211,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Not3()
         {
-            _g
+            g
                 .V()
                 .Not(__ => __.OfType<Authority>())
                 .Should()
@@ -1232,7 +1222,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void As_explicit_label()
         {
-            _g
+            g
                 .V<User>()
                 .As(new StepLabel<User>())
                 .Should()
@@ -1245,7 +1235,7 @@ namespace ExRam.Gremlinq.Tests
         {
             var stepLabel = new StepLabel<User>();
 
-            _g
+            g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
@@ -1257,7 +1247,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void As_inlined_nested_Select()
         {
-            _g
+            g
                 .V<User>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
@@ -1270,7 +1260,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Property_single()
         {
-            _g
+            g
                 .V<User>()
                 .Property(x => x.Age, 36)
                 .Should()
@@ -1281,7 +1271,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Property_list()
         {
-            _g
+            g
                 .V<User>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .Should()
@@ -1292,7 +1282,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Coalesce()
         {
-            _g
+            g
                 .V()
                 .Coalesce(
                      _ => _
@@ -1305,7 +1295,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Properties()
         {
-            _g
+            g
                 .V()
                 .Properties()
                 .Should()
@@ -1316,7 +1306,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Properties_of_member()
         {
-            _g
+            g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Should()
@@ -1327,7 +1317,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Properties_Where()
         {
-            _g
+            g
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Value == "de")
@@ -1339,7 +1329,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Properties_Where_reversed()
         {
-            _g
+            g
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => "de" == x.Value)
@@ -1351,7 +1341,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Meta_Properties()
         {
-            _g
+            g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties()
@@ -1363,7 +1353,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Meta_Properties_with_key()
         {
-            _g
+            g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties("metaKey")
@@ -1394,7 +1384,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void Inject()
         {
-            _g
+            g
                 .Inject(36, 37, 38)
                 .Should()
                 .SerializeTo("g.inject(_a, _b, _c)")
@@ -1404,7 +1394,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategy()
         {
-            _g
+            g
                 .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
                 .V()
                 .Should()
@@ -1415,7 +1405,7 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public void WithSubgraphStrategy_empty()
         {
-            _g
+            g
                 .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .Should()

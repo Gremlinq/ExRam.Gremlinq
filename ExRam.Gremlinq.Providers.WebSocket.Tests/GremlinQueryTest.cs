@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.GraphElements;
 using ExRam.Gremlinq.Tests;
 using FluentAssertions;
 using Xunit;
@@ -16,11 +13,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 
         public GremlinQueryTest()
         {
-            var model = GraphModel
-                .FromAssembly<Vertex, Edge>(Assembly.GetExecutingAssembly(), "Id");
-
             _g = g
-                .WithModel(model)
                 .WithRemote("localhost");
         }
 

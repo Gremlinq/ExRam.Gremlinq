@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-
-namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq
 {
     public abstract class DerivedLabelNamesStep : Step
     {
-        private static readonly ConcurrentDictionary<(IGraphModel model, Type type), string[]> TypeLabelDict = new ConcurrentDictionary<(IGraphModel, Type), string[]>();
-
-        protected DerivedLabelNamesStep(IGraphModel model, Type type)
+        protected DerivedLabelNamesStep(string[] labels)
         {
-            Labels = TypeLabelDict
-                .GetOrAdd(
-                    (model, type),
-                    tuple => tuple.model.TryGetDerivedLabels(tuple.type));
+            Labels = labels;
         }
 
         public string[] Labels { get; }

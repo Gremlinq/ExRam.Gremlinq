@@ -239,18 +239,6 @@ namespace ExRam.Gremlinq
 
             private static readonly JsonSerializer ModelIndependentSerializer = new ModelIndependentJsonSerializer();
 
-            // ReSharper disable once ClassNeverInstantiated.Local
-            private sealed class VertexImpl : Vertex
-            {
-
-            }
-
-            // ReSharper disable once ClassNeverInstantiated.Local
-            private sealed class EdgeImpl : Edge
-            {
-
-            }
-
             private readonly IGraphModel _model;
 
             public ElementConverter(IGraphModel model)

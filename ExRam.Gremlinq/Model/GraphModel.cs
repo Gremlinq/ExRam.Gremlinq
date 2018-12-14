@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using ExRam.Gremlinq.GraphElements;
 using LanguageExt;
 
 namespace ExRam.Gremlinq
@@ -32,10 +34,11 @@ namespace ExRam.Gremlinq
 
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            private readonly IImmutableDictionary<Type, string> _edgeLabels;
-            private readonly IImmutableDictionary<Type, string> _vertexLabels;
+            private readonly IDictionary<string, Type> _types;
+            private readonly IDictionary<Type, string> _labels;
+            private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-            public AssemblyGraphModelImpl(Assembly assembly, Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName)
+            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName, Assembly[] assemblies)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -43,23 +46,26 @@ namespace ExRam.Gremlinq
                 if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-                _vertexLabels = assembly
-                    .DefinedTypes
+                _labels = assemblies
+                    .SelectMany(assembly => assembly
+                        .DefinedTypes
+                        .Where(type => type != vertexBaseType
+                                    && type != edgeBaseType
+                                    && type != typeof(VertexImpl)
+                                    && type != typeof(EdgeImpl)
+                                    && (vertexBaseType.IsAssignableFrom(type) || edgeBaseType.IsAssignableFrom(type)))
+                        .Select(typeInfo => typeInfo))
                     .Prepend(vertexBaseType)
-                    .Where(vertexBaseType.IsAssignableFrom)
-                    .Select(typeInfo => typeInfo)
-                    .ToImmutableDictionary(
+                    .Prepend(edgeBaseType)
+                    
+                    .ToDictionary(
                         type => type,
                         type => type.Name);
 
-                _edgeLabels = assembly
-                    .DefinedTypes
-                    .Prepend(edgeBaseType)
-                    .Where(edgeBaseType.IsAssignableFrom)
-                    .Select(typeInfo => typeInfo)
-                    .ToImmutableDictionary(
-                        type => type,
-                        type => type.Name);
+                _types = _labels
+                    .ToDictionary(
+                        kvp => kvp.Value,
+                        kvp => kvp.Key);
 
                 VertexIdPropertyName = idPropertyName;
                 EdgeIdPropertyName = edgeIdPropertyName;
@@ -67,35 +73,26 @@ namespace ExRam.Gremlinq
 
             public Option<string> TryGetLabel(Type elementType)
             {
-                return _vertexLabels
-                    .TryGetValue(elementType)
-                    .Match(
-                        _ => _,
-                        () => _edgeLabels
-                            .TryGetValue(elementType));
+                return _labels
+                    .TryGetValue(elementType);
             }
 
             public Option<Type> TryGetType(string label)
             {
-                return _vertexLabels
-                    .Concat(_edgeLabels)
-                    .TryGetElementTypeOfLabel(label);
+                return _types
+                    .TryGetValue(label);
             }
 
             public string[] TryGetDerivedLabels(Type elementType)
             {
-                return GetDerivedTypes(elementType, true)
-                    .Select(closureType => TryGetLabel(closureType)
-                        .IfNone(() => throw new InvalidOperationException()))
-                    .OrderBy(x => x)
-                    .ToArray();
-            }
-
-            private IEnumerable<Type> GetDerivedTypes(Type type, bool includeType)
-            {
-                return _vertexLabels.Keys
-                    .Concat(_edgeLabels.Keys)
-                    .Where(kvp => !kvp.GetTypeInfo().IsAbstract && (includeType || kvp != type) && type.IsAssignableFrom(kvp));
+                return _derivedLabels.GetOrAdd(
+                    elementType,
+                    closureType1 => _labels.Keys
+                        .Where(kvp => !kvp.GetTypeInfo().IsAbstract && closureType1.IsAssignableFrom(kvp))
+                        .Select(closureType2 => TryGetLabel(closureType2)
+                            .IfNone(() => throw new InvalidOperationException()))
+                        .OrderBy(x => x)
+                        .ToArray());
             }
 
             public Option<string> VertexIdPropertyName { get; }
@@ -104,22 +101,29 @@ namespace ExRam.Gremlinq
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
 
-        public static IGraphModel FromAssembly<TVertex, TEdge>(Assembly assembly, string idPropertyName = "Id", string edgeIdPropertyName = "Id")
+        public static IGraphModel Dynamic()
         {
-            return FromAssembly(assembly, typeof(TVertex), typeof(TEdge), idPropertyName, edgeIdPropertyName);
+            return FromAssemblies<Vertex, Edge>(x => x.Id, x => x.Id, AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static IGraphModel FromAssembly(Assembly assembly, Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id")
+        public static IGraphModel FromExecutingAssembly()
         {
-            return new AssemblyGraphModelImpl(assembly, vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName);
+            return FromAssemblies<Vertex, Edge>(x => x.Id, x => x.Id, Assembly.GetCallingAssembly());
         }
 
-        internal static Option<Type> TryGetElementTypeOfLabel(this IEnumerable<KeyValuePair<Type, string>> elementInfos, string label)
+        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId)
         {
-            return elementInfos
-                .Where(elementInfo => elementInfo.Value.Equals(label, StringComparison.OrdinalIgnoreCase))
-                .Select(elementInfo => elementInfo.Key)
-                .FirstOrDefault();
+            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, Assembly.GetCallingAssembly());
+        }
+
+        public static IGraphModel FromAssemblies<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, params Assembly[] assemblies)
+        {
+            return FromAssemblies(typeof(TVertex), typeof(TEdge), ((MemberExpression)vertexId.Body.StripConvert()).Member.Name, ((MemberExpression)edgeId.Body.StripConvert()).Member.Name, assemblies);
+        }
+
+        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", params Assembly[] assemblies)
+        {
+            return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies);
         }
     }
 }
