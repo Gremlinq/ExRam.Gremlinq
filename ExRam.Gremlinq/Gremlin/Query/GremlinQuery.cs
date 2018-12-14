@@ -914,7 +914,7 @@ namespace ExRam.Gremlinq
                                         return HasWithin(sourceMember, methodCallExpression.Arguments[1]);
 
                                     if (sourceMember.Expression == predicate.Parameters[0])
-                                        return AddStep(new HasStep(Model, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue())));
+                                        return Has(sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
                                 }
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
@@ -948,7 +948,7 @@ namespace ExRam.Gremlinq
                                     string upperBound;
 
                                     if (lowerBound.Length == 0)
-                                        return AddStep(new HasStep(Model, memberExpression));
+                                        return Has(memberExpression, P.True);
 
                                     if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
                                         upperBound = lowerBound + char.MinValue;
@@ -960,7 +960,7 @@ namespace ExRam.Gremlinq
                                         upperBound = new string(upperBoundChars);
                                     }
 
-                                    return AddStep(new HasStep(Model, memberExpression, new P.Between(lowerBound, upperBound)));
+                                    return Has(memberExpression, new P.Between(lowerBound, upperBound));
                                 }
                             }
                         }
@@ -1010,9 +1010,9 @@ namespace ExRam.Gremlinq
                 switch (nodeType)
                 {
                     case ExpressionType.Equal:
-                        return AddStep(new HasNotStep(Model, left));
+                        return HasNot(left, P.True);
                     case ExpressionType.NotEqual:
-                        return AddStep(new HasStep(Model, left));
+                        return Has(left, P.True);
                 }
             }
             else
@@ -1026,12 +1026,9 @@ namespace ExRam.Gremlinq
                         if (leftMemberExpression.Expression.Type == typeof(VertexProperty) && leftMemberExpression.Member.Name == nameof(VertexProperty.Value))
                             return AddStep(new HasValueStep(predicateArgument));
 
-                        return AddStep(new HasStep(
-                            Model,
-                            leftMemberExpression,
-                            rightConstant is StepLabel
-                                ? Anonymize().AddStep(new WherePredicateStep(predicateArgument))
-                                : (object)predicateArgument));
+                        return rightConstant is StepLabel
+                            ? Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
+                            : Has(leftMemberExpression, predicateArgument);
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
@@ -1056,9 +1053,47 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal)
         {
-            return AddStep(new HasStep(Model, predicate.Body, (object)propertyTraversal(Anonymize<TProjection, Unit, Unit>())));
+            return Has(predicate.Body, propertyTraversal(Anonymize<TProjection, Unit, Unit>()));
         }
         #endregion
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Has(Expression expression, P predicate)
+        {
+            return AddStep(new HasStep(GetIdentifier(expression), predicate));
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Has(Expression expression, IGremlinQuery traversal)
+        {
+            return AddStep(new HasStep(GetIdentifier(expression), traversal));
+        }
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasNot(Expression expression, P predicate)
+        {
+            return AddStep(new HasNotStep(GetIdentifier(expression), predicate));
+        }
+
+        private object GetIdentifier(Expression expression)
+        {
+            string memberName;
+
+            switch (expression)
+            {
+                case MemberExpression leftMemberExpression:
+                {
+                    memberName = leftMemberExpression.Member.Name;
+                    break;
+                }
+                case ParameterExpression leftParameterExpression:
+                {
+                    memberName = leftParameterExpression.Name;
+                    break;
+                }
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return Model.GetIdentifier(memberName);
+        }
 
         public IAsyncEnumerator<TElement> GetEnumerator()
         {
@@ -1081,12 +1116,11 @@ namespace ExRam.Gremlinq
         {
             var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
 
-            return AddStep(new HasStep(
-                Model,
+            return Has(
                 expression,
                 objectArray.Length == 0
                     ? P.False
-                    : new P.Within(objectArray)));
+                    : new P.Within(objectArray));
         }
 
         #region AddStep

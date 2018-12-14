@@ -1,12 +1,14 @@
-﻿using System.Linq.Expressions;
-using ExRam.Gremlinq.Serialization;
-using LanguageExt;
+﻿using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
     public sealed class HasStep : HasStepBase
     {
-        public HasStep(IGraphModel model, Expression expression, Option<object> value = default) : base(model, expression, value)
+        public HasStep(object key, P predicate) : base(key, predicate)
+        {
+        }
+
+        public HasStep(object key, IGremlinQuery traversal) : base(key, (object)traversal)
         {
         }
 

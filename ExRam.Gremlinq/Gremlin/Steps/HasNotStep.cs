@@ -1,12 +1,14 @@
-﻿using System.Linq.Expressions;
-using ExRam.Gremlinq.Serialization;
-using LanguageExt;
+﻿using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
     public sealed class HasNotStep : HasStepBase
     {
-        public HasNotStep(IGraphModel model, Expression expression, Option<object> value = default) : base(model, expression, value)
+        public HasNotStep(object key, P predicate) : base(key, predicate)
+        {
+        }
+
+        public HasNotStep(object key, IGremlinQuery traversal) : base(key, (object)traversal)
         {
         }
 
