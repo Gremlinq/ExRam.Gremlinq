@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public class CosmosDbGroovyGremlinQuerySerializer : IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)>
     {
-        private sealed class IntIdToStringIdGroovySerializationVisitor : GroovySerializationVisitor
+        private sealed class IntIdToStringIdGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
         {
             public override void Visit(PropertyStep step)
             {
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
         public (string queryString, IDictionary<string, object> parameters) Serialize(IGremlinQuery query)
         {
-            var groovyBuilder = new IntIdToStringIdGroovySerializationVisitor();
+            var groovyBuilder = new IntIdToStringIdGroovyGremlinQueryElementVisitor();
 
             groovyBuilder
                 .Visit(query);

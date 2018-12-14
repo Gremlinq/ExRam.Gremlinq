@@ -7,7 +7,7 @@ using ExRam.Gremlinq.GraphElements;
 
 namespace ExRam.Gremlinq.Serialization
 {
-    public class GroovySerializationVisitor : IGremlinQueryElementVisitor
+    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor
     {
         private enum State
         {

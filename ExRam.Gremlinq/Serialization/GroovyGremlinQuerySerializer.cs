@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Serialization
     {
         public (string queryString, IDictionary<string, object> parameters) Serialize(IGremlinQuery query)
         {
-            var groovyBuilder = new GroovySerializationVisitor();
+            var groovyBuilder = new GroovyGremlinQueryElementVisitor();
 
             groovyBuilder
                 .Visit(query);
