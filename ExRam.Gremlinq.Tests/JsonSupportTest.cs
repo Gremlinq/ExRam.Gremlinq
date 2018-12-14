@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
-using Moq;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +14,24 @@ namespace ExRam.Gremlinq.Tests
 {
     public class JsonSupportTest
     {
+        private sealed class TestJsonQueryProvider : IGremlinQueryProvider
+        {
+            private readonly string _json;
+
+            public TestJsonQueryProvider(string json)
+            {
+                _json = json;
+            }
+
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            {
+                if (typeof(TElement) != typeof(JToken))
+                    throw new NotSupportedException();
+
+                return (IAsyncEnumerable<TElement>)AsyncEnumerable.Return(JToken.Parse(_json));
+            }
+        }
+
         private static readonly string SingleUserJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleCompanyJson;
@@ -50,13 +68,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task GraphSon3ReferenceVertex()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(Graphson3ReferenceVertex)));
-
             var array = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(Graphson3ReferenceVertex))
                 .V<JObject>()
                 .ToArray();
 
@@ -70,13 +83,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task IsDescribedIn()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleIsDescribedIn)));
-
             var array = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleIsDescribedIn))
                 .V<IsDescribedIn>()
                 .ToArray();
 
@@ -87,13 +95,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task IsDescribedIn_with_Graphson3()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}")));
-
             var array = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
                 .V<IsDescribedIn>()
                 .ToArray();
 
@@ -104,13 +107,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Empty1()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
-
             await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[]"))
                 .V()
                 .Drop()
                 .FirstOrDefault();
@@ -119,13 +117,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Empty2()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[]")));
-
             await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[]"))
                 .V<User>()
                 .ToArray();
         }
@@ -133,13 +126,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task String_Ids()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"id1\", \"id2\" ]")));
-
             var ids = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[ \"id1\", \"id2\" ]"))
                 .V()
                 .Id()
                 .ToArray();
@@ -152,13 +140,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task String_Ids2()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[ \"1\", \"2\" ]")));
-
             var ids = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[ \"1\", \"2\" ]"))
                 .V()
                 .Id()
                 .ToArray();
@@ -171,13 +154,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Int_Ids()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, 2 ]")));
-
             var ids = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[ 1, 2 ]"))
                 .V()
                 .Id()
                 .ToArray();
@@ -190,13 +168,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Mixed_Ids()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 1, \"id2\" ]")));
-
             var ids = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider("[ 1, \"id2\" ]"))
                 .V()
                 .Id()
                 .ToArray();
@@ -209,13 +182,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleCompanyJson)));
-
             var user = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleCompanyJson))
                 .V<Company>());
 
             user.Should().NotBeNull();
@@ -226,13 +194,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_unknown_type()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
-
             var language = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
                 .V<object>());
 
             language.Should().NotBeNull();
@@ -244,13 +207,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
-
             var language = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
                 .V<Language>());
 
             language.Should().NotBeNull();
@@ -261,14 +219,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_to_generic_vertex()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
-
             var language = await AsyncEnumerable.First(g
-                    .WithQueryProvider(queryProviderMock.Object)
-                    .V<Vertex>());
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
+                .V<Vertex>());
 
             language.Should().NotBeNull();
             language.Id.Should().Be(10);
@@ -279,14 +232,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserJson)));
-
             var user = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
-                 .V<User>());
+                .WithQueryProvider(new TestJsonQueryProvider(SingleUserJson))
+                .V<User>());
 
             user.Should().NotBeNull();
             user.Id.Should().Be(13);
@@ -299,13 +247,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_lowercase_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserLowercasePropertiesJson)));
-
             var user = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleUserLowercasePropertiesJson))
                 .V<User>());
 
             user.Should().NotBeNull();
@@ -318,13 +261,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_without_PhoneNumbers_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleUserWithoutPhoneNumbersJson)));
-
             var user = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleUserWithoutPhoneNumbersJson))
                 .V<User>());
 
             user.Should().NotBeNull();
@@ -337,13 +275,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameJson)));
-
             var timeFrame = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleTimeFrameJson))
                 .V<TimeFrame>());
 
             timeFrame.Should().NotBeNull();
@@ -355,13 +288,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleTimeFrameWithNumbersJson)));
-
             var timeFrame = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleTimeFrameWithNumbersJson))
                 .V<TimeFrame>());
 
             timeFrame.Should().NotBeNull();
@@ -373,13 +301,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(SingleLanguageJson)));
-
             var language = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
                 .V()) as Language;
 
             language.Should().NotBeNull();
@@ -390,13 +313,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
-
             var tuple = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(TupleOfUserLanguageJson))
                 .V()
                 .Cast<(User, Language)>());
 
@@ -411,13 +329,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple_vertex_vertex()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(TupleOfUserLanguageJson)));
-
             var tuple = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(TupleOfUserLanguageJson))
                 .V()
                 .Cast<(Vertex, Vertex)>());
 
@@ -434,13 +347,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Graphson3_Tuple()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(Graphson3TupleOfUserLanguageJson)));
-
             var tuple = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(Graphson3TupleOfUserLanguageJson))
                 .V()
                 .Cast<(User, Language)>());
 
@@ -455,13 +363,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Array()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(ArrayOfLanguages)));
-
             var languages = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(ArrayOfLanguages))
                 .V<Language[]>());
 
             languages.Should().NotBeNull();
@@ -475,13 +378,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Nested_Array()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(NestedArrayOfLanguagesJson)));
-
             var languages = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(NestedArrayOfLanguagesJson))
                 .V<Language[][]>());
 
             languages.Should().NotBeNull();
@@ -501,14 +399,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Scalar()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse("[ 36 ]")));
-
             var value = await AsyncEnumerable.First(g
-                    .WithQueryProvider(queryProviderMock.Object)
-                    .V<int>());
+                .WithQueryProvider(new TestJsonQueryProvider("[ 36 ]"))
+                .V<int>());
 
             value.Should().Be(36);
         }
@@ -516,30 +409,20 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Meta_Properties()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(CountryWithMetaProperties)));
-
-            var c = await AsyncEnumerable.First(g
-                .WithQueryProvider(queryProviderMock.Object)
+            var country = await AsyncEnumerable.First(g
+                .WithQueryProvider(new TestJsonQueryProvider(CountryWithMetaProperties))
                 .V<Country>());
 
-            c.Name.Value.Should().Be("GER");
-            c.Name.Properties["de"].Should().Be("Deutschland");
-            c.Name.Properties["en"].Should().Be("Germany");
+            country.Name.Value.Should().Be("GER");
+            country.Name.Properties["de"].Should().Be("Deutschland");
+            country.Name.Properties["en"].Should().Be("Germany");
         }
 
         [Fact]
         public async Task VertexProperties()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("VertexProperties"))));
-
             var properties = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(GetJson("VertexProperties")))
                 .V()
                 .Properties()
                 .ToArray(default);
@@ -558,13 +441,8 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task MetaProperties()
         {
-            var queryProviderMock = new Mock<IGremlinQueryProvider>();
-            queryProviderMock
-                .Setup(x => x.Execute(It.IsAny<IGremlinQuery<JToken>>()))
-                .Returns(AsyncEnumerable.Return(JToken.Parse(GetJson("Properties"))));
-
             var properties = await g
-                .WithQueryProvider(queryProviderMock.Object)
+                .WithQueryProvider(new TestJsonQueryProvider(GetJson("Properties")))
                 .V()
                 .Properties()
                 .Properties()
