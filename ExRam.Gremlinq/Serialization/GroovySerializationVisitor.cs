@@ -7,7 +7,7 @@ using ExRam.Gremlinq.GraphElements;
 
 namespace ExRam.Gremlinq.Serialization
 {
-    public sealed class GroovySerializationVisitor : IGremlinQueryElementVisitor
+    public class GroovySerializationVisitor : IGremlinQueryElementVisitor
     {
         private enum State
         {
@@ -30,42 +30,42 @@ namespace ExRam.Gremlinq.Serialization
         }
 
         #region Visit
-        public void Visit(HasNotStep step)
+        public virtual void Visit(HasNotStep step)
         {
             Visit(step, "hasNot");
         }
 
-        public void Visit(HasStep step)
+        public virtual void Visit(HasStep step)
         {
             Visit(step, "has");
         }
         
-        public void Visit(RepeatStep step)
+        public virtual void Visit(RepeatStep step)
         {
             Visit(step, "repeat");
         }
 
-        public void Visit(SideEffectStep step)
+        public virtual void Visit(SideEffectStep step)
         {
             Visit(step, "sideEffect");
         }
 
-        public void Visit(ToTraversalStep step)
+        public virtual void Visit(ToTraversalStep step)
         {
             Visit(step, "to");
         }
 
-        public void Visit(UnionStep step)
+        public virtual void Visit(UnionStep step)
         {
             Visit(step, "union");
         }
 
-        public void Visit(UntilStep step)
+        public virtual void Visit(UntilStep step)
         {
             Visit(step, "until");
         }
 
-        public void Visit(ValuesStep step)
+        public virtual void Visit(ValuesStep step)
         {
             var numberOfIdSteps = step.Keys
                 .OfType<T>()
@@ -117,270 +117,270 @@ namespace ExRam.Gremlinq.Serialization
             }
         }
 
-        public void Visit(VerticesStep step)
+        public virtual void Visit(VerticesStep step)
         {
             Visit(step, "vertices");
         }
 
-        public void Visit(WhereTraversalStep step)
+        public virtual void Visit(WhereTraversalStep step)
         {
             Visit(step, "where");
         }
 
-        public void Visit(WithStrategiesStep step)
+        public virtual void Visit(WithStrategiesStep step)
         {
             Visit(step, "withStrategies");
         }
 
-        public void Visit(IdStep step)
+        public virtual void Visit(IdStep step)
         {
             Method("id");
         }
 
-        public void Visit(BarrierStep step)
+        public virtual void Visit(BarrierStep step)
         {
             Method("barrier");
         }
 
-        public void Visit(OrderStep step)
+        public virtual void Visit(OrderStep step)
         {
             Method("order");
         }
 
-        public void Visit(CreateStep step)
+        public virtual void Visit(CreateStep step)
         {
             Method("create");
         }
 
-        public void Visit(UnfoldStep step)
+        public virtual void Visit(UnfoldStep step)
         {
             Method("unfold");
         }
 
-        public void Visit(IdentityStep step)
+        public virtual void Visit(IdentityStep step)
         {
             Method("identity");
         }
 
-        public void Visit(EmitStep step)
+        public virtual void Visit(EmitStep step)
         {
             Method("emit");
         }
 
-        public void Visit(DedupStep step)
+        public virtual void Visit(DedupStep step)
         {
             Method("dedup");
         }
 
-        public void Visit(OutVStep step)
+        public virtual void Visit(OutVStep step)
         {
             Method("outV");
         }
 
-        public void Visit(OtherVStep step)
+        public virtual void Visit(OtherVStep step)
         {
             Method("otherV");
         }
 
-        public void Visit(InVStep step)
+        public virtual void Visit(InVStep step)
         {
             Method("inV");
         }
 
-        public void Visit(BothVStep step)
+        public virtual void Visit(BothVStep step)
         {
             Method("bothV");
         }
 
-        public void Visit(DropStep step)
+        public virtual void Visit(DropStep step)
         {
             Method("drop");
         }
 
-        public void Visit(FoldStep step)
+        public virtual void Visit(FoldStep step)
         {
             Method("fold");
         }
 
-        public void Visit(ExplainStep step)
+        public virtual void Visit(ExplainStep step)
         {
             Method("explain");
         }
 
-        public void Visit(ProfileStep step)
+        public virtual void Visit(ProfileStep step)
         {
             Method("profile");
         }
 
-        public void Visit(CountStep step)
+        public virtual void Visit(CountStep step)
         {
             Method("count");
         }
 
-        public void Visit(BuildStep step)
+        public virtual void Visit(BuildStep step)
         {
             Method("build");
         }
 
-        public void Visit(SumStep step)
+        public virtual void Visit(SumStep step)
         {
             Method("sum", step.Scope);
         }
 
-        public void Visit(TailStep step)
+        public virtual void Visit(TailStep step)
         {
             Method("tail", step.Count);
         }
 
-        public void Visit(SelectStep step)
+        public virtual void Visit(SelectStep step)
         {
             Method("select", step.StepLabels);
         }
 
-        public void Visit(AsStep step)
+        public virtual void Visit(AsStep step)
         {
             Method("as", step.StepLabel);
         }
 
-        public void Visit(FromLabelStep step)
+        public virtual void Visit(FromLabelStep step)
         {
             Method("from", step.StepLabel);
         }
 
-        public void Visit(ToLabelStep step)
+        public virtual void Visit(ToLabelStep step)
         {
             Method("to", step.StepLabel);
         }
 
-        public void Visit(TimesStep step)
+        public virtual void Visit(TimesStep step)
         {
             Method("times", step.Count);
         }
 
-        public void Visit(FilterStep step)
+        public virtual void Visit(FilterStep step)
         {
             Method("filter", step.Lambda);
         }
 
-        public void Visit(AggregateStep step)
+        public virtual void Visit(AggregateStep step)
         {
             Method("aggregate", step.StepLabel);
         }
 
-        public void Visit(WherePredicateStep step)
+        public virtual void Visit(WherePredicateStep step)
         {
             Method("where", step.Predicate);
         }
 
-        public void Visit(ByLambdaStep step)
+        public virtual void Visit(ByLambdaStep step)
         {
             Method("by", step.Lambda);
         }
 
-        public void Visit(SkipStep step)
+        public virtual void Visit(SkipStep step)
         {
             Method("skip", step.Count);
         }
 
-        public void Visit(MetaPropertyStep step)
+        public virtual void Visit(MetaPropertyStep step)
         {
             Method("property", step.Key, step.Value);
         }
 
-        public void Visit(RangeStep step)
+        public virtual void Visit(RangeStep step)
         {
             Method("range", step.Lower, step.Upper);
         }
 
-        public void Visit(ByMemberStep step)
+        public virtual void Visit(ByMemberStep step)
         {
             Method("by", step.Member.Name, step.Order);
         }
 
-        public void Visit(PropertiesStep step)
+        public virtual void Visit(PropertiesStep step)
         {
             Method("properties", step.Members.Select(x => x.Name).ToArray());
         }
 
-        public void Visit(MetaPropertiesStep step)
+        public virtual void Visit(MetaPropertiesStep step)
         {
             Method("properties", step.Keys);
         }
 
-        public void Visit(VStep step)
+        public virtual void Visit(VStep step)
         {
             Method("V", step.Ids);
         }
 
-        public void Visit(EStep step)
+        public virtual void Visit(EStep step)
         {
             Method("E", step.Ids);
         }
 
-        public void Visit(InjectStep step)
+        public virtual void Visit(InjectStep step)
         {
             Method("inject", step.Elements);
         }
 
-        public void Visit(StepLabel stepLabel)
+        public virtual void Visit(StepLabel stepLabel)
         {
             Constant(stepLabel);
         }
 
-        public void Visit(P.Eq p)
+        public virtual void Visit(P.Eq p)
         {
             Visit(p, "eq");
         }
 
-        public void Visit(P.Between p)
+        public virtual void Visit(P.Between p)
         {
             Identifier(nameof(P));
             Method("between", p.Lower, p.Upper);
         }
 
-        public void Visit(P.Gt p)
+        public virtual void Visit(P.Gt p)
         {
             Visit(p, "gt");
         }
 
-        public void Visit(P.Gte p)
+        public virtual void Visit(P.Gte p)
         {
             Visit(p, "gte");
         }
 
-        public void Visit(P.Lt p)
+        public virtual void Visit(P.Lt p)
         {
             Visit(p, "lt");
         }
 
-        public void Visit(P.Lte p)
+        public virtual void Visit(P.Lte p)
         {
             Visit(p, "lte");
         }
 
-        public void Visit(P.Neq p)
+        public virtual void Visit(P.Neq p)
         {
             Visit(p, "neq");
         }
 
-        public void Visit(P.Within p)
+        public virtual void Visit(P.Within p)
         {
             Identifier(nameof(P));
             Method("within", p.Arguments);
         }
 
-        public void Visit(Lambda lambda)
+        public virtual void Visit(Lambda lambda)
         {
             Lambda(lambda.LambdaString);
         }
 
-        public void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>
+        public virtual void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>
         {
             Identifier(typeof(TEnum).Name);
             Field(gremlinEnum.Name);
         }
 
-        public void Visit(HasValueStep step)
+        public virtual void Visit(HasValueStep step)
         {
             Method("hasValue",
                 step.Argument is P.Eq eq
@@ -388,27 +388,27 @@ namespace ExRam.Gremlinq.Serialization
                     : step.Argument);
         }
 
-        public void Visit(AddEStep step)
+        public virtual void Visit(AddEStep step)
         {
             Visit(step, "addE");
         }
 
-        public void Visit(AddVStep step)
+        public virtual void Visit(AddVStep step)
         {
             Visit(step, "addV");
         }
 
-        public void Visit(AndStep step)
+        public virtual void Visit(AndStep step)
         {
             VisitLogicalStep(step, "and");
         }
 
-        public void Visit(ByTraversalStep step)
+        public virtual void Visit(ByTraversalStep step)
         {
             Method("by", step.Traversal, step.Order);
         }
 
-        public void Visit(ChooseStep step)
+        public virtual void Visit(ChooseStep step)
         {
             step.ElseTraversal.Match(
                 elseTraversal => Method(
@@ -422,67 +422,67 @@ namespace ExRam.Gremlinq.Serialization
                     step.ThenTraversal));
         }
 
-        public void Visit(CoalesceStep step)
+        public virtual void Visit(CoalesceStep step)
         {
             Visit(step, "coalesce");
         }
 
-        public void Visit(BothStep step)
+        public virtual void Visit(BothStep step)
         {
             Visit(step, "both");
         }
 
-        public void Visit(BothEStep step)
+        public virtual void Visit(BothEStep step)
         {
             Visit(step, "bothE");
         }
 
-        public void Visit(InStep step)
+        public virtual void Visit(InStep step)
         {
             Visit(step, "in");
         }
 
-        public void Visit(InEStep step)
+        public virtual void Visit(InEStep step)
         {
             Visit(step, "inE");
         }
 
-        public void Visit(OutStep step)
+        public virtual void Visit(OutStep step)
         {
             Visit(step, "out");
         }
 
-        public void Visit(OutEStep step)
+        public virtual void Visit(OutEStep step)
         {
             Visit(step, "outE");
         }
 
-        public void Visit(HasLabelStep step)
+        public virtual void Visit(HasLabelStep step)
         {
             Visit(step, "hasLabel");
         }
 
-        public void Visit(DerivedLabelNamesStep step, string stepName)
+        public virtual void Visit(DerivedLabelNamesStep step, string stepName)
         {
             Method(stepName, step.Labels);
         }
 
-        public void Visit(EdgesStep step)
+        public virtual void Visit(EdgesStep step)
         {
             Visit(step, "edges");
         }
 
-        public void Visit(FromTraversalStep step)
+        public virtual void Visit(FromTraversalStep step)
         {
             Visit(step, "from");
         }
 
-        public void Visit(IdentifierStep step)
+        public virtual void Visit(IdentifierStep step)
         {
             Identifier(step.Identifier);
         }
 
-        public void Visit(IsStep step)
+        public virtual void Visit(IsStep step)
         {
             Method("is",
                 step.Argument is P.Eq eq
@@ -490,43 +490,43 @@ namespace ExRam.Gremlinq.Serialization
                     : step.Argument);
         }
 
-        public void Visit(LimitStep step)
+        public virtual void Visit(LimitStep step)
         {
             Method("limit", step.Limit);
         }
 
-        public void Visit(LocalStep step)
+        public virtual void Visit(LocalStep step)
         {
             Visit(step, "local");
         }
 
-        public void Visit(MapStep step)
+        public virtual void Visit(MapStep step)
         {
             Visit(step, "map");
         }
 
-        public void Visit(MatchStep step)
+        public virtual void Visit(MatchStep step)
         {
             Visit(step, "match");
         }
 
-        public void Visit(NotStep step)
+        public virtual void Visit(NotStep step)
         {
             if (step.Traversal.Steps.Count == 0 || !(step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep) || hasStep.Value != P.False)
                 Visit(step, "not");
         }
 
-        public void Visit(OptionalStep step)
+        public virtual void Visit(OptionalStep step)
         {
             Visit(step, "optional");
         }
 
-        public void Visit(OrStep step)
+        public virtual void Visit(OrStep step)
         {
             VisitLogicalStep(step, "or");
         }
 
-        public void Visit(PropertyStep step)
+        public virtual void Visit(PropertyStep step)
         {
             if (step.Value != null)
             {
@@ -547,7 +547,7 @@ namespace ExRam.Gremlinq.Serialization
             }
         }
 
-        public void Visit(IGremlinQuery query)
+        public virtual void Visit(IGremlinQuery query)
         {
             var steps = query.Steps.AsEnumerable();
             if (query.Steps.Count == 1 && query.Steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
@@ -625,7 +625,7 @@ namespace ExRam.Gremlinq.Serialization
             _state = _stateQueue.Pop();
         }
 
-        private void Visit(object parameter)
+        protected virtual void Visit(object parameter)
         {
             if (parameter is IGremlinQueryElement queryElement)
                 queryElement.Accept(this);
@@ -753,30 +753,30 @@ namespace ExRam.Gremlinq.Serialization
             return key;
         }
 
-        private void Visit(AddElementStep step, string stepName)
+        protected virtual void Visit(AddElementStep step, string stepName)
         {
             Method(stepName, step.Label);
         }
 
-        private void Visit(MultiTraversalArgumentStep step, string stepName)
+        protected virtual void Visit(MultiTraversalArgumentStep step, string stepName)
         {
             Method(stepName,
                 step.Traversals);
         }
 
-        private void Visit(SingleTraversalArgumentStep step, string stepName)
+        protected virtual void Visit(SingleTraversalArgumentStep step, string stepName)
         {
             Method(stepName, step.Traversal);
         }
 
-        private void VisitLogicalStep<TStep>(TStep step, string stepName) where TStep : LogicalStep
+        protected virtual void VisitLogicalStep<TStep>(TStep step, string stepName) where TStep : LogicalStep
         {
             Method(stepName,
                 step.Traversals
                     .SelectMany(FlattenTraversals<TStep>));
         }
 
-        private void Visit(HasStepBase step, string stepName)
+        protected virtual void Visit(HasStepBase step, string stepName)
         {
             if (step.Value == P.False)
                 new NotStep(GremlinQuery.Anonymous(GraphModel.Empty)).Accept(this);
@@ -818,7 +818,7 @@ namespace ExRam.Gremlinq.Serialization
             }
         }
 
-        private void Visit(P.SingleArgumentP p, string name)
+        protected virtual void Visit(P.SingleArgumentP p, string name)
         {
             Identifier(nameof(P));
             Method(name, p.Argument);
