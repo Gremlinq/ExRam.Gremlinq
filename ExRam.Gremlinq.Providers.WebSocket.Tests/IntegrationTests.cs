@@ -508,7 +508,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             await _g
                 .V<Language>()
-                .Where(t => t.Id == 1)
+                .Where(t => t.Id == (object)1)
                 .ToArray();
         }
 
@@ -519,7 +519,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == local)
+                .Where(t => t.Id == (object)local)
                 .ToArray();
         }
 
@@ -530,7 +530,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == local.Value)
+                .Where(t => t.Id == (object)local.Value)
                 .ToArray();
         }
 

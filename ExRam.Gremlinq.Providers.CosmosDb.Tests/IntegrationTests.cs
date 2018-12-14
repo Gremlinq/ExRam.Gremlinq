@@ -22,12 +22,14 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         [Fact]
         public async Task AddV()
         {
+            var id = Guid.NewGuid().ToString("N");
+
             var data = await _g
-                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .AddV(new Language { Id = id, IetfLanguageTag = "en" })
                 .ToArray();
 
             data.Should().HaveCount(1);
-            data[0].Id.Should().Be(1);
+            data[0].Id.Should().Be(id);
             data[0].IetfLanguageTag.Should().Be("en");
         }
 
@@ -39,6 +41,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
 
             data.Should().HaveCount(1);
+            data[0].Id.Should().NotBeNull();
             data[0].IetfLanguageTag.Should().Be("en");
         }
 
@@ -46,11 +49,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public async Task AddV_with_nulls()
         {
             var data = await _g
-                .AddV(new Language { Id = 2 })
+                .AddV(new Language())
                 .ToArray();
 
             data.Should().HaveCount(1);
-            data[0].Id.Should().Be(2);
+            data[0].Id.Should().NotBeNull();
             data[0].IetfLanguageTag.Should().BeNull();
         }
 
@@ -58,11 +61,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public async Task AddV_with_multi_property()
         {
             var data = await _g
-                .AddV(new User { Id = 3, PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .AddV(new User { PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .ToArray();
 
             data.Should().HaveCount(1);
-            data[0].Id.Should().Be(3);
             data[0].PhoneNumbers.Should().BeEquivalentTo("+4912345", "+4923456");
         }
 
@@ -70,11 +72,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public async Task AddV_with_Meta_without_properties()
         {
             var data = await _g
-                .AddV(new Country { Id = 4, Name = "GER" })
+                .AddV(new Country { Name = "GER" })
                 .ToArray();
 
             data.Should().HaveCount(1);
-            data[0].Id.Should().Be(4);
             data[0].Name.Value.Should().Be("GER");
         }
 
@@ -84,7 +85,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             var data = await _g
                 .AddV(new Country
                 {
-                    Id = 5,
                     Name = new Meta<string>("GER")
                     {
                         Properties =
@@ -97,14 +97,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
 
             data.Should().HaveCount(1);
-            data[0].Id.Should().Be(5);
         }
         
         [Fact]
         public async Task AddV_with_enum_property()
         {
             await _g
-                .AddV(new User { Id = 1, Gender = Gender.Female })
+                .AddV(new User { Gender = Gender.Female })
                 .ToArray();
         }
 
@@ -508,29 +507,29 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<Language>()
-                .Where(t => t.Id == 1)
+                .Where(t => t.Id == (object)"1")
                 .ToArray();
         }
 
         [Fact]
         public async Task Where_property_equals_local_string_constant()
         {
-            const int local = 1;
+            const string local = "1";
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == local)
+                .Where(t => t.Id == (object)local)
                 .ToArray();
         }
 
         [Fact]
         public async Task Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = 1 };
+            var local = new { Value = "1" };
 
             await _g
                 .V<Language>()
-                .Where(t => t.Id == local.Value)
+                .Where(t => t.Id == (object)local.Value)
                 .ToArray();
         }
 
@@ -901,7 +900,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Values<object>(x => x.Name, x => x.Id)
+                .Values(x => x.Name, x => x.Id)
                 .ToArray();
         }
 
@@ -910,7 +909,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
+                .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .ToArray();
         }
 

@@ -91,8 +91,8 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
-                .WithParameters("Language", 0, "IetfLanguageTag", "en");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c)")
+                .WithParameters("Language", "IetfLanguageTag", "en");
         }
 
         [Fact]
@@ -636,11 +636,22 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Where_property_equals_string_constant()
+        public void Where_Id_equals_constant()
         {
             g
                 .V<Language>()
-                .Where(t => t.Id == 1)
+                .Where(t => t.Id == (object)1)
+                .Should()
+                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
+                .WithParameters("Language", 1);
+        }
+
+        [Fact]
+        public void Where_converted_Id_equals_constant()
+        {
+            g
+                .V<Language>()
+                .Where(t => (int)t.Id == 1)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", 1);
@@ -653,7 +664,7 @@ namespace ExRam.Gremlinq.Tests
 
             g
                 .V<Language>()
-                .Where(t => t.Id == local)
+                .Where(t => t.Id == (object)local)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", local);
@@ -666,7 +677,7 @@ namespace ExRam.Gremlinq.Tests
 
             g
                 .V<Language>()
-                .Where(t => t.Id == local.Value)
+                .Where(t => t.Id == (object)local.Value)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", 1);
@@ -766,8 +777,8 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).property(T.id, _b).to(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", 0, "Age", "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
+                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -780,8 +791,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).as(_e).addV(_f).property(T.id, _b).property(Cardinality.single, _g, _h).addE(_i).property(T.id, _b).property(Cardinality.single, _j, _k).to(_e)")
-                .WithParameters("Language", 0, "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
+                .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
         }
 
         [Fact]
@@ -800,8 +811,8 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).property(T.id, _b).from(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", 0, "Age", "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
+                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -814,8 +825,8 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).as(_e).addV(_f).property(T.id, _b).property(Cardinality.single, _g, _h).addE(_i).property(T.id, _b).property(Cardinality.single, _j, _k).from(_e)")
-                .WithParameters("Country", 0, "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
+                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
         }
 
         [Fact]
@@ -828,7 +839,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .InV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).property(T.id, _b).to(__.V(_i).hasLabel(_j)).inV()");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
         }
 
         [Fact]
@@ -841,7 +852,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .OutV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _b).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).property(T.id, _b).to(__.V(_i).hasLabel(_j)).outV()");
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -1111,7 +1122,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Values<object>(x => x.Name, x => x.Id)
+                .Values(x => x.Name, x => x.Id)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).union(__.values(_b), __.id())")
                 .WithParameters("User", "Name");
@@ -1122,7 +1133,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
+                .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .Should()
                 .SerializeTo("g.V().hasLabel(_a).union(__.values(_b, _c), __.id())")
                 .WithParameters("User", "Name", "Gender");

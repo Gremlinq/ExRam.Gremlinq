@@ -287,7 +287,7 @@ namespace ExRam.Gremlinq.Tests
                 .First();
 
             user.Should().NotBeNull();
-            user.Id.Should().Be(13);
+            user.Id.Should().Be("13");
             user.Age.Should().Be(36);
             user.Gender.Should().Be(Gender.Female);
             user.PhoneNumbers.Should().Equal("+123456", "+234567");
