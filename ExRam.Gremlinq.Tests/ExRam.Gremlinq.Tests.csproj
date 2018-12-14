@@ -10,18 +10,20 @@
 
   <ItemGroup>
     <None Remove="Json\Properties.json" />
+    <None Remove="Json\Single_User_String_Id.json" />
     <None Remove="Json\VertexProperties.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)"/>
-    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)"/>
+    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)" />
+    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
     <EmbeddedResource Include="Json\Country_with_meta_properties.json" />
     <EmbeddedResource Include="Json\Properties.json" />
+    <EmbeddedResource Include="Json\Single_User_String_Id.json" />
     <EmbeddedResource Include="Json\VertexProperties.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />
     <EmbeddedResource Include="Json\Array_of_Languages.json" />

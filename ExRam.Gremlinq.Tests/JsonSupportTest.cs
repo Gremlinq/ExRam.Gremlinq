@@ -35,6 +35,7 @@ namespace ExRam.Gremlinq.Tests
         private static readonly string SingleUserJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleCompanyJson;
+        private static readonly string SingleUserStringId;
         private static readonly string SingleLanguageJson;
         private static readonly string SingleIsDescribedIn;
         private static readonly string SingleTimeFrameJson;
@@ -63,6 +64,7 @@ namespace ExRam.Gremlinq.Tests
             Graphson3TupleOfUserLanguageJson = GetJson("Graphson3_Tuple_of_User_Language");
             Graphson3ReferenceVertex = GetJson("Graphson3ReferenceVertex");
             CountryWithMetaProperties = GetJson("Country_with_meta_properties");
+            SingleUserStringId = GetJson("Single_User_String_Id");
         }
 
         [Fact]
@@ -265,6 +267,22 @@ namespace ExRam.Gremlinq.Tests
         {
             var user = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleUserJson))
+                .V<User>()
+                .First();
+
+            user.Should().NotBeNull();
+            user.Id.Should().Be(13);
+            user.Age.Should().Be(36);
+            user.Gender.Should().Be(Gender.Female);
+            user.PhoneNumbers.Should().Equal("+123456", "+234567");
+            user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
+        }
+
+        [Fact]
+        public async Task User_StringId()
+        {
+            var user = await g
+                .WithQueryProvider(new TestJsonQueryProvider(SingleUserStringId))
                 .V<User>()
                 .First();
 
