@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Serialization;
 using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.GremlinQuerySource;
@@ -79,7 +80,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithModel(GraphModel
                     .FromExecutingAssembly<User, Edge>(x => x.PhoneNumbers, x => x.Id))
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
-                .Invoking(x => x.Serialize())
+                .Invoking(x => new GroovyGremlinQuerySerializer().Serialize(x))
                 .Should()
                 .Throw<NotSupportedException>();
         }

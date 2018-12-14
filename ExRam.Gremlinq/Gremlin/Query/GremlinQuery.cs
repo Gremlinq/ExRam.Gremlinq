@@ -1237,16 +1237,6 @@ namespace ExRam.Gremlinq
             return new GremlinQueryImpl<TElement, Unit, Unit>(model, queryProvider,  ImmutableList<Step>.Empty.Add(new IdentifierStep(graphName)), ImmutableDictionary<StepLabel, string>.Empty);
         }
         
-        public static (string queryString, IDictionary<string, object> parameters) Serialize(this IGremlinQuery query)
-        {
-            var groovyBuilder = GroovySerializationVisitor.Create(query.Model);
-
-            groovyBuilder
-                .Visit(query);
-               
-            return (groovyBuilder.Builder.ToString(), groovyBuilder.GetVariables());
-        }
-
         public static Task<TElement> First<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
         {
             return AsyncEnumerable.First(

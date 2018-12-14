@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ExRam.Gremlinq.Serialization;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 
@@ -8,6 +9,8 @@ namespace ExRam.Gremlinq.Tests
     {
         public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
         {
+            private static readonly GroovyGremlinQuerySerializer Serializer = new GroovyGremlinQuerySerializer();
+
             public GremlinQueryAssertions(IGremlinQuery query)
             {
                 Subject = query;
@@ -20,7 +23,7 @@ namespace ExRam.Gremlinq.Tests
 
             public SerializedGremlinQueryAssertions SerializeTo(string serialization)
             {
-                var tuple = Subject.Serialize();
+                var tuple = Serializer.Serialize(Subject);
 
                 tuple.queryString
                     .Should()

@@ -17,25 +17,11 @@ namespace ExRam.Gremlinq.Serialization
             InMethodAfterFirstParameter
         }
 
-        private State _state;
+        private State _state = State.Idle;
 
-        private readonly Dictionary<object, string> _variables;
         private readonly Stack<State> _stateQueue = new Stack<State>();
-        private readonly Dictionary<StepLabel, string> _stepLabelMappings;
-
-        private GroovySerializationVisitor(State state, Dictionary<object, string> variables, Dictionary<StepLabel, string> stepLabelMappings, StringBuilder stringBuilder)
-        {
-            _state = state;
-            _variables = variables;
-            _stepLabelMappings = stepLabelMappings;
-
-            Builder = stringBuilder;
-        }
-
-        public static GroovySerializationVisitor Create(IGraphModel model)
-        {
-            return new GroovySerializationVisitor(State.Idle, new Dictionary<object, string>(), new Dictionary<StepLabel, string>(), new StringBuilder());
-        }
+        private readonly Dictionary<object, string> _variables = new Dictionary<object, string>();
+        private readonly Dictionary<StepLabel, string> _stepLabelMappings = new Dictionary<StepLabel, string>();
 
         public IDictionary<string, object> GetVariables()
         {
@@ -853,7 +839,7 @@ namespace ExRam.Gremlinq.Serialization
             else
                 yield return query;
         }
-        
-        public StringBuilder Builder { get; }
+
+        public StringBuilder Builder { get; } = new StringBuilder();
     }
 }

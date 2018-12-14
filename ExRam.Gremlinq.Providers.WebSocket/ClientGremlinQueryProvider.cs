@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExRam.Gremlinq.Serialization;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -11,11 +12,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
+        private readonly IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> _serializer;
 
-        public ClientGremlinQueryProvider(IGremlinClient client, ILogger logger = null)
+        public ClientGremlinQueryProvider(IGremlinClient client, IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer, ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
+            _serializer = serializer;
         }
 
         public void Dispose()
@@ -28,8 +31,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             if (typeof(TElement) != typeof(JToken))
                 throw new NotSupportedException();
 
-            var serialized = query
-                .Serialize();
+            var serialized = _serializer.Serialize(query);
 
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
 

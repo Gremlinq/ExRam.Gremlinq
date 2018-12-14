@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Serialization;
 using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq
@@ -18,7 +19,8 @@ namespace ExRam.Gremlinq
                 new ClientGremlinQueryProvider(
                     new GremlinClientEx(
                         server,
-                        graphsonVersion)));
+                        graphsonVersion),
+                    new GroovyGremlinQuerySerializer()));
         }
     }
 }
