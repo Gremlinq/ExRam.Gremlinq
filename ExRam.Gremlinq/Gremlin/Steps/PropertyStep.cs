@@ -7,15 +7,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class PropertyStep : Step
     {
-        public PropertyStep(IGraphModel model, PropertyInfo property, object value) : this(property.PropertyType, model.GetIdentifier(property.Name), value)
-        {
-        }
-
-        public PropertyStep(IGraphModel model, MemberExpression memberExpression, object value) : this(memberExpression.Type, model.GetIdentifier(memberExpression.Member.Name), value)
-        {
-        }
-
-        private PropertyStep(Type type, object key, object value)
+        public PropertyStep(Type type, object key, object value)
         {
             Key = key;
             Type = type;

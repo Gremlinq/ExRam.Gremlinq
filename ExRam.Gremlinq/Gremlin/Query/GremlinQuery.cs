@@ -565,7 +565,7 @@ namespace ExRam.Gremlinq
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                return AddStep(new PropertyStep(Model, memberExpression, value));
+                return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(memberExpression.Member.Name), value));
             }
 
             throw new NotSupportedException();
@@ -1155,7 +1155,7 @@ namespace ExRam.Gremlinq
                         .GetProperties()
                         .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
                         .ToArray())
-                .Select(property => new PropertyStep(Model, property, property.GetValue(element)));
+                .Select(property => new PropertyStep(property.PropertyType, Model.GetIdentifier(property.Name), property.GetValue(element)));
 
             var ret = this;
 
