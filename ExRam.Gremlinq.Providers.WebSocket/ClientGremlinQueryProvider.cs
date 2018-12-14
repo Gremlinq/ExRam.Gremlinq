@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -13,12 +12,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
 
-        public ClientGremlinQueryProvider(IGremlinClient client) : this(client, NullLogger.Instance)
-        {
-
-        }
-
-        public ClientGremlinQueryProvider(IGremlinClient client, ILogger logger)
+        public ClientGremlinQueryProvider(IGremlinClient client, ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
@@ -37,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             var serialized = query
                 .Serialize();
 
-            _logger.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
+            _logger?.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
 
             return _gremlinClient
                 .SubmitAsync<JToken>(serialized.queryString, new Dictionary<string, object>(serialized.parameters))
