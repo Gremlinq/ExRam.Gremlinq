@@ -182,9 +182,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            var user = await AsyncEnumerable.First(g
+            var user = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleCompanyJson))
-                .V<Company>());
+                .V<Company>()
+                .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(8);
@@ -194,9 +195,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_unknown_type()
         {
-            var language = await AsyncEnumerable.First(g
+            var language = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
-                .V<object>());
+                .V<object>()
+                .First();
 
             language.Should().NotBeNull();
             language.Should().BeOfType<Language>();
@@ -207,9 +209,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_strongly_typed()
         {
-            var language = await AsyncEnumerable.First(g
+            var language = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
-                .V<Language>());
+                .V<Language>()
+                .First();
 
             language.Should().NotBeNull();
             language.Id.Should().Be(10);
@@ -219,9 +222,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_to_generic_vertex()
         {
-            var language = await AsyncEnumerable.First(g
+            var language = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
-                .V<Vertex>());
+                .V<Vertex>()
+                .First();
 
             language.Should().NotBeNull();
             language.Id.Should().Be(10);
@@ -232,9 +236,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_strongly_typed()
         {
-            var user = await AsyncEnumerable.First(g
+            var user = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleUserJson))
-                .V<User>());
+                .V<User>()
+                .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(13);
@@ -247,9 +252,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_lowercase_strongly_typed()
         {
-            var user = await AsyncEnumerable.First(g
+            var user = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleUserLowercasePropertiesJson))
-                .V<User>());
+                .V<User>()
+                .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(14);
@@ -261,9 +267,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task User_without_PhoneNumbers_strongly_typed()
         {
-            var user = await AsyncEnumerable.First(g
+            var user = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleUserWithoutPhoneNumbersJson))
-                .V<User>());
+                .V<User>()
+                .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(15);
@@ -275,9 +282,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            var timeFrame = await AsyncEnumerable.First(g
+            var timeFrame = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleTimeFrameJson))
-                .V<TimeFrame>());
+                .V<TimeFrame>()
+                .First();
 
             timeFrame.Should().NotBeNull();
             timeFrame.Id.Should().Be(11);
@@ -288,9 +296,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
-            var timeFrame = await AsyncEnumerable.First(g
+            var timeFrame = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleTimeFrameWithNumbersJson))
-                .V<TimeFrame>());
+                .V<TimeFrame>()
+                .First();
 
             timeFrame.Should().NotBeNull();
             timeFrame.Id.Should().Be(12);
@@ -301,9 +310,9 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            var language = await AsyncEnumerable.First(g
+            var language = await g
                 .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
-                .V()) as Language;
+                .V().First() as Language;
 
             language.Should().NotBeNull();
             language?.Id.Should().Be(10);
@@ -313,10 +322,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple()
         {
-            var tuple = await AsyncEnumerable.First(g
+            var tuple = await g
                 .WithQueryProvider(new TestJsonQueryProvider(TupleOfUserLanguageJson))
                 .V()
-                .Cast<(User, Language)>());
+                .Cast<(User, Language)>()
+                .First();
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Name.Should().Be("Name of some base entity");
@@ -329,10 +339,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Tuple_vertex_vertex()
         {
-            var tuple = await AsyncEnumerable.First(g
+            var tuple = await g
                 .WithQueryProvider(new TestJsonQueryProvider(TupleOfUserLanguageJson))
                 .V()
-                .Cast<(Vertex, Vertex)>());
+                .Cast<(Vertex, Vertex)>()
+                .First();
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Should().BeOfType<User>();
@@ -347,10 +358,11 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Graphson3_Tuple()
         {
-            var tuple = await AsyncEnumerable.First(g
+            var tuple = await g
                 .WithQueryProvider(new TestJsonQueryProvider(Graphson3TupleOfUserLanguageJson))
                 .V()
-                .Cast<(User, Language)>());
+                .Cast<(User, Language)>()
+                .First();
 
             tuple.Item1.Id.Should().Be(4);
             tuple.Item1.Name.Should().Be("Name of some base entity");
@@ -363,9 +375,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Array()
         {
-            var languages = await AsyncEnumerable.First(g
+            var languages = await g
                 .WithQueryProvider(new TestJsonQueryProvider(ArrayOfLanguages))
-                .V<Language[]>());
+                .V<Language[]>()
+                .First();
 
             languages.Should().NotBeNull();
             languages.Should().HaveCount(2);
@@ -378,9 +391,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Nested_Array()
         {
-            var languages = await AsyncEnumerable.First(g
+            var languages = await g
                 .WithQueryProvider(new TestJsonQueryProvider(NestedArrayOfLanguagesJson))
-                .V<Language[][]>());
+                .V<Language[][]>()
+                .First();
 
             languages.Should().NotBeNull();
             languages.Should().HaveCount(2);
@@ -399,9 +413,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Scalar()
         {
-            var value = await AsyncEnumerable.First(g
+            var value = await g
                 .WithQueryProvider(new TestJsonQueryProvider("[ 36 ]"))
-                .V<int>());
+                .V<int>()
+                .First();
 
             value.Should().Be(36);
         }
@@ -409,9 +424,10 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task Meta_Properties()
         {
-            var country = await AsyncEnumerable.First(g
+            var country = await g
                 .WithQueryProvider(new TestJsonQueryProvider(CountryWithMetaProperties))
-                .V<Country>());
+                .V<Country>()
+                .First();
 
             country.Name.Value.Should().Be("GER");
             country.Name.Properties["de"].Should().Be("Deutschland");
