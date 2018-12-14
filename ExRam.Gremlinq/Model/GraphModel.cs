@@ -87,10 +87,9 @@ namespace ExRam.Gremlinq
             {
                 return _derivedLabels.GetOrAdd(
                     elementType,
-                    closureType1 => _labels.Keys
-                        .Where(kvp => !kvp.GetTypeInfo().IsAbstract && closureType1.IsAssignableFrom(kvp))
-                        .Select(closureType2 => TryGetLabel(closureType2)
-                            .IfNone(() => throw new InvalidOperationException()))
+                    closureType1 => _labels
+                        .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType1.IsAssignableFrom(kvp.Key))
+                        .Select(kvp => kvp.Value)
                         .OrderBy(x => x)
                         .ToArray());
             }
