@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.GraphElements;
 using ExRam.Gremlinq.Tests;
 using FluentAssertions;
 using Xunit;
@@ -76,13 +78,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             data[0].Name.Value.Should().Be("GER");
         }
 
-        /*[Fact]
-        public void AddV_with_Meta_with_properties()
+        [Fact]
+        public async Task AddV_with_Meta_with_properties()
         {
-            _g
+            var data = await _g
                 .AddV(new Country
                 {
-                    Id = "id",
+                    Id = 5,
                     Name = new Meta<string>("GER")
                     {
                         Properties =
@@ -92,621 +94,510 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                         }
                     }
                 })
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c, _d, _e, _f, _g).property(T.id, _h)")
-                .WithParameters("Country", "Name", "GER", "de", "Deutschland", "en", "Germany", "id");
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Id.Should().Be(5);
         }
         
         [Fact]
-        public void AddV_with_enum_property()
+        public async Task AddV_with_enum_property()
         {
-            _g
-                .AddV(new User { Id = "id", Gender = Gender.Female })
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(T.id, _h)")
-                .WithParameters("User", "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue, "id");
+            await _g
+                .AddV(new User { Id = 1, Gender = Gender.Female })
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_contains_element()
+        public async Task Where_property_array_contains_element()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "PhoneNumbers", "+4912345");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_does_not_contain_element()
+        public async Task Where_property_array_does_not_contain_element()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, _c))")
-                .WithParameters("User", "PhoneNumbers", "+4912345");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_is_not_empty()
+        public async Task Where_property_array_is_not_empty()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Any())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "PhoneNumbers");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_is_empty()
+        public async Task Where_property_array_is_empty()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Any())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b))")
-                .WithParameters("User", "PhoneNumbers");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_intersects_aray()
+        public async Task Where_property_array_intersects_aray()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_does_not_intersect_array()
+        public async Task Where_property_array_does_not_intersect_array()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_intersects_empty_array()
+        public async Task Where_property_array_intersects_empty_array()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new string[0]))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_array_does_not_intersect_empty_array()
+        public async Task Where_property_array_does_not_intersect_empty_array()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_contained_in_array()
+        public async Task Where_property_is_contained_in_array()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_contained_in_enumerable()
+        public async Task Where_property_is_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            _g
+            await _g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_contained_in_empty_enumerable()
+        public async Task Where_property_is_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
-            _g
+            await _g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_not_contained_in_array()
+        public async Task Where_property_is_not_contained_in_array()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .ToArray();
         }
         
         [Fact]
-        public void Where_property_is_not_contained_in_enumerable()
+        public async Task Where_property_is_not_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
 
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_not_contained_in_empty_enumerable()
+        public async Task Where_property_is_not_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
-            _g
+            await _g
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_prefix_of_constant()
+        public async Task Where_property_is_prefix_of_constant()
         {
-            _g
+            await _g
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_prefix_of_empty_string()
+        public async Task Where_property_is_prefix_of_empty_string()
         {
-            _g
+            await _g
                 .V<CountryCallingCode>()
                 .Where(c => "".StartsWith(c.Prefix))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c))")
-                .WithParameters("CountryCallingCode", "Prefix", "");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_prefix_of_variable()
+        public async Task Where_property_is_prefix_of_variable()
         {
             const string str = "+49123";
 
-            _g
+            await _g
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_prefix_of_expression()
+        public async Task Where_property_is_prefix_of_expression()
         {
             const string str = "+49123xxx";
 
-            _g
+            await _g
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_starts_with_constant()
+        public async Task Where_property_starts_with_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.between(_c, _d))")
-                .WithParameters("User", "PhoneNumber", "+49123", "+49124");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_starts_with_empty_string()
+        public async Task Where_property_starts_with_empty_string()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "PhoneNumber");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_disjunction()
+        public async Task Where_disjunction()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d))")
-                .WithParameters("User", "Age", 36, 42);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_disjunction_with_different_fields()
+        public async Task Where_disjunction_with_different_fields()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
-                .WithParameters("User", "Name", "Some name", "Age", 42);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_conjunction()
+        public async Task Where_conjunction()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d))")
-                .WithParameters("User", "Age", 36, 42);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_complex_logical_expression()
+        public async Task Where_complex_logical_expression()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.or(__.has(_d, _e), __.has(_d, _f)))")
-                .WithParameters("User", "Name", "Some name", "Age", 42, 99);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_complex_logical_expression_with_null()
+        public async Task Where_complex_logical_expression_with_null()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.hasNot(_b), __.or(__.has(_c, _d), __.has(_c, _e)))")
-                .WithParameters("User", "Name", "Age", 42, 99);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_has_conjunction_of_three()
+        public async Task Where_has_conjunction_of_three()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
-                .WithParameters("User", "Age", 36, 42, 99);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_has_disjunction_of_three()
+        public async Task Where_has_disjunction_of_three()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
-                .WithParameters("User", "Age", 36, 42, 99);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_conjunction_with_different_fields()
+        public async Task Where_conjunction_with_different_fields()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_d, _e))")
-                .WithParameters("User", "Name", "Some name", "Age", 42);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_constant()
+        public async Task Where_property_equals_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_expression()
+        public async Task Where_property_equals_expression()
         {
             const int i = 18;
 
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age == i + i)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_converted_expression()
+        public async Task Where_property_equals_converted_expression()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_not_equals_constant()
+        public async Task Where_property_not_equals_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age != 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.neq(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_not_present()
+        public async Task Where_property_is_not_present()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name == null)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).hasNot(_b)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_present()
+        public async Task Where_property_is_present()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Name != null)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_lower_than_constant()
+        public async Task Where_property_is_lower_than_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age < 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.lt(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_lower_or_equal_than_constant()
+        public async Task Where_property_is_lower_or_equal_than_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age <= 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.lte(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_bool_property_explicit_comparison1()
+        public async Task Where_bool_property_explicit_comparison1()
         {
-            _g
+            await _g
                 .V<TimeFrame>()
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("TimeFrame", "Enabled", true);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_bool_property_explicit_comparison2()
+        public async Task Where_bool_property_explicit_comparison2()
         {
-            _g
+            await _g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("TimeFrame", "Enabled", false);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_bool_property_implicit_comparison1()
+        public async Task Where_bool_property_implicit_comparison1()
         {
-            _g
+            await _g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("TimeFrame", "Enabled", true);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_bool_property_implicit_comparison2()
+        public async Task Where_bool_property_implicit_comparison2()
         {
-            _g
+            await _g
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, _c))")
-                .WithParameters("TimeFrame", "Enabled", true);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_greater_than_constant()
+        public async Task Where_property_is_greater_than_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age > 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.gt(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_is_greater_or_equal_than_constant()
+        public async Task Where_property_is_greater_or_equal_than_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(t => t.Age >= 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.gte(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_string_constant()
+        public async Task Where_property_equals_string_constant()
         {
-            _g
+            await _g
                 .V<Language>()
-                .Where(t => t.Id == "languageId")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .Where(t => t.Id == 1)
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_local_string_constant()
+        public async Task Where_property_equals_local_string_constant()
         {
-            const string local = "languageId";
+            const int local = 1;
 
-            _g
+            await _g
                 .V<Language>()
                 .Where(t => t.Id == local)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_value_of_anonymous_object()
+        public async Task Where_property_equals_value_of_anonymous_object()
         {
-            var local = new { Value = "languageId" };
+            var local = new { Value = 1 };
 
-            _g
+            await _g
                 .V<Language>()
                 .Where(t => t.Id == local.Value)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
-                .WithParameters("Language", "languageId");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_source_expression_on_both_sides()
-        {
-            _g
-                .V<Language>()
-                .Invoking(query => query.Where(t => t.Id == t.IetfLanguageTag))
-                .Should()
-                .Throw<InvalidOperationException>();
-        }
-
-        [Fact]
-        public void Where_current_element_equals_stepLabel()
+        public async Task Where_current_element_equals_stepLabel()
         {
             var l = new StepLabel<Language>();
 
-            _g
+            await _g
                 .V<Language>()
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2 == l)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(P.eq(_b))")
-                .WithParameters("Language", "l1");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_equals_stepLabel()
+        public async Task Where_property_equals_stepLabel()
         {
             var l = new StepLabel<string>();
 
-            _g
+            await _g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
                 .As(l)
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(P.eq(_c)))")
-                .WithParameters("Language", "IetfLanguageTag", "l1");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_scalar_element_equals_constant()
+        public async Task Where_scalar_element_equals_constant()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).is(_c)")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Where_traversal()
+        public async Task Where_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(_ => _.Out<LivesIn>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).where(__.out(_b))")
-                .WithParameters("User", "LivesIn");
+                .ToArray();
         }
 
         [Fact]
-        public void Where_property_traversal()
+        public async Task Where_property_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .Where(
                     x => x.Age,
                     _ => _
                         .Inject(36))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, __.inject(_c))")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_to_traversal()
+        public async Task AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
 
-            _g
+            await _g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -716,31 +607,27 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .To(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_to_StepLabel()
+        public async Task AddE_to_StepLabel()
         {
-            _g
+            await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
-                .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_from_traversal()
+        public async Task AddE_from_traversal()
         {
             var now = DateTimeOffset.UtcNow;
 
-            _g
+            await _g
                 .AddV(new User
                 {
                     Name = "Bob",
@@ -750,70 +637,62 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .From(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_from_StepLabel()
+        public async Task AddE_from_StepLabel()
         {
-            _g
+            await _g
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
-                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_InV()
+        public async Task AddE_InV()
         {
-            _g
+            await _g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
                 .InV()
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
+                .ToArray();
         }
 
         [Fact]
-        public void AddE_OutV()
+        public async Task AddE_OutV()
         {
-            _g
+            await _g
                 .AddV<User>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
                 .OutV()
-                .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+                .ToArray();
         }
 
         [Fact]
-        public void And()
+        public async Task And()
         {
-            _g
+            await _g
                 .V<User>()
                 .And(
                     __ => __
                         .InE<Knows>(),
                     __ => __
                         .OutE<LivesIn>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .ToArray();
         }
 
         [Fact]
-        public void And_nested()
+        public async Task And_nested()
         {
-            _g
+            await _g
                 .V<User>()
                 .And(
                     __ => __
@@ -824,30 +703,26 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                                 .InE<Knows>(),
                             ___ => ___
                                 .OutE<Knows>()))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
-                .WithParameters("User", "LivesIn", "Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Or()
+        public async Task Or()
         {
-            _g
+            await _g
                 .V<User>()
                 .Or(
                     __ => __
                         .InE<Knows>(),
                     __ => __
                         .OutE<LivesIn>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .ToArray();
         }
 
         [Fact]
-        public void Or_nested()
+        public async Task Or_nested()
         {
-            _g
+            await _g
                 .V<User>()
                 .Or(
                     __ => __
@@ -858,521 +733,415 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                                 .InE<Knows>(),
                             ___ => ___
                                 .OutE<Knows>()))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
-                .WithParameters("User", "LivesIn", "Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Drop()
+        public async Task Drop()
         {
-            _g
+            await _g
                 .V<User>()
                 .Drop()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).drop()")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void FilterWithLambda()
+        public async Task FilterWithLambda()
         {
-            _g
+            await _g
                 .V<User>()
                 .Filter("it.property('str').value().length() == 2")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void Out()
+        public async Task Out()
         {
-            _g
+            await _g
                 .V<User>()
                 .Out<Knows>()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).out(_b)")
-                .WithParameters("User", "Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Out_does_not_include_abstract_edge()
+        public async Task Out_does_not_include_abstract_edge()
         {
-            _g
+            await _g
                 .V<User>()
                 .Out<Edge>()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).out(_b, _c, _d, _e, _f)")
-                .WithParameters("User", "IsDescribedIn", "Knows", "LivesIn", "Speaks", "WorksFor");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_member()
+        public async Task OrderBy_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(x => x.Name)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_traversal()
+        public async Task OrderBy_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_lambda()
+        public async Task OrderBy_lambda()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy("it.property('str').value().length()")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderByDescending_member()
+        public async Task OrderByDescending_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderByDescending(x => x.Name)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.decr)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderByDescending_traversal()
+        public async Task OrderByDescending_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
         
         [Fact]
-        public void OrderBy_ThenBy_member()
+        public async Task OrderBy_ThenBy_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
-                .WithParameters("User", "Name", "Age");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_ThenBy_traversal()
+        public async Task OrderBy_ThenBy_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
-                .WithParameters("User", "Name", "Gender");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_ThenBy_lambda()
+        public async Task OrderBy_ThenBy_lambda()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_ThenByDescending_member()
+        public async Task OrderBy_ThenByDescending_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
-                .WithParameters("User", "Name", "Age");
+                .ToArray();
         }
 
         [Fact]
-        public void OrderBy_ThenByDescending_traversal()
+        public async Task OrderBy_ThenByDescending_traversal()
         {
-            _g
+            await _g
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
-                .WithParameters("User", "Name", "Gender");
+                .ToArray();
         }
 
         [Fact]
-        public void SumLocal()
+        public async Task SumLocal()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => x.Age)
                 .SumLocal()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
-                .WithParameters("User", "Age");
+                .ToArray();
         }
 
         [Fact]
-        public void SumGlobal()
+        public async Task SumGlobal()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => x.Age)
                 .SumGlobal()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).sum(Scope.global)")
-                .WithParameters("User", "Age");
+                .ToArray();
         }
 
         [Fact]
-        public void Values_one_member()
+        public async Task Values_one_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => x.Name)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void Values_two_members()
+        public async Task Values_two_members()
         {
-            _g
+            await _g
                 .V<User>()
-                .Values(x => x.Name, x => x.Id)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.values(_b), __.id())")
-                .WithParameters("User", "Name");
+                .Values<object>(x => x.Name, x => x.Id)
+                .ToArray();
         }
 
         [Fact]
-        public void Values_three_members()
+        public async Task Values_three_members()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => (object)x.Name, x => x.Gender, x => x.Id)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.values(_b, _c), __.id())")
-                .WithParameters("User", "Name", "Gender");
+                .ToArray();
         }
 
         [Fact]
-        public void Values_id_member()
+        public async Task Values_id_member()
         {
-            _g
+            await _g
                 .V<User>()
                 .Values(x => x.Id)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).id()")
-                .WithParameters("User");
+                .ToArray();
         }
 
         [Fact]
-        public void V_untyped()
+        public async Task V_untyped()
         {
-            _g
+            await _g
                 .V()
-                .Should()
-                .SerializeTo("g.V()")
-                .WithoutParameters();
+                .ToArray();
         }
 
         [Fact]
-        public void OfType_abstract()
+        public async Task OfType_abstract()
         {
-            _g
+            await _g
                 .V()
                 .OfType<Authority>()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a, _b)")
-                .WithParameters("Company", "User");
+                .ToArray();
         }
 
         [Fact]
-        public void Repeat_Out()
+        public async Task Repeat_Out()
         {
-            _g
+            await _g
                 .V<User>()
                 .Repeat(__ => __
                     .Out<Knows>()
                     .OfType<User>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
-                .WithParameters("User", "Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Union()
+        public async Task Union()
         {
-            _g
+            await _g
                 .V<User>()
                 .Union(
                     __ => __.Out<Knows>(),
                     __ => __.Out<LivesIn>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .ToArray();
         }
 
         [Fact]
-        public void Optional()
+        public async Task Optional()
         {
-            _g
+            await _g
                 .V()
                 .Optional(
                     __ => __.Out<Knows>())
-                .Should()
-                .SerializeTo("g.V().optional(__.out(_a))")
-                .WithParameters("Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Not1()
+        public async Task Not1()
         {
-            _g
+            await _g
                 .V()
                 .Not(__ => __.Out<Knows>())
-                .Should()
-                .SerializeTo("g.V().not(__.out(_a))")
-                .WithParameters("Knows");
+                .ToArray();
         }
 
         [Fact]
-        public void Not2()
+        public async Task Not2()
         {
-            _g
+            await _g
                 .V()
                 .Not(__ => __.OfType<Language>())
-                .Should()
-                .SerializeTo("g.V().not(__.hasLabel(_a))")
-                .WithParameters("Language");
+                .ToArray();
         }
 
         [Fact]
-        public void Not3()
+        public async Task Not3()
         {
-            _g
+            await _g
                 .V()
                 .Not(__ => __.OfType<Authority>())
-                .Should()
-                .SerializeTo("g.V().not(__.hasLabel(_a, _b))")
-                .WithParameters("Company", "User");
+                .ToArray();
         }
 
         [Fact]
-        public void As_explicit_label()
+        public async Task As_explicit_label()
         {
-            _g
+            await _g
                 .V<User>()
                 .As(new StepLabel<User>())
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b)")
-                .WithParameters("User", "l1");
+                .ToArray();
         }
 
         [Fact]
-        public void Select()
+        public async Task Select()
         {
             var stepLabel = new StepLabel<User>();
 
-            _g
+            await _g
                 .V<User>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).select(_b)")
-                .WithParameters("User", "l1");
+                .ToArray();
         }
 
         [Fact]
-        public void As_inlined_nested_Select()
+        public async Task As_inlined_nested_Select()
         {
-            _g
+            await _g
                 .V<User>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
-                .WithParameters("User", "Item1", "Item2");
+                .ToArray();
         }
 
         [Fact]
-        public void Property_single()
+        public async Task Property_single()
         {
-            _g
+            await _g
                 .V<User>()
                 .Property(x => x.Age, 36)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
-                .WithParameters("User", "Age", 36);
+                .ToArray();
         }
 
         [Fact]
-        public void Property_list()
+        public async Task Property_list()
         {
-            _g
+            await _g
                 .V<User>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
-                .Should()
-                .SerializeTo("g.V(_a).hasLabel(_b).property(Cardinality.list, _c, _d)")
-                .WithParameters("id", "User", "PhoneNumbers", "+4912345");
+                .ToArray();
         }
 
         [Fact]
-        public void Coalesce()
+        public async Task Coalesce()
         {
-            _g
+            await _g
                 .V()
                 .Coalesce(
                      _ => _
                         .Identity())
-                .Should()
-                .SerializeTo("g.V().coalesce(__.identity())")
-                .WithoutParameters();
+                .ToArray();
         }
 
         [Fact]
-        public void Properties()
+        public async Task Properties()
         {
-            _g
+            await _g
                 .V()
                 .Properties()
-                .Should()
-                .SerializeTo("g.V().properties()")
-                .WithoutParameters();
+                .ToArray();
         }
 
         [Fact]
-        public void Properties_of_member()
+        public async Task Properties_of_member()
         {
-            _g
+            await _g
                 .V<Country>()
                 .Properties(x => x.Name)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b)")
-                .WithParameters("Country", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void Properties_Where()
+        public async Task Properties_Where()
         {
-            _g
+            await _g
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Value == "de")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
-                .WithParameters("Country", "Languages", "de");
+                .ToArray();
         }
 
         [Fact]
-        public void Properties_Where_reversed()
+        public async Task Properties_Where_reversed()
         {
-            _g
+            await _g
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => "de" == x.Value)
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
-                .WithParameters("Country", "Languages", "de");
+                .ToArray();
         }
 
         [Fact]
-        public void Meta_Properties()
+        public async Task Meta_Properties()
         {
-            _g
+            await _g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties()
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).properties()")
-                .WithParameters("Country", "Name");
+                .ToArray();
         }
 
         [Fact]
-        public void Meta_Properties_with_key()
+        public async Task Meta_Properties_with_key()
         {
-            _g
+            await _g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties("metaKey")
-                .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).properties(_c)")
-                .WithParameters("Country", "Name", "metaKey");
+                .ToArray();
         }
 
         [Fact]
-        public void Limit_overflow()
+        public async Task Inject()
         {
-            g
-                .V()
-                .Invoking(_ => _.Limit((long)int.MaxValue + 1))
-                .Should()
-                .Throw<ArgumentException>();
-        }
-
-        [Fact]
-        public void Anonymous()
-        {
-            GremlinQuery.Anonymous
-                .Should()
-                .SerializeTo("__.identity()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Inject()
-        {
-            _g
-                .Cast<int>()
+            await _g
                 .Inject(36, 37, 38)
-                .Should()
-                .SerializeTo("g.inject(_a, _b, _c)")
-                .WithParameters(36, 37, 38);
+                .ToArray();
         }
 
         [Fact]
-        public void WithSubgraphStrategy()
+        public async Task WithSubgraphStrategy()
         {
-            _g
-                .WithSubgraphStrategy(_ => _.OfType<User>(), _ => _)
-                .Should()
-                .SerializeTo("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create())")
-                .WithParameters("User");
+            await _g
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
+                .V()
+                .ToArray();
         }
 
         [Fact]
-        public void WithSubgraphStrategy_empty()
+        public async Task WithSubgraphStrategy_empty()
         {
-            _g
-                .WithSubgraphStrategy(_ => _, _ => _)
-                .Should()
-                .SerializeTo("g")
-                .WithoutParameters();
-        }*/
+            await _g
+                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
+                .V()
+                .ToArray();
+        }
     }
 }
