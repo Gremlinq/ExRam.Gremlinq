@@ -62,6 +62,17 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void AddV_without_model()
+        {
+            g
+                .WithModel(GraphModel.Empty)
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e)")
+                .WithParameters("Language", "IetfLanguageTag", "en", "Id", 1);
+        }
+
+        [Fact]
         public void AddV_list_cardinality_id()
         {
             g

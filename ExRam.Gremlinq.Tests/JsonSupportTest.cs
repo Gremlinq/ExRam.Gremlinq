@@ -207,9 +207,36 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public async Task Language_unknown_type_without_model()
+        {
+            var language = await g
+                .WithModel(GraphModel.Empty)
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
+                .V<object>()
+                .First();
+
+            language.Should().NotBeNull();
+            language.Should().BeOfType<JObject>();
+        }
+
+        [Fact]
         public async Task Language_strongly_typed()
         {
             var language = await g
+                .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
+                .V<Language>()
+                .First();
+
+            language.Should().NotBeNull();
+            language.Id.Should().Be(10);
+            language.IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
+        public async Task Language_strongly_typed_without_model()
+        {
+            var language = await g
+                .WithModel(GraphModel.Empty)
                 .WithQueryProvider(new TestJsonQueryProvider(SingleLanguageJson))
                 .V<Language>()
                 .First();
