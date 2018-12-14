@@ -9,11 +9,11 @@ using static ExRam.Gremlinq.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
-    public class GremlinQueryTest
+    public class IntegrationTests
     {
         private readonly IGremlinQuerySource _g;
 
-        public GremlinQueryTest()
+        public IntegrationTests()
         {
             _g = g
                 .WithRemote("localhost");
