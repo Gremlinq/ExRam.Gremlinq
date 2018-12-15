@@ -2,19 +2,18 @@
 
 namespace ExRam.Gremlinq
 {
-    public sealed class HasNotStep : HasStepBase
+    public sealed class HasNotStep : Step
     {
-        public HasNotStep(object key, P predicate) : base(key, predicate)
+        public HasNotStep(object key)
         {
-        }
-
-        public HasNotStep(object key, IGremlinQuery traversal) : base(key, traversal)
-        {
+            Key = key;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
         {
             visitor.Visit(this);
         }
+
+        public object Key { get; }
     }
 }

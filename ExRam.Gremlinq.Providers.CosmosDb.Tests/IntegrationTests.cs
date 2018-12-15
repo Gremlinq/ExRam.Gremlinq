@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .WithCosmosDbRemote("xyz.gremlin.cosmosdb.azure.com", "db", "graph", "authkey");
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV()
         {
             var id = Guid.NewGuid().ToString("N");
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data[0].IetfLanguageTag.Should().Be("en");
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_without_id()
         {
             var data = await _g
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data[0].IetfLanguageTag.Should().Be("en");
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_with_nulls()
         {
             var data = await _g
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data[0].IetfLanguageTag.Should().BeNull();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_with_multi_property()
         {
             var data = await _g
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data[0].PhoneNumbers.Should().BeEquivalentTo("+4912345", "+4923456");
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_with_Meta_without_properties()
         {
             var data = await _g
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data[0].Name.Value.Should().Be("GER");
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_with_Meta_with_properties()
         {
             var data = await _g
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             data.Should().HaveCount(1);
         }
         
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_with_enum_property()
         {
             await _g
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_contains_element()
         {
             await _g
@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_does_not_contain_element()
         {
             await _g
@@ -125,7 +125,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_is_not_empty()
         {
             await _g
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_is_empty()
         {
             await _g
@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_intersects_aray()
         {
             await _g
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_does_not_intersect_array()
         {
             await _g
@@ -161,7 +161,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_intersects_empty_array()
         {
             await _g
@@ -170,7 +170,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_array_does_not_intersect_empty_array()
         {
             await _g
@@ -179,7 +179,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_contained_in_array()
         {
             await _g
@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
@@ -200,7 +200,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_not_contained_in_array()
         {
             await _g
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
         
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_not_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_not_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
@@ -243,7 +243,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_prefix_of_constant()
         {
             await _g
@@ -252,7 +252,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_prefix_of_empty_string()
         {
             await _g
@@ -261,7 +261,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_prefix_of_variable()
         {
             const string str = "+49123";
@@ -272,7 +272,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_prefix_of_expression()
         {
             const string str = "+49123xxx";
@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_starts_with_constant()
         {
             await _g
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_starts_with_empty_string()
         {
             await _g
@@ -301,7 +301,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_disjunction()
         {
             await _g
@@ -310,7 +310,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_disjunction_with_different_fields()
         {
             await _g
@@ -319,7 +319,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_conjunction()
         {
             await _g
@@ -328,7 +328,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_complex_logical_expression()
         {
             await _g
@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_complex_logical_expression_with_null()
         {
             await _g
@@ -346,7 +346,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_has_conjunction_of_three()
         {
             await _g
@@ -355,7 +355,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_has_disjunction_of_three()
         {
             await _g
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_conjunction_with_different_fields()
         {
             await _g
@@ -373,7 +373,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_constant()
         {
             await _g
@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_expression()
         {
             const int i = 18;
@@ -393,7 +393,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_converted_expression()
         {
             await _g
@@ -402,7 +402,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_not_equals_constant()
         {
             await _g
@@ -411,7 +411,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_not_present()
         {
             await _g
@@ -420,7 +420,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_present()
         {
             await _g
@@ -429,7 +429,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_lower_than_constant()
         {
             await _g
@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_lower_or_equal_than_constant()
         {
             await _g
@@ -447,7 +447,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_bool_property_explicit_comparison1()
         {
             await _g
@@ -457,7 +457,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_bool_property_explicit_comparison2()
         {
             await _g
@@ -466,7 +466,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_bool_property_implicit_comparison1()
         {
             await _g
@@ -475,7 +475,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_bool_property_implicit_comparison2()
         {
             await _g
@@ -484,7 +484,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_greater_than_constant()
         {
             await _g
@@ -493,7 +493,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_greater_or_equal_than_constant()
         {
             await _g
@@ -502,7 +502,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_string_constant()
         {
             await _g
@@ -511,7 +511,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_local_string_constant()
         {
             const string local = "1";
@@ -522,7 +522,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_value_of_anonymous_object()
         {
             var local = new { Value = "1" };
@@ -533,7 +533,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_current_element_equals_stepLabel()
         {
             var l = new StepLabel<Language>();
@@ -546,7 +546,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_stepLabel()
         {
             var l = new StepLabel<string>();
@@ -560,7 +560,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_scalar_element_equals_constant()
         {
             await _g
@@ -570,7 +570,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_traversal()
         {
             await _g
@@ -579,7 +579,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Where_property_traversal()
         {
             await _g
@@ -591,7 +591,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_to_traversal()
         {
             var now = DateTimeOffset.UtcNow;
@@ -609,7 +609,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_to_StepLabel()
         {
             await _g
@@ -621,7 +621,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_from_traversal()
         {
             var now = DateTimeOffset.UtcNow;
@@ -639,7 +639,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_from_StepLabel()
         {
             await _g
@@ -651,7 +651,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_InV()
         {
             await _g
@@ -663,7 +663,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task AddE_OutV()
         {
             await _g
@@ -675,7 +675,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task And()
         {
             await _g
@@ -688,7 +688,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task And_nested()
         {
             await _g
@@ -705,7 +705,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Or()
         {
             await _g
@@ -718,7 +718,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Or_nested()
         {
             await _g
@@ -735,7 +735,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Drop()
         {
             await _g
@@ -744,7 +744,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task FilterWithLambda()
         {
             await _g
@@ -753,7 +753,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Out()
         {
             await _g
@@ -762,7 +762,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Out_does_not_include_abstract_edge()
         {
             await _g
@@ -771,7 +771,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_member()
         {
             await _g
@@ -780,7 +780,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_traversal()
         {
             await _g
@@ -789,7 +789,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_lambda()
         {
             await _g
@@ -798,7 +798,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderByDescending_member()
         {
             await _g
@@ -807,7 +807,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderByDescending_traversal()
         {
             await _g
@@ -816,7 +816,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
         
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenBy_member()
         {
             await _g
@@ -826,7 +826,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenBy_traversal()
         {
             await _g
@@ -836,7 +836,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenBy_lambda()
         {
             await _g
@@ -846,7 +846,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenByDescending_member()
         {
             await _g
@@ -856,7 +856,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenByDescending_traversal()
         {
             await _g
@@ -866,7 +866,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task SumLocal()
         {
             await _g
@@ -876,7 +876,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task SumGlobal()
         {
             await _g
@@ -886,7 +886,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Values_one_member()
         {
             await _g
@@ -895,7 +895,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Values_two_members()
         {
             await _g
@@ -904,7 +904,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Values_three_members()
         {
             await _g
@@ -913,7 +913,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Values_id_member()
         {
             await _g
@@ -922,7 +922,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task V_untyped()
         {
             await _g
@@ -930,7 +930,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task OfType_abstract()
         {
             await _g
@@ -939,7 +939,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Repeat_Out()
         {
             await _g
@@ -950,7 +950,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Union()
         {
             await _g
@@ -961,7 +961,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Optional()
         {
             await _g
@@ -971,7 +971,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Not1()
         {
             await _g
@@ -980,7 +980,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Not2()
         {
             await _g
@@ -989,7 +989,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Not3()
         {
             await _g
@@ -998,7 +998,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task As_explicit_label()
         {
             await _g
@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Select()
         {
             var stepLabel = new StepLabel<User>();
@@ -1019,7 +1019,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task As_inlined_nested_Select()
         {
             await _g
@@ -1030,7 +1030,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Property_single()
         {
             await _g
@@ -1039,7 +1039,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Property_list()
         {
             await _g
@@ -1048,7 +1048,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Coalesce()
         {
             await _g
@@ -1059,7 +1059,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Properties()
         {
             await _g
@@ -1068,7 +1068,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Properties_of_member()
         {
             await _g
@@ -1077,7 +1077,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Properties_Where()
         {
             await _g
@@ -1087,7 +1087,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Properties_Where_reversed()
         {
             await _g
@@ -1097,7 +1097,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Meta_Properties()
         {
             await _g
@@ -1107,7 +1107,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Meta_Properties_with_key()
         {
             await _g
@@ -1117,7 +1117,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task Inject()
         {
             await _g
@@ -1125,7 +1125,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task WithSubgraphStrategy()
         {
             await _g
@@ -1134,7 +1134,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .ToArray();
         }
 
-        [Fact]
+        [Fact(Skip = "Integration Test")]
         public async Task WithSubgraphStrategy_empty()
         {
             await _g

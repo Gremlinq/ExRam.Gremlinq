@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Serialization
         #region Visit
         public virtual void Visit(HasNotStep step)
         {
-            Visit(step, "hasNot");
+            Method("hasNot", step.Key);
         }
 
         public virtual void Visit(HasStep step)
@@ -507,13 +507,8 @@ namespace ExRam.Gremlinq.Serialization
 
         public virtual void Visit(NotStep step)
         {
-            if (step.Traversal.Steps.Count != 0 && step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep)
-            {
-                if (hasStep.Value == P.False || hasStep.Value is P.Within within && within.Arguments.Length == 0)
-                    return;
-            }
-
-            Visit(step, "not");
+            if (!(step.Traversal.Steps.Count != 0 && step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep && hasStep.Value is P.Within within && within.Arguments.Length == 0))
+                Visit(step, "not");
         }
 
         public virtual void Visit(OptionalStep step)

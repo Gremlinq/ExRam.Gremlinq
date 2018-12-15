@@ -153,6 +153,5 @@ namespace ExRam.Gremlinq
         }
 
         internal static readonly P True = new Constant();
-        internal static readonly P False = new Constant();
     }
 }

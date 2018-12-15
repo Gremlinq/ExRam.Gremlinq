@@ -1010,7 +1010,7 @@ namespace ExRam.Gremlinq
                 switch (nodeType)
                 {
                     case ExpressionType.Equal:
-                        return HasNot(elementType, left, P.True);
+                        return HasNot(elementType, left);
                     case ExpressionType.NotEqual:
                         return Has(elementType, left, P.True);
                 }
@@ -1067,9 +1067,9 @@ namespace ExRam.Gremlinq
             return AddStep(new HasStep(GetIdentifier(elementType, expression), traversal));
         }
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasNot(GraphElementType elementType, Expression expression, P predicate)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasNot(GraphElementType elementType, Expression expression)
         {
-            return AddStep(new HasNotStep(GetIdentifier(elementType, expression), predicate));
+            return AddStep(new HasNotStep(GetIdentifier(elementType, expression)));
         }
 
         private object GetIdentifier(GraphElementType elementType, Expression expression)
