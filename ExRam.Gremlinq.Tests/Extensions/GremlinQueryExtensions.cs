@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Tests
                 get => typeof(IGremlinQuery).Name;
             }
 
-            public SerializedGremlinQueryAssertions SerializeTo(string serialization)
+            public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
                 var tuple = Serializer.Serialize(Subject);
 

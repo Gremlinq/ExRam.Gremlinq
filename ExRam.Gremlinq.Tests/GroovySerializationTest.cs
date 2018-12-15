@@ -8,7 +8,7 @@ using static ExRam.Gremlinq.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Tests
 {
-    public class GremlinQueryTest
+    public class GroovySerializationTest
     {
         [Fact]
         public void V_of_concrete_type()
@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .V<User>()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("User");
         }
 
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .V<Authority>()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a, _b)")
                 .WithParameters("Company", "User");
         }
 
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithModel(GraphModel.Empty)
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e)")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e)")
                 .WithParameters("Language", "IetfLanguageTag", "en", "Id", 1);
         }
 
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c)")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c)")
                 .WithParameters("Language", "IetfLanguageTag", "en");
         }
 
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new Language { Id = 1 })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -111,7 +111,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
                 .WithParameters("User", 1, "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
                 .WithParameters("Country", 1, "Name", "GER");
         }
 
@@ -142,7 +142,7 @@ namespace ExRam.Gremlinq.Tests
                     }
                 })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
                 .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
         
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .AddV(new User { Id = 1, Gender = Gender.Female })
                 .Should()
-                .SerializeTo("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
                 .WithParameters("User", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("User", "PhoneNumbers", "+4912345");
         }
 
@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, _c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, _c))")
                 .WithParameters("User", "PhoneNumbers", "+4912345");
         }
 
@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Any())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("User", "PhoneNumbers");
         }
 
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b))")
                 .WithParameters("User", "PhoneNumbers");
         }
 
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -218,7 +218,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -229,7 +229,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new string[0]))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("User");
         }
 
@@ -240,7 +240,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("User");
         }
 
@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -265,7 +265,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -278,7 +278,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("User");
         }
 
@@ -289,7 +289,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
         
@@ -303,7 +303,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -316,7 +316,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("User");
         }
 
@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -338,7 +338,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<CountryCallingCode>()
                 .Where(c => "".StartsWith(c.Prefix))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c))")
                 .WithParameters("CountryCallingCode", "Prefix", "");
         }
 
@@ -351,7 +351,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -375,7 +375,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.between(_c, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.between(_c, _d))")
                 .WithParameters("User", "PhoneNumber", "+49123", "+49124");
         }
 
@@ -386,7 +386,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith(""))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("User", "PhoneNumber");
         }
 
@@ -397,7 +397,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d))")
                 .WithParameters("User", "Age", 36, 42);
         }
 
@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name == "Some name" || t.Age == 42)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
                 .WithParameters("User", "Name", "Some name", "Age", 42);
         }
 
@@ -419,7 +419,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d))")
                 .WithParameters("User", "Age", 36, 42);
         }
 
@@ -430,7 +430,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.or(__.has(_d, _e), __.has(_d, _f)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.has(_b, _c), __.or(__.has(_d, _e), __.has(_d, _f)))")
                 .WithParameters("User", "Name", "Some name", "Age", 42, 99);
         }
 
@@ -441,7 +441,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.hasNot(_b), __.or(__.has(_c, _d), __.has(_c, _e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.hasNot(_b), __.or(__.has(_c, _d), __.has(_c, _e)))")
                 .WithParameters("User", "Name", "Age", 42, 99);
         }
 
@@ -452,7 +452,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
                 .WithParameters("User", "Age", 36, 42, 99);
         }
 
@@ -463,7 +463,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
                 .WithParameters("User", "Age", 36, 42, 99);
         }
 
@@ -474,7 +474,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_d, _e))")
                 .WithParameters("User", "Name", "Some name", "Age", 42);
         }
 
@@ -485,7 +485,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -498,7 +498,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age == i + i)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -509,7 +509,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => (object)t.Age == (object)36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -520,7 +520,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age != 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.neq(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.neq(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -531,7 +531,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name == null)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).hasNot(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).hasNot(_b)")
                 .WithParameters("User", "Name");
         }
 
@@ -542,7 +542,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Name != null)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("User", "Name");
         }
 
@@ -553,7 +553,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age < 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.lt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.lt(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -564,7 +564,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age <= 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.lte(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.lte(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -576,7 +576,7 @@ namespace ExRam.Gremlinq.Tests
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -587,7 +587,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", false);
         }
 
@@ -598,7 +598,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -609,7 +609,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).not(__.has(_b, _c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, _c))")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -620,7 +620,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age > 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.gt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.gt(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -631,7 +631,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.Age >= 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, P.gte(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.gte(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -642,7 +642,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)1)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -653,7 +653,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(t => (int)t.Id == 1)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -666,7 +666,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", local);
         }
 
@@ -679,7 +679,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local.Value)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(T.id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -704,7 +704,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(l2 => l2 == l)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(P.eq(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(P.eq(_b))")
                 .WithParameters("Language", "l1");
         }
 
@@ -720,7 +720,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(P.eq(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(P.eq(_c)))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
         }
 
@@ -732,7 +732,7 @@ namespace ExRam.Gremlinq.Tests
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).is(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).is(_c)")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -743,7 +743,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(_ => _.Out<LivesIn>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).where(__.out(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).where(__.out(_b))")
                 .WithParameters("User", "LivesIn");
         }
 
@@ -757,7 +757,7 @@ namespace ExRam.Gremlinq.Tests
                     _ => _
                         .Inject(36))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).has(_b, __.inject(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, __.inject(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -777,7 +777,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -791,7 +791,7 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .To(l))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
                 .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
         }
 
@@ -811,7 +811,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -825,7 +825,7 @@ namespace ExRam.Gremlinq.Tests
                     .AddE(new IsDescribedIn { Text = "Germany" })
                     .From(c))
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
                 .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
         }
 
@@ -839,7 +839,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .InV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
         }
 
         [Fact]
@@ -852,7 +852,7 @@ namespace ExRam.Gremlinq.Tests
                     .V<Country>("id"))
                 .OutV()
                 .Should()
-                .SerializeTo("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+                .SerializeToGroovy("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -866,7 +866,7 @@ namespace ExRam.Gremlinq.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
                 .WithParameters("User", "Knows", "LivesIn");
         }
 
@@ -885,7 +885,7 @@ namespace ExRam.Gremlinq.Tests
                             ___ => ___
                                 .OutE<Knows>()))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("User", "LivesIn", "Knows");
         }
 
@@ -900,7 +900,7 @@ namespace ExRam.Gremlinq.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
                 .WithParameters("User", "Knows", "LivesIn");
         }
 
@@ -919,7 +919,7 @@ namespace ExRam.Gremlinq.Tests
                             ___ => ___
                                 .OutE<Knows>()))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("User", "LivesIn", "Knows");
         }
 
@@ -930,7 +930,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Drop()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).drop()")
+                .SerializeToGroovy("g.V().hasLabel(_a).drop()")
                 .WithParameters("User");
         }
 
@@ -941,7 +941,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Filter("it.property('str').value().length() == 2")
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
+                .SerializeToGroovy("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
                 .WithParameters("User");
         }
 
@@ -952,7 +952,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Out<Knows>()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).out(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).out(_b)")
                 .WithParameters("User", "Knows");
         }
 
@@ -963,7 +963,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Out<Edge>()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).out(_b, _c, _d, _e, _f)")
+                .SerializeToGroovy("g.V().hasLabel(_a).out(_b, _c, _d, _e, _f)")
                 .WithParameters("User", "IsDescribedIn", "Knows", "LivesIn", "Speaks", "WorksFor");
         }
 
@@ -974,7 +974,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .OrderBy(x => x.Name)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, Order.incr)")
                 .WithParameters("User", "Name");
         }
 
@@ -985,7 +985,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr)")
                 .WithParameters("User", "Name");
         }
 
@@ -996,7 +996,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .OrderBy("it.property('str').value().length()")
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
                 .WithParameters("User");
         }
 
@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .OrderByDescending(x => x.Name)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, Order.decr)")
                 .WithParameters("User", "Name");
         }
 
@@ -1018,7 +1018,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
                 .WithParameters("User", "Name");
         }
         
@@ -1030,7 +1030,7 @@ namespace ExRam.Gremlinq.Tests
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
                 .WithParameters("User", "Name", "Age");
         }
 
@@ -1042,7 +1042,7 @@ namespace ExRam.Gremlinq.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
                 .WithParameters("User", "Name", "Gender");
         }
 
@@ -1054,7 +1054,7 @@ namespace ExRam.Gremlinq.Tests
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
                 .WithParameters("User");
         }
 
@@ -1066,7 +1066,7 @@ namespace ExRam.Gremlinq.Tests
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
                 .WithParameters("User", "Name", "Age");
         }
 
@@ -1078,7 +1078,7 @@ namespace ExRam.Gremlinq.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
                 .WithParameters("User", "Name", "Gender");
         }
 
@@ -1090,7 +1090,7 @@ namespace ExRam.Gremlinq.Tests
                 .Values(x => x.Age)
                 .SumLocal()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
                 .WithParameters("User", "Age");
         }
 
@@ -1102,7 +1102,7 @@ namespace ExRam.Gremlinq.Tests
                 .Values(x => x.Age)
                 .SumGlobal()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b).sum(Scope.global)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(Scope.global)")
                 .WithParameters("User", "Age");
         }
 
@@ -1113,7 +1113,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Values(x => x.Name)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("User", "Name");
         }
 
@@ -1124,7 +1124,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Values(x => x.Name, x => x.Id)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.values(_b), __.id())")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.values(_b), __.id())")
                 .WithParameters("User", "Name");
         }
 
@@ -1135,7 +1135,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.values(_b, _c), __.id())")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.values(_b, _c), __.id())")
                 .WithParameters("User", "Name", "Gender");
         }
 
@@ -1146,7 +1146,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Values(x => x.Id)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).id()")
+                .SerializeToGroovy("g.V().hasLabel(_a).id()")
                 .WithParameters("User");
         }
 
@@ -1156,7 +1156,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .V()
                 .Should()
-                .SerializeTo("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
 
@@ -1167,7 +1167,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .OfType<Authority>()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a, _b)")
                 .WithParameters("Company", "User");
         }
 
@@ -1180,7 +1180,7 @@ namespace ExRam.Gremlinq.Tests
                     .Out<Knows>()
                     .OfType<User>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
+                .SerializeToGroovy("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
                 .WithParameters("User", "Knows");
         }
 
@@ -1193,7 +1193,7 @@ namespace ExRam.Gremlinq.Tests
                     __ => __.Out<Knows>(),
                     __ => __.Out<LivesIn>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
                 .WithParameters("User", "Knows", "LivesIn");
         }
 
@@ -1205,7 +1205,7 @@ namespace ExRam.Gremlinq.Tests
                 .Optional(
                     __ => __.Out<Knows>())
                 .Should()
-                .SerializeTo("g.V().optional(__.out(_a))")
+                .SerializeToGroovy("g.V().optional(__.out(_a))")
                 .WithParameters("Knows");
         }
 
@@ -1216,7 +1216,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Not(__ => __.Out<Knows>())
                 .Should()
-                .SerializeTo("g.V().not(__.out(_a))")
+                .SerializeToGroovy("g.V().not(__.out(_a))")
                 .WithParameters("Knows");
         }
 
@@ -1227,7 +1227,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Should()
-                .SerializeTo("g.V().not(__.hasLabel(_a))")
+                .SerializeToGroovy("g.V().not(__.hasLabel(_a))")
                 .WithParameters("Language");
         }
 
@@ -1238,7 +1238,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Not(__ => __.OfType<Authority>())
                 .Should()
-                .SerializeTo("g.V().not(__.hasLabel(_a, _b))")
+                .SerializeToGroovy("g.V().not(__.hasLabel(_a, _b))")
                 .WithParameters("Company", "User");
         }
 
@@ -1249,7 +1249,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .As(new StepLabel<User>())
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b)")
                 .WithParameters("User", "l1");
         }
 
@@ -1263,7 +1263,7 @@ namespace ExRam.Gremlinq.Tests
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).select(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).select(_b)")
                 .WithParameters("User", "l1");
         }
 
@@ -1276,7 +1276,7 @@ namespace ExRam.Gremlinq.Tests
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
                 .WithParameters("User", "Item1", "Item2");
         }
 
@@ -1287,7 +1287,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Property(x => x.Age, 36)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -1298,7 +1298,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .Should()
-                .SerializeTo("g.V(_a).hasLabel(_b).property(Cardinality.list, _c, _d)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).property(Cardinality.list, _c, _d)")
                 .WithParameters("id", "User", "PhoneNumbers", "+4912345");
         }
 
@@ -1311,7 +1311,7 @@ namespace ExRam.Gremlinq.Tests
                      _ => _
                         .Identity())
                 .Should()
-                .SerializeTo("g.V().coalesce(__.identity())")
+                .SerializeToGroovy("g.V().coalesce(__.identity())")
                 .WithoutParameters();
         }
 
@@ -1322,7 +1322,7 @@ namespace ExRam.Gremlinq.Tests
                 .V()
                 .Properties()
                 .Should()
-                .SerializeTo("g.V().properties()")
+                .SerializeToGroovy("g.V().properties()")
                 .WithoutParameters();
         }
 
@@ -1333,7 +1333,7 @@ namespace ExRam.Gremlinq.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b)")
                 .WithParameters("Country", "Name");
         }
 
@@ -1345,7 +1345,7 @@ namespace ExRam.Gremlinq.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Value == "de")
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 
@@ -1357,7 +1357,7 @@ namespace ExRam.Gremlinq.Tests
                 .Properties(x => x.Languages)
                 .Where(x => "de" == x.Value)
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 
@@ -1369,7 +1369,7 @@ namespace ExRam.Gremlinq.Tests
                 .Properties(x => x.Name)
                 .Properties()
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).properties()")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties()")
                 .WithParameters("Country", "Name");
         }
 
@@ -1381,7 +1381,7 @@ namespace ExRam.Gremlinq.Tests
                 .Properties(x => x.Name)
                 .Properties("metaKey")
                 .Should()
-                .SerializeTo("g.V().hasLabel(_a).properties(_b).properties(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties(_c)")
                 .WithParameters("Country", "Name", "metaKey");
         }
 
@@ -1400,7 +1400,7 @@ namespace ExRam.Gremlinq.Tests
         {
             GremlinQuery.Anonymous(GraphModel.Empty)
                 .Should()
-                .SerializeTo("__.identity()")
+                .SerializeToGroovy("__.identity()")
                 .WithoutParameters();
         }
 
@@ -1410,7 +1410,7 @@ namespace ExRam.Gremlinq.Tests
             g
                 .Inject(36, 37, 38)
                 .Should()
-                .SerializeTo("g.inject(_a, _b, _c)")
+                .SerializeToGroovy("g.inject(_a, _b, _c)")
                 .WithParameters(36, 37, 38);
         }
 
@@ -1421,7 +1421,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
                 .V()
                 .Should()
-                .SerializeTo("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create()).V()")
+                .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create()).V()")
                 .WithParameters("User");
         }
 
@@ -1432,7 +1432,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .Should()
-                .SerializeTo("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
     }
