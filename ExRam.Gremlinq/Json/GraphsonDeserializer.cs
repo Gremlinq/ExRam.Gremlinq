@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.GraphElements;
@@ -148,10 +147,16 @@ namespace ExRam.Gremlinq
 
             private static object ToObject(JToken token, Type objectType)
             {
-                if (token is JObject jObject && jObject.ContainsKey("value"))
-                    return ToObject(jObject["value"], objectType);
+                while (true)
+                {
+                    if (token is JObject jObject && jObject.ContainsKey("value"))
+                    {
+                        token = jObject["value"];
+                        continue;
+                    }
 
-                return token.ToObject(objectType);
+                    return token.ToObject(objectType);
+                }
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -257,12 +262,14 @@ namespace ExRam.Gremlinq
                         .Filter(objectType.IsAssignableFrom)
                         .IfNone(() =>
                         {
+                            // ReSharper disable AccessToModifiedClosure
                             if (objectType == typeof(Vertex))
                                 return typeof(VertexImpl);
 
                             return objectType == typeof(Edge)
                                 ? typeof(EdgeImpl)
                                 : objectType;
+                            // ReSharper restore AccessToModifiedClosure
                         });
                 }
 

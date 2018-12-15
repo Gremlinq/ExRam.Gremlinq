@@ -534,6 +534,7 @@ namespace ExRam.Gremlinq.Serialization
                     Property(Cardinality.Single, step.Key, step.Value);
                 else
                 {
+                    // ReSharper disable once PossibleNullReferenceException
                     if (step.Type.GetElementType().IsInstanceOfType(step.Value))
                         Property(Cardinality.List, step.Key, step.Value);
                     else
@@ -627,14 +628,23 @@ namespace ExRam.Gremlinq.Serialization
 
         protected virtual void Visit(object parameter)
         {
-            if (parameter is IGremlinQueryElement queryElement)
-                queryElement.Accept(this);
-            else
+            switch (parameter)
             {
-                if (parameter is IGremlinQuery subQuery)
+                case IGremlinQueryElement queryElement:
+                {
+                    queryElement.Accept(this);
+                    break;
+                }
+                case IGremlinQuery subQuery:
+                {
                     Visit(subQuery);
-                else
+                    break;
+                }
+                default:
+                {
                     Constant(parameter);
+                    break;
+                }
             }
         }
 

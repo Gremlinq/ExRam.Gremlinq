@@ -2,7 +2,7 @@
 {
     public enum GraphsonVersion
     {
-        v2,
-        v3
+        V2,
+        V3
     }
 }

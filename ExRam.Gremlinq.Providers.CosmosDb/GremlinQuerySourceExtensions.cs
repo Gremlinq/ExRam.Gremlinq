@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
         {
             return source.WithRemote(
                 new CosmosDbGremlinServer(hostname, database, graphName, authKey, port, enableSsl),
-                GraphsonVersion.v2);
+                GraphsonVersion.V2);
         }
     }
 }

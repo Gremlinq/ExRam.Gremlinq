@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         public IntegrationTests()
         {
             _g = g
-                .WithRemote("localhost", GraphsonVersion.v3);
+                .WithRemote("localhost", GraphsonVersion.V3);
         }
 
         [Fact]

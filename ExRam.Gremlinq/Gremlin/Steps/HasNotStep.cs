@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq
         {
         }
 
-        public HasNotStep(object key, IGremlinQuery traversal) : base(key, (object)traversal)
+        public HasNotStep(object key, IGremlinQuery traversal) : base(key, traversal)
         {
         }
 

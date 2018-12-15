@@ -28,7 +28,10 @@ namespace ExRam.Gremlinq
                 return Array.Empty<string>();
             }
 
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
             public Option<string> EdgeIdPropertyName { get; }
+
+            // ReSharper disable once UnassignedGetOnlyAutoProperty
             public Option<string> VertexIdPropertyName { get; }
         }
 
@@ -38,7 +41,7 @@ namespace ExRam.Gremlinq
             private readonly IDictionary<Type, string> _labels;
             private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName, Assembly[] assemblies)
+            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -123,6 +126,14 @@ namespace ExRam.Gremlinq
         public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", params Assembly[] assemblies)
         {
             return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies);
+        }
+
+        internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)
+        {
+            return elementType == GraphElementType.Vertex && name == model.VertexIdPropertyName
+                || elementType == GraphElementType.Edge && name == model.EdgeIdPropertyName
+                ? (object)T.Id
+                : name;
         }
     }
 }

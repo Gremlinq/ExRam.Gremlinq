@@ -26,13 +26,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public GremlinClientEx(GremlinServer gremlinServer, GraphsonVersion version) : base(
             gremlinServer,
-            version == GraphsonVersion.v2
+            version == GraphsonVersion.V2
                 ? new NullGraphSSON2Reader()
                 : (GraphSONReader)new NullGraphSSON3Reader(),
-            version == GraphsonVersion.v2
+            version == GraphsonVersion.V2
                 ? new GraphSON2Writer()
                 : (GraphSONWriter)new GraphSON3Writer(),
-            version == GraphsonVersion.v2
+            version == GraphsonVersion.V2
                 ? GraphSON2MimeType
                 : DefaultMimeType)
         {

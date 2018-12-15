@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.GraphElements;
-using ExRam.Gremlinq.Serialization;
 
 // ReSharper disable ArrangeThisQualifier
 
@@ -1195,6 +1194,7 @@ namespace ExRam.Gremlinq
 
             var ret = this;
 
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var propertyStep in propertySteps)
             {
                 ret = ret.AddStep(propertyStep);
