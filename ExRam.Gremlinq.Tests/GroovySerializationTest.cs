@@ -245,6 +245,50 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Where_array_intersects_property_aray()
+        {
+            g
+                .V<User>()
+                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
+                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+        }
+
+        [Fact]
+        public void Where_array_does_not_intersect_property_array()
+        {
+            g
+                .V<User>()
+                .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
+                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+        }
+
+        [Fact]
+        public void Where_empty_array_intersects_property_array()
+        {
+            g
+                .V<User>()
+                .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within())")
+                .WithParameters("User", "PhoneNumbers");
+        }
+
+        [Fact]
+        public void Where_empty_array_does_not_intersect_property_array()
+        {
+            g
+                .V<User>()
+                .Where(t => !new string[0].Intersect(t.PhoneNumbers).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("User");
+        }
+
+        [Fact]
         public void Where_property_is_contained_in_array()
         {
             g
