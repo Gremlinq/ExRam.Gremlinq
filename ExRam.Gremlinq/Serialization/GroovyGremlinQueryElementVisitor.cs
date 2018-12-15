@@ -7,7 +7,7 @@ using ExRam.Gremlinq.GraphElements;
 
 namespace ExRam.Gremlinq.Serialization
 {
-    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor
+    public class GroovyGremlinQueryElementVisitor : IStringGremlinQueryElementVisitor
     {
         private enum State
         {
@@ -22,12 +22,7 @@ namespace ExRam.Gremlinq.Serialization
         private readonly Stack<State> _stateQueue = new Stack<State>();
         private readonly Dictionary<object, string> _variables = new Dictionary<object, string>();
         private readonly Dictionary<StepLabel, string> _stepLabelMappings = new Dictionary<StepLabel, string>();
-
-        public IDictionary<string, object> GetVariables()
-        {
-            return _variables
-                .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
-        }
+        private readonly StringBuilder _builder = new StringBuilder();
 
         #region Visit
         public virtual void Visit(HasNotStep step)
@@ -571,12 +566,24 @@ namespace ExRam.Gremlinq.Serialization
         }
         #endregion
 
+
+        public string GetString()
+        {
+            return _builder.ToString();
+        }
+
+        public IDictionary<string, object> GetVariableBindings()
+        {
+            return _variables
+                .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+        }
+
         private void Identifier(string className)
         {
             if (_state != State.Idle)
                 throw new InvalidOperationException();
 
-            Builder.Append(className);
+            _builder.Append(className);
             _state = State.Chaining;
         }
 
@@ -585,9 +592,9 @@ namespace ExRam.Gremlinq.Serialization
             if (_state != State.Idle)
                 throw new InvalidOperationException();
 
-            Builder.Append("{");
-            Builder.Append(lambda);
-            Builder.Append("}");
+            _builder.Append("{");
+            _builder.Append(lambda);
+            _builder.Append("}");
         }
 
         private void OpenMethod(string methodName)
@@ -595,9 +602,9 @@ namespace ExRam.Gremlinq.Serialization
             if (_state != State.Chaining)
                 throw new InvalidOperationException();
 
-            Builder.Append(".");
-            Builder.Append(methodName);
-            Builder.Append("(");
+            _builder.Append(".");
+            _builder.Append(methodName);
+            _builder.Append("(");
 
             _stateQueue.Push(_state);
             _state = State.InMethodBeforeFirstParameter;
@@ -605,7 +612,7 @@ namespace ExRam.Gremlinq.Serialization
 
         private void CloseMethod()
         {
-            Builder.Append(")");
+            _builder.Append(")");
             _state = _stateQueue.Pop();
         }
 
@@ -615,7 +622,7 @@ namespace ExRam.Gremlinq.Serialization
                 throw new InvalidOperationException();
 
             if (_state == State.InMethodAfterFirstParameter)
-                Builder.Append(", ");
+                _builder.Append(", ");
 
             _stateQueue.Push(State.InMethodAfterFirstParameter);
             _state = State.Idle;
@@ -720,8 +727,8 @@ namespace ExRam.Gremlinq.Serialization
             if (_state != State.Chaining)
                 throw new InvalidOperationException();
 
-            Builder.Append(".");
-            Builder.Append(fieldName);
+            _builder.Append(".");
+            _builder.Append(fieldName);
         }
 
         private void Constant(object constant)
@@ -729,7 +736,7 @@ namespace ExRam.Gremlinq.Serialization
             if (_state == State.Chaining)
                 throw new InvalidOperationException();
 
-            Builder.Append(Cache(constant));
+            _builder.Append(Cache(constant));
         }
 
         private string Cache(object constant)
@@ -849,7 +856,5 @@ namespace ExRam.Gremlinq.Serialization
             else
                 yield return query;
         }
-
-        public StringBuilder Builder { get; } = new StringBuilder();
     }
 }

@@ -3,16 +3,16 @@
 namespace ExRam.Gremlinq.Serialization
 {
     public class StringGremlinQuerySerializer<TVisitor> : IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)>
-        where TVisitor : GroovyGremlinQueryElementVisitor, new()
+        where TVisitor : IStringGremlinQueryElementVisitor, new()
     {
         public (string queryString, IDictionary<string, object> parameters) Serialize(IGremlinQuery query)
         {
-            var groovyBuilder = new TVisitor();
+            var visitor = new TVisitor();
 
-            groovyBuilder
+            visitor
                 .Visit(query);
 
-            return (groovyBuilder.Builder.ToString(), groovyBuilder.GetVariables());
+            return (visitor.GetString(), visitor.GetVariableBindings());
         }
     }
 }
