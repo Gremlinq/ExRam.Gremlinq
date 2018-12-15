@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq
                     new GremlinClientEx(
                         server,
                         graphsonVersion),
-                    new GroovyGremlinQuerySerializer()));
+                    new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>()));
         }
     }
 }

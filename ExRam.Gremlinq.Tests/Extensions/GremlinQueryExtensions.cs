@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Tests
     {
         public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
         {
-            private static readonly GroovyGremlinQuerySerializer Serializer = new GroovyGremlinQuerySerializer();
+            private static readonly StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor> Serializer = new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>();
 
             public GremlinQueryAssertions(IGremlinQuery query)
             {

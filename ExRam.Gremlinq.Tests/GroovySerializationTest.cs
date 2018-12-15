@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Tests
                 .WithModel(GraphModel
                     .FromExecutingAssembly<User, Edge>(x => x.PhoneNumbers, x => x.Id))
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
-                .Invoking(x => new GroovyGremlinQuerySerializer().Serialize(x))
+                .Invoking(x => new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>().Serialize(x))
                 .Should()
                 .Throw<NotSupportedException>();
         }
