@@ -205,7 +205,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
+                .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
@@ -216,7 +216,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
+                .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
@@ -227,7 +227,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Where(t => t.PhoneNumbers.Intersects(new string[0]))
+                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within())")
                 .WithParameters("User", "PhoneNumbers");
@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Tests
         {
             g
                 .V<User>()
-                .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
+                .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("User");

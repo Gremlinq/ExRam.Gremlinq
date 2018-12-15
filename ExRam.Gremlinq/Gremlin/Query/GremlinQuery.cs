@@ -899,30 +899,35 @@ namespace ExRam.Gremlinq
                 {
                     var methodInfo = methodCallExpression.Method;
 
-                    if (methodInfo.DeclaringType == typeof(Enumerable) || methodInfo.DeclaringType == typeof(EnumerableExtensions))
+                    if (methodInfo.DeclaringType == typeof(Enumerable))
                     {
                         // ReSharper disable once SwitchStatementMissingSomeCases
                         switch (methodInfo.Name)
                         {
-                            case nameof(EnumerableExtensions.Intersects) when methodInfo.GetParameters().Length == 2:
+                            case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1 && methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.Name == nameof(Enumerable.Intersect) && previousExpression.Method.GetParameters().Length == 2:
+                            {
+                                if (previousExpression.Arguments[0] is MemberExpression sourceMember)
+                                    return HasWithin(elementType, sourceMember, previousExpression.Arguments[1]);
+
+                                if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
+                                    return HasWithin(elementType, argument, previousExpression.Arguments[0]);
+
+                                break;
+                            }
+                            case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
+                            {
+                                return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
+                            }
                             case nameof(Enumerable.Contains) when methodInfo.GetParameters().Length == 2:
                             {
-                                if (methodCallExpression.Arguments[0] is MemberExpression sourceMember)
-                                {
-                                    if (methodInfo.Name == nameof(EnumerableExtensions.Intersects))
-                                        return HasWithin(elementType, sourceMember, methodCallExpression.Arguments[1]);
-
-                                    if (sourceMember.Expression == predicate.Parameters[0])
-                                        return Has(elementType, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
-                                }
+                                if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == predicate.Parameters[0])
+                                    return Has(elementType, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                                 if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
                                     return HasWithin(elementType, argument, methodCallExpression.Arguments[0]);
 
                                 break;
                             }
-                            case nameof(Enumerable.Any) when methodInfo.GetParameters().Length == 1:
-                                return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
                     }
                     else if (methodInfo.DeclaringType == typeof(string))

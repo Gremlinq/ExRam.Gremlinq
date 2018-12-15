@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
+                .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .ToArray();
         }
 
@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => !t.PhoneNumbers.Intersects(new[] { "+4912345", "+4923456" }))
+                .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .ToArray();
         }
 
@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => t.PhoneNumbers.Intersects(new string[0]))
+                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .ToArray();
         }
 
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => !t.PhoneNumbers.Intersects(new string[0]))
+                .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
                 .ToArray();
         }
 
