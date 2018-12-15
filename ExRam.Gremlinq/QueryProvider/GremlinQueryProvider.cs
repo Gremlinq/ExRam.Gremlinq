@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq
 {
     internal static class GremlinQueryProvider
     {
-        private sealed class InvalidQueryProvider : IGremlinQueryProvider
+        private sealed class InvalidQueryExecutor : IGremlinQueryExecutor
         {
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
@@ -14,6 +14,6 @@ namespace ExRam.Gremlinq
             }
         }
 
-        public static readonly IGremlinQueryProvider Invalid = new InvalidQueryProvider();
+        public static readonly IGremlinQueryExecutor Invalid = new InvalidQueryExecutor();
     }
 }

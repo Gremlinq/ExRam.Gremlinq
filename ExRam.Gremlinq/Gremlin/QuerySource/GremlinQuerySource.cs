@@ -20,15 +20,15 @@ namespace ExRam.Gremlinq
         {
             private readonly string _name;
             private readonly IGraphModel _model;
-            private readonly IGremlinQueryProvider _queryProvider;
+            private readonly IGremlinQueryExecutor _queryExecutor;
             private readonly ImmutableList<IGremlinQueryStrategy> _strategies;
 
-            public GremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryProvider queryProvider, ImmutableList<IGremlinQueryStrategy> strategies)
+            public GremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryExecutor queryExecutor, ImmutableList<IGremlinQueryStrategy> strategies)
             {
                 _name = name;
                 _model = model;
                 _strategies = strategies;
-                _queryProvider = queryProvider;
+                _queryExecutor = queryExecutor;
             }
 
             public IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
@@ -82,17 +82,17 @@ namespace ExRam.Gremlinq
 
             public IGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies)
             {
-                return new GremlinQuerySourceImpl(_name, _model, _queryProvider, _strategies.AddRange(strategies));
+                return new GremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies.AddRange(strategies));
             }
 
             public IGremlinQuerySource WithModel(IGraphModel model)
             {
-                return new GremlinQuerySourceImpl(_name, model, _queryProvider, _strategies);
+                return new GremlinQuerySourceImpl(_name, model, _queryExecutor, _strategies);
             }
 
-            public IGremlinQuerySource WithQueryProvider(IGremlinQueryProvider queryProvider)
+            public IGremlinQuerySource WithExecutor(IGremlinQueryExecutor executor)
             {
-                return new GremlinQuerySourceImpl(_name, _model, queryProvider, _strategies);
+                return new GremlinQuerySourceImpl(_name, _model, executor, _strategies);
             }
 
             private IGremlinQuery<Unit> Create()
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq
                 var ret =
                     new GremlinQueryImpl<Unit, Unit, Unit>(
                             _model,
-                            new JsonSupportGremlinQueryProvider(_queryProvider),
+                            new JsonSupportGremlinQueryExecutor(_queryExecutor),
                             ImmutableList<Step>.Empty,
                             ImmutableDictionary<StepLabel, string>.Empty)
                         .AddStep(new IdentifierStep(_name));

@@ -15,8 +15,8 @@ namespace ExRam.Gremlinq
 
         public static IGremlinQuerySource WithRemote(this IGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
         {
-            return source.WithQueryProvider(
-                new ClientGremlinQueryProvider(
+            return source.WithExecutor(
+                new ClientGremlinQueryExecutor(
                     new GremlinClientEx(
                         server,
                         graphsonVersion),

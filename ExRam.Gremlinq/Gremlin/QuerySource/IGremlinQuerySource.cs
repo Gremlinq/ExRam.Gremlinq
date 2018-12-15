@@ -15,6 +15,6 @@ namespace ExRam.Gremlinq
 
         IGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
         IGremlinQuerySource WithModel(IGraphModel model);
-        IGremlinQuerySource WithQueryProvider(IGremlinQueryProvider gremlinQueryProvider);
+        IGremlinQuerySource WithExecutor(IGremlinQueryExecutor executor);
     }
 }

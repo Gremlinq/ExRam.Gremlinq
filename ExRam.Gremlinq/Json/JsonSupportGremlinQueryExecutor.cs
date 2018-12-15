@@ -5,15 +5,15 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq
 {
-    internal sealed class JsonSupportGremlinQueryProvider : IGremlinQueryProvider
+    internal sealed class JsonSupportGremlinQueryExecutor : IGremlinQueryExecutor
     {
-        private readonly IGremlinQueryProvider _baseProvider;
+        private readonly IGremlinQueryExecutor _baseExecutor;
 
         private static readonly ConditionalWeakTable<IGraphModel, GraphsonDeserializer> Serializers = new ConditionalWeakTable<IGraphModel, GraphsonDeserializer>();
 
-        public JsonSupportGremlinQueryProvider(IGremlinQueryProvider baseProvider)
+        public JsonSupportGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor)
         {
-            _baseProvider = baseProvider;
+            _baseExecutor = baseExecutor;
         }
 
         public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq
                 query.Model,
                 model => new GraphsonDeserializer(model));
 
-            return _baseProvider
+            return _baseExecutor
                 .Execute(query
                     .Cast<JToken>())
                 .SelectMany(token => serializer

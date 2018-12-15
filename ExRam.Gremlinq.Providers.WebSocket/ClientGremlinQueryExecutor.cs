@@ -8,13 +8,13 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class ClientGremlinQueryProvider : IGremlinQueryProvider, IDisposable
+    public class ClientGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
         private readonly IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> _serializer;
 
-        public ClientGremlinQueryProvider(IGremlinClient client, IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer, ILogger logger = null)
+        public ClientGremlinQueryExecutor(IGremlinClient client, IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer, ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
