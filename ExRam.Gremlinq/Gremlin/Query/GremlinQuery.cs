@@ -1119,9 +1119,7 @@ namespace ExRam.Gremlinq
             return Has(
                 elementType,
                 expression,
-                objectArray.Length == 0
-                    ? P.False
-                    : new P.Within(objectArray));
+                new P.Within(objectArray));
         }
 
         #region AddStep

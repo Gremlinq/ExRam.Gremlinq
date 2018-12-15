@@ -229,8 +229,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersects(new string[0]))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within())")
+                .WithParameters("User", "PhoneNumbers");
         }
 
         [Fact]
@@ -278,8 +278,8 @@ namespace ExRam.Gremlinq.Tests
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, P.within())")
+                .WithParameters("User", "Age");
         }
 
         [Fact]

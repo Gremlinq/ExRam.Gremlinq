@@ -507,8 +507,13 @@ namespace ExRam.Gremlinq.Serialization
 
         public virtual void Visit(NotStep step)
         {
-            if (step.Traversal.Steps.Count == 0 || !(step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep) || hasStep.Value != P.False)
-                Visit(step, "not");
+            if (step.Traversal.Steps.Count != 0 && step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep)
+            {
+                if (hasStep.Value == P.False || hasStep.Value is P.Within within && within.Arguments.Length == 0)
+                    return;
+            }
+
+            Visit(step, "not");
         }
 
         public virtual void Visit(OptionalStep step)
@@ -795,20 +800,15 @@ namespace ExRam.Gremlinq.Serialization
 
         protected virtual void Visit(HasStepBase step, string stepName)
         {
-            if (step.Value == P.False)
-                new NotStep(GremlinQuery.Anonymous(GraphModel.Empty)).Accept(this);
+            if (step.Value == P.True)
+                Method(stepName, step.Key);
             else
-            {
-                if (step.Value == P.True)
-                    Method(stepName, step.Key);
-                else
-                    Method(
-                        stepName,
-                        step.Key,
-                        step.Value is P.Eq eq
-                            ? eq.Argument
-                            : step.Value);
-            }
+                Method(
+                    stepName,
+                    step.Key,
+                    step.Value is P.Eq eq
+                        ? eq.Argument
+                        : step.Value);
         }
 
         private void Property(Cardinality cardinality, object name, object value)
