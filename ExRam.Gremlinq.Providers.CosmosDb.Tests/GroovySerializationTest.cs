@@ -4,9 +4,10 @@ using ExRam.Gremlinq.GraphElements;
 using ExRam.Gremlinq.Serialization;
 using FluentAssertions;
 using Xunit;
+using ExRam.Gremlinq.Tests;
 using static ExRam.Gremlinq.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class GroovySerializationTest
     {
