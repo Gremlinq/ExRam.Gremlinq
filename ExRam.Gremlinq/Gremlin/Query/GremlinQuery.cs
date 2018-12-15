@@ -1222,7 +1222,7 @@ namespace ExRam.Gremlinq
     {
         internal static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
-        internal static IGremlinQuery<Unit> Anonymous(IGraphModel model)
+        public static IGremlinQuery<Unit> Anonymous(IGraphModel model)
         {
             return Create(model, GremlinQueryProvider.Invalid, "__");
         }
