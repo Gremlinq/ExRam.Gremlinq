@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json.Linq;
@@ -34,6 +35,11 @@ namespace ExRam.Gremlinq
                             .NestedValues())
                         .ToJsonReader())
                     .ToAsyncEnumerable());
+        }
+
+        public bool SupportsElementType(Type type)
+        {
+            return _baseExecutor.SupportsElementType(typeof(JToken));
         }
     }
 }

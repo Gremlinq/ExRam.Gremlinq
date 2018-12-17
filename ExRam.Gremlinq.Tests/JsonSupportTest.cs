@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.GraphElements;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using static ExRam.Gremlinq.GremlinQuerySource;
@@ -21,6 +20,11 @@ namespace ExRam.Gremlinq.Tests
             public TestJsonQueryExecutor(string json)
             {
                 _json = json;
+            }
+
+            public bool SupportsElementType(Type type)
+            {
+                return type == typeof(JToken);
             }
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)

@@ -26,6 +26,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _gremlinClient.Dispose();
         }
 
+        public bool SupportsElementType(Type type)
+        {
+            return type == typeof(JToken);
+        }
+
         public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
         {
             if (typeof(TElement) != typeof(JToken))
