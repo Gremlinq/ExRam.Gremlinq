@@ -264,10 +264,10 @@ namespace ExRam.Gremlinq
                         .IfNone(() =>
                         {
                             // ReSharper disable AccessToModifiedClosure
-                            if (objectType == typeof(Vertex))
+                            if (objectType == typeof(IVertex))
                                 return typeof(VertexImpl);
 
-                            return objectType == typeof(Edge)
+                            return objectType == typeof(IEdge)
                                 ? typeof(EdgeImpl)
                                 : objectType;
                             // ReSharper restore AccessToModifiedClosure
@@ -284,7 +284,7 @@ namespace ExRam.Gremlinq
 
             public override bool CanConvert(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(Element).IsAssignableFrom(objectType) || _model.TryGetDerivedLabels(objectType).Length > 0);
+                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.TryGetDerivedLabels(objectType).Length > 0);
             }
 
             public override bool CanWrite => false;

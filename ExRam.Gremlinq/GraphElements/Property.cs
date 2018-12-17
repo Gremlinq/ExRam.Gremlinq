@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.GraphElements
 {
-    public sealed class Property
+    public class Property
     {
         [AllowNull] public string Key { get; set; }
         [AllowNull] public object Value { get; set; }

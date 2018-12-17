@@ -14,8 +14,8 @@ namespace ExRam.Gremlinq
         IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IVGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new();
 
-        IEGremlinQuery<Edge> E(params object[] ids);
-        IVGremlinQuery<Vertex> V(params object[] ids);
+        IEGremlinQuery<IEdge> E(params object[] ids);
+        IVGremlinQuery<IVertex> V(params object[] ids);
 
         IGremlinQuery<TElement> Cast<TElement>();
         IGremlinQuery<long> Count();
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq
         TTargetQuery As<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         IVGremlinQuery<TVertex> As(VStepLabel<TVertex> stepLabel);
 
-        IVGremlinQuery<Vertex> Both<TEdge>();
+        IVGremlinQuery<IVertex> Both<TEdge>();
         IEGremlinQuery<TEdge> BothE<TEdge>();
 
         new IVGremlinQuery<TOtherVertex> Cast<TOtherVertex>();
@@ -131,7 +131,7 @@ namespace ExRam.Gremlinq
 
         new IVGremlinQuery<TVertex> Emit();
         new IVGremlinQuery<TVertex> Identity();
-        IVGremlinQuery<Vertex> In<TEdge>();
+        IVGremlinQuery<IVertex> In<TEdge>();
         IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
 
         new IVGremlinQuery<TVertex> Limit(long limit);
@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq
         new IOrderedVGremlinQuery<TVertex> OrderBy(string lambda);
         new IOrderedVGremlinQuery<TVertex> OrderByDescending(Expression<Func<TVertex, object>> projection);
         IOrderedVGremlinQuery<TVertex> OrderByDescending(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        IVGremlinQuery<Vertex> Out<TEdge>();
+        IVGremlinQuery<IVertex> Out<TEdge>();
         IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
@@ -199,7 +199,7 @@ namespace ExRam.Gremlinq
         TTargetQuery As<TTargetQuery>(Func<IEGremlinQuery<TEdge>, EStepLabel<TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         IEGremlinQuery<TEdge> As(EStepLabel<TEdge> stepLabel);
 
-        IVGremlinQuery<Vertex> BothV();
+        IVGremlinQuery<IVertex> BothV();
         new IEGremlinQuery<TOtherEdge> Cast<TOtherEdge>();
 
         new IEGremlinQuery<TEdge> Dedup();
@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Identity();
-        IVGremlinQuery<Vertex> InV();
+        IVGremlinQuery<IVertex> InV();
 
         new IEGremlinQuery<TEdge> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IEGremlinQuery<TEdge>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
@@ -223,8 +223,8 @@ namespace ExRam.Gremlinq
         new IOrderedEGremlinQuery<TEdge> OrderBy(string lambda);
         new IOrderedEGremlinQuery<TEdge> OrderByDescending(Expression<Func<TEdge, object>> projection);
         IOrderedEGremlinQuery<TEdge> OrderByDescending(Func<IEGremlinQuery<TEdge>, IGremlinQuery> traversal);
-        IVGremlinQuery<Vertex> OtherV();
-        IVGremlinQuery<Vertex> OutV();
+        IVGremlinQuery<IVertex> OtherV();
+        IVGremlinQuery<IVertex> OutV();
 
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue>> projection, TValue value);
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue[]>> projection, TValue value);

@@ -1,6 +1,7 @@
 ﻿namespace ExRam.Gremlinq.GraphElements
 {
-    public abstract class Vertex : Element
+    public interface IEdge : IElement
     {
+
     }
 }

@@ -6,7 +6,7 @@ namespace System.Reflection
     {
         public static bool IsElementLabel(this PropertyInfo propertyInfo)
         {
-            return propertyInfo.DeclaringType == typeof(Element) && propertyInfo.Name == nameof(Element.Label);
+            return typeof(IElement).IsAssignableFrom(propertyInfo.DeclaringType) && propertyInfo.Name == nameof(IElement.Label);
         }
     }
 }

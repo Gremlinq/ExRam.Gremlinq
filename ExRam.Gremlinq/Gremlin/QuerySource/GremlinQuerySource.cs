@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq
                     .AddE<TEdge>();
             }
 
-            public IVGremlinQuery<Vertex> V(params object[] ids)
+            public IVGremlinQuery<IVertex> V(params object[] ids)
             {
                 return Create()
                     .V(ids);
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq
                     .V<TVertex>(ids);
             }
 
-            public IEGremlinQuery<Edge> E(params object[] ids)
+            public IEGremlinQuery<IEdge> E(params object[] ids)
             {
                 return Create()
                     .E(ids);

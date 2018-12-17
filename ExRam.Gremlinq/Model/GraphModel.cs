@@ -105,12 +105,12 @@ namespace ExRam.Gremlinq
 
         public static IGraphModel Dynamic()
         {
-            return FromAssemblies<Vertex, Edge>(x => x.Id, x => x.Id, AppDomain.CurrentDomain.GetAssemblies());
+            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public static IGraphModel FromExecutingAssembly()
         {
-            return FromAssemblies<Vertex, Edge>(x => x.Id, x => x.Id, Assembly.GetCallingAssembly());
+            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, Assembly.GetCallingAssembly());
         }
 
         public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId)
