@@ -32,6 +32,23 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         }
 
         [Fact(Skip = "Integration Test")]
+        public async Task AddV_with_DateTimeOffset()
+        {
+            var now = DateTimeOffset.FromUnixTimeMilliseconds(1481750076295);
+
+            var data = await _g
+                .AddV(new User
+                {
+                    Name = "Bob",
+                    RegistrationDate = now
+                })
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].RegistrationDate.Should().Be(now);
+        }
+
+        [Fact(Skip = "Integration Test")]
         public async Task AddV_without_id()
         {
             var data = await _g
