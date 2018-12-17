@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-// ReSharper disable ArrangeThisQualifier
-
 namespace ExRam.Gremlinq
 {
     public static class GremlinQuery
