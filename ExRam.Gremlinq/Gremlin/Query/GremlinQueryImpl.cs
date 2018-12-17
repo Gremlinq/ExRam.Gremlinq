@@ -299,15 +299,10 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Limit(long limit)
         {
-            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            // 4 billion should be enough for everyone (tm).
-            if (limit > int.MaxValue || limit < 0)
-                throw new ArgumentException("Parameter out of range.", nameof(limit));
-
             return AddStep(
                 limit == 1
                     ? LimitStep.Limit1
-                    : new LimitStep((int)limit));
+                    : new LimitStep(limit));
         }
         #endregion
 
@@ -702,12 +697,7 @@ namespace ExRam.Gremlinq
         
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Skip(long skip)
         {
-            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            // 4 billion should be enough for everyone (tm).
-            if (skip > int.MaxValue || skip < 0)
-                throw new ArgumentException("Parameter out of range.", nameof(skip));
-
-            return AddStep<TElement>(new SkipStep((int)skip));
+            return AddStep<TElement>(new SkipStep(skip));
         }
 
         #endregion
@@ -729,12 +719,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Tail(long limit)
         {
-            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            // 4 billion should be enough for everyone (tm).
-            if (limit > int.MaxValue || limit < 0)
-                throw new ArgumentException("Parameter out of range.", nameof(limit));
-
-            return AddStep<TElement>(new TailStep((int)limit));
+            return AddStep<TElement>(new TailStep(limit));
         }
         #endregion
 

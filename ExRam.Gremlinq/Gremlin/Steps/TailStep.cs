@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq
 {
     public sealed class TailStep : Step
     {
-        public TailStep(int count)
+        public TailStep(long count)
         {
             Count = count;
         }
@@ -14,6 +14,6 @@ namespace ExRam.Gremlinq
             visitor.Visit(this);
         }
 
-        public int Count { get; }
+        public long Count { get; }
     }
 }

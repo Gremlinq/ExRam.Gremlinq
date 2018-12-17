@@ -1387,13 +1387,24 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
+        public void Limit_underflow()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Limit(-1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
         public void Limit_overflow()
         {
             g
                 .V()
-                .Invoking(_ => _.Limit((long)int.MaxValue + 1))
+                .Limit((long)int.MaxValue + 1)
+                .Invoking(x => new StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor>().Serialize(x))
                 .Should()
-                .Throw<ArgumentException>();
+                .Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]

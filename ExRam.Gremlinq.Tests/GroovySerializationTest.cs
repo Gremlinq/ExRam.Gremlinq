@@ -1486,11 +1486,11 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
-        public void Limit_overflow()
+        public void Limit_underflow()
         {
             g
                 .V()
-                .Invoking(_ => _.Limit((long)int.MaxValue + 1))
+                .Invoking(_ => _.Limit(-1))
                 .Should()
                 .Throw<ArgumentException>();
         }

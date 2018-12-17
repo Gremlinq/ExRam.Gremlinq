@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Serialization;
+﻿using System;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
@@ -6,8 +7,11 @@ namespace ExRam.Gremlinq
     {
         public static readonly LimitStep Limit1 = new LimitStep(1);
 
-        public LimitStep(int limit)
+        public LimitStep(long limit)
         {
+            if (limit < 0)
+                throw new ArgumentOutOfRangeException(nameof(limit));
+
             Limit = limit;
         }
 
@@ -16,6 +20,6 @@ namespace ExRam.Gremlinq
             visitor.Visit(this);
         }
 
-        public int Limit { get; }
+        public long Limit { get; }
     }
 }
