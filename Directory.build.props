@@ -2,9 +2,17 @@
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
     <LangVersion>7.2</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))" >
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.33" />
+
+    <PackageReference Include="Fody" Version="3.3.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NullGuard.Fody" Version="1.8.5" />
   </ItemGroup>
+
 </Project>
