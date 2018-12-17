@@ -34,8 +34,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 
         public override void Visit(RangeStep step)
         {
-            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            // 4 billion should be enough for everyone (tm).
+            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
             if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
 
