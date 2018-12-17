@@ -62,9 +62,6 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                if (objectType != typeof(TimeSpan))
-                    throw new ArgumentException();
-
                 var str = serializer.Deserialize<string>(reader);
 
                 return double.TryParse(str, out var number)

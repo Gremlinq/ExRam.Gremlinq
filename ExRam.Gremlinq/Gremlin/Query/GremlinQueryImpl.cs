@@ -436,7 +436,7 @@ namespace ExRam.Gremlinq
                     .AddStep<TElement>(new ByMemberStep(memberExpression.Member, order));
             }
 
-            throw new NotSupportedException();
+            throw new ExpressionNotSupportedException(projection);
         }
         #endregion
 
@@ -542,7 +542,7 @@ namespace ExRam.Gremlinq
                         return memberExpression.Member;
                     }
 
-                    throw new NotSupportedException();
+                    throw new ExpressionNotSupportedException(projection);
                 })
                 .ToArray()));
         }
@@ -569,12 +569,12 @@ namespace ExRam.Gremlinq
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
                 if (memberExpression.Member is PropertyInfo propertyInfo && propertyInfo.IsElementLabel())
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("Cannot set the 'Label' property on a graph element.");
 
                 return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(elementType, memberExpression.Member.Name), value));
             }
 
-            throw new NotSupportedException();
+            throw new ExpressionNotSupportedException(projection);
         }
 
         IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, [AllowNull] object value)
@@ -833,7 +833,7 @@ namespace ExRam.Gremlinq
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
                         return Model.GetIdentifier(elementType, memberExpression.Member.Name);
 
-                    throw new NotSupportedException();
+                    throw new ExpressionNotSupportedException(projection);
                 })
                 .ToArray();
 
@@ -878,92 +878,112 @@ namespace ExRam.Gremlinq
         {
             var body = predicate.Body;
 
-            switch (body)
+            try
             {
-                case UnaryExpression unaryExpression:
+                switch (body)
                 {
-                    if (unaryExpression.NodeType == ExpressionType.Not)
-                        return Not(_ => _.Where(elementType, Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
-
-                    break;
-                }
-                case MemberExpression memberExpression:
-                {
-                    if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                        return Where(elementType, predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
-
-                    break;
-                }
-                case BinaryExpression binaryExpression:
-                    return Where(elementType, predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
-                case MethodCallExpression methodCallExpression:
-                {
-                    var methodInfo = methodCallExpression.Method;
-
-                    if (methodInfo.IsEnumerableAny())
+                    case UnaryExpression unaryExpression:
                     {
-                        if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
-                        {
-                            if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                return HasWithin(elementType, sourceMember, previousExpression.Arguments[1]);
+                        if (unaryExpression.NodeType == ExpressionType.Not)
+                            return Not(_ => _.Where(elementType,
+                                Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand,
+                                    predicate.Parameters)));
 
-                            if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                return HasWithin(elementType, argument, previousExpression.Arguments[0]);
-                        }
-                        else
-                            return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
+                        break;
                     }
-                    else if (methodInfo.IsEnumerableContains())
+                    case MemberExpression memberExpression:
                     {
-                        if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == predicate.Parameters[0])
-                            return Has(elementType, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                        if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
+                            return Where(elementType, predicate.Parameters[0], memberExpression,
+                                Expression.Constant(true), ExpressionType.Equal);
 
-                        if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                            return HasWithin(elementType, argument, methodCallExpression.Arguments[0]);
+                        break;
                     }
-                    else if (methodInfo.IsStringStartsWith())
+                    case BinaryExpression binaryExpression:
+                        return Where(elementType, predicate.Parameters[0], binaryExpression.Left.StripConvert(),
+                            binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                    case MethodCallExpression methodCallExpression:
                     {
-                        if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
+                        var methodInfo = methodCallExpression.Method;
+
+                        if (methodInfo.IsEnumerableAny())
                         {
-                            if (methodCallExpression.Object.GetValue() is string stringValue)
+                            if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression &&
+                                previousExpression.Method.IsEnumerableIntersect())
                             {
-                                return HasWithin(
-                                    elementType,
-                                    argumentExpression,
-                                    Enumerable
-                                        .Range(0, stringValue.Length + 1)
-                                        .Select(i => stringValue.Substring(0, i)));
+                                if (previousExpression.Arguments[0] is MemberExpression sourceMember)
+                                    return HasWithin(elementType, sourceMember, previousExpression.Arguments[1]);
+
+                                if (previousExpression.Arguments[1] is MemberExpression argument &&
+                                    argument.Expression == predicate.Parameters[0])
+                                    return HasWithin(elementType, argument, previousExpression.Arguments[0]);
                             }
+                            else
+                                return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0],
+                                    Expression.Constant(null, methodCallExpression.Arguments[0].Type),
+                                    ExpressionType.NotEqual);
                         }
-                        else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
+                        else if (methodInfo.IsEnumerableContains())
                         {
-                            if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
+                            if (methodCallExpression.Arguments[0] is MemberExpression sourceMember &&
+                                sourceMember.Expression == predicate.Parameters[0])
+                                return Has(elementType, sourceMember,
+                                    new P.Eq(methodCallExpression.Arguments[1].GetValue()));
+
+                            if (methodCallExpression.Arguments[1] is MemberExpression argument &&
+                                argument.Expression == predicate.Parameters[0])
+                                return HasWithin(elementType, argument, methodCallExpression.Arguments[0]);
+                        }
+                        else if (methodInfo.IsStringStartsWith())
+                        {
+                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression &&
+                                argumentExpression.Expression == predicate.Parameters[0])
                             {
-                                string upperBound;
-
-                                if (lowerBound.Length == 0)
-                                    return Has(elementType, memberExpression, P.True);
-
-                                if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
-                                    upperBound = lowerBound + char.MinValue;
-                                else
+                                if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    var upperBoundChars = lowerBound.ToCharArray();
-
-                                    upperBoundChars[upperBoundChars.Length - 1]++;
-                                    upperBound = new string(upperBoundChars);
+                                    return HasWithin(
+                                        elementType,
+                                        argumentExpression,
+                                        Enumerable
+                                            .Range(0, stringValue.Length + 1)
+                                            .Select(i => stringValue.Substring(0, i)));
                                 }
+                            }
+                            else if (methodCallExpression.Object is MemberExpression memberExpression &&
+                                     memberExpression.Expression == predicate.Parameters[0])
+                            {
+                                if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
+                                {
+                                    string upperBound;
 
-                                return Has(elementType, memberExpression, new P.Between(lowerBound, upperBound));
+                                    if (lowerBound.Length == 0)
+                                        return Has(elementType, memberExpression, P.True);
+
+                                    if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
+                                        upperBound = lowerBound + char.MinValue;
+                                    else
+                                    {
+                                        var upperBoundChars = lowerBound.ToCharArray();
+
+                                        upperBoundChars[upperBoundChars.Length - 1]++;
+                                        upperBound = new string(upperBoundChars);
+                                    }
+
+                                    return Has(elementType, memberExpression, new P.Between(lowerBound, upperBound));
+                                }
                             }
                         }
-                    }
 
-                    break;
+                        break;
+                    }
                 }
             }
+            catch (ExpressionNotSupportedException ex)
+            {
+                throw new ExpressionNotSupportedException(predicate, ex);
+            }
 
-            throw new NotSupportedException();
+            throw new ExpressionNotSupportedException(predicate);
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(GraphElementType elementType, ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType)
@@ -1033,7 +1053,7 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            throw new NotSupportedException();
+            throw new ExpressionNotSupportedException();
         }
         #endregion
 
@@ -1082,7 +1102,7 @@ namespace ExRam.Gremlinq
                     break;
                 }
                 default:
-                    throw new NotSupportedException();
+                    throw new ExpressionNotSupportedException(expression);
             }
 
             return Model.GetIdentifier(elementType, memberName);
@@ -1102,7 +1122,7 @@ namespace ExRam.Gremlinq
                 return HasWithin(elementType, expression, enumerable);
             }
 
-            throw new NotSupportedException();
+            throw new ExpressionNotSupportedException(enumerableExpression);
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> HasWithin(GraphElementType elementType, Expression expression, IEnumerable enumerable)
@@ -1128,7 +1148,7 @@ namespace ExRam.Gremlinq
             var body = memberExpression.Body.StripConvert();
 
             if (!(body is MemberExpression memberExpressionBody))
-                throw new ArgumentException();
+                throw new ExpressionNotSupportedException(memberExpression);
 
             return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name));
         }
