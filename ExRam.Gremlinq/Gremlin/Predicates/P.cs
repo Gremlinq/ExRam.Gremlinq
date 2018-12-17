@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
@@ -131,26 +129,11 @@ namespace ExRam.Gremlinq
         }
         #endregion
 
-        private static readonly IReadOnlyDictionary<ExpressionType, Func<object, P>> SupportedComparisons = new Dictionary<ExpressionType, Func<object, P>>
-        {
-            { ExpressionType.Equal, _ => new Eq(_) },
-            { ExpressionType.NotEqual, _ => new Neq(_) },
-            { ExpressionType.LessThan, _ => new Lt(_) },
-            { ExpressionType.LessThanOrEqual, _ => new Lte(_) },
-            { ExpressionType.GreaterThanOrEqual, _ => new Gte(_) },
-            { ExpressionType.GreaterThan, _ => new Gt(_) }
-        };
-
         private P()
         {
         }
 
         public abstract void Accept(IGremlinQueryElementVisitor visitor);
-
-        public static P ForExpressionType(ExpressionType expressionType, object argument)
-        {
-            return SupportedComparisons[expressionType](argument);
-        }
 
         internal static readonly P True = new TrueP();
     }

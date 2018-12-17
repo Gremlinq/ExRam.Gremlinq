@@ -1002,17 +1002,9 @@ namespace ExRam.Gremlinq
                         _ => _.Where(elementType, rightLambda));
             }
 
-            if (right is MemberExpression memberExpression && memberExpression.Expression == parameter)
-            {
-                if (nodeType != ExpressionType.Equal)
-                    throw new NotSupportedException("Please switch the expression operands!");
-
-                var temp = right;
-                right = left;
-                left = temp;
-            }
-
-            return Where(elementType, parameter, left, right.GetValue(), nodeType);
+            return right is MemberExpression memberExpression && memberExpression.Expression == parameter
+                ? Where(elementType, parameter, right, left.GetValue(), nodeType.Switch())
+                : Where(elementType, parameter, left, right.GetValue(), nodeType);
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Where(GraphElementType elementType, ParameterExpression parameter, Expression left, object rightConstant, ExpressionType nodeType)
@@ -1030,7 +1022,7 @@ namespace ExRam.Gremlinq
             }
             else
             {
-                var predicateArgument = P.ForExpressionType(nodeType, rightConstant);
+                var predicateArgument = nodeType.ToP(rightConstant);
 
                 switch (left)
                 {
