@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.GraphElements;
 using LanguageExt;
+using NullGuard;
 
 namespace ExRam.Gremlinq
 {
@@ -213,7 +214,11 @@ namespace ExRam.Gremlinq
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Dedup() => AddStep<TElement>(DedupStep.Instance);
         #endregion
 
+        #region Drop
         IGremlinQuery<Unit> IGremlinQuery.Drop() => AddStep<Unit>(DropStep.Instance);
+
+        private GremlinQueryImpl<Unit, Unit, Unit> Drop() => AddStep<Unit, Unit, Unit>(DropStep.Instance);
+        #endregion
 
         IEGremlinQuery<IEdge> IGremlinQuery.E(params object[] ids) => AddStep<IEdge>(new EStep(ids));
 
@@ -525,7 +530,9 @@ namespace ExRam.Gremlinq
         #region Properties
         IVPropertiesGremlinQuery<VertexProperty> IVGremlinQuery<TElement>.Properties(params Expression<Func<TElement, object>>[] projections) => Properties(projections);
 
-        IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys)
+        IGremlinQuery<Property> IVPropertiesGremlinQuery<TElement>.Properties(params string[] keys) => Properties(keys);
+
+        private GremlinQueryImpl<Property, Unit, Unit> Properties(params string[] keys)
         {
             return AddStep<Property, Unit, Unit>(new MetaPropertiesStep(keys));
         }
@@ -547,16 +554,23 @@ namespace ExRam.Gremlinq
         #endregion
         
         #region Property
-        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.VertexProperty, value);
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.VertexProperty, value);
  
-        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.VertexProperty, value);
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.VertexProperty, value);
 
-        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.Edge, value);
 
-        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.Edge, value);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Property<TProperty>(Expression<Func<TElement, TProperty>> projection, GraphElementType elementType, object value)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Property<TProperty>(Expression<Func<TElement, TProperty>> projection, GraphElementType elementType, [AllowNull] object value)
         {
+            if (value == null)
+            {
+                return SideEffect(_ => _
+                    .Properties(Expression.Lambda<Func<TElement, object>>(Expression.Convert(projection.Body, typeof(object)), projection.Parameters))
+                    .Drop());
+            }
+
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
                 if (memberExpression.Member is PropertyInfo propertyInfo && propertyInfo.IsElementLabel())
@@ -568,8 +582,15 @@ namespace ExRam.Gremlinq
             throw new NotSupportedException();
         }
 
-        IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, object value)
+        IVPropertiesGremlinQuery<TElement> IVPropertiesGremlinQuery<TElement>.Property(string key, [AllowNull] object value)
         {
+            if (value == null)
+            {
+                return SideEffect(_ => _
+                    .Properties(key)
+                    .Drop());
+            }
+
             return AddStep<TElement>(new MetaPropertyStep(key, value));
         }
         #endregion

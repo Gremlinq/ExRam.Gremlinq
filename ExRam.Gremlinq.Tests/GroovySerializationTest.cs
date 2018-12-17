@@ -1368,6 +1368,17 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Property_null()
+        {
+            g
+                .V<User>("id")
+                .Property(x => x.PhoneNumber, null)
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c).drop())")
+                .WithParameters("id", "User", "PhoneNumber");
+        }
+
+        [Fact]
         public void Coalesce()
         {
             g
@@ -1424,6 +1435,30 @@ namespace ExRam.Gremlinq.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
+        }
+
+        [Fact]
+        public void Set_Meta_Property()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Property("metaKey", 1)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
+                .WithParameters("Country", "Name", "metaKey", 1);
+        }
+
+        [Fact]
+        public void Set_Meta_Property_to_null()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Property("metaKey", null)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).sideEffect(__.properties(_c).drop())")
+                .WithParameters("Country", "Name", "metaKey");
         }
 
         [Fact]
