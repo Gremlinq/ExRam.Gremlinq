@@ -188,14 +188,15 @@ namespace ExRam.Gremlinq.Tests
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            var user = await g
+            var company = await g
                 .WithExecutor(new TestJsonQueryExecutor(SingleCompanyJson))
                 .V<Company>()
                 .First();
 
-            user.Should().NotBeNull();
-            user.Id.Should().Be(8);
-            user.FoundingDate.Kind.Should().Be(DateTimeKind.Utc);
+            company.Should().NotBeNull();
+            company.Id.Should().Be("b9b89d7f-9313-4eed-b354-2760ba7a3fbe");
+            company.FoundingDate.Kind.Should().Be(DateTimeKind.Utc);
+            company.FoundingDate.Should().Be(new DateTime(2018, 12, 17, 8, 0, 0, DateTimeKind.Utc));
         }
 
         [Fact]

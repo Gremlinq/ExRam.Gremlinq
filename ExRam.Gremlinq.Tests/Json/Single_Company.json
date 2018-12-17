@@ -1,13 +1,19 @@
 ﻿[
   {
-    "id": 8,
+    "id": "b9b89d7f-9313-4eed-b354-2760ba7a3fbe",
     "label": "Company",
     "type": "vertex",
     "properties": {
       "FoundingDate": [
         {
-          "id": 1,
-          "value": 1481750076295
+          "id": "87c82d45-623d-45fc-91f6-5757d2010403",
+          "value": "2018-12-17T08:00:00Z"
+        }
+      ],
+      "Name": [
+        {
+          "id": "af8d9d94-3814-400a-91b8-1a6bef584a9a",
+          "value": "Company!"
         }
       ]
     }

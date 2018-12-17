@@ -71,14 +71,14 @@ namespace ExRam.Gremlinq
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                writer.WriteValue(XmlConvert.ToString((TimeSpan)value));
+                throw new NotSupportedException();
             }
 
             public override bool CanRead => true;
             public override bool CanWrite => true;
         }
 
-        private sealed class AssumeUtcDateTimeOffsetConverter : JsonConverter
+        private sealed class DateTimeOffsetConverter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
             {
@@ -87,16 +87,16 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                return DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
+                return System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                writer.WriteValue(((DateTimeOffset)value).ToUnixTimeMilliseconds());
+                throw new NotSupportedException();
             }
         }
 
-        private sealed class AssumeUtcDateTimeConverter : JsonConverter
+        private sealed class DateTimeConverter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
             {
@@ -105,14 +105,12 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                var milliseconds = serializer.Deserialize<long>(reader);
-
-                return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).Ticks, DateTimeKind.Utc);
+                return new DateTime(System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader)).Ticks, DateTimeKind.Utc);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-                writer.WriteValue(((DateTimeOffset)(DateTime)value).ToUnixTimeMilliseconds());
+                throw new NotSupportedException();
             }
         }
 
@@ -152,6 +150,9 @@ namespace ExRam.Gremlinq
                         token = jObject["value"];
                         continue;
                     }
+
+                    if (token is JValue value && value.Value is DateTime dateTime && objectType == typeof(long))
+                        return new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
 
                     return token.ToObject(objectType);
                 }
@@ -221,7 +222,6 @@ namespace ExRam.Gremlinq
             public override bool CanRead => true;
             public override bool CanWrite => false;
         }
-        #endregion
 
         private sealed class ElementConverter : JsonConverter
         {
@@ -230,8 +230,8 @@ namespace ExRam.Gremlinq
                 public ModelIndependentJsonSerializer()
                 {
                     Converters.Add(TimeSpan);
-                    Converters.Add(UtcDateTimeOffset);
-                    Converters.Add(UtcDateTime);
+                    Converters.Add(DateTimeOffset);
+                    Converters.Add(DateTime);
                     Converters.Add(Scalar);
                     Converters.Add(MetaProperty);
 
@@ -286,18 +286,19 @@ namespace ExRam.Gremlinq
 
             public override bool CanWrite => false;
         }
+        #endregion
 
         private static readonly JsonConverter TimeSpan = new TimespanConverter();
-        private static readonly JsonConverter UtcDateTimeOffset = new AssumeUtcDateTimeOffsetConverter();
-        private static readonly JsonConverter UtcDateTime = new AssumeUtcDateTimeConverter();
+        private static readonly JsonConverter DateTimeOffset = new DateTimeOffsetConverter();
+        private static readonly JsonConverter DateTime = new DateTimeConverter();
         private static readonly JsonConverter Scalar = new ScalarConverter();
         private static readonly JsonConverter MetaProperty = new MetaPropertyConverter();
 
         public GraphsonDeserializer(IGraphModel model)
         {
             Converters.Add(TimeSpan);
-            Converters.Add(UtcDateTimeOffset);
-            Converters.Add(UtcDateTime);
+            Converters.Add(DateTimeOffset);
+            Converters.Add(DateTime);
             Converters.Add(Scalar);
             Converters.Add(MetaProperty);
             Converters.Add(new ElementConverter(model));
