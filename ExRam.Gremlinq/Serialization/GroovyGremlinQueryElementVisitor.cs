@@ -566,7 +566,6 @@ namespace ExRam.Gremlinq.Serialization
         }
         #endregion
 
-
         public string GetString()
         {
             return _builder.ToString();
@@ -578,7 +577,7 @@ namespace ExRam.Gremlinq.Serialization
                 .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
         }
 
-        private void Identifier(string className)
+        protected void Identifier(string className)
         {
             if (_state != State.Idle)
                 throw new InvalidOperationException();
@@ -587,7 +586,7 @@ namespace ExRam.Gremlinq.Serialization
             _state = State.Chaining;
         }
 
-        private void Lambda(string lambda)
+        protected void Lambda(string lambda)
         {
             if (_state != State.Idle)
                 throw new InvalidOperationException();
@@ -597,7 +596,7 @@ namespace ExRam.Gremlinq.Serialization
             _builder.Append("}");
         }
 
-        private void OpenMethod(string methodName)
+        protected void OpenMethod(string methodName)
         {
             if (_state != State.Chaining)
                 throw new InvalidOperationException();
@@ -610,13 +609,13 @@ namespace ExRam.Gremlinq.Serialization
             _state = State.InMethodBeforeFirstParameter;
         }
 
-        private void CloseMethod()
+        protected void CloseMethod()
         {
             _builder.Append(")");
             _state = _stateQueue.Pop();
         }
 
-        private void StartParameter()
+        protected void StartParameter()
         {
             if (_state != State.InMethodBeforeFirstParameter && _state != State.InMethodAfterFirstParameter)
                 throw new InvalidOperationException();
@@ -628,7 +627,7 @@ namespace ExRam.Gremlinq.Serialization
             _state = State.Idle;
         }
 
-        private void EndParameter()
+        protected void EndParameter()
         {
             _state = _stateQueue.Pop();
         }
@@ -656,13 +655,13 @@ namespace ExRam.Gremlinq.Serialization
         }
 
         #region Method
-        private void Method(string methodName)
+        protected void Method(string methodName)
         {
             OpenMethod(methodName);
             CloseMethod();
         }
 
-        private void Method(string methodName, object parameter)
+        protected void Method(string methodName, object parameter)
         {
             OpenMethod(methodName);
             {
@@ -673,7 +672,7 @@ namespace ExRam.Gremlinq.Serialization
             CloseMethod();
         }
 
-        private void Method(string methodName, object parameter1, object parameter2)
+        protected void Method(string methodName, object parameter1, object parameter2)
         {
             OpenMethod(methodName);
             {
@@ -688,7 +687,7 @@ namespace ExRam.Gremlinq.Serialization
             CloseMethod();
         }
 
-        private void Method(string methodName, object parameter1, object parameter2, object parameter3)
+        protected void Method(string methodName, object parameter1, object parameter2, object parameter3)
         {
             OpenMethod(methodName);
             {
@@ -707,7 +706,7 @@ namespace ExRam.Gremlinq.Serialization
             CloseMethod();
         }
 
-        private void Method(string methodName, IEnumerable<object> parameters)
+        protected void Method(string methodName, IEnumerable<object> parameters)
         {
             OpenMethod(methodName);
             {
@@ -722,7 +721,7 @@ namespace ExRam.Gremlinq.Serialization
         }
         #endregion
 
-        private void Field(string fieldName)
+        protected void Field(string fieldName)
         {
             if (_state != State.Chaining)
                 throw new InvalidOperationException();
@@ -731,7 +730,7 @@ namespace ExRam.Gremlinq.Serialization
             _builder.Append(fieldName);
         }
 
-        private void Constant(object constant)
+        protected void Constant(object constant)
         {
             if (_state == State.Chaining)
                 throw new InvalidOperationException();
@@ -739,7 +738,7 @@ namespace ExRam.Gremlinq.Serialization
             _builder.Append(Cache(constant));
         }
 
-        private string Cache(object constant)
+        protected string Cache(object constant)
         {
             if (constant is StepLabel stepLabel)
             {
@@ -790,7 +789,7 @@ namespace ExRam.Gremlinq.Serialization
         {
             Method(stepName,
                 step.Traversals
-                    .SelectMany(FlattenTraversals<TStep>));
+                    .SelectMany(FlattenLogicalTraversals<TStep>));
         }
 
         protected virtual void Visit(HasStepBase step, string stepName)
@@ -806,7 +805,7 @@ namespace ExRam.Gremlinq.Serialization
                         : step.Value);
         }
 
-        private void Property(Cardinality cardinality, object name, object value)
+        protected void Property(Cardinality cardinality, object name, object value)
         {
             if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
@@ -836,13 +835,13 @@ namespace ExRam.Gremlinq.Serialization
             Method(name, p.Argument);
         }
 
-        private static IEnumerable<IGremlinQuery> FlattenTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
+        private static IEnumerable<IGremlinQuery> FlattenLogicalTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
         {
             if (query.Steps.Count == 2 && query.Steps[1] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {
-                    foreach (var flattenedSubTraversal in FlattenTraversals<TStep>(subTraversal))
+                    foreach (var flattenedSubTraversal in FlattenLogicalTraversals<TStep>(subTraversal))
                     {
                         yield return flattenedSubTraversal;
                     }
