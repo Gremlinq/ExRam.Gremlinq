@@ -1,11 +1,18 @@
-﻿using ExRam.Gremlinq.Serialization;
+﻿using System;
+using ExRam.Gremlinq.Serialization;
 
 namespace ExRam.Gremlinq
 {
     public sealed class RangeStep : Step
     {
-        public RangeStep(int lower, int upper)
+        public RangeStep(long lower, long upper)
         {
+            if (lower < 0)
+                throw new ArgumentOutOfRangeException(nameof(lower));
+
+            if (upper < 0)
+                throw new ArgumentException(nameof(upper));
+
             Lower = lower;
             Upper = upper;
         }
@@ -15,7 +22,7 @@ namespace ExRam.Gremlinq
             visitor.Visit(this);
         }
 
-        public int Lower { get; }
-        public int Upper { get; }
+        public long Lower { get; }
+        public long Upper { get; }
     }
 }

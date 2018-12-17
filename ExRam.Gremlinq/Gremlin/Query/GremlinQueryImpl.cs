@@ -599,15 +599,7 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Range(long low, long high)
         {
-            // This is the easier workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            // 4 billion should be enough for everyone (tm).
-            if (low > int.MaxValue || low < 0)
-                throw new ArgumentException("Parameter out of range.", nameof(low));
-
-            if (high > int.MaxValue || high < 0)
-                throw new ArgumentException("Parameter out of range.", nameof(high));
-
-            return AddStep<TElement>(new RangeStep((int)low, (int)high));
+            return AddStep<TElement>(new RangeStep(low, high));
         }
         #endregion
 
