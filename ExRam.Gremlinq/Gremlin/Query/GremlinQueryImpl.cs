@@ -1170,7 +1170,7 @@ namespace ExRam.Gremlinq
                     element.GetType(),
                     type => type
                         .GetProperties()
-                        .Where(property => IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType))
+                        .Where(property => !property.IsElementLabel() && (IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType)))
                         .ToArray())
                 .Select(property => new PropertyStep(property.PropertyType, Model.GetIdentifier(elementType, property.Name), property.GetValue(element)));
 
