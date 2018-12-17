@@ -18,11 +18,11 @@ namespace ExRam.Gremlinq
             public object Argument { get; }
         }
 
-        private sealed class Constant : P
+        private sealed class TrueP : P
         {
             public override void Accept(IGremlinQueryElementVisitor visitor)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("P.True is not supposed to be serialized to groovy. Something went wrong...");
             }
         }
 
@@ -152,6 +152,6 @@ namespace ExRam.Gremlinq
             return SupportedComparisons[expressionType](argument);
         }
 
-        internal static readonly P True = new Constant();
+        internal static readonly P True = new TrueP();
     }
 }
