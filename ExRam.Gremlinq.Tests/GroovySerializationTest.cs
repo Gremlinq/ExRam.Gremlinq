@@ -1346,6 +1346,17 @@ namespace ExRam.Gremlinq.Tests
         }
 
         [Fact]
+        public void Label_Property()
+        { 
+            g
+                .Invoking(_ => _
+                    .V<User>()
+                    .Property(x => x.Label, "someLabel"))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public void Property_list()
         {
             g

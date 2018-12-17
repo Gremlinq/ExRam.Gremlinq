@@ -559,6 +559,9 @@ namespace ExRam.Gremlinq
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
+                if (memberExpression.Member is PropertyInfo propertyInfo && propertyInfo.IsElementLabel())
+                    throw new InvalidOperationException();
+
                 return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(elementType, memberExpression.Member.Name), value));
             }
 
