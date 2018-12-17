@@ -6,6 +6,7 @@ using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace ExRam.Gremlinq
 {
@@ -25,7 +26,7 @@ namespace ExRam.Gremlinq
                     _defaultValue = Array.CreateInstance(elementType, 0);
                 }
 
-                public void SetValue(object target, object value)
+                public void SetValue(object target, [AllowNull] object value)
                 {
                     _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
@@ -59,7 +60,7 @@ namespace ExRam.Gremlinq
                 return objectType == typeof(TimeSpan);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 if (objectType != typeof(TimeSpan))
                     throw new ArgumentException();
@@ -87,7 +88,7 @@ namespace ExRam.Gremlinq
                 return objectType == typeof(DateTimeOffset);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 return DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
             }
@@ -105,7 +106,7 @@ namespace ExRam.Gremlinq
                 return objectType == typeof(DateTime);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var milliseconds = serializer.Deserialize<long>(reader);
 
@@ -125,7 +126,7 @@ namespace ExRam.Gremlinq
                 return !objectType.IsArray && (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -175,7 +176,7 @@ namespace ExRam.Gremlinq
                 return typeof(IMeta).IsAssignableFrom(objectType);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -251,7 +252,7 @@ namespace ExRam.Gremlinq
                 _model = model;
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var jToken = JToken.Load(reader);
 

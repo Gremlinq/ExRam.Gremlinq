@@ -1,8 +1,10 @@
-﻿namespace ExRam.Gremlinq.GraphElements
+﻿using NullGuard;
+
+namespace ExRam.Gremlinq.GraphElements
 {
     public sealed class Property
     {
-        public string Key { get; set; }
-        public object Value { get; set; }
+        [AllowNull] public string Key { get; set; }
+        [AllowNull] public object Value { get; set; }
     }
 }

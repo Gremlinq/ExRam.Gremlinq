@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using NullGuard;
 
 namespace ExRam.Gremlinq.GraphElements
 {
     public sealed class VertexProperty : Element
     {
-        public object Value { get; set; }
-        public IDictionary<string, object> Properties { get; set; }
+        [AllowNull] public object Value { get; set; }
+        [AllowNull] public IDictionary<string, object> Properties { get; set; }
     }
 }

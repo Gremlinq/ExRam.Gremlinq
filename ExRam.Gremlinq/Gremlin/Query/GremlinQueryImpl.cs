@@ -1168,21 +1168,22 @@ namespace ExRam.Gremlinq
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> AddElementProperties(GraphElementType elementType, object element)
         {
-            var propertySteps = GremlinQuery.TypeProperties
+            var propertyInfos = GremlinQuery.TypeProperties
                 .GetOrAdd(
                     element.GetType(),
                     type => type
                         .GetProperties()
                         .Where(property => !property.IsElementLabel() && (IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType)))
-                        .ToArray())
-                .Select(property => new PropertyStep(property.PropertyType, Model.GetIdentifier(elementType, property.Name), property.GetValue(element)));
+                        .ToArray());
 
             var ret = this;
 
             // ReSharper disable once LoopCanBeConvertedToQuery
-            foreach (var propertyStep in propertySteps)
+            foreach (var propertyInfo in propertyInfos)
             {
-                ret = ret.AddStep(propertyStep);
+                var value = propertyInfo.GetValue(element);
+                if (value != null)
+                    ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
             }
 
             return ret;
