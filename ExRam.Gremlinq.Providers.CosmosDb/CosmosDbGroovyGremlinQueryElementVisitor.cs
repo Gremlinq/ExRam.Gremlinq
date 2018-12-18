@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Skip' outside the range of a 32-bit-integer.");
 
-            base.Visit(step);
+            Method("skip", (int)step.Count);
         }
 
         public override void Visit(LimitStep step)
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Limit > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
 
-            base.Visit(step);
+            Method("limit", (int)step.Limit);
         }
 
         public override void Visit(TailStep step)
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
 
-            base.Visit(step);
+            Method("tail", (int)step.Count);
         }
 
         public override void Visit(RangeStep step)
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
 
-            base.Visit(step);
+            Method("range", (int)step.Lower, (int)step.Upper);
         }
 
         public override void Visit(HasStep step)
