@@ -54,11 +54,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IConfigurableGremlinQuerySource WithRemote(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
         {
             return source.WithExecutor(
-                new WebSocketGremlinQueryExecutor(
+                new WebSocketGremlinQueryExecutor<GroovyGremlinQueryElementVisitor>(
                     new GremlinClientEx(
                         server,
                         graphsonVersion),
-                    new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>(),
                     new DefaultGraphsonSerializerFactory()));
         }
     }

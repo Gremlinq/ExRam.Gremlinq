@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .WithModel(GraphModel
                     .FromExecutingAssembly<User, Edge>(x => x.PhoneNumbers, x => x.Id))
                 .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
-                .Invoking(x => new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>().Serialize(x))
+                .Invoking(x => new GroovyGremlinQueryElementVisitor().Visit(x))
                 .Should()
                 .Throw<NotSupportedException>();
         }
@@ -1403,7 +1403,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             g
                 .V()
                 .Limit((long)int.MaxValue + 1)
-                .Invoking(x => new StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor>().Serialize(x))
+                .Invoking(x => new CosmosDbGroovyGremlinQueryElementVisitor().Visit(x))
                 .Should()
                 .Throw<ArgumentOutOfRangeException>();
         }

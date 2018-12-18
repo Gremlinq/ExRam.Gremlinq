@@ -7,7 +7,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public class GroovyGremlinQueryElementVisitor : IStringGremlinQueryElementVisitor
+    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>
     {
         private enum State
         {
@@ -19,10 +19,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private State _state = State.Idle;
 
+        private readonly StringBuilder _builder = new StringBuilder();
         private readonly Stack<State> _stateQueue = new Stack<State>();
         private readonly Dictionary<object, string> _variables = new Dictionary<object, string>();
         private readonly Dictionary<StepLabel, string> _stepLabelMappings = new Dictionary<StepLabel, string>();
-        private readonly StringBuilder _builder = new StringBuilder();
 
         #region Visit
         public virtual void Visit(HasNotStep step)
@@ -566,15 +566,12 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
         #endregion
 
-        public string GetString()
+        public SerializedGremlinQuery Build()
         {
-            return _builder.ToString();
-        }
-
-        public IDictionary<string, object> GetVariableBindings()
-        {
-            return _variables
-                .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+            return new SerializedGremlinQuery(
+                _builder.ToString(),
+                _variables
+                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
         }
 
         protected void Identifier(string className)

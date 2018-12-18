@@ -10,8 +10,6 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
         {
-            private static readonly StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor> Serializer = new StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor>();
-
             public GremlinQueryAssertions(IGremlinQuery query)
             {
                 Subject = query;
@@ -24,7 +22,10 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var serializedQuery = Serializer.Serialize(Subject);
+                var visitor = new CosmosDbGroovyGremlinQueryElementVisitor();
+                visitor.Visit(Subject);
+
+                var serializedQuery = visitor.Build();
 
                 serializedQuery.QueryString
                     .Should()

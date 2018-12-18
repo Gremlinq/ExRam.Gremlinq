@@ -9,22 +9,27 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
+    public class WebSocketGremlinQueryExecutor : WebSocketGremlinQueryExecutor<GroovyGremlinQueryElementVisitor>
+    {
+        public WebSocketGremlinQueryExecutor(IGremlinClient client, IGraphsonSerializerFactory serializerFactory, ILogger logger = null) : base(client, serializerFactory, logger)
+        {
+        }
+    }
+
+    public class WebSocketGremlinQueryExecutor<TVisitor> : IGremlinQueryExecutor, IDisposable
+        where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
         private readonly IGraphsonSerializerFactory _serializerFactory;
-        private readonly IGremlinQuerySerializer<SerializedGremlinQuery> _serializer;
 
         public WebSocketGremlinQueryExecutor(
             IGremlinClient client,
-            IGremlinQuerySerializer<SerializedGremlinQuery> serializer,
             IGraphsonSerializerFactory serializerFactory,
             ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
-            _serializer = serializer;
             _serializerFactory = serializerFactory;
         }
 
@@ -35,7 +40,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
         {
-            var serialized = _serializer.Serialize(query);
+            var visitor = new TVisitor();
+
+            visitor
+                .Visit(query);
+
+            var serialized = visitor.Build();
 
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
             
