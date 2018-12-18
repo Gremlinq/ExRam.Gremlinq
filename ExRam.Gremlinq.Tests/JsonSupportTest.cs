@@ -338,7 +338,7 @@ namespace ExRam.Gremlinq.Tests
             timeFrame.Duration.Should().Be(new TimeSpan(16, 0, 0));
         }
 
-        [Fact]
+        [Fact(Skip = "Not standard behaviour!")]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
             var timeFrame = await g
