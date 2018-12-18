@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.Providers;
 using ExRam.Gremlinq.Tests;
 using Newtonsoft.Json.Linq;
 using Xunit;

@@ -5,10 +5,12 @@ namespace System.Reflection
 {
     internal static class MethodInfoExtensions
     {
+        // ReSharper disable ReturnValueOfPureMethodIsNotUsed
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContains = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default));
+        // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         public static bool IsEnumerableAny(this MethodInfo methodInfo)
         {

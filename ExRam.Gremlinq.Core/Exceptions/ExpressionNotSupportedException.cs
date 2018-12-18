@@ -15,12 +15,12 @@ namespace ExRam.Gremlinq
 
         }
 
-        public ExpressionNotSupportedException(Exception innerException) : base($"An expression is not supported.", innerException)
+        public ExpressionNotSupportedException(Exception innerException) : base("An expression is not supported.", innerException)
         {
 
         }
 
-        public ExpressionNotSupportedException() : base($"An expression is not supported.")
+        public ExpressionNotSupportedException() : base("An expression is not supported.")
         {
 
         }

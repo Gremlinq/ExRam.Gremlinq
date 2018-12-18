@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq
                 new NullGraphSSON2Reader(),
                 new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
                 {
-                    {typeof(TimeSpan), new TimeSpanSerializer()},
+                    { typeof(TimeSpan), new TimeSpanSerializer() }
                 }),
                 GraphSON2MimeType)
             {

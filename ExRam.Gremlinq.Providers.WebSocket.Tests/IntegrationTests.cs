@@ -951,7 +951,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             await _g
                 .V<User>()
-                .Values<object>(x => x.Name, x => x.Id)
+                .Values(x => x.Name, x => x.Id)
                 .ToArray();
         }
 
