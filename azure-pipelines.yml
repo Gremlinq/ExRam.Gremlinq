@@ -35,8 +35,10 @@ steps:
   displayName: 'VsTest - testAssemblies'
   inputs:
     testAssemblyVer2: |
-     **\$(BuildConfiguration)\*\*.Tests.dll
-     !**\obj\**
+     **\ExRam.Gremlinq.Core.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Core.Tests.dll
+     **\ExRam.Gremlinq.Providers.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.Tests.dll
+     **\ExRam.Gremlinq.Providers.WebSocket.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.WebSocket.Tests.dll
+     **\ExRam.Gremlinq.Providers.CosmosDb.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.CosmosDb.Tests.dll
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
 
