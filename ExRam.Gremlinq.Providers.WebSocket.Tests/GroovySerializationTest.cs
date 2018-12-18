@@ -3,6 +3,7 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
@@ -11,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         [Fact]
         public void Where_empty_array_intersects_property_array()
         {
-            GremlinQuerySource.g
+            g
                 .V<User>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
@@ -22,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         [Fact]
         public void Where_property_array_intersects_empty_array()
         {
-            GremlinQuerySource.g
+            g
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
@@ -36,7 +37,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var enumerable = Enumerable.Empty<int>();
 
-            GremlinQuerySource.g
+            g
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
