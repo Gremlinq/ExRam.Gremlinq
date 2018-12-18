@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public class WebSocketGremlinQueryExecutor : WebSocketGremlinQueryExecutor<GroovyGremlinQueryElementVisitor>
     {
-        public WebSocketGremlinQueryExecutor(IGremlinClient client, IGraphsonSerializerFactory serializerFactory, ILogger logger = null) : base(client, serializerFactory, logger)
+        public WebSocketGremlinQueryExecutor(IGremlinClient client, IGraphsonSerializerFactory graphSonSerializerFactory, ILogger logger = null) : base(client, graphSonSerializerFactory, logger)
         {
         }
     }
@@ -21,16 +21,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
-        private readonly IGraphsonSerializerFactory _serializerFactory;
+        private readonly IGraphsonSerializerFactory _graphSonSerializerFactory;
 
         public WebSocketGremlinQueryExecutor(
             IGremlinClient client,
-            IGraphsonSerializerFactory serializerFactory,
+            IGraphsonSerializerFactory graphSonSerializerFactory,
             ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
-            _serializerFactory = serializerFactory;
+            _graphSonSerializerFactory = graphSonSerializerFactory;
         }
 
         public void Dispose()
@@ -50,11 +50,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
             
             return _gremlinClient
-                .SubmitAsync<JToken>(serialized.QueryString, new Dictionary<string, object>(serialized.Bindings))
+                .SubmitAsync<JToken>(serialized.QueryString, serialized.Bindings)
                 .ToAsyncEnumerable()
                 .SelectMany(x => x
                     .ToAsyncEnumerable())
-                .GraphsonDeserialize<TElement[]>(_serializerFactory.Get(query.Model))
+                .Catch<JToken, Exception>(ex =>
+                {
+                    _logger?.LogError("Error executing Gremlin query {0}.", serialized.QueryString);
+
+                    return AsyncEnumerable.Throw<JToken>(ex);
+                })
+                .GraphsonDeserialize<TElement[]>(_graphSonSerializerFactory.Get(query.Model))
                 .SelectMany(x => x.ToAsyncEnumerable());
         }
     }
