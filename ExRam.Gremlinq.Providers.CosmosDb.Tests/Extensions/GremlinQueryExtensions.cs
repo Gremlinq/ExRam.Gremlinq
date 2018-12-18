@@ -24,28 +24,28 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var tuple = Serializer.Serialize(Subject);
+                var serializedQuery = Serializer.Serialize(Subject);
 
-                tuple.queryString
+                serializedQuery.QueryString
                     .Should()
                     .Be(serialization);
 
-                return new SerializedGremlinQueryAssertions(tuple);
+                return new SerializedGremlinQueryAssertions(serializedQuery);
             }
         }
 
         public sealed class SerializedGremlinQueryAssertions : ObjectAssertions
         {
-            private readonly (string queryString, IDictionary<string, object> parameters) _tuple;
+            private readonly SerializedGremlinQuery _serializedQuery;
 
-            public SerializedGremlinQueryAssertions((string queryString, IDictionary<string, object> parameters) tuple) : base(tuple)
+            public SerializedGremlinQueryAssertions(SerializedGremlinQuery serializedQuery) : base(serializedQuery)
             {
-                _tuple = tuple;
+                _serializedQuery = serializedQuery;
             }
 
             public SerializedGremlinQueryAssertions WithParameters(params object[] parameters)
             {
-                _tuple.parameters.Should().HaveCount(parameters.Length);
+                _serializedQuery.Bindings.Should().HaveCount(parameters.Length);
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
 
                     key = "_" + key;
-                    _tuple.parameters.Should().Contain(key, parameters[i]);
+                    _serializedQuery.Bindings.Should().Contain(key, parameters[i]);
                 }
 
                 return this;
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions WithoutParameters()
             {
-                _tuple.parameters.Should().BeEmpty();
+                _serializedQuery.Bindings.Should().BeEmpty();
 
                 return this;
             }

@@ -14,11 +14,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
         private readonly IGraphsonSerializerFactory _serializerFactory;
-        private readonly IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> _serializer;
+        private readonly IGremlinQuerySerializer<SerializedGremlinQuery> _serializer;
 
         public WebSocketGremlinQueryExecutor(
             IGremlinClient client,
-            IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer,
+            IGremlinQuerySerializer<SerializedGremlinQuery> serializer,
             IGraphsonSerializerFactory serializerFactory,
             ILogger logger = null)
         {
@@ -37,10 +37,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             var serialized = _serializer.Serialize(query);
 
-            _logger?.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
+            _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
             
             return _gremlinClient
-                .SubmitAsync<JToken>(serialized.queryString, new Dictionary<string, object>(serialized.parameters))
+                .SubmitAsync<JToken>(serialized.QueryString, new Dictionary<string, object>(serialized.Bindings))
                 .ToAsyncEnumerable()
                 .SelectMany(x => x
                     .ToAsyncEnumerable())
