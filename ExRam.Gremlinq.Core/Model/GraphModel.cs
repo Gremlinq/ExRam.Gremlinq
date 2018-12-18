@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            private readonly IDictionary<Type, string> _labels;
+            private readonly IDictionary<Type, string[]> _labels;
             private readonly IDictionary<string, Type[]> _types;
             private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
@@ -62,13 +62,15 @@ namespace ExRam.Gremlinq.Core
                     .Where(x => !x.IsInterface)
                     .ToDictionary(
                         type => type,
-                        type => type.Name);
+                        type => new[] { type.Name });
 
                 _types = _labels
-                    .GroupBy(x => x.Value)
+                    .GroupBy(x => x.Value[0])
                     .ToDictionary(
                         group => group.Key,
-                        group => group.Select(x => x.Key).ToArray());
+                        group => group
+                            .Select(x => x.Key)
+                            .ToArray());
 
                 VertexIdPropertyName = idPropertyName;
                 EdgeIdPropertyName = edgeIdPropertyName;
@@ -82,14 +84,13 @@ namespace ExRam.Gremlinq.Core
                         elementType,
                         closureType => _labels
                             .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                            .Select(kvp => kvp.Value)
+                            .Select(kvp => kvp.Value[0])
                             .OrderBy(x => x)
                             .ToArray());
                 }
 
                 return _labels
                     .TryGetValue(elementType)
-                    .Map(x => new[] { x })
                     .IfNone(Array.Empty<string>());
             }
 
