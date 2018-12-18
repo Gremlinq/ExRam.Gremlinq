@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQuerySource WithCosmosDbRemote(this IGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443, bool enableSsl = true)
+        public static IConfigurableGremlinQuerySource WithCosmosDbRemote(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443, bool enableSsl = true)
         {
             return source.WithExecutor(
                 new WebSocketGremlinQueryExecutor(

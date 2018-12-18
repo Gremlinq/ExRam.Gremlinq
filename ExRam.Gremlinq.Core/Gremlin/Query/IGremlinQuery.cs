@@ -7,16 +7,21 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQuery
+    public interface IGremlinQuerySource
     {
-        IEGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
-        IEGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new();
         IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IVGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new();
-
-        IEGremlinQuery<IEdge> E(params object[] ids);
+        IEGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
+        IEGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new();
         IVGremlinQuery<IVertex> V(params object[] ids);
+        IVGremlinQuery<TVertex> V<TVertex>(params object[] ids);
+        IEGremlinQuery<IEdge> E(params object[] ids);
+        IEGremlinQuery<TEdge> E<TEdge>(params object[] ids);
+        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+    }
 
+    public interface IGremlinQuery : IGremlinQuerySource
+    {
         IGremlinQuery<TElement> Cast<TElement>();
         IGremlinQuery<long> Count();
         IGremlinQuery<Unit> Drop();

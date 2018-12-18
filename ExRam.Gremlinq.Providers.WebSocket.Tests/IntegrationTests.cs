@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
     public class IntegrationTests
     {
-        private readonly IGremlinQuerySource _g;
+        private readonly IConfigurableGremlinQuerySource _g;
 
         public IntegrationTests()
         {

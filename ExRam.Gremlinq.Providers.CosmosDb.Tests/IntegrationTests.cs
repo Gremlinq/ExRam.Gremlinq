@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class IntegrationTests
     {
-        private readonly IGremlinQuerySource _g;
+        private readonly IConfigurableGremlinQuerySource _g;
 
         public IntegrationTests()
         {
