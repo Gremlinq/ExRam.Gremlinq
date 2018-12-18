@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Linq;
+
+namespace ExRam.Gremlinq.Core
 {
     public abstract class AddElementStep : Step
     {
@@ -7,8 +9,8 @@
             var type = value.GetType();
 
             Label = model
-                .TryGetLabel(type)
-                .IfNone(type.Name);
+                .GetLabels(type)
+                .FirstOrDefault() ?? type.Name;
         }
 
         public string Label { get; }

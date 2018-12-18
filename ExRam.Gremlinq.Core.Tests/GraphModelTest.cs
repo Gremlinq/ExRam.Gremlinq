@@ -10,9 +10,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.Dynamic();
 
-            model.TryGetLabel(typeof(Authority)).IsSome
+            model.GetLabels(typeof(Authority))
                 .Should()
-                .BeTrue();
+                .NotBeEmpty();
         }
     }
 }

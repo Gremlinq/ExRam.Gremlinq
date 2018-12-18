@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using NullGuard;
+using System.Linq;
 
 namespace ExRam.Gremlinq.Providers
 {
@@ -270,20 +271,19 @@ namespace ExRam.Gremlinq.Providers
 
                 if (jToken is JObject)
                 {
-                    objectType = _model
-                        .TryGetType(jToken["label"].ToString())
-                        .Filter(objectType.IsAssignableFrom)
-                        .IfNone(() =>
-                        {
-                            // ReSharper disable AccessToModifiedClosure
-                            if (objectType == typeof(IVertex))
-                                return typeof(VertexImpl);
+                    var modelType = _model
+                        .GetTypes(jToken["label"].ToString())
+                        .FirstOrDefault(type => objectType.IsAssignableFrom(type));
 
-                            return objectType == typeof(IEdge)
-                                ? typeof(EdgeImpl)
-                                : objectType;
-                            // ReSharper restore AccessToModifiedClosure
-                        });
+                    if (modelType != null)
+                        objectType = modelType;
+                    else
+                    {
+                        if (objectType == typeof(IVertex))
+                            objectType = typeof(VertexImpl);
+                        else if (objectType == typeof(IEdge))
+                            objectType = typeof(EdgeImpl);
+                    }
                 }
 
                 return jToken.ToObject(objectType, _modelIndependentSerializer);
@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Providers
 
             public override bool CanConvert(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.TryGetDerivedLabels(objectType).Length > 0);
+                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.GetLabels(objectType, true).Length > 0);
             }
 
             public override bool CanWrite => false;

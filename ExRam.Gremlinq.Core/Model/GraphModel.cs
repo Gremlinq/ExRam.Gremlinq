@@ -13,20 +13,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class EmptyGraphModel : IGraphModel
         {
-            public Option<string> TryGetLabel(Type elementType)
-            {
-                return default;
-            }
+            public string[] GetLabels(Type elementType, bool includeDerivedTypes = false) => Array.Empty<string>();
 
-            public Option<Type> TryGetType(string label)
-            {
-                return default;
-            }
-
-            public string[] TryGetDerivedLabels(Type elementType)
-            {
-                return Array.Empty<string>();
-            }
+            public Type[] GetTypes(string label) => Array.Empty<Type>();
 
             // ReSharper disable once UnassignedGetOnlyAutoProperty
             public Option<string> EdgeIdPropertyName { get; }
@@ -37,8 +26,8 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            private readonly IDictionary<string, Type> _types;
             private readonly IDictionary<Type, string> _labels;
+            private readonly IDictionary<string, Type[]> _types;
             private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
             public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies)
@@ -64,35 +53,39 @@ namespace ExRam.Gremlinq.Core
                         type => type.Name);
 
                 _types = _labels
+                    .GroupBy(x => x.Value)
                     .ToDictionary(
-                        kvp => kvp.Value,
-                        kvp => kvp.Key);
+                        group => group.Key,
+                        group => group.Select(x => x.Key).ToArray());
 
                 VertexIdPropertyName = idPropertyName;
                 EdgeIdPropertyName = edgeIdPropertyName;
             }
 
-            public Option<string> TryGetLabel(Type elementType)
+            public string[] GetLabels(Type elementType, bool includeDerivedTypes = false)
             {
+                if (includeDerivedTypes)
+                {
+                    return _derivedLabels.GetOrAdd(
+                        elementType,
+                        closureType => _labels
+                            .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                            .Select(kvp => kvp.Value)
+                            .OrderBy(x => x)
+                            .ToArray());
+                }
+
                 return _labels
-                    .TryGetValue(elementType);
+                    .TryGetValue(elementType)
+                    .Map(x => new[] { x })
+                    .IfNone(Array.Empty<string>());
             }
 
-            public Option<Type> TryGetType(string label)
+            public Type[] GetTypes(string label)
             {
                 return _types
-                    .TryGetValue(label);
-            }
-
-            public string[] TryGetDerivedLabels(Type elementType)
-            {
-                return _derivedLabels.GetOrAdd(
-                    elementType,
-                    closureType1 => _labels
-                        .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType1.IsAssignableFrom(kvp.Key))
-                        .Select(kvp => kvp.Value)
-                        .OrderBy(x => x)
-                        .ToArray());
+                    .TryGetValue(label)
+                    .IfNone(Array.Empty<Type>());
             }
 
             public Option<string> VertexIdPropertyName { get; }
