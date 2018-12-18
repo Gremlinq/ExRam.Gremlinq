@@ -5,38 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Json\*.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Json\Properties.json" />
-    <None Remove="Json\Single_User_String_Id.json" />
-    <None Remove="Json\VertexProperties.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)" />
-    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
-    <EmbeddedResource Include="Json\Country_with_meta_properties.json" />
-    <EmbeddedResource Include="Json\Properties.json" />
-    <EmbeddedResource Include="Json\Single_User_String_Id.json" />
-    <EmbeddedResource Include="Json\VertexProperties.json" />
-    <EmbeddedResource Include="Json\Single_Language.json" />
-    <EmbeddedResource Include="Json\Array_of_Languages.json" />
-    <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
-    <EmbeddedResource Include="Json\Single_TimeFrame_with_numbers.json" />
-    <EmbeddedResource Include="Json\Single_TimeFrame.json" />
-    <EmbeddedResource Include="Json\Single_IsDescribedIn.json" />
-    <EmbeddedResource Include="Json\Single_Company.json" />
-    <EmbeddedResource Include="Json\Single_User_lowercase_properties.json" />
-    <EmbeddedResource Include="Json\Single_User_without_PhoneNumbers.json" />
-    <EmbeddedResource Include="Json\Single_User.json" />
-    <EmbeddedResource Include="Json\Graphson3_Tuple_of_User_Language.json" />
-    <EmbeddedResource Include="Json\Tuple_of_User_Language.json" />
+    <EmbeddedResource Include="Json\*.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj" />
   </ItemGroup>
 

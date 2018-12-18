@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)" />
-    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
   </ItemGroup>
 

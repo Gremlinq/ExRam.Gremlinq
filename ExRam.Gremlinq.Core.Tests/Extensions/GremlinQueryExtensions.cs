@@ -4,7 +4,7 @@ using FluentAssertions.Primitives;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    internal static class GremlinQueryExtensions
+    public static class GremlinQueryExtensions
     {
         public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
         {
@@ -18,9 +18,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 get => typeof(IGremlinQuery).Name;
             }
 
-            public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
+            public SerializedGremlinQueryAssertions SerializeToGroovy<TVisitor>(string serialization)
+                where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
             {
-                var visitor = new GroovyGremlinQueryElementVisitor();
+                var visitor = new TVisitor();
                 visitor.Visit(Subject);
 
                 var serializedQuery = visitor.Build();
