@@ -1,11 +1,20 @@
 <Project>
+
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
     <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))">
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Company>ExRam EDV GmbH &amp; Co. KG</Company>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))" >
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.33" />
 
     <PackageReference Include="Fody" Version="3.3.3">

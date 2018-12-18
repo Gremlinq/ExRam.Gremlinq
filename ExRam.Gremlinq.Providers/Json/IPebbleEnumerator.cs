@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Providers
 {
     internal interface IPebbleEnumerator<out TSource> : IEnumerator<TSource>
     {

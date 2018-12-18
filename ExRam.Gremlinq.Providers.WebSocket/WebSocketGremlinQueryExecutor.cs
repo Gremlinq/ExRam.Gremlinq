@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Serialization;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Logging;
@@ -11,17 +10,21 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
     {
-        private static readonly ConditionalWeakTable<IGraphModel, GraphsonDeserializer> Serializers = new ConditionalWeakTable<IGraphModel, GraphsonDeserializer>();
-
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
+        private readonly IGraphsonSerializerFactory _serializerFactory;
         private readonly IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> _serializer;
 
-        public WebSocketGremlinQueryExecutor(IGremlinClient client, IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer, ILogger logger = null)
+        public WebSocketGremlinQueryExecutor(
+            IGremlinClient client,
+            IGremlinQuerySerializer<(string queryString, IDictionary<string, object> parameters)> serializer,
+            IGraphsonSerializerFactory serializerFactory,
+            ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
             _serializer = serializer;
+            _serializerFactory = serializerFactory;
         }
 
         public void Dispose()
@@ -34,17 +37,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             var serialized = _serializer.Serialize(query);
 
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.queryString);
-
-            var serializer = Serializers.GetValue(
-                query.Model,
-                model => new GraphsonDeserializer(model));
-
+            
             return _gremlinClient
                 .SubmitAsync<JToken>(serialized.queryString, new Dictionary<string, object>(serialized.parameters))
                 .ToAsyncEnumerable()
                 .SelectMany(x => x
                     .ToAsyncEnumerable())
-                .GraphsonDeserialize<TElement[]>(serializer)
+                .GraphsonDeserialize<TElement[]>(_serializerFactory.Get(query.Model))
                 .SelectMany(x => x.ToAsyncEnumerable());
         }
     }

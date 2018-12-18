@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using ExRam.Gremlinq.Providers;
 
-namespace ExRam.Gremlinq
+namespace System.Collections.Generic
 {
     internal static class EnumeratorExtensions
     {

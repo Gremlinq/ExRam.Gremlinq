@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.Providers;
+using ExRam.Gremlinq.Tests;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using static ExRam.Gremlinq.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Providers.Tests
 {
     public class JsonSupportTest
     {
@@ -518,7 +520,7 @@ namespace ExRam.Gremlinq.Tests
 
         private static string GetJson(string name)
         {
-            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Tests.Json.{name}.json")).ReadToEnd();
+            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Providers.Tests.Json.{name}.json")).ReadToEnd();
         }
     }
 }

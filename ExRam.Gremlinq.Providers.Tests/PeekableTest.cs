@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using Xunit;
+using System.Collections.Generic;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Providers.Tests
 {
     public class PeekableTest
     {

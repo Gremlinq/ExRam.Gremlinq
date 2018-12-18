@@ -57,7 +57,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     new GremlinClientEx(
                         server,
                         graphsonVersion),
-                    new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>()));
+                    new StringGremlinQuerySerializer<GroovyGremlinQueryElementVisitor>(),
+                    new DefaultGraphsonSerializerFactory()));
         }
     }
 }

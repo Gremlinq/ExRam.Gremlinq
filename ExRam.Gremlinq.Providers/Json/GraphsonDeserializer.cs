@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using NullGuard;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Providers
 {
     public sealed class GraphsonDeserializer : JsonSerializer
     {
@@ -62,11 +62,7 @@ namespace ExRam.Gremlinq
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                var str = serializer.Deserialize<string>(reader);
-
-                return double.TryParse(str, out var number)
-                    ? System.TimeSpan.FromMilliseconds(number)
-                    : XmlConvert.ToTimeSpan(str);
+                return XmlConvert.ToTimeSpan(serializer.Deserialize<string>(reader));
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -227,8 +223,13 @@ namespace ExRam.Gremlinq
         {
             private sealed class ModelIndependentJsonSerializer : JsonSerializer
             {
-                public ModelIndependentJsonSerializer()
+                public ModelIndependentJsonSerializer(JsonConverter[] additionalConverters)
                 {
+                    foreach (var additionalConverter in additionalConverters)
+                    {
+                        Converters.Add(additionalConverter);
+                    }
+
                     Converters.Add(TimeSpan);
                     Converters.Add(DateTimeOffset);
                     Converters.Add(DateTime);
@@ -240,13 +241,26 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            private static readonly JsonSerializer ModelIndependentSerializer = new ModelIndependentJsonSerializer();
+            private sealed class VertexImpl : IVertex
+            {
+                [AllowNull] public object Id { get; set; }
+                [AllowNull] public string Label { get; set; }
+            }
+
+            private sealed class EdgeImpl : IEdge
+            {
+                [AllowNull] public object Id { get; set; }
+                [AllowNull] public string Label { get; set; }
+            }
+
+            private readonly JsonSerializer _modelIndependentSerializer;
 
             private readonly IGraphModel _model;
 
-            public ElementConverter(IGraphModel model)
+            public ElementConverter(IGraphModel model, JsonConverter[] additionalConverters)
             {
                 _model = model;
+                _modelIndependentSerializer = new ModelIndependentJsonSerializer(additionalConverters);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
@@ -271,7 +285,7 @@ namespace ExRam.Gremlinq
                         });
                 }
 
-                return jToken.ToObject(objectType, ModelIndependentSerializer);
+                return jToken.ToObject(objectType, _modelIndependentSerializer);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -294,14 +308,20 @@ namespace ExRam.Gremlinq
         private static readonly JsonConverter Scalar = new ScalarConverter();
         private static readonly JsonConverter MetaProperty = new MetaPropertyConverter();
 
-        public GraphsonDeserializer(IGraphModel model)
+        public GraphsonDeserializer(IGraphModel model, params JsonConverter[] additionalConverters)
         {
+            foreach (var additionalConverter in additionalConverters)
+            {
+                Converters.Add(additionalConverter);
+            }
+
             Converters.Add(TimeSpan);
             Converters.Add(DateTimeOffset);
             Converters.Add(DateTime);
             Converters.Add(Scalar);
             Converters.Add(MetaProperty);
-            Converters.Add(new ElementConverter(model));
+
+            Converters.Add(new ElementConverter(model, additionalConverters));
 
             DefaultValueHandling = DefaultValueHandling.Populate;
         }

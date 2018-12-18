@@ -64,7 +64,23 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             data.Should().HaveCount(1);
             data[0].FoundingDate.Should().Be(now);
         }
-        
+
+        [Fact(Skip = "Integration Test")]
+        public async Task AddV_with_TimeSpan()
+        {
+            var data = await _g
+                .AddV(new TimeFrame
+                {
+                    StartTime = TimeSpan.FromHours(8),
+                    Duration = TimeSpan.FromHours(4)
+                })
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].StartTime.Should().Be(TimeSpan.FromHours(8));
+            data[0].Duration.Should().Be(TimeSpan.FromHours(4));
+        }
+
         [Fact(Skip = "Integration Test")]
         public async Task AddV_without_id()
         {

@@ -1,10 +1,11 @@
 ﻿using System.IO;
+using ExRam.Gremlinq.Providers;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Providers.Tests
 {
     public class JsonTransformTest
     {

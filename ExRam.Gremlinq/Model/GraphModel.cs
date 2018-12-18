@@ -54,13 +54,11 @@ namespace ExRam.Gremlinq
                         .DefinedTypes
                         .Where(type => type != vertexBaseType
                                     && type != edgeBaseType
-                                    && type != typeof(VertexImpl)
-                                    && type != typeof(EdgeImpl)
                                     && (vertexBaseType.IsAssignableFrom(type) || edgeBaseType.IsAssignableFrom(type)))
                         .Select(typeInfo => typeInfo))
                     .Prepend(vertexBaseType)
                     .Prepend(edgeBaseType)
-                    
+                    .Where(x => !x.IsInterface)
                     .ToDictionary(
                         type => type,
                         type => type.Name);

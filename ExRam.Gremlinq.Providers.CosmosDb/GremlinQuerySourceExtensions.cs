@@ -1,4 +1,6 @@
-﻿using ExRam.Gremlinq.Providers.CosmosDb;
+﻿using System;
+using System.Collections.Generic;
+using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Serialization;
 using Gremlin.Net.Driver;
@@ -9,8 +11,23 @@ namespace ExRam.Gremlinq
 {
     public static class GremlinQuerySourceExtensions
     {
-        private sealed class GremlinClientEx : GremlinClient
+        private sealed class CosmosDbGremlinClient : GremlinClient
         {
+            private class TimeSpanSerializer : IGraphSONSerializer, IGraphSONDeserializer
+            {
+                public Dictionary<string, dynamic> Dictify(dynamic objectData, GraphSONWriter writer)
+                {
+                    TimeSpan value = objectData;
+                    return GraphSONUtil.ToTypedValue("Double", value.TotalMilliseconds);
+                }
+
+                public dynamic Objectify(JToken graphsonObject, GraphSONReader reader)
+                {
+                    var duration = graphsonObject.ToObject<double>();
+                    return TimeSpan.FromMilliseconds(duration);
+                }
+            }
+
             // ReSharper disable once InconsistentNaming
             private sealed class NullGraphSSON2Reader : GraphSON2Reader
             {
@@ -20,26 +37,14 @@ namespace ExRam.Gremlinq
                 }
             }
 
-            // ReSharper disable once InconsistentNaming
-            private sealed class NullGraphSSON3Reader : GraphSON3Reader
-            {
-                public override dynamic ToObject(JToken jToken)
-                {
-                    return new[] { jToken };
-                }
-            }
-
-            public GremlinClientEx(GremlinServer gremlinServer, GraphsonVersion version) : base(
+            public CosmosDbGremlinClient(GremlinServer gremlinServer) : base(
                 gremlinServer,
-                version == GraphsonVersion.V2
-                    ? new NullGraphSSON2Reader()
-                    : (GraphSONReader)new NullGraphSSON3Reader(),
-                version == GraphsonVersion.V2
-                    ? new GraphSON2Writer()
-                    : (GraphSONWriter)new GraphSON3Writer(),
-                version == GraphsonVersion.V2
-                    ? GraphSON2MimeType
-                    : DefaultMimeType)
+                new NullGraphSSON2Reader(),
+                new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
+                {
+                    {typeof(TimeSpan), new TimeSpanSerializer()},
+                }),
+                GraphSON2MimeType)
             {
 
             }
@@ -49,10 +54,10 @@ namespace ExRam.Gremlinq
         {
             return source.WithExecutor(
                 new WebSocketGremlinQueryExecutor(
-                    new GremlinClientEx(
-                        new CosmosDbGremlinServer(hostname, database, graphName, authKey, port, enableSsl),
-                        GraphsonVersion.V2),
-                    new StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor>()));
+                    new CosmosDbGremlinClient(
+                        new CosmosDbGremlinServer(hostname, database, graphName, authKey, port, enableSsl)),
+                    new StringGremlinQuerySerializer<CosmosDbGroovyGremlinQueryElementVisitor>(),
+                    new CosmosDbGraphsonSerializerFactory()));
         }
     }
 }

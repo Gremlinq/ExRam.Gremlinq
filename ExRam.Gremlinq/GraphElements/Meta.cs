@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.GraphElements
 {
-    internal interface IMeta
+    public interface IMeta
     {
         object Value { get; }
         IDictionary<string, object> Properties { get; }

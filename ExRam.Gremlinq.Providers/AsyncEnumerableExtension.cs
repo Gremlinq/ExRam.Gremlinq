@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using ExRam.Gremlinq.Providers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq
+namespace System.Collections.Generic
 {
     public static class AsyncEnumerableExtension
     {
