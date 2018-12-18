@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Xml;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

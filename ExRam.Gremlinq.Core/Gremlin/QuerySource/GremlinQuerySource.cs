@@ -1,8 +1,8 @@
 ﻿using System.Collections.Immutable;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySource
     {

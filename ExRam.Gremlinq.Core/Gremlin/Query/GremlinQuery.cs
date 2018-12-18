@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuery
     {

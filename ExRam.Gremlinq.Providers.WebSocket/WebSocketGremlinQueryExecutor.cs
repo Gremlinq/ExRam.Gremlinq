@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;

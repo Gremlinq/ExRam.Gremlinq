@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public static class GraphModel
     {

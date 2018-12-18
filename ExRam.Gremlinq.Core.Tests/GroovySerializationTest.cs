@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using ExRam.Gremlinq.GraphElements;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Serialization;
 using FluentAssertions;
 using Xunit;
-using static ExRam.Gremlinq.GremlinQuerySource;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     public class GroovySerializationTest
     {

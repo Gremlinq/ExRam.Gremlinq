@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.GraphElements;
-using ExRam.Gremlinq.Tests;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Tests;
 using FluentAssertions;
 using Xunit;
-using static ExRam.Gremlinq.GremlinQuerySource;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {

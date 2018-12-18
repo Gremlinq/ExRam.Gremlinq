@@ -1,6 +1,6 @@
-﻿using ExRam.Gremlinq.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public abstract class GremlinEnum<TEnum> : IGremlinQueryElement where TEnum : GremlinEnum<TEnum>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public abstract class MultiTraversalArgumentStep : Step
     {

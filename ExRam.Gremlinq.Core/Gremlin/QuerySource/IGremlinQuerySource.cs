@@ -1,6 +1,6 @@
-﻿using ExRam.Gremlinq.GraphElements;
+﻿using ExRam.Gremlinq.Core.GraphElements;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQuerySource
     {

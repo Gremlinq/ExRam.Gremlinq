@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq.Core
 {
     public abstract class LogicalStep : Step
     {

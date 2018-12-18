@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     internal static class GremlinQueryProvider
     {

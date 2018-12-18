@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq
+﻿namespace ExRam.Gremlinq.Core
 {
 #pragma warning disable 660,661
     public sealed class T : GremlinEnum<T>

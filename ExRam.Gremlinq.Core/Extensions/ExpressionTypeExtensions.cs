@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using ExRam.Gremlinq.Core;
 
-namespace ExRam.Gremlinq
+namespace System.Linq.Expressions
 {
     internal static class ExpressionTypeExtensions
     {

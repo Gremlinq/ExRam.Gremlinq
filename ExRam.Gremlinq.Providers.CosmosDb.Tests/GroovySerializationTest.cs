@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
-using ExRam.Gremlinq.GraphElements;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Core.Tests;
 using FluentAssertions;
 using Xunit;
-using ExRam.Gremlinq.Tests;
-using static ExRam.Gremlinq.GremlinQuerySource;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {

@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Serialization;
+﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json.Linq;

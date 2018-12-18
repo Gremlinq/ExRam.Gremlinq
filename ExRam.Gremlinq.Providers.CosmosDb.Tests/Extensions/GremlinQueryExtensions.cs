@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.CosmosDb;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core.Serialization;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     internal static class GremlinQueryExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Serialization
+﻿namespace ExRam.Gremlinq.Core.Serialization
 {
     public interface IGremlinQueryElementVisitor
     {

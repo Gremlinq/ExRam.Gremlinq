@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     public class TimeFrame : Vertex
     {

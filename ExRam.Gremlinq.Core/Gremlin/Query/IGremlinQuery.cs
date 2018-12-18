@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQuery
     {

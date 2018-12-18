@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace ExRam.Gremlinq.Tests
+namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphModelTest
     {

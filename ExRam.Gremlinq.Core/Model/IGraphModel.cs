@@ -1,7 +1,7 @@
 ﻿using System;
 using LanguageExt;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public interface IGraphModel
     {

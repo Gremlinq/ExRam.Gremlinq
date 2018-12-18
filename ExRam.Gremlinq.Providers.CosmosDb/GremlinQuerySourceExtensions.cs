@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json.Linq;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySourceExtensions
     {

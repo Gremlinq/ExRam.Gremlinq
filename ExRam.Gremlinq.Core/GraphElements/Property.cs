@@ -1,6 +1,6 @@
 ﻿using NullGuard;
 
-namespace ExRam.Gremlinq.GraphElements
+namespace ExRam.Gremlinq.Core.GraphElements
 {
     public class Property
     {

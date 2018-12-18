@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ExRam.Gremlinq.Core;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers
 {

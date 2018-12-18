@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ExRam.Gremlinq;
+using ExRam.Gremlinq.Core;
 
 namespace System.Linq
 {

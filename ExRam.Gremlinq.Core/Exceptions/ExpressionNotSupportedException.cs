@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public sealed class ExpressionNotSupportedException : NotSupportedException
     {

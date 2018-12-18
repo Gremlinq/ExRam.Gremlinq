@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExRam.Gremlinq.GraphElements
+namespace ExRam.Gremlinq.Core.GraphElements
 {
     public interface IMeta
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NullGuard;
 
-namespace ExRam.Gremlinq.GraphElements
+namespace ExRam.Gremlinq.Core.GraphElements
 {
     public sealed class VertexProperty : Property, IElement
     {

@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.GraphElements;
+﻿using ExRam.Gremlinq.Core.GraphElements;
 
 namespace System.Reflection
 {

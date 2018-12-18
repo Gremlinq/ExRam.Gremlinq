@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core.Serialization;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public sealed class ByLambdaStep : Step
     {

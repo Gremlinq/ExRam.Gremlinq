@@ -1,7 +1,7 @@
-﻿using ExRam.Gremlinq.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using LanguageExt;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     public sealed class ChooseStep : Step
     {

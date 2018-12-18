@@ -1,5 +1,6 @@
 ﻿using System;
-using ExRam.Gremlinq.Serialization;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {

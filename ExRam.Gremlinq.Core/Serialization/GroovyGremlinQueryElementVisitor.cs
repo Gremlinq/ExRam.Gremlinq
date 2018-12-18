@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 
-namespace ExRam.Gremlinq.Serialization
+namespace ExRam.Gremlinq.Core.Serialization
 {
     public class GroovyGremlinQueryElementVisitor : IStringGremlinQueryElementVisitor
     {

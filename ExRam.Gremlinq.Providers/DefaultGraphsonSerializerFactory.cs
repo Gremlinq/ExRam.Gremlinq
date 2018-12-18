@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers

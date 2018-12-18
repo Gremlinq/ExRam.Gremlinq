@@ -5,11 +5,11 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using ExRam.Gremlinq.GraphElements;
+using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using NullGuard;
 
-namespace ExRam.Gremlinq
+namespace ExRam.Gremlinq.Core
 {
     internal sealed class GremlinQueryImpl<TElement, TOutVertex, TInVertex> :
         IOrderedGremlinQuery<TElement>,
