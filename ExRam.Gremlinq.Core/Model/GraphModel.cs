@@ -39,6 +39,7 @@ namespace ExRam.Gremlinq.Core
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
                 _labels = assemblies
+                    .Distinct()
                     .SelectMany(assembly => assembly
                         .DefinedTypes
                         .Where(type => type != vertexBaseType
@@ -97,6 +98,11 @@ namespace ExRam.Gremlinq.Core
         public static IGraphModel Dynamic()
         {
             return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId)
+        {
+            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
         }
 
         public static IGraphModel FromExecutingAssembly()
