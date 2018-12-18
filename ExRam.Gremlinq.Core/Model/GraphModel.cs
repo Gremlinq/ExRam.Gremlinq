@@ -40,12 +40,23 @@ namespace ExRam.Gremlinq.Core
 
                 _labels = assemblies
                     .Distinct()
-                    .SelectMany(assembly => assembly
-                        .DefinedTypes
-                        .Where(type => type != vertexBaseType
-                                    && type != edgeBaseType
-                                    && (vertexBaseType.IsAssignableFrom(type) || edgeBaseType.IsAssignableFrom(type)))
-                        .Select(typeInfo => typeInfo))
+                    .SelectMany(assembly =>
+                    {
+                        try
+                        {
+                            return assembly
+                                .DefinedTypes
+                                .Where(type => type != vertexBaseType
+                                               && type != edgeBaseType
+                                               && (vertexBaseType.IsAssignableFrom(type) || edgeBaseType.IsAssignableFrom(type)))
+                                .Select(typeInfo => typeInfo);
+                        }
+                        catch (ReflectionTypeLoadException)
+                        {
+                            //TODO: Warn!
+                            return Array.Empty<TypeInfo>();
+                        }
+                    })
                     .Prepend(vertexBaseType)
                     .Prepend(edgeBaseType)
                     .Where(x => !x.IsInterface)
