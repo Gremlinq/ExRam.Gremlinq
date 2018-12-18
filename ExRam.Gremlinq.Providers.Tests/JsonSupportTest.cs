@@ -49,6 +49,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string SingleUserLowercasePropertiesJson;
         private static readonly string Graphson3TupleOfUserLanguageJson;
 
+        private readonly IConfigurableGremlinQuerySource _g;
+
         static JsonSupportTest()
         {
             SingleLanguageJson = GetJson("Single_Language");
@@ -68,10 +70,16 @@ namespace ExRam.Gremlinq.Providers.Tests
             SingleUserStringId = GetJson("Single_User_String_Id");
         }
 
+        public JsonSupportTest()
+        {
+            _g = g
+                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id));
+        }
+
         [Fact]
         public async Task GraphSon3ReferenceVertex()
         {
-            var array = await g
+            var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor(Graphson3ReferenceVertex))
                 .V<JObject>()
                 .ToArray();
@@ -86,7 +94,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task IsDescribedIn()
         {
-            var array = await g
+            var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleIsDescribedIn))
                 .V<IsDescribedIn>()
                 .ToArray();
@@ -98,7 +106,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task IsDescribedIn_with_Graphson3()
         {
-            var array = await g
+            var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
                 .V<IsDescribedIn>()
                 .ToArray();
@@ -110,7 +118,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Empty1()
         {
-            await g
+            await _g
                 .WithExecutor(new TestJsonQueryExecutor("[]"))
                 .V()
                 .Drop()
@@ -120,7 +128,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Empty2()
         {
-            await g
+            await _g
                 .WithExecutor(new TestJsonQueryExecutor("[]"))
                 .V<User>()
                 .ToArray();
@@ -129,7 +137,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task String_Ids()
         {
-            var ids = await g
+            var ids = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ \"id1\", \"id2\" ]"))
                 .V()
                 .Id()
@@ -143,7 +151,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task String_Ids2()
         {
-            var ids = await g
+            var ids = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ \"1\", \"2\" ]"))
                 .V()
                 .Id()
@@ -157,7 +165,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Int_Ids()
         {
-            var ids = await g
+            var ids = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ 1, 2 ]"))
                 .V()
                 .Id()
@@ -171,7 +179,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Mixed_Ids()
         {
-            var ids = await g
+            var ids = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ 1, \"id2\" ]"))
                 .V()
                 .Id()
@@ -185,7 +193,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            var company = await g
+            var company = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleCompanyJson))
                 .V<Company>()
                 .First();
@@ -199,7 +207,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_unknown_type()
         {
-            var language = await g
+            var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<object>()
                 .First();
@@ -213,7 +221,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_unknown_type_without_model()
         {
-            var language = await g
+            var language = await _g
                 .WithModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<object>()
@@ -226,7 +234,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_strongly_typed()
         {
-            var language = await g
+            var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Language>()
                 .First();
@@ -239,7 +247,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_strongly_typed_without_model()
         {
-            var language = await g
+            var language = await _g
                 .WithModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Language>()
@@ -253,7 +261,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_to_generic_vertex()
         {
-            var language = await g
+            var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Vertex>()
                 .First();
@@ -267,7 +275,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task User_strongly_typed()
         {
-            var user = await g
+            var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleUserJson))
                 .V<User>()
                 .First();
@@ -283,7 +291,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task User_StringId()
         {
-            var user = await g
+            var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleUserStringId))
                 .V<User>()
                 .First();
@@ -299,7 +307,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task User_lowercase_strongly_typed()
         {
-            var user = await g
+            var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleUserLowercasePropertiesJson))
                 .V<User>()
                 .First();
@@ -314,7 +322,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task User_without_PhoneNumbers_strongly_typed()
         {
-            var user = await g
+            var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleUserWithoutPhoneNumbersJson))
                 .V<User>()
                 .First();
@@ -329,7 +337,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            var timeFrame = await g
+            var timeFrame = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleTimeFrameJson))
                 .V<TimeFrame>()
                 .First();
@@ -343,7 +351,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact(Skip = "Not standard behaviour!")]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
-            var timeFrame = await g
+            var timeFrame = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleTimeFrameWithNumbersJson))
                 .V<TimeFrame>()
                 .First();
@@ -357,7 +365,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            var language = await g
+            var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V().First() as Language;
 
@@ -369,7 +377,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Tuple()
         {
-            var tuple = await g
+            var tuple = await _g
                 .WithExecutor(new TestJsonQueryExecutor(TupleOfUserLanguageJson))
                 .V()
                 .Cast<(User, Language)>()
@@ -386,7 +394,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Tuple_vertex_vertex()
         {
-            var tuple = await g
+            var tuple = await _g
                 .WithExecutor(new TestJsonQueryExecutor(TupleOfUserLanguageJson))
                 .V()
                 .Cast<(Vertex, Vertex)>()
@@ -405,7 +413,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Graphson3_Tuple()
         {
-            var tuple = await g
+            var tuple = await _g
                 .WithExecutor(new TestJsonQueryExecutor(Graphson3TupleOfUserLanguageJson))
                 .V()
                 .Cast<(User, Language)>()
@@ -422,7 +430,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Array()
         {
-            var languages = await g
+            var languages = await _g
                 .WithExecutor(new TestJsonQueryExecutor(ArrayOfLanguages))
                 .V<Language[]>()
                 .First();
@@ -438,7 +446,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Nested_Array()
         {
-            var languages = await g
+            var languages = await _g
                 .WithExecutor(new TestJsonQueryExecutor(NestedArrayOfLanguagesJson))
                 .V<Language[][]>()
                 .First();
@@ -460,7 +468,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Scalar()
         {
-            var value = await g
+            var value = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ 36 ]"))
                 .V<int>()
                 .First();
@@ -471,7 +479,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Meta_Properties()
         {
-            var country = await g
+            var country = await _g
                 .WithExecutor(new TestJsonQueryExecutor(CountryWithMetaProperties))
                 .V<Country>()
                 .First();
@@ -484,7 +492,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task VertexProperties()
         {
-            var properties = await g
+            var properties = await _g
                 .WithExecutor(new TestJsonQueryExecutor(GetJson("VertexProperties")))
                 .V()
                 .Properties()
@@ -504,7 +512,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task MetaProperties()
         {
-            var properties = await g
+            var properties = await _g
                 .WithExecutor(new TestJsonQueryExecutor(GetJson("Properties")))
                 .V()
                 .Properties()
