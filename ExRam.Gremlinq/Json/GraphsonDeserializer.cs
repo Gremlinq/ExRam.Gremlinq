@@ -10,7 +10,7 @@ using NullGuard;
 
 namespace ExRam.Gremlinq
 {
-    internal sealed class GraphsonDeserializer : JsonSerializer
+    public sealed class GraphsonDeserializer : JsonSerializer
     {
         #region Nested
         private sealed class GremlinContractResolver : DefaultContractResolver

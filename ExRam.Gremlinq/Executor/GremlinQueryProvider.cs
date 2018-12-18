@@ -8,8 +8,6 @@ namespace ExRam.Gremlinq
     {
         private sealed class InvalidQueryExecutor : IGremlinQueryExecutor
         {
-            public bool SupportsElementType(Type type) => false;
-
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
                 return AsyncEnumerable.Throw<TElement>(new InvalidOperationException());

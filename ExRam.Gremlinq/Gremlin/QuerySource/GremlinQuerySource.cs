@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq
                 var ret =
                     new GremlinQueryImpl<Unit, Unit, Unit>(
                             _model,
-                            new JsonSupportGremlinQueryExecutor(_queryExecutor),
+                            _queryExecutor,
                             ImmutableList<Step>.Empty,
                             ImmutableDictionary<StepLabel, string>.Empty)
                         .AddStep(new IdentifierStep(_name));

@@ -22,17 +22,12 @@ namespace ExRam.Gremlinq.Tests
                 _json = json;
             }
 
-            public bool SupportsElementType(Type type)
-            {
-                return type == typeof(JToken);
-            }
-
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
-                if (typeof(TElement) != typeof(JToken))
-                    throw new NotSupportedException();
-
-                return (IAsyncEnumerable<TElement>)AsyncEnumerable.Return(JToken.Parse(_json));
+                return AsyncEnumerable
+                    .Return(JToken.Parse(_json))
+                    .GraphsonDeserialize<TElement[]>(new GraphsonDeserializer(query.Model))
+                    .SelectMany(x => x.ToAsyncEnumerable());
             }
         }
 
