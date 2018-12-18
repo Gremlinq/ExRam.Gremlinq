@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly LimitStep Limit1 = new LimitStep(1);
 
-        public LimitStep(long limit)
+        public LimitStep(long count)
         {
-            if (limit < 0)
-                throw new ArgumentOutOfRangeException(nameof(limit));
+            if (count < 0)
+                throw new ArgumentOutOfRangeException(nameof(count));
 
-            Limit = limit;
+            Count = count;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -20,6 +20,6 @@ namespace ExRam.Gremlinq.Core
             visitor.Visit(this);
         }
 
-        public long Limit { get; }
+        public long Count { get; }
     }
 }

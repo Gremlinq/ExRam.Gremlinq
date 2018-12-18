@@ -487,7 +487,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(LimitStep step)
         {
-            Method("limit", step.Limit);
+            Method("limit", step.Count);
         }
 
         public virtual void Visit(LocalStep step)

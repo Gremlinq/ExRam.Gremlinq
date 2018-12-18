@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Providers.CosmosDb;
+﻿using System.Collections.Generic;
+using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Core.Serialization;
 

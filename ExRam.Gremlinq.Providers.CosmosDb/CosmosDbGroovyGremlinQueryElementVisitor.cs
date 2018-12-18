@@ -18,10 +18,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
         public override void Visit(LimitStep step)
         {
             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-            if (step.Limit > int.MaxValue)
+            if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
 
-            Method("limit", (int)step.Limit);
+            Method("limit", (int)step.Count);
         }
 
         public override void Visit(TailStep step)
