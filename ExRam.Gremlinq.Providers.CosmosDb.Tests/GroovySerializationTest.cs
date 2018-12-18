@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public void Where_property_array_intersects_empty_array2()
+        public void Where_property_array_intersects_empty_array()
         {
             g
                 .V<User>()
@@ -30,5 +30,19 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("User");
         }
+        
+        [Fact]
+        public void Where_property_is_contained_in_empty_enumerable()
+        {
+            var enumerable = Enumerable.Empty<int>();
+
+            g
+                .V<User>()
+                .Where(t => enumerable.Contains(t.Age))
+                .Should()
+                .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("User");
+        }
+
     }
 }
