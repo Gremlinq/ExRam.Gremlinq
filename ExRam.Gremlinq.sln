@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq", "ExRam.Gremlinq\ExRam.Gremlinq.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core", "ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj", "{8E7F39D7-8E11-4E11-97AF-8669A97B498C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests", "ExRam.Gremlinq.Tests\ExRam.Gremlinq.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.Tests", "ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj", "{4620AFD8-78E5-4299-988C-9A3A7D71A9DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb", "ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj", "{1CFD6C6F-137F-4402-ACF2-A7775824282D}"
 EndProject
