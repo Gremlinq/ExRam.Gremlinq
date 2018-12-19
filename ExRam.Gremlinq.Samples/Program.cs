@@ -13,15 +13,15 @@ namespace ExRam.Gremlinq.Samples
 
         public Program()
         {
-            //Configure Gremlinq to work on a locally running instance of Gremlin server.
             _g = g
                 //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                 //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                 //in a currently loaded assembly). We explicitly set a model here anyway.
                 .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id))
+                //Configure Gremlinq to work on a locally running instance of Gremlin server.
                 .WithRemote("localhost", GraphsonVersion.V3);
 
-            //Uncomment to configure Gremlinq to work on CosmosDB!
+            //Uncomment below and comment above to configure Gremlinq to work on CosmosDB!
             //_g = g
             //    .WithCosmosDbRemote(hostname, database, graphName, authKey);
         }
@@ -106,16 +106,24 @@ namespace ExRam.Gremlinq.Samples
                 .Where(x => x.Name == "marko")
                 .Out<Knows>()
                 .OfType<Person>()
-                .Values(x => x.Name)
-                .ToArray();
-
-            var knownToMarkoSorted = await _g
-                .V<Person>()
-                .Where(x => x.Name == "marko")
-                .Out<Knows>()
-                .OfType<Person>()
                 .OrderBy(x => x.Name)
                 .Values(x => x.Name)
+                .ToArray();
+        }
+
+        public async Task WhoIsOlderThan30()
+        {
+            var olderThan30 = await _g
+                .V<Person>()
+                .Where(x => x.Age > 30)
+                .ToArray();
+        }
+
+        public async Task WhoseNameStartsWithB()
+        {
+            var nameStartsWithB = await _g
+                .V<Person>()
+                .Where(x => x.Name.StartsWith("b"))
                 .ToArray();
         }
 
@@ -126,6 +134,8 @@ namespace ExRam.Gremlinq.Samples
             await program.CreateGraph();
             await program.CreateKnowsRelationInOneQuery();
             await program.WhoDoesMarkoKnow();
+            await program.WhoIsOlderThan30();
+            await program.WhoseNameStartsWithB();
         }
     }
 }
