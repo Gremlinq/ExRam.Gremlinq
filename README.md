@@ -8,9 +8,9 @@ ExRam.Gremlinq is .NET Object-graph-mapper for [Apache TinkerPop™](http://tink
 
 Package  | Link | 
 -------- | :------------: | 
-ExRam.Gremlinq | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.svg)](https://www.nuget.org/packages/ExRam.Gremlinq) |
+ExRam.Gremlinq.Core | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core) |
 ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket) |
-ExRam.Gremlinq.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.CosmosDb) |
+ExRam.Gremlinq.Providers.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb) |
 
 ## Features
 
