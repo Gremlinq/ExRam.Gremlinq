@@ -15,6 +15,10 @@ namespace ExRam.Gremlinq.Samples
         {
             //Configure Gremlinq to work on a locally running instance of Gremlin server.
             _g = g
+                //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
+                //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
+                //in a currently loaded assembly. We explicitly set a model here anyway.
+                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id))
                 .WithRemote("localhost", GraphsonVersion.V3);
 
             //Uncomment to configure Gremlinq to work on CosmosDB!
@@ -104,12 +108,21 @@ namespace ExRam.Gremlinq.Samples
                 .OfType<Person>()
                 .Values(x => x.Name)
                 .ToArray();
+
+            var knownToMarkoSorted = await _g
+                .V<Person>()
+                .Where(x => x.Name == "marko")
+                .Out<Knows>()
+                .OfType<Person>()
+                .OrderBy(x => x.Name)
+                .Values(x => x.Name)
+                .ToArray();
         }
 
         static async Task Main(string[] args)
         {
             var program = new Program();
-                
+
             await program.CreateGraph();
             await program.CreateKnowsRelationInOneQuery();
             await program.WhoDoesMarkoKnow();
