@@ -5,6 +5,25 @@ namespace System.Linq
 {
     public static class EnumerableExtensions
     {
+        internal static IEnumerable<Step> HandleAnonymousQueries(this IEnumerable<Step> steps)
+        {
+            using (var e = steps.GetEnumerator())
+            {
+                var hasNext = e.MoveNext();
+
+                if (!hasNext || !(e.Current is IdentifierStep))
+                    yield return IdentifierStep.__;
+
+                if (!hasNext)
+                    yield return IdentityStep.Instance;
+                else
+                    yield return e.Current;
+
+                while (e.MoveNext())
+                    yield return e.Current;
+            }
+        }
+
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.
         internal static IEnumerable<Step> WorkaroundTINKERPOP_2112(this IEnumerable<Step> steps)
         {

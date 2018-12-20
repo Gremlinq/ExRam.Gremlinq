@@ -6,6 +6,7 @@ using LanguageExt;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -15,17 +16,23 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model)
         {
-            return Create(model, GremlinQueryProvider.Invalid, "__");
+            return Create(model, GremlinQueryProvider.Invalid);
         }
 
-        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName)
+        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null)
         {
             return Create<Unit>(model, queryExecutor, graphName);
         }
 
-        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = "g")
+        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, [AllowNull] string graphName = null)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit>(model, queryExecutor,  ImmutableList<Step>.Empty.Add(new IdentifierStep(graphName)), ImmutableDictionary<StepLabel, string>.Empty);
+            return new GremlinQueryImpl<TElement, Unit, Unit>(
+                model,
+                queryExecutor,
+                graphName != null
+                    ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
+                    : ImmutableList<Step>.Empty,
+                ImmutableDictionary<StepLabel, string>.Empty);
         }
         
         public static Task<TElement> First<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)

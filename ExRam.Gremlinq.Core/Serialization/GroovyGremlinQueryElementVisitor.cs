@@ -545,10 +545,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(IGremlinQuery query)
         {
-            var steps = query.Steps.AsEnumerable();
-            if (query.Steps.Count == 1 && query.Steps[0] is IdentifierStep identifierStep && identifierStep.Identifier == "__")
-                steps = new Step[] { identifierStep, IdentityStep.Instance };
-
             foreach (var map in query.StepLabelMappings)
             {
                 _stepLabelMappings[map.Key] = map.Value;
@@ -557,13 +553,14 @@ namespace ExRam.Gremlinq.Core.Serialization
             var beforeState = _state;
             _state = State.Idle;
 
-            foreach (var step in steps.WorkaroundTINKERPOP_2112())
+            foreach (var step in query.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
             {
                 step.Accept(this);
             }
 
             _state = beforeState;
         }
+
         #endregion
 
         public SerializedGremlinQuery Build()
@@ -834,7 +831,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static IEnumerable<IGremlinQuery> FlattenLogicalTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
         {
-            if (query.Steps.Count == 2 && query.Steps[1] is TStep otherStep)
+            if (query.Steps.Count == 1 && query.Steps[0] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {

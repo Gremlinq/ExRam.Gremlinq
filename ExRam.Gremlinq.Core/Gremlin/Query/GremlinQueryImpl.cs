@@ -1149,15 +1149,11 @@ namespace ExRam.Gremlinq.Core
             return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name));
         }
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Anonymize()
-        {
-            return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, GremlinQueryProvider.Invalid, ImmutableList<Step>.Empty.Add(new IdentifierStep("__")), ImmutableDictionary<StepLabel, string>.Empty);
-        }
+        #region Anonymize
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex>();
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>()
-        {
-            return new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryProvider.Invalid, ImmutableList<Step>.Empty.Add(new IdentifierStep("__")), ImmutableDictionary<StepLabel, string>.Empty);
-        }
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryProvider.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
+        #endregion
 
         private TTargetQuery CastQuery<TTargetQuery>() where TTargetQuery : IGremlinQuery
         {
