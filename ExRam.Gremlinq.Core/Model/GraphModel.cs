@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
             private readonly IDictionary<string, Type[]> _types;
             private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string idPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies)
+            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                             .Select(x => x.Key)
                             .ToArray());
 
-                VertexIdPropertyName = idPropertyName;
+                VertexIdPropertyName = vertexIdPropertyName;
                 EdgeIdPropertyName = edgeIdPropertyName;
             }
 

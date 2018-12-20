@@ -270,8 +270,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             vertex.Should().NotBeNull();
             vertex.Id.Should().Be(10);
         }
-
-
+        
         [Fact]
         public async Task User_strongly_typed()
         {
