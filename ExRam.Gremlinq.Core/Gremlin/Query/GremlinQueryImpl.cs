@@ -1191,7 +1191,7 @@ namespace ExRam.Gremlinq.Core
                     element.GetType(),
                     type => type
                         .GetProperties()
-                        .Where(property => !property.IsElementLabel() && (IsMetaType(property.PropertyType) || IsNativeType(property.PropertyType)))
+                        .Where(property => !property.IsElementLabel())
                         .ToArray());
 
             var ret = this;
@@ -1205,16 +1205,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return ret;
-        }
-
-        private static bool IsNativeType(Type type)   //TODO: Native types are a matter of...what?
-        {
-            return type.GetTypeInfo().IsValueType || type == typeof(string) || type == typeof(object) || type.IsArray && IsNativeType(type.GetElementType());
-        }
-
-        private static bool IsMetaType(Type type)
-        {
-            return typeof(IMeta).IsAssignableFrom(type);
         }
 
         public IGraphModel Model { get; }
