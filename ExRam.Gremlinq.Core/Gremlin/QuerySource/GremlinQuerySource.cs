@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -10,10 +11,10 @@ namespace ExRam.Gremlinq.Core
     {
         // ReSharper disable once InconsistentNaming
         #pragma warning disable IDE1006 // Naming Styles
-        public static readonly IConfigurableGremlinQuerySource g = Create("g");
+        public static readonly IConfigurableGremlinQuerySource g = Create();
         #pragma warning restore IDE1006 // Naming Styles
     
-        public static IConfigurableGremlinQuerySource Create(string name)
+        public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
             return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
         }
@@ -88,6 +89,14 @@ namespace ExRam.Gremlinq.Core
                 return Create()
                     .Cast<TElement>()
                     .Inject(elements);
+            }
+
+            public IConfigurableGremlinQuerySource WithName(string name)
+            {
+                if (string.IsNullOrEmpty(name))
+                    throw new ArgumentException($"Invalid value for {nameof(name)}.", nameof(name));
+
+                return new ConfigurableGremlinQuerySourceImpl(name, _model, _queryExecutor, _strategies, _logger);
             }
 
             public IConfigurableGremlinQuerySource WithLogger(ILogger logger)

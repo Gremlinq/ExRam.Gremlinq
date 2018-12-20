@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IConfigurableGremlinQuerySource : IGremlinQuerySource
     {
+        IConfigurableGremlinQuerySource WithName(string name);
         IConfigurableGremlinQuerySource WithLogger(ILogger logger);
         IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
         IConfigurableGremlinQuerySource WithModel(IGraphModel model);
