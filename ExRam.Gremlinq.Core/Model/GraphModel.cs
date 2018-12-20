@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -37,11 +38,11 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            private readonly IDictionary<Type, string[]> _labels;
             private readonly IDictionary<string, Type[]> _types;
+            private readonly IDictionary<Type, string[]> _labels;
             private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies)
+            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -62,9 +63,9 @@ namespace ExRam.Gremlinq.Core
                                                && (vertexBaseType.IsAssignableFrom(type) || edgeBaseType.IsAssignableFrom(type)))
                                 .Select(typeInfo => typeInfo);
                         }
-                        catch (ReflectionTypeLoadException)
+                        catch (ReflectionTypeLoadException ex)
                         {
-                            //TODO: Warn!
+                            logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
                             return Array.Empty<TypeInfo>();
                         }
                     })
@@ -119,34 +120,34 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphModel Empty = new EmptyGraphModel();
         public static readonly IGraphModel Invalid = new InvalidGraphModel();
 
-        public static IGraphModel Dynamic()
+        public static IGraphModel Dynamic(ILogger logger = null)
         {
-            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, AppDomain.CurrentDomain.GetAssemblies());
+            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, logger, AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null)
         {
-            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
+            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, logger, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
         }
 
-        public static IGraphModel FromExecutingAssembly()
+        public static IGraphModel FromExecutingAssembly(ILogger logger = null)
         {
-            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, Assembly.GetCallingAssembly());
+            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, logger, Assembly.GetCallingAssembly());
         }
 
-        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId)
+        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null)
         {
-            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, Assembly.GetCallingAssembly());
+            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, logger, Assembly.GetCallingAssembly());
         }
 
-        public static IGraphModel FromAssemblies<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, params Assembly[] assemblies)
+        public static IGraphModel FromAssemblies<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null, params Assembly[] assemblies)
         {
-            return FromAssemblies(typeof(TVertex), typeof(TEdge), ((MemberExpression)vertexId.Body.StripConvert()).Member.Name, ((MemberExpression)edgeId.Body.StripConvert()).Member.Name, assemblies);
+            return FromAssemblies(typeof(TVertex), typeof(TEdge), ((MemberExpression)vertexId.Body.StripConvert()).Member.Name, ((MemberExpression)edgeId.Body.StripConvert()).Member.Name, logger, assemblies);
         }
 
-        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", params Assembly[] assemblies)
+        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", ILogger logger = null, params Assembly[] assemblies)
         {
-            return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies);
+            return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
         }
 
         internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)

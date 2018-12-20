@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core
             private IGremlinQuery<Unit> Create()
             {
                 var model = _model == GraphModel.Invalid
-                    ? GraphModel.Dynamic()
+                    ? GraphModel.Dynamic(_logger)
                     : _model;
 
                 var ret =
