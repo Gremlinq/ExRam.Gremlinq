@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
+using Microsoft.Extensions.Logging;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core
@@ -20,12 +21,14 @@ namespace ExRam.Gremlinq.Core
         IOrderedOutEGremlinQuery<TElement, TOutVertex>,
         IOrderedEGremlinQuery<TElement, TOutVertex, TInVertex>
     {
+        private readonly ILogger _logger;
         private readonly IGremlinQueryExecutor _queryExecutor;
 
-        public GremlinQueryImpl(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings)
+        public GremlinQueryImpl(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger)
         {
             Model = model;
             Steps = steps;
+            _logger = logger;
             _queryExecutor = queryExecutor;
             StepLabelMappings = stepLabelBindings;
         }
@@ -160,7 +163,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEGremlinQuery<TOtherEdge, TInVertex> IInEGremlinQuery<TElement, TInVertex>.Cast<TOtherEdge>() => Cast<TOtherEdge>();
 
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> Cast<TTarget>() => new GremlinQueryImpl<TTarget, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings);
+        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> Cast<TTarget>() => new GremlinQueryImpl<TTarget, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings, _logger);
         #endregion
 
         #region Coalesce
@@ -280,7 +283,7 @@ namespace ExRam.Gremlinq.Core
 
         IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<IVertex>(new InStep(Model.GetLabels(typeof(TNewEdge), true)));
 
-        IGremlinQuery<TTarget> IGremlinQuery.InsertStep<TTarget>(int index, Step step) => new GremlinQueryImpl<TTarget, TOutVertex, TInVertex>(Model, _queryExecutor, Steps.Insert(index, step), StepLabelMappings);
+        IGremlinQuery<TTarget> IGremlinQuery.InsertStep<TTarget>(int index, Step step) => new GremlinQueryImpl<TTarget, TOutVertex, TInVertex>(Model, _queryExecutor, Steps.Insert(index, step), StepLabelMappings, _logger);
 
         IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement>(new InEStep(Model.GetLabels(typeof(TNewEdge), true)));
 
@@ -1131,7 +1134,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQueryImpl<TNewElement, TOutVertex, TInVertex> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex>(step);
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> AddStep<TNewElement, TNewOutVertex, TNewInVertex>(Step step) => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, _queryExecutor, Steps.Insert(Steps.Count, step), StepLabelMappings);
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> AddStep<TNewElement, TNewOutVertex, TNewInVertex>(Step step) => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, _queryExecutor, Steps.Insert(Steps.Count, step), StepLabelMappings, _logger);
         #endregion
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> AddStepLabelBinding(Expression<Func<TElement, object>> memberExpression, StepLabel stepLabel)
@@ -1141,13 +1144,13 @@ namespace ExRam.Gremlinq.Core
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ExpressionNotSupportedException(memberExpression);
 
-            return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name));
+            return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, _queryExecutor, Steps, StepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name), _logger);
         }
 
         #region Anonymize
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex>();
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, _logger);
         #endregion
 
         private TTargetQuery CastQuery<TTargetQuery>() where TTargetQuery : IGremlinQuery
@@ -1176,7 +1179,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             var type = typeof(GremlinQueryImpl<,,>).MakeGenericType(elementType, outVertexType, inVertexType);
-            return (TTargetQuery)Activator.CreateInstance(type, Model, _queryExecutor, Steps, StepLabelMappings);
+            return (TTargetQuery)Activator.CreateInstance(type, Model, _queryExecutor, Steps, StepLabelMappings, _logger);
         }
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> AddElementProperties(GraphElementType elementType, object element)

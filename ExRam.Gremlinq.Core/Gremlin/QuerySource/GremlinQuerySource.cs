@@ -130,7 +130,8 @@ namespace ExRam.Gremlinq.Core
                             model,
                             _queryExecutor,
                             ImmutableList<Step>.Empty,
-                            ImmutableDictionary<StepLabel, string>.Empty)
+                            ImmutableDictionary<StepLabel, string>.Empty,
+                            _logger)
                         .AddStep(IdentifierStep.Create(_name));
 
                 foreach (var strategy in _strategies)

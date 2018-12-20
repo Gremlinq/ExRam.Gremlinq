@@ -6,6 +6,7 @@ using LanguageExt;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core
@@ -14,17 +15,17 @@ namespace ExRam.Gremlinq.Core
     {
         internal static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
-        public static IGremlinQuery<Unit> Anonymous(IGraphModel model)
+        public static IGremlinQuery<Unit> Anonymous(IGraphModel model, ILogger logger = null)
         {
-            return Create(model, GremlinQueryExecutor.Invalid);
+            return Create(model, GremlinQueryExecutor.Invalid, null, logger);
         }
 
-        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null)
+        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
-            return Create<Unit>(model, queryExecutor, graphName);
+            return Create<Unit>(model, queryExecutor, graphName, logger);
         }
 
-        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, [AllowNull] string graphName = null)
+        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
             return new GremlinQueryImpl<TElement, Unit, Unit>(
                 model,
@@ -32,7 +33,8 @@ namespace ExRam.Gremlinq.Core
                 graphName != null
                     ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
                     : ImmutableList<Step>.Empty,
-                ImmutableDictionary<StepLabel, string>.Empty);
+                ImmutableDictionary<StepLabel, string>.Empty,
+                logger);
         }
         
         public static Task<TElement> First<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
