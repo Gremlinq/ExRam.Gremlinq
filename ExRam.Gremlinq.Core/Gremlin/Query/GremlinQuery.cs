@@ -58,9 +58,9 @@ namespace ExRam.Gremlinq.Core
 
         internal static IGremlinQuery<TElement> AddStep<TElement>(this IGremlinQuery<TElement> query, Step step)
         {
-            return query.InsertStep<TElement>(query.Steps.Count, step);
+            return query.InsertStep(query.Steps.Count, step);
         }
-        
+
         public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)
         {
             return query

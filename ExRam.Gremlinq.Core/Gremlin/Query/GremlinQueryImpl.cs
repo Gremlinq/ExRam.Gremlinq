@@ -283,7 +283,25 @@ namespace ExRam.Gremlinq.Core
 
         IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<IVertex>(new InStep(Model.GetNonEmptyLabels(typeof(TNewEdge), true)));
 
-        IGremlinQuery<TTarget> IGremlinQuery.InsertStep<TTarget>(int index, Step step) => new GremlinQueryImpl<TTarget, TOutVertex, TInVertex>(Model, _queryExecutor, Steps.Insert(index, step), StepLabelMappings, _logger);
+        #region InsertStep
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IGremlinQuery IGremlinQuery.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IVGremlinQuery<TElement> IVGremlinQuery<TElement>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IEGremlinQuery<TElement> IEGremlinQuery<TElement>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IInEGremlinQuery<TElement, TInVertex> IInEGremlinQuery<TElement, TInVertex>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IOutEGremlinQuery<TElement, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IEGremlinQuery<TElement, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        IEGremlinQuery<TElement, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.InsertStep(int index, Step step) => InsertStep(index, step);
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex> InsertStep(int index, Step step) => new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(Model, _queryExecutor, Steps.Insert(index, step), StepLabelMappings, _logger);
+        #endregion
 
         IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement>(new InEStep(Model.GetNonEmptyLabels(typeof(TNewEdge), true)));
 
