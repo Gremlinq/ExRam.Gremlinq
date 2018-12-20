@@ -81,7 +81,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor(Graphson3ReferenceVertex))
-                .V<JObject>()
+                .V()
+                .Cast<JObject>()
                 .ToArray();
 
             array.Should().HaveCount(1);
@@ -224,7 +225,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             var language = await _g
                 .WithModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
-                .V<object>()
+                .V()
+                .Cast<object>()
                 .First();
 
             language.Should().NotBeNull();
@@ -250,7 +252,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             var language = await _g
                 .WithModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
-                .V<Language>()
+                .V()
+                .Cast<Language>()
                 .First();
 
             language.Should().NotBeNull();
@@ -431,7 +434,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var languages = await _g
                 .WithExecutor(new TestJsonQueryExecutor(ArrayOfLanguages))
-                .V<Language[]>()
+                .V()
+                .Cast<Language[]>()
                 .First();
 
             languages.Should().NotBeNull();
@@ -447,7 +451,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var languages = await _g
                 .WithExecutor(new TestJsonQueryExecutor(NestedArrayOfLanguagesJson))
-                .V<Language[][]>()
+                .V()
+                .Cast<Language[][]>()
                 .First();
 
             languages.Should().NotBeNull();
@@ -469,7 +474,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var value = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ 36 ]"))
-                .V<int>()
+                .V()
+                .Cast<int>()
                 .First();
 
             value.Should().Be(36);

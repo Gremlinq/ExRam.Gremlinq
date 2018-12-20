@@ -150,6 +150,15 @@ namespace ExRam.Gremlinq.Core
             return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
         }
 
+        internal static string[] GetNonEmptyLabels(this IGraphModel model, Type type, bool includeDerivedTypes = false)
+        {
+            var labels = model.GetLabels(type, includeDerivedTypes);
+            if (labels.Length == 0)
+                throw new InvalidOperationException($"Can't determine labels for type {type.FullName}.");
+
+            return labels;
+        }
+
         internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)
         {
             return elementType == GraphElementType.Vertex && name == model.VertexIdPropertyName
