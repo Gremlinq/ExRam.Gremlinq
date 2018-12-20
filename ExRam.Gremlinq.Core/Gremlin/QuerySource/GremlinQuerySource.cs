@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -14,20 +15,22 @@ namespace ExRam.Gremlinq.Core
     
         public static IConfigurableGremlinQuerySource Create(string name)
         {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
+            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
         }
 
         private sealed class ConfigurableGremlinQuerySourceImpl : IConfigurableGremlinQuerySource
         {
             private readonly string _name;
+            private readonly ILogger _logger;
             private readonly IGraphModel _model;
             private readonly IGremlinQueryExecutor _queryExecutor;
             private readonly ImmutableList<IGremlinQueryStrategy> _strategies;
 
-            public ConfigurableGremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryExecutor queryExecutor, ImmutableList<IGremlinQueryStrategy> strategies)
+            public ConfigurableGremlinQuerySourceImpl(string name, IGraphModel model, IGremlinQueryExecutor queryExecutor, ImmutableList<IGremlinQueryStrategy> strategies, ILogger logger)
             {
                 _name = name;
                 _model = model;
+                _logger = logger;
                 _strategies = strategies;
                 _queryExecutor = queryExecutor;
             }
@@ -87,19 +90,24 @@ namespace ExRam.Gremlinq.Core
                     .Inject(elements);
             }
 
+            public IConfigurableGremlinQuerySource WithLogger(ILogger logger)
+            {
+                return new ConfigurableGremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies, logger);
+            }
+
             public IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies)
             {
-                return new ConfigurableGremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies.AddRange(strategies));
+                return new ConfigurableGremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies.AddRange(strategies), _logger);
             }
 
             public IConfigurableGremlinQuerySource WithModel(IGraphModel model)
             {
-                return new ConfigurableGremlinQuerySourceImpl(_name, model, _queryExecutor, _strategies);
+                return new ConfigurableGremlinQuerySourceImpl(_name, model, _queryExecutor, _strategies, _logger);
             }
 
             public IConfigurableGremlinQuerySource WithExecutor(IGremlinQueryExecutor executor)
             {
-                return new ConfigurableGremlinQuerySourceImpl(_name, _model, executor, _strategies);
+                return new ConfigurableGremlinQuerySourceImpl(_name, _model, executor, _strategies, _logger);
             }
 
             private IGremlinQuery<Unit> Create()
