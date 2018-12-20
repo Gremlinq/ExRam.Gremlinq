@@ -261,14 +261,14 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Language_to_generic_vertex()
         {
-            var language = await _g
+            var vertex = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Vertex>()
                 .First();
 
-            language.Should().NotBeNull();
-            language.Id.Should().Be(10);
-            language.Label.Should().Be("Language");
+            vertex.Should().BeOfType<Language>();
+            vertex.Should().NotBeNull();
+            vertex.Id.Should().Be(10);
         }
 
 

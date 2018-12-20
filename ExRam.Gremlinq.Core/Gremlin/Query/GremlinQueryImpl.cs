@@ -575,12 +575,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-            {
-                if (memberExpression.Member is PropertyInfo propertyInfo && propertyInfo.IsElementLabel())
-                    throw new InvalidOperationException("Cannot set the 'Label' property on a graph element.");
-
                 return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(elementType, memberExpression.Member.Name), value));
-            }
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -1191,12 +1186,10 @@ namespace ExRam.Gremlinq.Core
                     element.GetType(),
                     type => type
                         .GetProperties()
-                        .Where(property => !property.IsElementLabel())
                         .ToArray());
 
             var ret = this;
 
-            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var propertyInfo in propertyInfos)
             {
                 var value = propertyInfo.GetValue(element);

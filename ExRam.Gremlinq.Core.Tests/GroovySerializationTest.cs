@@ -106,16 +106,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void AddV_Label_is_ignored()
-        {
-            g
-                .AddV(new Language { Id = 1, Label = "someLabel" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b)")
-                .WithParameters("Language", 1);
-        }
-
-        [Fact]
         public void AddV_with_multi_property()
         {
             g
@@ -1308,17 +1298,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
                 .WithParameters("User", "Age", 36);
-        }
-
-        [Fact]
-        public void Label_Property()
-        { 
-            g
-                .Invoking(_ => _
-                    .V<User>()
-                    .Property(x => x.Label, "someLabel"))
-                .Should()
-                .Throw<InvalidOperationException>();
         }
 
         [Fact]
