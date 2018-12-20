@@ -44,7 +44,7 @@ namespace System.Linq
                     }
                     else
                     {
-                        if (propertySteps != null)
+                        if (propertySteps != null && propertySteps.Count > 0)
                         {
                             propertySteps.Sort((x, y) => -(x.Key is T).CompareTo(y.Key is T));
 
@@ -53,7 +53,7 @@ namespace System.Linq
                                 yield return replayPropertyStep;
                             }
 
-                            propertySteps = null;
+                            propertySteps.Clear();
                         }
 
                         if (hasNext)    
