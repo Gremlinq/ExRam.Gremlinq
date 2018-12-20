@@ -1483,11 +1483,33 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy()
         {
             g
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _.OfType<Knows>()))
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
+                .WithParameters("User", "Knows");
+        }
+
+        [Fact]
+        public void WithSubgraphStrategy_only_vertices()
+        {
+            g
                 .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
                 .V()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.identity()).create()).V()")
+                .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("User");
+        }
+
+        [Fact]
+        public void WithSubgraphStrategy_only_edges()
+        {
+            g
+                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<Knows>()))
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
+                .WithParameters("Knows");
         }
 
         [Fact]
