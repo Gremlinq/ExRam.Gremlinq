@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class GremlinQueryProvider
+    internal static class GremlinQueryExecutor
     {
         private sealed class InvalidQueryExecutor : IGremlinQueryExecutor
         {

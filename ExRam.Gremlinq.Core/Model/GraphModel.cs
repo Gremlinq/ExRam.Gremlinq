@@ -24,6 +24,17 @@ namespace ExRam.Gremlinq.Core
             public Option<string> VertexIdPropertyName { get; }
         }
 
+        private sealed class InvalidGraphModel : IGraphModel
+        {
+            public string[] GetLabels(Type elementType, bool includeDerivedTypes = false) => throw new InvalidOperationException();
+
+            public Type[] GetTypes(string label) => throw new InvalidOperationException();
+
+            public Option<string> EdgeIdPropertyName { get => throw new InvalidOperationException(); }
+
+            public Option<string> VertexIdPropertyName { get => throw new InvalidOperationException(); }
+        }
+
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
             private readonly IDictionary<Type, string[]> _labels;
@@ -106,6 +117,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
+        public static readonly IGraphModel Invalid = new InvalidGraphModel();
 
         public static IGraphModel Dynamic()
         {

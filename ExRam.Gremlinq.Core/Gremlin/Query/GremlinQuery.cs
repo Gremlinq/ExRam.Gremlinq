@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model)
         {
-            return Create(model, GremlinQueryProvider.Invalid);
+            return Create(model, GremlinQueryExecutor.Invalid);
         }
 
         internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null)

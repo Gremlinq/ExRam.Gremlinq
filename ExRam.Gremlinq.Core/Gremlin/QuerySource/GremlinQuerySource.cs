@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 
@@ -13,7 +14,7 @@ namespace ExRam.Gremlinq.Core
     
         public static IConfigurableGremlinQuerySource Create(string name)
         {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(), GremlinQueryProvider.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
+            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty);
         }
 
         private sealed class ConfigurableGremlinQuerySourceImpl : IConfigurableGremlinQuerySource
@@ -103,9 +104,13 @@ namespace ExRam.Gremlinq.Core
 
             private IGremlinQuery<Unit> Create()
             {
+                var model = _model == GraphModel.Invalid
+                    ? GraphModel.Dynamic()
+                    : _model;
+
                 var ret =
                     new GremlinQueryImpl<Unit, Unit, Unit>(
-                            _model,
+                            model,
                             _queryExecutor,
                             ImmutableList<Step>.Empty,
                             ImmutableDictionary<StepLabel, string>.Empty)

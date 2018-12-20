@@ -1147,7 +1147,7 @@ namespace ExRam.Gremlinq.Core
         #region Anonymize
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex>();
 
-        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryProvider.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
+        private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(Model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty);
         #endregion
 
         private TTargetQuery CastQuery<TTargetQuery>() where TTargetQuery : IGremlinQuery
