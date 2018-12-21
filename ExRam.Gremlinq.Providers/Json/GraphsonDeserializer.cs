@@ -246,13 +246,11 @@ namespace ExRam.Gremlinq.Providers
             private sealed class VertexImpl : IVertex
             {
                 [AllowNull] public object Id { get; set; }
-                [AllowNull] public string Label { get; set; }
             }
 
             private sealed class EdgeImpl : IEdge
             {
                 [AllowNull] public object Id { get; set; }
-                [AllowNull] public string Label { get; set; }
             }
 
             private readonly JsonSerializer _modelIndependentSerializer;
