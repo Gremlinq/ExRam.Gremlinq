@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
         TTargetQuery Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
+        IGremlinQuery<TElement> As(StepLabel stepLabel);
         IGremlinQuery<TElement> Barrier();
         TTargetQuery Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
         IGremlinQuery<TResult> Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> falseChoice);
@@ -127,7 +127,7 @@ namespace ExRam.Gremlinq.Core
         IVGremlinQuery<TVertex> And(params Func<IVGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
         TTargetQuery Aggregate<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IVGremlinQuery<TVertex> As(VStepLabel<TVertex> stepLabel);
+        new IVGremlinQuery<TVertex> As(StepLabel stepLabel);
 
         IVGremlinQuery<IVertex> Both<TEdge>();
         IEGremlinQuery<TEdge> BothE<TEdge>();
@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Aggregate<TTargetQuery>(Func<IEGremlinQuery<TEdge>, EStepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery As<TTargetQuery>(Func<IEGremlinQuery<TEdge>, EStepLabel<TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IEGremlinQuery<TEdge> As(EStepLabel<TEdge> stepLabel);
+        new IEGremlinQuery<TEdge> As(StepLabel stepLabel);
 
         IVGremlinQuery<IVertex> BothV();
         new IEGremlinQuery<TOtherEdge> Cast<TOtherEdge>();
@@ -276,7 +276,7 @@ namespace ExRam.Gremlinq.Core
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IOutEGremlinQuery<TEdge, TAdjacentVertex> As(OutEStepLabel<TEdge, TAdjacentVertex> stepLabel);
+        new IOutEGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
 
         new IOutEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Core
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IInEGremlinQuery<TEdge, TAdjacentVertex> As(InEStepLabel<TEdge, TAdjacentVertex> stepLabel);
+        new IInEGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
 
         new IInEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Core
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, EStepLabel<TEdge, TAdjacentVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        IEGremlinQuery<TEdge, TAdjacentVertex> As(EStepLabel<TEdge, TAdjacentVertex> stepLabel);
+        new IEGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
 
         new IEGremlinQuery<TOtherEdge, TAdjacentVertex> Cast<TOtherEdge>();
 
