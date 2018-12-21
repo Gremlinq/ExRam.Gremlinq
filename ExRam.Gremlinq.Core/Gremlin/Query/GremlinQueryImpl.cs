@@ -149,6 +149,8 @@ namespace ExRam.Gremlinq.Core
 
         IVGremlinQuery<TElement> IVGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
 
+        IEGremlinQuery<TElement, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.As(StepLabel stepLabel) => As(stepLabel);
+
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> As(StepLabel stepLabel) => AddStep<TElement>(new AsStep(stepLabel));
         #endregion
 
