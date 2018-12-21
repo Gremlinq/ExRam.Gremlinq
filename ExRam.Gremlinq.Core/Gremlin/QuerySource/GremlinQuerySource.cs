@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(_name, _model, executor, _strategies, _logger);
             }
 
-            private IGremlinQuery<Unit> Create()
+            private IGremlinQuery Create()
             {
                 var model = _model == GraphModel.Invalid
                     ? GraphModel.Dynamic(_logger)
@@ -127,12 +127,12 @@ namespace ExRam.Gremlinq.Core
 
                 var ret =
                     new GremlinQueryImpl<Unit, Unit, Unit>(
-                            model,
-                            _queryExecutor,
-                            ImmutableList<Step>.Empty,
-                            ImmutableDictionary<StepLabel, string>.Empty,
-                            _logger)
-                        .AddStep(IdentifierStep.Create(_name));
+                        model,
+                        _queryExecutor,
+                        ImmutableList<Step>.Empty,
+                        ImmutableDictionary<StepLabel, string>.Empty,
+                        _logger)
+                    .AddStep(IdentifierStep.Create(_name));
 
                 foreach (var strategy in _strategies)
                 {

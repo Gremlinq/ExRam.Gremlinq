@@ -2,6 +2,6 @@
 {
     public interface IGremlinQueryStrategy
     {
-        IGremlinQuery<TElement> Apply<TElement>(IGremlinQuery<TElement> query);
+        IGremlinQuery Apply(IGremlinQuery query);
     }
 }

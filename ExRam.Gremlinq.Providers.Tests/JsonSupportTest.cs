@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             {
                 return AsyncEnumerable
                     .Return(JToken.Parse(_json))
-                    .GraphsonDeserialize<TElement[]>(new GraphsonDeserializer(query.Model))
+                    .GraphsonDeserialize<TElement[]>(new GraphsonDeserializer(query.AsAdmin().Model))
                     .SelectMany(x => x.ToAsyncEnumerable());
             }
         }

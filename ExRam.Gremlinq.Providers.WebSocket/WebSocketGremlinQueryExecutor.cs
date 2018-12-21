@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
                     return AsyncEnumerable.Throw<JToken>(ex);
                 })
-                .GraphsonDeserialize<TElement[]>(_graphSonSerializerFactory.Get(query.Model))
+                .GraphsonDeserialize<TElement[]>(_graphSonSerializerFactory.Get(query.AsAdmin().Model))
                 .SelectMany(x => x.ToAsyncEnumerable());
         }
     }

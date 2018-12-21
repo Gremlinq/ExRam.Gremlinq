@@ -507,7 +507,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(NotStep step)
         {
-            if (!(step.Traversal.Steps.Count != 0 && step.Traversal.Steps[step.Traversal.Steps.Count - 1] is HasStep hasStep && hasStep.Value is P.Within within && within.Arguments.Length == 0))
+            var traversalSteps = step.Traversal.AsAdmin().Steps;
+
+            if (!(traversalSteps.Count != 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P.Within within && within.Arguments.Length == 0))
                 Visit(step, "not");
         }
 
@@ -545,7 +547,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(IGremlinQuery query)
         {
-            foreach (var map in query.StepLabelMappings)
+            var admin = query.AsAdmin();
+
+            foreach (var map in admin.StepLabelMappings)
             {
                 _stepLabelMappings[map.Key] = map.Value;
             }
@@ -553,7 +557,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             var beforeState = _state;
             _state = State.Idle;
 
-            foreach (var step in query.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
+            foreach (var step in admin.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
             {
                 step.Accept(this);
             }
@@ -831,7 +835,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         private static IEnumerable<IGremlinQuery> FlattenLogicalTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
         {
-            if (query.Steps.Count == 1 && query.Steps[0] is TStep otherStep)
+            var steps = query.AsAdmin().Steps;
+
+            if (steps.Count == 1 && steps[0] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {

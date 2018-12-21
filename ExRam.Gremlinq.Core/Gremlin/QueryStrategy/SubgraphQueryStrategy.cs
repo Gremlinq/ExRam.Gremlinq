@@ -14,24 +14,25 @@ namespace ExRam.Gremlinq.Core
             _vertexCriterion = vertexCriterion;
         }
 
-        public IGremlinQuery<TElement> Apply<TElement>(IGremlinQuery<TElement> query)
+        public IGremlinQuery Apply(IGremlinQuery query)
         {
-            var anonymous = GremlinQuery.Anonymous(query.Model);
+            var admin = query.AsAdmin();
+            var anonymous = GremlinQuery.Anonymous(admin.Model);
 
             var vertexCriterionTraversal = _vertexCriterion(anonymous);
             var edgeCriterionTraversal = _edgeCriterion(anonymous);
 
-            if (vertexCriterionTraversal.Steps.Count > 0 || edgeCriterionTraversal.Steps.Count > 0)
+            if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0 || edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
             {
-                var strategy = GremlinQuery.Create<Unit>(query.Model, GremlinQueryExecutor.Invalid, "SubgraphStrategy")
+                var strategy = GremlinQuery.Create<Unit>(admin.Model, GremlinQueryExecutor.Invalid, "SubgraphStrategy")
                     .AddStep(BuildStep.Instance);
 
-                if (vertexCriterionTraversal.Steps.Count > 0)
+                if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0)
                 {
                     strategy = strategy.AddStep(new VerticesStep(vertexCriterionTraversal));
                 }
 
-                if (edgeCriterionTraversal.Steps.Count > 0)
+                if (edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
                 {
                     strategy = strategy.AddStep(new EdgesStep(edgeCriterionTraversal));
                 }

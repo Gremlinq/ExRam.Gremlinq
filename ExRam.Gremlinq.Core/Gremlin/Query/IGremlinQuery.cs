@@ -7,6 +7,15 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
+    public interface IGremlinQueryAdmin
+    {
+        IGremlinQuery InsertStep(int index, Step step);
+
+        IGraphModel Model { get; }
+        IImmutableList<Step> Steps { get; }
+        IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
+    }
+
     public interface IGremlinQuerySource
     {
         IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
@@ -22,6 +31,7 @@ namespace ExRam.Gremlinq.Core
 
     public interface IGremlinQuery : IGremlinQuerySource
     {
+        IGremlinQueryAdmin AsAdmin();
         IGremlinQuery<TElement> Cast<TElement>();
         IGremlinQuery<long> Count();
         IGremlinQuery<Unit> Drop();
@@ -29,8 +39,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<object> Id();
         
-        IGremlinQuery InsertStep(int index, Step step);
-
         TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         IGremlinQuery<TTarget> OfType<TTarget>();
@@ -47,10 +55,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
         IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);
         IGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4);
-
-        IGraphModel Model { get; }
-        IImmutableList<Step> Steps { get; }
-        IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
     public interface IOrderedGremlinQuery<TElement> : IGremlinQuery<TElement>
@@ -77,7 +81,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> Filter(string lambda);
         IGremlinQuery<TElement[]> Fold();
         IGremlinQuery<TElement> Identity();
-        new IGremlinQuery<TElement> InsertStep(int index, Step step);
         IGremlinQuery<TElement> Inject(params TElement[] elements);
         IGremlinQuery<TElement> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
@@ -139,7 +142,6 @@ namespace ExRam.Gremlinq.Core
         new IVGremlinQuery<TVertex> Identity();
         IVGremlinQuery<IVertex> In<TEdge>();
         IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
-        new IVGremlinQuery<TVertex> InsertStep(int index, Step step);
         
         new IVGremlinQuery<TVertex> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IVGremlinQuery<TVertex>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
@@ -218,7 +220,6 @@ namespace ExRam.Gremlinq.Core
 
         new IEGremlinQuery<TEdge> Identity();
         IVGremlinQuery<IVertex> InV();
-        new IEGremlinQuery<TEdge> InsertStep(int index, Step step);
         
         new IEGremlinQuery<TEdge> Limit(long limit);
         TTargetQuery Local<TTargetQuery>(Func<IEGremlinQuery<TEdge>, TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
@@ -276,7 +277,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Map<TTargetQuery>(Func<IOutEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IOutEGremlinQuery<TEdge, TAdjacentVertex> Identity();
-        new IOutEGremlinQuery<TEdge, TAdjacentVertex> InsertStep(int index, Step step);
 
         new IOutEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IOrderedOutEGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Expression<Func<TEdge, object>> projection);
@@ -313,7 +313,6 @@ namespace ExRam.Gremlinq.Core
 
         new IInEGremlinQuery<TEdge, TAdjacentVertex> Identity();
         new IVGremlinQuery<TAdjacentVertex> InV();
-        new IInEGremlinQuery<TEdge, TAdjacentVertex> InsertStep(int index, Step step);
         
         TTargetQuery Map<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
@@ -340,7 +339,6 @@ namespace ExRam.Gremlinq.Core
         new IEGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
         new IEGremlinQuery<TEdge, TAdjacentVertex> Identity();
-        new IEGremlinQuery<TEdge, TAdjacentVertex> InsertStep(int index, Step step);
 
         TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
@@ -370,7 +368,6 @@ namespace ExRam.Gremlinq.Core
 
         new IEGremlinQuery<TEdge, TOutVertex, TInVertex> Identity();
         new IVGremlinQuery<TInVertex> InV();
-        new IEGremlinQuery<TEdge, TOutVertex, TInVertex> InsertStep(int index, Step step);
 
         TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
