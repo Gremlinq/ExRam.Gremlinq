@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep<TElement>(new CoalesceStep(traversals
                     .Select(traversal => (IGremlinQuery)traversal(Anonymize()))))
-                .CastQuery<TTargetQuery>();
+                .ChangeQueryType<TTargetQuery>();
         }
         #endregion
 
@@ -334,7 +334,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQuery
         {
             return this.AddStep<TElement>(new LocalStep(localTraversal(Anonymize())))
-                .CastQuery<TTargetQuery>();
+                .ChangeQueryType<TTargetQuery>();
         }
         #endregion
 
@@ -358,7 +358,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
             return this.AddStep<TElement>(new MapStep(mapping(Anonymize())))
-                .CastQuery<TTargetQuery>();
+                .ChangeQueryType<TTargetQuery>();
         }
         #endregion
 
@@ -817,7 +817,7 @@ namespace ExRam.Gremlinq.Core
                     new UnionStep(
                         unionTraversals
                             .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymize()))))
-                .CastQuery<TTargetQuery>();
+                .ChangeQueryType<TTargetQuery>();
         }
 
         #region V
@@ -1159,7 +1159,10 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> Anonymize<TNewElement, TNewOutVertex, TNewInVertex>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex>(_model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, _logger);
         #endregion
 
-        private TTargetQuery CastQuery<TTargetQuery>() where TTargetQuery : IGremlinQuery
+        #region ChangeQueryType
+        TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
+
+        private TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQuery
         {
             var elementType = typeof(Unit);
             var inVertexType = typeof(Unit);
@@ -1187,6 +1190,7 @@ namespace ExRam.Gremlinq.Core
             var type = typeof(GremlinQueryImpl<,,>).MakeGenericType(elementType, outVertexType, inVertexType);
             return (TTargetQuery)Activator.CreateInstance(type, _model, _queryExecutor, _steps, _stepLabelMappings, _logger);
         }
+        #endregion
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> AddElementProperties(GraphElementType elementType, object element)
         {

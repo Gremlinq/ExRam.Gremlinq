@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq.Core
 
         IGraphModel Model { get; }
         IImmutableList<Step> Steps { get; }
+        TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQuery;
         IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
