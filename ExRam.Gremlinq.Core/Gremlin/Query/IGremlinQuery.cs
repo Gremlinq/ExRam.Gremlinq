@@ -38,8 +38,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<Unit> Drop();
         IGremlinQuery<string> Explain();
 
-        IGremlinQuery<object> Id();
-        
         TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         IGremlinQuery<TTarget> OfType<TTarget>();
@@ -141,6 +139,8 @@ namespace ExRam.Gremlinq.Core
 
         new IVGremlinQuery<TVertex> Emit();
         new IVGremlinQuery<TVertex> Identity();
+
+        IGremlinQuery<object> Id();
         IVGremlinQuery<IVertex> In<TEdge>();
         IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
         
@@ -187,10 +187,14 @@ namespace ExRam.Gremlinq.Core
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TElement>, EStepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
+        IGremlinQuery<object> Id();
+
         IGremlinQuery<Property> Properties(params string[] keys);
         IVPropertiesGremlinQuery<TElement> Property(string key, object value);
-        IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
+
         IVPropertiesGremlinQuery<TElement> SideEffect(Func<IVPropertiesGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
+
+        IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
     }
 
     public interface IOrderedEGremlinQuery<TEdge> : IEGremlinQuery<TEdge>
@@ -220,6 +224,7 @@ namespace ExRam.Gremlinq.Core
         IOutEGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         new IEGremlinQuery<TEdge> Identity();
+        IGremlinQuery<object> Id();
         IVGremlinQuery<IVertex> InV();
         
         new IEGremlinQuery<TEdge> Limit(long limit);

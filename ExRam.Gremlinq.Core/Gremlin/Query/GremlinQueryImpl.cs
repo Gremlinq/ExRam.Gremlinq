@@ -267,7 +267,15 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex>(new FromTraversalStep(fromVertexTraversal(Anonymize())));
         #endregion
 
-        IGremlinQuery<object> IGremlinQuery.Id() => AddStep<object>(IdStep.Instance);
+        #region Id
+        IGremlinQuery<object> IVGremlinQuery<TElement>.Id() => Id();
+
+        IGremlinQuery<object> IVPropertiesGremlinQuery<TElement>.Id() => Id();
+
+        IGremlinQuery<object> IEGremlinQuery<TElement>.Id() => Id();
+
+        private GremlinQueryImpl<object, Unit, Unit> Id() => AddStep<object, Unit, Unit>(IdStep.Instance);
+        #endregion
 
         #region Identity
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Identity();
