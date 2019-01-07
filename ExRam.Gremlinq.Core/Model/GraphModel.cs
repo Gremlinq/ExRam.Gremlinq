@@ -103,8 +103,8 @@ namespace ExRam.Gremlinq.Core
             }
 
             private readonly IDictionary<string, Type[]> _types;
-            private readonly AssemblyGraphElementModel _edgeModel;
-            private readonly AssemblyGraphElementModel _vertexModel;
+            private readonly AssemblyGraphElementModel _edgesModel;
+            private readonly AssemblyGraphElementModel _verticesModel;
 
             public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
             {
@@ -114,11 +114,13 @@ namespace ExRam.Gremlinq.Core
                 if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-                _vertexModel = new AssemblyGraphElementModel(vertexBaseType, vertexIdPropertyName, assemblies, logger);
-                _edgeModel = new AssemblyGraphElementModel(edgeBaseType, edgeIdPropertyName, assemblies, logger);
+                var assemblyArray = assemblies.ToArray();
 
-                _types =_vertexModel.Labels
-                    .Concat(_edgeModel.Labels)
+                _verticesModel = new AssemblyGraphElementModel(vertexBaseType, vertexIdPropertyName, assemblyArray, logger);
+                _edgesModel = new AssemblyGraphElementModel(edgeBaseType, edgeIdPropertyName, assemblyArray, logger);
+
+                _types =_verticesModel.Labels
+                    .Concat(_edgesModel.Labels)
                     .GroupBy(x => x.Value[0])
                     .ToDictionary(
                         group => group.Key,
@@ -134,8 +136,8 @@ namespace ExRam.Gremlinq.Core
                     .IfNone(Array.Empty<Type>());
             }
 
-            public IGraphElementModel EdgesModel => _edgeModel;
-            public IGraphElementModel VerticesModel => _vertexModel;
+            public IGraphElementModel EdgesModel => _edgesModel;
+            public IGraphElementModel VerticesModel => _verticesModel;
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();

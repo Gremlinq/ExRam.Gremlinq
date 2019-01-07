@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Map<TTargetQuery>(Func<IVGremlinQuery<TVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         IVGremlinQuery<TVertex> Not(Func<IVGremlinQuery<TVertex>, IGremlinQuery> notTraversal);
 
-        new IVGremlinQuery<TTarget> OfType<TTarget>();
+        IVGremlinQuery<TTarget> OfType<TTarget>();
         IVGremlinQuery<TVertex> Or(params Func<IVGremlinQuery<TVertex>, IGremlinQuery>[] orTraversals);
         new IOrderedVGremlinQuery<TVertex> OrderBy(Expression<Func<TVertex, object>> projection);
         IOrderedVGremlinQuery<TVertex> OrderBy(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
@@ -230,7 +230,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Map<TTargetQuery>(Func<IEGremlinQuery<TEdge>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
-        new IEGremlinQuery<TTarget> OfType<TTarget>();
+        IEGremlinQuery<TTarget> OfType<TTarget>();
         new IOrderedEGremlinQuery<TEdge> OrderBy(Expression<Func<TEdge, object>> projection);
         IOrderedEGremlinQuery<TEdge> OrderBy(Func<IEGremlinQuery<TEdge>, IGremlinQuery> traversal);
         new IOrderedEGremlinQuery<TEdge> OrderBy(string lambda);

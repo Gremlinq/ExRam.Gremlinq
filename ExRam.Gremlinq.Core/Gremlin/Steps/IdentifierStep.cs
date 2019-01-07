@@ -4,6 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class IdentifierStep : Step
     {
+        // ReSharper disable once InconsistentNaming
         public static readonly IdentifierStep g = new IdentifierStep("g");
         public static readonly IdentifierStep __ = new IdentifierStep("__");
 
