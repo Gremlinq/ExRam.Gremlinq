@@ -16,26 +16,26 @@ namespace ExRam.Gremlinq.Core
         {
             public Type[] GetTypes(string label) => Array.Empty<Type>();
 
-            public IGraphElementModel VertexModel { get => GraphElementModel.Empty; }
-            public IGraphElementModel EdgeModel { get => GraphElementModel.Empty; }
+            public IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
+            public IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
         }
 
         private sealed class InvalidGraphModel : IGraphModel
         {
             public Type[] GetTypes(string label) => throw new InvalidOperationException();
 
-            public IGraphElementModel VertexModel { get => GraphElementModel.Invalid; }
-            public IGraphElementModel EdgeModel { get => GraphElementModel.Invalid; }
+            public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
+            public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
         }
 
-        private sealed class AssemblyGraphModelImpl : IGraphModel
+        private sealed class AssemblyGraphModel : IGraphModel
         {
-            private sealed class AssemblyGraphElementModelImpl : IGraphElementModel
+            private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
                 private readonly Type _baseType;
                 private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-                public AssemblyGraphElementModelImpl(Type baseType, string idPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
+                public AssemblyGraphElementModel(Type baseType, string idPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
                     _baseType = baseType;
 
@@ -103,10 +103,10 @@ namespace ExRam.Gremlinq.Core
             }
 
             private readonly IDictionary<string, Type[]> _types;
-            private readonly AssemblyGraphElementModelImpl _vertexModel;
-            private readonly AssemblyGraphElementModelImpl _edgeModel;
+            private readonly AssemblyGraphElementModel _edgeModel;
+            private readonly AssemblyGraphElementModel _vertexModel;
 
-            public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
+            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -114,8 +114,8 @@ namespace ExRam.Gremlinq.Core
                 if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-                _vertexModel = new AssemblyGraphElementModelImpl(vertexBaseType, vertexIdPropertyName, assemblies, logger);
-                _edgeModel = new AssemblyGraphElementModelImpl(edgeBaseType, edgeIdPropertyName, assemblies, logger);
+                _vertexModel = new AssemblyGraphElementModel(vertexBaseType, vertexIdPropertyName, assemblies, logger);
+                _edgeModel = new AssemblyGraphElementModel(edgeBaseType, edgeIdPropertyName, assemblies, logger);
 
                 _types =_vertexModel.Labels
                     .Concat(_edgeModel.Labels)
@@ -134,8 +134,8 @@ namespace ExRam.Gremlinq.Core
                     .IfNone(Array.Empty<Type>());
             }
 
-            public IGraphElementModel EdgeModel => _edgeModel;
-            public IGraphElementModel VertexModel => _vertexModel;
+            public IGraphElementModel EdgesModel => _edgeModel;
+            public IGraphElementModel VerticesModel => _vertexModel;
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
@@ -168,13 +168,13 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", ILogger logger = null, params Assembly[] assemblies)
         {
-            return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
+            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
         }
 
         internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)
         {
-            return elementType == GraphElementType.Vertex && name == model.VertexModel.IdPropertyName
-                || elementType == GraphElementType.Edge && name == model.EdgeModel.IdPropertyName
+            return elementType == GraphElementType.Vertex && name == model.VerticesModel.IdPropertyName
+                || elementType == GraphElementType.Edge && name == model.EdgesModel.IdPropertyName
                 ? (object)T.Id
                 : name;
         }

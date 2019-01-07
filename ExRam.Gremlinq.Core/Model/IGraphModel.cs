@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         Type[] GetTypes(string label);
 
-        IGraphElementModel VertexModel { get; }
-        IGraphElementModel EdgeModel { get; }
+        IGraphElementModel VerticesModel { get; }
+        IGraphElementModel EdgesModel { get; }
     }
 }

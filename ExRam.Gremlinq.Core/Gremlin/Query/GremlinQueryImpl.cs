@@ -211,9 +211,9 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region BothX
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Both<TNewEdge>() => AddStep<IVertex>(new BothStep(_model.VertexModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Both<TNewEdge>() => AddStep<IVertex>(new BothStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
-        IEGremlinQuery<TNewEdge> IVGremlinQuery<TElement>.BothE<TNewEdge>() => AddStep<TNewEdge>(new BothEStep(_model.EdgeModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IEGremlinQuery<TNewEdge> IVGremlinQuery<TElement>.BothE<TNewEdge>() => AddStep<TNewEdge>(new BothEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
         IVGremlinQuery<IVertex> IEGremlinQuery<TElement>.BothV() => AddStep<IVertex>(BothVStep.Instance);
         #endregion
@@ -300,9 +300,9 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> Identity() => AddStep<TElement>(IdentityStep.Instance);
         #endregion
 
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<IVertex>(new InStep(_model.VertexModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<IVertex>(new InStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
         
-        IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement>(new InEStep(_model.EdgeModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement>(new InEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
         #region InV
         IVGremlinQuery<IVertex> IEGremlinQuery<TElement>.InV() => AddStep<IVertex, Unit, Unit>(InVStep.Instance);
@@ -398,9 +398,9 @@ namespace ExRam.Gremlinq.Core
 
         IInEGremlinQuery<TTarget, TInVertex> IInEGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfEType<TTarget>();
 
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfVType<TTarget>() => OfType<TTarget>(_model.VertexModel.GetValidFilterLabels(typeof(TTarget)));
+        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfVType<TTarget>() => OfType<TTarget>(_model.VerticesModel.GetValidFilterLabels(typeof(TTarget)));
 
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfEType<TTarget>() => OfType<TTarget>(_model.EdgeModel.GetValidFilterLabels(typeof(TTarget)));
+        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfEType<TTarget>() => OfType<TTarget>(_model.EdgesModel.GetValidFilterLabels(typeof(TTarget)));
 
         private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfType<TTarget>(string[] labels)
         {
@@ -546,7 +546,7 @@ namespace ExRam.Gremlinq.Core
         IVGremlinQuery<IVertex> IEGremlinQuery<TElement>.OtherV() => AddStep<IVertex>(OtherVStep.Instance);
 
         #region OutX
-        IOutEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.OutE<TNewEdge>() => AddStep<TNewEdge, TElement, Unit>(new OutEStep(_model.EdgeModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IOutEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.OutE<TNewEdge>() => AddStep<TNewEdge, TElement, Unit>(new OutEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
         IVGremlinQuery<IVertex> IEGremlinQuery<TElement>.OutV() => AddStep<IVertex, Unit, Unit>(OutVStep.Instance);
         
@@ -554,7 +554,7 @@ namespace ExRam.Gremlinq.Core
 
         IVGremlinQuery<TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OutV() => AddStep<TOutVertex, Unit, Unit>(OutVStep.Instance);
 
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Out<TNewEdge>() => AddStep<IVertex>(new OutStep(_model.EdgeModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Out<TNewEdge>() => AddStep<IVertex>(new OutStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
         #endregion
         
         IGremlinQuery<string> IGremlinQuery.Profile() => AddStep<string>(ProfileStep.Instance);
