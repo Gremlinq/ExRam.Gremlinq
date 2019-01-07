@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleIsDescribedIn))
-                .V<IsDescribedIn>()
+                .E<IsDescribedIn>()
                 .ToArray();
 
             array.Should().HaveCount(1);
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
-                .V<IsDescribedIn>()
+                .E<IsDescribedIn>()
                 .ToArray();
 
             array.Should().HaveCount(1);

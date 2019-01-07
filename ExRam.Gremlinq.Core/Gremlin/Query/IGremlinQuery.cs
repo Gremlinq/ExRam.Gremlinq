@@ -40,8 +40,6 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
-        IGremlinQuery<TTarget> OfType<TTarget>();
-
         IGremlinQuery<string> Profile();
 
         IGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);

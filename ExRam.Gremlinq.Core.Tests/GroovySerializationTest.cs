@@ -1017,6 +1017,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Out_of_type_outside_model2()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Out<IVertex>())
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+        
+        [Fact]
         public void Out_does_not_include_abstract_edge()
         {
             g

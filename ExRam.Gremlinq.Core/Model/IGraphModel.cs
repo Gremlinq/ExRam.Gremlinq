@@ -5,8 +5,11 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGraphModel
     {
-        Option<string> TryGetConstructiveLabel(Type elementType);
-        Option<string[]> TryGetFilterLabels(Type elementType);
+        Option<string> TryGetConstructiveVertexLabel(Type elementType);
+        Option<string> TryGetConstructiveEdgeLabel(Type elementType);
+
+        Option<string[]> TryGetVertexFilterLabels(Type elementType);
+        Option<string[]> TryGetEdgeFilterLabels(Type elementType);
 
         Type[] GetTypes(string label);
 

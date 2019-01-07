@@ -1,16 +1,10 @@
-﻿using System.Linq;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public abstract class AddElementStep : Step
     {
-        protected AddElementStep(IGraphModel model, object value)
+        protected AddElementStep(string label)
         {
-            var type = value.GetType();
-
-            Label = model
-                .TryGetConstructiveLabel(type)
-                .IfNone(type.Name); //TODO: We don't want to work outside the model!
+            Label = label;
         }
 
         public string Label { get; }

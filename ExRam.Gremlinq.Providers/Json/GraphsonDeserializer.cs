@@ -294,7 +294,7 @@ namespace ExRam.Gremlinq.Providers
 
             public override bool CanConvert(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.TryGetFilterLabels(objectType).All(x => x.Length > 0));
+                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.TryGetVertexFilterLabels(objectType).All(x => x.Length > 0) || _model.TryGetEdgeFilterLabels(objectType).All(x => x.Length > 0));
             }
 
             public override bool CanWrite => false;
