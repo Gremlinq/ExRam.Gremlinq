@@ -9,8 +9,8 @@ namespace ExRam.Gremlinq.Core
             var type = value.GetType();
 
             Label = model
-                .GetLabels(type)
-                .FirstOrDefault() ?? type.Name;
+                .TryGetConstructiveLabel(type)
+                .IfNone(type.Name); //TODO: We don't want to work outside the model!
         }
 
         public string Label { get; }

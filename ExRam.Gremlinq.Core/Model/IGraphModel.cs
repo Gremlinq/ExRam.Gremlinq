@@ -5,7 +5,9 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGraphModel
     {
-        string[] GetLabels(Type elementType, bool includeDerivedTypes = false);
+        Option<string> TryGetConstructiveLabel(Type elementType);
+        Option<string[]> TryGetFilterLabels(Type elementType);
+
         Type[] GetTypes(string label);
 
         Option<string> VertexIdPropertyName { get; }

@@ -31,6 +31,36 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_of_all_types1()
+        {
+            g
+                .V<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void V_of_all_types2()
+        {
+            g
+                .V<IVertex>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void V_of_type_outside_model()
+        {
+            g
+                .Invoking(_ => _
+                    .V<string>())
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public void AddE_types1()
         {
             g
@@ -966,6 +996,27 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Out_of_all_types()
+        {
+            g
+                .V()
+                .Out<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().out()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Out_of_type_outside_model1()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Out<string>())
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public void Out_does_not_include_abstract_edge()
         {
             g
@@ -974,6 +1025,39 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b, _c, _d, _e, _f)")
                 .WithParameters("User", "IsDescribedIn", "Knows", "LivesIn", "Speaks", "WorksFor");
+        }
+
+        [Fact]
+        public void OutE_of_all_types()
+        {
+            g
+                .V()
+                .OutE<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().outE()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void In_of_all_types()
+        {
+            g
+                .V()
+                .In<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().in()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void InE_of_all_types()
+        {
+            g
+                .V()
+                .InE<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().inE()")
+                .WithoutParameters();
         }
 
         [Fact]
