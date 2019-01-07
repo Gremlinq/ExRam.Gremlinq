@@ -14,50 +14,97 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class EmptyGraphModel : IGraphModel
         {
-            public Option<string> TryGetConstructiveVertexLabel(Type elementType) => default;
-
-            public Option<string> TryGetConstructiveEdgeLabel(Type elementType) => default;
-
-            public Option<string[]> TryGetVertexFilterLabels(Type elementType) => default;
-
-            public Option<string[]> TryGetEdgeFilterLabels(Type elementType) => default;
-
             public Type[] GetTypes(string label) => Array.Empty<Type>();
 
-            // ReSharper disable once UnassignedGetOnlyAutoProperty
-            public Option<string> EdgeIdPropertyName { get; }
-
-            // ReSharper disable once UnassignedGetOnlyAutoProperty
-            public Option<string> VertexIdPropertyName { get; }
+            public IGraphElementModel VertexModel { get => GraphElementModel.Empty; }
+            public IGraphElementModel EdgeModel { get => GraphElementModel.Empty; }
         }
 
         private sealed class InvalidGraphModel : IGraphModel
         {
-            public Option<string> TryGetConstructiveVertexLabel(Type elementType) => throw new InvalidOperationException();
-
-            public Option<string> TryGetConstructiveEdgeLabel(Type elementType) => throw new InvalidOperationException();
-
-            public Option<string[]> TryGetVertexFilterLabels(Type elementType) => throw new InvalidOperationException();
-
-            public Option<string[]> TryGetEdgeFilterLabels(Type elementType) => throw new InvalidOperationException();
-            
             public Type[] GetTypes(string label) => throw new InvalidOperationException();
 
-            public Option<string> EdgeIdPropertyName { get => throw new InvalidOperationException(); }
-
-            public Option<string> VertexIdPropertyName { get => throw new InvalidOperationException(); }
+            public IGraphElementModel VertexModel { get => GraphElementModel.Invalid; }
+            public IGraphElementModel EdgeModel { get => GraphElementModel.Invalid; }
         }
 
         private sealed class AssemblyGraphModelImpl : IGraphModel
         {
-            private readonly Type _edgeBaseType;
-            private readonly Type _vertexBaseType;
-            private readonly IDictionary<string, Type[]> _types;
-            private readonly IDictionary<Type, string[]> _edgeLabels;
-            private readonly IDictionary<Type, string[]> _vertexLabels;
+            private sealed class AssemblyGraphElementModelImpl : IGraphElementModel
+            {
+                private readonly Type _baseType;
+                private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-            private readonly ConcurrentDictionary<Type, string[]> _derivedVertexLabels = new ConcurrentDictionary<Type, string[]>();
-            private readonly ConcurrentDictionary<Type, string[]> _derivedEdgeLabels = new ConcurrentDictionary<Type, string[]>();
+                public AssemblyGraphElementModelImpl(Type baseType, string idPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
+                {
+                    _baseType = baseType;
+
+                    Labels = assemblies
+                        .Distinct()
+                        .SelectMany(assembly =>
+                        {
+                            try
+                            {
+                                return assembly
+                                    .DefinedTypes
+                                    .Where(type => type != baseType && baseType.IsAssignableFrom(type))
+                                    .Select(typeInfo => typeInfo);
+                            }
+                            catch (ReflectionTypeLoadException ex)
+                            {
+                                logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
+                                return Array.Empty<TypeInfo>();
+                            }
+                        })
+                        .Prepend(baseType)
+                        .Where(x => !x.IsInterface)
+                        .ToDictionary(
+                            type => type,
+                            type => new[] { type.Name });
+
+                    IdPropertyName = idPropertyName;
+                }
+
+                public Option<string> TryGetConstructiveVertexLabel(Type elementType)
+                {
+                    return Labels
+                        .TryGetValue(elementType)
+                        .Map(x => x.FirstOrDefault())
+                        .IfNone(() => elementType.BaseType != null
+                            ? TryGetConstructiveVertexLabel(elementType.BaseType)
+                            : default);
+                }
+
+                public Option<string> TryGetConstructiveLabel(Type elementType)
+                {
+                    return Labels
+                        .TryGetValue(elementType)
+                        .Map(x => x.FirstOrDefault())
+                        .IfNone(() => elementType.BaseType != null
+                            ? TryGetConstructiveVertexLabel(elementType.BaseType)
+                            : default);
+                }
+
+                public Option<string[]> TryGetFilterLabels(Type elementType)
+                {
+                    return elementType.IsAssignableFrom(_baseType)
+                        ? default
+                        : _derivedLabels.GetOrAdd(
+                            elementType,
+                            closureType => Labels
+                                .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                                .Select(kvp => kvp.Value[0])
+                                .OrderBy(x => x)
+                                .ToArray());
+                }
+
+                public Option<string> IdPropertyName { get; }
+                public IDictionary<Type, string[]> Labels { get; }
+            }
+
+            private readonly IDictionary<string, Type[]> _types;
+            private readonly AssemblyGraphElementModelImpl _vertexModel;
+            private readonly AssemblyGraphElementModelImpl _edgeModel;
 
             public AssemblyGraphModelImpl(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
             {
@@ -67,94 +114,17 @@ namespace ExRam.Gremlinq.Core
                 if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-                _vertexBaseType = vertexBaseType;
-                _edgeBaseType = edgeBaseType;
+                _vertexModel = new AssemblyGraphElementModelImpl(vertexBaseType, vertexIdPropertyName, assemblies, logger);
+                _edgeModel = new AssemblyGraphElementModelImpl(edgeBaseType, edgeIdPropertyName, assemblies, logger);
 
-                _vertexLabels = GetLabels(assemblies, vertexBaseType, logger);
-                _edgeLabels = GetLabels(assemblies, edgeBaseType, logger);
-
-                _types = _vertexLabels
-                    .Concat(_edgeLabels)
+                _types =_vertexModel.Labels
+                    .Concat(_edgeModel.Labels)
                     .GroupBy(x => x.Value[0])
                     .ToDictionary(
                         group => group.Key,
                         group => group
                             .Select(x => x.Key)
                             .ToArray());
-
-                VertexIdPropertyName = vertexIdPropertyName;
-                EdgeIdPropertyName = edgeIdPropertyName;
-            }
-
-            public Option<string> TryGetConstructiveVertexLabel(Type elementType)
-            {
-                return _vertexLabels
-                    .TryGetValue(elementType)
-                    .Map(x => x.FirstOrDefault())
-                    .IfNone(() => elementType.BaseType != null
-                        ? TryGetConstructiveVertexLabel(elementType.BaseType)
-                        : default);
-            }
-
-            public Option<string> TryGetConstructiveEdgeLabel(Type elementType)
-            {
-                return _edgeLabels
-                    .TryGetValue(elementType)
-                    .Map(x => x.FirstOrDefault())
-                    .IfNone(() => elementType.BaseType != null
-                        ? TryGetConstructiveVertexLabel(elementType.BaseType)
-                        : default);
-            }
-
-            public Option<string[]> TryGetVertexFilterLabels(Type elementType)
-            {
-                return elementType.IsAssignableFrom(_vertexBaseType)
-                    ? default
-                    : TryGetFilterLabels(_vertexLabels, _derivedVertexLabels, elementType);
-            }
-
-            public Option<string[]> TryGetEdgeFilterLabels(Type elementType)
-            {
-                return elementType.IsAssignableFrom(_edgeBaseType)
-                    ? default
-                    : TryGetFilterLabels(_edgeLabels, _derivedEdgeLabels, elementType);
-            }
-
-            private Option<string[]> TryGetFilterLabels(IDictionary<Type, string[]> labels, ConcurrentDictionary<Type, string[]> derivedLabels, Type elementType)
-            {
-                return derivedLabels.GetOrAdd(
-                    elementType,
-                    closureType => labels
-                        .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                        .Select(kvp => kvp.Value[0])
-                        .OrderBy(x => x)
-                        .ToArray());
-            }
-
-            private IDictionary<Type, string[]> GetLabels(IEnumerable<Assembly> assemblies, Type baseType, ILogger logger)
-            {
-                return assemblies
-                    .Distinct()
-                    .SelectMany(assembly =>
-                    {
-                        try
-                        {
-                            return assembly
-                                .DefinedTypes
-                                .Where(type => type != baseType && baseType.IsAssignableFrom(type))
-                                .Select(typeInfo => typeInfo);
-                        }
-                        catch (ReflectionTypeLoadException ex)
-                        {
-                            logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
-                            return Array.Empty<TypeInfo>();
-                        }
-                    })
-                    .Prepend(baseType)
-                    .Where(x => !x.IsInterface)
-                    .ToDictionary(
-                        type => type,
-                        type => new[] { type.Name });
             }
 
             public Type[] GetTypes(string label)
@@ -164,8 +134,8 @@ namespace ExRam.Gremlinq.Core
                     .IfNone(Array.Empty<Type>());
             }
 
-            public Option<string> VertexIdPropertyName { get; }
-            public Option<string> EdgeIdPropertyName { get; }
+            public IGraphElementModel EdgeModel => _edgeModel;
+            public IGraphElementModel VertexModel => _vertexModel;
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
@@ -201,33 +171,10 @@ namespace ExRam.Gremlinq.Core
             return new AssemblyGraphModelImpl(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
         }
 
-        internal static string[] GetValidVertexFilterLabels(this IGraphModel model, Type type)
-        {
-            return GetValidFilterLabels(type, model.TryGetVertexFilterLabels(type));
-        }
-
-        internal static string[] GetValidEdgeFilterLabels(this IGraphModel model, Type type)
-        {
-            return GetValidFilterLabels(type, model.TryGetEdgeFilterLabels(type));
-        }
-
-        private static string[] GetValidFilterLabels(Type type, Option<string[]> maybeLabels)
-        {
-            return maybeLabels
-                .Filter(labels =>
-                {
-                    if (labels.Length == 0)
-                        throw new InvalidOperationException($"Can't determine labels for type {type.FullName}.");
-
-                    return true;
-                })
-                .IfNone(Array.Empty<string>());
-        }
-
         internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)
         {
-            return elementType == GraphElementType.Vertex && name == model.VertexIdPropertyName
-                || elementType == GraphElementType.Edge && name == model.EdgeIdPropertyName
+            return elementType == GraphElementType.Vertex && name == model.VertexModel.IdPropertyName
+                || elementType == GraphElementType.Edge && name == model.EdgeModel.IdPropertyName
                 ? (object)T.Id
                 : name;
         }

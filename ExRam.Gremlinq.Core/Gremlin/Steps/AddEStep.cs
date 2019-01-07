@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class AddEStep : AddElementStep
     {
-        public AddEStep(IGraphModel model, object value) : base(model.TryGetConstructiveEdgeLabel(value.GetType()).IfNone(value.GetType().Name))
+        public AddEStep(IGraphModel model, object value) : base(model.EdgeModel, value)
         {
         }
 

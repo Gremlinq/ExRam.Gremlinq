@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.Dynamic();
 
-            model.TryGetVertexFilterLabels(typeof(Authority))
+            model.VertexModel.TryGetFilterLabels(typeof(Authority))
                 .IfNone(new string[0])
                 .Should()
                 .NotBeEmpty();

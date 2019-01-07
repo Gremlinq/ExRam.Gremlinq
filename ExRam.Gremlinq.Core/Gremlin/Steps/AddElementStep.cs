@@ -2,9 +2,9 @@
 {
     public abstract class AddElementStep : Step
     {
-        protected AddElementStep(string label)
+        protected AddElementStep(IGraphElementModel elementModel, object value)
         {
-            Label = label;
+            Label = elementModel.TryGetConstructiveLabel(value.GetType()).IfNone(value.GetType().Name);
         }
 
         public string Label { get; }
