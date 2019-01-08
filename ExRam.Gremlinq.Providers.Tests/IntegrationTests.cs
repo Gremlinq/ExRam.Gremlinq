@@ -788,7 +788,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Drop()
         {
             await _g
-                .V<User>()
+                .V()
                 .Drop()
                 .ToArray();
         }
