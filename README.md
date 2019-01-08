@@ -21,25 +21,28 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
 ### Fluent Linq-style API:
 Build strongly typed gremlin queries:
     
-    //Get all vertices with label "Person" that have a property "Age" of value 36.
+Get all vertices with label "Person" that have a property "Age" of value 36.
 
     var persons = await g
         .V<Person>()
         .Where(x => x.Age == 36)
         .ToArray();
 
-    // Add a vertex with label "Person" and add a property "Age" of value 36.
+Add a vertex with label "Person" and add a property "Age" of value 36.
+
     var person = await g
         .AddV(new Person { Age = 36 })
         .First();
 
-    // Above query can also be written differently:
+Above query can also be written differently:
+
     var person = await g
         .AddV<Person>()
         .Property(x => x.Age, 36)
         .First();
 
-    // Anonymous traversals are supported seamlessly:
+Anonymous traversals are supported seamlessly:
+
     var edge = await g
         .AddV<Person>()
         .AddE<WorksAt>()
@@ -47,7 +50,8 @@ Build strongly typed gremlin queries:
             .AddV<Company>())
         .First();
 
-    // Use a fluent syntax that remembers in- and out-vertices:
+Use a fluent syntax that remembers in- and out-vertices:
+
     var person = await g
         .AddV<Person>()
         .AddE<WorksAt>()
@@ -56,13 +60,15 @@ Build strongly typed gremlin queries:
         .OutV()
         .First();
 
-    // Navigate through the graph:
+Navigate through the graph:
+
     var employers = await g
         .V<Person>('bob')
         .Out<WorksAt>()
         .ToArray();
 
-    // Deal easily with step labels:
+Deal easily with step labels:
+
     var tuples = await g
         .V<Person>('bob')
         .As((p, __ => __
@@ -71,7 +77,8 @@ Build strongly typed gremlin queries:
                 .Select(p, c)))
         .ToArray();
 
-    // Formulate more complex queries...
+Formulate more complex queries...
+
     var persons = await g
         .V<Person>()
         .Where(x => x.Age == 36 && x.Name == "Bob")
@@ -87,13 +94,15 @@ Build strongly typed gremlin queries:
         .Where(x => x.Age < 36 && x.Name == "Bob")
         .ToArray();
 
-    // ...even involving simple string operations
+...even involving simple string operations
+
     var persons = await g
         .V<Person>()
         .Where(x => x.Name.StartsWith("B"))
         .ToArray();
 
-    // Use it like Linq!
+Use it like Linq!
+
     var persons = await g
         .V<Person>()
         .Where(x => x.Pets.Contains("Daisy"))
