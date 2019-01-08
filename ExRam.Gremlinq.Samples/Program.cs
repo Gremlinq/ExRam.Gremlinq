@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers;
@@ -28,28 +29,31 @@ namespace ExRam.Gremlinq.Samples
 
         public async Task CreateGraph()
         {
+            // Uncomment to delete the whole graph on every run.
+            //await _g.V().Drop().ToArray();
+
             var marko = await _g
-                .AddV(new Person { Name = "marko", Age = 29 })
+                .AddV(new Person { Name = "Marko", Age = 29 })
                 .First();
 
             var vadas = await _g
-                .AddV(new Person { Name = "vadas", Age = 27 })
+                .AddV(new Person { Name = "Vadas", Age = 27 })
                 .First();
             
             var josh = await _g
-                .AddV(new Person { Name = "josh", Age = 32 })
+                .AddV(new Person { Name = "Josh", Age = 32 })
                 .First();
 
             var peter = await _g
-                .AddV(new Person { Name = "peter", Age = 29 })
+                .AddV(new Person { Name = "Peter", Age = 29 })
                 .First();
 
             var lop = await _g
-                .AddV(new Software { Name = "lop", Language = ProgrammingLanguage.Java })
+                .AddV(new Software { Name = "Lop", Language = ProgrammingLanguage.Java })
                 .First();
 
             var ripple = await _g
-                .AddV(new Software { Name = "ripple", Language = ProgrammingLanguage.Java })
+                .AddV(new Software { Name = "Ripple", Language = ProgrammingLanguage.Java })
                 .First();
 
             await _g
@@ -92,42 +96,90 @@ namespace ExRam.Gremlinq.Samples
         public async Task CreateKnowsRelationInOneQuery()
         {
             await _g
-                .AddV(new Person { Name = "bob", Age = 36 })
+                .AddV(new Person { Name = "Bob", Age = 36 })
                 .AddE<Knows>()
                 .To(__ => __
-                    .AddV(new Person { Name = "jeff", Age = 27 }))
+                    .AddV(new Person { Name = "Jeff", Age = 27 }))
                 .First();
         }
 
         public async Task WhoDoesMarkoKnow()
         {
-            var knownToMarko = await _g
+            var knownPersonsToMarko = await _g
                 .V<Person>()
-                .Where(x => x.Name == "marko")
+                .Where(x => x.Name == "Marko")
                 .Out<Knows>()
                 .OfType<Person>()
                 .OrderBy(x => x.Name)
                 .Values(x => x.Name)
                 .ToArray();
+
+            Console.WriteLine("Who does Marko know?");
+
+            foreach (var person in knownPersonsToMarko)
+            {
+                Console.WriteLine($" Marko knows {person}.");
+            }
+
+            Console.WriteLine();
         }
 
         public async Task WhoIsOlderThan30()
         {
-            var olderThan30 = await _g
+            var personsOlderThan30 = await _g
                 .V<Person>()
                 .Where(x => x.Age > 30)
                 .ToArray();
+
+            Console.WriteLine("Who is older than 30?");
+
+            foreach (var person in personsOlderThan30)
+            {
+                Console.WriteLine($" {person.Name} is older than 30.");
+            }
+
+            Console.WriteLine();
         }
 
         public async Task WhoseNameStartsWithB()
         {
             var nameStartsWithB = await _g
                 .V<Person>()
-                .Where(x => x.Name.StartsWith("b"))
+                .Where(x => x.Name.StartsWith("B"))
                 .ToArray();
+
+            Console.WriteLine("Whose name starts with 'B'?");
+
+            foreach (var person in nameStartsWithB)
+            {
+                Console.WriteLine($" {person.Name}'s name starts with a 'B'.");
+            }
+
+            Console.WriteLine();
         }
 
-        static async Task Main(string[] args)
+        public async Task WhoKnowsWho()
+        {
+            var friendTuples = await _g
+                .V<Person>()
+                .As((__, person) => __
+                    .Out<Knows>()
+                    .OfType<Person>()
+                    .As((___, friend) => ___
+                        .Select(person, friend)))
+                .ToArray();
+
+            Console.WriteLine("Who knows who?");
+
+            foreach (var tuples in friendTuples)
+            {
+                Console.WriteLine($" {tuples.Item1.Name} knows {tuples.Item2.Name}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        static async Task Main()
         {
             var program = new Program();
 
@@ -136,6 +188,10 @@ namespace ExRam.Gremlinq.Samples
             await program.WhoDoesMarkoKnow();
             await program.WhoIsOlderThan30();
             await program.WhoseNameStartsWithB();
+            await program.WhoKnowsWho();
+
+            Console.Write("Press any key...");
+            Console.ReadLine();
         }
     }
 }
