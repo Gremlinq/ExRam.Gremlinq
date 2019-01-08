@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _
                     .V<string>())
                 .Should()
-                .Throw<InvalidOperationException>();
+                .Throw<GraphModelException>();
         }
 
         [Fact]
@@ -1013,7 +1013,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Invoking(_ => _.Out<string>())
                 .Should()
-                .Throw<InvalidOperationException>();
+                .Throw<GraphModelException>();
         }
 
         [Fact]
@@ -1023,7 +1023,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Invoking(_ => _.Out<IVertex>())
                 .Should()
-                .Throw<InvalidOperationException>();
+                .Throw<GraphModelException>();
         }
         
         [Fact]

@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                 .Filter(labels =>
                 {
                     if (labels.Length == 0)
-                        throw new InvalidOperationException($"Can't determine labels for type {type.FullName}.");
+                        throw new GraphModelException($"Can't determine labels for type {type.FullName}.");
 
                     return true;
                 })
