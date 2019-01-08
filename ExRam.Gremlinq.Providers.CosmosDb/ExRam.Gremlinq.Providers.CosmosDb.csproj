@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20</TargetFrameworks>
-    <Description>.NET Object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
+    <Description>Azure CosmosDb provider binding for ExRam.Gremlinq.</Description>
   </PropertyGroup>
 
   <ItemGroup>
