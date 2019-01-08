@@ -1170,7 +1170,12 @@ namespace ExRam.Gremlinq.Core
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ExpressionNotSupportedException(memberExpression);
 
-            return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(_model, _queryExecutor, _steps, _stepLabelMappings.SetItem(stepLabel, memberExpressionBody.Member.Name), _logger);
+            var name = memberExpressionBody.Member.Name;
+
+            if (_stepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
+                throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
+
+            return new GremlinQueryImpl<TElement, TOutVertex, TInVertex>(_model, _queryExecutor, _steps, _stepLabelMappings.Add(stepLabel, name), _logger);
         }
 
         #region Anonymize

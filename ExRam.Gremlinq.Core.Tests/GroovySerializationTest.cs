@@ -1384,6 +1384,36 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Nested_Select_operations()
+        {
+            g
+                .V<User>()
+                .As((_, stepLabel1) => _
+                    .As((__, stepLabel2) => __
+                        .Select(stepLabel1, stepLabel2)
+                        .As((___, tuple) => ___
+                            .Select(stepLabel1, tuple))))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c).as(_c).select(_b, _c)")
+                .WithParameters("User", "Item1", "Item2");
+        }
+
+        [Fact]
+        public void Nested_contradicting_Select_operations_throw()
+        {
+            g
+                .V<User>()
+                .Invoking(x => x
+                    .As((_, stepLabel1) => _
+                        .As((__, stepLabel2) => __
+                            .Select(stepLabel1, stepLabel2)
+                            .As((___, tuple) => ___
+                                .Select(tuple, stepLabel1)))))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public void Property_single()
         {
             g
