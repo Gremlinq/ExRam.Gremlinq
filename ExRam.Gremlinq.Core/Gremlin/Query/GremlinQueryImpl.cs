@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region E
-        IEGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids) => AddStep(new EStep(ids)).OfEType<TEdge>();
+        IEGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids) => AddStep(new EStep(ids)).OfType<TEdge>(_model.EdgesModel, true);
 
         IEGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids) => AddStep<IEdge>(new EStep(ids));
         #endregion
@@ -386,27 +386,29 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region OfType
-        IVGremlinQuery<TTarget> IVGremlinQuery<TElement>.OfType<TTarget>() => OfVType<TTarget>();
+        IVGremlinQuery<TTarget> IVGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(_model.VerticesModel);
 
-        IEGremlinQuery<TTarget, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfEType<TTarget>();
+        IEGremlinQuery<TTarget, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
-        IEGremlinQuery<TTarget> IEGremlinQuery<TElement>.OfType<TTarget>() => OfEType<TTarget>();
+        IEGremlinQuery<TTarget> IEGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
-        IEGremlinQuery<TTarget, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OfType<TTarget>() => OfEType<TTarget>();
+        IEGremlinQuery<TTarget, TOutVertex, TInVertex> IEGremlinQuery<TElement, TOutVertex, TInVertex>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
-        IOutEGremlinQuery<TTarget, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfEType<TTarget>();
+        IOutEGremlinQuery<TTarget, TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
-        IInEGremlinQuery<TTarget, TInVertex> IInEGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfEType<TTarget>();
+        IInEGremlinQuery<TTarget, TInVertex> IInEGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfVType<TTarget>() => OfType<TTarget>(_model.VerticesModel.GetValidFilterLabels(typeof(TTarget)));
-
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfEType<TTarget>() => OfType<TTarget>(_model.EdgesModel.GetValidFilterLabels(typeof(TTarget)));
-
-        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfType<TTarget>(string[] labels)
+        private GremlinQueryImpl<TTarget, TOutVertex, TInVertex> OfType<TTarget>(IGraphElementModel model, bool disableTypeOptimization = false)
         {
-            return labels.Length > 0
-                ? AddStep<TTarget>(new HasLabelStep(labels))
-                : Cast<TTarget>();
+            if (disableTypeOptimization || !typeof(TTarget).IsAssignableFrom(typeof(TElement)))
+            {
+                var labels = model.GetValidFilterLabels(typeof(TTarget));
+
+                if (labels.Length > 0)
+                    return AddStep<TTarget>(new HasLabelStep(labels));
+            }
+
+            return Cast<TTarget>();
         }
         #endregion
 
@@ -841,7 +843,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         #region V
-        IVGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids) => AddStep(new VStep(ids)).OfVType<TVertex>();
+        IVGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids) => AddStep(new VStep(ids)).OfType<TVertex>(_model.VerticesModel, true);
 
         IVGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids) => AddStep<IVertex>(new VStep(ids));
         #endregion

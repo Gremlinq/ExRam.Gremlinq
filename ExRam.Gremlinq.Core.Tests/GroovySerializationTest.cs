@@ -1275,6 +1275,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void OfType_redundant1()
+        {
+            g
+                .V()
+                .OfType<Company>()
+                .OfType<Authority>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
+                .WithParameters("Company");
+        }
+
+        [Fact]
+        public void OfType_redundant2()
+        {
+            g
+                .V()
+                .OfType<Company>()
+                .OfType<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
+                .WithParameters("Company");
+        }
+
+        [Fact]
         public void Repeat_Out()
         {
             g
