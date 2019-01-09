@@ -11,8 +11,7 @@ namespace ExRam.Gremlinq.Core
 
             public Option<string[]> TryGetFilterLabels(Type elementType) => default;
 
-            // ReSharper disable once UnassignedGetOnlyAutoProperty
-            public Option<string> IdPropertyName { get; }
+            public Option<string> IdPropertyName { get => default; }
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
