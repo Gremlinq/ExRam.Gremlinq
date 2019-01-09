@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/NuGetIcon.png)
+![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/Logo.png)
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
