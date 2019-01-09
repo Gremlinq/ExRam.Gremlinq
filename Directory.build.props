@@ -11,6 +11,7 @@
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIconUrl>https://github.com/ExRam/ExRam.Gremlinq/blob/master/Assets/NuGetIcon.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests'))" >
