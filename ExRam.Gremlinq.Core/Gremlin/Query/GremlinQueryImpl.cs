@@ -912,59 +912,47 @@ namespace ExRam.Gremlinq.Core
                     case UnaryExpression unaryExpression:
                     {
                         if (unaryExpression.NodeType == ExpressionType.Not)
-                            return Not(_ => _.Where(elementType,
-                                Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand,
-                                    predicate.Parameters)));
+                            return Not(_ => _.Where(elementType, Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
 
                         break;
                     }
                     case MemberExpression memberExpression:
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return Where(elementType, predicate.Parameters[0], memberExpression,
-                                Expression.Constant(true), ExpressionType.Equal);
+                            return Where(elementType, predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
 
                         break;
                     }
                     case BinaryExpression binaryExpression:
-                        return Where(elementType, predicate.Parameters[0], binaryExpression.Left.StripConvert(),
-                            binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                        return Where(elementType, predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
                     case MethodCallExpression methodCallExpression:
                     {
                         var methodInfo = methodCallExpression.Method;
 
                         if (methodInfo.IsEnumerableAny())
                         {
-                            if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression &&
-                                previousExpression.Method.IsEnumerableIntersect())
+                            if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
                                     return HasWithin(elementType, sourceMember, previousExpression.Arguments[1]);
 
-                                if (previousExpression.Arguments[1] is MemberExpression argument &&
-                                    argument.Expression == predicate.Parameters[0])
+                                if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
                                     return HasWithin(elementType, argument, previousExpression.Arguments[0]);
                             }
                             else
-                                return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0],
-                                    Expression.Constant(null, methodCallExpression.Arguments[0].Type),
-                                    ExpressionType.NotEqual);
+                                return Where(elementType, predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
                         }
                         else if (methodInfo.IsEnumerableContains())
                         {
-                            if (methodCallExpression.Arguments[0] is MemberExpression sourceMember &&
-                                sourceMember.Expression == predicate.Parameters[0])
-                                return Has(elementType, sourceMember,
-                                    new P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                            if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == predicate.Parameters[0])
+                                return Has(elementType, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
-                            if (methodCallExpression.Arguments[1] is MemberExpression argument &&
-                                argument.Expression == predicate.Parameters[0])
+                            if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
                                 return HasWithin(elementType, argument, methodCallExpression.Arguments[0]);
                         }
                         else if (methodInfo.IsStringStartsWith())
                         {
-                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression &&
-                                argumentExpression.Expression == predicate.Parameters[0])
+                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
@@ -976,8 +964,7 @@ namespace ExRam.Gremlinq.Core
                                             .Select(i => stringValue.Substring(0, i)));
                                 }
                             }
-                            else if (methodCallExpression.Object is MemberExpression memberExpression &&
-                                     memberExpression.Expression == predicate.Parameters[0])
+                            else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
                             {
                                 if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
                                 {
