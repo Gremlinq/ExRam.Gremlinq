@@ -545,6 +545,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
+        public virtual void Visit(ValueMapStep step)
+        {
+            Method("valueMap");
+        }
+
         public virtual void Visit(IGremlinQuery query)
         {
             var admin = query.AsAdmin();
@@ -808,11 +813,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
-            if (value is IMeta meta)
+            if (value is PropertyBase meta)
             {
-                var metaProperties = meta.Properties
+                var metaProperties = meta.GetMetaProperties()
                     .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .Prepend(meta.Value)
+                    .Prepend(meta.GetValue())
                     .Prepend(name)
                     .Prepend(cardinality);
 

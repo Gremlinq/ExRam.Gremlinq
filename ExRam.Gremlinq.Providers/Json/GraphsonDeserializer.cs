@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Providers
         {
             public override bool CanConvert(Type objectType)
             {
-                return typeof(IMeta).IsAssignableFrom(objectType);
+                return typeof(PropertyBase).IsAssignableFrom(objectType);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
@@ -189,27 +189,7 @@ namespace ExRam.Gremlinq.Providers
                     token = array[0];
                 }
 
-                return (object)Populate((dynamic)Activator.CreateInstance(objectType, true), token);
-            }
-
-            private static Meta<TMeta> Populate<TMeta>(Meta<TMeta> meta, JToken jToken)
-            {
-                if (jToken is JObject jObject)
-                {
-                    meta.Value = (TMeta)jObject["value"]?.ToObject(typeof(TMeta));
-
-                    if (jObject["properties"] is JObject metaPropertiesObject)
-                    {
-                        foreach (var metaProperty in metaPropertiesObject.Properties())
-                        {
-                            meta.Properties.Add(metaProperty.Name, metaProperty.Value.ToObject(typeof(object)));
-                        }
-                    }
-                }
-                else
-                    meta.Value = (TMeta)jToken.ToObject(typeof(TMeta));
-
-                return meta;
+                return token.ToObject(objectType);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

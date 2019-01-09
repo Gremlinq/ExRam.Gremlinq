@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var data = await _g
                 .AddV(new Country
                 {
-                    Name = new Meta<string>("GER")
+                    Name = new VertexProperty<string>("GER")
                     {
                         Properties =
                         {
@@ -1161,8 +1161,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Country>()
-                .Properties(x => x.Name)
-                .Properties("metaKey")
+                .Properties<MetaModel>(x => x.Name)
+                .Properties(x => x.MetaKey)
                 .ToArray();
         }
 

@@ -61,6 +61,46 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void E_of_concrete_type()
+        {
+            g
+                .E<Knows>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a)")
+                .WithParameters("Knows");
+        }
+
+        [Fact]
+        public void E_of_all_types1()
+        {
+            g
+                .E<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void E_of_all_types2()
+        {
+            g
+                .E<IEdge>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void E_of_type_outside_model()
+        {
+            g
+                .Invoking(_ => _
+                    .E<string>())
+                .Should()
+                .Throw<GraphModelException>();
+        }
+
+        [Fact]
         public void AddE_types1()
         {
             g
@@ -162,7 +202,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddV(new Country
                 {
                     Id = 1,
-                    Name = new Meta<string>("GER")
+                    Name = new VertexProperty<string>("GER")
                     {
                         Properties =
                         {
@@ -175,7 +215,27 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
                 .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
-        
+
+        [Fact]
+        public void AddV_with_MetaModel()
+        {
+            g
+                .AddV(new User
+                {
+                    Id = 1,
+                    Name = new VertexProperty<string, MetaModel>("Bob")
+                    {
+                        Properties = new MetaModel
+                        {
+                            MetaKey = "MetaValue"
+                        }
+                    }
+                })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.single, _i, _j, _k, _l)")
+                .WithParameters("User", 1, "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "Name", "Bob", "MetaKey", "MetaValue");
+        }
+
         [Fact]
         public void AddV_with_enum_property()
         {
@@ -1214,10 +1274,79 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
+                .Values(x => x.Age)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
+                .WithParameters("User", "Age");
+        }
+
+        [Fact]
+        public void Values_VertexProperty_Member1()
+        {
+            typeof(User)
+                .GetProperty(nameof(User.Name))
+                .PropertyType
+                .Should()
+                .Be(typeof(VertexProperty<string, MetaModel>));
+
+            g
+                .V<User>()
+                .Values(x => x.Name)
+                .Should()
+                .BeAssignableTo<IGremlinQuery<string>>();
+
+            g
+                .V<User>()
                 .Values(x => x.Name)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("User", "Name");
+        }
+
+        [Fact]
+        public void Values_VertexProperty_Member2()
+        {
+            typeof(User)
+                .GetProperty(nameof(User.SomeObscureProperty))
+                .PropertyType
+                .Should()
+                .Be(typeof(VertexProperty<object>));
+
+            g
+                .V<User>()
+                .Values(x => x.SomeObscureProperty)
+                .Should()
+                .BeAssignableTo<IGremlinQuery<object>>();
+
+            g
+                .V<User>()
+                .Values(x => x.Name)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
+                .WithParameters("User", "Name");
+        }
+
+        [Fact]
+        public void Values_EdgeProperty_Member()
+        {
+            typeof(LivesIn)
+                .GetProperty(nameof(LivesIn.Since))
+                .PropertyType
+                .Should()
+                .Be(typeof(Property<DateTimeOffset>));
+
+            g
+                .E<LivesIn>()
+                .Values(x => x.Since)
+                .Should()
+                .BeAssignableTo<IGremlinQuery<DateTimeOffset>>();
+
+            g
+                .E<LivesIn>()
+                .Values(x => x.Since)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).values(_b)")
+                .WithParameters("LivesIn", "Since");
         }
 
         [Fact]
@@ -1495,6 +1624,42 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Values()
+        {
+            g
+                .V()
+                .Properties()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties_Values_untyped()
+        {
+            g
+                .V()
+                .Properties()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties_Values_Projected()
+        {
+            g
+                .V()
+                .Properties<MetaModel>()
+                .Values(x => x.MetaKey)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values(_a)")
+                .WithParameters("MetaKey");
+        }
+
+        [Fact]
         public void Properties_of_member()
         {
             g
@@ -1527,6 +1692,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
+        }
+
+        [Fact]
+        public void Properties_ValueMap()
+        {
+            g
+                .V()
+                .Properties<MetaModel>()
+                .ValueMap()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -1570,11 +1747,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<Country>()
-                .Properties(x => x.Name)
-                .Properties("metaKey")
+                .Properties<MetaModel>(x => x.Name)
+                .Properties(x => x.MetaKey)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties(_c)")
-                .WithParameters("Country", "Name", "metaKey");
+                .WithParameters("Country", "Name", "MetaKey");
         }
 
         [Fact]

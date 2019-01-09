@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
                     : _model;
 
                 var ret =
-                    new GremlinQueryImpl<Unit, Unit, Unit>(
+                    new GremlinQueryImpl<Unit, Unit, Unit, Unit>(
                         model,
                         _queryExecutor,
                         ImmutableList<Step>.Empty,

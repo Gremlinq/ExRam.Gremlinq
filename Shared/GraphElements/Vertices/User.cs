@@ -1,4 +1,5 @@
 ﻿using System;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -11,5 +12,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public Gender Gender { get; set; }
 
         public DateTimeOffset RegistrationDate { get; set; }
+
+        public VertexProperty<object> SomeObscureProperty { get; set; }
     }
 }

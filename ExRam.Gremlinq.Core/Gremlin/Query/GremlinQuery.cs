@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using LanguageExt;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.Core.GraphElements;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuery
     {
-        internal static readonly ConcurrentDictionary<Type, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<Type, PropertyInfo[]>();
-
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model, ILogger logger = null)
         {
             return Create(model, GremlinQueryExecutor.Invalid, null, logger);
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit>(
+            return new GremlinQueryImpl<TElement, Unit, Unit, Unit>(
                 model,
                 queryExecutor,
                 graphName != null
@@ -77,6 +78,16 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuery<TElement> Unfold<TElement>(this IGremlinQuery<TElement[]> query)
         {
             return query.Unfold<TElement>();
+        }
+
+        public static IVPropertiesGremlinQuery<VertexProperty<object, IDictionary<string, object>>, IDictionary<string, object>> Properties<TVertex>(this IVGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
+        {
+            return query.Properties<IDictionary<string, object>>(projections);
+        }
+
+        public static IGremlinQuery<object> Values<TMeta>(this IVPropertiesGremlinQuery<VertexProperty<object, TMeta>, TMeta> query)
+        {
+            return query.Values<object>();
         }
     }
 }

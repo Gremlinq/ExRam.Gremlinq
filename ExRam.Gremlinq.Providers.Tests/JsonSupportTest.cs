@@ -33,6 +33,11 @@ namespace ExRam.Gremlinq.Providers.Tests
             }
         }
 
+        private sealed class MetaPoco
+        {
+            public string MetaKey { get; set; }
+        }
+
         private static readonly string SingleUserJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleCompanyJson;
@@ -386,7 +391,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .First();
 
             tuple.Item1.Id.Should().Be(16);
-            tuple.Item1.Name.Should().Be("Name of some base entity");
+            tuple.Item1.Name.Value.Should().Be("Name of some base entity");
             tuple.Item1.Age.Should().Be(36);
 
             tuple.Item2.Id.Should().Be(17);
@@ -404,7 +409,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Should().BeOfType<User>();
-            tuple.Item1.As<User>().Name.Should().Be("Name of some base entity");
+            tuple.Item1.As<User>().Name.Value.Should().Be("Name of some base entity");
             tuple.Item1.As<User>().Age.Should().Be(36);
 
             tuple.Item2.Id.Should().Be(17);
@@ -422,7 +427,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .First();
 
             tuple.Item1.Id.Should().Be(4);
-            tuple.Item1.Name.Should().Be("Name of some base entity");
+            tuple.Item1.Name.Value.Should().Be("Name of some base entity");
             tuple.Item1.Age.Should().Be(36);
 
             tuple.Item2.Id.Should().Be(5);
@@ -512,6 +517,28 @@ namespace ExRam.Gremlinq.Providers.Tests
             properties[2].Value.Should().Be(36);
 
             properties[0].Properties.Should().Contain("metaKey", "MetaValue");
+        }
+
+        [Fact]
+        public async Task VertexProperties_with_model()
+        {
+            var properties = await _g
+                .WithExecutor(new TestJsonQueryExecutor(GetJson("VertexProperties")))
+                .V()
+                .Properties<MetaPoco>()
+                .ToArray(default);
+
+            properties.Should().HaveCount(3);
+            properties[0].Label.Should().Be("Property1");
+            properties[0].Value.Should().Be(1540202009475);
+            properties[1].Label.Should().Be("Property2");
+            properties[1].Value.Should().Be("Some string");
+            properties[2].Label.Should().Be("Property3");
+            properties[2].Value.Should().Be(36);
+
+            properties[0].Properties.MetaKey.Should().Be("MetaValue");
+            properties[1].Properties.Should().BeNull();
+            properties[2].Properties.Should().BeNull();
         }
 
         [Fact]

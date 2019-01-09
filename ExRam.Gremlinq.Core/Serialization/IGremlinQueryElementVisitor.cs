@@ -86,6 +86,7 @@
         void Visit(VStep step);
         void Visit(EStep step);
         void Visit(InjectStep step);
+        void Visit(ValueMapStep step);
 
         void Visit(StepLabel stepLabel);
 
