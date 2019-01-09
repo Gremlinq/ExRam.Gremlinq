@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core
     public abstract class P : IGremlinQueryElement
     {
         #region Nested
+        // ReSharper disable once InconsistentNaming
         public abstract class SingleArgumentP : P
         {
             protected SingleArgumentP(object argument)

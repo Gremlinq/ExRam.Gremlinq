@@ -22,6 +22,7 @@ namespace System.Linq.Expressions
 
         public static ExpressionType Switch(this ExpressionType expressionType)
         {
+            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (expressionType)
             {
                 case ExpressionType.Equal:
