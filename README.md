@@ -1,4 +1,4 @@
-![](https://github.com/apache/tinkerpop/blob/master/docs/static/images/gremlin-help-wanted.png)
+![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/NuGetIcon.png)
 
 # ExRam.Gremlinq
 
@@ -123,10 +123,10 @@ Use it like Linq!
         .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
         .ToArray();
 
-### Development
+## Development
 
-The library is still under development. The API might change without notice. Help on this project is appreciated!
+The library is still under development. The API might change without notice. Help on this project is greatly appreciated! Check out the [issues labelled 'up-for-grabs'](https://github.com/ExRam/ExRam.Gremlinq/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs) or file your own and tackle them!
 
-### Acknowledgements
+## Acknowledgements
 
 The graphic on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
