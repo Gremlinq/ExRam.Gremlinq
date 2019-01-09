@@ -1,7 +1,5 @@
 ![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/NuGetIcon.png)
 
-# ExRam.Gremlinq
-
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 ## Packages
