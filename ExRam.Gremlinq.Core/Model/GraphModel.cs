@@ -22,7 +22,9 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class InvalidGraphModel : IGraphModel
         {
-            public Type[] GetTypes(string label) => throw new InvalidOperationException();
+            private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
+
+            public Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
 
             public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
             public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }

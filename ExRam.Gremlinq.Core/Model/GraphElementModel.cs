@@ -17,11 +17,13 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
-            public Option<string> TryGetConstructiveLabel(Type elementType) => throw new InvalidOperationException();
+            private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public Option<string[]> TryGetFilterLabels(Type elementType) => throw new InvalidOperationException();
+            public Option<string> TryGetConstructiveLabel(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetConstructiveLabel)));
 
-            public Option<string> IdPropertyName { get => throw new InvalidOperationException(); }
+            public Option<string[]> TryGetFilterLabels(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetFilterLabels)));
+
+            public Option<string> IdPropertyName { get => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(IdPropertyName))); }
         }
 
         public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();

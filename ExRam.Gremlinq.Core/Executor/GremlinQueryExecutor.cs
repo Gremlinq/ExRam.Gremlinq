@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
-                return AsyncEnumerable.Throw<TElement>(new InvalidOperationException());
+                return AsyncEnumerable.Throw<TElement>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on GremlinQueryExecutor.Invalid. If you are getting this exception while executing a query, set a proper GremlinQueryExecutor on the GremlinQuerySource (e.g. with 'g.WithRemote(...)' for WebSockets)."));
             }
         }
 
