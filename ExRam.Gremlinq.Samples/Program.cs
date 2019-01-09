@@ -10,6 +10,21 @@ namespace ExRam.Gremlinq.Samples
 {
     class Program
     {
+        static async Task Main()
+        {
+            var program = new Program();
+
+            await program.CreateGraph();
+            await program.CreateKnowsRelationInOneQuery();
+            await program.WhoDoesMarkoKnow();
+            await program.WhoIsOlderThan30();
+            await program.WhoseNameStartsWithB();
+            await program.WhoKnowsWho();
+
+            Console.Write("Press any key...");
+            Console.ReadLine();
+        }
+
         private readonly IConfigurableGremlinQuerySource _g;
 
         public Program()
@@ -21,10 +36,8 @@ namespace ExRam.Gremlinq.Samples
                 .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id))
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
                 .WithRemote("localhost", GraphsonVersion.V3);
-
-            //Uncomment below and comment above to configure Gremlinq to work on CosmosDB!
-            //_g = g
-            //    .WithCosmosDbRemote(hostname, database, graphName, authKey);
+                //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
+                //.WithCosmosDbRemote(hostname, database, graphName, authKey);
         }
 
         public async Task CreateGraph()
@@ -177,21 +190,6 @@ namespace ExRam.Gremlinq.Samples
             }
 
             Console.WriteLine();
-        }
-
-        static async Task Main()
-        {
-            var program = new Program();
-
-            await program.CreateGraph();
-            await program.CreateKnowsRelationInOneQuery();
-            await program.WhoDoesMarkoKnow();
-            await program.WhoIsOlderThan30();
-            await program.WhoseNameStartsWithB();
-            await program.WhoKnowsWho();
-
-            Console.Write("Press any key...");
-            Console.ReadLine();
         }
     }
 }
