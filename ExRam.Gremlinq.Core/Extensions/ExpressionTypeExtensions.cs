@@ -38,7 +38,7 @@ namespace System.Linq.Expressions
                 case ExpressionType.GreaterThan:
                     return ExpressionType.LessThan;
                 default:
-                    throw new NotSupportedException();
+                    throw new ExpressionNotSupportedException($"The ExpressionType {expressionType} is not supported.");
             }
         }
     }

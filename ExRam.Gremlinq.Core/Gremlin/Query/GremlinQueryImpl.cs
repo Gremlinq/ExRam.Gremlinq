@@ -470,10 +470,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex> By(Expression<Func<TElement, object>> projection, Order order)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-            {
-                return this
-                    .AddStep<TElement>(new ByMemberStep(memberExpression.Member, order));
-            }
+                return AddStep<TElement>(new ByMemberStep(memberExpression.Member, order));
 
             throw new ExpressionNotSupportedException(projection);
         }
