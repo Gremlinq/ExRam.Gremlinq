@@ -1613,7 +1613,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties()
+        public void V_Properties()
         {
             g
                 .V()
@@ -1624,7 +1624,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Values()
+        public void V_Properties_Values()
         {
             g
                 .V()
@@ -1633,6 +1633,28 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().values()")
                 .WithoutParameters();
+        }
+
+        [Fact]
+        public void E_Properties()
+        {
+            g
+                .E()
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().properties()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void E_Properties_member()
+        {
+            g
+                .E<LivesIn>()
+                .Properties(x => x.Since)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).properties(_b)")
+                .WithParameters("LivesIn", "Since");
         }
 
         [Fact]

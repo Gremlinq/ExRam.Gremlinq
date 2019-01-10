@@ -196,6 +196,13 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
         new IGremlinQuery<TMeta> ValueMap();
     }
+    
+    public interface IEPropertiesGremlinQuery<TProperty, TPropertyValue> : IGremlinQuery<TProperty>
+    {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IEPropertiesGremlinQuery<TProperty, TPropertyValue>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
+        IEPropertiesGremlinQuery<TProperty, TPropertyValue> SideEffect(Func<IEPropertiesGremlinQuery<TProperty, TPropertyValue>, IGremlinQuery> sideEffectTraversal);
+    }
 
     public interface IOrderedEGremlinQuery<TEdge> : IEGremlinQuery<TEdge>
     {
@@ -240,6 +247,9 @@ namespace ExRam.Gremlinq.Core
         IOrderedEGremlinQuery<TEdge> OrderByDescending(Func<IEGremlinQuery<TEdge>, IGremlinQuery> traversal);
         IVGremlinQuery<IVertex> OtherV();
         IVGremlinQuery<IVertex> OutV();
+
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, TTarget>>[] projections);
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, TTarget[]>>[] projections);
 
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue>> projection, TValue value);
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue[]>> projection, TValue value);

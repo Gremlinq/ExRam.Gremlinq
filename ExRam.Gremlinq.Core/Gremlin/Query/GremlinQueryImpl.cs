@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core
         IOrderedGremlinQuery<TElement>,
         IOrderedVGremlinQuery<TElement>,
         IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>,
+        IEPropertiesGremlinQuery<TElement, TPropertyValue>,
         IOrderedEGremlinQuery<TElement>,
         IOrderedInEGremlinQuery<TElement, TInVertex>,
         IOrderedOutEGremlinQuery<TElement, TOutVertex>,
@@ -86,6 +87,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>.Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         TTargetQuery IVPropertiesGremlinQuery<TElement, TPropertyValue>.Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TElement, TPropertyValue>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) => Aggregate(continuation);
+
+        TTargetQuery IEPropertiesGremlinQuery<TElement, TPropertyValue>.Aggregate<TTargetQuery>(Func<IEPropertiesGremlinQuery<TElement, TPropertyValue>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
@@ -574,6 +577,10 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<TTarget>> IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>.Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => Properties<TMeta, TTarget, Property<TTarget>, Unit, Unit>(projections);
 
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Properties<TElement, TTarget, Property<TTarget>, TTarget, Unit>(projections);
+
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Properties<TElement, TTarget[], Property<TTarget>, TTarget, Unit>(projections);
+
         private GremlinQueryImpl<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta> Properties<TSource, TTarget, TNewElement, TNewPropertyValue, TNewMeta>(params Expression<Func<TSource, TTarget>>[] projections)
         {
             return AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta>(new PropertiesStep(projections
@@ -719,6 +726,8 @@ namespace ExRam.Gremlinq.Core
         IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta> IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>.SideEffect(Func<IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
         IVPropertiesGremlinQuery<TElement, TPropertyValue> IVPropertiesGremlinQuery<TElement, TPropertyValue>.SideEffect(Func<IVPropertiesGremlinQuery<TElement, TPropertyValue>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IEPropertiesGremlinQuery<TElement, TPropertyValue> IEPropertiesGremlinQuery<TElement, TPropertyValue>.SideEffect(Func<IEPropertiesGremlinQuery<TElement, TPropertyValue>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> SideEffect(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())));
         #endregion
