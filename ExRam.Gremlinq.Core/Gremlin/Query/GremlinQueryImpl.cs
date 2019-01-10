@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Core
         #region Cast
         IGremlinQuery<TTarget> IGremlinQuery.Cast<TTarget>() => Cast<TTarget>();
 
-        IVGremlinQuery<TOtherVertex> IVGremlinQuery<TElement>.Cast<TOtherVertex>() => Cast<TOtherVertex>();
+        IVGremlinQuery<TOtherVertex> IVGremlinQuery.Cast<TOtherVertex>() => Cast<TOtherVertex>();
 
         IEGremlinQuery<TOtherEdge, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.Cast<TOtherEdge>() => Cast<TOtherEdge>();
 
@@ -213,9 +213,9 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region BothX
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Both<TNewEdge>() => AddStep<IVertex>(new BothStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery.Both<TNewEdge>() => AddStep<IVertex>(new BothStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
-        IEGremlinQuery<TNewEdge> IVGremlinQuery<TElement>.BothE<TNewEdge>() => AddStep<TNewEdge>(new BothEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IEGremlinQuery<TNewEdge> IVGremlinQuery.BothE<TNewEdge>() => AddStep<TNewEdge>(new BothEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
         IVGremlinQuery<IVertex> IEGremlinQuery<TElement>.BothV() => AddStep<IVertex>(BothVStep.Instance);
         #endregion
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region Id
-        IGremlinQuery<object> IVGremlinQuery<TElement>.Id() => Id();
+        IGremlinQuery<object> IVGremlinQuery.Id() => Id();
 
         IGremlinQuery<object> IVPropertiesGremlinQuery<TElement>.Id() => Id();
 
@@ -302,7 +302,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta> Identity() => AddStep<TElement>(IdentityStep.Instance);
         #endregion
 
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.In<TNewEdge>() => AddStep<IVertex>(new InStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery.In<TNewEdge>() => AddStep<IVertex>(new InStep(_model.VerticesModel.GetValidFilterLabels(typeof(TNewEdge))));
         
         IInEGremlinQuery<TNewEdge, TElement> IVGremlinQuery<TElement>.InE<TNewEdge>() => AddStep<TNewEdge, Unit, TElement, Unit>(new InEStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
 
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region OfType
-        IVGremlinQuery<TTarget> IVGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(_model.VerticesModel);
+        IVGremlinQuery<TTarget> IVGremlinQuery.OfType<TTarget>() => OfType<TTarget>(_model.VerticesModel);
 
         IEGremlinQuery<TTarget, TOutVertex> IEGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(_model.EdgesModel);
 
@@ -555,7 +555,7 @@ namespace ExRam.Gremlinq.Core
 
         IVGremlinQuery<TOutVertex> IOutEGremlinQuery<TElement, TOutVertex>.OutV() => AddStep<TOutVertex, Unit, Unit, Unit>(OutVStep.Instance);
 
-        IVGremlinQuery<IVertex> IVGremlinQuery<TElement>.Out<TNewEdge>() => AddStep<IVertex>(new OutStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
+        IVGremlinQuery<IVertex> IVGremlinQuery.Out<TNewEdge>() => AddStep<IVertex>(new OutStep(_model.EdgesModel.GetValidFilterLabels(typeof(TNewEdge))));
         #endregion
         
         IGremlinQuery<string> IGremlinQuery.Profile() => AddStep<string>(ProfileStep.Instance);

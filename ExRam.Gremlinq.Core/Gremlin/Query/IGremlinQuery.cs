@@ -94,7 +94,21 @@ namespace ExRam.Gremlinq.Core
         IOrderedVGremlinQuery<TVertex> ThenByDescending(Func<IGremlinQuery<TVertex>, IGremlinQuery> traversal);
     }
 
-    public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>
+    public interface IVGremlinQuery : IGremlinQuery
+    {
+        IVGremlinQuery<IVertex> Both<TEdge>();
+        IEGremlinQuery<TEdge> BothE<TEdge>();
+
+        new IVGremlinQuery<TOtherVertex> Cast<TOtherVertex>();
+
+        IGremlinQuery<object> Id();
+        IVGremlinQuery<IVertex> In<TEdge>();
+
+        IVGremlinQuery<TTarget> OfType<TTarget>();
+        IVGremlinQuery<IVertex> Out<TEdge>();
+    }
+
+    public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>, IVGremlinQuery
     {
         new IEGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
         new IEGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
@@ -103,10 +117,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         new IVGremlinQuery<TVertex> As(StepLabel stepLabel);
 
-        IVGremlinQuery<IVertex> Both<TEdge>();
-        IEGremlinQuery<TEdge> BothE<TEdge>();
-
-        new IVGremlinQuery<TOtherVertex> Cast<TOtherVertex>();
         TTargetQuery Coalesce<TTargetQuery>(params Func<IVGremlinQuery<TVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IVGremlinQuery<TVertex> Dedup();
@@ -114,8 +124,6 @@ namespace ExRam.Gremlinq.Core
         new IVGremlinQuery<TVertex> Emit();
         new IVGremlinQuery<TVertex> Identity();
 
-        IGremlinQuery<object> Id();
-        IVGremlinQuery<IVertex> In<TEdge>();
         IInEGremlinQuery<TEdge, TVertex> InE<TEdge>();
         
         new IVGremlinQuery<TVertex> Limit(long limit);
@@ -124,14 +132,12 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Map<TTargetQuery>(Func<IVGremlinQuery<TVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         IVGremlinQuery<TVertex> Not(Func<IVGremlinQuery<TVertex>, IGremlinQuery> notTraversal);
 
-        IVGremlinQuery<TTarget> OfType<TTarget>();
         IVGremlinQuery<TVertex> Or(params Func<IVGremlinQuery<TVertex>, IGremlinQuery>[] orTraversals);
         new IOrderedVGremlinQuery<TVertex> OrderBy(Expression<Func<TVertex, object>> projection);
         IOrderedVGremlinQuery<TVertex> OrderBy(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
         new IOrderedVGremlinQuery<TVertex> OrderBy(string lambda);
         new IOrderedVGremlinQuery<TVertex> OrderByDescending(Expression<Func<TVertex, object>> projection);
         IOrderedVGremlinQuery<TVertex> OrderByDescending(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        IVGremlinQuery<IVertex> Out<TEdge>();
         IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
