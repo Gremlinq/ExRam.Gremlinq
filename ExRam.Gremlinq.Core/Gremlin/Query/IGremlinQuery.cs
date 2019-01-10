@@ -142,7 +142,12 @@ namespace ExRam.Gremlinq.Core
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget, TMeta>, TTarget, TMeta> Properties<TTarget, TMeta>(params Expression<Func<TVertex, VertexProperty<TTarget, TMeta>>>[] projections);
+
         IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget[]>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>[]>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget, TMeta>, TTarget, TMeta> Properties<TTarget, TMeta>(params Expression<Func<TVertex, VertexProperty<TTarget, TMeta>[]>>[] projections);
 
         IVGremlinQuery<TVertex> Property<TValue>(Expression<Func<TVertex, TValue>> projection, TValue value);
         IVGremlinQuery<TVertex> Property<TValue>(Expression<Func<TVertex, TValue[]>> projection, TValue value);
@@ -249,7 +254,9 @@ namespace ExRam.Gremlinq.Core
         IVGremlinQuery<IVertex> OutV();
 
         IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, TTarget>>[] projections);
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, Property<TTarget>>>[] projections);
         IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, TTarget[]>>[] projections);
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TEdge, Property<TTarget>[]>>[] projections);
 
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue>> projection, TValue value);
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue[]>> projection, TValue value);

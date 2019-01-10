@@ -575,11 +575,23 @@ namespace ExRam.Gremlinq.Core
 
         IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> IVGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Properties<TElement, TTarget[], VertexProperty<TTarget>, TTarget, Unit>(projections);
 
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> IVGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, VertexProperty<TTarget>>>[] projections) => Properties<TElement, VertexProperty<TTarget>, VertexProperty<TTarget>, TTarget, Unit>(projections);
+
+        IVPropertiesGremlinQuery<VertexProperty<TTarget, TNewMeta>, TTarget, TNewMeta> IVGremlinQuery<TElement>.Properties<TTarget, TNewMeta>(params Expression<Func<TElement, VertexProperty<TTarget, TNewMeta>>>[] projections) => Properties<TElement, VertexProperty<TTarget, TNewMeta>, VertexProperty<TTarget, TNewMeta>, TTarget, TNewMeta>(projections);
+
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> IVGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, VertexProperty<TTarget>[]>>[] projections) => Properties<TElement, VertexProperty<TTarget>[], VertexProperty<TTarget>, TTarget, Unit>(projections);
+
+        IVPropertiesGremlinQuery<VertexProperty<TTarget, TNewMeta>, TTarget, TNewMeta> IVGremlinQuery<TElement>.Properties<TTarget, TNewMeta>(params Expression<Func<TElement, VertexProperty<TTarget, TNewMeta>[]>>[] projections) => Properties<TElement, VertexProperty<TTarget, TNewMeta>[], VertexProperty<TTarget, TNewMeta>, TTarget, TNewMeta>(projections);
+
         IGremlinQuery<Property<TTarget>> IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>.Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => Properties<TMeta, TTarget, Property<TTarget>, Unit, Unit>(projections);
 
         IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Properties<TElement, TTarget, Property<TTarget>, TTarget, Unit>(projections);
 
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, Property<TTarget>>>[] projections) => Properties<TElement, Property<TTarget>, Property<TTarget>, TTarget, Unit>(projections);
+
         IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Properties<TElement, TTarget[], Property<TTarget>, TTarget, Unit>(projections);
+
+        IEPropertiesGremlinQuery<Property<TTarget>, TTarget> IEGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Properties<TElement, Property<TTarget>[], Property<TTarget>, TTarget, Unit>(projections);
 
         private GremlinQueryImpl<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta> Properties<TSource, TTarget, TNewElement, TNewPropertyValue, TNewMeta>(params Expression<Func<TSource, TTarget>>[] projections)
         {
