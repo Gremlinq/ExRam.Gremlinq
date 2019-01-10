@@ -1161,7 +1161,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Country>()
-                .Properties<MetaModel>(x => x.Name)
+                .Properties(x => x.Name)
+                .Meta<MetaModel>()
                 .Properties(x => x.MetaKey)
                 .ToArray();
         }

@@ -141,8 +141,8 @@ namespace ExRam.Gremlinq.Core
         IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
-        IVPropertiesGremlinQuery<VertexProperty<object>> Properties(params Expression<Func<TVertex, object>>[] projections);
-        IVPropertiesGremlinQuery<VertexProperty<object, TMeta>, TMeta> Properties<TMeta>(params Expression<Func<TVertex, object>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
+        IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget[]>>[] projections);
 
         IVGremlinQuery<TVertex> Property<TValue>(Expression<Func<TVertex, TValue>> projection, TValue value);
         IVGremlinQuery<TVertex> Property<TValue>(Expression<Func<TVertex, TValue[]>> projection, TValue value);
@@ -167,29 +167,31 @@ namespace ExRam.Gremlinq.Core
         IVGremlinQuery<TVertex> Where(Func<IVGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
     }
 
-    public interface IVPropertiesGremlinQuery<TElement> : IGremlinQuery<TElement>
+    public interface IVPropertiesGremlinQuery<TProperty, TPropertyValue> : IGremlinQuery<TProperty>
     {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TElement>, EStepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TProperty, TPropertyValue>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         IGremlinQuery<object> Id();
 
-        IGremlinQuery<Property<object>> Properties(params string[] keys);
-        IVPropertiesGremlinQuery<TElement> Property(string key, object value);
+        IVPropertiesGremlinQuery<VertexProperty<TPropertyValue, TMeta>, TPropertyValue, TMeta> Meta<TMeta>();
 
-        IVPropertiesGremlinQuery<TElement> SideEffect(Func<IVPropertiesGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
+        IGremlinQuery<Property<object>> Properties(params string[] keys);
+        IVPropertiesGremlinQuery<TProperty, TPropertyValue> Property(string key, object value);
+
+        IVPropertiesGremlinQuery<TProperty, TPropertyValue> SideEffect(Func<IVPropertiesGremlinQuery<TProperty, TPropertyValue>, IGremlinQuery> sideEffectTraversal);
 
         IGremlinQuery<object> Values(params string[] keys);
         IGremlinQuery<IDictionary<string, object>> ValueMap();
     }
 
-    public interface IVPropertiesGremlinQuery<TElement, TMeta> : IVPropertiesGremlinQuery<TElement>
+    public interface IVPropertiesGremlinQuery<TProperty, TPropertyValue, TMeta> : IVPropertiesGremlinQuery<TProperty, TPropertyValue>
     {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TElement, TMeta>, EStepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery Aggregate<TTargetQuery>(Func<IVPropertiesGremlinQuery<TProperty, TPropertyValue, TMeta>, StepLabel<TPropertyValue[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
-        IGremlinQuery<Property<object>> Properties(params Expression<Func<TMeta, object>>[] projections);
-        IVPropertiesGremlinQuery<TElement, TMeta> Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value);
+        IGremlinQuery<Property<TTarget>> Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
+        IVPropertiesGremlinQuery<TProperty, TPropertyValue, TMeta> Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value);
 
-        IVPropertiesGremlinQuery<TElement, TMeta> SideEffect(Func<IVPropertiesGremlinQuery<TElement, TMeta>, IGremlinQuery> sideEffectTraversal);
+        IVPropertiesGremlinQuery<TProperty, TPropertyValue, TMeta> SideEffect(Func<IVPropertiesGremlinQuery<TProperty, TPropertyValue, TMeta>, IGremlinQuery> sideEffectTraversal);
 
         IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
         new IGremlinQuery<TMeta> ValueMap();

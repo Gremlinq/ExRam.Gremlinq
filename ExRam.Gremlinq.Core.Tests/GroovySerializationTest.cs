@@ -1648,11 +1648,25 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Values_Projected()
+        public void MetaProperties_Values()
         {
             g
                 .V()
-                .Properties<MetaModel>()
+                .Properties()
+                .Meta<MetaModel>()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void MetaProperties_Values_Projected()
+        {
+            g
+                .V()
+                .Properties()
+                .Meta<MetaModel>()
                 .Values(x => x.MetaKey)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().values(_a)")
@@ -1699,7 +1713,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V()
-                .Properties<MetaModel>()
+                .Properties()
+                .Meta<MetaModel>()
                 .ValueMap()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
@@ -1747,11 +1762,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<Country>()
-                .Properties<MetaModel>(x => x.Name)
-                .Properties(x => x.MetaKey)
+                .Properties(x => x.Name)
+                .Meta<MetaModel>()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties(_c)")
-                .WithParameters("Country", "Name", "MetaKey");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b)")
+                .WithParameters("Country", "Name");
         }
 
         [Fact]

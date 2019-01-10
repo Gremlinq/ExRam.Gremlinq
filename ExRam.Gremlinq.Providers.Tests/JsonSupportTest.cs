@@ -525,7 +525,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             var properties = await _g
                 .WithExecutor(new TestJsonQueryExecutor(GetJson("VertexProperties")))
                 .V()
-                .Properties<MetaPoco>()
+                .Properties()
+                .Meta<MetaPoco>()
                 .ToArray(default);
 
             properties.Should().HaveCount(3);
