@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard20</TargetFrameworks>
-    <Description>.NET Object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
+    <Description>.NET object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
   </PropertyGroup>
   
   <ItemGroup>
