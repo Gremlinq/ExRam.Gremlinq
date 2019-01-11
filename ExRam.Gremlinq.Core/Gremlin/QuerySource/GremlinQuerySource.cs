@@ -9,16 +9,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySource
     {
-        // ReSharper disable once InconsistentNaming
-        #pragma warning disable IDE1006 // Naming Styles
-        public static readonly IConfigurableGremlinQuerySource g = Create();
-        #pragma warning restore IDE1006 // Naming Styles
-    
-        public static IConfigurableGremlinQuerySource Create(string name = "g")
-        {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
-        }
-
         private sealed class ConfigurableGremlinQuerySourceImpl : IConfigurableGremlinQuerySource
         {
             private readonly string _name;
@@ -36,62 +26,62 @@ namespace ExRam.Gremlinq.Core
                 _queryExecutor = queryExecutor;
             }
 
-            public IVGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex)
+            IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex)
             {
                 return Create()
                     .AddV(vertex);
             }
 
-            public IVGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new()
+            IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>()
             {
                 return Create()
                     .AddV<TVertex>();
             }
 
-            public IEGremlinQuery<TEdge> AddE<TEdge>(TEdge edge)
+            IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
             }
 
-            public IEGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new()
+            IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>()
             {
                 return Create()
                     .AddE<TEdge>();
             }
 
-            public IVGremlinQuery<IVertex> V(params object[] ids)
+            IVGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
             {
                 return Create()
                     .V(ids);
             }
 
-            public IVGremlinQuery<TVertex> V<TVertex>(params object[] ids)
+            IVGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids)
             {
                 return Create()
                     .V<TVertex>(ids);
             }
 
-            public IEGremlinQuery<IEdge> E(params object[] ids)
+            IEGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids)
             {
                 return Create()
                     .E(ids);
             }
 
-            public IEGremlinQuery<TEdge> E<TEdge>(params object[] ids)
+            IEGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids)
             {
                 return Create()
                     .E<TEdge>(ids);
             }
 
-            public IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements)
+            IGremlinQuery<TElement> IGremlinQuerySource.Inject<TElement>(params TElement[] elements)
             {
                 return Create()
                     .Cast<TElement>()
                     .Inject(elements);
             }
 
-            public IConfigurableGremlinQuerySource WithName(string name)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithName(string name)
             {
                 if (string.IsNullOrEmpty(name))
                     throw new ArgumentException($"Invalid value for {nameof(name)}.", nameof(name));
@@ -99,22 +89,22 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(name, _model, _queryExecutor, _strategies, _logger);
             }
 
-            public IConfigurableGremlinQuerySource WithLogger(ILogger logger)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithLogger(ILogger logger)
             {
                 return new ConfigurableGremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies, logger);
             }
 
-            public IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithStrategies(params IGremlinQueryStrategy[] strategies)
             {
                 return new ConfigurableGremlinQuerySourceImpl(_name, _model, _queryExecutor, _strategies.AddRange(strategies), _logger);
             }
 
-            public IConfigurableGremlinQuerySource WithModel(IGraphModel model)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithModel(IGraphModel model)
             {
                 return new ConfigurableGremlinQuerySourceImpl(_name, model, _queryExecutor, _strategies, _logger);
             }
 
-            public IConfigurableGremlinQuerySource WithExecutor(IGremlinQueryExecutor executor)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithExecutor(IGremlinQueryExecutor executor)
             {
                 return new ConfigurableGremlinQuerySourceImpl(_name, _model, executor, _strategies, _logger);
             }
@@ -141,6 +131,16 @@ namespace ExRam.Gremlinq.Core
 
                 return ret;
             }
+        }
+
+        // ReSharper disable once InconsistentNaming
+        #pragma warning disable IDE1006 // Naming Styles
+        public static readonly IConfigurableGremlinQuerySource g = Create();
+        #pragma warning restore IDE1006 // Naming Styles
+    
+        public static IConfigurableGremlinQuerySource Create(string name = "g")
+        {
+            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
         }
     }
 }
