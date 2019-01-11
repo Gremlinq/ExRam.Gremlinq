@@ -740,25 +740,25 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {
             return this.AddStep<(T1, T2), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2))
-                .AddStepLabelBinding(x => x.Item1, label1)
-                .AddStepLabelBinding(x => x.Item2, label2);
+                .AddStepLabelBinding(label1, x => x.Item1)
+                .AddStepLabelBinding(label2, x => x.Item2);
         }
 
         IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
             return this.AddStep<(T1, T2, T3), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3))
-                .AddStepLabelBinding(x => x.Item1, label1)
-                .AddStepLabelBinding(x => x.Item2, label2)
-                .AddStepLabelBinding(x => x.Item3, label3);
+                .AddStepLabelBinding(label1, x => x.Item1)
+                .AddStepLabelBinding(label2, x => x.Item2)
+                .AddStepLabelBinding(label3, x => x.Item3);
         }
 
         IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
             return this.AddStep<(T1, T2, T3, T4), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3, label4))
-                .AddStepLabelBinding(x => x.Item1, label1)
-                .AddStepLabelBinding(x => x.Item2, label2)
-                .AddStepLabelBinding(x => x.Item3, label3)
-                .AddStepLabelBinding(x => x.Item4, label4);
+                .AddStepLabelBinding(label1, x => x.Item1)
+                .AddStepLabelBinding(label2, x => x.Item2)
+                .AddStepLabelBinding(label3, x => x.Item3)
+                .AddStepLabelBinding(label4, x => x.Item4);
         }
         #endregion
 
@@ -1221,17 +1221,17 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region AddStepLabelBinding
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(Expression<Func<TElement, object>> memberExpression, StepLabel stepLabel)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(StepLabel stepLabel, Expression<Func<TElement, object>> memberExpression)
         {
             var body = memberExpression.Body.StripConvert();
 
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ExpressionNotSupportedException(memberExpression);
 
-            return AddStepLabelBinding(memberExpressionBody.Member.Name, stepLabel);
+            return AddStepLabelBinding(stepLabel, memberExpressionBody.Member.Name);
         }
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(string name, StepLabel stepLabel) //TODO: Signatur rumdrehen
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(StepLabel stepLabel, string name)
         {
             if (_stepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
                 throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
@@ -1254,7 +1254,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var otherMapping in query.AsAdmin().StepLabelMappings)
                 {
-                    ret = ret.AddStepLabelBinding(otherMapping.Value, otherMapping.Key);
+                    ret = ret.AddStepLabelBinding(otherMapping.Key, otherMapping.Value);
                 }
             }
 
