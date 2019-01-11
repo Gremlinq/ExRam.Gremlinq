@@ -276,11 +276,7 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region Id
-        IGremlinQuery<object> IVGremlinQuery.Id() => Id();
-
-        IGremlinQuery<object> IVPropertiesGremlinQuery<TElement, TPropertyValue>.Id() => Id();
-
-        IGremlinQuery<object> IEGremlinQuery.Id() => Id();
+        IGremlinQuery<object> IElementGremlinQuery.Id() => Id();
 
         private GremlinQueryImpl<object, Unit, Unit, Unit, Unit> Id() => AddStep<object, Unit, Unit, Unit, Unit>(IdStep.Instance);
         #endregion
