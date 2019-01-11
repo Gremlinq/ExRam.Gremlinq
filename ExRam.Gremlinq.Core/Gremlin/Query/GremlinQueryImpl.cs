@@ -190,9 +190,13 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQuery
         {
+            var coalesceQueries = traversals
+                .Select(traversal => (IGremlinQuery)traversal(Anonymize()))
+                .ToArray();
+
             return this
-                .AddStep(new CoalesceStep(traversals
-                    .Select(traversal => (IGremlinQuery)traversal(Anonymize()))))
+                .AddStep(new CoalesceStep(coalesceQueries))
+                .MergeStepLabelMappings(coalesceQueries)
                 .ChangeQueryType<TTargetQuery>();
         }
         #endregion
@@ -202,14 +206,23 @@ namespace ExRam.Gremlinq.Core
         #region Choose
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> falseChoice)
         {
-            return AddStep<TResult>(new ChooseStep(traversalPredicate(Anonymize()), trueChoice(Anonymize()), Option<IGremlinQuery>.Some(falseChoice(Anonymize()))));
+            var anonymous = Anonymize();
+            var trueQuery = trueChoice(anonymous);
+            var falseQuery = falseChoice(anonymous);
+            
+            return this
+                .AddStep<TResult>(new ChooseStep(traversalPredicate(anonymous), trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
+                .MergeStepLabelMappings(trueQuery, falseQuery);
         }
 
         IGremlinQuery<TResult> IGremlinQuery<TElement>.Choose<TResult>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, IGremlinQuery<TResult>> trueChoice)
         {
             var anonymous = Anonymize();
+            var trueQuery = trueChoice(anonymous);
 
-            return AddStep<TResult>(new ChooseStep(traversalPredicate(anonymous), trueChoice(anonymous)));
+            return this
+                .AddStep<TResult>(new ChooseStep(traversalPredicate(anonymous), trueQuery))
+                .MergeStepLabelMappings(trueQuery);
         }
         #endregion
 
@@ -318,6 +331,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
+        // ReSharper disable once ParameterTypeCanBeEnumerable.Local
         private GremlinQueryImpl<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Inject<TNewElement>(TNewElement[] elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
         #endregion
 
@@ -348,7 +362,11 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, TTargetQuery> localTraversal)
             where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep(new LocalStep(localTraversal(Anonymize())))
+            var localTraversalQuery = localTraversal(Anonymize());
+
+            return this
+                .AddStep(new LocalStep(localTraversalQuery))
+                .MergeStepLabelMappings(localTraversalQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
         #endregion
@@ -372,7 +390,11 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
-            return this.AddStep(new MapStep(mapping(Anonymize())))
+            var mappedTraversal = mapping(Anonymize());
+
+            return this
+                .AddStep(new MapStep(mappedTraversal))
+                .MergeStepLabelMappings(mappedTraversal)
                 .ChangeQueryType<TTargetQuery>();
         }
         #endregion
@@ -421,7 +443,15 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Optional(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> optionalTraversal) => Optional(optionalTraversal);
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Optional(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> optionalTraversal) => AddStep(new OptionalStep(optionalTraversal(Anonymize())));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Optional(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> optionalTraversal)
+        {
+            var optionalQuery = optionalTraversal(Anonymize());
+
+            return this
+                .AddStep(new OptionalStep(optionalQuery))
+                .MergeStepLabelMappings(optionalQuery);
+        }
+
         #endregion
 
         #region Or
@@ -662,7 +692,15 @@ namespace ExRam.Gremlinq.Core
 
         IEGremlinQuery<TElement> IEGremlinQuery<TElement>.Repeat(Func<IEGremlinQuery<TElement>, IEGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
         
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Repeat(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> repeatTraversal) => AddStep(new RepeatStep(repeatTraversal(Anonymize())));
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Repeat(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> repeatTraversal)
+        {
+            var repeatQuery = repeatTraversal(Anonymize());
+
+            return this
+                .AddStep(new RepeatStep(repeatQuery))
+                .MergeStepLabelMappings(repeatQuery);
+        }
+
         #endregion
 
         #region RepeatUntil
@@ -674,9 +712,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> RepeatUntil(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> repeatTraversal, Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>, IGremlinQuery> untilTraversal)
         {
+            var anonymous = Anonymize();
+            var repeatQuery = repeatTraversal(anonymous);
+
             return this
-                .AddStep(new RepeatStep(repeatTraversal(Anonymize())))
-                .AddStep(new UntilStep(untilTraversal(Anonymize())));
+                .AddStep(new RepeatStep(repeatQuery))
+                .AddStep(new UntilStep(untilTraversal(anonymous)))
+                .MergeStepLabelMappings(repeatQuery);
         }
         #endregion
 
@@ -831,6 +873,7 @@ namespace ExRam.Gremlinq.Core
 
         IEGremlinQuery<TElement, TOutVertex, TTargetVertex> IEGremlinQuery<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<TElement, TOutVertex, TTargetVertex>(stepLabel);
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit>(new ToLabelStep(stepLabel));
         #endregion
 
@@ -851,11 +894,13 @@ namespace ExRam.Gremlinq.Core
         
         TTargetQuery IVGremlinQuery<TElement>.Union<TTargetQuery>(params Func<IVGremlinQuery<TElement>, TTargetQuery>[] unionTraversals)
         {
+            var unionQueries = unionTraversals
+                .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymize()))
+                .ToArray();
+
             return this
-                .AddStep(
-                    new UnionStep(
-                        unionTraversals
-                            .Select(unionTraversal => (IGremlinQuery)unionTraversal(Anonymize()))))
+                .AddStep(new UnionStep(unionQueries))
+                .MergeStepLabelMappings(unionQueries)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -876,10 +921,12 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TValue> IEGremlinQuery<TElement>.Values<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => Values<TElement, Property<TValue>, TValue>(GraphElementType.Edge, projections);
 
+        // ReSharper disable once CoVariantArrayConversion
         IGremlinQuery<object> IVPropertiesGremlinQuery<TElement, TPropertyValue>.Values(params string[] keys) => AddStep<object, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
 
         IGremlinQuery<TTarget> IVPropertiesGremlinQuery<TElement, TPropertyValue, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => Values<TMeta, TTarget, TTarget>(GraphElementType.VertexProperty, projections);
 
+        // ReSharper disable once ParameterTypeCanBeEnumerable.Local
         private GremlinQueryImpl<TNewElement, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TNewElement>(GraphElementType elementType, Expression<Func<TSource, TTarget>>[] projections)
         {
             var keys = projections
@@ -1173,6 +1220,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta>(Step step) => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta>(_model, _queryExecutor, _steps.Insert(_steps.Count, step), _stepLabelMappings, _logger);
         #endregion
 
+        #region AddStepLabelBinding
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(Expression<Func<TElement, object>> memberExpression, StepLabel stepLabel)
         {
             var body = memberExpression.Body.StripConvert();
@@ -1180,19 +1228,38 @@ namespace ExRam.Gremlinq.Core
             if (!(body is MemberExpression memberExpressionBody))
                 throw new ExpressionNotSupportedException(memberExpression);
 
-            var name = memberExpressionBody.Member.Name;
+            return AddStepLabelBinding(memberExpressionBody.Member.Name, stepLabel);
+        }
 
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> AddStepLabelBinding(string name, StepLabel stepLabel) //TODO: Signatur rumdrehen
+        {
             if (_stepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
                 throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
 
             return new GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>(_model, _queryExecutor, _steps, _stepLabelMappings.Add(stepLabel, name), _logger);
         }
+        #endregion
 
         #region Anonymize
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta>();
 
         private GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta>() => new GremlinQueryImpl<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta>(_model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, _logger);
         #endregion
+
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta> MergeStepLabelMappings(params IGremlinQuery[] queries)
+        {
+            var ret = this;
+
+            foreach (var query in queries)
+            {
+                foreach (var otherMapping in query.AsAdmin().StepLabelMappings)
+                {
+                    ret = ret.AddStepLabelBinding(otherMapping.Value, otherMapping.Key);
+                }
+            }
+
+            return ret;
+        }
 
         #region ChangeQueryType
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();

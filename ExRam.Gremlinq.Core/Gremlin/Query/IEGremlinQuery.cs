@@ -52,8 +52,8 @@ namespace ExRam.Gremlinq.Core
         IEGremlinQuery<TEdge> Property<TValue>(Expression<Func<TEdge, TValue[]>> projection, TValue value);
 
         new IEGremlinQuery<TEdge> Range(long low, long high);
-        IEGremlinQuery<TEdge> Repeat(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal);
-        IEGremlinQuery<TEdge> RepeatUntil(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal, Func<IEGremlinQuery<TEdge>, IGremlinQuery> untilTraversal);
+        /* TODO Signature*/ IEGremlinQuery<TEdge> Repeat(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal);
+        /* TODO Signature*/ IEGremlinQuery<TEdge> RepeatUntil(Func<IEGremlinQuery<TEdge>, IEGremlinQuery<TEdge>> repeatTraversal, Func<IEGremlinQuery<TEdge>, IGremlinQuery> untilTraversal);
 
         IEGremlinQuery<TEdge> SideEffect(Func<IEGremlinQuery<TEdge>, IGremlinQuery> sideEffectTraversal);
         new IEGremlinQuery<TEdge> Skip(long skip);
@@ -98,6 +98,7 @@ namespace ExRam.Gremlinq.Core
     public interface IEGremlinQuery<TEdge, TOutVertex, TInVertex> : IEGremlinQuery<TEdge, TOutVertex>, IOutEGremlinQuery<TEdge, TOutVertex>, IInEGremlinQuery<TEdge, TInVertex>
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IEGremlinQuery<TEdge, TOutVertex, TInVertex>, EStepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        /* TODO As overload */
         new IEGremlinQuery<TEdge, TOutVertex, TInVertex> As(StepLabel stepLabel);
 
         new IEGremlinQuery<TOtherEdge, TOutVertex, TInVertex> Cast<TOtherEdge>();

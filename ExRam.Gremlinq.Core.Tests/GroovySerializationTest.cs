@@ -1537,6 +1537,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Map_Select_operation()
+        {
+            g
+                .V<User>()
+                .As((_, stepLabel1) => _
+                    .As((__, stepLabel2) => __
+                        .Map(___ => ___
+                            .Select(stepLabel1, stepLabel2))))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).map(__.select(_b, _c))")
+                .WithParameters("User", "Item1", "Item2");
+        }
+
+        [Fact]
         public void Nested_Select_operations()
         {
             g

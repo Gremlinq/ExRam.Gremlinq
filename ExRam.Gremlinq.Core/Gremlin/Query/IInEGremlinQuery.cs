@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
 
         new IInEGremlinQuery<TEdge, TAdjacentVertex> Identity();
         new IVGremlinQuery<TAdjacentVertex> InV();
-        
+
         TTargetQuery Map<TTargetQuery>(Func<IInEGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IInEGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();

@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
         new IOrderedVGremlinQuery<TVertex> OrderBy(string lambda);
         new IOrderedVGremlinQuery<TVertex> OrderByDescending(Expression<Func<TVertex, object>> projection);
         IOrderedVGremlinQuery<TVertex> OrderByDescending(Func<IVGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
+        /* TODO Signatur*/ IVGremlinQuery<TVertex> Optional(Func<IVGremlinQuery<TVertex>, IVGremlinQuery<TVertex>> optionalTraversal);
         IOutEGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         IVPropertiesGremlinQuery<VertexProperty<TTarget>, TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
