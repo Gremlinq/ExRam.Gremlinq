@@ -42,8 +42,6 @@ namespace ExRam.Gremlinq.Core
         #region AddV
         IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
-        IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>() => AddV(new TVertex());
-        
         private GremlinQueryImpl<TVertex, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
         {
             return this
@@ -53,8 +51,6 @@ namespace ExRam.Gremlinq.Core
         #endregion
 
         #region AddE
-        IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>() => AddE(new TEdge());
-
         IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IEGremlinQuery<TEdge, TElement> IVGremlinQuery<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge);

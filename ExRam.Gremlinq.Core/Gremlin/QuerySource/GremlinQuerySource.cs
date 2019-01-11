@@ -32,22 +32,10 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
-            IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>()
-            {
-                return Create()
-                    .AddV<TVertex>();
-            }
-
             IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
-            }
-
-            IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>()
-            {
-                return Create()
-                    .AddE<TEdge>();
             }
 
             IVGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
@@ -141,6 +129,16 @@ namespace ExRam.Gremlinq.Core
         public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
             return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
+        }
+
+        public static IEGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()
+        {
+            return source.AddE(new TEdge());
+        }
+
+        public static IVGremlinQuery<TVertex> AddV<TVertex>(this IGremlinQuerySource source) where TVertex : new()
+        {
+            return source.AddV(new TVertex());
         }
     }
 }

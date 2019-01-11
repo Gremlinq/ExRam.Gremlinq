@@ -111,7 +111,7 @@ namespace ExRam.Gremlinq.Core
     public interface IVGremlinQuery<TVertex> : IGremlinQuery<TVertex>, IVGremlinQuery
     {
         new IEGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
-        new IEGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
+        IEGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
         IVGremlinQuery<TVertex> And(params Func<IVGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
         TTargetQuery Aggregate<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVGremlinQuery<TVertex>, VStepLabel<TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
