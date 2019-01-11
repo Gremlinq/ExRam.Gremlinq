@@ -736,14 +736,16 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
         {
-            return this.AddStep<(T1, T2), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2))
+            return this
+                .AddStep<(T1, T2), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2);
         }
 
         IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
         {
-            return this.AddStep<(T1, T2, T3), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3))
+            return this
+                .AddStep<(T1, T2, T3), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2)
                 .AddStepLabelBinding(label3, x => x.Item3);
@@ -751,7 +753,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
         {
-            return this.AddStep<(T1, T2, T3, T4), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3, label4))
+            return this
+                .AddStep<(T1, T2, T3, T4), Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3, label4))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2)
                 .AddStepLabelBinding(label3, x => x.Item3)
@@ -1182,7 +1185,7 @@ namespace ExRam.Gremlinq.Core
             return _model.GetIdentifier(elementType, memberName);
         }
 
-        public IAsyncEnumerator<TElement> GetEnumerator()
+        IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetEnumerator()
         {
             return _queryExecutor
                 .Execute(this)
