@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "ExRam.Gremlinq.Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers", "ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj", "{B72A76C3-473C-4093-ACC9-406B97F6E121}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers", "ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj", "{B72A76C3-473C-4093-ACC9-406B97F6E121}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.Tests", "ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

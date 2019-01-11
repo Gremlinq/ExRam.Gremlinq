@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit, Unit, Unit>(
+            return new GremlinQueryImpl<TElement, Unit, Unit, Unit>(
                 model,
                 queryExecutor,
                 graphName != null
@@ -77,17 +77,17 @@ namespace ExRam.Gremlinq.Core
             return query.Unfold<TElement>();
         }
 
-        public static IVPropertiesGremlinQuery<VertexProperty<object>, object> Properties<TVertex>(this IVGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
+        public static IVPropertiesGremlinQuery<object> Properties<TVertex>(this IVGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IEPropertiesGremlinQuery<Property<object>, object> Properties<TEdge>(this IEGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
+        public static IEPropertiesGremlinQuery<object> Properties<TEdge>(this IEGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IGremlinQuery<object> Values<TMeta>(this IVPropertiesGremlinQuery<VertexProperty<object, TMeta>, object, TMeta> query)
+        public static IGremlinQuery<object> Values<TMeta>(this IVPropertiesGremlinQuery<object, TMeta> query)
         {
             return query.Values<object>();
         }

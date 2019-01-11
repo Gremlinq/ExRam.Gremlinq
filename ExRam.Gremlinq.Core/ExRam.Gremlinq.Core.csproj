@@ -13,4 +13,23 @@
     <PackageReference Include="LanguageExt.Core" Version="3.1.14" />
   </ItemGroup>
   
+  <ItemGroup>
+    <None Update="Gremlin\Query\Interfaces\Interfaces.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Interfaces.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Gremlin\Query\Interfaces\Interfaces.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Interfaces.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
 </Project>
