@@ -18,11 +18,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<string> Profile();
 
         IGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);
-        IVGremlinQuery<TVertex> Select<TVertex>(VStepLabel<TVertex> label);
-        IEGremlinQuery<TEdge> Select<TEdge>(EStepLabel<TEdge> label);
-        IEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(EStepLabel<TEdge, TAdjacentVertex> label);
-        IOutEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(OutEStepLabel<TEdge, TAdjacentVertex> label);
-        IInEGremlinQuery<TEdge, TAdjacentVertex> Select<TEdge, TAdjacentVertex>(InEStepLabel<TEdge, TAdjacentVertex> label);
+        TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQuery;
 
         IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
         IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);

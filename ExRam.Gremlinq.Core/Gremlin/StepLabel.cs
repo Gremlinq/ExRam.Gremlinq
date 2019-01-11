@@ -26,32 +26,18 @@ namespace ExRam.Gremlinq.Core
         }
     }
 
-    public class VStepLabel<TVertex> : StepLabel<TVertex>
+#pragma warning disable 660, 661
+    public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQuery
+#pragma warning restore 660,661
     {
-       
-    }
+        public static bool operator ==(TElement a, StepLabel<TQuery, TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
 
-    public class EStepLabel<TEdge> : StepLabel<TEdge>
-    {
-
-    }
-
-    // ReSharper disable once UnusedTypeParameter
-    public class EStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
-    {
-
-    }
-
-    // ReSharper disable once UnusedTypeParameter
-    public class OutEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
-    {
-
-    }
-
-
-    // ReSharper disable once UnusedTypeParameter
-    public class InEStepLabel<TEdge, TAdjacentVertex> : StepLabel<TEdge>
-    {
-
+        public static bool operator !=(TElement a, StepLabel<TQuery, TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
     }
 }
