@@ -256,7 +256,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray()));
         }
 
-        private GremlinQueryImpl<Property<object>, Unit, Unit, Unit, Unit> Properties(params string[] keys) => AddStep<Property<object>, Unit, Unit, Unit, Unit>(new MetaPropertiesStep(keys));
+        private GremlinQueryImpl<Property<TMetaValue>, Unit, Unit, Unit, Unit> Properties<TMetaValue>(params string[] keys) => AddStep<Property<TMetaValue>, Unit, Unit, Unit, Unit>(new MetaPropertiesStep(keys));
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {

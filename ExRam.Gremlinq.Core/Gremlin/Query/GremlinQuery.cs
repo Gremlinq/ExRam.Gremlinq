@@ -82,9 +82,19 @@ namespace ExRam.Gremlinq.Core
             return query.Properties(projections);
         }
 
-        public static IGremlinQuery<object> Values<TMeta>(this IVertexPropertyGremlinQuery<object, TMeta> query)
+        public static IGremlinQuery<object> Values<TValue>(this IVertexPropertyGremlinQuery<TValue> query)
         {
             return query.Values<object>();
+        }
+
+        public static IGremlinQuery<object> Values<TValue, TMeta>(this IVertexPropertyGremlinQuery<TValue, TMeta> query)
+        {
+            return query.Values<object>();
+        }
+
+        public static IGremlinQuery<Property<object>> Properties<TValue>(this IVertexPropertyGremlinQuery<TValue> query, params string[] keys)
+        {
+            return query.Properties<object>(keys);
         }
     }
 }

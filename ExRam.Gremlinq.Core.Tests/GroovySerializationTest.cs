@@ -954,7 +954,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Values()
+        public void Properties_Values1()
         {
             g
                 .V()
@@ -963,6 +963,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().values()")
                 .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties_Values2()
+        {
+            g
+                .V()
+                .Properties()
+                .Values<int>("MetaProperty")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values(_a)")
+                .WithParameters("MetaProperty");
         }
 
         [Fact]

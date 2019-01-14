@@ -1227,7 +1227,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgePropertyGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Properties<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Properties<TElement, Property<TTarget>[], TTarget, Unit>(projections);
 
-        IGremlinQuery<Property<object>> IVertexPropertyGremlinQuery<TElement>.Properties(params string[] keys) => Properties(keys);
+        IGremlinQuery<Property<TMetaValue>> IVertexPropertyGremlinQuery<TElement>.Properties<TMetaValue>(params string[] keys) => Properties<TMetaValue>(keys);
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, value);
 
@@ -1840,7 +1840,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Values<TElement, Property<TTarget>[], TTarget>(projections);
 
-        IValueGremlinQuery<object> IVertexPropertyGremlinQuery<TElement>.Values(params string[] keys) => AddStep<object, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
+        IValueGremlinQuery<TMetaValue> IVertexPropertyGremlinQuery<TElement>.Values<TMetaValue>(params string[] keys) => AddStep<TMetaValue, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Where(Func<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
