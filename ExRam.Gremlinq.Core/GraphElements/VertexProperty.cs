@@ -6,7 +6,7 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
-    public class VertexProperty<TValue, TMeta> : Property<TValue>
+    public class VertexProperty<TValue, TMeta> : Property<TValue>, IElement
     {
         public VertexProperty(TValue value)
         {
