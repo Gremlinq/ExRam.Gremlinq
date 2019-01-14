@@ -174,13 +174,5 @@ namespace ExRam.Gremlinq.Core
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
         }
-
-        internal static object GetIdentifier(this IGraphModel model, GraphElementType elementType, string name)
-        {
-            return elementType == GraphElementType.Vertex && name == model.VerticesModel.IdPropertyName
-                || elementType == GraphElementType.Edge && name == model.EdgesModel.IdPropertyName
-                ? (object)T.Id
-                : name;
-        }
     }
 }

@@ -1840,8 +1840,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IVertexPropertyGremlinQuery<TElement>.Values(params string[] keys) => AddStep<object, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
 
-        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Where(Expression<Func<TMeta, bool>> predicate) => Where(GraphElementType.VertexProperty, predicate);
-
         IArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Where(Func<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Where(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> filterTraversal) => Where(filterTraversal);

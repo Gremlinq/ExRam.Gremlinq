@@ -5,6 +5,7 @@
 #pragma warning restore 660,661
     {
         public static readonly T Id = new T("id");
+        public static readonly T Label = new T("label");
 
         private T(string name) : base(name)
         {

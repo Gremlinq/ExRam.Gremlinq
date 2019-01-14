@@ -887,8 +887,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Meta<MetaModel>()
                 .Values()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().values(_a)")
-                .WithParameters("MetaKey");
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -911,7 +911,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Meta<MetaModel>()
-                .Where(x => x.MetaKey == "MetaValue")
+                .Where(x => x.Properties.MetaKey == "MetaValue")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
                 .WithParameters("Country", "Name", "MetaKey", "MetaValue");
@@ -997,7 +997,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Id == "id")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasId(_c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(T.id, _c)")
                 .WithParameters("Country", "Languages", "id");
         }
 
@@ -1009,7 +1009,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasLabel(_c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(T.label, _c)")
                 .WithParameters("Country", "Languages", "label");
         }
 
@@ -1034,7 +1034,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Properties.MetaKey == "MetaValue")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("Country", "Name", "MetaKey", "MetaValue");
+                .WithParameters("User", "Name", "MetaKey", "MetaValue");
         }
 
         [Fact]

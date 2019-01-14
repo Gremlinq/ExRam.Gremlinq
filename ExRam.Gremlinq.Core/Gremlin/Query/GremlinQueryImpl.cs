@@ -268,7 +268,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new PropertyStep(memberExpression.Type, _model.GetIdentifier(elementType, memberExpression.Member.Name), value));
+                return AddStep(new PropertyStep(memberExpression.Type, GetIdentifier(elementType, memberExpression), value));
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Core
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return _model.GetIdentifier(elementType, memberExpression.Member.Name);
+                        return GetIdentifier(elementType, memberExpression);
 
                     throw new ExpressionNotSupportedException(projection);
                 })
@@ -489,14 +489,25 @@ namespace ExRam.Gremlinq.Core
 
                 switch (left)
                 {
-                    case MemberExpression leftMemberExpression when parameter == leftMemberExpression.Expression:
+                    case MemberExpression leftMemberExpression:
                     {
-                        if (typeof(PropertyBase).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
-                            return AddStep(new HasValueStep(predicateArgument));
+                        if (leftMemberExpression.Expression == parameter)
+                        {
+                            if (typeof(PropertyBase).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
+                                return AddStep(new HasValueStep(predicateArgument));
 
-                        return rightConstant is StepLabel
-                            ? Has(elementType, leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
-                            : Has(elementType, leftMemberExpression, predicateArgument);
+                            return rightConstant is StepLabel
+                                ? Has(elementType, leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
+                                : Has(elementType, leftMemberExpression, predicateArgument);
+                        }
+
+                        if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                        {
+                            if (typeof(PropertyBase).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                                return Has(GraphElementType.None, leftMemberExpression, predicateArgument);
+                        }
+
+                        break;
                     }
                     case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                     {
@@ -519,6 +530,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(GraphElementType elementType, Expression expression) => AddStep(new HasNotStep(GetIdentifier(elementType, expression)));
 
+        private object GetIdentifier(GraphElementType elementType, PropertyInfo property)
+        {
+            return GetIdentifier(elementType, property.Name);
+        }
+
         private object GetIdentifier(GraphElementType elementType, Expression expression)
         {
             string memberName;
@@ -539,7 +555,18 @@ namespace ExRam.Gremlinq.Core
                     throw new ExpressionNotSupportedException(expression);
             }
 
-            return _model.GetIdentifier(elementType, memberName);
+            return GetIdentifier(elementType, memberName);
+        }
+
+        private object GetIdentifier(GraphElementType elementType, string memberName)
+        {
+            if (elementType == GraphElementType.Vertex && memberName == _model.VerticesModel.IdPropertyName || elementType == GraphElementType.Edge && memberName == _model.EdgesModel.IdPropertyName || elementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<Unit>.Id))
+                return T.Id;
+
+            if (elementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<Unit>.Label))
+                return T.Label;
+
+            return memberName;
         }
 
         private IAsyncEnumerator<TResult> GetEnumerator<TResult>()
@@ -655,7 +682,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, _model.GetIdentifier(elementType, propertyInfo.Name), value));
+                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, GetIdentifier(elementType, propertyInfo), value));
             }
 
             return ret;
