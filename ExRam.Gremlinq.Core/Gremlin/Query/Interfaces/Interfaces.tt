@@ -17,6 +17,7 @@ namespace ExRam.Gremlinq.Core
     var untypedE = "IEdgeGremlinQuery";
 
     var typed = "IGremlinQuery<TElement>";
+    var typedValue = "IValueGremlinQuery<TElement>";
     var typedElement = "IElementGremlinQuery<TElement>";
     var typedV = "IVertexGremlinQuery<TVertex>";
     var typedE = "IEdgeGremlinQuery<TEdge>";
@@ -39,6 +40,7 @@ namespace ExRam.Gremlinq.Core
     var typedBaseInterfaces = new[]
     {
         typed,
+        typedValue,
         typedElement,
 
         typedV,
@@ -213,8 +215,8 @@ namespace ExRam.Gremlinq.Core
 #>
     public partial interface <#= iface #>
     {
-        new IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections);
-        new IGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections);
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections);
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections);
     }
 
 <#

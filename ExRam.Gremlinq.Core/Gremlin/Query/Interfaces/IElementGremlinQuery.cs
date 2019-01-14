@@ -2,7 +2,7 @@
 {
     public partial interface IElementGremlinQuery : IGremlinQuery
     {
-        IGremlinQuery<object> Id();
+        IValueGremlinQuery<object> Id();
     }
 
     public partial interface IElementGremlinQuery<TElement> : IElementGremlinQuery, IGremlinQuery<TElement>
