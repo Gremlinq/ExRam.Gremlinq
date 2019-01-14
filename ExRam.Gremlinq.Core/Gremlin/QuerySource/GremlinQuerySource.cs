@@ -26,37 +26,37 @@ namespace ExRam.Gremlinq.Core
                 _queryExecutor = queryExecutor;
             }
 
-            IVGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex)
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex)
             {
                 return Create()
                     .AddV(vertex);
             }
 
-            IEGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
+            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
             }
 
-            IVGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
+            IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
             {
                 return Create()
                     .V(ids);
             }
 
-            IVGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids)
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids)
             {
                 return Create()
                     .V<TVertex>(ids);
             }
 
-            IEGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids)
+            IEdgeGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids)
             {
                 return Create()
                     .E(ids);
             }
 
-            IEGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids)
+            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids)
             {
                 return Create()
                     .E<TEdge>(ids);
@@ -131,12 +131,12 @@ namespace ExRam.Gremlinq.Core
             return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Invalid, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
         }
 
-        public static IEGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()
+        public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()
         {
             return source.AddE(new TEdge());
         }
 
-        public static IVGremlinQuery<TVertex> AddV<TVertex>(this IGremlinQuerySource source) where TVertex : new()
+        public static IVertexGremlinQuery<TVertex> AddV<TVertex>(this IGremlinQuerySource source) where TVertex : new()
         {
             return source.AddV(new TVertex());
         }

@@ -626,18 +626,18 @@ namespace ExRam.Gremlinq.Core
 
                 var genericTypeDef = typeof(TTargetQuery).GetGenericTypeDefinition();
 
-                if (genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<>) && genericTypeDef != typeof(IEGremlinQuery<,>) && genericTypeDef != typeof(IEGremlinQuery<,,>))
+                if (genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>))
                     throw new NotSupportedException();
 
                 elementType = typeof(TTargetQuery).GetGenericArguments()[0];
 
-                if (genericTypeDef == typeof(IEGremlinQuery<,>) || genericTypeDef == typeof(IEGremlinQuery<,,>))
+                if (genericTypeDef == typeof(IEdgeGremlinQuery<,>) || genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
                     outVertexType = typeof(TTargetQuery).GetGenericArguments()[1];
 
-                if (genericTypeDef == typeof(IEGremlinQuery<,,>))
+                if (genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
                     inVertexType = typeof(TTargetQuery).GetGenericArguments()[2];
 
-                if (genericTypeDef == typeof(IVPropertiesGremlinQuery<,>))
+                if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,>))
                 {
                     metaType = typeof(TTargetQuery).GetGenericArguments()[1];
                 }

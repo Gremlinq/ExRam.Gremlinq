@@ -13,20 +13,20 @@ namespace ExRam.Gremlinq.Core
 <#
     var untyped = "IGremlinQuery";
     var untypedElement = "IElementGremlinQuery";
-    var untypedV = "IVGremlinQuery";
-    var untypedE = "IEGremlinQuery";
+    var untypedV = "IVertexGremlinQuery";
+    var untypedE = "IEdgeGremlinQuery";
 
     var typed = "IGremlinQuery<TElement>";
     var typedElement = "IElementGremlinQuery<TElement>";
-    var typedV = "IVGremlinQuery<TVertex>";
-    var typedE = "IEGremlinQuery<TEdge>";
-    var typedEAdj = "IEGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedEBoth = "IEGremlinQuery<TEdge, TOutVertex, TInVertex>";
-    var typedInE = "IInEGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedOutE = "IOutEGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedVP = "IVPropertiesGremlinQuery<TValue>";
-    var typedVPMeta = "IVPropertiesGremlinQuery<TValue, TMeta>";
-    var typedEP = "IEPropertiesGremlinQuery<TValue>";
+    var typedV = "IVertexGremlinQuery<TVertex>";
+    var typedE = "IEdgeGremlinQuery<TEdge>";
+    var typedEAdj = "IEdgeGremlinQuery<TEdge, TAdjacentVertex>";
+    var typedEBoth = "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>";
+    var typedInE = "IInEdgeGremlinQuery<TEdge, TAdjacentVertex>";
+    var typedOutE = "IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>";
+    var typedVP = "IVertexPropertyGremlinQuery<TValue>";
+    var typedVPMeta = "IVertexPropertyGremlinQuery<TValue, TMeta>";
+    var typedEP = "IEdgePropertyGremlinQuery<TValue>";
 
     var untypedBaseInterfaces = new[]
     {

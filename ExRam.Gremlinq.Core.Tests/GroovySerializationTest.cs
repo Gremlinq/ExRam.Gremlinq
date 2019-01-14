@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .From(_ => _.AddV<User>())
                 .To(_ => _.AddV<Country>())
                 .Should()
-                .BeAssignableTo<IEGremlinQuery<LivesIn, User, Country>>();
+                .BeAssignableTo<IEdgeGremlinQuery<LivesIn, User, Country>>();
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .To(_ => _.AddV<Country>())
                 .From(_ => _.AddV<User>())
                 .Should()
-                .BeAssignableTo<IEGremlinQuery<LivesIn, User, Country>>();
+                .BeAssignableTo<IEdgeGremlinQuery<LivesIn, User, Country>>();
         }
 
         [Fact]

@@ -6,10 +6,10 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class SubgraphQueryStrategy : IGremlinQueryStrategy
     {
-        private readonly Func<IEGremlinQuery<IEdge>, IGremlinQuery> _edgeCriterion;
-        private readonly Func<IVGremlinQuery<IVertex>, IGremlinQuery> _vertexCriterion;
+        private readonly Func<IEdgeGremlinQuery<IEdge>, IGremlinQuery> _edgeCriterion;
+        private readonly Func<IVertexGremlinQuery<IVertex>, IGremlinQuery> _vertexCriterion;
 
-        public SubgraphQueryStrategy(Func<IVGremlinQuery<IVertex>, IGremlinQuery> vertexCriterion, Func<IEGremlinQuery<IEdge>, IGremlinQuery> edgeCriterion)
+        public SubgraphQueryStrategy(Func<IVertexGremlinQuery<IVertex>, IGremlinQuery> vertexCriterion, Func<IEdgeGremlinQuery<IEdge>, IGremlinQuery> edgeCriterion)
         {
             _edgeCriterion = edgeCriterion;
             _vertexCriterion = vertexCriterion;
@@ -20,8 +20,8 @@ namespace ExRam.Gremlinq.Core
             var admin = query.AsAdmin();
             var anonymous = GremlinQuery.Anonymous(admin.Model);
 
-            var vertexCriterionTraversal = _vertexCriterion(anonymous.AsAdmin().ChangeQueryType<IVGremlinQuery<IVertex>>());
-            var edgeCriterionTraversal = _edgeCriterion(anonymous.AsAdmin().ChangeQueryType<IEGremlinQuery<IEdge>>());
+            var vertexCriterionTraversal = _vertexCriterion(anonymous.AsAdmin().ChangeQueryType<IVertexGremlinQuery<IVertex>>());
+            var edgeCriterionTraversal = _edgeCriterion(anonymous.AsAdmin().ChangeQueryType<IEdgeGremlinQuery<IEdge>>());
 
             if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0 || edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
             {

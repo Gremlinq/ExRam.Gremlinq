@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core
                 .OfType<TEdge>();
         }
 
-        public static IVGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
+        public static IVertexGremlinQuery<TVertex> V<TVertex>(this IGremlinQuery query, params object[] ids)
         {
             return query
                 .V(ids)
@@ -77,17 +77,17 @@ namespace ExRam.Gremlinq.Core
             return query.Unfold<TElement>();
         }
 
-        public static IVPropertiesGremlinQuery<object> Properties<TVertex>(this IVGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
+        public static IVertexPropertyGremlinQuery<object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IEPropertiesGremlinQuery<object> Properties<TEdge>(this IEGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
+        public static IEdgePropertyGremlinQuery<object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IGremlinQuery<object> Values<TMeta>(this IVPropertiesGremlinQuery<object, TMeta> query)
+        public static IGremlinQuery<object> Values<TMeta>(this IVertexPropertyGremlinQuery<object, TMeta> query)
         {
             return query.Values<object>();
         }
