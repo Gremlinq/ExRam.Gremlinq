@@ -1070,27 +1070,27 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
-        IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Vertex, projection, Order.Increasing);
+        IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
+        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
+        IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
+        IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
-        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderBy(Func<IVertexGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
@@ -1144,24 +1144,24 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery IEdgeGremlinQuery.OrderByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderByDescending(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-        IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderByDescending(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
 
-        IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Vertex, projection, Order.Decreasing);
+        IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderByDescending(Func<IVertexGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
@@ -1174,13 +1174,13 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderByDescending(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
+        IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
+        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderByDescending(Func<IVertexPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
@@ -1228,31 +1228,31 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<object>> IVertexPropertyGremlinQuery<TElement>.Properties(params string[] keys) => Properties(keys);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.VertexProperty, value);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, value);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.VertexProperty, value);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue>> projection, [AllowNull] TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, [AllowNull] TValue value) => Property(projection, value);
 
-        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, GraphElementType.VertexProperty, value);
+        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue>> projection, TValue value) => Property(projection, value);
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, GraphElementType.Edge, value);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property<TValue>(Expression<Func<TElement, TValue[]>> projection, TValue value) => Property(projection, value);
 
         IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.Property(string key, [AllowNull] object value)
         {
@@ -1585,7 +1585,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Tail(long count) => Tail(count);
 
-        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
@@ -1599,29 +1599,29 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
+        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Vertex, projection, Order.Increasing);
+        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
@@ -1629,7 +1629,7 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenBy(Func<IEdgeGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenBy(Func<IEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
@@ -1641,19 +1641,19 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Vertex, projection, Order.Increasing);
+        IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenBy(Func<IVertexPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.VertexProperty, projection, Order.Increasing);
+        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenBy(Func<IVertexPropertyGremlinQuery<TElement, TMeta>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
@@ -1663,29 +1663,29 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.ThenByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenByDescending(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenByDescending(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Vertex, projection, Order.Decreasing);
+        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
-        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
-        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenByDescending(Func<IVertexGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
         IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.ThenByDescending(Func<IEdgeGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.ThenByDescending(Func<IEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
@@ -1695,15 +1695,15 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenByDescending(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.VertexProperty, projection, Order.Decreasing);
+        IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement> IOrderedVertexPropertyGremlinQuery<TElement>.ThenByDescending(Func<IVertexPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.VertexProperty, projection, Order.Decreasing);
+        IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TMeta>.ThenByDescending(Func<IVertexPropertyGremlinQuery<TElement, TMeta>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decreasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
@@ -1816,27 +1816,27 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.ValueMap() => ValueMap<TMeta>();
 
-        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values<TElement, TTarget, TTarget>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values<TElement, TTarget, TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values<TElement, TTarget, TTarget>(GraphElementType.Edge, projections);
+        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => Values<TElement, TTarget, TTarget>(projections);
 
-        IValueGremlinQuery<TValue> IVertexGremlinQuery<TElement>.Values<TValue, TNewMeta>(params Expression<Func<TElement, VertexProperty<TValue, TNewMeta>>>[] projections) => Values<TElement, VertexProperty<TValue, TNewMeta>, TValue>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TValue> IVertexGremlinQuery<TElement>.Values<TValue, TNewMeta>(params Expression<Func<TElement, VertexProperty<TValue, TNewMeta>>>[] projections) => Values<TElement, VertexProperty<TValue, TNewMeta>, TValue>(projections);
 
-        IValueGremlinQuery<TValue> IVertexGremlinQuery<TElement>.Values<TValue>(params Expression<Func<TElement, VertexProperty<TValue>>>[] projections) => Values<TElement, VertexProperty<TValue>, TValue>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TValue> IVertexGremlinQuery<TElement>.Values<TValue>(params Expression<Func<TElement, VertexProperty<TValue>>>[] projections) => Values<TElement, VertexProperty<TValue>, TValue>(projections);
 
-        IValueGremlinQuery<TValue> IEdgeGremlinQuery<TElement>.Values<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => Values<TElement, Property<TValue>, TValue>(GraphElementType.Edge, projections);
+        IValueGremlinQuery<TValue> IEdgeGremlinQuery<TElement>.Values<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => Values<TElement, Property<TValue>, TValue>(projections);
 
-        IValueGremlinQuery<TTarget> IVertexPropertyGremlinQuery<TElement, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => Values<TMeta, TTarget, TTarget>(GraphElementType.VertexProperty, projections);
+        IValueGremlinQuery<TTarget> IVertexPropertyGremlinQuery<TElement, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => Values<TMeta, TTarget, TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Values<TElement, TTarget[], TTarget>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Values<TElement, TTarget[], TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Values<TElement, TTarget[], TTarget>(GraphElementType.Edge, projections);
+        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => Values<TElement, TTarget[], TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, VertexProperty<TTarget>[]>>[] projections) => Values<TElement, VertexProperty<TTarget>[], TTarget>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, VertexProperty<TTarget>[]>>[] projections) => Values<TElement, VertexProperty<TTarget>[], TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget, TTargetMeta>(params Expression<Func<TElement, VertexProperty<TTarget, TTargetMeta>[]>>[] projections) => Values<TElement, VertexProperty<TTarget, TTargetMeta>[], TTarget>(GraphElementType.Vertex, projections);
+        IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget, TTargetMeta>(params Expression<Func<TElement, VertexProperty<TTarget, TTargetMeta>[]>>[] projections) => Values<TElement, VertexProperty<TTarget, TTargetMeta>[], TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Values<TElement, Property<TTarget>[], TTarget>(GraphElementType.Edge, projections);
+        IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Values<TElement, Property<TTarget>[], TTarget>(projections);
 
         IValueGremlinQuery<object> IVertexPropertyGremlinQuery<TElement>.Values(params string[] keys) => AddStep<object, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
 
@@ -1844,9 +1844,9 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Where(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Where(Expression<Func<VertexProperty<TElement, TMeta>, bool>> predicate) => Where(GraphElementType.VertexProperty, predicate);
+        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Where(Expression<Func<VertexProperty<TElement, TMeta>, bool>> predicate) => Where(predicate);
 
-        IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.Where(Expression<Func<VertexProperty<TElement>, bool>> predicate) => Where(GraphElementType.VertexProperty, predicate);
+        IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.Where(Expression<Func<VertexProperty<TElement>, bool>> predicate) => Where(predicate);
 
         IValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Where(Func<IOrderedValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
@@ -1900,32 +1900,32 @@ namespace ExRam.Gremlinq.Core
 
         IEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.Where(Func<IOrderedEdgePropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Vertex, predicate);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Edge, predicate);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Edge, predicate);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Edge, predicate);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Edge, predicate);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.Edge, predicate);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Vertex, projection, propertyTraversal);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
         IEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Where(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 
-        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.None, predicate);
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
     }
 }
