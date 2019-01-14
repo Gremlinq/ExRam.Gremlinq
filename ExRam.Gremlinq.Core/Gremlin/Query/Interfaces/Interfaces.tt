@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core
 
     var typed = "IGremlinQuery<TElement>";
     var typedValue = "IValueGremlinQuery<TElement>";
+    var typedArray = "IArrayGremlinQuery<TArray, TQuery>";
     var typedElement = "IElementGremlinQuery<TElement>";
     var typedV = "IVertexGremlinQuery<TVertex>";
     var typedE = "IEdgeGremlinQuery<TEdge>";
@@ -41,6 +42,8 @@ namespace ExRam.Gremlinq.Core
     {
         typed,
         typedValue,
+        typedArray,
+
         typedElement,
 
         typedV,
@@ -102,6 +105,7 @@ namespace ExRam.Gremlinq.Core
 
 <#
     }
+
 
 
 
@@ -269,7 +273,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
-        
+
+        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
+
         new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
     }
 

@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
-            return new GremlinQueryImpl<TElement, Unit, Unit, Unit>(
+            return new GremlinQueryImpl<TElement, Unit, Unit, Unit, Unit>(
                 model,
                 queryExecutor,
                 graphName != null
@@ -70,11 +70,6 @@ namespace ExRam.Gremlinq.Core
             return query
                 .V(ids)
                 .OfType<TVertex>();
-        }
-
-        public static IGremlinQuery<TElement> Unfold<TElement>(this IGremlinQuery<TElement[]> query)
-        {
-            return query.Unfold<TElement>();
         }
 
         public static IVertexPropertyGremlinQuery<object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)

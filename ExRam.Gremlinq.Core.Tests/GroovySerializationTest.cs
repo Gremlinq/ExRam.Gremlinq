@@ -247,6 +247,69 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Fold()
+        {
+            g
+                .V()
+                .Fold()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().fold()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Fold_SideEffect()
+        {
+            g
+                .V()
+                .Fold()
+                .SideEffect(x => x.Identity())
+                .Unfold()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().fold().sideEffect(__.identity()).unfold()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Order_Fold_Unfold()
+        {
+            g
+                .V()
+                .OrderBy(x => x.Id)
+                .Fold()
+                .Unfold()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().fold().sideEffect(__.identity()).unfold()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Fold_Unfold()
+        {
+            g
+                .V()
+                .Fold()
+                .Unfold()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().fold().unfold()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Fold_Fold_Unfold_Unfold()
+        {
+            g
+                .V()
+                .Fold()
+                .Fold()
+                .Unfold()
+                .Unfold()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().fold().fold().unfold().unfold()")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Where_property_array_contains_element()
         {
             g

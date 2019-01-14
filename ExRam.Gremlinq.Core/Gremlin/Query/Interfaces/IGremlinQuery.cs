@@ -3,6 +3,13 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
+    public partial interface IArrayGremlinQuery<TArray, TQuery> : IGremlinQuery<TArray>
+    {
+        //new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
+
+        TQuery Unfold();
+    }
+
     public partial interface IGremlinQuery : IGremlinQuerySource
     {
         IGremlinQueryAdmin AsAdmin();
@@ -22,11 +29,9 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
     {
-        IGremlinQuery<TElement[]> Fold();
         IGremlinQuery<TElement> Inject(params TElement[] elements);
 
         IGremlinQuery<TElement> SumLocal();
         IGremlinQuery<TElement> SumGlobal();
-        IGremlinQuery<TItem> Unfold<TItem>();
     }
 }
