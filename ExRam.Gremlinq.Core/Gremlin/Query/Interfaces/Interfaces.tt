@@ -61,6 +61,29 @@ namespace ExRam.Gremlinq.Core
         typedEP
     };
 
+    var qualifiedInterfaces = new[]
+    {
+        untypedV,
+        untypedE,
+
+        typedValue,
+        typedArray,
+
+        typedV,
+
+        typedE,
+        typedEAdj,
+        typedEBoth,
+
+        typedInE,
+        typedOutE,
+
+        typedVP,
+        typedVPMeta,
+
+        typedEP
+    };
+
     var typedGraphElementInterfaces = new[]
     {
         typedElement,
@@ -87,10 +110,9 @@ namespace ExRam.Gremlinq.Core
     };
 
     var baseInterfaces = untypedBaseInterfaces.Concat(typedBaseInterfaces);
-    var orderedInterfaces = baseInterfaces.Select(x => MakeOrdered(x));
-    var typedOrderedInterfaces = typedBaseInterfaces.Select(x => MakeOrdered(x));
+    var orderedInterfaces = qualifiedInterfaces.Select(x => MakeOrdered(x));
 
-    var allTypedInterfaces = typedBaseInterfaces.Concat(typedBaseInterfaces.Select(x => MakeOrdered(x)));
+    var allTypedInterfaces = typedBaseInterfaces.Concat(orderedInterfaces.Where(x => GetElement(x) != ""));
     var allInterfaces = baseInterfaces.Concat(orderedInterfaces);
 
 
@@ -99,10 +121,6 @@ namespace ExRam.Gremlinq.Core
     foreach(var iface in baseInterfaces)
     {
 #>
-    public partial interface <#= MakeOrdered(iface) #> : <#= iface #>
-    {
-    }
-
 <#
     }
 
@@ -179,16 +197,50 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in typedOrderedInterfaces)
+
+    foreach(var iface in qualifiedInterfaces)
+    {
+#>
+    public partial interface <#= MakeOrdered(iface) #> : <#= iface #>
+    {
+    }
+
+    public partial interface <#= iface #>
+    {
+<#
+        if (GetElement(iface) != "")
+        {
+#>
+        new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+<#
+        }
+#>
+        new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
+        new <#= MakeOrdered(iface) #> OrderBy(string lambda);
+        new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
+    }
+    
+<#
+    }
+
+    foreach(var iface in qualifiedInterfaces.Select(x => MakeOrdered(x)))
     {
 #>
     public partial interface <#= iface #>
     {
-        <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+<#
+        if (GetElement(iface) != "")
+        {
+#>
+        new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+<#
+        }
+#>
         <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-        <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
         <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-        <#= iface #> ThenBy(string lambda);
+        new <#= iface #> ThenBy(string lambda);
     }
 
 <#
@@ -228,7 +280,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-        foreach(var iface in new[] { untypedV, untypedE })
+    foreach(var iface in new[] { untypedV, untypedE })
     {
 #>
     public partial interface <#= iface #>
@@ -284,21 +336,6 @@ namespace ExRam.Gremlinq.Core
 
 
 
-
-    foreach(var iface in typedBaseInterfaces)
-    {
-#>
-    public partial interface <#= iface #>
-    {
-        new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
-        new <#= MakeOrdered(iface) #> OrderBy(string lambda);
-        new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
-    }
-    
-<#
-    }
 
 
 

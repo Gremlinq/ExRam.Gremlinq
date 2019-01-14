@@ -17,10 +17,10 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedValueGremlinQuery<TElement>,
 
-        IOrderedGremlinQuery<TElement>,
-        IOrderedElementGremlinQuery<TElement>,
-
+        IOrderedVertexGremlinQuery,
         IOrderedVertexGremlinQuery<TElement>,
+
+        IOrderedEdgeGremlinQuery,
         IOrderedEdgeGremlinQuery<TElement>,
         IOrderedEdgeGremlinQuery<TElement, TOutVertex>,
         IOrderedInEdgeGremlinQuery<TElement, TInVertex>,
@@ -52,8 +52,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
-
-        TTargetQuery IOrderedGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         TTargetQuery IOrderedVertexGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
@@ -90,8 +88,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedEdgePropertyGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedEdgePropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         TTargetQuery IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
-
-        TTargetQuery IOrderedElementGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
         TTargetQuery IOrderedValueGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
 
@@ -152,8 +148,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
-
-        TTargetQuery IOrderedGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<IOrderedGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         TTargetQuery IGremlinQuery<TElement>.As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
@@ -236,8 +230,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.As(StepLabel stepLabel) => As(stepLabel);
 
         TTargetQuery IOrderedEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
-
-        TTargetQuery IOrderedElementGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<IOrderedElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
         TTargetQuery IValueGremlinQuery<TElement>.As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
@@ -341,8 +333,6 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TResult> IVertexGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
 
-        IOrderedGremlinQuery<TResult> IOrderedGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
-
         IElementGremlinQuery<TResult> IElementGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
 
         IElementGremlinQuery<TResult> IElementGremlinQuery<VertexProperty<TElement>>.Cast<TResult>() => Cast<TResult>();
@@ -362,8 +352,6 @@ namespace ExRam.Gremlinq.Core
         IOrderedEdgePropertyGremlinQuery<TResult> IOrderedEdgePropertyGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
 
         IOrderedEdgeGremlinQuery<TResult, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Cast<TResult>() => Cast<TResult>();
-
-        IOrderedElementGremlinQuery<TResult> IOrderedElementGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
 
         IOrderedValueGremlinQuery<TResult> IOrderedValueGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
 
@@ -694,11 +682,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IVertexGremlinQuery<TElement>> IVertexGremlinQuery<TElement>.Fold() => Fold<IVertexGremlinQuery<TElement>>();
 
-        IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> IOrderedElementGremlinQuery<TElement>.Fold() => Fold<IElementGremlinQuery<TElement>>();
-
         IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> IElementGremlinQuery<TElement>.Fold() => Fold<IElementGremlinQuery<TElement>>();
-
-        IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> IOrderedGremlinQuery<TElement>.Fold() => Fold<IGremlinQuery<TElement>>();
 
         IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> IOrderedValueGremlinQuery<TElement>.Fold() => Fold<IValueGremlinQuery<TElement>>();
 
@@ -1082,8 +1066,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.Or(params Func<IGremlinQuery<Property<TElement>>, IGremlinQuery>[] orTraversals) => Or(orTraversals);
 
-        IOrderedGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
-
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderBy(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
@@ -1098,31 +1080,17 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
 
-        IOrderedGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.OrderBy(Expression<Func<VertexProperty<TElement>, object>> projection) => Cast<VertexProperty<TElement>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
-
-        IOrderedGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(Expression<Func<VertexProperty<TElement, TMeta>, object>> projection) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
-
-        IOrderedGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.OrderBy(Expression<Func<Property<TElement>, object>> projection) => Cast<Property<TElement>>().OrderBy(GraphElementType.None, projection, Order.Increasing);
-
-        IOrderedElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, /* TODO: No Ordering! */ projection, Order.Increasing);
-
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Increasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
 
-        IOrderedElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(Expression<Func<VertexProperty<TElement, TMeta>, object>> projection) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
-
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.OrderBy(Expression<Func<VertexProperty<TElement>, object>> projection) => Cast<VertexProperty<TElement>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Increasing);
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Increasing);
-
-        IOrderedGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderBy(Func<IVertexGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
@@ -1134,13 +1102,9 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderBy(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
-        IOrderedGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.OrderBy(Func<IGremlinQuery<VertexProperty<TElement>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement>>().OrderBy(traversal, Order.Increasing);
+        IOrderedVertexGremlinQuery IVertexGremlinQuery.OrderBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
-        IOrderedGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(Func<IGremlinQuery<VertexProperty<TElement, TMeta>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(traversal, Order.Increasing);
-
-        IOrderedGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.OrderBy(Func<IGremlinQuery<Property<TElement>>, IGremlinQuery> traversal) => Cast<Property<TElement>>().OrderBy(traversal, Order.Increasing);
-
-        IOrderedGremlinQuery<TElement> IGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
+        IOrderedEdgeGremlinQuery IEdgeGremlinQuery.OrderBy(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
 
@@ -1152,43 +1116,33 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderBy(string lambda) => OrderBy(lambda);
 
-        IOrderedGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.OrderBy(string lambda) => Cast<VertexProperty<TElement>>().OrderBy(lambda);
-
-        IOrderedGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(string lambda) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(lambda);
-
-        IOrderedGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.OrderBy(string lambda) => Cast<Property<TElement>>().OrderBy(lambda);
-
-        IOrderedElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.OrderBy(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
-
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(Func<IEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderBy(Func<IVertexPropertyGremlinQuery<TElement, TMeta>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
-        IOrderedElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(Func<IElementGremlinQuery<VertexProperty<TElement, TMeta>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(traversal, Order.Increasing);
-
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderBy(Func<IVertexPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.OrderBy(Func<IElementGremlinQuery<VertexProperty<TElement>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement>>().OrderBy(traversal, Order.Increasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderBy(string lambda) => OrderBy(lambda);
 
-        IOrderedElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
-
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
 
-        IOrderedElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.OrderBy(string lambda) => Cast<VertexProperty<TElement>>().OrderBy(lambda);
-
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderBy(string lambda) => OrderBy(lambda);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.OrderBy(string lambda) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(lambda);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderBy(string lambda) => OrderBy(lambda);
+
+        IOrderedVertexGremlinQuery IVertexGremlinQuery.OrderBy(string lambda) => OrderBy(lambda);
+
+        IOrderedEdgeGremlinQuery IEdgeGremlinQuery.OrderBy(string lambda) => OrderBy(lambda);
+
+        IOrderedVertexGremlinQuery IVertexGremlinQuery.OrderByDescending(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
+
+        IOrderedEdgeGremlinQuery IEdgeGremlinQuery.OrderByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
 
@@ -1198,8 +1152,6 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderByDescending(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-
-        IOrderedGremlinQuery<TElement> IGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Vertex, projection, Order.Decreasing);
 
@@ -1211,14 +1163,6 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.Edge, projection, Order.Decreasing);
 
-        IOrderedGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.OrderByDescending(Expression<Func<VertexProperty<TElement>, object>> projection) => Cast<VertexProperty<TElement>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
-
-        IOrderedGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.OrderByDescending(Expression<Func<VertexProperty<TElement, TMeta>, object>> projection) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
-
-        IOrderedGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.OrderByDescending(Expression<Func<Property<TElement>, object>> projection) => Cast<Property<TElement>>().OrderBy(GraphElementType.None, projection, Order.Decreasing);
-
-
-        IOrderedGremlinQuery<TElement> IGremlinQuery<TElement>.OrderByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
         IOrderedVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.OrderByDescending(Func<IVertexGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
@@ -1230,17 +1174,7 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OrderByDescending(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-        IOrderedGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.OrderByDescending(Func<IGremlinQuery<VertexProperty<TElement>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement>>().OrderBy(traversal, Order.Decreasing);
-
-        IOrderedGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.OrderByDescending(Func<IGremlinQuery<VertexProperty<TElement, TMeta>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(traversal, Order.Decreasing);
-
-        IOrderedGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.OrderByDescending(Func<IGremlinQuery<Property<TElement>>, IGremlinQuery> traversal) => Cast<Property<TElement>>().OrderBy(traversal, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
-
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.OrderByDescending(Expression<Func<VertexProperty<TElement>, object>> projection) => Cast<VertexProperty<TElement>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.None, projection, Order.Decreasing);
 
@@ -1248,19 +1182,11 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
 
-        IOrderedElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.OrderByDescending(Expression<Func<VertexProperty<TElement, TMeta>, object>> projection) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(GraphElementType.VertexProperty, projection, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.OrderByDescending(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
-
         IOrderedVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.OrderByDescending(Func<IVertexPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.OrderByDescending(Func<IElementGremlinQuery<VertexProperty<TElement>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement>>().OrderBy(traversal, Order.Decreasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.OrderByDescending(Func<IVertexPropertyGremlinQuery<TElement, TMeta>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.OrderByDescending(Func<IElementGremlinQuery<VertexProperty<TElement, TMeta>>, IGremlinQuery> traversal) => Cast<VertexProperty<TElement, TMeta>>().OrderBy(traversal, Order.Decreasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OrderByDescending(Func<IEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
@@ -1663,6 +1589,14 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
+        IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.ThenBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
+
+        IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.ThenBy(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
+
+        IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.ThenBy(string lambda) => By(lambda);
+
+        IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.ThenBy(string lambda) => By(lambda);
+
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(string lambda) => By(lambda);
 
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
@@ -1678,10 +1612,6 @@ namespace ExRam.Gremlinq.Core
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenBy(string lambda) => By(lambda);
-
-        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
-
-        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.ThenBy(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
 
         IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Increasing);
 
@@ -1729,13 +1659,9 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Increasing);
+        IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.ThenByDescending(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
-        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.ThenBy(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
-
-        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
-
-        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
+        IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.ThenByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
 
@@ -1748,10 +1674,6 @@ namespace ExRam.Gremlinq.Core
         IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Vertex, projection, Order.Decreasing);
 
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
-
-        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
-
-        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.ThenByDescending(Func<IGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
         IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.Edge, projection, Order.Decreasing);
 
@@ -1784,10 +1706,6 @@ namespace ExRam.Gremlinq.Core
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
 
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(GraphElementType.None, projection, Order.Decreasing);
-
-        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.ThenByDescending(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Times(int count) => Times(count);
 
@@ -1956,8 +1874,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.Where(Func<IGremlinQuery<Property<TElement>>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        IGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.Where(Func<IOrderedGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
-
         IVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.Where(Func<IOrderedVertexGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Where(Func<IElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
@@ -2003,8 +1919,6 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
 
         IEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Where(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
-
-        IElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.Where(Func<IOrderedElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
 
