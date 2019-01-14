@@ -29,6 +29,7 @@ namespace ExRam.Gremlinq.Core
 
         IOrderedVertexPropertyGremlinQuery<TElement>,
         IOrderedVertexPropertyGremlinQuery<TElement, TMeta>,
+
         IOrderedEdgePropertyGremlinQuery<TElement>
     {
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
@@ -1523,6 +1524,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Skip(long count) => Skip(count);
 
         IImmutableDictionary<StepLabel, string> IGremlinQueryAdmin.StepLabelMappings => _stepLabelMappings;
+
         IImmutableList<Step> IGremlinQueryAdmin.Steps => _steps;
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => SumGlobal();

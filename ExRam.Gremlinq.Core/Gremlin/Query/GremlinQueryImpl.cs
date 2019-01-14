@@ -558,10 +558,10 @@ namespace ExRam.Gremlinq.Core
             if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
                 graphElementType = GraphElementType.VertexProperty;
 
-            if (graphElementType == GraphElementType.Vertex && memberName == _model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == _model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<Unit>.Id))
+            if (graphElementType == GraphElementType.Vertex && memberName == _model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == _model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Id))
                 return T.Id;
 
-            if (graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<Unit>.Label))
+            if (graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Label))
                 return T.Label;
 
             return memberName;
