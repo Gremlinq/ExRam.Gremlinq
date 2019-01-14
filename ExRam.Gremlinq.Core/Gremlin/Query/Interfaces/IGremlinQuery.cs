@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
@@ -30,7 +28,5 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> SumLocal();
         IGremlinQuery<TElement> SumGlobal();
         IGremlinQuery<TItem> Unfold<TItem>();
-
-        IGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 }

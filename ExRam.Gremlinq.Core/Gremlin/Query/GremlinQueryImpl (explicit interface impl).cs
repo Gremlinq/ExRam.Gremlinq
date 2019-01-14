@@ -1792,17 +1792,13 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> IVertexPropertyGremlinQuery<TElement>.Values(params string[] keys) => AddStep<object, Unit, Unit, Unit>(new ValuesStep(keys));
 
+        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.Where(Expression<Func<VertexProperty<TElement, TMeta>, bool>> predicate) => Where(GraphElementType.VertexProperty, predicate);
+
+        IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.Where(Expression<Func<VertexProperty<TElement>, bool>> predicate) => Where(GraphElementType.VertexProperty, predicate);
+
         IValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Where(Func<IOrderedValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Func<IValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
-
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.None, predicate);
-
-        IGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.Where(Expression<Func<VertexProperty<TElement>, bool>> predicate) => Cast<VertexProperty<TElement>>().Where(GraphElementType.VertexProperty, predicate);
-
-        IGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.Where(Expression<Func<VertexProperty<TElement, TMeta>, bool>> predicate) => Cast<VertexProperty<TElement, TMeta>>().Where(GraphElementType.VertexProperty, predicate);
-
-        IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.Where(Expression<Func<Property<TElement>, bool>> predicate) => Cast<Property<TElement>>().Where(GraphElementType.None, predicate);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
@@ -1881,5 +1877,7 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(GraphElementType.Edge, projection, propertyTraversal);
+
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(GraphElementType.None, predicate);
     }
 }

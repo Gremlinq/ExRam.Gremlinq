@@ -350,7 +350,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta> Where(Func<GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta> Where(GraphElementType elementType, Expression<Func<TElement, bool>> predicate)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta> Where<TSource>(GraphElementType elementType, Expression<Func<TSource, bool>> predicate)
         {
             var body = predicate.Body;
 

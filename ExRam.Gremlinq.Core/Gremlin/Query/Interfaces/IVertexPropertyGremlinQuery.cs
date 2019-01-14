@@ -14,6 +14,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> Values(params string[] keys);
         IGremlinQuery<IDictionary<string, object>> ValueMap();
+
+        IVertexPropertyGremlinQuery<TValue> Where(Expression<Func<VertexProperty<TValue>, bool>> predicate);
     }
 
     public partial interface IVertexPropertyGremlinQuery<TValue, TMeta> : IElementGremlinQuery<VertexProperty<TValue, TMeta>>
@@ -23,5 +25,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
         IGremlinQuery<TMeta> ValueMap();
+
+        IVertexPropertyGremlinQuery<TValue, TMeta> Where(Expression<Func<VertexProperty<TValue, TMeta>, bool>> predicate);
     }
 }
