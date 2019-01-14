@@ -10,7 +10,7 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> :
+    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery>,
@@ -775,7 +775,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.Inject(params Property<TElement>[] elements) => Inject(elements);
 
-        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(_model, _queryExecutor, _steps.Insert(index, step), _stepLabelMappings, _logger);
+        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(_model, _queryExecutor, _steps.Insert(index, step), _stepLabelMappings, _logger);
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
