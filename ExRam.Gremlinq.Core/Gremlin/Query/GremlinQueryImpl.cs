@@ -465,7 +465,7 @@ namespace ExRam.Gremlinq.Core
                         _ => _.Where(elementType, rightLambda));
             }
 
-            return right is MemberExpression memberExpression && memberExpression.Expression == parameter
+            return right.HasExpressionInMemberChain(parameter)
                 ? Where(elementType, parameter, right, left.GetValue(), nodeType.Switch())
                 : Where(elementType, parameter, left, right.GetValue(), nodeType);
         }

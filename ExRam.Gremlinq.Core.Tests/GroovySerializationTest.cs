@@ -1026,12 +1026,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Where2()
+        public void Properties_Where_Meta_key()
         {
             g
                 .V<User>()
                 .Properties(x => x.Name)
                 .Where(x => x.Properties.MetaKey == "MetaValue")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
+                .WithParameters("User", "Name", "MetaKey", "MetaValue");
+        }
+
+        [Fact]
+        public void Properties_Where_Meta_key_reversed()
+        {
+            g
+                .V<User>()
+                .Properties(x => x.Name)
+                .Where(x => "MetaValue" == x.Properties.MetaKey)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
                 .WithParameters("User", "Name", "MetaKey", "MetaValue");

@@ -22,5 +22,22 @@
                 .Lambda<Func<object>>(Expression.Convert(expression, typeof(object)))
                 .Compile()();
         }
+
+        public static bool HasExpressionInMemberChain(this Expression expression, Expression searchedExpression)
+        {
+            while (true)
+            {
+                if (expression == searchedExpression)
+                    return true;
+
+                if (expression is MemberExpression memberExpression)
+                {
+                    expression = memberExpression.Expression;
+                    continue;
+                }
+
+                return false;
+            }
+        }
     }
 }
