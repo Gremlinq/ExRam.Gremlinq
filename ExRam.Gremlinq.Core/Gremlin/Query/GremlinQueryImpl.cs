@@ -530,11 +530,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(GraphElementType elementType, Expression expression) => AddStep(new HasNotStep(GetIdentifier(elementType, expression)));
 
-        private object GetIdentifier(GraphElementType elementType, PropertyInfo property)
-        {
-            return GetIdentifier(elementType, property.Name);
-        }
-
         private object GetIdentifier(GraphElementType elementType, Expression expression)
         {
             string memberName;
@@ -682,7 +677,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, GetIdentifier(elementType, propertyInfo), value));
+                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, GetIdentifier(elementType, propertyInfo.Name), value));
             }
 
             return ret;

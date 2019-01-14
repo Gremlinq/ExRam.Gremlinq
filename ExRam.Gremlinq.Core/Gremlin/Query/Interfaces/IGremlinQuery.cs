@@ -5,8 +5,6 @@ namespace ExRam.Gremlinq.Core
 {
     public partial interface IArrayGremlinQuery<TArray, TQuery> : IGremlinQuery<TArray>
     {
-        //new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
-
         TQuery Unfold();
     }
 
