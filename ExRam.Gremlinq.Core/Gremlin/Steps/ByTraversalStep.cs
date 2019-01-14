@@ -20,10 +20,10 @@ namespace ExRam.Gremlinq.Core
 
     public sealed class ByMemberStep : Step
     {
-        public ByMemberStep(MemberInfo member, Order order)
+        public ByMemberStep(object key, Order order)
         {
             Order = order;
-            Member = member;
+            Key = key;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public Order Order { get; }
-        public MemberInfo Member { get; }
+        public object Key { get; }
     }
 
     public sealed class ByTraversalStep : Step

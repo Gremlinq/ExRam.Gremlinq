@@ -200,17 +200,17 @@ namespace ExRam.Gremlinq.Core
         }
 
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(GraphElementType elementType, Expression<Func<TElement, object>> projection, Order order)
         {
             return this
                 .AddStep(OrderStep.Instance)
-                .By(projection, order);
+                .By(elementType, projection, order);
         }
 
-        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
+        private GremlinQueryImpl<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(GraphElementType elementType, Expression<Func<TElement, object>> projection, Order order)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new ByMemberStep(memberExpression.Member, order));
+                return AddStep(new ByMemberStep(GetIdentifier(elementType, memberExpression), order));
 
             throw new ExpressionNotSupportedException(projection);
         }

@@ -289,7 +289,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(ByMemberStep step)
         {
-            Method("by", step.Member.Name, step.Order);
+            Method("by", step.Key, step.Order);
         }
 
         public virtual void Visit(PropertiesStep step)

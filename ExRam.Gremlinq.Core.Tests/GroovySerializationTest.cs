@@ -997,7 +997,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Id == "id")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(T.id, _c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasId(_c)")
                 .WithParameters("Country", "Languages", "id");
         }
 
@@ -1009,8 +1009,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(T.label, _c)")
-                .WithParameters("Country", "Languages", "id");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasLabel(_c)")
+                .WithParameters("Country", "Languages", "label");
         }
 
         [Fact]
