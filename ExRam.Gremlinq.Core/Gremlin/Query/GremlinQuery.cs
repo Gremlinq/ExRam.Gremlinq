@@ -686,6 +686,17 @@ namespace ExRam.Gremlinq.Core
                                 ? new WherePredicateStep(predicateArgument)
                                 : (Step)new IsStep(predicateArgument));
                     }
+                    case MethodCallExpression methodCallExpression:
+                    {
+                        if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                        {
+                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
+                            //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                            //    return Has(leftMemberExpression, predicateArgument);
+                        }
+
+                        break;
+                    }
                 }
             }
 

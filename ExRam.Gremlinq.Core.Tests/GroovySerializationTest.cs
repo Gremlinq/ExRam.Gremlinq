@@ -976,6 +976,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Values_untyped()
+        {
+            g
+                .V()
+                .Properties()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Properties_Values1()
         {
             g
@@ -1000,27 +1012,27 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Values_untyped()
+        public void Properties_Where_Dictionary_key1()
         {
             g
-                .V()
+                .V<User>()
                 .Properties()
-                .Values()
+                .Where(x => x.Properties["MetaKey"] == "MetaValue")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
-                .WithoutParameters();
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, _c)")
+                .WithParameters("User", "MetaKey", "MetaValue");
         }
 
         [Fact]
-        public void Properties_Where()
+        public void Properties_Where_Dictionary_key2()
         {
             g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x.Value == "de")
+                .V<User>()
+                .Properties()
+                .Where(x => (int)x.Properties["MetaKey"] < 100)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
-                .WithParameters("Country", "Languages", "de");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, P.lt(_c))")
+                .WithParameters("User", "MetaKey", 100);
         }
 
         [Fact]
@@ -1048,18 +1060,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Where_reversed()
-        {
-            g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => "de" == x.Value)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
-                .WithParameters("Country", "Languages", "de");
-        }
-
-        [Fact]
         public void Properties_Where_Meta_key()
         {
             g
@@ -1081,6 +1081,42 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
                 .WithParameters("User", "Name", "MetaKey", "MetaValue");
+        }
+
+        [Fact]
+        public void Properties_Where_reversed()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => "de" == x.Value)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .WithParameters("Country", "Languages", "de");
+        }
+
+        [Fact]
+        public void Properties_Where1()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Value == "de")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .WithParameters("Country", "Languages", "de");
+        }
+
+        [Fact]
+        public void Properties_Where2()
+        {
+            g
+                .V<Country>()
+                .Properties()
+                .Where(x => (int)x.Value < 10)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().hasValue(P.lt(_b))")
+                .WithParameters("Country", 10);
         }
 
         [Fact]
