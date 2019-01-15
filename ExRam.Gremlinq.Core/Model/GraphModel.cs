@@ -216,10 +216,9 @@ namespace ExRam.Gremlinq.Core
                             if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
                                 return GraphElementType.Edge;
 
-                            if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
-                                return GraphElementType.VertexProperty;
-
-                            return GraphElementType.None;
+                            return typeof(IVertexProperty).IsAssignableFrom(elementType)
+                                ? GraphElementType.VertexProperty
+                                : GraphElementType.None;
                         });
 
                 if (graphElementType != GraphElementType.None)

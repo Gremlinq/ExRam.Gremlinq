@@ -813,11 +813,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
-            if (value is PropertyBase meta)
+            if (value is IVertexProperty && value is Property property)
             {
-                var metaProperties = meta.GetMetaProperties()
+                var metaProperties = property.GetMetaProperties()
                     .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .Prepend(meta.GetValue())
+                    .Prepend(property.GetValue())
                     .Prepend(name)
                     .Prepend(cardinality);
 

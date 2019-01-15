@@ -491,7 +491,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (leftMemberExpression.Expression == parameter)
                         {
-                            if (typeof(PropertyBase).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
+                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
                                 return AddStep(new HasValueStep(predicateArgument));
 
                             return rightConstant is StepLabel
@@ -501,7 +501,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
                         {
-                            if (typeof(PropertyBase).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                            if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
                                 return Has(leftMemberExpression, predicateArgument);
                         }
 

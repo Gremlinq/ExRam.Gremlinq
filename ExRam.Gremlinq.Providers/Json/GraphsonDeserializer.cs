@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Providers
         {
             public override bool CanConvert(Type objectType)
             {
-                return typeof(PropertyBase).IsAssignableFrom(objectType);
+                return typeof(Property).IsAssignableFrom(objectType);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
