@@ -10,16 +10,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQuery
+    public static class GremlinQueryExtensions
     {
         internal static IGremlinQuery AddStep(this IGremlinQuery query, Step step)
         {
             return query.AsAdmin().InsertStep(query.AsAdmin().Steps.Count, step);
-        }
-
-        public static IGremlinQuery<Unit> Anonymous(IGraphModel model, ILogger logger = null)
-        {
-            return Create(model, GremlinQueryExecutor.Invalid, null, logger);
         }
 
         public static IVertexGremlinQuery<TVertex> BothV<TVertex>(this IEdgeGremlinQuery query)
@@ -27,23 +22,6 @@ namespace ExRam.Gremlinq.Core
             return query
                 .BothV()
                 .OfType<TVertex>();
-        }
-
-        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
-        {
-            return Create<Unit>(model, queryExecutor, graphName, logger);
-        }
-
-        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
-        {
-            return new GremlinQuery<TElement, Unit, Unit, Unit, Unit>(
-                model,
-                queryExecutor,
-                graphName != null
-                    ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
-                    : ImmutableList<Step>.Empty,
-                ImmutableDictionary<StepLabel, string>.Empty,
-                logger);
         }
 
         public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)

@@ -13,136 +13,18 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>
+    public abstract class GremlinQuery
     {
-        private readonly ILogger _logger;
-        private readonly IGraphModel _model;
-        private readonly IGremlinQueryExecutor _queryExecutor;
-        private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
-        private readonly IImmutableList<Step> _steps;
-
-        public GremlinQuery(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger)
+        protected GremlinQuery(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger)
         {
-            _model = model;
-            _steps = steps;
-            _logger = logger;
-            _queryExecutor = queryExecutor;
-            _stepLabelMappings = stepLabelBindings;
+            Model = model;
+            Steps = steps;
+            Logger = logger;
+            QueryExecutor = queryExecutor;
+            StepLabelMappings = stepLabelBindings;
         }
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit> AddE<TEdge>(TEdge newEdge)
-        {
-            return this
-                .AddStep<TEdge, TElement, Unit, Unit, Unit>(new AddEStep(_model, newEdge))
-                .AddElementProperties(newEdge);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddElementProperties(object element)
-        {
-            var ret = this;
-            var elementType = element.GetType();
-
-            foreach (var (propertyInfo, value) in element.Serialize())
-            {
-                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, _model.GetIdentifier(elementType, propertyInfo.Name), value));
-            }
-
-            return ret;
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
-
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(step);
-
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(_model, _queryExecutor, _steps.Insert(_steps.Count, step), _stepLabelMappings, _logger);
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, Expression<Func<TElement, object>> memberExpression)
-        {
-            var body = memberExpression.Body.StripConvert();
-
-            if (!(body is MemberExpression memberExpressionBody))
-                throw new ExpressionNotSupportedException(memberExpression);
-
-            return AddStepLabelBinding(stepLabel, memberExpressionBody.Member.Name);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, string name)
-        {
-            if (_stepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
-                throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
-
-            return new GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(_model, _queryExecutor, _steps, _stepLabelMappings.Add(stepLabel, name), _logger);
-        }
-
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
-        {
-            return this
-                .AddStep<TVertex, Unit, Unit, Unit, Unit>(new AddVStep(_model, vertex))
-                .AddElementProperties(vertex);
-        }
-
-        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
-            where TStepLabel : StepLabel, new()
-            where TTargetQuery : IGremlinQuery
-        {
-            var stepLabel = new TStepLabel();
-
-            return continuation(
-                AddStep(new AggregateStep(stepLabel)),
-                stepLabel);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery>[] andTraversals)
-        {
-            return AddStep(new AndStep(andTraversals
-                .Select(andTraversal => andTraversal(Anonymize()))
-                .ToArray()));
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>();
-
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(_model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, _logger);
-
-        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
-            where TStepLabel : StepLabel, new()
-            where TTargetQuery : IGremlinQuery
-        {
-            var stepLabel = new TStepLabel();
-
-            return continuation(
-                As(stepLabel),
-                stepLabel);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> As(StepLabel stepLabel) => AddStep(new AsStep(stepLabel));
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
-        {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new ByMemberStep(_model.GetIdentifier(memberExpression), order));
-
-            throw new ExpressionNotSupportedException(projection);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order)
-        {
-            return this
-                .AddStep(new ByTraversalStep(traversal(Anonymize()), order));
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(string lambda)
-        {
-            return this
-                .AddStep(new ByLambdaStep(new Lambda(lambda)));
-        }
-
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>();
-
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(_model, _queryExecutor, _steps, _stepLabelMappings, _logger);
-
-        private TTargetQuery ChangeQueryType<TTargetQuery>()
+        protected TTargetQuery ChangeQueryType<TTargetQuery>()
         {
             var metaType = typeof(Unit);
             var elementType = typeof(Unit);
@@ -176,8 +58,155 @@ namespace ExRam.Gremlinq.Core
             }
 
             var type = typeof(GremlinQuery<,,,,>).MakeGenericType(elementType, outVertexType, inVertexType, metaType, foldedQueryType);
-            return (TTargetQuery)Activator.CreateInstance(type, _model, _queryExecutor, _steps, _stepLabelMappings, _logger);
+            return (TTargetQuery)Activator.CreateInstance(type, Model, QueryExecutor, Steps, StepLabelMappings, Logger);
         }
+
+        public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
+        {
+            return Create(model ?? GraphModel.Empty, GremlinQueryExecutor.Invalid, null, logger);
+        }
+
+        internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
+        {
+            return Create<Unit>(model, queryExecutor, graphName, logger);
+        }
+
+        internal static IGremlinQuery<TElement> Create<TElement>(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
+        {
+            return new GremlinQuery<TElement, Unit, Unit, Unit, Unit>(
+                model,
+                queryExecutor,
+                graphName != null
+                    ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
+                    : ImmutableList<Step>.Empty,
+                ImmutableDictionary<StepLabel, string>.Empty,
+                logger);
+        }
+
+        protected ILogger Logger { get; }
+        protected IGraphModel Model { get; }
+        protected IImmutableList<Step> Steps { get; }
+        protected IGremlinQueryExecutor QueryExecutor { get; }
+        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
+    }
+
+    internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> : GremlinQuery
+    {
+        public GremlinQuery(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger) : base(model, queryExecutor, steps, stepLabelBindings, logger)
+        {
+        }
+
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit> AddE<TEdge>(TEdge newEdge)
+        {
+            return this
+                .AddStep<TEdge, TElement, Unit, Unit, Unit>(new AddEStep(Model, newEdge))
+                .AddElementProperties(newEdge);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddElementProperties(object element)
+        {
+            var ret = this;
+            var elementType = element.GetType();
+
+            foreach (var (propertyInfo, value) in element.Serialize())
+            {
+                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+            }
+
+            return ret;
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
+
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(step);
+
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Model, QueryExecutor, Steps.Insert(Steps.Count, step), StepLabelMappings, Logger);
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, Expression<Func<TElement, object>> memberExpression)
+        {
+            var body = memberExpression.Body.StripConvert();
+
+            if (!(body is MemberExpression memberExpressionBody))
+                throw new ExpressionNotSupportedException(memberExpression);
+
+            return AddStepLabelBinding(stepLabel, memberExpressionBody.Member.Name);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, string name)
+        {
+            if (StepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
+                throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
+
+            return new GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>(Model, QueryExecutor, Steps, StepLabelMappings.Add(stepLabel, name), Logger);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
+        {
+            return this
+                .AddStep<TVertex, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
+                .AddElementProperties(vertex);
+        }
+
+        private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel, new()
+            where TTargetQuery : IGremlinQuery
+        {
+            var stepLabel = new TStepLabel();
+
+            return continuation(
+                AddStep(new AggregateStep(stepLabel)),
+                stepLabel);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery>[] andTraversals)
+        {
+            return AddStep(new AndStep(andTraversals
+                .Select(andTraversal => andTraversal(Anonymize()))
+                .ToArray()));
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>();
+
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Model, GremlinQueryExecutor.Invalid, ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, Logger);
+
+        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel, new()
+            where TTargetQuery : IGremlinQuery
+        {
+            var stepLabel = new TStepLabel();
+
+            return continuation(
+                As(stepLabel),
+                stepLabel);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> As(StepLabel stepLabel) => AddStep(new AsStep(stepLabel));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
+        {
+            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                return AddStep(new ByMemberStep(Model.GetIdentifier(memberExpression), order));
+
+            throw new ExpressionNotSupportedException(projection);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order)
+        {
+            return this
+                .AddStep(new ByTraversalStep(traversal(Anonymize()), order));
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(string lambda)
+        {
+            return this
+                .AddStep(new ByLambdaStep(new Lambda(lambda)));
+        }
+
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>();
+
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Model, QueryExecutor, Steps, StepLabelMappings, Logger);
 
         private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
         { 
@@ -239,16 +268,16 @@ namespace ExRam.Gremlinq.Core
 
         private IAsyncEnumerator<TResult> GetEnumerator<TResult>()
         {
-            return _queryExecutor
+            return QueryExecutor
                 .Execute<TResult>(this.Cast<TResult>())
                 .GetEnumerator();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(_model.GetIdentifier(expression), predicate));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(_model.GetIdentifier(expression), traversal));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(Model.GetIdentifier(expression), traversal));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(Expression expression) => AddStep(new HasNotStep(_model.GetIdentifier(expression)));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(Expression expression) => AddStep(new HasNotStep(Model.GetIdentifier(expression)));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasWithin(Expression expression, Expression enumerableExpression)
         {
@@ -402,7 +431,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new PropertyStep(memberExpression.Type, _model.GetIdentifier(memberExpression), value));
+                return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(memberExpression), value));
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -473,7 +502,7 @@ namespace ExRam.Gremlinq.Core
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return _model.GetIdentifier(memberExpression);
+                        return Model.GetIdentifier(memberExpression);
 
                     throw new ExpressionNotSupportedException(projection);
                 })
