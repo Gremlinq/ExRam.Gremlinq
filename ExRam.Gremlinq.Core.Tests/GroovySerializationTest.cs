@@ -1228,6 +1228,32 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void SumLocal_Where1()
+        {
+            g
+                .V<User>()
+                .Values(x => x.Age)
+                .SumLocal()
+                .Where(x => x == 100)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(_c)")
+                .WithParameters("User", "Age", 100);
+        }
+
+        [Fact]
+        public void SumLocal_Where2()
+        {
+            g
+                .V<User>()
+                .Values(x => x.Age)
+                .SumLocal()
+                .Where(x => x < 100)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(P.lt(_c))")
+                .WithParameters("User", "Age", 100);
+        }
+
+        [Fact]
         public void Union()
         {
             g

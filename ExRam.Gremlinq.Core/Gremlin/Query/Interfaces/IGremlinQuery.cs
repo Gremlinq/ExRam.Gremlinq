@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
 
-        IGremlinQuery<TElement> SumLocal();
-        IGremlinQuery<TElement> SumGlobal();
+        IValueGremlinQuery<TElement> SumLocal();
+        IValueGremlinQuery<TElement> SumGlobal();
     }
 }

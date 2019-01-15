@@ -1587,21 +1587,21 @@ namespace ExRam.Gremlinq.Core
 
         IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => SumGlobal();
 
-        IGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumGlobal() => throw new NotSupportedException();
 
-        IGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumGlobal() => throw new NotSupportedException();
 
-        IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumGlobal() => throw new NotSupportedException();
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => SumLocal();
+        IValueGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => SumLocal();
 
-        IGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumLocal() => SumLocal();
+        IValueGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumLocal() => throw new NotSupportedException();
 
-        IGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumLocal() => SumLocal();
+        IValueGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumLocal() => throw new NotSupportedException();
 
-        IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumLocal() => SumLocal();
+        IValueGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumLocal() => throw new NotSupportedException();
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Tail(long count) => Tail(count);
 
