@@ -639,6 +639,50 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Filter(string lambda) => Filter(lambda);
 
+        TTargetQuery IEdgePropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IGremlinQuery<Property<TElement>>.FlatMap<TTargetQuery>(Func<IGremlinQuery<Property<TElement>>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IVertexPropertyGremlinQuery<TElement, TMeta>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IElementGremlinQuery<VertexProperty<TElement, TMeta>>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<VertexProperty<TElement, TMeta>>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IGremlinQuery<VertexProperty<TElement, TMeta>>.FlatMap<TTargetQuery>(Func<IGremlinQuery<VertexProperty<TElement, TMeta>>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IVertexPropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IElementGremlinQuery<VertexProperty<TElement>>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<VertexProperty<TElement>>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IGremlinQuery<VertexProperty<TElement>>.FlatMap<TTargetQuery>(Func<IGremlinQuery<VertexProperty<TElement>>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.FlatMap<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IEdgeGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IEdgeGremlinQuery.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IVertexGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IElementGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IVertexGremlinQuery.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IElementGremlinQuery.FlatMap<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IValueGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        TTargetQuery IGremlinQuery.FlatMap<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
         IArrayGremlinQuery<TElement[], IArrayGremlinQuery<TElement, TFoldedQuery>> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Fold() => Fold<IArrayGremlinQuery<TElement, TFoldedQuery>>();
 
         IArrayGremlinQuery<TElement[], IArrayGremlinQuery<TElement, TFoldedQuery>> IArrayGremlinQuery<TElement, TFoldedQuery>.Fold() => Fold<IArrayGremlinQuery<TElement, TFoldedQuery>>();

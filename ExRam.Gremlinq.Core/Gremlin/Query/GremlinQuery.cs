@@ -125,6 +125,16 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Filter(string lambda) => AddStep(new FilterStep(new Lambda(lambda)));
 
+        private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
+        {
+            var mappedTraversal = mapping(Anonymize());
+
+            return this
+                .AddStep(new FlatMapStep(mappedTraversal))
+                .MergeStepLabelMappings(mappedTraversal)
+                .ChangeQueryType<TTargetQuery>();
+        }
+
         private GremlinQuery<TElement[], Unit, Unit, Unit, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], Unit, Unit, Unit, TNewFoldedQuery>(FoldStep.Instance);
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize())));

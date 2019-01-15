@@ -41,6 +41,7 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery Emit();
 
         new IGremlinQuery Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IGremlinQuery Identity();
 
@@ -85,6 +86,7 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery Emit();
 
         new IElementGremlinQuery Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IElementGremlinQuery Identity();
 
@@ -129,6 +131,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery Emit();
 
         new IVertexGremlinQuery Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IVertexGremlinQuery Identity();
 
@@ -173,6 +176,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery Emit();
 
         new IEdgeGremlinQuery Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery Identity();
 
@@ -217,6 +221,7 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery<TElement> Emit();
 
         new IGremlinQuery<TElement> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IGremlinQuery<TElement> Identity();
 
@@ -261,6 +266,7 @@ namespace ExRam.Gremlinq.Core
         new IValueGremlinQuery<TElement> Emit();
 
         new IValueGremlinQuery<TElement> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IValueGremlinQuery<TElement> Identity();
 
@@ -305,6 +311,7 @@ namespace ExRam.Gremlinq.Core
         new IArrayGremlinQuery<TArray, TQuery> Emit();
 
         new IArrayGremlinQuery<TArray, TQuery> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IArrayGremlinQuery<TArray, TQuery> Identity();
 
@@ -349,6 +356,7 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery<TElement> Emit();
 
         new IElementGremlinQuery<TElement> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IElementGremlinQuery<TElement> Identity();
 
@@ -393,6 +401,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery<TVertex> Emit();
 
         new IVertexGremlinQuery<TVertex> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IVertexGremlinQuery<TVertex> Identity();
 
@@ -437,6 +446,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge> Emit();
 
         new IEdgeGremlinQuery<TEdge> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TEdge> Identity();
 
@@ -481,6 +491,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Emit();
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
@@ -525,6 +536,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Emit();
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Identity();
 
@@ -569,6 +581,7 @@ namespace ExRam.Gremlinq.Core
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Emit();
 
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
@@ -613,6 +626,7 @@ namespace ExRam.Gremlinq.Core
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Emit();
 
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
@@ -657,6 +671,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TValue> Emit();
 
         new IVertexPropertyGremlinQuery<TValue> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TValue>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TValue> Identity();
 
@@ -701,6 +716,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TValue, TMeta> Emit();
 
         new IVertexPropertyGremlinQuery<TValue, TMeta> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TValue, TMeta>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TValue, TMeta> Identity();
 
@@ -745,6 +761,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgePropertyGremlinQuery<TValue> Emit();
 
         new IEdgePropertyGremlinQuery<TValue> Filter(string lambda);
+        TTargetQuery FlatMap<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TValue>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new IEdgePropertyGremlinQuery<TValue> Identity();
 

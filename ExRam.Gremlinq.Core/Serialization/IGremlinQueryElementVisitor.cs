@@ -34,6 +34,7 @@
         void Visit(LimitStep step);
         void Visit(LocalStep step);
         void Visit(MapStep step);
+        void Visit(FlatMapStep step);
         void Visit(MatchStep step);
         void Visit(NotStep step);
         void Visit(OptionalStep step);

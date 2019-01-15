@@ -415,6 +415,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void FlatMap()
+        {
+            g
+                .V<User>()
+                .FlatMap(__ => __.Out<Knows>())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).flatMap(__.out(_b))")
+                .WithParameters("User", "Knows");
+        }
+
+        [Fact]
         public void Fold()
         {
             g
@@ -504,6 +515,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _.Limit(-1))
                 .Should()
                 .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void Map()
+        {
+            g
+                .V<User>()
+                .Map(__ => __.Out<Knows>())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).map(__.out(_b))")
+                .WithParameters("User", "Knows");
         }
 
         [Fact]

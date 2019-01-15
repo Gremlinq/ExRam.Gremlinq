@@ -500,6 +500,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "map");
         }
 
+        public virtual void Visit(FlatMapStep step)
+        {
+            Visit(step, "flatMap");
+        }
+
         public virtual void Visit(MatchStep step)
         {
             Visit(step, "match");
