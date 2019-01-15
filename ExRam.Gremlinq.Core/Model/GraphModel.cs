@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -153,6 +154,8 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphModel Empty = new EmptyGraphModel();
         public static readonly IGraphModel Invalid = new InvalidGraphModel();
 
+        private static readonly ConditionalWeakTable<IGraphModel, ConcurrentDictionary<Type, GraphElementType>> ElementTypes = new ConditionalWeakTable<IGraphModel, ConcurrentDictionary<Type, GraphElementType>>();
+
         public static IGraphModel Dynamic(ILogger logger = null)
         {
             return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, logger, AppDomain.CurrentDomain.GetAssemblies());
@@ -202,16 +205,23 @@ namespace ExRam.Gremlinq.Core
 
         internal static object GetIdentifier(this IGraphModel model, Type elementType, string memberName)
         {
-            var graphElementType = GraphElementType.None;
+            var graphElementType = ElementTypes
+                .GetOrCreateValue(model)
+                .GetOrAdd(
+                    elementType,
+                    closureElementType =>
+                    {
+                        if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                            return GraphElementType.Vertex;
 
-            if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                graphElementType = GraphElementType.Vertex;
+                        if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                            return GraphElementType.Edge;
 
-            if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                graphElementType = GraphElementType.Edge;
+                        if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
+                            return GraphElementType.VertexProperty;
 
-            if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
-                graphElementType = GraphElementType.VertexProperty;
+                        return GraphElementType.None;
+                    });
 
             if (graphElementType == GraphElementType.Vertex && memberName == model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Id))
                 return T.Id;
