@@ -141,8 +141,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .WithModel(GraphModel
-                    .FromExecutingAssembly<User, Edge>(x => x.PhoneNumbers, x => x.Id))
-                .AddV(new User { Id = 1, PhoneNumbers = new[] { "123", "456" } })
+                    .FromExecutingAssembly<VertexWithListAsId, Edge>())
+                .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
                 .Invoking(x => new GroovyGremlinQueryElementVisitor().Visit(x))
                 .Should()
                 .Throw<NotSupportedException>();

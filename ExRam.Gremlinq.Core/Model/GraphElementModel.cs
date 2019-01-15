@@ -10,8 +10,6 @@ namespace ExRam.Gremlinq.Core
             public Option<string> TryGetConstructiveLabel(Type elementType) => default;
 
             public Option<string[]> TryGetFilterLabels(Type elementType) => default;
-
-            public Option<string> IdPropertyName { get => default; }
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
@@ -21,8 +19,6 @@ namespace ExRam.Gremlinq.Core
             public Option<string> TryGetConstructiveLabel(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetConstructiveLabel)));
 
             public Option<string[]> TryGetFilterLabels(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetFilterLabels)));
-
-            public Option<string> IdPropertyName { get => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(IdPropertyName))); }
         }
 
         public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();

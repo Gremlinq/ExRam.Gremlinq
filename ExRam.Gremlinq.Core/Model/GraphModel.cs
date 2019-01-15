@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core
                 private readonly Type _baseType;
                 private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
 
-                public AssemblyGraphElementModel(Type baseType, string idPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
+                public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
                     _baseType = baseType;
 
@@ -72,8 +72,6 @@ namespace ExRam.Gremlinq.Core
                         .ToDictionary(
                             type => type,
                             type => new[] { type.Name });
-
-                    IdPropertyName = idPropertyName;
                 }
 
                 public Option<string> TryGetConstructiveVertexLabel(Type elementType)
@@ -109,7 +107,6 @@ namespace ExRam.Gremlinq.Core
                                 .ToArray());
                 }
 
-                public Option<string> IdPropertyName { get; }
                 public IDictionary<Type, string[]> Labels { get; }
             }
 
@@ -117,7 +114,7 @@ namespace ExRam.Gremlinq.Core
             private readonly AssemblyGraphElementModel _edgesModel;
             private readonly AssemblyGraphElementModel _verticesModel;
 
-            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName, string edgeIdPropertyName, IEnumerable<Assembly> assemblies, ILogger logger)
+            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -127,8 +124,8 @@ namespace ExRam.Gremlinq.Core
 
                 var assemblyArray = assemblies.ToArray();
 
-                _verticesModel = new AssemblyGraphElementModel(vertexBaseType, vertexIdPropertyName, assemblyArray, logger);
-                _edgesModel = new AssemblyGraphElementModel(edgeBaseType, edgeIdPropertyName, assemblyArray, logger);
+                _verticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
+                _edgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
 
                 _types =_verticesModel.Labels
                     .Concat(_edgesModel.Labels)
@@ -158,32 +155,32 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphModel Dynamic(ILogger logger = null)
         {
-            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, logger, AppDomain.CurrentDomain.GetAssemblies());
+            return FromAssemblies<IVertex, IEdge>(logger, AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger logger = null)
         {
-            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, logger, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
+            return FromAssemblies<TVertex, TEdge>(logger, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
         }
 
         public static IGraphModel FromExecutingAssembly(ILogger logger = null)
         {
-            return FromAssemblies<IVertex, IEdge>(x => x.Id, x => x.Id, logger, Assembly.GetCallingAssembly());
+            return FromAssemblies<IVertex, IEdge>(logger, Assembly.GetCallingAssembly());
         }
 
-        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null)
+        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(ILogger logger = null)
         {
-            return FromAssemblies<TVertex, TEdge>(vertexId, edgeId, logger, Assembly.GetCallingAssembly());
+            return FromAssemblies<TVertex, TEdge>(logger, Assembly.GetCallingAssembly());
         }
 
-        public static IGraphModel FromAssemblies<TVertex, TEdge>(Expression<Func<TVertex, object>> vertexId, Expression<Func<TVertex, object>> edgeId, ILogger logger = null, params Assembly[] assemblies)
+        public static IGraphModel FromAssemblies<TVertex, TEdge>(ILogger logger = null, params Assembly[] assemblies)
         {
-            return FromAssemblies(typeof(TVertex), typeof(TEdge), ((MemberExpression)vertexId.Body.StripConvert()).Member.Name, ((MemberExpression)edgeId.Body.StripConvert()).Member.Name, logger, assemblies);
+            return FromAssemblies(typeof(TVertex), typeof(TEdge), logger, assemblies);
         }
 
-        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", ILogger logger = null, params Assembly[] assemblies)
+        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] assemblies)
         {
-            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
+            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, assemblies, logger);
         }
 
         internal static object GetIdentifier(this IGraphModel model, Expression expression)
@@ -205,29 +202,35 @@ namespace ExRam.Gremlinq.Core
 
         internal static object GetIdentifier(this IGraphModel model, Type elementType, string memberName)
         {
-            var graphElementType = ElementTypes
-                .GetOrCreateValue(model)
-                .GetOrAdd(
-                    elementType,
-                    closureElementType =>
-                    {
-                        if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                            return GraphElementType.Vertex;
+            if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+            {
+                var graphElementType = ElementTypes
+                    .GetOrCreateValue(model)
+                    .GetOrAdd(
+                        elementType,
+                        closureElementType =>
+                        {
+                            if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                return GraphElementType.Vertex;
 
-                        if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                            return GraphElementType.Edge;
+                            if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                return GraphElementType.Edge;
 
-                        if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
-                            return GraphElementType.VertexProperty;
+                            if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
+                                return GraphElementType.VertexProperty;
 
-                        return GraphElementType.None;
-                    });
+                            return GraphElementType.None;
+                        });
 
-            if (graphElementType == GraphElementType.Vertex && memberName == model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Id))
-                return T.Id;
+                if (graphElementType != GraphElementType.None)
+                {
+                    if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
+                        return T.Id;
 
-            if (graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Label))
-                return T.Label;
+                    if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+                        return T.Label;
+                }
+            }
 
             return memberName;
         }

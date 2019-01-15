@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit>(InVStep.Instance);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Inject<TNewElement>(TNewElement[] elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Limit(long count)
         {
@@ -313,7 +313,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count));
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit>(new ToLabelStep(stepLabel));
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit>(new ToLabelStep(stepLabel));
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> toVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit>(new ToTraversalStep(toVertexTraversal(Anonymize())));
 
@@ -331,7 +331,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TNewElement>(Expression<Func<TSource, TTarget>>[] projections)
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TNewElement>(IEnumerable<Expression<Func<TSource, TTarget>>> projections)
         {
             var keys = projections
                 .Select(projection =>

@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public JsonSupportTest()
         {
             _g = g
-                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id));
+                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
         [Fact]

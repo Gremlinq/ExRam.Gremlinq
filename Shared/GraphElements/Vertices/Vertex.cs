@@ -6,4 +6,9 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         public object Id { get; set; }
     }
+
+    public class VertexWithListAsId
+    {
+        public object[] Id { get; set; }
+    }
 }

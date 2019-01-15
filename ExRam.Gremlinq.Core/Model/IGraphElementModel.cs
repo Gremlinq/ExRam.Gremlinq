@@ -7,6 +7,5 @@ namespace ExRam.Gremlinq.Core
     {
         Option<string> TryGetConstructiveLabel(Type elementType);
         Option<string[]> TryGetFilterLabels(Type elementType);
-        Option<string> IdPropertyName { get; }
     }
 }
