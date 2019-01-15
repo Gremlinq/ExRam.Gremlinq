@@ -811,7 +811,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In() => AddStep<IVertex>(InStep.NoLabels);
 
-        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In<TEdge>() => AddStep<IVertex>(new InStep(Model.VerticesModel.GetValidFilterLabels(typeof(TEdge))));
+        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In<TEdge>() => AddStep<IVertex>(new InStep(Model.EdgesModel.GetValidFilterLabels(typeof(TEdge))));
 
         IEdgeGremlinQuery<IEdge> IVertexGremlinQuery.InE() => AddStep<IEdge>(InEStep.NoLabels);
 

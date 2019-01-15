@@ -825,6 +825,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void In()
+        {
+            g
+                .V<User>()
+                .In<Knows>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).in(_b)")
+                .WithParameters("User", "Knows");
+        }
+
+        [Fact]
         public void Out_does_not_include_abstract_edge()
         {
             g
