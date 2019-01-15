@@ -15,6 +15,14 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>
     {
+        private enum GraphElementType
+        {
+            None,
+            Vertex,
+            Edge,
+            VertexProperty
+        }
+
         private readonly ILogger _logger;
         private readonly IGraphModel _model;
         private readonly IImmutableList<Step> _steps;
