@@ -7,10 +7,11 @@ namespace ExRam.Gremlinq.Core
     public partial interface IEdgeGremlinQuery : IElementGremlinQuery
     {
         IVertexGremlinQuery<IVertex> BothV();
-        
+
         IVertexGremlinQuery<IVertex> InV();
 
         IVertexGremlinQuery<IVertex> OtherV();
+
         IVertexGremlinQuery<IVertex> OutV();
     }
 

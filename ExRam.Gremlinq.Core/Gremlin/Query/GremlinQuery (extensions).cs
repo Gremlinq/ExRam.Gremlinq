@@ -96,5 +96,33 @@ namespace ExRam.Gremlinq.Core
         {
             return query.Properties<object>(keys);
         }
+
+        public static IVertexGremlinQuery<TVertex> BothV<TVertex>(this IEdgeGremlinQuery query)
+        {
+            return query
+                .BothV()
+                .OfType<TVertex>();
+        }
+
+        public static IVertexGremlinQuery<TVertex> InV<TVertex>(this IEdgeGremlinQuery query)
+        {
+            return query
+                .InV()
+                .OfType<TVertex>();
+        }
+
+        public static IVertexGremlinQuery<TVertex> OtherV<TVertex>(this IEdgeGremlinQuery query)
+        {
+            return query
+                .OtherV()
+                .OfType<TVertex>();
+        }
+
+        public static IVertexGremlinQuery<TVertex> OutV<TVertex>(this IEdgeGremlinQuery query)
+        {
+            return query
+                .OutV()
+                .OfType<TVertex>();
+        }
     }
 }
