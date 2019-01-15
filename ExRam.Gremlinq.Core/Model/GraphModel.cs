@@ -12,6 +12,14 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphModel
     {
+        private enum GraphElementType
+        {
+            None,
+            Vertex,
+            Edge,
+            VertexProperty
+        }
+
         private sealed class EmptyGraphModel : IGraphModel
         {
             public Type[] GetTypes(string label) => Array.Empty<Type>();
@@ -173,6 +181,45 @@ namespace ExRam.Gremlinq.Core
         public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, string vertexIdPropertyName = "Id", string edgeIdPropertyName = "Id", ILogger logger = null, params Assembly[] assemblies)
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, vertexIdPropertyName, edgeIdPropertyName, assemblies, logger);
+        }
+
+        internal static object GetIdentifier(this IGraphModel model, Expression expression)
+        {
+            switch (expression)
+            {
+                case MemberExpression leftMemberExpression:
+                {
+                    return model.GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
+                }
+                case ParameterExpression leftParameterExpression:
+                {
+                    return model.GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
+                }
+                default:
+                    throw new ExpressionNotSupportedException(expression);
+            }
+        }
+
+        internal static object GetIdentifier(this IGraphModel model, Type elementType, string memberName)
+        {
+            var graphElementType = GraphElementType.None;
+
+            if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                graphElementType = GraphElementType.Vertex;
+
+            if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                graphElementType = GraphElementType.Edge;
+
+            if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
+                graphElementType = GraphElementType.VertexProperty;
+
+            if (graphElementType == GraphElementType.Vertex && memberName == model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Id))
+                return T.Id;
+
+            if (graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Label))
+                return T.Label;
+
+            return memberName;
         }
     }
 }

@@ -15,14 +15,6 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>
     {
-        private enum GraphElementType
-        {
-            None,
-            Vertex,
-            Edge,
-            VertexProperty
-        }
-
         private readonly ILogger _logger;
         private readonly IGraphModel _model;
         private readonly IImmutableList<Step> _steps;
@@ -218,7 +210,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new ByMemberStep(GetIdentifier(memberExpression), order));
+                return AddStep(new ByMemberStep(_model.GetIdentifier(memberExpression), order));
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -276,7 +268,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new PropertyStep(memberExpression.Type, GetIdentifier(memberExpression), value));
+                return AddStep(new PropertyStep(memberExpression.Type, _model.GetIdentifier(memberExpression), value));
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -345,7 +337,7 @@ namespace ExRam.Gremlinq.Core
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return GetIdentifier(memberExpression);
+                        return _model.GetIdentifier(memberExpression);
 
                     throw new ExpressionNotSupportedException(projection);
                 })
@@ -530,50 +522,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, Unit, Unit, Unit, Unit>()));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(GetIdentifier(expression), predicate));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(_model.GetIdentifier(expression), predicate));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(GetIdentifier(expression), traversal));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(_model.GetIdentifier(expression), traversal));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(Expression expression) => AddStep(new HasNotStep(GetIdentifier(expression)));
-
-        private object GetIdentifier(Expression expression)
-        {
-            switch (expression)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
-                }
-                case ParameterExpression leftParameterExpression:
-                {
-                    return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
-                }
-                default:
-                    throw new ExpressionNotSupportedException(expression);
-            }
-        }
-
-        private object GetIdentifier(Type elementType, string memberName)
-        {
-            var graphElementType = GraphElementType.None;
-
-            if (elementType == typeof(IVertex) || _model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                graphElementType = GraphElementType.Vertex;
-
-            if (elementType == typeof(IEdge) || _model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                graphElementType = GraphElementType.Edge;
-
-            if (elementType.IsGenericType && (elementType.GetGenericTypeDefinition() == typeof(VertexProperty<>) || elementType.GetGenericTypeDefinition() == typeof(VertexProperty<,>)))
-                graphElementType = GraphElementType.VertexProperty;
-
-            if (graphElementType == GraphElementType.Vertex && memberName == _model.VerticesModel.IdPropertyName || graphElementType == GraphElementType.Edge && memberName == _model.EdgesModel.IdPropertyName || graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Id))
-                return T.Id;
-
-            if (graphElementType == GraphElementType.VertexProperty && memberName == nameof(VertexProperty<object>.Label))
-                return T.Label;
-
-            return memberName;
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(Expression expression) => AddStep(new HasNotStep(_model.GetIdentifier(expression)));
 
         private IAsyncEnumerator<TResult> GetEnumerator<TResult>()
         {
@@ -687,7 +640,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, GetIdentifier(elementType, propertyInfo.Name), value));
+                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, _model.GetIdentifier(elementType, propertyInfo.Name), value));
             }
 
             return ret;
