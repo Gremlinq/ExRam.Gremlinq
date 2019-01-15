@@ -1587,21 +1587,9 @@ namespace ExRam.Gremlinq.Core
 
         IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
 
-        IValueGremlinQuery<TElement> IGremlinQuery<TElement>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.SumGlobal() => SumGlobal();
 
-        IValueGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumGlobal() => throw new NotSupportedException();
-
-        IValueGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumGlobal() => throw new NotSupportedException();
-
-        IValueGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumGlobal() => throw new NotSupportedException();
-
-        IValueGremlinQuery<TElement> IGremlinQuery<TElement>.SumLocal() => SumLocal();
-
-        IValueGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.SumLocal() => throw new NotSupportedException();
-
-        IValueGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.SumLocal() => throw new NotSupportedException();
-
-        IValueGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.SumLocal() => throw new NotSupportedException();
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.SumLocal() => SumLocal();
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Tail(long count) => Tail(count);
 

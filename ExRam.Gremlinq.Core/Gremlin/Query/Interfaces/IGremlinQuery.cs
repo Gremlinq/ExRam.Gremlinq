@@ -28,8 +28,5 @@ namespace ExRam.Gremlinq.Core
     public partial interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
-
-        IValueGremlinQuery<TElement> SumLocal();
-        IValueGremlinQuery<TElement> SumGlobal();
     }
 }
