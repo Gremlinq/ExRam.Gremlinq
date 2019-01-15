@@ -17,9 +17,9 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly ILogger _logger;
         private readonly IGraphModel _model;
+        private readonly IImmutableList<Step> _steps;
         private readonly IGremlinQueryExecutor _queryExecutor;
         private readonly IImmutableDictionary<StepLabel, string> _stepLabelMappings;
-        private readonly IImmutableList<Step> _steps;
 
         public GremlinQuery(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger)
         {

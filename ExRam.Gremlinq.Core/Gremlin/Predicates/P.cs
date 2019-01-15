@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class P : IGremlinQueryElement
+    public abstract class P : IGremlinQueryAtom
     {
         #region Nested
         // ReSharper disable once InconsistentNaming

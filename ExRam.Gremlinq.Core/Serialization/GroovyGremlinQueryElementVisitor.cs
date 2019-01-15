@@ -639,7 +639,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             switch (parameter)
             {
-                case IGremlinQueryElement queryElement:
+                case IGremlinQueryAtom queryElement:
                 {
                     queryElement.Accept(this);
                     break;

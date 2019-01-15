@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public struct Lambda : IGremlinQueryElement
+    public struct Lambda : IGremlinQueryAtom
     {
         public string LambdaString { get; }
 

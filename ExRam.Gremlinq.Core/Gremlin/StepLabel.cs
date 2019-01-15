@@ -3,7 +3,7 @@ using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class StepLabel : IGremlinQueryElement
+    public abstract class StepLabel : IGremlinQueryAtom
     {
         public void Accept(IGremlinQueryElementVisitor visitor)
         {

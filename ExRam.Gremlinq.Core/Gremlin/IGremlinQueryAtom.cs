@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQueryElement
+    public interface IGremlinQueryAtom
     {
         void Accept(IGremlinQueryElementVisitor visitor);
     }
