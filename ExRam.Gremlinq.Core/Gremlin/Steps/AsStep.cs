@@ -4,9 +4,9 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class AsStep : Step
     {
-        public AsStep(StepLabel stepLabel)
+        public AsStep(StepLabel[] stepLabels)
         {
-            StepLabel = stepLabel;
+            StepLabels = stepLabels;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -14,6 +14,6 @@ namespace ExRam.Gremlinq.Core
             visitor.Visit(this);
         }
 
-        public StepLabel StepLabel { get; }
+        public StepLabel[] StepLabels { get; }
     }
 }

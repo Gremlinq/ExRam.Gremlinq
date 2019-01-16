@@ -234,7 +234,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(AsStep step)
         {
-            Method("as", step.StepLabel);
+            Method("as", step.StepLabels);
         }
 
         public virtual void Visit(FromLabelStep step)

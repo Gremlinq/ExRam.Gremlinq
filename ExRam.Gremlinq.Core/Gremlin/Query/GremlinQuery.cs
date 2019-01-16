@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core
                 stepLabel);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> As(StepLabel stepLabel) => AddStep(new AsStep(stepLabel));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> As(params StepLabel[] stepLabels) => AddStep(new AsStep(stepLabels));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
 

@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery And(params Func<IGremlinQuery, IGremlinQuery>[] andTraversals);
 
-        new IGremlinQuery As(StepLabel stepLabel);
+        new IGremlinQuery As(params StepLabel[] stepLabels);
 
         new IGremlinQuery Barrier();
 
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core
     {
         IElementGremlinQuery And(params Func<IElementGremlinQuery, IGremlinQuery>[] andTraversals);
 
-        new IElementGremlinQuery As(StepLabel stepLabel);
+        new IElementGremlinQuery As(params StepLabel[] stepLabels);
 
         new IElementGremlinQuery Barrier();
 
@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexGremlinQuery And(params Func<IVertexGremlinQuery, IGremlinQuery>[] andTraversals);
 
-        new IVertexGremlinQuery As(StepLabel stepLabel);
+        new IVertexGremlinQuery As(params StepLabel[] stepLabels);
 
         new IVertexGremlinQuery Barrier();
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core
     {
         IEdgeGremlinQuery And(params Func<IEdgeGremlinQuery, IGremlinQuery>[] andTraversals);
 
-        new IEdgeGremlinQuery As(StepLabel stepLabel);
+        new IEdgeGremlinQuery As(params StepLabel[] stepLabels);
 
         new IEdgeGremlinQuery Barrier();
 
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
-        new IGremlinQuery<TElement> As(StepLabel stepLabel);
+        new IGremlinQuery<TElement> As(params StepLabel[] stepLabels);
 
         new IGremlinQuery<TElement> Barrier();
 
@@ -253,7 +253,7 @@ namespace ExRam.Gremlinq.Core
     {
         IValueGremlinQuery<TElement> And(params Func<IValueGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
-        new IValueGremlinQuery<TElement> As(StepLabel stepLabel);
+        new IValueGremlinQuery<TElement> As(params StepLabel[] stepLabels);
 
         new IValueGremlinQuery<TElement> Barrier();
 
@@ -298,7 +298,7 @@ namespace ExRam.Gremlinq.Core
     {
         IArrayGremlinQuery<TArray, TQuery> And(params Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery>[] andTraversals);
 
-        new IArrayGremlinQuery<TArray, TQuery> As(StepLabel stepLabel);
+        new IArrayGremlinQuery<TArray, TQuery> As(params StepLabel[] stepLabels);
 
         new IArrayGremlinQuery<TArray, TQuery> Barrier();
 
@@ -343,7 +343,7 @@ namespace ExRam.Gremlinq.Core
     {
         IElementGremlinQuery<TElement> And(params Func<IElementGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
-        new IElementGremlinQuery<TElement> As(StepLabel stepLabel);
+        new IElementGremlinQuery<TElement> As(params StepLabel[] stepLabels);
 
         new IElementGremlinQuery<TElement> Barrier();
 
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexGremlinQuery<TVertex> And(params Func<IVertexGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
 
-        new IVertexGremlinQuery<TVertex> As(StepLabel stepLabel);
+        new IVertexGremlinQuery<TVertex> As(params StepLabel[] stepLabels);
 
         new IVertexGremlinQuery<TVertex> Barrier();
 
@@ -433,7 +433,7 @@ namespace ExRam.Gremlinq.Core
     {
         IEdgeGremlinQuery<TEdge> And(params Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery>[] andTraversals);
 
-        new IEdgeGremlinQuery<TEdge> As(StepLabel stepLabel);
+        new IEdgeGremlinQuery<TEdge> As(params StepLabel[] stepLabels);
 
         new IEdgeGremlinQuery<TEdge> Barrier();
 
@@ -478,7 +478,7 @@ namespace ExRam.Gremlinq.Core
     {
         IEdgeGremlinQuery<TEdge, TAdjacentVertex> And(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] andTraversals);
 
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> As(params StepLabel[] stepLabels);
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Barrier();
 
@@ -523,7 +523,7 @@ namespace ExRam.Gremlinq.Core
     {
         IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> And(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery>[] andTraversals);
 
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> As(StepLabel stepLabel);
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> As(params StepLabel[] stepLabels);
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Barrier();
 
@@ -568,7 +568,7 @@ namespace ExRam.Gremlinq.Core
     {
         IInEdgeGremlinQuery<TEdge, TAdjacentVertex> And(params Func<IInEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] andTraversals);
 
-        new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
+        new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> As(params StepLabel[] stepLabels);
 
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Barrier();
 
@@ -613,7 +613,7 @@ namespace ExRam.Gremlinq.Core
     {
         IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> And(params Func<IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] andTraversals);
 
-        new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel stepLabel);
+        new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> As(params StepLabel[] stepLabels);
 
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Barrier();
 
@@ -658,7 +658,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexPropertyGremlinQuery<TValue> And(params Func<IVertexPropertyGremlinQuery<TValue>, IGremlinQuery>[] andTraversals);
 
-        new IVertexPropertyGremlinQuery<TValue> As(StepLabel stepLabel);
+        new IVertexPropertyGremlinQuery<TValue> As(params StepLabel[] stepLabels);
 
         new IVertexPropertyGremlinQuery<TValue> Barrier();
 
@@ -703,7 +703,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexPropertyGremlinQuery<TValue, TMeta> And(params Func<IVertexPropertyGremlinQuery<TValue, TMeta>, IGremlinQuery>[] andTraversals);
 
-        new IVertexPropertyGremlinQuery<TValue, TMeta> As(StepLabel stepLabel);
+        new IVertexPropertyGremlinQuery<TValue, TMeta> As(params StepLabel[] stepLabels);
 
         new IVertexPropertyGremlinQuery<TValue, TMeta> Barrier();
 
@@ -748,7 +748,7 @@ namespace ExRam.Gremlinq.Core
     {
         IEdgePropertyGremlinQuery<TValue> And(params Func<IEdgePropertyGremlinQuery<TValue>, IGremlinQuery>[] andTraversals);
 
-        new IEdgePropertyGremlinQuery<TValue> As(StepLabel stepLabel);
+        new IEdgePropertyGremlinQuery<TValue> As(params StepLabel[] stepLabels);
 
         new IEdgePropertyGremlinQuery<TValue> Barrier();
 

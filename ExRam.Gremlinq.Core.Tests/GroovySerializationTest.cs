@@ -294,7 +294,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void As_explicit_label()
+        public void As_explicit_label1()
         {
             g
                 .V<User>()
@@ -302,6 +302,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b)")
                 .WithParameters("User", "l1");
+        }
+
+        [Fact]
+        public void As_explicit_label2()
+        {
+            g
+                .V<User>()
+                .As(new StepLabel<User>(), new StepLabel<User>())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b, _c)")
+                .WithParameters("User", "l1", "l2");
         }
 
         [Fact]

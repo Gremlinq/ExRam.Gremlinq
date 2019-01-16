@@ -190,45 +190,45 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IOrderedEdgePropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedEdgePropertyGremlinQuery<TElement>, StepLabel<IOrderedEdgePropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.As(StepLabel stepLabel) => As(stepLabel);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.As(StepLabel stepLabel) => As(stepLabel);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.As(StepLabel stepLabel) => As(stepLabel);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.As(StepLabel stepLabel) => As(stepLabel);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IGremlinQuery IGremlinQuery.As(StepLabel stepLabel) => As(stepLabel);
+        IGremlinQuery IGremlinQuery.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IVertexGremlinQuery IVertexGremlinQuery.As(StepLabel stepLabel) => As(stepLabel);
+        IVertexGremlinQuery IVertexGremlinQuery.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IElementGremlinQuery IElementGremlinQuery.As(StepLabel stepLabel) => As(stepLabel);
+        IElementGremlinQuery IElementGremlinQuery.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.As(StepLabel stepLabel) => As(stepLabel);
+        IVertexPropertyGremlinQuery<TElement, TMeta> IVertexPropertyGremlinQuery<TElement, TMeta>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IVertexPropertyGremlinQuery<TElement> IVertexPropertyGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgeGremlinQuery IEdgeGremlinQuery.As(StepLabel stepLabel) => As(stepLabel);
+        IEdgeGremlinQuery IEdgeGremlinQuery.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.As(StepLabel stepLabel) => As(stepLabel);
+        IElementGremlinQuery<VertexProperty<TElement>> IElementGremlinQuery<VertexProperty<TElement>>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.As(StepLabel stepLabel) => As(stepLabel);
+        IGremlinQuery<VertexProperty<TElement>> IGremlinQuery<VertexProperty<TElement>>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.As(StepLabel stepLabel) => As(stepLabel);
+        IElementGremlinQuery<VertexProperty<TElement, TMeta>> IElementGremlinQuery<VertexProperty<TElement, TMeta>>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.As(StepLabel stepLabel) => As(stepLabel);
+        IGremlinQuery<VertexProperty<TElement, TMeta>> IGremlinQuery<VertexProperty<TElement, TMeta>>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.As(StepLabel stepLabel) => As(stepLabel);
+        IGremlinQuery<Property<TElement>> IGremlinQuery<Property<TElement>>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
         TTargetQuery IOrderedEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOrderedEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(continuation);
 
@@ -236,11 +236,11 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IOrderedValueGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<IOrderedValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
-        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.As(StepLabel stepLabel) => As(stepLabel);
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.As<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As(continuation);
 
-        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.As(StepLabel stepLabel) => As(stepLabel);
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
         TTargetQuery IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.As<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As(continuation);
 

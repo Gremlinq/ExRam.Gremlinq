@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Core
     {
         <#= iface #> And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals);
 
-        new <#= iface #> As(StepLabel stepLabel);
+        new <#= iface #> As(params StepLabel[] stepLabels);
 
         new <#= iface #> Barrier();
 
