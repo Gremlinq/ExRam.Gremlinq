@@ -14,9 +14,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Gremlin\Query\Interfaces\Interfaces.tt">
+    <None Update="Gremlin\Query\Interfaces\Interfaces.generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Interfaces.cs</LastGenOutput>
+      <LastGenOutput>Interfaces.generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
   
@@ -25,10 +25,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="Gremlin\Query\Interfaces\Interfaces.cs">
+    <Compile Update="Gremlin\Query\Interfaces\Interfaces.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Interfaces.tt</DependentUpon>
+      <DependentUpon>Interfaces.generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   
