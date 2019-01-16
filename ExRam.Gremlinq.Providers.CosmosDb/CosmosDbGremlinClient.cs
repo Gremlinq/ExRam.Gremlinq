@@ -23,18 +23,9 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        // ReSharper disable once InconsistentNaming
-        private sealed class NullGraphSSON2Reader : GraphSON2Reader
-        {
-            public override dynamic ToObject(JToken jToken)
-            {
-                return new[] { jToken };
-            }
-        }
-
         public CosmosDbGremlinClient(GremlinServer gremlinServer) : base(
             gremlinServer,
-            new NullGraphSSON2Reader(),
+            new GraphSON2Reader(),
             new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
             {
                 { typeof(TimeSpan), new TimeSpanSerializer() }
