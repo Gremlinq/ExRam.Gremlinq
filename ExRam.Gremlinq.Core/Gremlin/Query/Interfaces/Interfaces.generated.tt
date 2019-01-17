@@ -26,9 +26,9 @@ namespace ExRam.Gremlinq.Core
     var typedEBoth = "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>";
     var typedInE = "IInEdgeGremlinQuery<TEdge, TAdjacentVertex>";
     var typedOutE = "IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedVP = "IVertexPropertyGremlinQuery<TValue>";
-    var typedVPMeta = "IVertexPropertyGremlinQuery<TValue, TMeta>";
-    var typedEP = "IEdgePropertyGremlinQuery<TValue>";
+    var typedVP = "IVertexPropertyGremlinQuery<TProperty, TValue>";
+    var typedVPMeta = "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>";
+    var typedEP = "IEdgePropertyGremlinQuery<TElement, TValue>";
 
     var untypedBaseInterfaces = new[]
     {

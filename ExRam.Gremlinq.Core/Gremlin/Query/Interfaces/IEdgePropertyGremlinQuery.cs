@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IEdgePropertyGremlinQuery<TValue> : IGremlinQuery<Property<TValue>>
+    public partial interface IEdgePropertyGremlinQuery<TElement, TValue> : IGremlinQuery<TElement>
     {
     }
 }

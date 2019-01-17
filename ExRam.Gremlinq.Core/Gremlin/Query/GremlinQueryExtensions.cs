@@ -71,17 +71,17 @@ namespace ExRam.Gremlinq.Core
                 .OfType<TVertex>();
         }
 
-        public static IVertexPropertyGremlinQuery<object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
+        public static IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IEdgePropertyGremlinQuery<object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
+        public static IEdgePropertyGremlinQuery<Property<object>, object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
         {
             return query.Properties(projections);
         }
 
-        public static IGremlinQuery<Property<object>> Properties<TValue>(this IVertexPropertyGremlinQuery<TValue> query, params string[] keys)
+        public static IGremlinQuery<Property<object>> Properties<TProperty, TValue>(this IVertexPropertyGremlinQuery<TProperty, TValue> query, params string[] keys)
         {
             return query.Properties<object>(keys);
         }
@@ -98,12 +98,12 @@ namespace ExRam.Gremlinq.Core
             return query.Values<object>(keys);
         }
 
-        public static IValueGremlinQuery<object> Values<TValue>(this IVertexPropertyGremlinQuery<TValue> query)
+        public static IValueGremlinQuery<object> Values<TProperty, TValue>(this IVertexPropertyGremlinQuery<TProperty, TValue> query)
         {
             return query.Values<object>();
         }
 
-        public static IValueGremlinQuery<object> Values<TValue, TMeta>(this IVertexPropertyGremlinQuery<TValue, TMeta> query)
+        public static IValueGremlinQuery<object> Values<TProperty, TValue, TMeta>(this IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> query)
         {
             return query.Values<object>();
         }

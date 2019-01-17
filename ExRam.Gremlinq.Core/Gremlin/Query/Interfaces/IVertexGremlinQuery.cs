@@ -33,13 +33,13 @@ namespace ExRam.Gremlinq.Core
         new IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
         new IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
-        IVertexPropertyGremlinQuery<TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
-        IVertexPropertyGremlinQuery<TTarget> Properties<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>>>[] projections);
-        IVertexPropertyGremlinQuery<TTarget, TMeta> Properties<TTarget, TMeta>(params Expression<Func<TVertex, VertexProperty<TTarget, TMeta>>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, TValue>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>>>[] projections);
 
-        IVertexPropertyGremlinQuery<TTarget> Properties<TTarget>(params Expression<Func<TVertex, TTarget[]>>[] projections);
-        IVertexPropertyGremlinQuery<TTarget> Properties<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>[]>>[] projections);
-        IVertexPropertyGremlinQuery<TTarget, TMeta> Properties<TTarget, TMeta>(params Expression<Func<TVertex, VertexProperty<TTarget, TMeta>[]>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, TValue[]>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>[]>>[] projections);
+        IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params Expression<Func<TVertex, VertexProperty<TValue, TMeta>[]>>[] projections);
 
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>>>[] projections);
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, VertexProperty<TTarget>[]>>[] projections);
