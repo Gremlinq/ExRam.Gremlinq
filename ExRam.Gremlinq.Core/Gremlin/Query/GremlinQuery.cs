@@ -201,17 +201,9 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(projection);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order)
-        {
-            return this
-                .AddStep(new ByTraversalStep(traversal(Anonymize()), order));
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order) => AddStep(new ByTraversalStep(traversal(Anonymize()), order));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(string lambda)
-        {
-            return this
-                .AddStep(new ByLambdaStep(new Lambda(lambda)));
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> By(string lambda) => AddStep(new ByLambdaStep(new Lambda(lambda)));
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>();
 
@@ -382,27 +374,11 @@ namespace ExRam.Gremlinq.Core
                 .ToArray()));
         }
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order) => AddStep(OrderStep.Instance).By(projection, order);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order)
-        {
-            return this
-                .AddStep(OrderStep.Instance)
-                .By(projection, order);
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order) => AddStep(OrderStep.Instance).By(traversal, order);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order)
-        {
-            return this
-                .AddStep(OrderStep.Instance)
-                .By(traversal, order);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(string lambda)
-        {
-            return this
-                .AddStep(OrderStep.Instance)
-                .By(lambda);
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> OrderBy(string lambda) => AddStep(OrderStep.Instance).By(lambda);
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewMeta, Unit> Properties<TSource, TTarget, TNewElement, TNewMeta>(params Expression<Func<TSource, TTarget>>[] projections)
         {
