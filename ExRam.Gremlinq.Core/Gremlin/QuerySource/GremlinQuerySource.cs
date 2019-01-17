@@ -99,18 +99,13 @@ namespace ExRam.Gremlinq.Core
 
             private IGremlinQuery Create()
             {
-                var model = _model == GraphModel.Invalid
-                    ? GraphModel.Dynamic(_logger)
-                    : _model;
-
-                var ret =
-                    new GremlinQuery<Unit, Unit, Unit, Unit, Unit>(
-                        model,
-                        _queryExecutor,
-                        ImmutableList<Step>.Empty,
-                        ImmutableDictionary<StepLabel, string>.Empty,
-                        _logger)
-                    .AddStep(IdentifierStep.Create(_name));
+                IGremlinQuery ret = GremlinQuery.Create(
+                    _model == GraphModel.Invalid
+                        ? GraphModel.Dynamic(_logger)
+                        : _model,
+                    _queryExecutor,
+                    _name,
+                    _logger);
 
                 foreach (var strategy in _strategies)
                 {
