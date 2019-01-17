@@ -735,13 +735,13 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         #region Method
-        protected void Method(string methodName)
+        protected virtual void Method(string methodName)
         {
             OpenMethod(methodName);
             CloseMethod();
         }
 
-        protected void Method(string methodName, object parameter)
+        protected virtual void Method(string methodName, object parameter)
         {
             OpenMethod(methodName);
             {
@@ -752,7 +752,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             CloseMethod();
         }
 
-        protected void Method(string methodName, object parameter1, object parameter2)
+        protected virtual void Method(string methodName, object parameter1, object parameter2)
         {
             OpenMethod(methodName);
             {
@@ -767,7 +767,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             CloseMethod();
         }
 
-        protected void Method(string methodName, object parameter1, object parameter2, object parameter3)
+        protected virtual void Method(string methodName, object parameter1, object parameter2, object parameter3)
         {
             OpenMethod(methodName);
             {
@@ -786,7 +786,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             CloseMethod();
         }
 
-        protected void Method(string methodName, IEnumerable<object> parameters)
+        protected virtual void Method(string methodName, IEnumerable<object> parameters)
         {
             OpenMethod(methodName);
             {
@@ -801,7 +801,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
         #endregion
 
-        protected void Field(string fieldName)
+        protected virtual void Field(string fieldName)
         {
             if (_state != State.Chaining)
                 throw new InvalidOperationException();

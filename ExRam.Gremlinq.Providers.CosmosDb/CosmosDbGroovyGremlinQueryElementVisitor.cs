@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Skip' outside the range of a 32-bit-integer.");
 
-            Method("skip", (int)step.Count);
+            base.Visit(step);
         }
 
         public override void Visit(LimitStep step)
@@ -21,10 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
 
-            if (step.Scope == Scope.Local)
-                Method("limit", step.Scope, (int)step.Count);
-            else
-                Method("limit", (int)step.Count);
+            base.Visit(step);
         }
 
         public override void Visit(TailStep step)
@@ -33,7 +30,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
 
-            Method("tail", (int)step.Count);
+            base.Visit(step);
         }
 
         public override void Visit(RangeStep step)
@@ -42,7 +39,31 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
 
-            Method("range", (int)step.Lower, (int)step.Upper);
+            base.Visit(step);
+        }
+
+        protected override void Method(string methodName, object parameter)
+        {
+            base.Method(
+                methodName,
+                parameter is long l ? (int)l : parameter);
+        }
+
+        protected override void Method(string methodName, object parameter1, object parameter2)
+        {
+            base.Method(
+                methodName,
+                parameter1 is long l1 ? (int)l1 : parameter1,
+                parameter2 is long l2 ? (int)l2 : parameter2);
+        }
+
+        protected override void Method(string methodName, object parameter1, object parameter2, object parameter3)
+        {
+            base.Method(
+                methodName,
+                parameter1 is long l1 ? (int)l1 : parameter1,
+                parameter2 is long l2 ? (int)l2 : parameter2,
+                parameter2 is long l3 ? (int)l3 : parameter3);
         }
 
         public override void Visit(HasStep step)
