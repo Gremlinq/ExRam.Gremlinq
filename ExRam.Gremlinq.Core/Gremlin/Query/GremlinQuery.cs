@@ -472,7 +472,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit> ValueMap<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit>(new ValueMapStep());
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TNewElement>(IEnumerable<Expression<Func<TSource, TTarget>>> projections)
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TValue>(IEnumerable<Expression<Func<TSource, TTarget>>> projections)
         {
             var keys = projections
                 .Select(projection =>
@@ -484,7 +484,12 @@ namespace ExRam.Gremlinq.Core
                 })
                 .ToArray();
 
-            return AddStep<TNewElement, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
+            return Values<TValue>(keys);
+        }
+
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit> Values<TValue>(object[] keys)
+        {
+            return AddStep<TValue, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));

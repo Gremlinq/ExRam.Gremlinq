@@ -1898,7 +1898,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => Values<TElement, Property<TTarget>[], TTarget>(projections);
 
-        IValueGremlinQuery<TMetaValue> IVertexPropertyGremlinQuery<TElement>.Values<TMetaValue>(params string[] keys) => AddStep<TMetaValue, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
+        IValueGremlinQuery<TValue> IElementGremlinQuery.Values<TValue>(params string[] keys) => AddStep<TValue, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Where(Func<IOrderedArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 

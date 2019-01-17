@@ -1349,6 +1349,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Values_no_member()
+        {
+            g
+                .V<User>()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values()")
+                .WithParameters("User");
+        }
+
+        [Fact]
+        public void Values_string_key()
+        {
+            g
+                .V<User>()
+                .Values("key")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
+                .WithParameters("User", "key");
+        }
+
+        [Fact]
         public void Values_1_member()
         {
             g
