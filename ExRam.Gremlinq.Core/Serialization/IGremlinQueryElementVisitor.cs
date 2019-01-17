@@ -28,7 +28,7 @@
         void Visit(OutStep step);
         void Visit(OutEStep step);
         void Visit(HasLabelStep step);
-
+        void Visit(LabelStep step);
         void Visit(EdgesStep step);
         void Visit(FromTraversalStep step);
         void Visit(IdentifierStep step);

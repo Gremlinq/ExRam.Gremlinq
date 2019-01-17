@@ -743,6 +743,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.InV() => InV<TInVertex>();
 
+        IValueGremlinQuery<string> IElementGremlinQuery.Label() => AddStep<string>(LabelStep.Instance);
+
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long count) => Limit(count);
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Limit(long count) => Limit(count);

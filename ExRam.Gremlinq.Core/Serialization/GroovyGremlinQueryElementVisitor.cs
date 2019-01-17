@@ -521,6 +521,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "hasLabel");
         }
 
+        public void Visit(LabelStep step)
+        {
+            Method("label");
+        }
+
         public virtual void Visit(DerivedLabelNamesStep step, string stepName)
         {
             Method(stepName, step.Labels);

@@ -425,6 +425,39 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Count()
+        {
+            g
+                .V()
+                .Count()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void CountGlobal()
+        {
+            g
+                .V()
+                .CountGlobal()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void CountLocal()
+        {
+            g
+                .V()
+                .CountLocal()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count(Scope.local)")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Drop()
         {
             g
@@ -610,6 +643,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.inject(_a, _b, _c)")
                 .WithParameters(36, 37, 38);
+        }
+
+        [Fact]
+        public void Label()
+        {
+            g
+                .V()
+                .Label()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().label()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -1330,39 +1374,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
                 .WithParameters("User", "Age");
-        }
-
-        [Fact]
-        public void Count()
-        {
-            g
-                .V()
-                .Count()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().count()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void CountGlobal()
-        {
-            g
-                .V()
-                .CountGlobal()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().count()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void CountLocal()
-        {
-            g
-                .V()
-                .CountLocal()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().count(Scope.local)")
-                .WithoutParameters();
         }
 
 
