@@ -381,6 +381,51 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Choose3()
+        {
+            g
+                .V()
+                .Id()
+                .Choose(
+                    x => x == (object)42,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.eq(_a), __.constant(_b), __.constant(_c))")
+                .WithParameters(42, true, false);
+        }
+
+        [Fact]
+        public void Choose4()
+        {
+            g
+                .V()
+                .Id()
+                .Choose(
+                    x => x == (object)42,
+                    _ => _.Constant(true))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.eq(_a), __.constant(_b))")
+                .WithParameters(42, true);
+        }
+
+        [Fact]
+        public void Choose5()
+        {
+            g
+                .V()
+                .Id()
+                .Cast<int>()
+                .Choose(
+                    x => x < 42,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.lt(_a), __.constant(_b), __.constant(_c))")
+                .WithParameters(42, true, false);
+        }
+
+        [Fact]
         public void Drop()
         {
             g

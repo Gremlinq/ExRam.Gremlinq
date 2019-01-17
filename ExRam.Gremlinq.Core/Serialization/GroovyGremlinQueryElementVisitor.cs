@@ -428,7 +428,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("by", step.Traversal, step.Order);
         }
 
-        public virtual void Visit(ChooseStep step)
+        public virtual void Visit(ChooseTraversalStep step)
         {
             step.ElseTraversal.Match(
                 elseTraversal => Method(
@@ -439,6 +439,20 @@ namespace ExRam.Gremlinq.Core.Serialization
                 () => Method(
                     "choose",
                     step.IfTraversal,
+                    step.ThenTraversal));
+        }
+
+        public virtual void Visit(ChoosePredicateStep step)
+        {
+            step.ElseTraversal.Match(
+                elseTraversal => Method(
+                    "choose",
+                    step.Predicate,
+                    step.ThenTraversal,
+                    elseTraversal),
+                () => Method(
+                    "choose",
+                    step.Predicate,
                     step.ThenTraversal));
         }
 

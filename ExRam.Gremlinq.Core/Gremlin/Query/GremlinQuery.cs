@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core
 
                         var genericTypeDef = closureType.GetGenericTypeDefinition();
 
-                        if (genericTypeDef != typeof(IArrayGremlinQuery<,>) && genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>))
+                        if (genericTypeDef != typeof(IArrayGremlinQuery<,>) && genericTypeDef != typeof(IValueGremlinQuery<>) && genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>))
                             throw new NotSupportedException();
 
                         elementType = closureType.GetGenericArguments()[0];
@@ -209,6 +209,37 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Model, QueryExecutor, Steps, StepLabelMappings, Logger);
 
+        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
+        {
+            return
+                BreakdownExpression(
+                    predicate,
+                    (_, parameter, expression, p) =>
+                    {
+                        var anonymous = Anonymize();
+                        var trueQuery = trueChoice(anonymous);
+                        var falseQuery = falseChoice(anonymous);
+
+                        return _.AddStep(new ChoosePredicateStep(p, trueQuery, Option<IGremlinQuery>.Some(falseQuery)));
+                    })(this)
+                .ChangeQueryType<TTargetQuery>();
+        }
+
+        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery
+        {
+            return
+                BreakdownExpression(
+                        predicate,
+                        (_, parameter, expression, p) =>
+                        {
+                            var anonymous = Anonymize();
+                            var trueQuery = trueChoice(anonymous);
+
+                            return _.AddStep(new ChoosePredicateStep(p, trueQuery));
+                        })(this)
+                    .ChangeQueryType<TTargetQuery>();
+        }
+
         private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
         { 
             var anonymous = Anonymize();
@@ -216,7 +247,7 @@ namespace ExRam.Gremlinq.Core
             var falseQuery = falseChoice(anonymous);
             
             return this
-                .AddStep(new ChooseStep(traversalPredicate(anonymous), trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
+                .AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
                 .MergeStepLabelMappings(trueQuery, falseQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
@@ -227,7 +258,7 @@ namespace ExRam.Gremlinq.Core
             var trueQuery = trueChoice(anonymous);
 
             return this
-                .AddStep(new ChooseStep(traversalPredicate(anonymous), trueQuery))
+                .AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery))
                 .MergeStepLabelMappings(trueQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
