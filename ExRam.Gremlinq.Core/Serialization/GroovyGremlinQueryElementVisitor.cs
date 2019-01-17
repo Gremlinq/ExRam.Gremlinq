@@ -32,7 +32,32 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(HasStep step)
         {
-            Visit(step, "has");
+            var stepName = "has";
+            var argument = step.Value;
+
+            if (step.Value is P p)
+            {
+                if (p is P.SingleArgumentP singleArgumentP)
+                {
+                    if (singleArgumentP.Argument == null)
+                    {
+                        if (p is P.Eq)
+                            stepName = "hasNot";
+                        else if (p is P.Neq)
+                            argument = null;
+                    }
+
+                    if (p is P.Eq)
+                        argument = singleArgumentP.Argument;
+                }
+                else if (step.Value == P.True)
+                    argument = null;
+            }
+
+            if (argument != null)
+                Method(stepName, step.Key, argument);
+            else
+                Method(stepName, step.Key);
         }
         
         public virtual void Visit(RepeatStep step)
@@ -798,19 +823,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method(stepName,
                 step.Traversals
                     .SelectMany(FlattenLogicalTraversals<TStep>));
-        }
-
-        protected virtual void Visit(HasStepBase step, string stepName)
-        {
-            if (step.Value == P.True)
-                Method(stepName, step.Key);
-            else
-                Method(
-                    stepName,
-                    step.Key,
-                    step.Value is P.Eq eq
-                        ? eq.Argument
-                        : step.Value);
         }
 
         protected void Property(Cardinality cardinality, object name, object value)

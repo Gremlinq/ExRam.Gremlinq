@@ -522,7 +522,7 @@ namespace ExRam.Gremlinq.Core
                     case MemberExpression memberExpression:
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return Where(predicate.Parameters[0], memberExpression, Expression.Constant(true), ExpressionType.Equal);
+                            return Where(predicate.Parameters[0], memberExpression, new P.Eq(true));
 
                         break;
                     }
@@ -543,7 +543,7 @@ namespace ExRam.Gremlinq.Core
                                     return Has(argument, P.Within.From(previousExpression.Arguments[0]));
                             }
                             else
-                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], default(object), ExpressionType.NotEqual);
+                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], new P.Neq(null));
                         }
                         else if (methodInfo.IsEnumerableContains())
                         {
@@ -620,67 +620,51 @@ namespace ExRam.Gremlinq.Core
             }
 
             return right.HasExpressionInMemberChain(parameter)
-                ? Where(parameter, right, left.GetValue(), nodeType.Switch())
-                : Where(parameter, left, right.GetValue(), nodeType);
+                ? Where(parameter, right, nodeType.Switch().ToP(left.GetValue()))
+                : Where(parameter, left, nodeType.ToP(right.GetValue()));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(ParameterExpression parameter, Expression left, object rightConstant, ExpressionType nodeType)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(ParameterExpression parameter, Expression left, P predicateArgument)
         {
-            if (rightConstant == null)
+            switch (left)
             {
-                // ReSharper disable once SwitchStatementMissingSomeCases
-                switch (nodeType)
+                case MemberExpression leftMemberExpression:
                 {
-                    case ExpressionType.Equal:
-                        return HasNot(left);
-                    case ExpressionType.NotEqual:
-                        return Has(left, P.True);
+                    if (leftMemberExpression.Expression == parameter)
+                    {
+                        if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
+                            return AddStep(new HasValueStep(predicateArgument));
+
+                        return predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+                            ? Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
+                            : Has(leftMemberExpression, predicateArgument);
+                    }
+
+                    if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                    {
+                        if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                            return Has(leftMemberExpression, predicateArgument);
+                    }
+
+                    break;
                 }
-            }
-            else
-            {
-                var predicateArgument = nodeType.ToP(rightConstant);
-
-                switch (left)
+                case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
                 {
-                    case MemberExpression leftMemberExpression:
+                    return AddStep(
+                        predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+                            ? new WherePredicateStep(predicateArgument)
+                            : (Step)new IsStep(predicateArgument));
+                }
+                case MethodCallExpression methodCallExpression:
+                {
+                    if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
                     {
-                        if (leftMemberExpression.Expression == parameter)
-                        {
-                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
-                                return AddStep(new HasValueStep(predicateArgument));
-
-                            return rightConstant is StepLabel
-                                ? Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
-                                : Has(leftMemberExpression, predicateArgument);
-                        }
-
-                        if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
-                        {
-                            if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                                return Has(leftMemberExpression, predicateArgument);
-                        }
-
-                        break;
+                        return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
+                        //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                        //    return Has(leftMemberExpression, predicateArgument);
                     }
-                    case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
-                    {
-                        return AddStep(
-                            rightConstant is StepLabel
-                                ? new WherePredicateStep(predicateArgument)
-                                : (Step)new IsStep(predicateArgument));
-                    }
-                    case MethodCallExpression methodCallExpression:
-                    {
-                        if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
-                        {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
-                            //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                            //    return Has(leftMemberExpression, predicateArgument);
-                        }
 
-                        break;
-                    }
+                    break;
                 }
             }
 

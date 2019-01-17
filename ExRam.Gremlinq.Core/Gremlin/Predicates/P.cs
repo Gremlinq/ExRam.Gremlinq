@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Serialization;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -12,11 +13,12 @@ namespace ExRam.Gremlinq.Core
         // ReSharper disable once InconsistentNaming
         public abstract class SingleArgumentP : P
         {
-            protected SingleArgumentP(object argument)
+            protected SingleArgumentP([AllowNull] object argument)
             {
                 Argument = argument;
             }
 
+            [AllowNull]
             public object Argument { get; }
         }
 
@@ -30,7 +32,7 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class Eq : SingleArgumentP
         {
-            public Eq(object argument) : base(argument)
+            public Eq([AllowNull] object argument) : base(argument)
             {
             }
 
@@ -42,7 +44,7 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class Neq : SingleArgumentP
         {
-            public Neq(object argument) : base(argument)
+            public Neq([AllowNull] object argument) : base(argument)
             {
             }
 
