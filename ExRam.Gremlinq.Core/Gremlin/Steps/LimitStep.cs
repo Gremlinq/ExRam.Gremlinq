@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class LimitStep : Step
     {
         public static readonly LimitStep LimitLocal1 = new LimitStep(1, Scope.Local);
-        public static readonly LimitStep Limit1 = new LimitStep(1, Scope.Global);
+        public static readonly LimitStep LimitGlobal1 = new LimitStep(1, Scope.Global);
 
         public LimitStep(long count, Scope scope)
         {

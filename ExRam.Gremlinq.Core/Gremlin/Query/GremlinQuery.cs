@@ -315,7 +315,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Limit(long count)
         {
             return AddStep(count == 1
-                ? LimitStep.Limit1
+                ? LimitStep.LimitGlobal1
                 : new LimitStep(count, Scope.Global));
         }
 
