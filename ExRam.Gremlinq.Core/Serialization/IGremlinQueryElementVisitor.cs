@@ -19,6 +19,7 @@
         void Visit(ChooseTraversalStep step);
         void Visit(ChoosePredicateStep step);
         void Visit(CoalesceStep step);
+        void Visit(CoinStep step);
         void Visit(ConstantStep step);
         void Visit(BothStep step);
         void Visit(BothEStep step);

@@ -368,16 +368,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithoutParameters();
         }
 
-
         [Fact]
-        public void Constant()
+        public void Coalesce()
         {
             g
                 .V()
-                .Constant(42)
+                .Coalesce(
+                    _ => _
+                        .Identity())
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().constant(_a)")
-                .WithParameters(42);
+                .SerializeToGroovy<TVisitor>("g.V().coalesce(__.identity())")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -423,6 +424,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().id().choose(P.lt(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
+        }
+
+        [Fact]
+        public void Constant()
+        {
+            g
+                .V()
+                .Constant(42)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().constant(_a)")
+                .WithParameters(42);
         }
 
         [Fact]

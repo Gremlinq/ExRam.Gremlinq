@@ -258,6 +258,8 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Dedup() => AddStep(DedupStep.Instance);
 
         private GremlinQuery<Unit, Unit, Unit, Unit, Unit, Unit> Drop() => AddStep<Unit, Unit, Unit, Unit, Unit, Unit>(DropStep.Instance);

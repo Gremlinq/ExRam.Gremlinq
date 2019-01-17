@@ -1507,152 +1507,152 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IGremlinQuery
     {
-
+        new IGremlinQuery Coin(double probability);
     }
 
     public partial interface IElementGremlinQuery
     {
-
+        new IElementGremlinQuery Coin(double probability);
     }
 
     public partial interface IVertexGremlinQuery
     {
-
+        new IVertexGremlinQuery Coin(double probability);
     }
 
     public partial interface IEdgeGremlinQuery
     {
-
+        new IEdgeGremlinQuery Coin(double probability);
     }
 
     public partial interface IGremlinQuery<TElement>
     {
-
+        new IGremlinQuery<TElement> Coin(double probability);
     }
 
     public partial interface IValueGremlinQuery<TElement>
     {
-
+        new IValueGremlinQuery<TElement> Coin(double probability);
     }
 
     public partial interface IArrayGremlinQuery<TArray, TQuery>
     {
-
+        new IArrayGremlinQuery<TArray, TQuery> Coin(double probability);
     }
 
     public partial interface IElementGremlinQuery<TElement>
     {
-
+        new IElementGremlinQuery<TElement> Coin(double probability);
     }
 
     public partial interface IVertexGremlinQuery<TVertex>
     {
-
+        new IVertexGremlinQuery<TVertex> Coin(double probability);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge>
     {
-
+        new IEdgeGremlinQuery<TEdge> Coin(double probability);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
-
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
     }
 
     public partial interface IInEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
-
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
     }
 
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
-
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
     }
 
     public partial interface IEdgePropertyGremlinQuery<TElement, TValue>
     {
-
+        new IEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
     }
 
     public partial interface IOrderedVertexGremlinQuery
     {
-
+        new IOrderedVertexGremlinQuery Coin(double probability);
     }
 
     public partial interface IOrderedEdgeGremlinQuery
     {
-
+        new IOrderedEdgeGremlinQuery Coin(double probability);
     }
 
     public partial interface IOrderedValueGremlinQuery<TElement>
     {
-
+        new IOrderedValueGremlinQuery<TElement> Coin(double probability);
     }
 
     public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
     {
-
+        new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
     }
 
     public partial interface IOrderedVertexGremlinQuery<TVertex>
     {
-
+        new IOrderedVertexGremlinQuery<TVertex> Coin(double probability);
     }
 
     public partial interface IOrderedEdgeGremlinQuery<TEdge>
     {
-
+        new IOrderedEdgeGremlinQuery<TEdge> Coin(double probability);
     }
 
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
-
+        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
     }
 
     public partial interface IOrderedInEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IOrderedInEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-
+        new IOrderedOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
     }
 
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
     {
-
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
     }
 
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
-
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
     }
 
     public partial interface IOrderedEdgePropertyGremlinQuery<TElement, TValue>
     {
-
+        new IOrderedEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
     }
 
 }

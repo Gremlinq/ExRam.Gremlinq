@@ -414,6 +414,66 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Coin(double probability) => Coin(probability);
+
+        IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Coin(double probability) => Coin(probability);
+
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
+
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
+
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Coin(double probability) => Coin(probability);
+
+        IOrderedInEdgeGremlinQuery<TElement, TInVertex> IOrderedInEdgeGremlinQuery<TElement, TInVertex>.Coin(double probability) => Coin(probability);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
+
+        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex> IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Coin(double probability) => Coin(probability);
+
+        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Coin(double probability) => Coin(probability);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
+
+        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coin(double probability) => Coin(probability);
+
+        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coin(double probability) => Coin(probability);
+
+        IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
+
+        IOrderedEdgePropertyGremlinQuery<TElement, TPropertyValue> IOrderedEdgePropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
+
+        IGremlinQuery IGremlinQuery.Coin(double probability) => Coin(probability);
+
+        IElementGremlinQuery IElementGremlinQuery.Coin(double probability) => Coin(probability);
+
+        IVertexGremlinQuery IVertexGremlinQuery.Coin(double probability) => Coin(probability);
+
+        IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.Coin(double probability) => Coin(probability);
+
+        IEdgeGremlinQuery IEdgeGremlinQuery.Coin(double probability) => Coin(probability);
+
+        IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.Coin(double probability) => Coin(probability);
+
         IValueGremlinQuery<TValue> IGremlinQuery.Constant<TValue>(TValue constant) => AddStep<TValue>(new ConstantStep(constant));
 
         IValueGremlinQuery<long> IGremlinQuery.Count() => AddStep<long, Unit, Unit, Unit, Unit, Unit>(CountStep.Instance);
@@ -1213,41 +1273,33 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgePropertyGremlinQuery<TElement, TPropertyValue>.RepeatUntil<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> repeatTraversal, Func<IEdgePropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQuery> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
 
-        TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
-        {
-            return this
+        TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) =>
+            this
                 .Select<TStepElement, Unit, Unit>(label)
                 .ChangeQueryType<TQuery>();
-        }
 
         IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Select<TStep, Unit, Unit>(label);
 
-        IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
-        {
-            return this
+        IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2) =>
+            this
                 .AddStep<(T1, T2), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2);
-        }
 
-        IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
-        {
-            return this
+        IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3) =>
+            this
                 .AddStep<(T1, T2, T3), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2)
                 .AddStepLabelBinding(label3, x => x.Item3);
-        }
 
-        IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
-        {
-            return this
+        IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4) =>
+            this
                 .AddStep<(T1, T2, T3, T4), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3, label4))
                 .AddStepLabelBinding(label1, x => x.Item1)
                 .AddStepLabelBinding(label2, x => x.Item2)
                 .AddStepLabelBinding(label3, x => x.Item3)
                 .AddStepLabelBinding(label4, x => x.Item4);
-        }
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.SideEffect(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 

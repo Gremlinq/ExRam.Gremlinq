@@ -473,6 +473,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "coalesce");
         }
 
+        public void Visit(CoinStep step)
+        {
+            Method("coin", step.Probability);
+        }
+
         public virtual void Visit(ConstantStep step)
         {
             Method("constant", step.Value);
