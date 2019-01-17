@@ -156,6 +156,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new <#= iface #> Dedup();
