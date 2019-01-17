@@ -209,7 +209,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewMeta, TNewFoldedQuery>(Model, QueryExecutor, Steps, StepLabelMappings, Logger);
 
-        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
+        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQuery
         {
             var gremlinExpression = predicate.ToGremlinExpression();
             if (gremlinExpression is TerminalGremlinExpression terminal)
@@ -218,9 +218,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     var anonymous = Anonymize();
                     var trueQuery = trueChoice(anonymous);
-                    var falseQuery = falseChoice(anonymous);
+                    var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQuery)falseChoice(anonymous));
 
-                    return AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
+                    return this
+                        .AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, maybeFalseQuery))
                         .ChangeQueryType<TTargetQuery>();
                 }
             }
@@ -228,44 +229,17 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(predicate);
         }
 
-        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery
-        {
-            var gremlinExpression = predicate.ToGremlinExpression();
-            if (gremlinExpression is TerminalGremlinExpression terminal)
-            {
-                if (terminal.Key == terminal.Parameter)
-                {
-                    var anonymous = Anonymize();
-                    var trueQuery = trueChoice(anonymous);
-
-                    return AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery))
-                        .ChangeQueryType<TTargetQuery>();
-                }
-            }
-
-            throw new ExpressionNotSupportedException(predicate);
-        }
-
-        private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
+        private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQuery
         {
             var anonymous = Anonymize();
             var trueQuery = trueChoice(anonymous);
-            var falseQuery = falseChoice(anonymous);
+            var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQuery)falseChoice(anonymous));
 
-            return this
-                .AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
-                .MergeStepLabelMappings(trueQuery, falseQuery)
-                .ChangeQueryType<TTargetQuery>();
-        }
-
-        private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery
-        {
-            var anonymous = Anonymize();
-            var trueQuery = trueChoice(anonymous);
-
-            return this
-                .AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery))
-                .MergeStepLabelMappings(trueQuery)
+            return maybeFalseQuery
+                .BiFold(
+                    AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery)),
+                    (query, falseQuery) => query.MergeStepLabelMappings(trueQuery, falseQuery),
+                    (query, _) => query)
                 .ChangeQueryType<TTargetQuery>();
         }
 
