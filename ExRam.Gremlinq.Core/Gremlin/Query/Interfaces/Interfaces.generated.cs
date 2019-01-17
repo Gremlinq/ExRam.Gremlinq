@@ -66,6 +66,8 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery Skip(long count);
 
         new IGremlinQuery Tail(long count);
+        new IGremlinQuery TailLocal(int count);
+
         new IGremlinQuery Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IGremlinQuery, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -113,6 +115,8 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery Skip(long count);
 
         new IElementGremlinQuery Tail(long count);
+        new IElementGremlinQuery TailLocal(int count);
+
         new IElementGremlinQuery Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IElementGremlinQuery, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -160,6 +164,8 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery Skip(long count);
 
         new IVertexGremlinQuery Tail(long count);
+        new IVertexGremlinQuery TailLocal(int count);
+
         new IVertexGremlinQuery Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IVertexGremlinQuery, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -207,6 +213,8 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery Skip(long count);
 
         new IEdgeGremlinQuery Tail(long count);
+        new IEdgeGremlinQuery TailLocal(int count);
+
         new IEdgeGremlinQuery Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IEdgeGremlinQuery, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -254,6 +262,8 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery<TElement> Skip(long count);
 
         new IGremlinQuery<TElement> Tail(long count);
+        new IGremlinQuery<TElement> TailLocal(int count);
+
         new IGremlinQuery<TElement> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -301,6 +311,8 @@ namespace ExRam.Gremlinq.Core
         new IValueGremlinQuery<TElement> Skip(long count);
 
         new IValueGremlinQuery<TElement> Tail(long count);
+        new IValueGremlinQuery<TElement> TailLocal(int count);
+
         new IValueGremlinQuery<TElement> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -348,6 +360,8 @@ namespace ExRam.Gremlinq.Core
         new IArrayGremlinQuery<TArray, TQuery> Skip(long count);
 
         new IArrayGremlinQuery<TArray, TQuery> Tail(long count);
+        new IArrayGremlinQuery<TArray, TQuery> TailLocal(int count);
+
         new IArrayGremlinQuery<TArray, TQuery> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -395,6 +409,8 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery<TElement> Skip(long count);
 
         new IElementGremlinQuery<TElement> Tail(long count);
+        new IElementGremlinQuery<TElement> TailLocal(int count);
+
         new IElementGremlinQuery<TElement> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -442,6 +458,8 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery<TVertex> Skip(long count);
 
         new IVertexGremlinQuery<TVertex> Tail(long count);
+        new IVertexGremlinQuery<TVertex> TailLocal(int count);
+
         new IVertexGremlinQuery<TVertex> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IVertexGremlinQuery<TVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -489,6 +507,8 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge> Skip(long count);
 
         new IEdgeGremlinQuery<TEdge> Tail(long count);
+        new IEdgeGremlinQuery<TEdge> TailLocal(int count);
+
         new IEdgeGremlinQuery<TEdge> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -536,6 +556,8 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Skip(long count);
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Tail(long count);
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> TailLocal(int count);
+
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -583,6 +605,8 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Skip(long count);
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Tail(long count);
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> TailLocal(int count);
+
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -630,6 +654,8 @@ namespace ExRam.Gremlinq.Core
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Skip(long count);
 
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Tail(long count);
+        new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> TailLocal(int count);
+
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IInEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -677,6 +703,8 @@ namespace ExRam.Gremlinq.Core
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Skip(long count);
 
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Tail(long count);
+        new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> TailLocal(int count);
+
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -724,6 +752,8 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue> Skip(long count);
 
         new IVertexPropertyGremlinQuery<TProperty, TValue> Tail(long count);
+        new IVertexPropertyGremlinQuery<TProperty, TValue> TailLocal(int count);
+
         new IVertexPropertyGremlinQuery<TProperty, TValue> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -771,6 +801,8 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Skip(long count);
 
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Tail(long count);
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> TailLocal(int count);
+
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
@@ -818,6 +850,8 @@ namespace ExRam.Gremlinq.Core
         new IEdgePropertyGremlinQuery<TElement, TValue> Skip(long count);
 
         new IEdgePropertyGremlinQuery<TElement, TValue> Tail(long count);
+        new IEdgePropertyGremlinQuery<TElement, TValue> TailLocal(int count);
+
         new IEdgePropertyGremlinQuery<TElement, TValue> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<IEdgePropertyGremlinQuery<TElement, TValue>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;

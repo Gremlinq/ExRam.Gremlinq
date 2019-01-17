@@ -689,6 +689,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void TailGlobal()
+        {
+            g
+                .V()
+                .Tail(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().tail(_a)")
+                .WithParameters(1);
+        }
+
+        [Fact]
+        public void Tail_underflow()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Tail(-1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void TailLocal()
+        {
+            g
+                .V()
+                .TailLocal(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().tail(Scope.local, _a)")
+                .WithParameters(1);
+        }
+
+        [Fact]
         public void Map()
         {
             g

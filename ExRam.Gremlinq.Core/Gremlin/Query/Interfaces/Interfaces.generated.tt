@@ -188,6 +188,8 @@ namespace ExRam.Gremlinq.Core
         new <#= iface #> Skip(long count);
 
         new <#= iface #> Tail(long count);
+        new <#= iface #> TailLocal(int count);
+
         new <#= iface #> Times(int count);
 
         TTargetQuery Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;

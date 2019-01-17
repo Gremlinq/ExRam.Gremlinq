@@ -252,7 +252,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(TailStep step)
         {
-            Method("tail", step.Count);
+            if (step.Scope == Scope.Local)
+                Method("tail", step.Scope, step.Count);
+            else
+                Method("tail", step.Count);
         }
 
         public virtual void Visit(SelectStep step)

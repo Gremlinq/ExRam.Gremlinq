@@ -1449,6 +1449,40 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Tail(long count) => Tail(count);
 
+        IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.TailLocal(int count) => TailLocal(count);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.TailLocal(int count) => TailLocal(count);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.TailLocal(int count) => TailLocal(count);
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.TailLocal(int count) => TailLocal(count);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.TailLocal(int count) => TailLocal(count);
+
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.TailLocal(int count) => TailLocal(count);
+
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.TailLocal(int count) => TailLocal(count);
+
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+
+        IEdgeGremlinQuery IEdgeGremlinQuery.TailLocal(int count) => TailLocal(count);
+
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+
+        IVertexGremlinQuery IVertexGremlinQuery.TailLocal(int count) => TailLocal(count);
+
+        IElementGremlinQuery IElementGremlinQuery.TailLocal(int count) => TailLocal(count);
+
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.TailLocal(int count) => TailLocal(count);
+
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+
+        IGremlinQuery IGremlinQuery.TailLocal(int count) => TailLocal(count);
+
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
 
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.ThenBy(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
