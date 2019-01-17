@@ -342,6 +342,33 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Choose1()
+        {
+            g
+                .V()
+                .Choose(
+                    _ => _.Values(),
+                    _ => _.Out(),
+                    _ => _.In())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out(), __.in())")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Choose2()
+        {
+            g
+                .V()
+                .Choose(
+                    _ => _.Values(),
+                    _ => _.Out())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out())")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Drop()
         {
             g
