@@ -447,6 +447,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "coalesce");
         }
 
+        public virtual void Visit(ConstantStep step)
+        {
+            Method("constant", step.Value);
+        }
+
         public virtual void Visit(BothStep step)
         {
             Visit(step, "both");

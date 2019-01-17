@@ -368,6 +368,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithoutParameters();
         }
 
+
+        [Fact]
+        public void Constant()
+        {
+            g
+                .V()
+                .Constant(42)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().constant(_a)")
+                .WithParameters(42);
+        }
+
         [Fact]
         public void Drop()
         {

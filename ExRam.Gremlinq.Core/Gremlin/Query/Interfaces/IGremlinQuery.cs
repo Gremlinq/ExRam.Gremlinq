@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQueryAdmin AsAdmin();
         IValueGremlinQuery<long> Count();
+        IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         IGremlinQuery<Unit> Drop();
         IGremlinQuery<string> Explain();
 
