@@ -93,12 +93,12 @@ namespace ExRam.Gremlinq.Core
                 .OfType<TVertex>();
         }
 
-        public static IGremlinQuery<object> Values<TValue>(this IVertexPropertyGremlinQuery<TValue> query)
+        public static IValueGremlinQuery<object> Values<TValue>(this IVertexPropertyGremlinQuery<TValue> query)
         {
             return query.Values<object>();
         }
 
-        public static IGremlinQuery<object> Values<TValue, TMeta>(this IVertexPropertyGremlinQuery<TValue, TMeta> query)
+        public static IValueGremlinQuery<object> Values<TValue, TMeta>(this IVertexPropertyGremlinQuery<TValue, TMeta> query)
         {
             return query.Values<object>();
         }
