@@ -1,12 +1,10 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
