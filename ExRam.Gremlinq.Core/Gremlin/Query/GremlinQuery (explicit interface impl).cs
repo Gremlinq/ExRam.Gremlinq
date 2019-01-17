@@ -476,7 +476,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> IGremlinQuery.Constant<TValue>(TValue constant) => AddStep<TValue>(new ConstantStep(constant));
 
-        IValueGremlinQuery<long> IGremlinQuery.Count() => AddStep<long, Unit, Unit, Unit, Unit, Unit>(CountStep.Instance);
+        IValueGremlinQuery<long> IGremlinQuery.CountGlobal() => AddStep<long, Unit, Unit, Unit, Unit, Unit>(CountStep.Global);
+
+        IValueGremlinQuery<long> IGremlinQuery.CountLocal() => AddStep<long, Unit, Unit, Unit, Unit, Unit>(CountStep.Local);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Dedup() => Dedup();
 

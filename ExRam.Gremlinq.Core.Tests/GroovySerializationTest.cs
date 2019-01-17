@@ -329,19 +329,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Coalesce()
-        {
-            g
-                .V()
-                .Coalesce(
-                     _ => _
-                        .Identity())
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().coalesce(__.identity())")
-                .WithoutParameters();
-        }
-
-        [Fact]
         public void Choose1()
         {
             g
@@ -365,19 +352,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Out())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out())")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Coalesce()
-        {
-            g
-                .V()
-                .Coalesce(
-                    _ => _
-                        .Identity())
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().coalesce(__.identity())")
                 .WithoutParameters();
         }
 
@@ -424,6 +398,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().id().choose(P.lt(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
+        }
+
+        [Fact]
+        public void Coalesce()
+        {
+            g
+                .V()
+                .Coalesce(
+                    _ => _
+                        .Identity())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().coalesce(__.identity())")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -580,6 +567,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().fold().unfold()")
                 .WithoutParameters();
+        }
+
+        [Fact]
+        public void In()
+        {
+            g
+                .V<User>()
+                .In<Knows>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).in(_b)")
+                .WithParameters("User", "Knows");
         }
 
         [Fact]
@@ -928,17 +926,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Out<Knows>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b)")
-                .WithParameters("User", "Knows");
-        }
-
-        [Fact]
-        public void In()
-        {
-            g
-                .V<User>()
-                .In<Knows>()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).in(_b)")
                 .WithParameters("User", "Knows");
         }
 
@@ -1346,6 +1333,40 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Count()
+        {
+            g
+                .V()
+                .Count()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void CountGlobal()
+        {
+            g
+                .V()
+                .CountGlobal()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void CountLocal()
+        {
+            g
+                .V()
+                .CountLocal()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().count(Scope.local)")
+                .WithoutParameters();
+        }
+
+
+        [Fact]
         public void SumLocal_Where1()
         {
             g
@@ -1445,28 +1466,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Values_no_member()
-        {
-            g
-                .V<User>()
-                .Values()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values()")
-                .WithParameters("User");
-        }
-
-        [Fact]
-        public void Values_string_key()
-        {
-            g
-                .V<User>()
-                .Values("key")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "key");
-        }
-
-        [Fact]
         public void Values_1_member()
         {
             g
@@ -1507,6 +1506,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).id()")
+                .WithParameters("User");
+        }
+
+        [Fact]
+        public void Values_no_member()
+        {
+            g
+                .V<User>()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values()")
                 .WithParameters("User");
         }
 
@@ -1577,6 +1587,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("User", "Name");
+        }
+
+        [Fact]
+        public void Values_string_key()
+        {
+            g
+                .V<User>()
+                .Values("key")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
+                .WithParameters("User", "key");
         }
 
         [Fact]

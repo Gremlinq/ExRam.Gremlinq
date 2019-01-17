@@ -24,6 +24,11 @@ namespace ExRam.Gremlinq.Core
                 .OfType<TVertex>();
         }
 
+        public static IValueGremlinQuery<long> Count(this IGremlinQuery query)
+        {
+            return query.CountGlobal();
+        }
+
         public static IGremlinQuery<TEdge> E<TEdge>(this IGremlinQuery query, params object[] ids)
         {
             return query
