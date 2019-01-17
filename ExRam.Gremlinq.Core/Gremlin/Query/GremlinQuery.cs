@@ -282,7 +282,16 @@ namespace ExRam.Gremlinq.Core
                 .GetEnumerator();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
+        {
+            if (expression is MemberExpression memberExpression)
+            {
+                if (typeof(Property).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(Property<object>.Value))
+                    return AddStep(new HasValueStep(predicate));
+            }
+
+            return AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(Model.GetIdentifier(expression), traversal));
 
@@ -504,7 +513,56 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TSource>(Expression<Func<TSource, bool>> predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TSource>(Expression<Func<TSource, bool>> predicate) => BreakdownExpression(predicate, Where)(this);
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, Unit, Unit, Unit, Unit>()));
+
+        private static GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> query, ParameterExpression parameter, Expression left, P predicateArgument)
+        {
+            switch (left)
+            {
+                case MemberExpression leftMemberExpression:
+                {
+                    if (leftMemberExpression.Expression == parameter)
+                    {
+                        if (predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
+                            return query.Has(leftMemberExpression, query.Anonymize().AddStep(new WherePredicateStep(predicateArgument)));
+
+                        return query.Has(leftMemberExpression, predicateArgument);
+                    }
+
+                    if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                    {
+                        if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                            return query.Has(leftMemberExpression, predicateArgument);
+                    }
+
+                    break;
+                }
+                case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
+                {
+                    return query.AddStep(
+                        predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+                            ? new WherePredicateStep(predicateArgument)
+                            : (Step)new IsStep(predicateArgument));
+                }
+                case MethodCallExpression methodCallExpression:
+                {
+                    if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                    {
+                        return query.AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
+                        //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                        //    return Has(leftMemberExpression, predicateArgument);
+                    }
+
+                    break;
+                }
+            }
+
+            throw new ExpressionNotSupportedException();
+        }
+
+        private static Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> BreakdownExpression<TSource>(Expression<Func<TSource, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, ParameterExpression, Expression, P, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> continuation)
         {
             var body = predicate.Body;
 
@@ -515,19 +573,19 @@ namespace ExRam.Gremlinq.Core
                     case UnaryExpression unaryExpression:
                     {
                         if (unaryExpression.NodeType == ExpressionType.Not)
-                            return Not(_ => _.Where(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters)));
+                            return _ => _.Not(__ => BreakdownExpression(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters), continuation)(__));
 
                         break;
                     }
                     case MemberExpression memberExpression:
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return Where(predicate.Parameters[0], memberExpression, new P.Eq(true));
+                            return _ => continuation(_, predicate.Parameters[0], memberExpression, new P.Eq(true));
 
                         break;
                     }
                     case BinaryExpression binaryExpression:
-                        return Where(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType);
+                        return BreakdownExpression(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType, continuation);
                     case MethodCallExpression methodCallExpression:
                     {
                         var methodInfo = methodCallExpression.Method;
@@ -537,21 +595,21 @@ namespace ExRam.Gremlinq.Core
                             if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return Has(sourceMember, P.Within.From(previousExpression.Arguments[1]));
+                                    return _ => continuation(_, predicate.Parameters[0], sourceMember, P.Within.From(previousExpression.Arguments[1]));
 
                                 if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                    return Has(argument, P.Within.From(previousExpression.Arguments[0]));
+                                    return _ => continuation(_, predicate.Parameters[0], argument, P.Within.From(previousExpression.Arguments[0]));
                             }
                             else
-                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], new P.Neq(null));
+                                return _ => continuation(_, predicate.Parameters[0], methodCallExpression.Arguments[0], new P.Neq(null));
                         }
                         else if (methodInfo.IsEnumerableContains())
                         {
                             if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == predicate.Parameters[0])
-                                return Has(sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                                return _ => continuation(_, predicate.Parameters[0], sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                return Has(argument, P.Within.From(methodCallExpression.Arguments[0]));
+                                return _ => continuation(_, predicate.Parameters[0], argument, P.Within.From(methodCallExpression.Arguments[0]));
                         }
                         else if (methodInfo.IsStringStartsWith())
                         {
@@ -559,7 +617,9 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    return Has(
+                                    return _ => continuation(
+                                        _,
+                                        predicate.Parameters[0],
                                         argumentExpression,
                                         new P.Within(Enumerable
                                             .Range(0, stringValue.Length + 1)
@@ -574,7 +634,7 @@ namespace ExRam.Gremlinq.Core
                                     string upperBound;
 
                                     if (lowerBound.Length == 0)
-                                        return Has(memberExpression, P.True);
+                                        return _ => continuation(_, predicate.Parameters[0], memberExpression, P.True);
 
                                     if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
                                         upperBound = lowerBound + char.MinValue;
@@ -586,7 +646,7 @@ namespace ExRam.Gremlinq.Core
                                         upperBound = new string(upperBoundChars);
                                     }
 
-                                    return Has(memberExpression, new P.Between(lowerBound, upperBound));
+                                    return _ => continuation(_, predicate.Parameters[0], memberExpression, new P.Between(lowerBound, upperBound));
                                 }
                             }
                         }
@@ -603,74 +663,30 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType)
+        private static Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> BreakdownExpression(ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, ParameterExpression, Expression, P, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> continuation)
         {
             if (nodeType == ExpressionType.OrElse || nodeType == ExpressionType.AndAlso)
             {
                 var leftLambda = Expression.Lambda<Func<TElement, bool>>(left, parameter);
                 var rightLambda = Expression.Lambda<Func<TElement, bool>>(right, parameter);
 
-                return nodeType == ExpressionType.OrElse
-                    ? Or(
-                        _ => _.Where(leftLambda),
-                        _ => _.Where(rightLambda))
-                    : And(
-                        _ => _.Where(leftLambda),
-                        _ => _.Where(rightLambda));
+                if (nodeType == ExpressionType.OrElse)
+                {
+                    return _ => _.Or(
+                        BreakdownExpression(leftLambda, continuation),
+                        BreakdownExpression(rightLambda, continuation));
+                }
+
+                return _ => _.And(
+                    BreakdownExpression(leftLambda, continuation),
+                    BreakdownExpression(rightLambda, continuation));
             }
 
-            return right.HasExpressionInMemberChain(parameter)
-                ? Where(parameter, right, nodeType.Switch().ToP(left.GetValue()))
-                : Where(parameter, left, nodeType.ToP(right.GetValue()));
+            if (right.HasExpressionInMemberChain(parameter))
+                return _ => continuation(_, parameter, right, nodeType.Switch().ToP(left.GetValue()));
+
+            return _ => continuation(_, parameter, left, nodeType.ToP(right.GetValue()));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(ParameterExpression parameter, Expression left, P predicateArgument)
-        {
-            switch (left)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    if (leftMemberExpression.Expression == parameter)
-                    {
-                        if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
-                            return AddStep(new HasValueStep(predicateArgument));
-
-                        return predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
-                            ? Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(predicateArgument)))
-                            : Has(leftMemberExpression, predicateArgument);
-                    }
-
-                    if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
-                    {
-                        if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                            return Has(leftMemberExpression, predicateArgument);
-                    }
-
-                    break;
-                }
-                case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
-                {
-                    return AddStep(
-                        predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
-                            ? new WherePredicateStep(predicateArgument)
-                            : (Step)new IsStep(predicateArgument));
-                }
-                case MethodCallExpression methodCallExpression:
-                {
-                    if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
-                    {
-                        return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
-                        //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                        //    return Has(leftMemberExpression, predicateArgument);
-                    }
-
-                    break;
-                }
-            }
-
-            throw new ExpressionNotSupportedException();
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, Unit, Unit, Unit, Unit>()));
     }
 }
