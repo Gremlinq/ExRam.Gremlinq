@@ -1,0 +1,32 @@
+﻿<#
+    var baseInterfaces = new[]
+    {
+        "IGremlinQuery",
+        "IElementGremlinQuery",
+        "IVertexGremlinQuery",
+        "IEdgeGremlinQuery",
+        "IGremlinQuery<TElement>",
+        "IValueGremlinQuery<TElement>",
+        "IArrayGremlinQuery<TArray, TQuery>",
+        "IElementGremlinQuery<TElement>",
+        "IVertexGremlinQuery<TVertex>",
+        "IEdgeGremlinQuery<TEdge>",
+        "IEdgeGremlinQuery<TEdge, TAdjacentVertex>",
+        "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>",
+        "IInEdgeGremlinQuery<TEdge, TInVertex>",
+        "IOutEdgeGremlinQuery<TEdge, TOutVertex>",
+        "IVertexPropertyGremlinQuery<TProperty, TValue>",
+        "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
+        "IEdgePropertyGremlinQuery<TElement, TValue>"
+    };
+
+    var substitutedBaseInterfaces = baseInterfaces
+        .Select(x => x
+            .Replace("TVertex", "TElement")
+            .Replace("TEdge", "TElement")
+            .Replace("TAdjacentVertex", "TOutVertex")
+            .Replace("TProperty", "TElement")
+            .Replace("TValue", "TPropertyValue")
+            .Replace("TArray", "TElement")
+            .Replace("TQuery", "TFoldedQuery"));
+#>

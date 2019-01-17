@@ -14,9 +14,19 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="Gremlin\Query\Interfaces\Constants.tt">
+      <Generator></Generator>
+    </None>
     <None Update="Gremlin\Query\Interfaces\Interfaces.generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Interfaces.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Gremlin\Query\Interfaces\GremlinQuery.generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
+    </None>
+    <None Update="Gremlin\Query\Interfaces\HelperMethods.tt">
+      <Generator></Generator>
     </None>
   </ItemGroup>
   
@@ -29,6 +39,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Interfaces.generated.tt</DependentUpon>
+    </Compile>
+ <Compile Update="Gremlin\Query\Interfaces\GremlinQuery.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GremlinQuery.generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   

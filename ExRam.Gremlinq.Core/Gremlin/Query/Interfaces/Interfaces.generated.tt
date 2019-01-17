@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+<#@ include file="Constants.tt" #>
 #pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
 using System;
 using System.Linq.Expressions;
@@ -11,135 +12,14 @@ using System.Linq.Expressions;
 namespace ExRam.Gremlinq.Core
 {
 <#
-    var untyped = "IGremlinQuery";
-    var untypedElement = "IElementGremlinQuery";
-    var untypedV = "IVertexGremlinQuery";
-    var untypedE = "IEdgeGremlinQuery";
-
-    var typed = "IGremlinQuery<TElement>";
-    var typedValue = "IValueGremlinQuery<TElement>";
-    var typedArray = "IArrayGremlinQuery<TArray, TQuery>";
-    var typedElement = "IElementGremlinQuery<TElement>";
-    var typedV = "IVertexGremlinQuery<TVertex>";
-    var typedE = "IEdgeGremlinQuery<TEdge>";
-    var typedEAdj = "IEdgeGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedEBoth = "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>";
-    var typedInE = "IInEdgeGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedOutE = "IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>";
-    var typedVP = "IVertexPropertyGremlinQuery<TProperty, TValue>";
-    var typedVPMeta = "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>";
-    var typedEP = "IEdgePropertyGremlinQuery<TElement, TValue>";
-
-    var untypedBaseInterfaces = new[]
-    {
-        untyped,
-        untypedElement,
-        untypedV,
-        untypedE
-    };
-
-    var typedBaseInterfaces = new[]
-    {
-        typed,
-        typedValue,
-        typedArray,
-
-        typedElement,
-
-        typedV,
-
-        typedE,
-        typedEAdj,
-        typedEBoth,
-
-        typedInE,
-        typedOutE,
-
-        typedVP,
-        typedVPMeta,
-
-        typedEP
-    };
-
-    var qualifiedInterfaces = new[]
-    {
-        untypedV,
-        untypedE,
-
-        typedValue,
-        typedArray,
-
-        typedV,
-
-        typedE,
-        typedEAdj,
-        typedEBoth,
-
-        typedInE,
-        typedOutE,
-
-        typedVP,
-        typedVPMeta,
-
-        typedEP
-    };
-
-    var typedGraphElementInterfaces = new[]
-    {
-        typedElement,
-
-        typedV,
-        typedE,
-        typedEAdj,
-        typedEBoth,
-        typedInE,
-        typedOutE,
-
-        typedVP,
-        typedVPMeta
-    };
-
-    var typedVerticesAndEdges = new[]
-    {
-        typedV,
-        typedE,
-        typedEAdj,
-        typedEBoth,
-        typedInE,
-        typedOutE
-    };
-
-    var baseInterfaces = untypedBaseInterfaces.Concat(typedBaseInterfaces);
-    var orderedInterfaces = qualifiedInterfaces.Select(x => MakeOrdered(x));
-
-    var allTypedInterfaces = typedBaseInterfaces.Concat(orderedInterfaces.Where(x => GetElement(x) != ""));
-    var allInterfaces = baseInterfaces.Concat(orderedInterfaces);
-
-
-
-
-    foreach(var iface in baseInterfaces)
+    foreach(var iface in Qualified(baseInterfaces))
     {
 #>
+    public partial interface <#= MakeOrdered(iface) #> : <#= iface #>
+    {
+    }
 <#
     }
-
-
-
-
-
-    foreach(var iface in untypedBaseInterfaces)
-    {
-#>
-    public partial interface <#= iface #>
-    {
-        new <#= iface + "<TResult>" #> Cast<TResult>();
-    }
-
-<#
-    }
-
-
 
 
 
@@ -200,78 +80,75 @@ namespace ExRam.Gremlinq.Core
 
 
 
-
-
-
-    foreach(var iface in qualifiedInterfaces)
+    foreach(var iface in Untyped(baseInterfaces))
     {
 #>
-    public partial interface <#= MakeOrdered(iface) #> : <#= iface #>
-    {
-    }
-
     public partial interface <#= iface #>
     {
+        new <#= iface + "<TResult>" #> Cast<TResult>();
+    }
+
 <#
-        if (GetElement(iface) != "")
-        {
+    }
+
+
+
+    foreach(var iface in Typed(Qualified(baseInterfaces)))
+    {
 #>
+    public partial interface <#= iface #>
+    {
         new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
         new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+    }
 <#
-        }
+    }
+
+
+
+    foreach(var iface in Qualified(baseInterfaces))
+    {
 #>
+    public partial interface <#= iface #>
+    {
         new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
         new <#= MakeOrdered(iface) #> OrderBy(string lambda);
         new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
     }
-    
 <#
     }
 
-    foreach(var iface in qualifiedInterfaces.Select(x => MakeOrdered(x)))
+
+
+    foreach(var iface in MakeOrdered(Qualified(baseInterfaces)))
     {
 #>
     public partial interface <#= iface #>
     {
-<#
-        if (GetElement(iface) != "")
-        {
-#>
-        new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-<#
-        }
-#>
         <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
         <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
         new <#= iface #> ThenBy(string lambda);
     }
-
 <#
     }
+    
 
 
 
-
-
-
-
-    foreach(var iface in typedGraphElementInterfaces)
+    foreach(var iface in Typed(MakeOrdered(Qualified(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
     {
-
+        new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
     }
-
 <#
     }
 
 
 
-
-    foreach(var iface in new[] { typedV, typedE })
+    foreach(var iface in Simple(VertexOrEdge(baseInterfaces)))
     {
 #>
     public partial interface <#= iface #>
@@ -285,7 +162,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in new[] { untypedV, untypedE })
+    foreach(var iface in Untyped(VertexOrEdge(baseInterfaces)))
     {
 #>
     public partial interface <#= iface #>
@@ -295,11 +172,10 @@ namespace ExRam.Gremlinq.Core
 
 <#
     }
+    
 
 
-
-
-    foreach(var iface in typedVerticesAndEdges)
+    foreach(var iface in Typed(VertexOrEdge(baseInterfaces)))
     {
 #>
     public partial interface <#= iface #>
@@ -318,10 +194,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-
-
-
-    foreach(var iface in allTypedInterfaces)
+    foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(Qualified(baseInterfaces)))))
     {
 #>
     public partial interface <#= iface #>
@@ -341,51 +214,16 @@ namespace ExRam.Gremlinq.Core
 
 
 
-
-
-
-
-    foreach(var iface in allInterfaces)
+    foreach(var iface in baseInterfaces.Concat(MakeOrdered(Qualified(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
     {
         new <#= iface #> Coin(double probability);
     }
-
 <#
     }
 #>
 }
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
-
-
-
-
-<#+
-private string MakeUnordered(string str)
-{
-    return str.Replace("Ordered", "");
-}
-
-private string MakeOrdered(string str)
-{
-    return "IOrdered" + str.Replace("Ordered", "").Substring(1);
-}
-
-private static string GetElement(string str)
-{
-    var start = str.IndexOf('<');
-    if (start == -1)
-        return "";
-
-    var end = new[] { str.IndexOf(',', start), str.IndexOf('>', start) }
-        .Where(x => x != -1)
-        .Min();
-
-    if (end == -1)
-        return "";
-
-    return str.Substring(start + 1, end - start - 1);
-}
-#>
+<#@ include file="HelperMethods.tt" #>

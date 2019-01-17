@@ -2,10 +2,10 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge>
+    public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex> : IEdgeGremlinQuery<TEdge>
     {
-        new IVertexGremlinQuery<TAdjacentVertex> OutV();
+        new IVertexGremlinQuery<TOutVertex> OutV();
 
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
     }
 }

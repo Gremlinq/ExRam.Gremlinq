@@ -1,0 +1,85 @@
+﻿<#+
+
+private string MakeUnordered(string str)
+{
+    return str.Replace("Ordered", "");
+}
+
+private string[] MakeOrdered(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Select(iface => MakeOrdered(iface))
+        .ToArray();
+}
+
+private string MakeOrdered(string str)
+{
+    return "IOrdered" + str.Replace("Ordered", "").Substring(1);
+}
+
+private static string[] Untyped(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => GetTypeParameters(iface).Length == 0)
+        .ToArray();
+}
+
+private static string[] Typed(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => GetTypeParameters(iface).Length > 0)
+        .ToArray();
+}
+
+private static string[] Qualified(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => !iface.StartsWith("IGremlinQuery") && !iface.StartsWith("IElementGremlinQuery"))
+        .ToArray();
+}
+
+private static string[] Element(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => iface.Contains("Element") || iface.Contains("Vertex") || iface.Contains("Edge"))
+        .ToArray();
+}
+
+private static string[] VertexOrEdge(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => iface.StartsWith("IVertexGremlinQuery") || iface.Contains("EdgeGremlinQuery"))
+        .ToArray();
+}
+
+private static string[] Simple(IEnumerable<string> interfaces)
+{
+    return interfaces
+        .Where(iface => GetTypeParameters(iface).Length == 1)
+        .ToArray();
+}
+
+
+private static string[] GetTypeParameters(string str)
+{
+    var start = str.IndexOf('<');
+    if (start == -1)
+        return Array.Empty<string>();
+
+    var end = str.IndexOf('>', start);
+    if (end == -1)
+        return Array.Empty<string>();
+        
+    return str
+        .Substring(start + 1, end - start - 1)
+        .Split(',')
+        .Select(x => x.Trim())
+        .ToArray();
+}
+
+private static string GetElement(string str)
+{
+    return GetTypeParameters(str).FirstOrDefault();
+}
+#>
+

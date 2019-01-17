@@ -402,7 +402,18 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(string lambda) => AddStep(OrderStep.Instance).By(lambda);
 
-        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TSource, TTarget, TNewElement, TNewPropertyValue, TNewMeta>(params Expression<Func<TSource, TTarget>>[] projections)
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(params LambdaExpression[] projections)
+        {
+            return Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
+        }
+
+        private GremlinQuery<Property<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> PlainProperties<TNewPropertyValue>(params LambdaExpression[] projections)
+        {
+            return Properties<Property<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
+        }
+
+
+        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
         {
             return AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(projections
                 .Select(projection =>
@@ -417,14 +428,14 @@ namespace ExRam.Gremlinq.Core
                 .ToArray()));
         }
 
-        private GremlinQuery<Property<TMetaValue>, Unit, Unit, Unit, Unit, Unit> Properties<TMetaValue>(params string[] keys) => AddStep<Property<TMetaValue>, Unit, Unit, Unit, Unit, Unit>(new MetaPropertiesStep(keys));
+        private GremlinQuery<Property<TValue>, Unit, Unit, Unit, Unit, Unit> Properties<TValue>(params string[] keys) => AddStep<Property<TValue>, Unit, Unit, Unit, Unit, Unit>(new MetaPropertiesStep(keys));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
             if (value == null)
             {
                 return SideEffect(_ => _
-                    .Properties<TSource, TValue, Unit, Unit, Unit>(projection)
+                    .Properties<Unit, Unit, Unit>(projection)
                     .Drop());
             }
 
@@ -496,7 +507,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep());
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> Values<TSource, TTarget, TValue>(IEnumerable<Expression<Func<TSource, TTarget>>> projections)
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
         {
             var keys = projections
                 .Select(projection =>
@@ -508,10 +519,10 @@ namespace ExRam.Gremlinq.Core
                 })
                 .ToArray();
 
-            return Values<TValue>(keys);
+            return ValuesForKeys<TValue>(keys);
         }
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> Values<TValue>(object[] keys)
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
         {
             return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
         }
