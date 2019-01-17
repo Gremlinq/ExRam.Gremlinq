@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
     public partial interface IGremlinQuery : IGremlinQuerySource
     {
         IGremlinQueryAdmin AsAdmin();
-        IValueGremlinQuery<long> CountGlobal();
+        IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         IGremlinQuery<Unit> Drop();

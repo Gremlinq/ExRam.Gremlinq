@@ -440,7 +440,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V()
-                .CountGlobal()
+                .Count()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().count()")
                 .WithoutParameters();
