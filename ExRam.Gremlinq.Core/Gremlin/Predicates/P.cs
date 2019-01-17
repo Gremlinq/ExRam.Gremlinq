@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
@@ -104,6 +107,14 @@ namespace ExRam.Gremlinq.Core
             public Within(object[] arguments)
             {
                 Arguments = arguments;
+            }
+
+            internal static P From(Expression expression)
+            {
+                if (expression.GetValue() is IEnumerable enumerable)
+                    return new P.Within(enumerable.Cast<object>().ToArray());
+
+                throw new ExpressionNotSupportedException(expression);
             }
 
             public override void Accept(IGremlinQueryElementVisitor visitor)

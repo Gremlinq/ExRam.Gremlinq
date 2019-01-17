@@ -288,24 +288,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasNot(Expression expression) => AddStep(new HasNotStep(Model.GetIdentifier(expression)));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasWithin(Expression expression, Expression enumerableExpression)
-        {
-            if (enumerableExpression.GetValue() is IEnumerable enumerable)
-            {
-                return HasWithin(expression, enumerable);
-            }
-
-            throw new ExpressionNotSupportedException(enumerableExpression);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> HasWithin(Expression expression, IEnumerable enumerable)
-        {
-            var objectArray = enumerable as object[] ?? enumerable.Cast<object>().ToArray();
-
-            return Has(expression,
-                new P.Within(objectArray));
-        }
-
         private GremlinQuery<object, Unit, Unit, Unit, Unit> Id() => AddStep<object, Unit, Unit, Unit, Unit>(IdStep.Instance);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Identity() => AddStep(IdentityStep.Instance);
@@ -555,13 +537,13 @@ namespace ExRam.Gremlinq.Core
                             if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return HasWithin(sourceMember, previousExpression.Arguments[1]);
+                                    return Has(sourceMember, P.Within.From(previousExpression.Arguments[1]));
 
                                 if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                    return HasWithin(argument, previousExpression.Arguments[0]);
+                                    return Has(argument, P.Within.From(previousExpression.Arguments[0]));
                             }
                             else
-                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], Expression.Constant(null, methodCallExpression.Arguments[0].Type), ExpressionType.NotEqual);
+                                return Where(predicate.Parameters[0], methodCallExpression.Arguments[0], default(object), ExpressionType.NotEqual);
                         }
                         else if (methodInfo.IsEnumerableContains())
                         {
@@ -569,7 +551,7 @@ namespace ExRam.Gremlinq.Core
                                 return Has(sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                return HasWithin(argument, methodCallExpression.Arguments[0]);
+                                return Has(argument, P.Within.From(methodCallExpression.Arguments[0]));
                         }
                         else if (methodInfo.IsStringStartsWith())
                         {
@@ -577,10 +559,12 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
-                                    return HasWithin(argumentExpression,
-                                        Enumerable
+                                    return Has(
+                                        argumentExpression,
+                                        new P.Within(Enumerable
                                             .Range(0, stringValue.Length + 1)
-                                            .Select(i => stringValue.Substring(0, i)));
+                                            .Select(i => stringValue.Substring(0, i))
+                                            .ToArray<object>()));
                                 }
                             }
                             else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
