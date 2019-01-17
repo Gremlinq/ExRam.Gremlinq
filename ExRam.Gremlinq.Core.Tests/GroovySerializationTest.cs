@@ -657,6 +657,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void LimitGlobal()
+        {
+            g
+                .V()
+                .Limit(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().limit(_a)")
+                .WithParameters(1);
+        }
+
+        [Fact]
         public void Limit_underflow()
         {
             g
@@ -664,6 +675,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _.Limit(-1))
                 .Should()
                 .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void LimitLocal()
+        {
+            g
+                .V()
+                .LimitLocal(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().limit(Scope.local, _a)")
+                .WithParameters(1);
         }
 
         [Fact]

@@ -47,6 +47,7 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery Identity();
 
         new IGremlinQuery Limit(long count);
+        new IGremlinQuery LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IGremlinQuery , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -93,6 +94,7 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery Identity();
 
         new IElementGremlinQuery Limit(long count);
+        new IElementGremlinQuery LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IElementGremlinQuery , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -139,6 +141,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery Identity();
 
         new IVertexGremlinQuery Limit(long count);
+        new IVertexGremlinQuery LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IVertexGremlinQuery , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -185,6 +188,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery Identity();
 
         new IEdgeGremlinQuery Limit(long count);
+        new IEdgeGremlinQuery LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IEdgeGremlinQuery , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -231,6 +235,7 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery<TElement> Identity();
 
         new IGremlinQuery<TElement> Limit(long count);
+        new IGremlinQuery<TElement> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IGremlinQuery<TElement> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -277,6 +282,7 @@ namespace ExRam.Gremlinq.Core
         new IValueGremlinQuery<TElement> Identity();
 
         new IValueGremlinQuery<TElement> Limit(long count);
+        new IValueGremlinQuery<TElement> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IValueGremlinQuery<TElement> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -323,6 +329,7 @@ namespace ExRam.Gremlinq.Core
         new IArrayGremlinQuery<TArray, TQuery> Identity();
 
         new IArrayGremlinQuery<TArray, TQuery> Limit(long count);
+        new IArrayGremlinQuery<TArray, TQuery> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -369,6 +376,7 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery<TElement> Identity();
 
         new IElementGremlinQuery<TElement> Limit(long count);
+        new IElementGremlinQuery<TElement> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IElementGremlinQuery<TElement> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -415,6 +423,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery<TVertex> Identity();
 
         new IVertexGremlinQuery<TVertex> Limit(long count);
+        new IVertexGremlinQuery<TVertex> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IVertexGremlinQuery<TVertex> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -461,6 +470,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge> Identity();
 
         new IEdgeGremlinQuery<TEdge> Limit(long count);
+        new IEdgeGremlinQuery<TEdge> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -507,6 +517,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Limit(long count);
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -553,6 +564,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Identity();
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Limit(long count);
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -599,6 +611,7 @@ namespace ExRam.Gremlinq.Core
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
         new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> Limit(long count);
+        new IInEdgeGremlinQuery<TEdge, TAdjacentVertex> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TAdjacentVertex> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -645,6 +658,7 @@ namespace ExRam.Gremlinq.Core
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Identity();
 
         new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> Limit(long count);
+        new IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TAdjacentVertex> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -691,6 +705,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue> Identity();
 
         new IVertexPropertyGremlinQuery<TProperty, TValue> Limit(long count);
+        new IVertexPropertyGremlinQuery<TProperty, TValue> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -737,6 +752,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Identity();
 
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Limit(long count);
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
@@ -783,6 +799,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgePropertyGremlinQuery<TElement, TValue> Identity();
 
         new IEdgePropertyGremlinQuery<TElement, TValue> Limit(long count);
+        new IEdgePropertyGremlinQuery<TElement, TValue> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement, TValue> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement, TValue>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;

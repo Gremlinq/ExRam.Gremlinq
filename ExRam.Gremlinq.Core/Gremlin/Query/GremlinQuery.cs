@@ -316,7 +316,14 @@ namespace ExRam.Gremlinq.Core
         {
             return AddStep(count == 1
                 ? LimitStep.Limit1
-                : new LimitStep(count));
+                : new LimitStep(count, Scope.Global));
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> LimitLocal(long count)
+        {
+            return AddStep(count == 1
+                ? LimitStep.LimitLocal1
+                : new LimitStep(count, Scope.Local));
         }
 
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)

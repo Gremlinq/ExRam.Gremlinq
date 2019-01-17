@@ -169,6 +169,7 @@ namespace ExRam.Gremlinq.Core
         new <#= iface #> Identity();
 
         new <#= iface #> Limit(long count);
+        new <#= iface #> LimitLocal(long count);
         TTargetQuery Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;

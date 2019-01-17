@@ -21,7 +21,10 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
             if (step.Count > int.MaxValue)
                 throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
 
-            Method("limit", (int)step.Count);
+            if (step.Scope == Scope.Local)
+                Method("limit", step.Scope, (int)step.Count);
+            else
+                Method("limit", (int)step.Count);
         }
 
         public override void Visit(TailStep step)

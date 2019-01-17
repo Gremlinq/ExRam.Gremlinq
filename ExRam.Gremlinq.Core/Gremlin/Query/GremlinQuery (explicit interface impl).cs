@@ -779,6 +779,40 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Limit(long count) => Limit(count);
 
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+
+        IGremlinQuery IGremlinQuery.LimitLocal(long count) => LimitLocal(count);
+
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+
+        IVertexGremlinQuery IVertexGremlinQuery.LimitLocal(long count) => LimitLocal(count);
+
+        IElementGremlinQuery IElementGremlinQuery.LimitLocal(long count) => LimitLocal(count);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.LimitLocal(long count) => LimitLocal(count);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.LimitLocal(long count) => LimitLocal(count);
+
+        IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.LimitLocal(long count) => LimitLocal(count);
+
+        IEdgeGremlinQuery IEdgeGremlinQuery.LimitLocal(long count) => LimitLocal(count);
+
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.LimitLocal(long count) => LimitLocal(count);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.LimitLocal(long count) => LimitLocal(count);
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.LimitLocal(long count) => LimitLocal(count);
+
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.LimitLocal(long count) => LimitLocal(count);
+
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.LimitLocal(long count) => LimitLocal(count);
+
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.Local<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery> localTraversal) => Local(localTraversal);
 
         TTargetQuery IValueGremlinQuery<TElement>.Local<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> localTraversal) => Local(localTraversal);

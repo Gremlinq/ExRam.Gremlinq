@@ -556,7 +556,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(LimitStep step)
         {
-            Method("limit", step.Count);
+            if (step.Scope == Scope.Local)
+                Method("limit", step.Scope, step.Count);
+            else
+                Method("limit", step.Count);
         }
 
         public virtual void Visit(LocalStep step)
