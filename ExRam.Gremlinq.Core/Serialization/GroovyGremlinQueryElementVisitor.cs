@@ -389,6 +389,18 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("within", p.Arguments);
         }
 
+        public void Visit(P.Without p)
+        {
+            Identifier(nameof(P));
+            Method("without", p.Arguments);
+        }
+
+        public void Visit(P.Outside p)
+        {
+            Identifier(nameof(P));
+            Method("outside", p.Lower, p.Upper);
+        }
+
         public virtual void Visit(Lambda lambda)
         {
             Lambda(lambda.LambdaString);

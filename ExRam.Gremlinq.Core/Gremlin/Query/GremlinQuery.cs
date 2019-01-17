@@ -211,41 +211,47 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
         {
-            return
-                BreakdownExpression(
-                    predicate,
-                    (_, parameter, expression, p) =>
-                    {
-                        var anonymous = Anonymize();
-                        var trueQuery = trueChoice(anonymous);
-                        var falseQuery = falseChoice(anonymous);
+            var gremlinExpression = predicate.ToGremlinExpression();
+            if (gremlinExpression is TerminalGremlinExpression terminal)
+            {
+                if (terminal.Key == terminal.Parameter)
+                {
+                    var anonymous = Anonymize();
+                    var trueQuery = trueChoice(anonymous);
+                    var falseQuery = falseChoice(anonymous);
 
-                        return _.AddStep(new ChoosePredicateStep(p, trueQuery, Option<IGremlinQuery>.Some(falseQuery)));
-                    })(this)
-                .ChangeQueryType<TTargetQuery>();
+                    return AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
+                        .ChangeQueryType<TTargetQuery>();
+                }
+            }
+
+            throw new ExpressionNotSupportedException(predicate);
         }
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery
         {
-            return
-                BreakdownExpression(
-                        predicate,
-                        (_, parameter, expression, p) =>
-                        {
-                            var anonymous = Anonymize();
-                            var trueQuery = trueChoice(anonymous);
+            var gremlinExpression = predicate.ToGremlinExpression();
+            if (gremlinExpression is TerminalGremlinExpression terminal)
+            {
+                if (terminal.Key == terminal.Parameter)
+                {
+                    var anonymous = Anonymize();
+                    var trueQuery = trueChoice(anonymous);
 
-                            return _.AddStep(new ChoosePredicateStep(p, trueQuery));
-                        })(this)
-                    .ChangeQueryType<TTargetQuery>();
+                    return AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery))
+                        .ChangeQueryType<TTargetQuery>();
+                }
+            }
+
+            throw new ExpressionNotSupportedException(predicate);
         }
 
         private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery
-        { 
+        {
             var anonymous = Anonymize();
             var trueQuery = trueChoice(anonymous);
             var falseQuery = falseChoice(anonymous);
-            
+
             return this
                 .AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, Option<IGremlinQuery>.Some(falseQuery)))
                 .MergeStepLabelMappings(trueQuery, falseQuery)
@@ -525,180 +531,83 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TSource>(Expression<Func<TSource, bool>> predicate) => BreakdownExpression(predicate, Where)(this);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TSource>(Expression<Func<TSource, bool>> predicate)
+        {
+            try
+            {
+                return Where(predicate.ToGremlinExpression());
+            }
+            catch (ExpressionNotSupportedException ex)
+            {
+                throw new ExpressionNotSupportedException(ex);
+            }
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, Unit, Unit, Unit, Unit>()));
 
-        private static GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> query, ParameterExpression parameter, Expression left, P predicateArgument)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
         {
-            switch (left)
+            if (gremlinExpression is OrGremlinExpression or)
             {
-                case MemberExpression leftMemberExpression:
+                return Or(
+                    _ => _.Where(or.Operand1),
+                    _ => _.Where(or.Operand2));
+            }
+
+            if (gremlinExpression is AndGremlinExpression and)
+            {
+                return And(
+                    _ => _.Where(and.Operand1),
+                    _ => _.Where(and.Operand2));
+            }
+
+            if (gremlinExpression is NotGremlinExpression not)
+                return Not(_ => _.Where(not.Negate()));
+
+            if (gremlinExpression is TerminalGremlinExpression terminal)
+            {
+                switch (terminal.Key)
                 {
-                    if (leftMemberExpression.Expression == parameter)
+                    case MemberExpression leftMemberExpression:
                     {
-                        if (predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
-                            return query.Has(leftMemberExpression, query.Anonymize().AddStep(new WherePredicateStep(predicateArgument)));
+                        if (leftMemberExpression.Expression == terminal.Parameter)
+                        {
+                            if (terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
+                                return Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(terminal.Predicate)));
 
-                        return query.Has(leftMemberExpression, predicateArgument);
+                            return Has(leftMemberExpression, terminal.Predicate);
+                        }
+
+                        if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                        {
+                            if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                                return Has(leftMemberExpression, terminal.Predicate);
+                        }
+
+                        break;
                     }
-
-                    if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                    case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
                     {
-                        if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                            return query.Has(leftMemberExpression, predicateArgument);
+                        return AddStep(
+                            terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+                                ? new WherePredicateStep(terminal.Predicate)
+                                : (Step)new IsStep(terminal.Predicate));
                     }
-
-                    break;
-                }
-                case ParameterExpression leftParameterExpression when parameter == leftParameterExpression:
-                {
-                    return query.AddStep(
-                        predicateArgument is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
-                            ? new WherePredicateStep(predicateArgument)
-                            : (Step)new IsStep(predicateArgument));
-                }
-                case MethodCallExpression methodCallExpression:
-                {
-                    if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                    case MethodCallExpression methodCallExpression:
                     {
-                        return query.AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), predicateArgument));
-                        //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                        //    return Has(leftMemberExpression, predicateArgument);
-                    }
+                        if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                        {
+                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
+                            //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
+                            //    return Has(leftMemberExpression, predicateArgument);
+                        }
 
-                    break;
+                        break;
+                    }
                 }
             }
 
             throw new ExpressionNotSupportedException();
         }
-
-        private static Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> BreakdownExpression<TSource>(Expression<Func<TSource, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, ParameterExpression, Expression, P, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> continuation)
-        {
-            var body = predicate.Body;
-
-            try
-            {
-                switch (body)
-                {
-                    case UnaryExpression unaryExpression:
-                    {
-                        if (unaryExpression.NodeType == ExpressionType.Not)
-                            return _ => _.Not(__ => BreakdownExpression(Expression.Lambda<Func<TElement, bool>>(unaryExpression.Operand, predicate.Parameters), continuation)(__));
-
-                        break;
-                    }
-                    case MemberExpression memberExpression:
-                    {
-                        if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return _ => continuation(_, predicate.Parameters[0], memberExpression, new P.Eq(true));
-
-                        break;
-                    }
-                    case BinaryExpression binaryExpression:
-                        return BreakdownExpression(predicate.Parameters[0], binaryExpression.Left.StripConvert(), binaryExpression.Right.StripConvert(), binaryExpression.NodeType, continuation);
-                    case MethodCallExpression methodCallExpression:
-                    {
-                        var methodInfo = methodCallExpression.Method;
-
-                        if (methodInfo.IsEnumerableAny())
-                        {
-                            if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
-                            {
-                                if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return _ => continuation(_, predicate.Parameters[0], sourceMember, P.Within.From(previousExpression.Arguments[1]));
-
-                                if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                    return _ => continuation(_, predicate.Parameters[0], argument, P.Within.From(previousExpression.Arguments[0]));
-                            }
-                            else
-                                return _ => continuation(_, predicate.Parameters[0], methodCallExpression.Arguments[0], new P.Neq(null));
-                        }
-                        else if (methodInfo.IsEnumerableContains())
-                        {
-                            if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == predicate.Parameters[0])
-                                return _ => continuation(_, predicate.Parameters[0], sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
-
-                            if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == predicate.Parameters[0])
-                                return _ => continuation(_, predicate.Parameters[0], argument, P.Within.From(methodCallExpression.Arguments[0]));
-                        }
-                        else if (methodInfo.IsStringStartsWith())
-                        {
-                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression && argumentExpression.Expression == predicate.Parameters[0])
-                            {
-                                if (methodCallExpression.Object.GetValue() is string stringValue)
-                                {
-                                    return _ => continuation(
-                                        _,
-                                        predicate.Parameters[0],
-                                        argumentExpression,
-                                        new P.Within(Enumerable
-                                            .Range(0, stringValue.Length + 1)
-                                            .Select(i => stringValue.Substring(0, i))
-                                            .ToArray<object>()));
-                                }
-                            }
-                            else if (methodCallExpression.Object is MemberExpression memberExpression && memberExpression.Expression == predicate.Parameters[0])
-                            {
-                                if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
-                                {
-                                    string upperBound;
-
-                                    if (lowerBound.Length == 0)
-                                        return _ => continuation(_, predicate.Parameters[0], memberExpression, P.True);
-
-                                    if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
-                                        upperBound = lowerBound + char.MinValue;
-                                    else
-                                    {
-                                        var upperBoundChars = lowerBound.ToCharArray();
-
-                                        upperBoundChars[upperBoundChars.Length - 1]++;
-                                        upperBound = new string(upperBoundChars);
-                                    }
-
-                                    return _ => continuation(_, predicate.Parameters[0], memberExpression, new P.Between(lowerBound, upperBound));
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-                }
-            }
-            catch (ExpressionNotSupportedException ex)
-            {
-                throw new ExpressionNotSupportedException(predicate, ex);
-            }
-
-            throw new ExpressionNotSupportedException(predicate);
-        }
-
-        private static Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> BreakdownExpression(ParameterExpression parameter, Expression left, Expression right, ExpressionType nodeType, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>, ParameterExpression, Expression, P, GremlinQuery<TElement, TOutVertex, TInVertex, TMeta, TFoldedQuery>> continuation)
-        {
-            if (nodeType == ExpressionType.OrElse || nodeType == ExpressionType.AndAlso)
-            {
-                var leftLambda = Expression.Lambda<Func<TElement, bool>>(left, parameter);
-                var rightLambda = Expression.Lambda<Func<TElement, bool>>(right, parameter);
-
-                if (nodeType == ExpressionType.OrElse)
-                {
-                    return _ => _.Or(
-                        BreakdownExpression(leftLambda, continuation),
-                        BreakdownExpression(rightLambda, continuation));
-                }
-
-                return _ => _.And(
-                    BreakdownExpression(leftLambda, continuation),
-                    BreakdownExpression(rightLambda, continuation));
-            }
-
-            if (right.HasExpressionInMemberChain(parameter))
-                return _ => continuation(_, parameter, right, nodeType.Switch().ToP(left.GetValue()));
-
-            return _ => continuation(_, parameter, left, nodeType.ToP(right.GetValue()));
-        }
-
     }
 }

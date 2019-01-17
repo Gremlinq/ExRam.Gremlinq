@@ -22,6 +22,14 @@ namespace ExRam.Gremlinq.Core
             public object Argument { get; }
         }
 
+        private sealed class FalseP : P
+        {
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                throw new InvalidOperationException("P.False is not supposed to be serialized to groovy. Something went wrong...");
+            }
+        }
+
         private sealed class TrueP : P
         {
             public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -125,9 +133,49 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public sealed class Without : P
+        {
+            public object[] Arguments { get; }
+
+            public Without(object[] arguments)
+            {
+                Arguments = arguments;
+            }
+
+            internal static P From(Expression expression)
+            {
+                if (expression.GetValue() is IEnumerable enumerable)
+                    return new P.Without(enumerable.Cast<object>().ToArray());
+
+                throw new ExpressionNotSupportedException(expression);
+            }
+
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+        }
+
         public sealed class Between : P
         {
             public Between(object lower, object upper)
+            {
+                Lower = lower;
+                Upper = upper;
+            }
+
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+
+            public object Lower { get; }
+            public object Upper { get; }
+        }
+
+        public sealed class Outside : P
+        {
+            public Outside(object lower, object upper)
             {
                 Lower = lower;
                 Upper = upper;
@@ -150,5 +198,6 @@ namespace ExRam.Gremlinq.Core
         public abstract void Accept(IGremlinQueryElementVisitor visitor);
 
         internal static readonly P True = new TrueP();
+        internal static readonly P False = new FalseP();
     }
 }
