@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             var stepName = "has";
             var argument = step.Value;
 
-            if (step.Value is P p)
+            if (argument is P p)
             {
                 if (p is P.SingleArgumentP singleArgumentP)
                 {
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                     if (p is P.Eq)
                         argument = singleArgumentP.Argument;
                 }
-                else if (step.Value == P.True)
+                else if (p == P.True)
                     argument = null;
             }
 

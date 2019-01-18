@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using ExRam.Gremlinq.Core;
 
 namespace System.Linq.Expressions
@@ -92,10 +93,10 @@ namespace System.Linq.Expressions
                             if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return new TerminalGremlinExpression(parameter, sourceMember, P.Within.From(previousExpression.Arguments[1]));
+                                    return new TerminalGremlinExpression(parameter, sourceMember, previousExpression.Arguments[1].ToPWithin());
 
                                 if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                    return new TerminalGremlinExpression(parameter, argument, P.Within.From(previousExpression.Arguments[0]));
+                                    return new TerminalGremlinExpression(parameter, argument, previousExpression.Arguments[0].ToPWithin());
                             }
                             else
                                 return new TerminalGremlinExpression(parameter, methodCallExpression.Arguments[0], new P.Neq(null));
@@ -106,7 +107,7 @@ namespace System.Linq.Expressions
                                 return new TerminalGremlinExpression(parameter, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                return new TerminalGremlinExpression(parameter, argument, P.Within.From(methodCallExpression.Arguments[0]));
+                                return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
                         }
                         else if (methodInfo.IsStringStartsWith())
                         {
@@ -155,6 +156,14 @@ namespace System.Linq.Expressions
             {
                 throw new ExpressionNotSupportedException(expression, ex);
             }
+
+            throw new ExpressionNotSupportedException(expression);
+        }
+
+        internal static P ToPWithin(this Expression expression)
+        {
+            if (expression.GetValue() is IEnumerable enumerable)
+                return new P.Within(enumerable.Cast<object>().ToArray());
 
             throw new ExpressionNotSupportedException(expression);
         }
