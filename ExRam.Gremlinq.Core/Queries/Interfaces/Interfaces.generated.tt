@@ -214,7 +214,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in baseInterfaces.Concat(MakeOrdered(Qualified(baseInterfaces))))
+    foreach(var iface in baseInterfaces.Concat(MakeOrdered(baseInterfaces)))
     {
 #>
     public partial interface <#= iface #>

@@ -170,7 +170,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in substitutedBaseInterfaces.Concat(MakeOrdered(Qualified(substitutedBaseInterfaces))))
+    foreach(var iface in substitutedBaseInterfaces.Concat(MakeOrdered(substitutedBaseInterfaces)))
     {
 #>
         <#= iface #> <#= iface #>.Coin(double probability) => Coin(probability);

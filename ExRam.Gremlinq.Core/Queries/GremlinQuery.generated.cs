@@ -1172,10 +1172,14 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coin(double probability) => Coin(probability);
         IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.Coin(double probability) => Coin(probability);
+        IOrderedGremlinQuery IOrderedGremlinQuery.Coin(double probability) => Coin(probability);
+        IOrderedElementGremlinQuery IOrderedElementGremlinQuery.Coin(double probability) => Coin(probability);
         IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.Coin(double probability) => Coin(probability);
         IOrderedEdgeGremlinQuery IOrderedEdgeGremlinQuery.Coin(double probability) => Coin(probability);
+        IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery> IOrderedArrayGremlinQuery<TElement, TFoldedQuery>.Coin(double probability) => Coin(probability);
+        IOrderedElementGremlinQuery<TElement> IOrderedElementGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
         IOrderedVertexGremlinQuery<TElement> IOrderedVertexGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
         IOrderedEdgeGremlinQuery<TElement> IOrderedEdgeGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
         IOrderedEdgeGremlinQuery<TElement, TOutVertex> IOrderedEdgeGremlinQuery<TElement, TOutVertex>.Coin(double probability) => Coin(probability);

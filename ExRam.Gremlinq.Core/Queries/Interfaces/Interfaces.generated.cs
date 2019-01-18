@@ -1606,6 +1606,14 @@ namespace ExRam.Gremlinq.Core
     {
         new IEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
     }
+    public partial interface IOrderedGremlinQuery
+    {
+        new IOrderedGremlinQuery Coin(double probability);
+    }
+    public partial interface IOrderedElementGremlinQuery
+    {
+        new IOrderedElementGremlinQuery Coin(double probability);
+    }
     public partial interface IOrderedVertexGremlinQuery
     {
         new IOrderedVertexGremlinQuery Coin(double probability);
@@ -1614,6 +1622,10 @@ namespace ExRam.Gremlinq.Core
     {
         new IOrderedEdgeGremlinQuery Coin(double probability);
     }
+    public partial interface IOrderedGremlinQuery<TElement>
+    {
+        new IOrderedGremlinQuery<TElement> Coin(double probability);
+    }
     public partial interface IOrderedValueGremlinQuery<TElement>
     {
         new IOrderedValueGremlinQuery<TElement> Coin(double probability);
@@ -1621,6 +1633,10 @@ namespace ExRam.Gremlinq.Core
     public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
     {
         new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
+    }
+    public partial interface IOrderedElementGremlinQuery<TElement>
+    {
+        new IOrderedElementGremlinQuery<TElement> Coin(double probability);
     }
     public partial interface IOrderedVertexGremlinQuery<TVertex>
     {

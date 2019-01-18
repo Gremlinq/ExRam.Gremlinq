@@ -13,7 +13,13 @@ namespace ExRam.Gremlinq.Core
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
+        IOrderedGremlinQuery,
+        IOrderedElementGremlinQuery,
+
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery>,
+
+        IOrderedGremlinQuery<TElement>,
+        IOrderedElementGremlinQuery<TElement>,
 
         IOrderedValueGremlinQuery<TElement>,
 
