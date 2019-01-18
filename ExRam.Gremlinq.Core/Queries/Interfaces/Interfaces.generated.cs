@@ -4,13 +4,21 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
+    public partial interface IOrderedGremlinQuery : IGremlinQuery { }
+
+    public partial interface IOrderedElementGremlinQuery : IElementGremlinQuery { }
+
     public partial interface IOrderedVertexGremlinQuery : IVertexGremlinQuery { }
 
     public partial interface IOrderedEdgeGremlinQuery : IEdgeGremlinQuery { }
 
+    public partial interface IOrderedGremlinQuery<TElement> : IGremlinQuery<TElement> { }
+
     public partial interface IOrderedValueGremlinQuery<TElement> : IValueGremlinQuery<TElement> { }
 
     public partial interface IOrderedArrayGremlinQuery<TArray, TQuery> : IArrayGremlinQuery<TArray, TQuery> { }
+
+    public partial interface IOrderedElementGremlinQuery<TElement> : IElementGremlinQuery<TElement> { }
 
     public partial interface IOrderedVertexGremlinQuery<TVertex> : IVertexGremlinQuery<TVertex> { }
 
