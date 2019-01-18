@@ -8,6 +8,7 @@
         }
 
         public abstract GremlinExpression Negate();
+        public abstract GremlinExpression Simplify();
 
         public Expression Parameter { get; }
     }

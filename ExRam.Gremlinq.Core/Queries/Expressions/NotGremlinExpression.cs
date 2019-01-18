@@ -12,6 +12,11 @@
             return Expression;
         }
 
+        public override GremlinExpression Simplify()
+        {
+            return this;
+        }
+
         public GremlinExpression Expression { get; }
     }
 }

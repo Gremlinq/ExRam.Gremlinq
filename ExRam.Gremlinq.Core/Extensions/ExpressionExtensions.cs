@@ -49,7 +49,7 @@ namespace System.Linq.Expressions
             if (expression.Parameters.Count != 1)
                 throw new ExpressionNotSupportedException(expression);
 
-            return expression.Body.ToGremlinExpression(expression.Parameters[0]);
+            return expression.Body.ToGremlinExpression(expression.Parameters[0]).Simplify();
         }
 
         private static GremlinExpression ToGremlinExpression(this Expression expression, Expression parameter)

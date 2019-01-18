@@ -15,6 +15,11 @@ namespace System.Linq.Expressions
             return new NotGremlinExpression(Parameter, this);
         }
 
+        public override GremlinExpression Simplify()
+        {
+            return this;
+        }
+
         public P Predicate { get; }
         public Expression Key { get; }
     }

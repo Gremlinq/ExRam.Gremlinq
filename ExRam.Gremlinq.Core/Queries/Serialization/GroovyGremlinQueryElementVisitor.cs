@@ -13,6 +13,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             Idle,
             Chaining,
+            ChainingSupressIdentifier,
             InMethodBeforeFirstParameter,
             InMethodAfterFirstParameter
         }
@@ -360,7 +361,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(P.Between p)
         {
-            Identifier(nameof(P));
+            NoIdentifier();
             Method("between", p.Lower, p.Upper);
         }
 
@@ -391,20 +392,32 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(P.Within p)
         {
-            Identifier(nameof(P));
+            NoIdentifier();
             Method("within", p.Arguments);
         }
 
         public void Visit(P.Without p)
         {
-            Identifier(nameof(P));
+            NoIdentifier();
             Method("without", p.Arguments);
         }
 
         public void Visit(P.Outside p)
         {
-            Identifier(nameof(P));
+            NoIdentifier();
             Method("outside", p.Lower, p.Upper);
+        }
+
+        public void Visit(P.AndP p)
+        {
+            Visit(p.Operand1);
+            Method("and", p.Operand2);
+        }
+
+        public void Visit(P.OrP p)
+        {
+            Visit(p.Operand1);
+            Method("or", p.Operand2);
         }
 
         public virtual void Visit(Lambda lambda)
@@ -660,6 +673,14 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
         }
 
+        protected void NoIdentifier()
+        {
+            if (_state != State.Idle)
+                throw new InvalidOperationException();
+
+            _state = State.ChainingSupressIdentifier;
+        }
+
         protected void Identifier(string className)
         {
             if (_state != State.Idle)
@@ -681,14 +702,16 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected void OpenMethod(string methodName)
         {
-            if (_state != State.Chaining)
+            if (_state != State.Chaining && _state != State.ChainingSupressIdentifier)
                 throw new InvalidOperationException();
 
-            _builder.Append(".");
+            if (_state == State.Chaining)
+                _builder.Append(".");
+
             _builder.Append(methodName);
             _builder.Append("(");
 
-            _stateQueue.Push(_state);
+            _stateQueue.Push(State.Chaining);
             _state = State.InMethodBeforeFirstParameter;
         }
 
@@ -806,7 +829,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected virtual void Field(string fieldName)
         {
-            if (_state != State.Chaining)
+            if (_state != State.Chaining && _state != State.ChainingSupressIdentifier)
                 throw new InvalidOperationException();
 
             _builder.Append(".");
@@ -815,7 +838,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected void Constant(object constant)
         {
-            if (_state == State.Chaining)
+            if (_state == State.Chaining || _state == State.ChainingSupressIdentifier)
                 throw new InvalidOperationException();
 
             _builder.Append(Cache(constant));
@@ -901,7 +924,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected virtual void Visit(P.SingleArgumentP p, string name)
         {
-            Identifier(nameof(P));
+            NoIdentifier();
             Method(name, p.Argument);
         }
 

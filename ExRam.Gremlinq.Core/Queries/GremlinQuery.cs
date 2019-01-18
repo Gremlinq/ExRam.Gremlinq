@@ -556,9 +556,9 @@ namespace ExRam.Gremlinq.Core
 
             if (gremlinExpression is AndGremlinExpression and)
             {
-                return And(
-                    _ => _.Where(and.Operand1),
-                    _ => _.Where(and.Operand2));
+                return this
+                    .Where(and.Operand1)
+                    .Where(and.Operand2);
             }
 
             if (gremlinExpression is NotGremlinExpression not)

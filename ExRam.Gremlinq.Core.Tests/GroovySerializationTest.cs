@@ -329,7 +329,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Choose1()
+        public void Choose_Traversal1()
         {
             g
                 .V()
@@ -343,7 +343,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Choose2()
+        public void Choose_Traversal2()
         {
             g
                 .V()
@@ -356,7 +356,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Choose3()
+        public void Choose_Predicate1()
         {
             g
                 .V()
@@ -366,12 +366,12 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.eq(_a), __.constant(_b), __.constant(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(eq(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
         }
 
         [Fact]
-        public void Choose4()
+        public void Choose_Predicate2()
         {
             g
                 .V()
@@ -380,12 +380,12 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x == (object)42,
                     _ => _.Constant(true))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.eq(_a), __.constant(_b))")
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(eq(_a), __.constant(_b))")
                 .WithParameters(42, true);
         }
 
         [Fact]
-        public void Choose5()
+        public void Choose_Predicate3()
         {
             g
                 .V()
@@ -396,8 +396,72 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().id().choose(P.lt(_a), __.constant(_b), __.constant(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
+        }
+
+        [Fact]
+        public void Choose_Predicate4()
+        {
+            g
+                .V()
+                .Id()
+                .Cast<int>()
+                .Choose(
+                    x => 42 > x,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
+                .WithParameters(42, true, false);
+        }
+
+        [Fact]
+        public void Choose_Predicate5()
+        {
+            g
+                .V()
+                .Id()
+                .Cast<int>()
+                .Choose(
+                    x => 0 < x && x < 42,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(gt(_a).and(lt(_b)), __.constant(_c), __.constant(_d))")
+                .WithParameters(0, 42, true, false);
+        }
+
+        [Fact]
+        public void Choose_Predicate6()
+        {
+            g
+                .V()
+                .Id()
+                .Cast<int>()
+                .Choose(
+                    x => 0 < x && x < 42 || x != 37,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)), __.constant(_d), __.constant(_e))")
+                .WithParameters(0, 42, 37, true, false);
+        }
+
+        [Fact]
+        public void Choose_Predicate7()
+        {
+            g
+                .V()
+                .Id()
+                .Cast<int>()
+                .Choose(
+                    x => 0 < x || x < 42 && x != 37,
+                    _ => _.Constant(true),
+                    _ => _.Constant(false))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))")
+                .WithParameters(0, 42, 37, true, false);
         }
 
         [Fact]
@@ -1234,7 +1298,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => (int)x.Properties["MetaKey"] < 100)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, P.lt(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, lt(_c))")
                 .WithParameters("User", "MetaKey", 100);
         }
 
@@ -1318,7 +1382,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => (int)x.Value < 10)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().hasValue(P.lt(_b))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().hasValue(lt(_b))")
                 .WithParameters("Country", 10);
         }
 
@@ -1453,7 +1517,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x < 100)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(P.lt(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(lt(_c))")
                 .WithParameters("User", "Age", 100);
         }
 
@@ -1672,7 +1736,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -1683,7 +1747,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -1739,7 +1803,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.has(_b, _c), __.or(__.has(_d, _e), __.has(_d, _f)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f)))")
                 .WithParameters("User", "Name", "Some name", "Age", 42, 99);
         }
 
@@ -1750,7 +1814,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.hasNot(_b), __.or(__.has(_c, _d), __.has(_c, _e)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e)))")
                 .WithParameters("User", "Name", "Age", 42, 99);
         }
 
@@ -1761,7 +1825,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)))")
                 .WithParameters("User", "Age", 36, 42);
         }
 
@@ -1772,7 +1836,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Name == "Some name" && t.Age == 42)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_d, _e))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, _e)")
                 .WithParameters("User", "Name", "Some name", "Age", 42);
         }
 
@@ -1798,7 +1862,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2 == l)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(P.eq(_b))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))")
                 .WithParameters("Language", "l1");
         }
 
@@ -1809,7 +1873,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)))")
                 .WithParameters("User", "Age", 36, 42);
         }
 
@@ -1842,7 +1906,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)).and(eq(_e)))")
                 .WithParameters("User", "Age", 36, 42, 99);
         }
 
@@ -1853,7 +1917,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_b, _d), __.has(_b, _e))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e)))")
                 .WithParameters("User", "Age", 36, 42, 99);
         }
 
@@ -1897,7 +1961,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -1919,7 +1983,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d))")
                 .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -2005,7 +2069,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).where(__.values(_b).where(P.eq(_c)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).where(__.values(_b).where(eq(_c)))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
         }
 
@@ -2029,7 +2093,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -2043,7 +2107,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -2054,7 +2118,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age >= 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.gte(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gte(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -2065,7 +2129,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age > 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.gt(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -2076,7 +2140,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age <= 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.lte(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, lte(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -2087,7 +2151,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age < 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.lt(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, lt(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -2098,7 +2162,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -2125,7 +2189,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, P.within(_c, _d, _e)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
                 .WithParameters("User", "Age", 36, 37, 38);
         }
 
@@ -2147,7 +2211,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<CountryCallingCode>()
                 .Where(c => "+49123".StartsWith(c.Prefix))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -2158,7 +2222,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<CountryCallingCode>()
                 .Where(c => "".StartsWith(c.Prefix))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c))")
                 .WithParameters("CountryCallingCode", "Prefix", "");
         }
 
@@ -2171,7 +2235,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<CountryCallingCode>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -2184,7 +2248,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<CountryCallingCode>()
                 .Where(c => str.StartsWith(c.Prefix))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -2206,7 +2270,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(t => t.Age != 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.neq(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, neq(_c))")
                 .WithParameters("User", "Age", 36);
         }
 
@@ -2217,7 +2281,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Where(c => c.PhoneNumber.StartsWith("+49123"))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, P.between(_c, _d))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, between(_c, _d))")
                 .WithParameters("User", "PhoneNumber", "+49123", "+49124");
         }
 

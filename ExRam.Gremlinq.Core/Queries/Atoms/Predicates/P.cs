@@ -162,6 +162,40 @@ namespace ExRam.Gremlinq.Core
             public object Lower { get; }
             public object Upper { get; }
         }
+
+        public sealed class AndP : P
+        {
+            public AndP(P operand1, P operand2)
+            {
+                Operand1 = operand1;
+                Operand2 = operand2;
+            }
+
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+
+            public P Operand1 { get; }
+            public P Operand2 { get; }
+        }
+
+        public sealed class OrP : P
+        {
+            public OrP(P operand1, P operand2)
+            {
+                Operand1 = operand1;
+                Operand2 = operand2;
+            }
+
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+
+            public P Operand1 { get; }
+            public P Operand2 { get; }
+        }
         #endregion
 
         private P()
@@ -169,6 +203,16 @@ namespace ExRam.Gremlinq.Core
         }
 
         public abstract void Accept(IGremlinQueryElementVisitor visitor);
+
+        public P And(P p)
+        {
+            return new AndP(this, p);
+        }
+
+        public P Or(P p)
+        {
+            return new OrP(this, p);
+        }
 
         internal static readonly P True = new TrueP();
     }

@@ -103,6 +103,8 @@
         void Visit(P.Within p);
         void Visit(P.Without p);
         void Visit(P.Outside p);
+        void Visit(P.AndP p);
+        void Visit(P.OrP p);
 
         void Visit(Lambda lambda);
         void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>;
