@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using LanguageExt;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
-using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {

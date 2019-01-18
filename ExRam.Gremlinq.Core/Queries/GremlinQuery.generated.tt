@@ -64,6 +64,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> <#= iface #>.Times(int count) => Times(count);
 
         TTargetQuery <#= iface #>.Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+
 <#
     }
 
@@ -73,6 +74,7 @@ namespace ExRam.Gremlinq.Core
     {
 #>
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
+
 <#
     }
 
@@ -83,6 +85,7 @@ namespace ExRam.Gremlinq.Core
 #>
         <#= MakeOrdered(iface) #> <#= iface #>.OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection) => OrderBy(projection, Order.Increasing);
         <#= MakeOrdered(iface) #> <#= iface #>.OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection) => OrderBy(projection, Order.Decreasing);
+
 <#
     }
 
@@ -94,6 +97,7 @@ namespace ExRam.Gremlinq.Core
         <#= MakeOrdered(iface) #> <#= iface #>.OrderBy(Func<<#= iface #>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
         <#= MakeOrdered(iface) #> <#= iface #>.OrderBy(string lambda) => OrderBy(lambda);
         <#= MakeOrdered(iface) #> <#= iface #>.OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
+
 <#
     }
 
@@ -105,6 +109,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> <#= iface #>.ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
         <#= iface #> <#= iface #>.ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
         <#= iface #> <#= iface #>.ThenBy(string lambda) => By(lambda);
+
 <#
     }
 
@@ -115,6 +120,7 @@ namespace ExRam.Gremlinq.Core
 #>
         <#= iface #> <#= iface #>.ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection) => By(projection, Order.Increasing);
         <#= iface #> <#= iface #>.ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection) => By(projection, Order.Decreasing);
+
 <#
     }
 
@@ -125,6 +131,7 @@ namespace ExRam.Gremlinq.Core
 #>
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
+
 <#
     }
 
@@ -149,6 +156,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> <#= iface #>.Where(Expression<Func<<#= GetElement(iface) #>, bool>> predicate) => Where(predicate);
         <#= iface #> <#= iface #>.Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
+
 <#
     }
 
@@ -165,6 +173,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> <#= iface #>.Fold() => Fold<<#= MakeUnordered(iface) #>>();
 
         <#= MakeUnordered(iface) #> <#= iface #>.Where(Func<<#= iface #>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
+
 <#
     }
 
@@ -174,6 +183,7 @@ namespace ExRam.Gremlinq.Core
     {
 #>
         <#= iface #> <#= iface #>.Coin(double probability) => Coin(probability);
+
 <#
     }
 #>
