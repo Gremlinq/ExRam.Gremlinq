@@ -798,7 +798,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<User>()
-                .Filter("it.property('str').value().length() == 2")
+                .Where("it.property('str').value().length() == 2")
                 .ToArray();
         }
 

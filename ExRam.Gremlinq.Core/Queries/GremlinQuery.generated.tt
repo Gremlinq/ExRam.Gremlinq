@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> <#= iface #>.Emit() => Emit();
 
-        <#= iface #> <#= iface #>.Filter(string lambda) => Filter(lambda);
+        <#= iface #> <#= iface #>.Where(string lambda) => Where(lambda);
 
         TTargetQuery <#= iface #>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 

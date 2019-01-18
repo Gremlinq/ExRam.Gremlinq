@@ -535,7 +535,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Filter("it.property('str').value().length() == 2")
+                .Where("it.property('str').value().length() == 2")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
                 .WithParameters("User");

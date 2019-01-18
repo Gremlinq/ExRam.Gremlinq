@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core
 
         new <#= iface #> Emit();
 
-        new <#= iface #> Filter(string lambda);
+        new <#= iface #> Where(string lambda);
         TTargetQuery FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
         new <#= iface #> Identity();

@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery IGremlinQuery.Emit() => Emit();
 
-        IGremlinQuery IGremlinQuery.Filter(string lambda) => Filter(lambda);
+        IGremlinQuery IGremlinQuery.Where(string lambda) => Where(lambda);
 
         TTargetQuery IGremlinQuery.FlatMap<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery IElementGremlinQuery.Emit() => Emit();
 
-        IElementGremlinQuery IElementGremlinQuery.Filter(string lambda) => Filter(lambda);
+        IElementGremlinQuery IElementGremlinQuery.Where(string lambda) => Where(lambda);
 
         TTargetQuery IElementGremlinQuery.FlatMap<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery IVertexGremlinQuery.Emit() => Emit();
 
-        IVertexGremlinQuery IVertexGremlinQuery.Filter(string lambda) => Filter(lambda);
+        IVertexGremlinQuery IVertexGremlinQuery.Where(string lambda) => Where(lambda);
 
         TTargetQuery IVertexGremlinQuery.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -159,7 +159,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery IEdgeGremlinQuery.Emit() => Emit();
 
-        IEdgeGremlinQuery IEdgeGremlinQuery.Filter(string lambda) => Filter(lambda);
+        IEdgeGremlinQuery IEdgeGremlinQuery.Where(string lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -205,7 +205,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Emit() => Emit();
 
-        IGremlinQuery<TElement> IGremlinQuery<TElement>.Filter(string lambda) => Filter(lambda);
+        IGremlinQuery<TElement> IGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Emit() => Emit();
 
-        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Filter(string lambda) => Filter(lambda);
+        IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IValueGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -297,7 +297,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Emit() => Emit();
 
-        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Filter(string lambda) => Filter(lambda);
+        IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -343,7 +343,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Emit() => Emit();
 
-        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Filter(string lambda) => Filter(lambda);
+        IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IElementGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -389,7 +389,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Emit() => Emit();
 
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Filter(string lambda) => Filter(lambda);
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IVertexGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -435,7 +435,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Emit() => Emit();
 
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Filter(string lambda) => Filter(lambda);
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -481,7 +481,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Emit() => Emit();
 
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Filter(string lambda) => Filter(lambda);
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -527,7 +527,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Emit() => Emit();
 
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Filter(string lambda) => Filter(lambda);
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -573,7 +573,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Emit() => Emit();
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Filter(string lambda) => Filter(lambda);
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.FlatMap<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -619,7 +619,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Emit() => Emit();
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Filter(string lambda) => Filter(lambda);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -665,7 +665,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Emit() => Emit();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Filter(string lambda) => Filter(lambda);
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -711,7 +711,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Emit() => Emit();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Filter(string lambda) => Filter(lambda);
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
 
@@ -757,7 +757,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.Emit() => Emit();
 
-        IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.Filter(string lambda) => Filter(lambda);
+        IEdgePropertyGremlinQuery<TElement, TPropertyValue> IEdgePropertyGremlinQuery<TElement, TPropertyValue>.Where(string lambda) => Where(lambda);
 
         TTargetQuery IEdgePropertyGremlinQuery<TElement, TPropertyValue>.FlatMap<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => FlatMap(mapping);
 
