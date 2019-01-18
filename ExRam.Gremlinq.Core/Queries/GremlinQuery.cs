@@ -507,17 +507,21 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
         {
-            var keys = projections
+            return ValuesForProjections<TValue>(projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return Model.GetIdentifier(memberExpression);
+                        return memberExpression;
 
                     throw new ExpressionNotSupportedException(projection);
-                })
-                .ToArray();
+                }));
+        }
 
-            return ValuesForKeys<TValue>(keys);
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
+        {
+            return ValuesForKeys<TValue>(projections
+                .Select(projection => Model.GetIdentifier(projection))
+                .ToArray());
         }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
