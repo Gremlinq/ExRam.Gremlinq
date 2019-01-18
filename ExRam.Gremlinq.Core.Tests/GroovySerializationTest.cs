@@ -2005,7 +2005,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).filter(values(_b).where(P.eq(_c)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).where(__.values(_b).where(P.eq(_c)))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
         }
 

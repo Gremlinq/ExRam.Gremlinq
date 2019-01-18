@@ -573,7 +573,7 @@ namespace ExRam.Gremlinq.Core
                         if (leftMemberExpression.Expression == terminal.Parameter)
                         {
                             if (terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
-                                return Has(leftMemberExpression, Anonymize().AddStep(new WherePredicateStep(terminal.Predicate)));
+                                return Where(_ => _.ValuesForProjections<object>(new[]{ leftMemberExpression }).AddStep(new WherePredicateStep(terminal.Predicate)));
 
                             return Has(leftMemberExpression, terminal.Predicate);
                         }
