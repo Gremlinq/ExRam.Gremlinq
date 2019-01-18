@@ -197,7 +197,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(Qualified(baseInterfaces)))))
+    foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
@@ -206,24 +206,13 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
+        new <#= iface #> Coin(double probability);
 
         new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
 
         new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
     }
 
-<#
-    }
-
-
-
-    foreach(var iface in baseInterfaces.Concat(MakeOrdered(baseInterfaces)))
-    {
-#>
-    public partial interface <#= iface #>
-    {
-        new <#= iface #> Coin(double probability);
-    }
 <#
     }
 #>

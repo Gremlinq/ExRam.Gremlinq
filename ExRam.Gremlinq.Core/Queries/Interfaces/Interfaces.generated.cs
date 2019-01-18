@@ -1299,6 +1299,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IGremlinQuery<TResult> Cast<TResult>();
+        new IGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> Fold();
 
@@ -1311,6 +1312,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IValueGremlinQuery<TResult> Cast<TResult>();
+        new IValueGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> Fold();
 
@@ -1323,6 +1325,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, StepLabel<IArrayGremlinQuery<TArray, TQuery>, TArray>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IArrayGremlinQuery<TResult, TQuery> Cast<TResult>();
+        new IArrayGremlinQuery<TArray, TQuery> Coin(double probability);
 
         new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
 
@@ -1335,6 +1338,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IElementGremlinQuery<TResult> Cast<TResult>();
+        new IElementGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> Fold();
 
@@ -1347,6 +1351,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, StepLabel<IVertexGremlinQuery<TVertex>, TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IVertexGremlinQuery<TResult> Cast<TResult>();
+        new IVertexGremlinQuery<TVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TVertex[], IVertexGremlinQuery<TVertex>> Fold();
 
@@ -1359,6 +1364,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, StepLabel<IEdgeGremlinQuery<TEdge>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TResult> Cast<TResult>();
+        new IEdgeGremlinQuery<TEdge> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge>> Fold();
 
@@ -1371,6 +1377,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TResult, TAdjacentVertex> Cast<TResult>();
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TAdjacentVertex>> Fold();
 
@@ -1383,6 +1390,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TResult, TOutVertex, TInVertex> Cast<TResult>();
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> Fold();
 
@@ -1395,6 +1403,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<IInEdgeGremlinQuery<TEdge, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IInEdgeGremlinQuery<TResult, TInVertex> Cast<TResult>();
+        new IInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IInEdgeGremlinQuery<TEdge, TInVertex>> Fold();
 
@@ -1407,6 +1416,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOutEdgeGremlinQuery<TResult, TOutVertex> Cast<TResult>();
+        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IOutEdgeGremlinQuery<TEdge, TOutVertex>> Fold();
 
@@ -1419,6 +1429,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<IVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TResult, TValue> Cast<TResult>();
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
 
@@ -1431,6 +1442,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TResult, TValue, TMeta> Cast<TResult>();
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> Fold();
 
@@ -1443,10 +1455,24 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement, TValue>, StepLabel<IEdgePropertyGremlinQuery<TElement, TValue>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IEdgePropertyGremlinQuery<TResult, TValue> Cast<TResult>();
+        new IEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IEdgePropertyGremlinQuery<TElement, TValue>> Fold();
 
         new IEdgePropertyGremlinQuery<TElement, TValue> Where(Func<IEdgePropertyGremlinQuery<TElement, TValue>, IGremlinQuery> filterTraversal);
+    }
+
+    public partial interface IOrderedGremlinQuery<TElement>
+    {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<IOrderedGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
+        new IOrderedGremlinQuery<TResult> Cast<TResult>();
+        new IOrderedGremlinQuery<TElement> Coin(double probability);
+
+        new IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> Fold();
+
+        new IGremlinQuery<TElement> Where(Func<IOrderedGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
     public partial interface IOrderedValueGremlinQuery<TElement>
@@ -1455,6 +1481,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<IOrderedValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedValueGremlinQuery<TResult> Cast<TResult>();
+        new IOrderedValueGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> Fold();
 
@@ -1467,10 +1494,24 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, StepLabel<IOrderedArrayGremlinQuery<TArray, TQuery>, TArray>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedArrayGremlinQuery<TResult, TQuery> Cast<TResult>();
+        new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
 
         new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
 
         new IArrayGremlinQuery<TArray, TQuery> Where(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
+    }
+
+    public partial interface IOrderedElementGremlinQuery<TElement>
+    {
+        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<IOrderedElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
+        new IOrderedElementGremlinQuery<TResult> Cast<TResult>();
+        new IOrderedElementGremlinQuery<TElement> Coin(double probability);
+
+        new IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> Fold();
+
+        new IElementGremlinQuery<TElement> Where(Func<IOrderedElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
     public partial interface IOrderedVertexGremlinQuery<TVertex>
@@ -1479,6 +1520,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TVertex>, StepLabel<IOrderedVertexGremlinQuery<TVertex>, TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedVertexGremlinQuery<TResult> Cast<TResult>();
+        new IOrderedVertexGremlinQuery<TVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TVertex[], IVertexGremlinQuery<TVertex>> Fold();
 
@@ -1491,6 +1533,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge>, StepLabel<IOrderedEdgeGremlinQuery<TEdge>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedEdgeGremlinQuery<TResult> Cast<TResult>();
+        new IOrderedEdgeGremlinQuery<TEdge> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge>> Fold();
 
@@ -1503,6 +1546,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedEdgeGremlinQuery<TResult, TAdjacentVertex> Cast<TResult>();
+        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TAdjacentVertex>> Fold();
 
@@ -1515,6 +1559,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedEdgeGremlinQuery<TResult, TOutVertex, TInVertex> Cast<TResult>();
+        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> Fold();
 
@@ -1527,6 +1572,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedInEdgeGremlinQuery<TResult, TInVertex> Cast<TResult>();
+        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IInEdgeGremlinQuery<TEdge, TInVertex>> Fold();
 
@@ -1539,6 +1585,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedOutEdgeGremlinQuery<TResult, TOutVertex> Cast<TResult>();
+        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IOutEdgeGremlinQuery<TEdge, TOutVertex>> Fold();
 
@@ -1551,6 +1598,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedVertexPropertyGremlinQuery<TResult, TValue> Cast<TResult>();
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
 
@@ -1563,6 +1611,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedVertexPropertyGremlinQuery<TResult, TValue, TMeta> Cast<TResult>();
+        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> Fold();
 
@@ -1575,147 +1624,12 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(Func<IOrderedEdgePropertyGremlinQuery<TElement, TValue>, StepLabel<IOrderedEdgePropertyGremlinQuery<TElement, TValue>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
         new IOrderedEdgePropertyGremlinQuery<TResult, TValue> Cast<TResult>();
+        new IOrderedEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IEdgePropertyGremlinQuery<TElement, TValue>> Fold();
 
         new IEdgePropertyGremlinQuery<TElement, TValue> Where(Func<IOrderedEdgePropertyGremlinQuery<TElement, TValue>, IGremlinQuery> filterTraversal);
     }
 
-    public partial interface IGremlinQuery
-    {
-        new IGremlinQuery Coin(double probability);
-    }
-    public partial interface IElementGremlinQuery
-    {
-        new IElementGremlinQuery Coin(double probability);
-    }
-    public partial interface IVertexGremlinQuery
-    {
-        new IVertexGremlinQuery Coin(double probability);
-    }
-    public partial interface IEdgeGremlinQuery
-    {
-        new IEdgeGremlinQuery Coin(double probability);
-    }
-    public partial interface IGremlinQuery<TElement>
-    {
-        new IGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IValueGremlinQuery<TElement>
-    {
-        new IValueGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IArrayGremlinQuery<TArray, TQuery>
-    {
-        new IArrayGremlinQuery<TArray, TQuery> Coin(double probability);
-    }
-    public partial interface IElementGremlinQuery<TElement>
-    {
-        new IElementGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IVertexGremlinQuery<TVertex>
-    {
-        new IVertexGremlinQuery<TVertex> Coin(double probability);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge>
-    {
-        new IEdgeGremlinQuery<TEdge> Coin(double probability);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
-    }
-    public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        new IInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
-    }
-    public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
-    }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
-    }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
-    }
-    public partial interface IEdgePropertyGremlinQuery<TElement, TValue>
-    {
-        new IEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
-    }
-    public partial interface IOrderedGremlinQuery
-    {
-        new IOrderedGremlinQuery Coin(double probability);
-    }
-    public partial interface IOrderedElementGremlinQuery
-    {
-        new IOrderedElementGremlinQuery Coin(double probability);
-    }
-    public partial interface IOrderedVertexGremlinQuery
-    {
-        new IOrderedVertexGremlinQuery Coin(double probability);
-    }
-    public partial interface IOrderedEdgeGremlinQuery
-    {
-        new IOrderedEdgeGremlinQuery Coin(double probability);
-    }
-    public partial interface IOrderedGremlinQuery<TElement>
-    {
-        new IOrderedGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IOrderedValueGremlinQuery<TElement>
-    {
-        new IOrderedValueGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
-    {
-        new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
-    }
-    public partial interface IOrderedElementGremlinQuery<TElement>
-    {
-        new IOrderedElementGremlinQuery<TElement> Coin(double probability);
-    }
-    public partial interface IOrderedVertexGremlinQuery<TVertex>
-    {
-        new IOrderedVertexGremlinQuery<TVertex> Coin(double probability);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge> Coin(double probability);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
-    }
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
-    }
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
-    }
-    public partial interface IOrderedEdgePropertyGremlinQuery<TElement, TValue>
-    {
-        new IOrderedEdgePropertyGremlinQuery<TElement, TValue> Coin(double probability);
-    }
 }
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
