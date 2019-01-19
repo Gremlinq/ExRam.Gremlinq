@@ -48,7 +48,7 @@ private static string[] Element(IEnumerable<string> interfaces)
 private static string[] Simple(IEnumerable<string> interfaces)
 {
     return interfaces
-        .Where(iface => GetTypeParameters(iface).Length == 1)
+        .Where(iface => GetTypeParameters(iface).Length <= 1 || (iface.StartsWith("IVertexProperty") && GetTypeParameters(iface).Length == 2))
         .ToArray();
 }
 
