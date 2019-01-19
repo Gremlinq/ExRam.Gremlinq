@@ -329,33 +329,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Choose_Traversal1()
-        {
-            g
-                .V()
-                .Choose(
-                    _ => _.Values(),
-                    _ => _.Out(),
-                    _ => _.In())
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out(), __.in())")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Choose_Traversal2()
-        {
-            g
-                .V()
-                .Choose(
-                    _ => _.Values(),
-                    _ => _.Out())
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out())")
-                .WithoutParameters();
-        }
-
-        [Fact]
         public void Choose_Predicate1()
         {
             g
@@ -462,6 +435,33 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))")
                 .WithParameters(0, 42, 37, true, false);
+        }
+
+        [Fact]
+        public void Choose_Traversal1()
+        {
+            g
+                .V()
+                .Choose(
+                    _ => _.Values(),
+                    _ => _.Out(),
+                    _ => _.In())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out(), __.in())")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Choose_Traversal2()
+        {
+            g
+                .V()
+                .Choose(
+                    _ => _.Values(),
+                    _ => _.Out())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().choose(__.values(), __.out())")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -721,6 +721,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Limit_underflow()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Limit(-1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
         public void LimitGlobal()
         {
             g
@@ -732,16 +742,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Limit_underflow()
-        {
-            g
-                .V()
-                .Invoking(_ => _.Limit(-1))
-                .Should()
-                .Throw<ArgumentException>();
-        }
-
-        [Fact]
         public void LimitLocal()
         {
             g
@@ -749,38 +749,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .LimitLocal(1)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().limit(Scope.local, _a)")
-                .WithParameters(1);
-        }
-
-        [Fact]
-        public void TailGlobal()
-        {
-            g
-                .V()
-                .Tail(1)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().tail(_a)")
-                .WithParameters(1);
-        }
-
-        [Fact]
-        public void Tail_underflow()
-        {
-            g
-                .V()
-                .Invoking(_ => _.Tail(-1))
-                .Should()
-                .Throw<ArgumentException>();
-        }
-
-        [Fact]
-        public void TailLocal()
-        {
-            g
-                .V()
-                .TailLocal(1)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().tail(Scope.local, _a)")
                 .WithParameters(1);
         }
 
@@ -1145,7 +1113,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties()
+        public void Properties1()
         {
             g
                 .V()
@@ -1156,6 +1124,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties2()
+        {
+            g
+                .E()
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().properties()")
+                .WithoutParameters();
+        }
+        
+        [Fact]
         public void Properties_Meta()
         {
             g
@@ -1165,6 +1144,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b)")
                 .WithParameters("Country", "Name");
+        }
+
+
+        [Fact]
+        public void Properties_Meta_ValueMap()
+        {
+            g
+                .V()
+                .Properties()
+                .Meta<MetaModel>()
+                .ValueMap()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -1218,6 +1211,45 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_of_two_members1()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name, x => x.CountryCallingCode)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b, _c)")
+                .WithParameters("Country", "Name", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Properties_of_three_members()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name, x => x.CountryCallingCode, x => x.Languages)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b, _c, _d)")
+                .WithParameters("Country", "Name", "CountryCallingCode", "Languages");
+        }
+
+        [Fact]
+        public void Properties_of_two_members2()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name, x => x.Languages)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
+
+            g
+                .V<Country>()
+                .Properties(x => x.Name, x => x.Languages)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b, _c)")
+                .WithParameters("Country", "Name", "Languages");
+        }
+
+        [Fact]
         public void Properties_Properties()
         {
             g
@@ -1227,6 +1259,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
                 .WithParameters("Country", "Name");
+        }
+
+        [Fact]
+        public void Properties_ValueMap_typed()
+        {
+            g
+                .V()
+                .Properties()
+                .ValueMap<string>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -1242,44 +1286,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_ValueMap_typed()
-        {
-            g
-                .V()
-                .Properties()
-                .ValueMap<string>()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
-                .WithoutParameters();
-        }
-
-
-        [Fact]
-        public void Properties_Meta_ValueMap()
-        {
-            g
-                .V()
-                .Properties()
-                .Meta<MetaModel>()
-                .ValueMap()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Properties_Values_untyped()
-        {
-            g
-                .V()
-                .Properties()
-                .Values()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
-                .WithoutParameters();
-        }
-
-        [Fact]
         public void Properties_Values_Id()
         {
             g
@@ -1288,19 +1294,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().id()")
-                .WithoutParameters();
-        }
-
-
-        [Fact]
-        public void Properties_Values_Label()
-        {
-            g
-                .V()
-                .Properties()
-                .Values(x => x.Label)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().label()")
                 .WithoutParameters();
         }
 
@@ -1315,6 +1308,30 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().union(__.label(), __.id())")
+                .WithoutParameters();
+        }
+        
+        [Fact]
+        public void Properties_Values_Label()
+        {
+            g
+                .V()
+                .Properties()
+                .Values(x => x.Label)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().label()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties_Values_untyped()
+        {
+            g
+                .V()
+                .Properties()
+                .Values()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
                 .WithoutParameters();
         }
 
@@ -1574,6 +1591,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Tail_underflow()
+        {
+            g
+                .V()
+                .Invoking(_ => _.Tail(-1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void TailGlobal()
+        {
+            g
+                .V()
+                .Tail(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().tail(_a)")
+                .WithParameters(1);
+        }
+
+        [Fact]
+        public void TailLocal()
+        {
+            g
+                .V()
+                .TailLocal(1)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().tail(Scope.local, _a)")
+                .WithParameters(1);
+        }
+
+        [Fact]
         public void Union()
         {
             g
@@ -1646,6 +1695,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithoutParameters();
         }
 
+        [Fact]
         public void Value()
         {
             g
@@ -1654,6 +1704,28 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Value()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().value()");
+        }
+
+        [Fact]
+        public void ValueMap_typed()
+        {
+            g
+                .V<User>()
+                .ValueMap(x => x.Age)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
+                .WithParameters("User", "Age");
+        }
+
+        [Fact]
+        public void ValueMap_untyped()
+        {
+            g
+                .V<User>()
+                .ValueMap("key")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
+                .WithParameters("User", "key");
         }
 
         [Fact]
@@ -1789,28 +1861,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("User", "key");
-        }
-
-        [Fact]
-        public void ValueMap_untyped()
-        {
-            g
-                .V<User>()
-                .ValueMap("key")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
-                .WithParameters("User", "key");
-        }
-
-        [Fact]
-        public void ValueMap_typed()
-        {
-            g
-                .V<User>()
-                .ValueMap(x => x.Age)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
-                .WithParameters("User", "Age");
         }
 
         [Fact]
