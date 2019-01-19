@@ -598,7 +598,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(ValueMapStep step)
         {
-            Method("valueMap");
+            Method("valueMap", step.Keys);
         }
 
         public virtual void Visit(IGremlinQuery query)

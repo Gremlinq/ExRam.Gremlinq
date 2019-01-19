@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using LanguageExt;
@@ -105,5 +106,15 @@ namespace ExRam.Gremlinq.Core
         {
             return query.Values<object>();
         }
-    }
+
+        public static IValueGremlinQuery<IDictionary<string, object>> ValueMap<TElement>(this IElementGremlinQuery<TElement> query, params string[] keys)
+        {
+            return query.ValueMap<object>(keys);
+        }
+
+        public static IValueGremlinQuery<IDictionary<string, object>> ValueMap(IElementGremlinQuery query, params string[] keys)
+        {
+            return query.ValueMap<object>(keys);
+        }
+     }
 }

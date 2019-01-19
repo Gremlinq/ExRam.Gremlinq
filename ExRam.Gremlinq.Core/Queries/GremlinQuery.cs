@@ -505,11 +505,33 @@ namespace ExRam.Gremlinq.Core
 
         private IValueGremlinQuery<TPropertyValue> Value() => AddStep<TPropertyValue, Unit, Unit, Unit, Unit, Unit>(ValueStep.Instance);
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep());
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(keys));
+
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
+        {
+            var stringKeys = GetKeys(projections)
+                .OfType<string>()
+                .ToArray();
+
+            if (stringKeys.Length != projections.Length())
+                throw new ExpressionNotSupportedException();
+
+            return AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(stringKeys));
+        }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
         {
-            return ValuesForProjections<TValue>(projections
+            return ValuesForKeys<TValue>(GetKeys(projections));
+        }
+
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
+        {
+            return ValuesForKeys<TValue>(GetKeys(projections));
+        }
+
+        private object[] GetKeys(IEnumerable<LambdaExpression> projections)
+        {
+            return GetKeys(projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
@@ -517,13 +539,13 @@ namespace ExRam.Gremlinq.Core
 
                     throw new ExpressionNotSupportedException(projection);
                 }));
-        }
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
+        }
+        private object[] GetKeys(IEnumerable<MemberExpression> projections)
         {
-            return ValuesForKeys<TValue>(projections
+            return projections
                 .Select(projection => Model.GetIdentifier(projection))
-                .ToArray());
+                .ToArray();
         }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)

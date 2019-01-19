@@ -1230,7 +1230,32 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_ValueMap()
+        public void Properties_ValueMap_untyped()
+        {
+            g
+                .V()
+                .Properties()
+                .ValueMap()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties_ValueMap_typed()
+        {
+            g
+                .V()
+                .Properties()
+                .ValueMap<string>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
+                .WithoutParameters();
+        }
+
+
+        [Fact]
+        public void Properties_Meta_ValueMap()
         {
             g
                 .V()
@@ -1767,6 +1792,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void ValueMap_untyped()
+        {
+            g
+                .V<User>()
+                .ValueMap("key")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
+                .WithParameters("User", "key");
+        }
+
+        [Fact]
+        public void ValueMap_typed()
+        {
+            g
+                .V<User>()
+                .ValueMap(x => x.Age)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
+                .WithParameters("User", "Age");
+        }
+
+        [Fact]
         public void Where_array_does_not_intersect_property_array()
         {
             g
@@ -1864,6 +1911,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)))")
                 .WithParameters("User", "Age", 36, 42);
+        }
+
+        [Fact(Skip="Optimizable")]
+        public void Where_conjunction_optimizable()
+        {
+            g
+                .V<User>()
+                .Where(t => (t.Age == 36 && t.Name == "Hallo") && t.Age == 42)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).has(_b, eq(_e))")
+                .WithParameters("User", "Age", 36, "Name", 42);
         }
 
         [Fact]

@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
 using System;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -1207,6 +1208,8 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IVertexGremlinQuery<TVertex>
     {
+                new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TVertex, TTarget>>[] keys);
+        
         new IValueGremlinQuery<TTarget> Values<TTarget>(); 
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, TTarget[]>>[] projections);
@@ -1214,6 +1217,8 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IEdgeGremlinQuery<TEdge>
     {
+                new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TEdge, TTarget>>[] keys);
+        
         new IValueGremlinQuery<TTarget> Values<TTarget>(); 
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, TTarget>>[] projections);
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, TTarget[]>>[] projections);
@@ -1221,6 +1226,7 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
+        
         new IValueGremlinQuery<TTarget> Values<TTarget>(); 
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TProperty, TTarget>>[] projections);
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TProperty, TTarget[]>>[] projections);

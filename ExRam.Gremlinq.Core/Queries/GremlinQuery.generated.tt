@@ -10,6 +10,7 @@ using System;
 using NullGuard;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -130,6 +131,14 @@ namespace ExRam.Gremlinq.Core
     foreach(var iface in Typed(Simple(Qualified(Element(substitutedBaseInterfaces)))))
     {
 #>
+        <#if (!iface.Contains("VertexProperty"))
+        {
+        #>
+        IValueGremlinQuery<IDictionary<string, TTarget>> <#= iface #>.ValueMap<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
+        <#
+        }
+        #>
+
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>() => ValuesForProjections<TTarget>(Enumerable.Empty<LambdaExpression>()); 
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);

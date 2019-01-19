@@ -13,7 +13,6 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TProperty, TValue> Property(string key, object value);
 
         IValueGremlinQuery<TValue> Value();
-        IGremlinQuery<IDictionary<string, object>> ValueMap();
     }
 
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IElementGremlinQuery<TProperty>
