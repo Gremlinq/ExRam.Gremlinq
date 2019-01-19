@@ -41,7 +41,7 @@ private static string[] Qualified(IEnumerable<string> interfaces)
 private static string[] Element(IEnumerable<string> interfaces)
 {
     return interfaces
-        .Where(iface => iface.Contains("Element") || iface.Contains("Vertex") || iface.Contains("Edge"))
+        .Where(iface => iface.Contains("ElementGremlinQuery") || iface.Contains("VertexGremlinQuery") || iface.Contains("EdgeGremlinQuery"))
         .ToArray();
 }
 
