@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in Simple(Qualified(Element(substitutedBaseInterfaces))))
+    foreach(var iface in Typed(Simple(Qualified(Element(substitutedBaseInterfaces)))))
     {
 #>
         IValueGremlinQuery<TTarget> <#= iface #>.Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);

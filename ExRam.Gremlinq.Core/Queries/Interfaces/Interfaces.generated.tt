@@ -151,7 +151,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in Simple(Qualified(Element(baseInterfaces))))
+    foreach(var iface in Typed(Simple(Qualified(Element(baseInterfaces)))))
     {
 #>
     public partial interface <#= iface #>
