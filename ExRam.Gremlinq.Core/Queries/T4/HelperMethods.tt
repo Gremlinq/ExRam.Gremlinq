@@ -45,13 +45,6 @@ private static string[] Element(IEnumerable<string> interfaces)
         .ToArray();
 }
 
-private static string[] VertexOrEdge(IEnumerable<string> interfaces)
-{
-    return interfaces
-        .Where(iface => iface.StartsWith("IVertexGremlinQuery") || iface.Contains("EdgeGremlinQuery"))
-        .ToArray();
-}
-
 private static string[] Simple(IEnumerable<string> interfaces)
 {
     return interfaces

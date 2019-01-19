@@ -151,7 +151,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in Simple(VertexOrEdge(baseInterfaces)))
+    foreach(var iface in Simple(Qualified(Element(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    foreach(var iface in Untyped(VertexOrEdge(baseInterfaces)))
+    foreach(var iface in Untyped(Qualified(Element(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
@@ -178,7 +178,7 @@ namespace ExRam.Gremlinq.Core
     
 
 
-    foreach(var iface in Typed(VertexOrEdge(baseInterfaces)))
+    foreach(var iface in Typed(Qualified(Element(baseInterfaces))))
     {
 #>
     public partial interface <#= iface #>
