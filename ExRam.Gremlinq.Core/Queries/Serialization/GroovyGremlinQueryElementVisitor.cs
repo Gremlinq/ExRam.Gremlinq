@@ -638,6 +638,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
+        public virtual void Visit(ValueStep step)
+        {
+            Method("value");
+        }
+
         public virtual void Visit(ValueMapStep step)
         {
             Method("valueMap");

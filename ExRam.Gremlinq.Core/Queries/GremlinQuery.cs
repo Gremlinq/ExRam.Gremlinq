@@ -503,6 +503,8 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
+        private IValueGremlinQuery<TPropertyValue> Value() => AddStep<TPropertyValue, Unit, Unit, Unit, Unit, Unit>(ValueStep.Instance);
+
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep());
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)

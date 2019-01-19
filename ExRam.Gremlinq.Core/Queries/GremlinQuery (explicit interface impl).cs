@@ -201,7 +201,7 @@ namespace ExRam.Gremlinq.Core
 
             return AddStep(new MetaPropertyStep(key, value));
         }
-        
+
         TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
             return this
@@ -261,6 +261,10 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids) => AddStep<Unit, Unit, Unit, Unit, Unit, Unit>(new VStep(ids)).OfType<TVertex>(Model.VerticesModel, true);
 
         IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids) => AddStep<IVertex, Unit, Unit, Unit, Unit, Unit>(new VStep(ids));
+
+        IValueGremlinQuery<TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Value() => Value();
+
+        IValueGremlinQuery<TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Value() => Value();
 
         IGremlinQuery<IDictionary<string, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.ValueMap() => ValueMap<IDictionary<string, object>>();
 

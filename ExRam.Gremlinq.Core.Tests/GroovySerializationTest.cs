@@ -1594,6 +1594,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithoutParameters();
         }
 
+        public void Value()
+        {
+            g
+                .V()
+                .Properties()
+                .Value()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().value()");
+        }
+
         [Fact]
         public void Values_1_member()
         {

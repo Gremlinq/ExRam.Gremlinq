@@ -2,11 +2,11 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class LabelStep : Step
+    public sealed class ValueStep : Step
     {
-        public static readonly LabelStep Instance = new LabelStep();
+        public static readonly ValueStep Instance = new ValueStep();
 
-        private LabelStep()
+        private ValueStep()
         {
         }
 
