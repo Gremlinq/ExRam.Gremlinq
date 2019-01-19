@@ -1280,6 +1280,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Values_Id_Label()
+        {
+            g
+                .V()
+                .Properties()
+                .Values(
+                    x => x.Label,
+                    x => x.Id)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().union(__.label(), __.id())")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Properties_Values2()
         {
             g
@@ -1635,7 +1649,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Values(x => x.Name, x => x.Id)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.values(_b), __.id())")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.id(), __.values(_b))")
                 .WithParameters("User", "Name");
         }
 
@@ -1646,7 +1660,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<User>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.values(_b, _c), __.id())")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.id(), __.values(_b, _c))")
                 .WithParameters("User", "Name", "Gender");
         }
 

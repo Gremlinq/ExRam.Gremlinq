@@ -489,7 +489,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> toVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit>(new ToTraversalStep(toVertexTraversal(Anonymize())));
 
-        private TTagetQuery Unfold<TTagetQuery>() => AddStep(UnfoldStep.Instance).ChangeQueryType<TTagetQuery>();
+        private TTargetQuery Unfold<TTargetQuery>() => AddStep(UnfoldStep.Instance).ChangeQueryType<TTargetQuery>();
 
         private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery
         {
@@ -528,7 +528,43 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
         {
-            return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
+            var stepsArray = this
+                .GetStepsForKeys(keys)
+                .ToArray();
+
+            switch (stepsArray.Length)
+            {
+                case 0:
+                    throw new ExpressionNotSupportedException();
+                case 1:
+                    return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(stepsArray[0]);
+                default:
+                    return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step))));
+            }
+        }
+
+        private IEnumerable<Step> GetStepsForKeys(object[] keys)
+        {
+            var hasYielded = false;
+
+            foreach (var t in keys.OfType<T>())
+            { 
+                if (t == T.Id)
+                   yield return IdStep.Instance;
+                else if (t == T.Label)
+                    yield return LabelStep.Instance;
+                else
+                    throw new ExpressionNotSupportedException();
+
+                hasYielded = true;
+            }
+
+            var stringKeys = keys
+                .OfType<string>()
+                .ToArray();
+
+            if (stringKeys.Length > 0 || !hasYielded)
+                yield return new ValuesStep(stringKeys);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));

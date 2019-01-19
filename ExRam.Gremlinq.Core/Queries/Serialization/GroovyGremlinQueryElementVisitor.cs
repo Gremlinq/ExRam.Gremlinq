@@ -88,63 +88,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(ValuesStep step)
         {
-            var tKeys = step.Keys
-                .OfType<T>()
-                .ToArray();
-
-            var propertyKeys = step.Keys
-                .OfType<string>()
-                .Cast<object>()
-                .ToArray();
-
-            if (tKeys.Length > 1 || tKeys.Length > 0 && propertyKeys.Length > 0)
-            {
-                OpenMethod("union");
-                {
-                    StartParameter();
-                    {
-                        Identifier("__");
-
-                        OpenMethod("values");
-                        {
-                            foreach (var propertyKey in propertyKeys)
-                            {
-                                StartParameter();
-                                Visit(propertyKey);
-                                EndParameter();
-                            }
-                        }
-                        CloseMethod();
-                    }
-                    EndParameter();
-
-                    StartParameter();
-                    {
-                        Identifier("__");
-
-                        if (tKeys.Any(t => t == T.Id))
-                            Method("id");
-                        else
-                            Method("label");
-                    }
-                    EndParameter();
-                }
-                CloseMethod();
-            }
-            else
-            {
-                if (tKeys.Length > 0)
-                {
-                    if (tKeys.Any(t => t == T.Id))
-                        IdStep.Instance.Accept(this);
-                    else if (tKeys.Any(t => t == T.Label))
-                        LabelStep.Instance.Accept(this);
-                }
-                else
-                    Method(
-                        "values",
-                        propertyKeys);
-            }
+            Method("values", step.Keys);
         }
 
         public virtual void Visit(VerticesStep step)

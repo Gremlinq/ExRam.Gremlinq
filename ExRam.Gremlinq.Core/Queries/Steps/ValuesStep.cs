@@ -4,9 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ValuesStep : Step
     {
-        public object[] Keys { get; }
-
-        public ValuesStep(object[] keys)
+        public ValuesStep(string[] keys)
         {
             Keys = keys;
         }
@@ -15,5 +13,7 @@ namespace ExRam.Gremlinq.Core
         {
             visitor.Visit(this);
         }
+
+        public string[] Keys { get; }
     }
 }

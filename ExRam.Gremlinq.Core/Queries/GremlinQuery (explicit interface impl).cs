@@ -268,7 +268,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, Property<TTarget>[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IValueGremlinQuery<TValue> IElementGremlinQuery.Values<TValue>(params string[] keys) => AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(new ValuesStep(keys));
+        IValueGremlinQuery<TValue> IElementGremlinQuery.Values<TValue>(params string[] keys) => ValuesForKeys<TValue>(keys);
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Where(Expression<Func<VertexProperty<TPropertyValue, TMeta>, bool>> predicate) => Where(predicate);
 
