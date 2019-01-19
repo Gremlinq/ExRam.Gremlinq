@@ -1255,14 +1255,27 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Values1()
+        public void Properties_Values_Id()
         {
             g
                 .V()
                 .Properties()
-                .Values()
+                .Values(x => x.Id)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().values()")
+                .SerializeToGroovy<TVisitor>("g.V().properties().id()")
+                .WithoutParameters();
+        }
+
+
+        [Fact]
+        public void Properties_Values_Label()
+        {
+            g
+                .V()
+                .Properties()
+                .Values(x => x.Label)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().label()")
                 .WithoutParameters();
         }
 

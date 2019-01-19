@@ -1207,14 +1207,23 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IVertexGremlinQuery<TVertex>
     {
+        new IValueGremlinQuery<TTarget> Values<TTarget>(); 
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, TTarget>>[] projections);
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TVertex, TTarget[]>>[] projections);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge>
     {
+        new IValueGremlinQuery<TTarget> Values<TTarget>(); 
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, TTarget>>[] projections);
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, TTarget[]>>[] projections);
+    }
+
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
+    {
+        new IValueGremlinQuery<TTarget> Values<TTarget>(); 
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TProperty, TTarget>>[] projections);
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TProperty, TTarget[]>>[] projections);
     }
 
     public partial interface IVertexGremlinQuery
@@ -1229,68 +1238,76 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IVertexGremlinQuery<TVertex>
     {
-        new IVertexGremlinQuery<TTarget> OfType<TTarget>();
-
+                new IVertexGremlinQuery<TTarget> OfType<TTarget>();
         new IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue>> projection, TProjectedValue value);
         new IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IVertexGremlinQuery<TVertex> Where(Expression<Func<TVertex, bool>> predicate);
         new IVertexGremlinQuery<TVertex> Where<TProjection>(Expression<Func<TVertex, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge>
     {
-        new IEdgeGremlinQuery<TTarget> OfType<TTarget>();
-
+                new IEdgeGremlinQuery<TTarget> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
         new IEdgeGremlinQuery<TEdge> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IEdgeGremlinQuery<TEdge> Where(Expression<Func<TEdge, bool>> predicate);
         new IEdgeGremlinQuery<TEdge> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-        new IEdgeGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
-
+                new IEdgeGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Expression<Func<TEdge, bool>> predicate);
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
-        new IEdgeGremlinQuery<TTarget, TOutVertex, TInVertex> OfType<TTarget>();
-
+                new IEdgeGremlinQuery<TTarget, TOutVertex, TInVertex> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Expression<Func<TEdge, bool>> predicate);
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
-        new IInEdgeGremlinQuery<TTarget, TInVertex> OfType<TTarget>();
-
+                new IInEdgeGremlinQuery<TTarget, TInVertex> OfType<TTarget>();
         new IInEdgeGremlinQuery<TEdge, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
         new IInEdgeGremlinQuery<TEdge, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Expression<Func<TEdge, bool>> predicate);
         new IInEdgeGremlinQuery<TEdge, TInVertex> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
-        new IOutEdgeGremlinQuery<TTarget, TOutVertex> OfType<TTarget>();
-
+                new IOutEdgeGremlinQuery<TTarget, TOutVertex> OfType<TTarget>();
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue[]>> projection, TProjectedValue value);
-
+        
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Expression<Func<TEdge, bool>> predicate);
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where<TProjection>(Expression<Func<TEdge, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
+    }
+
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
+    {
+        
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Expression<Func<TProperty, bool>> predicate);
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Where<TProjection>(Expression<Func<TProperty, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
+    }
+
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    {
+        
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Expression<Func<TProperty, bool>> predicate);
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Expression<Func<TProperty, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
     public partial interface IGremlinQuery<TElement>

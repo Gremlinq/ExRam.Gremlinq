@@ -14,8 +14,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> Value();
         IGremlinQuery<IDictionary<string, object>> ValueMap();
-
-        IVertexPropertyGremlinQuery<TProperty, TValue> Where(Expression<Func<VertexProperty<TValue>, bool>> predicate);
     }
 
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IElementGremlinQuery<TProperty>

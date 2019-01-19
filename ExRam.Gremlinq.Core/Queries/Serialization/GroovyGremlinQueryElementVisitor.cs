@@ -88,16 +88,16 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(ValuesStep step)
         {
-            var numberOfIdSteps = step.Keys
+            var tKeys = step.Keys
                 .OfType<T>()
-                .Count(x => x == T.Id);
+                .ToArray();
 
             var propertyKeys = step.Keys
                 .OfType<string>()
                 .Cast<object>()
                 .ToArray();
 
-            if (numberOfIdSteps > 1 || numberOfIdSteps > 0 && propertyKeys.Length > 0)
+            if (tKeys.Length > 1 || tKeys.Length > 0 && propertyKeys.Length > 0)
             {
                 OpenMethod("union");
                 {
@@ -121,7 +121,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                     StartParameter();
                     {
                         Identifier("__");
-                        Method("id");
+
+                        if (tKeys.Any(t => t == T.Id))
+                            Method("id");
+                        else
+                            Method("label");
                     }
                     EndParameter();
                 }
@@ -129,8 +133,13 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
             else
             {
-                if (numberOfIdSteps > 0)
-                    IdStep.Instance.Accept(this);
+                if (tKeys.Length > 0)
+                {
+                    if (tKeys.Any(t => t == T.Id))
+                        IdStep.Instance.Accept(this);
+                    else if (tKeys.Any(t => t == T.Label))
+                        LabelStep.Instance.Accept(this);
+                }
                 else
                     Method(
                         "values",
