@@ -291,12 +291,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
         {
-            if (expression is MemberExpression memberExpression)
-            {
-                if (typeof(Property).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(Property<object>.Value))
-                    return AddStep(new HasValueStep(predicate));
-            }
-
             return AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
         }
 
@@ -635,19 +629,21 @@ namespace ExRam.Gremlinq.Core
                             if (terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
                                 return Where(_ => _.ValuesForProjections<object>(new[]{ leftMemberExpression }).AddStep(new WherePredicateStep(terminal.Predicate)));
 
-                            return Has(leftMemberExpression, terminal.Predicate);
+                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
+                                return AddStep(new HasValueStep(terminal.Predicate));
                         }
-
-                        if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                        else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
                         {
-                            if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                                return Has(leftMemberExpression, terminal.Predicate);
-
                             if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(VertexProperty<object>.Value))
                                 return Has(leftLeftMemberExpression, terminal.Predicate);
-                        }
 
-                        break;
+                            if (!(typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties)))
+                                break;
+                        }
+                        else
+                            break;
+
+                        return Has(leftMemberExpression, terminal.Predicate);
                     }
                     case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
                     {
