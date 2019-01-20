@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace System.Linq.Expressions
 {
@@ -42,6 +43,16 @@ namespace System.Linq.Expressions
 
                 return false;
             }
+        }
+
+        public static bool IsPropertyValue(this MemberExpression expression)
+        {
+            return typeof(Property).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(Property<object>.Value);
+        }
+
+        public static bool IsVertexPropertyProperties(this MemberExpression expression)
+        {
+            return typeof(IVertexProperty).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(VertexProperty<object>.Properties);
         }
 
         public static GremlinExpression ToGremlinExpression<TSource, TResult>(this Expression<Func<TSource, TResult>> expression)

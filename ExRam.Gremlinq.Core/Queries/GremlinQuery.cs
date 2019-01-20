@@ -629,15 +629,15 @@ namespace ExRam.Gremlinq.Core
                             if (terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
                                 return Where(_ => _.ValuesForProjections<object>(new[]{ leftMemberExpression }).AddStep(new WherePredicateStep(terminal.Predicate)));
 
-                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(Property<object>.Value))
+                            if (leftMemberExpression.IsPropertyValue())
                                 return AddStep(new HasValueStep(terminal.Predicate));
                         }
                         else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
                         {
-                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(VertexProperty<object>.Value))
+                            if (leftMemberExpression.IsPropertyValue())
                                 return Has(leftLeftMemberExpression, terminal.Predicate);
 
-                            if (!(typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties)))
+                            if (!leftLeftMemberExpression.IsVertexPropertyProperties())
                                 break;
                         }
                         else
