@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using LanguageExt;
@@ -41,9 +42,11 @@ namespace ExRam.Gremlinq.Core.GraphElements
             Value = value;
         }
 
-        public static implicit operator TValue(VertexProperty<TValue> meta) => meta.Value;
+        public static explicit operator TValue(VertexProperty<TValue> meta) => meta.Value;
+        public static explicit operator TValue[](VertexProperty<TValue> meta) => new [] { meta.Value };
 
         public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);
+        public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException();
 
         internal override IDictionary<string, object> GetMetaProperties() => Properties;
     }
