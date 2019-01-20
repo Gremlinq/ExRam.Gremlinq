@@ -1941,7 +1941,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
+                .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f)))")
                 .WithParameters("User", "Name", "Some name", "Age", 42, 99);
@@ -1974,7 +1974,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Where(t => (t.Age == 36 && t.Name == "Hallo") && t.Age == 42)
+                .Where(t => (t.Age == 36 && t.Name.Value == "Hallo") && t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).has(_b, eq(_e))")
                 .WithParameters("User", "Age", 36, "Name", 42);
@@ -1985,7 +1985,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Where(t => t.Name == "Some name" && t.Age == 42)
+                .Where(t => t.Name.Value == "Some name" && t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, _e)")
                 .WithParameters("User", "Name", "Some name", "Age", 42);
@@ -2033,7 +2033,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Where(t => t.Name == "Some name" || t.Age == 42)
+                .Where(t => t.Name.Value == "Some name" || t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
                 .WithParameters("User", "Name", "Some name", "Age", 42);
@@ -2478,7 +2478,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<User>()
-                .Invoking(query => query.Where(t => t.Name == t.PhoneNumber))
+                .Invoking(query => query.Where(t => t.Name.Value == t.PhoneNumber))
                 .Should()
                 .Throw<InvalidOperationException>();
         }

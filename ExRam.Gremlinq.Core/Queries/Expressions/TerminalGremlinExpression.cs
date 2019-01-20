@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace System.Linq.Expressions
 {

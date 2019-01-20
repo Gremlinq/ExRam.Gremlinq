@@ -642,6 +642,9 @@ namespace ExRam.Gremlinq.Core
                         {
                             if (typeof(Property).IsAssignableFrom(leftLeftMemberExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
                                 return Has(leftMemberExpression, terminal.Predicate);
+
+                            if (typeof(Property).IsAssignableFrom(leftMemberExpression.Expression.Type) && leftMemberExpression.Member.Name == nameof(VertexProperty<object>.Value))
+                                return Has(leftLeftMemberExpression, terminal.Predicate);
                         }
 
                         break;

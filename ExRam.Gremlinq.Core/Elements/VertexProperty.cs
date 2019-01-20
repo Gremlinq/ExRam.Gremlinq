@@ -19,9 +19,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         }
 
-        //TODO: Get rid.
-        public static implicit operator TValue(VertexProperty<TValue, TMeta> meta) => meta.Value;
-
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
 
         internal override IDictionary<string, object> GetMetaProperties() => Properties?.Serialize().ToDictionary(x => x.Item1.Name, x => x.Item2) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
@@ -42,10 +39,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         {
             Value = value;
         }
-
-		//Get rid.
-        public static explicit operator TValue(VertexProperty<TValue> meta) => meta.Value;
-        public static explicit operator TValue[](VertexProperty<TValue> meta) => new [] { meta.Value };
 
         public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException();

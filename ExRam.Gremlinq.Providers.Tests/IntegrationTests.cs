@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => t.Name == "Some name" || t.Age == 42)
+                .Where(t => t.Name.Value == "Some name" || t.Age == 42)
                 .ToArray();
         }
 
@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => t.Name == "Some name" && (t.Age == 42 || t.Age == 99))
+                .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
                 .ToArray();
         }
 
@@ -418,7 +418,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<User>()
-                .Where(t => t.Name == "Some name" && t.Age == 42)
+                .Where(t => t.Name.Value == "Some name" && t.Age == 42)
                 .ToArray();
         }
 
