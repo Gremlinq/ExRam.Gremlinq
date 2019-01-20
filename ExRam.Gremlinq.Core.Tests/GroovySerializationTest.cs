@@ -1376,6 +1376,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<Country>()
+                .Properties<string>(x => x.Languages)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
+
+            g
+                .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Id == "id")
                 .Should()

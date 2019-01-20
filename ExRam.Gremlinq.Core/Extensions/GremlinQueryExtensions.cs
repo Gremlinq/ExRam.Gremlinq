@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
                 .OfType<TVertex>();
         }
 
-        public static IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, object>>[] projections)
+        public static IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, VertexProperty<object>>>[] projections)
         {
             return query.Properties(projections);
         }
