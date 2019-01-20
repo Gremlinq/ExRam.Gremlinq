@@ -1376,7 +1376,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V<Country>()
-                .Properties<string>(x => x.Languages)
+                .Properties(x => x.Languages)
                 .Should()
                 .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
 
@@ -2072,6 +2072,39 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("User", "Age", 36, 42, 99);
         }
 
+        [Fact]
+        public void Where_VertexProperty_Value1()
+        {
+            g
+                .V<User>()
+                .Where(x => x.Name.Value == "SomeName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
+                .WithParameters("User", "Name", "SomeName");
+        }
+
+        [Fact]
+        public void Where_VertexProperty_Value2()
+        {
+            g
+                .V<User>()
+                .Where(x => ((int)(object)x.Name.Value) > 36)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .WithParameters("User", "Name", 36);
+        }
+
+        [Fact(Skip="Feature!")]
+        public void Where_VertexProperty_Value3()
+        {
+            g
+                .V<User>()
+                .Where(x => (int)x.Name.Id == 36)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .WithParameters("User", "Name", 36);
+        }
+        
         [Fact]
         public void Where_Id_equals_constant()
         {
