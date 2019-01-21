@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
             return query.Properties(projections);
         }
 
-        public static IEdgePropertyGremlinQuery<Property<object>, object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, object>>[] projections)
+        public static IEdgePropertyGremlinQuery<Property<object>, object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, Property<object>>>[] projections)
         {
             return query.Properties(projections);
         }
@@ -105,6 +105,16 @@ namespace ExRam.Gremlinq.Core
         public static IValueGremlinQuery<object> Values<TProperty, TValue, TMeta>(this IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> query)
         {
             return query.Values<object>();
+        }
+
+        public static IValueGremlinQuery<object> Values<TVertex>(this IVertexGremlinQuery<TVertex> query, params Expression<Func<TVertex, VertexProperty<object>>>[] projections)
+        {
+            return query.Values(projections);
+        }
+
+        public static IValueGremlinQuery<object> Values<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, Property<object>>>[] projections)
+        {
+            return query.Values(projections);
         }
 
         public static IValueGremlinQuery<IDictionary<string, object>> ValueMap<TElement>(this IElementGremlinQuery<TElement> query, params string[] keys)

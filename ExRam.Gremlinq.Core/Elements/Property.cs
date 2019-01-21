@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using NullGuard;
 
@@ -17,6 +18,9 @@ namespace ExRam.Gremlinq.Core.GraphElements
         internal override object GetValue() => Value;
 
         internal override IDictionary<string, object> GetMetaProperties() => ImmutableDictionary<string, object>.Empty;
+
+        public static implicit operator Property<TValue>(TValue value) => new VertexProperty<TValue>(value);
+        public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException();
 
         [AllowNull] public TValue Value { get; set; }
     }

@@ -404,7 +404,6 @@ namespace ExRam.Gremlinq.Core
             return Properties<Property<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
         }
 
-
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
         {
             return AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(projections
