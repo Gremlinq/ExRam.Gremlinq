@@ -1493,7 +1493,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Set_Meta_Property()
+        public void Set_Meta_Property1()
         {
             g
                 .V<Country>()
@@ -1502,6 +1502,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
                 .WithParameters("Country", "Name", "metaKey", 1);
+        }
+
+        [Fact]
+        public void Set_Meta_Property2()
+        {
+            var d = DateTimeOffset.Now;
+
+            g
+                .V<Person>()
+                .Properties(x => x.Name)
+                .Property(x => x.ValidFrom, d)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
+                .WithParameters("Country", "Name", "ValidFrom", d);
         }
 
         [Fact]

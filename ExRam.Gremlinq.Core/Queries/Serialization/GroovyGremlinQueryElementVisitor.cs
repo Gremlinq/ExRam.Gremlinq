@@ -277,12 +277,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("by", step.Key, step.Order);
         }
 
-        public virtual void Visit(PropertiesStep step)
-        {
-            Method("properties", step.Members.Select(x => x.Name).ToArray());
-        }
+        //public virtual void Visit(PropertiesStep step)
+        //{
+        //    Method("properties", step.Members.Select(x => x.Name).ToArray());
+        //}
 
-        public virtual void Visit(MetaPropertiesStep step)
+        public virtual void Visit(PropertiesStep step)
         {
             Method("properties", step.Keys);
         }

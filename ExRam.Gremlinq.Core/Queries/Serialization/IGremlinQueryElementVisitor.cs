@@ -84,8 +84,8 @@
         void Visit(MetaPropertyStep step);
         void Visit(RangeStep step);
         void Visit(ByMemberStep step);
+        //void Visit(PropertiesStep step);
         void Visit(PropertiesStep step);
-        void Visit(MetaPropertiesStep step);
         void Visit(VStep step);
         void Visit(EStep step);
         void Visit(InjectStep step);

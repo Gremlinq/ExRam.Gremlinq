@@ -1,13 +1,12 @@
-﻿using System.Reflection;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertiesStep : Step
     {
-        public PropertiesStep(MemberInfo[] members)
+        public PropertiesStep(string[] keys)
         {
-            Members = members;
+            Keys = keys;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -15,6 +14,6 @@ namespace ExRam.Gremlinq.Core
             visitor.Visit(this);
         }
 
-        public MemberInfo[] Members { get; }
+        public string[] Keys { get; }
     }
 }

@@ -25,6 +25,17 @@ namespace ExRam.Gremlinq.Core
             StepLabelMappings = stepLabelBindings;
         }
 
+        protected ILogger Logger { get; }
+        protected IGraphModel Model { get; }
+        protected IImmutableList<Step> Steps { get; }
+        protected IGremlinQueryExecutor QueryExecutor { get; }
+        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
+
+        public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
+        {
+            return Create(model ?? GraphModel.Empty, GremlinQueryExecutor.Invalid, null, logger);
+        }
+
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
         {
             var type = QueryTypes.GetOrAdd(
@@ -72,11 +83,6 @@ namespace ExRam.Gremlinq.Core
             return (TTargetQuery)Activator.CreateInstance(type, Model, QueryExecutor, Steps, StepLabelMappings, Logger);
         }
 
-        public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
-        {
-            return Create(model ?? GraphModel.Empty, GremlinQueryExecutor.Invalid, null, logger);
-        }
-
         internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
         {
             return Create<Unit>(model, queryExecutor, graphName, logger);
@@ -93,12 +99,6 @@ namespace ExRam.Gremlinq.Core
                 ImmutableDictionary<StepLabel, string>.Empty,
                 logger);
         }
-
-        protected ILogger Logger { get; }
-        protected IGraphModel Model { get; }
-        protected IImmutableList<Step> Steps { get; }
-        protected IGremlinQueryExecutor QueryExecutor { get; }
-        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQuery
@@ -266,8 +266,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(string lambda) => AddStep(new FilterStep(new Lambda(lambda)));
-
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
             var mappedTraversal = mapping(Anonymize());
@@ -287,6 +285,50 @@ namespace ExRam.Gremlinq.Core
             return QueryExecutor
                 .Execute(this.Cast<TResult>())
                 .GetEnumerator();
+        }
+
+        private object[] GetKeys(IEnumerable<LambdaExpression> projections)
+        {
+            return GetKeys(projections
+                .Select(projection =>
+                {
+                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                        return memberExpression;
+
+                    throw new ExpressionNotSupportedException(projection);
+                }));
+
+        }
+
+        private object[] GetKeys(IEnumerable<MemberExpression> projections)
+        {
+            return projections
+                .Select(projection => Model.GetIdentifier(projection))
+                .ToArray();
+        }
+
+        private IEnumerable<Step> GetStepsForKeys(object[] keys)
+        {
+            var hasYielded = false;
+
+            foreach (var t in keys.OfType<T>())
+            { 
+                if (t == T.Id)
+                   yield return IdStep.Instance;
+                else if (t == T.Label)
+                    yield return LabelStep.Instance;
+                else
+                    throw new ExpressionNotSupportedException();
+
+                hasYielded = true;
+            }
+
+            var stringKeys = keys
+                .OfType<string>()
+                .ToArray();
+
+            if (stringKeys.Length > 0 || !hasYielded)
+                yield return new ValuesStep(stringKeys);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
@@ -394,16 +436,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(string lambda) => AddStep(OrderStep.Instance).By(lambda);
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(params LambdaExpression[] projections)
-        {
-            return Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
-        }
-
-        private GremlinQuery<Property<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> PlainProperties<TNewPropertyValue>(params LambdaExpression[] projections)
-        {
-            return Properties<Property<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
-        }
-
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
         {
             return AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(projections
@@ -411,7 +443,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
                     {
-                        return memberExpression.Member;
+                        return memberExpression.Member.Name;
                     }
 
                     throw new ExpressionNotSupportedException(projection);
@@ -419,7 +451,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray()));
         }
 
-        private GremlinQuery<Property<TValue>, Unit, Unit, Unit, Unit, Unit> Properties<TValue>(params string[] keys) => AddStep<Property<TValue>, Unit, Unit, Unit, Unit, Unit>(new MetaPropertiesStep(keys));
+        private GremlinQuery<Property<TValue>, Unit, Unit, Unit, Unit, Unit> Properties<TValue>(params string[] keys) => AddStep<Property<TValue>, Unit, Unit, Unit, Unit, Unit>(new PropertiesStep(keys));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
@@ -512,35 +544,6 @@ namespace ExRam.Gremlinq.Core
             return AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(stringKeys));
         }
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
-        {
-            return ValuesForKeys<TValue>(GetKeys(projections));
-        }
-
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
-        {
-            return ValuesForKeys<TValue>(GetKeys(projections));
-        }
-
-        private object[] GetKeys(IEnumerable<LambdaExpression> projections)
-        {
-            return GetKeys(projections
-                .Select(projection =>
-                {
-                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                        return memberExpression;
-
-                    throw new ExpressionNotSupportedException(projection);
-                }));
-
-        }
-        private object[] GetKeys(IEnumerable<MemberExpression> projections)
-        {
-            return projections
-                .Select(projection => Model.GetIdentifier(projection))
-                .ToArray();
-        }
-
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
         {
             var stepsArray = this
@@ -558,29 +561,22 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private IEnumerable<Step> GetStepsForKeys(object[] keys)
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
         {
-            var hasYielded = false;
-
-            foreach (var t in keys.OfType<T>())
-            { 
-                if (t == T.Id)
-                   yield return IdStep.Instance;
-                else if (t == T.Label)
-                    yield return LabelStep.Instance;
-                else
-                    throw new ExpressionNotSupportedException();
-
-                hasYielded = true;
-            }
-
-            var stringKeys = keys
-                .OfType<string>()
-                .ToArray();
-
-            if (stringKeys.Length > 0 || !hasYielded)
-                yield return new ValuesStep(stringKeys);
+            return ValuesForKeys<TValue>(GetKeys(projections));
         }
+
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
+        {
+            return ValuesForKeys<TValue>(GetKeys(projections));
+        }
+
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(params LambdaExpression[] projections)
+        {
+            return Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(string lambda) => AddStep(new FilterStep(new Lambda(lambda)));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal) => AddStep(new WhereTraversalStep(filterTraversal(Anonymize())));
 
