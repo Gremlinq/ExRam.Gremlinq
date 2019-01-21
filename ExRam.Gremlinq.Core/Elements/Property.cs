@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         public override string ToString()
         {
-            return $"[{Key}: {GetValue()}]";
+            return $"p[{Key}->{GetValue()}]";
         }
 
         internal abstract object GetValue();

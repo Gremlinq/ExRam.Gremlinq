@@ -22,6 +22,11 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
         public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException();
 
+        public override string ToString()
+        {
+            return $"vp[{Key}->{GetValue()}]";
+        }
+
         internal override IDictionary<string, object> GetMetaProperties() => Properties?.Serialize().ToDictionary(x => x.Item1.Name, x => x.Item2) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
 
         [AllowNull] public object Id { get; set; }
