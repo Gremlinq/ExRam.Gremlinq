@@ -21,10 +21,13 @@ namespace ExRam.Gremlinq.Samples
             await program.WhoseNameStartsWithB();
             await program.WhoKnowsWho();
 
+            await program.SetAndGetMetaDataOnMarko();
+
             Console.Write("Press any key...");
             Console.ReadLine();
         }
 
+        private Person _marko;
         private readonly IConfigurableGremlinQuerySource _g;
 
         public Program()
@@ -33,7 +36,7 @@ namespace ExRam.Gremlinq.Samples
                 //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                 //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                 //in a currently loaded assembly). We explicitly set a model here anyway.
-                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>(x => x.Id, x => x.Id))
+                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>())
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
                 .WithRemote("localhost", GraphsonVersion.V3);
                 //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
@@ -43,9 +46,9 @@ namespace ExRam.Gremlinq.Samples
         public async Task CreateGraph()
         {
             // Uncomment to delete the whole graph on every run.
-            //await _g.V().Drop().ToArray();
+            await _g.V().Drop().ToArray();
 
-            var marko = await _g
+            _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
                 .First();
 
@@ -70,39 +73,45 @@ namespace ExRam.Gremlinq.Samples
                 .First();
 
             await _g
-                .V(marko.Id)
+                .V(_marko.Id)
                 .AddE<Knows>()
-                .To(__ => __.V(vadas.Id))
+                .To(__ => __
+                    .V(vadas.Id))
                 .First();
 
             await _g
-                .V(marko.Id)
+                .V(_marko.Id)
                 .AddE<Knows>()
-                .To(__ => __.V(josh.Id))
+                .To(__ => __
+                    .V(josh.Id))
                 .First();
 
             await _g
-                .V(marko.Id)
+                .V(_marko.Id)
                 .AddE<Created>()
-                .To(__ => __.V(lop.Id))
+                .To(__ => __
+                    .V(lop.Id))
                 .First();
 
             await _g
                 .V(josh.Id)
                 .AddE<Created>()
-                .To(__ => __.V(ripple.Id))
+                .To(__ => __
+                    .V(ripple.Id))
                 .First();
 
             await _g
                 .V(josh.Id)
                 .AddE<Created>()
-                .To(__ => __.V(lop.Id))
+                .To(__ => __
+                    .V(lop.Id))
                 .First();
 
             await _g
                 .V(peter.Id)
                 .AddE<Created>()
-                .To(__ => __.V(lop.Id))
+                .To(__ => __
+                    .V(lop.Id))
                 .First();
         }
 
@@ -120,7 +129,7 @@ namespace ExRam.Gremlinq.Samples
         {
             var knownPersonsToMarko = await _g
                 .V<Person>()
-                .Where(x => x.Name == "Marko")
+                .Where(x => x.Name.Value == "Marko")
                 .Out<Knows>()
                 .OfType<Person>()
                 .OrderBy(x => x.Name)
@@ -148,7 +157,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var person in personsOlderThan30)
             {
-                Console.WriteLine($" {person.Name} is older than 30.");
+                Console.WriteLine($" {person.Name.Value} is older than 30.");
             }
 
             Console.WriteLine();
@@ -158,14 +167,14 @@ namespace ExRam.Gremlinq.Samples
         {
             var nameStartsWithB = await _g
                 .V<Person>()
-                .Where(x => x.Name.StartsWith("B"))
+                .Where(x => x.Name.Value.StartsWith("B"))
                 .ToArray();
 
             Console.WriteLine("Whose name starts with 'B'?");
 
             foreach (var person in nameStartsWithB)
             {
-                Console.WriteLine($" {person.Name}'s name starts with a 'B'.");
+                Console.WriteLine($" {person.Name.Value}'s name starts with a 'B'.");
             }
 
             Console.WriteLine();
@@ -184,9 +193,34 @@ namespace ExRam.Gremlinq.Samples
 
             Console.WriteLine("Who knows who?");
 
-            foreach (var tuples in friendTuples)
+            foreach (var (person1, person2) in friendTuples)
             {
-                Console.WriteLine($" {tuples.Item1.Name} knows {tuples.Item2.Name}.");
+                Console.WriteLine($" {person1.Name.Value} knows {person2.Name.Value}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        public async Task SetAndGetMetaDataOnMarko()
+        {
+            await _g
+                .V<Person>(_marko.Id)
+                .Properties(x => x.Name)
+                .Property(x => x.Creator, "Stephen")
+                .Property(x => x.Date, DateTimeOffset.Now)
+                .ToArray();
+
+            var metaProperties = await _g
+                .V()
+                .Properties()
+                .Properties()
+                .ToArray();
+
+            Console.WriteLine("Meta properties on Vertex properties:");
+
+            foreach (var metaProperty in metaProperties)
+            {
+                Console.WriteLine($" {metaProperty}");
             }
 
             Console.WriteLine();
