@@ -761,52 +761,52 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.And(params Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery>[] andTraversals) => And(andTraversals);
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.And(params Func<IPropertyGremlinQuery<TElement>, IGremlinQuery>[] andTraversals) => And(andTraversals);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Barrier() => Barrier();
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Barrier() => Barrier();
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Choose<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Choose<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Choose<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Choose<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Dedup() => Dedup();
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Dedup() => Dedup();
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Emit() => Emit();
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Emit() => Emit();
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Where(string lambda) => Where(lambda);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+        TTargetQuery IPropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Identity() => Identity();
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Identity() => Identity();
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Limit(long count) => Limit(count);
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Limit(long count) => Limit(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.LimitLocal(long count) => LimitLocal(count);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Local<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement> , TTargetQuery> localTraversal) => Local(localTraversal);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Local<TTargetQuery>(Func<IPropertyGremlinQuery<TElement> , TTargetQuery> localTraversal) => Local(localTraversal);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Map<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> mapping) => Map(mapping);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Map<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> mapping) => Map(mapping);
         
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Not(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Not(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> notTraversal) => Not(notTraversal);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Optional<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> optionalTraversal) => Optional(optionalTraversal);
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Or(params Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery>[] orTraversals) => Or(orTraversals);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Optional<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> optionalTraversal) => Optional(optionalTraversal);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Or(params Func<IPropertyGremlinQuery<TElement>, IGremlinQuery>[] orTraversals) => Or(orTraversals);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Range(long low, long high) => Range(low, high);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Range(long low, long high) => Range(low, high);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Repeat<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal) => Repeat(repeatTraversal);
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.RepeatUntil<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Repeat<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal) => Repeat(repeatTraversal);
+        TTargetQuery IPropertyGremlinQuery<TElement>.RepeatUntil<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.SideEffect(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Skip(long count) => Skip(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.SideEffect(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Skip(long count) => Skip(count);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Tail(long count) => Tail(count);
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Tail(long count) => Tail(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.TailLocal(int count) => TailLocal(count);
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Times(int count) => Times(count);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Times(int count) => Times(count);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Union<TTargetQuery>(params Func<IEdgePropertyGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Union<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
         IGremlinQuery<TResult> IGremlinQuery.Cast<TResult>() => Cast<TResult>();
 
@@ -846,8 +846,8 @@ namespace ExRam.Gremlinq.Core
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Increasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.OrderByDescending(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Decreasing);
 
         IOrderedVertexGremlinQuery IVertexGremlinQuery.OrderBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
         IOrderedVertexGremlinQuery IVertexGremlinQuery.OrderBy(string lambda) => OrderBy(lambda);
@@ -897,9 +897,9 @@ namespace ExRam.Gremlinq.Core
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.OrderBy(string lambda) => OrderBy(lambda);
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.OrderByDescending(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
-        IOrderedEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.OrderByDescending(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.OrderBy(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Increasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.OrderBy(string lambda) => OrderBy(lambda);
+        IOrderedEdgePropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.OrderByDescending(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => OrderBy(traversal, Order.Decreasing);
 
         IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.ThenBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
         IOrderedVertexGremlinQuery IOrderedVertexGremlinQuery.ThenByDescending(Func<IVertexGremlinQuery, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
@@ -949,8 +949,8 @@ namespace ExRam.Gremlinq.Core
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.ThenByDescending(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.ThenBy(string lambda) => By(lambda);
 
-        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
-        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Increasing);
+        IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenByDescending(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal) => By(traversal, Order.Decreasing);
         IOrderedEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.ThenBy(string lambda) => By(lambda);
 
         IOrderedValueGremlinQuery<TElement> IOrderedValueGremlinQuery<TElement>.ThenBy(Expression<Func<TElement, object>> projection) => By(projection, Order.Increasing);
@@ -1196,15 +1196,15 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Where(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
-        IEdgePropertyGremlinQuery<TResult> IEdgePropertyGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
+        IPropertyGremlinQuery<TResult> IPropertyGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
 
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
-        TTargetQuery IEdgePropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IEdgePropertyGremlinQuery<TElement>, StepLabel<IEdgePropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
+        TTargetQuery IPropertyGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
+        TTargetQuery IPropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
-        IArrayGremlinQuery<TElement[], IEdgePropertyGremlinQuery<TElement>> IEdgePropertyGremlinQuery<TElement>.Fold() => Fold<IEdgePropertyGremlinQuery<TElement>>();
+        IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> IPropertyGremlinQuery<TElement>.Fold() => Fold<IPropertyGremlinQuery<TElement>>();
 
-        IEdgePropertyGremlinQuery<TElement> IEdgePropertyGremlinQuery<TElement>.Where(Func<IEdgePropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
+        IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Where(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
         IOrderedGremlinQuery<TResult> IOrderedGremlinQuery<TElement>.Cast<TResult>() => Cast<TResult>();
         IOrderedGremlinQuery<TElement> IOrderedGremlinQuery<TElement>.Coin(double probability) => Coin(probability);
@@ -1332,9 +1332,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IOrderedEdgePropertyGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IOrderedEdgePropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) => Aggregate(continuation);
         TTargetQuery IOrderedEdgePropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IOrderedEdgePropertyGremlinQuery<TElement>, StepLabel<IOrderedEdgePropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(continuation);
 
-        IArrayGremlinQuery<TElement[], IEdgePropertyGremlinQuery<TElement>> IOrderedEdgePropertyGremlinQuery<TElement>.Fold() => Fold<IEdgePropertyGremlinQuery<TElement>>();
+        IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> IOrderedEdgePropertyGremlinQuery<TElement>.Fold() => Fold<IPropertyGremlinQuery<TElement>>();
 
-        IEdgePropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.Where(Func<IOrderedEdgePropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
+        IPropertyGremlinQuery<TElement> IOrderedEdgePropertyGremlinQuery<TElement>.Where(Func<IOrderedEdgePropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 
     }
 }

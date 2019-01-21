@@ -17,7 +17,7 @@
         "IOutEdgeGremlinQuery<TEdge, TOutVertex>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",
         "IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>",
-        "IEdgePropertyGremlinQuery<TElement>"
+        "IPropertyGremlinQuery<TElement>"
     };
 
     var substitutedBaseInterfaces = baseInterfaces

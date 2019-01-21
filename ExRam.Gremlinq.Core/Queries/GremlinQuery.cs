@@ -452,6 +452,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()));
 
+        /* TODO: Review, don't repeat yourself */
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
             if (value == null)

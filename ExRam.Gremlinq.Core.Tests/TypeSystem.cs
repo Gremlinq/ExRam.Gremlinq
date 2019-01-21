@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.String)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -306,7 +306,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.Strings)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -316,7 +316,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.StringEdgeProperty)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -326,7 +326,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.StringEdgeProperties)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -336,13 +336,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.String, x => x.Strings)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<object>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
 
             g
                 .E<Edge>()
                 .Properties<string>(x => x.String, x => x.Strings)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -352,7 +352,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.String, x => x.StringEdgeProperty)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -362,7 +362,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.Strings, x => x.StringEdgeProperty)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<string>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
 
         [Fact]
@@ -372,7 +372,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.String, x => x.StringEdgeProperties)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<object>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
         }
 
         [Fact]
@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<Edge>()
                 .Properties(x => x.Strings, x => x.StringEdgeProperties)
                 .Should()
-                .BeAssignableTo<IEdgePropertyGremlinQuery<Property<object>>>();
+                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
         }
 
         [Fact]
