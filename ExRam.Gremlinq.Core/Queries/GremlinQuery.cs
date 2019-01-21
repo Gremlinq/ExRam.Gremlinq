@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
         {
-            return AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(projections
+            return Properties<TNewElement, TNewPropertyValue, TNewMeta>(projections
                 .Select(projection =>
                 {
                     if (projection.Body.StripConvert() is MemberExpression memberExpression)
@@ -447,11 +447,10 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     throw new ExpressionNotSupportedException(projection);
-                })
-                .ToArray()));
+                }));
         }
 
-        private GremlinQuery<Property<TValue>, Unit, Unit, Unit, Unit, Unit> Properties<TValue>(params string[] keys) => AddStep<Property<TValue>, Unit, Unit, Unit, Unit, Unit>(new PropertiesStep(keys));
+        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
