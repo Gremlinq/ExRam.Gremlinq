@@ -198,7 +198,15 @@ namespace ExRam.Gremlinq.Core
         #>
         new <#= iface.Replace(GetElement(iface), "TTarget") #> OfType<TTarget>();
         new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue>> projection, TProjectedValue value);
-        new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue[]>> projection, TProjectedValue value);
+
+        <#if (iface.StartsWith("IVertexGremlinQuery"))
+        {
+        #>
+            new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue[]>> projection, TProjectedValue value);
+        <#
+        }
+        #>
+
         <#
         }
         #>

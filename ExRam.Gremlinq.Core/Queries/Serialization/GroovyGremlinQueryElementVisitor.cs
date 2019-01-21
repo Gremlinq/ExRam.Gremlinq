@@ -262,7 +262,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("skip", step.Count);
         }
 
-        public virtual void Visit(MetaPropertyStep step)
+        public virtual void Visit(PropertyStep step)
         {
             Method("property", step.Key, step.Value);
         }
@@ -569,7 +569,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             VisitLogicalStep(step, "or");
         }
 
-        public virtual void Visit(PropertyStep step)
+        public virtual void Visit(VertexPropertyStep step)
         {
             if (step.Value != null)
             {

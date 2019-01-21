@@ -1,14 +1,12 @@
-﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertyStep : Step
     {
-        public PropertyStep(Type type, object key, object value)
+        public PropertyStep(string key, object value)
         {
             Key = key;
-            Type = type;
             Value = value;
         }
 
@@ -17,8 +15,7 @@ namespace ExRam.Gremlinq.Core
             visitor.Visit(this);
         }
 
-        public Type Type { get; }
-        public object Key { get; }
+        public string Key { get; }
         public object Value { get; }
     }
 }

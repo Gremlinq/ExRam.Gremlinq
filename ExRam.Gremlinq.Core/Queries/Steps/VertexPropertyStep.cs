@@ -1,12 +1,14 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using System;
+using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class MetaPropertyStep : Step
+    public sealed class VertexPropertyStep : Step
     {
-        public MetaPropertyStep(string key, object value)
+        public VertexPropertyStep(Type type, object key, object value)
         {
             Key = key;
+            Type = type;
             Value = value;
         }
 
@@ -15,7 +17,8 @@ namespace ExRam.Gremlinq.Core
             visitor.Visit(this);
         }
 
-        public string Key { get; }
+        public Type Type { get; }
+        public object Key { get; }
         public object Value { get; }
     }
 }

@@ -27,7 +27,7 @@ namespace System.Linq
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.
         internal static IEnumerable<Step> WorkaroundTINKERPOP_2112(this IEnumerable<Step> steps)
         {
-            var propertySteps = default(List<PropertyStep>);
+            var propertySteps = default(List<VertexPropertyStep>);
 
             using (var e = steps.GetEnumerator())
             {
@@ -35,10 +35,10 @@ namespace System.Linq
                 {
                     var hasNext = e.MoveNext();
 
-                    if (hasNext && e.Current is PropertyStep propertyStep)
+                    if (hasNext && e.Current is VertexPropertyStep propertyStep)
                     {
                         if (propertySteps == null)
-                            propertySteps = new List<PropertyStep>();
+                            propertySteps = new List<VertexPropertyStep>();
 
                         propertySteps.Add(propertyStep);
                     }

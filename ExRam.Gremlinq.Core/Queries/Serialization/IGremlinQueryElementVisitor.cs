@@ -41,7 +41,7 @@
         void Visit(NotStep step);
         void Visit(OptionalStep step);
         void Visit(OrStep step);
-        void Visit(PropertyStep step);
+        void Visit(VertexPropertyStep step);
         void Visit(RepeatStep step);
         void Visit(SideEffectStep step);
         void Visit(ToTraversalStep step);
@@ -81,7 +81,7 @@
         void Visit(WherePredicateStep step);
         void Visit(ByLambdaStep step);
         void Visit(SkipStep step);
-        void Visit(MetaPropertyStep step);
+        void Visit(PropertyStep step);
         void Visit(RangeStep step);
         void Visit(ByMemberStep step);
         //void Visit(PropertiesStep step);

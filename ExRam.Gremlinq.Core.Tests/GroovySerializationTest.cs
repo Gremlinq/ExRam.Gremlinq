@@ -1515,7 +1515,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Property(x => x.ValidFrom, d)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
-                .WithParameters("Country", "Name", "ValidFrom", d);
+                .WithParameters("Person", "Name", "ValidFrom", d);
         }
 
         [Fact]

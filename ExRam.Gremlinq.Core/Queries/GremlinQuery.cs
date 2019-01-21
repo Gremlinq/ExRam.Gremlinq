@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new PropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
             }
 
             return ret;
@@ -452,6 +452,21 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()));
 
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
+        {
+            if (value == null)
+            {
+                return SideEffect(_ => _
+                    .Properties<Unit, Unit, Unit>(projection)
+                    .Drop());
+            }
+
+            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                return AddStep(new VertexPropertyStep(memberExpression.Type, Model.GetIdentifier(memberExpression), value));
+
+            throw new ExpressionNotSupportedException(projection);
+        }
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
             if (value == null)
@@ -462,7 +477,10 @@ namespace ExRam.Gremlinq.Core
             }
 
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new PropertyStep(memberExpression.Type, Model.GetIdentifier(memberExpression), value));
+            {
+                if (Model.GetIdentifier(memberExpression) is string identifier)
+                    return AddStep(new PropertyStep(identifier, value));
+            }
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -476,7 +494,7 @@ namespace ExRam.Gremlinq.Core
                     .Drop());
             }
 
-            return AddStep(new MetaPropertyStep(key, value));
+            return AddStep(new PropertyStep(key, value));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Range(long low, long high) => AddStep(new RangeStep(low, high));
