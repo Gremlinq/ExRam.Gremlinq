@@ -17,11 +17,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
-                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .AddE<Speaks>()
                     .From(c))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).from(_d)")
-                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "IsDescribedIn", "Text", "Germany");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).from(_d)")
+                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "Speaks");
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
 
             g
-                .AddV(new User
+                .AddV(new Person
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -41,14 +41,14 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
+                .WithParameters("Person", "Age", 0, "Name", "Bob", "Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
         public void AddE_InV()
         {
             g
-                .AddV<User>()
+                .AddV<Person>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddE_OutV()
         {
             g
-                .AddV<User>()
+                .AddV<Person>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
@@ -77,11 +77,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
-                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .AddE<Speaks>()
                     .To(l))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).property(Cardinality.single, _i, _j).to(_d)")
-                .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "IsDescribedIn", "Text", "Germany");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).to(_d)")
+                .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "Speaks");
         }
 
         [Fact]
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
 
             g
-                .AddV(new User
+                .AddV(new Person
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -101,29 +101,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("User", "Age", 0, "Gender", 0, "RegistrationDate", now, "Name", "Bob", "LivesIn", "Country", "CountryCallingCode", "+49");
-        }
-
-        [Fact]
-        public void AddE_types1()
-        {
-            g
-                .AddE<LivesIn>()
-                .From(_ => _.AddV<User>())
-                .To(_ => _.AddV<Country>())
-                .Should()
-                .BeAssignableTo<IEdgeGremlinQuery<LivesIn, User, Country>>();
-        }
-
-        [Fact]
-        public void AddE_types2()
-        {
-            g
-                .AddE<LivesIn>()
-                .To(_ => _.AddV<Country>())
-                .From(_ => _.AddV<User>())
-                .Should()
-                .BeAssignableTo<IEdgeGremlinQuery<LivesIn, User, Country>>();
+                .WithParameters("Person", "Age", 0, "Name", "Bob","Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -152,10 +130,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_with_enum_property()
         {
             g
-                .AddV(new User { Id = 1, Gender = Gender.Female })
+                .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
-                .WithParameters("User", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
+                .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
         [Fact]
@@ -193,30 +171,33 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_with_MetaModel()
         {
             g
-                .AddV(new User
+                .AddV(new Company
                 {
                     Id = 1,
-                    Name = new VertexProperty<string, MetaModel>("Bob")
+                    Name = new[]
                     {
-                        Properties = new MetaModel
+                        new VertexProperty<string, PropertyValidity>("Bob")
                         {
-                            MetaKey = "MetaValue"
+                            Properties = new PropertyValidity
+                            {
+                                ValidFrom = DateTimeOffset.Parse("01.01.2019 08:00")
+                            }
                         }
                     }
                 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.single, _i, _j, _k, _l)")
-                .WithParameters("User", 1, "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "Name", "Bob", "MetaKey", "MetaValue");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.list, _e, _f, _g, _h)")
+                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Name", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
         public void AddV_with_multi_property()
         {
             g
-                .AddV(new User { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h).property(Cardinality.list, _i, _j).property(Cardinality.list, _i, _k)")
-                .WithParameters("User", 1, "Age", 0, "Gender", 0, "RegistrationDate", DateTimeOffset.MinValue, "PhoneNumbers", "+4912345", "+4923456");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.list, _c, _d).property(Cardinality.list, _c, _e).property(Cardinality.single, _f, _g)")
+                .WithParameters("Company", 1, "PhoneNumbers", "+4912345", "+4923456", "FoundingDate", DateTime.MinValue);
         }
 
         [Fact]
@@ -254,34 +235,34 @@ namespace ExRam.Gremlinq.Core.Tests
         public void And()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .And(
                     __ => __
-                        .InE<Knows>(),
+                        .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
         [Fact]
         public void And_nested()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .And(
                     __ => __
                         .OutE<LivesIn>(),
                     __ => __
                         .And(
                             ___ => ___
-                                .InE<Knows>(),
+                                .InE<WorksFor>(),
                             ___ => ___
-                                .OutE<Knows>()))
+                                .OutE<WorksFor>()))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
-                .WithParameters("User", "LivesIn", "Knows");
+                .WithParameters("Person", "LivesIn", "WorksFor");
         }
 
         [Fact]
@@ -297,35 +278,35 @@ namespace ExRam.Gremlinq.Core.Tests
         public void As_explicit_label1()
         {
             g
-                .V<User>()
-                .As(new StepLabel<User>())
+                .V<Person>()
+                .As(new StepLabel<Person>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b)")
-                .WithParameters("User", "l1");
+                .WithParameters("Person", "l1");
         }
 
         [Fact]
         public void As_explicit_label2()
         {
             g
-                .V<User>()
-                .As(new StepLabel<User>(), new StepLabel<User>())
+                .V<Person>()
+                .As(new StepLabel<Person>(), new StepLabel<Person>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b, _c)")
-                .WithParameters("User", "l1", "l2");
+                .WithParameters("Person", "l1", "l2");
         }
 
         [Fact]
         public void As_inlined_nested_Select()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
-                .WithParameters("User", "Item1", "Item2");
+                .WithParameters("Person", "Item1", "Item2");
         }
 
         [Fact]
@@ -525,11 +506,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Drop()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Drop()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).drop()")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -556,10 +537,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void E_of_concrete_type()
         {
             g
-                .E<Knows>()
+                .E<WorksFor>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a)")
-                .WithParameters("Knows");
+                .WithParameters("WorksFor");
         }
 
         [Fact]
@@ -598,22 +579,22 @@ namespace ExRam.Gremlinq.Core.Tests
         public void FilterWithLambda()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where("it.property('str').value().length() == 2")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
         public void FlatMap()
         {
             g
-                .V<User>()
-                .FlatMap(__ => __.Out<Knows>())
+                .V<Person>()
+                .FlatMap(__ => __.Out<WorksFor>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).flatMap(__.out(_b))")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
@@ -670,11 +651,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void In()
         {
             g
-                .V<User>()
-                .In<Knows>()
+                .V<Person>()
+                .In<WorksFor>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).in(_b)")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
@@ -756,32 +737,32 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Map()
         {
             g
-                .V<User>()
-                .Map(__ => __.Out<Knows>())
+                .V<Person>()
+                .Map(__ => __.Out<WorksFor>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).map(__.out(_b))")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
         public void Map_Select_operation()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Map(___ => ___
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).map(__.select(_b, _c))")
-                .WithParameters("User", "Item1", "Item2");
+                .WithParameters("Person", "Item1", "Item2");
         }
 
         [Fact]
         public void Nested_contradicting_Select_operations_throw()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Invoking(x => x
                     .As((_, stepLabel1) => _
                         .As((__, stepLabel2) => __
@@ -796,7 +777,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Nested_Select_operations()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)
@@ -804,7 +785,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Select(stepLabel1, tuple))))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c).as(_c).select(_b, _c)")
-                .WithParameters("User", "Item1", "Item2");
+                .WithParameters("Person", "Item1", "Item2");
         }
 
         [Fact]
@@ -812,10 +793,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .V()
-                .Not(__ => __.Out<Knows>())
+                .Not(__ => __.Out<WorksFor>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().not(__.out(_a))")
-                .WithParameters("Knows");
+                .WithParameters("WorksFor");
         }
 
         [Fact]
@@ -837,7 +818,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Not(__ => __.OfType<Authority>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().not(__.hasLabel(_a, _b))")
-                .WithParameters("Company", "User");
+                .WithParameters("Company", "Person");
         }
 
         [Fact]
@@ -848,7 +829,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Authority>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a, _b)")
-                .WithParameters("Company", "User");
+                .WithParameters("Company", "Person");
         }
 
         [Fact]
@@ -881,44 +862,44 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V()
                 .Optional(
-                    __ => __.Out<Knows>())
+                    __ => __.Out<WorksFor>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().optional(__.out(_a))")
-                .WithParameters("Knows");
+                .WithParameters("WorksFor");
         }
 
         [Fact]
         public void Or()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Or(
                     __ => __
-                        .InE<Knows>(),
+                        .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
         [Fact]
         public void Or_nested()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Or(
                     __ => __
                         .OutE<LivesIn>(),
                     __ => __
                         .Or(
                             ___ => ___
-                                .InE<Knows>(),
+                                .InE<WorksFor>(),
                             ___ => ___
-                                .OutE<Knows>()))
+                                .OutE<WorksFor>()))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
-                .WithParameters("User", "LivesIn", "Knows");
+                .WithParameters("Person", "LivesIn", "WorksFor");
         }
 
         [Fact]
@@ -937,137 +918,137 @@ namespace ExRam.Gremlinq.Core.Tests
         public void OrderBy_lambda()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy("it.property('str').value().length()")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
         public void OrderBy_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void OrderBy_ThenBy_lambda()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
         public void OrderBy_ThenBy_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
-                .WithParameters("User", "Name", "Age");
+                .WithParameters("Person", "Name", "Age");
         }
 
         [Fact]
         public void OrderBy_ThenBy_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
-                .WithParameters("User", "Name", "Gender");
+                .WithParameters("Person", "Name", "Gender");
         }
 
         [Fact]
         public void OrderBy_ThenByDescending_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
-                .WithParameters("User", "Name", "Age");
+                .WithParameters("Person", "Name", "Age");
         }
 
         [Fact]
         public void OrderBy_ThenByDescending_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
-                .WithParameters("User", "Name", "Gender");
+                .WithParameters("Person", "Name", "Gender");
         }
 
         [Fact]
         public void OrderBy_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void OrderByDescending_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderByDescending(x => x.Name)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.decr)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void OrderByDescending_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Out()
         {
             g
-                .V<User>()
-                .Out<Knows>()
+                .V<Person>()
+                .Out<WorksFor>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b)")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
         public void Out_does_not_include_abstract_edge()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b, _c, _d, _e, _f)")
-                .WithParameters("User", "IsDescribedIn", "Knows", "LivesIn", "Speaks", "WorksFor");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b, _c, _d)")
+                .WithParameters("Person", "LivesIn", "Speaks", "WorksFor");
         }
 
         [Fact]
@@ -1113,39 +1094,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties1()
-        {
-            g
-                .V()
-                .Properties()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Properties2()
-        {
-            g
-                .E()
-                .Properties()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E().properties()")
-                .WithoutParameters();
-        }
-        
-        [Fact]
         public void Properties_Meta()
         {
             g
                 .V<Country>()
                 .Properties(x => x.Name)
-                .Meta<MetaModel>()
+                .Meta<PropertyValidity>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b)")
                 .WithParameters("Country", "Name");
         }
-
 
         [Fact]
         public void Properties_Meta_ValueMap()
@@ -1153,7 +1111,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V()
                 .Properties()
-                .Meta<MetaModel>()
+                .Meta<PropertyValidity>()
                 .ValueMap()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().valueMap()")
@@ -1166,7 +1124,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V()
                 .Properties()
-                .Meta<MetaModel>()
+                .Meta<PropertyValidity>()
                 .Values()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().values()")
@@ -1179,11 +1137,11 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V()
                 .Properties()
-                .Meta<MetaModel>()
-                .Values(x => x.MetaKey)
+                .Meta<PropertyValidity>()
+                .Values(x => x.ValidFrom)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties().values(_a)")
-                .WithParameters("MetaKey");
+                .WithParameters("ValidFrom");
         }
 
         [Fact]
@@ -1192,11 +1150,11 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V<Country>()
                 .Properties(x => x.Name)
-                .Meta<MetaModel>()
-                .Where(x => x.Properties.MetaKey == "MetaValue")
+                .Meta<PropertyValidity>()
+                .Where(x => x.Properties.ValidFrom >= DateTimeOffset.Parse("01.01.2019 08:00"))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("Country", "Name", "MetaKey", "MetaValue");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, gte(_d))")
+                .WithParameters("Country", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
@@ -1211,17 +1169,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_of_two_members1()
-        {
-            g
-                .V<Country>()
-                .Properties(x => x.Name, x => x.CountryCallingCode)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b, _c)")
-                .WithParameters("Country", "Name", "CountryCallingCode");
-        }
-
-        [Fact]
         public void Properties_of_three_members()
         {
             g
@@ -1233,14 +1180,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_of_two_members2()
+        public void Properties_of_two_members1()
         {
             g
                 .V<Country>()
-                .Properties(x => x.Name, x => x.Languages)
+                .Properties(x => x.Name, x => x.CountryCallingCode)
                 .Should()
-                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b, _c)")
+                .WithParameters("Country", "Name", "CountryCallingCode");
+        }
 
+        [Fact]
+        public void Properties_of_two_members2()
+        {
             g
                 .V<Country>()
                 .Properties(x => x.Name, x => x.Languages)
@@ -1310,7 +1262,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy<TVisitor>("g.V().properties().union(__.label(), __.id())")
                 .WithoutParameters();
         }
-        
+
         [Fact]
         public void Properties_Values_Label()
         {
@@ -1351,35 +1303,29 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Properties_Where_Dictionary_key1()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Properties()
                 .Where(x => x.Properties["MetaKey"] == "MetaValue")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, _c)")
-                .WithParameters("User", "MetaKey", "MetaValue");
+                .WithParameters("Person", "MetaKey", "MetaValue");
         }
 
         [Fact]
         public void Properties_Where_Dictionary_key2()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Properties()
                 .Where(x => (int)x.Properties["MetaKey"] < 100)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties().has(_b, lt(_c))")
-                .WithParameters("User", "MetaKey", 100);
+                .WithParameters("Person", "MetaKey", 100);
         }
 
         [Fact]
         public void Properties_Where_Id()
         {
-            g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Should()
-                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
-
             g
                 .V<Country>()
                 .Properties(x => x.Languages)
@@ -1405,24 +1351,24 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Properties_Where_Meta_key()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Properties(x => x.Name)
-                .Where(x => x.Properties.MetaKey == "MetaValue")
+                .Where(x => x.Properties.ValidFrom == DateTimeOffset.Parse("01.01.2019 08:00"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("User", "Name", "MetaKey", "MetaValue");
+                .WithParameters("Company", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
         public void Properties_Where_Meta_key_reversed()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Properties(x => x.Name)
-                .Where(x => "MetaValue" == x.Properties.MetaKey)
+                .Where(x => DateTimeOffset.Parse("01.01.2019 08:00") == x.Properties.ValidFrom)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("User", "Name", "MetaKey", "MetaValue");
+                .WithParameters("Company", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
@@ -1462,63 +1408,85 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties1()
+        {
+            g
+                .V()
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Properties2()
+        {
+            g
+                .E()
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().properties()")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Property_list()
         {
             g
-                .V<User>("id")
+                .V<Company>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).property(Cardinality.list, _c, _d)")
-                .WithParameters("id", "User", "PhoneNumbers", "+4912345");
+                .WithParameters("id", "Company", "PhoneNumbers", "+4912345");
         }
 
         [Fact]
         public void Property_null()
         {
             g
-                .V<User>("id")
-                .Property(x => x.PhoneNumber, null)
+                .V<Company>("id")
+                .Property<string>(x => x.PhoneNumbers, null)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c).drop())")
-                .WithParameters("id", "User", "PhoneNumber");
+                .WithParameters("id", "Company", "PhoneNumbers");
         }
 
         [Fact]
         public void Property_single()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Property(x => x.Age, 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Repeat_Out()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Repeat(__ => __
-                    .Out<Knows>()
-                    .OfType<User>())
+                    .Out<WorksFor>()
+                    .OfType<Person>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
         public void Select()
         {
-            var stepLabel = new StepLabel<User>();
+            var stepLabel = new StepLabel<Person>();
 
             g
-                .V<User>()
+                .V<Person>()
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).select(_b)")
-                .WithParameters("User", "l1");
+                .WithParameters("Person", "l1");
         }
 
         [Fact]
@@ -1549,24 +1517,24 @@ namespace ExRam.Gremlinq.Core.Tests
         public void SumGlobal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumGlobal()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.global)")
-                .WithParameters("User", "Age");
+                .WithParameters("Person", "Age");
         }
 
         [Fact]
         public void SumLocal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumLocal()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
-                .WithParameters("User", "Age");
+                .WithParameters("Person", "Age");
         }
 
 
@@ -1574,26 +1542,26 @@ namespace ExRam.Gremlinq.Core.Tests
         public void SumLocal_Where1()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumLocal()
                 .Where(x => x == 100)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(_c)")
-                .WithParameters("User", "Age", 100);
+                .WithParameters("Person", "Age", 100);
         }
 
         [Fact]
         public void SumLocal_Where2()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumLocal()
                 .Where(x => x < 100)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(lt(_c))")
-                .WithParameters("User", "Age", 100);
+                .WithParameters("Person", "Age", 100);
         }
 
         [Fact]
@@ -1632,13 +1600,13 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Union()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Union(
-                    __ => __.Out<Knows>(),
+                    __ => __.Out<WorksFor>(),
                     __ => __.Out<LivesIn>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
-                .WithParameters("User", "Knows", "LivesIn");
+                .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
         [Fact]
@@ -1648,7 +1616,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Authority>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a, _b)")
-                .WithParameters("Company", "User");
+                .WithParameters("Company", "Person");
         }
 
         [Fact]
@@ -1675,10 +1643,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void V_of_concrete_type()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -1716,94 +1684,82 @@ namespace ExRam.Gremlinq.Core.Tests
         public void ValueMap_typed()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .ValueMap(x => x.Age)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
-                .WithParameters("User", "Age");
+                .WithParameters("Person", "Age");
         }
 
         [Fact]
         public void ValueMap_untyped()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .ValueMap("key")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).valueMap(_b)")
-                .WithParameters("User", "key");
+                .WithParameters("Person", "key");
         }
 
         [Fact]
         public void Values_1_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "Age");
+                .WithParameters("Person", "Age");
         }
 
         [Fact]
         public void Values_2_members()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name, x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.id(), __.values(_b))")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Values_3_members()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.id(), __.values(_b, _c))")
-                .WithParameters("User", "Name", "Gender");
+                .WithParameters("Person", "Name", "Gender");
         }
 
         [Fact]
         public void Values_id_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Id)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).id()")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
         public void Values_no_member()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values()")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
         public void Values_of_Edge()
         {
-            typeof(LivesIn)
-                .GetProperty(nameof(LivesIn.Since))
-                .PropertyType
-                .Should()
-                .Be(typeof(Property<DateTimeOffset>));
-
-            g
-                .E<LivesIn>()
-                .Values(x => x.Since)
-                .Should()
-                .BeAssignableTo<IGremlinQuery<DateTimeOffset>>();
-
             g
                 .E<LivesIn>()
                 .Values(x => x.Since)
@@ -1815,80 +1771,56 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Values_of_Vertex1()
         {
-            typeof(User)
-                .GetProperty(nameof(User.Name))
-                .PropertyType
-                .Should()
-                .Be(typeof(VertexProperty<string, MetaModel>));
-
             g
-                .V<User>()
-                .Values(x => x.Name)
-                .Should()
-                .BeAssignableTo<IGremlinQuery<string>>();
-
-            g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Values_of_Vertex2()
         {
-            typeof(User)
-                .GetProperty(nameof(User.SomeObscureProperty))
-                .PropertyType
-                .Should()
-                .Be(typeof(VertexProperty<object>));
-
             g
-                .V<User>()
-                .Values(x => x.SomeObscureProperty)
-                .Should()
-                .BeAssignableTo<IGremlinQuery<object>>();
-
-            g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Values_string_key()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values("key")
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
-                .WithParameters("User", "key");
+                .WithParameters("Person", "key");
         }
 
         [Fact]
         public void Where_array_does_not_intersect_property_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
         public void Where_array_intersects_property_aray()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
@@ -1940,55 +1872,55 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_complex_logical_expression()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f)))")
-                .WithParameters("User", "Name", "Some name", "Age", 42, 99);
+                .WithParameters("Person", "Name", "Some name", "Age", 42, 99);
         }
 
         [Fact]
         public void Where_complex_logical_expression_with_null()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e)))")
-                .WithParameters("User", "Name", "Age", 42, 99);
+                .WithParameters("Person", "Name", "Age", 42, 99);
         }
 
         [Fact]
         public void Where_conjunction()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)))")
-                .WithParameters("User", "Age", 36, 42);
+                .WithParameters("Person", "Age", 36, 42);
         }
 
         [Fact(Skip="Optimizable")]
         public void Where_conjunction_optimizable()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => (t.Age == 36 && t.Name.Value == "Hallo") && t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).has(_b, eq(_e))")
-                .WithParameters("User", "Age", 36, "Name", 42);
+                .WithParameters("Person", "Age", 36, "Name", 42);
         }
 
         [Fact]
         public void Where_conjunction_with_different_fields()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c).has(_d, _e)")
-                .WithParameters("User", "Name", "Some name", "Age", 42);
+                .WithParameters("Person", "Name", "Some name", "Age", 42);
         }
 
         [Fact]
@@ -2021,90 +1953,57 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_disjunction()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)))")
-                .WithParameters("User", "Age", 36, 42);
+                .WithParameters("Person", "Age", 36, 42);
         }
 
         [Fact]
         public void Where_disjunction_with_different_fields()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" || t.Age == 42)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
-                .WithParameters("User", "Name", "Some name", "Age", 42);
+                .WithParameters("Person", "Name", "Some name", "Age", 42);
         }
 
         [Fact]
         public void Where_empty_array_does_not_intersect_property_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .WithParameters("Company");
         }
 
         [Fact]
         public void Where_has_conjunction_of_three()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)).and(eq(_e)))")
-                .WithParameters("User", "Age", 36, 42, 99);
+                .WithParameters("Person", "Age", 36, 42, 99);
         }
 
         [Fact]
         public void Where_has_disjunction_of_three()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e)))")
-                .WithParameters("User", "Age", 36, 42, 99);
+                .WithParameters("Person", "Age", 36, 42, 99);
         }
 
-        [Fact]
-        public void Where_VertexProperty_Value1()
-        {
-            g
-                .V<User>()
-                .Where(x => x.Name.Value == "SomeName")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Name", "SomeName");
-        }
-
-        [Fact]
-        public void Where_VertexProperty_Value2()
-        {
-            g
-                .V<User>()
-                .Where(x => ((int)(object)x.Name.Value) > 36)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
-                .WithParameters("User", "Name", 36);
-        }
-
-        [Fact(Skip="Feature!")]
-        public void Where_VertexProperty_Value3()
-        {
-            g
-                .V<User>()
-                .Where(x => (int)x.Name.Id == 36)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
-                .WithParameters("User", "Name", 36);
-        }
-        
         [Fact]
         public void Where_Id_equals_constant()
         {
@@ -2120,99 +2019,99 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_array_contains_element()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "PhoneNumbers", "+4912345");
+                .WithParameters("Company", "PhoneNumbers", "+4912345");
         }
 
         [Fact]
         public void Where_property_array_does_not_contain_element()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, _c))")
-                .WithParameters("User", "PhoneNumbers", "+4912345");
+                .WithParameters("Company", "PhoneNumbers", "+4912345");
         }
 
         [Fact]
         public void Where_property_array_does_not_intersect_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
         public void Where_property_array_does_not_intersect_empty_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .WithParameters("Company");
         }
 
         [Fact]
         public void Where_property_array_intersects_aray()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d))")
-                .WithParameters("User", "PhoneNumbers", "+4912345", "+4923456");
+                .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
         public void Where_property_array_is_empty()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b))")
-                .WithParameters("User", "PhoneNumbers");
+                .WithParameters("Company", "PhoneNumbers");
         }
 
         [Fact]
         public void Where_property_array_is_not_empty()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Any())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "PhoneNumbers");
+                .WithParameters("Company", "PhoneNumbers");
         }
 
         [Fact]
         public void Where_property_equals_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_equals_converted_expression()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => (object)t.Age == (object)36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
@@ -2221,11 +2120,11 @@ namespace ExRam.Gremlinq.Core.Tests
             const int i = 18;
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == i + i)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
@@ -2274,11 +2173,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_is_contained_in_array()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .WithParameters("Person", "Age", 36, 37, 38);
         }
 
         [Fact]
@@ -2288,66 +2187,66 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Select(int.Parse);
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .WithParameters("Person", "Age", 36, 37, 38);
         }
 
         [Fact]
         public void Where_property_is_greater_or_equal_than_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age >= 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gte(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_is_greater_than_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age > 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_is_lower_or_equal_than_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age <= 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, lte(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_is_lower_than_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age < 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, lt(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_is_not_contained_in_array()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .WithParameters("Person", "Age", 36, 37, 38);
         }
 
         [Fact]
@@ -2356,11 +2255,11 @@ namespace ExRam.Gremlinq.Core.Tests
             var enumerable = Enumerable.Empty<int>();
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -2370,44 +2269,44 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Select(int.Parse);
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
-                .WithParameters("User", "Age", 36, 37, 38);
+                .WithParameters("Person", "Age", 36, 37, 38);
         }
 
         [Fact]
         public void Where_property_is_not_present()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name == null)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).hasNot(_b)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Where_property_is_prefix_of_constant()
         {
             g
-                .V<CountryCallingCode>()
-                .Where(c => "+49123".StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => "+49123".StartsWith(c.CountryCallingCode))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
         [Fact]
         public void Where_property_is_prefix_of_empty_string()
         {
             g
-                .V<CountryCallingCode>()
-                .Where(c => "".StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => "".StartsWith(c.CountryCallingCode))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c))")
-                .WithParameters("CountryCallingCode", "Prefix", "");
+                .WithParameters("Country", "CountryCallingCode", "");
         }
 
         [Fact]
@@ -2416,11 +2315,11 @@ namespace ExRam.Gremlinq.Core.Tests
             const string str = "+49123xxx";
 
             g
-                .V<CountryCallingCode>()
-                .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
         [Fact]
@@ -2429,89 +2328,89 @@ namespace ExRam.Gremlinq.Core.Tests
             const string str = "+49123";
 
             g
-                .V<CountryCallingCode>()
-                .Where(c => str.StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => str.StartsWith(c.CountryCallingCode))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
-                .WithParameters("CountryCallingCode", "Prefix", "", "+", "+4", "+49", "+491", "+4912", "+49123");
+                .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
         [Fact]
         public void Where_property_is_present()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name != null)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "Name");
+                .WithParameters("Person", "Name");
         }
 
         [Fact]
         public void Where_property_not_equals_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age != 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, neq(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_property_starts_with_constant()
         {
             g
-                .V<User>()
-                .Where(c => c.PhoneNumber.StartsWith("+49123"))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, between(_c, _d))")
-                .WithParameters("User", "PhoneNumber", "+49123", "+49124");
+                .WithParameters("Country", "CountryCallingCode", "+49123", "+49124");
         }
 
         [Fact]
         public void Where_property_starts_with_empty_string()
         {
             g
-                .V<User>()
-                .Where(c => c.PhoneNumber.StartsWith(""))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("User", "PhoneNumber");
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
         public void Where_property_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(
                     x => x.Age,
                     _ => _
                         .Inject(36))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, __.inject(_c))")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_scalar_element_equals_constant()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).is(_c)")
-                .WithParameters("User", "Age", 36);
+                .WithParameters("Person", "Age", 36);
         }
 
         [Fact]
         public void Where_source_expression_on_both_sides()
         {
             g
-                .V<User>()
-                .Invoking(query => query.Where(t => t.Name.Value == t.PhoneNumber))
+                .V<Country>()
+                .Invoking(query => query.Where(t => t.Name.Value == t.CountryCallingCode))
                 .Should()
                 .Throw<InvalidOperationException>();
         }
@@ -2520,22 +2419,55 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_traversal()
         {
             g
-                .V<User>()
+                .V<Person>()
                 .Where(_ => _.Out<LivesIn>())
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).where(__.out(_b))")
-                .WithParameters("User", "LivesIn");
+                .WithParameters("Person", "LivesIn");
+        }
+
+        [Fact]
+        public void Where_VertexProperty_Value1()
+        {
+            g
+                .V<Person>()
+                .Where(x => x.Name.Value == "SomeName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, _c)")
+                .WithParameters("Person", "Name", "SomeName");
+        }
+
+        [Fact]
+        public void Where_VertexProperty_Value2()
+        {
+            g
+                .V<Person>()
+                .Where(x => ((int)(object)x.Name.Value) > 36)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .WithParameters("Person", "Name", 36);
+        }
+
+        [Fact(Skip="Feature!")]
+        public void Where_VertexProperty_Value3()
+        {
+            g
+                .V<Person>()
+                .Where(x => (int)x.Name.Id == 36)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .WithParameters("Person", "Name", 36);
         }
 
         [Fact]
         public void WithSubgraphStrategy()
         {
             g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _.OfType<Knows>()))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
-                .WithParameters("User", "Knows");
+                .WithParameters("Person", "WorksFor");
         }
 
         [Fact]
@@ -2553,22 +2485,22 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy_only_edges()
         {
             g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<Knows>()))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
-                .WithParameters("Knows");
+                .WithParameters("WorksFor");
         }
 
         [Fact]
         public void WithSubgraphStrategy_only_vertices()
         {
             g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
                 .V()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿[
   {
     "id": 14,
-    "label": "User",
+    "label": "Person",
     "type": "vertex",
     "properties": {
       "age": [

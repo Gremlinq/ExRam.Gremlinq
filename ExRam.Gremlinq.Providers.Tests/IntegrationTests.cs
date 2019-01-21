@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var now = DateTimeOffset.FromUnixTimeMilliseconds(1481750076295);
 
             var data = await _g
-                .AddV(new User
+                .AddV(new Person
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -57,7 +57,10 @@ namespace ExRam.Gremlinq.Providers.Tests
             var data = await _g
                 .AddV(new Company
                 {
-                    Name = "Company!",
+                    Name = new VertexProperty<string, PropertyValidity>[]
+                    {
+                        "Company!"
+                    },
                     FoundingDate = now
                 })
                 .ToArray();
@@ -110,7 +113,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task AddV_with_multi_property()
         {
             var data = await _g
-                .AddV(new User { PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .AddV(new Company { PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .ToArray();
 
             data.Should().HaveCount(1);
@@ -152,7 +155,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task AddV_with_enum_property()
         {
             await _g
-                .AddV(new User { Gender = Gender.Female })
+                .AddV(new Person { Gender = Gender.Female })
                 .ToArray();
         }
 
@@ -160,7 +163,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_contains_element()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .ToArray();
         }
@@ -169,7 +172,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_does_not_contain_element()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .ToArray();
         }
@@ -178,7 +181,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_is_not_empty()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Any())
                 .ToArray();
         }
@@ -187,7 +190,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_is_empty()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .ToArray();
         }
@@ -196,7 +199,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_intersects_aray()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .ToArray();
         }
@@ -205,7 +208,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_does_not_intersect_array()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .ToArray();
         }
@@ -214,7 +217,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_intersects_empty_array()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .ToArray();
         }
@@ -223,7 +226,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_array_does_not_intersect_empty_array()
         {
             await _g
-                .V<User>()
+                .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
                 .ToArray();
         }
@@ -232,7 +235,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_contained_in_array()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .ToArray();
         }
@@ -244,7 +247,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .Select(int.Parse);
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .ToArray();
         }
@@ -255,7 +258,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var enumerable = Enumerable.Empty<int>();
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .ToArray();
         }
@@ -264,7 +267,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_not_contained_in_array()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .ToArray();
         }
@@ -276,7 +279,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .Select(int.Parse);
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .ToArray();
         }
@@ -287,7 +290,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var enumerable = Enumerable.Empty<int>();
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .ToArray();
         }
@@ -296,8 +299,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_prefix_of_constant()
         {
             await _g
-                .V<CountryCallingCode>()
-                .Where(c => "+49123".StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => "+49123".StartsWith(c.CountryCallingCode))
                 .ToArray();
         }
 
@@ -305,8 +308,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_prefix_of_empty_string()
         {
             await _g
-                .V<CountryCallingCode>()
-                .Where(c => "".StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => "".StartsWith(c.CountryCallingCode))
                 .ToArray();
         }
 
@@ -316,8 +319,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             const string str = "+49123";
 
             await _g
-                .V<CountryCallingCode>()
-                .Where(c => str.StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => str.StartsWith(c.CountryCallingCode))
                 .ToArray();
         }
 
@@ -327,8 +330,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             const string str = "+49123xxx";
 
             await _g
-                .V<CountryCallingCode>()
-                .Where(c => str.Substring(0, 6).StartsWith(c.Prefix))
+                .V<Country>()
+                .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode))
                 .ToArray();
         }
 
@@ -336,8 +339,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_starts_with_constant()
         {
             await _g
-                .V<User>()
-                .Where(c => c.PhoneNumber.StartsWith("+49123"))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith("+49"))
                 .ToArray();
         }
 
@@ -345,8 +348,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_starts_with_empty_string()
         {
             await _g
-                .V<User>()
-                .Where(c => c.PhoneNumber.StartsWith(""))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith(""))
                 .ToArray();
         }
 
@@ -354,7 +357,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_disjunction()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .ToArray();
         }
@@ -363,7 +366,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_disjunction_with_different_fields()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" || t.Age == 42)
                 .ToArray();
         }
@@ -372,7 +375,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_conjunction()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .ToArray();
         }
@@ -381,7 +384,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_complex_logical_expression()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
                 .ToArray();
         }
@@ -390,7 +393,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_complex_logical_expression_with_null()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .ToArray();
         }
@@ -399,7 +402,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_has_conjunction_of_three()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .ToArray();
         }
@@ -408,7 +411,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_has_disjunction_of_three()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .ToArray();
         }
@@ -417,7 +420,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_conjunction_with_different_fields()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && t.Age == 42)
                 .ToArray();
         }
@@ -426,7 +429,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_equals_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == 36)
                 .ToArray();
         }
@@ -437,7 +440,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             const int i = 18;
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age == i + i)
                 .ToArray();
         }
@@ -446,7 +449,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_equals_converted_expression()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => (object)t.Age == (object)36)
                 .ToArray();
         }
@@ -455,7 +458,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_not_equals_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age != 36)
                 .ToArray();
         }
@@ -464,7 +467,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_not_present()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name == null)
                 .ToArray();
         }
@@ -473,7 +476,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_present()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Name != null)
                 .ToArray();
         }
@@ -482,7 +485,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_lower_than_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age < 36)
                 .ToArray();
         }
@@ -491,7 +494,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_lower_or_equal_than_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age <= 36)
                 .ToArray();
         }
@@ -537,7 +540,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_greater_than_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age > 36)
                 .ToArray();
         }
@@ -546,7 +549,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_is_greater_or_equal_than_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(t => t.Age >= 36)
                 .ToArray();
         }
@@ -613,7 +616,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_scalar_element_equals_constant()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
                 .ToArray();
@@ -623,7 +626,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(_ => _.Out<LivesIn>())
                 .ToArray();
         }
@@ -632,7 +635,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Where_property_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where(
                     x => x.Age,
                     _ => _
@@ -646,7 +649,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var now = DateTimeOffset.UtcNow;
 
             await _g
-                .AddV(new User
+                .AddV(new Person
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -665,7 +668,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .As((_, l) => _
                     .AddV(new Country { CountryCallingCode = "+49" })
-                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .AddE<Speaks>()
                     .To(l))
                 .ToArray();
         }
@@ -676,7 +679,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var now = DateTimeOffset.UtcNow;
 
             await _g
-                .AddV(new User
+                .AddV(new Person
                 {
                     Name = "Bob",
                     RegistrationDate = now
@@ -695,7 +698,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .AddV(new Country { CountryCallingCode = "+49" })
                 .As((_, c) => _
                     .AddV(new Language { IetfLanguageTag = "en" })
-                    .AddE(new IsDescribedIn { Text = "Germany" })
+                    .AddE<Speaks>()
                     .From(c))
                 .ToArray();
         }
@@ -704,7 +707,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task AddE_InV()
         {
             await _g
-                .AddV<User>()
+                .AddV<Person>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
@@ -716,7 +719,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task AddE_OutV()
         {
             await _g
-                .AddV<User>()
+                .AddV<Person>()
                 .AddE<LivesIn>()
                 .To(__ => __
                     .V<Country>("id"))
@@ -728,10 +731,10 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task And()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .And(
                     __ => __
-                        .InE<Knows>(),
+                        .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
                 .ToArray();
@@ -741,16 +744,16 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task And_nested()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .And(
                     __ => __
                         .OutE<LivesIn>(),
                     __ => __
                         .And(
                             ___ => ___
-                                .InE<Knows>(),
+                                .InE<WorksFor>(),
                             ___ => ___
-                                .OutE<Knows>()))
+                                .OutE<WorksFor>()))
                 .ToArray();
         }
 
@@ -758,10 +761,10 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Or()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Or(
                     __ => __
-                        .InE<Knows>(),
+                        .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
                 .ToArray();
@@ -771,16 +774,16 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Or_nested()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Or(
                     __ => __
                         .OutE<LivesIn>(),
                     __ => __
                         .Or(
                             ___ => ___
-                                .InE<Knows>(),
+                                .InE<WorksFor>(),
                             ___ => ___
-                                .OutE<Knows>()))
+                                .OutE<WorksFor>()))
                 .ToArray();
         }
 
@@ -797,7 +800,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task FilterWithLambda()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Where("it.property('str').value().length() == 2")
                 .ToArray();
         }
@@ -806,8 +809,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Out()
         {
             await _g
-                .V<User>()
-                .Out<Knows>()
+                .V<Person>()
+                .Out<WorksFor>()
                 .ToArray();
         }
 
@@ -815,7 +818,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Out_does_not_include_abstract_edge()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Out<Edge>()
                 .ToArray();
         }
@@ -824,7 +827,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .ToArray();
         }
@@ -833,7 +836,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ToArray();
         }
@@ -842,7 +845,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_lambda()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy("it.property('str').value().length()")
                 .ToArray();
         }
@@ -851,7 +854,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderByDescending_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderByDescending(x => x.Name)
                 .ToArray();
         }
@@ -860,7 +863,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderByDescending_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .ToArray();
         }
@@ -869,7 +872,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_ThenBy_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
                 .ToArray();
@@ -879,7 +882,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_ThenBy_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
                 .ToArray();
@@ -889,7 +892,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_ThenBy_lambda()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
                 .ToArray();
@@ -899,7 +902,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_ThenByDescending_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
                 .ToArray();
@@ -909,7 +912,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task OrderBy_ThenByDescending_traversal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
                 .ToArray();
@@ -919,7 +922,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task SumLocal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumLocal()
                 .ToArray();
@@ -929,7 +932,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task SumGlobal()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Age)
                 .SumGlobal()
                 .ToArray();
@@ -939,7 +942,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Values_one_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name)
                 .ToArray();
         }
@@ -948,7 +951,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Values_two_members()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name, x => x.Id)
                 .ToArray();
         }
@@ -957,7 +960,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Values_three_members()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .ToArray();
         }
@@ -966,7 +969,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Values_id_member()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Values(x => x.Id)
                 .ToArray();
         }
@@ -992,10 +995,10 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Repeat_Out()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Repeat(__ => __
-                    .Out<Knows>()
-                    .OfType<User>())
+                    .Out<WorksFor>()
+                    .OfType<Person>())
                 .ToArray();
         }
 
@@ -1003,9 +1006,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Union()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Union(
-                    __ => __.Out<Knows>(),
+                    __ => __.Out<WorksFor>(),
                     __ => __.Out<LivesIn>())
                 .ToArray();
         }
@@ -1016,7 +1019,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .V()
                 .Optional(
-                    __ => __.Out<Knows>())
+                    __ => __.Out<WorksFor>())
                 .ToArray();
         }
 
@@ -1025,7 +1028,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V()
-                .Not(__ => __.Out<Knows>())
+                .Not(__ => __.Out<WorksFor>())
                 .ToArray();
         }
 
@@ -1051,18 +1054,18 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task As_explicit_label()
         {
             await _g
-                .V<User>()
-                .As(new StepLabel<User>())
+                .V<Person>()
+                .As(new StepLabel<Person>())
                 .ToArray();
         }
 
         [Fact(Skip = "Integration Test")]
         public async Task Select()
         {
-            var stepLabel = new StepLabel<User>();
+            var stepLabel = new StepLabel<Person>();
 
             await _g
-                .V<User>()
+                .V<Person>()
                 .As(stepLabel)
                 .Select(stepLabel)
                 .ToArray();
@@ -1072,7 +1075,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task As_inlined_nested_Select()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
@@ -1083,7 +1086,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Property_single()
         {
             await _g
-                .V<User>()
+                .V<Person>()
                 .Property(x => x.Age, 36)
                 .ToArray();
         }
@@ -1092,7 +1095,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Property_list()
         {
             await _g
-                .V<User>("id")
+                .V<Person>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .ToArray();
         }
@@ -1162,8 +1165,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name)
-                .Meta<MetaModel>()
-                .Properties(x => x.MetaKey)
+                .Meta<PropertyValidity>()
+                .Properties(x => x.ValidFrom)
                 .ToArray();
         }
 
@@ -1179,7 +1182,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task WithSubgraphStrategy()
         {
             await _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<User>(), _ => _))
+                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
                 .V()
                 .ToArray();
         }

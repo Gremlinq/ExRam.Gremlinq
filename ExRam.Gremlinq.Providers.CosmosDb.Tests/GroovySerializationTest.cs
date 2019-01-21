@@ -24,11 +24,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public void Where_property_array_intersects_empty_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
                 .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .WithParameters("Company");
         }
         
         [Fact]
@@ -37,12 +37,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             var enumerable = Enumerable.Empty<int>();
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("User");
+                .WithParameters("Person");
         }
-
     }
 }

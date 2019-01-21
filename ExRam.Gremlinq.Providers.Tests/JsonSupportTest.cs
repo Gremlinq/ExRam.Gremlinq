@@ -38,21 +38,21 @@ namespace ExRam.Gremlinq.Providers.Tests
             public string MetaKey { get; set; }
         }
 
-        private static readonly string SingleUserJson;
+        private static readonly string SinglePersonJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleCompanyJson;
-        private static readonly string SingleUserStringId;
+        private static readonly string SinglePersonStringId;
         private static readonly string SingleLanguageJson;
-        private static readonly string SingleIsDescribedIn;
+        private static readonly string SingleWorksFor;
         private static readonly string SingleTimeFrameJson;
-        private static readonly string TupleOfUserLanguageJson;
+        private static readonly string TupleOfPersonLanguageJson;
         private static readonly string Graphson3ReferenceVertex;
         private static readonly string CountryWithMetaProperties;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
-        private static readonly string SingleUserWithoutPhoneNumbersJson;
-        private static readonly string SingleUserLowercasePropertiesJson;
-        private static readonly string Graphson3TupleOfUserLanguageJson;
+        private static readonly string SinglePersonWithoutPhoneNumbersJson;
+        private static readonly string SinglePersonLowercasePropertiesJson;
+        private static readonly string Graphson3TupleOfPersonLanguageJson;
 
         private readonly IConfigurableGremlinQuerySource _g;
 
@@ -60,19 +60,19 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             SingleLanguageJson = GetJson("Single_Language");
             SingleCompanyJson = GetJson("Single_Company");
-            SingleUserJson = GetJson("Single_User");
-            SingleUserLowercasePropertiesJson = GetJson("Single_User_lowercase_properties");
-            SingleUserWithoutPhoneNumbersJson = GetJson("Single_User_without_PhoneNumbers");
-            TupleOfUserLanguageJson = GetJson("Tuple_of_User_Language");
+            SinglePersonJson = GetJson("Single_Person");
+            SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
+            SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
+            TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
             ArrayOfLanguages = GetJson("Array_of_Languages");
             NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
             SingleTimeFrameJson = GetJson("Single_TimeFrame");
             SingleTimeFrameWithNumbersJson = GetJson("Single_TimeFrame_with_numbers");
-            SingleIsDescribedIn = GetJson("Single_IsDescribedIn");
-            Graphson3TupleOfUserLanguageJson = GetJson("Graphson3_Tuple_of_User_Language");
+            SingleWorksFor = GetJson("Single_WorksFor");
+            Graphson3TupleOfPersonLanguageJson = GetJson("Graphson3_Tuple_of_Person_Language");
             Graphson3ReferenceVertex = GetJson("Graphson3ReferenceVertex");
             CountryWithMetaProperties = GetJson("Country_with_meta_properties");
-            SingleUserStringId = GetJson("Single_User_String_Id");
+            SinglePersonStringId = GetJson("Single_Person_String_Id");
         }
 
         public JsonSupportTest()
@@ -101,24 +101,24 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task IsDescribedIn()
         {
             var array = await _g
-                .WithExecutor(new TestJsonQueryExecutor(SingleIsDescribedIn))
-                .E<IsDescribedIn>()
+                .WithExecutor(new TestJsonQueryExecutor(SingleWorksFor))
+                .E<WorksFor>()
                 .ToArray();
 
             array.Should().HaveCount(1);
-            array[0].Text.Should().Be("Deutsch");
+            array[0].Role.Should().Be("Admin");
         }
 
         [Fact]
-        public async Task IsDescribedIn_with_Graphson3()
+        public async Task WorksFor_with_Graphson3()
         {
             var array = await _g
-                .WithExecutor(new TestJsonQueryExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"IsDescribedIn\",\"inVLabel\":\"Language\",\"outVLabel\":\"Country\",\"inV\":\"x-language:de\",\"outV\":\"ea46d1643c6d4dce9d7ac23fb09fb4b2\",\"properties\":{\"Text\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Text\",\"value\":\"Deutschland\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
-                .E<IsDescribedIn>()
+                .WithExecutor(new TestJsonQueryExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"WorksFor\",\"inVLabel\":\"Company\",\"outVLabel\":\"Person\",\"inV\":\"companyId\",\"outV\":\"personId\",\"properties\":{\"Role\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Role\",\"value\":\"Admin\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
+                .E<WorksFor>()
                 .ToArray();
 
             array.Should().HaveCount(1);
-            array[0].Text.Should().Be("Deutschland");
+            array[0].Role.Should().Be("Admin");
         }
 
         [Fact]
@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .WithExecutor(new TestJsonQueryExecutor("[]"))
-                .V<User>()
+                .V<Person>()
                 .ToArray();
         }
 
@@ -280,58 +280,58 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
         
         [Fact]
-        public async Task User_strongly_typed()
+        public async Task Person_strongly_typed()
         {
             var user = await _g
-                .WithExecutor(new TestJsonQueryExecutor(SingleUserJson))
-                .V<User>()
+                .WithExecutor(new TestJsonQueryExecutor(SinglePersonJson))
+                .V<Person>()
                 .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(13);
             user.Age.Should().Be(36);
             user.Gender.Should().Be(Gender.Female);
-            user.PhoneNumbers.Should().Equal("+123456", "+234567");
+            user.PhoneNumbers.Select(x => x.Value).Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
-        public async Task User_StringId()
+        public async Task Person_StringId()
         {
             var user = await _g
-                .WithExecutor(new TestJsonQueryExecutor(SingleUserStringId))
-                .V<User>()
+                .WithExecutor(new TestJsonQueryExecutor(SinglePersonStringId))
+                .V<Person>()
                 .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be("13");
             user.Age.Should().Be(36);
             user.Gender.Should().Be(Gender.Female);
-            user.PhoneNumbers.Should().Equal("+123456", "+234567");
+            user.PhoneNumbers.Select(x => x.Value).Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
-        public async Task User_lowercase_strongly_typed()
+        public async Task Person_lowercase_strongly_typed()
         {
             var user = await _g
-                .WithExecutor(new TestJsonQueryExecutor(SingleUserLowercasePropertiesJson))
-                .V<User>()
+                .WithExecutor(new TestJsonQueryExecutor(SinglePersonLowercasePropertiesJson))
+                .V<Person>()
                 .First();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(14);
             user.Age.Should().Be(36);
-            user.PhoneNumbers.Should().Equal("+123456", "+234567");
+            user.PhoneNumbers.Select(x => x.Value).Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
         }
 
         [Fact]
-        public async Task User_without_PhoneNumbers_strongly_typed()
+        public async Task Person_without_PhoneNumbers_strongly_typed()
         {
             var user = await _g
-                .WithExecutor(new TestJsonQueryExecutor(SingleUserWithoutPhoneNumbersJson))
-                .V<User>()
+                .WithExecutor(new TestJsonQueryExecutor(SinglePersonWithoutPhoneNumbersJson))
+                .V<Person>()
                 .First();
 
             user.Should().NotBeNull();
@@ -385,9 +385,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Tuple()
         {
             var tuple = await _g
-                .WithExecutor(new TestJsonQueryExecutor(TupleOfUserLanguageJson))
+                .WithExecutor(new TestJsonQueryExecutor(TupleOfPersonLanguageJson))
                 .V()
-                .Cast<(User, Language)>()
+                .Cast<(Person, Language)>()
                 .First();
 
             tuple.Item1.Id.Should().Be(16);
@@ -402,15 +402,15 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Tuple_vertex_vertex()
         {
             var tuple = await _g
-                .WithExecutor(new TestJsonQueryExecutor(TupleOfUserLanguageJson))
+                .WithExecutor(new TestJsonQueryExecutor(TupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Vertex, Vertex)>()
                 .First();
 
             tuple.Item1.Id.Should().Be(16);
-            tuple.Item1.Should().BeOfType<User>();
-            tuple.Item1.As<User>().Name.Value.Should().Be("Name of some base entity");
-            tuple.Item1.As<User>().Age.Should().Be(36);
+            tuple.Item1.Should().BeOfType<Person>();
+            tuple.Item1.As<Person>().Name.Value.Should().Be("Name of some base entity");
+            tuple.Item1.As<Person>().Age.Should().Be(36);
 
             tuple.Item2.Id.Should().Be(17);
             tuple.Item2.Should().BeOfType<Language>();
@@ -421,9 +421,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Graphson3_Tuple()
         {
             var tuple = await _g
-                .WithExecutor(new TestJsonQueryExecutor(Graphson3TupleOfUserLanguageJson))
+                .WithExecutor(new TestJsonQueryExecutor(Graphson3TupleOfPersonLanguageJson))
                 .V()
-                .Cast<(User, Language)>()
+                .Cast<(Person, Language)>()
                 .First();
 
             tuple.Item1.Id.Should().Be(4);

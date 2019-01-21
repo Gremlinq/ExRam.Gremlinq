@@ -13,22 +13,22 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         public void Where_empty_array_intersects_property_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
                 .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("User", "PhoneNumbers");
+                .WithParameters("Company", "PhoneNumbers");
         }
 
         [Fact]
         public void Where_property_array_intersects_empty_array()
         {
             g
-                .V<User>()
+                .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
                 .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("User", "PhoneNumbers");
+                .WithParameters("Company", "PhoneNumbers");
         }
 
 
@@ -38,11 +38,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             var enumerable = Enumerable.Empty<int>();
 
             g
-                .V<User>()
+                .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("User", "Age");
+                .WithParameters("Person", "Age");
         }
     }
 }
