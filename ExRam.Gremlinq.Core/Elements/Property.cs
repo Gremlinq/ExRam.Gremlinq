@@ -9,6 +9,11 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         [AllowNull] public string Key { get; set; }
 
+        public override string ToString()
+        {
+            return $"[{Key}: {GetValue()}]";
+        }
+
         internal abstract object GetValue();
         internal abstract IDictionary<string, object> GetMetaProperties();
     }
