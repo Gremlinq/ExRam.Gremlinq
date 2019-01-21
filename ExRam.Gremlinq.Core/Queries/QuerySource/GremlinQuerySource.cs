@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var newModel = _isUserSetModel
                     ? _model
-                    : GraphModel.Dynamic(NullLogger.Instance);
+                    : GraphModel.Dynamic(NullLogger.Instance).Relax();
 
                 return new ConfigurableGremlinQuerySourceImpl(_name, newModel, _isUserSetModel, _queryExecutor, _strategies, logger);
             }
@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core
     
         public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance), false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
+            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance).Relax(), false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, NullLogger.Instance);
         }
 
         public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()

@@ -547,6 +547,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void E_of_type_outside_model()
         {
             g
+                .WithModel(GraphModel.Dynamic())
                 .Invoking(_ => _
                     .E<string>())
                 .Should()
@@ -1066,6 +1067,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Out_of_type_outside_model1()
         {
             g
+                .WithModel(GraphModel.Dynamic())
                 .V()
                 .Invoking(_ => _.Out<string>())
                 .Should()
@@ -1076,6 +1078,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Out_of_type_outside_model2()
         {
             g
+                .WithModel(GraphModel.Dynamic())
                 .V()
                 .Invoking(_ => _.Out<IVertex>())
                 .Should()
@@ -1653,6 +1656,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void V_of_type_outside_model()
         {
             g
+                .WithModel(GraphModel.Dynamic())
                 .Invoking(_ => _
                     .V<string>())
                 .Should()

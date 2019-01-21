@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 

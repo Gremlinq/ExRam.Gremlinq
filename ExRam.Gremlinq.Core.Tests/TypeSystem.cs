@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class TypeSystem
     {
-        private sealed class Vertex : IVertex
+        private sealed class Vertex
         {
             public string String { get; }
             public string[] Strings { get; }
@@ -16,8 +16,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public VertexProperty<string, object> MetaStringVertexProperty { get; }
             public VertexProperty<string, object>[] MetaStringVertexProperties { get; }
-
-            public object Id { get; set; }
         }
 
         [Fact]

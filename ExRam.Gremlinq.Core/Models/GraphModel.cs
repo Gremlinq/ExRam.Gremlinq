@@ -21,6 +21,49 @@ namespace ExRam.Gremlinq.Core
             VertexProperty
         }
 
+        private sealed class RelaxedGraphModel : IGraphModel
+        {
+            private sealed class RelaxedGraphElementModel : IGraphElementModel
+            {
+                private readonly IGraphElementModel _baseGraphElementModel;
+
+                public RelaxedGraphElementModel(IGraphElementModel baseGraphElementModel)
+                {
+                    _baseGraphElementModel = baseGraphElementModel;
+                }
+
+                public Option<string> TryGetConstructiveLabel(Type elementType)
+                {
+                    return _baseGraphElementModel
+                        .TryGetConstructiveLabel(elementType)
+                        .IfNone(elementType.Name);
+                }
+
+                public Option<string[]> TryGetFilterLabels(Type elementType)
+                {
+                    return _baseGraphElementModel
+                        .TryGetFilterLabels(elementType)
+                        .IfNone(new[] {elementType.Name});
+                }
+            }
+
+            private readonly IGraphModel _baseGraphModel;
+
+            public RelaxedGraphModel(IGraphModel baseGraphModel)
+            {
+                _baseGraphModel = baseGraphModel;
+
+                VerticesModel = new RelaxedGraphElementModel(baseGraphModel.VerticesModel);
+                EdgesModel = new RelaxedGraphElementModel(baseGraphModel.EdgesModel);
+            }
+
+            public Type[] GetTypes(string label) => _baseGraphModel.GetTypes(label);
+
+            public IGraphElementModel VerticesModel { get; }
+
+            public IGraphElementModel EdgesModel { get; }
+        }
+
         private sealed class EmptyGraphModel : IGraphModel
         {
             public Type[] GetTypes(string label) => Array.Empty<Type>();
@@ -178,6 +221,11 @@ namespace ExRam.Gremlinq.Core
         public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] assemblies)
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, assemblies, logger);
+        }
+
+        public static IGraphModel Relax(this IGraphModel model)
+        {
+            return new RelaxedGraphModel(model);
         }
 
         internal static object GetIdentifier(this IGraphModel model, Expression expression)
