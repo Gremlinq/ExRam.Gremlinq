@@ -20,10 +20,10 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery, IGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> Properties<TValue>(params Expression<Func<TEdge, TValue[]>>[] projections);
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>[]>>[] projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue[]>>[] projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>[]>>[] projections);
 
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);

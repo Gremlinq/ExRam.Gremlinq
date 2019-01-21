@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
             return query.Properties(projections);
         }
 
-        public static IEdgePropertyGremlinQuery<Property<object>, object> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, Property<object>>>[] projections)
+        public static IEdgePropertyGremlinQuery<Property<object>> Properties<TEdge>(this IEdgeGremlinQuery<TEdge> query, params Expression<Func<TEdge, Property<object>>>[] projections)
         {
             return query.Properties(projections);
         }

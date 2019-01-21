@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>,
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,
 
-        IOrderedEdgePropertyGremlinQuery<TElement, TPropertyValue>
+        IOrderedEdgePropertyGremlinQuery<TElement>
     {
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
 
@@ -162,13 +162,13 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<Property<TValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => PlainProperties<TValue>(projections);
 
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => PlainProperties<TValue>(projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => PlainProperties<TValue>(projections);
 
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => PlainProperties<TValue>(projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, Property<TValue>>>[] projections) => PlainProperties<TValue>(projections);
 
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue[]>>[] projections) => PlainProperties<TValue>(projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue[]>>[] projections) => PlainProperties<TValue>(projections);
 
-        IEdgePropertyGremlinQuery<Property<TValue>, TValue> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, Property<TValue>[]>>[] projections) => PlainProperties<TValue>(projections);
+        IEdgePropertyGremlinQuery<Property<TValue>> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, Property<TValue>[]>>[] projections) => PlainProperties<TValue>(projections);
 
         IGremlinQuery<Property<TValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Properties<TValue>(params string[] keys) => Properties<TValue>(keys);
 
