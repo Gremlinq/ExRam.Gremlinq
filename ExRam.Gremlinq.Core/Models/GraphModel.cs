@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
                 private readonly Type _baseType;
-                private readonly ConcurrentDictionary<Type, string[]> _derivedLabels = new ConcurrentDictionary<Type, string[]>();
+                private readonly ConcurrentDictionary<Type, Option<string[]>> _derivedLabels = new ConcurrentDictionary<Type, Option<string[]>>();
 
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
@@ -87,14 +87,21 @@ namespace ExRam.Gremlinq.Core
                 public Option<string[]> TryGetFilterLabels(Type elementType)
                 {
                     return elementType.IsAssignableFrom(_baseType)
-                        ? default
+                        ? Array.Empty<string>()
                         : _derivedLabels.GetOrAdd(
                             elementType,
-                            closureType => Labels
-                                .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                                .Select(kvp => kvp.Value[0])
-                                .OrderBy(x => x)
-                                .ToArray());
+                            closureType =>
+                            {
+                                var labels = Labels
+                                    .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                                    .Select(kvp => kvp.Value[0])
+                                    .OrderBy(x => x)
+                                    .ToArray();
+
+                                return labels.Length == 0
+                                    ? default(Option<string[]>)
+                                    : labels;
+                            });
                 }
 
                 public IDictionary<Type, string[]> Labels { get; }
