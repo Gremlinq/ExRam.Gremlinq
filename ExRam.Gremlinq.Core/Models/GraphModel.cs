@@ -74,23 +74,13 @@ namespace ExRam.Gremlinq.Core
                             type => new[] { type.Name });
                 }
 
-                public Option<string> TryGetConstructiveVertexLabel(Type elementType)
-                {
-                    return Labels
-                        .TryGetValue(elementType)
-                        .Map(x => x.FirstOrDefault())
-                        .IfNone(() => elementType.BaseType != null
-                            ? TryGetConstructiveVertexLabel(elementType.BaseType)
-                            : default);
-                }
-
                 public Option<string> TryGetConstructiveLabel(Type elementType)
                 {
                     return Labels
                         .TryGetValue(elementType)
                         .Map(x => x.FirstOrDefault())
                         .IfNone(() => elementType.BaseType != null
-                            ? TryGetConstructiveVertexLabel(elementType.BaseType)
+                            ? TryGetConstructiveLabel(elementType.BaseType)
                             : default);
                 }
 
