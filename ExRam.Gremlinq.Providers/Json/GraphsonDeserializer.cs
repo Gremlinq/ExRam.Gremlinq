@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Providers
                 {
                     var propertyType = propertyMember.PropertyType;
 
-                    if (propertyType == typeof(IDictionary<string, object>) && propertyMember.Name == nameof(VertexProperty<object>.Properties) && typeof(Property).IsAssignableFrom(propertyMember.DeclaringType))
+                    if (propertyType == typeof(IDictionary<string, object>) && propertyMember.Name == nameof(VertexProperty<object>.Properties) && typeof(IVertexProperty).IsAssignableFrom(propertyMember.DeclaringType))
                         return new EmptyDictionaryValueProvider(provider);
 
                     if (propertyType.IsArray)
