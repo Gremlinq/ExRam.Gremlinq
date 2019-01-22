@@ -78,7 +78,16 @@ namespace ExRam.Gremlinq.Providers
 
             public sealed override bool CanConvert(Type objectType)
             {
-                return !(_blockedConverters?.Contains(this)).GetValueOrDefault() && CanConvertImpl(objectType);
+                var blocked = (_blockedConverters?.Contains(this)).GetValueOrDefault();
+
+                if (blocked)
+                {
+                    _blockedConverters?.Remove(this);
+
+                    return false;
+                }
+
+                return CanConvertImpl(objectType);
             }
 
             public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
@@ -175,11 +184,11 @@ namespace ExRam.Gremlinq.Providers
             }
         }
 
-        private sealed class ScalarConverter : BlockableConverter
+        private sealed class FlatteningConverter : BlockableConverter
         {
             protected override bool CanConvertImpl(Type objectType)
             {
-                return !objectType.IsArray && (objectType.IsValueType || objectType == typeof(string)) && !objectType.IsGenericType;
+                return !objectType.IsArray;
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
@@ -199,43 +208,12 @@ namespace ExRam.Gremlinq.Providers
                     token = array[0];
                 }
 
-                if (token is JObject jObject && jObject.ContainsKey("value"))
+                if (token is JObject jObject && !typeof(Property).IsAssignableFrom(objectType) && jObject.ContainsKey("value"))
                     token = jObject["value"];
 
                 using (Block())
                 {
                     return token.ToObject(objectType, serializer);
-                }
-            }
-        }
-
-        private sealed class MetaPropertyConverter : BlockableConverter
-        {
-            protected override bool CanConvertImpl(Type objectType)
-            {
-                return typeof(Property).IsAssignableFrom(objectType);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                var jToken = JToken.Load(reader);
-
-                if (jToken is JArray array)
-                {
-                    if (array.Count != 1)
-                    {
-                        if (objectType == typeof(Unit))
-                            return Unit.Default;
-
-                        throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
-                    }
-
-                    jToken = array[0];
-                }
-
-                using (Block())
-                { 
-                    return jToken.ToObject(objectType, serializer);
                 }
             }
         }
@@ -300,11 +278,10 @@ namespace ExRam.Gremlinq.Providers
                 Converters.Add(additionalConverter);
             }
 
-            Converters.Add(new ScalarConverter());
+            Converters.Add(new FlatteningConverter());
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
             Converters.Add(new DateTimeConverter());
-            Converters.Add(new MetaPropertyConverter());
             Converters.Add(new ElementConverter(model));
 
             ContractResolver = new GremlinContractResolver();
