@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Providers
 
             protected IDisposable Block()
             {
-                if (_blockedConverters == null)
+                 if (_blockedConverters == null)
                     _blockedConverters = new List<JsonConverter>();
 
                 _blockedConverters.Add(this);
@@ -124,7 +124,24 @@ namespace ExRam.Gremlinq.Providers
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                return System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
+                var token = JToken.Load(reader);
+
+                if (token is JValue jValue)
+                {
+                    if (jValue.Value is DateTime dateTime)
+                        return new DateTimeOffset(dateTime);
+
+                    if (jValue.Value is DateTimeOffset dateTimeOffset)
+                        return dateTimeOffset;
+
+                    if (jValue.Type == JTokenType.Integer)
+                        return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                }
+
+                using (Block())
+                {
+                    return token.ToObject(objectType, serializer);
+                }
             }
         }
 
@@ -137,7 +154,24 @@ namespace ExRam.Gremlinq.Providers
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                return new DateTime(System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader)).Ticks, DateTimeKind.Utc);
+                var token = JToken.Load(reader);
+
+                if (token is JValue jValue)
+                {
+                    if (jValue.Value is DateTime dateTime)
+                        return dateTime;
+
+                    if (jValue.Value is DateTimeOffset dateTimeOffset)
+                        return dateTimeOffset.UtcDateTime;
+
+                    if (jValue.Type == JTokenType.Integer)
+                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
+                }
+
+                using (Block())
+                {
+                    return token.ToObject(objectType, serializer);
+                }
             }
         }
 
@@ -177,9 +211,6 @@ namespace ExRam.Gremlinq.Providers
                         token = jObject["value"];
                         continue;
                     }
-
-                    if (token is JValue value && value.Value is DateTime dateTime && objectType == typeof(long))
-                        return new DateTimeOffset(dateTime).ToUnixTimeMilliseconds();
 
                     using (Block())
                     {
@@ -280,15 +311,14 @@ namespace ExRam.Gremlinq.Providers
                 Converters.Add(additionalConverter);
             }
 
+            Converters.Add(new ScalarConverter());
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
             Converters.Add(new DateTimeConverter());
-            Converters.Add(new ScalarConverter());
             Converters.Add(new MetaPropertyConverter());
             Converters.Add(new ElementConverter(model));
 
             ContractResolver = new GremlinContractResolver();
-
             DefaultValueHandling = DefaultValueHandling.Populate;
         }
     }
