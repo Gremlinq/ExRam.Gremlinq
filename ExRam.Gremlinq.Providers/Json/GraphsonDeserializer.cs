@@ -243,9 +243,13 @@ namespace ExRam.Gremlinq.Providers
 
                 if (jToken is JObject)
                 {
-                    var modelType = _model
-                        .GetTypes(jToken["label"].ToString())
-                        .FirstOrDefault(type => objectType.IsAssignableFrom(type));
+                    var label = jToken["label"]?.ToString();
+
+                    var modelType = label != null
+                        ? _model
+                            .GetTypes(label)
+                            .FirstOrDefault(type => objectType.IsAssignableFrom(type))
+                        : null;
 
                     if (modelType != null)
                         objectType = modelType;

@@ -560,7 +560,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
-        public async Task PropertyWithDateTimeOffset()
+        public async Task VertexPropertyWithDateTimeOffset()
         {
             var properties = await _g
                 .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]"))
@@ -573,6 +573,21 @@ namespace ExRam.Gremlinq.Providers.Tests
             properties[0].Properties.ValidFrom.Should().Be(DateTimeOffset.FromUnixTimeMilliseconds(1548112365431));
         }
 
+        [Fact]
+        public async Task PropertyWithDateTimeOffset()
+        {
+            var properties = await _g
+                .WithExecutor(new TestJsonQueryExecutor("{ \"@type\": \"g:List\",\"@value\": [ { \"@type\": \"g:Property\", \"@value\": { \"key\": \"ValidFrom\", \"value\": { \"@type\": \"g:Date\", \"@value\": 1548169812555 } } } ] }"))
+                .V<Person>()
+                .Properties(x => x.Name)
+                .Properties(x => x.ValidFrom)
+                .ToArray();
+
+            properties.Should().HaveCount(1);
+            properties[0].Should().NotBeNull();
+            properties[0].Value.Should().Be(DateTimeOffset.FromUnixTimeMilliseconds(1548169812555));
+        }
+        
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Providers.Tests.Json.{name}.json")).ReadToEnd();
