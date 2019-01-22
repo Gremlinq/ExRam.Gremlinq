@@ -560,6 +560,19 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task VertexPropertyWithoutProperties()
+        {
+            var properties = await _g
+                .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]"))
+                .V<Person>()
+                .Properties(x => x.SomeObscureProperty)
+                .ToArray();
+
+            properties.Should().HaveCount(1);
+            properties[0].Properties.Should().NotBeNull();
+        }
+
+        [Fact]
         public async Task VertexPropertyWithDateTimeOffset()
         {
             var properties = await _g
