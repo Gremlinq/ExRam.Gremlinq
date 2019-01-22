@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         public override string ToString()
         {
-            return $"vp[{Key}->{GetValue()}]";
+            return $"vp[{Label}->{GetValue()}]";
         }
 
         internal override IDictionary<string, object> GetMetaProperties() => Properties?.Serialize().ToDictionary(x => x.Item1.Name, x => x.Item2) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
