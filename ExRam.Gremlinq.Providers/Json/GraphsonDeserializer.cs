@@ -81,16 +81,25 @@ namespace ExRam.Gremlinq.Providers
                 return !(_blockedConverters?.Contains(this)).GetValueOrDefault() && CanConvertImpl(objectType);
             }
 
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotSupportedException();
+            }
+
             protected IDisposable Block()
             {
                 if (_blockedConverters == null)
                     _blockedConverters = new List<JsonConverter>();
 
                 _blockedConverters.Add(this);
+
                 return new BlockDisposable(this);
             }
 
             protected abstract bool CanConvertImpl(Type objectType);
+
+            public override bool CanRead => true;
+            public override bool CanWrite => true;
         }
 
         private sealed class TimespanConverter : BlockableConverter
@@ -104,14 +113,6 @@ namespace ExRam.Gremlinq.Providers
             {
                 return XmlConvert.ToTimeSpan(serializer.Deserialize<string>(reader));
             }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            public override bool CanRead => true;
-            public override bool CanWrite => true;
         }
 
         private sealed class DateTimeOffsetConverter : BlockableConverter
@@ -125,11 +126,6 @@ namespace ExRam.Gremlinq.Providers
             {
                 return System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader));
             }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
         }
 
         private sealed class DateTimeConverter : BlockableConverter
@@ -142,11 +138,6 @@ namespace ExRam.Gremlinq.Providers
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 return new DateTime(System.DateTimeOffset.FromUnixTimeMilliseconds(serializer.Deserialize<long>(reader)).Ticks, DateTimeKind.Utc);
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
             }
         }
 
@@ -196,14 +187,6 @@ namespace ExRam.Gremlinq.Providers
                     }
                 }
             }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            public override bool CanRead => true;
-            public override bool CanWrite => false;
         }
 
         private sealed class MetaPropertyConverter : BlockableConverter
@@ -235,14 +218,6 @@ namespace ExRam.Gremlinq.Providers
                     return jToken.ToObject(objectType, serializer);
                 }
             }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-            
-            public override bool CanRead => true;
-            public override bool CanWrite => false;
         }
 
         private sealed class ElementConverter : BlockableConverter
@@ -291,25 +266,12 @@ namespace ExRam.Gremlinq.Providers
                 }
             }
 
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
             protected override bool CanConvertImpl(Type objectType)
             {
                 return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.VerticesModel.TryGetFilterLabels(objectType).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType).IsSome);
             }
-
-            public override bool CanWrite => false;
         }
         #endregion
-
-        private static readonly JsonConverter TimeSpan = new TimespanConverter();
-        private static readonly JsonConverter DateTimeOffset = new DateTimeOffsetConverter();
-        private static readonly JsonConverter DateTime = new DateTimeConverter();
-        private static readonly JsonConverter Scalar = new ScalarConverter();
-        private static readonly JsonConverter MetaProperty = new MetaPropertyConverter();
 
         public GraphsonDeserializer(IGraphModel model, params JsonConverter[] additionalConverters)
         {
@@ -318,11 +280,11 @@ namespace ExRam.Gremlinq.Providers
                 Converters.Add(additionalConverter);
             }
 
-            Converters.Add(TimeSpan);
-            Converters.Add(DateTimeOffset);
-            Converters.Add(DateTime);
-            Converters.Add(Scalar);
-            Converters.Add(MetaProperty);
+            Converters.Add(new TimespanConverter());
+            Converters.Add(new DateTimeOffsetConverter());
+            Converters.Add(new DateTimeConverter());
+            Converters.Add(new ScalarConverter());
+            Converters.Add(new MetaPropertyConverter());
             Converters.Add(new ElementConverter(model));
 
             ContractResolver = new GremlinContractResolver();
