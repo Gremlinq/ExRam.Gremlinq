@@ -299,7 +299,7 @@ namespace ExRam.Gremlinq.Providers
 
             protected override bool CanConvertImpl(Type objectType)
             {
-                return !objectType.IsSealed && (typeof(IElement).IsAssignableFrom(objectType) || _model.VerticesModel.TryGetFilterLabels(objectType).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType).IsSome);
+                return _model.VerticesModel.TryGetFilterLabels(objectType).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType).IsSome;
             }
         }
         #endregion
