@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 
         public CountStep(Scope scope)
         {
-            this.Scope = scope;
+            Scope = scope;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)

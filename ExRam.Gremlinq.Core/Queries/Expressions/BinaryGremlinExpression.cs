@@ -19,7 +19,7 @@ namespace System.Linq.Expressions
             {
                 if (terminal1.Parameter == terminal2.Parameter)
                 {
-                    if (terminal1.Key == terminal2.Key || (terminal1.Key is MemberExpression memberExpression1 && terminal2.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member))
+                    if (terminal1.Key == terminal2.Key || terminal1.Key is MemberExpression memberExpression1 && terminal2.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
                     {
                         return new TerminalGremlinExpression(Parameter, terminal1.Key, Fuse(terminal1.Predicate, terminal2.Predicate));
                     }

@@ -314,7 +314,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
         }
 
-        private IEnumerable<Step> GetStepsForKeys(object[] keys)
+        private static IEnumerable<Step> GetStepsForKeys(object[] keys)
         {
             var hasYielded = false;
 
@@ -552,8 +552,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
         {
-            var stepsArray = this
-                .GetStepsForKeys(keys)
+            var stepsArray = GetStepsForKeys(keys)
                 .ToArray();
 
             switch (stepsArray.Length)
