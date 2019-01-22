@@ -7,12 +7,16 @@ namespace ExRam.Gremlinq.Core
     public partial interface IEdgeGremlinQuery : IElementGremlinQuery
     {
         IVertexGremlinQuery<IVertex> BothV();
+        IVertexGremlinQuery<TVertex> BothV<TVertex>();
 
         IVertexGremlinQuery<IVertex> InV();
+        IVertexGremlinQuery<TVertex> InV<TVertex>();
 
         IVertexGremlinQuery<IVertex> OtherV();
+        IVertexGremlinQuery<TVertex> OtherV<TVertex>();
 
         IVertexGremlinQuery<IVertex> OutV();
+        IVertexGremlinQuery<TVertex> OutV<TVertex>();
     }
 
     public partial interface IEdgeGremlinQuery<TEdge> : IElementGremlinQuery<TEdge>, IEdgeGremlinQuery
@@ -21,7 +25,10 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
+
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
+        IPropertyGremlinQuery<Property<object>> Properties(params Expression<Func<TEdge, Property<object>>>[] projections);
+
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue[]>>[] projections);
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>[]>>[] projections);
 
@@ -30,6 +37,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, Property<TTarget>>>[] projections);
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, Property<TTarget>[]>>[] projections);
+
+        IValueGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);
     }
 
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge>

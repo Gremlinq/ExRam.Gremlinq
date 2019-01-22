@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
@@ -15,6 +18,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         IGremlinQuery<Unit> Drop();
+
         IGremlinQuery<string> Explain();
 
         IGremlinQuery<string> Profile();
@@ -30,5 +34,7 @@ namespace ExRam.Gremlinq.Core
     public partial interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
+
+        Task<TElement> First(CancellationToken ct = default);
     }
 }

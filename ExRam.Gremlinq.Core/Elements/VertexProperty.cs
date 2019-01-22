@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 {
     public class VertexProperty<TValue, TMeta> : Property<TValue>, IVertexProperty
     {
-        public VertexProperty(TValue value)
+        public VertexProperty(TValue value) : base(value)
         {
             Value = value;
         }
@@ -36,14 +36,14 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
     {
-        protected VertexProperty()
+        protected VertexProperty() : this(default)
         {
-            Properties = new Dictionary<string, object>();
         }
 
-        public VertexProperty(TValue value) : this()
+        public VertexProperty(TValue value) : base(value)
         {
             Value = value;
+            Properties = new Dictionary<string, object>();
         }
 
         public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);

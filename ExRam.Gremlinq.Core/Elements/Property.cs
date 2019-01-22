@@ -7,8 +7,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
 {
     public abstract class Property
     {
-        [AllowNull] public string Key { get; set; }
-
         public override string ToString()
         {
             return $"p[{Key}->{GetValue()}]";
@@ -16,15 +14,26 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         internal abstract object GetValue();
         internal abstract IDictionary<string, object> GetMetaProperties();
+
+        [AllowNull] public string Key { get; set; }
     }
 
     public class Property<TValue> : Property
     {
+        public Property(TValue value)
+        {
+            Value = value;
+        }
+
+        protected Property()
+        {
+        }
+
         internal override object GetValue() => Value;
 
         internal override IDictionary<string, object> GetMetaProperties() => ImmutableDictionary<string, object>.Empty;
 
-        public static implicit operator Property<TValue>(TValue value) => new VertexProperty<TValue>(value);
+        public static implicit operator Property<TValue>(TValue value) => new Property<TValue>(value);
         public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException();
 
         [AllowNull] public TValue Value { get; set; }
