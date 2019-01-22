@@ -37,18 +37,6 @@ namespace ExRam.Gremlinq.Core
                 ct);
         }
 
-        public static async Task<Option<TElement>> FirstOrNone<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
-        {
-            var array = await query
-                .Limit(1)
-                .ToArray(ct)
-                .ConfigureAwait(false);
-
-            return array.Length > 0
-                ? array[0]
-                : Option<TElement>.None;
-        }
-
         public static IVertexGremlinQuery<TVertex> InV<TVertex>(this IEdgeGremlinQuery query)
         {
             return query
