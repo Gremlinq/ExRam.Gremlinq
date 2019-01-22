@@ -199,23 +199,12 @@ namespace ExRam.Gremlinq.Providers
                     token = array[0];
                 }
 
-                return ToObject(token, objectType, serializer);
-            }
+                if (token is JObject jObject && jObject.ContainsKey("value"))
+                    token = jObject["value"];
 
-            private object ToObject(JToken token, Type objectType, JsonSerializer serializer)
-            {
-                while (true)
+                using (Block())
                 {
-                    if (token is JObject jObject && jObject.ContainsKey("value"))
-                    {
-                        token = jObject["value"];
-                        continue;
-                    }
-
-                    using (Block())
-                    {
-                        return token.ToObject(objectType, serializer);
-                    }
+                    return token.ToObject(objectType, serializer);
                 }
             }
         }
