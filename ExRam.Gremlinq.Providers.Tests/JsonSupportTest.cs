@@ -559,6 +559,20 @@ namespace ExRam.Gremlinq.Providers.Tests
             properties[1].Value.Should().Be(36);
         }
 
+        [Fact]
+        public async Task PropertyWithDateTimeOffset()
+        {
+            var properties = await _g
+                .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]"))
+                .V<Person>()
+                .Properties(x => x.Name)
+                .ToArray();
+
+            properties.Should().HaveCount(1);
+            properties[0].Properties.Should().NotBeNull();
+            properties[0].Properties.ValidFrom.Should().Be(DateTimeOffset.FromUnixTimeMilliseconds(1548112365431));
+        }
+
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Providers.Tests.Json.{name}.json")).ReadToEnd();
