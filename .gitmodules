@@ -1,0 +1,3 @@
+[submodule "ExRam.Gremlinq.Samples"]
+	path = ExRam.Gremlinq.Samples
+	url = https://github.com/ExRam/ExRam.Gremlinq.Samples
