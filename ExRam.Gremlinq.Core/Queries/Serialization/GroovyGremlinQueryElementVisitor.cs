@@ -821,11 +821,12 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             var next = _variables.Count;
 
-            while (next > 0 || key == null)
+            do
             {
                 key = (char)('a' + next % 26) + key;
                 next = next / 26;
             }
+            while (next > 0);
 
             key = "_" + key;
             _variables.Add(constant, key);
