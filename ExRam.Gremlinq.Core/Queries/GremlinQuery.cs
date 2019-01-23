@@ -25,12 +25,6 @@ namespace ExRam.Gremlinq.Core
             StepLabelMappings = stepLabelBindings;
         }
 
-        protected ILogger Logger { get; }
-        protected IGraphModel Model { get; }
-        protected IImmutableList<Step> Steps { get; }
-        protected IGremlinQueryExecutor QueryExecutor { get; }
-        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
-
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
         {
             return Create(model ?? GraphModel.Empty, GremlinQueryExecutor.Invalid, null, logger);
@@ -99,6 +93,12 @@ namespace ExRam.Gremlinq.Core
                 ImmutableDictionary<StepLabel, string>.Empty,
                 logger);
         }
+
+        protected ILogger Logger { get; }
+        protected IGraphModel Model { get; }
+        protected IImmutableList<Step> Steps { get; }
+        protected IGremlinQueryExecutor QueryExecutor { get; }
+        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQuery
