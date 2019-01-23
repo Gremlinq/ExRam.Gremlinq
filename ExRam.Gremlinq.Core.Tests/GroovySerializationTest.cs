@@ -950,7 +950,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OrderBy_ThenBy_member()
+        public void OrderBy_member_ThenBy_member()
         {
             g
                 .V<Person>()
@@ -962,7 +962,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OrderBy_ThenBy_traversal()
+        public void OrderBy_traversal_ThenBy()
         {
             g
                 .V<Person>()
@@ -970,6 +970,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ThenBy(__ => __.Gender)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
+                .WithParameters("Person", "Name", "Gender");
+        }
+
+        [Fact]
+        public void OrderBy_traversal_ThenBy_traversal()
+        {
+            g
+                .V<Person>()
+                .OrderBy(__ => __.Values(x => x.Name))
+                .ThenBy(__ => __.Values(x => x.Gender))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(__.values(_c), Order.incr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
