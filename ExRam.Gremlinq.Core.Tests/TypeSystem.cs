@@ -134,6 +134,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_Properties_String_StringVertexProperties_Explicit()
+        {
+            g
+                .V<Vertex>()
+                .Properties<string>(x => x.String, x => x.StringVertexProperties)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string>, string>>();
+        }
+
+        [Fact]
         public void V_Properties_Strings_StringVertexProperties()
         {
             g

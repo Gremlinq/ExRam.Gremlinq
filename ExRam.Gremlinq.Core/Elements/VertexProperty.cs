@@ -21,6 +21,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
         public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException();
+        public static implicit operator VertexProperty<TValue, TMeta>(VertexProperty<TValue, TMeta>[] value) => throw new NotSupportedException();
 
         public override string ToString()
         {
@@ -48,6 +49,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException();
+        public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException();
 
         internal override IDictionary<string, object> GetMetaProperties() => Properties;
     }
