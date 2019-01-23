@@ -14,8 +14,14 @@ namespace ExRam.Gremlinq.Core.Tests
             public VertexProperty<string> StringVertexProperty { get; }
             public VertexProperty<string>[] StringVertexProperties { get; }
 
+            public VertexProperty<int> IntVertexProperty { get; }
+            public VertexProperty<int>[] IntVertexProperties { get; }
+
             public VertexProperty<string, object> MetaStringVertexProperty { get; }
             public VertexProperty<string, object>[] MetaStringVertexProperties { get; }
+
+            public VertexProperty<object, object> MetaObjectVertexProperty { get; }
+            public VertexProperty<object, object>[] MetaObjectVertexProperties { get; }
         }
 
         private sealed class Edge
@@ -58,6 +64,26 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_Properties_IntVertexProperty_StringVertexProperty()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.IntVertexProperty, x => x.StringVertexProperty)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object>, object>>();
+        }
+
+        [Fact]
+        public void V_Properties_String_IntVertexProperty_StringVertexProperty()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.String, x => x.IntVertexProperty, x => x.StringVertexProperty)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object>, object>>();
+        }
+
+        [Fact]
         public void V_Properties_StringVertexProperties()
         {
             g
@@ -68,6 +94,36 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_Properties_String_MetaStringVertexProperty()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.String, x => x.MetaStringVertexProperty)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string, object>, string, object>>();
+        }
+
+        [Fact]
+        public void V_Properties_Strings_MetaStringVertexProperty()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.Strings, x => x.MetaStringVertexProperty)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string, object>, string, object>>();
+        }
+
+        [Fact]
+        public void V_Properties_String_Strings_MetaStringVertexProperty()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.String, x => x.Strings, x => x.MetaStringVertexProperty)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string, object>, string, object>>();
+        }
+
+        [Fact]
         public void V_Properties_MetaStringVertexProperty()
         {
             g
@@ -75,6 +131,26 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.MetaStringVertexProperty)
                 .Should()
                 .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string, object>, string, object>>();
+        }
+
+        //[Fact]
+        //public void V_Properties_MetaObjectVertexProperty_MetaStringVertexProperty()
+        //{
+        //    g
+        //        .V<Vertex>()
+        //        .Properties(x => x.MetaObjectVertexProperty, x => x.MetaStringVertexProperty)
+        //        .Should()
+        //        .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object, object>, object, object>>();
+        //}
+
+        [Fact]
+        public void V_Properties_MetaObjectVertexProperty_MetaStringVertexProperties()
+        {
+            g
+                .V<Vertex>()
+                .Properties(x => x.MetaObjectVertexProperty, x => x.MetaStringVertexProperties)
+                .Should()
+                .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object, object>, object, object>>();
         }
 
         [Fact]
