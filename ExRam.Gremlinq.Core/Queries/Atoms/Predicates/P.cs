@@ -25,6 +25,8 @@ namespace ExRam.Gremlinq.Core
             {
                 throw new InvalidOperationException("P.True is not supposed to be serialized to groovy. Something went wrong...");
             }
+
+            public override bool EqualsConstant(bool value) => value;
         }
 
         public sealed class Eq : SingleArgumentP
@@ -111,6 +113,8 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
+            public override bool EqualsConstant(bool value) => (!value && Arguments.Length == 0);
+
             public object[] Arguments { get; }
         }
 
@@ -125,6 +129,8 @@ namespace ExRam.Gremlinq.Core
             {
                 visitor.Visit(this);
             }
+
+            public override bool EqualsConstant(bool value) => (value && Arguments.Length == 0);
 
             public object[] Arguments { get; }
         }
@@ -176,6 +182,13 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
+            public override bool EqualsConstant(bool value)
+            {
+                return value
+                    ? Operand1.EqualsConstant(true) && Operand2.EqualsConstant(true)
+                    : Operand1.EqualsConstant(false) || Operand2.EqualsConstant(false);
+            }
+
             public P Operand1 { get; }
             public P Operand2 { get; }
         }
@@ -191,6 +204,13 @@ namespace ExRam.Gremlinq.Core
             public override void Accept(IGremlinQueryElementVisitor visitor)
             {
                 visitor.Visit(this);
+            }
+
+            public override bool EqualsConstant(bool value)
+            {
+                return value
+                    ? Operand1.EqualsConstant(true) || Operand2.EqualsConstant(true)
+                    : Operand1.EqualsConstant(false) && Operand2.EqualsConstant(false);
             }
 
             public P Operand1 { get; }
@@ -213,6 +233,8 @@ namespace ExRam.Gremlinq.Core
         {
             return new OrP(this, p);
         }
+
+        public virtual bool EqualsConstant(bool value) => false;
 
         internal static readonly P True = new TrueP();
     }

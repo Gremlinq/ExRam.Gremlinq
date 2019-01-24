@@ -560,7 +560,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             var traversalSteps = step.Traversal.AsAdmin().Steps;
 
-            if (!(traversalSteps.Count != 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P.Within within && within.Arguments.Length == 0))
+            if (!(traversalSteps.Count != 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false)))
                 Visit(step, "not");
         }
 
