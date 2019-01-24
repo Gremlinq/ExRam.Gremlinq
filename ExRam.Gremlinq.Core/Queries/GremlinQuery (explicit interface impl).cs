@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,8 +84,13 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(ExplainStep.Instance);
 
-        Task<TElement> IGremlinQuery<TElement>.First(CancellationToken ct = default) => Limit(1).First(ct);
+        Task<TElement> IGremlinQuery<TElement>.First() => First(CancellationToken.None);
 
+        Task<TElement> IGremlinQuery<TElement>.First(CancellationToken ct) => First(ct);
+
+        Task<TElement> IGremlinQuery<TElement>.FirstOrDefault() => FirstOrDefault(CancellationToken.None);
+
+        Task<TElement> IGremlinQuery<TElement>.FirstOrDefault(CancellationToken ct) => FirstOrDefault(ct);
 
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new FromLabelStep(stepLabel));
 

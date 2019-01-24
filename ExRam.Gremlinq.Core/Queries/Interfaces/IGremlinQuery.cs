@@ -28,6 +28,10 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
 
-        Task<TElement> First(CancellationToken ct = default);
+        Task<TElement> First();
+        Task<TElement> First(CancellationToken ct);
+
+        Task<TElement> FirstOrDefault();
+        Task<TElement> FirstOrDefault(CancellationToken ct);
     }
 }
