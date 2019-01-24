@@ -8,6 +8,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IValueGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new IValueGremlinQuery<TElement> Inject(params TElement[] elements);
+
         IValueGremlinQuery<TElement> SumLocal();
         IValueGremlinQuery<TElement> SumGlobal();
 
