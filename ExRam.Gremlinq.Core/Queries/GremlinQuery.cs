@@ -340,10 +340,7 @@ namespace ExRam.Gremlinq.Core
                 yield return new ValuesStep(stringKeys);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
-        {
-            return AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate) => AddStep(new HasStep(Model.GetIdentifier(expression), predicate));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal) => AddStep(new HasStep(Model.GetIdentifier(expression), traversal));
 
@@ -574,20 +571,11 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections)
-        {
-            return ValuesForKeys<TValue>(GetKeys(projections));
-        }
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
 
-        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections)
-        {
-            return ValuesForKeys<TValue>(GetKeys(projections));
-        }
+        private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<MemberExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(params LambdaExpression[] projections)
-        {
-            return Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
-        }
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(params LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object value)
         {
