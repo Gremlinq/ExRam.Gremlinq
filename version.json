@@ -1,5 +1,5 @@
 {
-  "version": "6.0.0-preview.{height}",
+  "version": "6.0",
   "cloudBuild": {
     "buildNumber": {
       "enabled": true
