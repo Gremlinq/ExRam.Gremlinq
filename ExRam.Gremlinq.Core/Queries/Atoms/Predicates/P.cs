@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
-            public override bool EqualsConstant(bool value) => (!value && Arguments.Length == 0);
+            public override bool EqualsConstant(bool value) => !value && Arguments.Length == 0;
 
             public object[] Arguments { get; }
         }
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
-            public override bool EqualsConstant(bool value) => (value && Arguments.Length == 0);
+            public override bool EqualsConstant(bool value) => value && Arguments.Length == 0;
 
             public object[] Arguments { get; }
         }

@@ -322,6 +322,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
         }
 
+        // ReSharper disable once SuggestBaseTypeForParameter
         private static IEnumerable<Step> GetStepsForKeys(object[] keys)
         {
             var hasYielded = false;

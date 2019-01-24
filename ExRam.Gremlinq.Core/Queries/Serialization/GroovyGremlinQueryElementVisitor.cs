@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(CountStep step)
         {
-            if (step.Scope == Scope.Local)
+            if (step.Scope.Equals(Scope.Local))
                 Method("count", step.Scope);
             else
                 Method("count");
@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(TailStep step)
         {
-            if (step.Scope == Scope.Local)
+            if (step.Scope.Equals(Scope.Local))
                 Method("tail", step.Scope, step.Count);
             else
                 Method("tail", step.Count);
@@ -530,7 +530,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(LimitStep step)
         {
-            if (step.Scope == Scope.Local)
+            if (step.Scope.Equals(Scope.Local))
                 Method("limit", step.Scope, step.Count);
             else
                 Method("limit", step.Count);
