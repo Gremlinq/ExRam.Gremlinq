@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Samples
             await program.SetAndGetMetaDataOnMarko();
 
             Console.Write("Press any key...");
-            Console.ReadLine();
+            Console.Read();
         }
 
         private Person _marko;
