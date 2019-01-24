@@ -21,6 +21,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IGremlinQuery.Coalesce<TTargetQuery>(params Func<IGremlinQuery, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IGremlinQuery IGremlinQuery.Dedup() => Dedup();
+            IGremlinQuery IGremlinQuery.Drop() => Drop();
 
             IGremlinQuery IGremlinQuery.Emit() => Emit();
 
@@ -69,6 +70,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IElementGremlinQuery.Coalesce<TTargetQuery>(params Func<IElementGremlinQuery, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IElementGremlinQuery IElementGremlinQuery.Dedup() => Dedup();
+            IElementGremlinQuery IElementGremlinQuery.Drop() => Drop();
 
             IElementGremlinQuery IElementGremlinQuery.Emit() => Emit();
 
@@ -117,6 +119,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IVertexGremlinQuery.Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IVertexGremlinQuery IVertexGremlinQuery.Dedup() => Dedup();
+            IVertexGremlinQuery IVertexGremlinQuery.Drop() => Drop();
 
             IVertexGremlinQuery IVertexGremlinQuery.Emit() => Emit();
 
@@ -165,6 +168,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IEdgeGremlinQuery.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IEdgeGremlinQuery IEdgeGremlinQuery.Dedup() => Dedup();
+            IEdgeGremlinQuery IEdgeGremlinQuery.Drop() => Drop();
 
             IEdgeGremlinQuery IEdgeGremlinQuery.Emit() => Emit();
 
@@ -213,6 +217,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IGremlinQuery<TElement> IGremlinQuery<TElement>.Dedup() => Dedup();
+            IGremlinQuery<TElement> IGremlinQuery<TElement>.Drop() => Drop();
 
             IGremlinQuery<TElement> IGremlinQuery<TElement>.Emit() => Emit();
 
@@ -261,6 +266,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IValueGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Dedup() => Dedup();
+            IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Drop() => Drop();
 
             IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Emit() => Emit();
 
@@ -309,6 +315,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Dedup() => Dedup();
+            IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Drop() => Drop();
 
             IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Emit() => Emit();
 
@@ -357,6 +364,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IElementGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Dedup() => Dedup();
+            IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Drop() => Drop();
 
             IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Emit() => Emit();
 
@@ -405,6 +413,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IVertexGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Dedup() => Dedup();
+            IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Drop() => Drop();
 
             IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Emit() => Emit();
 
@@ -453,6 +462,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IEdgeGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Dedup() => Dedup();
+            IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Drop() => Drop();
 
             IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Emit() => Emit();
 
@@ -501,6 +511,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Dedup() => Dedup();
+            IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Drop() => Drop();
 
             IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Emit() => Emit();
 
@@ -549,6 +560,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Dedup() => Dedup();
+            IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Drop() => Drop();
 
             IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Emit() => Emit();
 
@@ -597,6 +609,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.Coalesce<TTargetQuery>(params Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Dedup() => Dedup();
+            IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Drop() => Drop();
 
             IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Emit() => Emit();
 
@@ -645,6 +658,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.Coalesce<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Dedup() => Dedup();
+            IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Drop() => Drop();
 
             IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Emit() => Emit();
 
@@ -693,6 +707,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Dedup() => Dedup();
+            IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Drop() => Drop();
 
             IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Emit() => Emit();
 
@@ -741,6 +756,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Dedup() => Dedup();
+            IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Drop() => Drop();
 
             IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Emit() => Emit();
 
@@ -789,6 +805,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery IPropertyGremlinQuery<TElement>.Coalesce<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
             IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Dedup() => Dedup();
+            IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Drop() => Drop();
 
             IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Emit() => Emit();
 

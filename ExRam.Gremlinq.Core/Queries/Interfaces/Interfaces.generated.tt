@@ -37,6 +37,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
             new <#= iface #> Dedup();
+            new <#= iface #> Drop();
 
             new <#= iface #> Emit();
 
