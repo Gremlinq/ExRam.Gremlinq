@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Samples
         public async Task CreateGraph()
         {
             // Uncomment to delete the whole graph on every run.
-            await _g.V().Drop().ToArray();
+            //await _g.V().Drop().ToArray();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
