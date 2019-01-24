@@ -33,32 +33,37 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(HasStep step)
         {
-            var stepName = "has";
-            var argument = step.Value;
-
-            if (argument is P p)
-            {
-                if (p is P.SingleArgumentP singleArgumentP)
-                {
-                    if (singleArgumentP.Argument == null)
-                    {
-                        if (p is P.Eq)
-                            stepName = "hasNot";
-                        else if (p is P.Neq)
-                            argument = null;
-                    }
-
-                    if (p is P.Eq)
-                        argument = singleArgumentP.Argument;
-                }
-                else if (p == P.True)
-                    argument = null;
-            }
-
-            if (argument != null)
-                Method(stepName, step.Key, argument);
+            if (step.Value is P p1 && p1.EqualsConstant(false))
+                Visit(NoneStep.Instance);
             else
-                Method(stepName, step.Key);
+            {
+                var stepName = "has";
+                var argument = step.Value;
+
+                if (argument is P p2)
+                {
+                    if (p2 is P.SingleArgumentP singleArgumentP)
+                    {
+                        if (singleArgumentP.Argument == null)
+                        {
+                            if (p2 is P.Eq)
+                                stepName = "hasNot";
+                            else if (p2 is P.Neq)
+                                argument = null;
+                        }
+
+                        if (p2 is P.Eq)
+                            argument = singleArgumentP.Argument;
+                    }
+                    else if (p2 == P.True)
+                        argument = null;
+                }
+
+                if (argument != null)
+                    Method(stepName, step.Key, argument);
+                else
+                    Method(stepName, step.Key);
+            }
         }
         
         public virtual void Visit(RepeatStep step)
@@ -541,7 +546,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "map");
         }
 
-        public void Visit(NoneStep step)
+        public virtual void Visit(NoneStep step)
         {
             Method("none");
         }

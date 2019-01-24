@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
     {
+        private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GraphModel.Empty).Identity());
+
         public override void Visit(SkipStep step)
         {
             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
@@ -66,12 +68,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
                 parameter2 is long l3 ? (int)l3 : parameter3);
         }
 
-        public override void Visit(HasStep step)
+        public override void Visit(NoneStep step)
         {
-            if (step.Value is P p && p.EqualsConstant(false))
-                base.Visit(new NotStep(GremlinQuery.Anonymous(GraphModel.Empty).Identity()));
-            else
-                base.Visit(step);
+            Visit(NoneWorkaround);
         }
     }
 }

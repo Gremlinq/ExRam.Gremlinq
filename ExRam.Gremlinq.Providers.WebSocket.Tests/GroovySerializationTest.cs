@@ -15,8 +15,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V<Company>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("Company", "PhoneNumbers");
+                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .WithParameters("Company");
         }
 
         [Fact]
@@ -26,8 +26,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("Company", "PhoneNumbers");
+                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .WithParameters("Company");
         }
 
 
@@ -40,8 +40,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).has(_b, within())")
-                .WithParameters("Person", "Age");
+                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .WithParameters("Person");
         }
     }
 }
