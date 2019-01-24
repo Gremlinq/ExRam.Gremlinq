@@ -55,7 +55,7 @@ namespace System.Linq.Expressions
             return typeof(IVertexProperty).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(VertexProperty<object>.Properties);
         }
 
-        public static GremlinExpression ToGremlinExpression<TSource, TResult>(this Expression<Func<TSource, TResult>> expression)
+        public static GremlinExpression ToGremlinExpression(this LambdaExpression expression)
         {
             if (expression.Parameters.Count != 1)
                 throw new ExpressionNotSupportedException(expression);
