@@ -589,7 +589,7 @@ namespace ExRam.Gremlinq.Core
             return Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object value)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
