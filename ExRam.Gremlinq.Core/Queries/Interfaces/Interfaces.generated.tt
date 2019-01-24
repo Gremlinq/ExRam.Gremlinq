@@ -52,6 +52,7 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         
             <#= iface #> Not(Func<<#= iface #>, IGremlinQuery> notTraversal);
+            <#= iface #> None();
 
             TTargetQuery Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             <#= iface #> Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals);

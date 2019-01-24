@@ -541,6 +541,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Visit(step, "map");
         }
 
+        public void Visit(NoneStep step)
+        {
+            Method("none");
+        }
+
         public virtual void Visit(FlatMapStep step)
         {
             Visit(step, "flatMap");
