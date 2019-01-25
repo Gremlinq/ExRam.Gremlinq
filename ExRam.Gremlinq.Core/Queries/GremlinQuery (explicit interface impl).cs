@@ -192,6 +192,20 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Property(string key, [AllowNull] object value) => Property(key, value);
 
+        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
+
+        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property(string key, [AllowNull] object value) => Property(key, value);
+
         TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
             return this

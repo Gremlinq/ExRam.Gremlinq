@@ -11,8 +11,6 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<Property<TMetaValue>> Properties<TMetaValue>(params string[] keys);
         IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);
         
-        IVertexPropertyGremlinQuery<TProperty, TValue> Property(string key, object value);
-
         IValueGremlinQuery<TValue> Value();
     }
 
