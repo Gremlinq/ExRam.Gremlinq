@@ -1423,6 +1423,29 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_name_untyped()
+        {
+            g
+                .V()
+                .Properties("propertyName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
+                .WithParameters("propertyName");
+        }
+
+        [Fact]
+        public void Properties_name_typed()
+        {
+            g
+                .V()
+                .Properties<int>("propertyName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
+                .WithParameters("propertyName");
+        }
+
+
+        [Fact]
         public void Properties1()
         {
             g
@@ -1432,6 +1455,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy<TVisitor>("g.V().properties()")
                 .WithoutParameters();
         }
+
+        [Fact]
+        public void Properties_typed_no_parameters()
+        {
+            g
+                .V()
+                .Properties<string>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties()")
+                .WithoutParameters();
+        }
+
 
         [Fact]
         public void Properties2()

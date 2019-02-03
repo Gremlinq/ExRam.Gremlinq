@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 // ReSharper disable CoVariantArrayConversion
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,30 +15,22 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
-
         IOrderedGremlinQuery,
         IOrderedElementGremlinQuery,
-
         IOrderedArrayGremlinQuery<TElement, TFoldedQuery>,
-
         IOrderedGremlinQuery<TElement>,
         IOrderedElementGremlinQuery<TElement>,
-
         IOrderedValueGremlinQuery<TElement>,
-
         IOrderedVertexGremlinQuery,
         IOrderedVertexGremlinQuery<TElement>,
-
         IOrderedEdgeGremlinQuery,
         IOrderedEdgeGremlinQuery<TElement>,
         IOrderedEdgeGremlinQuery<TElement, TOutVertex>,
         IOrderedInEdgeGremlinQuery<TElement, TInVertex>,
         IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>,
         IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>,
-
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>,
         IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,
-
         IOrderedPropertyGremlinQuery<TElement>
     {
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
@@ -158,6 +151,12 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQuery.Profile() => AddStep<string>(ProfileStep.Instance);
 
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQuery<TElement>.Properties<TValue>(params string[] keys) => Properties<VertexProperty<TValue>, TValue, Unit>(keys);
+
+        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQuery<TElement>.Properties(params string[] keys) => Properties<VertexProperty<object>, object, Unit>(keys);
+
+        IVertexPropertyGremlinQuery<VertexProperty<object>, object> IVertexGremlinQuery<TElement>.Properties() => Properties<VertexProperty<object>, object, Unit>(Array.Empty<string>());
+
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => VertexProperties<TValue>(projections);
 
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue[]>>[] projections) => VertexProperties<TValue>(projections);
@@ -173,6 +172,8 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => Properties<Property<TValue>, TValue, Unit>(projections);
 
         IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Properties(params string[] keys) => Properties<Property<object>, object, Unit>(keys);
+
+        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> IVertexGremlinQuery<TElement>.Properties<TValue>() => Properties<VertexProperty<TValue>, TValue, Unit>(Array.Empty<string>());
 
         IPropertyGremlinQuery<Property<TValue>> IEdgeGremlinQuery<TElement>.Properties<TValue>(params Expression<Func<TElement, TValue>>[] projections) => Properties<Property<TValue>, TValue, Unit>(projections);
 
@@ -301,5 +302,6 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Where(Expression<Func<VertexProperty<TPropertyValue, TMeta>, bool>> predicate) => Where(predicate);
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
-    }
+
+   }
 }
