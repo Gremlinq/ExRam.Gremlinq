@@ -24,6 +24,12 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery, IGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
+        IPropertyGremlinQuery<Property<object>> Properties();
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>();
+
+        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params string[] keys);
+        IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);
+
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
 
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>>>[] projections);
