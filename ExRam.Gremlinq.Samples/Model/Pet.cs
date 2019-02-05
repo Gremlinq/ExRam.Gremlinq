@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Samples
 {
-    public class Person : Mammal
+    public class Pet : Mammal
     {
 
     }

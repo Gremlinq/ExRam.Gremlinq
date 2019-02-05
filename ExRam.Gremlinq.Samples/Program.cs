@@ -21,6 +21,9 @@ namespace ExRam.Gremlinq.Samples
             await program.WhoseNameStartsWithB();
             await program.WhoKnowsWho();
 
+            await program.WhatPetsAreAround();
+            await program.WhoOwnsAPet();
+
             await program.SetAndGetMetaDataOnMarko();
 
             Console.Write("Press any key...");
@@ -62,6 +65,14 @@ namespace ExRam.Gremlinq.Samples
 
             var peter = await _g
                 .AddV(new Person { Name = "Peter", Age = 29 })
+                .First();
+
+            var charlie = await _g
+                .AddV(new Dog {Name = "Charlie", Age = 2})
+                .First();
+
+            var luna = await _g
+                .AddV(new Cat {Name = "Luna", Age = 9})
                 .First();
 
             var lop = await _g
@@ -112,6 +123,20 @@ namespace ExRam.Gremlinq.Samples
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
+                .First();
+
+            await _g
+                .V(josh.Id)
+                .AddE<Owns>()
+                .To(__ => __
+                    .V(charlie.Id))
+                .First();
+
+            await _g
+                .V(peter.Id)
+                .AddE<Owns>()
+                .To(__ => __
+                    .V(luna.Id))
                 .First();
         }
 
@@ -196,6 +221,49 @@ namespace ExRam.Gremlinq.Samples
             foreach (var (person1, person2) in friendTuples)
             {
                 Console.WriteLine($" {person1.Name.Value} knows {person2.Name.Value}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        public async Task WhatPetsAreAround()
+        {
+            var pets = await _g
+                .V<Pet>()
+                .ToArray();
+
+            Console.WriteLine("What pets are there?");
+
+            foreach (var pet in pets)
+            {
+                Console.WriteLine($"There is {pet.Name}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        public async Task WhoOwnsAPet()
+        {
+            var petOwners = await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Out<Owns>()
+                    .OfType<Pet>())
+                .ToArray();
+
+            //Alternatively:
+            //var petOwners = await _g
+            //    .V<Pet>()
+            //    .In<Owns>()
+            //    .OfType<Person>()
+            //    .Dedup()
+            //    .ToArray();
+
+            Console.WriteLine("Who owns a pet?");
+
+            foreach (var petOwner in petOwners)
+            {
+                Console.WriteLine($"{petOwner.Name} owns a pet.");
             }
 
             Console.WriteLine();
