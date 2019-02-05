@@ -2579,5 +2579,27 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void WithoutStrategies1()
+        {
+            g
+                .WithoutStrategies("ReferenceElementStrategy")
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy).V()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void WithoutStrategies2()
+        {
+            g
+                .WithoutStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
+                .WithoutParameters();
+        }
     }
 }

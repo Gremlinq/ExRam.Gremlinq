@@ -52,6 +52,7 @@
         void Visit(VerticesStep step);
         void Visit(WhereTraversalStep step);
         void Visit(WithStrategiesStep step);
+        void Visit(WithoutStrategiesStep step);
         void Visit(IdStep step);
         void Visit(BarrierStep step);
         void Visit(OrderStep step);

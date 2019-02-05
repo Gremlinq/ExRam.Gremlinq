@@ -916,5 +916,19 @@ namespace ExRam.Gremlinq.Core.Serialization
             else
                 yield return query;
         }
+
+        public void Visit(WithoutStrategiesStep step)
+        {
+            OpenMethod("withoutStrategies");
+
+            foreach (var className in step.ClassNames)
+            {
+                StartParameter();
+                Identifier(className);
+                EndParameter();
+            }
+
+            CloseMethod();
+        }
     }
 }
