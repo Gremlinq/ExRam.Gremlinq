@@ -385,11 +385,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>
         {
-            if (typeof(TEnum) == typeof(Cardinality))
-                NoIdentifier();
-            else
-                Identifier(typeof(TEnum).Name);
-
+            NoIdentifier();
             Field(gremlinEnum.Name);
         }
 

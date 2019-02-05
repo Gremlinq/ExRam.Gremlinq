@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
                 .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d, _e, _f, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d, _e, _f, _g, _h)")
                 .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Country", 1, "Name", "GER");
         }
 
@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d).property(list, _e, _f, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d).property(list, _e, _f, _g, _h)")
                 .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Name", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(list, _c, _d).property(list, _c, _e).property(single, _f, _g)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(list, _c, _d).property(list, _c, _e).property(single, _f, _g)")
                 .WithParameters("Company", 1, "PhoneNumbers", "+4912345", "+4923456", "FoundingDate", DateTime.MinValue);
         }
 
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Language { Id = 1 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -498,7 +498,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .CountLocal()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().count(Scope.local)")
+                .SerializeToGroovy<TVisitor>("g.V().count(local)")
                 .WithoutParameters();
         }
 
@@ -730,7 +730,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .LimitLocal(1)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().limit(Scope.local, _a)")
+                .SerializeToGroovy<TVisitor>("g.V().limit(local, _a)")
                 .WithParameters(1);
         }
 
@@ -912,7 +912,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().order().by(T.id, Order.incr).fold().unfold()");
+                .SerializeToGroovy<TVisitor>("g.V().order().by(id, incr).fold().unfold()");
         }
 
         [Fact]
@@ -933,7 +933,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderBy(x => x.Name)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, incr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -957,7 +957,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.incr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Age");
         }
 
@@ -969,7 +969,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.incr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -981,7 +981,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Values(x => x.Gender))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(__.values(_c), Order.incr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -993,7 +993,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.incr).by(_c, Order.decr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Age");
         }
 
@@ -1005,7 +1005,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr).by(_c, Order.decr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -1016,7 +1016,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.incr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1027,7 +1027,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderByDescending(x => x.Name)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, Order.decr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(_b, decr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1038,7 +1038,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), Order.decr)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), decr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1346,7 +1346,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Id == "id")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(T.id, _c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(id, _c)")
                 .WithParameters("Country", "Languages", "id");
         }
 
@@ -1358,7 +1358,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(T.label, _c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(label, _c)")
                 .WithParameters("Country", "Languages", "label");
         }
 
@@ -1597,7 +1597,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumGlobal()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.global)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(global)")
                 .WithParameters("Person", "Age");
         }
 
@@ -1609,7 +1609,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumLocal()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(local)")
                 .WithParameters("Person", "Age");
         }
 
@@ -1623,7 +1623,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x == 100)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(_c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(local).is(_c)")
                 .WithParameters("Person", "Age", 100);
         }
 
@@ -1636,7 +1636,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x < 100)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(Scope.local).is(lt(_c))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).sum(local).is(lt(_c))")
                 .WithParameters("Person", "Age", 100);
         }
 
@@ -1668,7 +1668,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .TailLocal(1)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().tail(Scope.local, _a)")
+                .SerializeToGroovy<TVisitor>("g.V().tail(local, _a)")
                 .WithParameters(1);
         }
 
@@ -2007,7 +2007,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => (int)t.Id == 1)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -2088,7 +2088,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)1)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -2213,7 +2213,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", local);
         }
 
@@ -2242,7 +2242,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local.Value)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(T.id, _b)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
