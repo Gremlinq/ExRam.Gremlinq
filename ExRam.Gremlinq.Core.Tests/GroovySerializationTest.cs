@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddE<Speaks>()
                     .From(c))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).from(_d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d)")
                 .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "Speaks");
         }
 
@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("Person", "Age", 0, "Name", "Bob", "Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>("id"))
                 .InV()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>("id"))
                 .OutV()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddE<Speaks>()
                     .To(l))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).as(_d).addV(_e).property(Cardinality.single, _f, _g).addE(_h).to(_d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d)")
                 .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "Speaks");
         }
 
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e).property(Cardinality.single, _f, _g).property(Cardinality.single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("Person", "Age", 0, "Name", "Bob","Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.single, _e, _f).property(Cardinality.single, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
                 .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d, _e, _f, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d, _e, _f, _g, _h)")
                 .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d)")
                 .WithParameters("Country", 1, "Name", "GER");
         }
 
@@ -186,7 +186,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.single, _c, _d).property(Cardinality.list, _e, _f, _g, _h)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(single, _c, _d).property(list, _e, _f, _g, _h)")
                 .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Name", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(Cardinality.list, _c, _d).property(Cardinality.list, _c, _e).property(Cardinality.single, _f, _g)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(T.id, _b).property(list, _c, _d).property(list, _c, _e).property(single, _f, _g)")
                 .WithParameters("Company", 1, "PhoneNumbers", "+4912345", "+4923456", "FoundingDate", DateTime.MinValue);
         }
 
@@ -216,7 +216,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c)")
                 .WithParameters("Language", "IetfLanguageTag", "en");
         }
 
@@ -227,7 +227,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithModel(GraphModel.Empty)
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(Cardinality.single, _b, _c).property(Cardinality.single, _d, _e)")
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
                 .WithParameters("Language", "IetfLanguageTag", "en", "Id", 1);
         }
 
@@ -1498,7 +1498,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).property(Cardinality.list, _c, _d)")
+                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).property(list, _c, _d)")
                 .WithParameters("id", "Company", "PhoneNumbers", "+4912345");
         }
 
@@ -1520,7 +1520,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Property(x => x.Age, 36)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).property(Cardinality.single, _b, _c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).property(single, _b, _c)")
                 .WithParameters("Person", "Age", 36);
         }
 

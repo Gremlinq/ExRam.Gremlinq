@@ -385,7 +385,11 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>
         {
-            Identifier(typeof(TEnum).Name);
+            if (typeof(TEnum) == typeof(Cardinality))
+                NoIdentifier();
+            else
+                Identifier(typeof(TEnum).Name);
+
             Field(gremlinEnum.Name);
         }
 
@@ -800,7 +804,9 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (_state != State.Chaining && _state != State.ChainingSupressIdentifier)
                 throw new InvalidOperationException();
 
-            _builder.Append(".");
+            if (_state != State.ChainingSupressIdentifier)
+                _builder.Append(".");
+
             _builder.Append(fieldName);
         }
 
