@@ -250,7 +250,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var pet in pets)
             {
-                Console.WriteLine($"There is {pet.Name}.");
+                Console.WriteLine($"There is {pet.Name.Value}.");
             }
 
             Console.WriteLine();
