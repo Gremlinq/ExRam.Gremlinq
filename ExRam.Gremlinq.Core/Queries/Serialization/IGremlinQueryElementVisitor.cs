@@ -33,6 +33,7 @@
         void Visit(FromTraversalStep step);
         void Visit(IdentifierStep step);
         void Visit(IsStep step);
+        void Visit(KeyStep step);
         void Visit(LimitStep step);
         void Visit(LocalStep step);
         void Visit(MapStep step);

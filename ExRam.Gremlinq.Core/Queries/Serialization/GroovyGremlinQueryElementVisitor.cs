@@ -282,6 +282,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("by", step.Key, step.Order);
         }
 
+        public void Visit(KeyStep step)
+        {
+            Method("key");
+        }
+
         //public virtual void Visit(PropertiesStep step)
         //{
         //    Method("properties", step.Members.Select(x => x.Name).ToArray());

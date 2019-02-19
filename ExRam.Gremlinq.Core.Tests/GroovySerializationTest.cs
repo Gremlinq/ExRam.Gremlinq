@@ -1229,6 +1229,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Properties_key()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Key()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().key()")
+                .WithParameters("Country", "Name");
+        }
+
+        [Fact]
         public void Properties_Properties2()
         {
             g
