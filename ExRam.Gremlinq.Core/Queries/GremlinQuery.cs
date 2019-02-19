@@ -550,7 +550,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private IValueGremlinQuery<TPropertyValue> Value() => AddStep<TPropertyValue, Unit, Unit, Unit, Unit, Unit>(ValueStep.Instance);
+        private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStep<TNewPropertyValue, Unit, Unit, Unit, Unit, Unit>(ValueStep.Instance);
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(keys));
 

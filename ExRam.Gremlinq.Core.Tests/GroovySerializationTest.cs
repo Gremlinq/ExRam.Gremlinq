@@ -1254,6 +1254,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Properties_Value()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Value()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().value()")
+                .WithParameters("Company", "Name");
+        }
+
+        [Fact]
         public void Properties_Where_label()
         {
             g
