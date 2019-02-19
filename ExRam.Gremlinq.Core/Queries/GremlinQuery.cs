@@ -647,39 +647,32 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (leftMemberExpression.Expression == terminal.Parameter)
                         {
-                            if (terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
-                                return Where(_ => _.ValuesForProjections<object>(new[]{ leftMemberExpression }).AddStep(new WherePredicateStep(terminal.Predicate)));
-
+                            // x => x.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
                                 return AddStep(new HasValueStep(terminal.Predicate));
                         }
-                        else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                        else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression) 
                         {
+                            // x => x.Name.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
-                                return Has(leftLeftMemberExpression, terminal.Predicate);
-
-                            if (!leftLeftMemberExpression.IsVertexPropertyProperties())
-                                break;
+                                leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
                         }
                         else
                             break;
 
-                        return Has(leftMemberExpression, terminal.Predicate);
+                        // x => x.Name == P.xy(...)
+                        return Where(leftMemberExpression, terminal.Predicate);
                     }
                     case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
                     {
-                        return AddStep(
-                            terminal.Predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
-                                ? new WherePredicateStep(terminal.Predicate)
-                                : (Step)new IsStep(terminal.Predicate));
+                        // x => x == P.xy(...)
+                        return Where(terminal.Predicate);
                     }
                     case MethodCallExpression methodCallExpression:
                     {
                         if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
                             return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
-                            //if (typeof(Property).IsAssignableFrom(methodCallExpression.Expression.Type) && leftLeftMemberExpression.Member.Name == nameof(VertexProperty<object>.Properties))
-                            //    return Has(leftMemberExpression, predicateArgument);
                         }
 
                         break;
@@ -688,6 +681,21 @@ namespace ExRam.Gremlinq.Core
             }
 
             throw new ExpressionNotSupportedException();
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(MemberExpression expression, P predicate)
+        {
+            if (predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
+                return Where(_ => _.ValuesForProjections<object>(new[] { expression }).Where(predicate));
+
+            return Has(expression, predicate);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
+        {
+            return predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+                ? AddStep(new WherePredicateStep(predicate))
+                : AddStep(new IsStep(predicate));
         }
     }
 }
