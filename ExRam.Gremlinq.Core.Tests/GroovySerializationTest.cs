@@ -1217,7 +1217,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Properties()
+        public void Properties_Properties1()
         {
             g
                 .V<Country>()
@@ -1226,6 +1226,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
                 .WithParameters("Country", "Name");
+        }
+
+        [Fact]
+        public void Properties_Properties2()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
+                .WithParameters("Company", "Name");
         }
 
         [Fact]

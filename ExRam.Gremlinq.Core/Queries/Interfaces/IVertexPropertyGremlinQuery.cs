@@ -17,7 +17,8 @@ namespace ExRam.Gremlinq.Core
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IElementGremlinQuery<TProperty>
     {
         IPropertyGremlinQuery<Property<TTarget>> Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
-        
+        IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);
+
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Property<TMetaValue>(Expression<Func<TMeta, TMetaValue>> projection, TMetaValue value);
 
         IValueGremlinQuery<TValue> Value();
