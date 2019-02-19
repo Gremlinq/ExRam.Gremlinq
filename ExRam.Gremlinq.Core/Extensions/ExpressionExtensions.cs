@@ -50,6 +50,16 @@ namespace System.Linq.Expressions
             return typeof(Property).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(Property<object>.Value);
         }
 
+        public static bool IsPropertyKey(this MemberExpression expression)
+        {
+            return typeof(Property).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(Property<object>.Key);
+        }
+
+        public static bool IsVertexPropertyLabel(this MemberExpression expression)
+        {
+            return typeof(IVertexProperty).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(VertexProperty<object>.Label);
+        }
+
         public static bool IsVertexPropertyProperties(this MemberExpression expression)
         {
             return typeof(IVertexProperty).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(VertexProperty<object>.Properties);

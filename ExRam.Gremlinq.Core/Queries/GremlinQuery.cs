@@ -359,6 +359,10 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(InVStep.Instance);
 
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Key() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(KeyStep.Instance);
+
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Label() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(LabelStep.Instance);
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Limit(long count)
         {
             return AddStep(count == 1
@@ -650,6 +654,12 @@ namespace ExRam.Gremlinq.Core
                             // x => x.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
                                 return AddStep(new HasValueStep(terminal.Predicate));
+
+                            if (leftMemberExpression.IsPropertyKey())
+                                return Where(__ => __.Key().Where(terminal.Predicate));
+
+                            if (leftMemberExpression.IsVertexPropertyLabel())
+                                return Where(__ => __.Label().Where(terminal.Predicate));
                         }
                         else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression) 
                         {

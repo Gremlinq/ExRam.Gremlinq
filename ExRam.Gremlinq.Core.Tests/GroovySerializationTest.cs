@@ -1254,6 +1254,46 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Where_label()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Where(x => x.Label == "someKey")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
+                .WithParameters("Company", "Name", "someKey");
+        }
+
+        [Fact]
+        public void Properties_Properties_Where_key()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Where(x => x.Key == "someKey")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().where(__.key().is(_c))")
+                .WithParameters("Company", "Name", "someKey");
+        }
+
+        [Fact]
+        public void Properties_Properties_Where_key_equals_stepLabel()
+        {
+            var stepLabel = new StepLabel<string>();
+
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Where(x => x.Key == stepLabel)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
+                .WithParameters("Company", "Name", "l1");
+        }
+
+        [Fact]
         public void Properties_ValueMap_typed()
         {
             g
@@ -1383,7 +1423,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).has(label, _c)")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
                 .WithParameters("Country", "Languages", "label");
         }
 

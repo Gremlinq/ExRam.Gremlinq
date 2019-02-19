@@ -121,9 +121,9 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.InV<TVertex>() => InV<Unit>().OfType<TVertex>(Model.VerticesModel);
 
-        IValueGremlinQuery<string> IPropertyGremlinQuery<TElement>.Key() => AddStep<string>(KeyStep.Instance);
+        IValueGremlinQuery<string> IPropertyGremlinQuery<TElement>.Key() => Key();
 
-        IValueGremlinQuery<string> IElementGremlinQuery.Label() => AddStep<string>(LabelStep.Instance);
+        IValueGremlinQuery<string> IElementGremlinQuery.Label() => Label();
 
         IVertexPropertyGremlinQuery<VertexProperty<TPropertyValue, TNewMeta>, TPropertyValue, TNewMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Meta<TNewMeta>() => Cast<VertexProperty<TPropertyValue, TNewMeta>, Unit, Unit, TPropertyValue, TNewMeta, Unit>();
 
