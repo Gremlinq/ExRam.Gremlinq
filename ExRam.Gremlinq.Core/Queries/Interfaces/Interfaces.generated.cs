@@ -7,42 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
             public partial interface IOrderedGremlinQuery : IGremlinQuery { }
 
-              public partial interface IOrderedElementGremlinQuery : IElementGremlinQuery { }
-
-              public partial interface IOrderedVertexGremlinQuery : IVertexGremlinQuery { }
-
-              public partial interface IOrderedEdgeGremlinQuery : IEdgeGremlinQuery { }
-
-              public partial interface IOrderedGremlinQuery<TElement> : IGremlinQuery<TElement> { }
-
-              public partial interface IOrderedValueGremlinQuery<TElement> : IValueGremlinQuery<TElement> { }
-
-              public partial interface IOrderedArrayGremlinQuery<TArray, TQuery> : IArrayGremlinQuery<TArray, TQuery> { }
-
-              public partial interface IOrderedElementGremlinQuery<TElement> : IElementGremlinQuery<TElement> { }
-
-              public partial interface IOrderedVertexGremlinQuery<TVertex> : IVertexGremlinQuery<TVertex> { }
-
-              public partial interface IOrderedEdgeGremlinQuery<TEdge> : IEdgeGremlinQuery<TEdge> { }
-
-              public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge, TAdjacentVertex> { }
-
-              public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> { }
-
-              public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex> : IInEdgeGremlinQuery<TEdge, TInVertex> { }
-
-              public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> : IOutEdgeGremlinQuery<TEdge, TOutVertex> { }
-
-              public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue> : IVertexPropertyGremlinQuery<TProperty, TValue> { }
-
-              public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> { }
-
-              public partial interface IOrderedPropertyGremlinQuery<TElement> : IPropertyGremlinQuery<TElement> { }
-
-          
-
-
-            public partial interface IGremlinQuery
+        public partial interface IGremlinQuery
         {
             IGremlinQuery And(params Func<IGremlinQuery, IGremlinQuery>[] andTraversals);
 
@@ -94,7 +59,9 @@ namespace ExRam.Gremlinq.Core
             new IGremlinQuery Where(string lambda);
         }
 
-              public partial interface IElementGremlinQuery
+              public partial interface IOrderedElementGremlinQuery : IElementGremlinQuery { }
+
+        public partial interface IElementGremlinQuery
         {
             IElementGremlinQuery And(params Func<IElementGremlinQuery, IGremlinQuery>[] andTraversals);
 
@@ -146,7 +113,9 @@ namespace ExRam.Gremlinq.Core
             new IElementGremlinQuery Where(string lambda);
         }
 
-              public partial interface IVertexGremlinQuery
+              public partial interface IOrderedVertexGremlinQuery : IVertexGremlinQuery { }
+
+        public partial interface IVertexGremlinQuery
         {
             IVertexGremlinQuery And(params Func<IVertexGremlinQuery, IGremlinQuery>[] andTraversals);
 
@@ -198,7 +167,9 @@ namespace ExRam.Gremlinq.Core
             new IVertexGremlinQuery Where(string lambda);
         }
 
-              public partial interface IEdgeGremlinQuery
+              public partial interface IOrderedEdgeGremlinQuery : IEdgeGremlinQuery { }
+
+        public partial interface IEdgeGremlinQuery
         {
             IEdgeGremlinQuery And(params Func<IEdgeGremlinQuery, IGremlinQuery>[] andTraversals);
 
@@ -250,7 +221,9 @@ namespace ExRam.Gremlinq.Core
             new IEdgeGremlinQuery Where(string lambda);
         }
 
-              public partial interface IGremlinQuery<TElement>
+              public partial interface IOrderedGremlinQuery<TElement> : IGremlinQuery<TElement> { }
+
+        public partial interface IGremlinQuery<TElement>
         {
             IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
@@ -302,7 +275,9 @@ namespace ExRam.Gremlinq.Core
             new IGremlinQuery<TElement> Where(string lambda);
         }
 
-              public partial interface IValueGremlinQuery<TElement>
+              public partial interface IOrderedValueGremlinQuery<TElement> : IValueGremlinQuery<TElement> { }
+
+        public partial interface IValueGremlinQuery<TElement>
         {
             IValueGremlinQuery<TElement> And(params Func<IValueGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
@@ -354,7 +329,9 @@ namespace ExRam.Gremlinq.Core
             new IValueGremlinQuery<TElement> Where(string lambda);
         }
 
-              public partial interface IArrayGremlinQuery<TArray, TQuery>
+              public partial interface IOrderedArrayGremlinQuery<TArray, TQuery> : IArrayGremlinQuery<TArray, TQuery> { }
+
+        public partial interface IArrayGremlinQuery<TArray, TQuery>
         {
             IArrayGremlinQuery<TArray, TQuery> And(params Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery>[] andTraversals);
 
@@ -406,7 +383,9 @@ namespace ExRam.Gremlinq.Core
             new IArrayGremlinQuery<TArray, TQuery> Where(string lambda);
         }
 
-              public partial interface IElementGremlinQuery<TElement>
+              public partial interface IOrderedElementGremlinQuery<TElement> : IElementGremlinQuery<TElement> { }
+
+        public partial interface IElementGremlinQuery<TElement>
         {
             IElementGremlinQuery<TElement> And(params Func<IElementGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
@@ -458,7 +437,9 @@ namespace ExRam.Gremlinq.Core
             new IElementGremlinQuery<TElement> Where(string lambda);
         }
 
-              public partial interface IVertexGremlinQuery<TVertex>
+              public partial interface IOrderedVertexGremlinQuery<TVertex> : IVertexGremlinQuery<TVertex> { }
+
+        public partial interface IVertexGremlinQuery<TVertex>
         {
             IVertexGremlinQuery<TVertex> And(params Func<IVertexGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
 
@@ -510,7 +491,9 @@ namespace ExRam.Gremlinq.Core
             new IVertexGremlinQuery<TVertex> Where(string lambda);
         }
 
-              public partial interface IEdgeGremlinQuery<TEdge>
+              public partial interface IOrderedEdgeGremlinQuery<TEdge> : IEdgeGremlinQuery<TEdge> { }
+
+        public partial interface IEdgeGremlinQuery<TEdge>
         {
             IEdgeGremlinQuery<TEdge> And(params Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery>[] andTraversals);
 
@@ -562,7 +545,9 @@ namespace ExRam.Gremlinq.Core
             new IEdgeGremlinQuery<TEdge> Where(string lambda);
         }
 
-              public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
+              public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge, TAdjacentVertex> { }
+
+        public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
         {
             IEdgeGremlinQuery<TEdge, TAdjacentVertex> And(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] andTraversals);
 
@@ -614,7 +599,9 @@ namespace ExRam.Gremlinq.Core
             new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(string lambda);
         }
 
-              public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
+              public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> { }
+
+        public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
         {
             IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> And(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery>[] andTraversals);
 
@@ -666,7 +653,9 @@ namespace ExRam.Gremlinq.Core
             new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(string lambda);
         }
 
-              public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
+              public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex> : IInEdgeGremlinQuery<TEdge, TInVertex> { }
+
+        public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
         {
             IInEdgeGremlinQuery<TEdge, TInVertex> And(params Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery>[] andTraversals);
 
@@ -718,7 +707,9 @@ namespace ExRam.Gremlinq.Core
             new IInEdgeGremlinQuery<TEdge, TInVertex> Where(string lambda);
         }
 
-              public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
+              public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> : IOutEdgeGremlinQuery<TEdge, TOutVertex> { }
+
+        public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
         {
             IOutEdgeGremlinQuery<TEdge, TOutVertex> And(params Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery>[] andTraversals);
 
@@ -770,7 +761,9 @@ namespace ExRam.Gremlinq.Core
             new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(string lambda);
         }
 
-              public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
+              public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue> : IVertexPropertyGremlinQuery<TProperty, TValue> { }
+
+        public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
         {
             IVertexPropertyGremlinQuery<TProperty, TValue> And(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery>[] andTraversals);
 
@@ -822,7 +815,9 @@ namespace ExRam.Gremlinq.Core
             new IVertexPropertyGremlinQuery<TProperty, TValue> Where(string lambda);
         }
 
-              public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+              public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> { }
+
+        public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
         {
             IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> And(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery>[] andTraversals);
 
@@ -874,7 +869,9 @@ namespace ExRam.Gremlinq.Core
             new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(string lambda);
         }
 
-              public partial interface IPropertyGremlinQuery<TElement>
+              public partial interface IOrderedPropertyGremlinQuery<TElement> : IPropertyGremlinQuery<TElement> { }
+
+        public partial interface IPropertyGremlinQuery<TElement>
         {
             IPropertyGremlinQuery<TElement> And(params Func<IPropertyGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
 
