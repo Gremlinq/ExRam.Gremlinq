@@ -52,8 +52,8 @@ namespace ExRam.Gremlinq.Core
 
                         var genericTypeDef = closureType.GetGenericTypeDefinition();
 
-                        if (genericTypeDef != typeof(IArrayGremlinQuery<,>) && genericTypeDef != typeof(IValueGremlinQuery<>) && genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>))
-                            throw new NotSupportedException();
+                        if (genericTypeDef != typeof(IArrayGremlinQuery<,>) && genericTypeDef != typeof(IValueGremlinQuery<>) && genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>) && genericTypeDef != typeof(IPropertyGremlinQuery<>))
+                            throw new NotSupportedException($"Cannot change the query type to {typeof(TTargetQuery)}.");
 
                         elementType = closureType.GetGenericArguments()[0];
 
