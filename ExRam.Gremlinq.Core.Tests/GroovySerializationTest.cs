@@ -1109,6 +1109,48 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Project2()
+        {
+            g
+                .V()
+                .Project(
+                    __ => __.In(),
+                    __ => __.Out())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().project(_a, _b).by(__.in()).by(__.out())")
+                .WithParameters("Item1", "Item2");
+        }
+
+        [Fact]
+        public void Project3()
+        {
+            g
+                .V()
+                .Project(
+                    __ => __.In(),
+                    __ => __.Out(),
+                    __ => __.Count())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())")
+                .WithParameters("Item1", "Item2", "Item3");
+        }
+
+        [Fact]
+        public void Project4()
+        {
+            g
+                .V()
+                .Project(
+                    __ => __.In(),
+                    __ => __.Out(),
+                    __ => __.Count(),
+                    __ => __.Properties())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
+                .WithParameters("Item1", "Item2", "Item3", "Item4");
+        }
+
+        [Fact]
         public void Properties_Meta()
         {
             g

@@ -50,6 +50,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             <#= iface #> Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3, Func<<#= iface #>, IGremlinQuery<TElement4>> projection4);
+                       
             new <#= iface #> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) where TTargetQuery : <#= iface #>;

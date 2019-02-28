@@ -15,10 +15,12 @@
         void Visit(AddEStep step);
         void Visit(AddVStep step);
         void Visit(AndStep step);
+        void Visit(ProjectStep.ByTraversalStep byTraversalStep);
         void Visit(ByTraversalStep step);
         void Visit(ChooseTraversalStep step);
         void Visit(ChoosePredicateStep step);
         void Visit(CoalesceStep step);
+        void Visit(ProjectStep projectStep);
         void Visit(CoinStep step);
         void Visit(ConstantStep step);
         void Visit(BothStep step);

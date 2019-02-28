@@ -935,5 +935,15 @@ namespace ExRam.Gremlinq.Core.Serialization
 
             CloseMethod();
         }
+
+        public void Visit(ProjectStep.ByTraversalStep byTraversalStep)
+        {
+            Method("by", byTraversalStep.Traversal);
+        }
+
+        public void Visit(ProjectStep projectStep)
+        {
+            Method("project", projectStep.Projections);
+        }
     }
 }

@@ -41,6 +41,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IGremlinQuery Or(params Func<IGremlinQuery, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IGremlinQuery, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IGremlinQuery, IGremlinQuery<TElement3>> projection3, Func<IGremlinQuery, IGremlinQuery<TElement4>> projection4);
+                       
             new IGremlinQuery Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IGremlinQuery;
@@ -95,6 +99,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IElementGremlinQuery Or(params Func<IElementGremlinQuery, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IElementGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IElementGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IElementGremlinQuery, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IElementGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IElementGremlinQuery, IGremlinQuery<TElement3>> projection3, Func<IElementGremlinQuery, IGremlinQuery<TElement4>> projection4);
+                       
             new IElementGremlinQuery Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IElementGremlinQuery;
@@ -149,6 +157,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IVertexGremlinQuery Or(params Func<IVertexGremlinQuery, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IVertexGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IVertexGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IVertexGremlinQuery, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IVertexGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IVertexGremlinQuery, IGremlinQuery<TElement3>> projection3, Func<IVertexGremlinQuery, IGremlinQuery<TElement4>> projection4);
+                       
             new IVertexGremlinQuery Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexGremlinQuery;
@@ -203,6 +215,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IEdgeGremlinQuery Or(params Func<IEdgeGremlinQuery, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IEdgeGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IEdgeGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IEdgeGremlinQuery, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery, IGremlinQuery<TElement3>> projection3, Func<IEdgeGremlinQuery, IGremlinQuery<TElement4>> projection4);
+                       
             new IEdgeGremlinQuery Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery;
@@ -257,6 +273,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3, Func<IGremlinQuery<TElement>, IGremlinQuery<TElement4>> projection4);
+                       
             new IGremlinQuery<TElement> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IGremlinQuery<TElement>;
@@ -311,6 +331,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IValueGremlinQuery<TElement> Or(params Func<IValueGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3, Func<IValueGremlinQuery<TElement>, IGremlinQuery<TElement4>> projection4);
+                       
             new IValueGremlinQuery<TElement> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IValueGremlinQuery<TElement>;
@@ -365,6 +389,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IArrayGremlinQuery<TArray, TQuery> Or(params Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement1>> projection1, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement1>> projection1, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement2>> projection2, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement1>> projection1, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement2>> projection2, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement3>> projection3, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery<TElement4>> projection4);
+                       
             new IArrayGremlinQuery<TArray, TQuery> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> repeatTraversal) where TTargetQuery : IArrayGremlinQuery<TArray, TQuery>;
@@ -419,6 +447,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IElementGremlinQuery<TElement> Or(params Func<IElementGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3, Func<IElementGremlinQuery<TElement>, IGremlinQuery<TElement4>> projection4);
+                       
             new IElementGremlinQuery<TElement> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IElementGremlinQuery<TElement>;
@@ -473,6 +505,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IVertexGremlinQuery<TVertex> Or(params Func<IVertexGremlinQuery<TVertex>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement2>> projection2, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement1>> projection1, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement2>> projection2, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement3>> projection3, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery<TElement4>> projection4);
+                       
             new IVertexGremlinQuery<TVertex> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexGremlinQuery<TVertex>;
@@ -527,6 +563,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IEdgeGremlinQuery<TEdge> Or(params Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement3>> projection3, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery<TElement4>> projection4);
+                       
             new IEdgeGremlinQuery<TEdge> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge>;
@@ -581,6 +621,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IEdgeGremlinQuery<TEdge, TAdjacentVertex> Or(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement3>> projection3, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery<TElement4>> projection4);
+                       
             new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TAdjacentVertex>;
@@ -635,6 +679,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Or(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement2>> projection2, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement3>> projection3, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery<TElement4>> projection4);
+                       
             new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>;
@@ -689,6 +737,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IInEdgeGremlinQuery<TEdge, TInVertex> Or(params Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement2>> projection2, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement1>> projection1, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement2>> projection2, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement3>> projection3, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery<TElement4>> projection4);
+                       
             new IInEdgeGremlinQuery<TEdge, TInVertex> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IInEdgeGremlinQuery<TEdge, TInVertex>;
@@ -743,6 +795,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IOutEdgeGremlinQuery<TEdge, TOutVertex> Or(params Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement1>> projection1, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement1>> projection1, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement2>> projection2, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement1>> projection1, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement2>> projection2, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement3>> projection3, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery<TElement4>> projection4);
+                       
             new IOutEdgeGremlinQuery<TEdge, TOutVertex> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IOutEdgeGremlinQuery<TEdge, TOutVertex>;
@@ -797,6 +853,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IVertexPropertyGremlinQuery<TProperty, TValue> Or(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement2>> projection2, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement2>> projection2, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement3>> projection3, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery<TElement4>> projection4);
+                       
             new IVertexPropertyGremlinQuery<TProperty, TValue> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue>;
@@ -851,6 +911,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Or(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement2>> projection2, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement1>> projection1, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement2>> projection2, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement3>> projection3, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery<TElement4>> projection4);
+                       
             new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>;
@@ -905,6 +969,10 @@ namespace ExRam.Gremlinq.Core
             TTargetQuery Optional<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
             IPropertyGremlinQuery<TElement> Or(params Func<IPropertyGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
+            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2);
+            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3);
+            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement1>> projection1, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement2>> projection2, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement3>> projection3, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery<TElement4>> projection4);
+                       
             new IPropertyGremlinQuery<TElement> Range(long low, long high);
 
             TTargetQuery Repeat<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IPropertyGremlinQuery<TElement>;
