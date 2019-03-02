@@ -1820,6 +1820,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Union_untyped()
+        {
+            IVertexGremlinQuery q = g
+                .V<Person>();
+
+            q
+                .Union(
+                    __ => __,
+                    __ => __.Out<LivesIn>())
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.identity(), __.out(_b))")
+                .WithParameters("Person", "LivesIn");
+        }
+
+        [Fact]
         public void V_of_abstract_type()
         {
             g

@@ -17,6 +17,10 @@ namespace ExRam.Gremlinq.Core
     public abstract class GremlinQuery
     {
         private static readonly ConcurrentDictionary<Type, Type> QueryTypes = new ConcurrentDictionary<Type, Type>();
+        private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
+            .GetInterfaces()
+            .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
+            .ToArray();
 
         protected GremlinQuery(IGraphModel model, IGremlinQueryExecutor queryExecutor, IImmutableList<Step> steps, IImmutableDictionary<StepLabel, string> stepLabelBindings, ILogger logger)
         {
@@ -47,30 +51,32 @@ namespace ExRam.Gremlinq.Core
 
                     if (closureType != typeof(IGremlinQuery))
                     {
-                        if (!closureType.IsGenericType)
-                            throw new NotSupportedException();
+                        var genericTypeDef = closureType.IsGenericType
+                            ? closureType.GetGenericTypeDefinition()
+                            : closureType;
 
-                        var genericTypeDef = closureType.GetGenericTypeDefinition();
-
-                        if (genericTypeDef != typeof(IArrayGremlinQuery<,>) && genericTypeDef != typeof(IValueGremlinQuery<>) && genericTypeDef != typeof(IGremlinQuery<>) && genericTypeDef != typeof(IVertexGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<>) && genericTypeDef != typeof(IEdgeGremlinQuery<,>) && genericTypeDef != typeof(IEdgeGremlinQuery<,,>) && genericTypeDef != typeof(IPropertyGremlinQuery<>))
+                        if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
                             throw new NotSupportedException($"Cannot change the query type to {typeof(TTargetQuery)}.");
 
-                        elementType = closureType.GetGenericArguments()[0];
+                        if (closureType.IsGenericType)
+                        { 
+                            elementType = closureType.GetGenericArguments()[0];
 
-                        if (genericTypeDef == typeof(IEdgeGremlinQuery<,>) || genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
-                            outVertexType = closureType.GetGenericArguments()[1];
+                            if (genericTypeDef == typeof(IEdgeGremlinQuery<,>) || genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
+                                outVertexType = closureType.GetGenericArguments()[1];
 
-                        if (genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
-                            inVertexType = closureType.GetGenericArguments()[2];
+                            if (genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
+                                inVertexType = closureType.GetGenericArguments()[2];
 
-                        if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,>))
-                            propertyValueType = closureType.GetGenericArguments()[1];
+                            if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,>))
+                                propertyValueType = closureType.GetGenericArguments()[1];
 
-                        if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,,>))
-                            metaType = closureType.GetGenericArguments()[2];
+                            if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,,>))
+                                metaType = closureType.GetGenericArguments()[2];
 
-                        if (genericTypeDef == typeof(IArrayGremlinQuery<,>))
-                            foldedQueryType = closureType.GetGenericArguments()[1];
+                            if (genericTypeDef == typeof(IArrayGremlinQuery<,>))
+                                foldedQueryType = closureType.GetGenericArguments()[1];
+                        }
                     }
 
                     return typeof(GremlinQuery<,,,,,>).MakeGenericType(elementType, outVertexType, inVertexType, propertyValueType, metaType, foldedQueryType);
