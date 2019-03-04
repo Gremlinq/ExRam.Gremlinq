@@ -2253,6 +2253,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_array_contains_stepLabel()
+        {
+            g
+                .Inject("+4912345")
+                .As((__, t) => __
+                    .V<Company>()
+                    .Where(c => c.PhoneNumbers.Contains(t)))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.inject(_a).as(_b).V().hasLabel(_c).has(_d, __.where(eq(_b)))")
+                .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
+        }
+
+        [Fact]
         public void Where_property_array_does_not_contain_element()
         {
             g
@@ -2378,7 +2391,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).where(__.values(_b).where(eq(_c)))")
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(eq(_c)))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
         }
 

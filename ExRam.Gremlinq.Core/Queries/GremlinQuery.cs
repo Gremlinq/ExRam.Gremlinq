@@ -729,7 +729,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(MemberExpression expression, P predicate)
         {
             if (predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
-                return Where(_ => _.ValuesForProjections<object>(new[] { expression }).Where(predicate));
+                return Has(expression, Anonymize().Where(predicate));
 
             return Has(expression, predicate);
         }

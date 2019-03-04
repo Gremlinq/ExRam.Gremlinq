@@ -5,6 +5,11 @@ namespace System.Linq
 {
     public static class EnumerableExtensions
     {
+        public static bool Contains<TSource>(this IEnumerable<TSource> source, StepLabel<TSource> stepLabel)
+        {
+            throw new InvalidOperationException($"{nameof(EnumerableExtensions)}.{nameof(Contains)} is not intended to be executed. It's use is only valid within expressions.");
+        }
+
         internal static IEnumerable<Step> HandleAnonymousQueries(this IEnumerable<Step> steps)
         {
             using (var e = steps.GetEnumerator())
