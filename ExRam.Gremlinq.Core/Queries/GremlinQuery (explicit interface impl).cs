@@ -72,13 +72,13 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(ExplainStep.Instance);
 
-        Task<TElement> IGremlinQuery<TElement>.First() => First(CancellationToken.None);
+        ValueTask<TElement> IGremlinQuery<TElement>.FirstAsync() => FirstAsync(CancellationToken.None);
 
-        Task<TElement> IGremlinQuery<TElement>.First(CancellationToken ct) => First(ct);
+        ValueTask<TElement> IGremlinQuery<TElement>.FirstAsync(CancellationToken ct) => FirstAsync(ct);
 
-        Task<TElement> IGremlinQuery<TElement>.FirstOrDefault() => FirstOrDefault(CancellationToken.None);
+        ValueTask<TElement> IGremlinQuery<TElement>.FirstOrDefaultAsync() => FirstOrDefaultAsync(CancellationToken.None);
 
-        Task<TElement> IGremlinQuery<TElement>.FirstOrDefault(CancellationToken ct) => FirstOrDefault(ct);
+        ValueTask<TElement> IGremlinQuery<TElement>.FirstOrDefaultAsync(CancellationToken ct) => FirstOrDefaultAsync(ct);
 
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new FromLabelStep(stepLabel));
 
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.From<TNewOutVertex>(Func<IGremlinQuery, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => From<TElement, TNewOutVertex, TInVertex>(fromVertexTraversal);
 
-        IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetEnumerator() => GetEnumerator<TElement>();
+        IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetAsyncEnumerator(CancellationToken ct) => GetAsyncEnumerator<TElement>(ct);
 
         IValueGremlinQuery<object> IElementGremlinQuery.Id() => Id();
 

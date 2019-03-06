@@ -309,9 +309,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
 
-        private Task<TElement> First(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).First(ct);
+        private ValueTask<TElement> FirstAsync(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).FirstAsync(ct);
 
-        private Task<TElement> FirstOrDefault(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).FirstOrDefault(ct);
+        private ValueTask<TElement> FirstOrDefaultAsync(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).FirstOrDefaultAsync(ct);
 
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
@@ -327,11 +327,11 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize())));
 
-        private IAsyncEnumerator<TResult> GetEnumerator<TResult>()
+        private IAsyncEnumerator<TResult> GetAsyncEnumerator<TResult>(CancellationToken ct = default)
         {
             return QueryExecutor
                 .Execute(this.Cast<TResult>())
-                .GetEnumerator();
+                .GetAsyncEnumerator(ct);
         }
 
         private object[] GetKeys(IEnumerable<LambdaExpression> projections)

@@ -23,10 +23,10 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
 
-        Task<TElement> First();
-        Task<TElement> First(CancellationToken ct);
+        ValueTask<TElement> FirstAsync();
+        ValueTask<TElement> FirstAsync(CancellationToken ct);
 
-        Task<TElement> FirstOrDefault();
-        Task<TElement> FirstOrDefault(CancellationToken ct);
+        ValueTask<TElement> FirstOrDefaultAsync();
+        ValueTask<TElement> FirstOrDefaultAsync(CancellationToken ct);
     }
 }

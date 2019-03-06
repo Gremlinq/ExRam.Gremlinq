@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 {
                     _logger?.LogError("Error executing Gremlin query {0}.", serialized.QueryString);
 
-                    return AsyncEnumerable.Throw<JToken>(ex);
+                    return AsyncEnumerableEx.Throw<JToken>(ex);
                 })
                 .GraphsonDeserialize<TElement[]>(_graphSonSerializerFactory.Get(query.AsAdmin().Model))
                 .SelectMany(x => x.ToAsyncEnumerable());

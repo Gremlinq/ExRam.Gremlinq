@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
-                return AsyncEnumerable
+                return AsyncEnumerableEx
                     .Return(JToken.Parse(_json))
                     .GraphsonDeserialize<TElement[]>(new GraphsonDeserializer(query.AsAdmin().Model))
                     .SelectMany(x => x.ToAsyncEnumerable());
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(Graphson3ReferenceVertex))
                 .V()
                 .Cast<JObject>()
-                .ToArray();
+                .ToArrayAsync();
 
             array.Should().HaveCount(1);
             array[0]["id"].ToObject<int>().Should().Be(1);
@@ -106,7 +106,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleWorksFor))
                 .E<WorksFor>()
-                .ToArray();
+                .ToArrayAsync();
 
             array.Should().HaveCount(1);
             array[0].Role.Should().Be("Admin");
@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var array = await _g
                 .WithExecutor(new TestJsonQueryExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"WorksFor\",\"inVLabel\":\"Company\",\"outVLabel\":\"Person\",\"inV\":\"companyId\",\"outV\":\"personId\",\"properties\":{\"Role\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Role\",\"value\":\"Admin\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}"))
                 .E<WorksFor>()
-                .ToArray();
+                .ToArrayAsync();
 
             array.Should().HaveCount(1);
             array[0].Role.Should().Be("Admin");
@@ -131,7 +131,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[]"))
                 .V()
                 .Drop()
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .WithExecutor(new TestJsonQueryExecutor("[]"))
                 .V<Person>()
-                .ToArray();
+                .ToArrayAsync();
         }
 
         [Fact]
@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ \"id1\", \"id2\" ]"))
                 .V()
                 .Id()
-                .ToArray();
+                .ToArrayAsync();
 
             ids.Should().HaveCount(2);
             ids[0].Should().Be("id1");
@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ \"1\", \"2\" ]"))
                 .V()
                 .Id()
-                .ToArray();
+                .ToArrayAsync();
 
             ids.Should().HaveCount(2);
             ids[0].Should().Be("1");
@@ -178,7 +178,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ 1, 2 ]"))
                 .V()
                 .Id()
-                .ToArray();
+                .ToArrayAsync();
 
             ids.Should().HaveCount(2);
             ids[0].Should().Be(1);
@@ -192,7 +192,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ 1, \"id2\" ]"))
                 .V()
                 .Id()
-                .ToArray();
+                .ToArrayAsync();
 
             ids.Should().HaveCount(2);
             ids[0].Should().Be(1);
@@ -205,7 +205,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var company = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleCompanyJson))
                 .V<Company>()
-                .First();
+                .FirstAsync();
 
             company.Should().NotBeNull();
             company.Id.Should().Be("b9b89d7f-9313-4eed-b354-2760ba7a3fbe");
@@ -219,7 +219,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<object>()
-                .First();
+                .FirstAsync();
 
             language.Should().NotBeNull();
             language.Should().BeOfType<Language>();
@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<object>()
-                .First();
+                .FirstAsync();
 
             language.Should().NotBeNull();
             language.Should().BeOfType<JObject>();
@@ -247,7 +247,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Language>()
-                .First();
+                .FirstAsync();
 
             language.Should().NotBeNull();
             language.Id.Should().Be(10);
@@ -262,7 +262,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<Language>()
-                .First();
+                .FirstAsync();
 
             language.Should().NotBeNull();
             language.Id.Should().Be(10);
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var vertex = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V<Vertex>()
-                .First();
+                .FirstAsync();
 
             vertex.Should().BeOfType<Language>();
             vertex.Should().NotBeNull();
@@ -288,7 +288,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SinglePersonJson))
                 .V<Person>()
-                .First();
+                .FirstAsync();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(13);
@@ -304,7 +304,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SinglePersonStringId))
                 .V<Person>()
-                .First();
+                .FirstAsync();
 
             user.Should().NotBeNull();
             user.Id.Should().Be("13");
@@ -320,7 +320,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SinglePersonLowercasePropertiesJson))
                 .V<Person>()
-                .First();
+                .FirstAsync();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(14);
@@ -335,7 +335,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var user = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SinglePersonWithoutPhoneNumbersJson))
                 .V<Person>()
-                .First();
+                .FirstAsync();
 
             user.Should().NotBeNull();
             user.Id.Should().Be(15);
@@ -350,7 +350,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var timeFrame = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleTimeFrameJson))
                 .V<TimeFrame>()
-                .First();
+                .FirstAsync();
 
             timeFrame.Should().NotBeNull();
             timeFrame.Id.Should().Be(11);
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var timeFrame = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleTimeFrameWithNumbersJson))
                 .V<TimeFrame>()
-                .First();
+                .FirstAsync();
 
             timeFrame.Should().NotBeNull();
             timeFrame.Id.Should().Be(12);
@@ -377,7 +377,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var language = await _g
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
-                .V().First() as Language;
+                .V().FirstAsync() as Language;
 
             language.Should().NotBeNull();
             language?.Id.Should().Be(10);
@@ -391,7 +391,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(TupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Person, Language)>()
-                .First();
+                .FirstAsync();
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Name.Value.Should().Be("Name of some base entity");
@@ -408,7 +408,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(EscapedTupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Person, Language)>()
-                .First();
+                .FirstAsync();
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Name.Value.Should().Be("Name of some base entity");
@@ -425,7 +425,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(TupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Vertex, Vertex)>()
-                .First();
+                .FirstAsync();
 
             tuple.Item1.Id.Should().Be(16);
             tuple.Item1.Should().BeOfType<Person>();
@@ -444,7 +444,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(Graphson3TupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Person, Language)>()
-                .First();
+                .FirstAsync();
 
             tuple.Item1.Id.Should().Be(4);
             tuple.Item1.Name.Value.Should().Be("Name of some base entity");
@@ -461,7 +461,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(ArrayOfLanguages))
                 .V()
                 .Cast<Language[]>()
-                .First();
+                .FirstAsync();
 
             languages.Should().NotBeNull();
             languages.Should().HaveCount(2);
@@ -478,7 +478,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(NestedArrayOfLanguagesJson))
                 .V()
                 .Cast<Language[][]>()
-                .First();
+                .FirstAsync();
 
             languages.Should().NotBeNull();
             languages.Should().HaveCount(2);
@@ -501,7 +501,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ 36 ]"))
                 .V()
                 .Cast<int>()
-                .First();
+                .FirstAsync();
 
             value.Should().Be(36);
         }
@@ -512,7 +512,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var country = await _g
                 .WithExecutor(new TestJsonQueryExecutor(CountryWithMetaProperties))
                 .V<Country>()
-                .First();
+                .FirstAsync();
 
             country.Name.Value.Should().Be("GER");
             country.Name.Properties["de"].Should().Be("Deutschland");
@@ -526,7 +526,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(GetJson("VertexProperties")))
                 .V()
                 .Properties()
-                .ToArray(default);
+                .ToArrayAsync(default);
 
             properties.Should().HaveCount(3);
             properties[0].Label.Should().Be("Property1");
@@ -547,7 +547,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V()
                 .Properties()
                 .Meta<MetaPoco>()
-                .ToArray(default);
+                .ToArrayAsync(default);
 
             properties.Should().HaveCount(3);
             properties[0].Label.Should().Be("Property1");
@@ -570,7 +570,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V()
                 .Properties()
                 .Properties()
-                .ToArray();
+                .ToArrayAsync();
 
             properties.Should().HaveCount(2);
             properties[0].Key.Should().Be("metaKey1");
@@ -586,7 +586,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]"))
                 .V<Person>()
                 .Properties(x => x.SomeObscureProperty)
-                .ToArray();
+                .ToArrayAsync();
 
             properties.Should().HaveCount(1);
             properties[0].Properties.Should().NotBeNull();
@@ -599,7 +599,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]"))
                 .V<Person>()
                 .Properties(x => x.Name)
-                .ToArray();
+                .ToArrayAsync();
 
             properties.Should().HaveCount(1);
             properties[0].Properties.Should().NotBeNull();
@@ -614,7 +614,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V<Person>()
                 .Properties(x => x.Name)
                 .Properties(x => x.ValidFrom)
-                .ToArray();
+                .ToArrayAsync();
 
             properties.Should().HaveCount(1);
             properties[0].Should().NotBeNull();
