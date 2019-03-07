@@ -141,14 +141,16 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Model, QueryExecutor, Steps.Insert(Steps.Count, step), StepLabelMappings, Logger);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, Expression<Func<TElement, object>> memberExpression)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStepLabelBindings(params StepLabel[] stepLabels)
         {
-            var body = memberExpression.Body.StripConvert();
+            var ret = this;
 
-            if (!(body is MemberExpression memberExpressionBody))
-                throw new ExpressionNotSupportedException(memberExpression);
+            for (var i = 0; i < stepLabels.Length; i++)
+            {
+                ret = ret.AddStepLabelBinding(stepLabels[i], $"Item{i + 1}");
+            }
 
-            return AddStepLabelBinding(stepLabel, memberExpressionBody.Member.Name);
+            return ret;
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, string name)
@@ -334,9 +336,9 @@ namespace ExRam.Gremlinq.Core
             var hasYielded = false;
 
             foreach (var t in keys.OfType<T>())
-            { 
+            {
                 if (t == T.Id)
-                   yield return IdStep.Instance;
+                    yield return IdStep.Instance;
                 else if (t == T.Label)
                     yield return LabelStep.Instance;
                 else
@@ -550,6 +552,13 @@ namespace ExRam.Gremlinq.Core
         }
 
         private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabel));
+
+        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(params StepLabel[] stepLabels)
+        {
+            return this
+                .AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabels))
+                .AddStepLabelBindings(stepLabels);
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())));
 
