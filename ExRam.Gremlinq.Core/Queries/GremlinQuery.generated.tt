@@ -11,11 +11,25 @@ using NullGuard;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
+        <# for(var i = 2; i <= 4; i++)
+        { #>
+            IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>)
+            {
+                return this
+                    .AddStep<(<#= GetArgumentList("T{0}", i) #>), Unit, Unit, Unit, Unit, Unit>(new SelectStep(<#= GetArgumentList("label{0}", i) #>))
+                    <# for(var j = 1; j <= i; j++)
+                    { #>
+                    .AddStepLabelBinding(label<#=j#>, x => x.Item<#=j#>)
+                    <# } #>;
+            }
+        <# } #>
+
         <# foreach(var iface in substitutedBaseInterfaces)
         { #>
 

@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
+    partial interface IGremlinQuery
+    {
+                    IGremlinQuery<(T1, T2)> Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2);
+                    IGremlinQuery<(T1, T2, T3)> Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3);
+                    IGremlinQuery<(T1, T2, T3, T4)> Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4);
+            }
+
             public partial interface IOrderedGremlinQuery : IGremlinQuery { }
 
         public partial interface IGremlinQuery

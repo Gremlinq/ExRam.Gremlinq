@@ -74,5 +74,20 @@ private static string GetElement(string str)
 {
     return GetTypeParameters(str).FirstOrDefault();
 }
+
+private static string GetArgumentList(string template, int argumentCount)
+{
+    var str = "";
+
+    for (var i = 1; i <= argumentCount; i++)
+    {
+        if (i > 1)
+            str = str + ", ";
+
+        str += string.Format(template, i);
+    }
+
+    return str;
+}
 #>
 

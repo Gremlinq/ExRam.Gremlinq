@@ -4,11 +4,40 @@ using NullGuard;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
+                    IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2)
+            {
+                return this
+                    .AddStep<(T1, T2), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2))
+                                        .AddStepLabelBinding(label1, x => x.Item1)
+                                        .AddStepLabelBinding(label2, x => x.Item2)
+                    ;
+            }
+                    IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3)
+            {
+                return this
+                    .AddStep<(T1, T2, T3), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3))
+                                        .AddStepLabelBinding(label1, x => x.Item1)
+                                        .AddStepLabelBinding(label2, x => x.Item2)
+                                        .AddStepLabelBinding(label3, x => x.Item3)
+                    ;
+            }
+                    IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4)
+            {
+                return this
+                    .AddStep<(T1, T2, T3, T4), Unit, Unit, Unit, Unit, Unit>(new SelectStep(label1, label2, label3, label4))
+                                        .AddStepLabelBinding(label1, x => x.Item1)
+                                        .AddStepLabelBinding(label2, x => x.Item2)
+                                        .AddStepLabelBinding(label3, x => x.Item3)
+                                        .AddStepLabelBinding(label4, x => x.Item4)
+                    ;
+            }
+        
         
             IGremlinQuery IGremlinQuery.And(params Func<IGremlinQuery, IGremlinQuery>[] andTraversals) => And(andTraversals);
             IGremlinQuery IGremlinQuery.As(params StepLabel[] stepLabels) => As(stepLabels);
