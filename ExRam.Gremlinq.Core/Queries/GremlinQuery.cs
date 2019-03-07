@@ -467,31 +467,17 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStep<TTarget, Unit, Unit, Unit, Unit, Unit>(OutVStep.Instance);
 
-        private GremlinQuery<(TElement1, TElement2), TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TElement1, TElement2>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement1>> projection1, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement2>> projection2)
+        private GremlinQuery<TTuple, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
         {
-            return this
-                .AddStep<(TElement1, TElement2)>(new ProjectStep("Item1", "Item2"))
-                .AddStep(new ProjectStep.ByTraversalStep(projection1(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection2(Anonymize())));
-        }
+            var ret = this
+                .AddStep<TTuple>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
 
-        private GremlinQuery<(TElement1, TElement2, TElement3), TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TElement1, TElement2, TElement3>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement1>> projection1, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement2>> projection2, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement3>> projection3)
-        {
-            return this
-                .AddStep<(TElement1, TElement2, TElement3)>(new ProjectStep("Item1", "Item2", "Item3"))
-                .AddStep(new ProjectStep.ByTraversalStep(projection1(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection2(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection3(Anonymize())));
-        }
+            foreach (var projection in projections)
+            {
+                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection(Anonymize())));
+            }
 
-        private GremlinQuery<(TElement1, TElement2, TElement3, TElement4), TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TElement1, TElement2, TElement3, TElement4>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement1>> projection1, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement2>> projection2, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement3>> projection3, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TElement4>> projection4)
-        {
-            return this
-                .AddStep<(TElement1, TElement2, TElement3, TElement4)>(new ProjectStep("Item1", "Item2", "Item3", "Item4"))
-                .AddStep(new ProjectStep.ByTraversalStep(projection1(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection2(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection3(Anonymize())))
-                .AddStep(new ProjectStep.ByTraversalStep(projection4(Anonymize())));
+            return ret;
         }
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
