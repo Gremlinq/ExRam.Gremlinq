@@ -14,220 +14,175 @@ namespace ExRam.Gremlinq.Core
 {
     partial interface IGremlinQuery
     {
-        <# for(var i = 2; i <= 4; i++)
-        { #>
-            IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>);
-        <# } #>
+<# for(var i = 2; i <= 4; i++) { #>
+        IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>);
+<# } #>
     }
 
-    <# foreach(var iface in baseInterfaces)
-    { #>
-        public partial interface <#= MakeOrdered(iface) #> : <#= iface #> { }
+<# foreach(var iface in baseInterfaces) { #>
 
-        public partial interface <#= iface #>
-        {
-            <#= iface #> And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals);
+    public partial interface <#= MakeOrdered(iface) #> : <#= iface #> { }
 
-            new <#= iface #> As(params StepLabel[] stepLabels);
+    public partial interface <#= iface #>
+    {
+        <#= iface #> And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals);
 
-            new <#= iface #> Barrier();
+        new <#= iface #> As(params StepLabel[] stepLabels);
 
-            TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
-            TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+        new <#= iface #> Barrier();
 
-            TTargetQuery Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
+        TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
+        TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
-            new <#= iface #> Dedup();
-            new <#= iface #> Drop();
+        TTargetQuery Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
-            new <#= iface #> Emit();
+        new <#= iface #> Dedup();
+        new <#= iface #> Drop();
 
-            TTargetQuery FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+        new <#= iface #> Emit();
 
-            new <#= iface #> Identity();
+        TTargetQuery FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
-            new <#= iface #> Limit(long count);
-            new <#= iface #> LimitLocal(long count);
-            TTargetQuery Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
+        new <#= iface #> Identity();
 
-            TTargetQuery Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
+        new <#= iface #> Limit(long count);
+        new <#= iface #> LimitLocal(long count);
+        TTargetQuery Local<TTargetQuery>(Func<<#= iface #> , TTargetQuery> localTraversal) where TTargetQuery : IGremlinQuery;
+
+        TTargetQuery Map<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
         
-            <#= iface #> Not(Func<<#= iface #>, IGremlinQuery> notTraversal);
-            new <#= iface #> None();
+        <#= iface #> Not(Func<<#= iface #>, IGremlinQuery> notTraversal);
+        new <#= iface #> None();
 
-            TTargetQuery Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
-            <#= iface #> Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals);
+        TTargetQuery Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        <#= iface #> Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals);
 
-            new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2);
-            new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3);
-            new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3, Func<<#= iface #>, IGremlinQuery<TElement4>> projection4);
+        new IGremlinQuery<(TElement1, TElement2)> Project<TElement1, TElement2>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2);
+        new IGremlinQuery<(TElement1, TElement2, TElement3)> Project<TElement1, TElement2, TElement3>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3);
+        new IGremlinQuery<(TElement1, TElement2, TElement3, TElement4)> Project<TElement1, TElement2, TElement3, TElement4>(Func<<#= iface #>, IGremlinQuery<TElement1>> projection1, Func<<#= iface #>, IGremlinQuery<TElement2>> projection2, Func<<#= iface #>, IGremlinQuery<TElement3>> projection3, Func<<#= iface #>, IGremlinQuery<TElement4>> projection4);
                        
-            new <#= iface #> Range(long low, long high);
+        new <#= iface #> Range(long low, long high);
 
-            TTargetQuery Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) where TTargetQuery : <#= iface #>;
-            TTargetQuery RepeatUntil<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) where TTargetQuery : <#= iface #>;
+        TTargetQuery Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) where TTargetQuery : <#= iface #>;
+        TTargetQuery RepeatUntil<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) where TTargetQuery : <#= iface #>;
 
-            <#= iface #> SideEffect(Func<<#= iface #>, IGremlinQuery> sideEffectTraversal);
-            new <#= iface #> Skip(long count);
+        <#= iface #> SideEffect(Func<<#= iface #>, IGremlinQuery> sideEffectTraversal);
+        new <#= iface #> Skip(long count);
 
-            new <#= iface #> Tail(long count);
-            new <#= iface #> TailLocal(int count);
+        new <#= iface #> Tail(long count);
+        new <#= iface #> TailLocal(int count);
 
-            new <#= iface #> Times(int count);
+        new <#= iface #> Times(int count);
 
-            TTargetQuery Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
+        TTargetQuery Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
 
-            new <#= iface #> Where(string lambda);
-        }
-
-      <#
-    } #>
+        new <#= iface #> Where(string lambda);
+    }
+<# } #>
 
 
-
-    <# foreach(var iface in Untyped(baseInterfaces))
-    { #>
-        public partial interface <#= iface #>
-        {
-            new <#= iface + "<TResult>" #> Cast<TResult>();
-        }
-
-      <#
-    } #>
+<# foreach(var iface in Untyped(baseInterfaces)) { #>
+    public partial interface <#= iface #>
+    {
+        new <#= iface + "<TResult>" #> Cast<TResult>();
+    }
+<# } #>
 
 
-
-    <# foreach(var iface in Typed(Qualified(baseInterfaces)))
-    { #>
-        public partial interface <#= iface #>
-        {
-            new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-            new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        }
-
-      <#
-    } #>
+<# foreach(var iface in Typed(Qualified(baseInterfaces))) { #>
+    public partial interface <#= iface #>
+    {
+        new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+    }
+<# } #>
 
 
-
-    <# foreach(var iface in Qualified(baseInterfaces))
-    { #>
-        public partial interface <#= iface #>
-        {
-            new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
-            new <#= MakeOrdered(iface) #> OrderBy(string lambda);
-            new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
-        }
-
-      <#
-    } #>
+<# foreach(var iface in Qualified(baseInterfaces)) { #>
+    public partial interface <#= iface #>
+    {
+        new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
+        new <#= MakeOrdered(iface) #> OrderBy(string lambda);
+        new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
+    }
+<# } #>
 
 
+<# foreach(var iface in MakeOrdered(Qualified(baseInterfaces))) { #>
+    public partial interface <#= iface #>
+    {
+        <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
+        <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
+        new <#= iface #> ThenBy(string lambda);
+    }
+<# } #>
+    
+        
+<# foreach(var iface in Typed(MakeOrdered(Qualified(baseInterfaces)))) { #>
+    public partial interface <#= iface #>
+    {
+        new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+    }
 
-    <# foreach(var iface in MakeOrdered(Qualified(baseInterfaces)))
-    { #>
-        public partial interface <#= iface #>
-        {
-            <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-            <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-            new <#= iface #> ThenBy(string lambda);
-        }
+<# } #>
 
-      <#
-    } #>
+
+<# foreach(var iface in Typed(Simple(Qualified(Element(baseInterfaces))))) { #>
+    public partial interface <#= iface #>
+    {
+<# if (!iface.Contains("VertexProperty")) { #>
+        new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] keys);
+<# } #>
+
+        new IValueGremlinQuery<TTarget> Values<TTarget>(); 
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections);
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections);
+    }
+<# } #>
+
+
+<# foreach(var iface in Untyped(Qualified(Element(baseInterfaces)))) { #>
+    public partial interface <#= iface #>
+    {
+        <#= iface #><TTarget> OfType<TTarget>();
+    }
+<# } #>
     
 
-    
-    <# foreach(var iface in Typed(MakeOrdered(Qualified(baseInterfaces))))
-    { #>
-        public partial interface <#= iface #>
-        {
-            new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-            new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        }
+<# foreach(var iface in Typed(Qualified(Element(baseInterfaces)))) { #>
+    public partial interface <#= iface #>
+    {
+<# if (!iface.Contains("VertexProperty")) { #>
+        new <#= iface.Replace(GetElement(iface), "TTarget") #> OfType<TTarget>();
+        new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue>> projection, TProjectedValue value);
 
-      <#
-    } #>
+<# if (iface.StartsWith("IVertexGremlinQuery")) { #>
+        new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue[]>> projection, TProjectedValue value);
+<# } #>
 
+<# } #>
 
-
-    <# foreach(var iface in Typed(Simple(Qualified(Element(baseInterfaces)))))
-    { #>
-        public partial interface <#= iface #>
-        {
-            <# if (!iface.Contains("VertexProperty"))
-            { #>
-                new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] keys);
-              <#
-            } #>
-
-            new IValueGremlinQuery<TTarget> Values<TTarget>(); 
-            new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget>>[] projections);
-            new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections);
-        }
-      <#
-    } #>
+new <#= iface #> Property(string key, object value);
+new <#= iface #> Where(Expression<Func<<#= GetElement(iface) #>, bool>> predicate);
+new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
+    }
+<# } #>
 
 
+<# foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces)))) { #>
+    public partial interface <#= iface #>
+    {
+        TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= GetElement(iface) #>[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
 
-    <# foreach(var iface in Untyped(Qualified(Element(baseInterfaces))))
-    { #>
-        public partial interface <#= iface #>
-        {
-            <#= iface #><TTarget> OfType<TTarget>();
-        }
+        new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
+        new <#= iface #> Coin(double probability);
 
-      <#
-    } #>
-    
-
-
-    <# foreach(var iface in Typed(Qualified(Element(baseInterfaces))))
-    { #>
-        public partial interface <#= iface #>
-        {
-            <# if (!iface.Contains("VertexProperty"))
-            { #>
-                new <#= iface.Replace(GetElement(iface), "TTarget") #> OfType<TTarget>();
-                new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue>> projection, TProjectedValue value);
-
-                <# if (iface.StartsWith("IVertexGremlinQuery"))
-                { #>
-                    new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue[]>> projection, TProjectedValue value);
-                  <#
-                } #>
-
-              <#
-            } #>
-
-            new <#= iface #> Property(string key, object value);
-
-            new <#= iface #> Where(Expression<Func<<#= GetElement(iface) #>, bool>> predicate);
-            new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
-        }
-
-      <#
-    } #>
-
-
-
-    <# foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces))))
-    { #>
-        public partial interface <#= iface #>
-        {
-            TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= GetElement(iface) #>[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-            TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-            new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
-            new <#= iface #> Coin(double probability);
-
-            new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
-
-            new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
-        }
-
-      <#
-    } #>
+        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
+        new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
+    }
+<# } #>
 }
 
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
