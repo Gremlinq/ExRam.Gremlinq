@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
-<# for(var i = 2; i <= 4; i++) { #>
+<# for(var i = 2; i <= 16; i++) { #>
         IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>)
         {
             return this
