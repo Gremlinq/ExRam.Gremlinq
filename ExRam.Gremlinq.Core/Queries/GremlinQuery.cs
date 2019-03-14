@@ -40,49 +40,35 @@ namespace ExRam.Gremlinq.Core
         {
             var type = QueryTypes.GetOrAdd(
                 typeof(TTargetQuery),
-                closureType =>
-                {
-                    var metaType = typeof(Unit);
-                    var elementType = typeof(Unit);
-                    var inVertexType = typeof(Unit);
-                    var outVertexType = typeof(Unit);
-                    var foldedQueryType = typeof(Unit);
-                    var propertyValueType = typeof(Unit);
-
-                    if (closureType != typeof(IGremlinQuery))
-                    {
-                        var genericTypeDef = closureType.IsGenericType
-                            ? closureType.GetGenericTypeDefinition()
-                            : closureType;
-
-                        if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
-                            throw new NotSupportedException($"Cannot change the query type to {typeof(TTargetQuery)}.");
-
-                        if (closureType.IsGenericType)
-                        { 
-                            elementType = closureType.GetGenericArguments()[0];
-
-                            if (genericTypeDef == typeof(IEdgeGremlinQuery<,>) || genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
-                                outVertexType = closureType.GetGenericArguments()[1];
-
-                            if (genericTypeDef == typeof(IEdgeGremlinQuery<,,>))
-                                inVertexType = closureType.GetGenericArguments()[2];
-
-                            if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,>))
-                                propertyValueType = closureType.GetGenericArguments()[1];
-
-                            if (genericTypeDef == typeof(IVertexPropertyGremlinQuery<,,>))
-                                metaType = closureType.GetGenericArguments()[2];
-
-                            if (genericTypeDef == typeof(IArrayGremlinQuery<,>))
-                                foldedQueryType = closureType.GetGenericArguments()[1];
-                        }
-                    }
-
-                    return typeof(GremlinQuery<,,,,,>).MakeGenericType(elementType, outVertexType, inVertexType, propertyValueType, metaType, foldedQueryType);
-                });
+                closureType => typeof(GremlinQuery<,,,,,>).MakeGenericType(
+                    GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
+                    GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
+                    GetMatchingType(closureType, "TInVertex"),
+                    GetMatchingType(closureType, "TValue"),
+                    GetMatchingType(closureType, "TMeta"),
+                    GetMatchingType(closureType, "TQuery")));
 
             return (TTargetQuery)Activator.CreateInstance(type, Model, QueryExecutor, Steps, StepLabelMappings, Logger);
+        }
+
+        private static Type GetMatchingType(Type interfaceType, params string[] argumentNames)
+        {
+            if (interfaceType.IsGenericType)
+            {
+                var genericArguments = interfaceType.GetGenericArguments();
+                var genericTypeDefinitionArguments = interfaceType.GetGenericTypeDefinition().GetGenericArguments();
+
+                foreach (var argumentName in argumentNames)
+                {
+                    for (var i = 0; i < genericTypeDefinitionArguments.Length; i++)
+                    {
+                        if (genericTypeDefinitionArguments[i].ToString() == argumentName)
+                            return genericArguments[i];
+                    }
+                }
+            }
+
+            return typeof(Unit);
         }
 
         internal static IGremlinQuery<Unit> Create(IGraphModel model, IGremlinQueryExecutor queryExecutor, string graphName = null, ILogger logger = null)
