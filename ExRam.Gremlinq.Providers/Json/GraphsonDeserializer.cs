@@ -227,7 +227,7 @@ namespace ExRam.Gremlinq.Providers
                         if (objectType == typeof(Unit))
                             return Unit.Default;
 
-                        throw new JsonReaderException($"Cannot convert array of length {array.Count} to scalar value.");
+                        throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
                     }
 
                     token = array[0];
