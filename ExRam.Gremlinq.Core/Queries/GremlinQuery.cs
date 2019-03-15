@@ -38,8 +38,16 @@ namespace ExRam.Gremlinq.Core
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
         {
+            var targetQueryType = typeof(TTargetQuery);
+            var genericTypeDef = targetQueryType.IsGenericType
+                ? targetQueryType.GetGenericTypeDefinition()
+                : targetQueryType;
+
+            if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
+                throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
+
             var type = QueryTypes.GetOrAdd(
-                typeof(TTargetQuery),
+                targetQueryType,
                 closureType => typeof(GremlinQuery<,,,,,>).MakeGenericType(
                     GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
                     GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
