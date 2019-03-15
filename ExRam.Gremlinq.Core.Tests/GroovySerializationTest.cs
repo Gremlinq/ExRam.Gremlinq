@@ -306,7 +306,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
-                .WithParameters("Person", "Item1", "Item2");
+                .WithParameters("Person", "<1>Item1", "<2>Item2");
         }
 
         [Fact]
@@ -756,7 +756,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).map(__.select(_b, _c))")
-                .WithParameters("Person", "Item1", "Item2");
+                .WithParameters("Person", "<1>Item1", "<2>Item2");
         }
 
         [Fact]
@@ -785,8 +785,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(stepLabel1, tuple))))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c).as(_c).select(_b, _c)")
-                .WithParameters("Person", "Item1", "Item2");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c).as(_d).select(_b, _d)")
+                .WithParameters("Person", "<1>Item1", "<2>Item2", "<3>Item2");
         }
 
         [Fact]

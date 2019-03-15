@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         }
 
         private State _state = State.Idle;
+        private IGremlinQueryAdmin _currentAdmin;
 
         private readonly StringBuilder _builder = new StringBuilder();
         private readonly Stack<State> _stateQueue = new Stack<State>();
@@ -618,22 +619,20 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(IGremlinQuery query)
         {
-            var admin = query.AsAdmin();
-
-            foreach (var map in admin.StepLabelMappings)
-            {
-                _stepLabelMappings[map.Key] = map.Value;
-            }
-
             var beforeState = _state;
-            _state = State.Idle;
-
-            foreach (var step in admin.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
+            var beforeAdmin = _currentAdmin;
             {
-                step.Accept(this);
+                _state = State.Idle;
+                _currentAdmin = query.AsAdmin();
+
+                foreach (var step in _currentAdmin.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
+                {
+                    step.Accept(this);
+                }
             }
 
             _state = beforeState;
+            _currentAdmin = beforeAdmin;
         }
 
         #endregion
@@ -825,7 +824,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             {
                 if (!_stepLabelMappings.TryGetValue(stepLabel, out var stepLabelMapping))
                 {
-                    stepLabelMapping = "l" + (_stepLabelMappings.Count + 1);
+                    if (_currentAdmin != null && _currentAdmin.StepLabelMappings.TryGetValue(stepLabel, out var queryStepLabelMapping))
+                        stepLabelMapping = $"<{_stepLabelMappings.Count + 1}>{queryStepLabelMapping}";
+                    else
+                        stepLabelMapping = "l" + (_stepLabelMappings.Count + 1);
+
                     _stepLabelMappings.Add(stepLabel, stepLabelMapping);
                 }
 

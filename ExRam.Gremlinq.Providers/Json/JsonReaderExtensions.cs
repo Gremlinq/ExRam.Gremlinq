@@ -33,6 +33,25 @@ namespace ExRam.Gremlinq.Providers
 
                 return false;
             }
+
+            public override object Value
+            {
+                get
+                {
+                    if (TokenType == JsonToken.PropertyName && base.Value is string propertyName)
+                    {
+                        if (propertyName.StartsWith("<"))
+                        {
+                            var closing = propertyName.IndexOf(">");
+
+                            if (closing > -1)
+                                return propertyName.Substring(closing + 1);
+                        }
+                    }
+
+                    return base.Value;
+                }
+            }
         }
 
         public static IEnumerable<(JsonToken tokenType, object tokenValue)> ToTokenEnumerable(this JsonReader jsonReader)
