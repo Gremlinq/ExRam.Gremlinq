@@ -11,6 +11,11 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GroovySerializationTest<TVisitor> where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
     {
+        protected GroovySerializationTest()
+        {
+            var vertexType = typeof(Vertex);
+        }
+
         [Fact]
         public void AddE_from_StepLabel()
         {

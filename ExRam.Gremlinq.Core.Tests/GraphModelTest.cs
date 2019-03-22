@@ -7,40 +7,86 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class GraphModelTest
     {
-        private sealed class Vertex
+        private sealed class VertexOutsideHierarchy
         {
             public object Id { get; set; }
         }
 
+        private sealed class VertexInsideHierarchy : Vertex
+        {
+        }
+
         [Fact]
-        public void FromAssembly_includes_abstract_types()
+        public void TryGetFilterLabels_does_not_include_abstract_type()
         {
             var model = GraphModel.Dynamic();
 
             model.VerticesModel.TryGetFilterLabels(typeof(Authority))
                 .IfNone(new string[0])
                 .Should()
-                .NotBeEmpty();
+                .Contain("Company").And
+                .Contain("Person").And
+                .NotContain("Authority");
         }
 
         [Fact]
-        public void Relax1()
+        public void No_Relax_in_hierarchy_inside_model()
         {
-            GraphModel.Dynamic().Relax()
+            GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(Vertex))
+                .TryGetConstructiveLabel(typeof(Person))
                 .Should()
-                .BeSome("Vertex");
+                .BeSome("Person");
         }
 
         [Fact]
-        public void Relax2()
+        public void No_Relax_in_hierarchy_outside_model()
         {
-            GraphModel.Empty.Relax()
+            GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(Vertex))
+                .TryGetConstructiveLabel(typeof(VertexInsideHierarchy))
                 .Should()
-                .BeSome("Vertex");
+                .BeNone();
+        }
+
+        [Fact]
+        public void No_Relax_outside_hierarchy()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(VertexOutsideHierarchy))
+                .Should()
+                .BeNone();
+        }
+
+        [Fact]
+        public void Relax_in_hierarchy_inside_model()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(Person))
+                .Should()
+                .BeSome("Person");
+        }
+
+        [Fact]
+        public void Relax_in_hierarchy_outside_model()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(VertexInsideHierarchy))
+                .Should()
+                .BeSome("VertexInsideHierarchy");
+        }
+
+        [Fact]
+        public void Relax_outside_hierarchy()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(VertexOutsideHierarchy))
+                .Should()
+                .BeSome("VertexOutsideHierarchy");
         }
     }
 }

@@ -23,12 +23,7 @@ namespace LanguageExt
                     () => other.Should().BeNone());
             }
 
-            public AndConstraint<OptionAssertions<T>> BeSome(string because = "", params object[] becauseArgs)
-            {
-                return BeSome(value => { });
-            }
-
-            public AndConstraint<OptionAssertions<T>> BeSome(T expected, string because = "", params object[] becauseArgs)
+            public AndConstraint<OptionAssertions<T>> BeSome(T expected)
             {
                 return BeSome(value => value.Should().Be(expected));
             }

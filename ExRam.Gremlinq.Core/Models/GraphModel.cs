@@ -119,12 +119,13 @@ namespace ExRam.Gremlinq.Core
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
                 {
-                    return Labels
-                        .TryGetValue(elementType)
-                        .Map(x => x.FirstOrDefault())
-                        .IfNone(() => elementType.BaseType != null
-                            ? TryGetConstructiveLabel(elementType.BaseType)
-                            : default);
+                    return elementType
+                        .GetTypeHierarchy()
+                        .Where(type => !type.IsAbstract)
+                        .SelectMany(type => Labels
+                            .TryGetValue(type)
+                            .Map(x => x.FirstOrDefault()))
+                        .FirstOrDefault();
                 }
 
                 public Option<string[]> TryGetFilterLabels(Type elementType)
