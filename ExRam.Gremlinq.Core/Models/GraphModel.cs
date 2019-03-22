@@ -21,6 +21,36 @@ namespace ExRam.Gremlinq.Core
             VertexProperty
         }
 
+        private sealed class LowercaseGraphModel : IGraphModel
+        {
+            private sealed class LowercaseGraphElementModel : IGraphElementModel
+            {
+                private readonly IGraphElementModel _baseModel;
+
+                public LowercaseGraphElementModel(IGraphElementModel baseModel)
+                {
+                    _baseModel = baseModel;
+                }
+
+                public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToLower());
+
+                public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToLower()).ToArray());
+            }
+
+            private readonly IGraphModel _model;
+
+            public LowercaseGraphModel(IGraphModel model)
+            {
+                _model = model;
+                EdgesModel = new LowercaseGraphElementModel(model.EdgesModel);
+                VerticesModel = new LowercaseGraphElementModel(model.VerticesModel);
+            }
+
+            public IGraphElementModel EdgesModel { get; }
+            public IGraphElementModel VerticesModel { get; }
+            public Type[] GetTypes(string label) => _model.GetTypes(label);
+        }
+
         private sealed class RelaxedGraphModel : IGraphModel
         {
             private sealed class RelaxedGraphElementModel : IGraphElementModel
@@ -175,7 +205,8 @@ namespace ExRam.Gremlinq.Core
                         group => group.Key,
                         group => group
                             .Select(x => x.Key)
-                            .ToArray());
+                            .ToArray(),
+                        StringComparer.OrdinalIgnoreCase);
             }
 
             public Type[] GetTypes(string label)
@@ -227,6 +258,11 @@ namespace ExRam.Gremlinq.Core
         public static IGraphModel Relax(this IGraphModel model)
         {
             return new RelaxedGraphModel(model);
+        }
+
+        public static IGraphModel WithLowercaseLabels(this IGraphModel model)
+        {
+            return new LowercaseGraphModel(model);
         }
 
         internal static object GetIdentifier(this IGraphModel model, Expression expression)

@@ -88,5 +88,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeSome("VertexOutsideHierarchy");
         }
+
+        [Fact]
+        public void Lowercase()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithLowercaseLabels()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(Person))
+                .Should()
+                .BeSome("person");
+        }
     }
 }
