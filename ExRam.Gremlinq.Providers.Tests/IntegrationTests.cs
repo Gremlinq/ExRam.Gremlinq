@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
 

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using ExRam.Gremlinq.Tests.Entities;
+using FluentAssertions;
 using Xunit;
 using LanguageExt;
 

@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Core.Tests
+﻿namespace ExRam.Gremlinq.Tests.Entities
 {
     public abstract class Authority : Vertex
     {

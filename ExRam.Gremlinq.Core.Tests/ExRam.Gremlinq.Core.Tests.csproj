@@ -5,13 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Shared\GraphElements\Edges\*" Link="Shared\GraphElements\Edges\%(Filename)%(Extension)" />
-    <Compile Include="..\Shared\GraphElements\Vertices\*" Link="Shared\GraphElements\Vertices\%(Filename)%(Extension)" />
-    <Compile Include="..\Shared\GraphElements\*" Link="Shared\GraphElements\%(Filename)%(Extension)" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
   </ItemGroup>
 
   </Project>

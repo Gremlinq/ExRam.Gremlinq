@@ -2,6 +2,7 @@
 using System.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;

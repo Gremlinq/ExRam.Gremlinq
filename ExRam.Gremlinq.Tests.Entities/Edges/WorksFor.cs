@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.Entities
 {
     public class WorksFor : Edge
     {

@@ -1,6 +1,6 @@
 ﻿using ExRam.Gremlinq.Core.GraphElements;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.Entities
 {
     public abstract class Edge : IEdge
     {

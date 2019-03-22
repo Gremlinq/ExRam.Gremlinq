@@ -1,7 +1,7 @@
 ﻿using System;
 using ExRam.Gremlinq.Core.GraphElements;
 
-namespace ExRam.Gremlinq.Core.Tests
+namespace ExRam.Gremlinq.Tests.Entities
 {
     public class Company : Authority
     {

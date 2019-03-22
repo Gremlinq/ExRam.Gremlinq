@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
