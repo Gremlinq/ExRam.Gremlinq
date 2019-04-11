@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using ExRam.Gremlinq.Core.Attributes;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -116,12 +117,39 @@ namespace ExRam.Gremlinq.Core
                 .AddElementProperties(newEdge);
         }
 
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
+        {
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge);
+        }
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element)
         {
             var ret = this;
             var elementType = element.GetType();
 
             foreach (var (propertyInfo, value) in element.Serialize())
+            {
+                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+            }
+
+            return ret;
+        }
+
+        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element)
+        {
+            var elementType = element.GetType();
+
+            // Only pull back the properties without the ReadOnly attribute
+            var props = element.Serialize().Where(p => !Attribute.IsDefined(p.Item1, typeof(ReadOnlyAttribute)));
+
+            // Drop the properties we found from the existing item
+            var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
+                       .Drop();
+
+            var ret = AddStep<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new SideEffectStep(drop));
+
+            // Re-add the properties
+            foreach (var (propertyInfo, value) in props)
             {
                 ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
             }
@@ -160,6 +188,11 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
                 .AddElementProperties(vertex);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
+        {
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
