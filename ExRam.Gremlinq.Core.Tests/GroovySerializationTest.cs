@@ -64,6 +64,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddE_property()
+        {
+            g
+                .AddV<Person>()
+                .AddE(new LivesIn
+                {
+                    Since = DateTimeOffset.Now
+                })
+                .To(__ => __
+                    .V<Country>("id"))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).property(_i, _j).to(__.V(_k).hasLabel(_l))");
+        }
+
+        [Fact]
         public void AddE_OutV()
         {
             g
