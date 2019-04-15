@@ -106,6 +106,11 @@ namespace ExRam.Gremlinq.Core
                 VerticesModel = new CamelcaseGraphElementModel(model.VerticesModel);
             }
 
+            public override object GetIdentifier(Type elementType, string memberName)
+            {
+                return _model.GetIdentifier(Expression.Parameter(elementType, memberName));
+            }
+
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);

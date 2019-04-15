@@ -179,5 +179,43 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("RegistrationDate");
         }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Combined()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels()
+                .WithCamelcaseIdentifiers();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Combined_Reversed()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers()
+                .WithCamelcaseLabels();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
     }
 }
