@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core.Extensions;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -21,7 +22,103 @@ namespace ExRam.Gremlinq.Core
             VertexProperty
         }
 
-        private sealed class LowercaseGraphModel : IGraphModel
+        private abstract class GraphModelBase : IGraphModel
+        {
+            public abstract IGraphElementModel VerticesModel { get; }
+            public abstract IGraphElementModel EdgesModel { get; }
+
+            public abstract Type[] GetTypes(string label);
+
+            public virtual object GetIdentifier(Expression expression)
+            {
+                switch (expression)
+                {
+                    case MemberExpression leftMemberExpression:
+                        {
+                            return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
+                        }
+                    case ParameterExpression leftParameterExpression:
+                        {
+                            return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
+                        }
+                    default:
+                        throw new ExpressionNotSupportedException(expression);
+                }
+            }
+
+            public virtual object GetIdentifier(Type elementType, string memberName)
+            {
+                if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+                {
+                    var graphElementType = ElementTypes
+                        .GetOrCreateValue(this)
+                        .GetOrAdd(
+                            elementType,
+                            closureElementType =>
+                            {
+                                if (elementType == typeof(IVertex) || VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                    return GraphElementType.Vertex;
+
+                                if (elementType == typeof(IEdge) || EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                    return GraphElementType.Edge;
+
+                                return typeof(IVertexProperty).IsAssignableFrom(elementType)
+                                    ? GraphElementType.VertexProperty
+                                    : GraphElementType.None;
+                            });
+
+                    if (graphElementType != GraphElementType.None)
+                    {
+                        if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
+                            return T.Id;
+
+                        if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+                            return T.Label;
+                    }
+                }
+
+                return memberName;
+            }
+        }
+
+        private sealed class CamelcaseGraphModel : GraphModelBase
+        {
+            private sealed class CamelcaseGraphElementModel : IGraphElementModel
+            {
+                private readonly IGraphElementModel _baseModel;
+
+                public CamelcaseGraphElementModel(IGraphElementModel baseModel)
+                {
+                    _baseModel = baseModel;
+                }
+
+                public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToCamelCase());
+
+                public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToCamelCase()).ToArray());
+            }
+
+            private readonly IGraphModel _model;
+
+            public CamelcaseGraphModel(IGraphModel model)
+            {
+                _model = model;
+                EdgesModel = new CamelcaseGraphElementModel(model.EdgesModel);
+                VerticesModel = new CamelcaseGraphElementModel(model.VerticesModel);
+            }
+
+            public override object GetIdentifier(Type elementType, string memberName)
+            {
+                var retVal = base.GetIdentifier(elementType, memberName);
+
+                return retVal is string identifier ? identifier.ToCamelCase() : retVal;
+            }
+
+            public override IGraphElementModel EdgesModel { get; }
+            public override IGraphElementModel VerticesModel { get; }
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
+        }
+
+        private sealed class LowercaseGraphModel : GraphModelBase
         {
             private sealed class LowercaseGraphElementModel : IGraphElementModel
             {
@@ -46,12 +143,12 @@ namespace ExRam.Gremlinq.Core
                 VerticesModel = new LowercaseGraphElementModel(model.VerticesModel);
             }
 
-            public IGraphElementModel EdgesModel { get; }
-            public IGraphElementModel VerticesModel { get; }
-            public Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override IGraphElementModel EdgesModel { get; }
+            public override IGraphElementModel VerticesModel { get; }
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
         }
 
-        private sealed class RelaxedGraphModel : IGraphModel
+        private sealed class RelaxedGraphModel : GraphModelBase
         {
             private sealed class RelaxedGraphElementModel : IGraphElementModel
             {
@@ -87,32 +184,32 @@ namespace ExRam.Gremlinq.Core
                 EdgesModel = new RelaxedGraphElementModel(baseGraphModel.EdgesModel);
             }
 
-            public Type[] GetTypes(string label) => _baseGraphModel.GetTypes(label);
+            public override Type[] GetTypes(string label) => _baseGraphModel.GetTypes(label);
 
-            public IGraphElementModel VerticesModel { get; }
+            public override IGraphElementModel VerticesModel { get; }
 
-            public IGraphElementModel EdgesModel { get; }
+            public override IGraphElementModel EdgesModel { get; }
         }
 
-        private sealed class EmptyGraphModel : IGraphModel
+        private sealed class EmptyGraphModel : GraphModelBase
         {
-            public Type[] GetTypes(string label) => Array.Empty<Type>();
+            public override Type[] GetTypes(string label) => Array.Empty<Type>();
 
-            public IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
-            public IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
+            public override IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
+            public override IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
         }
 
-        private sealed class InvalidGraphModel : IGraphModel
+        private sealed class InvalidGraphModel : GraphModelBase
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
+            public override Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
 
-            public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
-            public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
+            public override IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
+            public override IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
         }
 
-        private sealed class AssemblyGraphModel : IGraphModel
+        private sealed class AssemblyGraphModel : GraphModelBase
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
@@ -209,15 +306,15 @@ namespace ExRam.Gremlinq.Core
                         StringComparer.OrdinalIgnoreCase);
             }
 
-            public Type[] GetTypes(string label)
+            public override Type[] GetTypes(string label)
             {
                 return _types
                     .TryGetValue(label)
                     .IfNone(Array.Empty<Type>());
             }
 
-            public IGraphElementModel EdgesModel => _edgesModel;
-            public IGraphElementModel VerticesModel => _verticesModel;
+            public override IGraphElementModel EdgesModel => _edgesModel;
+            public override IGraphElementModel VerticesModel => _verticesModel;
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
@@ -265,55 +362,11 @@ namespace ExRam.Gremlinq.Core
             return new LowercaseGraphModel(model);
         }
 
-        internal static object GetIdentifier(this IGraphModel model, Expression expression)
+        public static IGraphModel WithCamelcase(this IGraphModel model)
         {
-            switch (expression)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    return model.GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
-                }
-                case ParameterExpression leftParameterExpression:
-                {
-                    return model.GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
-                }
-                default:
-                    throw new ExpressionNotSupportedException(expression);
-            }
+            return new CamelcaseGraphModel(model);
         }
 
-        internal static object GetIdentifier(this IGraphModel model, Type elementType, string memberName)
-        {
-            if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-            {
-                var graphElementType = ElementTypes
-                    .GetOrCreateValue(model)
-                    .GetOrAdd(
-                        elementType,
-                        closureElementType =>
-                        {
-                            if (elementType == typeof(IVertex) || model.VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                return GraphElementType.Vertex;
-
-                            if (elementType == typeof(IEdge) || model.EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                return GraphElementType.Edge;
-
-                            return typeof(IVertexProperty).IsAssignableFrom(elementType)
-                                ? GraphElementType.VertexProperty
-                                : GraphElementType.None;
-                        });
-
-                if (graphElementType != GraphElementType.None)
-                {
-                    if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
-                        return T.Id;
-
-                    if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                        return T.Label;
-                }
-            }
-
-            return memberName;
-        }
+        
     }
 }

@@ -2,6 +2,8 @@
 using FluentAssertions;
 using Xunit;
 using LanguageExt;
+using System.Linq.Expressions;
+using System;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -98,6 +100,58 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TryGetConstructiveLabel(typeof(Person))
                 .Should()
                 .BeSome("person");
+        }
+
+        [Fact]
+        public void Camelcase_Verticies()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcase()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+        }
+
+        [Fact]
+        public void Camelcase_Edges()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcase()
+                .EdgesModel
+                .TryGetConstructiveLabel(typeof(LivesIn))
+                .Should()
+                .BeEqual("livesIn");
+        }
+
+        [Fact]
+        public void Camelcase_Identifier_By_Type()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcase()
+                .GetIdentifier(typeof(Person), nameof(Person.RegistrationDate))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Identifier_By_MemberExpression()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcase()
+                .GetIdentifier(Expression.Property(Expression.Constant(new Person()), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Identifier_By_ParameterExpression()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcase()
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
         }
     }
 }
