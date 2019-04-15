@@ -270,7 +270,33 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(PropertyStep step)
         {
-            Property(step.Cardinality, step.Key, step.Value);
+            if (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
+                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+
+            if (step.Value is IVertexProperty && step.Value is Property property)
+            {
+                var metaProperties = property.GetMetaProperties()
+                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                    .Prepend(property.GetValue())
+                    .Prepend(step.Key);
+
+                metaProperties = step.Cardinality.Fold(
+                    metaProperties,
+                    (closureMetaProperties, c) => closureMetaProperties.Prepend(c));
+
+                Method("property", metaProperties);
+            }
+            else
+            {
+                if (ReferenceEquals(step.Key, T.Id))
+                    Method("property", step.Key, step.Value);
+                else
+                {
+                    step.Cardinality.Match(
+                        c => Method("property", c, step.Key, step.Value),
+                        () => Method("property", step.Key, step.Value));
+                }
+            }
         }
 
         public virtual void Visit(RangeStep step)
@@ -854,37 +880,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method(stepName,
                 step.Traversals
                     .SelectMany(FlattenLogicalTraversals<TStep>));
-        }
-
-        protected void Property(Option<Cardinality> cardinality, object name, object value)
-        {
-            if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality.IfNone(Cardinality.Single)))
-                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
-
-            if (value is IVertexProperty && value is Property property)
-            {
-                var metaProperties = property.GetMetaProperties()
-                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .Prepend(property.GetValue())
-                    .Prepend(name);
-
-                metaProperties = cardinality.Fold(
-                    metaProperties,
-                    (closureMetaProperties, c) => closureMetaProperties.Prepend(c));
-
-                Method("property", metaProperties);
-            }
-            else
-            {
-                if (ReferenceEquals(name, T.Id))
-                    Method("property", name, value);
-                else
-                {
-                    cardinality.Match(
-                        c => Method("property", c, name, value),
-                        () => Method("property", name, value));
-                }
-            }
         }
 
         protected virtual void Visit(P.SingleArgumentP p, string name)
