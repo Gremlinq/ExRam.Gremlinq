@@ -271,7 +271,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(PropertyStep step)
         {
-            Method("property", step.Key, step.Value);
+            step.Cardinality.Match(
+                c => Method("property", c, step.Key, step.Value),
+                () => Method("property", step.Key, step.Value));
         }
 
         public virtual void Visit(RangeStep step)
