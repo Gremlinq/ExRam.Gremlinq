@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -271,9 +270,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(PropertyStep step)
         {
-            step.Cardinality.Match(
-                c => Method("property", c, step.Key, step.Value),
-                () => Method("property", step.Key, step.Value));
+            Property(step.Cardinality, step.Key, step.Value);
         }
 
         public virtual void Visit(RangeStep step)
@@ -588,27 +585,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             VisitLogicalStep(step, "or");
         }
 
-        public virtual void Visit(VertexPropertyStep step)
-        {
-            if (step.Value != null)
-            {
-                if (!step.Type.IsArray || step.Type == typeof(byte[]))
-                    Property(Cardinality.Single, step.Key, step.Value);
-                else
-                {
-                    // ReSharper disable once PossibleNullReferenceException
-                    if (step.Type.GetElementType().IsInstanceOfType(step.Value))
-                        Property(Cardinality.List, step.Key, step.Value);
-                    else
-                    {
-                        foreach (var item in (IEnumerable)step.Value)
-                        {
-                            Property(Cardinality.List, step.Key, item);
-                        }
-                    }
-                }
-            }
-        }
 
         public virtual void Visit(ValueStep step)
         {

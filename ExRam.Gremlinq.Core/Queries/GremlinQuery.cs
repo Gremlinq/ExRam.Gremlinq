@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -123,10 +124,35 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value))
+                {
+                    ret = ret.AddStep(propertyStep);
+                }
             }
 
             return ret;
+        }
+
+        private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value)
+        {
+            if (value != null)
+            {
+                if (!propertyType.IsArray || propertyType == typeof(byte[]))
+                    yield return new PropertyStep(Cardinality.Single, key, value);
+                else
+                {
+                    // ReSharper disable once PossibleNullReferenceException
+                    if (propertyType.GetElementType().IsInstanceOfType(value))
+                        yield return new PropertyStep(Cardinality.List, key, value);
+                    else
+                    {
+                        foreach (var item in (IEnumerable)value)
+                        {
+                            yield return new PropertyStep(Cardinality.List, key, item);
+                        }
+                    }
+                }
+            }
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
@@ -620,7 +646,16 @@ namespace ExRam.Gremlinq.Core
                         return DropProperties(stringKey);
                 }
                 else
-                    return AddStep(new VertexPropertyStep(memberExpression.Type, identifier, value));
+                {
+                    var ret = this;
+
+                    foreach(var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value))
+                    {
+                        ret = ret.AddStep(propertyStep);
+                    }
+
+                    return ret;
+                }
             }
 
             throw new ExpressionNotSupportedException(projection);
