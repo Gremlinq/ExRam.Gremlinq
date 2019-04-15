@@ -103,10 +103,10 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Camelcase_Verticies()
+        public void CamelcaseLabel_Verticies()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcase()
+                .WithCamelcaseLabels()
                 .VerticesModel
                 .TryGetConstructiveLabel(typeof(TimeFrame))
                 .Should()
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Edges()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcase()
+                .WithCamelcaseLabels()
                 .EdgesModel
                 .TryGetConstructiveLabel(typeof(LivesIn))
                 .Should()
@@ -125,20 +125,10 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Camelcase_Identifier_By_Type()
-        {
-            GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcase()
-                .GetIdentifier(typeof(Person), nameof(Person.RegistrationDate))
-                .Should()
-                .Be("registrationDate");
-        }
-
-        [Fact]
         public void Camelcase_Identifier_By_MemberExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcase()
+                .WithCamelcaseIdentifiers()
                 .GetIdentifier(Expression.Property(Expression.Constant(new Person()), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -148,10 +138,46 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_ParameterExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcase()
+                .WithCamelcaseIdentifiers()
                 .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Label()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("TimeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Identifier()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("RegistrationDate");
         }
     }
 }

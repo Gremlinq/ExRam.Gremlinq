@@ -11,7 +11,5 @@ namespace ExRam.Gremlinq.Core
         IGraphElementModel EdgesModel { get; }
 
         object GetIdentifier(Expression expression);
-
-        object GetIdentifier(Type elementType, string memberName);
     }
 }

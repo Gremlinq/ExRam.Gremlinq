@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Parameter(elementType, propertyInfo.Name)), value));
             }
 
             return ret;

@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class CamelcaseGraphModel : GraphModelBase
+        private sealed class CamelcaseLabelGraphModel : GraphModelBase
         {
             private sealed class CamelcaseGraphElementModel : IGraphElementModel
             {
@@ -99,11 +99,25 @@ namespace ExRam.Gremlinq.Core
 
             private readonly IGraphModel _model;
 
-            public CamelcaseGraphModel(IGraphModel model)
+            public CamelcaseLabelGraphModel(IGraphModel model)
             {
                 _model = model;
                 EdgesModel = new CamelcaseGraphElementModel(model.EdgesModel);
                 VerticesModel = new CamelcaseGraphElementModel(model.VerticesModel);
+            }
+
+            public override IGraphElementModel EdgesModel { get; }
+            public override IGraphElementModel VerticesModel { get; }
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
+        }
+
+        private sealed class CamelcaseIdentifiersGraphModel : GraphModelBase
+        {
+            private readonly IGraphModel _model;
+
+            public CamelcaseIdentifiersGraphModel(IGraphModel model)
+            {
+                _model = model;
             }
 
             public override object GetIdentifier(Type elementType, string memberName)
@@ -113,8 +127,8 @@ namespace ExRam.Gremlinq.Core
                 return retVal is string identifier ? identifier.ToCamelCase() : retVal;
             }
 
-            public override IGraphElementModel EdgesModel { get; }
-            public override IGraphElementModel VerticesModel { get; }
+            public override IGraphElementModel EdgesModel => _model.EdgesModel;
+            public override IGraphElementModel VerticesModel => _model.VerticesModel;
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
         }
 
@@ -362,11 +376,15 @@ namespace ExRam.Gremlinq.Core
             return new LowercaseGraphModel(model);
         }
 
-        public static IGraphModel WithCamelcase(this IGraphModel model)
+        public static IGraphModel WithCamelcaseLabels(this IGraphModel model)
         {
-            return new CamelcaseGraphModel(model);
+            return new CamelcaseLabelGraphModel(model);
         }
 
-        
+        public static IGraphModel WithCamelcaseIdentifiers(this IGraphModel model)
+        {
+            return new CamelcaseIdentifiersGraphModel(model);
+        }
+
     }
 }
