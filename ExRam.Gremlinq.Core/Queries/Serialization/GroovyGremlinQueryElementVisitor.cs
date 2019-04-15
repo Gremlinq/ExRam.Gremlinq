@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExRam.Gremlinq.Core.GraphElements;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -877,9 +878,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                     .SelectMany(FlattenLogicalTraversals<TStep>));
         }
 
-        protected void Property(Cardinality cardinality, object name, object value)
+        protected void Property(Option<Cardinality> cardinality, object name, object value)
         {
-            if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
+            if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality.IfNone(Cardinality.Single)))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
             if (value is IVertexProperty && value is Property property)
@@ -887,8 +888,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 var metaProperties = property.GetMetaProperties()
                     .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
                     .Prepend(property.GetValue())
-                    .Prepend(name)
-                    .Prepend(cardinality);
+                    .Prepend(name);
+
+                metaProperties = cardinality.Fold(
+                    metaProperties,
+                    (closureMetaProperties, c) => closureMetaProperties.Prepend(c));
 
                 Method("property", metaProperties);
             }
@@ -897,7 +901,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 if (ReferenceEquals(name, T.Id))
                     Method("property", name, value);
                 else
-                    Method("property", cardinality, name, value);
+                {
+                    cardinality.Match(
+                        c => Method("property", c, name, value),
+                        () => Method("property", name, value));
+                }
             }
         }
 
