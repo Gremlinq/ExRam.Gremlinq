@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+﻿using System;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -6,6 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IVertexGremlinQuery<TVertex> UpdateV<TVertex>(TVertex vertex);
+        IVertexGremlinQuery<TVertex> UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter);
         IEdgeGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
         IEdgeGremlinQuery<TEdge> UpdateE<TEdge>(TEdge edge);
         IVertexGremlinQuery<IVertex> V(params object[] ids);

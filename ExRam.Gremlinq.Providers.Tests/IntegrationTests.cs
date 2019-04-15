@@ -1196,5 +1196,71 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V()
                 .ToArray();
         }
+
+        [Fact(Skip = "Integration Test")]
+        public async void UpdateV()
+        {
+            var id = Guid.NewGuid().ToString("N");
+
+            var now = DateTimeOffset.FromUnixTimeMilliseconds(1481750076295);
+
+            var p = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            var data = await _g
+                .AddV(p)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Id.Should().Be(id);
+
+            p.Age = 25;
+            p.Gender = Gender.Female;
+            p.RegistrationDate = now + new TimeSpan(1, 0, 0, 0);
+
+            data = await _g
+                .V<Person>(p.Id)
+                .UpdateV(p, (property) => property == nameof(Person.Name))
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Gender.Should().Be(Gender.Female);
+            data[0].Age.Should().Be(25);
+            data[0].RegistrationDate.Should().Be(p.RegistrationDate);
+        }
+
+        [Fact(Skip = "Integration Test")]
+        public async void UpdateE()
+        {
+            var now = DateTime.UtcNow;
+
+            var p = new Person { Id = Guid.NewGuid().ToString("N"), Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            var mgr = new Person { Id = Guid.NewGuid().ToString("N"), Age = 41, Gender = Gender.Male, Name = "Bob", RegistrationDate = now };
+
+            var e = new WorksFor { From = now, Role = "Admin" };
+
+            var data = await _g
+                .AddV(p)
+                .AddE(e)
+                .To(__ => __
+                    .AddV(mgr))
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].From.Should().Be(now);
+            data[0].Role.Should().Be("Admin");
+
+            e.From = now + new TimeSpan(1, 0, 0, 0);
+            e.Role = "Director";
+
+            data = await _g
+                .V<Person>(p.Id)
+                .UpdateE(e)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].From.Should().Be(e.From);
+            data[0].Role.Should().Be(e.Role);
+        }
     }
 }

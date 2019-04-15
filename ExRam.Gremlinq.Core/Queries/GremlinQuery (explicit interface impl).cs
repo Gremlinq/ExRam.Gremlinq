@@ -45,6 +45,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex) => UpdateV(vertex);
 
+        IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter) => UpdateV(vertex, excludePropertyFilter);
+
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Both() => AddStep<IVertex>(BothStep.NoLabels);

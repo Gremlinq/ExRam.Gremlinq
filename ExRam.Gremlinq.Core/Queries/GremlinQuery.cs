@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
         {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge);
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => false);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element)
@@ -135,12 +135,13 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element)
+        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, Func<string, bool> filter)
         {
             var elementType = element.GetType();
 
             // Only pull back the properties without the ReadOnly attribute
-            var props = element.Serialize().Where(p => !Attribute.IsDefined(p.Item1, typeof(ReadOnlyAttribute)));
+            var props = element.Serialize()
+                .Where(p => !Attribute.IsDefined(p.Item1, typeof(ReadOnlyAttribute)) && !filter(p.Item1.Name));
 
             // Drop the properties we found from the existing item
             var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
@@ -192,7 +193,12 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
         {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex);
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => false);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter)
+        {
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, excludePropertyFilter);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)

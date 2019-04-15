@@ -2769,5 +2769,45 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
                 .WithoutParameters();
         }
+
+        [Fact]
+        public void UpdateV()
+        {
+            var now = DateTimeOffset.UtcNow;
+
+            g
+                .V<Person>()
+                .UpdateV(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now})
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
+                .WithParameters("Person", "Age", "Name", "Gender", "RegistrationDate", 21, "Marko", Gender.Male, now);
+        }
+
+        [Fact]
+        public void UpdateV_With_Filter()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .V<Person>()
+                .UpdateV(person, (property) => property == nameof(Person.Name) || property == nameof(Person.RegistrationDate))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .WithParameters("Person", "Age", "Gender", 21, Gender.Male);
+        }
+
+        [Fact]
+        public void UpdateE()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .E<WorksFor>()
+                .UpdateE(new WorksFor { From = now})
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(single, _b, _c)")
+                .WithParameters("WorksFor", "From", now);
+        }
     }
 }
