@@ -34,19 +34,19 @@ namespace ExRam.Gremlinq.Core
                 switch (expression)
                 {
                     case MemberExpression leftMemberExpression:
-                        {
-                            return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
-                        }
+                    {
+                        return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
+                    }
                     case ParameterExpression leftParameterExpression:
-                        {
-                            return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
-                        }
+                    {
+                        return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
+                    }
                     default:
                         throw new ExpressionNotSupportedException(expression);
                 }
             }
 
-            public virtual object GetIdentifier(Type elementType, string memberName)
+            private object GetIdentifier(Type elementType, string memberName)
             {
                 if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
                 {
@@ -106,9 +106,9 @@ namespace ExRam.Gremlinq.Core
                 VerticesModel = new CamelcaseGraphElementModel(model.VerticesModel);
             }
 
-            public override object GetIdentifier(Type elementType, string memberName)
+            public override object GetIdentifier(Expression expression)
             {
-                return _model.GetIdentifier(Expression.Parameter(elementType, memberName));
+                return _model.GetIdentifier(expression);
             }
 
             public override IGraphElementModel EdgesModel { get; }
@@ -125,9 +125,9 @@ namespace ExRam.Gremlinq.Core
                 _model = model;
             }
 
-            public override object GetIdentifier(Type elementType, string memberName)
+            public override object GetIdentifier(Expression expression)
             {
-                var retVal = base.GetIdentifier(elementType, memberName);
+                var retVal = base.GetIdentifier(expression);
 
                 return retVal is string identifier ? identifier.ToCamelCase() : retVal;
             }
