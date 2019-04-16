@@ -116,11 +116,11 @@ namespace ExRam.Gremlinq.Core
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
         }
 
-        private sealed class CamelcaseIdentifiersGraphModel : GraphModelBase
+        private sealed class CamelcasePropertiesGraphModel : GraphModelBase
         {
             private readonly IGraphModel _model;
 
-            public CamelcaseIdentifiersGraphModel(IGraphModel model)
+            public CamelcasePropertiesGraphModel(IGraphModel model)
             {
                 _model = model;
             }
@@ -386,10 +386,9 @@ namespace ExRam.Gremlinq.Core
             return new CamelcaseLabelGraphModel(model);
         }
 
-        public static IGraphModel WithCamelcaseIdentifiers(this IGraphModel model)
+        public static IGraphModel WithCamelcaseProperties(this IGraphModel model)
         {
-            return new CamelcaseIdentifiersGraphModel(model);
+            return new CamelcasePropertiesGraphModel(model);
         }
-
     }
 }
