@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelcaseProperties()
-                .GetIdentifier(Expression.Property(Expression.Constant(new Person()), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -139,7 +139,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelcaseProperties()
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("TimeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("RegistrationDate");
         }
@@ -194,7 +194,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }

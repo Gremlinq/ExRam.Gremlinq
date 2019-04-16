@@ -31,53 +31,44 @@ namespace ExRam.Gremlinq.Core
 
             public virtual object GetIdentifier(Expression expression)
             {
-                switch (expression)
+                if (expression is MemberExpression memberExpression)
                 {
-                    case MemberExpression leftMemberExpression:
+                    var memberName = memberExpression.Member.Name;
+                    var elementType = memberExpression.Expression.Type;
+
+                    if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
                     {
-                        return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
+                        var graphElementType = ElementTypes
+                            .GetOrCreateValue(this)
+                            .GetOrAdd(
+                                elementType,
+                                closureElementType =>
+                                {
+                                    if (elementType == typeof(IVertex) || VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                        return GraphElementType.Vertex;
+
+                                    if (elementType == typeof(IEdge) || EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                        return GraphElementType.Edge;
+
+                                    return typeof(IVertexProperty).IsAssignableFrom(elementType)
+                                        ? GraphElementType.VertexProperty
+                                        : GraphElementType.None;
+                                });
+
+                        if (graphElementType != GraphElementType.None)
+                        {
+                            if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
+                                return T.Id;
+
+                            if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+                                return T.Label;
+                        }
                     }
-                    case ParameterExpression leftParameterExpression:
-                    {
-                        return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
-                    }
-                    default:
-                        throw new ExpressionNotSupportedException(expression);
-                }
-            }
 
-            private object GetIdentifier(Type elementType, string memberName)
-            {
-                if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                {
-                    var graphElementType = ElementTypes
-                        .GetOrCreateValue(this)
-                        .GetOrAdd(
-                            elementType,
-                            closureElementType =>
-                            {
-                                if (elementType == typeof(IVertex) || VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                    return GraphElementType.Vertex;
-
-                                if (elementType == typeof(IEdge) || EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                    return GraphElementType.Edge;
-
-                                return typeof(IVertexProperty).IsAssignableFrom(elementType)
-                                    ? GraphElementType.VertexProperty
-                                    : GraphElementType.None;
-                            });
-
-                    if (graphElementType != GraphElementType.None)
-                    {
-                        if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
-                            return T.Id;
-
-                        if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                            return T.Label;
-                    }
+                    return memberName;
                 }
 
-                return memberName;
+                throw new ExpressionNotSupportedException(expression);
             }
         }
 
