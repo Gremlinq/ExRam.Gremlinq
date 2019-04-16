@@ -128,8 +128,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_MemberExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseIdentifiers()
-                .GetIdentifier(Expression.Property(Expression.Constant(new Person()), nameof(Person.RegistrationDate)))
+                .WithCamelcaseProperties()
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -138,8 +138,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_ParameterExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseIdentifiers()
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .WithCamelcaseProperties()
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseIdentifiers();
+                .WithCamelcaseProperties();
 
             model
                 .VerticesModel
@@ -157,7 +157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("TimeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("RegistrationDate");
         }
@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelcaseLabels()
-                .WithCamelcaseIdentifiers();
+                .WithCamelcaseProperties();
 
             model
                 .VerticesModel
@@ -194,7 +194,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -203,7 +203,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseIdentifiers()
+                .WithCamelcaseProperties()
                 .WithCamelcaseLabels();
 
             model
@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
-                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }

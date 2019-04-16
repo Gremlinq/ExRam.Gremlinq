@@ -39,7 +39,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     new GremlinClientEx(
                         server,
                         graphsonVersion),
-                    new DefaultGraphsonSerializerFactory()));
+                    new DefaultGraphsonSerializerFactory(),
+                    source.Logger));
         }
     }
 }

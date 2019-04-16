@@ -136,11 +136,10 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
         {
             var ret = this;
-            var elementType = element.GetType();
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Parameter(elementType, propertyInfo.Name)), value, allowExplicitCardinality))
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Property(Expression.Constant(element), propertyInfo)), value, allowExplicitCardinality))
                 {
                     ret = ret.AddStep(propertyStep);
                 }

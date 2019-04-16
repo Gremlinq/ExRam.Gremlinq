@@ -31,53 +31,44 @@ namespace ExRam.Gremlinq.Core
 
             public virtual object GetIdentifier(Expression expression)
             {
-                switch (expression)
+                if (expression is MemberExpression memberExpression)
                 {
-                    case MemberExpression leftMemberExpression:
-                        {
-                            return GetIdentifier(leftMemberExpression.Expression.Type, leftMemberExpression.Member.Name);
-                        }
-                    case ParameterExpression leftParameterExpression:
-                        {
-                            return GetIdentifier(leftParameterExpression.Type, leftParameterExpression.Name);
-                        }
-                    default:
-                        throw new ExpressionNotSupportedException(expression);
-                }
-            }
+                    var memberName = memberExpression.Member.Name;
+                    var elementType = memberExpression.Expression.Type;
 
-            public virtual object GetIdentifier(Type elementType, string memberName)
-            {
-                if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                {
-                    var graphElementType = ElementTypes
-                        .GetOrCreateValue(this)
-                        .GetOrAdd(
-                            elementType,
-                            closureElementType =>
-                            {
-                                if (elementType == typeof(IVertex) || VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                    return GraphElementType.Vertex;
-
-                                if (elementType == typeof(IEdge) || EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
-                                    return GraphElementType.Edge;
-
-                                return typeof(IVertexProperty).IsAssignableFrom(elementType)
-                                    ? GraphElementType.VertexProperty
-                                    : GraphElementType.None;
-                            });
-
-                    if (graphElementType != GraphElementType.None)
+                    if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase) || string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
-                            return T.Id;
+                        var graphElementType = ElementTypes
+                            .GetOrCreateValue(this)
+                            .GetOrAdd(
+                                elementType,
+                                closureElementType =>
+                                {
+                                    if (elementType == typeof(IVertex) || VerticesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                        return GraphElementType.Vertex;
 
-                        if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                            return T.Label;
+                                    if (elementType == typeof(IEdge) || EdgesModel.TryGetConstructiveLabel(elementType).IsSome)
+                                        return GraphElementType.Edge;
+
+                                    return typeof(IVertexProperty).IsAssignableFrom(elementType)
+                                        ? GraphElementType.VertexProperty
+                                        : GraphElementType.None;
+                                });
+
+                        if (graphElementType != GraphElementType.None)
+                        {
+                            if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
+                                return T.Id;
+
+                            if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
+                                return T.Label;
+                        }
                     }
+
+                    return memberName;
                 }
 
-                return memberName;
+                throw new ExpressionNotSupportedException(expression);
             }
         }
 
@@ -106,9 +97,9 @@ namespace ExRam.Gremlinq.Core
                 VerticesModel = new CamelcaseGraphElementModel(model.VerticesModel);
             }
 
-            public override object GetIdentifier(Type elementType, string memberName)
+            public override object GetIdentifier(Expression expression)
             {
-                return _model.GetIdentifier(Expression.Parameter(elementType, memberName));
+                return _model.GetIdentifier(expression);
             }
 
             public override IGraphElementModel EdgesModel { get; }
@@ -116,18 +107,18 @@ namespace ExRam.Gremlinq.Core
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
         }
 
-        private sealed class CamelcaseIdentifiersGraphModel : GraphModelBase
+        private sealed class CamelcasePropertiesGraphModel : GraphModelBase
         {
             private readonly IGraphModel _model;
 
-            public CamelcaseIdentifiersGraphModel(IGraphModel model)
+            public CamelcasePropertiesGraphModel(IGraphModel model)
             {
                 _model = model;
             }
 
-            public override object GetIdentifier(Type elementType, string memberName)
+            public override object GetIdentifier(Expression expression)
             {
-                var retVal = base.GetIdentifier(elementType, memberName);
+                var retVal = base.GetIdentifier(expression);
 
                 return retVal is string identifier ? identifier.ToCamelCase() : retVal;
             }
@@ -386,10 +377,9 @@ namespace ExRam.Gremlinq.Core
             return new CamelcaseLabelGraphModel(model);
         }
 
-        public static IGraphModel WithCamelcaseIdentifiers(this IGraphModel model)
+        public static IGraphModel WithCamelcaseProperties(this IGraphModel model)
         {
-            return new CamelcaseIdentifiersGraphModel(model);
+            return new CamelcasePropertiesGraphModel(model);
         }
-
     }
 }
