@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Core.Serialization;
@@ -2820,7 +2821,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person, new[] { nameof(Person.Name), nameof(Person.RegistrationDate) })
+                .UpdateV(person,
+                        ImmutableList<string>.Empty.AddRange(new[] { nameof(Person.Name), nameof(Person.RegistrationDate) }))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters("Person", "Age", "Gender", 21, Gender.Male);
@@ -2859,7 +2861,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .E<WorksFor>()
-                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" }, new[] { nameof(WorksFor.To), nameof(WorksFor.Role) })
+                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" },
+                        ImmutableList<string>.Empty.AddRange(new[] { nameof(WorksFor.To), nameof(WorksFor.Role) }))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters("WorksFor", "From", now);

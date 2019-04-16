@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core
             return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, excludePropertyFilter, false);
         }
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, string[] excludeFromUpdate)
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, ImmutableList<string> excludeFromUpdate)
         {
             return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), false);
         }
@@ -192,7 +192,7 @@ namespace ExRam.Gremlinq.Core
             // Re-add the properties
             foreach (var (propertyInfo, value) in props)
             {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Parameter(elementType, propertyInfo.Name)), value, allowExplicitCardinality))
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Property(Expression.Constant(element), propertyInfo)), value, allowExplicitCardinality))
                 {
                     ret = ret.AddStep(propertyStep);
                 }
@@ -244,7 +244,7 @@ namespace ExRam.Gremlinq.Core
             return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, excludePropertyFilter, true);
         }
 
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, string[] excludeFromUpdate)
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, ImmutableList<string> excludeFromUpdate)
         {
             return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), true);
         }
