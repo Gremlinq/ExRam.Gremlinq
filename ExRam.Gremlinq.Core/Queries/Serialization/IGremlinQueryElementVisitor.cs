@@ -45,7 +45,6 @@
         void Visit(NotStep step);
         void Visit(OptionalStep step);
         void Visit(OrStep step);
-        void Visit(VertexPropertyStep step);
         void Visit(RepeatStep step);
         void Visit(SideEffectStep step);
         void Visit(ToTraversalStep step);
