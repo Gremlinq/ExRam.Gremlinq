@@ -137,6 +137,8 @@ namespace ExRam.Gremlinq.Core
 
 <# } #>
 
+        <#= iface #> <#= iface #>.Property(string key, [AllowNull] object value) => Property(key, value);
+
         <#= iface #> <#= iface #>.Where(Expression<Func<<#= GetElement(iface) #>, bool>> predicate) => Where(predicate);
         <#= iface #> <#= iface #>.Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal) => Where(projection, propertyTraversal);
 

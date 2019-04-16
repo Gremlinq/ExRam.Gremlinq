@@ -11,7 +11,8 @@ namespace ExRam.Gremlinq.Core
                 new WebSocketGremlinQueryExecutor<CosmosDbGroovyGremlinQueryElementVisitor>(
                     new CosmosDbGremlinClient(
                         new CosmosDbGremlinServer(hostname, database, graphName, authKey, port)),
-                    new CosmosDbGraphsonSerializerFactory()));
+                    new CosmosDbGraphsonSerializerFactory(),
+                    source.Logger));
         }
     }
 }

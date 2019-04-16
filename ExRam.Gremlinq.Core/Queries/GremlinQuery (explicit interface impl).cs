@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -202,22 +201,6 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<Property<object>> IEdgeGremlinQuery<TElement>.Properties(params string[] keys) => Properties<Property<object>, Unit, Unit>(keys);
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
-
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Property(string key, [AllowNull] object value) => Property(key, value);
-        
-        IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property(string key, [AllowNull] object value) => Property(key, value);
-
-        IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property(string key, [AllowNull] object value) => Property(key, value);
 
         TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
