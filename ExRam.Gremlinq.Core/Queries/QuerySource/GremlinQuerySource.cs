@@ -51,6 +51,12 @@ namespace ExRam.Gremlinq.Core
                     .UpdateV(vertex, excludePropertyFilter);
             }
 
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, string[] excludeFromUpdate)
+            {
+                return Create()
+                    .UpdateV(vertex, excludeFromUpdate);
+            }
+
             IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
@@ -61,6 +67,18 @@ namespace ExRam.Gremlinq.Core
             {
                 return Create()
                     .UpdateE(edge);
+            }
+
+            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter)
+            {
+                return Create()
+                    .UpdateE(edge, excludePropertyFilter);
+            }
+
+            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, string[] excludeFromUpdate)
+            {
+                return Create()
+                    .UpdateE(edge, excludeFromUpdate);
             }
 
             IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)

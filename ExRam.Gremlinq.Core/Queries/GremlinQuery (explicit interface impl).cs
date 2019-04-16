@@ -37,6 +37,10 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge) => UpdateE(edge);
 
+        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter) => UpdateE(edge, excludePropertyFilter);
+
+        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, string[] excludeFromUpdate) => UpdateE(edge, excludeFromUpdate);
+
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>() => AddE(new TEdge());
@@ -46,6 +50,8 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex) => UpdateV(vertex);
 
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter) => UpdateV(vertex, excludePropertyFilter);
+
+        IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, string[] excludeFromUpdate) => UpdateV(vertex, excludeFromUpdate);
 
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 

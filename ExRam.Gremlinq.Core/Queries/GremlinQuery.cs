@@ -120,7 +120,17 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
         {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => false);
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => false, false);
+        }
+
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter)
+        {
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, excludePropertyFilter, false);
+        }
+
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, string[] excludeFromUpdate)
+        {
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), false);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
@@ -130,7 +140,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value, allowExplicitCardinality))
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Parameter(elementType, propertyInfo.Name)), value, allowExplicitCardinality))
                 {
                     ret = ret.AddStep(propertyStep);
                 }
@@ -166,7 +176,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, Func<string, bool> filter)
+        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, Func<string, bool> filter, bool allowExplicitCardinality)
         {
             var elementType = element.GetType();
 
@@ -183,7 +193,10 @@ namespace ExRam.Gremlinq.Core
             // Re-add the properties
             foreach (var (propertyInfo, value) in props)
             {
-                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Parameter(elementType, propertyInfo.Name)), value, allowExplicitCardinality))
+                {
+                    ret = ret.AddStep(propertyStep);
+                }
             }
 
             return ret;
@@ -224,12 +237,17 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
         {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => false);
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => false, true);
         }
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter)
         {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, excludePropertyFilter);
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, excludePropertyFilter, true);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, string[] excludeFromUpdate)
+        {
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)

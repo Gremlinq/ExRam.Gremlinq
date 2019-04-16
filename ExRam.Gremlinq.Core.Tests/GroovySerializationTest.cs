@@ -2813,15 +2813,55 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void UpdateV_With_Exclusions()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .V<Person>()
+                .UpdateV(person, new[] { nameof(Person.Name), nameof(Person.RegistrationDate) })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .WithParameters("Person", "Age", "Gender", 21, Gender.Male);
+        }
+
+        [Fact]
         public void UpdateE()
         {
             var now = DateTime.UtcNow;
 
             g
                 .E<WorksFor>()
-                .UpdateE(new WorksFor { From = now})
+                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin"})
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(single, _b, _c)")
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b, _c, _d).drop()).property(_b, _e).property(_c, _f).property(_d, _f)")
+                .WithParameters("WorksFor", nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+        }
+
+        [Fact]
+        public void UpdateE_With_Filter()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .E<WorksFor>()
+                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" }, (property) => property == nameof(WorksFor.To) || property == nameof(WorksFor.Role))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .WithParameters("WorksFor", "From", now);
+        }
+
+        [Fact]
+        public void UpdateE_With_Exclusions()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .E<WorksFor>()
+                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" }, new[] { nameof(WorksFor.To), nameof(WorksFor.Role) })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters("WorksFor", "From", now);
         }
     }
