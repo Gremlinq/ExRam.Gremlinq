@@ -2,6 +2,8 @@
 using FluentAssertions;
 using Xunit;
 using LanguageExt;
+using System.Linq.Expressions;
+using System;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -98,6 +100,122 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TryGetConstructiveLabel(typeof(Person))
                 .Should()
                 .BeSome("person");
+        }
+
+        [Fact]
+        public void CamelcaseLabel_Verticies()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels()
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+        }
+
+        [Fact]
+        public void Camelcase_Edges()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels()
+                .EdgesModel
+                .TryGetConstructiveLabel(typeof(LivesIn))
+                .Should()
+                .BeEqual("livesIn");
+        }
+
+        [Fact]
+        public void Camelcase_Identifier_By_MemberExpression()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers()
+                .GetIdentifier(Expression.Property(Expression.Constant(new Person()), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Identifier_By_ParameterExpression()
+        {
+            GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers()
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Label()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("TimeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Identifier()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("RegistrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Combined()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseLabels()
+                .WithCamelcaseIdentifiers();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+        }
+
+        [Fact]
+        public void Camelcase_Mixed_Mode_Combined_Reversed()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .WithCamelcaseIdentifiers()
+                .WithCamelcaseLabels();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Parameter(typeof(Person), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
         }
     }
 }

@@ -64,6 +64,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddE_property()
+        {
+            g
+                .AddV<Person>()
+                .AddE(new LivesIn
+                {
+                    Since = DateTimeOffset.Now
+                })
+                .To(__ => __
+                    .V<Country>("id"))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).property(_i, _j).to(__.V(_k).hasLabel(_l))");
+        }
+
+        [Fact]
         public void AddE_OutV()
         {
             g
@@ -202,8 +217,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(list, _c, _d).property(list, _c, _e).property(single, _f, _g)")
-                .WithParameters("Company", 1, "PhoneNumbers", "+4912345", "+4923456", "FoundingDate", DateTime.MinValue);
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d).property(list, _e, _f).property(list, _e, _g)")
+                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]

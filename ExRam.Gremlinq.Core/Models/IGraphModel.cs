@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -8,5 +9,7 @@ namespace ExRam.Gremlinq.Core
 
         IGraphElementModel VerticesModel { get; }
         IGraphElementModel EdgesModel { get; }
+
+        object GetIdentifier(Expression expression);
     }
 }
