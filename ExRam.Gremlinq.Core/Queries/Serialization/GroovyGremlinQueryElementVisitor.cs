@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExRam.Gremlinq.Core.GraphElements;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -270,7 +270,33 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         public virtual void Visit(PropertyStep step)
         {
-            Method("property", step.Key, step.Value);
+            if (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
+                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+
+            if (step.Value is IVertexProperty && step.Value is Property property)
+            {
+                var metaProperties = property.GetMetaProperties()
+                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                    .Prepend(property.GetValue())
+                    .Prepend(step.Key);
+
+                metaProperties = step.Cardinality.Fold(
+                    metaProperties,
+                    (closureMetaProperties, c) => closureMetaProperties.Prepend(c));
+
+                Method("property", metaProperties);
+            }
+            else
+            {
+                if (ReferenceEquals(step.Key, T.Id))
+                    Method("property", step.Key, step.Value);
+                else
+                {
+                    step.Cardinality.Match(
+                        c => Method("property", c, step.Key, step.Value),
+                        () => Method("property", step.Key, step.Value));
+                }
+            }
         }
 
         public virtual void Visit(RangeStep step)
@@ -585,27 +611,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             VisitLogicalStep(step, "or");
         }
 
-        public virtual void Visit(VertexPropertyStep step)
-        {
-            if (step.Value != null)
-            {
-                if (!step.Type.IsArray || step.Type == typeof(byte[]))
-                    Property(Cardinality.Single, step.Key, step.Value);
-                else
-                {
-                    // ReSharper disable once PossibleNullReferenceException
-                    if (step.Type.GetElementType().IsInstanceOfType(step.Value))
-                        Property(Cardinality.List, step.Key, step.Value);
-                    else
-                    {
-                        foreach (var item in (IEnumerable)step.Value)
-                        {
-                            Property(Cardinality.List, step.Key, item);
-                        }
-                    }
-                }
-            }
-        }
 
         public virtual void Visit(ValueStep step)
         {
@@ -875,30 +880,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method(stepName,
                 step.Traversals
                     .SelectMany(FlattenLogicalTraversals<TStep>));
-        }
-
-        protected void Property(Cardinality cardinality, object name, object value)
-        {
-            if (T.Id.Equals(name) && !Cardinality.Single.Equals(cardinality))
-                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
-
-            if (value is IVertexProperty && value is Property property)
-            {
-                var metaProperties = property.GetMetaProperties()
-                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .Prepend(property.GetValue())
-                    .Prepend(name)
-                    .Prepend(cardinality);
-
-                Method("property", metaProperties);
-            }
-            else
-            {
-                if (ReferenceEquals(name, T.Id))
-                    Method("property", name, value);
-                else
-                    Method("property", cardinality, name, value);
-            }
         }
 
         protected virtual void Visit(P.SingleArgumentP p, string name)

@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -114,7 +115,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(new AddEStep(Model, newEdge))
-                .AddElementProperties(newEdge);
+                .AddElementProperties(newEdge, false);
         }
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
@@ -122,17 +123,47 @@ namespace ExRam.Gremlinq.Core
             return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => false);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
         {
             var ret = this;
             var elementType = element.GetType();
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                ret = ret.AddStep(new VertexPropertyStep(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value));
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(elementType, propertyInfo.Name), value, allowExplicitCardinality))
+                {
+                    ret = ret.AddStep(propertyStep);
+                }
             }
 
             return ret;
+        }
+
+        private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
+        {
+            if (value != null)
+            {
+                if (!propertyType.IsArray || propertyType == typeof(byte[]))
+                    yield return new PropertyStep(allowExplicitCardinality ? Cardinality.Single : default, key, value);
+                else
+                {
+                    if (!allowExplicitCardinality)
+                        throw new InvalidOperationException(/*TODO */);
+
+                    // ReSharper disable once PossibleNullReferenceException
+                    if (propertyType.GetElementType().IsInstanceOfType(value))
+                    {
+                        yield return new PropertyStep(Cardinality.List, key, value);
+                    }
+                    else
+                    {
+                        foreach (var item in (IEnumerable)value)
+                        {
+                            yield return new PropertyStep(Cardinality.List, key, item);
+                        }
+                    }
+                }
+            }
         }
 
         private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, Func<string, bool> filter)
@@ -188,7 +219,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
-                .AddElementProperties(vertex);
+                .AddElementProperties(vertex, true);
         }
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
@@ -659,7 +690,16 @@ namespace ExRam.Gremlinq.Core
                         return DropProperties(stringKey);
                 }
                 else
-                    return AddStep(new VertexPropertyStep(memberExpression.Type, identifier, value));
+                {
+                    var ret = this;
+
+                    foreach(var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
+                    {
+                        ret = ret.AddStep(propertyStep);
+                    }
+
+                    return ret;
+                }
             }
 
             throw new ExpressionNotSupportedException(projection);
