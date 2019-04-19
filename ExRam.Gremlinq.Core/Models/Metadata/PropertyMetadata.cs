@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Core
 
         }
 
-        public PropertyMetadata(bool isReadOnly, bool isIgnored)
+        public PropertyMetadata(PropertyMetadata source)
         {
-            IsReadOnly = isReadOnly;
-            IsIgnored = isIgnored;
+            IsReadOnly = source.IsReadOnly;
+            IsIgnored = source.IsIgnored;
         }
     }
 }

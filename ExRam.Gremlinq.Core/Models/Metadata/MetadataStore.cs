@@ -8,7 +8,17 @@ namespace ExRam.Gremlinq.Core
 { 
     public class MetadataStore : IMetadataStore
     {
-        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>> _propertyMetadataDictionary = new ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>>();
+        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>> _propertyMetadataDictionary;
+
+        public MetadataStore()
+        {
+            _propertyMetadataDictionary = new ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>>();
+        }
+
+        internal MetadataStore(ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>> source)
+        {
+            _propertyMetadataDictionary = source;
+        }
 
         public void UpdatePropertyMetadata(Type type, PropertyInfo propertyInfo, Action<PropertyMetadata> updateAction)
         {
@@ -28,11 +38,31 @@ namespace ExRam.Gremlinq.Core
                 if (typeDictionary.TryGetValue(property.Name, out var metadata))
                 {
                     // Treat as immutable
-                    retVal = new PropertyMetadata(metadata.IsReadOnly, metadata.IsIgnored);
+                    retVal = new PropertyMetadata(metadata);
                 }
             }
 
             return retVal ?? new PropertyMetadata();
+        }
+
+        public object Clone()
+        {
+            var copy = new ConcurrentDictionary<Type, ConcurrentDictionary<string, PropertyMetadata>>();
+
+            foreach(var typeKey in _propertyMetadataDictionary.Keys)
+            {
+                var propertyCopy = new ConcurrentDictionary<string, PropertyMetadata>();
+                copy.TryAdd(typeKey, propertyCopy);
+
+                var propertyDictionary = _propertyMetadataDictionary[typeKey];
+
+                foreach (var propertyKey in propertyDictionary.Keys)
+                {
+                    propertyCopy.TryAdd(propertyKey, new PropertyMetadata(propertyDictionary[propertyKey]));
+                }
+            }
+
+            return new MetadataStore(copy);
         }
     }
 }

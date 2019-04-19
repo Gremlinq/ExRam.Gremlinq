@@ -24,9 +24,7 @@ namespace ExRam.Gremlinq.Core
 
         private abstract class GraphModelBase : IGraphModel
         {
-            protected readonly IElementBuilder _elementBuilder;
             protected readonly IMetadataStore _metadataStore;
-
             public abstract IGraphElementModel VerticesModel { get; }
             public abstract IGraphElementModel EdgesModel { get; }
             public virtual IMetadataStore MetadataStore => _metadataStore;
@@ -34,7 +32,6 @@ namespace ExRam.Gremlinq.Core
             public GraphModelBase()
             {
                 _metadataStore = new MetadataStore();
-                _elementBuilder = new ElementBuilder(_metadataStore);
             }
 
             public abstract Type[] GetTypes(string label);
@@ -88,9 +85,26 @@ namespace ExRam.Gremlinq.Core
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                action(_elementBuilder);
+                action(new ElementBuilder(MetadataStore));
 
-                return this;
+                return new ConfiguredGraphModel(this);
+            }
+        }
+
+        private sealed class ConfiguredGraphModel : GraphModelBase
+        {
+            private readonly IGraphModel _model;
+            private readonly IMetadataStore _localStore;
+            public override IMetadataStore MetadataStore => _localStore;
+            public override IGraphElementModel EdgesModel => _model.EdgesModel;
+            public override IGraphElementModel VerticesModel => _model.VerticesModel;
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override object GetIdentifier(Expression expression) => _model.GetIdentifier(expression);
+
+            public ConfiguredGraphModel(IGraphModel model)
+            {
+                _model = model;
+                _localStore = model.MetadataStore.Clone() as IMetadataStore;
             }
         }
 
@@ -129,10 +143,7 @@ namespace ExRam.Gremlinq.Core
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
             public override IMetadataStore MetadataStore => _model.MetadataStore;
 
-            public override IGraphModel Configure(Action<IElementBuilder> action)
-            {
-                return _model.Configure(action);
-            }
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
 
         }
 
@@ -156,11 +167,7 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel VerticesModel => _model.VerticesModel;
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
             public override IMetadataStore MetadataStore => _model.MetadataStore;
-
-            public override IGraphModel Configure(Action<IElementBuilder> action)
-            {
-                return _model.Configure(action);
-            }
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
         }
 
         private sealed class LowercaseGraphModel : GraphModelBase
@@ -192,11 +199,7 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
             public override IMetadataStore MetadataStore => _model.MetadataStore;
-
-            public override IGraphModel Configure(Action<IElementBuilder> action)
-            {
-                return _model.Configure(action);
-            }
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
         }
 
         private sealed class RelaxedGraphModel : GraphModelBase
@@ -242,11 +245,7 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel { get; }
 
             public override IMetadataStore MetadataStore => _baseGraphModel.MetadataStore;
-
-            public override IGraphModel Configure(Action<IElementBuilder> action)
-            {
-                return _baseGraphModel.Configure(action);
-            }
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _baseGraphModel.Configure(action);
         }
 
         private sealed class EmptyGraphModel : GraphModelBase
