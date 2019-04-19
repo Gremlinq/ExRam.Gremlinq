@@ -17,6 +17,13 @@ namespace ExRam.Gremlinq.Providers.Tests
         protected IntegrationTests(IConfigurableGremlinQuerySource g)
         {
             _g = g;
+
+            _g.Model.Configure(builder =>
+            {
+                builder.Element<Person>()
+                    .ReadOnly(p => p.Id)
+                    .ReadOnly(p => p.Name);
+            });
         }
 
         [Fact(Skip = "Integration Test")]
@@ -1219,12 +1226,25 @@ namespace ExRam.Gremlinq.Providers.Tests
 
             data = await _g
                 .V<Person>(p.Id)
-                .UpdateV(p, (property) => property == nameof(Person.Name))
+                .UpdateV(p)
                 .ToArray();
 
             data.Should().HaveCount(1);
             data[0].Gender.Should().Be(Gender.Female);
             data[0].Age.Should().Be(25);
+            data[0].RegistrationDate.Should().Be(p.RegistrationDate);
+
+            p.Age = 26;
+            p.Gender = Gender.Male;
+            p.RegistrationDate = now + new TimeSpan(1, 0, 0, 0);
+
+            data = await _g
+                .ReplaceV(p)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Gender.Should().Be(Gender.Male);
+            data[0].Age.Should().Be(26);
             data[0].RegistrationDate.Should().Be(p.RegistrationDate);
         }
 

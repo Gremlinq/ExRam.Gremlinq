@@ -32,46 +32,34 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex)
-            {
-                return Create()
-                    .UpdateV(vertex);
-            }
-
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter)
-            {
-                return Create()
-                    .UpdateV(vertex, excludePropertyFilter);
-            }
-
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, ImmutableList<string> excludeFromUpdate)
-            {
-                return Create()
-                    .UpdateV(vertex, excludeFromUpdate);
-            }
-
             IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
             }
 
-            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge)
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge)
             {
                 return Create()
                     .UpdateE(edge);
             }
 
-            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter)
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge)
             {
                 return Create()
-                    .UpdateE(edge, excludePropertyFilter);
+                    .ReplaceE(edge);
             }
 
-            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, ImmutableList<string> excludeFromUpdate)
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex)
             {
                 return Create()
-                    .UpdateE(edge, excludeFromUpdate);
+                    .UpdateV(vertex);
+            }
+
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex)
+            {
+                return Create()
+                    .ReplaceV(vertex);
             }
 
             IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)

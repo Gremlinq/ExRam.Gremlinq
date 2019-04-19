@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -187,6 +189,99 @@ namespace System.Linq.Expressions
                 return new P.Within(enumerable.Cast<object>().ToArray());
 
             throw new ExpressionNotSupportedException(expression);
+        }
+
+        public static PropertyInfo GetPropertyAccess(this LambdaExpression propertyAccessExpression)
+        {
+            Debug.Assert(propertyAccessExpression.Parameters.Count == 1);
+
+            var parameterExpression = propertyAccessExpression.Parameters.Single();
+            var propertyInfo = parameterExpression.MatchSimplePropertyAccess(propertyAccessExpression.Body);
+
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException(
+                    "Invalid property access expression",
+                    nameof(propertyAccessExpression));
+            }
+
+            var declaringType = propertyInfo.DeclaringType;
+            var parameterType = parameterExpression.Type;
+
+            if (declaringType != null
+                && declaringType != parameterType
+                && declaringType.GetTypeInfo().IsInterface
+                && declaringType.GetTypeInfo().IsAssignableFrom(parameterType.GetTypeInfo()))
+            {
+                var propertyGetter = propertyInfo.GetMethod;
+                var interfaceMapping = parameterType.GetTypeInfo().GetRuntimeInterfaceMap(declaringType);
+                var index = Array.FindIndex(interfaceMapping.InterfaceMethods, p => propertyGetter.Equals(p));
+                var targetMethod = interfaceMapping.TargetMethods[index];
+                foreach (var runtimeProperty in parameterType.GetRuntimeProperties())
+                {
+                    if (targetMethod.Equals(runtimeProperty.GetMethod))
+                    {
+                        return runtimeProperty;
+                    }
+                }
+            }
+
+            return propertyInfo;
+        }
+
+        private static PropertyInfo MatchSimplePropertyAccess(
+           this Expression parameterExpression, Expression propertyAccessExpression)
+        {
+            var propertyInfos = MatchPropertyAccess(parameterExpression, propertyAccessExpression);
+
+            return propertyInfos?.Count == 1 ? propertyInfos[0] : null;
+        }
+
+        private static IReadOnlyList<PropertyInfo> MatchPropertyAccess(
+            this Expression parameterExpression, Expression propertyAccessExpression)
+        {
+            var propertyInfos = new List<PropertyInfo>();
+
+            MemberExpression memberExpression;
+
+            do
+            {
+                memberExpression = RemoveTypeAs(propertyAccessExpression.RemoveConvert()) as MemberExpression;
+
+                if (!(memberExpression?.Member is PropertyInfo propertyInfo))
+                {
+                    return null;
+                }
+
+                propertyInfos.Insert(0, propertyInfo);
+
+                propertyAccessExpression = memberExpression.Expression;
+            }
+            while (RemoveTypeAs(memberExpression.Expression.RemoveConvert()) != parameterExpression);
+
+            return propertyInfos;
+        }
+
+        private static Expression RemoveTypeAs(this Expression expression)
+        {
+            while ((expression?.NodeType == ExpressionType.TypeAs))
+            {
+                expression = ((UnaryExpression)expression.RemoveConvert()).Operand;
+            }
+
+            return expression;
+        }
+
+        private static Expression RemoveConvert(this Expression expression)
+        {
+            while (expression != null
+                   && (expression.NodeType == ExpressionType.Convert
+                       || expression.NodeType == ExpressionType.ConvertChecked))
+            {
+                expression = RemoveConvert(((UnaryExpression)expression).Operand);
+            }
+
+            return expression;
         }
     }
 }

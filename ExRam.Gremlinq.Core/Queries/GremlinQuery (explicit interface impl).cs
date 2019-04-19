@@ -33,24 +33,20 @@ namespace ExRam.Gremlinq.Core
         IOrderedPropertyGremlinQuery<TElement>
     {
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
-
-        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge) => UpdateE(edge);
-
-        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter) => UpdateE(edge, excludePropertyFilter);
-
-        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.UpdateE<TEdge>(TEdge edge, ImmutableList<string> excludeFromUpdate) => UpdateE(edge, excludeFromUpdate);
-
+        
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>() => AddE(new TEdge());
+
+        IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge) => UpdateE(edge);
+
+        IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge) => ReplaceE(edge);
 
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex) => UpdateV(vertex);
 
-        IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter) => UpdateV(vertex, excludePropertyFilter);
-
-        IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex, ImmutableList<string> excludeFromUpdate) => UpdateV(vertex, excludeFromUpdate);
+        IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex) => ReplaceV(vertex);
 
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 

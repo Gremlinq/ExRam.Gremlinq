@@ -8,7 +8,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using ExRam.Gremlinq.Core.Attributes;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
@@ -120,24 +119,35 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
         {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => false, false);
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, false);
         }
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, Func<string, bool> excludePropertyFilter)
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> ReplaceE<TEdge>(TEdge edge)
         {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, excludePropertyFilter, false);
-        }
+            var pi = edge.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge, ImmutableList<string> excludeFromUpdate)
-        {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), false);
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"Unable to determine Id for {edge}");
+            }
+
+            var id = pi.GetValue(edge);
+
+            return AddStep(new EStep(new[] { id }))
+                .UpdateE(edge);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
         {
             var ret = this;
 
-            foreach (var (propertyInfo, value) in element.Serialize())
+            var elementType = element.GetType();
+
+            // Only pull back the properties that aren't filtered by configuration
+            var props = element.Serialize()
+                .Where(p => !Model.MetadataStore.TryGetPropertyMetadata(elementType, p.Item1).IsIgnored);
+
+            foreach (var (propertyInfo, value) in props)
             {
                 foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Property(Expression.Constant(element), propertyInfo)), value, allowExplicitCardinality))
                 {
@@ -175,13 +185,16 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, Func<string, bool> filter, bool allowExplicitCardinality)
+        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, bool allowExplicitCardinality)
         {
             var elementType = element.GetType();
 
-            // Only pull back the properties without the ReadOnly attribute
+            // Only pull back the properties that aren't filtered by configuration
             var props = element.Serialize()
-                .Where(p => !Attribute.IsDefined(p.Item1, typeof(ReadOnlyAttribute)) && !filter(p.Item1.Name));
+                .Where(p => {
+                    var m = Model.MetadataStore.TryGetPropertyMetadata(elementType, p.Item1);
+                    return !m.IsReadOnly && !m.IsIgnored;
+                });
 
             // Drop the properties we found from the existing item
             var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
@@ -236,17 +249,22 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
         {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => false, true);
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, true);
         }
 
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, Func<string, bool> excludePropertyFilter)
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> ReplaceV<TVertex>(TVertex vertex)
         {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, excludePropertyFilter, true);
-        }
+            var pi = vertex.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
 
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex, ImmutableList<string> excludeFromUpdate)
-        {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, (param) => excludeFromUpdate != null && excludeFromUpdate.Contains(param), true);
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"Unable to determine Id for {vertex}");
+            }
+
+            var id = pi.GetValue(vertex);
+
+            return AddStep(new VStep(new[] { id }))
+                .UpdateV(vertex);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
