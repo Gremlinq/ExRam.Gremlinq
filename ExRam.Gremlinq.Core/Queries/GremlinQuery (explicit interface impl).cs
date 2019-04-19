@@ -38,7 +38,15 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>() => AddE(new TEdge());
 
+        IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge) => UpdateE(edge);
+
+        IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge) => ReplaceE(edge);
+
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex) => AddV(vertex);
+
+        IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex) => UpdateV(vertex);
+
+        IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex) => ReplaceV(vertex);
 
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 

@@ -117,11 +117,37 @@ namespace ExRam.Gremlinq.Core
                 .AddElementProperties(newEdge, false);
         }
 
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
+        {
+            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, false);
+        }
+
+        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> ReplaceE<TEdge>(TEdge edge)
+        {
+            var pi = edge.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
+
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"Unable to determine Id for {edge}");
+            }
+
+            var id = pi.GetValue(edge);
+
+            return AddStep(new EStep(new[] { id }))
+                .UpdateE(edge);
+        }
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
         {
             var ret = this;
 
-            foreach (var (propertyInfo, value) in element.Serialize())
+            var elementType = element.GetType();
+
+            // Only pull back the properties that aren't filtered by configuration
+            var props = element.Serialize()
+                .Where(p => !Model.MetadataStore.TryGetPropertyMetadata(elementType, p.Item1).IsIgnored);
+
+            foreach (var (propertyInfo, value) in props)
             {
                 foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Property(Expression.Constant(element), propertyInfo)), value, allowExplicitCardinality))
                 {
@@ -159,6 +185,35 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, bool allowExplicitCardinality)
+        {
+            var elementType = element.GetType();
+
+            // Only pull back the properties that aren't filtered by configuration
+            var props = element.Serialize()
+                .Where(p => {
+                    var m = Model.MetadataStore.TryGetPropertyMetadata(elementType, p.Item1);
+                    return !m.IsReadOnly && !m.IsIgnored;
+                });
+
+            // Drop the properties we found from the existing item
+            var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
+                       .Drop();
+
+            var ret = AddStep<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new SideEffectStep(drop));
+
+            // Re-add the properties
+            foreach (var (propertyInfo, value) in props)
+            {
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.GetIdentifier(Expression.Property(Expression.Constant(element), propertyInfo)), value, allowExplicitCardinality))
+                {
+                    ret = ret.AddStep(propertyStep);
+                }
+            }
+
+            return ret;
+        }
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(step);
@@ -190,6 +245,26 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
                 .AddElementProperties(vertex, true);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
+        {
+            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, true);
+        }
+
+        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> ReplaceV<TVertex>(TVertex vertex)
+        {
+            var pi = vertex.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
+
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"Unable to determine Id for {vertex}");
+            }
+
+            var id = pi.GetValue(vertex);
+
+            return AddStep(new VStep(new[] { id }))
+                .UpdateV(vertex);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
@@ -653,7 +728,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var ret = this;
 
-                    foreach(var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
+                    foreach (var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
@@ -707,45 +782,45 @@ namespace ExRam.Gremlinq.Core
                 switch (terminal.Key)
                 {
                     case MemberExpression leftMemberExpression:
-                    {
-                        if (leftMemberExpression.Expression == terminal.Parameter)
                         {
-                            // x => x.Value == P.xy(...)
-                            if (leftMemberExpression.IsPropertyValue())
-                                return AddStep(new HasValueStep(terminal.Predicate));
+                            if (leftMemberExpression.Expression == terminal.Parameter)
+                            {
+                                // x => x.Value == P.xy(...)
+                                if (leftMemberExpression.IsPropertyValue())
+                                    return AddStep(new HasValueStep(terminal.Predicate));
 
-                            if (leftMemberExpression.IsPropertyKey())
-                                return Where(__ => __.Key().Where(terminal.Predicate));
+                                if (leftMemberExpression.IsPropertyKey())
+                                    return Where(__ => __.Key().Where(terminal.Predicate));
 
-                            if (leftMemberExpression.IsVertexPropertyLabel())
-                                return Where(__ => __.Label().Where(terminal.Predicate));
+                                if (leftMemberExpression.IsVertexPropertyLabel())
+                                    return Where(__ => __.Label().Where(terminal.Predicate));
+                            }
+                            else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression)
+                            {
+                                // x => x.Name.Value == P.xy(...)
+                                if (leftMemberExpression.IsPropertyValue())
+                                    leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
+                            }
+                            else
+                                break;
+
+                            // x => x.Name == P.xy(...)
+                            return Where(leftMemberExpression, terminal.Predicate);
                         }
-                        else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression) 
-                        {
-                            // x => x.Name.Value == P.xy(...)
-                            if (leftMemberExpression.IsPropertyValue())
-                                leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
-                        }
-                        else
-                            break;
-
-                        // x => x.Name == P.xy(...)
-                        return Where(leftMemberExpression, terminal.Predicate);
-                    }
                     case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
-                    {
-                        // x => x == P.xy(...)
-                        return Where(terminal.Predicate);
-                    }
-                    case MethodCallExpression methodCallExpression:
-                    {
-                        if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
+                            // x => x == P.xy(...)
+                            return Where(terminal.Predicate);
                         }
+                    case MethodCallExpression methodCallExpression:
+                        {
+                            if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                            {
+                                return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
             }
 

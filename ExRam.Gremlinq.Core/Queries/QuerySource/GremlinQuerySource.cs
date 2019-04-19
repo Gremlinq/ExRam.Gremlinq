@@ -38,6 +38,30 @@ namespace ExRam.Gremlinq.Core
                     .AddE(edge);
             }
 
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge)
+            {
+                return Create()
+                    .UpdateE(edge);
+            }
+
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge)
+            {
+                return Create()
+                    .ReplaceE(edge);
+            }
+
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex)
+            {
+                return Create()
+                    .UpdateV(vertex);
+            }
+
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex)
+            {
+                return Create()
+                    .ReplaceV(vertex);
+            }
+
             IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
             {
                 return Create()
@@ -138,10 +162,10 @@ namespace ExRam.Gremlinq.Core
         }
 
         // ReSharper disable once InconsistentNaming
-        #pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable IDE1006 // Naming Styles
         public static readonly IConfigurableGremlinQuerySource g = Create();
-        #pragma warning restore IDE1006 // Naming Styles
-    
+#pragma warning restore IDE1006 // Naming Styles
+
         public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
             return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance).Relax(), false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, ImmutableList<string>.Empty, NullLogger.Instance);

@@ -17,6 +17,13 @@ namespace ExRam.Gremlinq.Providers.Tests
         protected IntegrationTests(IConfigurableGremlinQuerySource g)
         {
             _g = g;
+
+            _g.Model.Configure(builder =>
+            {
+                builder.Element<Person>()
+                    .ReadOnly(p => p.Id)
+                    .ReadOnly(p => p.Name);
+            });
         }
 
         [Fact(Skip = "Integration Test")]
@@ -151,7 +158,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
             data.Should().HaveCount(1);
         }
-        
+
         [Fact(Skip = "Integration Test")]
         public async Task AddV_with_enum_property()
         {
@@ -272,7 +279,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .ToArray();
         }
-        
+
         [Fact(Skip = "Integration Test")]
         public async Task Where_property_is_not_contained_in_enumerable()
         {
@@ -868,7 +875,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .ToArray();
         }
-        
+
         [Fact(Skip = "Integration Test")]
         public async Task OrderBy_ThenBy_member()
         {
@@ -1195,6 +1202,85 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .ToArray();
+        }
+
+        [Fact(Skip = "Integration Test")]
+        public async void UpdateV()
+        {
+            var id = Guid.NewGuid().ToString("N");
+
+            var now = DateTimeOffset.FromUnixTimeMilliseconds(1481750076295);
+
+            var p = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            var data = await _g
+                .AddV(p)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Id.Should().Be(id);
+
+            p.Age = 25;
+            p.Gender = Gender.Female;
+            p.RegistrationDate = now + new TimeSpan(1, 0, 0, 0);
+
+            data = await _g
+                .V<Person>(p.Id)
+                .UpdateV(p)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Gender.Should().Be(Gender.Female);
+            data[0].Age.Should().Be(25);
+            data[0].RegistrationDate.Should().Be(p.RegistrationDate);
+
+            p.Age = 26;
+            p.Gender = Gender.Male;
+            p.RegistrationDate = now + new TimeSpan(1, 0, 0, 0);
+
+            data = await _g
+                .ReplaceV(p)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].Gender.Should().Be(Gender.Male);
+            data[0].Age.Should().Be(26);
+            data[0].RegistrationDate.Should().Be(p.RegistrationDate);
+        }
+
+        [Fact(Skip = "Integration Test")]
+        public async void UpdateE()
+        {
+            var now = DateTime.UtcNow;
+
+            var p = new Person { Id = Guid.NewGuid().ToString("N"), Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            var mgr = new Person { Id = Guid.NewGuid().ToString("N"), Age = 41, Gender = Gender.Male, Name = "Bob", RegistrationDate = now };
+
+            var e = new WorksFor { From = now, Role = "Admin" };
+
+            var data = await _g
+                .AddV(p)
+                .AddE(e)
+                .To(__ => __
+                    .AddV(mgr))
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].From.Should().Be(now);
+            data[0].Role.Should().Be("Admin");
+
+            e.From = now + new TimeSpan(1, 0, 0, 0);
+            e.Role = "Director";
+
+            data = await _g
+                .V<Person>(p.Id)
+                .UpdateE(e)
+                .ToArray();
+
+            data.Should().HaveCount(1);
+            data[0].From.Should().Be(e.From);
+            data[0].Role.Should().Be(e.Role);
         }
     }
 }
