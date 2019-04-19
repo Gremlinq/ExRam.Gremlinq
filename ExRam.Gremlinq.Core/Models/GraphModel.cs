@@ -24,8 +24,15 @@ namespace ExRam.Gremlinq.Core
 
         private abstract class GraphModelBase : IGraphModel
         {
+            protected readonly IMetadataStore _metadataStore;
             public abstract IGraphElementModel VerticesModel { get; }
             public abstract IGraphElementModel EdgesModel { get; }
+            public virtual IMetadataStore MetadataStore => _metadataStore;
+
+            public GraphModelBase()
+            {
+                _metadataStore = new MetadataStore();
+            }
 
             public abstract Type[] GetTypes(string label);
 
@@ -70,6 +77,36 @@ namespace ExRam.Gremlinq.Core
 
                 throw new ExpressionNotSupportedException(expression);
             }
+
+            public virtual IGraphModel Configure(Action<IElementBuilder> action)
+            {
+                if (action == null)
+                {
+                    throw new ArgumentNullException(nameof(action));
+                }
+
+                action(new ElementBuilder(MetadataStore));
+
+                return new ConfiguredGraphModel(this);
+            }
+        }
+
+        private sealed class ConfiguredGraphModel : GraphModelBase
+        {
+            private readonly IGraphModel _model;
+            private readonly IMetadataStore _localStore;
+
+            public override IMetadataStore MetadataStore => _localStore;
+            public override IGraphElementModel EdgesModel => _model.EdgesModel;
+            public override IGraphElementModel VerticesModel => _model.VerticesModel;
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override object GetIdentifier(Expression expression) => _model.GetIdentifier(expression);
+
+            public ConfiguredGraphModel(IGraphModel model)
+            {
+                _model = model;
+                _localStore = model.MetadataStore.Clone() as IMetadataStore;
+            }
         }
 
         private sealed class CamelcaseLabelGraphModel : GraphModelBase
@@ -105,6 +142,10 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override IMetadataStore MetadataStore => _model.MetadataStore;
+
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
+
         }
 
         private sealed class CamelcasePropertiesGraphModel : GraphModelBase
@@ -126,6 +167,8 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel => _model.EdgesModel;
             public override IGraphElementModel VerticesModel => _model.VerticesModel;
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override IMetadataStore MetadataStore => _model.MetadataStore;
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
         }
 
         private sealed class LowercaseGraphModel : GraphModelBase
@@ -156,6 +199,8 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override IMetadataStore MetadataStore => _model.MetadataStore;
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _model.Configure(action);
         }
 
         private sealed class RelaxedGraphModel : GraphModelBase
@@ -180,7 +225,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     return _baseGraphElementModel
                         .TryGetFilterLabels(elementType)
-                        .IfNone(new[] {elementType.Name});
+                        .IfNone(new[] { elementType.Name });
                 }
             }
 
@@ -199,6 +244,9 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel VerticesModel { get; }
 
             public override IGraphElementModel EdgesModel { get; }
+
+            public override IMetadataStore MetadataStore => _baseGraphModel.MetadataStore;
+            public override IGraphModel Configure(Action<IElementBuilder> action) => _baseGraphModel.Configure(action);
         }
 
         private sealed class EmptyGraphModel : GraphModelBase
@@ -305,7 +353,7 @@ namespace ExRam.Gremlinq.Core
                 _verticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
                 _edgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
 
-                _types =_verticesModel.Labels
+                _types = _verticesModel.Labels
                     .Concat(_edgesModel.Labels)
                     .GroupBy(x => x.Value[0])
                     .ToDictionary(
