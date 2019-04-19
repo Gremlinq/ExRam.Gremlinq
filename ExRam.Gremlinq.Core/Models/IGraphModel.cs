@@ -9,7 +9,10 @@ namespace ExRam.Gremlinq.Core
 
         IGraphElementModel VerticesModel { get; }
         IGraphElementModel EdgesModel { get; }
+        IMetadataStore MetadataStore { get; }
 
         object GetIdentifier(Expression expression);
+
+        IGraphModel Configure(Action<IElementBuilder> action);
     }
 }

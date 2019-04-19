@@ -217,5 +217,67 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("registrationDate");
         }
+
+        [Fact]
+        public void Configuration_ReadOnly()
+        {
+            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .Configure(builder =>
+                {
+                    builder.Element<Person>().ReadOnly(p => p.Name);
+                })
+                .MetadataStore
+                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+
+            Assert.NotNull(metadata);
+            Assert.True(metadata.IsReadOnly);
+            Assert.False(metadata.IsIgnored);
+        }
+
+        [Fact]
+        public void Configuration_Ignored()
+        {
+            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .Configure(builder =>
+                {
+                    builder.Element<Person>().Ignored(p => p.Name);
+                })
+                .MetadataStore
+                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+
+            Assert.NotNull(metadata);
+            Assert.True(metadata.IsIgnored);
+            Assert.False(metadata.IsReadOnly);
+        }
+
+        [Fact]
+        public void Configuration_Unconfigured()
+        {
+            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .MetadataStore
+                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+
+            Assert.NotNull(metadata);
+            Assert.False(metadata.IsIgnored);
+            Assert.False(metadata.IsReadOnly);
+        }
+
+        [Fact]
+        public void Configuration_Before_Model_Changes()
+        {
+            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .Configure(builder =>
+                {
+                    builder.Element<Person>().Ignored(p => p.Name);
+                })
+                .WithCamelcaseLabels()
+                .WithCamelcaseProperties()
+                .MetadataStore
+                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+
+            Assert.NotNull(metadata);
+            Assert.True(metadata.IsIgnored);
+            Assert.False(metadata.IsReadOnly);
+        }
     }
 }
