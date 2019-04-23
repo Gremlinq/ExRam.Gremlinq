@@ -265,13 +265,57 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Configuration_Before_Model_Changes()
         {
-            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .Configure(builder =>
                 {
                     builder.Element<Person>().Ignored(p => p.Name);
                 })
                 .WithCamelcaseLabels()
+                .WithCamelcaseProperties();
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+
+            var metadata = model.MetadataStore
+                            .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+
+            Assert.NotNull(metadata);
+            Assert.True(metadata.IsIgnored);
+            Assert.False(metadata.IsReadOnly);
+        }
+
+        [Fact]
+        public void Configuration_After_Model_Changes()
+        {
+            var model = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .Relax()
                 .WithCamelcaseProperties()
+                .WithCamelcaseLabels()
+                .Configure(builder =>
+                {
+                    builder.Element<Person>().Ignored(p => p.Name);
+                });
+
+            model
+                .VerticesModel
+                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Should()
+                .BeEqual("timeFrame");
+
+            model
+                .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
+                .Should()
+                .Be("registrationDate");
+
+            var metadata = model
                 .MetadataStore
                 .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
