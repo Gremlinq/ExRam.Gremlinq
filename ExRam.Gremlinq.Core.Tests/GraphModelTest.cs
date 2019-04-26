@@ -219,47 +219,44 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Configuration_ReadOnly()
+        public void Configuration_IgnoreOnUpdate()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .Configure(builder =>
                 {
-                    builder.Element<Person>().ReadOnly(p => p.Name);
+                    builder.Element<Person>().IgnoreOnUpdate(p => p.Name);
                 })
-                .MetadataStore
                 .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsReadOnly);
-            Assert.False(metadata.IsIgnored);
+            Assert.True(metadata.IsIgnoredOnUpdate);
+            Assert.False(metadata.IsIgnoredAlways);
         }
 
         [Fact]
-        public void Configuration_Ignored()
+        public void Configuration_IgnoreAlways()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .Configure(builder =>
                 {
-                    builder.Element<Person>().Ignored(p => p.Name);
+                    builder.Element<Person>().IgnoreAlways(p => p.Name);
                 })
-                .MetadataStore
                 .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnored);
-            Assert.False(metadata.IsReadOnly);
+            Assert.True(metadata.IsIgnoredAlways);
+            Assert.False(metadata.IsIgnoredOnUpdate);
         }
 
         [Fact]
         public void Configuration_Unconfigured()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .MetadataStore
                 .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.False(metadata.IsIgnored);
-            Assert.False(metadata.IsReadOnly);
+            Assert.False(metadata.IsIgnoredAlways);
+            Assert.False(metadata.IsIgnoredOnUpdate);
         }
 
         [Fact]
@@ -268,7 +265,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .Configure(builder =>
                 {
-                    builder.Element<Person>().Ignored(p => p.Name);
+                    builder.Element<Person>().IgnoreAlways(p => p.Name);
                 })
                 .WithCamelcaseLabels()
                 .WithCamelcaseProperties();
@@ -284,12 +281,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model.MetadataStore
-                            .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+            var metadata = model.TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnored);
-            Assert.False(metadata.IsReadOnly);
+            Assert.True(metadata.IsIgnoredAlways);    
+            Assert.False(metadata.IsIgnoredOnUpdate);
         }
 
         [Fact]
@@ -301,7 +297,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithCamelcaseLabels()
                 .Configure(builder =>
                 {
-                    builder.Element<Person>().Ignored(p => p.Name);
+                    builder.Element<Person>().IgnoreAlways(p => p.Name);
                 });
 
             model
@@ -315,13 +311,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model
-                .MetadataStore
-                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+            var metadata = model.TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnored);
-            Assert.False(metadata.IsReadOnly);
+            Assert.True(metadata.IsIgnoredAlways);
+            Assert.False(metadata.IsIgnoredOnUpdate);
         }
     }
 }

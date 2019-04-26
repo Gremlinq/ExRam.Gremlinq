@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core
 {
     public class PropertyMetadata
     {
-        public bool IsReadOnly { get; internal set; }
+        public bool IsIgnoredOnUpdate { get; internal set; }
 
-        public bool IsIgnored { get; internal set; }
+        public bool IsIgnoredAlways { get; internal set; }
 
         public PropertyMetadata()
         {
@@ -17,8 +17,8 @@ namespace ExRam.Gremlinq.Core
 
         public PropertyMetadata(PropertyMetadata source)
         {
-            IsReadOnly = source.IsReadOnly;
-            IsIgnored = source.IsIgnored;
+            IsIgnoredOnUpdate = source.IsIgnoredOnUpdate;
+            IsIgnoredAlways = source.IsIgnoredAlways;
         }
     }
 }

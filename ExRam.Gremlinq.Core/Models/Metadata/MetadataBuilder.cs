@@ -6,23 +6,23 @@ namespace ExRam.Gremlinq.Core
 {
     internal class MetadataBuilder<TElement> : IMetadataBuilder<TElement>
     {
-        private IMetadataStore _metadataStore;
+        private ElementBuilder _parentBuilder;
 
-        public MetadataBuilder(IMetadataStore metadataStore)
+        public MetadataBuilder(ElementBuilder parentBuilder)
         {
-            _metadataStore = metadataStore;
+            _parentBuilder = parentBuilder;
         }
 
-        public IMetadataBuilder<TElement> ReadOnly<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IMetadataBuilder<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            UpdateMetadata(typeof(TElement), propertyExpression, (metadata) => metadata.IsReadOnly = true);
+            UpdateMetadata(typeof(TElement), propertyExpression, (metadata) => metadata.IsIgnoredOnUpdate = true);
 
             return this;
         }
 
-        public IMetadataBuilder<TElement> Ignored<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IMetadataBuilder<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            UpdateMetadata(typeof(TElement), propertyExpression, (metadata) => metadata.IsIgnored = true);
+            UpdateMetadata(typeof(TElement), propertyExpression, (metadata) => metadata.IsIgnoredAlways = true);
 
             return this;
         }
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
         {
             var pi = propertyExpression.GetPropertyAccess();
 
-            _metadataStore.UpdatePropertyMetadata(type, pi, action);
+            _parentBuilder.UpdatePropertyMetadata(type, pi, action);
         }
     }
 }
