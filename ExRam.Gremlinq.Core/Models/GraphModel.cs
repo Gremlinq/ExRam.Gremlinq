@@ -245,13 +245,10 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
-                private readonly Type _baseType;
                 private readonly ConcurrentDictionary<Type, Option<string[]>> _derivedLabels = new ConcurrentDictionary<Type, Option<string[]>>();
 
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
-                    _baseType = baseType;
-
                     Labels = assemblies
                         .Distinct()
                         .SelectMany(assembly =>
@@ -289,22 +286,22 @@ namespace ExRam.Gremlinq.Core
 
                 public Option<string[]> TryGetFilterLabels(Type elementType)
                 {
-                    return elementType.IsAssignableFrom(_baseType)
-                        ? Array.Empty<string>()
-                        : _derivedLabels.GetOrAdd(
-                            elementType,
-                            closureType =>
-                            {
-                                var labels = Labels
-                                    .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                                    .Select(kvp => kvp.Value)
-                                    .OrderBy(x => x)
-                                    .ToArray();
+                    return _derivedLabels.GetOrAdd(
+                        elementType,
+                        closureType =>
+                        {
+                            var labels = Labels
+                                .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                                .Select(kvp => kvp.Value)
+                                .OrderBy(x => x)
+                                .ToArray();
 
-                                return labels.Length == 0
-                                    ? default(Option<string[]>)
+                            return labels.Length == 0
+                                ? default(Option<string[]>)
+                                : labels.Length == Labels.Count
+                                    ? Array.Empty<string>()
                                     : labels;
-                            });
+                        });
                 }
 
                 public IDictionary<Type, string> Labels { get; }
