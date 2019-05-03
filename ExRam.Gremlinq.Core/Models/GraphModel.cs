@@ -273,7 +273,7 @@ namespace ExRam.Gremlinq.Core
                         .Where(x => !x.IsInterface)
                         .ToDictionary(
                             type => type,
-                            type => new[] { type.Name });
+                            type => type.Name);
                 }
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
@@ -282,8 +282,7 @@ namespace ExRam.Gremlinq.Core
                         .GetTypeHierarchy()
                         .Where(type => !type.IsAbstract)
                         .SelectMany(type => Labels
-                            .TryGetValue(type)
-                            .Map(x => x.FirstOrDefault()))
+                            .TryGetValue(type))
                         .FirstOrDefault();
                 }
 
@@ -297,7 +296,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 var labels = Labels
                                     .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                                    .Select(kvp => kvp.Value[0])
+                                    .Select(kvp => kvp.Value)
                                     .OrderBy(x => x)
                                     .ToArray();
 
@@ -307,7 +306,7 @@ namespace ExRam.Gremlinq.Core
                             });
                 }
 
-                public IDictionary<Type, string[]> Labels { get; }
+                public IDictionary<Type, string> Labels { get; }
             }
 
             private readonly IDictionary<string, Type[]> _types;
@@ -329,7 +328,7 @@ namespace ExRam.Gremlinq.Core
 
                 _types = _verticesModel.Labels
                     .Concat(_edgesModel.Labels)
-                    .GroupBy(x => x.Value[0])
+                    .GroupBy(x => x.Value)
                     .ToDictionary(
                         group => group.Key,
                         group => group
