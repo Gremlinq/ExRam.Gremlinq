@@ -222,50 +222,47 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_IgnoreOnUpdate()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .Configure(builder =>
+                .ConfigureElement<Person>(builder =>
                 {
-                    builder.Element<Person>().IgnoreOnUpdate(p => p.Name);
+                    builder.IgnoreOnUpdate(p => p.Name);
                 })
-                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnoredOnUpdate);
-            Assert.False(metadata.IsIgnoredAlways);
+            Assert.Equal(IgnoreDirective.OnUpdate, metadata.IgnoreDirective);
         }
 
         [Fact]
         public void Configuration_IgnoreAlways()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .Configure(builder =>
+                .ConfigureElement<Person>(builder =>
                 {
-                    builder.Element<Person>().IgnoreAlways(p => p.Name);
+                    builder.IgnoreAlways(p => p.Name);
                 })
-                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnoredAlways);
-            Assert.False(metadata.IsIgnoredOnUpdate);
+            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);
         }
 
         [Fact]
         public void Configuration_Unconfigured()
         {
             var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.False(metadata.IsIgnoredAlways);
-            Assert.False(metadata.IsIgnoredOnUpdate);
+            Assert.Equal(IgnoreDirective.Never, metadata.IgnoreDirective);
         }
 
         [Fact]
         public void Configuration_Before_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .Configure(builder =>
+                .ConfigureElement<Person>(builder =>
                 {
-                    builder.Element<Person>().IgnoreAlways(p => p.Name);
+                    builder.IgnoreAlways(p => p.Name);
                 })
                 .WithCamelcaseLabels()
                 .WithCamelcaseProperties();
@@ -281,11 +278,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model.TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+            var metadata = model.GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnoredAlways);    
-            Assert.False(metadata.IsIgnoredOnUpdate);
+            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);    
         }
 
         [Fact]
@@ -295,9 +291,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Relax()
                 .WithCamelcaseProperties()
                 .WithCamelcaseLabels()
-                .Configure(builder =>
+                .ConfigureElement<Person>(builder =>
                 {
-                    builder.Element<Person>().IgnoreAlways(p => p.Name);
+                    builder.IgnoreAlways(p => p.Name);
                 });
 
             model
@@ -311,11 +307,10 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model.TryGetPropertyMetadata(typeof(Person), typeof(Person).GetProperty(nameof(Person.Name)));
+            var metadata = model.GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
 
             Assert.NotNull(metadata);
-            Assert.True(metadata.IsIgnoredAlways);
-            Assert.False(metadata.IsIgnoredOnUpdate);
+            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);
         }
     }
 }

@@ -13,8 +13,8 @@ namespace ExRam.Gremlinq.Core
 
         object GetIdentifier(Expression expression);
 
-        PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property);
+        PropertyMetadata GetPropertyMetadata(PropertyInfo property);
 
-        IGraphModel Configure(Action<IElementBuilder> action);
+        IGraphModel ConfigureElement<TElement>(Action<IElementConfigurator<TElement>> action);
     }
 }

@@ -248,8 +248,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithModel(GraphModel.Empty)
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
-                .WithParameters("Language", "IetfLanguageTag", "en", "Id", 1);
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
         [Fact]

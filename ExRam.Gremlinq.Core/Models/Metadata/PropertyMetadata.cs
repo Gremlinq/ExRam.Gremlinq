@@ -1,24 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ExRam.Gremlinq.Core
 {
+    [Flags]
+    public enum IgnoreDirective
+    {
+        Never = 0,
+
+        OnAdd = 1,
+        OnUpdate = 2,
+
+        Always = 3
+    }
+
     public class PropertyMetadata
     {
-        public bool IsIgnoredOnUpdate { get; internal set; }
-
-        public bool IsIgnoredAlways { get; internal set; }
-
-        public PropertyMetadata()
+        public PropertyMetadata(IgnoreDirective ignoreDirective)
         {
-
+            IgnoreDirective = ignoreDirective;
         }
 
-        public PropertyMetadata(PropertyMetadata source)
-        {
-            IsIgnoredOnUpdate = source.IsIgnoredOnUpdate;
-            IsIgnoredAlways = source.IsIgnoredAlways;
-        }
+        public IgnoreDirective IgnoreDirective { get; }
     }
 }

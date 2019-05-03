@@ -1,8 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Core;
+using LanguageExt;
 
 namespace System.Linq
 {
+    public static class ImmutableDictionaryExtensions
+    {
+        public static Option<TValue> TryGetValue<TKey, TValue>(this ImmutableDictionary<TKey, TValue> dict, TKey key)
+        {
+            return ((IReadOnlyDictionary<TKey, TValue>)dict).TryGetValue(key);
+        }
+    }
+
     public static class EnumerableExtensions
     {
         public static bool Contains<TSource>(this IEnumerable<TSource> source, StepLabel<TSource> stepLabel)
