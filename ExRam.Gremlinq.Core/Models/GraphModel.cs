@@ -70,6 +70,63 @@ namespace ExRam.Gremlinq.Core
 
                 throw new ExpressionNotSupportedException(expression);
             }
+
+            public virtual PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property)
+            {
+                return new PropertyMetadata();
+            }
+
+            public virtual IGraphModel Configure(Action<IElementBuilder> action)
+            {
+                if (action == null)
+                {
+                    throw new ArgumentNullException(nameof(action));
+                }
+
+                var builder = new ElementBuilder();
+
+                action(builder);
+
+                return new ConfiguredGraphModel(this, builder);
+            }
+        }
+
+        private sealed class ConfiguredGraphModel : GraphModelBase
+        {
+            private readonly ElementBuilder _elementBuilder;
+            private readonly IGraphModel _model;
+
+            public override IGraphElementModel EdgesModel => _model.EdgesModel;
+            public override IGraphElementModel VerticesModel => _model.VerticesModel;
+            public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override object GetIdentifier(Expression expression) => _model.GetIdentifier(expression);
+
+            public ConfiguredGraphModel(IGraphModel model, ElementBuilder builder)
+            {
+                _model = model;
+                _elementBuilder = builder;
+            }
+
+            public override PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property)
+            {
+                return _elementBuilder.TryGetPropertyMetadata(elementType, property);
+            }
+
+            public override IGraphModel Configure(Action<IElementBuilder> action)
+            {
+                if (action == null)
+                {
+                    throw new ArgumentNullException(nameof(action));
+                }
+
+                // Clones the current builder
+                var builder = new ElementBuilder(_elementBuilder);
+
+                action(builder);
+
+                return new ConfiguredGraphModel(this, builder);
+            }
+
         }
 
         private sealed class CamelcaseLabelGraphModel : GraphModelBase
@@ -105,6 +162,7 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property) => _model.TryGetPropertyMetadata(elementType, property);
         }
 
         private sealed class CamelcasePropertiesGraphModel : GraphModelBase
@@ -126,6 +184,8 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel => _model.EdgesModel;
             public override IGraphElementModel VerticesModel => _model.VerticesModel;
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property) => _model.TryGetPropertyMetadata(elementType, property);
+
         }
 
         private sealed class LowercaseGraphModel : GraphModelBase
@@ -156,6 +216,8 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
             public override Type[] GetTypes(string label) => _model.GetTypes(label);
+            public override PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property) => _model.TryGetPropertyMetadata(elementType, property);
+
         }
 
         private sealed class RelaxedGraphModel : GraphModelBase
@@ -180,7 +242,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     return _baseGraphElementModel
                         .TryGetFilterLabels(elementType)
-                        .IfNone(new[] {elementType.Name});
+                        .IfNone(new[] { elementType.Name });
                 }
             }
 
@@ -199,6 +261,8 @@ namespace ExRam.Gremlinq.Core
             public override IGraphElementModel VerticesModel { get; }
 
             public override IGraphElementModel EdgesModel { get; }
+            public override PropertyMetadata TryGetPropertyMetadata(Type elementType, PropertyInfo property) => _baseGraphModel.TryGetPropertyMetadata(elementType, property);
+
         }
 
         private sealed class EmptyGraphModel : GraphModelBase
@@ -305,7 +369,7 @@ namespace ExRam.Gremlinq.Core
                 _verticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
                 _edgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
 
-                _types =_verticesModel.Labels
+                _types = _verticesModel.Labels
                     .Concat(_edgesModel.Labels)
                     .GroupBy(x => x.Value[0])
                     .ToDictionary(
