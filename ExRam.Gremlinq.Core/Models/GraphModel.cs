@@ -271,6 +271,7 @@ namespace ExRam.Gremlinq.Core
                         })
                         .Prepend(baseType)
                         .Where(x => !x.IsInterface)
+                        .Where(type => !type.IsAbstract)
                         .ToDictionary(
                             type => type,
                             type => type.Name);
