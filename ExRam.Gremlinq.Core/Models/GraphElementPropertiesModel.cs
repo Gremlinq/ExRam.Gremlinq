@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Linq.Expressions;
 using System.Reflection;
-using ExRam.Gremlinq.Core.Extensions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -10,42 +8,24 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertiesModelImpl : IGraphElementPropertiesModel
         {
-            private readonly IGraphElementPropertiesModel _baseModel;
-
             public GraphElementPropertiesModelImpl(
-                IGraphElementPropertiesModel baseModel,
+                IGraphElementPropertyIdentifierMapping identifierMapping,
                 IImmutableDictionary<MemberInfo, MemberMetadata> metaData)
             {
-                _baseModel = baseModel;
+                IdentifierMapping = identifierMapping;
                 MetaData = metaData;
             }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData { get; }
 
-            public object GetIdentifier(Expression expression) => _baseModel.GetIdentifier(expression);
+            public IGraphElementPropertyIdentifierMapping IdentifierMapping { get; }
         }
 
         private sealed class DefaultGraphElementPropertiesModel : IGraphElementPropertiesModel
         {
             public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => ImmutableDictionary<MemberInfo, MemberMetadata>.Empty;
 
-            public object GetIdentifier(Expression expression)
-            {
-                if (expression is MemberExpression memberExpression)
-                {
-                    var memberName = memberExpression.Member.Name;
-
-                    if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
-                        return T.Id;
-
-                    if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                        return T.Label;
-
-                    return memberName;
-                }
-
-                throw new ExpressionNotSupportedException(expression);
-            }
+            public IGraphElementPropertyIdentifierMapping IdentifierMapping => GraphElementPropertyIdentifierMapping.Default;
         }
 
         private sealed class InvalidGraphElementPropertiesModel : IGraphElementPropertiesModel
@@ -54,58 +34,27 @@ namespace ExRam.Gremlinq.Core
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(MetaData)));
 
-            public object GetIdentifier(Expression expression) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetIdentifier)));
-        }
-
-        private sealed class CamelCaseGraphElementPropertiesModel : IGraphElementPropertiesModel
-        {
-            private readonly IGraphElementPropertiesModel _model;
-
-            public CamelCaseGraphElementPropertiesModel(IGraphElementPropertiesModel model)
-            {
-                _model = model;
-            }
-
-            public object GetIdentifier(Expression expression)
-            {
-                var retVal = _model.GetIdentifier(expression);
-
-                return retVal is string identifier ? identifier.ToCamelCase() : retVal;
-            }
-
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => _model.MetaData;
-        }
-
-        private sealed class LowerCaseGraphElementPropertiesModel : IGraphElementPropertiesModel
-        {
-            private readonly IGraphElementPropertiesModel _model;
-
-            public LowerCaseGraphElementPropertiesModel(IGraphElementPropertiesModel model)
-            {
-                _model = model;
-            }
-
-            public object GetIdentifier(Expression expression)
-            {
-                var retVal = _model.GetIdentifier(expression);
-
-                return retVal is string identifier ? identifier.ToCamelCase() : retVal;
-            }
-
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => _model.MetaData;
+            public IGraphElementPropertyIdentifierMapping IdentifierMapping => GraphElementPropertyIdentifierMapping.Invalid;
         }
 
         public static readonly IGraphElementPropertiesModel Default = new DefaultGraphElementPropertiesModel();
         public static readonly IGraphElementPropertiesModel Invalid = new InvalidGraphElementPropertiesModel();
 
+        public static IGraphElementPropertiesModel WithProperties(this IGraphElementPropertiesModel model, Func<IGraphElementPropertyIdentifierMapping, IGraphElementPropertyIdentifierMapping> transformation)
+        {
+            return new GraphElementPropertiesModelImpl(
+                transformation(model.IdentifierMapping),
+                model.MetaData);
+        }
+
         public static IGraphElementPropertiesModel WithCamelCaseProperties(this IGraphElementPropertiesModel model)
         {
-            return new CamelCaseGraphElementPropertiesModel(model);
+            return model.WithProperties(_ => _.ToCamelCase());
         }
 
         public static IGraphElementPropertiesModel WithLowerCaseProperties(this IGraphElementPropertiesModel model)
         {
-            return new LowerCaseGraphElementPropertiesModel(model);
+            return model.WithProperties(_ => _.ToLowerCase());
         }
 
         public static IGraphElementPropertiesModel ConfigureElement<TElement>(this IGraphElementPropertiesModel model, Action<IElementConfigurator<TElement>> action)
@@ -121,7 +70,7 @@ namespace ExRam.Gremlinq.Core
                 dict = dict.SetItem(updateSemanticsKvp.Key, new MemberMetadata(updateSemanticsKvp.Value));
             }
 
-            return new GraphElementPropertiesModelImpl(model, dict);
+            return new GraphElementPropertiesModelImpl(model.IdentifierMapping, dict);
         }
     }
 }
