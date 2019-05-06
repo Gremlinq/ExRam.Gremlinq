@@ -86,9 +86,7 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
-                public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
-
-                public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToCamelCase());
+                public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToCamelCase()).ToArray());
             }
@@ -128,9 +126,7 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
-                public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
-
-                public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToLower());
+                public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToLower()).ToArray());
             }
@@ -156,14 +152,7 @@ namespace ExRam.Gremlinq.Core
                     _baseGraphElementModel = baseGraphElementModel;
                 }
 
-                public ImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
-
-                public Option<string> TryGetConstructiveLabel(Type elementType)
-                {
-                    return _baseGraphElementModel
-                        .TryGetConstructiveLabel(elementType)
-                        .IfNone(elementType.Name);
-                }
+                public IImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
 
                 public Option<string[]> TryGetFilterLabels(Type elementType)
                 {
@@ -274,16 +263,6 @@ namespace ExRam.Gremlinq.Core
                             type => type.Name);
                 }
 
-                public Option<string> TryGetConstructiveLabel(Type elementType)
-                {
-                    return elementType
-                        .GetTypeHierarchy()
-                        .Where(type => !type.IsAbstract)
-                        .SelectMany(type => Labels
-                            .TryGetValue(type))
-                        .FirstOrDefault();
-                }
-
                 public Option<string[]> TryGetFilterLabels(Type elementType)
                 {
                     return _derivedLabels.GetOrAdd(
@@ -304,7 +283,7 @@ namespace ExRam.Gremlinq.Core
                         });
                 }
 
-                public ImmutableDictionary<Type, string> Labels { get; }
+                public IImmutableDictionary<Type, string> Labels { get; }
             }
 
             private readonly AssemblyGraphElementModel _edgesModel;

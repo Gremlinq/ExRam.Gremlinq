@@ -36,7 +36,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(Person))
+                .Labels
+                .TryGetValue(typeof(Person))
                 .Should()
                 .BeSome("Person");
         }
@@ -46,7 +47,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(VertexInsideHierarchy))
+                .Labels
+                .TryGetValue(typeof(VertexInsideHierarchy))
                 .Should()
                 .BeNone();
         }
@@ -56,7 +58,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(VertexOutsideHierarchy))
+                .Labels
+                .TryGetValue(typeof(VertexOutsideHierarchy))
                 .Should()
                 .BeNone();
         }
@@ -66,7 +69,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(Person))
+                .Labels
+                .TryGetValue(typeof(Person))
                 .Should()
                 .BeSome("Person");
         }
@@ -76,7 +80,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(VertexInsideHierarchy))
+                .Labels
+                .TryGetValue(typeof(VertexInsideHierarchy))
                 .Should()
                 .BeSome("VertexInsideHierarchy");
         }
@@ -86,7 +91,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(VertexOutsideHierarchy))
+                .Labels
+                .TryGetValue(typeof(VertexOutsideHierarchy))
                 .Should()
                 .BeSome("VertexOutsideHierarchy");
         }
@@ -97,7 +103,8 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithLowercaseLabels()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(Person))
+                .Labels
+                .TryGetValue(typeof(Person))
                 .Should()
                 .BeSome("person");
         }
@@ -108,7 +115,8 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelcaseLabels()
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
         }
@@ -119,7 +127,8 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelcaseLabels()
                 .EdgesModel
-                .TryGetConstructiveLabel(typeof(LivesIn))
+                .Labels
+                .TryGetValue(typeof(LivesIn))
                 .Should()
                 .BeEqual("livesIn");
         }
@@ -152,7 +161,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("TimeFrame");
 
@@ -170,7 +180,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -189,7 +200,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -208,7 +220,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -269,7 +282,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -298,7 +312,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .TryGetConstructiveLabel(typeof(TimeFrame))
+                .Labels
+                .TryGetValue(typeof(TimeFrame))
                 .Should()
                 .BeEqual("timeFrame");
 
