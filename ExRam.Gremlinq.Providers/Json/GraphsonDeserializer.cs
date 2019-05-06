@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
@@ -256,6 +257,7 @@ namespace ExRam.Gremlinq.Providers
             }
 
             private readonly IGraphModel _model;
+            private readonly ConcurrentDictionary<IGraphModel, IDictionary<string, Type[]>> _types = new ConcurrentDictionary<IGraphModel, IDictionary<string, Type[]>>();
 
             public ElementConverter(IGraphModel model)
             {
@@ -271,12 +273,24 @@ namespace ExRam.Gremlinq.Providers
                     var label = jToken["label"]?.ToString();
 
                     var modelType = label != null
-                        ? _model
-                            .VerticesModel
-                            .GetTypes(label)
-                            .Concat(_model.EdgesModel.GetTypes(label))
+                        ? _types
+                            .GetOrAdd(
+                                _model,
+                                model => model
+                                    .VerticesModel
+                                    .Labels
+                                    .Concat(model.EdgesModel.Labels)
+                                    .GroupBy(x => x.Value)
+                                    .ToDictionary(
+                                        group => group.Key,
+                                        group => group
+                                            .Select(x => x.Key)
+                                            .ToArray(),
+                                        StringComparer.OrdinalIgnoreCase))
+                            .TryGetValue(label)
+                            .IfNone(Array.Empty<Type>())
                             .FirstOrDefault(type => objectType.IsAssignableFrom(type))
-                        : null;
+                        : default;
 
                     if (modelType != null)
                         objectType = modelType;

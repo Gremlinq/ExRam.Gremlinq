@@ -10,8 +10,6 @@ namespace ExRam.Gremlinq.Core
         {
             public ImmutableDictionary<Type, string> Labels => ImmutableDictionary<Type, string>.Empty;
 
-            public Type[] GetTypes(string label) => Array.Empty<Type>();
-
             public Option<string> TryGetConstructiveLabel(Type elementType) => default;
 
             public Option<string[]> TryGetFilterLabels(Type elementType) => default;
@@ -22,8 +20,6 @@ namespace ExRam.Gremlinq.Core
             private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
             public ImmutableDictionary<Type, string> Labels => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Labels)));
-
-            public Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
 
             public Option<string> TryGetConstructiveLabel(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetConstructiveLabel)));
 

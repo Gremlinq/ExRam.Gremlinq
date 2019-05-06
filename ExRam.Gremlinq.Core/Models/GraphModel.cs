@@ -88,8 +88,6 @@ namespace ExRam.Gremlinq.Core
 
                 public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
 
-                public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
-
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToCamelCase());
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToCamelCase()).ToArray());
@@ -132,8 +130,6 @@ namespace ExRam.Gremlinq.Core
 
                 public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
 
-                public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
-
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToLower());
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToLower()).ToArray());
@@ -161,11 +157,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 public ImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
-
-                public Type[] GetTypes(string label)
-                {
-                    return _baseGraphElementModel.GetTypes(label);
-                }
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
                 {
@@ -254,7 +245,6 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
-                private readonly IDictionary<string, Type[]> _types;
                 private readonly ConcurrentDictionary<Type, Option<string[]>> _derivedLabels = new ConcurrentDictionary<Type, Option<string[]>>();
 
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
@@ -282,22 +272,6 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableDictionary(
                             type => type,
                             type => type.Name);
-
-                    _types = Labels
-                        .GroupBy(x => x.Value)
-                        .ToDictionary(
-                            group => group.Key,
-                            group => group
-                                .Select(x => x.Key)
-                                .ToArray(),
-                            StringComparer.OrdinalIgnoreCase);
-                }
-
-                public Type[] GetTypes(string label)
-                {
-                    return _types
-                        .TryGetValue(label)
-                        .IfNone(Array.Empty<Type>());
                 }
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
