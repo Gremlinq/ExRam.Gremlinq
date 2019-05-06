@@ -13,9 +13,9 @@ namespace ExRam.Gremlinq.Core
         Always = 3
     }
 
-    public class PropertyMetadata
+    public class MemberMetadata
     {
-        public PropertyMetadata(IgnoreDirective ignoreDirective)
+        public MemberMetadata(IgnoreDirective ignoreDirective)
         {
             IgnoreDirective = ignoreDirective;
         }
