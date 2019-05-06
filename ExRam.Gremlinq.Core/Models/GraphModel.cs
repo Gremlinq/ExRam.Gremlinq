@@ -86,6 +86,8 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
+                public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
+
                 public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
 
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToCamelCase());
@@ -128,6 +130,8 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
+                public ImmutableDictionary<Type, string> Labels => _baseModel.Labels;
+
                 public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
 
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToLower());
@@ -155,6 +159,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     _baseGraphElementModel = baseGraphElementModel;
                 }
+
+                public ImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
 
                 public Type[] GetTypes(string label)
                 {
@@ -189,8 +195,6 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class EmptyGraphModel : IGraphModel
         {
-            public Type[] GetTypes(string label) => Array.Empty<Type>();
-
             public object GetIdentifier(Expression expression)
             {
                 if (expression is MemberExpression memberExpression)
@@ -226,8 +230,6 @@ namespace ExRam.Gremlinq.Core
         private sealed class InvalidGraphModel : IGraphModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
-
-            public Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
 
             public object GetIdentifier(Expression expression)
             {
