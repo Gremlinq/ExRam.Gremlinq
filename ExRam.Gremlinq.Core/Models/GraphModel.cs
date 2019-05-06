@@ -269,7 +269,7 @@ namespace ExRam.Gremlinq.Core
                         .Prepend(baseType)
                         .Where(x => !x.IsInterface)
                         .Where(type => !type.IsAbstract)
-                        .ToDictionary(
+                        .ToImmutableDictionary(
                             type => type,
                             type => type.Name);
                 }
@@ -304,7 +304,7 @@ namespace ExRam.Gremlinq.Core
                         });
                 }
 
-                public IDictionary<Type, string> Labels { get; }
+                public ImmutableDictionary<Type, string> Labels { get; }
             }
 
             private readonly IDictionary<string, Type[]> _types;
