@@ -59,18 +59,11 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphElementPropertiesModel ConfigureElement<TElement>(this IGraphElementPropertiesModel model, Action<IElementConfigurator<TElement>> action)
         {
-            var builder = new ElementConfigurator<TElement>();
+            var builder = new ElementConfigurator<TElement>(model.MetaData);
 
             action(builder);
 
-            var dict = model.MetaData;
-            
-            foreach (var updateSemanticsKvp in builder.UpdateSemantics)
-            {
-                dict = dict.SetItem(updateSemanticsKvp.Key, new MemberMetadata(updateSemanticsKvp.Value));
-            }
-
-            return new GraphElementPropertiesModelImpl(model.IdentifierMapping, dict);
+            return new GraphElementPropertiesModelImpl(model.IdentifierMapping, builder.MetaData);
         }
     }
 }
