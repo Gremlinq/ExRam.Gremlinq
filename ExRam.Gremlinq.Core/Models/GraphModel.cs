@@ -87,8 +87,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
-
-                public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToCamelCase()).ToArray());
             }
 
             public CamelcaseLabelGraphModel(IGraphModel model) : base(model)
@@ -127,8 +125,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
-
-                public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToLower()).ToArray());
             }
 
             public LowercaseGraphModel(IGraphModel model) : base(model)
@@ -153,13 +149,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 public IImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
-
-                public Option<string[]> TryGetFilterLabels(Type elementType)
-                {
-                    return _baseGraphElementModel
-                        .TryGetFilterLabels(elementType)
-                        .IfNone(new[] { elementType.Name });
-                }
             }
 
             public RelaxedGraphModel(IGraphModel baseGraphModel) : base(baseGraphModel)
@@ -234,8 +223,6 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
-                private readonly ConcurrentDictionary<Type, Option<string[]>> _derivedLabels = new ConcurrentDictionary<Type, Option<string[]>>();
-
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
                     Labels = assemblies
@@ -261,26 +248,6 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableDictionary(
                             type => type,
                             type => type.Name);
-                }
-
-                public Option<string[]> TryGetFilterLabels(Type elementType)
-                {
-                    return _derivedLabels.GetOrAdd(
-                        elementType,
-                        closureType =>
-                        {
-                            var labels = Labels
-                                .Where(kvp => !kvp.Key.GetTypeInfo().IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                                .Select(kvp => kvp.Value)
-                                .OrderBy(x => x)
-                                .ToArray();
-
-                            return labels.Length == 0
-                                ? default(Option<string[]>)
-                                : labels.Length == Labels.Count
-                                    ? Array.Empty<string>()
-                                    : labels;
-                        });
                 }
 
                 public IImmutableDictionary<Type, string> Labels { get; }

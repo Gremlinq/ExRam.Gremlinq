@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.Core;
@@ -257,11 +258,22 @@ namespace ExRam.Gremlinq.Providers
             }
 
             private readonly IGraphModel _model;
-            private readonly ConcurrentDictionary<IGraphModel, IDictionary<string, Type[]>> _types = new ConcurrentDictionary<IGraphModel, IDictionary<string, Type[]>>();
+            private readonly IDictionary<string, Type[]> _types;
 
             public ElementConverter(IGraphModel model)
             {
                 _model = model;
+                _types = model
+                    .VerticesModel
+                    .Labels
+                    .Concat(model.EdgesModel.Labels)
+                    .GroupBy(x => x.Value)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .Select(x => x.Key)
+                            .ToArray(),
+                        StringComparer.OrdinalIgnoreCase);
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
@@ -274,19 +286,6 @@ namespace ExRam.Gremlinq.Providers
 
                     var modelType = label != null
                         ? _types
-                            .GetOrAdd(
-                                _model,
-                                model => model
-                                    .VerticesModel
-                                    .Labels
-                                    .Concat(model.EdgesModel.Labels)
-                                    .GroupBy(x => x.Value)
-                                    .ToDictionary(
-                                        group => group.Key,
-                                        group => group
-                                            .Select(x => x.Key)
-                                            .ToArray(),
-                                        StringComparer.OrdinalIgnoreCase))
                             .TryGetValue(label)
                             .IfNone(Array.Empty<Type>())
                             .FirstOrDefault(type => objectType.IsAssignableFrom(type))
