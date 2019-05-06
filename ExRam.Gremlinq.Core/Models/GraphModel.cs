@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -7,7 +6,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.Extensions;
 using ExRam.Gremlinq.Core.GraphElements;
-using LanguageExt;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
@@ -79,14 +77,15 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class CamelcaseGraphElementModel : IGraphElementModel
             {
-                private readonly IGraphElementModel _baseModel;
-
                 public CamelcaseGraphElementModel(IGraphElementModel baseModel)
                 {
-                    _baseModel = baseModel;
+                    Labels = baseModel.Labels
+                        .ToImmutableDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.ToCamelCase());
                 }
 
-                public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
+                public IImmutableDictionary<Type, string> Labels { get; }
             }
 
             public CamelcaseLabelGraphModel(IGraphModel model) : base(model)
@@ -117,14 +116,15 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class LowercaseGraphElementModel : IGraphElementModel
             {
-                private readonly IGraphElementModel _baseModel;
-
                 public LowercaseGraphElementModel(IGraphElementModel baseModel)
                 {
-                    _baseModel = baseModel;
+                    Labels = baseModel.Labels
+                        .ToImmutableDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.ToLower());
                 }
 
-                public IImmutableDictionary<Type, string> Labels => _baseModel.Labels;
+                public IImmutableDictionary<Type, string> Labels { get; }
             }
 
             public LowercaseGraphModel(IGraphModel model) : base(model)
@@ -135,31 +135,6 @@ namespace ExRam.Gremlinq.Core
 
             public override IGraphElementModel EdgesModel { get; }
             public override IGraphElementModel VerticesModel { get; }
-        }
-
-        private sealed class RelaxedGraphModel : GraphModelWrapper
-        {
-            private sealed class RelaxedGraphElementModel : IGraphElementModel
-            {
-                private readonly IGraphElementModel _baseGraphElementModel;
-
-                public RelaxedGraphElementModel(IGraphElementModel baseGraphElementModel)
-                {
-                    _baseGraphElementModel = baseGraphElementModel;
-                }
-
-                public IImmutableDictionary<Type, string> Labels => _baseGraphElementModel.Labels;
-            }
-
-            public RelaxedGraphModel(IGraphModel baseGraphModel) : base(baseGraphModel)
-            {
-                VerticesModel = new RelaxedGraphElementModel(baseGraphModel.VerticesModel);
-                EdgesModel = new RelaxedGraphElementModel(baseGraphModel.EdgesModel);
-            }
-
-            public override IGraphElementModel VerticesModel { get; }
-
-            public override IGraphElementModel EdgesModel { get; }
         }
 
         private sealed class EmptyGraphModel : IGraphModel
@@ -305,11 +280,6 @@ namespace ExRam.Gremlinq.Core
         public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] assemblies)
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, assemblies, logger);
-        }
-
-        public static IGraphModel Relax(this IGraphModel model)
-        {
-            return new RelaxedGraphModel(model);
         }
 
         public static IGraphModel WithLowercaseLabels(this IGraphModel model)

@@ -24,8 +24,9 @@ namespace ExRam.Gremlinq.Core
 
         internal static string[] GetValidFilterLabels(this IGraphElementModel model, Type type)
         {
-            return model.TryGetFilterLabels(type)
-                .IfNone(() => throw new GraphModelException($"Can't determine labels for type {type.FullName}."));
+            return model
+                .TryGetFilterLabels(type)
+                .IfNone(new[] { type.Name });
         }
     }
 }

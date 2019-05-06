@@ -66,39 +66,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Relax_in_hierarchy_inside_model()
-        {
-            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
-                .VerticesModel
-                .Labels
-                .TryGetValue(typeof(Person))
-                .Should()
-                .BeSome("Person");
-        }
-
-        [Fact]
-        public void Relax_in_hierarchy_outside_model()
-        {
-            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
-                .VerticesModel
-                .Labels
-                .TryGetValue(typeof(VertexInsideHierarchy))
-                .Should()
-                .BeSome("VertexInsideHierarchy");
-        }
-
-        [Fact]
-        public void Relax_outside_hierarchy()
-        {
-            GraphModel.FromBaseTypes<Vertex, Edge>().Relax()
-                .VerticesModel
-                .Labels
-                .TryGetValue(typeof(VertexOutsideHierarchy))
-                .Should()
-                .BeSome("VertexOutsideHierarchy");
-        }
-
-        [Fact]
         public void Lowercase()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
@@ -303,7 +270,6 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_After_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .Relax()
                 .WithCamelcaseProperties()
                 .WithCamelcaseLabels()
                 .ConfigureElement<Person>(builder =>

@@ -565,17 +565,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void E_of_type_outside_model()
-        {
-            g
-                .WithModel(GraphModel.Dynamic())
-                .Invoking(_ => _
-                    .E<string>())
-                .Should()
-                .Throw<GraphModelException>();
-        }
-
-        [Fact]
         public void E_Properties()
         {
             g
@@ -1094,28 +1083,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().out()")
                 .WithoutParameters();
-        }
-
-        [Fact]
-        public void Out_of_type_outside_model1()
-        {
-            g
-                .WithModel(GraphModel.Dynamic())
-                .V()
-                .Invoking(_ => _.Out<string>())
-                .Should()
-                .Throw<GraphModelException>();
-        }
-
-        [Fact]
-        public void Out_of_type_outside_model2()
-        {
-            g
-                .WithModel(GraphModel.Dynamic())
-                .V()
-                .Invoking(_ => _.Out<IVertex>())
-                .Should()
-                .Throw<GraphModelException>();
         }
 
         [Fact]
@@ -1893,17 +1860,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a)")
                 .WithParameters("Person");
-        }
-
-        [Fact]
-        public void V_of_type_outside_model()
-        {
-            g
-                .WithModel(GraphModel.Dynamic())
-                .Invoking(_ => _
-                    .V<string>())
-                .Should()
-                .Throw<GraphModelException>();
         }
 
         [Fact]

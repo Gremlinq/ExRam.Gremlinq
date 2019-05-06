@@ -8,12 +8,15 @@ namespace ExRam.Gremlinq.Core
     {
         protected AddElementStep(IGraphElementModel elementModel, object value)
         {
+            var valueType = value.GetType();
+
             //TODO: Cache!
-            Label = value.GetType()
+            Label = valueType
                 .GetTypeHierarchy()
                 .Where(type => !type.IsAbstract)
-                .SelectMany(type => elementModel.Labels
-                    .TryGetValue(type))
+                .Select(type => elementModel.Labels
+                    .TryGetValue(type)
+                    .IfNone(valueType.Name))
                 .FirstOrDefault();
         }
 
