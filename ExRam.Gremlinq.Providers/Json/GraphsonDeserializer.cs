@@ -272,7 +272,9 @@ namespace ExRam.Gremlinq.Providers
 
                     var modelType = label != null
                         ? _model
+                            .VerticesModel
                             .GetTypes(label)
+                            .Concat(_model.EdgesModel.GetTypes(label))
                             .FirstOrDefault(type => objectType.IsAssignableFrom(type))
                         : null;
 

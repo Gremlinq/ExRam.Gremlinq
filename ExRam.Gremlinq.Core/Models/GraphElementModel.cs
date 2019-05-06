@@ -7,6 +7,8 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class EmptyGraphElementModel : IGraphElementModel
         {
+            public Type[] GetTypes(string label) => Array.Empty<Type>();
+
             public Option<string> TryGetConstructiveLabel(Type elementType) => default;
 
             public Option<string[]> TryGetFilterLabels(Type elementType) => default;
@@ -15,6 +17,8 @@ namespace ExRam.Gremlinq.Core
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
+
+            public Type[] GetTypes(string label) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(GetTypes)));
 
             public Option<string> TryGetConstructiveLabel(Type elementType) => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(TryGetConstructiveLabel)));
 

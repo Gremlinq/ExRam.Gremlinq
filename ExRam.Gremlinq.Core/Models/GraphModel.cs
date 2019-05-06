@@ -21,8 +21,6 @@ namespace ExRam.Gremlinq.Core
                 BaseModel = baseModel;
             }
 
-            public virtual Type[] GetTypes(string label) => BaseModel.GetTypes(label);
-
             public virtual IGraphElementModel VerticesModel { get => BaseModel.VerticesModel; }
             public virtual IGraphElementModel EdgesModel { get => BaseModel.EdgesModel; }
 
@@ -88,6 +86,8 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
+                public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
+
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToCamelCase());
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToCamelCase()).ToArray());
@@ -128,6 +128,8 @@ namespace ExRam.Gremlinq.Core
                     _baseModel = baseModel;
                 }
 
+                public Type[] GetTypes(string label) => _baseModel.GetTypes(label);
+
                 public Option<string> TryGetConstructiveLabel(Type elementType) => _baseModel.TryGetConstructiveLabel(elementType).Map(x => x.ToLower());
 
                 public Option<string[]> TryGetFilterLabels(Type elementType) => _baseModel.TryGetFilterLabels(elementType).Map(x => x.Select(y => y.ToLower()).ToArray());
@@ -152,6 +154,11 @@ namespace ExRam.Gremlinq.Core
                 public RelaxedGraphElementModel(IGraphElementModel baseGraphElementModel)
                 {
                     _baseGraphElementModel = baseGraphElementModel;
+                }
+
+                public Type[] GetTypes(string label)
+                {
+                    return _baseGraphElementModel.GetTypes(label);
                 }
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
@@ -245,6 +252,7 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
+                private readonly IDictionary<string, Type[]> _types;
                 private readonly ConcurrentDictionary<Type, Option<string[]>> _derivedLabels = new ConcurrentDictionary<Type, Option<string[]>>();
 
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
@@ -272,6 +280,22 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableDictionary(
                             type => type,
                             type => type.Name);
+
+                    _types = Labels
+                        .GroupBy(x => x.Value)
+                        .ToDictionary(
+                            group => group.Key,
+                            group => group
+                                .Select(x => x.Key)
+                                .ToArray(),
+                            StringComparer.OrdinalIgnoreCase);
+                }
+
+                public Type[] GetTypes(string label)
+                {
+                    return _types
+                        .TryGetValue(label)
+                        .IfNone(Array.Empty<Type>());
                 }
 
                 public Option<string> TryGetConstructiveLabel(Type elementType)
@@ -307,7 +331,6 @@ namespace ExRam.Gremlinq.Core
                 public ImmutableDictionary<Type, string> Labels { get; }
             }
 
-            private readonly IDictionary<string, Type[]> _types;
             private readonly AssemblyGraphElementModel _edgesModel;
             private readonly AssemblyGraphElementModel _verticesModel;
 
@@ -323,23 +346,6 @@ namespace ExRam.Gremlinq.Core
 
                 _verticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
                 _edgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
-
-                _types = _verticesModel.Labels
-                    .Concat(_edgesModel.Labels)
-                    .GroupBy(x => x.Value)
-                    .ToDictionary(
-                        group => group.Key,
-                        group => group
-                            .Select(x => x.Key)
-                            .ToArray(),
-                        StringComparer.OrdinalIgnoreCase);
-            }
-
-            public override Type[] GetTypes(string label)
-            {
-                return _types
-                    .TryGetValue(label)
-                    .IfNone(Array.Empty<Type>());
             }
 
             public override IGraphElementModel EdgesModel => _edgesModel;
