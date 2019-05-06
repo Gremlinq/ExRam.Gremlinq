@@ -1,18 +1,19 @@
-﻿using System;
+﻿using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
+    public interface IGraphElementPropertiesModel
+    {
+        object GetIdentifier(Expression expression);
+        IImmutableDictionary<PropertyInfo, PropertyMetadata> MetaData { get; }
+    }
+
     public interface IGraphModel
     {
         IGraphElementModel VerticesModel { get; }
         IGraphElementModel EdgesModel { get; }
-
-        object GetIdentifier(Expression expression);
-
-        PropertyMetadata GetPropertyMetadata(PropertyInfo property);
-
-        IGraphModel ConfigureElement<TElement>(Action<IElementConfigurator<TElement>> action);
+        IGraphElementPropertiesModel PropertiesModel { get; }
     }
 }

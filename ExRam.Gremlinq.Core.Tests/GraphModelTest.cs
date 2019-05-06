@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Lowercase()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithLowercaseLabels()
+                .WithLowerCaseLabels()
                 .VerticesModel
                 .Labels
                 .TryGetValue(typeof(Person))
@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CamelcaseLabel_Verticies()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseLabels()
+                .WithCamelCaseLabels()
                 .VerticesModel
                 .Labels
                 .TryGetValue(typeof(TimeFrame))
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Edges()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseLabels()
+                .WithCamelCaseLabels()
                 .EdgesModel
                 .Labels
                 .TryGetValue(typeof(LivesIn))
@@ -105,7 +105,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_MemberExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseProperties()
+                .WithCamelCaseProperties()
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -115,7 +116,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_ParameterExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseProperties()
+                .WithCamelCaseProperties()
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -125,7 +127,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseProperties();
+                .WithCamelCaseProperties();
 
             model
                 .VerticesModel
@@ -135,6 +137,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("TimeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -144,7 +147,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Identifier()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseLabels();
+                .WithCamelCaseLabels();
 
             model
                 .VerticesModel
@@ -154,6 +157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("RegistrationDate");
@@ -163,8 +167,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseLabels()
-                .WithCamelcaseProperties();
+                .WithCamelCaseLabels()
+                .WithCamelCaseProperties();
 
             model
                 .VerticesModel
@@ -174,6 +178,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -183,8 +188,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseProperties()
-                .WithCamelcaseLabels();
+                .WithCamelCaseProperties()
+                .WithCamelCaseLabels();
 
             model
                 .VerticesModel
@@ -194,6 +199,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -202,39 +208,55 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Configuration_IgnoreOnUpdate()
         {
-            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+            var maybeMetadata = GraphModel
+                .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElement<Person>(builder =>
                 {
                     builder.IgnoreOnUpdate(p => p.Name);
                 })
-                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
+                .PropertiesModel
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            Assert.NotNull(metadata);
-            Assert.Equal(IgnoreDirective.OnUpdate, metadata.IgnoreDirective);
+            maybeMetadata
+                .Should()
+                .BeSome(metaData => metaData
+                    .IgnoreDirective
+                    .Should()
+                    .Be(IgnoreDirective.OnUpdate));
         }
 
         [Fact]
         public void Configuration_IgnoreAlways()
         {
-            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+            var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureElement<Person>(builder =>
                 {
                     builder.IgnoreAlways(p => p.Name);
                 })
-                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
+                .PropertiesModel
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            Assert.NotNull(metadata);
-            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);
+            maybeMetadata
+                .Should()
+                .BeSome(metaData => metaData
+                    .IgnoreDirective
+                    .Should()
+                    .Be(IgnoreDirective.Always));
         }
 
         [Fact]
         public void Configuration_Unconfigured()
         {
-            var metadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
+            var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
+                .PropertiesModel
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            Assert.NotNull(metadata);
-            Assert.Equal(IgnoreDirective.Never, metadata.IgnoreDirective);
+            maybeMetadata
+                .Should()
+                .BeNone();
         }
 
         [Fact]
@@ -245,8 +267,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 {
                     builder.IgnoreAlways(p => p.Name);
                 })
-                .WithCamelcaseLabels()
-                .WithCamelcaseProperties();
+                .WithCamelCaseLabels()
+                .WithCamelCaseProperties();
 
             model
                 .VerticesModel
@@ -256,22 +278,30 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model.GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
+            var maybeMetadata = model
+                .PropertiesModel
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            Assert.NotNull(metadata);
-            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);    
+            maybeMetadata
+                .Should()
+                .BeSome(metaData => metaData
+                    .IgnoreDirective
+                    .Should()
+                    .Be(IgnoreDirective.Always));
         }
 
         [Fact]
         public void Configuration_After_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelcaseProperties()
-                .WithCamelcaseLabels()
+                .WithCamelCaseProperties()
+                .WithCamelCaseLabels()
                 .ConfigureElement<Person>(builder =>
                 {
                     builder.IgnoreAlways(p => p.Name);
@@ -285,14 +315,22 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeEqual("timeFrame");
 
             model
+                .PropertiesModel
                 .GetIdentifier(Expression.Property(Expression.Constant(default, typeof(Person)), nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
 
-            var metadata = model.GetPropertyMetadata(typeof(Person).GetProperty(nameof(Person.Name)));
+            var maybeMetadata = model
+                .PropertiesModel
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            Assert.NotNull(metadata);
-            Assert.Equal(IgnoreDirective.Always, metadata.IgnoreDirective);
+            maybeMetadata
+                .Should()
+                .BeSome(metaData => metaData
+                    .IgnoreDirective
+                    .Should()
+                    .Be(IgnoreDirective.Always));
         }
     }
 }
