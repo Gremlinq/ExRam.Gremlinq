@@ -1,23 +1,29 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
     public abstract class AddElementStep : Step
     {
+        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string>> Cache = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string>>();
+
         protected AddElementStep(IGraphElementModel elementModel, object value)
         {
-            var valueType = value.GetType();
-
-            //TODO: Cache!
-            Label = valueType
-                .GetTypeHierarchy()
-                .Where(type => !type.IsAbstract)
-                .Select(type => elementModel.Labels
-                    .TryGetValue(type)
-                    .Bind(x => x.LabelOverride)
-                    .IfNone(valueType.Name))
-                .FirstOrDefault();
+            Label = Cache
+                .GetOrCreateValue(elementModel)
+                .GetOrAdd(
+                    value.GetType(),
+                    closureType => closureType
+                        .GetTypeHierarchy()
+                        .Where(type => !type.IsAbstract)
+                        .SelectMany(type => elementModel.Labels
+                            .TryGetValue(type)
+                            .Bind(x => x.LabelOverride))
+                        .HeadOrNone()
+                        .IfNone(closureType.Name));
         }
 
         public string Label { get; }
