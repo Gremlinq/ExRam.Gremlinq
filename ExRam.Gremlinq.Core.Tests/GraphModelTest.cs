@@ -107,7 +107,6 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -119,7 +118,6 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -140,7 +138,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -161,7 +158,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("RegistrationDate");
@@ -183,7 +179,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -205,7 +200,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -229,7 +223,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeSome(metaData => metaData
                     .IgnoreDirective
                     .Should()
-                    .Be(IgnoreDirective.OnUpdate));
+                    .Be(SerializationDirective.IgnoreOnUpdate));
         }
 
         [Fact]
@@ -249,7 +243,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeSome(metaData => metaData
                     .IgnoreDirective
                     .Should()
-                    .Be(IgnoreDirective.Always));
+                    .Be(SerializationDirective.IgnoreAlways));
         }
 
         [Fact]
@@ -260,9 +254,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
-            maybeMetadata
+            maybeMetadata.IsSome
                 .Should()
-                .BeNone();
+                .BeTrue();
         }
 
         [Fact]
@@ -285,7 +279,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -300,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeSome(metaData => metaData
                     .IgnoreDirective
                     .Should()
-                    .Be(IgnoreDirective.Always));
+                    .Be(SerializationDirective.IgnoreAlways));
         }
 
         [Fact]
@@ -323,7 +316,6 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .IdentifierMapping
                 .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
@@ -338,7 +330,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .BeSome(metaData => metaData
                     .IgnoreDirective
                     .Should()
-                    .Be(IgnoreDirective.Always));
+                    .Be(SerializationDirective.IgnoreAlways));
         }
     }
 }

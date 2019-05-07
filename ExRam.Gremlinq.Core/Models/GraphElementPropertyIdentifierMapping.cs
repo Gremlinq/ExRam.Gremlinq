@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Reflection;
 using ExRam.Gremlinq.Core.Extensions;
 
@@ -6,75 +8,34 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphElementPropertyIdentifierMapping
     {
-        private sealed class DefaultGraphElementPropertyIdentifierMapping : IGraphElementPropertyIdentifierMapping
+        public static IImmutableDictionary<MemberInfo, MemberMetadata> ToCamelCase(this IImmutableDictionary<MemberInfo, MemberMetadata> mapping)
         {
-            public object GetIdentifier(MemberInfo memberInfo)
-            {
-                var memberName = memberInfo.Name;
+            return mapping
+                .ToImmutableDictionary(
+                    kvp => kvp.Key,
+                    kpv =>
+                    {
+                        var retVal = kpv.Value.Identifier;
 
-                if (string.Equals(memberName, "id", StringComparison.OrdinalIgnoreCase))
-                    return T.Id;
-
-                if (string.Equals(memberName, "label", StringComparison.OrdinalIgnoreCase))
-                    return T.Label;
-
-                return memberName;
-            }
+                        return new MemberMetadata(
+                            retVal is string identifier ? identifier.ToCamelCase() : retVal,
+                            kpv.Value.IgnoreDirective);
+                    });
         }
 
-        private sealed class InvalidGraphElementPropertyIdentifierMapping : IGraphElementPropertyIdentifierMapping
+        public static IImmutableDictionary<MemberInfo, MemberMetadata> ToLowerCase(this IImmutableDictionary<MemberInfo, MemberMetadata> mapping)
         {
-            public object GetIdentifier(MemberInfo memberInfo)
-            {
-                throw new InvalidOperationException();//TODO
-            }
+            return mapping
+                .ToImmutableDictionary(
+                    kvp => kvp.Key,
+                    kpv =>
+                    {
+                        var retVal = kpv.Value.Identifier;
+
+                        return new MemberMetadata(
+                            retVal is string identifier ? identifier.ToLower() : retVal,
+                            kpv.Value.IgnoreDirective);
+                    });
         }
-
-        private sealed class CamelCaseGraphElementPropertiesModel : IGraphElementPropertyIdentifierMapping
-        {
-            private readonly IGraphElementPropertyIdentifierMapping _mapping;
-
-            public CamelCaseGraphElementPropertiesModel(IGraphElementPropertyIdentifierMapping mapping)
-            {
-                _mapping = mapping;
-            }
-
-            public object GetIdentifier(MemberInfo memberInfo)
-            {
-                var retVal = _mapping.GetIdentifier(memberInfo);
-
-                return retVal is string identifier ? identifier.ToCamelCase() : retVal;
-            }
-        }
-
-        private sealed class LowerCaseGraphElementPropertiesModel : IGraphElementPropertyIdentifierMapping
-        {
-            private readonly IGraphElementPropertyIdentifierMapping _mapping;
-
-            public LowerCaseGraphElementPropertiesModel(IGraphElementPropertyIdentifierMapping mapping)
-            {
-                _mapping = mapping;
-            }
-
-            public object GetIdentifier(MemberInfo memberInfo)
-            {
-                var retVal = _mapping.GetIdentifier(memberInfo);
-
-                return retVal is string identifier ? identifier.ToLower() : retVal;
-            }
-        }
-
-        public static IGraphElementPropertyIdentifierMapping ToCamelCase(this IGraphElementPropertyIdentifierMapping mapping)
-        {
-            return new CamelCaseGraphElementPropertiesModel(mapping);
-        }
-
-        public static IGraphElementPropertyIdentifierMapping ToLowerCase(this IGraphElementPropertyIdentifierMapping mapping)
-        {
-            return new LowerCaseGraphElementPropertiesModel(mapping);
-        }
-
-        public static readonly IGraphElementPropertyIdentifierMapping Default = new DefaultGraphElementPropertyIdentifierMapping();
-        public static readonly IGraphElementPropertyIdentifierMapping Invalid = new InvalidGraphElementPropertyIdentifierMapping();
     }
 }

@@ -31,14 +31,14 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
             public IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
 
-            public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertiesModel.Default;
+            public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertyModel.Default;
         }
 
         private sealed class InvalidGraphModel : IGraphModel
         {
             public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
             public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
-            public IGraphElementPropertyModel PropertiesModel { get => GraphElementPropertiesModel.Invalid; }
+            public IGraphElementPropertyModel PropertiesModel { get => GraphElementPropertyModel.Invalid; }
         }
 
         private sealed class AssemblyGraphModel : IGraphModel
@@ -75,9 +75,6 @@ namespace ExRam.Gremlinq.Core
                 public IImmutableDictionary<Type, string> Labels { get; }
             }
 
-            private readonly AssemblyGraphElementModel _edgesModel;
-            private readonly AssemblyGraphElementModel _verticesModel;
-
             public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
@@ -88,13 +85,14 @@ namespace ExRam.Gremlinq.Core
 
                 var assemblyArray = assemblies.ToArray();
 
-                _verticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
-                _edgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
+                VerticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
+                EdgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
+                PropertiesModel = GraphElementPropertyModel.FromGraphElementModels(VerticesModel, EdgesModel);
             }
 
-            public IGraphElementModel EdgesModel => _edgesModel;
-            public IGraphElementModel VerticesModel => _verticesModel;
-            public IGraphElementPropertyModel PropertiesModel => Empty.PropertiesModel;
+            public IGraphElementModel EdgesModel { get; }
+            public IGraphElementModel VerticesModel { get; }
+            public IGraphElementPropertyModel PropertiesModel { get; }
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();

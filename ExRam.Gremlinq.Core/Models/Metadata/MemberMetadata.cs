@@ -3,23 +3,25 @@
 namespace ExRam.Gremlinq.Core
 {
     [Flags]
-    public enum IgnoreDirective
+    public enum SerializationDirective
     {
-        Never = 0,
+        Default = 0,
 
-        OnAdd = 1,
-        OnUpdate = 2,
+        IgnoreOnAdd = 1,
+        IgnoreOnUpdate = 2,
 
-        Always = 3
+        IgnoreAlways = 3
     }
 
-    public class MemberMetadata
+    public sealed class MemberMetadata
     {
-        public MemberMetadata(IgnoreDirective ignoreDirective)
+        public MemberMetadata(string identifier, SerializationDirective ignoreDirective)
         {
+            Identifier = identifier;
             IgnoreDirective = ignoreDirective;
         }
 
-        public IgnoreDirective IgnoreDirective { get; }
+        public string Identifier { get; }
+        public SerializationDirective IgnoreDirective { get; }
     }
 }
