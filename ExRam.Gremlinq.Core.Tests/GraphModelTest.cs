@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -166,9 +166,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
-                .BeSome("RegistrationDate");
+                .BeNone();
         }
 
         [Fact]
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -212,7 +212,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
 
@@ -332,7 +332,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .MetaData
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .Should()
                 .BeSome("registrationDate");
 

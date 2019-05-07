@@ -31,8 +31,8 @@ namespace ExRam.Gremlinq.Core
                 property,
                 MetaData
                     .TryGetValue(property)
-                    .Map(metaData => new MemberMetadata(metaData.Identifier, newDirective))
-                    .IfNone(new MemberMetadata(property.Name, newDirective)));
+                    .Map(metaData => new MemberMetadata(metaData.IdentifierOverride, newDirective))
+                    .IfNone(new MemberMetadata(default, newDirective)));
 
             return this;
         }

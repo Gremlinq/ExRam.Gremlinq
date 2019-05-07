@@ -1,27 +1,18 @@
-﻿using System;
+﻿using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
-    [Flags]
-    public enum SerializationDirective
+    public struct MemberMetadata
     {
-        Default = 0,
+        public static readonly MemberMetadata Default = new MemberMetadata(default, default);
 
-        IgnoreOnAdd = 1,
-        IgnoreOnUpdate = 2,
-
-        IgnoreAlways = 3
-    }
-
-    public sealed class MemberMetadata
-    {
-        public MemberMetadata(string identifier, SerializationDirective ignoreDirective)
+        public MemberMetadata(Option<string> identifierOverride, SerializationDirective ignoreDirective)
         {
-            Identifier = identifier;
             IgnoreDirective = ignoreDirective;
+            IdentifierOverride = identifierOverride;
         }
 
-        public string Identifier { get; }
+        public Option<string> IdentifierOverride { get; }
         public SerializationDirective IgnoreDirective { get; }
     }
 }

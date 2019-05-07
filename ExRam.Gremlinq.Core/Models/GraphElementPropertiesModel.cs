@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core
         {
             var identifier = model.MetaData
                 .TryGetValue(member)
-                .Map(x => x.Identifier)
+                .Bind(x => x.IdentifierOverride)
                 .IfNone(member.Name);
             
             if (string.Equals(identifier, "id", StringComparison.OrdinalIgnoreCase))
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => (MemberInfo)property,
-                        property => new MemberMetadata(property.Name, SerializationDirective.Default)));
+                        property => MemberMetadata.Default));
         }
 
         internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
