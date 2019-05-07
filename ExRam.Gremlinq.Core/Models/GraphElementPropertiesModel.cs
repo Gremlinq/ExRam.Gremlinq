@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphElementPropertiesModel
     {
-        private sealed class GraphElementPropertiesModelImpl : IGraphElementPropertiesModel
+        private sealed class GraphElementPropertiesModelImpl : IGraphElementPropertyModel
         {
             public GraphElementPropertiesModelImpl(
                 IGraphElementPropertyIdentifierMapping identifierMapping,
@@ -21,14 +21,14 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementPropertyIdentifierMapping IdentifierMapping { get; }
         }
 
-        private sealed class DefaultGraphElementPropertiesModel : IGraphElementPropertiesModel
+        private sealed class DefaultGraphElementPropertiesModel : IGraphElementPropertyModel
         {
             public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => ImmutableDictionary<MemberInfo, MemberMetadata>.Empty;
 
             public IGraphElementPropertyIdentifierMapping IdentifierMapping => GraphElementPropertyIdentifierMapping.Default;
         }
 
-        private sealed class InvalidGraphElementPropertiesModel : IGraphElementPropertiesModel
+        private sealed class InvalidGraphElementPropertiesModel : IGraphElementPropertyModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
@@ -37,27 +37,27 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementPropertyIdentifierMapping IdentifierMapping => GraphElementPropertyIdentifierMapping.Invalid;
         }
 
-        public static readonly IGraphElementPropertiesModel Default = new DefaultGraphElementPropertiesModel();
-        public static readonly IGraphElementPropertiesModel Invalid = new InvalidGraphElementPropertiesModel();
+        public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertiesModel();
+        public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertiesModel();
 
-        public static IGraphElementPropertiesModel WithProperties(this IGraphElementPropertiesModel model, Func<IGraphElementPropertyIdentifierMapping, IGraphElementPropertyIdentifierMapping> transformation)
+        public static IGraphElementPropertyModel WithProperties(this IGraphElementPropertyModel model, Func<IGraphElementPropertyIdentifierMapping, IGraphElementPropertyIdentifierMapping> transformation)
         {
             return new GraphElementPropertiesModelImpl(
                 transformation(model.IdentifierMapping),
                 model.MetaData);
         }
 
-        public static IGraphElementPropertiesModel WithCamelCaseProperties(this IGraphElementPropertiesModel model)
+        public static IGraphElementPropertyModel WithCamelCaseProperties(this IGraphElementPropertyModel model)
         {
             return model.WithProperties(_ => _.ToCamelCase());
         }
 
-        public static IGraphElementPropertiesModel WithLowerCaseProperties(this IGraphElementPropertiesModel model)
+        public static IGraphElementPropertyModel WithLowerCaseProperties(this IGraphElementPropertyModel model)
         {
             return model.WithProperties(_ => _.ToLowerCase());
         }
 
-        public static IGraphElementPropertiesModel ConfigureElement<TElement>(this IGraphElementPropertiesModel model, Action<IElementConfigurator<TElement>> action)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Action<IElementConfigurator<TElement>> action)
         {
             var builder = new ElementConfigurator<TElement>(model.MetaData);
 

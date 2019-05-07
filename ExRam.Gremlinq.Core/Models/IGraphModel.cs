@@ -4,6 +4,6 @@
     {
         IGraphElementModel VerticesModel { get; }
         IGraphElementModel EdgesModel { get; }
-        IGraphElementPropertiesModel PropertiesModel { get; }
+        IGraphElementPropertyModel PropertiesModel { get; }
     }
 }

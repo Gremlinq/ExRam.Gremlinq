@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGraphElementPropertiesModel
+    public interface IGraphElementPropertyModel
     {
         IGraphElementPropertyIdentifierMapping IdentifierMapping { get; }
         IImmutableDictionary<MemberInfo, MemberMetadata> MetaData { get; }

@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel, IGraphElementPropertiesModel propertiesModel)
+            public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel, IGraphElementPropertyModel propertiesModel)
             {
                 VerticesModel = verticesModel;
                 EdgesModel = edgesModel;
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGraphElementModel EdgesModel { get; }
 
-            public IGraphElementPropertiesModel PropertiesModel { get; }
+            public IGraphElementPropertyModel PropertiesModel { get; }
         }
 
         private sealed class EmptyGraphModel : IGraphModel
@@ -31,14 +31,14 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
             public IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
 
-            public IGraphElementPropertiesModel PropertiesModel { get; } = GraphElementPropertiesModel.Default;
+            public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertiesModel.Default;
         }
 
         private sealed class InvalidGraphModel : IGraphModel
         {
             public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
             public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
-            public IGraphElementPropertiesModel PropertiesModel { get => GraphElementPropertiesModel.Invalid; }
+            public IGraphElementPropertyModel PropertiesModel { get => GraphElementPropertiesModel.Invalid; }
         }
 
         private sealed class AssemblyGraphModel : IGraphModel
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGraphElementModel EdgesModel => _edgesModel;
             public IGraphElementModel VerticesModel => _verticesModel;
-            public IGraphElementPropertiesModel PropertiesModel => Empty.PropertiesModel;
+            public IGraphElementPropertyModel PropertiesModel => Empty.PropertiesModel;
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core
                 model.PropertiesModel);
         }
 
-        public static IGraphModel WithPropertiesModel(this IGraphModel model, Func<IGraphElementPropertiesModel, IGraphElementPropertiesModel> transformation)
+        public static IGraphModel WithPropertiesModel(this IGraphModel model, Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
         {
             return new GraphModelImpl(
                 model.VerticesModel,
