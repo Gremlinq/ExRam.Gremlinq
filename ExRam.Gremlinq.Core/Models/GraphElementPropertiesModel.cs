@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
                         property => PropertyMetadata.Default));
         }
 
-        internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+        private static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
         {
             return new GraphElementPropertyModelImpl(
                 transformation(model.Metadata));

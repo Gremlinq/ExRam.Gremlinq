@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Extensions;
 using LanguageExt;
@@ -10,11 +11,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphElementModel
     {
-        private sealed class EmptyGraphElementModel : IGraphElementModel
-        {
-            public IImmutableDictionary<Type, ElementMetadata> Metadata => ImmutableDictionary<Type, ElementMetadata>.Empty;
-        }
-
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
@@ -22,45 +18,33 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<Type, ElementMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
         }
 
-        private sealed class CamelcaseGraphElementModel : IGraphElementModel
+        private sealed class GraphElementModelImpl : IGraphElementModel
         {
-            public CamelcaseGraphElementModel(IGraphElementModel baseModel)
+            public GraphElementModelImpl(IImmutableDictionary<Type, ElementMetadata> metaData)
             {
-                Metadata = baseModel.Metadata
-                    .ToImmutableDictionary(
-                        kvp => kvp.Key,
-                        kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToCamelCase()));
+                Metadata = metaData;
             }
 
             public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
-        private sealed class LowercaseGraphElementModel : IGraphElementModel
-        {
-            public LowercaseGraphElementModel(IGraphElementModel baseModel)
-            {
-                Metadata = baseModel.Metadata
-                    .ToImmutableDictionary(
-                        kvp => kvp.Key,
-                        kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToLower()));
-            }
-
-            public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
-        }
-
-        public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
+        public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
         public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
         public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
         {
-            return new CamelcaseGraphElementModel(model);
+            return model.WithMetadata(_ => _.ToImmutableDictionary(
+                kvp => kvp.Key,
+                kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToCamelCase())));
         }
 
         public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
         {
-            return new LowercaseGraphElementModel(model);
+            return model.WithMetadata(_ => _.ToImmutableDictionary(
+                kvp => kvp.Key,
+                kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToLower())));
         }
 
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
@@ -90,6 +74,12 @@ namespace ExRam.Gremlinq.Core
             return model
                 .TryGetFilterLabels(type)
                 .IfNone(new[] { type.Name });   //TODO: What if type is abstract?
+        }
+
+        private static IGraphElementModel WithMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
+        {
+            return new GraphElementModelImpl(
+                transformation(model.Metadata));
         }
     }
 }
