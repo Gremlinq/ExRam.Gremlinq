@@ -10,8 +10,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(
-                IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
             {
                 Metadata = metadata;
             }
@@ -36,12 +35,12 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphElementPropertyModel WithCamelCaseProperties(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.ToCamelCase());
+            return model.WithMetadata(_ => _.WithCamelCaseIdentifiers());
         }
 
         public static IGraphElementPropertyModel WithLowerCaseProperties(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.ToLowerCase());
+            return model.WithMetadata(_ => _.WithLowerCaseIdentifiers());
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Action<IElementConfigurator<TElement>> action)
