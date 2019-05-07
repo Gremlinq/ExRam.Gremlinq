@@ -19,15 +19,15 @@ namespace ExRam.Gremlinq.Core
 
         public IPropertyMetadataBuilder<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            return Set(propertyExpression, SerializationDirective.IgnoreOnUpdate);
+            return Set(propertyExpression, SerializationBehaviour.IgnoreOnUpdate);
         }
 
         public IPropertyMetadataBuilder<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            return Set(propertyExpression, SerializationDirective.IgnoreAlways);
+            return Set(propertyExpression, SerializationBehaviour.IgnoreAlways);
         }
 
-        public IPropertyMetadataBuilder<TElement> Set<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, SerializationDirective newDirective)
+        public IPropertyMetadataBuilder<TElement> Set<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, SerializationBehaviour newBehaviour)
         {
             var property = propertyExpression.GetPropertyAccess();
 
@@ -35,8 +35,8 @@ namespace ExRam.Gremlinq.Core
                 property,
                 _metadata
                     .TryGetValue(property)
-                    .Map(metaData => new PropertyMetadata(metaData.NameOverride, newDirective))
-                    .IfNone(new PropertyMetadata(default, newDirective))));
+                    .Map(metaData => new PropertyMetadata(metaData.NameOverride, newBehaviour))
+                    .IfNone(new PropertyMetadata(default, newBehaviour))));
         }
 
         #region Explicit

@@ -26,7 +26,7 @@ namespace System.Linq
                     kvp => kvp.Key,
                     kvp => new PropertyMetadata(
                         transformation(kvp.Value.NameOverride.IfNone(kvp.Key.Name)),
-                        kvp.Value.IgnoreDirective));
+                        kvp.Value.SerializationBehaviour));
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace ExRam.Gremlinq.Core
 {
     [Flags]
-    public enum SerializationDirective
+    public enum SerializationBehaviour
     {
         Default = 0,
 

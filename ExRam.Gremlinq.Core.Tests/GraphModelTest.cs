@@ -248,9 +248,9 @@ namespace ExRam.Gremlinq.Core.Tests
             maybeMetadata
                 .Should()
                 .BeSome(metaData => metaData
-                    .IgnoreDirective
+                    .SerializationBehaviour
                     .Should()
-                    .Be(SerializationDirective.IgnoreOnUpdate));
+                    .Be(SerializationBehaviour.IgnoreOnUpdate));
         }
 
         [Fact]
@@ -267,9 +267,9 @@ namespace ExRam.Gremlinq.Core.Tests
             maybeMetadata
                 .Should()
                 .BeSome(metaData => metaData
-                    .IgnoreDirective
+                    .SerializationBehaviour
                     .Should()
-                    .Be(SerializationDirective.IgnoreAlways));
+                    .Be(SerializationBehaviour.IgnoreAlways));
         }
 
         [Fact]
@@ -320,9 +320,9 @@ namespace ExRam.Gremlinq.Core.Tests
             maybeMetadata
                 .Should()
                 .BeSome(metaData => metaData
-                    .IgnoreDirective
+                    .SerializationBehaviour
                     .Should()
-                    .Be(SerializationDirective.IgnoreAlways));
+                    .Be(SerializationBehaviour.IgnoreAlways));
         }
 
         [Fact]
@@ -360,9 +360,9 @@ namespace ExRam.Gremlinq.Core.Tests
             maybeMetadata
                 .Should()
                 .BeSome(metaData => metaData
-                    .IgnoreDirective
+                    .SerializationBehaviour
                     .Should()
-                    .Be(SerializationDirective.IgnoreAlways));
+                    .Be(SerializationBehaviour.IgnoreAlways));
         }
     }
 }
