@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
@@ -55,7 +56,9 @@ namespace ExRam.Gremlinq.Core
             return new GraphElementPropertyModelImpl(
                 models
                     .SelectMany(model => model.Labels.Keys)
-                    .SelectMany(type => type.GetProperties())
+                    .SelectMany(x => x.GetTypeHierarchy())
+                    .Distinct()
+                    .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => (MemberInfo)property,
                         property => new MemberMetadata(property.Name, SerializationDirective.Default)));
