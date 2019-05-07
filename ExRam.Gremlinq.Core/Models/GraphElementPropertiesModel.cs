@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
-        public static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
+        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
             var identifier = model.MetaData
                 .TryGetValue(member)

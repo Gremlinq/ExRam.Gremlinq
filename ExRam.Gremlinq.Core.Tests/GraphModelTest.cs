@@ -107,9 +107,11 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
         }
 
         [Fact]
@@ -118,9 +120,11 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
         }
 
         [Fact]
@@ -138,9 +142,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
         }
 
         [Fact]
@@ -158,9 +164,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("RegistrationDate");
+                .BeSome("RegistrationDate");
         }
 
         [Fact]
@@ -179,9 +187,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
         }
 
         [Fact]
@@ -200,9 +210,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
         }
 
         [Fact]
@@ -279,9 +291,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
 
             var maybeMetadata = model
                 .PropertiesModel
@@ -316,9 +330,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .MetaData
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .Map(x => x.Identifier)
                 .Should()
-                .Be("registrationDate");
+                .BeSome("registrationDate");
 
             var maybeMetadata = model
                 .PropertiesModel
