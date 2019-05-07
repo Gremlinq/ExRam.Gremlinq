@@ -17,17 +17,28 @@ namespace ExRam.Gremlinq.Core
             _metadata = metadata;
         }
 
+        public IPropertyMetadataBuilder<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        {
+            return SetSerializationBehaviour(
+                propertyExpression,
+                behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
+        }
+
         public IPropertyMetadataBuilder<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            return Set(propertyExpression, SerializationBehaviour.IgnoreOnUpdate);
+            return SetSerializationBehaviour(
+                propertyExpression,
+                behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
         }
 
         public IPropertyMetadataBuilder<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
-            return Set(propertyExpression, SerializationBehaviour.IgnoreAlways);
+            return SetSerializationBehaviour(
+                propertyExpression,
+                behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
-        public IPropertyMetadataBuilder<TElement> Set<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, SerializationBehaviour newBehaviour)
+        public IPropertyMetadataBuilder<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
         {
             var property = propertyExpression.GetPropertyAccess();
 
@@ -35,8 +46,8 @@ namespace ExRam.Gremlinq.Core
                 property,
                 _metadata
                     .TryGetValue(property)
-                    .Map(metaData => new PropertyMetadata(metaData.NameOverride, newBehaviour))
-                    .IfNone(new PropertyMetadata(default, newBehaviour))));
+                    .Map(metaData => new PropertyMetadata(metaData.NameOverride, transformation(metaData.SerializationBehaviour)))
+                    .IfNone(new PropertyMetadata(default, transformation(default)))));
         }
 
         #region Explicit
