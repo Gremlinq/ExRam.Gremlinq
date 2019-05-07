@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class DefaultGraphElementPropertyIdentifierMapping : IGraphElementPropertyIdentifierMapping
         {
-            public object ToIdentifier(MemberInfo memberInfo)
+            public object GetIdentifier(MemberInfo memberInfo)
             {
                 var memberName = memberInfo.Name;
 
@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class InvalidGraphElementPropertyIdentifierMapping : IGraphElementPropertyIdentifierMapping
         {
-            public object ToIdentifier(MemberInfo memberInfo)
+            public object GetIdentifier(MemberInfo memberInfo)
             {
                 throw new InvalidOperationException();//TODO
             }
@@ -39,9 +39,9 @@ namespace ExRam.Gremlinq.Core
                 _mapping = mapping;
             }
 
-            public object ToIdentifier(MemberInfo memberInfo)
+            public object GetIdentifier(MemberInfo memberInfo)
             {
-                var retVal = _mapping.ToIdentifier(memberInfo);
+                var retVal = _mapping.GetIdentifier(memberInfo);
 
                 return retVal is string identifier ? identifier.ToCamelCase() : retVal;
             }
@@ -56,9 +56,9 @@ namespace ExRam.Gremlinq.Core
                 _mapping = mapping;
             }
 
-            public object ToIdentifier(MemberInfo memberInfo)
+            public object GetIdentifier(MemberInfo memberInfo)
             {
-                var retVal = _mapping.ToIdentifier(memberInfo);
+                var retVal = _mapping.GetIdentifier(memberInfo);
 
                 return retVal is string identifier ? identifier.ToLower() : retVal;
             }

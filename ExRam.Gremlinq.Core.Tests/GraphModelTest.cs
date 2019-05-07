@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithCamelCaseProperties()
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -120,7 +120,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithCamelCaseProperties()
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("RegistrationDate");
         }
@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -206,7 +206,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
         }
@@ -286,7 +286,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
 
@@ -324,7 +324,7 @@ namespace ExRam.Gremlinq.Core.Tests
             model
                 .PropertiesModel
                 .IdentifierMapping
-                .ToIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
+                .GetIdentifier(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Should()
                 .Be("registrationDate");
 

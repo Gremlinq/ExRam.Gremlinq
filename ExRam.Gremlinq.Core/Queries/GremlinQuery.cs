@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (propertyInfo, value) in element.Serialize())
             {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.IdentifierMapping.ToIdentifier(propertyInfo), value, allowExplicitCardinality))
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.IdentifierMapping.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
                 {
                     ret = ret.AddStep(propertyStep);
                 }
@@ -234,7 +234,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                return AddStep(new ByMemberStep(Model.PropertiesModel.IdentifierMapping.ToIdentifier(memberExpression.Member), order));
+                return AddStep(new ByMemberStep(Model.PropertiesModel.IdentifierMapping.GetIdentifier(memberExpression.Member), order));
 
             throw new ExpressionNotSupportedException(projection);
         }
@@ -350,7 +350,7 @@ namespace ExRam.Gremlinq.Core
         private object[] GetKeys(IEnumerable<MemberExpression> projections)
         {
             return projections
-                .Select(projection => Model.PropertiesModel.IdentifierMapping.ToIdentifier(projection.Member))
+                .Select(projection => Model.PropertiesModel.IdentifierMapping.GetIdentifier(projection.Member))
                 .ToArray();
         }
 
@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
         {
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Model.PropertiesModel.IdentifierMapping.ToIdentifier(memberExpression.Member), predicate));
+                return AddStep(new HasStep(Model.PropertiesModel.IdentifierMapping.GetIdentifier(memberExpression.Member), predicate));
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
@@ -390,7 +390,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal)
         {
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Model.PropertiesModel.IdentifierMapping.ToIdentifier(memberExpression.Member), traversal));
+                return AddStep(new HasStep(Model.PropertiesModel.IdentifierMapping.GetIdentifier(memberExpression.Member), traversal));
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
@@ -534,7 +534,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression && Model.PropertiesModel.IdentifierMapping.ToIdentifier(memberExpression.Member) is string identifier)
+            if (projection.Body.StripConvert() is MemberExpression memberExpression && Model.PropertiesModel.IdentifierMapping.GetIdentifier(memberExpression.Member) is string identifier)
                 return Property(identifier, value);
 
             throw new ExpressionNotSupportedException(projection);
@@ -654,7 +654,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                var identifier = Model.PropertiesModel.IdentifierMapping.ToIdentifier(memberExpression.Member);
+                var identifier = Model.PropertiesModel.IdentifierMapping.GetIdentifier(memberExpression.Member);
 
                 if (value == null)
                 {
