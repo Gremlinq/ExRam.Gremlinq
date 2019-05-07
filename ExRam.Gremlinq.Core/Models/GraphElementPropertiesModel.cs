@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
@@ -35,41 +34,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
-        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
-        {
-            var identifier = model.MetaData
-                .TryGetValue(member)
-                .Map(x => x.Identifier)
-                .IfNone(member.Name);
-            
-            if (string.Equals(identifier, "id", StringComparison.OrdinalIgnoreCase))
-                return T.Id;
-
-            if (string.Equals(identifier, "label", StringComparison.OrdinalIgnoreCase))
-                return T.Label;
-
-            return identifier;
-        }
-
-        public static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
-        {
-            return new GraphElementPropertyModelImpl(
-                models
-                    .SelectMany(model => model.Labels.Keys)
-                    .SelectMany(x => x.GetTypeHierarchy())
-                    .Distinct()
-                    .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                    .ToImmutableDictionary(
-                        property => (MemberInfo)property,
-                        property => new MemberMetadata(property.Name, SerializationDirective.Default)));
-        }
-
-        public static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
-        {
-            return new GraphElementPropertyModelImpl(
-                transformation(model.MetaData));
-        }
-
         public static IGraphElementPropertyModel WithCamelCaseProperties(this IGraphElementPropertyModel model)
         {
             return model.WithMetadata(_ => _.ToCamelCase());
@@ -87,6 +51,41 @@ namespace ExRam.Gremlinq.Core
             action(builder);
 
             return new GraphElementPropertyModelImpl(builder.MetaData);
+        }
+
+        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
+        {
+            var identifier = model.MetaData
+                .TryGetValue(member)
+                .Map(x => x.Identifier)
+                .IfNone(member.Name);
+            
+            if (string.Equals(identifier, "id", StringComparison.OrdinalIgnoreCase))
+                return T.Id;
+
+            if (string.Equals(identifier, "label", StringComparison.OrdinalIgnoreCase))
+                return T.Label;
+
+            return identifier;
+        }
+
+        internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
+        {
+            return new GraphElementPropertyModelImpl(
+                models
+                    .SelectMany(model => model.Labels.Keys)
+                    .SelectMany(x => x.GetTypeHierarchy())
+                    .Distinct()
+                    .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                    .ToImmutableDictionary(
+                        property => (MemberInfo)property,
+                        property => new MemberMetadata(property.Name, SerializationDirective.Default)));
+        }
+
+        internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+        {
+            return new GraphElementPropertyModelImpl(
+                transformation(model.MetaData));
         }
     }
 }

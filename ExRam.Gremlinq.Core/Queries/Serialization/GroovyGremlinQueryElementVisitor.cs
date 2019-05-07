@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ExRam.Gremlinq.Core.GraphElements;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {

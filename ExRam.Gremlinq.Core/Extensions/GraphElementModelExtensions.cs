@@ -7,11 +7,11 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphElementModelExtensions
     {
-        private static readonly ConcurrentDictionary<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> _derivedLabels = new ConcurrentDictionary<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
+        private static readonly ConcurrentDictionary<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConcurrentDictionary<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
         {
-            return _derivedLabels
+            return DerivedLabels
                 .GetOrAdd(
                     model,
                     _ => new ConcurrentDictionary<Type, Option<string[]>>())

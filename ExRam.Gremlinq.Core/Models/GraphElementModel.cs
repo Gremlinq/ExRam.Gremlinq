@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Linq;
 using ExRam.Gremlinq.Core.Extensions;
 
 namespace ExRam.Gremlinq.Core

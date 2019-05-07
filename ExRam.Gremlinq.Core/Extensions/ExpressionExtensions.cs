@@ -264,7 +264,7 @@ namespace System.Linq.Expressions
 
         private static Expression RemoveTypeAs(this Expression expression)
         {
-            while ((expression?.NodeType == ExpressionType.TypeAs))
+            while (expression?.NodeType == ExpressionType.TypeAs)
             {
                 expression = ((UnaryExpression)expression.RemoveConvert()).Operand;
             }
