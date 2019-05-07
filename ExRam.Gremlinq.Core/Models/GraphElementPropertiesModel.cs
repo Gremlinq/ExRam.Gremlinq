@@ -43,9 +43,9 @@ namespace ExRam.Gremlinq.Core
             return model.WithMetadata(_ => _.WithLowerCaseIdentifiers());
         }
 
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IElementConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataBuilder<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
         {
-            return new GraphElementPropertyModelImpl(action(new ElementConfigurator<TElement>(model.Metadata)));
+            return new GraphElementPropertyModelImpl(action(new PropertyMetadataBuilder<TElement>(model.Metadata)));
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)

@@ -8,30 +8,30 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class ElementConfigurator<TElement> : IElementConfigurator<TElement>
+    internal sealed class PropertyMetadataBuilder<TElement> : IPropertyMetadataBuilder<TElement>
     {
         private readonly IImmutableDictionary<MemberInfo, PropertyMetadata> _metadata;
 
-        public ElementConfigurator(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+        public PropertyMetadataBuilder(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
             _metadata = metadata;
         }
 
-        public IElementConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IPropertyMetadataBuilder<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return Set(propertyExpression, SerializationDirective.IgnoreOnUpdate);
         }
 
-        public IElementConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IPropertyMetadataBuilder<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return Set(propertyExpression, SerializationDirective.IgnoreAlways);
         }
 
-        public IElementConfigurator<TElement> Set<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, SerializationDirective newDirective)
+        public IPropertyMetadataBuilder<TElement> Set<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, SerializationDirective newDirective)
         {
             var property = propertyExpression.GetPropertyAccess();
 
-            return new ElementConfigurator<TElement>(_metadata.SetItem(
+            return new PropertyMetadataBuilder<TElement>(_metadata.SetItem(
                 property,
                 _metadata
                     .TryGetValue(property)

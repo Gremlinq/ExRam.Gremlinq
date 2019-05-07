@@ -128,7 +128,15 @@ namespace ExRam.Gremlinq.Core
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, assemblies, logger);
         }
 
-        public static IGraphModel WithVerticesModel(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
+        public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
+        {
+            return new GraphModelImpl(
+                transformation(model.VerticesModel),
+                transformation(model.EdgesModel),
+                model.PropertiesModel);
+        }
+
+        public static IGraphModel ConfigureVertices(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
         {
             return new GraphModelImpl(
                 transformation(model.VerticesModel),
@@ -136,7 +144,7 @@ namespace ExRam.Gremlinq.Core
                 model.PropertiesModel);
         }
 
-        public static IGraphModel WithEdgesModel(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
+        public static IGraphModel ConfigureEdges(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
         {
             return new GraphModelImpl(
                 model.VerticesModel,
@@ -144,44 +152,12 @@ namespace ExRam.Gremlinq.Core
                 model.PropertiesModel);
         }
 
-        public static IGraphModel WithPropertiesModel(this IGraphModel model, Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
+        public static IGraphModel ConfigureProperties(this IGraphModel model, Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
         {
             return new GraphModelImpl(
                 model.VerticesModel,
                 model.EdgesModel,
                 transformation(model.PropertiesModel));
-        }
-
-        public static IGraphModel WithLowerCaseLabels(this IGraphModel model)
-        {
-            return model
-                .WithVerticesModel(_ => _.WithLowerCaseLabels())
-                .WithEdgesModel(_ => _.WithLowerCaseLabels());
-        }
-
-        public static IGraphModel WithLowerCaseProperties(this IGraphModel model)
-        {
-            return model
-                .WithPropertiesModel(_ => _.WithLowerCaseProperties());
-        }
-
-        public static IGraphModel WithCamelCaseLabels(this IGraphModel model)
-        {
-            return model
-                .WithVerticesModel(_ => _.WithCamelCaseLabels())
-                .WithEdgesModel(_ => _.WithCamelCaseLabels());
-        }
-
-        public static IGraphModel WithCamelCaseProperties(this IGraphModel model)
-        {
-            return model
-                .WithPropertiesModel(_ => _.WithCamelCaseProperties());
-        }
-
-        public static IGraphModel ConfigureElement<TElement>(this IGraphModel model, Func<IElementConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
-        {
-            return model
-                .WithPropertiesModel(_ => _.ConfigureElement(action));
         }
     }
 }

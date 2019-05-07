@@ -67,7 +67,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Lowercase()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithLowerCaseLabels()
+                .ConfigureElements(_ => _
+                    .WithLowerCaseLabels())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(Person))
@@ -80,7 +81,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CamelcaseLabel_Verticies()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseLabels()
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
@@ -93,7 +95,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Edges()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseLabels()
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels())
                 .EdgesModel
                 .Metadata
                 .TryGetValue(typeof(LivesIn))
@@ -106,7 +109,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_MemberExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseProperties()
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
@@ -119,7 +123,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_ParameterExpression()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseProperties()
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
@@ -132,7 +137,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseProperties();
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties());
 
             model
                 .VerticesModel
@@ -155,7 +161,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Identifier()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseLabels();
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -178,8 +185,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseLabels()
-                .WithCamelCaseProperties();
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels())
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties());
 
             model
                 .VerticesModel
@@ -202,8 +211,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseProperties()
-                .WithCamelCaseLabels();
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties())
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -227,8 +238,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var maybeMetadata = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreOnUpdate(p => p.Name))
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
@@ -245,8 +257,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_IgnoreAlways()
         {
             var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreAlways(p => p.Name))
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreAlways(p => p.Name)))
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
@@ -276,10 +289,12 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_Before_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreAlways(p => p.Name))
-                .WithCamelCaseLabels()
-                .WithCamelCaseProperties();
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreAlways(p => p.Name))
+                    .WithCamelCaseProperties())
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -314,10 +329,12 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_After_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .WithCamelCaseProperties()
-                .WithCamelCaseLabels()
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreAlways(p => p.Name));
+                .ConfigureProperties(_ => _
+                    .WithCamelCaseProperties()
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreAlways(p => p.Name)))
+                .ConfigureElements(_ => _
+                    .WithCamelCaseLabels());
 
             model
                 .VerticesModel
