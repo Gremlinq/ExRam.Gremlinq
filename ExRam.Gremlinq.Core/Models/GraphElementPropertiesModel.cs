@@ -33,14 +33,14 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
-        public static IGraphElementPropertyModel WithCamelCaseProperties(this IGraphElementPropertyModel model)
+        public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.WithCamelCaseIdentifiers());
+            return model.WithMetadata(_ => _.WithCamelCaseNames());
         }
 
-        public static IGraphElementPropertyModel WithLowerCaseProperties(this IGraphElementPropertyModel model)
+        public static IGraphElementPropertyModel WithLowerCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.WithLowerCaseIdentifiers());
+            return model.WithMetadata(_ => _.WithLowerCaseNames());
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataBuilder<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
         {
             var identifier = model.Metadata
                 .TryGetValue(member)
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .IfNone(member.Name);
             
             if (string.Equals(identifier, "id", StringComparison.OrdinalIgnoreCase))

@@ -110,11 +110,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties())
+                    .WithCamelCaseNames())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -124,11 +124,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties())
+                    .WithCamelCaseNames())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties());
+                    .WithCamelCaseNames());
 
             model
                 .VerticesModel
@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeNone();
         }
@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(_ => _
                     .WithCamelCaseLabels())
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties());
+                    .WithCamelCaseNames());
 
             model
                 .VerticesModel
@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -212,7 +212,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties())
+                    .WithCamelCaseNames())
                 .ConfigureElements(_ => _
                     .WithCamelCaseLabels());
 
@@ -228,7 +228,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
         }
@@ -292,7 +292,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureProperties(_ => _
                     .ConfigureElement<Person>(builder => builder
                         .IgnoreAlways(p => p.Name))
-                    .WithCamelCaseProperties())
+                    .WithCamelCaseNames())
                 .ConfigureElements(_ => _
                     .WithCamelCaseLabels());
 
@@ -308,7 +308,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
 
@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .WithCamelCaseProperties()
+                    .WithCamelCaseNames()
                     .ConfigureElement<Person>(builder => builder
                         .IgnoreAlways(p => p.Name)))
                 .ConfigureElements(_ => _
@@ -348,7 +348,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Bind(x => x.IdentifierOverride)
+                .Bind(x => x.NameOverride)
                 .Should()
                 .BeSome("registrationDate");
 

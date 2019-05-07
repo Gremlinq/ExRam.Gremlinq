@@ -7,13 +7,13 @@ namespace System.Linq
 {
     public static class ImmutableDictionaryExtensions
     {
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> WithCamelCaseIdentifiers(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> WithCamelCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
             return metadata
                 .OverrideIdentifier(x => x.ToCamelCase());
         }
 
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> WithLowerCaseIdentifiers(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> WithLowerCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
             return metadata
                 .OverrideIdentifier(x => x.ToLower());
@@ -25,7 +25,7 @@ namespace System.Linq
                 .ToImmutableDictionary(
                     kvp => kvp.Key,
                     kvp => new PropertyMetadata(
-                        transformation(kvp.Value.IdentifierOverride.IfNone(kvp.Key.Name)),
+                        transformation(kvp.Value.NameOverride.IfNone(kvp.Key.Name)),
                         kvp.Value.IgnoreDirective));
         }
     }

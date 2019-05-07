@@ -6,13 +6,13 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly PropertyMetadata Default = new PropertyMetadata(default, default);
 
-        public PropertyMetadata(Option<string> identifierOverride, SerializationDirective ignoreDirective)
+        public PropertyMetadata(Option<string> nameOverride, SerializationDirective ignoreDirective)
         {
             IgnoreDirective = ignoreDirective;
-            IdentifierOverride = identifierOverride;
+            NameOverride = nameOverride;
         }
 
-        public Option<string> IdentifierOverride { get; }
+        public Option<string> NameOverride { get; }
         public SerializationDirective IgnoreDirective { get; }
     }
 }
