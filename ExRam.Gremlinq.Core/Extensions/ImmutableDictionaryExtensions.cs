@@ -1,31 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Extensions;
-using LanguageExt;
 
 namespace System.Linq
 {
     public static class ImmutableDictionaryExtensions
     {
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ToCamelCase(this IImmutableDictionary<MemberInfo, PropertyMetadata> mapping)
+        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ToCamelCase(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
-            return mapping
-                .ToImmutableDictionary(
-                    kvp => kvp.Key,
-                    kvp => new PropertyMetadata(
-                        kvp.Value.IdentifierOverride.IfNone(kvp.Key.Name).ToCamelCase(),
-                        kvp.Value.IgnoreDirective));
+            return metadata
+                .OverrideIdentifier(x => x.ToCamelCase());
         }
 
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ToLowerCase(this IImmutableDictionary<MemberInfo, PropertyMetadata> mapping)
+        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ToLowerCase(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
-            return mapping
+            return metadata
+                .OverrideIdentifier(x => x.ToLower());
+        }
+
+        private static IImmutableDictionary<MemberInfo, PropertyMetadata> OverrideIdentifier(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, Func<string, string> transformation)
+        {
+            return metadata
                 .ToImmutableDictionary(
                     kvp => kvp.Key,
                     kvp => new PropertyMetadata(
-                        kvp.Value.IdentifierOverride.IfNone(kvp.Key.Name).ToLower(),
+                        transformation(kvp.Value.IdentifierOverride.IfNone(kvp.Key.Name)),
                         kvp.Value.IgnoreDirective));
         }
     }
