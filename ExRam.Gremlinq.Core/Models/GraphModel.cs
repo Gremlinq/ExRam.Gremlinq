@@ -178,7 +178,7 @@ namespace ExRam.Gremlinq.Core
                 .WithPropertiesModel(_ => _.WithCamelCaseProperties());
         }
 
-        public static IGraphModel ConfigureElement<TElement>(this IGraphModel model, Action<IElementConfigurator<TElement>> action)
+        public static IGraphModel ConfigureElement<TElement>(this IGraphModel model, Func<IElementConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
         {
             return model
                 .WithPropertiesModel(_ => _.ConfigureElement(action));

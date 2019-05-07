@@ -227,10 +227,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var maybeMetadata = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder =>
-                {
-                    builder.IgnoreOnUpdate(p => p.Name);
-                })
+                .ConfigureElement<Person>(builder => builder
+                    .IgnoreOnUpdate(p => p.Name))
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
@@ -247,10 +245,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_IgnoreAlways()
         {
             var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder =>
-                {
-                    builder.IgnoreAlways(p => p.Name);
-                })
+                .ConfigureElement<Person>(builder => builder
+                    .IgnoreAlways(p => p.Name))
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
@@ -280,10 +276,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_Before_Model_Changes()
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
-                .ConfigureElement<Person>(builder =>
-                {
-                    builder.IgnoreAlways(p => p.Name);
-                })
+                .ConfigureElement<Person>(builder => builder
+                    .IgnoreAlways(p => p.Name))
                 .WithCamelCaseLabels()
                 .WithCamelCaseProperties();
 
@@ -322,10 +316,8 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .WithCamelCaseLabels()
-                .ConfigureElement<Person>(builder =>
-                {
-                    builder.IgnoreAlways(p => p.Name);
-                });
+                .ConfigureElement<Person>(builder => builder
+                    .IgnoreAlways(p => p.Name));
 
             model
                 .VerticesModel
