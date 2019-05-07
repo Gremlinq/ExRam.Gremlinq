@@ -8,9 +8,9 @@ namespace ExRam.Gremlinq.Core
 {
     internal class ElementConfigurator<TElement> : IElementConfigurator<TElement>
     {
-        public ElementConfigurator(IImmutableDictionary<MemberInfo, PropertyMetadata> metaData)
+        public ElementConfigurator(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
-            MetaData = metaData;
+            Metadata = metadata;
         }
 
         public IElementConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
@@ -27,9 +27,9 @@ namespace ExRam.Gremlinq.Core
         {
             var property = propertyExpression.GetPropertyAccess();
 
-            MetaData = MetaData.SetItem(
+            Metadata = Metadata.SetItem(
                 property,
-                MetaData
+                Metadata
                     .TryGetValue(property)
                     .Map(metaData => new PropertyMetadata(metaData.IdentifierOverride, newDirective))
                     .IfNone(new PropertyMetadata(default, newDirective)));
@@ -37,6 +37,6 @@ namespace ExRam.Gremlinq.Core
             return this;
         }
 
-        public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData;
+        public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata;
     }
 }

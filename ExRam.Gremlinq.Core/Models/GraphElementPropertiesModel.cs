@@ -11,24 +11,24 @@ namespace ExRam.Gremlinq.Core
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
             public GraphElementPropertyModelImpl(
-                IImmutableDictionary<MemberInfo, PropertyMetadata> metaData)
+                IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
             {
-                MetaData = metaData;
+                Metadata = metadata;
             }
 
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData { get; }
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
         }
 
         private sealed class DefaultGraphElementPropertyModel : IGraphElementPropertyModel
         {
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
         }
 
         private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(MetaData)));
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
         }
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
@@ -46,16 +46,16 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Action<IElementConfigurator<TElement>> action)
         {
-            var builder = new ElementConfigurator<TElement>(model.MetaData);
+            var builder = new ElementConfigurator<TElement>(model.Metadata);
 
             action(builder);
 
-            return new GraphElementPropertyModelImpl(builder.MetaData);
+            return new GraphElementPropertyModelImpl(builder.Metadata);
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
-            var identifier = model.MetaData
+            var identifier = model.Metadata
                 .TryGetValue(member)
                 .Bind(x => x.IdentifierOverride)
                 .IfNone(member.Name);
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
         internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
         {
             return new GraphElementPropertyModelImpl(
-                transformation(model.MetaData));
+                transformation(model.Metadata));
         }
     }
 }

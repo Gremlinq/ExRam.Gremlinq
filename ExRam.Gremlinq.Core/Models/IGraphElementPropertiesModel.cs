@@ -5,6 +5,6 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGraphElementPropertyModel
     {
-        IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData { get; }
+        IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
     }
 }

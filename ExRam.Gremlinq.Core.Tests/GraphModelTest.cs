@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseProperties()
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -215,7 +215,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     builder.IgnoreOnUpdate(p => p.Name);
                 })
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata
@@ -252,7 +252,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     builder.IgnoreAlways(p => p.Name);
                 })
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata
@@ -268,7 +268,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata.IsSome
@@ -297,7 +297,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -305,7 +305,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var maybeMetadata = model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata
@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
                 .Bind(x => x.IdentifierOverride)
                 .Should()
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var maybeMetadata = model
                 .PropertiesModel
-                .MetaData
+                .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata
