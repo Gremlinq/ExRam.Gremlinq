@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core
         {
             return new GraphElementPropertyModelImpl(
                 models
-                    .SelectMany(model => model.Labels.Keys)
+                    .SelectMany(model => model.Metadata.Keys)
                     .SelectMany(x => x.GetTypeHierarchy())
                     .Distinct()
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))

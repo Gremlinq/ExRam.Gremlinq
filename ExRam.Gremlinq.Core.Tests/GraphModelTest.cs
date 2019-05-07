@@ -30,11 +30,11 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void No_Relax_in_hierarchy_inside_model()
+        public void Hierarchy_inside_model()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(Person))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -42,22 +42,22 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void No_Relax_in_hierarchy_outside_model()
+        public void Hierarchy_outside_model()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(VertexInsideHierarchy))
                 .Should()
                 .BeNone();
         }
 
         [Fact]
-        public void No_Relax_outside_hierarchy()
+        public void Outside_hierarchy()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(VertexOutsideHierarchy))
                 .Should()
                 .BeNone();
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithLowerCaseLabels()
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(Person))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseLabels()
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .WithCamelCaseLabels()
                 .EdgesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(LivesIn))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -159,7 +159,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -183,7 +183,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -289,7 +289,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()
@@ -329,7 +329,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model
                 .VerticesModel
-                .Labels
+                .Metadata
                 .TryGetValue(typeof(TimeFrame))
                 .Bind(x => x.LabelOverride)
                 .Should()

@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
                     closureType => closureType
                         .GetTypeHierarchy()
                         .Where(type => !type.IsAbstract)
-                        .SelectMany(type => elementModel.Labels
+                        .SelectMany(type => elementModel.Metadata
                             .TryGetValue(type)
                             .Bind(x => x.LabelOverride))
                         .HeadOrNone()

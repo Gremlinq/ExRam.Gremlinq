@@ -263,8 +263,8 @@ namespace ExRam.Gremlinq.Providers
                 _model = model;
                 _types = model
                     .VerticesModel
-                    .Labels
-                    .Concat(model.EdgesModel.Labels)
+                    .Metadata
+                    .Concat(model.EdgesModel.Metadata)
                     .GroupBy(x => x.Value.LabelOverride.IfNone(x.Key.Name))
                     .ToDictionary(
                         group => group.Key,

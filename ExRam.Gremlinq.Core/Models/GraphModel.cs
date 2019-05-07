@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
             {
                 public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
                 {
-                    Labels = assemblies
+                    Metadata = assemblies
                         .Distinct()
                         .SelectMany(assembly =>
                         {
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                             type => ElementMetadata.Default);
                 }
 
-                public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
+                public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
             }
 
             public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger logger)

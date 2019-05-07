@@ -12,40 +12,40 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class EmptyGraphElementModel : IGraphElementModel
         {
-            public IImmutableDictionary<Type, ElementMetadata> Labels => ImmutableDictionary<Type, ElementMetadata>.Empty;
+            public IImmutableDictionary<Type, ElementMetadata> Metadata => ImmutableDictionary<Type, ElementMetadata>.Empty;
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public IImmutableDictionary<Type, ElementMetadata> Labels => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Labels)));
+            public IImmutableDictionary<Type, ElementMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
         }
 
         private sealed class CamelcaseGraphElementModel : IGraphElementModel
         {
             public CamelcaseGraphElementModel(IGraphElementModel baseModel)
             {
-                Labels = baseModel.Labels
+                Metadata = baseModel.Metadata
                     .ToImmutableDictionary(
                         kvp => kvp.Key,
                         kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToCamelCase()));
             }
 
-            public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
+            public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
         private sealed class LowercaseGraphElementModel : IGraphElementModel
         {
             public LowercaseGraphElementModel(IGraphElementModel baseModel)
             {
-                Labels = baseModel.Labels
+                Metadata = baseModel.Metadata
                     .ToImmutableDictionary(
                         kvp => kvp.Key,
                         kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToLower()));
             }
 
-            public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
+            public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
         }
 
         public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
                     type,
                     closureType =>
                     {
-                        var labels = model.Labels
+                        var labels = model.Metadata
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
                             .Select(kvp => kvp.Value.LabelOverride.IfNone(kvp.Key.Name))
                             .OrderBy(x => x)
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
 
                         return labels.Length == 0
                             ? default(Option<string[]>)
-                            : labels.Length == model.Labels.Count
+                            : labels.Length == model.Metadata.Count
                                 ? Array.Empty<string>()
                                 : labels;
                     });
