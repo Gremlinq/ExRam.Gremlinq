@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var labels = model.Labels
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                            .Select(kvp => kvp.Value)
+                            .Select(kvp => kvp.Value.LabelOverride.IfNone(kvp.Key.Name))
                             .OrderBy(x => x)
                             .ToArray();
 

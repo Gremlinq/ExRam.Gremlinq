@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Core
                 .Where(type => !type.IsAbstract)
                 .Select(type => elementModel.Labels
                     .TryGetValue(type)
+                    .Bind(x => x.LabelOverride)
                     .IfNone(valueType.Name))
                 .FirstOrDefault();
         }

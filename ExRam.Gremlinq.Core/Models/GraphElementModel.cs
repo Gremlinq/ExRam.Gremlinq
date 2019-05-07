@@ -8,14 +8,14 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class EmptyGraphElementModel : IGraphElementModel
         {
-            public IImmutableDictionary<Type, string> Labels => ImmutableDictionary<Type, string>.Empty;
+            public IImmutableDictionary<Type, ElementMetadata> Labels => ImmutableDictionary<Type, ElementMetadata>.Empty;
         }
 
         private sealed class InvalidGraphElementModel : IGraphElementModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public IImmutableDictionary<Type, string> Labels => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Labels)));
+            public IImmutableDictionary<Type, ElementMetadata> Labels => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Labels)));
         }
 
         private sealed class CamelcaseGraphElementModel : IGraphElementModel
@@ -25,10 +25,10 @@ namespace ExRam.Gremlinq.Core
                 Labels = baseModel.Labels
                     .ToImmutableDictionary(
                         kvp => kvp.Key,
-                        kvp => kvp.Value.ToCamelCase());
+                        kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToCamelCase()));
             }
 
-            public IImmutableDictionary<Type, string> Labels { get; }
+            public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
         }
 
         private sealed class LowercaseGraphElementModel : IGraphElementModel
@@ -38,10 +38,10 @@ namespace ExRam.Gremlinq.Core
                 Labels = baseModel.Labels
                     .ToImmutableDictionary(
                         kvp => kvp.Key,
-                        kvp => kvp.Value.ToLower());
+                        kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToLower()));
             }
 
-            public IImmutableDictionary<Type, string> Labels { get; }
+            public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
         }
 
         public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();

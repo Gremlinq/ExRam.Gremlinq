@@ -69,10 +69,10 @@ namespace ExRam.Gremlinq.Core
                         .Where(type => !type.IsAbstract)
                         .ToImmutableDictionary(
                             type => type,
-                            type => type.Name);
+                            type => ElementMetadata.Default);
                 }
 
-                public IImmutableDictionary<Type, string> Labels { get; }
+                public IImmutableDictionary<Type, ElementMetadata> Labels { get; }
             }
 
             public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger logger)
