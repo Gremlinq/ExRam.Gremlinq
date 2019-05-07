@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal class ElementConfigurator<TElement> : IElementConfigurator<TElement>
     {
-        public ElementConfigurator(IImmutableDictionary<MemberInfo, MemberMetadata> metaData)
+        public ElementConfigurator(IImmutableDictionary<MemberInfo, PropertyMetadata> metaData)
         {
             MetaData = metaData;
         }
@@ -31,12 +31,12 @@ namespace ExRam.Gremlinq.Core
                 property,
                 MetaData
                     .TryGetValue(property)
-                    .Map(metaData => new MemberMetadata(metaData.IdentifierOverride, newDirective))
-                    .IfNone(new MemberMetadata(default, newDirective)));
+                    .Map(metaData => new PropertyMetadata(metaData.IdentifierOverride, newDirective))
+                    .IfNone(new PropertyMetadata(default, newDirective)));
 
             return this;
         }
 
-        public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData;
+        public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData;
     }
 }

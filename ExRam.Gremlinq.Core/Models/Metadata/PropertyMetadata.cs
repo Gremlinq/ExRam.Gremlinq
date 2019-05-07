@@ -2,11 +2,11 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public struct MemberMetadata
+    public struct PropertyMetadata
     {
-        public static readonly MemberMetadata Default = new MemberMetadata(default, default);
+        public static readonly PropertyMetadata Default = new PropertyMetadata(default, default);
 
-        public MemberMetadata(Option<string> identifierOverride, SerializationDirective ignoreDirective)
+        public PropertyMetadata(Option<string> identifierOverride, SerializationDirective ignoreDirective)
         {
             IgnoreDirective = ignoreDirective;
             IdentifierOverride = identifierOverride;

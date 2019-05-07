@@ -11,24 +11,24 @@ namespace ExRam.Gremlinq.Core
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
             public GraphElementPropertyModelImpl(
-                IImmutableDictionary<MemberInfo, MemberMetadata> metaData)
+                IImmutableDictionary<MemberInfo, PropertyMetadata> metaData)
             {
                 MetaData = metaData;
             }
 
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData { get; }
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData { get; }
         }
 
         private sealed class DefaultGraphElementPropertyModel : IGraphElementPropertyModel
         {
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => ImmutableDictionary<MemberInfo, MemberMetadata>.Empty;
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
         }
 
         private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
         {
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
-            public IImmutableDictionary<MemberInfo, MemberMetadata> MetaData => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(MetaData)));
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> MetaData => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(MetaData)));
         }
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
@@ -79,10 +79,10 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => (MemberInfo)property,
-                        property => MemberMetadata.Default));
+                        property => PropertyMetadata.Default));
         }
 
-        internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+        internal static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
         {
             return new GraphElementPropertyModelImpl(
                 transformation(model.MetaData));

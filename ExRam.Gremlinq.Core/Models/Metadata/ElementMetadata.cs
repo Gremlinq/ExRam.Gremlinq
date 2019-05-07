@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public struct ElementMetadata
     {
-        public static readonly MemberMetadata Default = new MemberMetadata(default, default);
+        public static readonly PropertyMetadata Default = new PropertyMetadata(default, default);
 
         public ElementMetadata(Option<string> labelOverride)
         {
