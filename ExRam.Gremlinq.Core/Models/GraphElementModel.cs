@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Extensions;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -47,6 +51,8 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementModel Empty = new EmptyGraphElementModel();
         public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
+        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
+
         public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
         {
             return new CamelcaseGraphElementModel(model);
@@ -55,6 +61,28 @@ namespace ExRam.Gremlinq.Core
         public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
         {
             return new LowercaseGraphElementModel(model);
+        }
+
+        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
+        {
+            return DerivedLabels
+                .GetOrCreateValue(model)
+                .GetOrAdd(
+                    type,
+                    closureType =>
+                    {
+                        var labels = model.Labels
+                            .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                            .Select(kvp => kvp.Value.LabelOverride.IfNone(kvp.Key.Name))
+                            .OrderBy(x => x)
+                            .ToArray();
+
+                        return labels.Length == 0
+                            ? default(Option<string[]>)
+                            : labels.Length == model.Labels.Count
+                                ? Array.Empty<string>()
+                                : labels;
+                    });
         }
 
         internal static string[] GetValidFilterLabels(this IGraphElementModel model, Type type)
