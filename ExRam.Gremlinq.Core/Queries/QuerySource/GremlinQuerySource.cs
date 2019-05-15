@@ -32,10 +32,34 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex)
+            {
+                return Create()
+                    .UpdateV(vertex);
+            }
+
+            IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex)
+            {
+                return Create()
+                    .ReplaceV(vertex);
+            }
+
             IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
+            }
+
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge)
+            {
+                return Create()
+                    .UpdateE(edge);
+            }
+
+            IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge)
+            {
+                return Create()
+                    .ReplaceE(edge);
             }
 
             IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
