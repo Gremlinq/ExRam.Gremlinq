@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using ExRam.Gremlinq.Core.Extensions;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
@@ -33,14 +34,19 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
+        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, string, Option<string>> overrideTransformation)
+        {
+            return model.WithMetadata(_ => _.ConfigureNames(overrideTransformation));
+        }
+        
         public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.WithCamelCaseNames());
+            return model.ConfigureNames((member, name) => name.ToCamelCase());
         }
 
         public static IGraphElementPropertyModel WithLowerCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.WithMetadata(_ => _.WithLowerCaseNames());
+            return model.ConfigureNames((member, name) => name.ToLower());
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataBuilder<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)

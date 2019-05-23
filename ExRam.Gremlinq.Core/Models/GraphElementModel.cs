@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Extensions;
 using LanguageExt;
@@ -33,18 +32,21 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
-        public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
+        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, Option<string>> overrideTransformation)
         {
             return model.WithMetadata(_ => _.ToImmutableDictionary(
                 kvp => kvp.Key,
-                kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToCamelCase())));
+                kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.LabelOverride.IfNone(kvp.Key.Name)))));
+        }
+
+        public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
+        {
+            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToCamelCase());
         }
 
         public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
         {
-            return model.WithMetadata(_ => _.ToImmutableDictionary(
-                kvp => kvp.Key,
-                kvp => new ElementMetadata(kvp.Value.LabelOverride.IfNone(kvp.Key.Name).ToLower())));
+            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
