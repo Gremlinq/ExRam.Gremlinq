@@ -40,19 +40,19 @@ namespace ExRam.Gremlinq.Samples
                 //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                 //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                 //in a currently loaded assembly). We explicitly set a model here anyway.
-                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>())
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
 
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
-                .WithRemote("localhost", GraphsonVersion.V3);
+                .UseWebSocket("localhost", GraphsonVersion.V3)
 
                 //For Gremlin Server >= 3.4.0, we need to remove all ReferenceElementStrategies
                 //from the traversals, or else we don't get any vertex properties in the returned
                 //json-payloads and we end up with NullReferenceExceptions. Uncomment below
                 //when running on Gremlin Server >= 3.4.0.
-                //.WithoutStrategies("ReferenceElementStrategy");
+                .RemoveStrategies("ReferenceElementStrategy");
 
                 //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
-                //.WithCosmosDbRemote(hostname, database, graphName, authKey);
+                //.UseCosmosDb(hostname, database, graphName, authKey);
         }
 
         public async Task CreateGraph()
@@ -62,96 +62,96 @@ namespace ExRam.Gremlinq.Samples
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
-                .First();
+                .FirstAsync();
 
             Debug.Assert(
                 _marko.Name != null,
                 "The json payload returned from the server did not include any vertex properties." +
-                "If you are running Gremlin Server >= 3.4.0, see the note above and try uncommenting 'WithoutStrategies'. ");
+                "If you are running Gremlin Server >= 3.4.0, see the note above and try uncommenting 'RemoveStrategies'. ");
 
             var vadas = await _g
                 .AddV(new Person { Name = "Vadas", Age = 27 })
-                .First();
+                .FirstAsync();
             
             var josh = await _g
                 .AddV(new Person { Name = "Josh", Age = 32 })
-                .First();
+                .FirstAsync();
 
             var peter = await _g
                 .AddV(new Person { Name = "Peter", Age = 29 })
-                .First();
+                .FirstAsync();
 
             var charlie = await _g
                 .AddV(new Dog {Name = "Charlie", Age = 2})
-                .First();
+                .FirstAsync();
 
             var luna = await _g
                 .AddV(new Cat {Name = "Luna", Age = 9})
-                .First();
+                .FirstAsync();
 
             var lop = await _g
                 .AddV(new Software { Name = "Lop", Language = ProgrammingLanguage.Java })
-                .First();
+                .FirstAsync();
 
             var ripple = await _g
                 .AddV(new Software { Name = "Ripple", Language = ProgrammingLanguage.Java })
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(_marko.Id)
                 .AddE<Knows>()
                 .To(__ => __
                     .V(vadas.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(_marko.Id)
                 .AddE<Knows>()
                 .To(__ => __
                     .V(josh.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(_marko.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(josh.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(ripple.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(josh.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(peter.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(josh.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(charlie.Id))
-                .First();
+                .FirstAsync();
 
             await _g
                 .V(peter.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(luna.Id))
-                .First();
+                .FirstAsync();
         }
 
         public async Task CreateKnowsRelationInOneQuery()
@@ -161,7 +161,7 @@ namespace ExRam.Gremlinq.Samples
                 .AddE<Knows>()
                 .To(__ => __
                     .AddV(new Person { Name = "Jeff", Age = 27 }))
-                .First();
+                .FirstAsync();
         }
 
         public async Task WhoDoesMarkoKnow()
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Samples
                 .OfType<Person>()
                 .OrderBy(x => x.Name)
                 .Values(x => x.Name)
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("Who does Marko know?");
 
@@ -190,7 +190,7 @@ namespace ExRam.Gremlinq.Samples
             var personsOlderThan30 = await _g
                 .V<Person>()
                 .Where(x => x.Age > 30)
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("Who is older than 30?");
 
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Samples
             var nameStartsWithB = await _g
                 .V<Person>()
                 .Where(x => x.Name.Value.StartsWith("B"))
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("Whose name starts with 'B'?");
 
@@ -228,7 +228,7 @@ namespace ExRam.Gremlinq.Samples
                     .OfType<Person>()
                     .As((___, friend) => ___
                         .Select(person, friend)))
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("Who knows who?");
 
@@ -244,7 +244,7 @@ namespace ExRam.Gremlinq.Samples
         {
             var pets = await _g
                 .V<Pet>()
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("What pets are there?");
 
@@ -263,7 +263,7 @@ namespace ExRam.Gremlinq.Samples
                 .Where(__ => __
                     .Out<Owns>()
                     .OfType<Pet>())
-                .ToArray();
+                .ToArrayAsync();
 
             //Alternatively:
             //var petOwners = await _g
@@ -290,13 +290,13 @@ namespace ExRam.Gremlinq.Samples
                 .Properties(x => x.Name)
                 .Property(x => x.Creator, "Stephen")
                 .Property(x => x.Date, DateTimeOffset.Now)
-                .ToArray();
+                .ToArrayAsync();
 
             var metaProperties = await _g
                 .V()
                 .Properties()
                 .Properties()
-                .ToArray();
+                .ToArrayAsync();
 
             Console.WriteLine("Meta properties on Vertex properties:");
 
