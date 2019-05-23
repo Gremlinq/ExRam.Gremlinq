@@ -140,7 +140,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .WithModel(GraphModel
-                    .FromExecutingAssembly<VertexWithListAsId, Edge>())
+                    .FromBaseTypes<VertexWithListAsId, Edge>())
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
                 .Invoking(x => new GroovyGremlinQueryElementVisitor().Visit(x))
                 .Should()

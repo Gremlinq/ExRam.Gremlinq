@@ -83,7 +83,11 @@ namespace ExRam.Gremlinq.Core
                 if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                     throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-                var assemblyArray = assemblies.ToArray();
+                var assemblyArray = assemblies
+                    .Append(vertexBaseType.Assembly)
+                    .Append(edgeBaseType.Assembly)
+                    .Distinct()
+                    .ToArray();
 
                 VerticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
                 EdgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
@@ -100,32 +104,17 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphModel Dynamic(ILogger logger = null)
         {
-            return FromAssemblies<IVertex, IEdge>(logger, AppDomain.CurrentDomain.GetAssemblies());
+            return FromBaseTypes<IVertex, IEdge>(logger, AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger logger = null)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger logger = null, params Assembly[] additionalAssemblies)
         {
-            return FromAssemblies<TVertex, TEdge>(logger, typeof(TVertex).Assembly, typeof(TEdge).Assembly);
+            return FromBaseTypes(typeof(TVertex), typeof(TEdge), logger, additionalAssemblies);
         }
 
-        public static IGraphModel FromExecutingAssembly(ILogger logger = null)
+        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] additionalAssemblies)
         {
-            return FromAssemblies<IVertex, IEdge>(logger, Assembly.GetCallingAssembly());
-        }
-
-        public static IGraphModel FromExecutingAssembly<TVertex, TEdge>(ILogger logger = null)
-        {
-            return FromAssemblies<TVertex, TEdge>(logger, Assembly.GetCallingAssembly());
-        }
-
-        public static IGraphModel FromAssemblies<TVertex, TEdge>(ILogger logger = null, params Assembly[] assemblies)
-        {
-            return FromAssemblies(typeof(TVertex), typeof(TEdge), logger, assemblies);
-        }
-
-        public static IGraphModel FromAssemblies(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] assemblies)
-        {
-            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, assemblies, logger);
+            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
         }
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
