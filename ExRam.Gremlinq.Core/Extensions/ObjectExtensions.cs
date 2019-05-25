@@ -16,7 +16,7 @@ namespace LanguageExt
                 .GetOrAdd(
                     obj.GetType(),
                     type => type
-                        .GetProperties()
+                        .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
                         .ToArray());
 
             foreach (var propertyInfo in propertyInfos)
