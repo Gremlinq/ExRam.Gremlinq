@@ -80,7 +80,8 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => (MemberInfo)property,
-                        property => PropertyMetadata.Default));
+                        property => string.Equals(property.Name, "id", StringComparison.OrdinalIgnoreCase) ?
+                            PropertyMetadata.ReadOnly : PropertyMetadata.Default));
         }
 
         private static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)

@@ -210,19 +210,29 @@ namespace System.Linq.Expressions
 
             if (declaringType != null
                 && declaringType != parameterType
-                && declaringType.GetTypeInfo().IsInterface
                 && declaringType.GetTypeInfo().IsAssignableFrom(parameterType.GetTypeInfo()))
             {
-                var propertyGetter = propertyInfo.GetMethod;
-                var interfaceMapping = parameterType.GetTypeInfo().GetRuntimeInterfaceMap(declaringType);
-                var index = Array.FindIndex(interfaceMapping.InterfaceMethods, p => propertyGetter.Equals(p));
-                var targetMethod = interfaceMapping.TargetMethods[index];
-                foreach (var runtimeProperty in parameterType.GetRuntimeProperties())
+                if (declaringType.GetTypeInfo().IsInterface)
                 {
-                    if (targetMethod.Equals(runtimeProperty.GetMethod))
+                    var propertyGetter = propertyInfo.GetMethod;
+                    var interfaceMapping = parameterType.GetTypeInfo().GetRuntimeInterfaceMap(declaringType);
+                    var index = Array.FindIndex(interfaceMapping.InterfaceMethods, p => propertyGetter.Equals(p));
+                    var targetMethod = interfaceMapping.TargetMethods[index];
+                    foreach (var runtimeProperty in parameterType.GetRuntimeProperties())
                     {
-                        return runtimeProperty;
+                        if (targetMethod.Equals(runtimeProperty.GetMethod))
+                        {
+                            return runtimeProperty;
+                        }
                     }
+                }
+                else
+                {
+                    // Make sure we return the PropertyInfo from the derived class instead of the base
+                    // since the PropertyInfo objects are used as dictionary keys
+                    propertyInfo = parameterType.GetProperties()
+                        .DefaultIfEmpty(propertyInfo)
+                        .First(pi => pi.Name == propertyInfo.Name && pi.DeclaringType == declaringType);
                 }
             }
 
