@@ -111,10 +111,9 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
         {
-            return new GraphModelImpl(
-                transformation(model.VerticesModel),
-                transformation(model.EdgesModel),
-                model.PropertiesModel);
+            return model
+                .ConfigureVertices(transformation)
+                .ConfigureEdges(transformation);
         }
 
         public static IGraphModel ConfigureVertices(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
