@@ -64,6 +64,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddE_OutV()
+        {
+            g
+                .AddV<Person>()
+                .AddE<LivesIn>()
+                .To(__ => __
+                    .V<Country>("id"))
+                .OutV()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+        }
+
+        [Fact]
         public void AddE_property()
         {
             g
@@ -76,19 +89,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>("id"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).property(_i, _j).to(__.V(_k).hasLabel(_l))");
-        }
-
-        [Fact]
-        public void AddE_OutV()
-        {
-            g
-                .AddV<Person>()
-                .AddE<LivesIn>()
-                .To(__ => __
-                    .V<Country>("id"))
-                .OutV()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -153,24 +153,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void AddV_With_Ignored()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreAlways(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
-               .AddV(person)
-               .Should()
-               .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
-               .WithParameters("Person", "Name", "Marko", "RegistrationDate", now);
-        }
-
-        [Fact]
         public void AddV_list_cardinality_id()
         {
             g
@@ -190,6 +172,24 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
                 .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
+        }
+
+        [Fact]
+        public void AddV_With_Ignored()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreAlways(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
+               .AddV(person)
+               .Should()
+               .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
+               .WithParameters("Person", "Name", "Marko", "RegistrationDate", now);
         }
 
         [Fact]
@@ -285,239 +285,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
-        }
-
-        [Fact]
-        public void UpdateV_No_Config()
-        {
-            var now = DateTimeOffset.UtcNow;
-
-            g
-                .V<Person>()
-                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
-                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
-        }
-
-        [Fact]
-        public void UpdateV_With_Readonly()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreOnUpdate(p => p.Gender))))
-                .V<Person>()
-                .Update(person)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
-                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
-        }
-
-        [Fact]
-        public void UpdateV_With_Ignored()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreAlways(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
-                .V<Person>()
-                .Update(person)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
-                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
-        }
-
-        [Fact]
-        public void UpdateV_With_Mixed()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
-                .V<Person>()
-                .Update(person)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
-                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
-        }
-
-        [Fact]
-        public void UpdateE_With_Readonly()
-        {
-            var now = DateTime.UtcNow;
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
-                            .IgnoreOnUpdate(p => p.From)
-                            .IgnoreOnUpdate(p => p.Role))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
-                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
-        }
-
-        [Fact]
-        public void UpdateE_With_Ignored()
-        {
-            var now = DateTime.UtcNow;
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreAlways(p => p.Role))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
-                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
-        }
-
-        [Fact]
-        public void UpdateE_With_Mixed()
-        {
-            var now = DateTime.UtcNow;
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreOnUpdate(p => p.Role))))
-                .E<WorksFor>()
-                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
-                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
-        }
-
-        [Fact]
-        public void Update_Vertex_And_Edge_With_Config()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var edgeNow = DateTime.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreAlways(p => p.Name))
-                    .ConfigureElement<WorksFor>(builder => builder
-                        .IgnoreAlways(p => p.From)
-                        .IgnoreOnUpdate(p => p.Role))))
-                .V<Person>()
-                .Update(person)
-                .OutE<WorksFor>()
-                .Update(worksFor)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
-                .WithParameters(nameof(Person), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.To), worksFor.To);
-        }
-
-        [Fact]
-        public void Update_Vertex_And_Edge_No_Config()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var edgeNow = DateTime.UtcNow;
-            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
-
-            g
-                .V<Person>()
-                .Update(person)
-                .OutE<WorksFor>()
-                .Update(worksFor)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _o)")
-                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Age, "Marko", person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), worksFor.Role, worksFor.From);
-        }
-
-        [Fact]
-        public void ReplaceV()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var id = Guid.NewGuid();
-            var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ReplaceV(person)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
-                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
-        }
-
-        [Fact]
-        public void ReplaceV_With_Config()
-        {
-            var now = DateTimeOffset.UtcNow;
-            var id = Guid.NewGuid();
-            var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
-                            .IgnoreOnUpdate(p => p.RegistrationDate))))
-                .ReplaceV(person)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
-                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), 21, "Marko", Gender.Male);
-        }
-
-        [Fact]
-        public void ReplaceE()
-        {
-            var now = DateTime.UtcNow;
-            var id = Guid.NewGuid();
-
-            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
-
-            g
-                .ReplaceE(worksFor)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
-                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
-        }
-
-        [Fact]
-        public void ReplaceE_With_Config()
-        {
-            var now = DateTime.UtcNow;
-            var id = Guid.NewGuid();
-            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
-
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
-                            .IgnoreOnUpdate(p => p.Id))))
-                .ReplaceE(worksFor)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
-                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
         }
 
         [Fact]
@@ -1216,18 +983,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OrderBy_ThenBy_lambda()
-        {
-            g
-                .V<Person>()
-                .OrderBy("it.property('str1').value().length()")
-                .ThenBy("it.property('str2').value().length()")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
-                .WithParameters("Person");
-        }
-
-        [Fact]
         public void OrderBy_member_ThenBy_member()
         {
             g
@@ -1240,27 +995,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OrderBy_traversal_ThenBy()
+        public void OrderBy_ThenBy_lambda()
         {
             g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenBy(__ => __.Gender)
+                .OrderBy("it.property('str1').value().length()")
+                .ThenBy("it.property('str2').value().length()")
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
-                .WithParameters("Person", "Name", "Gender");
-        }
-
-        [Fact]
-        public void OrderBy_traversal_ThenBy_traversal()
-        {
-            g
-                .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenBy(__ => __.Values(x => x.Gender))
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
-                .WithParameters("Person", "Name", "Gender");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -1296,6 +1039,30 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr)")
                 .WithParameters("Person", "Name");
+        }
+
+        [Fact]
+        public void OrderBy_traversal_ThenBy()
+        {
+            g
+                .V<Person>()
+                .OrderBy(__ => __.Values(x => x.Name))
+                .ThenBy(__ => __.Gender)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
+                .WithParameters("Person", "Name", "Gender");
+        }
+
+        [Fact]
+        public void OrderBy_traversal_ThenBy_traversal()
+        {
+            g
+                .V<Person>()
+                .OrderBy(__ => __.Values(x => x.Name))
+                .ThenBy(__ => __.Values(x => x.Gender))
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
+                .WithParameters("Person", "Name", "Gender");
         }
 
         [Fact]
@@ -1471,6 +1238,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_name_typed()
+        {
+            g
+                .V()
+                .Properties<int>("propertyName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
+                .WithParameters("propertyName");
+        }
+
+        [Fact]
+        public void Properties_name_untyped()
+        {
+            g
+                .V()
+                .Properties("propertyName")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
+                .WithParameters("propertyName");
+        }
+
+        [Fact]
         public void Properties_of_member()
         {
             g
@@ -1515,15 +1304,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Properties1()
+        public void Properties_Properties_as_select()
         {
             g
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties()
+                .As((__, s) => __
+                    .Select(s))
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
-                .WithParameters("Country", "Name");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().as(_c).select(_c)")
+                .WithParameters("Country", "Name", "l1");
         }
 
         [Fact]
@@ -1540,32 +1331,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_Properties_as_select()
-        {
-            g
-                .V<Country>()
-                .Properties(x => x.Name)
-                .Properties()
-                .As((__, s) => __
-                    .Select(s))
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().as(_c).select(_c)")
-                .WithParameters("Country", "Name", "l1");
-        }
-
-        [Fact]
-        public void Properties_Properties2()
-        {
-            g
-                .V<Company>()
-                .Properties(x => x.Name)
-                .Properties()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
-                .WithParameters("Company", "Name");
-        }
-
-        [Fact]
         public void Properties_Properties_Value()
         {
             g
@@ -1576,18 +1341,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().value()")
                 .WithParameters("Company", "Name");
-        }
-
-        [Fact]
-        public void Properties_Where_label()
-        {
-            g
-                .V<Company>()
-                .Properties(x => x.Name)
-                .Where(x => x.Label == "someKey")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
-                .WithParameters("Company", "Name", "someKey");
         }
 
         [Fact]
@@ -1616,6 +1369,41 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
                 .WithParameters("Company", "Name", "l1");
+        }
+
+        [Fact]
+        public void Properties_Properties1()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
+                .WithParameters("Country", "Name");
+        }
+
+        [Fact]
+        public void Properties_Properties2()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Properties()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).properties()")
+                .WithParameters("Company", "Name");
+        }
+
+        [Fact]
+        public void Properties_typed_no_parameters()
+        {
+            g
+                .V()
+                .Properties<string>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties()")
+                .WithoutParameters();
         }
 
         [Fact]
@@ -1741,6 +1529,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Where_label()
+        {
+            g
+                .V<Company>()
+                .Properties(x => x.Name)
+                .Where(x => x.Label == "someKey")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
+                .WithParameters("Company", "Name", "someKey");
+        }
+
+        [Fact]
         public void Properties_Where_Label()
         {
             g
@@ -1812,28 +1612,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Country", 10);
         }
 
-        [Fact]
-        public void Properties_name_untyped()
-        {
-            g
-                .V()
-                .Properties("propertyName")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
-                .WithParameters("propertyName");
-        }
-
-        [Fact]
-        public void Properties_name_typed()
-        {
-            g
-                .V()
-                .Properties<int>("propertyName")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties(_a)")
-                .WithParameters("propertyName");
-        }
-
 
         [Fact]
         public void Properties1()
@@ -1841,17 +1619,6 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .V()
                 .Properties()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Properties_typed_no_parameters()
-        {
-            g
-                .V()
-                .Properties<string>()
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().properties()")
                 .WithoutParameters();
@@ -1867,18 +1634,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().properties()")
                 .WithoutParameters();
-        }
-
-        [Fact]
-        public void Variable_wrap()
-        {
-            g
-                .V()
-                .Properties()
-                .Properties("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().properties().properties(_a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _ba, _bb, _bc, _bd)")
-                .WithParameters("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30");
         }
 
         [Fact]
@@ -1928,6 +1683,71 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void ReplaceE()
+        {
+            var now = DateTime.UtcNow;
+            var id = Guid.NewGuid();
+
+            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
+
+            g
+                .ReplaceE(worksFor)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+        }
+
+        [Fact]
+        public void ReplaceE_With_Config()
+        {
+            var now = DateTime.UtcNow;
+            var id = Guid.NewGuid();
+            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreOnUpdate(p => p.Id))))
+                .ReplaceE(worksFor)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+        }
+
+        [Fact]
+        public void ReplaceV()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var id = Guid.NewGuid();
+            var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ReplaceV(person)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+        }
+
+        [Fact]
+        public void ReplaceV_With_Config()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var id = Guid.NewGuid();
+            var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.RegistrationDate))))
+                .ReplaceV(person)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), 21, "Marko", Gender.Male);
+        }
+
+        [Fact]
         public void Select()
         {
             var stepLabel = new StepLabel<Person>();
@@ -1939,6 +1759,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).as(_b).select(_b)")
                 .WithParameters("Person", "l1");
+        }
+
+        [Fact]
+        public void Set_Meta_Property_to_null()
+        {
+            g
+                .V<Country>()
+                .Properties(x => x.Name)
+                .Property("metaKey", null)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).sideEffect(__.properties(_c).drop())")
+                .WithParameters("Country", "Name", "metaKey");
         }
 
         [Fact]
@@ -1965,18 +1797,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
                 .WithParameters("Person", "Name", "ValidFrom", d);
-        }
-
-        [Fact]
-        public void Set_Meta_Property_to_null()
-        {
-            g
-                .V<Country>()
-                .Properties(x => x.Name)
-                .Property("metaKey", null)
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).properties(_b).sideEffect(__.properties(_c).drop())")
-                .WithParameters("Country", "Name", "metaKey");
         }
 
         [Fact]
@@ -2088,6 +1908,174 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).union(__.identity(), __.out(_b))")
                 .WithParameters("Person", "LivesIn");
+        }
+
+        [Fact]
+        public void Update_Vertex_And_Edge_No_Config()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var edgeNow = DateTime.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
+
+            g
+                .V<Person>()
+                .Update(person)
+                .OutE<WorksFor>()
+                .Update(worksFor)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _o)")
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Age, "Marko", person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), worksFor.Role, worksFor.From);
+        }
+
+        [Fact]
+        public void Update_Vertex_And_Edge_With_Config()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var edgeNow = DateTime.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+            var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreAlways(p => p.Name))
+                    .ConfigureElement<WorksFor>(builder => builder
+                        .IgnoreAlways(p => p.From)
+                        .IgnoreOnUpdate(p => p.Role))))
+                .V<Person>()
+                .Update(person)
+                .OutE<WorksFor>()
+                .Update(worksFor)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
+                .WithParameters(nameof(Person), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.To), worksFor.To);
+        }
+
+        [Fact]
+        public void UpdateE_With_Ignored()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreAlways(p => p.Role))))
+                .E<WorksFor>()
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
+        }
+
+        [Fact]
+        public void UpdateE_With_Mixed()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreOnUpdate(p => p.Role))))
+                .E<WorksFor>()
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
+        }
+
+        [Fact]
+        public void UpdateE_With_Readonly()
+        {
+            var now = DateTime.UtcNow;
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreOnUpdate(p => p.From)
+                            .IgnoreOnUpdate(p => p.Role))))
+                .E<WorksFor>()
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
+        }
+
+        [Fact]
+        public void UpdateV_No_Config()
+        {
+            var now = DateTimeOffset.UtcNow;
+
+            g
+                .V<Person>()
+                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+        }
+
+        [Fact]
+        public void UpdateV_With_Ignored()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreAlways(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
+                .V<Person>()
+                .Update(person)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
+        }
+
+        [Fact]
+        public void UpdateV_With_Mixed()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
+                .V<Person>()
+                .Update(person)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
+        }
+
+        [Fact]
+        public void UpdateV_With_Readonly()
+        {
+            var now = DateTimeOffset.UtcNow;
+            var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreOnUpdate(p => p.Gender))))
+                .V<Person>()
+                .Update(person)
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
         }
 
         [Fact]
@@ -2270,6 +2258,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "key");
+        }
+
+        [Fact]
+        public void Variable_wrap()
+        {
+            g
+                .V()
+                .Properties()
+                .Properties("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().properties().properties(_a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _ba, _bb, _bc, _bd)")
+                .WithParameters("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30");
         }
 
         [Fact]
@@ -2944,6 +2944,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void WithoutStrategies1()
+        {
+            g
+                .WithoutStrategies("ReferenceElementStrategy")
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy).V()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void WithoutStrategies2()
+        {
+            g
+                .WithoutStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
+                .V()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void WithSubgraphStrategy()
         {
             g
@@ -2985,28 +3007,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("Person");
-        }
-
-        [Fact]
-        public void WithoutStrategies1()
-        {
-            g
-                .WithoutStrategies("ReferenceElementStrategy")
-                .V()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy).V()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void WithoutStrategies2()
-        {
-            g
-                .WithoutStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
-                .V()
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
-                .WithoutParameters();
         }
     }
 }
