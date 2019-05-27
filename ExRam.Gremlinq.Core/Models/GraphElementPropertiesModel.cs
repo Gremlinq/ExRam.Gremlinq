@@ -34,19 +34,19 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
         public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
-        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, string, Option<string>> overrideTransformation)
+        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Option<string>, Option<string>> overrideTransformation)
         {
             return model.WithMetadata(_ => _.ConfigureNames(overrideTransformation));
         }
         
         public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.ConfigureNames((member, name) => name.ToCamelCase());
+            return model.ConfigureNames((member, name) => name.IfNone(member.Name).ToCamelCase());
         }
 
         public static IGraphElementPropertyModel WithLowerCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.ConfigureNames((member, name) => name.ToLower());
+            return model.ConfigureNames((member, name) => name.IfNone(member.Name).ToLower());
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
