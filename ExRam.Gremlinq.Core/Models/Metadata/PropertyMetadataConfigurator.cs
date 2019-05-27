@@ -8,41 +8,41 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class PropertyMetadataBuilder<TElement> : IPropertyMetadataBuilder<TElement>
+    internal sealed class PropertyMetadataConfigurator<TElement> : IPropertyMetadataConfigurator<TElement>
     {
         private readonly IImmutableDictionary<MemberInfo, PropertyMetadata> _metadata;
 
-        public PropertyMetadataBuilder(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+        public PropertyMetadataConfigurator(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
         {
             _metadata = metadata;
         }
 
-        public IPropertyMetadataBuilder<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IPropertyMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
         }
 
-        public IPropertyMetadataBuilder<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IPropertyMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
         }
 
-        public IPropertyMetadataBuilder<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IPropertyMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
-        public IPropertyMetadataBuilder<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
+        public IPropertyMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
         {
             var property = propertyExpression.GetPropertyAccess();
 
-            return new PropertyMetadataBuilder<TElement>(_metadata.SetItem(
+            return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
                 property,
                 _metadata
                     .TryGetValue(property)

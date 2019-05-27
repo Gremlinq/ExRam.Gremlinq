@@ -49,9 +49,9 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureNames((member, name) => name.ToLower());
         }
 
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataBuilder<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
         {
-            return new GraphElementPropertyModelImpl(action(new PropertyMetadataBuilder<TElement>(model.Metadata)));
+            return new GraphElementPropertyModelImpl(action(new PropertyMetadataConfigurator<TElement>(model.Metadata)));
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
