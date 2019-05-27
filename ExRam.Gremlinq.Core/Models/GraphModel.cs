@@ -34,13 +34,6 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertyModel.Default;
         }
 
-        private sealed class InvalidGraphModel : IGraphModel
-        {
-            public IGraphElementModel VerticesModel { get => GraphElementModel.Invalid; }
-            public IGraphElementModel EdgesModel { get => GraphElementModel.Invalid; }
-            public IGraphElementPropertyModel PropertiesModel { get => GraphElementPropertyModel.Invalid; }
-        }
-
         private sealed class AssemblyGraphModel : IGraphModel
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
@@ -100,7 +93,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
-        public static readonly IGraphModel Invalid = new InvalidGraphModel();
 
         public static IGraphModel Dynamic(ILogger logger = null)
         {
