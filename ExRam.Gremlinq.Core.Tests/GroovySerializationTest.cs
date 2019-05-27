@@ -130,16 +130,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var now = DateTime.UtcNow;
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreAlways(p => p.From)
-                    .IgnoreAlways(p => p.Role)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreAlways(p => p.Role))))
                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                .Should()
                .SerializeToGroovy<TVisitor>("g.addE(_a).property(_b, _c)")
@@ -162,16 +158,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreAlways(p => p.Age)
-                    .IgnoreAlways(p => p.Gender)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreAlways(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
                .AddV(person)
                .Should()
                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
@@ -305,8 +297,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
-                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
-                    nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
         }
 
         [Fact]
@@ -315,16 +306,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreOnUpdate(p => p.Age)
-                    .IgnoreOnUpdate(p => p.Gender)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreOnUpdate(p => p.Gender))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -338,16 +325,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreAlways(p => p.Age)
-                    .IgnoreAlways(p => p.Gender)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreAlways(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -361,16 +344,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreOnUpdate(p => p.Age)
-                    .IgnoreAlways(p => p.Gender)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreAlways(p => p.Gender))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -383,16 +362,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var now = DateTime.UtcNow;
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreOnUpdate(p => p.From)
-                    .IgnoreOnUpdate(p => p.Role)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreOnUpdate(p => p.From)
+                            .IgnoreOnUpdate(p => p.Role))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -405,16 +380,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var now = DateTime.UtcNow;
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreAlways(p => p.From)
-                    .IgnoreAlways(p => p.Role)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreAlways(p => p.Role))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -427,16 +398,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var now = DateTime.UtcNow;
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreAlways(p => p.From)
-                    .IgnoreOnUpdate(p => p.Role)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreOnUpdate(p => p.Role))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -452,31 +419,22 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
             var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreOnUpdate(p => p.Age)
-                    .IgnoreAlways(p => p.Name)
-                )
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreAlways(p => p.From)
-                    .IgnoreOnUpdate(p => p.Role)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.Age)
+                            .IgnoreAlways(p => p.Name))
+                    .ConfigureElement<WorksFor>(builder => builder
+                        .IgnoreAlways(p => p.From)
+                        .IgnoreOnUpdate(p => p.Role))))
                 .V<Person>()
                 .Update(person)
                 .OutE<WorksFor>()
                 .Update(worksFor)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
-                .WithParameters(nameof(Person),
-                    nameof(Person.Gender), nameof(Person.RegistrationDate),
-                    person.Gender, person.RegistrationDate,
-                    nameof(WorksFor), nameof(WorksFor.To),
-                    worksFor.To);
+                .WithParameters(nameof(Person), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.To), worksFor.To);
         }
 
         [Fact]
@@ -494,11 +452,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Update(worksFor)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _o)")
-                .WithParameters(nameof(Person),
-                    nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate),
-                    person.Age, "Marko", person.Gender, person.RegistrationDate,
-                    nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To),
-                    worksFor.Role, worksFor.From);
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Age, "Marko", person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), worksFor.Role, worksFor.From);
         }
 
         [Fact]
@@ -507,12 +461,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTimeOffset.UtcNow;
             var id = Guid.NewGuid();
             var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
+
             g
                 .ReplaceV(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
-                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
-                    nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
         }
 
         [Fact]
@@ -522,15 +476,11 @@ namespace ExRam.Gremlinq.Core.Tests
             var id = Guid.NewGuid();
             var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
-            var local = Create();
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<Person>(builder => builder
-                    .IgnoreOnUpdate(p => p.RegistrationDate)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Person>(builder => builder
+                            .IgnoreOnUpdate(p => p.RegistrationDate))))
                 .ReplaceV(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
@@ -557,19 +507,13 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var now = DateTime.UtcNow;
             var id = Guid.NewGuid();
-
             var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
 
-            var local = Create();
-
-
-            var g = local.WithModel(local.Model.ConfigureProperties(_ => _
-                .ConfigureElement<WorksFor>(builder => builder
-                    .IgnoreOnUpdate(p => p.Id)
-                )
-            ));
-
             g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<WorksFor>(builder => builder
+                            .IgnoreOnUpdate(p => p.Id))))
                 .ReplaceE(worksFor)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
