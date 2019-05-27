@@ -108,14 +108,14 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(Name, Model, _isUserSetModel, Executor, IncludedStrategies, ExcludedStrategyNames.AddRange(strategies), Logger);
             }
 
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithModel(IGraphModel model)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, model, true, Executor, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(Model), true, Executor, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithExecutor(IGremlinQueryExecutor executor)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, _isUserSetModel, executor, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, _isUserSetModel, executorTransformation(Executor), IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             private IGremlinQuery Create()
@@ -167,6 +167,16 @@ namespace ExRam.Gremlinq.Core
         public static IVertexGremlinQuery<TVertex> AddV<TVertex>(this IGremlinQuerySource source) where TVertex : new()
         {
             return source.AddV(new TVertex());
+        }
+
+        public static IConfigurableGremlinQuerySource WithModel(this IConfigurableGremlinQuerySource source, IGraphModel model)
+        {
+            return source.ConfigureModel(_ => model);
+        }
+
+        public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
+        {
+            return source.ConfigureExecutor(_ => executor);
         }
     }
 }

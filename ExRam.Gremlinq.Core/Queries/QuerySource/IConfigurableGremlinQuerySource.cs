@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
@@ -9,8 +10,8 @@ namespace ExRam.Gremlinq.Core
         IConfigurableGremlinQuerySource WithLogger(ILogger logger);
         IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
         IConfigurableGremlinQuerySource WithoutStrategies(params string[] strategies);
-        IConfigurableGremlinQuerySource WithModel(IGraphModel model);
-        IConfigurableGremlinQuerySource WithExecutor(IGremlinQueryExecutor executor);
+        IConfigurableGremlinQuerySource ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
+        IConfigurableGremlinQuerySource ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
 
         string Name { get; }
         ILogger Logger { get; }
