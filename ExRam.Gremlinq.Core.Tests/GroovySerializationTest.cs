@@ -549,8 +549,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(id, _a).property(_b, _f).property(_c, _g).property(_d, _g)")
-                .WithParameters(id, nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), nameof(WorksFor.Id), "Admin", now);
+                .SerializeToGroovy<TVisitor>("g.E(_a).sideEffect(__.properties(_b, _c, _d).drop()).property(_b, _e).property(_c, _f).property(_d, _f)")
+                .WithParameters(id, nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
         }
 
         [Fact]
