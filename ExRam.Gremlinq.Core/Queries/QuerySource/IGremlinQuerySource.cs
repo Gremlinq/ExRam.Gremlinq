@@ -5,10 +5,8 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQuerySource
     {
         IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
-        IVertexGremlinQuery<TVertex> UpdateV<TVertex>(TVertex vertex);
         IVertexGremlinQuery<TVertex> ReplaceV<TVertex>(TVertex vertex);
         IEdgeGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
-        IEdgeGremlinQuery<TItem> UpdateE<TItem>(TItem edge);
         IEdgeGremlinQuery<TItem> ReplaceE<TItem>(TItem edge);
         IVertexGremlinQuery<IVertex> V(params object[] ids);
         IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);

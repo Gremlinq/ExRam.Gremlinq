@@ -117,12 +117,33 @@ namespace ExRam.Gremlinq.Core
                 .AddElementProperties(newEdge, false);
         }
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> UpdateE<TEdge>(TEdge edge)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Update(TElement element, bool allowExplicitCardinality)
         {
-            return this.AddElementPropertiesForUpdate<TEdge, TElement>(edge, false);
+            var elementType = element.GetType();
+
+            // Only pull back the properties that aren't filtered by configuration
+            var props = element.Serialize()
+                .Where(p => (Model.PropertiesModel.Metadata.GetValueOrDefault(p.Item1, PropertyMetadata.Default).SerializationBehaviour & SerializationBehaviour.IgnoreOnUpdate) == 0);
+
+            // Drop the properties we found from the existing item
+            var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
+                .Drop();
+
+            var ret = AddStep(new SideEffectStep(drop));
+
+            // Re-add the properties
+            foreach (var (propertyInfo, value) in props)
+            {
+                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
+                {
+                    ret = ret.AddStep(propertyStep);
+                }
+            }
+
+            return ret;
         }
 
-        private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> ReplaceE<TEdge>(TEdge edge)
+        private GremlinQuery<TEdge, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ReplaceE<TEdge>(TEdge edge)
         {
             var pi = edge.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
 
@@ -134,7 +155,8 @@ namespace ExRam.Gremlinq.Core
             var id = pi.GetValue(edge);
 
             return AddStep(new EStep(new[] { id }))
-                .UpdateE(edge);
+                .OfType<TEdge>(Model.VerticesModel, false)
+                .Update(edge, false);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
@@ -185,32 +207,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit> AddElementPropertiesForUpdate<TNewElement, TNewOutVertex>(object element, bool allowExplicitCardinality)
-        {
-            var elementType = element.GetType();
-
-            // Only pull back the properties that aren't filtered by configuration
-            var props = element.Serialize()
-                .Where(p => (Model.PropertiesModel.Metadata.GetValueOrDefault(p.Item1, PropertyMetadata.Default).SerializationBehaviour & SerializationBehaviour.IgnoreOnUpdate) == 0);
-
-            // Drop the properties we found from the existing item
-            var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
-                       .Drop();
-
-            var ret = AddStep<TNewElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new SideEffectStep(drop));
-
-            // Re-add the properties
-            foreach (var (propertyInfo, value) in props)
-            {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
-                {
-                    ret = ret.AddStep(propertyStep);
-                }
-            }
-
-            return ret;
-        }
-
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(step);
@@ -244,12 +240,7 @@ namespace ExRam.Gremlinq.Core
                 .AddElementProperties(vertex, true);
         }
 
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> UpdateV<TVertex>(TVertex vertex)
-        {
-            return this.AddElementPropertiesForUpdate<TVertex, Unit>(vertex, true);
-        }
-
-        private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> ReplaceV<TVertex>(TVertex vertex)
+        private GremlinQuery<TVertex, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ReplaceV<TVertex>(TVertex vertex)
         {
             var pi = vertex.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
 
@@ -261,7 +252,8 @@ namespace ExRam.Gremlinq.Core
             var id = pi.GetValue(vertex);
 
             return AddStep(new VStep(new[] { id }))
-                .UpdateV(vertex);
+                .OfType<TVertex>(Model.VerticesModel, false)
+                .Update(vertex, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)

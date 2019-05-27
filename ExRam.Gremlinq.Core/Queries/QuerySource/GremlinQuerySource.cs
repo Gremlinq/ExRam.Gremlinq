@@ -32,12 +32,6 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.UpdateV<TVertex>(TVertex vertex)
-            {
-                return Create()
-                    .UpdateV(vertex);
-            }
-
             IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex)
             {
                 return Create()
@@ -48,12 +42,6 @@ namespace ExRam.Gremlinq.Core
             {
                 return Create()
                     .AddE(edge);
-            }
-
-            IEdgeGremlinQuery<TItem> IGremlinQuerySource.UpdateE<TItem>(TItem edge)
-            {
-                return Create()
-                    .UpdateE(edge);
             }
 
             IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge)

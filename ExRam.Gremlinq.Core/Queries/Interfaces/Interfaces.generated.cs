@@ -1556,6 +1556,7 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IVertexGremlinQuery<TVertex>
     {
+        IVertexGremlinQuery<TVertex> Update(TVertex element);
         new IVertexGremlinQuery<TTarget> OfType<TTarget>();
         new IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue>> projection, TProjectedValue value);
 
@@ -1568,6 +1569,7 @@ new IVertexGremlinQuery<TVertex> Where<TProjection>(Expression<Func<TVertex, TPr
     }
     public partial interface IEdgeGremlinQuery<TEdge>
     {
+        IEdgeGremlinQuery<TEdge> Update(TEdge element);
         new IEdgeGremlinQuery<TTarget> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
 
@@ -1579,6 +1581,7 @@ new IEdgeGremlinQuery<TEdge> Where<TProjection>(Expression<Func<TEdge, TProjecti
     }
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex> Update(TEdge element);
         new IEdgeGremlinQuery<TTarget, TAdjacentVertex> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
 
@@ -1590,6 +1593,7 @@ new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where<TProjection>(Expression<Func
     }
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Update(TEdge element);
         new IEdgeGremlinQuery<TTarget, TOutVertex, TInVertex> OfType<TTarget>();
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
 
@@ -1601,6 +1605,7 @@ new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where<TProjection>(Expressio
     }
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
+        IInEdgeGremlinQuery<TEdge, TInVertex> Update(TEdge element);
         new IInEdgeGremlinQuery<TTarget, TInVertex> OfType<TTarget>();
         new IInEdgeGremlinQuery<TEdge, TInVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
 
@@ -1612,6 +1617,7 @@ new IInEdgeGremlinQuery<TEdge, TInVertex> Where<TProjection>(Expression<Func<TEd
     }
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> Update(TEdge element);
         new IOutEdgeGremlinQuery<TTarget, TOutVertex> OfType<TTarget>();
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Property<TProjectedValue>(Expression<Func<TEdge, TProjectedValue>> projection, TProjectedValue value);
 

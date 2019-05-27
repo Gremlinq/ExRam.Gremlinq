@@ -302,7 +302,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
+                .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
                 .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
@@ -326,7 +326,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person)
+                .Update(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
@@ -349,7 +349,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person)
+                .Update(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
@@ -372,7 +372,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person)
+                .Update(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
@@ -394,7 +394,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .E<WorksFor>()
-                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
@@ -416,7 +416,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .E<WorksFor>()
-                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .E<WorksFor>()
-                .UpdateE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
@@ -467,9 +467,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person)
+                .Update(person)
                 .OutE<WorksFor>()
-                .UpdateE(worksFor)
+                .Update(worksFor)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
                 .WithParameters(nameof(Person),
@@ -489,9 +489,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .V<Person>()
-                .UpdateV(person)
+                .Update(person)
                 .OutE<WorksFor>()
-                .UpdateE(worksFor)
+                .Update(worksFor)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _o)")
                 .WithParameters(nameof(Person),
@@ -510,8 +510,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceV(person)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
-                .WithParameters(id, nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
+                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
                     nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
         }
 
@@ -533,9 +533,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceV(person)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V(_a).sideEffect(__.properties(_b, _c, _d).drop()).property(single, _b, _e).property(single, _c, _f).property(single, _d, _g)")
-                .WithParameters(id, nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender),
-                    21, "Marko", Gender.Male);
+                .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), 21, "Marko", Gender.Male);
         }
 
         [Fact]
@@ -549,8 +548,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).sideEffect(__.properties(_b, _c, _d).drop()).property(_b, _e).property(_c, _f).property(_d, _f)")
-                .WithParameters(id, nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
         }
 
         [Fact]
@@ -573,8 +572,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).sideEffect(__.properties(_b, _c, _d).drop()).property(_b, _e).property(_c, _f).property(_d, _f)")
-                .WithParameters(id, nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
         }
 
         [Fact]
