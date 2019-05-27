@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -526,7 +525,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .WithExecutor(new TestJsonQueryExecutor(GetJson("VertexProperties")))
                 .V()
                 .Properties()
-                .ToArrayAsync(default);
+                .ToArrayAsync();
 
             properties.Should().HaveCount(3);
             properties[0].Label.Should().Be("Property1");
@@ -547,7 +546,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V()
                 .Properties()
                 .Meta<MetaPoco>()
-                .ToArrayAsync(default);
+                .ToArrayAsync();
 
             properties.Should().HaveCount(3);
             properties[0].Label.Should().Be("Property1");

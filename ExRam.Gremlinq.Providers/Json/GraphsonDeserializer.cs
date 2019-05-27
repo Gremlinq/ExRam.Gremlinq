@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Providers
 
             protected IDisposable Block()
             {
-                 if (_blockedConverters == null)
+                if (_blockedConverters == null)
                     _blockedConverters = new List<JsonConverter>();
 
                 _blockedConverters.Add(this);
