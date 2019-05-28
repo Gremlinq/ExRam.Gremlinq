@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
                     .ToImmutableDictionary(
                         property => (MemberInfo)property,
                         property => string.Equals(property.Name, "id", StringComparison.OrdinalIgnoreCase)
-                            ? PropertyMetadata.ReadOnly
+                            ? new PropertyMetadata(default, SerializationBehaviour.IgnoreOnUpdate)
                             : PropertyMetadata.Default));
         }
 
