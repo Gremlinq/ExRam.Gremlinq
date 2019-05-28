@@ -40,26 +40,27 @@ namespace ExRam.Gremlinq.Core
 
         public IPropertyMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
         {
-            var memberInfo = propertyExpression.GetMemberInfo();
-
-            return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
-                memberInfo,
-                _metadata
-                    .TryGetValue(memberInfo)
-                    .Map(metaData => new PropertyMetadata(name, metaData.SerializationBehaviour))
-                    .IfNone(new PropertyMetadata(name, SerializationBehaviour.Default))));
+            return Configure(
+                propertyExpression,
+                metaData => new PropertyMetadata(name, metaData.SerializationBehaviour));
         }
 
         public IPropertyMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
+        {
+            return Configure(
+                propertyExpression,
+                metaData => new PropertyMetadata(metaData.NameOverride, transformation(metaData.SerializationBehaviour)));
+        }
+
+        private IPropertyMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<PropertyMetadata, PropertyMetadata> transformation)
         {
             var memberInfo = propertyExpression.GetMemberInfo();
 
             return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
                 memberInfo,
-                _metadata
+                transformation(_metadata
                     .TryGetValue(memberInfo)
-                    .Map(metaData => new PropertyMetadata(metaData.NameOverride, transformation(metaData.SerializationBehaviour)))
-                    .IfNone(new PropertyMetadata(default, transformation(default)))));
+                    .IfNone(PropertyMetadata.Default))));
         }
 
         #region Explicit
