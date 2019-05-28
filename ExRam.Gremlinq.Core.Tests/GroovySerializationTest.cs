@@ -153,34 +153,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void AddV_with_overridden_name()
-        {
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(propModel => propModel
-                        .ConfigureElement<Language>(conf => conf
-                            .ConfigureName(x => x.IetfLanguageTag, "lang"))))
-                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
-                .WithParameters("Language", 1, "lang", "en");
-        }
-
-        [Fact]
-        public void AddV_with_ignored_property()
-        {
-            g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Language>(builder => builder
-                            .IgnoreOnAdd(p => p.IetfLanguageTag))))
-                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .Should()
-                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b)")
-                .WithParameters("Language", 1);
-        }
-
-        [Fact]
         public void AddV_list_cardinality_id()
         {
             g
@@ -218,6 +190,20 @@ namespace ExRam.Gremlinq.Core.Tests
                .Should()
                .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
                .WithParameters("Person", "Name", "Marko", "RegistrationDate", now);
+        }
+
+        [Fact]
+        public void AddV_with_ignored_property()
+        {
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Language>(builder => builder
+                            .IgnoreOnAdd(p => p.IetfLanguageTag))))
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b)")
+                .WithParameters("Language", 1);
         }
 
         [Fact]
@@ -292,6 +278,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b)")
                 .WithParameters("Language", 1);
+        }
+
+        [Fact]
+        public void AddV_with_overridden_name()
+        {
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(propModel => propModel
+                        .ConfigureElement<Language>(conf => conf
+                            .ConfigureName(x => x.IetfLanguageTag, "lang"))))
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .WithParameters("Language", 1, "lang", "en");
         }
 
         [Fact]
