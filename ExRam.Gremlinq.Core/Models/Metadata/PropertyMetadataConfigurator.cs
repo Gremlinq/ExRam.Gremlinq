@@ -38,6 +38,18 @@ namespace ExRam.Gremlinq.Core
                 behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
+        public IPropertyMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
+        {
+            var property = propertyExpression.GetPropertyAccess();
+
+            return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
+                property,
+                _metadata
+                    .TryGetValue(property)
+                    .Map(metaData => new PropertyMetadata(name, metaData.SerializationBehaviour))
+                    .IfNone(new PropertyMetadata(name, SerializationBehaviour.Default))));
+        }
+
         public IPropertyMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
         {
             var property = propertyExpression.GetPropertyAccess();

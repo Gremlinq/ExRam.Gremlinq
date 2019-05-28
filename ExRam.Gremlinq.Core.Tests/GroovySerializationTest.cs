@@ -153,6 +153,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddV_with_overridden_name()
+        {
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(propModel => propModel
+                        .ConfigureElement<Language>(conf => conf
+                            .ConfigureName(x => x.IetfLanguageTag, "lang"))))
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .WithParameters("Language", 1, "lang", "en");
+        }
+
+        [Fact]
         public void AddV_with_ignored_property()
         {
             g
