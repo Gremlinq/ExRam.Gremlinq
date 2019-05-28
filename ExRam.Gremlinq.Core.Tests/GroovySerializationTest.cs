@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("Person", "Age", 0, "Name", "Bob", "Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
+                .WithParameters("Person", "Age", 0, "Gender", 0, "Name", "Bob", "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
-                .WithParameters("Person", "Age", 0, "Name", "Bob","Gender", 0, "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
+                .WithParameters("Person", "Age", 0, "Gender", 0, "Name", "Bob", "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
         [Fact]
@@ -1707,8 +1707,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
-                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), now, "Admin");
         }
 
         [Fact]
@@ -1725,8 +1725,8 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreOnUpdate(p => p.Id))))
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _g)")
-                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), "Admin", now);
+                .SerializeToGroovy<TVisitor>("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
+                .WithParameters(id, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), now, "Admin");
         }
 
         [Fact]
@@ -1740,7 +1740,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ReplaceV(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
-                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), 21, Gender.Male, "Marko", now);
         }
 
         [Fact]
@@ -1758,7 +1758,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ReplaceV(person)
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
-                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), 21, "Marko", Gender.Male);
+                .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), 21, Gender.Male, "Marko");
         }
 
         [Fact]
@@ -1938,8 +1938,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OutE<WorksFor>()
                 .Update(worksFor)
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _o)")
-                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Age, "Marko", person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.Role), nameof(WorksFor.From), nameof(WorksFor.To), worksFor.Role, worksFor.From);
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n)")
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), person.Age, person.Gender, "Marko", person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), worksFor.From, worksFor.Role);
         }
 
         [Fact]
@@ -2032,7 +2032,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
                 .Should()
                 .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
-                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Name), nameof(Person.Gender), nameof(Person.RegistrationDate), 21, "Marko", Gender.Male, now);
+                .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), 21, Gender.Male, "Marko", now);
         }
 
         [Fact]

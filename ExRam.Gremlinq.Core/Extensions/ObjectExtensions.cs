@@ -28,6 +28,7 @@ namespace LanguageExt
                         .GetTypeHierarchy()
                         .SelectMany(typeInHierarchy => typeInHierarchy.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                         .Select(p => (property: p, serializationBehaviour: metadata.GetValueOrDefault(p, PropertyMetadata.Default).SerializationBehaviour))
+                        .OrderBy(x => x.property.Name)
                         .ToArray());
 
             foreach (var (propertyInfo, serializationBehaviour) in propertyInfoTuples)
