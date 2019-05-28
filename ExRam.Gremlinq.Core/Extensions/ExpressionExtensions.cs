@@ -191,107 +191,12 @@ namespace System.Linq.Expressions
             throw new ExpressionNotSupportedException(expression);
         }
 
-        public static PropertyInfo GetPropertyAccess(this LambdaExpression propertyAccessExpression)
+        internal static MemberInfo GetMemberInfo(this LambdaExpression expression)
         {
-            Debug.Assert(propertyAccessExpression.Parameters.Count == 1);
+            if (expression.Body.StripConvert() is MemberExpression memberExpression)
+                return memberExpression.Member;
 
-            var parameterExpression = propertyAccessExpression.Parameters.Single();
-            var propertyInfo = parameterExpression.MatchSimplePropertyAccess(propertyAccessExpression.Body);
-
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException(
-                    "Invalid property access expression",
-                    nameof(propertyAccessExpression));
-            }
-
-            var declaringType = propertyInfo.DeclaringType;
-            var parameterType = parameterExpression.Type;
-
-            if (declaringType != null
-                && declaringType != parameterType
-                && declaringType.GetTypeInfo().IsAssignableFrom(parameterType.GetTypeInfo()))
-            {
-                if (declaringType.GetTypeInfo().IsInterface)
-                {
-                    var propertyGetter = propertyInfo.GetMethod;
-                    var interfaceMapping = parameterType.GetTypeInfo().GetRuntimeInterfaceMap(declaringType);
-                    var index = Array.FindIndex(interfaceMapping.InterfaceMethods, p => propertyGetter.Equals(p));
-                    var targetMethod = interfaceMapping.TargetMethods[index];
-                    foreach (var runtimeProperty in parameterType.GetRuntimeProperties())
-                    {
-                        if (targetMethod.Equals(runtimeProperty.GetMethod))
-                        {
-                            return runtimeProperty;
-                        }
-                    }
-                }
-                else
-                {
-                    // Make sure we return the PropertyInfo from the derived class instead of the base
-                    // since the PropertyInfo objects are used as dictionary keys
-                    propertyInfo = parameterType.GetProperties()
-                        .DefaultIfEmpty(propertyInfo)
-                        .First(pi => pi.Name == propertyInfo.Name && pi.DeclaringType == declaringType);
-                }
-            }
-
-            return propertyInfo;
-        }
-
-        private static PropertyInfo MatchSimplePropertyAccess(
-           this Expression parameterExpression, Expression propertyAccessExpression)
-        {
-            var propertyInfos = MatchPropertyAccess(parameterExpression, propertyAccessExpression);
-
-            return propertyInfos?.Count == 1 ? propertyInfos[0] : null;
-        }
-
-        private static IReadOnlyList<PropertyInfo> MatchPropertyAccess(
-            this Expression parameterExpression, Expression propertyAccessExpression)
-        {
-            var propertyInfos = new List<PropertyInfo>();
-
-            MemberExpression memberExpression;
-
-            do
-            {
-                memberExpression = RemoveTypeAs(propertyAccessExpression.RemoveConvert()) as MemberExpression;
-
-                if (!(memberExpression?.Member is PropertyInfo propertyInfo))
-                {
-                    return null;
-                }
-
-                propertyInfos.Insert(0, propertyInfo);
-
-                propertyAccessExpression = memberExpression.Expression;
-            }
-            while (RemoveTypeAs(memberExpression.Expression.RemoveConvert()) != parameterExpression);
-
-            return propertyInfos;
-        }
-
-        private static Expression RemoveTypeAs(this Expression expression)
-        {
-            while (expression?.NodeType == ExpressionType.TypeAs)
-            {
-                expression = ((UnaryExpression)expression.RemoveConvert()).Operand;
-            }
-
-            return expression;
-        }
-
-        private static Expression RemoveConvert(this Expression expression)
-        {
-            while (expression != null
-                   && (expression.NodeType == ExpressionType.Convert
-                       || expression.NodeType == ExpressionType.ConvertChecked))
-            {
-                expression = RemoveConvert(((UnaryExpression)expression).Operand);
-            }
-
-            return expression;
+            throw new ExpressionNotSupportedException(expression);
         }
     }
 }

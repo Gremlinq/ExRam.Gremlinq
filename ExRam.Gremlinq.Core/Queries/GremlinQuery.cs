@@ -534,15 +534,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
         {
             return Properties<TNewElement, TNewPropertyValue, TNewMeta>(projections
-                .Select(projection =>
-                {
-                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                    {
-                        return memberExpression.Member.Name;
-                    }
-
-                    throw new ExpressionNotSupportedException(projection);
-                }));
+                .Select(projection => projection.GetMemberInfo().Name));
         }
 
         private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()));

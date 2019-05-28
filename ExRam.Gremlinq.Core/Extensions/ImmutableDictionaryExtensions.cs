@@ -14,7 +14,8 @@ namespace System.Linq
                     kvp => kvp.Key,
                     kvp => new PropertyMetadata(
                         transformation(kvp.Key, kvp.Value.NameOverride),
-                        kvp.Value.SerializationBehaviour));
+                        kvp.Value.SerializationBehaviour),
+                    MemberInfoEqualityComparer.Instance);
         }
     }
 }

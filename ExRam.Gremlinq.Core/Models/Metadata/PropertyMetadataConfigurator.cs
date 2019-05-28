@@ -40,24 +40,24 @@ namespace ExRam.Gremlinq.Core
 
         public IPropertyMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
         {
-            var property = propertyExpression.GetPropertyAccess();
+            var memberInfo = propertyExpression.GetMemberInfo();
 
             return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
-                property,
+                memberInfo,
                 _metadata
-                    .TryGetValue(property)
+                    .TryGetValue(memberInfo)
                     .Map(metaData => new PropertyMetadata(name, metaData.SerializationBehaviour))
                     .IfNone(new PropertyMetadata(name, SerializationBehaviour.Default))));
         }
 
         public IPropertyMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
         {
-            var property = propertyExpression.GetPropertyAccess();
+            var memberInfo = propertyExpression.GetMemberInfo();
 
             return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
-                property,
+                memberInfo,
                 _metadata
-                    .TryGetValue(property)
+                    .TryGetValue(memberInfo)
                     .Map(metaData => new PropertyMetadata(metaData.NameOverride, transformation(metaData.SerializationBehaviour)))
                     .IfNone(new PropertyMetadata(default, transformation(default)))));
         }
