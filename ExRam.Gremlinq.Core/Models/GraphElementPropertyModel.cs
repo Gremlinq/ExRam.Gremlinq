@@ -42,6 +42,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
+            where TElement : class
         {
             return new GraphElementPropertyModelImpl(action(new PropertyMetadataConfigurator<TElement>(model.Metadata)));
         }

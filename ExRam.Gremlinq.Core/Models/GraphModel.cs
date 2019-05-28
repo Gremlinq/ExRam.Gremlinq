@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
                             }
                         })
                         .Prepend(baseType)
-                        .Where(x => !x.IsInterface)
+                        .Where(x => x.IsClass)
                         .Where(type => !type.IsAbstract)
                         .ToImmutableDictionary(
                             type => type,
