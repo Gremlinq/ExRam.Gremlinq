@@ -11,24 +11,29 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, IImmutableDictionary<string, T> specialNames)
             {
                 Metadata = metadata;
+                SpecialNames = specialNames;
             }
 
             public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
+
+            public IImmutableDictionary<string, T> SpecialNames { get; }
         }
 
         private sealed class DefaultGraphElementPropertyModel : IGraphElementPropertyModel
         {
             public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
+
+            public IImmutableDictionary<string, T> SpecialNames { get; } = ImmutableDictionary<string, T>.Empty.WithComparers(StringComparer.OrdinalIgnoreCase).Add("id", T.Id).Add("label", T.Label);
         }
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
 
         public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Option<string>, Option<string>> overrideTransformation)
         {
-            return model.WithMetadata(_ => _.ConfigureNames(overrideTransformation));
+            return model.ConfigureMetadata(_ => _.ConfigureNames(overrideTransformation));
         }
         
         public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
@@ -44,7 +49,9 @@ namespace ExRam.Gremlinq.Core
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
             where TElement : class
         {
-            return new GraphElementPropertyModelImpl(action(new PropertyMetadataConfigurator<TElement>(model.Metadata)));
+            return new GraphElementPropertyModelImpl(
+                action(new PropertyMetadataConfigurator<TElement>(model.Metadata)),
+                model.SpecialNames);
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
@@ -53,20 +60,17 @@ namespace ExRam.Gremlinq.Core
                 .TryGetValue(member)
                 .Bind(x => x.NameOverride)
                 .IfNone(member.Name);
-            
-            if (string.Equals(identifier, "id", StringComparison.OrdinalIgnoreCase))
-                return T.Id;
 
-            if (string.Equals(identifier, "label", StringComparison.OrdinalIgnoreCase))
-                return T.Label;
-
-            return identifier;
+            return model.SpecialNames
+                .TryGetValue(identifier)
+                .Map(x => (object)x)
+                .IfNone(identifier);
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
-            return new GraphElementPropertyModelImpl(
-                models
+            return Default
+                .ConfigureMetadata(_ => models
                     .SelectMany(model => model.Metadata.Keys)
                     .SelectMany(x => x.GetTypeHierarchy())
                     .Distinct()
@@ -79,10 +83,11 @@ namespace ExRam.Gremlinq.Core
                         MemberInfoEqualityComparer.Instance));
         }
 
-        private static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+        private static IGraphElementPropertyModel ConfigureMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
         {
             return new GraphElementPropertyModelImpl(
-                transformation(model.Metadata));
+                transformation(model.Metadata),
+                model.SpecialNames);
         }
     }
 }
