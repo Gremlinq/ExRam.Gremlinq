@@ -25,13 +25,6 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
         }
 
-        private sealed class InvalidGraphElementPropertyModel : IGraphElementPropertyModel
-        {
-            private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
-
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
-        }
-
         private sealed class MemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
         {
             public static readonly MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
@@ -53,7 +46,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
-        public static readonly IGraphElementPropertyModel Invalid = new InvalidGraphElementPropertyModel();
 
         public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Option<string>, Option<string>> overrideTransformation)
         {
