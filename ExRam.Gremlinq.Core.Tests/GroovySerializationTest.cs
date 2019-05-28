@@ -153,6 +153,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddV_with_ignored_property()
+        {
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Language>(builder => builder
+                            .IgnoreOnAdd(p => p.IetfLanguageTag))))
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.addV(_a).property(id, _b)")
+                .WithParameters("Language", 1);
+        }
+
+        [Fact]
         public void AddV_list_cardinality_id()
         {
             g

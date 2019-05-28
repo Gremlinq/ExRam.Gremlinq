@@ -18,6 +18,7 @@ namespace ExRam.Gremlinq.Core
     public abstract class GremlinQuery
     {
         private static readonly ConcurrentDictionary<Type, Type> QueryTypes = new ConcurrentDictionary<Type, Type>();
+
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
             .GetInterfaces()
             .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
@@ -31,6 +32,12 @@ namespace ExRam.Gremlinq.Core
             QueryExecutor = queryExecutor;
             StepLabelMappings = stepLabelBindings;
         }
+
+        protected ILogger Logger { get; }
+        protected IGraphModel Model { get; }
+        protected IImmutableList<Step> Steps { get; }
+        protected IGremlinQueryExecutor QueryExecutor { get; }
+        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
 
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
         {
@@ -96,12 +103,6 @@ namespace ExRam.Gremlinq.Core
                 ImmutableDictionary<StepLabel, string>.Empty,
                 logger);
         }
-
-        protected ILogger Logger { get; }
-        protected IGraphModel Model { get; }
-        protected IImmutableList<Step> Steps { get; }
-        protected IGremlinQueryExecutor QueryExecutor { get; }
-        protected IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQuery
@@ -114,24 +115,27 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(new AddEStep(Model, newEdge))
-                .AddElementProperties(newEdge, false);
+                .AddOrUpdate(newEdge, true,false);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Update(TElement element, bool allowExplicitCardinality)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, bool allowExplicitCardinality)
         {
-            var elementType = element.GetType();
+            var ret = this;
+            var props = element.Serialize(
+                Model.PropertiesModel.Metadata,
+                add
+                    ? SerializationBehaviour.IgnoreOnAdd
+                    : SerializationBehaviour.IgnoreOnUpdate);
 
-            // Only pull back the properties that aren't filtered by configuration
-            var props = element.Serialize()
-                .Where(p => (Model.PropertiesModel.Metadata.GetValueOrDefault(p.Item1, PropertyMetadata.Default).SerializationBehaviour & SerializationBehaviour.IgnoreOnUpdate) == 0);
+            if (!add)
+            {
+                ret = ret.SideEffect(_ => _
+                    .Properties<Unit, Unit, Unit>(props
+                        .Select(p => Model.PropertiesModel.GetIdentifier(p.propertyInfo))
+                        .OfType<string>())
+                    .Drop());
+            }
 
-            // Drop the properties we found from the existing item
-            var drop = Anonymize().Properties<Unit, Unit, Unit>(props.Select(p => p.Item1.Name))
-                .Drop();
-
-            var ret = AddStep(new SideEffectStep(drop));
-
-            // Re-add the properties
             foreach (var (propertyInfo, value) in props)
             {
                 foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
@@ -156,28 +160,7 @@ namespace ExRam.Gremlinq.Core
 
             return AddStep(new EStep(new[] { id }))
                 .OfType<TEdge>(Model.VerticesModel, false)
-                .Update(edge, false);
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddElementProperties(object element, bool allowExplicitCardinality)
-        {
-            var ret = this;
-
-            var elementType = element.GetType();
-
-            // Only pull back the properties that aren't filtered by configuration
-            var props = element.Serialize()
-                .Where(p => (Model.PropertiesModel.Metadata.GetValueOrDefault(p.Item1, PropertyMetadata.Default).SerializationBehaviour & SerializationBehaviour.IgnoreOnAdd) == 0);
-
-            foreach (var (propertyInfo, value) in props)
-            {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
-                {
-                    ret = ret.AddStep(propertyStep);
-                }
-            }
-
-            return ret;
+                .AddOrUpdate(edge, false, false);
         }
 
         private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
@@ -237,7 +220,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
-                .AddElementProperties(vertex, true);
+                .AddOrUpdate(vertex, true,true);
         }
 
         private GremlinQuery<TVertex, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ReplaceV<TVertex>(TVertex vertex)
@@ -253,7 +236,7 @@ namespace ExRam.Gremlinq.Core
 
             return AddStep(new VStep(new[] { id }))
                 .OfType<TVertex>(Model.VerticesModel, false)
-                .Update(vertex, true);
+                .AddOrUpdate(vertex, false, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)

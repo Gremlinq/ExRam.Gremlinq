@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in Typed(Qualified(Element(substitutedBaseInterfaces)))){ #>
 <# if (!iface.Contains("VertexProperty")){ #>
 
-        <#= iface #> <#= iface #>.Update(<#= GetElement(iface) #> element) => Update(element, <#= (iface.StartsWith("IVertex")).ToString().ToLower() #>);
+        <#= iface #> <#= iface #>.Update(<#= GetElement(iface) #> element) => AddOrUpdate(element, false, <#= (iface.StartsWith("IVertex")).ToString().ToLower() #>);
 
         <#= iface.Replace(GetElement(iface), "TTarget") #> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Model.VerticesModel" : "Model.EdgesModel" #>);
 
