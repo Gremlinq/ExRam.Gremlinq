@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
@@ -29,6 +30,26 @@ namespace ExRam.Gremlinq.Core
             private const string ErrorMessage = "'{0}' must not be called on GraphModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
 
             public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
+        }
+
+        private sealed class MemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
+        {
+            public static MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
+
+            private MemberInfoEqualityComparer()
+            {
+
+            }
+
+            public bool Equals(MemberInfo x, MemberInfo y)
+            {
+                return (x?.DeclaringType, x?.Name).Equals((y?.DeclaringType, y?.Name));
+            }
+
+            public int GetHashCode(MemberInfo obj)
+            {
+                return (obj.DeclaringType, obj?.Name).GetHashCode();
+            }
         }
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
@@ -79,10 +100,11 @@ namespace ExRam.Gremlinq.Core
                     .Distinct()
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
-                        property => (MemberInfo)property,
+                        property => property,
                         property => string.Equals(property.Name, "id", StringComparison.OrdinalIgnoreCase)
                             ? new PropertyMetadata(default, SerializationBehaviour.IgnoreOnUpdate)
-                            : PropertyMetadata.Default));
+                            : PropertyMetadata.Default,
+                        MemberInfoEqualityComparer.Instance));
         }
 
         private static IGraphElementPropertyModel WithMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)

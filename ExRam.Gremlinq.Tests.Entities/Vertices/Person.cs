@@ -9,8 +9,6 @@ namespace ExRam.Gremlinq.Tests.Entities
 
         public int Age { get; set; }
 
-        public VertexProperty<string, PropertyValidity> Name { get; set; }
-
         public Gender Gender { get; set; }
 
         public DateTimeOffset RegistrationDate { get; set; }
