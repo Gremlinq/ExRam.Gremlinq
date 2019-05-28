@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class MemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
         {
-            public static MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
+            public static readonly MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
 
             private MemberInfoEqualityComparer()
             {
