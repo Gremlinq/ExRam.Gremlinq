@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core.GraphElements;
+using LanguageExt;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -32,22 +33,10 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex)
-            {
-                return Create()
-                    .ReplaceV(vertex);
-            }
-
             IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
-            }
-
-            IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge)
-            {
-                return Create()
-                    .ReplaceE(edge);
             }
 
             IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids)
@@ -177,6 +166,20 @@ namespace ExRam.Gremlinq.Core
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
             return source.ConfigureExecutor(_ => executor);
+        }
+
+        public static IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(this IGremlinQuerySource source, TNewVertex vertex)
+        {
+            return source
+                .V<TNewVertex>(vertex.GetId())
+                .Update(vertex);
+        }
+
+        public static IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(this IGremlinQuerySource source, TNewEdge edge)
+        {
+            return source
+                .E<TNewEdge>(edge.GetId())
+                .Update(edge);
         }
     }
 }
