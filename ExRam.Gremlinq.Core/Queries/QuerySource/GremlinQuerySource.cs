@@ -45,22 +45,10 @@ namespace ExRam.Gremlinq.Core
                     .V(ids);
             }
 
-            IVertexGremlinQuery<TVertex> IGremlinQuerySource.V<TVertex>(params object[] ids)
-            {
-                return Create()
-                    .V<TVertex>(ids);
-            }
-
             IEdgeGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids)
             {
                 return Create()
                     .E(ids);
-            }
-
-            IEdgeGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids)
-            {
-                return Create()
-                    .E<TEdge>(ids);
             }
 
             IGremlinQuery<TElement> IGremlinQuerySource.Inject<TElement>(params TElement[] elements)
@@ -180,6 +168,16 @@ namespace ExRam.Gremlinq.Core
             return source
                 .E<TNewEdge>(edge.GetId())
                 .Update(edge);
+        }
+
+        public static IEdgeGremlinQuery<TEdge> E<TEdge>(this IGremlinQuerySource source, params object[] ids)
+        {
+            return source.E(ids).OfType<TEdge>();
+        }
+
+        public static IVertexGremlinQuery<TVertex> V<TVertex>(this IGremlinQuerySource source, params object[] ids)
+        {
+            return source.V(ids).OfType<TVertex>();
         }
     }
 }
