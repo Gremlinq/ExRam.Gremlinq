@@ -40,5 +40,17 @@ namespace LanguageExt
                 }
             }
         }
+
+        public static object GetId(this object element)
+        {
+            var pi = element.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
+
+            if (pi == null)
+            {
+                throw new InvalidOperationException($"Unable to determine Id for {element}");
+            }
+
+            return pi.GetValue(element);
+        }
     }
 }

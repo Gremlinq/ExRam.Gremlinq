@@ -147,22 +147,6 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        private GremlinQuery<TEdge, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ReplaceE<TEdge>(TEdge edge)
-        {
-            var pi = edge.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
-
-            if (pi == null)
-            {
-                throw new InvalidOperationException($"Unable to determine Id for {edge}");
-            }
-
-            var id = pi.GetValue(edge);
-
-            return AddStep(new EStep(new[] { id }))
-                .OfType<TEdge>(Model.VerticesModel, false)
-                .AddOrUpdate(edge, false, false);
-        }
-
         private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
         {
             if (value != null)
@@ -221,22 +205,6 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Model, vertex))
                 .AddOrUpdate(vertex, true,true);
-        }
-
-        private GremlinQuery<TVertex, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ReplaceV<TVertex>(TVertex vertex)
-        {
-            var pi = vertex.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
-
-            if (pi == null)
-            {
-                throw new InvalidOperationException($"Unable to determine Id for {vertex}");
-            }
-
-            var id = pi.GetValue(vertex);
-
-            return AddStep(new VStep(new[] { id }))
-                .OfType<TVertex>(Model.VerticesModel, false)
-                .AddOrUpdate(vertex, false, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)

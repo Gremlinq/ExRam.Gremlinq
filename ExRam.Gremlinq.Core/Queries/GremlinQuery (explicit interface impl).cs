@@ -38,11 +38,11 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>() => AddE(new TEdge());
 
-        IEdgeGremlinQuery<TItem> IGremlinQuerySource.ReplaceE<TItem>(TItem edge) => ReplaceE(edge);
+        IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge.GetId()).Update(edge);
 
         IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
-        IVertexGremlinQuery<TVertex> IGremlinQuerySource.ReplaceV<TVertex>(TVertex vertex) => ReplaceV(vertex);
+        IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex) => ((IGremlinQuerySource)this).V<TNewVertex>(vertex.GetId()).Update(vertex);
 
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 
