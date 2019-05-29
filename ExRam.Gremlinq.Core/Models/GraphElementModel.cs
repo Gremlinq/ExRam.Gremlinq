@@ -32,21 +32,21 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
-        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<string, string> overrideTransformation)
+        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
         {
             return model.WithMetadata(_ => _.ToImmutableDictionary(
                 kvp => kvp.Key,
-                kvp => new ElementMetadata(overrideTransformation(kvp.Value.Label))));
+                kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
         }
 
         public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels(proposedLabel => proposedLabel.ToCamelCase());
+            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToCamelCase());
         }
 
         public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels(proposedLabel => proposedLabel.ToLower());
+            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)

@@ -2,7 +2,6 @@
 using System.Collections.Immutable;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
-using LanguageExt;
 
 namespace System.Linq
 {
