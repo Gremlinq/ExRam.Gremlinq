@@ -1,16 +1,12 @@
-﻿using LanguageExt;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public struct ElementMetadata
     {
-        public static readonly ElementMetadata Default = new ElementMetadata(default);
-
-        public ElementMetadata(Option<string> labelOverride)
+        public ElementMetadata(string label)
         {
-            LabelOverride = labelOverride;
+            Label = label;
         }
 
-        public Option<string> LabelOverride { get; }
+        public string Label { get; }
     }
 }

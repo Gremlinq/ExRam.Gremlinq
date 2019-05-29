@@ -36,9 +36,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(Person))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
-                .BeNone();
+                .BeSome("Person");
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(Person))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeSome("person");
         }
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
         }
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .EdgesModel
                 .Metadata
                 .TryGetValue(typeof(LivesIn))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("livesIn");
         }
@@ -144,9 +144,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
-                .BeNone();
+                .BeSome("TimeFrame");
 
             model
                 .PropertiesModel
@@ -168,7 +168,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -194,7 +194,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -357,7 +357,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
 
@@ -397,7 +397,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
-                .Bind(x => x.LabelOverride)
+                .Map(x => x.Label)
                 .Should()
                 .BeEqual("timeFrame");
 

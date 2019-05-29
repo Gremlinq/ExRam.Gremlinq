@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
                         .Where(type => !type.IsAbstract)
                         .SelectMany(type => elementModel.Metadata
                             .TryGetValue(type)
-                            .Bind(x => x.LabelOverride))
+                            .Map(x => x.Label))
                         .HeadOrNone()
                         .IfNone(closureType.Name));
         }

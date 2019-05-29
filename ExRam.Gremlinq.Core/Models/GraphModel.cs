@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
                         .Where(type => !type.IsAbstract)
                         .ToImmutableDictionary(
                             type => type,
-                            type => ElementMetadata.Default);
+                            type => new ElementMetadata(type.Name));
                 }
 
                 public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }

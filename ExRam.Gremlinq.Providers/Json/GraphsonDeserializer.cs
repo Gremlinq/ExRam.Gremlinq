@@ -265,7 +265,7 @@ namespace ExRam.Gremlinq.Providers
                     .VerticesModel
                     .Metadata
                     .Concat(model.EdgesModel.Metadata)
-                    .GroupBy(x => x.Value.LabelOverride.IfNone(x.Key.Name))
+                    .GroupBy(x => x.Value.Label)
                     .ToDictionary(
                         group => group.Key,
                         group => group

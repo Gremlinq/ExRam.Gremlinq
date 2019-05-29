@@ -32,21 +32,21 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
-        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, Option<string>> overrideTransformation)
+        public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<string, string> overrideTransformation)
         {
             return model.WithMetadata(_ => _.ToImmutableDictionary(
                 kvp => kvp.Key,
-                kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.LabelOverride.IfNone(kvp.Key.Name)))));
+                kvp => new ElementMetadata(overrideTransformation(kvp.Value.Label))));
         }
 
         public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToCamelCase());
+            return model.ConfigureLabels(proposedLabel => proposedLabel.ToCamelCase());
         }
 
         public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
+            return model.ConfigureLabels(proposedLabel => proposedLabel.ToLower());
         }
 
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var labels = model.Metadata
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                            .Select(kvp => kvp.Value.LabelOverride.IfNone(kvp.Key.Name))
+                            .Select(kvp => kvp.Value.Label)
                             .OrderBy(x => x)
                             .ToArray();
 
