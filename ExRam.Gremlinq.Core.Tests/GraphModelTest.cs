@@ -239,7 +239,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
@@ -257,7 +257,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Authority>(builder => builder
+                    .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .Empty
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Authority>(builder => builder
+                    .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
             model.PropertiesModel.Metadata
@@ -302,7 +302,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             model = model
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
             model.PropertiesModel.Metadata
@@ -315,7 +315,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var maybeMetadata = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
                 .PropertiesModel
                 .Metadata
@@ -347,7 +347,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
                     .WithCamelCaseNames())
                 .ConfigureElements(_ => _
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
                     .WithCamelCaseNames()
-                    .ConfigureElement<Person>(builder => builder
+                    .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
                 .ConfigureElements(_ => _
                     .WithCamelCaseLabels());

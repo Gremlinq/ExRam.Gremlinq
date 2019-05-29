@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
+                        .ConfigureElement<WorksFor>(conf => conf
                             .IgnoreAlways(p => p.From)
                             .IgnoreAlways(p => p.Role))))
                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
@@ -183,7 +183,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreAlways(p => p.Age)
                             .IgnoreAlways(p => p.Gender))))
                .AddV(person)
@@ -198,7 +198,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Language>(builder => builder
+                        .ConfigureElement<Language>(conf => conf
                             .IgnoreOnAdd(p => p.IetfLanguageTag))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
@@ -1735,7 +1735,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
+                        .ConfigureElement<WorksFor>(conf => conf
                             .IgnoreOnUpdate(p => p.Id))))
                 .ReplaceE(worksFor)
                 .Should()
@@ -1767,7 +1767,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreOnUpdate(p => p.RegistrationDate))))
                 .ReplaceV(person)
                 .Should()
@@ -1967,10 +1967,10 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreOnUpdate(p => p.Age)
                             .IgnoreAlways(p => p.Name))
-                    .ConfigureElement<WorksFor>(builder => builder
+                    .ConfigureElement<WorksFor>(conf => conf
                         .IgnoreAlways(p => p.From)
                         .IgnoreOnUpdate(p => p.Role))))
                 .V<Person>()
@@ -1990,7 +1990,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
+                        .ConfigureElement<WorksFor>(conf => conf
                             .IgnoreAlways(p => p.From)
                             .IgnoreAlways(p => p.Role))))
                 .E<WorksFor>()
@@ -2008,7 +2008,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
+                        .ConfigureElement<WorksFor>(conf => conf
                             .IgnoreAlways(p => p.From)
                             .IgnoreOnUpdate(p => p.Role))))
                 .E<WorksFor>()
@@ -2026,7 +2026,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(builder => builder
+                        .ConfigureElement<WorksFor>(conf => conf
                             .IgnoreOnUpdate(p => p.From)
                             .IgnoreOnUpdate(p => p.Role))))
                 .E<WorksFor>()
@@ -2058,7 +2058,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreAlways(p => p.Age)
                             .IgnoreAlways(p => p.Gender))))
                 .V<Person>()
@@ -2077,7 +2077,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreOnUpdate(p => p.Age)
                             .IgnoreAlways(p => p.Gender))))
                 .V<Person>()
@@ -2096,7 +2096,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureModel(model => model
                     .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(builder => builder
+                        .ConfigureElement<Person>(conf => conf
                             .IgnoreOnUpdate(p => p.Age)
                             .IgnoreOnUpdate(p => p.Gender))))
                 .V<Person>()
