@@ -11,7 +11,7 @@ namespace LanguageExt
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo, SerializationBehaviour)[]>>();
+        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
 
         public static IEnumerable<(PropertyInfo property, object identifier, object value)> Serialize(this object obj)
         {
@@ -27,13 +27,17 @@ namespace LanguageExt
                     type => type
                         .GetTypeHierarchy()
                         .SelectMany(typeInHierarchy => typeInHierarchy.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Select(p => (property: p, serializationBehaviour: model.Metadata.GetValueOrDefault(p, PropertyMetadata.Default).SerializationBehaviour))
+                        .Select(p => (
+                            property: p,
+                            identifier: model.GetIdentifier(p),
+                            serializationBehaviour: model.Metadata
+                                .GetValueOrDefault(p, PropertyMetadata.Default)
+                                .SerializationBehaviour))
                         .OrderBy(x => x.property.Name)
                         .ToArray());
 
-            foreach (var (propertyInfo, serializationBehaviour) in propertyInfoTuples)
+            foreach (var (propertyInfo, identifier, serializationBehaviour) in propertyInfoTuples)
             {
-                var identifier = model.GetIdentifier(propertyInfo);
                 var actualSerializationBehaviour = serializationBehaviour;
 
                 if (identifier is T t)
