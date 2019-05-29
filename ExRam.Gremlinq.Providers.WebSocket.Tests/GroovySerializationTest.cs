@@ -44,5 +44,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void OutE_of_no_derived_types()
+        {
+            g
+                .V()
+                .OutE<string>()
+                .Should()
+                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().none()")
+                .WithoutParameters();
+        }
     }
 }

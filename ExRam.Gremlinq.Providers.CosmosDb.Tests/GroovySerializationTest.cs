@@ -44,5 +44,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void OutE_of_no_derived_types()
+        {
+            g
+                .V()
+                .OutE<string>()
+                .Should()
+                .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().not(__.identity())")
+                .WithoutParameters();
+        }
     }
 }
