@@ -49,18 +49,18 @@ namespace ExRam.Gremlinq.Core
         {
             return Configure(
                 propertyExpression,
-                metaData => new PropertyMetadata(metaData.NameOverride, transformation(metaData.SerializationBehaviour)));
+                metaData => new PropertyMetadata(metaData.Name, transformation(metaData.SerializationBehaviour)));
         }
 
         private IPropertyMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<PropertyMetadata, PropertyMetadata> transformation)
         {
             var memberInfo = propertyExpression.GetMemberInfo();
-
+            
             return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
                 memberInfo,
                 transformation(_metadata
                     .TryGetValue(memberInfo)
-                    .IfNone(PropertyMetadata.Default))));
+                    .IfNone(new PropertyMetadata(memberInfo.Name, SerializationBehaviour.Default)))));
         }
 
         #region Explicit

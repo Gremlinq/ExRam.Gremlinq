@@ -1,18 +1,14 @@
-﻿using LanguageExt;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public struct PropertyMetadata
     {
-        public static readonly PropertyMetadata Default = new PropertyMetadata(default, default);
-
-        public PropertyMetadata(Option<string> nameOverride, SerializationBehaviour serializationBehaviour)
+        public PropertyMetadata(string name, SerializationBehaviour serializationBehaviour)
         {
+            Name = name;
             SerializationBehaviour = serializationBehaviour;
-            NameOverride = nameOverride;
         }
 
-        public Option<string> NameOverride { get; }
+        public string Name { get; }
         public SerializationBehaviour SerializationBehaviour { get; }
     }
 }

@@ -8,14 +8,14 @@ namespace System.Linq
 {
     public static class ImmutableDictionaryExtensions
     {
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ConfigureNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, Func<MemberInfo, Option<string>, Option<string>> transformation)
+        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ConfigureNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, Func<MemberInfo, string, string> transformation)
         {
             return metadata
                 .SetItems(metadata
                     .Select(kvp => new KeyValuePair<MemberInfo, PropertyMetadata>(
                         kvp.Key,
                         new PropertyMetadata(
-                            transformation(kvp.Key, kvp.Value.NameOverride),
+                            transformation(kvp.Key, kvp.Value.Name),
                             kvp.Value.SerializationBehaviour))));
         }
     }

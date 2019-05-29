@@ -31,19 +31,19 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
 
-        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, Option<string>, Option<string>> overrideTransformation)
+        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, string, string> overrideTransformation)
         {
             return model.ConfigureMetadata(_ => _.ConfigureNames(overrideTransformation));
         }
         
         public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.ConfigureNames((member, name) => name.IfNone(member.Name).ToCamelCase());
+            return model.ConfigureNames((member, name) => name.ToCamelCase());
         }
 
         public static IGraphElementPropertyModel WithLowerCaseNames(this IGraphElementPropertyModel model)
         {
-            return model.ConfigureNames((member, name) => name.IfNone(member.Name).ToLower());
+            return model.ConfigureNames((member, name) => name.ToLower());
         }
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
         {
             var identifier = model.Metadata
                 .TryGetValue(member)
-                .Bind(x => x.NameOverride)
+                .Map(x => x.Name)
                 .IfNone(member.Name);
 
             return model.SpecialNames
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => property,
-                        property => PropertyMetadata.Default,
+                        property => new PropertyMetadata(property.Name, SerializationBehaviour.Default),
                         MemberInfoEqualityComparer.Instance));
         }
 

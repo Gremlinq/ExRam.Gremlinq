@@ -27,12 +27,17 @@ namespace LanguageExt
                     type => type
                         .GetTypeHierarchy()
                         .SelectMany(typeInHierarchy => typeInHierarchy.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Select(p => (
-                            property: p,
-                            identifier: model.GetIdentifier(p),
-                            serializationBehaviour: model.Metadata
-                                .GetValueOrDefault(p, PropertyMetadata.Default)
-                                .SerializationBehaviour))
+                        .Select(p =>
+                        {
+                            var metadata = model.Metadata
+                                .GetValueOrDefault(p, new PropertyMetadata(p.Name, SerializationBehaviour.Default));
+
+                            return (
+                                property: p,
+                                identifier: model.GetIdentifier(p),
+                                serializationBehaviour: metadata
+                                    .SerializationBehaviour);
+                        })
                         .OrderBy(x => x.property.Name)
                         .ToArray());
 
