@@ -10,13 +10,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GraphElementModel
     {
-        private sealed class InvalidGraphElementModel : IGraphElementModel
-        {
-            private const string ErrorMessage = "'{0}' must not be called on GraphElementModel.Invalid. If you are getting this exception while executing a query, set a proper GraphModel on the GremlinQuerySource (e.g. by calling 'g.WithModel(...)').";
-
-            public IImmutableDictionary<Type, ElementMetadata> Metadata => throw new InvalidOperationException(string.Format(ErrorMessage, nameof(Metadata)));
-        }
-
         private sealed class GraphElementModelImpl : IGraphElementModel
         {
             public GraphElementModelImpl(IImmutableDictionary<Type, ElementMetadata> metaData)
@@ -28,7 +21,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
-        public static readonly IGraphElementModel Invalid = new InvalidGraphElementModel();
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
 
