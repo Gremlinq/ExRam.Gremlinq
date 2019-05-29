@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Extensions;
 using LanguageExt;
 
@@ -31,6 +33,8 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
 
+        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>>();
+
         public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, string, string> overrideTransformation)
         {
             return model.ConfigureMetadata(_ => _.ConfigureNames(overrideTransformation));
@@ -55,44 +59,51 @@ namespace ExRam.Gremlinq.Core
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
-            if (member.DeclaringType.IsInterface)
-            {
-                var interfaceGetter = ((PropertyInfo)member).GetMethod;
-
-                var implementingGetter = model.Metadata.Keys
-                    .Select(x => x.DeclaringType)
-                    .Distinct()
-                    .Where(declaringType => member.DeclaringType.IsAssignableFrom(declaringType))
-                    .Select(declaringType =>
+            return IdentifierDict
+                .GetOrCreateValue(model)
+                .GetOrAdd(
+                    member,
+                    closureMember =>
                     {
-                        var interfaceMap = declaringType
-                            .GetInterfaceMap(member.DeclaringType);
+                        if (closureMember.DeclaringType != null && closureMember.DeclaringType.IsInterface)
+                        {
+                            var interfaceGetter = ((PropertyInfo)closureMember).GetMethod;
 
-                        var index = Array.IndexOf(
-                            interfaceMap.InterfaceMethods,
-                            interfaceGetter);
+                            var implementingGetter = model.Metadata.Keys
+                                .Select(x => x.DeclaringType)
+                                .Distinct()
+                                .Where(declaringType => closureMember.DeclaringType.IsAssignableFrom(declaringType))
+                                .Select(declaringType =>
+                                {
+                                    var interfaceMap = declaringType
+                                        .GetInterfaceMap(closureMember.DeclaringType);
 
-                        return interfaceMap.TargetMethods[index];
-                    })
-                    .ToArray();
+                                    var index = Array.IndexOf(
+                                        interfaceMap.InterfaceMethods,
+                                        interfaceGetter);
 
-                var identifiers = model.Metadata.Keys
-                    .Where(m => member.DeclaringType.IsAssignableFrom(m.DeclaringType))
-                    .OfType<PropertyInfo>()
-                    .Where(p => implementingGetter.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
-                    .Select(model.GetIdentifier)
-                    .Distinct()
-                    .ToArray();
+                                    return interfaceMap.TargetMethods[index];
+                                })
+                                .ToArray();
 
-                if (identifiers.Length != 1)
-                    throw new InvalidOperationException("Contradicting identifiers.");
+                            var identifiers = model.Metadata.Keys
+                                .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
+                                .OfType<PropertyInfo>()
+                                .Where(p => implementingGetter.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
+                                .Select(model.GetIdentifier)
+                                .Distinct()
+                                .ToArray();
 
-                return identifiers[0];
-            }
-            
-            return model.GetIdentifier(model.Metadata
-                .TryGetValue(member)
-                .IfNone(new PropertyMetadata(member.Name)));
+                            if (identifiers.Length != 1)
+                                throw new InvalidOperationException("Contradicting identifiers.");
+
+                            return identifiers[0];
+                        }
+
+                        return model.GetIdentifier(model.Metadata
+                            .TryGetValue(closureMember)
+                            .IfNone(new PropertyMetadata(closureMember.Name)));
+                    });
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)
