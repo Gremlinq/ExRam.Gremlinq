@@ -2,7 +2,7 @@
 {
     public struct PropertyMetadata
     {
-        public PropertyMetadata(string name, SerializationBehaviour serializationBehaviour)
+        public PropertyMetadata(string name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
         {
             Name = name;
             SerializationBehaviour = serializationBehaviour;

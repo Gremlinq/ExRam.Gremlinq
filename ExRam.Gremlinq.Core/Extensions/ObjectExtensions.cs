@@ -30,13 +30,12 @@ namespace LanguageExt
                         .Select(p =>
                         {
                             var metadata = model.Metadata
-                                .GetValueOrDefault(p, new PropertyMetadata(p.Name, SerializationBehaviour.Default));
+                                .GetValueOrDefault(p, new PropertyMetadata(p.Name));
 
                             return (
                                 property: p,
-                                identifier: model.GetIdentifier(p),
-                                serializationBehaviour: metadata
-                                    .SerializationBehaviour);
+                                identifier: model.GetIdentifier(metadata),
+                                serializationBehaviour: metadata.SerializationBehaviour);
                         })
                         .OrderBy(x => x.property.Name)
                         .ToArray());

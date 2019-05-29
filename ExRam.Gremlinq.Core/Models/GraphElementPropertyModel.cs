@@ -56,15 +56,17 @@ namespace ExRam.Gremlinq.Core
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
-            var identifier = model.Metadata
+            return model.GetIdentifier(model.Metadata
                 .TryGetValue(member)
-                .Map(x => x.Name)
-                .IfNone(member.Name);
+                .IfNone(new PropertyMetadata(member.Name, SerializationBehaviour.Default)));
+        }
 
+        internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)
+        {
             return model.SpecialNames
-                .TryGetValue(identifier)
+                .TryGetValue(metadata.Name)
                 .Map(x => (object)x)
-                .IfNone(identifier);
+                .IfNone(metadata.Name);
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
@@ -77,7 +79,7 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => property,
-                        property => new PropertyMetadata(property.Name, SerializationBehaviour.Default),
+                        property => new PropertyMetadata(property.Name),
                         MemberInfoEqualityComparer.Instance));
         }
 

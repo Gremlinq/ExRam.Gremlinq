@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
                 memberInfo,
                 transformation(_metadata
                     .TryGetValue(memberInfo)
-                    .IfNone(new PropertyMetadata(memberInfo.Name, SerializationBehaviour.Default)))));
+                    .IfNone(new PropertyMetadata(memberInfo.Name)))));
         }
 
         #region Explicit
