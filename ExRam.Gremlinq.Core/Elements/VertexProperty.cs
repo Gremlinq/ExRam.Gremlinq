@@ -23,9 +23,9 @@ namespace ExRam.Gremlinq.Core.GraphElements
             return $"vp[{Label}->{GetValue()}]";
         }
 
-        //TODO: Honor Model.
-        internal override IDictionary<string, object> GetMetaProperties() => Properties?
-            .Serialize()
+        //TODO: Honor Mask.
+        internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => Properties?
+            .Serialize(model, SerializationBehaviour.Default)
             .Where(x => x.identifier is string)
             .ToDictionary(x => (string)x.identifier, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
 
@@ -46,6 +46,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException();
         public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException();
 
-        internal override IDictionary<string, object> GetMetaProperties() => Properties;
+        internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => Properties;
     }
 }

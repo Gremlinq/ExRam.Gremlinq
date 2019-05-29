@@ -1,19 +1,22 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using System;
+using ExRam.Gremlinq.Core.Serialization;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertyStep : Step
     {
-        public PropertyStep(object key, object value) : this(default, key, value)
+        public PropertyStep(object key, object value, Option<Cardinality> cardinality = default) : this(key, value, Array.Empty<object>(), cardinality)
         {
+
         }
 
-        public PropertyStep(Option<Cardinality> cardinality, object key, object value)
+        public PropertyStep(object key, object value, object[] metaProperties, Option<Cardinality> cardinality = default)
         {
             Key = key;
             Value = value;
             Cardinality = cardinality;
+            MetaProperties = metaProperties;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
@@ -23,6 +26,7 @@ namespace ExRam.Gremlinq.Core
 
         public object Key { get; }
         public object Value { get; }
+        public object[] MetaProperties { get; }
         public Option<Cardinality> Cardinality { get; }
     }
 }

@@ -272,29 +272,13 @@ namespace ExRam.Gremlinq.Core.Serialization
             if (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
                 throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
-            if (step.Value is IVertexProperty && step.Value is Property property)
-            {
-                var metaProperties = property.GetMetaProperties()
-                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .Prepend(property.GetValue())
-                    .Prepend(step.Key);
-
-                metaProperties = step.Cardinality.Fold(
-                    metaProperties,
-                    (closureMetaProperties, c) => closureMetaProperties.Prepend(c));
-
-                Method("property", metaProperties);
-            }
+            if (ReferenceEquals(step.Key, T.Id))
+                Method("property", step.MetaProperties.Prepend(step.Value).Prepend(step.Key));
             else
             {
-                if (ReferenceEquals(step.Key, T.Id))
-                    Method("property", step.Key, step.Value);
-                else
-                {
-                    step.Cardinality.Match(
-                        c => Method("property", c, step.Key, step.Value),
-                        () => Method("property", step.Key, step.Value));
-                }
+                step.Cardinality.Match(
+                    c => Method("property", step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(c)),
+                    () => Method("property", step.MetaProperties.Prepend(step.Value).Prepend(step.Key)));
             }
         }
 

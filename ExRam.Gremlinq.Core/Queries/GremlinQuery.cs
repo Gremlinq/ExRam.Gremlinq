@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Core
         private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
         {
             if (!propertyType.IsArray || propertyType == typeof(byte[]))
-                yield return new PropertyStep(allowExplicitCardinality ? Cardinality.Single : default, key, value);
+                yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
             else
             {
                 if (!allowExplicitCardinality)
@@ -159,16 +159,33 @@ namespace ExRam.Gremlinq.Core
                 // ReSharper disable once PossibleNullReferenceException
                 if (propertyType.GetElementType().IsInstanceOfType(value))
                 {
-                    yield return new PropertyStep(Cardinality.List, key, value);
+                    yield return GetPropertyStep(key, value, Cardinality.List);
                 }
                 else
                 {
                     foreach (var item in (IEnumerable)value)
                     {
-                        yield return new PropertyStep(Cardinality.List, key, item);
+                        yield return GetPropertyStep(key, item, Cardinality.List);
                     }
                 }
             }
+        }
+
+        private PropertyStep GetPropertyStep(object key, object value, Cardinality cardinality)
+        {
+            var metaProperties = Array.Empty<object>();
+
+            if (value is IVertexProperty && value is Property property)
+            {
+                metaProperties = property
+                    .GetMetaProperties(Model.PropertiesModel)
+                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                    .ToArray();
+
+                value = property.GetValue();
+            }
+
+            return new PropertyStep(key, value, metaProperties, cardinality);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
