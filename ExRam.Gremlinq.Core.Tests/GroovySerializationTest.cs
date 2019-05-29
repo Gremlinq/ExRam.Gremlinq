@@ -17,6 +17,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_IAuthority()
+        {
+            g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Authority>(__ => __
+                            .ConfigureName(x => x.Name, "n"))))
+                .V<IAuthority>()
+                .Where(x => x.Name.Value == "some name")
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a, _b).has(_c, _d)")
+                .WithParameters("Company", "Person", "n", "some name");
+        }
+        
+        [Fact]
         public void AddE_from_StepLabel()
         {
             g

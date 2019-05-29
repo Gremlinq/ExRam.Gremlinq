@@ -55,6 +55,41 @@ namespace ExRam.Gremlinq.Core
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
+            if (member.DeclaringType.IsInterface)
+            {
+                var interfaceGetter = ((PropertyInfo)member).GetMethod;
+
+                var implementingGetter = model.Metadata.Keys
+                    .Select(x => x.DeclaringType)
+                    .Distinct()
+                    .Where(declaringType => member.DeclaringType.IsAssignableFrom(declaringType))
+                    .Select(declaringType =>
+                    {
+                        var interfaceMap = declaringType
+                            .GetInterfaceMap(member.DeclaringType);
+
+                        var index = Array.IndexOf(
+                            interfaceMap.InterfaceMethods,
+                            interfaceGetter);
+
+                        return interfaceMap.TargetMethods[index];
+                    })
+                    .ToArray();
+
+                var identifiers = model.Metadata.Keys
+                    .Where(m => member.DeclaringType.IsAssignableFrom(m.DeclaringType))
+                    .OfType<PropertyInfo>()
+                    .Where(p => implementingGetter.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
+                    .Select(model.GetIdentifier)
+                    .Distinct()
+                    .ToArray();
+
+                if (identifiers.Length != 1)
+                    throw new InvalidOperationException("Contradicting identifiers.");
+
+                return identifiers[0];
+            }
+            
             return model.GetIdentifier(model.Metadata
                 .TryGetValue(member)
                 .IfNone(new PropertyMetadata(member.Name)));

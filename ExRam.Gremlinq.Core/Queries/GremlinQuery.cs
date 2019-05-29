@@ -373,7 +373,6 @@ namespace ExRam.Gremlinq.Core
 
                     throw new ExpressionNotSupportedException(projection);
                 }));
-
         }
 
         private object[] GetKeys(IEnumerable<MemberExpression> projections)
