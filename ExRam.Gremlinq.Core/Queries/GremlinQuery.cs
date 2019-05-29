@@ -493,18 +493,16 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
         {
-            if (!typeof(TTarget).IsAssignableFrom(typeof(TElement)))
-            {
-                return model
-                    .TryGetFilterLabels(typeof(TTarget))
-                    .Match(
+            if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
+                return Cast<TTarget>();
+
+            return model
+                .TryGetFilterLabels(typeof(TTarget))
+                .Match(
                     labels => labels.Length > 0
                         ? AddStep<TTarget>(new HasLabelStep(labels))
                         : Cast<TTarget>(),
                     () => AddStep<TTarget>(NoneStep.Instance));
-            }
-
-            return Cast<TTarget>();
         }
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery
