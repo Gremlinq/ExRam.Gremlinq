@@ -2,13 +2,12 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class CoinStep : Step
+    public sealed class NoneStep : Step
     {
-        public double Probability { get; }
+        public static readonly NoneStep Instance = new NoneStep();
 
-        public CoinStep(double probability)
+        private NoneStep()
         {
-            Probability = probability;
         }
 
         public override void Accept(IGremlinQueryElementVisitor visitor)
