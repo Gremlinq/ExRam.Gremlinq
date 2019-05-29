@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
         {
-            return model.WithMetadata(_ => _.ToImmutableDictionary(
+            return model.ConfigureMetadata(_ => _.ToImmutableDictionary(
                 kvp => kvp.Key,
                 kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
         }
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
                 .IfNone(new[] { type.Name });   //TODO: What if type is abstract?
         }
 
-        private static IGraphElementModel WithMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
+        private static IGraphElementModel ConfigureMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
         {
             return new GraphElementModelImpl(
                 transformation(model.Metadata));
