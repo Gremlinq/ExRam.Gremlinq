@@ -6,6 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQuery InsertStep(int index, Step step);
 
+        Options Options { get; }
         IGraphModel Model { get; }
         IImmutableList<Step> Steps { get; }
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQuery;

@@ -108,7 +108,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
-        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Model, QueryExecutor, Steps.Insert(index, step), StepLabelMappings, Logger);
+        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Model, Options, QueryExecutor, Steps.Insert(index, step), StepLabelMappings, Logger);
+
+        Options IGremlinQueryAdmin.Options => Options;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
