@@ -495,10 +495,13 @@ namespace ExRam.Gremlinq.Core
         {
             if (!typeof(TTarget).IsAssignableFrom(typeof(TElement)))
             {
-                var labels = model.GetValidFilterLabels(typeof(TTarget));
-
-                if (labels.Length > 0)
-                    return AddStep<TTarget>(new HasLabelStep(labels));
+                return model
+                    .TryGetFilterLabels(typeof(TTarget))
+                    .Match(
+                    labels => labels.Length > 0
+                        ? AddStep<TTarget>(new HasLabelStep(labels))
+                        : Cast<TTarget>(),
+                    () => AddStep<TTarget>(NoneStep.Instance));
             }
 
             return Cast<TTarget>();

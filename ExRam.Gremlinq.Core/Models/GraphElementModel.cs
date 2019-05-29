@@ -41,6 +41,14 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
+        internal static Step GetFilterStepOrNone(this IGraphElementModel model, Type type, Func<string[], Step> stepFactory)
+        {
+            return model
+                .TryGetFilterLabels(type)
+                .Map(stepFactory)
+                .IfNone(NoneStep.Instance);
+        }
+
         public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
         {
             return DerivedLabels
@@ -61,13 +69,6 @@ namespace ExRam.Gremlinq.Core
                                 ? Array.Empty<string>()
                                 : labels;
                     });
-        }
-
-        internal static string[] GetValidFilterLabels(this IGraphElementModel model, Type type)
-        {
-            return model
-                .TryGetFilterLabels(type)
-                .IfNone(new[] { type.Name });   //TODO: What if type is abstract?
         }
 
         private static IGraphElementModel ConfigureMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)
