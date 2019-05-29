@@ -62,6 +62,25 @@ namespace ExRam.Gremlinq.Providers
                 }
             }
 
+            private readonly IGraphElementPropertyModel _model;
+
+            public GremlinContractResolver(IGraphElementPropertyModel model)
+            {
+                _model = model;
+            }
+
+            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+            {
+                var property = base.CreateProperty(member, memberSerialization);
+
+                _model.Metadata
+                    .TryGetValue(member)
+                    .Map(x => x.Name)
+                    .IfSome(name => property.PropertyName = name);
+
+                return property;
+            }
+
             protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
             {
                 var provider = base.CreateMemberValueProvider(member);
@@ -326,7 +345,7 @@ namespace ExRam.Gremlinq.Providers
             Converters.Add(new DateTimeConverter());
             Converters.Add(new ElementConverter(model));
 
-            ContractResolver = new GremlinContractResolver();
+            ContractResolver = new GremlinContractResolver(model.PropertiesModel);
             DefaultValueHandling = DefaultValueHandling.Populate;
         }
     }

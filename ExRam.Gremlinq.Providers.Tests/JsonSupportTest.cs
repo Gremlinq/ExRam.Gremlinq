@@ -100,6 +100,32 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task Configured_property_name()
+        {
+            var persons = await _g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(prop => prop
+                        .ConfigureElement<Person>(conf => conf
+                            .ConfigureName(x => x.Name, "replacement"))))
+                .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]"))
+                .V<Person>()
+                .ToArrayAsync();
+
+            persons
+                .Should()
+                .HaveCount(1);
+
+            persons[0]
+                .Name
+                .Should()
+                .NotBeNull();
+
+            persons[0].Name.Value
+                .Should()
+                .Be("nameValue");
+        }
+
+        [Fact]
         public async Task IsDescribedIn()
         {
             var array = await _g
