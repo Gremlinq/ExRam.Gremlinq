@@ -49,16 +49,15 @@ namespace ExRam.Gremlinq.Core
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
             where TElement : class
         {
-            return new GraphElementPropertyModelImpl(
-                action(new PropertyMetadataConfigurator<TElement>(model.Metadata)),
-                model.SpecialNames);
+            return model.ConfigureMetadata(
+                metadata => action(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
             return model.GetIdentifier(model.Metadata
                 .TryGetValue(member)
-                .IfNone(new PropertyMetadata(member.Name, SerializationBehaviour.Default)));
+                .IfNone(new PropertyMetadata(member.Name)));
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)
