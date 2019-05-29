@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void CamelcaseLabel_Verticies()
+        public void CamelcaseLabel_Vertices()
         {
             GraphModel.FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(_ => _
@@ -236,21 +236,78 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Configuration_IgnoreOnUpdate()
         {
-            var maybeMetadata = GraphModel
+            GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(_ => _
                     .ConfigureElement<Person>(builder => builder
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
-
-            maybeMetadata
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))
                 .Should()
                 .BeSome(metaData => metaData
                     .SerializationBehaviour
                     .Should()
                     .Be(SerializationBehaviour.IgnoreOnUpdate));
+        }
+
+        [Fact]
+        public void Configuration_can_be_found_for_base_class()
+        {
+            GraphModel
+                .FromBaseTypes<Vertex, Edge>()
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreOnUpdate(p => p.Name)))
+                .PropertiesModel
+                .Metadata
+                .TryGetValue(typeof(Authority).GetProperty(nameof(Authority.Name)))
+                .Should()
+                .BeSome(metaData => metaData
+                    .SerializationBehaviour
+                    .Should()
+                    .Be(SerializationBehaviour.IgnoreOnUpdate));
+        }
+
+        [Fact]
+        public void Configuration_can_be_found_for_derived_class()
+        {
+            GraphModel
+                .FromBaseTypes<Vertex, Edge>()
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Authority>(builder => builder
+                        .IgnoreOnUpdate(p => p.Name)))
+                .PropertiesModel
+                .Metadata
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))
+                .Should()
+                .BeSome(metaData => metaData
+                    .SerializationBehaviour
+                    .Should()
+                    .Be(SerializationBehaviour.IgnoreOnUpdate));
+        }
+
+        [Fact]
+        public void Equivalent_configuration_does_not_add_entry()
+        {
+            var model = GraphModel
+                .Empty
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Authority>(builder => builder
+                        .IgnoreOnUpdate(p => p.Name)));
+
+            model.PropertiesModel.Metadata
+                .Should()
+                .HaveCount(1);
+
+            model = model
+                .ConfigureProperties(_ => _
+                    .ConfigureElement<Person>(builder => builder
+                        .IgnoreOnUpdate(p => p.Name)));
+
+            model.PropertiesModel.Metadata
+                .Should()
+                .HaveCount(1);
         }
 
         [Fact]
