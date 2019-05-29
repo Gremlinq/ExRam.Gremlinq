@@ -14,11 +14,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
             Value = value;
         }
 
-        protected VertexProperty()
-        {
-
-        }
-
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
         public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException();
         public static implicit operator VertexProperty<TValue, TMeta>(VertexProperty<TValue, TMeta>[] value) => throw new NotSupportedException();
@@ -41,10 +36,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
     {
-        protected VertexProperty() : this(default)
-        {
-        }
-
         public VertexProperty(TValue value) : base(value)
         {
             Value = value;
