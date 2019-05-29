@@ -149,26 +149,23 @@ namespace ExRam.Gremlinq.Core
 
         private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
         {
-            if (value != null)
+            if (!propertyType.IsArray || propertyType == typeof(byte[]))
+                yield return new PropertyStep(allowExplicitCardinality ? Cardinality.Single : default, key, value);
+            else
             {
-                if (!propertyType.IsArray || propertyType == typeof(byte[]))
-                    yield return new PropertyStep(allowExplicitCardinality ? Cardinality.Single : default, key, value);
+                if (!allowExplicitCardinality)
+                    throw new InvalidOperationException(/*TODO */);
+
+                // ReSharper disable once PossibleNullReferenceException
+                if (propertyType.GetElementType().IsInstanceOfType(value))
+                {
+                    yield return new PropertyStep(Cardinality.List, key, value);
+                }
                 else
                 {
-                    if (!allowExplicitCardinality)
-                        throw new InvalidOperationException(/*TODO */);
-
-                    // ReSharper disable once PossibleNullReferenceException
-                    if (propertyType.GetElementType().IsInstanceOfType(value))
+                    foreach (var item in (IEnumerable)value)
                     {
-                        yield return new PropertyStep(Cardinality.List, key, value);
-                    }
-                    else
-                    {
-                        foreach (var item in (IEnumerable)value)
-                        {
-                            yield return new PropertyStep(Cardinality.List, key, item);
-                        }
+                        yield return new PropertyStep(Cardinality.List, key, item);
                     }
                 }
             }
