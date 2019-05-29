@@ -28,8 +28,8 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class EmptyGraphModel : IGraphModel
         {
-            public IGraphElementModel VerticesModel { get => GraphElementModel.Empty; }
-            public IGraphElementModel EdgesModel { get => GraphElementModel.Empty; }
+            public IGraphElementModel VerticesModel => GraphElementModel.Empty;
+            public IGraphElementModel EdgesModel => GraphElementModel.Empty;
 
             public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertyModel.Default;
         }
