@@ -28,7 +28,11 @@ namespace ExRam.Gremlinq.Core.GraphElements
             return $"vp[{Label}->{GetValue()}]";
         }
 
-        internal override IDictionary<string, object> GetMetaProperties() => Properties?.Serialize().ToDictionary(x => x.Item1.Name, x => x.Item2) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
+        //TODO: Honor Model.
+        internal override IDictionary<string, object> GetMetaProperties() => Properties?
+            .Serialize()
+            .Where(x => x.identifier is string)
+            .ToDictionary(x => (string)x.identifier, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
 
         [AllowNull] public object Id { get; set; }
         [AllowNull] public string Label { get; set; }

@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Core
         {
             var ret = this;
             var props = element.Serialize(
-                Model.PropertiesModel.Metadata,
+                Model.PropertiesModel,
                 add
                     ? SerializationBehaviour.IgnoreOnAdd
                     : SerializationBehaviour.IgnoreOnUpdate);
@@ -131,14 +131,14 @@ namespace ExRam.Gremlinq.Core
             {
                 ret = ret.SideEffect(_ => _
                     .Properties<Unit, Unit, Unit>(props
-                        .Select(p => Model.PropertiesModel.GetIdentifier(p.propertyInfo))
+                        .Select(p => p.identifier)
                         .OfType<string>())
                     .Drop());
             }
 
-            foreach (var (propertyInfo, value) in props)
+            foreach (var (property, identifier, value) in props)
             {
-                foreach (var propertyStep in GetPropertySteps(propertyInfo.PropertyType, Model.PropertiesModel.GetIdentifier(propertyInfo), value, allowExplicitCardinality))
+                foreach (var propertyStep in GetPropertySteps(property.PropertyType, identifier, value, allowExplicitCardinality))
                 {
                     ret = ret.AddStep(propertyStep);
                 }

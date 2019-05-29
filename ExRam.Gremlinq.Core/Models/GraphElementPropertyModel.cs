@@ -77,9 +77,7 @@ namespace ExRam.Gremlinq.Core
                     .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                     .ToImmutableDictionary(
                         property => property,
-                        property => string.Equals(property.Name, "id", StringComparison.OrdinalIgnoreCase)
-                            ? new PropertyMetadata(default, SerializationBehaviour.IgnoreOnUpdate)
-                            : PropertyMetadata.Default,
+                        property => PropertyMetadata.Default,
                         MemberInfoEqualityComparer.Instance));
         }
 
