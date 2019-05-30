@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core
     
         public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance), Options.Default, false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, ImmutableList<string>.Empty, NullLogger.Instance);
+            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance), default, false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, ImmutableList<string>.Empty, NullLogger.Instance);
         }
 
         public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()

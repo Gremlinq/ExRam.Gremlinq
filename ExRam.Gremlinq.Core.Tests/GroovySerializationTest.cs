@@ -759,7 +759,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .In<object>()
                 .Should()
@@ -779,7 +779,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .ConfigureOptions(x => x
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .InE<object>()
                 .Should()
@@ -1182,7 +1182,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .Out<object>()
                 .Should()
@@ -1202,7 +1202,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .OutE<object>()
                 .Should()

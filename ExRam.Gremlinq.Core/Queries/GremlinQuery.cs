@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<Unit> Anonymous(IGraphModel model = null, ILogger logger = null)
         {
-            return Create(model ?? GraphModel.Empty, Options.Default, GremlinQueryExecutor.Invalid, null, logger);
+            return Create(model ?? GraphModel.Empty, default, GremlinQueryExecutor.Invalid, null, logger);
         }
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
