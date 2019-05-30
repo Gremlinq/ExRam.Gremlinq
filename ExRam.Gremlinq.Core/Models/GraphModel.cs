@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 return assembly
                                     .DefinedTypes
-                                    .Where(type => type != baseType && baseType.IsAssignableFrom(type))
+                                    .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
                                     .Select(typeInfo => typeInfo);
                             }
                             catch (ReflectionTypeLoadException ex)

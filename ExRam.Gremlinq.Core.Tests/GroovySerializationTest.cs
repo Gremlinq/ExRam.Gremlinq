@@ -1148,8 +1148,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b, _c, _d)")
-                .WithParameters("Person", "LivesIn", "Speaks", "WorksFor");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out()")
+                .WithParameters("Person");
         }
 
         [Fact]
