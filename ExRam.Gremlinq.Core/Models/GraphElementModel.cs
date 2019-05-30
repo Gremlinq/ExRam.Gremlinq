@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
 
-        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, Option<string[]>>>();
+        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>>();
 
         public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
         {
@@ -41,34 +41,36 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
-        internal static Step GetFilterStepOrNone(this IGraphElementModel model, Type type, Func<string[], Step> stepFactory)
+        internal static Step GetFilterStepOrNone(this IGraphElementModel model, Type type,
+            FilterLabelsVerbosity verbosity, Func<string[], Step> stepFactory)
         {
             return model
-                .TryGetFilterLabels(type)
+                .TryGetFilterLabels(type, verbosity)
                 .Map(stepFactory)
                 .IfNone(NoneStep.Instance);
         }
 
-        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type)
+        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity filterLabelsVerbosity)
         {
-            return DerivedLabels
+            var labels = DerivedLabels
                 .GetOrCreateValue(model)
                 .GetOrAdd(
                     type,
                     closureType =>
                     {
-                        var labels = model.Metadata
+                        return model.Metadata
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
                             .Select(kvp => kvp.Value.Label)
                             .OrderBy(x => x)
                             .ToArray();
-
-                        return labels.Length == 0
-                            ? default(Option<string[]>)
-                            : labels.Length == model.Metadata.Count
-                                ? Array.Empty<string>()
-                                : labels;
                     });
+
+
+            return labels.Length == 0
+                ? default(Option<string[]>)
+                : labels.Length == model.Metadata.Count && filterLabelsVerbosity == FilterLabelsVerbosity.Minimum
+                    ? Array.Empty<string>()
+                    : labels;
         }
 
         private static IGraphElementModel ConfigureMetadata(this IGraphElementModel model, Func<IImmutableDictionary<Type, ElementMetadata>, IImmutableDictionary<Type, ElementMetadata>> transformation)

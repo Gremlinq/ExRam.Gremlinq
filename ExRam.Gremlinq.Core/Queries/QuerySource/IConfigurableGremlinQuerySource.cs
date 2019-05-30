@@ -11,17 +11,17 @@ namespace ExRam.Gremlinq.Core
         // This is the default and pessimistic // option since in an actual database, there might
         // exist elements with labels unknown to Gremlinq that would otherwise be incorrectly included
         // in the query results.
-        Verbose = 0,
+        Maximum = 0,
 
         // Assume there are no elements with labels unknown to Gremlinq in the queried database,
         // enabling Gremlinq to use e.g. "out()" when the more verbose syntax ".out('l1'...)" would
         // include all labels known to Gremlinq.
-        Optimistic = 1
+        Minimum = 1
     }
 
     public sealed class Options
     {
-        public static readonly Options Default = new Options(FilterLabelsVerbosity.Verbose);
+        public static readonly Options Default = new Options(FilterLabelsVerbosity.Maximum);
 
         public Options(FilterLabelsVerbosity filterLabelsVerbosity)
         {

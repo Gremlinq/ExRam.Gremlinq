@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Providers
 
             protected override bool CanConvertImpl(Type objectType)
             {
-                return _model.VerticesModel.TryGetFilterLabels(objectType).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType).IsSome;
+                return _model.VerticesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome;
             }
         }
         #endregion

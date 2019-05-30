@@ -754,6 +754,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
+                .SerializeToGroovy<TVisitor>("g.V().in(_a, _b, _c)")
+                .WithParameters("LivesIn", "Speaks", "WorksFor");
+
+            g
+                .ConfigureOptions(o => o
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                .V()
+                .In<object>()
+                .Should()
                 .SerializeToGroovy<TVisitor>("g.V().in()")
                 .WithoutParameters();
         }
@@ -762,6 +771,15 @@ namespace ExRam.Gremlinq.Core.Tests
         public void InE_of_all_types()
         {
             g
+                .V()
+                .InE<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().inE(_a, _b, _c)")
+                .WithParameters("LivesIn", "Speaks", "WorksFor");
+
+            g
+                .ConfigureOptions(x => x
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .InE<object>()
                 .Should()
@@ -1148,14 +1166,23 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out()")
-                .WithParameters("Person");
+                .SerializeToGroovy<TVisitor>("g.V().hasLabel(_a).out(_b, _c, _d)")
+                .WithParameters("Person", "LivesIn", "Speaks", "WorksFor");
         }
 
         [Fact]
         public void Out_of_all_types()
         {
             g
+                .V()
+                .Out<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().out(_a, _b, _c)")
+                .WithParameters("LivesIn", "Speaks", "WorksFor");
+
+            g
+                .ConfigureOptions(o => o
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .Out<object>()
                 .Should()
@@ -1167,6 +1194,15 @@ namespace ExRam.Gremlinq.Core.Tests
         public void OutE_of_all_types()
         {
             g
+                .V()
+                .OutE<object>()
+                .Should()
+                .SerializeToGroovy<TVisitor>("g.V().outE(_a, _b, _c)")
+                .WithParameters("LivesIn", "Speaks", "WorksFor");
+
+            g
+                .ConfigureOptions(o => o
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .OutE<object>()
                 .Should()

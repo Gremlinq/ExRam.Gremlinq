@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.Dynamic();
 
             model.VerticesModel
-                .TryGetFilterLabels(typeof(Authority))
+                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum)
                 .IfNone(new string[0])
                 .Should()
                 .Contain("Company").And
