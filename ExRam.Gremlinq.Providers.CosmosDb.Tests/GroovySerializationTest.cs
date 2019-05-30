@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -8,7 +9,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class GroovySerializationTest : GroovySerializationTest<CosmosDbGroovyGremlinQueryElementVisitor>
+    public class GroovySerializationTest : GroovySerializationTest<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>
     {
         [Fact]
         public void Limit_overflow()
@@ -16,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             g
                 .V()
                 .Limit((long)int.MaxValue + 1)
-                .Invoking(x => new CosmosDbGroovyGremlinQueryElementVisitor().Visit(x))
+                .Invoking(x => new GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor().Visit(x))
                 .Should()
                 .Throw<ArgumentOutOfRangeException>();
         }
@@ -28,7 +29,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Company");
         }
         
@@ -41,7 +42,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -52,7 +53,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V()
                 .OutE<string>()
                 .Should()
-                .SerializeToGroovy<CosmosDbGroovyGremlinQueryElementVisitor>("g.V().not(__.identity())")
+                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().not(__.identity())")
                 .WithoutParameters();
         }
     }
