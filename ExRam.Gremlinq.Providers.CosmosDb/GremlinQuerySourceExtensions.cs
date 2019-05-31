@@ -137,20 +137,20 @@ namespace ExRam.Gremlinq.Core
             return source
                 .ConfigureVisitors(conf => conf
                     .Set<SerializedGremlinQuery, CosmosDbGroovyGremlinQueryElementVisitor>())
-                .ConfigureWebSocketRemote(conf => conf
-                .WithClientFactory(() => new GremlinClient(
-                    new GremlinServer(hostname,
-                        port,
-                        true,
-                        $"/dbs/{database}/colls/{graphName}",
-                        authKey),
-                    new GraphSON2Reader(),
-                    new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
-                    {
-                        { typeof(TimeSpan), new TimeSpanSerializer() }
-                    }),
-                    GremlinClient.GraphSON2MimeType))
-                .WithSerializerFactory(new CosmosDbGraphsonDeserializerFactory()));
+                .ConfigureWebSocket(conf => conf
+                    .WithClientFactory(() => new GremlinClient(
+                        new GremlinServer(hostname,
+                            port,
+                            true,
+                            $"/dbs/{database}/colls/{graphName}",
+                            authKey),
+                        new GraphSON2Reader(),
+                        new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
+                        {
+                            { typeof(TimeSpan), new TimeSpanSerializer() }
+                        }),
+                        GremlinClient.GraphSON2MimeType))
+                    .WithSerializerFactory(new CosmosDbGraphsonDeserializerFactory()));
         }
     }
 }

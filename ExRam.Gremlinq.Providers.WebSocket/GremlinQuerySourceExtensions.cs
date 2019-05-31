@@ -98,16 +98,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithRemote(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
         {
-            return source.WithRemote(
+            return source.WithWebSocket(
                 new GremlinServer(hostname, port, enableSsl, username, password),
                 graphsonVersion);
         }
 
-        public static IConfigurableGremlinQuerySource WithRemote(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
         {
-            return source.ConfigureWebSocketRemote(conf => conf
+            return source.ConfigureWebSocket(conf => conf
                 .WithClientFactory(() => new GremlinClient(
                     server,
                     graphsonVersion == GraphsonVersion.V2
@@ -122,7 +122,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 .WithSerializerFactory(new DefaultGraphsonDeserializerFactory()));
         }
         
-        public static IConfigurableGremlinQuerySource ConfigureWebSocketRemote(this IConfigurableGremlinQuerySource source, Func<IWebSocketRemoteConfigurator, IWebSocketRemoteConfigurator> transformation)
+        public static IConfigurableGremlinQuerySource ConfigureWebSocket(this IConfigurableGremlinQuerySource source, Func<IWebSocketRemoteConfigurator, IWebSocketRemoteConfigurator> transformation)
         {
             return source
                 .ConfigureVisitors(_ => _.TryAdd<SerializedGremlinQuery, GroovyGremlinQueryElementVisitor>())
