@@ -19,12 +19,12 @@ namespace ExRam.Gremlinq.Core.Tests
             }
 
             public SerializedGremlinQueryAssertions SerializeToGroovy<TVisitor>(string serialization)
-                where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
+                where TVisitor : IGremlinQueryElementVisitor, new()
             {
                 var visitor = new TVisitor();
                 visitor.Visit(Subject);
 
-                var serializedQuery = visitor.Build();
+                var serializedQuery = visitor.Build<SerializedGremlinQuery>();
 
                 serializedQuery.QueryString
                     .Should()

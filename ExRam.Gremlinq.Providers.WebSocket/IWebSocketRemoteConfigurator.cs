@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketRemoteConfigurator WithSerializerFactory(IGraphsonSerializerFactory serializer);
 
-        IWebSocketRemoteConfigurator WithVisitor(IGremlinQueryElementVisitor<SerializedGremlinQuery> visitor);
+        IWebSocketRemoteConfigurator WithVisitor(IGremlinQueryElementVisitor visitor);
 
         IGremlinQueryExecutor Build();
     }

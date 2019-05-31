@@ -6,7 +6,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>
+    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor
     {
         private enum State
         {
@@ -625,9 +625,12 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         #endregion
 
-        public SerializedGremlinQuery Build()
+        public TSerializedQuery Build<TSerializedQuery>()
         {
-            return new SerializedGremlinQuery(
+            if (typeof(TSerializedQuery) != typeof(SerializedGremlinQuery))
+                throw new NotSupportedException();
+
+            return (TSerializedQuery)(object)new SerializedGremlinQuery(
                 _builder.ToString(),
                 _variables
                     .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));

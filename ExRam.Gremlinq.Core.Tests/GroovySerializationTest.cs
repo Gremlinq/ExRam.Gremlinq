@@ -9,7 +9,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GroovySerializationTest<TVisitor> where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
+    public abstract class GroovySerializationTest<TVisitor> where TVisitor : IGremlinQueryElementVisitor, new()
     {
         protected GroovySerializationTest()
         {

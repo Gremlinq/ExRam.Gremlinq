@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     }
 
     public class WebSocketGremlinQueryExecutor<TVisitor> : IGremlinQueryExecutor, IDisposable
-        where TVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>, new()
+        where TVisitor : IGremlinQueryElementVisitor, new()
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             visitor
                 .Visit(query);
 
-            var serialized = visitor.Build();
+            var serialized = visitor.Build<SerializedGremlinQuery>();
 
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
             

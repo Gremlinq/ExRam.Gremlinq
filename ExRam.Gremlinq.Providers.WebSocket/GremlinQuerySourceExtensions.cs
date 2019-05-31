@@ -15,11 +15,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             private readonly ILogger _logger;
             private readonly IGremlinClient _client;
             private readonly IGraphsonSerializerFactory _serializer;
-            private readonly IGremlinQueryElementVisitor<SerializedGremlinQuery> _visitor;
+            private readonly IGremlinQueryElementVisitor _visitor;
 
             public DefaultWebSocketRemoteConfigurator(
                 [AllowNull] IGremlinClient client,
-                [AllowNull] IGremlinQueryElementVisitor<SerializedGremlinQuery> visitor,
+                [AllowNull] IGremlinQueryElementVisitor visitor,
                 [AllowNull] IGraphsonSerializerFactory serializer,
                 ILogger logger)
             {
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 return new DefaultWebSocketRemoteConfigurator(_client, _visitor, serializer, _logger);
             }
 
-            public IWebSocketRemoteConfigurator WithVisitor(IGremlinQueryElementVisitor<SerializedGremlinQuery> visitor)
+            public IWebSocketRemoteConfigurator WithVisitor(IGremlinQueryElementVisitor visitor)
             {
                 return new DefaultWebSocketRemoteConfigurator(_client, visitor, _serializer, _logger);
             }
