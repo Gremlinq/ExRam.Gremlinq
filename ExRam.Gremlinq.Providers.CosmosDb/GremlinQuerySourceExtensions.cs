@@ -135,7 +135,7 @@ namespace ExRam.Gremlinq.Core
         public static IConfigurableGremlinQuerySource WithCosmosDbRemote(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
             return source.ConfigureWebSocketRemote(conf => conf
-                .WithClient(new GremlinClient(
+                .WithClientFactory(() => new GremlinClient(
                     new GremlinServer(hostname,
                         port,
                         true,
