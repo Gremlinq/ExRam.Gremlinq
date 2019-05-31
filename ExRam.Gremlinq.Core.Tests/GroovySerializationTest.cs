@@ -14,8 +14,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
         protected GroovySerializationTest(IConfigurableGremlinQuerySource g)
         {
-            _g = g;
-            var vertexType = typeof(Vertex);
+            _g = g
+                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
         [Fact]
