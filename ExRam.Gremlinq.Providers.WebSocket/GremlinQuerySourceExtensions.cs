@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -11,6 +15,54 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private sealed class DefaultWebSocketRemoteConfigurator : IWebSocketRemoteConfigurator
         {
+            private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
+            {
+                private readonly ILogger _logger;
+                private readonly IGremlinClient _gremlinClient;
+                private readonly IGraphsonDeserializerFactory _graphSonDeserializerFactory;
+
+                public WebSocketGremlinQueryExecutor(
+                    IGremlinClient client,
+                    IGraphsonDeserializerFactory graphSonDeserializerFactory,
+                    ILogger logger = null)
+                {
+                    _logger = logger;
+                    _gremlinClient = client;
+                    _graphSonDeserializerFactory = graphSonDeserializerFactory;
+                }
+
+                public void Dispose()
+                {
+                    _gremlinClient.Dispose();
+                }
+
+                public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+                {
+                    var visitor = query.AsAdmin().Visitors.Get<SerializedGremlinQuery>();
+
+                    visitor
+                        .Visit(query);
+
+                    var serialized = visitor.Build();
+
+                    _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
+
+                    return _gremlinClient
+                        .SubmitAsync<JToken>(serialized.QueryString, serialized.Bindings)
+                        .ToAsyncEnumerable()
+                        .SelectMany(x => x
+                            .ToAsyncEnumerable())
+                        .Catch<JToken, Exception>(ex =>
+                        {
+                            _logger?.LogError("Error executing Gremlin query {0}.", serialized.QueryString);
+
+                            return AsyncEnumerableEx.Throw<JToken>(ex);
+                        })
+                        .GraphsonDeserialize<TElement[]>(_graphSonDeserializerFactory.Get(query.AsAdmin().Model))
+                        .SelectMany(x => x.ToAsyncEnumerable());
+                }
+            }
+
             private readonly ILogger _logger;
             private readonly IGremlinClient _client;
             private readonly IGraphsonDeserializerFactory _deserializer;
@@ -71,6 +123,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IConfigurableGremlinQuerySource ConfigureWebSocketRemote(this IConfigurableGremlinQuerySource source, Func<IWebSocketRemoteConfigurator, IWebSocketRemoteConfigurator> transformation)
         {
             return source
+                .ConfigureVisitors(_ => _.TryAdd<SerializedGremlinQuery, GroovyGremlinQueryElementVisitor>())
                 .WithExecutor(transformation(new DefaultWebSocketRemoteConfigurator(null, null, source.Logger)).Build());
         }
     }

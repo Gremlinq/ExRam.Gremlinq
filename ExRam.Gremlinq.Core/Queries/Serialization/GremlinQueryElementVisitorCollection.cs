@@ -17,6 +17,15 @@ namespace ExRam.Gremlinq.Core.Serialization
             _visitors = visitors;
         }
 
+        public IGremlinQueryElementVisitorCollection TryAdd<TSerializedQuery, TVisitor>() where TVisitor : IGremlinQueryElementVisitor<TSerializedQuery>, new()
+        {
+            return new GremlinQueryElementVisitorCollection(_visitors.ContainsKey(typeof(TSerializedQuery))
+                ? _visitors
+                : _visitors.SetItem(
+                    typeof(TSerializedQuery),
+                    () => new TVisitor()));
+        }
+
         public IGremlinQueryElementVisitorCollection Set<TSerializedQuery, TVisitor>() where TVisitor : IGremlinQueryElementVisitor<TSerializedQuery>, new()
         {
             return new GremlinQueryElementVisitorCollection(_visitors.SetItem(
