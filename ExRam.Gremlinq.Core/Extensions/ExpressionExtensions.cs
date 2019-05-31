@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;

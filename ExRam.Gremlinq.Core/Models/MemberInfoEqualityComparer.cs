@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
         public int GetHashCode(MemberInfo obj)
         {
-            return (obj.DeclaringType, obj?.Name).GetHashCode();
+            return (obj.DeclaringType, obj.Name).GetHashCode();
         }
     }
 }

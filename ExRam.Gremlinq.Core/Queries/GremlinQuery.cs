@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
-using Microsoft.Extensions.Logging;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core

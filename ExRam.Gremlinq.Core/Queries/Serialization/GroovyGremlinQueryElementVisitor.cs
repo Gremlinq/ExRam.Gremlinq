@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
