@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -9,12 +10,17 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class GroovySerializationTest : GroovySerializationTest<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>
+    public class CosmosDbGroovySerializationTest : GroovySerializationTest
     {
+        public CosmosDbGroovySerializationTest() : base(g.ConfigureVisitors(_ => _.Set<SerializedGremlinQuery, GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>()))
+        {
+
+        }
+
         [Fact]
         public void Limit_overflow()
         {
-            g
+            _g
                 .V()
                 .Limit((long)int.MaxValue + 1)
                 .Invoking(x => new GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor().Visit(x))
@@ -25,11 +31,11 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         [Fact]
         public void Where_property_array_intersects_empty_array()
         {
-            g
+            _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Company");
         }
         
@@ -38,22 +44,22 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             var enumerable = Enumerable.Empty<int>();
 
-            g
+            _g
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
         [Fact]
         public void OutE_of_no_derived_types()
         {
-            g
+            _g
                 .V()
                 .OutE<string>()
                 .Should()
-                .SerializeToGroovy<GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>("g.V().not(__.identity())")
+                .SerializeToGroovy("g.V().not(__.identity())")
                 .WithoutParameters();
         }
     }

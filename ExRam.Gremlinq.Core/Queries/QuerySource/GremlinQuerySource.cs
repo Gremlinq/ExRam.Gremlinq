@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Serialization;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -16,16 +17,17 @@ namespace ExRam.Gremlinq.Core
             private IGremlinQuery _startQuery;
             private readonly bool _isUserSetModel;
 
-            public ConfigurableGremlinQuerySourceImpl(string name, IGraphModel model, Options options, bool isUserSetModel, IGremlinQueryExecutor queryExecutor, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<string> excludedStrategies, ILogger logger)
+            public ConfigurableGremlinQuerySourceImpl(string name, IGraphModel model, Options options, bool isUserSetModel, IGremlinQueryExecutor queryExecutor, IGremlinQueryElementVisitorCollection visitors, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<string> excludedStrategies, ILogger logger)
             {
                 Name = name;
                 Model = model;
                 Logger = logger;
                 Options = options;
+                Visitors = visitors;
                 Executor = queryExecutor;
                 _isUserSetModel = isUserSetModel;
-                ExcludedStrategyNames = excludedStrategies;
                 IncludedStrategies = includedStrategies;
+                ExcludedStrategyNames = excludedStrategies;
             }
 
             IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex)
@@ -64,7 +66,7 @@ namespace ExRam.Gremlinq.Core
                 if (string.IsNullOrEmpty(name))
                     throw new ArgumentException($"Invalid value for {nameof(name)}.", nameof(name));
 
-                return new ConfigurableGremlinQuerySourceImpl(name, Model, Options, _isUserSetModel, Executor, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(name, Model, Options, _isUserSetModel, Executor, Visitors, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithLogger(ILogger logger)
@@ -73,32 +75,37 @@ namespace ExRam.Gremlinq.Core
                     ? Model
                     : GraphModel.Dynamic(NullLogger.Instance);
 
-                return new ConfigurableGremlinQuerySourceImpl(Name, newModel, Options, _isUserSetModel, Executor, IncludedStrategies, ExcludedStrategyNames, logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, newModel, Options, _isUserSetModel, Executor, Visitors, IncludedStrategies, ExcludedStrategyNames, logger);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithStrategies(params IGremlinQueryStrategy[] strategies)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Executor, IncludedStrategies.AddRange(strategies), ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Executor, Visitors, IncludedStrategies.AddRange(strategies), ExcludedStrategyNames, Logger);
             }
 
             public IConfigurableGremlinQuerySource WithoutStrategies(params string[] strategies)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Executor, IncludedStrategies, ExcludedStrategyNames.AddRange(strategies), Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Executor, Visitors, IncludedStrategies, ExcludedStrategyNames.AddRange(strategies), Logger);
             }
 
             public IConfigurableGremlinQuerySource ConfigureOptions(Func<Options, Options> optionsTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, optionsTransformation(Options), _isUserSetModel, Executor, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, optionsTransformation(Options), _isUserSetModel, Executor, Visitors, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(Model), Options, true, Executor, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(Model), Options, true, Executor, Visitors, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, executorTransformation(Executor), IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, executorTransformation(Executor), Visitors, IncludedStrategies, ExcludedStrategyNames, Logger);
+            }
+
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureVisitors(Func<IGremlinQueryElementVisitorCollection, IGremlinQueryElementVisitorCollection> visitorsTransformation)
+            {
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Executor, visitorsTransformation(Visitors), IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             private IGremlinQuery Create()
@@ -128,6 +135,7 @@ namespace ExRam.Gremlinq.Core
             public IGraphModel Model { get; }
             public IGremlinQueryExecutor Executor { get; }
             public ImmutableList<string> ExcludedStrategyNames { get; }
+            public IGremlinQueryElementVisitorCollection Visitors { get; }
             public ImmutableList<IGremlinQueryStrategy> IncludedStrategies { get; }
         }
 
@@ -138,7 +146,16 @@ namespace ExRam.Gremlinq.Core
     
         public static IConfigurableGremlinQuerySource Create(string name = "g")
         {
-            return new ConfigurableGremlinQuerySourceImpl(name, GraphModel.Dynamic(NullLogger.Instance), default, false, GremlinQueryExecutor.Invalid, ImmutableList<IGremlinQueryStrategy>.Empty, ImmutableList<string>.Empty, NullLogger.Instance);
+            return new ConfigurableGremlinQuerySourceImpl(
+                name,
+                GraphModel.Dynamic(NullLogger.Instance),
+                default,
+                false,
+                GremlinQueryExecutor.Invalid,
+                GremlinQueryElementVisitorCollection.Default,
+                ImmutableList<IGremlinQueryStrategy>.Empty,
+                ImmutableList<string>.Empty,
+                NullLogger.Instance);
         }
 
         public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()

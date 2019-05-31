@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using ExRam.Gremlinq.Core.Serialization;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
@@ -10,9 +11,11 @@ namespace ExRam.Gremlinq.Core
         IConfigurableGremlinQuerySource WithLogger(ILogger logger);
         IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
         IConfigurableGremlinQuerySource WithoutStrategies(params string[] strategies);
+
         IConfigurableGremlinQuerySource ConfigureOptions(Func<Options, Options> optionsTransformation);
         IConfigurableGremlinQuerySource ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
         IConfigurableGremlinQuerySource ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
+        IConfigurableGremlinQuerySource ConfigureVisitors(Func<IGremlinQueryElementVisitorCollection, IGremlinQueryElementVisitorCollection> visitorsTransformation);
 
         string Name { get; }
         ImmutableList<string> ExcludedStrategyNames { get; }

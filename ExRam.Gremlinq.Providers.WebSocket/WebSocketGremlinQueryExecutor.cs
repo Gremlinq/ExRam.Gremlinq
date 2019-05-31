@@ -9,15 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public class WebSocketGremlinQueryExecutor : WebSocketGremlinQueryExecutor<GroovyGremlinQueryElementVisitor>
-    {
-        public WebSocketGremlinQueryExecutor(IGremlinClient client, IGraphsonSerializerFactory graphSonSerializerFactory, ILogger logger = null) : base(client, graphSonSerializerFactory, logger)
-        {
-        }
-    }
-
-    public class WebSocketGremlinQueryExecutor<TVisitor> : IGremlinQueryExecutor, IDisposable
-        where TVisitor : IGremlinQueryElementVisitor, new()
+    public class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
@@ -40,12 +32,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
         {
-            var visitor = new TVisitor();
+            var visitor = query.AsAdmin().Visitors.Get<SerializedGremlinQuery>();
 
             visitor
                 .Visit(query);
 
-            var serialized = visitor.Build<SerializedGremlinQuery>();
+            var serialized = visitor.Build();
 
             _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
             

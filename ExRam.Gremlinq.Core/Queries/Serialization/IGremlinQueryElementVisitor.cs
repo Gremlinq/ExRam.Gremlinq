@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core.Serialization
 {
-    public interface IGremlinQueryElementVisitor
+    public interface IGremlinQueryElementVisitor<out TSerializedQuery> : IGremlinQueryElementVisitor
     {
-        TSerializedQuery Build<TSerializedQuery>();
+        TSerializedQuery Build();
+    }
 
+    public interface IGremlinQueryElementVisitor
+    { 
         void Visit(IGremlinQuery query);
 
         void Visit(HasNotStep step);

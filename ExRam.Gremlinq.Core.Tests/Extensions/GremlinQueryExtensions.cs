@@ -18,13 +18,12 @@ namespace ExRam.Gremlinq.Core.Tests
                 get => typeof(IGremlinQuery).Name;
             }
 
-            public SerializedGremlinQueryAssertions SerializeToGroovy<TVisitor>(string serialization)
-                where TVisitor : IGremlinQueryElementVisitor, new()
+            public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var visitor = new TVisitor();
+                var visitor = Subject.AsAdmin().Visitors.Get<SerializedGremlinQuery>();
                 visitor.Visit(Subject);
 
-                var serializedQuery = visitor.Build<SerializedGremlinQuery>();
+                var serializedQuery = visitor.Build();
 
                 serializedQuery.QueryString
                     .Should()

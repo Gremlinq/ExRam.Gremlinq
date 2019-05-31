@@ -147,7 +147,6 @@ namespace ExRam.Gremlinq.Core
                         { typeof(TimeSpan), new TimeSpanSerializer() }
                     }),
                     GremlinClient.GraphSON2MimeType))
-                .WithVisitor(new CosmosDbGroovyGremlinQueryElementVisitor())
                 .WithSerializerFactory(new CosmosDbGraphsonSerializerFactory()));
         }
     }

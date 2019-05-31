@@ -15,33 +15,25 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             private readonly ILogger _logger;
             private readonly IGremlinClient _client;
             private readonly IGraphsonSerializerFactory _serializer;
-            private readonly IGremlinQueryElementVisitor _visitor;
 
             public DefaultWebSocketRemoteConfigurator(
                 [AllowNull] IGremlinClient client,
-                [AllowNull] IGremlinQueryElementVisitor visitor,
                 [AllowNull] IGraphsonSerializerFactory serializer,
                 ILogger logger)
             {
                 _client = client;
                 _logger = logger;
-                _visitor = visitor;
                 _serializer = serializer;
             }
 
             public IWebSocketRemoteConfigurator WithClient(IGremlinClient client)
             {
-                return new DefaultWebSocketRemoteConfigurator(client, _visitor, _serializer, _logger);
+                return new DefaultWebSocketRemoteConfigurator(client, _serializer, _logger);
             }
 
             public IWebSocketRemoteConfigurator WithSerializerFactory(IGraphsonSerializerFactory serializer)
             {
-                return new DefaultWebSocketRemoteConfigurator(_client, _visitor, serializer, _logger);
-            }
-
-            public IWebSocketRemoteConfigurator WithVisitor(IGremlinQueryElementVisitor visitor)
-            {
-                return new DefaultWebSocketRemoteConfigurator(_client, visitor, _serializer, _logger);
+                return new DefaultWebSocketRemoteConfigurator(_client, serializer, _logger);
             }
 
             public IGremlinQueryExecutor Build()
@@ -49,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 if (_client == null || _serializer == null)
                     throw new InvalidOperationException($"{nameof(WithClient)} and {nameof(WithSerializerFactory)} must be called on the {nameof(IWebSocketRemoteConfigurator)}.");
 
-                return new WebSocketGremlinQueryExecutor<GroovyGremlinQueryElementVisitor>(_client, _serializer, _logger);
+                return new WebSocketGremlinQueryExecutor(_client, _serializer, _logger);
             }
         }
 
@@ -84,14 +76,13 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 .WithClient(new GremlinClientEx(
                     server,
                     graphsonVersion))
-                .WithVisitor(new GroovyGremlinQueryElementVisitor())
                 .WithSerializerFactory(new DefaultGraphsonSerializerFactory()));
         }
         
         public static IConfigurableGremlinQuerySource ConfigureWebSocketRemote(this IConfigurableGremlinQuerySource source, Func<IWebSocketRemoteConfigurator, IWebSocketRemoteConfigurator> transformation)
         {
             return source
-                .WithExecutor(transformation(new DefaultWebSocketRemoteConfigurator(null, null, null, source.Logger)).Build());
+                .WithExecutor(transformation(new DefaultWebSocketRemoteConfigurator(null, null, source.Logger)).Build());
         }
     }
 }

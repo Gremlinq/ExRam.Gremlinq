@@ -7,27 +7,32 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
-    public class GroovySerializationTest : GroovySerializationTest<GroovyGremlinQueryElementVisitor>
+    public class DefaultGroovySerializationTest : GroovySerializationTest
     {
+        public DefaultGroovySerializationTest() : base(g)
+        {
+
+        }
+
         [Fact]
         public void Where_empty_array_intersects_property_array()
         {
-            g
+            _g
                 .V<Company>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
                 .WithParameters("Company");
         }
 
         [Fact]
         public void Where_property_array_intersects_empty_array()
         {
-            g
+            _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
                 .WithParameters("Company");
         }
 
@@ -37,22 +42,22 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         {
             var enumerable = Enumerable.Empty<int>();
 
-            g
+            _g
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().hasLabel(_a).none()")
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
                 .WithParameters("Person");
         }
 
         [Fact]
         public void OutE_of_no_derived_types()
         {
-            g
+            _g
                 .V()
                 .OutE<string>()
                 .Should()
-                .SerializeToGroovy<GroovyGremlinQueryElementVisitor>("g.V().none()")
+                .SerializeToGroovy("g.V().none()")
                 .WithoutParameters();
         }
     }

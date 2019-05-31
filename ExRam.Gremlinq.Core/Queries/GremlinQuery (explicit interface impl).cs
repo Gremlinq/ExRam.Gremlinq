@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+using ExRam.Gremlinq.Core.Serialization;
 using LanguageExt;
 using Microsoft.Extensions.Logging;
 
@@ -132,6 +133,8 @@ namespace ExRam.Gremlinq.Core
         IGraphModel IGremlinQueryEnvironment.Model => Environment.Model;
 
         IGremlinQueryExecutor IGremlinQueryEnvironment.Executor => Environment.Executor;
+
+        IGremlinQueryElementVisitorCollection IGremlinQueryEnvironment.Visitors => Environment.Visitors;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OtherV() => OtherV<IVertex>();
 

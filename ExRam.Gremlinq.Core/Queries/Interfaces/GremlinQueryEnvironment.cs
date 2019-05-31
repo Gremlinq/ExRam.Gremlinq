@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ExRam.Gremlinq.Core.Serialization;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ExRam.Gremlinq.Core
@@ -7,10 +8,11 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class DefaultGremlinQueryEnvironmentImpl : IGremlinQueryEnvironment
         {
-            public ILogger Logger { get; } = NullLogger.Instance;
             public Options Options { get; } = default;
             public IGraphModel Model { get; } = GraphModel.Empty;
+            public ILogger Logger { get; } = NullLogger.Instance;
             public IGremlinQueryExecutor Executor { get; } = GremlinQueryExecutor.Invalid;
+            public IGremlinQueryElementVisitorCollection Visitors { get; } = GremlinQueryElementVisitorCollection.Default;
         }
 
         public static readonly IGremlinQueryEnvironment Default = new DefaultGremlinQueryEnvironmentImpl();
