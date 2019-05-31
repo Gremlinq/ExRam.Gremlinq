@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using System;
+using ExRam.Gremlinq.Core.Serialization;
 using FluentAssertions;
 using FluentAssertions.Primitives;
 
@@ -20,7 +21,10 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var visitor = Subject.AsAdmin().Visitors.Get<SerializedGremlinQuery>();
+                var visitor = Subject.AsAdmin().Visitors
+                    .TryGet<SerializedGremlinQuery>()
+                    .IfNone(() => throw new InvalidOperationException("No visitor for SerializedGremlinQuery."));
+
                 visitor.Visit(Subject);
 
                 var serializedQuery = visitor.Build();

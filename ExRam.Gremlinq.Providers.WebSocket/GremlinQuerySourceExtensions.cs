@@ -39,7 +39,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
                 public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
                 {
-                    var visitor = query.AsAdmin().Visitors.Get<SerializedGremlinQuery>();
+                    var visitor = query
+                        .AsAdmin().Visitors
+                        .TryGet<SerializedGremlinQuery>()
+                        .IfNone(() => throw new InvalidOperationException($"{nameof(query)} does not contain an {nameof(IGremlinQueryElementVisitor)} for {nameof(SerializedGremlinQuery)}."));
 
                     visitor
                         .Visit(query);

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Immutable;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
     public sealed class GremlinQueryElementVisitorCollection : IGremlinQueryElementVisitorCollection
     {
-        public static readonly IGremlinQueryElementVisitorCollection Empty = new GremlinQueryElementVisitorCollection(ImmutableDictionary<Type, Func<object>>.Empty);
+        public static readonly IGremlinQueryElementVisitorCollection Empty = new GremlinQueryElementVisitorCollection(ImmutableDictionary<Type, Func<IGremlinQueryElementVisitor>>.Empty);
 
         public static readonly IGremlinQueryElementVisitorCollection Default = Empty
             .Set<SerializedGremlinQuery, GroovyGremlinQueryElementVisitor>();
 
-        private readonly ImmutableDictionary<Type, Func<object>> _visitors;
+        private readonly IImmutableDictionary<Type, Func<IGremlinQueryElementVisitor>> _visitors;
 
-        private GremlinQueryElementVisitorCollection(ImmutableDictionary<Type, Func<object>> visitors)
+        private GremlinQueryElementVisitorCollection(IImmutableDictionary<Type, Func<IGremlinQueryElementVisitor>> visitors)
         {
             _visitors = visitors;
         }
@@ -33,9 +34,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 () => new TVisitor()));
         }
 
-        public IGremlinQueryElementVisitor<TSerializedQuery> Get<TSerializedQuery>()
+        public Option<IGremlinQueryElementVisitor<TSerializedQuery>> TryGet<TSerializedQuery>()
         {
-            return (IGremlinQueryElementVisitor<TSerializedQuery>)_visitors[typeof(TSerializedQuery)]();
+            return _visitors
+                .TryGetValue(typeof(TSerializedQuery))
+                .Map(x => (IGremlinQueryElementVisitor<TSerializedQuery>)x());
         }
     }
 }
