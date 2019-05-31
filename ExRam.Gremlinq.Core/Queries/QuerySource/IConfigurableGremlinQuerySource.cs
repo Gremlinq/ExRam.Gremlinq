@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IConfigurableGremlinQuerySource : IGremlinQuerySource
+    public interface IConfigurableGremlinQuerySource : IGremlinQuerySource, IGremlinQueryEnvironment
     {
         IConfigurableGremlinQuerySource WithName(string name);
         IConfigurableGremlinQuerySource WithLogger(ILogger logger);
@@ -15,10 +15,6 @@ namespace ExRam.Gremlinq.Core
         IConfigurableGremlinQuerySource ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
 
         string Name { get; }
-        ILogger Logger { get; }
-        Options Options { get; }
-        IGraphModel Model { get; }
-        IGremlinQueryExecutor Executor { get; }
         ImmutableList<string> ExcludedStrategyNames { get; }
         ImmutableList<IGremlinQueryStrategy> IncludedStrategies { get; }
     }

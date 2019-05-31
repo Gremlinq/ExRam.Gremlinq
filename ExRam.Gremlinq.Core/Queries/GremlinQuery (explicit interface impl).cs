@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -109,8 +110,10 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
         IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Model, Options, QueryExecutor, Steps.Insert(index, step), StepLabelMappings, Logger);
+        
+        ILogger IGremlinQueryEnvironment.Logger => Logger;
 
-        Options IGremlinQueryAdmin.Options => Options;
+        Options IGremlinQueryEnvironment.Options => Options;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
@@ -126,7 +129,9 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<VertexProperty<TPropertyValue, TNewMeta>, TPropertyValue, TNewMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Meta<TNewMeta>() => Cast<VertexProperty<TPropertyValue, TNewMeta>, Unit, Unit, TPropertyValue, TNewMeta, Unit>();
 
-        IGraphModel IGremlinQueryAdmin.Model => Model;
+        IGraphModel IGremlinQueryEnvironment.Model => Model;
+
+        IGremlinQueryExecutor IGremlinQueryEnvironment.Executor => QueryExecutor;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OtherV() => OtherV<IVertex>();
 
