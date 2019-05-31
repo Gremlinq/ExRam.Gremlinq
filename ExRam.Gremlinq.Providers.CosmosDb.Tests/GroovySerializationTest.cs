@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
-using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -12,20 +9,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbGroovySerializationTest : GroovySerializationTest
     {
-        public CosmosDbGroovySerializationTest() : base(g.ConfigureVisitors(_ => _.Set<SerializedGremlinQuery, GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor>()))
+        public CosmosDbGroovySerializationTest() : base(g.WithCosmosDb("localhost", "database", "graph", "authKey"))
         {
 
-        }
-
-        [Fact]
-        public void Limit_overflow()
-        {
-            _g
-                .V()
-                .Limit((long)int.MaxValue + 1)
-                .Invoking(x => new GremlinQuerySourceExtensions.CosmosDbGroovyGremlinQueryElementVisitor().Visit(x))
-                .Should()
-                .Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]

@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
     public class IntegrationTests : Providers.Tests.IntegrationTests
     {
         public IntegrationTests() : base(g
-            .WithCosmosDbRemote("xyz.gremlin.cosmosdb.azure.com", "db", "graph", "authkey"))
+            .WithCosmosDb("xyz.gremlin.cosmosdb.azure.com", "db", "graph", "authkey"))
         {
         }
     }

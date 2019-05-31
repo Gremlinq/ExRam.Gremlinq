@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public sealed class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
+        private sealed class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
         {
             private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
@@ -132,9 +132,12 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithCosmosDbRemote(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
-            return source.ConfigureWebSocketRemote(conf => conf
+            return source
+                .ConfigureVisitors(conf => conf
+                    .Set<SerializedGremlinQuery, CosmosDbGroovyGremlinQueryElementVisitor>())
+                .ConfigureWebSocketRemote(conf => conf
                 .WithClientFactory(() => new GremlinClient(
                     new GremlinServer(hostname,
                         port,
