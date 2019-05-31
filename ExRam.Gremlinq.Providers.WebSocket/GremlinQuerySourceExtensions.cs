@@ -1,6 +1,5 @@
 ﻿using System;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
@@ -45,24 +44,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        private sealed class GremlinClientEx : GremlinClient
-        {
-            public GremlinClientEx(GremlinServer gremlinServer, GraphsonVersion version) : base(
-                gremlinServer,
-                version == GraphsonVersion.V2
-                    ? new GraphSON2Reader()
-                    : (GraphSONReader)new GraphSON3Reader(),
-                version == GraphsonVersion.V2
-                    ? new GraphSON2Writer()
-                    : (GraphSONWriter)new GraphSON3Writer(),
-                version == GraphsonVersion.V2
-                    ? GraphSON2MimeType
-                    : DefaultMimeType)
-            {
-
-            }
-        }
-
         public static IConfigurableGremlinQuerySource WithRemote(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
         {
             return source.WithRemote(
@@ -73,9 +54,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IConfigurableGremlinQuerySource WithRemote(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
         {
             return source.ConfigureWebSocketRemote(conf => conf
-                .WithClient(new GremlinClientEx(
+                .WithClient(new GremlinClient(
                     server,
-                    graphsonVersion))
+                    graphsonVersion == GraphsonVersion.V2
+                        ? new GraphSON2Reader()
+                        : (GraphSONReader)new GraphSON3Reader(),
+                    graphsonVersion == GraphsonVersion.V2
+                        ? new GraphSON2Writer()
+                        : (GraphSONWriter)new GraphSON3Writer(),
+                    graphsonVersion == GraphsonVersion.V2
+                        ? GremlinClient.GraphSON2MimeType
+                        : GremlinClient.DefaultMimeType))
                 .WithSerializerFactory(new DefaultGraphsonDeserializerFactory()));
         }
         

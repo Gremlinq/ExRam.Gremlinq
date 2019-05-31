@@ -88,7 +88,6 @@
         void Visit(PropertyStep step);
         void Visit(RangeStep step);
         void Visit(ByMemberStep step);
-        //void Visit(PropertiesStep step);
         void Visit(PropertiesStep step);
         void Visit(VStep step);
         void Visit(EStep step);
