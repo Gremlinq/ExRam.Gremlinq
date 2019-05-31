@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers
 {
-    public interface IGraphsonSerializerFactory
+    public interface IGraphsonDeserializerFactory
     {
         JsonSerializer Get(IGraphModel model);
     }

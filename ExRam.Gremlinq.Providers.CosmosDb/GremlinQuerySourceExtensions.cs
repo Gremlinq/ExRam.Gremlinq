@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class CosmosDbGraphsonSerializerFactory : IGraphsonSerializerFactory
+        private sealed class CosmosDbGraphsonDeserializerFactory : IGraphsonDeserializerFactory
         {
             private sealed class TimespanConverter : JsonConverter
             {
@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Core
                         { typeof(TimeSpan), new TimeSpanSerializer() }
                     }),
                     GremlinClient.GraphSON2MimeType))
-                .WithSerializerFactory(new CosmosDbGraphsonSerializerFactory()));
+                .WithSerializerFactory(new CosmosDbGraphsonDeserializerFactory()));
         }
     }
 }

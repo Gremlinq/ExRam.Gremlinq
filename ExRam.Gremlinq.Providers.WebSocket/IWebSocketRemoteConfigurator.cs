@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         IWebSocketRemoteConfigurator WithClient(IGremlinClient client);
 
-        IWebSocketRemoteConfigurator WithSerializerFactory(IGraphsonSerializerFactory serializer);
+        IWebSocketRemoteConfigurator WithSerializerFactory(IGraphsonDeserializerFactory deserializer);
 
         IGremlinQueryExecutor Build();
     }

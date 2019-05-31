@@ -13,16 +13,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private readonly ILogger _logger;
         private readonly IGremlinClient _gremlinClient;
-        private readonly IGraphsonSerializerFactory _graphSonSerializerFactory;
+        private readonly IGraphsonDeserializerFactory _graphSonDeserializerFactory;
 
         public WebSocketGremlinQueryExecutor(
             IGremlinClient client,
-            IGraphsonSerializerFactory graphSonSerializerFactory,
+            IGraphsonDeserializerFactory graphSonDeserializerFactory,
             ILogger logger = null)
         {
             _logger = logger;
             _gremlinClient = client;
-            _graphSonSerializerFactory = graphSonSerializerFactory;
+            _graphSonDeserializerFactory = graphSonDeserializerFactory;
         }
 
         public void Dispose()
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
                     return AsyncEnumerableEx.Throw<JToken>(ex);
                 })
-                .GraphsonDeserialize<TElement[]>(_graphSonSerializerFactory.Get(query.AsAdmin().Model))
+                .GraphsonDeserialize<TElement[]>(_graphSonDeserializerFactory.Get(query.AsAdmin().Model))
                 .SelectMany(x => x.ToAsyncEnumerable());
         }
     }

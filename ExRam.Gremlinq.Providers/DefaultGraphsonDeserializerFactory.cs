@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers
 {
-    public sealed class DefaultGraphsonSerializerFactory : IGraphsonSerializerFactory
+    public sealed class DefaultGraphsonDeserializerFactory : IGraphsonDeserializerFactory
     {
         private readonly ConditionalWeakTable<IGraphModel, GraphsonDeserializer> _serializers = new ConditionalWeakTable<IGraphModel, GraphsonDeserializer>();
 
