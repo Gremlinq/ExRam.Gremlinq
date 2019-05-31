@@ -708,7 +708,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     case MemberExpression leftMemberExpression:
                     {
-                        if (leftMemberExpression.Expression == terminal.Parameter)
+                        var leftMemberExpressionExpression = leftMemberExpression.Expression.StripConvert();
+
+                        if (leftMemberExpressionExpression == terminal.Parameter)
                         {
                             // x => x.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
@@ -720,7 +722,7 @@ namespace ExRam.Gremlinq.Core
                             if (leftMemberExpression.IsVertexPropertyLabel())
                                 return Where(__ => __.Label().Where(terminal.Predicate));
                         }
-                        else if (leftMemberExpression.Expression is MemberExpression leftLeftMemberExpression) 
+                        else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression) 
                         {
                             // x => x.Name.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
