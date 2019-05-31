@@ -45,15 +45,15 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Both() => AddStep<IVertex>(BothStep.NoLabels);
 
-        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Both<TEdge>() => AddStep<IVertex>(Model.VerticesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new BothStep(labels)));
+        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Both<TEdge>() => AddStep<IVertex>(Environment.Model.VerticesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new BothStep(labels)));
 
         IEdgeGremlinQuery<IEdge> IVertexGremlinQuery.BothE() => AddStep<IEdge>(BothEStep.NoLabels);
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.BothE<TEdge>() => AddStep<TEdge>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new BothEStep(labels)));
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.BothE<TEdge>() => AddStep<TEdge>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new BothEStep(labels)));
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.BothV() => BothV<IVertex>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.BothV<TVertex>() => BothV<Unit>().OfType<TVertex>(Model.VerticesModel);
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.BothV<TVertex>() => BothV<Unit>().OfType<TVertex>(Environment.Model.VerticesModel);
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
 
@@ -95,13 +95,13 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In() => AddStep<IVertex>(InStep.NoLabels);
 
-        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In<TEdge>() => AddStep<IVertex>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new InStep(labels)));
+        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In<TEdge>() => AddStep<IVertex>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new InStep(labels)));
 
         IEdgeGremlinQuery<IEdge> IVertexGremlinQuery.InE() => AddStep<IEdge>(InEStep.NoLabels);
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.InE<TEdge>() => AddStep<TEdge>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new InEStep(labels)));
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.InE<TEdge>() => AddStep<TEdge>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new InEStep(labels)));
 
-        IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.InE<TEdge>() => AddStep<TEdge, Unit, TElement, Unit, Unit, Unit>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new InEStep(labels)));
+        IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.InE<TEdge>() => AddStep<TEdge, Unit, TElement, Unit, Unit, Unit>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new InEStep(labels)));
 
         IGremlinQuery<TNewElement> IGremlinQuerySource.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
@@ -109,11 +109,11 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
-        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Model, Options, QueryExecutor, Steps.Insert(index, step), StepLabelMappings, Logger);
+        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.Insert(index, step), StepLabelMappings, Environment);
         
-        ILogger IGremlinQueryEnvironment.Logger => Logger;
+        ILogger IGremlinQueryEnvironment.Logger => Environment.Logger;
 
-        Options IGremlinQueryEnvironment.Options => Options;
+        Options IGremlinQueryEnvironment.Options => Environment.Options;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.InV() => InV<TInVertex>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.InV<TVertex>() => InV<Unit>().OfType<TVertex>(Model.VerticesModel);
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.InV<TVertex>() => InV<Unit>().OfType<TVertex>(Environment.Model.VerticesModel);
 
         IValueGremlinQuery<string> IPropertyGremlinQuery<TElement>.Key() => Key();
 
@@ -129,27 +129,27 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<VertexProperty<TPropertyValue, TNewMeta>, TPropertyValue, TNewMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Meta<TNewMeta>() => Cast<VertexProperty<TPropertyValue, TNewMeta>, Unit, Unit, TPropertyValue, TNewMeta, Unit>();
 
-        IGraphModel IGremlinQueryEnvironment.Model => Model;
+        IGraphModel IGremlinQueryEnvironment.Model => Environment.Model;
 
-        IGremlinQueryExecutor IGremlinQueryEnvironment.Executor => QueryExecutor;
+        IGremlinQueryExecutor IGremlinQueryEnvironment.Executor => Environment.Executor;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OtherV() => OtherV<IVertex>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.OtherV<TVertex>() => OtherV<Unit>().OfType<TVertex>(Model.VerticesModel);
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.OtherV<TVertex>() => OtherV<Unit>().OfType<TVertex>(Environment.Model.VerticesModel);
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Out() => AddStep<IVertex>(OutStep.NoLabels);
 
-        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Out<TEdge>() => AddStep<IVertex>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new OutStep(labels)));
+        IVertexGremlinQuery<IVertex> IVertexGremlinQuery.Out<TEdge>() => AddStep<IVertex>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new OutStep(labels)));
 
-        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.OutE<TEdge>() => AddStep<TEdge>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new OutEStep(labels)));
+        IEdgeGremlinQuery<TEdge> IVertexGremlinQuery.OutE<TEdge>() => AddStep<TEdge>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new OutEStep(labels)));
 
         IEdgeGremlinQuery<IEdge> IVertexGremlinQuery.OutE() => AddStep<IEdge>(OutEStep.NoLabels);
 
-        IOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.OutE<TEdge>() => AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Options.FilterLabelsVerbosity, labels => new OutEStep(labels)));
+        IOutEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.OutE<TEdge>() => AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.FilterLabelsVerbosity, labels => new OutEStep(labels)));
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OutV() => OutV<IVertex>();
 
-        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.OutV<TVertex>() => OutV<Unit>().OfType<TVertex>(Model.VerticesModel);
+        IVertexGremlinQuery<TVertex> IEdgeGremlinQuery.OutV<TVertex>() => OutV<Unit>().OfType<TVertex>(Environment.Model.VerticesModel);
 
         IVertexGremlinQuery<TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OutV() => AddStep<TOutVertex, Unit, Unit, Unit, Unit, Unit>(OutVStep.Instance);
 

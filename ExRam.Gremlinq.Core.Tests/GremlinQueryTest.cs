@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ChangeQueryType()
         {
-            var anon = GremlinQuery.Anonymous()
+            var anon = GremlinQuery.Anonymous(GremlinQueryEnvironment.Default)
                 .AsAdmin();
 
             var interfaces = typeof(GremlinQuery)

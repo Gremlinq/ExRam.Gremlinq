@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
         {
-            private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GraphModel.Empty).Identity());
+            private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
             public override void Visit(SkipStep step)
             {

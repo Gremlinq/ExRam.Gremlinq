@@ -108,11 +108,8 @@ namespace ExRam.Gremlinq.Core
                     return startQuery;
 
                 IGremlinQuery ret = GremlinQuery.Create(
-                    Model,
-                    Options,
-                    Executor,
                     Name,
-                    Logger);
+                    this);
 
                 if (!ExcludedStrategyNames.IsEmpty)
                     ret = ret.AddStep(new WithoutStrategiesStep(ExcludedStrategyNames.ToArray()));

@@ -367,7 +367,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Anonymous()
         {
-            GremlinQuery.Anonymous()
+            GremlinQuery.Anonymous(GremlinQueryEnvironment.Default)
                 .Should()
                 .SerializeToGroovy<TVisitor>("__.identity()")
                 .WithoutParameters();

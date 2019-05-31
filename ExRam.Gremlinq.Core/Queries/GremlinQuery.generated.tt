@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
 
 
 <# foreach(var iface in Untyped(Qualified(Element(substitutedBaseInterfaces)))){ #>
-        <#= iface #><TTarget> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Model.VerticesModel" : "Model.EdgesModel" #>);
+        <#= iface #><TTarget> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Environment.Model.VerticesModel" : "Environment.Model.EdgesModel" #>);
 <# } #>
     
 
@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> <#= iface #>.Update(<#= GetElement(iface) #> element) => AddOrUpdate(element, false, <#= (iface.StartsWith("IVertex")).ToString().ToLower() #>);
 
-        <#= iface.Replace(GetElement(iface), "TTarget") #> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Model.VerticesModel" : "Model.EdgesModel" #>);
+        <#= iface.Replace(GetElement(iface), "TTarget") #> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Environment.Model.VerticesModel" : "Environment.Model.EdgesModel" #>);
 
         <#= iface #> <#= iface #>.Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => <#= iface.StartsWith("IVertexGremlinQuery") ? "VertexProperty(projection, value);" : "Property(projection, value);" #>
 

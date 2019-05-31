@@ -1268,14 +1268,14 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TTarget> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
 
-        IVertexGremlinQuery<TTarget> IVertexGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Model.VerticesModel);
-        IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IVertexGremlinQuery<TTarget> IVertexGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.VerticesModel);
+        IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
     
 
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Update(TElement element) => AddOrUpdate(element, false, true);
 
-        IVertexGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(Model.VerticesModel);
+        IVertexGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.VerticesModel);
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => VertexProperty(projection, value);
 
@@ -1290,7 +1290,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Update(TElement element) => AddOrUpdate(element, false, false);
 
-        IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery<TElement>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
@@ -1304,7 +1304,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Update(TElement element) => AddOrUpdate(element, false, false);
 
-        IEdgeGremlinQuery<TTarget, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IEdgeGremlinQuery<TTarget, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
@@ -1318,7 +1318,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Update(TElement element) => AddOrUpdate(element, false, false);
 
-        IEdgeGremlinQuery<TTarget, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IEdgeGremlinQuery<TTarget, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
@@ -1332,7 +1332,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Update(TElement element) => AddOrUpdate(element, false, false);
 
-        IInEdgeGremlinQuery<TTarget, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IInEdgeGremlinQuery<TTarget, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
@@ -1346,7 +1346,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Update(TElement element) => AddOrUpdate(element, false, false);
 
-        IOutEdgeGremlinQuery<TTarget, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(Model.EdgesModel);
+        IOutEdgeGremlinQuery<TTarget, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
