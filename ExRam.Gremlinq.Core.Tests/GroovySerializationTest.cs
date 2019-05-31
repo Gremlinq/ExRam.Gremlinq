@@ -3089,5 +3089,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void Generic_constraint()
+        {
+            V2<Person>(_g)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
+        {
+            return source.V<TVertex>();
+        }
     }
 }
