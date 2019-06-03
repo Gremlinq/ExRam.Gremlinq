@@ -64,18 +64,18 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             return source.WithExecutionPipeline(conf => conf
                 .AddGroovySerialization()
-                .AddWebSocketExecutor(hostname, graphsonVersion, port, enableSsl, username, password, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
+                .AddWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .AddGraphsonDeserialization());
         }
 
         public static IGremlinQueryExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(
             this IGremlinQueryExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder,
             string hostname,
-            GraphsonVersion graphsonVersion,
             int port = 8182,
             bool enableSsl = false,
             string username = null,
             string password = null,
+            GraphsonVersion graphsonVersion = GraphsonVersion.V2,
             IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null,
             ILogger logger = null)

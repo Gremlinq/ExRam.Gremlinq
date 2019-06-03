@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers;
 using ExRam.Gremlinq.Providers.WebSocket;
-using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NullGuard;
@@ -123,17 +121,16 @@ namespace ExRam.Gremlinq.Core
         public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
             return source
-                .WithExecutionPipeline(conf => conf
+                .WithExecutionPipeline(builder => builder
                     .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
                         .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                     .AddWebSocketExecutor(
                         hostname,
-                        GraphsonVersion.V2,
                         port,
                         true,
                         $"/dbs/{database}/colls/{graphName}",
                         authKey,
-                        new Dictionary<Type, IGraphSONSerializer>
+                        GraphsonVersion.V2, new Dictionary<Type, IGraphSONSerializer>
                         {
                             { typeof(TimeSpan), new TimeSpanSerializer() }
                         })
