@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             return source.ConfigureExecution(conf => conf
                 .AddGroovySerialization()
-                .AddWebSocketExecutor(hostname, graphsonVersion, port, enableSsl, username, password, additionalGraphsonSerializers, additionalGraphsonDeserializers)
+                .AddWebSocketExecutor(hostname, graphsonVersion, port, enableSsl, username, password, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .AddGraphsonDeserialization());
         }
 
@@ -77,7 +77,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             string username = null,
             string password = null,
             IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
+            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null,
+            ILogger logger = null)
         {
             var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
             var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
@@ -94,13 +95,14 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                             : (GraphSONWriter)new GraphSON3Writer(actualAdditionalGraphsonSerializers),
                         graphsonVersion == GraphsonVersion.V2
                             ? GremlinClient.GraphSON2MimeType
-                            : GremlinClient.DefaultMimeType));
+                            : GremlinClient.DefaultMimeType),
+                    logger);
         }
 
-        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory)
+        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
         {
             return builder
-                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, null /*TODO! */));
+                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
         }
     }
 }

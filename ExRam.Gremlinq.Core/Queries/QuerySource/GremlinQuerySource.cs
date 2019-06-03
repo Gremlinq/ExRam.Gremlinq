@@ -81,24 +81,24 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Pipeline, IncludedStrategies.AddRange(strategies), ExcludedStrategyNames, Logger);
             }
 
-            public IConfigurableGremlinQuerySource WithoutStrategies(params string[] strategies)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.WithoutStrategies(params string[] strategies)
             {
                 return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyNames.AddRange(strategies), Logger);
             }
 
-            public IConfigurableGremlinQuerySource ConfigureOptions(Func<Options, Options> optionsTransformation)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureOptions(Func<IGremlinQueryEnvironment, Options, Options> optionsTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, optionsTransformation(Options), _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, optionsTransformation(this, Options), _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureModel(Func<IGremlinQueryEnvironment, IGraphModel, IGraphModel> modelTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(Model), Options, true, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(this, Model), Options, true, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
-            public IConfigurableGremlinQuerySource ConfigureExecution(Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecution(Func<IGremlinQueryEnvironment, IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, builderTransformation(GremlinExecutionPipelineBuilder.Default), IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, builderTransformation(this, GremlinExecutionPipelineBuilder.Default), IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             private IGremlinQuery Create()
@@ -186,6 +186,21 @@ namespace ExRam.Gremlinq.Core
         public static IVertexGremlinQuery<TVertex> V<TVertex>(this IGremlinQuerySource source, params object[] ids)
         {
             return source.V(ids).OfType<TVertex>();
+        }
+
+        public static IConfigurableGremlinQuerySource ConfigureOptions(this IConfigurableGremlinQuerySource source, Func<Options, Options> optionsTransformation)
+        {
+            return source.ConfigureOptions((_, o) => optionsTransformation(o));
+        }
+
+        public static IConfigurableGremlinQuerySource ConfigureModel(this IConfigurableGremlinQuerySource source, Func<IGraphModel, IGraphModel> modelTransformation)
+        {
+            return source.ConfigureModel((_, m) => modelTransformation(m));
+        }
+
+        public static IConfigurableGremlinQuerySource ConfigureExecution(this IConfigurableGremlinQuerySource source, Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
+        {
+            return source.ConfigureExecution((_, b) => builderTransformation(b));
         }
     }
 }
