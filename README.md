@@ -121,4 +121,4 @@ The library is still under development. The API might change without notice. Hel
 
 ## Acknowledgements
 
-The graphic on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
+The 'Gremlin'-graphic used in this project's logo on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
