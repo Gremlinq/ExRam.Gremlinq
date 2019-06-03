@@ -634,11 +634,14 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
-            var stringKeys = GetKeys(projections)
+            var projectionsArray = projections
+                .ToArray();
+
+            var stringKeys = GetKeys(projectionsArray)
                 .OfType<string>()
                 .ToArray();
 
-            if (stringKeys.Length != projections.Length())
+            if (stringKeys.Length != projectionsArray.Length)
                 throw new ExpressionNotSupportedException();
 
             return AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(stringKeys));

@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ExRam.Gremlinq.Core

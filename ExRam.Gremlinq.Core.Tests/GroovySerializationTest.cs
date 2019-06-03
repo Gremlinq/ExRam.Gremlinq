@@ -261,7 +261,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddV(new Company
                 {
                     Id = 1,
-                    Name = new[]
+                    Names = new[]
                     {
                         new VertexProperty<string, PropertyValidity>("Bob")
                         {
@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 })
                 .Should()
                 .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(list, _e, _f, _g, _h)")
-                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Name", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
+                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Names", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
@@ -1418,12 +1418,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Properties()
                 .Value()
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().value()")
-                .WithParameters("Company", "Name");
+                .WithParameters("Company", "Names");
         }
 
         [Fact]
@@ -1431,12 +1431,12 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Properties()
                 .Where(x => x.Key == "someKey")
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().where(__.key().is(_c))")
-                .WithParameters("Company", "Name", "someKey");
+                .WithParameters("Company", "Names", "someKey");
         }
 
         [Fact]
@@ -1446,12 +1446,12 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Properties()
                 .Where(x => x.Key == stepLabel)
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
-                .WithParameters("Company", "Name", "l1");
+                .WithParameters("Company", "Names", "l1");
         }
 
         [Fact]
@@ -1471,11 +1471,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Properties()
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties()")
-                .WithParameters("Company", "Name");
+                .WithParameters("Company", "Names");
         }
 
         [Fact]
@@ -1616,11 +1616,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Where(x => x.Label == "someKey")
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
-                .WithParameters("Company", "Name", "someKey");
+                .WithParameters("Company", "Names", "someKey");
         }
 
         [Fact]
@@ -1640,11 +1640,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Where(x => x.Properties.ValidFrom == DateTimeOffset.Parse("01.01.2019 08:00"))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("Company", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
+                .WithParameters("Company", "Names", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
@@ -1652,11 +1652,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Company>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Names)
                 .Where(x => DateTimeOffset.Parse("01.01.2019 08:00") == x.Properties.ValidFrom)
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
-                .WithParameters("Company", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
+                .WithParameters("Company", "Names", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]

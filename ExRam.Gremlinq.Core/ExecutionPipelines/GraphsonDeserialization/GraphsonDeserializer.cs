@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
-using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Newtonsoft.Json;

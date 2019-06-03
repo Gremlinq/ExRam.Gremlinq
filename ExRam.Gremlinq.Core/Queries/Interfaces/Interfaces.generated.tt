@@ -154,7 +154,7 @@ namespace ExRam.Gremlinq.Core
     public partial interface <#= iface #>
     {
 <# if (!iface.Contains("VertexProperty")) { #>
-        <#= iface #> Update(<#= GetElement(iface) #> element);
+        new <#= iface #> Update(<#= GetElement(iface) #> element);
         new <#= iface.Replace(GetElement(iface), "TTarget") #> OfType<TTarget>();
         new <#= iface #> Property<TProjectedValue>(Expression<Func<<#= GetElement(iface) #>, TProjectedValue>> projection, TProjectedValue value);
 

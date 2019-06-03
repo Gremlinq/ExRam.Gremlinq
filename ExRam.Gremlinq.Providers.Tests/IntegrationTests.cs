@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var data = await _g
                 .AddV(new Company
                 {
-                    Name = new VertexProperty<string, PropertyValidity>[]
+                    Names = new VertexProperty<string, PropertyValidity>[]
                     {
                         "Company!"
                     },
