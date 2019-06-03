@@ -50,18 +50,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null, ILogger logger = null)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
         {
             return source.WithWebSocket(
                 new GremlinServer(hostname, port, enableSsl, username, password),
-                graphsonVersion,
-                logger);
+                graphsonVersion);
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion, ILogger logger = null)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
         {
             return source
-                .ConfigurePipeline(conf => conf
+                .ConfigureExecution(conf => conf
                     .AddGroovySerialization()
                     .AddWebSocketExecutor(
                     () => new GremlinClient(
@@ -75,7 +74,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                             graphsonVersion == GraphsonVersion.V2
                                 ? GremlinClient.GraphSON2MimeType
                                 : GremlinClient.DefaultMimeType),
-                        logger)
+                        source.Logger)
                     .AddGraphsonDeserialization());
         }
 

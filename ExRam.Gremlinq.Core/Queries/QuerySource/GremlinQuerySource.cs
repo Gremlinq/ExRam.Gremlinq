@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(Model), Options, true, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
-            public IConfigurableGremlinQuerySource ConfigurePipeline(Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
+            public IConfigurableGremlinQuerySource ConfigureExecution(Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
             {
                 return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, builderTransformation(GremlinExecutionPipelineBuilder.Default), IncludedStrategies, ExcludedStrategyNames, Logger);
             }

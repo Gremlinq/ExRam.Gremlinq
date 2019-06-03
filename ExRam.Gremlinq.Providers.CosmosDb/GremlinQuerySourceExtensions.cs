@@ -119,10 +119,10 @@ namespace ExRam.Gremlinq.Core
             public override bool CanWrite => true;
         }
 
-        public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443, ILogger logger = null)
+        public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
             return source
-                .ConfigurePipeline(conf => conf
+                .ConfigureExecution(conf => conf
                     .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
                         .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                     .AddWebSocketExecutor(
@@ -138,7 +138,7 @@ namespace ExRam.Gremlinq.Core
                                 {typeof(TimeSpan), new TimeSpanSerializer()}
                             }),
                             GremlinClient.GraphSON2MimeType),
-                        logger)
+                        source.Logger)
                     .AddGraphsonDeserialization(new TimespanConverter()));
         }
     }
