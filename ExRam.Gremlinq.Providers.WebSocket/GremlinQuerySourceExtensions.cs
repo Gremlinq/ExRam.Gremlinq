@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
-            return source.ConfigureExecution(conf => conf
+            return source.WithExecutionPipeline(conf => conf
                 .AddGroovySerialization()
                 .AddWebSocketExecutor(hostname, graphsonVersion, port, enableSsl, username, password, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .AddGraphsonDeserialization());

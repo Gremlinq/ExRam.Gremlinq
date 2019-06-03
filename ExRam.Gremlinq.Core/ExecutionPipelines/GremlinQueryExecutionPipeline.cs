@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed class GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> :
         IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>,
-        IGremlinExecutionPipelineBuilderStage1,
+        IGremlinExecutionPipelineBuilder,
         IGremlinExecutionPipelineBuilderStage2<TSerializedQuery>,
         IGremlinExecutionPipelineBuilderStage3<TExecutionResult>
     {

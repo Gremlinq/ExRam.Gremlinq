@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinExecutionPipelineBuilderStage1
+    public interface IGremlinExecutionPipelineBuilder
     {
         IGremlinExecutionPipelineBuilderStage2<TSerializedQuery> AddSerializer<TSerializedQuery>(IGremlinQuerySerializer<TSerializedQuery> serializer);
     }

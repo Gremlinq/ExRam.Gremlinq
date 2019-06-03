@@ -96,9 +96,9 @@ namespace ExRam.Gremlinq.Core
                 return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(this, Model), Options, true, Pipeline, IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecution(Func<IGremlinQueryEnvironment, IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecutionPipeline(Func<IGremlinQueryEnvironment, IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, builderTransformation(this, GremlinExecutionPipelineBuilder.Default), IncludedStrategies, ExcludedStrategyNames, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, pipelineTransformation(this, Pipeline), IncludedStrategies, ExcludedStrategyNames, Logger);
             }
 
             private IGremlinQuery Create()
@@ -198,9 +198,19 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureModel((_, m) => modelTransformation(m));
         }
 
-        public static IConfigurableGremlinQuerySource ConfigureExecution(this IConfigurableGremlinQuerySource source, Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation)
+        public static IConfigurableGremlinQuerySource ConfigureExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> builderTransformation)
         {
-            return source.ConfigureExecution((_, b) => builderTransformation(b));
+            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(b));
+        }
+
+        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryEnvironment, IGremlinExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
+        {
+            return source.ConfigureExecutionPipeline((environment, b) => builderTransformation(environment, GremlinExecutionPipelineBuilder.Default));
+        }
+
+        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
+        {
+            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(GremlinExecutionPipelineBuilder.Default));
         }
     }
 }

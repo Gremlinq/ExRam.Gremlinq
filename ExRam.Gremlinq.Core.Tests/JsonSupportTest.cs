@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.Tests
     {
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken> executor)
         {
-            return source.ConfigureExecution(conf => conf
+            return source.WithExecutionPipeline(conf => conf
                 .AddGroovySerialization()
                 .AddExecutor(executor)
                 .AddGraphsonDeserialization());

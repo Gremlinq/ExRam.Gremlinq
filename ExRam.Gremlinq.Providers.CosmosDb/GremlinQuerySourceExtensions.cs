@@ -29,6 +29,27 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class TimespanConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(TimeSpan);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            {
+                return TimeSpan.FromMilliseconds(serializer.Deserialize<long>(reader));
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override bool CanRead => true;
+            public override bool CanWrite => true;
+        }
+
         private sealed class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
         {
             private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
@@ -99,31 +120,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimespanConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType == typeof(TimeSpan);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                return TimeSpan.FromMilliseconds(serializer.Deserialize<long>(reader));
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            public override bool CanRead => true;
-            public override bool CanWrite => true;
-        }
-
         public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
             return source
-                .ConfigureExecution(conf => conf
+                .WithExecutionPipeline(conf => conf
                     .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
                         .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                     .AddWebSocketExecutor(
