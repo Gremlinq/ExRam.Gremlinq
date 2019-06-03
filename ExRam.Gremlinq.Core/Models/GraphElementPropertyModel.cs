@@ -24,14 +24,12 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<string, T> SpecialNames { get; }
         }
 
-        private sealed class DefaultGraphElementPropertyModel : IGraphElementPropertyModel
-        {
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata => ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty;
-
-            public IImmutableDictionary<string, T> SpecialNames { get; } = ImmutableDictionary<string, T>.Empty.WithComparers(StringComparer.OrdinalIgnoreCase).Add("id", T.Id).Add("label", T.Label);
-        }
-
-        public static readonly IGraphElementPropertyModel Default = new DefaultGraphElementPropertyModel();
+        public static readonly IGraphElementPropertyModel Default = new GraphElementPropertyModelImpl(
+            ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty,
+            ImmutableDictionary<string, T>.Empty
+                .WithComparers(StringComparer.OrdinalIgnoreCase)
+                .Add("id", T.Id)
+                .Add("label", T.Label));
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>>();
 
