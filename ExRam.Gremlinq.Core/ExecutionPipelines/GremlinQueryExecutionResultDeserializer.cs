@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(TExecutionResult result)
             {
-                return AsyncEnumerableEx.Throw<TElement>(new InvalidOperationException($"'{nameof(Deserialize)}' must not be called on GremlinQueryExecutionResultDeserializer.Invalid. If you are getting this exception while executing a result, set a proper GremlinQueryExecutor on the GremlinQuerySource (e.g. with 'g.WithRemote(...)' for WebSockets)."));   //TODO: Refine message
+                return AsyncEnumerableEx.Throw<TElement>(new InvalidOperationException($"{nameof(Deserialize)} must not be called on {nameof(GremlinQueryExecutionResultDeserializer<TExecutionResult>)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQueryExecutionResultDeserializer<TExecutionResult>)} on your {nameof(GremlinQuerySource)}."));
             }
         }
 

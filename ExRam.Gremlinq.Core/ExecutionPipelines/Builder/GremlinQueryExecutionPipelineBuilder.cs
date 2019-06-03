@@ -6,19 +6,19 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinExecutionPipelineBuilder
+    public static class GremlinQueryExecutionPipelineBuilder
     {
-        public static IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> AddGroovySerialization(this IGremlinExecutionPipelineBuilder builder)
+        public static IGremlinQueryExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> AddGroovySerialization(this IGremlinQueryExecutionPipelineBuilder builder)
         {
             return builder.AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>.FromVisitor<GroovyGremlinQueryElementVisitor>());
         }
 
-        public static IGremlinQueryExecutionPipeline AddGraphsonDeserialization(this IGremlinExecutionPipelineBuilderStage3<JToken> builder, params JsonConverter[] additionalConverters)
+        public static IGremlinQueryExecutionPipeline AddGraphsonDeserialization(this IGremlinQueryExecutionPipelineBuilderStage3<JToken> builder, params JsonConverter[] additionalConverters)
         {
             return builder.AddDeserializerFactory(new GraphsonDeserializerFactory(additionalConverters));
         }
 
-        public static readonly IGremlinExecutionPipelineBuilder Default = new GremlinQueryExecutionPipeline<Unit, Unit>(
+        public static readonly IGremlinQueryExecutionPipelineBuilder Default = new GremlinQueryExecutionPipeline<Unit, Unit>(
             GremlinQuerySerializer<Unit>.Invalid,
             GremlinQueryExecutor<Unit, Unit>.Invalid,
             GremlinQueryExecutionResultDeserializerFactory<Unit>.Invalid);

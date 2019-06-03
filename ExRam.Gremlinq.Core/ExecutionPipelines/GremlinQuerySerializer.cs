@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
         {
             public TSerializedQuery Serialize(IGremlinQuery query)
             {
-                throw new InvalidOperationException();//TODO: message
+                throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer<TSerializedQuery>)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer<TSerializedQuery>)} on your {nameof(GremlinQuerySource)}.");
             }
         }
 

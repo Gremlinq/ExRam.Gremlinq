@@ -203,14 +203,14 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureExecutionPipeline((_, b) => builderTransformation(b));
         }
 
-        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryEnvironment, IGremlinExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
+        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryEnvironment, IGremlinQueryExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
         {
-            return source.ConfigureExecutionPipeline((environment, b) => builderTransformation(environment, GremlinExecutionPipelineBuilder.Default));
+            return source.ConfigureExecutionPipeline((environment, b) => builderTransformation(environment, GremlinQueryExecutionPipelineBuilder.Default));
         }
 
-        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
+        public static IConfigurableGremlinQuerySource WithExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
         {
-            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(GremlinExecutionPipelineBuilder.Default));
+            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(GremlinQueryExecutionPipelineBuilder.Default));
         }
     }
 }

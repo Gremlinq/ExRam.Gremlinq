@@ -7,14 +7,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExecutionPipeline
     {
-        private sealed class InvalidGremlinQueryExecutionPipeline : IGremlinQueryExecutionPipeline
-        {
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-            {
-                return AsyncEnumerableEx.Throw<TElement>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on GremlinQueryExecutionPipeline.Invalid. If you are getting this exception while executing a query, set a proper GremlinQueryExecutionPipeline."));    //TODO: Refine message
-            }
-        }
-
         public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipeline<Unit, Unit>(
             GremlinQuerySerializer<Unit>.Invalid,
             GremlinQueryExecutor<Unit, Unit>.Invalid,
@@ -23,9 +15,9 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed class GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> :
         IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>,
-        IGremlinExecutionPipelineBuilder,
-        IGremlinExecutionPipelineBuilderStage2<TSerializedQuery>,
-        IGremlinExecutionPipelineBuilderStage3<TExecutionResult>
+        IGremlinQueryExecutionPipelineBuilder,
+        IGremlinQueryExecutionPipelineBuilderStage2<TSerializedQuery>,
+        IGremlinQueryExecutionPipelineBuilderStage3<TExecutionResult>
     {
         public GremlinQueryExecutionPipeline(
             IGremlinQuerySerializer<TSerializedQuery> serializer,
@@ -37,12 +29,12 @@ namespace ExRam.Gremlinq.Core
             DeserializerFactory = deserializerFactory;
         }
 
-        public IGremlinExecutionPipelineBuilderStage2<TNewSerializedQuery> AddSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
+        public IGremlinQueryExecutionPipelineBuilderStage2<TNewSerializedQuery> AddSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
         {
             return new GremlinQueryExecutionPipeline<TNewSerializedQuery, TExecutionResult>(serializer, GremlinQueryExecutor<TNewSerializedQuery, TExecutionResult>.Invalid, DeserializerFactory);
         }
 
-        public IGremlinExecutionPipelineBuilderStage3<TNewExecutionResult> AddExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
+        public IGremlinQueryExecutionPipelineBuilderStage3<TNewExecutionResult> AddExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
         {
             return new GremlinQueryExecutionPipeline<TSerializedQuery, TNewExecutionResult>(Serializer, executor, GremlinQueryExecutionResultDeserializerFactory<TNewExecutionResult>.Invalid);
         }

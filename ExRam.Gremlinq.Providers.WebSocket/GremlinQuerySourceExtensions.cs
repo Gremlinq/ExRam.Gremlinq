@@ -68,8 +68,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 .AddGraphsonDeserialization());
         }
 
-        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(
-            this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder,
+        public static IGremlinQueryExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(
+            this IGremlinQueryExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder,
             string hostname,
             GraphsonVersion graphsonVersion,
             int port = 8182,
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     logger);
         }
 
-        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        public static IGremlinQueryExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinQueryExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
         {
             return builder
                 .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
