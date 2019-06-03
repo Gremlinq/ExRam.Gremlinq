@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExRam.Gremlinq.Core.Serialization;
+using ExRam.Gremlinq.Providers;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -126,19 +127,16 @@ namespace ExRam.Gremlinq.Core
                     .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
                         .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                     .AddWebSocketExecutor(
-                        () => new GremlinClient(
-                            new GremlinServer(hostname,
-                                port,
-                                true,
-                                $"/dbs/{database}/colls/{graphName}",
-                                authKey),
-                            new GraphSON2Reader(),
-                            new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
-                            {
-                                {typeof(TimeSpan), new TimeSpanSerializer()}
-                            }),
-                            GremlinClient.GraphSON2MimeType),
-                        source.Logger)
+                        hostname,
+                        GraphsonVersion.V2,
+                        port,
+                        true,
+                        $"/dbs/{database}/colls/{graphName}",
+                        authKey,
+                        new Dictionary<Type, IGraphSONSerializer>
+                        {
+                            { typeof(TimeSpan), new TimeSpanSerializer() }
+                        })
                     .AddGraphsonDeserialization(new TimespanConverter()));
         }
     }

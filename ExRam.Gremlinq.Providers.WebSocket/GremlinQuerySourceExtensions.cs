@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core;
@@ -50,38 +51,56 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
+        public static IConfigurableGremlinQuerySource WithWebSocket(
+            this IConfigurableGremlinQuerySource source,
+            string hostname,
+            GraphsonVersion graphsonVersion,
+            int port = 8182,
+            bool enableSsl = false,
+            string username = null,
+            string password = null,
+            IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
+            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
-            return source.WithWebSocket(
-                new GremlinServer(hostname, port, enableSsl, username, password),
-                graphsonVersion);
+            return source.ConfigureExecution(conf => conf
+                .AddGroovySerialization()
+                .AddWebSocketExecutor(hostname, graphsonVersion, port, enableSsl, username, password, additionalGraphsonSerializers, additionalGraphsonDeserializers)
+                .AddGraphsonDeserialization());
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
+        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(
+            this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder,
+            string hostname,
+            GraphsonVersion graphsonVersion,
+            int port = 8182,
+            bool enableSsl = false,
+            string username = null,
+            string password = null,
+            IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
+            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
-            return source
-                .ConfigureExecution(conf => conf
-                    .AddGroovySerialization()
-                    .AddWebSocketExecutor(
+            var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
+            var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
+
+            return builder
+                .AddWebSocketExecutor(
                     () => new GremlinClient(
-                            server,
-                            graphsonVersion == GraphsonVersion.V2
-                                ? new GraphSON2Reader()
-                                : (GraphSONReader)new GraphSON3Reader(),
-                            graphsonVersion == GraphsonVersion.V2
-                                ? new GraphSON2Writer()
-                                : (GraphSONWriter)new GraphSON3Writer(),
-                            graphsonVersion == GraphsonVersion.V2
-                                ? GremlinClient.GraphSON2MimeType
-                                : GremlinClient.DefaultMimeType),
-                        source.Logger)
-                    .AddGraphsonDeserialization());
+                        new GremlinServer(hostname, port, enableSsl, username, password),
+                        graphsonVersion == GraphsonVersion.V2
+                            ? new GraphSON2Reader(actualAdditionalGraphsonDeserializers)
+                            : (GraphSONReader)new GraphSON3Reader(actualAdditionalGraphsonDeserializers),
+                        graphsonVersion == GraphsonVersion.V2
+                            ? new GraphSON2Writer(actualAdditionalGraphsonSerializers)
+                            : (GraphSONWriter)new GraphSON3Writer(actualAdditionalGraphsonSerializers),
+                        graphsonVersion == GraphsonVersion.V2
+                            ? GremlinClient.GraphSON2MimeType
+                            : GremlinClient.DefaultMimeType));
         }
 
-        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory)
         {
             return builder
-                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
+                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, null /*TODO! */));
         }
     }
 }
