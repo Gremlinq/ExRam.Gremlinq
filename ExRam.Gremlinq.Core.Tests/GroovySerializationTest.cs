@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Tests
         protected GroovySerializationTest(IConfigurableGremlinQuerySource g)
         {
             _g = g
-                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>());
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
         [Fact]
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_list_cardinality_id()
         {
             _g
-                .WithModel(GraphModel
+                .UseModel(GraphModel
                     .FromBaseTypes<VertexWithListAsId, Edge>())
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
                 .Invoking(x => new GroovyGremlinQueryElementVisitor().Visit(x))
@@ -325,7 +325,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_without_model()
         {
             _g
-                .WithModel(GraphModel.Empty)
+                .UseModel(GraphModel.Empty)
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d)")
@@ -763,7 +763,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .In<object>()
                 .Should()
@@ -783,7 +783,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(x => x
-                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .InE<object>()
                 .Should()
@@ -1186,7 +1186,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .Out<object>()
                 .Should()
@@ -1206,7 +1206,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .WithFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
                 .V()
                 .OutE<object>()
                 .Should()
@@ -3030,7 +3030,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithoutStrategies1()
         {
             _g
-                .WithoutStrategies("ReferenceElementStrategy")
+                .RemoveStrategies("ReferenceElementStrategy")
                 .V()
                 .Should()
                 .SerializeToGroovy("g.withoutStrategies(ReferenceElementStrategy).V()")
@@ -3041,7 +3041,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithoutStrategies2()
         {
             _g
-                .WithoutStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
+                .RemoveStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
                 .V()
                 .Should()
                 .SerializeToGroovy("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
@@ -3052,7 +3052,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy()
         {
             _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
                 .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
@@ -3063,7 +3063,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy_empty()
         {
             _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .Should()
                 .SerializeToGroovy("g.V()")
@@ -3074,7 +3074,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy_only_edges()
         {
             _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
                 .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
@@ -3085,7 +3085,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithSubgraphStrategy_only_vertices()
         {
             _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
                 .V()
                 .Should()
                 .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")

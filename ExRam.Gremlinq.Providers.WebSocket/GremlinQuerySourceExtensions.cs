@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(
+        public static IConfigurableGremlinQuerySource UseWebSocket(
             this IConfigurableGremlinQuerySource source,
             string hostname,
             GraphsonVersion graphsonVersion,
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
-            return source.WithExecutionPipeline(conf => conf
+            return source.UseExecutionPipeline(conf => conf
                 .AddGroovySerialization()
                 .AddWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .AddGraphsonDeserialization());

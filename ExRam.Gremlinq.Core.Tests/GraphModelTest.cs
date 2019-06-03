@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
-                    .WithLowerCaseLabels())
+                    .UseLowerCaseLabels())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(Person))
@@ -88,7 +88,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
-                    .WithCamelCaseLabels())
+                    .UseCamelCaseLabels())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(TimeFrame))
@@ -103,7 +103,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(em => em
-                    .WithCamelCaseLabels())
+                    .UseCamelCaseLabels())
                 .EdgesModel
                 .Metadata
                 .TryGetValue(typeof(LivesIn))
@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames())
+                    .UseCamelCaseNames())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames())
+                    .UseCamelCaseNames())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
@@ -148,7 +148,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames());
+                    .UseCamelCaseNames());
 
             model
                 .VerticesModel
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(pm => pm
-                    .WithCamelCaseLabels());
+                    .UseCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -198,9 +198,9 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureElements(pm => pm
-                    .WithCamelCaseLabels())
+                    .UseCamelCaseLabels())
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames());
+                    .UseCamelCaseNames());
 
             model
                 .VerticesModel
@@ -225,9 +225,9 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames())
+                    .UseCamelCaseNames())
                 .ConfigureElements(em => em
-                    .WithCamelCaseLabels());
+                    .UseCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -365,9 +365,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
-                    .WithCamelCaseNames())
+                    .UseCamelCaseNames())
                 .ConfigureElements(em => em
-                    .WithCamelCaseLabels());
+                    .UseCamelCaseLabels());
 
             model
                 .VerticesModel
@@ -404,11 +404,11 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>()
                 .ConfigureProperties(pm => pm
-                    .WithCamelCaseNames()
+                    .UseCamelCaseNames()
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
                 .ConfigureElements(em => em
-                    .WithCamelCaseLabels());
+                    .UseCamelCaseLabels());
 
             model
                 .VerticesModel

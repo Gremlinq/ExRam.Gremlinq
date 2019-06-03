@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureMetadata(_ => _.ConfigureNames(overrideTransformation));
         }
         
-        public static IGraphElementPropertyModel WithCamelCaseNames(this IGraphElementPropertyModel model)
+        public static IGraphElementPropertyModel UseCamelCaseNames(this IGraphElementPropertyModel model)
         {
             return model.ConfigureNames((member, name) => name.ToCamelCase());
         }

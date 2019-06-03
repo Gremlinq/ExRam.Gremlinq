@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
     public class DefaultGroovySerializationTest : GroovySerializationTest
     {
-        public DefaultGroovySerializationTest() : base(g.WithWebSocket("localhost", GraphsonVersion.V2))
+        public DefaultGroovySerializationTest() : base(g.UseWebSocket("localhost", GraphsonVersion.V2))
         {
 
         }

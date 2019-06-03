@@ -1182,7 +1182,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task WithSubgraphStrategy()
         {
             await _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
                 .V()
                 .ToArrayAsync();
         }
@@ -1191,7 +1191,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task WithSubgraphStrategy_empty()
         {
             await _g
-                .WithStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
+                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .ToArrayAsync();
         }

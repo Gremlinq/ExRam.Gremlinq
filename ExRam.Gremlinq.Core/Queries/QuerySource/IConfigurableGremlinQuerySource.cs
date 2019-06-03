@@ -6,10 +6,10 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IConfigurableGremlinQuerySource : IGremlinQuerySource, IGremlinQueryEnvironment
     {
-        IConfigurableGremlinQuerySource WithName(string name);
-        IConfigurableGremlinQuerySource WithLogger(ILogger logger);
-        IConfigurableGremlinQuerySource WithStrategies(params IGremlinQueryStrategy[] strategies);
-        IConfigurableGremlinQuerySource WithoutStrategies(params string[] strategies);
+        IConfigurableGremlinQuerySource UseName(string name);
+        IConfigurableGremlinQuerySource UseLogger(ILogger logger);
+        IConfigurableGremlinQuerySource AddStrategies(params IGremlinQueryStrategy[] strategies);
+        IConfigurableGremlinQuerySource RemoveStrategies(params string[] strategies);
 
         IConfigurableGremlinQuerySource ConfigureOptions(Func<IGremlinQueryEnvironment, Options, Options> optionsTransformation);
         IConfigurableGremlinQuerySource ConfigureModel(Func<IGremlinQueryEnvironment, IGraphModel, IGraphModel> modelTransformation);

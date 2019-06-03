@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.Tests
     {
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken> executor)
         {
-            return source.WithExecutionPipeline(conf => conf
+            return source.UseExecutionPipeline(conf => conf
                 .AddGroovySerialization()
                 .AddExecutor(executor)
                 .AddGraphsonDeserialization());
@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public JsonSupportTest()
         {
             _g = g
-                .WithModel(GraphModel.FromBaseTypes<Vertex, Edge>());
+                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
         [Fact]
@@ -266,7 +266,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_unknown_type_without_model()
         {
             var language = await _g
-                .WithModel(GraphModel.Empty)
+                .UseModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<object>()
@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_strongly_typed_without_model()
         {
             var language = await _g
-                .WithModel(GraphModel.Empty)
+                .UseModel(GraphModel.Empty)
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<Language>()

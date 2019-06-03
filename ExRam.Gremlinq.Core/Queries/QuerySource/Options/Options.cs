@@ -9,7 +9,7 @@
 
         public FilterLabelsVerbosity FilterLabelsVerbosity { get; }
 
-        public Options WithFilterLabelsVerbosity(FilterLabelsVerbosity value)
+        public Options SetFilterLabelsVerbosity(FilterLabelsVerbosity value)
         {
             return new Options(value);
         }

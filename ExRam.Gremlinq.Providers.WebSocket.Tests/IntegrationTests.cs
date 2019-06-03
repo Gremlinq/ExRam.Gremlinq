@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
     public class IntegrationTests : Providers.Tests.IntegrationTests
     {
         public IntegrationTests() : base(g
-            .WithWebSocket("localhost", GraphsonVersion.V3))
+            .UseWebSocket("localhost", GraphsonVersion.V3))
         {
         }
     }

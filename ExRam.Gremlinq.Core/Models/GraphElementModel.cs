@@ -31,12 +31,12 @@ namespace ExRam.Gremlinq.Core
                 kvp => new ElementMetadata(overrideTransformation(kvp.Key, kvp.Value.Label))));
         }
 
-        public static IGraphElementModel WithCamelCaseLabels(this IGraphElementModel model)
+        public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model)
         {
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToCamelCase());
         }
 
-        public static IGraphElementModel WithLowerCaseLabels(this IGraphElementModel model)
+        public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model)
         {
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
