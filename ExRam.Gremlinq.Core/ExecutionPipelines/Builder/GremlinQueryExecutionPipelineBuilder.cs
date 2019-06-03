@@ -8,12 +8,12 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExecutionPipelineBuilder
     {
-        public static IGremlinQueryExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> AddGroovySerialization(this IGremlinQueryExecutionPipelineBuilder builder)
+        public static IGremlinQueryExecutionPipelineBuilderWithSerializer<GroovySerializedGremlinQuery> AddGroovySerialization(this IGremlinQueryExecutionPipelineBuilder builder)
         {
             return builder.AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>.FromVisitor<GroovyGremlinQueryElementVisitor>());
         }
 
-        public static IGremlinQueryExecutionPipeline AddGraphsonDeserialization(this IGremlinQueryExecutionPipelineBuilderStage3<JToken> builder, params JsonConverter[] additionalConverters)
+        public static IGremlinQueryExecutionPipeline AddGraphsonDeserialization(this IGremlinQueryExecutionPipelineBuilderWithExecutor<JToken> builder, params JsonConverter[] additionalConverters)
         {
             return builder.AddDeserializerFactory(new GraphsonDeserializerFactory(additionalConverters));
         }
