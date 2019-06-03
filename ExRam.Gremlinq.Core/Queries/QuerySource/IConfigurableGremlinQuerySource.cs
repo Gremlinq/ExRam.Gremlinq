@@ -14,8 +14,7 @@ namespace ExRam.Gremlinq.Core
 
         IConfigurableGremlinQuerySource ConfigureOptions(Func<Options, Options> optionsTransformation);
         IConfigurableGremlinQuerySource ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
-        IConfigurableGremlinQuerySource ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
-        IConfigurableGremlinQuerySource ConfigureVisitors(Func<IGremlinQueryElementVisitorCollection, IGremlinQueryElementVisitorCollection> visitorsTransformation);
+        IConfigurableGremlinQuerySource ConfigurePipeline(Func<IGremlinExecutionPipelineBuilderStage1, IGremlinQueryExecutionPipeline> builderTransformation);
 
         string Name { get; }
         ImmutableList<string> ExcludedStrategyNames { get; }

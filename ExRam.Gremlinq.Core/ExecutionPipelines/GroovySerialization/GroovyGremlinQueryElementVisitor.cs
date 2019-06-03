@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<SerializedGremlinQuery>
+    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<GroovySerializedGremlinQuery>
     {
         private enum State
         {
@@ -624,9 +624,9 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         #endregion
 
-        public SerializedGremlinQuery Build()
+        public GroovySerializedGremlinQuery Build()
         {
-            return new SerializedGremlinQuery(
+            return new GroovySerializedGremlinQuery(
                 _builder.ToString(),
                 _variables
                     .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));

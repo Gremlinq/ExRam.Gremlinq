@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Json\*.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj" />
   </ItemGroup>

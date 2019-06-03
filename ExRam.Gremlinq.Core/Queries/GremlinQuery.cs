@@ -351,7 +351,7 @@ namespace ExRam.Gremlinq.Core
 
         private IAsyncEnumerator<TResult> GetAsyncEnumerator<TResult>(CancellationToken ct = default)
         {
-            return Environment.Executor
+            return Environment.Pipeline
                 .Execute(this.Cast<TResult>())
                 .GetAsyncEnumerator(ct);
         }

@@ -1,7 +1,7 @@
-﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
+﻿using ExRam.Gremlinq.Core.Serialization;
 using FluentAssertions;
 using FluentAssertions.Primitives;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -21,14 +21,9 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var visitor = Subject.AsAdmin().Visitors
-                    .TryGet<SerializedGremlinQuery>()
-                    .IfNone(() => throw new InvalidOperationException("No visitor for SerializedGremlinQuery."));
-
-                visitor.Visit(Subject);
-
-                var serializedQuery = visitor.Build();
-
+                var pipeline = Subject.AsAdmin().Pipeline as IGremlinQueryExecutionPipeline<GroovySerializedGremlinQuery, JToken>;
+                var serializedQuery = pipeline.Serializer.Serialize(Subject);
+                    
                 serializedQuery.QueryString
                     .Should()
                     .Be(serialization);
@@ -39,16 +34,16 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public sealed class SerializedGremlinQueryAssertions : ObjectAssertions
         {
-            private readonly SerializedGremlinQuery _serializedQuery;
+            private readonly GroovySerializedGremlinQuery _groovySerializedQuery;
 
-            public SerializedGremlinQueryAssertions(SerializedGremlinQuery serializedQuery) : base(serializedQuery)
+            public SerializedGremlinQueryAssertions(GroovySerializedGremlinQuery groovySerializedQuery) : base(groovySerializedQuery)
             {
-                _serializedQuery = serializedQuery;
+                _groovySerializedQuery = groovySerializedQuery;
             }
 
             public SerializedGremlinQueryAssertions WithParameters(params object[] parameters)
             {
-                _serializedQuery.Bindings.Should().HaveCount(parameters.Length);
+                _groovySerializedQuery.Bindings.Should().HaveCount(parameters.Length);
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -62,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
 
                     key = "_" + key;
-                    _serializedQuery.Bindings.Should().Contain(key, parameters[i]);
+                    _groovySerializedQuery.Bindings.Should().Contain(key, parameters[i]);
                 }
 
                 return this;
@@ -70,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions WithoutParameters()
             {
-                _serializedQuery.Bindings.Should().BeEmpty();
+                _groovySerializedQuery.Bindings.Should().BeEmpty();
 
                 return this;
             }

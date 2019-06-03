@@ -8,128 +8,81 @@ using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class GremlinQuerySourceExtensions
     {
-        private sealed class DefaultWebSocketRemoteConfigurator : IWebSocketRemoteConfigurator
+        private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken>, IDisposable
         {
-            private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
-            {
-                private readonly ILogger _logger;
-                private readonly Lazy<IGremlinClient> _lazyGremlinClient;
-                private readonly IGraphsonDeserializerFactory _graphSonDeserializerFactory;
-
-                public WebSocketGremlinQueryExecutor(
-                    Func<IGremlinClient> clientFactory,
-                    IGraphsonDeserializerFactory graphSonDeserializerFactory,
-                    ILogger logger = null)
-                {
-                    _logger = logger;
-                    _graphSonDeserializerFactory = graphSonDeserializerFactory;
-                    _lazyGremlinClient = new Lazy<IGremlinClient>(clientFactory, LazyThreadSafetyMode.ExecutionAndPublication);
-                }
-
-                public void Dispose()
-                {
-                    _lazyGremlinClient.Value.Dispose();
-                }
-
-                public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-                {
-                    var visitor = query
-                        .AsAdmin().Visitors
-                        .TryGet<SerializedGremlinQuery>()
-                        .IfNone(() => throw new InvalidOperationException($"{nameof(query)} does not contain an {nameof(IGremlinQueryElementVisitor)} for {nameof(SerializedGremlinQuery)}."));
-
-                    visitor
-                        .Visit(query);
-
-                    var serialized = visitor.Build();
-
-                    _logger?.LogTrace("Executing Gremlin query {0}.", serialized.QueryString);
-
-                    return _lazyGremlinClient
-                        .Value
-                        .SubmitAsync<JToken>(serialized.QueryString, serialized.Bindings)
-                        .ToAsyncEnumerable()
-                        .SelectMany(x => x
-                            .ToAsyncEnumerable())
-                        .Catch<JToken, Exception>(ex =>
-                        {
-                            _logger?.LogError("Error executing Gremlin query {0}.", serialized.QueryString);
-
-                            return AsyncEnumerableEx.Throw<JToken>(ex);
-                        })
-                        .GraphsonDeserialize<TElement[]>(_graphSonDeserializerFactory.Get(query.AsAdmin().Model))
-                        .SelectMany(x => x.ToAsyncEnumerable());
-                }
-            }
-
             private readonly ILogger _logger;
-            private readonly Func<IGremlinClient> _clientFactory;
-            private readonly IGraphsonDeserializerFactory _deserializer;
+            private readonly Lazy<IGremlinClient> _lazyGremlinClient;
 
-            public DefaultWebSocketRemoteConfigurator(
-                [AllowNull] Func<IGremlinClient> clientFactory,
-                [AllowNull] IGraphsonDeserializerFactory deserializer,
-                ILogger logger)
+            public WebSocketGremlinQueryExecutor(
+                Func<IGremlinClient> clientFactory,
+                ILogger logger = null)
             {
                 _logger = logger;
-                _deserializer = deserializer;
-                _clientFactory = clientFactory;
+                _lazyGremlinClient = new Lazy<IGremlinClient>(clientFactory, LazyThreadSafetyMode.ExecutionAndPublication);
             }
 
-            public IWebSocketRemoteConfigurator WithClientFactory(Func<IGremlinClient> clientFactory)
+            public void Dispose()
             {
-                return new DefaultWebSocketRemoteConfigurator(clientFactory, _deserializer, _logger);
+                _lazyGremlinClient.Value.Dispose();
             }
 
-            public IWebSocketRemoteConfigurator WithSerializerFactory(IGraphsonDeserializerFactory deserializer)
+            public IAsyncEnumerable<JToken> Execute(GroovySerializedGremlinQuery groovySerializedQuery)
             {
-                return new DefaultWebSocketRemoteConfigurator(_clientFactory, deserializer, _logger);
-            }
+                _logger?.LogTrace("Executing Gremlin query {0}.", groovySerializedQuery.QueryString);
 
-            public IGremlinQueryExecutor Build()
-            {
-                if (_clientFactory == null || _deserializer == null)
-                    throw new InvalidOperationException($"{nameof(WithClientFactory)} and {nameof(WithSerializerFactory)} must be called on the {nameof(IWebSocketRemoteConfigurator)}.");
+                return _lazyGremlinClient
+                    .Value
+                    .SubmitAsync<JToken>(groovySerializedQuery.QueryString, groovySerializedQuery.Bindings)
+                    .ToAsyncEnumerable()
+                    .SelectMany(x => x
+                        .ToAsyncEnumerable())
+                    .Catch<JToken, Exception>(ex =>
+                    {
+                        _logger?.LogError("Error executing Gremlin query {0}.", groovySerializedQuery.QueryString);
 
-                return new WebSocketGremlinQueryExecutor(_clientFactory, _deserializer, _logger);
+                        return AsyncEnumerableEx.Throw<JToken>(ex);
+                    });
             }
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, string hostname, GraphsonVersion graphsonVersion, int port = 8182, bool enableSsl = false, string username = null, string password = null, ILogger logger = null)
         {
             return source.WithWebSocket(
                 new GremlinServer(hostname, port, enableSsl, username, password),
-                graphsonVersion);
+                graphsonVersion,
+                logger);
         }
 
-        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion)
-        {
-            return source.ConfigureWebSocket(conf => conf
-                .WithClientFactory(() => new GremlinClient(
-                    server,
-                    graphsonVersion == GraphsonVersion.V2
-                        ? new GraphSON2Reader()
-                        : (GraphSONReader)new GraphSON3Reader(),
-                    graphsonVersion == GraphsonVersion.V2
-                        ? new GraphSON2Writer()
-                        : (GraphSONWriter)new GraphSON3Writer(),
-                    graphsonVersion == GraphsonVersion.V2
-                        ? GremlinClient.GraphSON2MimeType
-                        : GremlinClient.DefaultMimeType))
-                .WithSerializerFactory(new DefaultGraphsonDeserializerFactory()));
-        }
-        
-        public static IConfigurableGremlinQuerySource ConfigureWebSocket(this IConfigurableGremlinQuerySource source, Func<IWebSocketRemoteConfigurator, IWebSocketRemoteConfigurator> transformation)
+        public static IConfigurableGremlinQuerySource WithWebSocket(this IConfigurableGremlinQuerySource source, GremlinServer server, GraphsonVersion graphsonVersion, ILogger logger = null)
         {
             return source
-                .ConfigureVisitors(_ => _.TryAdd<SerializedGremlinQuery, GroovyGremlinQueryElementVisitor>())
-                .WithExecutor(transformation(new DefaultWebSocketRemoteConfigurator(null, null, source.Logger)).Build());
+                .ConfigurePipeline(conf => conf
+                    .AddGroovySerialization()
+                    .AddWebSocketExecutor(
+                    () => new GremlinClient(
+                            server,
+                            graphsonVersion == GraphsonVersion.V2
+                                ? new GraphSON2Reader()
+                                : (GraphSONReader)new GraphSON3Reader(),
+                            graphsonVersion == GraphsonVersion.V2
+                                ? new GraphSON2Writer()
+                                : (GraphSONWriter)new GraphSON3Writer(),
+                            graphsonVersion == GraphsonVersion.V2
+                                ? GremlinClient.GraphSON2MimeType
+                                : GremlinClient.DefaultMimeType),
+                        logger)
+                    .AddGraphsonDeserialization());
+        }
+
+        public static IGremlinExecutionPipelineBuilderStage3<JToken> AddWebSocketExecutor(this IGremlinExecutionPipelineBuilderStage2<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        {
+            return builder
+                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -13,9 +14,20 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
+    public static class ConfigurableGremlinSourceExtensions
+    {
+        public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken> executor)
+        {
+            return source.ConfigurePipeline(conf => conf
+                .AddGroovySerialization()
+                .AddExecutor(executor)
+                .AddGraphsonDeserialization());
+        }
+    }
+
     public class JsonSupportTest
     {
-        private sealed class TestJsonQueryExecutor : IGremlinQueryExecutor
+        private sealed class TestJsonQueryExecutor : IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken>
         {
             private readonly string _json;
 
@@ -24,12 +36,10 @@ namespace ExRam.Gremlinq.Providers.Tests
                 _json = json;
             }
 
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            public IAsyncEnumerable<JToken> Execute(GroovySerializedGremlinQuery groovySerializedQuery)
             {
                 return AsyncEnumerableEx
-                    .Return(JToken.Parse(_json))
-                    .GraphsonDeserialize<TElement[]>(new GraphsonDeserializer(query.AsAdmin().Model))
-                    .SelectMany(x => x.ToAsyncEnumerable());
+                    .Return(JToken.Parse(_json));
             }
         }
 
@@ -648,7 +658,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         
         private static string GetJson(string name)
         {
-            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Providers.Tests.Json.{name}.json")).ReadToEnd();
+            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")).ReadToEnd();
         }
     }
 }

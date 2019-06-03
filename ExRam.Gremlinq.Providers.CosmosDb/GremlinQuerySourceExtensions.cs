@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.Serialization;
-using ExRam.Gremlinq.Providers;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NullGuard;
@@ -99,58 +98,48 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class CosmosDbGraphsonDeserializerFactory : IGraphsonDeserializerFactory
+        private sealed class TimespanConverter : JsonConverter
         {
-            private sealed class TimespanConverter : JsonConverter
+            public override bool CanConvert(Type objectType)
             {
-                public override bool CanConvert(Type objectType)
-                {
-                    return objectType == typeof(TimeSpan);
-                }
-
-                public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-                {
-                    return TimeSpan.FromMilliseconds(serializer.Deserialize<long>(reader));
-                }
-
-                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-                {
-                    throw new NotSupportedException();
-                }
-
-                public override bool CanRead => true;
-                public override bool CanWrite => true;
+                return objectType == typeof(TimeSpan);
             }
 
-            private readonly ConditionalWeakTable<IGraphModel, GraphsonDeserializer> _serializers = new ConditionalWeakTable<IGraphModel, GraphsonDeserializer>();
-
-            public JsonSerializer Get(IGraphModel model)
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
-                return _serializers.GetValue(
-                    model,
-                    closureModel => new GraphsonDeserializer(closureModel, new TimespanConverter()));
+                return TimeSpan.FromMilliseconds(serializer.Deserialize<long>(reader));
             }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override bool CanRead => true;
+            public override bool CanWrite => true;
         }
 
-        public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        public static IConfigurableGremlinQuerySource WithCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443, ILogger logger = null)
         {
             return source
-                .ConfigureVisitors(conf => conf
-                    .Set<SerializedGremlinQuery, CosmosDbGroovyGremlinQueryElementVisitor>())
-                .ConfigureWebSocket(conf => conf
-                    .WithClientFactory(() => new GremlinClient(
-                        new GremlinServer(hostname,
-                            port,
-                            true,
-                            $"/dbs/{database}/colls/{graphName}",
-                            authKey),
-                        new GraphSON2Reader(),
-                        new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
-                        {
-                            { typeof(TimeSpan), new TimeSpanSerializer() }
-                        }),
-                        GremlinClient.GraphSON2MimeType))
-                    .WithSerializerFactory(new CosmosDbGraphsonDeserializerFactory()));
+                .ConfigurePipeline(conf => conf
+                    .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
+                        .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
+                    .AddWebSocketExecutor(
+                        () => new GremlinClient(
+                            new GremlinServer(hostname,
+                                port,
+                                true,
+                                $"/dbs/{database}/colls/{graphName}",
+                                authKey),
+                            new GraphSON2Reader(),
+                            new GraphSON2Writer(new Dictionary<Type, IGraphSONSerializer>
+                            {
+                                {typeof(TimeSpan), new TimeSpanSerializer()}
+                            }),
+                            GremlinClient.GraphSON2MimeType),
+                        logger)
+                    .AddGraphsonDeserialization(new TimespanConverter()));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace ExRam.Gremlinq.Providers
+namespace ExRam.Gremlinq.Core
 {
     internal interface IJsonTransform
     {

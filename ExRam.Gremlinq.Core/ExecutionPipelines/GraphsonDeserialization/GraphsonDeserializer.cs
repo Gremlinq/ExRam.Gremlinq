@@ -11,9 +11,9 @@ using Newtonsoft.Json.Linq;
 using NullGuard;
 using System.Linq;
 
-namespace ExRam.Gremlinq.Providers
+namespace ExRam.Gremlinq.Core
 {
-    public sealed class GraphsonDeserializer : JsonSerializer
+    internal sealed class GraphsonDeserializer : JsonSerializer
     {
         #region Nested
         private sealed class GremlinContractResolver : DefaultContractResolver

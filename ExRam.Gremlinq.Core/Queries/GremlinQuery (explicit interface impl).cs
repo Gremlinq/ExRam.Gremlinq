@@ -132,9 +132,7 @@ namespace ExRam.Gremlinq.Core
 
         IGraphModel IGremlinQueryEnvironment.Model => Environment.Model;
 
-        IGremlinQueryExecutor IGremlinQueryEnvironment.Executor => Environment.Executor;
-
-        IGremlinQueryElementVisitorCollection IGremlinQueryEnvironment.Visitors => Environment.Visitors;
+        IGremlinQueryExecutionPipeline IGremlinQueryEnvironment.Pipeline => Environment.Pipeline;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OtherV() => OtherV<IVertex>();
 

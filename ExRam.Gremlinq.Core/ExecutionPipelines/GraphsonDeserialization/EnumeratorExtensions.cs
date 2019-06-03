@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Providers;
+﻿using ExRam.Gremlinq.Core;
 
 namespace System.Collections.Generic
 {

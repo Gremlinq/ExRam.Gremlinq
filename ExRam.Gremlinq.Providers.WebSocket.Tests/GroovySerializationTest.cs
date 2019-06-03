@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
@@ -9,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
     public class DefaultGroovySerializationTest : GroovySerializationTest
     {
-        public DefaultGroovySerializationTest() : base(g)
+        public DefaultGroovySerializationTest() : base(g.WithWebSocket("localhost", GraphsonVersion.V2))
         {
 
         }

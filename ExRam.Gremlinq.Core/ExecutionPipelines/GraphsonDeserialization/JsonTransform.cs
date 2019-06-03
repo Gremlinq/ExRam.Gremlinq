@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace ExRam.Gremlinq.Providers
+namespace ExRam.Gremlinq.Core
 {
     internal static class JsonTransform
     {

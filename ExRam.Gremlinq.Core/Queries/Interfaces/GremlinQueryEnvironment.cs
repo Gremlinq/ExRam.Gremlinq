@@ -11,8 +11,7 @@ namespace ExRam.Gremlinq.Core
             public Options Options { get; } = default;
             public IGraphModel Model { get; } = GraphModel.Empty;
             public ILogger Logger { get; } = NullLogger.Instance;
-            public IGremlinQueryExecutor Executor { get; } = GremlinQueryExecutor.Invalid;
-            public IGremlinQueryElementVisitorCollection Visitors { get; } = GremlinQueryElementVisitorCollection.Default;
+            public IGremlinQueryExecutionPipeline Pipeline { get; } = GremlinQueryExecutionPipeline.Invalid;
         }
 
         public static readonly IGremlinQueryEnvironment Default = new DefaultGremlinQueryEnvironmentImpl();

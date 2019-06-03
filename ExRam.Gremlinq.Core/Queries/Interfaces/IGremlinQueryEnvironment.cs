@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -8,7 +7,6 @@ namespace ExRam.Gremlinq.Core
         ILogger Logger { get; }
         Options Options { get; }
         IGraphModel Model { get; }
-        IGremlinQueryExecutor Executor { get; }
-        IGremlinQueryElementVisitorCollection Visitors { get; }
+        IGremlinQueryExecutionPipeline Pipeline { get; }
     }
 }

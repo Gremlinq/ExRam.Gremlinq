@@ -2,9 +2,9 @@
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public struct SerializedGremlinQuery
+    public struct GroovySerializedGremlinQuery
     {
-        public SerializedGremlinQuery(string queryString, Dictionary<string, object> bindings)
+        public GroovySerializedGremlinQuery(string queryString, Dictionary<string, object> bindings)
         {
             QueryString = queryString;
             Bindings = bindings;
