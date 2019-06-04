@@ -3101,6 +3101,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person");
         }
 
+        [Fact]
+        public void Where_outside_model()
+        {
+            _g
+                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>())
+                .V()
+                .Where(x => x.Id == "hallo")
+                .Should()
+                .SerializeToGroovy("g.V().has(id, _a)");
+        }
+
         private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
         {
             return source.V<TVertex>();

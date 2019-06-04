@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             var interfaceGetter = ((PropertyInfo)closureMember).GetMethod;
 
-                            var implementingGetter = model.Metadata.Keys
+                            var implementingGetters = model.Metadata.Keys
                                 .Select(x => x.DeclaringType)
                                 .Distinct()
                                 .Where(declaringType => closureMember.DeclaringType.IsAssignableFrom(declaringType))
@@ -84,21 +84,22 @@ namespace ExRam.Gremlinq.Core
                                 })
                                 .ToArray();
 
-                            var identifiers = model.Metadata.Keys
-                                .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
-                                .OfType<PropertyInfo>()
-                                .Where(p => implementingGetter.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
-                                .Select(model.GetIdentifier)
-                                .Distinct()
-                                .ToArray();
+                            if (implementingGetters.Length > 0)
+                            {
+                                var identifiers = model.Metadata.Keys
+                                    .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
+                                    .OfType<PropertyInfo>()
+                                    .Where(p => implementingGetters.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
+                                    .Select(model.GetIdentifier)
+                                    .Distinct()
+                                    .ToArray();
+                                
+                                if (identifiers.Length > 1)
+                                    throw new InvalidOperationException($"Contradicting identifiers found for member {closureMember}.");
 
-                            if (identifiers.Length == 0)
-                                throw new InvalidOperationException($"No identifiers found for member {closureMember}.");
-
-                            if (identifiers.Length > 1)
-                                throw new InvalidOperationException($"Contradicting identifiers found for member {closureMember}.");
-
-                            return identifiers[0];
+                                if (identifiers.Length == 1)
+                                    return identifiers[0];
+                            }
                         }
 
                         return model.GetIdentifier(model.Metadata
