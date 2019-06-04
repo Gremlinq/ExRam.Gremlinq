@@ -92,8 +92,11 @@ namespace ExRam.Gremlinq.Core
                                 .Distinct()
                                 .ToArray();
 
-                            if (identifiers.Length != 1)
-                                throw new InvalidOperationException("Contradicting identifiers.");
+                            if (identifiers.Length == 0)
+                                throw new InvalidOperationException($"No identifiers found for member {closureMember}.");
+
+                            if (identifiers.Length > 1)
+                                throw new InvalidOperationException($"Contradicting identifiers found for member {closureMember}.");
 
                             return identifiers[0];
                         }
