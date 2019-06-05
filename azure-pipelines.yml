@@ -1,13 +1,5 @@
-resources:
-- repo: self
-  clean: true
-
-queue:
-  name: Hosted VS2017
-  demands: 
-  - msbuild
-  - visualstudio
-  - vstest
+pool:
+  name: Hosted Windows 2019 with VS2019
 
 variables:
   BuildPlatform: 'any cpu'
@@ -15,9 +7,9 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.8.1'
+  displayName: 'Use NuGet 5.0.0'
   inputs:
-    versionSpec: 4.8.1
+    versionSpec: 5.0.0
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore'
