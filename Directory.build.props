@@ -17,10 +17,7 @@
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.38" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="3.3.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Fody" Version="3.3.5" PrivateAssets="All" />
     <PackageReference Include="NullGuard.Fody" Version="1.8.5" PrivateAssets="All" />
   </ItemGroup>
 
