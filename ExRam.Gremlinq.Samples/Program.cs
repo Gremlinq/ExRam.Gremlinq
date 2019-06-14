@@ -277,7 +277,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var petOwner in petOwners)
             {
-                Console.WriteLine($"{petOwner.Name} owns a pet.");
+                Console.WriteLine($"{petOwner.Name.Value} owns a pet.");
             }
 
             Console.WriteLine();
