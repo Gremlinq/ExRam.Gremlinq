@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
+using LanguageExt;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -655,7 +656,22 @@ namespace ExRam.Gremlinq.Providers.Tests
             properties[0].Should().NotBeNull();
             properties[0].Value.Should().Be(DateTimeOffset.FromUnixTimeMilliseconds(1548169812555));
         }
-        
+
+        [Fact]
+        public async Task Maybe()
+        {
+            var tuple = await _g
+                .WithExecutor(new TestJsonQueryExecutor("[ { \"Item1\": [],  \"Item2\": [], \"Item3\": \"someString\", \"Item4\": \"someString\", \"Item5\": [] } ]"))
+                .V<(string, Option<string>, string, Option<string>, int?)>()
+                .FirstAsync();
+
+            tuple.Item1.Should().BeNull();
+            tuple.Item2.IsSome.Should().BeFalse();
+            tuple.Item3.Should().Be("someString");
+            tuple.Item4.Should().BeEqual("someString");
+            tuple.Item5.Should().BeNull();
+        }
+
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")).ReadToEnd();

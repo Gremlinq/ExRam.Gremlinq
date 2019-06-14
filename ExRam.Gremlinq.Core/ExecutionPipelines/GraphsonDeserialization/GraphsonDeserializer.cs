@@ -234,6 +234,7 @@ namespace ExRam.Gremlinq.Core
                 return !objectType.IsArray;
             }
 
+            [return: AllowNull]
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
@@ -244,6 +245,20 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (objectType == typeof(Unit))
                             return Unit.Default;
+
+                        if (array.Count == 0)
+                        {
+                            if (objectType.IsClass)
+                                return null;
+
+                            if (objectType.IsGenericType)
+                            {
+                                var genericTypeDefinition = objectType.GetGenericTypeDefinition();
+
+                                if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
+                                    return null;
+                            }
+                        }
 
                         throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
                     }
