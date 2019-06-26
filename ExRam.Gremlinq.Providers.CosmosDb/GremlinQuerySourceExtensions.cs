@@ -133,7 +133,9 @@ namespace ExRam.Gremlinq.Core
                         GraphsonVersion.V2, new Dictionary<Type, IGraphSONSerializer>
                         {
                             { typeof(TimeSpan), new TimeSpanSerializer() }
-                        })
+                        },
+                        default,
+                        source.Logger)
                     .AddGraphsonDeserialization(new TimespanConverter()));
         }
     }
