@@ -256,7 +256,7 @@ namespace ExRam.Gremlinq.Core
                                 var genericTypeDefinition = objectType.GetGenericTypeDefinition();
 
                                 if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
-                                    return null;
+                                    return Activator.CreateInstance(objectType);
                             }
                         }
 
