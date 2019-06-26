@@ -783,7 +783,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(MemberExpression expression, P predicate)
         {
-            if (predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel)
+            if (predicate.ContainsSingleStepLabel())
                 return Has(expression, Anonymize().Where(predicate));
 
             return Has(expression, predicate);
@@ -791,7 +791,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
         {
-            return predicate is P.SingleArgumentP singleArgumentP && singleArgumentP.Argument is StepLabel
+            return predicate.ContainsSingleStepLabel()
                 ? AddStep(new WherePredicateStep(predicate))
                 : AddStep(new IsStep(predicate));
         }

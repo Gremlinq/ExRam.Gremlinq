@@ -2594,6 +2594,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_array_intersects_stepLabel()
+        {
+            _g
+                .Inject("+4912345")
+                .Fold()
+                .As((__, t) => __
+                    .V<Company>()
+                    .Where(c => c.PhoneNumbers.Intersect(t).Any()))
+                .Should()
+                .SerializeToGroovy("g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))")
+                .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
+        }
+
+        [Fact]
         public void Where_property_array_does_not_contain_element()
         {
             _g

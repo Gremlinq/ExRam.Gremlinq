@@ -186,6 +186,9 @@ namespace System.Linq.Expressions
             if (expression.GetValue() is IEnumerable enumerable)
                 return new P.Within(enumerable.Cast<object>().ToArray());
 
+            if (expression.GetValue() is StepLabel stepLabel)
+                return new P.Within(new object[] { stepLabel });
+
             throw new ExpressionNotSupportedException(expression);
         }
 

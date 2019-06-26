@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
 using NullGuard;
 
@@ -17,6 +18,8 @@ namespace ExRam.Gremlinq.Core
 
             [AllowNull]
             public object Argument { get; }
+
+            internal override bool ContainsSingleStepLabel() => Argument is StepLabel;
         }
 
         private sealed class TrueP : P
@@ -27,6 +30,8 @@ namespace ExRam.Gremlinq.Core
             }
 
             public override bool EqualsConstant(bool value) => value;
+
+            internal override bool ContainsSingleStepLabel() => false;
         }
 
         public sealed class Eq : SingleArgumentP
@@ -115,6 +120,8 @@ namespace ExRam.Gremlinq.Core
 
             public override bool EqualsConstant(bool value) => !value && Arguments.Length == 0;
 
+            internal override bool ContainsSingleStepLabel() => Arguments.Length == 1 && Arguments[0] is StepLabel;
+
             public object[] Arguments { get; }
         }
 
@@ -132,6 +139,8 @@ namespace ExRam.Gremlinq.Core
 
             public override bool EqualsConstant(bool value) => value && Arguments.Length == 0;
 
+            internal override bool ContainsSingleStepLabel() => Arguments.Length == 1 && Arguments[0] is StepLabel;
+
             public object[] Arguments { get; }
         }
 
@@ -147,6 +156,8 @@ namespace ExRam.Gremlinq.Core
             {
                 visitor.Visit(this);
             }
+
+            internal override bool ContainsSingleStepLabel() => false;
 
             public object Lower { get; }
             public object Upper { get; }
@@ -165,6 +176,8 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
+            internal override bool ContainsSingleStepLabel() => false;
+            
             public object Lower { get; }
             public object Upper { get; }
         }
@@ -188,6 +201,8 @@ namespace ExRam.Gremlinq.Core
                     ? Operand1.EqualsConstant(true) && Operand2.EqualsConstant(true)
                     : Operand1.EqualsConstant(false) || Operand2.EqualsConstant(false);
             }
+
+            internal override bool ContainsSingleStepLabel() => Operand1.ContainsSingleStepLabel() && Operand2.ContainsSingleStepLabel();
 
             public P Operand1 { get; }
             public P Operand2 { get; }
@@ -213,6 +228,8 @@ namespace ExRam.Gremlinq.Core
                     : Operand1.EqualsConstant(false) && Operand2.EqualsConstant(false);
             }
 
+            internal override bool ContainsSingleStepLabel() => Operand1.ContainsSingleStepLabel() && Operand2.ContainsSingleStepLabel();
+            
             public P Operand1 { get; }
             public P Operand2 { get; }
         }
@@ -235,6 +252,8 @@ namespace ExRam.Gremlinq.Core
         }
 
         public virtual bool EqualsConstant(bool value) => false;
+
+        internal abstract bool ContainsSingleStepLabel();
 
         internal static readonly P True = new TrueP();
     }

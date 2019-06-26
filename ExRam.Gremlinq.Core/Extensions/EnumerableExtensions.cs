@@ -10,6 +10,11 @@ namespace System.Linq
             throw new InvalidOperationException($"{nameof(EnumerableExtensions)}.{nameof(Contains)} is not intended to be executed. It's use is only valid within expressions.");
         }
 
+        public static IEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> source, StepLabel<TSource[]> stepLabel)
+        {
+            throw new InvalidOperationException($"{nameof(EnumerableExtensions)}.{nameof(Intersect)} is not intended to be executed. It's use is only valid within expressions.");
+        }
+
         internal static IEnumerable<Step> HandleAnonymousQueries(this IEnumerable<Step> steps)
         {
             using (var e = steps.GetEnumerator())

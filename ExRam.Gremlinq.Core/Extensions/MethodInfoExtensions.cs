@@ -8,6 +8,7 @@ namespace System.Reflection
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition();
+        private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default));
@@ -25,7 +26,7 @@ namespace System.Reflection
 
         public static bool IsEnumerableIntersect(this MethodInfo methodInfo)
         {
-            return methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableIntersect;
+            return methodInfo.IsGenericMethod && (methodInfo.GetGenericMethodDefinition() == EnumerableIntersect || methodInfo.GetGenericMethodDefinition() == EnumerableIntersectsStepLabel);
         }
 
         public static bool IsStringStartsWith(this MethodInfo methodInfo)
