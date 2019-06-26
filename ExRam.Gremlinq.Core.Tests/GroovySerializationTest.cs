@@ -2738,6 +2738,70 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_is_greater_than_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age > a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
+        public void Where_property_is_greater_than_or_equal_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age >= a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
+        public void Where_property_is_lower_than_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age < a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
+        public void Where_property_is_lower_than_or_equal_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age <= a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
         public void Where_property_equals_value_of_anonymous_object()
         {
             var local = new { Value = 1 };

@@ -24,6 +24,26 @@ namespace ExRam.Gremlinq.Core
         {
             throw new NotImplementedException("Only for expressions.");
         }
+
+        public static bool operator >(TElement a, StepLabel<TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
+
+        public static bool operator <(TElement a, StepLabel<TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
+
+        public static bool operator >=(TElement a, StepLabel<TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
+
+        public static bool operator <=(TElement a, StepLabel<TElement> b)
+        {
+            throw new NotImplementedException("Only for expressions.");
+        }
     }
 
 #pragma warning disable 660, 661
