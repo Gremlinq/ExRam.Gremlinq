@@ -766,7 +766,9 @@ namespace ExRam.Gremlinq.Core
                     }
                     case MethodCallExpression methodCallExpression:
                     {
-                        if (typeof(IDictionary<string, object>).IsAssignableFrom(methodCallExpression.Object.Type) && methodCallExpression.Method.Name == "get_Item")
+                        var targetExpression = methodCallExpression.Object;
+
+                        if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
                             return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
                         }
