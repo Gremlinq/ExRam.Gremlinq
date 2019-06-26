@@ -331,10 +331,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
 
-        private ValueTask<TElement> FirstAsync(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).FirstAsync(ct);
-
-        private ValueTask<TElement> FirstOrDefaultAsync(CancellationToken ct) => ((IAsyncEnumerable<TElement>)Limit(1)).FirstOrDefaultAsync(ct);
-
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
             var mappedTraversal = mapping(Anonymize());

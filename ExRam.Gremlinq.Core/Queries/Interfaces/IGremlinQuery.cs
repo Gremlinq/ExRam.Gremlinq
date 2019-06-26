@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -22,11 +20,5 @@ namespace ExRam.Gremlinq.Core
     public partial interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
-
-        ValueTask<TElement> FirstAsync();
-        ValueTask<TElement> FirstAsync(CancellationToken ct);
-
-        ValueTask<TElement> FirstOrDefaultAsync();
-        ValueTask<TElement> FirstOrDefaultAsync(CancellationToken ct);
     }
 }

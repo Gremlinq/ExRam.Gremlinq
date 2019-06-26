@@ -71,14 +71,6 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<string> IGremlinQuery.Explain() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(ExplainStep.Instance);
 
-        ValueTask<TElement> IGremlinQuery<TElement>.FirstAsync() => FirstAsync(CancellationToken.None);
-
-        ValueTask<TElement> IGremlinQuery<TElement>.FirstAsync(CancellationToken ct) => FirstAsync(ct);
-
-        ValueTask<TElement> IGremlinQuery<TElement>.FirstOrDefaultAsync() => FirstOrDefaultAsync(CancellationToken.None);
-
-        ValueTask<TElement> IGremlinQuery<TElement>.FirstOrDefaultAsync(CancellationToken ct) => FirstOrDefaultAsync(ct);
-
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQuery<TElement>.From<TNewOutVertex>(StepLabel<TNewOutVertex> stepLabel) => AddStep<TElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new FromLabelStep(stepLabel));
 
         IEdgeGremlinQuery<TElement, TTargetVertex, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => AddStep<TElement, TTargetVertex, TOutVertex, Unit, Unit, Unit>(new FromLabelStep(stepLabel));
