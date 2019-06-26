@@ -61,5 +61,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .SerializeToGroovy("g.V().none()")
                 .WithoutParameters();
         }
+
+        [Fact]
+        public void Skip_remains_skip()
+        {
+            _g
+                .V()
+                .Skip(10)
+                .Should()
+                .SerializeToGroovy("g.V().skip(_a)")
+                .WithParameters(10);
+        }
     }
 }

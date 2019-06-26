@@ -48,5 +48,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy("g.V().not(__.identity())")
                 .WithoutParameters();
         }
+
+        [Fact]
+        public void Skip_translates_to_range()
+        {
+            _g
+                .V()
+                .Skip(10)
+                .Should()
+                .SerializeToGroovy("g.V().range(_a, _b)")
+                .WithParameters(10, -1);
+        }
     }
 }

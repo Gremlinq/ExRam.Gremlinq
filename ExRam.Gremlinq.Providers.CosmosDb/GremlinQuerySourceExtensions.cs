@@ -54,11 +54,7 @@ namespace ExRam.Gremlinq.Core
 
             public override void Visit(SkipStep step)
             {
-                // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                if (step.Count > int.MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Skip' outside the range of a 32-bit-integer.");
-
-                base.Visit(step);
+                Visit(new RangeStep(step.Count, -1));
             }
 
             public override void Visit(LimitStep step)
