@@ -549,6 +549,61 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Choose_only_default_case()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Default(__ => __.Constant(1)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(none, __.constant(_a))")
+                .WithParameters(1);
+        }
+
+        [Fact]
+        public void Choose_one_case()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Case(3, __ => __.Constant(1)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b))")
+                .WithParameters(3, 1);
+        }
+
+        [Fact]
+        public void Choose_two_cases()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Case(3, __ => __.Constant(1))
+                    .Case(4, __ => __.Constant(2)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d))")
+                .WithParameters(3, 1, 4, 2);
+        }
+
+        [Fact]
+        public void Choose_two_cases_default()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Case(3, __ => __.Constant(1))
+                    .Case(4, __ => __.Constant(2))
+                    .Default(__ => __.Constant(3)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d)).option(none, __.constant(_a))")
+                .WithParameters(3, 1, 4, 2);
+        }
+
+        [Fact]
         public void Coalesce()
         {
             _g

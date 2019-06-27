@@ -10,6 +10,8 @@
         void Visit(IGremlinQuery query);
 
         void Visit(HasNotStep step);
+        void Visit(ChooseOptionTraversalStep step);
+        void Visit(OptionTraversalStep step);
         void Visit(HasStep step);
         void Visit(HasValueStep step);
         void Visit(AddEStep step);

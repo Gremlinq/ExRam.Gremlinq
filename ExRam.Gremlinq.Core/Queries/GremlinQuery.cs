@@ -7,7 +7,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using NullGuard;
@@ -301,6 +300,12 @@ namespace ExRam.Gremlinq.Core
                     (query, falseQuery) => query.MergeStepLabelMappings(trueQuery, falseQuery),
                     (query, _) => query)
                 .ChangeQueryType<TTargetQuery>();
+        }
+
+        private TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, ITerminalChooseBuilder<TTargetQuery>> continuation)
+            where TTargetQuery : IGremlinQuery
+        {
+            return continuation(ChooseBuilder.Create(Anonymize(), this)).TargetQuery;
         }
 
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)

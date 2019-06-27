@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
@@ -28,6 +29,16 @@ namespace ExRam.Gremlinq.Core.Serialization
         public virtual void Visit(HasNotStep step)
         {
             Method("hasNot", step.Key);
+        }
+
+        public void Visit(ChooseOptionTraversalStep step)
+        {
+            Method("choose", step.Traversal);
+        }
+
+        public void Visit(OptionTraversalStep step)
+        {
+            Method("option", step.Guard, step.OptionTraversal);
         }
 
         public virtual void Visit(HasStep step)
@@ -822,6 +833,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 // ReSharper disable once TailRecursiveCall
                 return Cache(stepLabelMapping);
             }
+
+            if (constant is IOptional optional)
+                return optional.MatchUntyped(Cache, () => "none");
 
             if (_variables.TryGetValue(constant, out var key))
                 return key;

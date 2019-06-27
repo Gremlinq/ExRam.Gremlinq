@@ -38,6 +38,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IGremlinQuery, IGremlinQuery> traversalPredicate, Func<IGremlinQuery, TTargetQuery> trueChoice, Func<IGremlinQuery, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IGremlinQuery, IGremlinQuery> traversalPredicate, Func<IGremlinQuery, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IGremlinQuery>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IGremlinQuery, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IGremlinQuery Dedup();
@@ -107,6 +109,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IElementGremlinQuery, IGremlinQuery> traversalPredicate, Func<IElementGremlinQuery, TTargetQuery> trueChoice, Func<IElementGremlinQuery, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IElementGremlinQuery, IGremlinQuery> traversalPredicate, Func<IElementGremlinQuery, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IElementGremlinQuery>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IElementGremlinQuery, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -178,6 +182,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IVertexGremlinQuery, IGremlinQuery> traversalPredicate, Func<IVertexGremlinQuery, TTargetQuery> trueChoice, Func<IVertexGremlinQuery, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IVertexGremlinQuery, IGremlinQuery> traversalPredicate, Func<IVertexGremlinQuery, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IVertexGremlinQuery>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IVertexGremlinQuery Dedup();
@@ -247,6 +253,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IEdgeGremlinQuery>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -318,6 +326,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IGremlinQuery<TElement>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IGremlinQuery<TElement>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IGremlinQuery<TElement> Dedup();
@@ -387,6 +397,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IValueGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IValueGremlinQuery<TElement>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IValueGremlinQuery<TElement>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -458,6 +470,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversalPredicate, Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> trueChoice, Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversalPredicate, Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IArrayGremlinQuery<TArray, TQuery>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IArrayGremlinQuery<TArray, TQuery> Dedup();
@@ -527,6 +541,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IElementGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IElementGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IElementGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IElementGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IElementGremlinQuery<TElement>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IElementGremlinQuery<TElement>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -598,6 +614,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversalPredicate, Func<IVertexGremlinQuery<TVertex>, TTargetQuery> trueChoice, Func<IVertexGremlinQuery<TVertex>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversalPredicate, Func<IVertexGremlinQuery<TVertex>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IVertexGremlinQuery<TVertex>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IVertexGremlinQuery<TVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IVertexGremlinQuery<TVertex> Dedup();
@@ -667,6 +685,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IEdgeGremlinQuery<TEdge>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -738,6 +758,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Dedup();
@@ -807,6 +829,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> trueChoice, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversalPredicate, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -878,6 +902,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversalPredicate, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> trueChoice, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversalPredicate, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IInEdgeGremlinQuery<TEdge, TInVertex>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IInEdgeGremlinQuery<TEdge, TInVertex> Dedup();
@@ -947,6 +973,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversalPredicate, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> trueChoice, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversalPredicate, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IOutEdgeGremlinQuery<TEdge, TOutVertex>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -1018,6 +1046,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversalPredicate, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversalPredicate, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IVertexPropertyGremlinQuery<TProperty, TValue>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TProperty, TValue> Dedup();
@@ -1088,6 +1118,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversalPredicate, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversalPredicate, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+
         TTargetQuery Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Dedup();
@@ -1157,6 +1189,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Choose<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversalPredicate, Func<IPropertyGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
+
+        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<IPropertyGremlinQuery<TElement>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<IPropertyGremlinQuery<TElement>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
