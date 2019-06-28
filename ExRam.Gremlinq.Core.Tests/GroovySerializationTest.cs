@@ -3120,6 +3120,54 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_ends_with_constant_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith("7890"))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith(_c))")
+                .WithParameters("Country", "CountryCallingCode", "7890");
+        }
+
+        [Fact]
+        public void Where_property_ends_with_empty_string_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_ends_with_constant_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.EndingWith))
+                .V<Country>()
+                .Invoking(_ => _
+                    .Where(c => c.CountryCallingCode.EndsWith("7890")))
+                .Should()
+                .Throw<NotSupportedException>();
+        }
+
+        [Fact]
+        public void Where_property_ends_with_empty_string_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.EndingWith))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
         public void Where_property_traversal()
         {
             _g

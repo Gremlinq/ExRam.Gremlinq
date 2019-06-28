@@ -406,7 +406,13 @@ namespace ExRam.Gremlinq.Core.Serialization
         public void Visit(TextP.StartingWith p)
         {
             NoIdentifier();
-            Method("startingWith", p.Prefix);
+            Method("startingWith", p.Value);
+        }
+
+        public void Visit(TextP.EndingWith p)
+        {
+            NoIdentifier();
+            Method("endingWith", p.Value);
         }
 
         public virtual void Visit(Lambda lambda)

@@ -113,6 +113,7 @@
         void Visit(P.OrP p);
 
         void Visit(TextP.StartingWith p);
+        void Visit(TextP.EndingWith p);
 
         void Visit(Lambda lambda);
         void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>;

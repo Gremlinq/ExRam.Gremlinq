@@ -130,9 +130,9 @@ namespace System.Linq.Expressions
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
                                 return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
                         }
-                        else if (methodInfo.IsStringStartsWith())
+                        else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith())
                         {
-                            if (methodCallExpression.Arguments[0] is MemberExpression argumentExpression)
+                            if (methodInfo.IsStringStartsWith() && methodCallExpression.Arguments[0] is MemberExpression argumentExpression)
                             {
                                 if (methodCallExpression.Object.GetValue() is string stringValue)
                                 {
@@ -147,14 +147,16 @@ namespace System.Linq.Expressions
                             }
                             else if (methodCallExpression.Object is MemberExpression memberExpression)
                             {
-                                if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
+                                if (methodCallExpression.Arguments[0].GetValue() is string str)
                                 {
                                     return new TerminalGremlinExpression(
                                         parameter,
                                         memberExpression,
-                                        lowerBound.Length == 0
+                                        str.Length == 0
                                             ? P.True
-                                            : new TextP.StartingWith(lowerBound));
+                                            : methodInfo.IsStringStartsWith()
+                                                ? (TextP)new TextP.StartingWith(str)
+                                                : new TextP.EndingWith(str));
                                 }
                             }
                         }

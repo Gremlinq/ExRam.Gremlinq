@@ -13,6 +13,7 @@ namespace System.Reflection
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExpressions.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default));
+        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         public static bool IsEnumerableAny(this MethodInfo methodInfo)
@@ -33,6 +34,11 @@ namespace System.Reflection
         public static bool IsStringStartsWith(this MethodInfo methodInfo)
         {
             return methodInfo == StringStartsWith;
+        }
+
+        public static bool IsStringEndsWith(this MethodInfo methodInfo)
+        {
+            return methodInfo == StringEndsWith;
         }
 
         public static bool IsStepLabelContains(this MethodInfo methodInfo)

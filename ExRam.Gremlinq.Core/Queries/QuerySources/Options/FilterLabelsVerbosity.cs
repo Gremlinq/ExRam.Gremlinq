@@ -4,7 +4,7 @@
     {
         // Includes all appropriate labels in a map-step, e.g. ".out('l1', ...)", even if the set
         // of labels equals all possible labels, enabling the much shorter syntax ".out()".
-        // This is the default and pessimistic // option since in an actual database, there might
+        // This is the default and pessimistic option since in an actual database, there might
         // exist elements with labels unknown to Gremlinq that would otherwise be incorrectly included
         // in the query results.
         Maximum = 0,
