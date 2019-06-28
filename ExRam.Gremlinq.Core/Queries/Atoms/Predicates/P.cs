@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Core
 
         internal abstract bool ContainsSingleStepLabel();
 
-        internal virtual P WorkaroundServerCapabilities(ServerCapabilities capabilities)
+        internal virtual P WorkaroundLimitations(Options options)
         {
             return this;
         }

@@ -2,17 +2,29 @@
 {
     public struct Options
     {
-        public Options(FilterLabelsVerbosity filterLabelsVerbosity)
+        public Options(
+            FilterLabelsVerbosity filterLabelsVerbosity,
+            DisabledTextPredicates disabledTextPredicates)
         {
             FilterLabelsVerbosity = filterLabelsVerbosity;
+            DisabledTextPredicates = disabledTextPredicates;
         }
 
         public Options SetFilterLabelsVerbosity(FilterLabelsVerbosity value)
         {
             return new Options(
-                filterLabelsVerbosity: value);
+                filterLabelsVerbosity: value,
+                disabledTextPredicates: DisabledTextPredicates);
+        }
+
+        public Options SetDisabledTextPredicates(DisabledTextPredicates value)
+        {
+            return new Options(
+                filterLabelsVerbosity: FilterLabelsVerbosity,
+                disabledTextPredicates: value);
         }
 
         public FilterLabelsVerbosity FilterLabelsVerbosity { get; }
+        public DisabledTextPredicates DisabledTextPredicates { get; }
     }
 }

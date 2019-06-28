@@ -21,10 +21,10 @@ namespace ExRam.Gremlinq.Core
                 return false;
             }
 
-            internal override P WorkaroundServerCapabilities(ServerCapabilities capabilities)
+            internal override P WorkaroundLimitations(Options options)
             {
-                if (capabilities.SupportsTextPredicates)
-                    return base.WorkaroundServerCapabilities(capabilities);
+                if ((options.DisabledTextPredicates & DisabledTextPredicates.StartingWith) == 0)
+                    return base.WorkaroundLimitations(options);
 
                 var upperBound = Prefix;
 

@@ -3075,8 +3075,6 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_constant_with_TextP_support()
         {
             _g
-                .ConfigureServerCapabilities(c => c
-                    .SetSupportsTextPredicates(true))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
@@ -3088,8 +3086,6 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_empty_string_with_TextP_support()
         {
             _g
-                .ConfigureServerCapabilities(c => c
-                    .SetSupportsTextPredicates(true))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
@@ -3101,6 +3097,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_constant_without_TextP_support()
         {
             _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
@@ -3112,6 +3110,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_empty_string_without_TextP_support()
         {
             _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()

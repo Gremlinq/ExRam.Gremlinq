@@ -737,7 +737,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (terminal.Predicate is TextP textP)
                 {
-                    var newPredicate = textP.WorkaroundServerCapabilities(Environment.ServerCapabilities);
+                    var newPredicate = textP.WorkaroundLimitations(Environment.Options);
                     if (newPredicate != terminal.Predicate)
                         terminal = new TerminalGremlinExpression(terminal.Parameter, terminal.Key, newPredicate);
                 }
