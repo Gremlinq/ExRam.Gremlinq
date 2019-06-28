@@ -735,12 +735,8 @@ namespace ExRam.Gremlinq.Core
 
             if (gremlinExpression is TerminalGremlinExpression terminal)
             {
-                if (terminal.Predicate is TextP textP)
-                {
-                    var newPredicate = textP.WorkaroundLimitations(Environment.Options);
-                    if (newPredicate != terminal.Predicate)
-                        terminal = new TerminalGremlinExpression(terminal.Parameter, terminal.Key, newPredicate);
-                }
+                var effectivePredicate = terminal.Predicate
+                    .WorkaroundLimitations(Environment.Options);
 
                 switch (terminal.Key)
                 {
@@ -752,13 +748,13 @@ namespace ExRam.Gremlinq.Core
                         {
                             // x => x.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
-                                return AddStep(new HasValueStep(terminal.Predicate));
+                                return AddStep(new HasValueStep(effectivePredicate));
 
                             if (leftMemberExpression.IsPropertyKey())
-                                return Where(__ => __.Key().Where(terminal.Predicate));
+                                return Where(__ => __.Key().Where(effectivePredicate));
 
                             if (leftMemberExpression.IsVertexPropertyLabel())
-                                return Where(__ => __.Label().Where(terminal.Predicate));
+                                return Where(__ => __.Label().Where(effectivePredicate));
                         }
                         else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression) 
                         {
@@ -770,12 +766,12 @@ namespace ExRam.Gremlinq.Core
                             break;
 
                         // x => x.Name == P.xy(...)
-                        return Where(leftMemberExpression, terminal.Predicate);
+                        return Where(leftMemberExpression, effectivePredicate);
                     }
                     case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
                     {
                         // x => x == P.xy(...)
-                        return Where(terminal.Predicate);
+                        return Where(effectivePredicate);
                     }
                     case MethodCallExpression methodCallExpression:
                     {
@@ -783,7 +779,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), terminal.Predicate));
+                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), effectivePredicate));
                         }
 
                         break;
