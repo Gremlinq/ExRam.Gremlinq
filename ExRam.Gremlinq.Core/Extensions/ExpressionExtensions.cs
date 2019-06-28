@@ -122,7 +122,7 @@ namespace System.Linq.Expressions
                             else
                                 return new TerminalGremlinExpression(parameter, methodCallExpression.Arguments[0], new P.Neq(null));
                         }
-                        else if (methodInfo.IsEnumerableContains())
+                        else if (methodInfo.IsEnumerableContains() || methodInfo.IsStepLabelContains())
                         {
                             if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == parameter)
                                 return new TerminalGremlinExpression(parameter, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
@@ -167,11 +167,6 @@ namespace System.Linq.Expressions
                                     return new TerminalGremlinExpression(parameter, memberExpression, new P.Between(lowerBound, upperBound));
                                 }
                             }
-                        }
-                        else if (methodInfo.IsStepLabelContains())
-                        {
-                            if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
                         }
 
                         break;
