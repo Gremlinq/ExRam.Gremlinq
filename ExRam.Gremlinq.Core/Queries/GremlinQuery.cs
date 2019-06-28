@@ -735,6 +735,13 @@ namespace ExRam.Gremlinq.Core
 
             if (gremlinExpression is TerminalGremlinExpression terminal)
             {
+                if (terminal.Predicate is TextP textP)
+                {
+                    var newPredicate = textP.WorkaroundServerCapabilities(Environment.ServerCapabilities);
+                    if (newPredicate != terminal.Predicate)
+                        terminal = new TerminalGremlinExpression(terminal.Parameter, terminal.Key, newPredicate);
+                }
+
                 switch (terminal.Key)
                 {
                     case MemberExpression leftMemberExpression:

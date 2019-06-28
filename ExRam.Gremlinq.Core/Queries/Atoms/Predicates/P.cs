@@ -234,7 +234,7 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        private P()
+        protected P()
         {
         }
 
@@ -253,6 +253,11 @@ namespace ExRam.Gremlinq.Core
         public virtual bool EqualsConstant(bool value) => false;
 
         internal abstract bool ContainsSingleStepLabel();
+
+        internal virtual P WorkaroundServerCapabilities(ServerCapabilities capabilities)
+        {
+            return this;
+        }
 
         internal static readonly P True = new TrueP();
     }

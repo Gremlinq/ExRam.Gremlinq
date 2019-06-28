@@ -403,6 +403,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("or", p.Operand2);
         }
 
+        public void Visit(TextP.StartingWith p)
+        {
+            NoIdentifier();
+            Method("startingWith", p.Prefix);
+        }
+
         public virtual void Visit(Lambda lambda)
         {
             Lambda(lambda.LambdaString);

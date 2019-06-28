@@ -3072,7 +3072,33 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_starts_with_constant()
+        public void Where_property_starts_with_constant_with_TextP_support()
+        {
+            _g
+                .ConfigureServerCapabilities(c => c
+                    .SetSupportsTextPredicates(true))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith("+49123"))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, startingWith(_c))")
+                .WithParameters("Country", "CountryCallingCode", "+49123");
+        }
+
+        [Fact]
+        public void Where_property_starts_with_empty_string_with_TextP_support()
+        {
+            _g
+                .ConfigureServerCapabilities(c => c
+                    .SetSupportsTextPredicates(true))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.StartsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_starts_with_constant_without_TextP_support()
         {
             _g
                 .V<Country>()
@@ -3083,7 +3109,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_starts_with_empty_string()
+        public void Where_property_starts_with_empty_string_without_TextP_support()
         {
             _g
                 .V<Country>()

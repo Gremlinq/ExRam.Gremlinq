@@ -149,22 +149,12 @@ namespace System.Linq.Expressions
                             {
                                 if (methodCallExpression.Arguments[0].GetValue() is string lowerBound)
                                 {
-                                    string upperBound;
-
-                                    if (lowerBound.Length == 0)
-                                        return new TerminalGremlinExpression(parameter, memberExpression, P.True);
-
-                                    if (lowerBound[lowerBound.Length - 1] == char.MaxValue)
-                                        upperBound = lowerBound + char.MinValue;
-                                    else
-                                    {
-                                        var upperBoundChars = lowerBound.ToCharArray();
-
-                                        upperBoundChars[upperBoundChars.Length - 1]++;
-                                        upperBound = new string(upperBoundChars);
-                                    }
-
-                                    return new TerminalGremlinExpression(parameter, memberExpression, new P.Between(lowerBound, upperBound));
+                                    return new TerminalGremlinExpression(
+                                        parameter,
+                                        memberExpression,
+                                        lowerBound.Length == 0
+                                            ? P.True
+                                            : new TextP.StartingWith(lowerBound));
                                 }
                             }
                         }
