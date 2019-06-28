@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
@@ -42,7 +43,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (propertyName.StartsWith("<"))
                         {
-                            var closing = propertyName.IndexOf(">");
+                            var closing = propertyName.IndexOf(">", StringComparison.OrdinalIgnoreCase);
 
                             if (closing > -1)
                                 return propertyName.Substring(closing + 1);

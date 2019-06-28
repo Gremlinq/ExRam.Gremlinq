@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Threading;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 using Microsoft.Extensions.Logging;

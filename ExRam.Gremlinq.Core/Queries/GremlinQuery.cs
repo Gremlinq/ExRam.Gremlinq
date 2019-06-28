@@ -210,7 +210,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Environment.Model, vertex))
-                .AddOrUpdate(vertex, true,true);
+                .AddOrUpdate(vertex, true, true);
         }
 
         private TTargetQuery Aggregate<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
@@ -271,6 +271,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQuery
         {
             var gremlinExpression = predicate.ToGremlinExpression();
+
             if (gremlinExpression is TerminalGremlinExpression terminal)
             {
                 if (terminal.Key == terminal.Parameter)

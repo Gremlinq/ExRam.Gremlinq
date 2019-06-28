@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
 using NullGuard;
 
