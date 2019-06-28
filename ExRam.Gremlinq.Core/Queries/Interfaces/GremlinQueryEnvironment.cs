@@ -10,6 +10,7 @@ namespace ExRam.Gremlinq.Core
             public Options Options { get; } = default;
             public IGraphModel Model { get; } = GraphModel.Empty;
             public ILogger Logger { get; } = NullLogger.Instance;
+            public ServerCapabilities ServerCapabilities { get; } = default;
             public IGremlinQueryExecutionPipeline Pipeline { get; } = GremlinQueryExecutionPipeline.Invalid;
         }
 

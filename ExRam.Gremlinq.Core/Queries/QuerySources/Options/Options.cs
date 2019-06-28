@@ -7,11 +7,12 @@
             FilterLabelsVerbosity = filterLabelsVerbosity;
         }
 
-        public FilterLabelsVerbosity FilterLabelsVerbosity { get; }
-
         public Options SetFilterLabelsVerbosity(FilterLabelsVerbosity value)
         {
-            return new Options(value);
+            return new Options(
+                filterLabelsVerbosity: value);
         }
+
+        public FilterLabelsVerbosity FilterLabelsVerbosity { get; }
     }
 }

@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
         IConfigurableGremlinQuerySource RemoveStrategies(params string[] strategies);
 
         IConfigurableGremlinQuerySource ConfigureOptions(Func<IGremlinQueryEnvironment, Options, Options> optionsTransformation);
+        IConfigurableGremlinQuerySource ConfigureServerCapabilities(Func<IGremlinQueryEnvironment, ServerCapabilities, ServerCapabilities> capabilitiesTransformation);
         IConfigurableGremlinQuerySource ConfigureModel(Func<IGremlinQueryEnvironment, IGraphModel, IGraphModel> modelTransformation);
         IConfigurableGremlinQuerySource ConfigureExecutionPipeline(Func<IGremlinQueryEnvironment, IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation);
 

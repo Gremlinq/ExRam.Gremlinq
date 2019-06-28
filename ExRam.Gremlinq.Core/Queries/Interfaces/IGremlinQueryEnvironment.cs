@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core
         ILogger Logger { get; }
         Options Options { get; }
         IGraphModel Model { get; }
+        ServerCapabilities ServerCapabilities { get; }
         IGremlinQueryExecutionPipeline Pipeline { get; }
     }
 }

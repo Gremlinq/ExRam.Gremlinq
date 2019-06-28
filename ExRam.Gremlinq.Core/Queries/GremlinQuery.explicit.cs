@@ -106,6 +106,8 @@ namespace ExRam.Gremlinq.Core
 
         Options IGremlinQueryEnvironment.Options => Environment.Options;
 
+        ServerCapabilities IGremlinQueryEnvironment.ServerCapabilities => Environment.ServerCapabilities;
+
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
         IVertexGremlinQuery<TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.InV() => InV<TInVertex>();
