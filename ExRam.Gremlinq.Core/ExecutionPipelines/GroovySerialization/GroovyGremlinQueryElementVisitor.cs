@@ -415,6 +415,12 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("endingWith", p.Value);
         }
 
+        public void Visit(TextP.Containing p)
+        {
+            NoIdentifier();
+            Method("containing", p.Value);
+        }
+
         public virtual void Visit(Lambda lambda)
         {
             Lambda(lambda.LambdaString);

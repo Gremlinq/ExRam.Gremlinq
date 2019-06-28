@@ -3151,7 +3151,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Invoking(_ => _
                     .Where(c => c.CountryCallingCode.EndsWith("7890")))
                 .Should()
-                .Throw<NotSupportedException>();
+                .Throw<ExpressionNotSupportedException>();
         }
 
         [Fact]
@@ -3162,6 +3162,54 @@ namespace ExRam.Gremlinq.Core.Tests
                     .SetDisabledTextPredicates(DisabledTextPredicates.EndingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_contains_constant_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains("456"))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing(_c))")
+                .WithParameters("Country", "CountryCallingCode", "456");
+        }
+
+        [Fact]
+        public void Where_property_contains_empty_string_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_contains_constant_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.Containing))
+                .V<Country>()
+                .Invoking(_ =>
+                    _.Where(c => c.CountryCallingCode.Contains("456")))
+                .Should()
+                .Throw<ExpressionNotSupportedException>();
+        }
+
+        [Fact]
+        public void Where_property_contains_empty_string_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains(""))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");

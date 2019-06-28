@@ -130,7 +130,7 @@ namespace System.Linq.Expressions
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
                                 return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
                         }
-                        else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith())
+                        else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
                             if (methodInfo.IsStringStartsWith() && methodCallExpression.Arguments[0] is MemberExpression argumentExpression)
                             {
@@ -155,8 +155,10 @@ namespace System.Linq.Expressions
                                         str.Length == 0
                                             ? P.True
                                             : methodInfo.IsStringStartsWith()
-                                                ? (TextP)new TextP.StartingWith(str)
-                                                : new TextP.EndingWith(str));
+                                                ? new TextP.StartingWith(str)
+                                                : methodInfo.IsStringContains()
+                                                    ? (TextP)new TextP.Containing(str)
+                                                    : new TextP.EndingWith(str));
                                 }
                             }
                         }

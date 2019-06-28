@@ -56,6 +56,26 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public sealed class Containing : TextP
+        {
+            public Containing(string value) : base(value)
+            {
+            }
+
+            public override void Accept(IGremlinQueryElementVisitor visitor)
+            {
+                visitor.Visit(this);
+            }
+
+            internal override P WorkaroundLimitations(Options options)
+            {
+                if ((options.DisabledTextPredicates & DisabledTextPredicates.Containing) != 0)
+                    throw new ExpressionNotSupportedException();
+
+                return base.WorkaroundLimitations(options);
+            }
+        }
+
         protected TextP(string value)
         {
             Value = value;
