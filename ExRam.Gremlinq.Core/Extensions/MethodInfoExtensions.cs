@@ -11,6 +11,7 @@ namespace System.Reflection
         private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition();
+        private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExpressions.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
@@ -32,6 +33,11 @@ namespace System.Reflection
         public static bool IsStringStartsWith(this MethodInfo methodInfo)
         {
             return methodInfo == StringStartsWith;
+        }
+
+        public static bool IsStepLabelContains(this MethodInfo methodInfo)
+        {
+            return methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == StepLabelContainsElement;
         }
 
         private static MethodInfo Get(Expression<Action> expression)

@@ -1938,6 +1938,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void StepLabel_of_array_contains_element()
+        {
+            _g
+                .Inject(1, 2, 3)
+                .Fold()
+                .As((_, ints) => _
+                    .V<Person>()
+                    .Where(person => ints.Contains(person.Age)))
+                .Should()
+                .SerializeToGroovy("g.inject(_a, _b, _c).fold().as(_d).V().hasLabel(_e).has(_f, __.where(within(_d)))")
+                .WithParameters(1, 2, 3, "l1", "Person", "Age");
+        }
+
+        [Fact]
         public void SumGlobal()
         {
             _g

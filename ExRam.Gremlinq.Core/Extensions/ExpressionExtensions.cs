@@ -168,6 +168,11 @@ namespace System.Linq.Expressions
                                 }
                             }
                         }
+                        else if (methodInfo.IsStepLabelContains())
+                        {
+                            if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
+                                return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
+                        }
 
                         break;
                     }
