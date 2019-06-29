@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
@@ -24,6 +25,11 @@ namespace ExRam.Gremlinq.Core
         public GremlinqOptions SetValue<TValue>(GremlinqOption<TValue> option, TValue value)
         {
             return new GremlinqOptions(_options ?? ImmutableDictionary<GremlinqOption, object>.Empty.SetItem(option, value));
+        }
+
+        public GremlinqOptions ConfigureValue<TValue>(GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
+        {
+            return SetValue(option, configuration(GetValue(option)));
         }
     }
 }
