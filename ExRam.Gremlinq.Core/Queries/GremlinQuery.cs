@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
             return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
                 graphName != null
                     ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
-                    : ImmutableList<Step>.Empty,
+                    : ImmutableList<Step>.Empty.Add(IdentifierStep.__),
                 ImmutableDictionary<StepLabel, string>.Empty,
                 environment);
         }
@@ -233,7 +233,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty, ImmutableDictionary<StepLabel, string>.Empty, Environment);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty.Add(IdentifierStep.__), ImmutableDictionary<StepLabel, string>.Empty, Environment);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()

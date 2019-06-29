@@ -19,18 +19,21 @@ namespace System.Linq
         {
             using (var e = steps.GetEnumerator())
             {
-                var hasNext = e.MoveNext();
-
-                if (!hasNext || !(e.Current is IdentifierStep))
-                    yield return IdentifierStep.__;
-
-                if (!hasNext)
-                    yield return IdentityStep.Instance;
-                else
+                if (e.MoveNext())
+                {
                     yield return e.Current;
 
-                while (e.MoveNext())
-                    yield return e.Current;
+                    if (!e.MoveNext())
+                    {
+                        yield return IdentityStep.Instance;
+                        yield break;
+                    }
+
+                    do
+                    {
+                        yield return e.Current;
+                    } while (e.MoveNext());
+                }
             }
         }
 

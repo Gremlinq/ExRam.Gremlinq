@@ -23,17 +23,17 @@ namespace ExRam.Gremlinq.Core
             var vertexCriterionTraversal = _vertexCriterion(anonymous.AsAdmin().ChangeQueryType<IVertexGremlinQuery<IVertex>>());
             var edgeCriterionTraversal = _edgeCriterion(anonymous.AsAdmin().ChangeQueryType<IEdgeGremlinQuery<IEdge>>());
 
-            if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0 || edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
+            if (vertexCriterionTraversal.AsAdmin().Steps.Count > 1 || edgeCriterionTraversal.AsAdmin().Steps.Count > 1)
             {
                 var strategy = GremlinQuery.Create<Unit>("SubgraphStrategy", admin)
                     .AddStep(BuildStep.Instance);
 
-                if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0)
+                if (vertexCriterionTraversal.AsAdmin().Steps.Count > 1)
                 {
                     strategy = strategy.AddStep(new VerticesStep(vertexCriterionTraversal));
                 }
 
-                if (edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
+                if (edgeCriterionTraversal.AsAdmin().Steps.Count > 1)
                 {
                     strategy = strategy.AddStep(new EdgesStep(edgeCriterionTraversal));
                 }

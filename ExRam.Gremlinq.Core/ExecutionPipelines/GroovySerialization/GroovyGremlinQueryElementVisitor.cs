@@ -906,7 +906,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             var steps = query.AsAdmin().Steps;
 
-            if (steps.Count == 1 && steps[0] is TStep otherStep)
+            if (steps.Count == 2 && steps[1] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {
