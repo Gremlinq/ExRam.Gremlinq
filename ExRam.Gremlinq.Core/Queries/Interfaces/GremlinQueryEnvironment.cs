@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class DefaultGremlinQueryEnvironmentImpl : IGremlinQueryEnvironment
         {
-            public Options Options { get; } = default;
+            public GremlinqOptions Options { get; } = default;
             public IGraphModel Model { get; } = GraphModel.Empty;
             public ILogger Logger { get; } = NullLogger.Instance;
             public IGremlinQueryExecutionPipeline Pipeline { get; } = GremlinQueryExecutionPipeline.Invalid;

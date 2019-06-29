@@ -492,7 +492,7 @@ namespace ExRam.Gremlinq.Core
                 return Cast<TTarget>();
 
             return model
-                .TryGetFilterLabels(typeof(TTarget), Environment.Options.FilterLabelsVerbosity)
+                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
                 .Match(
                     labels => labels.Length > 0
                         ? AddStep<TTarget>(new HasLabelStep(labels))

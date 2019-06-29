@@ -818,7 +818,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
                 .V()
                 .In<object>()
                 .Should()
@@ -838,7 +838,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(x => x
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
                 .V()
                 .InE<object>()
                 .Should()
@@ -1241,7 +1241,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
                 .V()
                 .Out<object>()
                 .Should()
@@ -1261,7 +1261,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             _g
                 .ConfigureOptions(o => o
-                    .SetFilterLabelsVerbosity(FilterLabelsVerbosity.Minimum))
+                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
                 .V()
                 .OutE<object>()
                 .Should()
@@ -3098,7 +3098,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
@@ -3111,7 +3111,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
@@ -3146,7 +3146,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.EndingWith))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
                 .V<Country>()
                 .Invoking(_ => _
                     .Where(c => c.CountryCallingCode.EndsWith("7890")))
@@ -3159,7 +3159,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.EndingWith))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
                 .Should()
@@ -3194,7 +3194,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.Containing))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing))
                 .V<Country>()
                 .Invoking(_ =>
                     _.Where(c => c.CountryCallingCode.Contains("456")))
@@ -3207,7 +3207,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(c => c
-                    .SetDisabledTextPredicates(DisabledTextPredicates.StartingWith))
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
                 .Should()

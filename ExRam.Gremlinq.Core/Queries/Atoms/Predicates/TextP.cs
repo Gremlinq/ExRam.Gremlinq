@@ -15,10 +15,10 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
-            internal override P WorkaroundLimitations(Options options)
+            internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
             {
-                if ((options.DisabledTextPredicates & DisabledTextPredicates.StartingWith) == 0)
-                    return base.WorkaroundLimitations(options);
+                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.StartingWith) == 0)
+                    return base.WorkaroundLimitations(gremlinqOptions);
 
                 var upperBound = Value;
 
@@ -47,12 +47,12 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
-            internal override P WorkaroundLimitations(Options options)
+            internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
             {
-                if ((options.DisabledTextPredicates & DisabledTextPredicates.EndingWith) != 0)
+                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.EndingWith) != 0)
                     throw new ExpressionNotSupportedException();
 
-                return base.WorkaroundLimitations(options);
+                return base.WorkaroundLimitations(gremlinqOptions);
             }
         }
 
@@ -67,12 +67,12 @@ namespace ExRam.Gremlinq.Core
                 visitor.Visit(this);
             }
 
-            internal override P WorkaroundLimitations(Options options)
+            internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
             {
-                if ((options.DisabledTextPredicates & DisabledTextPredicates.Containing) != 0)
+                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.Containing) != 0)
                     throw new ExpressionNotSupportedException();
 
-                return base.WorkaroundLimitations(options);
+                return base.WorkaroundLimitations(gremlinqOptions);
             }
         }
 
