@@ -8,6 +8,8 @@ namespace ExRam.Gremlinq.Core.Serialization
 {
     public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<GroovySerializedGremlinQuery>
     {
+        public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
+
         private enum State
         {
             Idle,
@@ -641,7 +643,11 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _state = State.Idle;
                 _currentAdmin = query.AsAdmin();
 
-                foreach (var step in _currentAdmin.Steps.HandleAnonymousQueries().WorkaroundTINKERPOP_2112())
+                var steps = _currentAdmin.Steps.HandleAnonymousQueries();
+                if (_currentAdmin.Options.GetValue(WorkaroundTinkerpop2112))
+                    steps = _currentAdmin.Steps.WorkaroundTINKERPOP_2112();
+
+                foreach (var step in steps)
                 {
                     step.Accept(this);
                 }

@@ -187,6 +187,18 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).property(single, _g, _h)")
+                .WithParameters("Person", "Age", 0, "Gender", 1, 1, "RegistrationDate", DateTimeOffset.MinValue);
+        }
+
+        [Fact]
+        public void AddV_with_enum_property_with_workaround()
+        {
+            _g
+                .ConfigureOptions(options => options
+                    .SetValue(GroovyGremlinQueryElementVisitor.WorkaroundTinkerpop2112, true))
+                .AddV(new Person { Id = 1, Gender = Gender.Female })
+                .Should()
                 .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
                 .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
@@ -273,8 +285,8 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(list, _e, _f, _g, _h)")
-                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "Names", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h)")
+                .WithParameters("Company", "FoundingDate", DateTime.MinValue, 1, "Names", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
         [Fact]
@@ -283,8 +295,8 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(list, _e, _f).property(list, _e, _g)")
-                .WithParameters("Company", 1, "FoundingDate", DateTime.MinValue, "PhoneNumbers", "+4912345", "+4923456");
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g)")
+                .WithParameters("Company", "FoundingDate", DateTime.MinValue, 1, "PhoneNumbers", "+4912345", "+4923456");
         }
 
         [Fact]
