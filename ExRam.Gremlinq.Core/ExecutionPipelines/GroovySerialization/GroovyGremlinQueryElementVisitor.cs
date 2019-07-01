@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly StringBuilder _builder = new StringBuilder();
         private readonly Stack<State> _stateQueue = new Stack<State>();
         private readonly Dictionary<object, string> _variables = new Dictionary<object, string>();
-        private readonly Dictionary<StepLabel, string> _stepLabelMappings = new Dictionary<StepLabel, string>();
+        private readonly Dictionary<StepLabel, string> _stepLabelNames = new Dictionary<StepLabel, string>();
 
         #region Visit
         public virtual void Visit(HasNotStep step)
@@ -844,10 +844,10 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             if (constant is StepLabel stepLabel)
             {
-                if (!_stepLabelMappings.TryGetValue(stepLabel, out var stepLabelMapping))
+                if (!_stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                 {
-                    stepLabelMapping = "l" + (_stepLabelMappings.Count + 1);
-                    _stepLabelMappings.Add(stepLabel, stepLabelMapping);
+                    stepLabelMapping = "l" + (_stepLabelNames.Count + 1);
+                    _stepLabelNames.Add(stepLabel, stepLabelMapping);
                 }
 
                 // ReSharper disable once TailRecursiveCall
