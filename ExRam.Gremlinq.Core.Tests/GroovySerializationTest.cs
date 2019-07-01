@@ -420,8 +420,8 @@ namespace ExRam.Gremlinq.Core.Tests
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c)")
-                .WithParameters("Person", "<1>Item1", "<2>Item2");
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c))")
+                .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
         [Fact]
@@ -932,23 +932,23 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Map(___ => ___
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).map(__.select(_b, _c))")
-                .WithParameters("Person", "<1>Item1", "<2>Item2");
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b)).by(__.select(_c)))")
+                .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
         [Fact]
-        public void Nested_contradicting_Select_operations_throw()
+        public void Nested_contradicting_Select_operations_does_not_throw()
         {
             _g
                 .V<Person>()
-                .Invoking(x => x
-                    .As((_, stepLabel1) => _
-                        .As((__, stepLabel2) => __
-                            .Select(stepLabel1, stepLabel2)
-                            .As((___, tuple) => ___
-                                .Select(tuple, stepLabel1)))))
+                .As((_, stepLabel1) => _
+                    .As((__, stepLabel2) => __
+                        .Select(stepLabel1, stepLabel2)
+                        .As((___, tuple) => ___
+                            .Select(tuple, stepLabel1))))
                 .Should()
-                .Throw<InvalidOperationException>();
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b))")
+                .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
         [Fact]
@@ -962,8 +962,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(stepLabel1, tuple))))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).select(_b, _c).as(_d).select(_b, _d)")
-                .WithParameters("Person", "<1>Item1", "<2>Item2", "<3>Item2");
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_b)).by(__.select(_f))")
+                .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
         [Fact]

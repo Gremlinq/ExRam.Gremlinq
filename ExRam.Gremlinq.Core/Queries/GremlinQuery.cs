@@ -186,26 +186,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Insert(Steps.Count, step), StepLabelMappings, Environment);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStepLabelBindings(params StepLabel[] stepLabels)
-        {
-            var ret = this;
-
-            for (var i = 0; i < stepLabels.Length; i++)
-            {
-                ret = ret.AddStepLabelBinding(stepLabels[i], $"Item{i + 1}");
-            }
-
-            return ret;
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStepLabelBinding(StepLabel stepLabel, string name)
-        {
-            if (StepLabelMappings.TryGetValue(stepLabel, out var existingName) && existingName != name)
-                throw new InvalidOperationException($"A StepLabel was already bound to {name} by a previous Select operation. Try changing the position of the StepLabel in the Select operation or introduce a new StepLabel.");
-
-            return new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps, StepLabelMappings.Add(stepLabel, name), Environment);
-        }
-
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
         {
             return this
@@ -298,7 +278,7 @@ namespace ExRam.Gremlinq.Core
             return maybeFalseQuery
                 .BiFold(
                     AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery)),
-                    (query, falseQuery) => query.MergeStepLabelMappings(trueQuery, falseQuery),
+                    (query, falseQuery) => query,
                     (query, _) => query)
                 .ChangeQueryType<TTargetQuery>();
         }
@@ -318,7 +298,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new CoalesceStep(coalesceQueries))
-                .MergeStepLabelMappings(coalesceQueries)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -343,7 +322,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new FlatMapStep(mappedTraversal))
-                .MergeStepLabelMappings(mappedTraversal)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -451,7 +429,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new LocalStep(localTraversalQuery))
-                .MergeStepLabelMappings(localTraversalQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -461,26 +438,10 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new MapStep(mappedTraversal))
-                .MergeStepLabelMappings(mappedTraversal)
                 .ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()))));
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> MergeStepLabelMappings(params IGremlinQuery[] queries)
-        {
-            var ret = this;
-
-            foreach (var query in queries)
-            {
-                foreach (var otherMapping in query.AsAdmin().StepLabelMappings)
-                {
-                    ret = ret.AddStepLabelBinding(otherMapping.Key, otherMapping.Value);
-                }
-            }
-
-            return ret;
-        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> None() => AddStep(NoneStep.Instance);
 
@@ -506,7 +467,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new OptionalStep(optionalQuery))
-                .MergeStepLabelMappings(optionalQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -572,7 +532,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new RepeatStep(repeatQuery))
-                .MergeStepLabelMappings(repeatQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -585,17 +544,17 @@ namespace ExRam.Gremlinq.Core
             return this
                 .AddStep(new RepeatStep(repeatQuery))
                 .AddStep(new UntilStep(untilTraversal(anonymous)))
-                .MergeStepLabelMappings(repeatQuery)
                 .ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabel));
 
-        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(params StepLabel[] stepLabels)
+        private GremlinQuery<TSelectedElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Select<TSelectedElement>(params StepLabel[] stepLabels)
         {
             return this
-                .AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabels))
-                .AddStepLabelBindings(stepLabels);
+                .Project<TSelectedElement>(stepLabels
+                    .Select(stepLabel => new Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>(_ => _.Select<Unit>(stepLabel)))
+                    .ToArray());
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())));
@@ -626,7 +585,6 @@ namespace ExRam.Gremlinq.Core
 
             return this
                 .AddStep(new UnionStep(unionQueries))
-                .MergeStepLabelMappings(unionQueries)
                 .ChangeQueryType<TTargetQuery>();
         }
 

@@ -61,7 +61,6 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string CountryWithMetaProperties;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
-        private static readonly string EscapedTupleOfPersonLanguageJson;
         private static readonly string SinglePersonWithoutPhoneNumbersJson;
         private static readonly string SinglePersonLowercasePropertiesJson;
         private static readonly string Graphson3TupleOfPersonLanguageJson;
@@ -76,7 +75,6 @@ namespace ExRam.Gremlinq.Providers.Tests
             SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
             SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
             TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
-            EscapedTupleOfPersonLanguageJson = GetJson("Escaped_Tuple_of_Person_Language");
             ArrayOfLanguages = GetJson("Array_of_Languages");
             NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
             SingleTimeFrameJson = GetJson("Single_TimeFrame");
@@ -425,23 +423,6 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             var tuple = await _g
                 .WithExecutor(new TestJsonQueryExecutor(TupleOfPersonLanguageJson))
-                .V()
-                .Cast<(Person, Language)>()
-                .FirstAsync();
-
-            tuple.Item1.Id.Should().Be(16);
-            tuple.Item1.Name.Value.Should().Be("Name of some base entity");
-            tuple.Item1.Age.Should().Be(36);
-
-            tuple.Item2.Id.Should().Be(17);
-            tuple.Item2.IetfLanguageTag.Should().Be("de");
-        }
-
-        [Fact]
-        public async Task Escaped_Tuple()
-        {
-            var tuple = await _g
-                .WithExecutor(new TestJsonQueryExecutor(EscapedTupleOfPersonLanguageJson))
                 .V()
                 .Cast<(Person, Language)>()
                 .FirstAsync();
