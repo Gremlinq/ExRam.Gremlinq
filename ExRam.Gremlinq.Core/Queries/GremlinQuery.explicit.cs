@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
-        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.Insert(index, step), StepLabelMappings, Environment);
+        IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.Insert(index, step), Environment);
         
         ILogger IGremlinQueryEnvironment.Logger => Environment.Logger;
 
@@ -206,8 +206,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Select<TStep>(label);
-
-        IImmutableDictionary<StepLabel, string> IGremlinQueryAdmin.StepLabelMappings => StepLabelMappings;
 
         IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
 

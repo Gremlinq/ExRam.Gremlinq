@@ -8,6 +8,5 @@ namespace ExRam.Gremlinq.Core
 
         IImmutableList<Step> Steps { get; }
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQuery;
-        IImmutableDictionary<StepLabel, string> StepLabelMappings { get; }
     }
 }

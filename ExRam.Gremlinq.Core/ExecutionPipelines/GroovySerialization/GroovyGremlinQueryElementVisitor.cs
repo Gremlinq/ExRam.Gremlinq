@@ -846,11 +846,7 @@ namespace ExRam.Gremlinq.Core.Serialization
             {
                 if (!_stepLabelMappings.TryGetValue(stepLabel, out var stepLabelMapping))
                 {
-                    if (_currentAdmin != null && _currentAdmin.StepLabelMappings.TryGetValue(stepLabel, out var queryStepLabelMapping))
-                        stepLabelMapping = $"<{_stepLabelMappings.Count + 1}>{queryStepLabelMapping}";
-                    else
-                        stepLabelMapping = "l" + (_stepLabelMappings.Count + 1);
-
+                    stepLabelMapping = "l" + (_stepLabelMappings.Count + 1);
                     _stepLabelMappings.Add(stepLabel, stepLabelMapping);
                 }
 
