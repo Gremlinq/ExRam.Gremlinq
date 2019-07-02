@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>,
         IGremlinQueryExecutionPipelineBuilder,
         IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery>,
-        IGremlinQueryExecutionPipelineBuilderWithExecutor<TExecutionResult>
+        IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult>
     {
         public GremlinQueryExecutionPipeline(
             IGremlinQuerySerializer<TSerializedQuery> serializer,
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
             return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(configurator(Serializer), Executor, DeserializerFactory);
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TNewExecutionResult> UseExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
+        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TNewExecutionResult> UseExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
         {
             return new GremlinQueryExecutionPipeline<TSerializedQuery, TNewExecutionResult>(Serializer, executor, GremlinQueryExecutionResultDeserializerFactory<TNewExecutionResult>.Invalid);
         }
