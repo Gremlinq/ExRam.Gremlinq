@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core
         {
             return source
                 .UseExecutionPipeline(builder => builder
-                    .AddSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
+                    .UseSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
                         .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                     .AddWebSocketExecutor(
                         hostname,
@@ -132,7 +132,7 @@ namespace ExRam.Gremlinq.Core
                         },
                         default,
                         source.Logger)
-                    .AddGraphsonDeserialization(new TimespanConverter()));
+                    .UseGraphsonDeserialization(new TimespanConverter()));
         }
     }
 }

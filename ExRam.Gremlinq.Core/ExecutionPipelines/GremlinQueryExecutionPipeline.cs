@@ -28,17 +28,17 @@ namespace ExRam.Gremlinq.Core
             DeserializerFactory = deserializerFactory;
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithSerializer<TNewSerializedQuery> AddSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
+        public IGremlinQueryExecutionPipelineBuilderWithSerializer<TNewSerializedQuery> UseSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
         {
             return new GremlinQueryExecutionPipeline<TNewSerializedQuery, TExecutionResult>(serializer, GremlinQueryExecutor<TNewSerializedQuery, TExecutionResult>.Invalid, DeserializerFactory);
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TNewExecutionResult> AddExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
+        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TNewExecutionResult> UseExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
         {
             return new GremlinQueryExecutionPipeline<TSerializedQuery, TNewExecutionResult>(Serializer, executor, GremlinQueryExecutionResultDeserializerFactory<TNewExecutionResult>.Invalid);
         }
 
-        public IGremlinQueryExecutionPipeline AddDeserializerFactory(IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult> deserializerFactory)
+        public IGremlinQueryExecutionPipeline UseDeserializerFactory(IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult> deserializerFactory)
         {
             return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(Serializer, Executor, deserializerFactory);
         }

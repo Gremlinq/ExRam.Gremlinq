@@ -63,9 +63,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
             return source.UseExecutionPipeline(conf => conf
-                .AddGroovySerialization()
+                .UseGroovySerialization()
                 .AddWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
-                .AddGraphsonDeserialization());
+                .UseGraphsonDeserialization());
         }
 
         public static IGremlinQueryExecutionPipelineBuilderWithExecutor<JToken> AddWebSocketExecutor(
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IGremlinQueryExecutionPipelineBuilderWithExecutor<JToken> AddWebSocketExecutor(this IGremlinQueryExecutionPipelineBuilderWithSerializer<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
         {
             return builder
-                .AddExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
+                .UseExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
         }
     }
 }

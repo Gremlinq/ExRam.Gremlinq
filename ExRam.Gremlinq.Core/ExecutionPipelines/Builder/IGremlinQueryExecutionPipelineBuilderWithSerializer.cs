@@ -2,6 +2,6 @@
 {
     public interface IGremlinQueryExecutionPipelineBuilderWithSerializer<out TSerializedQuery>
     {
-        IGremlinQueryExecutionPipelineBuilderWithExecutor<TExecutionResult> AddExecutor<TExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TExecutionResult> executor);
+        IGremlinQueryExecutionPipelineBuilderWithExecutor<TExecutionResult> UseExecutor<TExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TExecutionResult> executor);
     }
 }
