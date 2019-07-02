@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery>
     {
-        IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery> ConfigureSerializer(Func<IGremlinQuerySerializer<TSerializedQuery>, IGremlinQuerySerializer<TSerializedQuery>> configurator);
-
         IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult> UseExecutor<TExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TExecutionResult> executor);
     }
 }
