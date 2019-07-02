@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, ITerminalChooseBuilder<TTargetQuery>> continuation)
+        private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IChooseBuilderWithConditionOrCase<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQuery
         {
             return continuation(ChooseBuilder.Create(Anonymize(), this)).TargetQuery;

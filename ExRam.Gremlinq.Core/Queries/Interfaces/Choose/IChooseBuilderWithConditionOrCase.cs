@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface ITerminalChooseBuilder<out TTargetQuery>
+    public interface IChooseBuilderWithConditionOrCase<out TTargetQuery>
         where TTargetQuery : IGremlinQuery
     {
         TTargetQuery TargetQuery { get; }
