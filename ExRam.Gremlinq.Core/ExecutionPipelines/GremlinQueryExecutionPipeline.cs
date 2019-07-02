@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LanguageExt;
 
@@ -31,6 +32,11 @@ namespace ExRam.Gremlinq.Core
         public IGremlinQueryExecutionPipelineBuilderWithSerializer<TNewSerializedQuery> UseSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
         {
             return new GremlinQueryExecutionPipeline<TNewSerializedQuery, TExecutionResult>(serializer, GremlinQueryExecutor<TNewSerializedQuery, TExecutionResult>.Invalid, DeserializerFactory);
+        }
+
+        public IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery> ConfigureSerializer(Func<IGremlinQuerySerializer<TSerializedQuery>, IGremlinQuerySerializer<TSerializedQuery>> configurator)
+        {
+            return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(configurator(Serializer), Executor, DeserializerFactory);
         }
 
         public IGremlinQueryExecutionPipelineBuilderWithExecutor<TNewExecutionResult> UseExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
