@@ -10,6 +10,11 @@ namespace ExRam.Gremlinq.Core.Serialization
             Bindings = bindings;
         }
 
+        public override string ToString()
+        {
+            return QueryString;
+        }
+
         public string QueryString { get; }
         public Dictionary<string, object> Bindings { get; }
     }
