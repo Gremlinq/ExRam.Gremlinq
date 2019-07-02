@@ -484,6 +484,24 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStep<TTarget, Unit, Unit, Unit, Unit, Unit>(OutVStep.Instance);
 
+        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IProjectBuilder<IGremlinQuery>> continuation)
+        {
+            var projections = continuation(ProjectBuilder.Create(Anonymize()))
+                .Projections
+                .OrderBy(x => x.Key)
+                .ToArray();
+
+            var ret = this
+                .AddStep<object, Unit, Unit, Unit, Unit, Unit>(new ProjectStep(projections.Select(x => x.Key).ToArray()));
+
+            foreach (var projection in projections)
+            {
+                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection.Value));
+            }
+
+            return ret;
+        }
+
         private GremlinQuery<TTuple, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
         {
             var ret = this

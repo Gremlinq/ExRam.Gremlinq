@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;
         TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQuery;
 
-        new TTargetQuery Choose<TTargetQuery>(Func<IStage1ChooseBuilder<<#= iface #>>, ITerminalChooseBuilder<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
+        new TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<<#= iface #>>, IChooseBuilderWithConditionOrCase<TTargetQuery>> continuation) where TTargetQuery : IGremlinQuery;
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQuery;
 
@@ -62,7 +62,9 @@ namespace ExRam.Gremlinq.Core
 <# for(var i = 2; i <= 16; i++) { #>
         new IGremlinQuery<(<#= GetArgumentList("TElement{0}", i) #>)> Project<<#= GetArgumentList("TElement{0}", i) #>>(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery<TElement{0}>> projection{0}", i) #>);
 <# } #>
-                       
+
+        new IGremlinQuery<object> Project(Func<IProjectBuilder<<#= iface #>>, IProjectBuilder<<#= iface #>>> continuation);
+                      
         new <#= iface #> Range(long low, long high);
 
         TTargetQuery Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) where TTargetQuery : <#= iface #>;

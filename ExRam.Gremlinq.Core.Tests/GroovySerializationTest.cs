@@ -1324,6 +1324,44 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Project_with_builder_0()
+        {
+            _g
+                .V()
+                .Project(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().project()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Project_with_builder_1()
+        {
+            _g
+                .V()
+                .Project(_ => _
+                    .By("in!", __ => __.In()))
+                .Should()
+                .SerializeToGroovy("g.V().project(_a).by(__.in())")
+                .WithParameters("in!");
+        }
+
+        [Fact]
+        public void Project_with_builder_4()
+        {
+            _g
+                .V()
+                .Project(_ => _
+                    .By("in!", __ => __.In())
+                    .By("out!", __ => __.Out())
+                    .By("count!", __ => __.Count())
+                    .By("properties!", __ => __.Properties()))
+                .Should()
+                .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
+                .WithParameters("count!", "in!", "out!", "properties!");
+        }
+
+        [Fact]
         public void Properties_Meta()
         {
             _g
