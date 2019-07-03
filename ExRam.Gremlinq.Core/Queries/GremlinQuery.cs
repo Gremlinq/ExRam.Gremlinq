@@ -45,15 +45,10 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<TElement> Create<TElement>(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
         {
-            if (steps.Count == 0)
-                throw new ArgumentException($"{nameof(steps)} must contain at least one step, which must be an {nameof(IdentifierStep)}.");
-
-            if (!(steps[0] is IdentifierStep))
-                throw new ArgumentException($"The first step in {nameof(steps)} must be an {nameof(IdentifierStep)}.");
-
             return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
                 steps,
-                environment);
+                environment,
+                true);
         }
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
@@ -102,8 +97,21 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQuery
     {
-        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : base(steps, environment)
+        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : this(steps, environment, false)
         {
+
+        }
+
+        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment, bool verify) : base(steps, environment)
+        {
+            if (verify)
+            {
+                if (steps.Count == 0)
+                    throw new ArgumentException($"{nameof(steps)} must contain at least one step, which must be an {nameof(IdentifierStep)}.");
+
+                if (!(steps[0] is IdentifierStep))
+                    throw new ArgumentException($"The first step in {nameof(steps)} must be an {nameof(IdentifierStep)}.");
+            }
         }
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> AddE<TEdge>(TEdge newEdge)
