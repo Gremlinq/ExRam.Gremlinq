@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryAdmin
     {
-        IGremlinQuery InsertStep(int index, Step step);
+        IGremlinQuery InsertSteps(int index, Step[] steps);
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQuery;
 
         IImmutableList<Step> Steps { get; }
