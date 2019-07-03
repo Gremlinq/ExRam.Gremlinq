@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core
                 if (startQuery != null)
                     return startQuery;
 
-                IGremlinQuery ret = GremlinQuery.Create(
+                IGremlinQuery ret = GremlinQuery.Create<Unit>(
                     Name,
                     this);
 

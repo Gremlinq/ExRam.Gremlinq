@@ -33,7 +33,27 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
-            return Create(default, environment);
+            return Create<Unit>("__", environment);
+        }
+
+        public static IGremlinQuery<TElement> Create<TElement>(string graphName, IGremlinQueryEnvironment environment)
+        {
+            return Create<TElement>(
+                ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName)),
+                environment);
+        }
+
+        public static IGremlinQuery<TElement> Create<TElement>(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
+        {
+            if (steps.Count == 0)
+                throw new ArgumentException($"{nameof(steps)} must contain at least one step, which must be an {nameof(IdentifierStep)}.");
+
+            if (!(steps[0] is IdentifierStep))
+                throw new ArgumentException($"The first step in {nameof(steps)} must be an {nameof(IdentifierStep)}.");
+
+            return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
+                steps,
+                environment);
         }
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
@@ -77,20 +97,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return typeof(Unit);
-        }
-
-        internal static IGremlinQuery<Unit> Create([AllowNull] string graphName, IGremlinQueryEnvironment environment)
-        {
-            return Create<Unit>(graphName, environment);
-        }
-
-        internal static IGremlinQuery<TElement> Create<TElement>([AllowNull] string graphName, IGremlinQueryEnvironment environment)
-        {
-            return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
-                graphName != null
-                    ? ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName))
-                    : ImmutableList<Step>.Empty.Add(IdentifierStep.__),
-                environment);
         }
     }
 
