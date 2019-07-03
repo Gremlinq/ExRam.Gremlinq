@@ -101,10 +101,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
         IGremlinQuery IGremlinQueryAdmin.InsertStep(int index, Step step) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.Insert(index, step), Environment);
-        
-        ILogger IGremlinQueryEnvironment.Logger => Environment.Logger;
-
-        GremlinqOptions IGremlinQueryEnvironment.Options => Environment.Options;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.InV() => InV<IVertex>();
 
@@ -119,10 +115,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<string> IElementGremlinQuery.Label() => Label();
 
         IVertexPropertyGremlinQuery<VertexProperty<TPropertyValue, TNewMeta>, TPropertyValue, TNewMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Meta<TNewMeta>() => Cast<VertexProperty<TPropertyValue, TNewMeta>, Unit, Unit, TPropertyValue, TNewMeta, Unit>();
-
-        IGraphModel IGremlinQueryEnvironment.Model => Environment.Model;
-
-        IGremlinQueryExecutionPipeline IGremlinQueryEnvironment.Pipeline => Environment.Pipeline;
 
         IVertexGremlinQuery<IVertex> IEdgeGremlinQuery.OtherV() => OtherV<IVertex>();
 
@@ -208,6 +200,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Select<TStep>(label);
 
         IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
+
+        IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.SumGlobal() => SumGlobal();
 

@@ -17,15 +17,15 @@ namespace ExRam.Gremlinq.Core
 
         public IGremlinQuery Apply(IGremlinQuery query)
         {
-            var admin = query.AsAdmin();
-            var anonymous = GremlinQuery.Anonymous(admin);
+            var environment = query.AsAdmin().Environment;
+            var anonymous = GremlinQuery.Anonymous(environment);
 
             var vertexCriterionTraversal = _vertexCriterion(anonymous.AsAdmin().ChangeQueryType<IVertexGremlinQuery<IVertex>>());
             var edgeCriterionTraversal = _edgeCriterion(anonymous.AsAdmin().ChangeQueryType<IEdgeGremlinQuery<IEdge>>());
 
             if (vertexCriterionTraversal.AsAdmin().Steps.Count > 1 || edgeCriterionTraversal.AsAdmin().Steps.Count > 1)
             {
-                var strategy = GremlinQuery.Create<Unit>("SubgraphStrategy", admin)
+                var strategy = GremlinQuery.Create<Unit>("SubgraphStrategy", environment)
                     .AddStep(BuildStep.Instance);
 
                 if (vertexCriterionTraversal.AsAdmin().Steps.Count > 1)

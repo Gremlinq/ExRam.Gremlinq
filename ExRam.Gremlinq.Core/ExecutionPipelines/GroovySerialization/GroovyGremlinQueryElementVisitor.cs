@@ -644,7 +644,7 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _currentAdmin = query.AsAdmin();
 
                 var steps = _currentAdmin.Steps.HandleAnonymousQueries();
-                if (_currentAdmin.Options.GetValue(WorkaroundTinkerpop2112))
+                if (_currentAdmin.Environment.Options.GetValue(WorkaroundTinkerpop2112))
                     steps = _currentAdmin.Steps.WorkaroundTINKERPOP_2112();
 
                 foreach (var step in steps)
