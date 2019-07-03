@@ -8,9 +8,13 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query);
     }
 
-    public interface IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> : IGremlinQueryExecutionPipeline
+    public interface IGremlinQueryExecutionPipeline<out TSerializedQuery> : IGremlinQueryExecutionPipeline
     {
         IGremlinQuerySerializer<TSerializedQuery> Serializer { get; }
+    }
+
+    public interface IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> : IGremlinQueryExecutionPipeline<TSerializedQuery>
+    {
         IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>  Executor { get; }
         IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult> DeserializerFactory { get; }
 
