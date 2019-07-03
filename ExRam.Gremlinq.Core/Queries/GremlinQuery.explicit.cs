@@ -8,7 +8,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
-using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
