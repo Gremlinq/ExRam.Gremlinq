@@ -9,12 +9,17 @@
 
         public static IGremlinQuery AddSteps(this IGremlinQueryAdmin admin, Step[] steps)
         {
-            return admin.InsertSteps(admin.Steps.Count, steps);
+            return admin.ConfigureSteps(x => x.InsertRange(admin.Steps.Count, steps));
         }
 
         public static IGremlinQuery InsertStep(this IGremlinQueryAdmin admin, int index, Step step)
         {
-            return admin.InsertSteps(index, new[] { step });
+            return admin.ConfigureSteps(x => x.Insert(index, step));
+        }
+
+        public static IGremlinQuery InsertSteps(this IGremlinQueryAdmin admin, int index, Step[] steps)
+        {
+            return admin.ConfigureSteps(x => x.InsertRange(index, steps));
         }
     }
 }
