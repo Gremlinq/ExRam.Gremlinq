@@ -25,7 +25,8 @@ namespace ExRam.Gremlinq.Core
                     .FromVisitor<GroovyGremlinQueryElementVisitor>())
                 .UseExecutor(GremlinQueryExecutor
                     .Echo<GroovySerializedGremlinQuery>())
-                .UseDeserializerFactory(GremlinQueryExecutionResultDeserializerFactory.ToStringDeserializerFactory<GroovySerializedGremlinQuery>());
+                .UseDeserializerFactory(GremlinQueryExecutionResultDeserializerFactory
+                    .ToStringDeserializerFactory<GroovySerializedGremlinQuery>());
         }
 
         public static readonly IGremlinQueryExecutionPipelineBuilder Default = new GremlinQueryExecutionPipeline<Unit, Unit>(
