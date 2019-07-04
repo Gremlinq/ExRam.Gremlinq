@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class GremlinQuery
     {
-        private static readonly ConcurrentDictionary<Type, Type> QueryTypes = new ConcurrentDictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
 
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
             .GetInterfaces()
@@ -61,17 +61,37 @@ namespace ExRam.Gremlinq.Core
             if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
                 throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
 
-            var type = QueryTypes.GetOrAdd(
+            var constructor = QueryTypes.GetOrAdd(
                 targetQueryType,
-                closureType => typeof(GremlinQuery<,,,,,>).MakeGenericType(
-                    GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
-                    GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
-                    GetMatchingType(closureType, "TInVertex"),
-                    GetMatchingType(closureType, "TValue"),
-                    GetMatchingType(closureType, "TMeta"),
-                    GetMatchingType(closureType, "TQuery")));
+                closureType =>
+                {
+                    var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
+                        GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
+                        GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
+                        GetMatchingType(closureType, "TInVertex"),
+                        GetMatchingType(closureType, "TValue"),
+                        GetMatchingType(closureType, "TMeta"),
+                        GetMatchingType(closureType, "TQuery"));
 
-            return (TTargetQuery)Activator.CreateInstance(type, Steps, Environment);
+                    var stepsParameter = Expression.Parameter(typeof(IImmutableList<Step>));
+                    var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
+
+                    return Expression
+                        .Lambda<Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>(
+                            Expression.New(
+                                genericType.GetConstructor(new[]
+                                {
+                                    stepsParameter.Type,
+                                    environmentParameter.Type
+                                }),
+                                stepsParameter,
+                                environmentParameter),
+                            stepsParameter,
+                            environmentParameter)
+                        .Compile();
+                });
+
+            return (TTargetQuery)constructor(Steps, Environment);
         }
 
         private static Type GetMatchingType(Type interfaceType, params string[] argumentNames)
