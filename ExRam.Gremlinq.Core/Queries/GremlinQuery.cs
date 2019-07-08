@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class GremlinQuery
     {
+        protected static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
         private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
 
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
@@ -33,7 +34,9 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
-            return Create<Unit>("__", environment);
+            return Create<Unit>(
+                AnonymousIdentifierSteps,
+                environment);
         }
 
         public static IGremlinQuery<TElement> Create<TElement>(string graphName, IGremlinQueryEnvironment environment)
@@ -244,7 +247,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty.Add(IdentifierStep.__), Environment);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(GremlinQuery.AnonymousIdentifierSteps, Environment);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
