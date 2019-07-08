@@ -239,31 +239,34 @@ namespace ExRam.Gremlinq.Core
             {
                 var token = JToken.Load(reader);
 
-                if (token is JArray array)
+                if (!objectType.IsInstanceOfType(token))
                 {
-                    if (array.Count != 1)
+                    if (token is JArray array)
                     {
-                        if (objectType == typeof(Unit))
-                            return Unit.Default;
-
-                        if (array.Count == 0)
+                        if (array.Count != 1)
                         {
-                            if (objectType.IsClass)
-                                return null;
+                            if (objectType == typeof(Unit))
+                                return Unit.Default;
 
-                            if (objectType.IsGenericType)
+                            if (array.Count == 0)
                             {
-                                var genericTypeDefinition = objectType.GetGenericTypeDefinition();
+                                if (objectType.IsClass)
+                                    return null;
 
-                                if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
-                                    return Activator.CreateInstance(objectType);
+                                if (objectType.IsGenericType)
+                                {
+                                    var genericTypeDefinition = objectType.GetGenericTypeDefinition();
+
+                                    if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
+                                        return Activator.CreateInstance(objectType);
+                                }
                             }
+
+                            throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
                         }
 
-                        throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
+                        token = array[0];
                     }
-
-                    token = array[0];
                 }
 
                 if (token is JObject jObject && !typeof(Property).IsAssignableFrom(objectType) && jObject.ContainsKey("value"))

@@ -315,7 +315,19 @@ namespace ExRam.Gremlinq.Providers.Tests
             vertex.Should().NotBeNull();
             vertex.Id.Should().Be(10);
         }
-        
+
+        [Fact]
+        public async Task Languages_to_object()
+        {
+            var vertices = await _g
+                .WithExecutor(new TestJsonQueryExecutor(ArrayOfLanguages))
+                .V<object>()
+                .ToArrayAsync();
+
+            vertices.Should().HaveCount(1);
+            vertices[0].Should().BeOfType<JArray>();
+        }
+
         [Fact]
         public async Task Person_strongly_typed()
         {
