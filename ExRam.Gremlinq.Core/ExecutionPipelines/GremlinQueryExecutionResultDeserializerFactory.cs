@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            public IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGraphModel model)
+            public IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGremlinQueryEnvironment environment)
             {
                 return new ToStringGremlinQueryExecutionResultDeserializer();
             }
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class InvalidGremlinQueryExecutionResultDeserializerFactory : IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult>
         {
-            public IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGraphModel model)
+            public IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGremlinQueryEnvironment environment)
             {
                 throw new InvalidOperationException();
             }

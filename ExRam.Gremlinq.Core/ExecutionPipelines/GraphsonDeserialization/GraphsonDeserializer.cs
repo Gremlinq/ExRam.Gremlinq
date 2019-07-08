@@ -349,7 +349,7 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        public GraphsonDeserializer(IGraphModel model, params JsonConverter[] additionalConverters)
+        public GraphsonDeserializer(IGremlinQueryEnvironment environment, params JsonConverter[] additionalConverters)
         {
             foreach (var additionalConverter in additionalConverters)
             {
@@ -360,9 +360,9 @@ namespace ExRam.Gremlinq.Core
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
             Converters.Add(new DateTimeConverter());
-            Converters.Add(new ElementConverter(model));
+            Converters.Add(new ElementConverter(environment.Model));
 
-            ContractResolver = new GremlinContractResolver(model.PropertiesModel);
+            ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
             DefaultValueHandling = DefaultValueHandling.Populate;
         }
     }

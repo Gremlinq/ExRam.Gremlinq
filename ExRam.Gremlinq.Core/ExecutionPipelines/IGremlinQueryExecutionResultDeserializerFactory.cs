@@ -2,6 +2,6 @@
 {
     public interface IGremlinQueryExecutionResultDeserializerFactory<in TExecutionResult>
     {
-        IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGraphModel model);
+        IGremlinQueryExecutionResultDeserializer<TExecutionResult> Get(IGremlinQueryEnvironment environment);
     }
 }

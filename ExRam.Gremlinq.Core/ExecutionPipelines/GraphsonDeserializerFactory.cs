@@ -40,18 +40,18 @@ namespace ExRam.Gremlinq.Providers
         }
 
         private readonly JsonConverter[] _additionalConverters;
-        private readonly ConditionalWeakTable<IGraphModel, DefaultGraphsonDeserializer> _serializers = new ConditionalWeakTable<IGraphModel, DefaultGraphsonDeserializer>();
+        private readonly ConditionalWeakTable<IGremlinQueryEnvironment, DefaultGraphsonDeserializer> _serializers = new ConditionalWeakTable<IGremlinQueryEnvironment, DefaultGraphsonDeserializer>();
 
         public GraphsonDeserializerFactory(params JsonConverter[] additionalConverters)
         {
             _additionalConverters = additionalConverters;
         }
 
-        public IGremlinQueryExecutionResultDeserializer<JToken> Get(IGraphModel model)
+        public IGremlinQueryExecutionResultDeserializer<JToken> Get(IGremlinQueryEnvironment environment)
         {
             return _serializers.GetValue(
-                model,
-                closureModel => new DefaultGraphsonDeserializer(new GraphsonDeserializer(closureModel, _additionalConverters)));
+                environment,
+                gremlinQueryEnvironment => new DefaultGraphsonDeserializer(new GraphsonDeserializer(gremlinQueryEnvironment, _additionalConverters)));
         }
     }
 }

@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core
 
         public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
         {
-            var deserializer = DeserializerFactory.Get(query.AsAdmin().Environment.Model);
+            var deserializer = DeserializerFactory.Get(query.AsAdmin().Environment);
 
             return Executor
                 .Execute(Serializer
