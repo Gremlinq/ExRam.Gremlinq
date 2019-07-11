@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-<# foreach(var iface in Untyped(Qualified(Element(baseInterfaces)))) { #>
+<# foreach(var iface in Untyped(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
         <#= iface #><TTarget> OfType<TTarget>();

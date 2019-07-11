@@ -1612,6 +1612,14 @@ namespace ExRam.Gremlinq.Core
     }
 
 
+    public partial interface IGremlinQuery
+    {
+        IGremlinQuery<TTarget> OfType<TTarget>();
+    }
+    public partial interface IElementGremlinQuery
+    {
+        IElementGremlinQuery<TTarget> OfType<TTarget>();
+    }
     public partial interface IVertexGremlinQuery
     {
         IVertexGremlinQuery<TTarget> OfType<TTarget>();

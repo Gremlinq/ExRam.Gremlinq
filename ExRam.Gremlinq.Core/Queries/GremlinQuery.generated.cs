@@ -1319,6 +1319,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TTarget> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
 
 
+        IGremlinQuery<TTarget> IGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
+        IElementGremlinQuery<TTarget> IElementGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
         IVertexGremlinQuery<TTarget> IVertexGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.VerticesModel);
         IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
     

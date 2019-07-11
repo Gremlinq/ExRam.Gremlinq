@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-<# foreach(var iface in Untyped(Qualified(Element(substitutedBaseInterfaces)))){ #>
+<# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
         <#= iface #><TTarget> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Environment.Model.VerticesModel" : "Environment.Model.EdgesModel" #>);
 <# } #>
     
