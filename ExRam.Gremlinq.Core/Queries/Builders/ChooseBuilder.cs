@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class ChooseBuilderImpl<TSourceQuery, TTargetQuery, TPickElement> :
             IChooseBuilder<TSourceQuery>,
             IChooseBuilderWithCondition<TSourceQuery, TPickElement>,
-            IChooseBuilderWithConditionAndCase<TSourceQuery, TPickElement, TTargetQuery>
+            IChooseBuilderWithCase<TSourceQuery, TPickElement, TTargetQuery>
             where TSourceQuery : IGremlinQuery
             where TTargetQuery : IGremlinQuery
         {
@@ -28,23 +28,23 @@ namespace ExRam.Gremlinq.Core
                     _targetQuery.AsAdmin().AddStep(new ChooseOptionTraversalStep(chooseTraversal(_sourceQuery))));
             }
 
-            public IChooseBuilderWithConditionAndCase<TSourceQuery, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<TSourceQuery, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQuery
+            public IChooseBuilderWithCase<TSourceQuery, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<TSourceQuery, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQuery
             {
                 return new ChooseBuilderImpl<TSourceQuery, TNewTargetQuery, TPickElement>(
                     _sourceQuery,
                     _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(element, continuation(_sourceQuery))));
             }
 
-            public IChooseBuilderWithConditionOrCase<TNewTargetQuery> Default<TNewTargetQuery>(Func<TSourceQuery, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQuery
+            public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<TSourceQuery, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQuery
             {
                 return new ChooseBuilderImpl<TSourceQuery, TNewTargetQuery, TPickElement>(
                     _sourceQuery,
                     _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(default, continuation(_sourceQuery))));
             }
 
-            public IChooseBuilderWithConditionAndCase<TSourceQuery, TPickElement, TTargetQuery> Case(TPickElement element, Func<TSourceQuery, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);
+            public IChooseBuilderWithCase<TSourceQuery, TPickElement, TTargetQuery> Case(TPickElement element, Func<TSourceQuery, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);
 
-            public IChooseBuilderWithConditionOrCase<TTargetQuery> Default(Func<TSourceQuery, TTargetQuery> continuation) => Default<TTargetQuery>(continuation);
+            public IChooseBuilderWithCaseOrDefault<TTargetQuery> Default(Func<TSourceQuery, TTargetQuery> continuation) => Default<TTargetQuery>(continuation);
 
             public TTargetQuery TargetQuery
             {

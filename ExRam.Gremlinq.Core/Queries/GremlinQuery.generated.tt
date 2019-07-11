@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery <#= iface #>.Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
         TTargetQuery <#= iface #>.Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
-        TTargetQuery <#= iface #>.Choose<TTargetQuery>(Func<IChooseBuilder<<#= iface #>>, IChooseBuilderWithConditionOrCase<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
+        TTargetQuery <#= iface #>.Choose<TTargetQuery>(Func<IChooseBuilder<<#= iface #>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
 
         TTargetQuery <#= iface #>.Coalesce<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
