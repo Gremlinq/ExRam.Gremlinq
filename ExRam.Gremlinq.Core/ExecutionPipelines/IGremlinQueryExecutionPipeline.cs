@@ -16,10 +16,10 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> : IGremlinQueryExecutionPipeline<TSerializedQuery>
     {
         IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>  Executor { get; }
-        IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult> DeserializerFactory { get; }
+        IGremlinQueryExecutionResultDeserializer<TExecutionResult> Deserializer { get; }
 
         IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery> ConfigureSerializer(Func<IGremlinQuerySerializer<TSerializedQuery>, IGremlinQuerySerializer<TSerializedQuery>> configurator);
         IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult> ConfigureExecutor(Func<IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>, IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>> configurator);
-        IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> ConfigureDeserializerFactory(Func<IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult>, IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult>> configurator);
+        IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer<TExecutionResult>, IGremlinQueryExecutionResultDeserializer<TExecutionResult>> configurator);
     }
 }

@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryExecutionPipeline<TSerializedQuery, JToken> UseGraphsonDeserialization<TSerializedQuery>(this IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, JToken> builder, params JsonConverter[] additionalConverters)
         {
-            return builder.UseDeserializerFactory(new GraphsonDeserializerFactory(additionalConverters));
+            return builder.UseDeserializer(new DefaultGraphsonDeserializer(additionalConverters));
         }
 
         public static IGremlinQueryExecutionPipeline<GroovySerializedGremlinQuery, GroovySerializedGremlinQuery> EchoGremlinQueryAsString(this IGremlinQueryExecutionPipelineBuilder builder)
@@ -25,13 +25,13 @@ namespace ExRam.Gremlinq.Core
                     .FromVisitor<GroovyGremlinQueryElementVisitor>())
                 .UseExecutor(GremlinQueryExecutor
                     .Echo<GroovySerializedGremlinQuery>())
-                .UseDeserializerFactory(GremlinQueryExecutionResultDeserializerFactory
-                    .ToStringDeserializerFactory<GroovySerializedGremlinQuery>());
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer<GroovySerializedGremlinQuery>
+                    .ToString);
         }
 
         public static readonly IGremlinQueryExecutionPipelineBuilder Default = new GremlinQueryExecutionPipeline<Unit, Unit>(
             GremlinQuerySerializer<Unit>.Invalid,
             GremlinQueryExecutor<Unit, Unit>.Invalid,
-            GremlinQueryExecutionResultDeserializerFactory<Unit>.Invalid);
+            GremlinQueryExecutionResultDeserializer<Unit>.Invalid);
     }
 }

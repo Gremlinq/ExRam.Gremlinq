@@ -2,6 +2,6 @@
 {
     public interface IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult>
     {
-        IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> UseDeserializerFactory(IGremlinQueryExecutionResultDeserializerFactory<TExecutionResult> deserializerFactory);
+        IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> UseDeserializer(IGremlinQueryExecutionResultDeserializer<TExecutionResult> deserializer);
     }
 }
