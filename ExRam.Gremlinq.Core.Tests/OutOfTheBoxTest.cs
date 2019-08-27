@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class OutOfTheBox
+    public class OutOfTheBoxTest
     {
         [Fact]
         public void Serialization()
         {
-            GremlinQuerySource.g
+            g
                 .V()
                 .Should()
                 .SerializeToGroovy("g.V()");
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Execution()
         {
-            GremlinQuerySource.g
+            g
                 .V()
                 .Awaiting(async _ => await _
                     .ToArrayAsync())
