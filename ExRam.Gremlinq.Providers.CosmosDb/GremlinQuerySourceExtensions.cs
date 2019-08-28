@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core
         }
 
 
-        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string database, string graphName, string authKey, string hostname = "localhost", int port = 8901)
+        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
         {
             return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, false);
         }
