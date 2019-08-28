@@ -115,6 +115,10 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
         .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
         .ToArray();
 ```
+
+## CosmosDb Emulator Support
+The library is compatible with the cosmosDb emulator using the **UseCosmosDbEmulator** extension method. In order to setup the cosmosdb emulator follow the instructions [here](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator#gremlin-api).
+
 ## Development
 
 The library is still under development. The API might change without notice. Help on this project is greatly appreciated! Check out the [issues labelled 'up-for-grabs'](https://github.com/ExRam/ExRam.Gremlinq/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs) or file your own and tackle them!

@@ -114,25 +114,36 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        private static IConfigurableGremlinQuerySource CreateCosmosDBGremlinQuerySource(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port, bool enableSsl)
         {
             return source
-                .UseExecutionPipeline(builder => builder
-                    .UseSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
-                        .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
-                    .AddWebSocketExecutor(
-                        hostname,
-                        port,
-                        true,
-                        $"/dbs/{database}/colls/{graphName}",
-                        authKey,
-                        GraphsonVersion.V2, new Dictionary<Type, IGraphSONSerializer>
-                        {
+               .UseExecutionPipeline(builder => builder
+                   .UseSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
+                       .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
+                   .AddWebSocketExecutor(
+                       hostname,
+                       port,
+                       enableSsl,
+                       $"/dbs/{database}/colls/{graphName}",
+                       authKey,
+                       GraphsonVersion.V2, new Dictionary<Type, IGraphSONSerializer>
+                       {
                             { typeof(TimeSpan), new TimeSpanSerializer() }
-                        },
-                        default,
-                        source.Logger)
-                    .UseGraphsonDeserialization(new TimespanConverter()));
+                       },
+                       default,
+                       source.Logger)
+                   .UseGraphsonDeserialization(new TimespanConverter()));
+        }
+
+        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        {
+            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, true);
+        }
+
+
+        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
+        {
+            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, false);
         }
     }
 }
