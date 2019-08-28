@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
             public IAsyncEnumerable<TElement> Deserialize<TElement>(TExecutionResult result, IGremlinQueryEnvironment environment)
             {
                 if (!typeof(TElement).IsAssignableFrom(typeof(string)))
-                    throw new NotSupportedException();
+                    throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
 
                 return AsyncEnumerableEx.Return((TElement)(object)result?.ToString());
             }

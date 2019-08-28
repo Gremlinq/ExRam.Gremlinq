@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TExecutionResult> Execute(TSerializedQuery serializedQuery)
             {
-                return AsyncEnumerableEx.Throw<TExecutionResult>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on GremlinQueryExecutor.Invalid. If you are getting this exception while executing a query, set a proper GremlinQueryExecutor on the GremlinQuerySource (e.g. with 'g.WithRemote(...)' for WebSockets).")); //TODO: Review message.
+                return AsyncEnumerableEx.Throw<TExecutionResult>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.Invalid. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.WithRemote(...)' for WebSockets which can be found in the 'ExRam.Gremlinq.Providers.WebSocket' package)."));
             }
         }
 
