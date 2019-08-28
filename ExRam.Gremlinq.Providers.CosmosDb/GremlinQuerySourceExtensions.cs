@@ -134,5 +134,26 @@ namespace ExRam.Gremlinq.Core
                         source.Logger)
                     .UseGraphsonDeserialization(new TimespanConverter()));
         }
+
+        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string database, string graphName, string authKey, string hostname = "localhost", int port = 8901)
+        {
+            return source
+               .UseExecutionPipeline(builder => builder
+                   .UseSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
+                       .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
+                   .AddWebSocketExecutor(
+                       hostname,
+                       port,
+                       false,
+                       $"/dbs/{database}/colls/{graphName}",
+                       authKey,
+                       GraphsonVersion.V2, new Dictionary<Type, IGraphSONSerializer>
+                       {
+                            { typeof(TimeSpan), new TimeSpanSerializer() }
+                       },
+                       default,
+                       source.Logger)
+                   .UseGraphsonDeserialization(new TimespanConverter()));
+        }
     }
 }
