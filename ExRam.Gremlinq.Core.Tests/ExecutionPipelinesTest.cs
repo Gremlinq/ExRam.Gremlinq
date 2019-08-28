@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -26,5 +27,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .Be("g.V().hasLabel(_a).has(_b, _c)");
         }
-    }
+
+        [Fact]
+        public void Echo_wrong_type()
+        {
+            GremlinQuerySource.g
+                .UseExecutionPipeline(_ => _.EchoGremlinQueryAsString())
+                .V()
+                .Awaiting(async _ => await _
+                    .ToArrayAsync())
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
 }
