@@ -116,8 +116,9 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
         .ToArray();
 ```
 
-## CosmosDb Emulator Support
-The library is compatible with the cosmosDb emulator using the **UseCosmosDbEmulator** extension method. In order to setup the cosmosdb emulator follow the instructions [here](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator#gremlin-api).
+## Provider bindings
+ - [Generic websocket](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)
+ - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
 
 ## Development
 
