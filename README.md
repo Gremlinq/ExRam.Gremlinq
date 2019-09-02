@@ -122,7 +122,7 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
 
 ## Development
 
-The library is still under development. The API might change without notice. Help on this project is greatly appreciated! Check out the [issues labelled 'up-for-grabs'](https://github.com/ExRam/ExRam.Gremlinq/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs) or file your own and tackle them!
+Help on this project is greatly appreciated! Check out the [issues labelled 'up-for-grabs'](https://github.com/ExRam/ExRam.Gremlinq/issues?q=is%3Aissue+is%3Aopen+label%3Aup-for-grabs) or file your own and tackle them!
 
 ## Acknowledgements
 
