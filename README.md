@@ -69,7 +69,7 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
                 .Select(p, c)))
         .ToArray();
 ```
-#### Support for complex boolean expressions
+#### Support for complex expressions
 ```csharp
     var persons = await g
         .V<Person>()
@@ -85,16 +85,12 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
         .V<Person>()
         .Where(x => x.Age < 36 && x.Name == "Bob")
         .ToArray();
-```
-#### Support for string expressions
-```csharp
+
     var persons = await g
         .V<Person>()
         .Where(x => x.Name.StartsWith("B"))
         .ToArray();
-```
-#### Support for Linq expressions
-```csharp
+
     var persons = await g
         .V<Person>()
         .Where(x => x.Pets.Contains("Daisy"))
