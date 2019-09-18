@@ -14,7 +14,6 @@ namespace ExRam.Gremlinq.Core.Serialization
         {
             Idle,
             Chaining,
-            ChainingSupressIdentifier,
             InMethodBeforeFirstParameter,
             InMethodAfterFirstParameter
         }
@@ -28,20 +27,11 @@ namespace ExRam.Gremlinq.Core.Serialization
         private readonly Dictionary<StepLabel, string> _stepLabelNames = new Dictionary<StepLabel, string>();
 
         #region Visit
-        public virtual void Visit(HasNotStep step)
-        {
-            Method("hasNot", step.Key);
-        }
+        public virtual void Visit(HasNotStep step) => Method("hasNot", step.Key);
 
-        public void Visit(ChooseOptionTraversalStep step)
-        {
-            Method("choose", step.Traversal);
-        }
+        public virtual void Visit(ChooseOptionTraversalStep step) => Method("choose", step.Traversal);
 
-        public void Visit(OptionTraversalStep step)
-        {
-            Method("option", step.Guard, step.OptionTraversal);
-        }
+        public virtual void Visit(OptionTraversalStep step) => Method("option", step.Guard, step.OptionTraversal);
 
         public virtual void Visit(HasStep step)
         {
@@ -78,130 +68,55 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
         
-        public virtual void Visit(RepeatStep step)
-        {
-            Visit(step, "repeat");
-        }
+        public virtual void Visit(RepeatStep step) => Visit(step, "repeat");
 
-        public virtual void Visit(SideEffectStep step)
-        {
-            Visit(step, "sideEffect");
-        }
+        public virtual void Visit(SideEffectStep step) => Visit(step, "sideEffect");
 
-        public virtual void Visit(ToTraversalStep step)
-        {
-            Visit(step, "to");
-        }
+        public virtual void Visit(ToTraversalStep step) => Visit(step, "to");
 
-        public virtual void Visit(UnionStep step)
-        {
-            Visit(step, "union");
-        }
+        public virtual void Visit(UnionStep step) => Visit(step, "union");
 
-        public virtual void Visit(UntilStep step)
-        {
-            Visit(step, "until");
-        }
+        public virtual void Visit(UntilStep step) => Visit(step, "until");
 
-        public virtual void Visit(ValuesStep step)
-        {
-            Method("values", step.Keys);
-        }
+        public virtual void Visit(ValuesStep step) => Method("values", step.Keys);
 
-        public virtual void Visit(VerticesStep step)
-        {
-            Visit(step, "vertices");
-        }
+        public virtual void Visit(VerticesStep step) => Visit(step, "vertices");
 
-        public virtual void Visit(WhereTraversalStep step)
-        {
-            Visit(step, "where");
-        }
+        public virtual void Visit(WhereTraversalStep step) => Visit(step, "where");
 
-        public virtual void Visit(WithStrategiesStep step)
-        {
-            Visit(step, "withStrategies");
-        }
+        public virtual void Visit(WithStrategiesStep step) => Visit(step, "withStrategies");
 
-        public virtual void Visit(IdStep step)
-        {
-            Method("id");
-        }
+        public virtual void Visit(IdStep step) => Method("id");
 
-        public virtual void Visit(BarrierStep step)
-        {
-            Method("barrier");
-        }
+        public virtual void Visit(BarrierStep step) => Method("barrier");
 
-        public virtual void Visit(OrderStep step)
-        {
-            Method("order");
-        }
+        public virtual void Visit(OrderStep step) => Method("order");
 
-        public virtual void Visit(CreateStep step)
-        {
-            Method("create");
-        }
+        public virtual void Visit(CreateStep step) => Method("create");
 
-        public virtual void Visit(UnfoldStep step)
-        {
-            Method("unfold");
-        }
+        public virtual void Visit(UnfoldStep step) => Method("unfold");
 
-        public virtual void Visit(IdentityStep step)
-        {
-            Method("identity");
-        }
+        public virtual void Visit(IdentityStep step) => Method("identity");
 
-        public virtual void Visit(EmitStep step)
-        {
-            Method("emit");
-        }
+        public virtual void Visit(EmitStep step) => Method("emit");
 
-        public virtual void Visit(DedupStep step)
-        {
-            Method("dedup");
-        }
+        public virtual void Visit(DedupStep step) => Method("dedup");
 
-        public virtual void Visit(OutVStep step)
-        {
-            Method("outV");
-        }
+        public virtual void Visit(OutVStep step) => Method("outV");
 
-        public virtual void Visit(OtherVStep step)
-        {
-            Method("otherV");
-        }
+        public virtual void Visit(OtherVStep step) => Method("otherV");
 
-        public virtual void Visit(InVStep step)
-        {
-            Method("inV");
-        }
+        public virtual void Visit(InVStep step) => Method("inV");
 
-        public virtual void Visit(BothVStep step)
-        {
-            Method("bothV");
-        }
+        public virtual void Visit(BothVStep step) => Method("bothV");
 
-        public virtual void Visit(DropStep step)
-        {
-            Method("drop");
-        }
+        public virtual void Visit(DropStep step) => Method("drop");
 
-        public virtual void Visit(FoldStep step)
-        {
-            Method("fold");
-        }
+        public virtual void Visit(FoldStep step) => Method("fold");
 
-        public virtual void Visit(ExplainStep step)
-        {
-            Method("explain");
-        }
+        public virtual void Visit(ExplainStep step) => Method("explain");
 
-        public virtual void Visit(ProfileStep step)
-        {
-            Method("profile");
-        }
+        public virtual void Visit(ProfileStep step) => Method("profile");
 
         public virtual void Visit(CountStep step)
         {
@@ -211,15 +126,9 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Method("count");
         }
 
-        public virtual void Visit(BuildStep step)
-        {
-            Method("build");
-        }
+        public virtual void Visit(BuildStep step) => Method("build");
 
-        public virtual void Visit(SumStep step)
-        {
-            Method("sum", step.Scope);
-        }
+        public virtual void Visit(SumStep step) => Method("sum", step.Scope);
 
         public virtual void Visit(TailStep step)
         {
@@ -229,55 +138,25 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Method("tail", step.Count);
         }
 
-        public virtual void Visit(SelectStep step)
-        {
-            Method("select", step.StepLabels);
-        }
+        public virtual void Visit(SelectStep step) => Method("select", step.StepLabels);
 
-        public virtual void Visit(AsStep step)
-        {
-            Method("as", step.StepLabels);
-        }
+        public virtual void Visit(AsStep step) => Method("as", step.StepLabels);
 
-        public virtual void Visit(FromLabelStep step)
-        {
-            Method("from", step.StepLabel);
-        }
+        public virtual void Visit(FromLabelStep step) => Method("from", step.StepLabel);
 
-        public virtual void Visit(ToLabelStep step)
-        {
-            Method("to", step.StepLabel);
-        }
+        public virtual void Visit(ToLabelStep step) => Method("to", step.StepLabel);
 
-        public virtual void Visit(TimesStep step)
-        {
-            Method("times", step.Count);
-        }
+        public virtual void Visit(TimesStep step) => Method("times", step.Count);
 
-        public virtual void Visit(FilterStep step)
-        {
-            Method("filter", step.Lambda);
-        }
+        public virtual void Visit(FilterStep step) => Method("filter", step.Lambda);
 
-        public virtual void Visit(AggregateStep step)
-        {
-            Method("aggregate", step.StepLabel);
-        }
+        public virtual void Visit(AggregateStep step) => Method("aggregate", step.StepLabel);
 
-        public virtual void Visit(WherePredicateStep step)
-        {
-            Method("where", step.Predicate);
-        }
+        public virtual void Visit(WherePredicateStep step) => Method("where", step.Predicate);
 
-        public virtual void Visit(ByLambdaStep step)
-        {
-            Method("by", step.Lambda);
-        }
+        public virtual void Visit(ByLambdaStep step) => Method("by", step.Lambda);
 
-        public virtual void Visit(SkipStep step)
-        {
-            Method("skip", step.Count);
-        }
+        public virtual void Visit(SkipStep step) => Method("skip", step.Count);
 
         public virtual void Visit(PropertyStep step)
         {
@@ -294,102 +173,42 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
         }
 
-        public virtual void Visit(RangeStep step)
-        {
-            Method("range", step.Lower, step.Upper);
-        }
+        public virtual void Visit(RangeStep step) => Method("range", step.Lower, step.Upper);
 
-        public virtual void Visit(ByMemberStep step)
-        {
-            Method("by", step.Key, step.Order);
-        }
+        public virtual void Visit(ByMemberStep step) => Method("by", step.Key, step.Order);
 
-        public void Visit(KeyStep step)
-        {
-            Method("key");
-        }
+        public virtual void Visit(KeyStep step) => Method("key");
 
-        //public virtual void Visit(PropertiesStep step)
-        //{
-        //    Method("properties", step.Members.Select(x => x.Name).ToArray());
-        //}
+        public virtual void Visit(PropertiesStep step) => Method("properties", step.Keys);
 
-        public virtual void Visit(PropertiesStep step)
-        {
-            Method("properties", step.Keys);
-        }
+        public virtual void Visit(VStep step) => Method("V", step.Ids);
 
-        public virtual void Visit(VStep step)
-        {
-            Method("V", step.Ids);
-        }
+        public virtual void Visit(EStep step) => Method("E", step.Ids);
 
-        public virtual void Visit(EStep step)
-        {
-            Method("E", step.Ids);
-        }
+        public virtual void Visit(InjectStep step) => Method("inject", step.Elements);
 
-        public virtual void Visit(InjectStep step)
-        {
-            Method("inject", step.Elements);
-        }
+        public virtual void Visit(StepLabel stepLabel) => Constant(stepLabel);
 
-        public virtual void Visit(StepLabel stepLabel)
-        {
-            Constant(stepLabel);
-        }
+        public virtual void Visit(P.Eq p) => Visit(p, "eq");
 
-        public virtual void Visit(P.Eq p)
-        {
-            Visit(p, "eq");
-        }
+        public virtual void Visit(P.Between p) => Method("between", p.Lower, p.Upper);
 
-        public virtual void Visit(P.Between p)
-        {
-            NoIdentifier();
-            Method("between", p.Lower, p.Upper);
-        }
+        public virtual void Visit(P.Gt p) => Visit(p, "gt");
 
-        public virtual void Visit(P.Gt p)
-        {
-            Visit(p, "gt");
-        }
+        public virtual void Visit(P.Gte p) => Visit(p, "gte");
 
-        public virtual void Visit(P.Gte p)
-        {
-            Visit(p, "gte");
-        }
+        public virtual void Visit(P.Lt p) => Visit(p, "lt");
 
-        public virtual void Visit(P.Lt p)
-        {
-            Visit(p, "lt");
-        }
+        public virtual void Visit(P.Lte p) => Visit(p, "lte");
 
-        public virtual void Visit(P.Lte p)
-        {
-            Visit(p, "lte");
-        }
+        public virtual void Visit(P.Neq p) => Visit(p, "neq");
 
-        public virtual void Visit(P.Neq p)
-        {
-            Visit(p, "neq");
-        }
+        public virtual void Visit(P.Within p) => Method("within", p.Arguments);
 
-        public virtual void Visit(P.Within p)
-        {
-            NoIdentifier();
-            Method("within", p.Arguments);
-        }
-
-        public void Visit(P.Without p)
-        {
-            NoIdentifier();
-            Method("without", p.Arguments);
-        }
+        public void Visit(P.Without p) => Method("without", p.Arguments);
 
         public void Visit(P.Outside p)
         {
-            NoIdentifier();
             Method("outside", p.Lower, p.Upper);
         }
 
@@ -405,62 +224,29 @@ namespace ExRam.Gremlinq.Core.Serialization
             Method("or", p.Operand2);
         }
 
-        public void Visit(TextP.StartingWith p)
-        {
-            NoIdentifier();
-            Method("startingWith", p.Value);
-        }
+        public void Visit(TextP.StartingWith p) => Method("startingWith", p.Value);
 
-        public void Visit(TextP.EndingWith p)
-        {
-            NoIdentifier();
-            Method("endingWith", p.Value);
-        }
+        public void Visit(TextP.EndingWith p) => Method("endingWith", p.Value);
 
-        public void Visit(TextP.Containing p)
-        {
-            NoIdentifier();
-            Method("containing", p.Value);
-        }
+        public void Visit(TextP.Containing p) => Method("containing", p.Value);
 
-        public virtual void Visit(Lambda lambda)
-        {
-            Lambda(lambda.LambdaString);
-        }
+        public virtual void Visit(Lambda lambda) => Lambda(lambda.LambdaString);
 
-        public virtual void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum>
-        {
-            NoIdentifier();
-            Field(gremlinEnum.Name);
-        }
+        public virtual void Visit<TEnum>(GremlinEnum<TEnum> gremlinEnum) where TEnum : GremlinEnum<TEnum> => Field(gremlinEnum.Name);
 
-        public virtual void Visit(HasValueStep step)
-        {
+        public virtual void Visit(HasValueStep step) =>
             Method("hasValue",
                 step.Argument is P.Eq eq
                     ? eq.Argument
                     : step.Argument);
-        }
 
-        public virtual void Visit(AddEStep step)
-        {
-            Visit(step, "addE");
-        }
+        public virtual void Visit(AddEStep step) => Visit(step, "addE");
 
-        public virtual void Visit(AddVStep step)
-        {
-            Visit(step, "addV");
-        }
+        public virtual void Visit(AddVStep step) => Visit(step, "addV");
 
-        public virtual void Visit(AndStep step)
-        {
-            VisitLogicalStep(step, "and");
-        }
+        public virtual void Visit(AndStep step) => VisitLogicalStep(step, "and");
 
-        public virtual void Visit(ByTraversalStep step)
-        {
-            Method("by", step.Traversal, step.Order);
-        }
+        public virtual void Visit(ByTraversalStep step) => Method("by", step.Traversal, step.Order);
 
         public virtual void Visit(ChooseTraversalStep step)
         {
@@ -490,88 +276,41 @@ namespace ExRam.Gremlinq.Core.Serialization
                     step.ThenTraversal));
         }
 
-        public virtual void Visit(CoalesceStep step)
-        {
-            Visit(step, "coalesce");
-        }
+        public virtual void Visit(CoalesceStep step) => Visit(step, "coalesce");
 
-        public void Visit(CoinStep step)
-        {
-            Method("coin", step.Probability);
-        }
+        public virtual void Visit(CoinStep step) => Method("coin", step.Probability);
 
-        public virtual void Visit(ConstantStep step)
-        {
-            Method("constant", step.Value);
-        }
+        public virtual void Visit(ConstantStep step) => Method("constant", step.Value);
 
-        public virtual void Visit(BothStep step)
-        {
-            Visit(step, "both");
-        }
+        public virtual void Visit(BothStep step) => Visit(step, "both");
 
-        public virtual void Visit(BothEStep step)
-        {
-            Visit(step, "bothE");
-        }
+        public virtual void Visit(BothEStep step) => Visit(step, "bothE");
 
-        public virtual void Visit(InStep step)
-        {
-            Visit(step, "in");
-        }
+        public virtual void Visit(InStep step) => Visit(step, "in");
 
-        public virtual void Visit(InEStep step)
-        {
-            Visit(step, "inE");
-        }
+        public virtual void Visit(InEStep step) => Visit(step, "inE");
 
-        public virtual void Visit(OutStep step)
-        {
-            Visit(step, "out");
-        }
+        public virtual void Visit(OutStep step) => Visit(step, "out");
 
-        public virtual void Visit(OutEStep step)
-        {
-            Visit(step, "outE");
-        }
+        public virtual void Visit(OutEStep step) => Visit(step, "outE");
 
-        public virtual void Visit(HasLabelStep step)
-        {
-            Visit(step, "hasLabel");
-        }
+        public virtual void Visit(HasLabelStep step) => Visit(step, "hasLabel");
 
-        public void Visit(LabelStep step)
-        {
-            Method("label");
-        }
+        public virtual void Visit(LabelStep step) => Method("label");
 
-        public virtual void Visit(DerivedLabelNamesStep step, string stepName)
-        {
-            Method(stepName, step.Labels);
-        }
+        public virtual void Visit(DerivedLabelNamesStep step, string stepName) => Method(stepName, step.Labels);
 
-        public virtual void Visit(EdgesStep step)
-        {
-            Visit(step, "edges");
-        }
+        public virtual void Visit(EdgesStep step) => Visit(step, "edges");
 
-        public virtual void Visit(FromTraversalStep step)
-        {
-            Visit(step, "from");
-        }
+        public virtual void Visit(FromTraversalStep step) => Visit(step, "from");
 
-        public virtual void Visit(IdentifierStep step)
-        {
-            Identifier(step.Identifier);
-        }
+        public virtual void Visit(IdentifierStep step) => Identifier(step.Identifier);
 
-        public virtual void Visit(IsStep step)
-        {
+        public virtual void Visit(IsStep step) =>
             Method("is",
                 step.Argument is P.Eq eq
                     ? eq.Argument
                     : step.Argument);
-        }
 
         public virtual void Visit(LimitStep step)
         {
@@ -581,30 +320,15 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Method("limit", step.Count);
         }
 
-        public virtual void Visit(LocalStep step)
-        {
-            Visit(step, "local");
-        }
+        public virtual void Visit(LocalStep step) => Visit(step, "local");
 
-        public virtual void Visit(MapStep step)
-        {
-            Visit(step, "map");
-        }
+        public virtual void Visit(MapStep step) => Visit(step, "map");
 
-        public virtual void Visit(NoneStep step)
-        {
-            Method("none");
-        }
+        public virtual void Visit(NoneStep step) => Method("none");
 
-        public virtual void Visit(FlatMapStep step)
-        {
-            Visit(step, "flatMap");
-        }
+        public virtual void Visit(FlatMapStep step) => Visit(step, "flatMap");
 
-        public virtual void Visit(MatchStep step)
-        {
-            Visit(step, "match");
-        }
+        public virtual void Visit(MatchStep step) => Visit(step, "match");
 
         public virtual void Visit(NotStep step)
         {
@@ -614,26 +338,13 @@ namespace ExRam.Gremlinq.Core.Serialization
                 Visit(step, "not");
         }
 
-        public virtual void Visit(OptionalStep step)
-        {
-            Visit(step, "optional");
-        }
+        public virtual void Visit(OptionalStep step) => Visit(step, "optional");
 
-        public virtual void Visit(OrStep step)
-        {
-            VisitLogicalStep(step, "or");
-        }
+        public virtual void Visit(OrStep step) => VisitLogicalStep(step, "or");
 
+        public virtual void Visit(ValueStep step) => Method("value");
 
-        public virtual void Visit(ValueStep step)
-        {
-            Method("value");
-        }
-
-        public virtual void Visit(ValueMapStep step)
-        {
-            Method("valueMap", step.Keys);
-        }
+        public virtual void Visit(ValueMapStep step) => Method("valueMap", step.Keys);
 
         public virtual void Visit(IGremlinQuery query)
         {
@@ -657,6 +368,29 @@ namespace ExRam.Gremlinq.Core.Serialization
             _currentAdmin = beforeAdmin;
         }
 
+        public virtual void Visit(ProjectStep.ByTraversalStep byTraversalStep)
+        {
+            Method("by", byTraversalStep.Traversal);
+        }
+
+        public virtual void Visit(ProjectStep projectStep)
+        {
+            Method("project", projectStep.Projections);
+        }
+
+        public virtual void Visit(WithoutStrategiesStep step)
+        {
+            OpenMethod("withoutStrategies");
+
+            foreach (var className in step.ClassNames)
+            {
+                StartParameter();
+                Identifier(className);
+                EndParameter();
+            }
+
+            CloseMethod();
+        }
         #endregion
 
         public object Build()
@@ -665,14 +399,6 @@ namespace ExRam.Gremlinq.Core.Serialization
                 _builder.ToString(),
                 _variables
                     .ToDictionary(kvp => kvp.Value, kvp => kvp.Key));
-        }
-
-        protected void NoIdentifier()
-        {
-            if (_state != State.Idle)
-                throw new InvalidOperationException();
-
-            _state = State.ChainingSupressIdentifier;
         }
 
         protected void Identifier(string className)
@@ -696,7 +422,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected void OpenMethod(string methodName)
         {
-            if (_state != State.Chaining && _state != State.ChainingSupressIdentifier)
+            if (_state != State.Idle && _state != State.Chaining)
                 throw new InvalidOperationException();
 
             if (_state == State.Chaining)
@@ -823,10 +549,10 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected virtual void Field(string fieldName)
         {
-            if (_state != State.Chaining && _state != State.ChainingSupressIdentifier)
+            if (_state != State.Idle && _state != State.Chaining)
                 throw new InvalidOperationException();
 
-            if (_state != State.ChainingSupressIdentifier)
+            if (_state == State.Chaining)
                 _builder.Append(".");
 
             _builder.Append(fieldName);
@@ -834,7 +560,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected void Constant(object constant)
         {
-            if (_state == State.Chaining || _state == State.ChainingSupressIdentifier)
+            if (_state == State.Chaining)
                 throw new InvalidOperationException();
 
             _builder.Append(Cache(constant));
@@ -900,7 +626,6 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         protected virtual void Visit(P.SingleArgumentP p, string name)
         {
-            NoIdentifier();
             Method(name, p.Argument);
         }
 
@@ -920,30 +645,6 @@ namespace ExRam.Gremlinq.Core.Serialization
             }
             else
                 yield return query;
-        }
-
-        public void Visit(WithoutStrategiesStep step)
-        {
-            OpenMethod("withoutStrategies");
-
-            foreach (var className in step.ClassNames)
-            {
-                StartParameter();
-                Identifier(className);
-                EndParameter();
-            }
-
-            CloseMethod();
-        }
-
-        public void Visit(ProjectStep.ByTraversalStep byTraversalStep)
-        {
-            Method("by", byTraversalStep.Traversal);
-        }
-
-        public void Visit(ProjectStep projectStep)
-        {
-            Method("project", projectStep.Projections);
         }
     }
 }
