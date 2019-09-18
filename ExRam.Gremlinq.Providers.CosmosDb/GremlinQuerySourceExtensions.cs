@@ -114,6 +114,16 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        {
+            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, true);
+        }
+
+        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
+        {
+            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, false);
+        }
+
         private static IConfigurableGremlinQuerySource CreateCosmosDBGremlinQuerySource(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port, bool enableSsl)
         {
             return source
@@ -133,17 +143,6 @@ namespace ExRam.Gremlinq.Core
                        default,
                        source.Logger)
                    .UseGraphsonDeserialization(new TimespanConverter()));
-        }
-
-        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
-        {
-            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, true);
-        }
-
-
-        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
-        {
-            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, false);
         }
     }
 }
