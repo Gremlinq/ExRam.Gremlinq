@@ -14,8 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(b => b
-                    .EchoGremlinQueryAsString())
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString)
                 .V()
                 .OfType<Person>();
 
@@ -35,8 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(b => b
-                    .EchoGremlinQueryAsString())
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString)
                 .V()
                 .OfType<Person>();
 
@@ -55,8 +53,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(b => b
-                    .EchoGremlinQueryAsString())
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString)
                 .V()
                 .OfType<Person>();
 

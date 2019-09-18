@@ -2,8 +2,8 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQueryExecutor<in TSerializedQuery, out TQueryResult>
+    public interface IGremlinQueryExecutor
     {
-        IAsyncEnumerable<TQueryResult> Execute(TSerializedQuery serializedQuery);
+        IAsyncEnumerable<object> Execute(object serializedQuery);
     }
 }

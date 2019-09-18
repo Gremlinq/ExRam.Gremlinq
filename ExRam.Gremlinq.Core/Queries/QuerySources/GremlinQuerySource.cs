@@ -198,19 +198,14 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureModel((_, m) => modelTransformation(m));
         }
 
-        public static IConfigurableGremlinQuerySource ConfigureExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> builderTransformation)
+        public static IConfigurableGremlinQuerySource ConfigureExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation)
         {
-            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(b));
+            return source.ConfigureExecutionPipeline((_, b) => pipelineTransformation(b));
         }
 
-        public static IConfigurableGremlinQuerySource UseExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryEnvironment, IGremlinQueryExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
+        public static IConfigurableGremlinQuerySource UseExecutionPipeline(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutionPipeline pipeline)
         {
-            return source.ConfigureExecutionPipeline((environment, b) => builderTransformation(environment, GremlinQueryExecutionPipelineBuilder.Default));
-        }
-
-        public static IConfigurableGremlinQuerySource UseExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipelineBuilder, IGremlinQueryExecutionPipeline> builderTransformation)
-        {
-            return source.ConfigureExecutionPipeline((_, b) => builderTransformation(GremlinQueryExecutionPipelineBuilder.Default));
+            return source.ConfigureExecutionPipeline((_, __) => pipeline);
         }
     }
 }

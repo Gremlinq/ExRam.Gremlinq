@@ -21,10 +21,13 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
             {
-                var pipeline = Subject.AsAdmin().Environment.Pipeline as IGremlinQueryExecutionPipeline<GroovySerializedGremlinQuery>;
-                var serializedQuery = pipeline.Serializer.Serialize(Subject);
+                var pipeline = Subject.AsAdmin().Environment.Pipeline;
+                var serializedQuery = pipeline.Serializer
+                    .Serialize(Subject)
+                    .As<GroovySerializedGremlinQuery>();
                     
-                serializedQuery.QueryString
+                serializedQuery
+                    .QueryString
                     .Should()
                     .Be(serialization);
 

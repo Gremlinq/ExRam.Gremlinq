@@ -2,75 +2,102 @@
 using System.Collections.Generic;
 using System.Linq;
 using ExRam.Gremlinq.Core.Serialization;
-using LanguageExt;
+using ExRam.Gremlinq.Providers;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExecutionPipeline
     {
-        public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipeline<GroovySerializedGremlinQuery, Unit>(
-            GremlinQuerySerializer<GroovySerializedGremlinQuery>.FromVisitor<GroovyGremlinQueryElementVisitor>(),
-            GremlinQueryExecutor<GroovySerializedGremlinQuery, Unit>.Invalid,
-            GremlinQueryExecutionResultDeserializer<Unit>.Invalid);
-    }
-
-    internal sealed class GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> :
-        IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>,
-        IGremlinQueryExecutionPipelineBuilder,
-        IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery>,
-        IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult>
-    {
-        public GremlinQueryExecutionPipeline(
-            IGremlinQuerySerializer<TSerializedQuery> serializer,
-            IGremlinQueryExecutor<TSerializedQuery, TExecutionResult> executor,
-            IGremlinQueryExecutionResultDeserializer<TExecutionResult> deserializer)
+        private sealed class GremlinQueryExecutionPipelineImpl : IGremlinQueryExecutionPipeline
         {
-            Executor = executor;
-            Serializer = serializer;
-            Deserializer = deserializer;
+            public GremlinQueryExecutionPipelineImpl(
+                IGremlinQuerySerializer serializer,
+                IGremlinQueryExecutor executor,
+                IGremlinQueryExecutionResultDeserializer deserializer)
+            {
+                Executor = executor;
+                Serializer = serializer;
+                Deserializer = deserializer;
+            }
+
+            public IGremlinQueryExecutionPipeline UseSerializer(IGremlinQuerySerializer serializer)
+            {
+                return new GremlinQueryExecutionPipelineImpl(serializer, GremlinQueryExecutor.Invalid, Deserializer);
+            }
+
+            public IGremlinQueryExecutionPipeline ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator)
+            {
+                return new GremlinQueryExecutionPipelineImpl(Serializer, Executor, configurator(Deserializer));
+            }
+
+            public IGremlinQueryExecutionPipeline ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator)
+            {
+                return new GremlinQueryExecutionPipelineImpl(configurator(Serializer), Executor, Deserializer);
+            }
+
+            public IGremlinQueryExecutionPipeline UseExecutor(IGremlinQueryExecutor executor)
+            {
+                return new GremlinQueryExecutionPipelineImpl(Serializer, executor, GremlinQueryExecutionResultDeserializer.Invalid);
+            }
+
+            public IGremlinQueryExecutionPipeline ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator)
+            {
+                return new GremlinQueryExecutionPipelineImpl(Serializer, configurator(Executor), Deserializer);
+            }
+
+            public IGremlinQueryExecutionPipeline UseDeserializer(IGremlinQueryExecutionResultDeserializer deserializerFactory)
+            {
+                return new GremlinQueryExecutionPipelineImpl(Serializer, Executor, deserializerFactory);
+            }
+
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            {
+                return Executor
+                    .Execute(Serializer
+                        .Serialize(query))
+                    .SelectMany(executionResult => Deserializer
+                        .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
+            }
+
+            public IGremlinQuerySerializer Serializer { get; }
+            public IGremlinQueryExecutor Executor { get; }
+            public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithSerializer<TNewSerializedQuery> UseSerializer<TNewSerializedQuery>(IGremlinQuerySerializer<TNewSerializedQuery> serializer)
+        public static IGremlinQueryExecutionPipeline UseGroovySerialization(this IGremlinQueryExecutionPipeline pipeline)
         {
-            return new GremlinQueryExecutionPipeline<TNewSerializedQuery, TExecutionResult>(serializer, GremlinQueryExecutor<TNewSerializedQuery, TExecutionResult>.Invalid, Deserializer);
+            return pipeline.UseSerializer(GremlinQuerySerializer.FromVisitor<GroovyGremlinQueryElementVisitor>());
         }
 
-        public IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer<TExecutionResult>, IGremlinQueryExecutionResultDeserializer<TExecutionResult>> configurator)
+        public static IGremlinQueryExecutionPipeline UseGraphsonDeserialization(this IGremlinQueryExecutionPipeline pipeline, params JsonConverter[] additionalConverters)
         {
-            return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(Serializer, Executor, configurator(Deserializer));
+            return pipeline.UseDeserializer(new DefaultGraphsonDeserializer(additionalConverters));
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithSerializer<TSerializedQuery> ConfigureSerializer(Func<IGremlinQuerySerializer<TSerializedQuery>, IGremlinQuerySerializer<TSerializedQuery>> configurator)
+        public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQuerySerializer serializer)
         {
-            return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(configurator(Serializer), Executor, Deserializer);
+            return pipeline.ConfigureSerializer(_ => serializer);
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TNewExecutionResult> UseExecutor<TNewExecutionResult>(IGremlinQueryExecutor<TSerializedQuery, TNewExecutionResult> executor)
+        public static IGremlinQueryExecutionPipeline UseDeserializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutionResultDeserializer deserializer)
         {
-            return new GremlinQueryExecutionPipeline<TSerializedQuery, TNewExecutionResult>(Serializer, executor, GremlinQueryExecutionResultDeserializer<TNewExecutionResult>.Invalid);
+            return pipeline.ConfigureDeserializer(_ => deserializer);
         }
 
-        public IGremlinQueryExecutionPipelineBuilderWithExecutor<TSerializedQuery, TExecutionResult> ConfigureExecutor(Func<IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>, IGremlinQueryExecutor<TSerializedQuery, TExecutionResult>> configurator)
+        public static IGremlinQueryExecutionPipeline UseExecutor(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutor executor)
         {
-            return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(Serializer, configurator(Executor), Deserializer);
+            return pipeline.ConfigureExecutor(_ => executor);
         }
 
-        public IGremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult> UseDeserializer(IGremlinQueryExecutionResultDeserializer<TExecutionResult> deserializerFactory)
-        {
-            return new GremlinQueryExecutionPipeline<TSerializedQuery, TExecutionResult>(Serializer, Executor, deserializerFactory);
-        }
+        public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipelineImpl(
+            GremlinQuerySerializer.FromVisitor<GroovyGremlinQueryElementVisitor>(),
+            GremlinQueryExecutor.Invalid,
+            GremlinQueryExecutionResultDeserializer.Invalid);
 
-        public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
-        {
-            return Executor
-                .Execute(Serializer
-                    .Serialize(query))
-                .SelectMany(executionResult => Deserializer
-                    .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
-        }
-
-        public IGremlinQuerySerializer<TSerializedQuery> Serializer { get; }
-        public IGremlinQueryExecutor<TSerializedQuery, TExecutionResult> Executor { get; }
-        public IGremlinQueryExecutionResultDeserializer<TExecutionResult> Deserializer { get; }
+        public static readonly IGremlinQueryExecutionPipeline EchoGroovyString = Invalid
+            .UseGroovySerialization()
+            .UseExecutor(GremlinQueryExecutor.Echo)
+            .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
     }
 }

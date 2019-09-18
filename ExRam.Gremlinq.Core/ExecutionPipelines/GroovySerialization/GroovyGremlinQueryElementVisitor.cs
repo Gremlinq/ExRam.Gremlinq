@@ -6,7 +6,7 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core.Serialization
 {
-    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor<GroovySerializedGremlinQuery>
+    public class GroovyGremlinQueryElementVisitor : IGremlinQueryElementVisitor
     {
         public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
 
@@ -659,7 +659,7 @@ namespace ExRam.Gremlinq.Core.Serialization
 
         #endregion
 
-        public GroovySerializedGremlinQuery Build()
+        public object Build()
         {
             return new GroovySerializedGremlinQuery(
                 _builder.ToString(),

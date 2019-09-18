@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class GremlinQuerySourceExtensions
     {
-        private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken>, IDisposable
+        private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
             private readonly ILogger _logger;
             private readonly Lazy<IGremlinClient> _lazyGremlinClient;
@@ -32,22 +32,27 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                 _lazyGremlinClient.Value.Dispose();
             }
 
-            public IAsyncEnumerable<JToken> Execute(GroovySerializedGremlinQuery groovySerializedQuery)
+            public IAsyncEnumerable<object> Execute(object serializedQuery)
             {
-                _logger?.LogTrace("Executing Gremlin query {0}.", groovySerializedQuery.QueryString);
+                if (serializedQuery is GroovySerializedGremlinQuery groovySerializedQuery)
+                {
+                    _logger?.LogTrace("Executing Gremlin query {0}.", groovySerializedQuery.QueryString);
 
-                return _lazyGremlinClient
-                    .Value
-                    .SubmitAsync<JToken>(groovySerializedQuery.QueryString, groovySerializedQuery.Bindings)
-                    .ToAsyncEnumerable()
-                    .SelectMany(x => x
-                        .ToAsyncEnumerable())
-                    .Catch<JToken, Exception>(ex =>
-                    {
-                        _logger?.LogError("Error executing Gremlin query {0}.", groovySerializedQuery.QueryString);
+                    return _lazyGremlinClient
+                        .Value
+                        .SubmitAsync<JToken>(groovySerializedQuery.QueryString, groovySerializedQuery.Bindings)
+                        .ToAsyncEnumerable()
+                        .SelectMany(x => x
+                            .ToAsyncEnumerable())
+                        .Catch<JToken, Exception>(ex =>
+                        {
+                            _logger?.LogError("Error executing Gremlin query {0}.", groovySerializedQuery.QueryString);
 
-                        return AsyncEnumerableEx.Throw<JToken>(ex);
-                    });
+                            return AsyncEnumerableEx.Throw<JToken>(ex);
+                        });
+                }
+
+                throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.");
             }
         }
 
@@ -62,14 +67,14 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
-            return source.UseExecutionPipeline(conf => conf
+            return source.ConfigureExecutionPipeline(conf => conf
                 .UseGroovySerialization()
                 .AddWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .UseGraphsonDeserialization());
         }
 
-        public static IGremlinQueryExecutionPipelineBuilderWithExecutor<GroovySerializedGremlinQuery, JToken> AddWebSocketExecutor(
-            this IGremlinQueryExecutionPipelineBuilderWithSerializer<GroovySerializedGremlinQuery> builder,
+        public static IGremlinQueryExecutionPipeline AddWebSocketExecutor(
+            this IGremlinQueryExecutionPipeline pipeline,
             string hostname,
             int port = 8182,
             bool enableSsl = false,
@@ -83,7 +88,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
             var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
 
-            return builder
+            return pipeline
                 .AddWebSocketExecutor(
                     () => new GremlinClient(
                         new GremlinServer(hostname, port, enableSsl, username, password),
@@ -99,9 +104,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     logger);
         }
 
-        public static IGremlinQueryExecutionPipelineBuilderWithExecutor<GroovySerializedGremlinQuery, JToken> AddWebSocketExecutor(this IGremlinQueryExecutionPipelineBuilderWithSerializer<GroovySerializedGremlinQuery> builder, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        public static IGremlinQueryExecutionPipeline AddWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, ILogger logger = null)
         {
-            return builder
+            return pipeline
                 .UseExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));
         }
     }

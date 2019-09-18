@@ -16,8 +16,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var query = await g
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
-                .UseExecutionPipeline(_ => _
-                    .EchoGremlinQueryAsString())
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString)
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
@@ -32,11 +31,12 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Echo_wrong_type()
         {
             GremlinQuerySource.g
-                .UseExecutionPipeline(_ => _.EchoGremlinQueryAsString())
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString)
                 .V()
                 .Awaiting(async _ => await _
                     .ToArrayAsync())
                 .Should()
                 .Throw<InvalidOperationException>();
         }
+    }
 }

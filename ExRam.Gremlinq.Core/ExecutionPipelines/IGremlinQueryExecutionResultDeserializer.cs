@@ -2,8 +2,8 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQueryExecutionResultDeserializer<in TExecutionResult>
+    public interface IGremlinQueryExecutionResultDeserializer
     {
-        IAsyncEnumerable<TElement> Deserialize<TElement>(TExecutionResult result, IGremlinQueryEnvironment environment);
+        IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment);
     }
 }

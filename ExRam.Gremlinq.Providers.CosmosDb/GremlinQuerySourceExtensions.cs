@@ -117,8 +117,8 @@ namespace ExRam.Gremlinq.Core
         private static IConfigurableGremlinQuerySource CreateCosmosDBGremlinQuerySource(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port, bool enableSsl)
         {
             return source
-               .UseExecutionPipeline(builder => builder
-                   .UseSerializer(GremlinQuerySerializer<GroovySerializedGremlinQuery>
+               .ConfigureExecutionPipeline(builder => builder
+                   .UseSerializer(GremlinQuerySerializer
                        .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
                    .AddWebSocketExecutor(
                        hostname,

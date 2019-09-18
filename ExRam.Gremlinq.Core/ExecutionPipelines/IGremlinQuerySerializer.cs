@@ -1,7 +1,7 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQuerySerializer<out TSerializedQuery>
+    public interface IGremlinQuerySerializer
     {
-        TSerializedQuery Serialize(IGremlinQuery query);
+        object Serialize(IGremlinQuery query);
     }
 }

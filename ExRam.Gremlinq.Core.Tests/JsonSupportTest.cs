@@ -17,9 +17,9 @@ namespace ExRam.Gremlinq.Providers.Tests
 {
     public static class ConfigurableGremlinSourceExtensions
     {
-        public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken> executor)
+        public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
-            return source.UseExecutionPipeline(conf => conf
+            return source.ConfigureExecutionPipeline(pipeline => pipeline
                 .UseGroovySerialization()
                 .UseExecutor(executor)
                 .UseGraphsonDeserialization());
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
     public class JsonSupportTest
     {
-        private sealed class TestJsonQueryExecutor : IGremlinQueryExecutor<GroovySerializedGremlinQuery, JToken>
+        private sealed class TestJsonQueryExecutor : IGremlinQueryExecutor
         {
             private readonly string _json;
 
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 _json = json;
             }
 
-            public IAsyncEnumerable<JToken> Execute(GroovySerializedGremlinQuery groovySerializedQuery)
+            public IAsyncEnumerable<object> Execute(object groovySerializedQuery)
             {
                 return AsyncEnumerableEx
                     .Return(JToken.Parse(_json));
