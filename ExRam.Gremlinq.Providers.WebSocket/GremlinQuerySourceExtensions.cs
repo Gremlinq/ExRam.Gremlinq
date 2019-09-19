@@ -68,12 +68,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
         {
             return source.ConfigureExecutionPipeline(conf => conf
-                .UseGroovySerialization()
-                .AddWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
-                .UseGraphsonDeserialization());
+                .UseGroovySerializer()
+                .UseWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
+                .UseGraphsonDeserializer());
         }
 
-        public static IGremlinQueryExecutionPipeline AddWebSocketExecutor(
+        public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(
             this IGremlinQueryExecutionPipeline pipeline,
             string hostname,
             int port = 8182,
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
 
             return pipeline
-                .AddWebSocketExecutor(
+                .UseWebSocketExecutor(
                     () => new GremlinClient(
                         new GremlinServer(hostname, port, enableSsl, username, password),
                         graphsonVersion == GraphsonVersion.V2
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     logger);
         }
 
-        public static IGremlinQueryExecutionPipeline AddWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, ILogger logger = null)
         {
             return pipeline
                 .UseExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));

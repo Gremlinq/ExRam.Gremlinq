@@ -20,9 +20,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
             return source.ConfigureExecutionPipeline(pipeline => pipeline
-                .UseGroovySerialization()
+                .UseGroovySerializer()
                 .UseExecutor(executor)
-                .UseGraphsonDeserialization());
+                .UseGraphsonDeserializer());
         }
     }
 

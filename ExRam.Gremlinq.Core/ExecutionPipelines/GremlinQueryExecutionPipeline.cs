@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers;
 using Newtonsoft.Json;
 
@@ -65,12 +64,12 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         }
 
-        public static IGremlinQueryExecutionPipeline UseGroovySerialization(this IGremlinQueryExecutionPipeline pipeline)
+        public static IGremlinQueryExecutionPipeline UseGroovySerializer(this IGremlinQueryExecutionPipeline pipeline)
         {
             return pipeline.UseSerializer(GremlinQuerySerializer.Groovy);
         }
 
-        public static IGremlinQueryExecutionPipeline UseGraphsonDeserialization(this IGremlinQueryExecutionPipeline pipeline, params JsonConverter[] additionalConverters)
+        public static IGremlinQueryExecutionPipeline UseGraphsonDeserializer(this IGremlinQueryExecutionPipeline pipeline, params JsonConverter[] additionalConverters)
         {
             return pipeline.UseDeserializer(new DefaultGraphsonDeserializer(additionalConverters));
         }
@@ -96,7 +95,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryExecutionResultDeserializer.Invalid);
 
         public static readonly IGremlinQueryExecutionPipeline EchoGroovyString = Invalid
-            .UseGroovySerialization()
+            .UseGroovySerializer()
             .UseExecutor(GremlinQueryExecutor.Echo)
             .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
     }
