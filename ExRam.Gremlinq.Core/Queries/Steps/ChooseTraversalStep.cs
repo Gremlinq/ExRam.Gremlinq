@@ -10,11 +10,6 @@ namespace ExRam.Gremlinq.Core
             IfTraversal = ifTraversal;
         }
 
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public IGremlinQuery IfTraversal { get; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Providers;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -48,88 +47,55 @@ namespace ExRam.Gremlinq.Core
             public override bool CanWrite => true;
         }
 
-        private sealed class CosmosDbGroovyGremlinQueryElementVisitor : GroovyGremlinQueryElementVisitor
-        {
-            private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
-
-            public override void Visit(SkipStep step)
-            {
-                Visit(new RangeStep(step.Count, -1));
-            }
-
-            public override void Visit(LimitStep step)
-            {
-                // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                if (step.Count > int.MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-
-                base.Visit(step);
-            }
-
-            public override void Visit(TailStep step)
-            {
-                // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                if (step.Count > int.MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
-
-                base.Visit(step);
-            }
-
-            public override void Visit(RangeStep step)
-            {
-                // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
-                    throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-
-                base.Visit(step);
-            }
-
-            protected override void Method(string methodName, object parameter)
-            {
-                base.Method(
-                    methodName,
-                    parameter is long l ? (int)l : parameter);
-            }
-
-            protected override void Method(string methodName, object parameter1, object parameter2)
-            {
-                base.Method(
-                    methodName,
-                    parameter1 is long l1 ? (int)l1 : parameter1,
-                    parameter2 is long l2 ? (int)l2 : parameter2);
-            }
-
-            protected override void Method(string methodName, object parameter1, object parameter2, object parameter3)
-            {
-                base.Method(
-                    methodName,
-                    parameter1 is long l1 ? (int)l1 : parameter1,
-                    parameter2 is long l2 ? (int)l2 : parameter2,
-                    parameter2 is long l3 ? (int)l3 : parameter3);
-            }
-
-            public override void Visit(NoneStep step)
-            {
-                Visit(NoneWorkaround);
-            }
-        }
+        private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
         public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
-            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, true);
+            return source.CreateCosmosDbGremlinQuerySource(hostname, database, graphName, authKey, port, true);
         }
 
         public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
         {
-            return source.CreateCosmosDBGremlinQuerySource(hostname, database, graphName, authKey, port, false);
+            return source.CreateCosmosDbGremlinQuerySource(hostname, database, graphName, authKey, port, false);
         }
 
-        private static IConfigurableGremlinQuerySource CreateCosmosDBGremlinQuerySource(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port, bool enableSsl)
+        private static IConfigurableGremlinQuerySource CreateCosmosDbGremlinQuerySource(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port, bool enableSsl)
         {
             return source
                .ConfigureExecutionPipeline(builder => builder
-                   .UseSerializer(GremlinQuerySerializer
-                       .FromVisitor<CosmosDbGroovyGremlinQueryElementVisitor>())
+                   .UseSerializer(GremlinQuerySerializerBuilder.Groovy
+                        .OverrideAtom<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
+                        .OverrideAtom<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
+                        .OverrideAtom<LimitStep>((step, assembler, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
+
+                            overridden(step);
+                        })
+                        .OverrideAtom<TailStep>((step, assembler, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
+
+                            overridden(step);
+                        })
+                        .OverrideAtom<RangeStep>((step, assembler, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
+
+                            overridden(step);
+                        })
+                        .OverrideAtom<long>((l, assembler, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            recurse((int)l);
+                        })
+                        .Build())
                    .AddWebSocketExecutor(
                        hostname,
                        port,

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class GraphsonDeserializer : JsonSerializer
+    internal sealed class GraphsonJsonSerializer : JsonSerializer
     {
         #region Nested
         private sealed class GremlinContractResolver : DefaultContractResolver
@@ -349,7 +349,7 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        public GraphsonDeserializer(IGremlinQueryEnvironment environment, params JsonConverter[] additionalConverters)
+        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params JsonConverter[] additionalConverters)
         {
             foreach (var additionalConverter in additionalConverters)
             {

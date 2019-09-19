@@ -1,5 +1,4 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -11,11 +10,6 @@ namespace ExRam.Gremlinq.Core
                 throw new ArgumentOutOfRangeException(nameof(count));
 
             Count = count;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public long Count { get; }

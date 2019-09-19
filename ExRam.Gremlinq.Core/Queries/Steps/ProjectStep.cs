@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class ProjectStep : Step
     {
@@ -12,21 +10,11 @@ namespace ExRam.Gremlinq.Core
             {
                 Traversal = traversal;
             }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
         }
 
         public ProjectStep(params string[] projections)
         {
             Projections = projections;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public string[] Projections { get; }

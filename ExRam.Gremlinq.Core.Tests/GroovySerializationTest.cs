@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel
                     .FromBaseTypes<VertexWithListAsId, Edge>())
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
-                .Invoking(x => new GroovyGremlinQueryElementVisitor().Visit(x))
+                .Awaiting(async x => await x.FirstAsync())
                 .Should()
                 .Throw<NotSupportedException>();
         }
@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureOptions(options => options
-                    .SetValue(GroovyGremlinQueryElementVisitor.WorkaroundTinkerpop2112, true))
+                    .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112, true))
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
                 .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")

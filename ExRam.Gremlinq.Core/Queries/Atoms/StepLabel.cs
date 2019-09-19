@@ -1,14 +1,10 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class StepLabel : IGremlinQueryAtom
+    public abstract class StepLabel
     {
-        public void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
+        
     }
 
 #pragma warning disable 660,661

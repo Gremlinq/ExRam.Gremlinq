@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class NoneStep : Step
     {
@@ -8,11 +6,6 @@ namespace ExRam.Gremlinq.Core
 
         private NoneStep()
         {
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

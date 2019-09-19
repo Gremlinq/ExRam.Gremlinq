@@ -10,11 +10,6 @@ namespace ExRam.Gremlinq.Core
         {
             Lambda = lambda;
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 
     public sealed class ByMemberStep : Step
@@ -23,11 +18,6 @@ namespace ExRam.Gremlinq.Core
         {
             Order = order;
             Key = key;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public Order Order { get; }
@@ -43,11 +33,6 @@ namespace ExRam.Gremlinq.Core
         {
             Order = order;
             Traversal = traversal;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

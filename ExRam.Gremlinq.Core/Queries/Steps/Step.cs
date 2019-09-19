@@ -2,8 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class Step : IGremlinQueryAtom
+    public abstract class Step
     {
-        public abstract void Accept(IGremlinQueryElementVisitor visitor);
     }
 }

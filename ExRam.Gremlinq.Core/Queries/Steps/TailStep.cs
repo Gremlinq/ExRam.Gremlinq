@@ -1,5 +1,4 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -12,11 +11,6 @@ namespace ExRam.Gremlinq.Core
 
             Count = count;
             Scope = scope;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public long Count { get; }

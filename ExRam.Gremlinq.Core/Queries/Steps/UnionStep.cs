@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -7,11 +6,6 @@ namespace ExRam.Gremlinq.Core
     {
         public UnionStep(IEnumerable<IGremlinQuery> traversals) : base(traversals)
         {
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

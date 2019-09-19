@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using LanguageExt;
+﻿using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -9,11 +8,6 @@ namespace ExRam.Gremlinq.Core
         {
             Guard = guard;
             OptionTraversal = optionTraversal;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public Option<object> Guard { get; }

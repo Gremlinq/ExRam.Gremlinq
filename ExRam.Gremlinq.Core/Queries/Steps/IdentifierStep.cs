@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class IdentifierStep : Step
     {
@@ -22,11 +20,6 @@ namespace ExRam.Gremlinq.Core
                 : name == "__"
                     ? __
                     : new IdentifierStep(name);
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public string Identifier { get; }

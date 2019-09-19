@@ -9,11 +9,6 @@ namespace ExRam.Gremlinq.Core
             StepLabel = stepLabel;
         }
 
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public StepLabel StepLabel { get; }
     }
 }

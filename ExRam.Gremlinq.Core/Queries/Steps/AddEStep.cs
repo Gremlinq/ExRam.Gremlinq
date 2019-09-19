@@ -7,10 +7,5 @@ namespace ExRam.Gremlinq.Core
         public AddEStep(IGraphModel model, object value) : base(model.EdgesModel, value)
         {
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 }

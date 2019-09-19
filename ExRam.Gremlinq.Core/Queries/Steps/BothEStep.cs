@@ -10,10 +10,5 @@ namespace ExRam.Gremlinq.Core
         public BothEStep(string[] labels) : base(labels)
         {
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 }

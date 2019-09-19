@@ -10,11 +10,6 @@ namespace ExRam.Gremlinq.Core
             Predicate = predicate;
         }
 
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public P Predicate { get; }
     }
 }

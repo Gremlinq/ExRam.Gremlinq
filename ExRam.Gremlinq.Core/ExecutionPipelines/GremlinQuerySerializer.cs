@@ -1,5 +1,4 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -13,24 +12,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class VisitorGremlinQuerySerializer<TVisitor> : IGremlinQuerySerializer
-            where TVisitor : IGremlinQueryElementVisitor, new()
-        {
-            public object Serialize(IGremlinQuery query)
-            {
-                var visitor = new TVisitor();
-                visitor.Visit(query);
-
-                return visitor.Build();
-            }
-        }
+        public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static IGremlinQuerySerializer FromVisitor<TVisitor>()
-            where TVisitor : IGremlinQueryElementVisitor, new()
-        {
-            return new VisitorGremlinQuerySerializer<TVisitor>();
-        }
+        public static readonly IGremlinQuerySerializer Groovy = GremlinQuerySerializerBuilder.Groovy.Build();
     }
 }

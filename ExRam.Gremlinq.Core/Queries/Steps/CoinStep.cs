@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class CoinStep : Step
     {
@@ -9,11 +7,6 @@ namespace ExRam.Gremlinq.Core
         public CoinStep(double probability)
         {
             Probability = probability;
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class HasStep : HasStepBase
     {
@@ -10,11 +8,6 @@ namespace ExRam.Gremlinq.Core
 
         public HasStep(object key, IGremlinQuery traversal) : base(key, traversal)
         {
-        }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

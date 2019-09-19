@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public abstract class TextP : P
     {
@@ -8,11 +6,6 @@ namespace ExRam.Gremlinq.Core
         {
             public StartingWith(string value) : base(value)
             {
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
 
             internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
@@ -42,11 +35,6 @@ namespace ExRam.Gremlinq.Core
             {
             }
 
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
-
             internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
             {
                 if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.EndingWith) != 0)
@@ -60,11 +48,6 @@ namespace ExRam.Gremlinq.Core
         {
             public Containing(string value) : base(value)
             {
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
 
             internal override P WorkaroundLimitations(GremlinqOptions gremlinqOptions)

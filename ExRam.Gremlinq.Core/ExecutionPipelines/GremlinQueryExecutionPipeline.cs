@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryExecutionPipeline UseGroovySerialization(this IGremlinQueryExecutionPipeline pipeline)
         {
-            return pipeline.UseSerializer(GremlinQuerySerializer.FromVisitor<GroovyGremlinQueryElementVisitor>());
+            return pipeline.UseSerializer(GremlinQuerySerializer.Groovy);
         }
 
         public static IGremlinQueryExecutionPipeline UseGraphsonDeserialization(this IGremlinQueryExecutionPipeline pipeline, params JsonConverter[] additionalConverters)
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipelineImpl(
-            GremlinQuerySerializer.FromVisitor<GroovyGremlinQueryElementVisitor>(),
+            GremlinQuerySerializer.Groovy,
             GremlinQueryExecutor.Invalid,
             GremlinQueryExecutionResultDeserializer.Invalid);
 

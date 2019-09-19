@@ -19,11 +19,6 @@ namespace ExRam.Gremlinq.Core
             MetaProperties = metaProperties;
         }
 
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
-
         public object Key { get; }
         public object Value { get; }
         public object[] MetaProperties { get; }

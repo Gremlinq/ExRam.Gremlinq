@@ -2,16 +2,11 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class GremlinEnum<TEnum> : IGremlinQueryAtom where TEnum : GremlinEnum<TEnum>
+    public abstract class GremlinEnum<TEnum> where TEnum : GremlinEnum<TEnum>
     {
         protected GremlinEnum(string name)
         {
             Name = name;
-        }
-
-        public void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
         }
 
         public override bool Equals(object obj)

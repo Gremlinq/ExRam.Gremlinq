@@ -7,10 +7,5 @@ namespace ExRam.Gremlinq.Core
         public AddVStep(IGraphModel model, object value) : base(model.VerticesModel, value)
         {
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 }

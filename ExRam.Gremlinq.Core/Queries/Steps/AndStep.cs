@@ -7,10 +7,5 @@ namespace ExRam.Gremlinq.Core
         public AndStep(IGremlinQuery[] traversals) : base("and", traversals)
         {
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 }

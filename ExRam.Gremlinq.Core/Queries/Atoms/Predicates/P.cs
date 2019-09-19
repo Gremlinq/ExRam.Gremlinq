@@ -1,10 +1,8 @@
-﻿using System;
-using ExRam.Gremlinq.Core.Serialization;
-using NullGuard;
+﻿using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class P : IGremlinQueryAtom
+    public abstract class P
     {
         #region Nested
         // ReSharper disable once InconsistentNaming
@@ -23,11 +21,6 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TrueP : P
         {
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                throw new InvalidOperationException("P.True is not supposed to be serialized to groovy. Something went wrong...");
-            }
-
             public override bool EqualsConstant(bool value) => value;
 
             internal override bool ContainsSingleStepLabel() => false;
@@ -38,22 +31,12 @@ namespace ExRam.Gremlinq.Core
             public Eq([AllowNull] object argument) : base(argument)
             {
             }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
         }
 
         public sealed class Neq : SingleArgumentP
         {
             public Neq([AllowNull] object argument) : base(argument)
             {
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
         }
 
@@ -62,22 +45,12 @@ namespace ExRam.Gremlinq.Core
             public Lt(object argument) : base(argument)
             {
             }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
         }
 
         public sealed class Lte : SingleArgumentP
         {
             public Lte(object argument) : base(argument)
             {
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
         }
 
@@ -86,22 +59,12 @@ namespace ExRam.Gremlinq.Core
             public Gte(object argument) : base(argument)
             {
             }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
         }
 
         public sealed class Gt : SingleArgumentP
         {
             public Gt(object argument) : base(argument)
             {
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
         }
 
@@ -110,11 +73,6 @@ namespace ExRam.Gremlinq.Core
             public Within(object[] arguments)
             {
                 Arguments = arguments;
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
 
             public override bool EqualsConstant(bool value) => !value && Arguments.Length == 0;
@@ -129,11 +87,6 @@ namespace ExRam.Gremlinq.Core
             public Without(object[] arguments)
             {
                 Arguments = arguments;
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
 
             public override bool EqualsConstant(bool value) => value && Arguments.Length == 0;
@@ -151,11 +104,6 @@ namespace ExRam.Gremlinq.Core
                 Upper = upper;
             }
 
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
-
             internal override bool ContainsSingleStepLabel() => false;
 
             public object Lower { get; }
@@ -170,11 +118,6 @@ namespace ExRam.Gremlinq.Core
                 Upper = upper;
             }
 
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
-
             internal override bool ContainsSingleStepLabel() => false;
             
             public object Lower { get; }
@@ -187,11 +130,6 @@ namespace ExRam.Gremlinq.Core
             {
                 Operand1 = operand1;
                 Operand2 = operand2;
-            }
-
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
             }
 
             public override bool EqualsConstant(bool value)
@@ -215,11 +153,6 @@ namespace ExRam.Gremlinq.Core
                 Operand2 = operand2;
             }
 
-            public override void Accept(IGremlinQueryElementVisitor visitor)
-            {
-                visitor.Visit(this);
-            }
-
             public override bool EqualsConstant(bool value)
             {
                 return value
@@ -237,8 +170,6 @@ namespace ExRam.Gremlinq.Core
         protected P()
         {
         }
-
-        public abstract void Accept(IGremlinQueryElementVisitor visitor);
 
         public P And(P p)
         {

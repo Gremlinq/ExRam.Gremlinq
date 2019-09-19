@@ -9,10 +9,5 @@ namespace ExRam.Gremlinq.Core
         private LabelStep()
         {
         }
-
-        public override void Accept(IGremlinQueryElementVisitor visitor)
-        {
-            visitor.Visit(this);
-        }
     }
 }
