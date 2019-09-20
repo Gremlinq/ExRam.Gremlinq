@@ -9,9 +9,9 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializerBuilder AddCosmosDbWorkarounds(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
-                .OverrideAtom<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
-                .OverrideAtom<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
-                .OverrideAtom<LimitStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializationHandler<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
+                .OverrideAtomSerializationHandler<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
+                .OverrideAtomSerializationHandler<LimitStep>((step, assembler, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                     if (step.Count > int.MaxValue)
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
                     overridden(step);
                 })
-                .OverrideAtom<TailStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializationHandler<TailStep>((step, assembler, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                     if (step.Count > int.MaxValue)
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
 
                     overridden(step);
                 })
-                .OverrideAtom<RangeStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializationHandler<RangeStep>((step, assembler, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                     if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
 
                     overridden(step);
                 })
-                .OverrideAtom<long>((l, assembler, overridden, recurse) =>
+                .OverrideAtomSerializationHandler<long>((l, assembler, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                     recurse((int)l);

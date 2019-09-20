@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExRam.Gremlinq.Providers;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -64,16 +62,6 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         }
 
-        public static IGremlinQueryExecutionPipeline UseGroovySerializer(this IGremlinQueryExecutionPipeline pipeline)
-        {
-            return pipeline.UseSerializer(GremlinQuerySerializer.Groovy);
-        }
-
-        public static IGremlinQueryExecutionPipeline UseGraphsonDeserializer(this IGremlinQueryExecutionPipeline pipeline, params JsonConverter[] additionalConverters)
-        {
-            return pipeline.UseDeserializer(new DefaultGraphsonDeserializer(additionalConverters));
-        }
-
         public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQuerySerializer serializer)
         {
             return pipeline.ConfigureSerializer(_ => serializer);
@@ -90,12 +78,17 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipelineImpl(
-            GremlinQuerySerializer.Groovy,
+            GremlinQuerySerializer.Invalid,
             GremlinQueryExecutor.Invalid,
             GremlinQueryExecutionResultDeserializer.Invalid);
 
+        public static readonly IGremlinQueryExecutionPipeline Empty = new GremlinQueryExecutionPipelineImpl(
+            GremlinQuerySerializer.Unit,
+            GremlinQueryExecutor.Empty,
+            GremlinQueryExecutionResultDeserializer.Invalid);
+
         public static readonly IGremlinQueryExecutionPipeline EchoGroovyString = Invalid
-            .UseGroovySerializer()
+            .UseSerializer(GremlinQuerySerializer.Groovy)
             .UseExecutor(GremlinQueryExecutor.Echo)
             .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
     }

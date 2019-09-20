@@ -143,7 +143,7 @@ namespace ExRam.Gremlinq.Core
                 GraphModel.Dynamic(NullLogger.Instance),
                 default,
                 false,
-                GremlinQueryExecutionPipeline.Invalid,
+                GremlinQueryExecutionPipeline.Empty,
                 ImmutableList<IGremlinQueryStrategy>.Empty,
                 ImmutableList<string>.Empty,
                 NullLogger.Instance);

@@ -12,9 +12,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class UnitGremlinQuerySerializer : IGremlinQuerySerializer
+        {
+            public object Serialize(IGremlinQuery query)
+            {
+                return LanguageExt.Unit.Default;
+            }
+        }
+
         public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
+
+        public static readonly IGremlinQuerySerializer Unit = new UnitGremlinQuerySerializer();
 
         public static readonly IGremlinQuerySerializer Groovy = GremlinQuerySerializerBuilder
             .Invalid

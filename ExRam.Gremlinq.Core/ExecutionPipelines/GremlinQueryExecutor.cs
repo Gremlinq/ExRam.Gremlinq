@@ -22,8 +22,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class EmptyGremlinQueryExecutor : IGremlinQueryExecutor
+        {
+            public IAsyncEnumerable<object> Execute(object serializedQuery)
+            {
+                return AsyncEnumerable.Empty<object>();
+            }
+        }
+
         public static readonly IGremlinQueryExecutor Invalid = new InvalidQueryExecutor();
 
         public static readonly IGremlinQueryExecutor Echo = new EchoGremlinQueryExecutor();
+
+        public static readonly IGremlinQueryExecutor Empty = new EmptyGremlinQueryExecutor();
+
     }
 }

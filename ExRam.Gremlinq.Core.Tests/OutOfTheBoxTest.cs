@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -9,23 +9,13 @@ namespace ExRam.Gremlinq.Core.Tests
     public class OutOfTheBoxTest
     {
         [Fact]
-        public void Serialization()
+        public async Task Execution()
         {
-            g
-                .V()
-                .Should()
-                .SerializeToGroovy("g.V()");
-        }
-
-        [Fact]
-        public void Execution()
-        {
-            g
-                .V()
-                .Awaiting(async _ => await _
+            (await g
+                    .V()
                     .ToArrayAsync())
                 .Should()
-                .Throw<InvalidOperationException>();
+                .BeEmpty();
         }
     }
 }

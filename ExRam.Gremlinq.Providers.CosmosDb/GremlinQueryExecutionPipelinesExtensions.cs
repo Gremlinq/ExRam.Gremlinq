@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryExecutionPipeline UseCosmosDbDeserializer(this IGremlinQueryExecutionPipeline pipeline)
         {
             return pipeline
-                .UseGraphsonDeserializer(new TimespanConverter());
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
 
         public static IGremlinQueryExecutionPipeline UseCosmosDbSerializer(this IGremlinQueryExecutionPipeline pipeline)
