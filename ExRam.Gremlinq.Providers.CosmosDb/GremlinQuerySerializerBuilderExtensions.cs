@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
-        public static IGremlinQuerySerializerBuilder AddCosmosDbWorkarounds(this IGremlinQuerySerializerBuilder builder)
+        public static IGremlinQuerySerializerBuilder UseCosmosDbWorkarounds(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
                 .OverrideAtomSerializationHandler<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))

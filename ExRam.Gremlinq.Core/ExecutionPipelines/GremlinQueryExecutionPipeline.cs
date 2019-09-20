@@ -67,6 +67,11 @@ namespace ExRam.Gremlinq.Core
             return pipeline.ConfigureSerializer(_ => serializer);
         }
 
+        public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinQuerySerializerBuilder, IGremlinQuerySerializer> builder)
+        {
+            return pipeline.ConfigureSerializer(_ => builder(GremlinQuerySerializerBuilder.Invalid));
+        }
+
         public static IGremlinQueryExecutionPipeline UseDeserializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutionResultDeserializer deserializer)
         {
             return pipeline.ConfigureDeserializer(_ => deserializer);

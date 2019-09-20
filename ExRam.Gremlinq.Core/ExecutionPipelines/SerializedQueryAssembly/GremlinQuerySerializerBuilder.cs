@@ -94,13 +94,13 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializerBuilder Invalid = new GremlinQuerySerializerBuilderImpl(ImmutableDictionary<Type, AtomSerializationHandler<object>>.Empty, SerializedGremlinQueryAssemblerFactory.Invalid);
 
-        public static IGremlinQuerySerializerBuilder AddGroovy(this IGremlinQuerySerializerBuilder builder)
+        public static IGremlinQuerySerializerBuilder UseGroovy(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
                 .ConfigureAssemblerFactory(_ => SerializedGremlinQueryAssemblerFactory.Groovy);
         }
 
-        public static IGremlinQuerySerializerBuilder AddGremlinSteps(this IGremlinQuerySerializerBuilder builder)
+        public static IGremlinQuerySerializerBuilder UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
                 .OverrideAtomSerializationHandler<HasNotStep>((step, assembler, overridden, recurse) => assembler.Method("hasNot", step.Key, recurse))

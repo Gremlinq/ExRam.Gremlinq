@@ -28,8 +28,8 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Groovy = GremlinQuerySerializerBuilder
             .Invalid
-            .AddGremlinSteps()
-            .AddGroovy()
+            .UseDefaultGremlinStepSerializationHandlers()
+            .UseGroovy()
             .Build();
     }
 }
