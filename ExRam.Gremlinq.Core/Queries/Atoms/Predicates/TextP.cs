@@ -13,7 +13,7 @@
                 if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.StartingWith) == 0)
                     return base.WorkaroundLimitations(gremlinqOptions);
 
-                var upperBound = Value;
+                string upperBound;
 
                 if (Value[Value.Length - 1] == char.MaxValue)
                     upperBound = Value + char.MinValue;

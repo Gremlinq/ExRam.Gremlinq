@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
             var sourceAdmin = sourceQuery.AsAdmin();
             var targetAdmin = targetQuery.AsAdmin();
 
-            if (!object.ReferenceEquals(sourceAdmin.Environment, targetAdmin.Environment))
+            if (!ReferenceEquals(sourceAdmin.Environment, targetAdmin.Environment))
                 throw new ArgumentException($"{nameof(sourceQuery)} and {nameof(targetQuery)} don't agree on environments.");
 
             if (sourceAdmin.Steps.Count > targetAdmin.Steps.Count)
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             if (e1.MoveNext())
                             {
-                                if (!object.ReferenceEquals(e1.Current, e2.Current))
+                                if (!ReferenceEquals(e1.Current, e2.Current))
                                     throw new ArgumentException($"{nameof(sourceQuery)} is not a proper prefix of {nameof(targetQuery)}.");
                             }
                             else

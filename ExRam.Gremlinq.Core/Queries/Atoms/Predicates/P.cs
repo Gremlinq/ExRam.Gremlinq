@@ -167,10 +167,6 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        protected P()
-        {
-        }
-
         public P And(P p)
         {
             return new AndP(this, p);

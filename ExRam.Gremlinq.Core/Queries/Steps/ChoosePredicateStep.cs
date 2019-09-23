@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
-using LanguageExt;
+﻿using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
