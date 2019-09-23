@@ -13,10 +13,47 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssembledGremlinQuerySerializer : IGremlinQuerySerializer
             {
+                private sealed class Recurse
+                {
+                    private readonly Action<object> _recurse;
+                    private readonly ISerializedGremlinQueryAssembler _assembler;
+                    private readonly IReadOnlyDictionary<Type, AtomSerializationHandler<object>> _dict;
+
+                    public Recurse(IReadOnlyDictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssembler assembler)
+                    {
+                        _dict = dict;
+                        _assembler = assembler;
+                        _recurse = RecurseImpl;
+                    }
+
+                    public void RecurseImpl(object o)
+                    {
+                        if (o is IGremlinQuery query)
+                        {
+                            var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
+                            if (query.AsAdmin().Environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112))
+                                steps = steps.WorkaroundTINKERPOP_2112();
+
+                            foreach (var step in steps)
+                            {
+                                RecurseImpl(step);
+                            }
+                        }
+                        else
+                        {
+                            var action = _dict
+                                .TryGetValue(o.GetType())
+                                .IfNone((atom, assembler, baseSerializer, recurse) => assembler.Constant(atom));
+
+                            action(o, _assembler, _ => throw new NotImplementedException(), _recurse);
+                        }
+                    }
+                }
+
                 private readonly IReadOnlyDictionary<Type, AtomSerializationHandler<object>> _dict;
                 private readonly ISerializedGremlinQueryAssemblerFactory _assemblerFactory;
 
-                public AssembledGremlinQuerySerializer(Dictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
+                public AssembledGremlinQuerySerializer(IReadOnlyDictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
                 {
                     _dict = dict;
                     _assemblerFactory = assemblerFactory;
@@ -26,32 +63,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     var assembler = _assemblerFactory.Create();
 
-                    Recurse(query, assembler);
+                    new Recurse(_dict, assembler)
+                        .RecurseImpl(query);
 
                     return assembler.Assemble();
-                }
-
-                private void Recurse(object o, ISerializedGremlinQueryAssembler assembler)
-                {
-                    if (o is IGremlinQuery query)
-                    {
-                        var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
-                        if (query.AsAdmin().Environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112))
-                            steps = steps.WorkaroundTINKERPOP_2112();
-
-                        foreach (var step in steps)
-                        {
-                            Recurse(step, assembler);
-                        }
-                    }
-                    else
-                    {
-                        _dict
-                            .TryGetValue(o.GetType())
-                            .Match(
-                                d => d(o, assembler, _ => throw new NotImplementedException(), _ => Recurse(_, assembler)),
-                                () => assembler.Constant(o));
-                    }
                 }
             }
 
