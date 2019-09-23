@@ -80,7 +80,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 private State _state = State.Idle;
-                private IGremlinQueryAdmin _currentAdmin;
 
                 private readonly StringBuilder _builder = new StringBuilder();
                 private readonly Stack<State> _stateQueue = new Stack<State>();
