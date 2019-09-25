@@ -12,9 +12,9 @@ namespace System.Reflection
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition();
         private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExpressions.Contains<object>(default, default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default));
-        private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default));
-        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default));
+        private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
+        private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default(string)));
+        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default(string)));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         public static bool IsEnumerableAny(this MethodInfo methodInfo)
