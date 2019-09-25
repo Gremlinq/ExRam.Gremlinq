@@ -7,32 +7,31 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 5.0.0'
+  displayName: 'Use NuGet 5.3.0'
   inputs:
-    versionSpec: 5.0.0
+    versionSpec: 5.3.0
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk 2.x'
   inputs:
-    restoreSolution: ExRam.Gremlinq.sln
+    version: 2.x
 
-- task: VSBuild@1
-  displayName: 'Build solution ExRam.Gremlinq.sln'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk 3.x'
   inputs:
-    solution: ExRam.Gremlinq.sln
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    version: 3.x
 
-- task: VSTest@2
-  displayName: 'VsTest - testAssemblies'
+- task: DotNetCoreCLI@2
+  displayName: Build
   inputs:
-    testAssemblyVer2: |
-     **\ExRam.Gremlinq.Core.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Core.Tests.dll
-     **\ExRam.Gremlinq.Providers.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.Tests.dll
-     **\ExRam.Gremlinq.Providers.WebSocket.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.WebSocket.Tests.dll
-     **\ExRam.Gremlinq.Providers.CosmosDb.Tests\bin\$(BuildConfiguration)\*\ExRam.Gremlinq.Providers.CosmosDb.Tests.dll
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '**/*.Tests.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
