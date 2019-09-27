@@ -599,6 +599,19 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
+        private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> untilTraversal)
+            where TTargetQuery : IGremlinQuery
+        {
+            var anonymous = Anonymize();
+            var repeatQuery = repeatTraversal(anonymous);
+
+            return this
+                .AddStep(new UntilStep(untilTraversal(anonymous)))
+                .AddStep(new RepeatStep(repeatQuery))
+                .ChangeQueryType<TTargetQuery>();
+        }
+
+
         private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabel));
 
         private GremlinQuery<TSelectedElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Select<TSelectedElement>(params StepLabel[] stepLabels)

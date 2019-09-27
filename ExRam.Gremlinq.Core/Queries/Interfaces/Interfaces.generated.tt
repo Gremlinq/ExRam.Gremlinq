@@ -69,6 +69,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) where TTargetQuery : <#= iface #>;
         TTargetQuery RepeatUntil<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) where TTargetQuery : <#= iface #>;
+        TTargetQuery UntilRepeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) where TTargetQuery : <#= iface #>;
 
         <#= iface #> SideEffect(Func<<#= iface #>, IGremlinQuery> sideEffectTraversal);
         new <#= iface #> Skip(long count);
