@@ -6,9 +6,9 @@ ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://ti
 
 Package  | Link | 
 -------- | :------------: | 
-ExRam.Gremlinq.Core | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core) |
-ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket) |
-ExRam.Gremlinq.Providers.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb) |
+ExRam.Gremlinq.Core | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)  |
+ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)   [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)|
+ExRam.Gremlinq.Providers.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)|
 
 ## Sample project
 
