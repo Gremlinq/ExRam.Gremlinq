@@ -11,8 +11,12 @@
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageIconUrl>https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/NuGetIcon.png</PackageIconUrl>
+    <PackageIcon>NuGetIcon.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Assets\NuGetIcon.png" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
