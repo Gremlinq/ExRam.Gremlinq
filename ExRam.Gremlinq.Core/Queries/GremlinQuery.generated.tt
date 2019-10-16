@@ -66,9 +66,9 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> <#= iface #>.Range(long low, long high) => Range(low, high);
 
-        TTargetQuery <#= iface #>.Repeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal) => Repeat(repeatTraversal);
-        TTargetQuery <#= iface #>.RepeatUntil<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
-        TTargetQuery <#= iface #>.UntilRepeat<TTargetQuery>(Func<<#= iface #>, TTargetQuery> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
+        <#= iface #> <#= iface #>.Repeat(Func<<#= iface #>, <#= iface #>> repeatTraversal) => Repeat(repeatTraversal);
+        <#= iface #> <#= iface #>.RepeatUntil(Func<<#= iface #>, <#= iface #>> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
+        <#= iface #> <#= iface #>.UntilRepeat(Func<<#= iface #>, <#= iface #>> repeatTraversal, Func<<#= iface #>, IGremlinQuery> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         <#= iface #> <#= iface #>.SideEffect(Func<<#= iface #>, IGremlinQuery> sideEffectTraversal) => SideEffect(sideEffectTraversal);
         <#= iface #> <#= iface #>.Skip(long count) => Skip(count);

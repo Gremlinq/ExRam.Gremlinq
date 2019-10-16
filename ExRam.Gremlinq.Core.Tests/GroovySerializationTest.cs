@@ -1871,6 +1871,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void RepeatUntil()
+        {
+            _g
+                .V<Person>()
+                .RepeatUntil(
+                    __ => __.InE().OutV(),
+                    __ => __.V<Company>())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))")
+                .WithParameters("Person", "Company"); ;
+        }
+
+        [Fact]
         public void ReplaceE()
         {
             var now = DateTime.UtcNow;
@@ -2110,6 +2123,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).union(__.identity(), __.out(_b))")
                 .WithParameters("Person", "LivesIn");
+        }
+
+        [Fact]
+        public void UntilRepeat()
+        {
+            _g
+                .V<Person>()
+                .UntilRepeat(
+                    __ => __.InE().OutV(),
+                    __ => __.V<Company>())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV())")
+                .WithParameters("Person", "Company"); ;
         }
 
         [Fact]

@@ -83,9 +83,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IGremlinQuery Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IGremlinQuery;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> repeatTraversal, Func<IGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IGremlinQuery;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> repeatTraversal, Func<IGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IGremlinQuery;
+        IGremlinQuery Repeat(Func<IGremlinQuery, IGremlinQuery> repeatTraversal);
+        IGremlinQuery RepeatUntil(Func<IGremlinQuery, IGremlinQuery> repeatTraversal, Func<IGremlinQuery, IGremlinQuery> untilTraversal);
+        IGremlinQuery UntilRepeat(Func<IGremlinQuery, IGremlinQuery> repeatTraversal, Func<IGremlinQuery, IGremlinQuery> untilTraversal);
 
         IGremlinQuery SideEffect(Func<IGremlinQuery, IGremlinQuery> sideEffectTraversal);
         new IGremlinQuery Skip(long count);
@@ -158,9 +158,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IElementGremlinQuery Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IElementGremlinQuery;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> repeatTraversal, Func<IElementGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IElementGremlinQuery;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> repeatTraversal, Func<IElementGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IElementGremlinQuery;
+        IElementGremlinQuery Repeat(Func<IElementGremlinQuery, IElementGremlinQuery> repeatTraversal);
+        IElementGremlinQuery RepeatUntil(Func<IElementGremlinQuery, IElementGremlinQuery> repeatTraversal, Func<IElementGremlinQuery, IGremlinQuery> untilTraversal);
+        IElementGremlinQuery UntilRepeat(Func<IElementGremlinQuery, IElementGremlinQuery> repeatTraversal, Func<IElementGremlinQuery, IGremlinQuery> untilTraversal);
 
         IElementGremlinQuery SideEffect(Func<IElementGremlinQuery, IGremlinQuery> sideEffectTraversal);
         new IElementGremlinQuery Skip(long count);
@@ -233,9 +233,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IVertexGremlinQuery Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexGremlinQuery;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> repeatTraversal, Func<IVertexGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexGremlinQuery;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> repeatTraversal, Func<IVertexGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexGremlinQuery;
+        IVertexGremlinQuery Repeat(Func<IVertexGremlinQuery, IVertexGremlinQuery> repeatTraversal);
+        IVertexGremlinQuery RepeatUntil(Func<IVertexGremlinQuery, IVertexGremlinQuery> repeatTraversal, Func<IVertexGremlinQuery, IGremlinQuery> untilTraversal);
+        IVertexGremlinQuery UntilRepeat(Func<IVertexGremlinQuery, IVertexGremlinQuery> repeatTraversal, Func<IVertexGremlinQuery, IGremlinQuery> untilTraversal);
 
         IVertexGremlinQuery SideEffect(Func<IVertexGremlinQuery, IGremlinQuery> sideEffectTraversal);
         new IVertexGremlinQuery Skip(long count);
@@ -308,9 +308,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IEdgeGremlinQuery Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery;
+        IEdgeGremlinQuery Repeat(Func<IEdgeGremlinQuery, IEdgeGremlinQuery> repeatTraversal);
+        IEdgeGremlinQuery RepeatUntil(Func<IEdgeGremlinQuery, IEdgeGremlinQuery> repeatTraversal, Func<IEdgeGremlinQuery, IGremlinQuery> untilTraversal);
+        IEdgeGremlinQuery UntilRepeat(Func<IEdgeGremlinQuery, IEdgeGremlinQuery> repeatTraversal, Func<IEdgeGremlinQuery, IGremlinQuery> untilTraversal);
 
         IEdgeGremlinQuery SideEffect(Func<IEdgeGremlinQuery, IGremlinQuery> sideEffectTraversal);
         new IEdgeGremlinQuery Skip(long count);
@@ -383,9 +383,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IGremlinQuery<TElement> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IGremlinQuery<TElement>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IGremlinQuery<TElement>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IGremlinQuery<TElement>;
+        IGremlinQuery<TElement> Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal);
+        IGremlinQuery<TElement> RepeatUntil(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal, Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+        IGremlinQuery<TElement> UntilRepeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal, Func<IGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
 
         IGremlinQuery<TElement> SideEffect(Func<IGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         new IGremlinQuery<TElement> Skip(long count);
@@ -458,9 +458,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IValueGremlinQuery<TElement> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IValueGremlinQuery<TElement>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IValueGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IValueGremlinQuery<TElement>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IValueGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IValueGremlinQuery<TElement>;
+        IValueGremlinQuery<TElement> Repeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> repeatTraversal);
+        IValueGremlinQuery<TElement> RepeatUntil(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> repeatTraversal, Func<IValueGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+        IValueGremlinQuery<TElement> UntilRepeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> repeatTraversal, Func<IValueGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
 
         IValueGremlinQuery<TElement> SideEffect(Func<IValueGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         new IValueGremlinQuery<TElement> Skip(long count);
@@ -533,9 +533,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IArrayGremlinQuery<TArray, TQuery> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> repeatTraversal) where TTargetQuery : IArrayGremlinQuery<TArray, TQuery>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> repeatTraversal, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> untilTraversal) where TTargetQuery : IArrayGremlinQuery<TArray, TQuery>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> repeatTraversal, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> untilTraversal) where TTargetQuery : IArrayGremlinQuery<TArray, TQuery>;
+        IArrayGremlinQuery<TArray, TQuery> Repeat(Func<IArrayGremlinQuery<TArray, TQuery>, IArrayGremlinQuery<TArray, TQuery>> repeatTraversal);
+        IArrayGremlinQuery<TArray, TQuery> RepeatUntil(Func<IArrayGremlinQuery<TArray, TQuery>, IArrayGremlinQuery<TArray, TQuery>> repeatTraversal, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> untilTraversal);
+        IArrayGremlinQuery<TArray, TQuery> UntilRepeat(Func<IArrayGremlinQuery<TArray, TQuery>, IArrayGremlinQuery<TArray, TQuery>> repeatTraversal, Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> untilTraversal);
 
         IArrayGremlinQuery<TArray, TQuery> SideEffect(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> sideEffectTraversal);
         new IArrayGremlinQuery<TArray, TQuery> Skip(long count);
@@ -608,9 +608,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IElementGremlinQuery<TElement> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IElementGremlinQuery<TElement>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IElementGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IElementGremlinQuery<TElement>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IElementGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IElementGremlinQuery<TElement>;
+        IElementGremlinQuery<TElement> Repeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> repeatTraversal);
+        IElementGremlinQuery<TElement> RepeatUntil(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> repeatTraversal, Func<IElementGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+        IElementGremlinQuery<TElement> UntilRepeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> repeatTraversal, Func<IElementGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
 
         IElementGremlinQuery<TElement> SideEffect(Func<IElementGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         new IElementGremlinQuery<TElement> Skip(long count);
@@ -683,9 +683,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IVertexGremlinQuery<TVertex> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexGremlinQuery<TVertex>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> repeatTraversal, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexGremlinQuery<TVertex>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> repeatTraversal, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexGremlinQuery<TVertex>;
+        IVertexGremlinQuery<TVertex> Repeat(Func<IVertexGremlinQuery<TVertex>, IVertexGremlinQuery<TVertex>> repeatTraversal);
+        IVertexGremlinQuery<TVertex> RepeatUntil(Func<IVertexGremlinQuery<TVertex>, IVertexGremlinQuery<TVertex>> repeatTraversal, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> untilTraversal);
+        IVertexGremlinQuery<TVertex> UntilRepeat(Func<IVertexGremlinQuery<TVertex>, IVertexGremlinQuery<TVertex>> repeatTraversal, Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> untilTraversal);
 
         IVertexGremlinQuery<TVertex> SideEffect(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> sideEffectTraversal);
         new IVertexGremlinQuery<TVertex> Skip(long count);
@@ -758,9 +758,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IEdgeGremlinQuery<TEdge> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge>;
+        IEdgeGremlinQuery<TEdge> Repeat(Func<IEdgeGremlinQuery<TEdge>, IEdgeGremlinQuery<TEdge>> repeatTraversal);
+        IEdgeGremlinQuery<TEdge> RepeatUntil(Func<IEdgeGremlinQuery<TEdge>, IEdgeGremlinQuery<TEdge>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> untilTraversal);
+        IEdgeGremlinQuery<TEdge> UntilRepeat(Func<IEdgeGremlinQuery<TEdge>, IEdgeGremlinQuery<TEdge>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> untilTraversal);
 
         IEdgeGremlinQuery<TEdge> SideEffect(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> sideEffectTraversal);
         new IEdgeGremlinQuery<TEdge> Skip(long count);
@@ -833,9 +833,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TAdjacentVertex>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TAdjacentVertex>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TAdjacentVertex>;
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex> Repeat(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IEdgeGremlinQuery<TEdge, TAdjacentVertex>> repeatTraversal);
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex> RepeatUntil(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IEdgeGremlinQuery<TEdge, TAdjacentVertex>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> untilTraversal);
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex> UntilRepeat(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IEdgeGremlinQuery<TEdge, TAdjacentVertex>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> untilTraversal);
 
         IEdgeGremlinQuery<TEdge, TAdjacentVertex> SideEffect(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> sideEffectTraversal);
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Skip(long count);
@@ -908,9 +908,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>;
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Repeat(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> repeatTraversal);
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> RepeatUntil(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> untilTraversal);
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> UntilRepeat(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> repeatTraversal, Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> untilTraversal);
 
         IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> SideEffect(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> sideEffectTraversal);
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Skip(long count);
@@ -983,9 +983,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IInEdgeGremlinQuery<TEdge, TInVertex> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IInEdgeGremlinQuery<TEdge, TInVertex>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> repeatTraversal, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IInEdgeGremlinQuery<TEdge, TInVertex>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> repeatTraversal, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IInEdgeGremlinQuery<TEdge, TInVertex>;
+        IInEdgeGremlinQuery<TEdge, TInVertex> Repeat(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IInEdgeGremlinQuery<TEdge, TInVertex>> repeatTraversal);
+        IInEdgeGremlinQuery<TEdge, TInVertex> RepeatUntil(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IInEdgeGremlinQuery<TEdge, TInVertex>> repeatTraversal, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> untilTraversal);
+        IInEdgeGremlinQuery<TEdge, TInVertex> UntilRepeat(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IInEdgeGremlinQuery<TEdge, TInVertex>> repeatTraversal, Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> untilTraversal);
 
         IInEdgeGremlinQuery<TEdge, TInVertex> SideEffect(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> sideEffectTraversal);
         new IInEdgeGremlinQuery<TEdge, TInVertex> Skip(long count);
@@ -1058,9 +1058,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> repeatTraversal) where TTargetQuery : IOutEdgeGremlinQuery<TEdge, TOutVertex>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> repeatTraversal, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IOutEdgeGremlinQuery<TEdge, TOutVertex>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> repeatTraversal, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> untilTraversal) where TTargetQuery : IOutEdgeGremlinQuery<TEdge, TOutVertex>;
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> Repeat(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IOutEdgeGremlinQuery<TEdge, TOutVertex>> repeatTraversal);
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> RepeatUntil(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IOutEdgeGremlinQuery<TEdge, TOutVertex>> repeatTraversal, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> untilTraversal);
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> UntilRepeat(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IOutEdgeGremlinQuery<TEdge, TOutVertex>> repeatTraversal, Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> untilTraversal);
 
         IOutEdgeGremlinQuery<TEdge, TOutVertex> SideEffect(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> sideEffectTraversal);
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Skip(long count);
@@ -1133,9 +1133,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IVertexPropertyGremlinQuery<TProperty, TValue> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue>;
+        IVertexPropertyGremlinQuery<TProperty, TValue> Repeat(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IVertexPropertyGremlinQuery<TProperty, TValue>> repeatTraversal);
+        IVertexPropertyGremlinQuery<TProperty, TValue> RepeatUntil(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IVertexPropertyGremlinQuery<TProperty, TValue>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> untilTraversal);
+        IVertexPropertyGremlinQuery<TProperty, TValue> UntilRepeat(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IVertexPropertyGremlinQuery<TProperty, TValue>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> untilTraversal);
 
         IVertexPropertyGremlinQuery<TProperty, TValue> SideEffect(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> sideEffectTraversal);
         new IVertexPropertyGremlinQuery<TProperty, TValue> Skip(long count);
@@ -1208,9 +1208,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> repeatTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> untilTraversal) where TTargetQuery : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>;
+        IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Repeat(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> repeatTraversal);
+        IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> RepeatUntil(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> untilTraversal);
+        IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> UntilRepeat(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> untilTraversal);
 
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> SideEffect(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> sideEffectTraversal);
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Skip(long count);
@@ -1283,9 +1283,9 @@ namespace ExRam.Gremlinq.Core
                       
         new IPropertyGremlinQuery<TElement> Range(long low, long high);
 
-        TTargetQuery Repeat<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal) where TTargetQuery : IPropertyGremlinQuery<TElement>;
-        TTargetQuery RepeatUntil<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IPropertyGremlinQuery<TElement>;
-        TTargetQuery UntilRepeat<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal) where TTargetQuery : IPropertyGremlinQuery<TElement>;
+        IPropertyGremlinQuery<TElement> Repeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> repeatTraversal);
+        IPropertyGremlinQuery<TElement> RepeatUntil(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
+        IPropertyGremlinQuery<TElement> UntilRepeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> untilTraversal);
 
         IPropertyGremlinQuery<TElement> SideEffect(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> sideEffectTraversal);
         new IPropertyGremlinQuery<TElement> Skip(long count);
