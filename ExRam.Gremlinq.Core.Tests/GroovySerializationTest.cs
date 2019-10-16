@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
@@ -1800,7 +1799,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Country", 10);
         }
 
-
         [Fact]
         public void Properties1()
         {
@@ -1811,7 +1809,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy("g.V().properties()")
                 .WithoutParameters();
         }
-
 
         [Fact]
         public void Properties2()
