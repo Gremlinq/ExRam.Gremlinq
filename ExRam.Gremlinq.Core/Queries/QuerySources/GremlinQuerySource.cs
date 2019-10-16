@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var newModel = _isUserSetModel
                     ? Model
-                    : GraphModel.Dynamic(NullLogger.Instance);
+                    : GraphModel.Dynamic(logger);
 
                 return new ConfigurableGremlinQuerySourceImpl(Name, newModel, Options, _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyNames, logger);
             }
