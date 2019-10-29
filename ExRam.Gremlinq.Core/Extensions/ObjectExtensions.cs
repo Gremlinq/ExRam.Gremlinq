@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
 
-namespace LanguageExt
+namespace System
 {
     internal static class ObjectExtensions
     {

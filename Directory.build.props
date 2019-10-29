@@ -3,6 +3,7 @@
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
     <LangVersion>7.2</LangVersion>
+    <NoWarn>$(NoWarn);IDE1006</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >

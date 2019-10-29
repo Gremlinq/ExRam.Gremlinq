@@ -1685,7 +1685,9 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Properties()
+#pragma warning disable 252,253
                 .Where(x => x.Properties["MetaKey"] == "MetaValue")
+#pragma warning restore 252,253
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties().has(_b, _c)")
                 .WithParameters("Person", "MetaKey", "MetaValue");
@@ -1709,7 +1711,9 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Country>()
                 .Properties(x => x.Languages)
+#pragma warning disable 252,253
                 .Where(x => x.Id == "id")
+#pragma warning restore 252,253
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(id, _c)")
                 .WithParameters("Country", "Languages", "id");
@@ -3449,7 +3453,9 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>())
                 .V()
+#pragma warning disable 252,253
                 .Where(x => x.Id == "hallo")
+#pragma warning restore 252,253
                 .Should()
                 .SerializeToGroovy("g.V().has(id, _a)");
         }

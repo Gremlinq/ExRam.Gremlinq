@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LanguageExt
+namespace System
 {
     internal static class TypeExtensions
     {

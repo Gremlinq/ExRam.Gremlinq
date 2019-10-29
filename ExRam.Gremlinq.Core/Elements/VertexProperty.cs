@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using LanguageExt;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core.GraphElements
