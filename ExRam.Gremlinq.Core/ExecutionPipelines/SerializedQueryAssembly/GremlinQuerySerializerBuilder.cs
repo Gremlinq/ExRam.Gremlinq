@@ -17,9 +17,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     private readonly Action<object> _recurse;
                     private readonly ISerializedGremlinQueryAssembler _assembler;
-                    private readonly IReadOnlyDictionary<Type, AtomSerializationHandler<object>> _dict;
+                    private readonly IReadOnlyDictionary<Type, AtomSerializer<object>> _dict;
 
-                    public Recurse(IReadOnlyDictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssembler assembler)
+                    public Recurse(IReadOnlyDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssembler assembler)
                     {
                         _dict = dict;
                         _assembler = assembler;
@@ -50,10 +50,10 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                private readonly IReadOnlyDictionary<Type, AtomSerializationHandler<object>> _dict;
+                private readonly IReadOnlyDictionary<Type, AtomSerializer<object>> _dict;
                 private readonly ISerializedGremlinQueryAssemblerFactory _assemblerFactory;
 
-                public AssembledGremlinQuerySerializer(IReadOnlyDictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
+                public AssembledGremlinQuerySerializer(IReadOnlyDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
                 {
                     _dict = dict;
                     _assemblerFactory = assemblerFactory;
@@ -70,27 +70,27 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private readonly IImmutableDictionary<Type, AtomSerializationHandler<object>> _dict;
+            private readonly IImmutableDictionary<Type, AtomSerializer<object>> _dict;
             private readonly ISerializedGremlinQueryAssemblerFactory _assemblerFactory;
-            private readonly Lazy<Dictionary<Type, AtomSerializationHandler<object>>> _lazyFastDict;
+            private readonly Lazy<Dictionary<Type, AtomSerializer<object>>> _lazyFastDict;
 
-            public GremlinQuerySerializerBuilderImpl(IImmutableDictionary<Type, AtomSerializationHandler<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
+            public GremlinQuerySerializerBuilderImpl(IImmutableDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
             {
                 _dict = dict;
                 _assemblerFactory = assemblerFactory;
-                _lazyFastDict = new Lazy<Dictionary<Type, AtomSerializationHandler<object>>>(
+                _lazyFastDict = new Lazy<Dictionary<Type, AtomSerializer<object>>>(
                     () => dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
                     LazyThreadSafetyMode.None);
             }
 
-            public IGremlinQuerySerializerBuilder OverrideAtomSerializationHandler<TAtom>(AtomSerializationHandler<TAtom> atomSerializationHandler)
+            public IGremlinQuerySerializerBuilder OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer)
             {
                 return new GremlinQuerySerializerBuilderImpl(
                     _dict
                         .TryGetValue(typeof(TAtom))
                         .Match(
-                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, assembler, baseSerializer, recurse) => atomSerializationHandler((TAtom)atom, assembler, _ => existingAtomSerializer(_, assembler, baseSerializer, recurse), recurse)),
-                            () => _dict.SetItem(typeof(TAtom), (atom, assembler, baseSerializer, recurse) => atomSerializationHandler((TAtom)atom, assembler, _ => throw new NotImplementedException(), recurse))),
+                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, assembler, baseSerializer, recurse) => atomSerializer((TAtom)atom, assembler, _ => existingAtomSerializer(_, assembler, baseSerializer, recurse), recurse)),
+                            () => _dict.SetItem(typeof(TAtom), (atom, assembler, baseSerializer, recurse) => atomSerializer((TAtom)atom, assembler, _ => throw new NotImplementedException(), recurse))),
                     _assemblerFactory);
             }
 
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IGremlinQuerySerializerBuilder Invalid = new GremlinQuerySerializerBuilderImpl(ImmutableDictionary<Type, AtomSerializationHandler<object>>.Empty, SerializedGremlinQueryAssemblerFactory.Invalid);
+        public static readonly IGremlinQuerySerializerBuilder Invalid = new GremlinQuerySerializerBuilderImpl(ImmutableDictionary<Type, AtomSerializer<object>>.Empty, SerializedGremlinQueryAssemblerFactory.Invalid);
 
         public static IGremlinQuerySerializerBuilder UseGroovy(this IGremlinQuerySerializerBuilder builder)
         {
@@ -118,10 +118,10 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializerBuilder UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
-                .OverrideAtomSerializationHandler<HasNotStep>((step, assembler, overridden, recurse) => assembler.Method("hasNot", step.Key, recurse))
-                .OverrideAtomSerializationHandler<ChooseOptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("choose", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<OptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("option", step.Guard, step.OptionTraversal, recurse))
-                .OverrideAtomSerializationHandler<WithoutStrategiesStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<HasNotStep>((step, assembler, overridden, recurse) => assembler.Method("hasNot", step.Key, recurse))
+                .OverrideAtomSerializer<ChooseOptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("choose", step.Traversal, recurse))
+                .OverrideAtomSerializer<OptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("option", step.Guard, step.OptionTraversal, recurse))
+                .OverrideAtomSerializer<WithoutStrategiesStep>((step, assembler, overridden, recurse) =>
                 {
                     assembler.OpenMethod("withoutStrategies");
 
@@ -134,7 +134,7 @@ namespace ExRam.Gremlinq.Core
 
                     assembler.CloseMethod();
                 })
-                .OverrideAtomSerializationHandler<HasStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<HasStep>((step, assembler, overridden, recurse) =>
                 {
                     if (step.Value is P p1 && p1.EqualsConstant(false))
                         recurse(NoneStep.Instance);
@@ -168,58 +168,58 @@ namespace ExRam.Gremlinq.Core
                             assembler.Method(stepName, step.Key, recurse);
                     }
                 })
-                .OverrideAtomSerializationHandler<RepeatStep>((step, assembler, overridden, recurse) => assembler.Method("repeat", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<SideEffectStep>((step, assembler, overridden, recurse) => assembler.Method("sideEffect", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<ToTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("to", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<UnionStep>((step, assembler, overridden, recurse) => assembler.Method("union", step.Traversals, recurse))
-                .OverrideAtomSerializationHandler<UntilStep>((step, assembler, overridden, recurse) => assembler.Method("until", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<ValuesStep>((step, assembler, overridden, recurse) => assembler.Method("values", step.Keys, recurse))
-                .OverrideAtomSerializationHandler<VerticesStep>((step, assembler, overridden, recurse) => assembler.Method("vertices", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<WhereTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("where", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<WithStrategiesStep>((step, assembler, overridden, recurse) => assembler.Method("withStrategies", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<IdStep>((step, assembler, overridden, recurse) => assembler.Method("id"))
-                .OverrideAtomSerializationHandler<BarrierStep>((step, assembler, overridden, recurse) => assembler.Method("barrier"))
-                .OverrideAtomSerializationHandler<OrderStep>((step, assembler, overridden, recurse) => assembler.Method("order"))
-                .OverrideAtomSerializationHandler<CreateStep>((step, assembler, overridden, recurse) => assembler.Method("create"))
-                .OverrideAtomSerializationHandler<UnfoldStep>((step, assembler, overridden, recurse) => assembler.Method("unfold"))
-                .OverrideAtomSerializationHandler<IdentityStep>((step, assembler, overridden, recurse) => assembler.Method("identity"))
-                .OverrideAtomSerializationHandler<EmitStep>((step, assembler, overridden, recurse) => assembler.Method("emit"))
-                .OverrideAtomSerializationHandler<DedupStep>((step, assembler, overridden, recurse) => assembler.Method("dedup"))
-                .OverrideAtomSerializationHandler<OutVStep>((step, assembler, overridden, recurse) => assembler.Method("outV"))
-                .OverrideAtomSerializationHandler<OtherVStep>((step, assembler, overridden, recurse) => assembler.Method("otherV"))
-                .OverrideAtomSerializationHandler<InVStep>((step, assembler, overridden, recurse) => assembler.Method("inV"))
-                .OverrideAtomSerializationHandler<BothVStep>((step, assembler, overridden, recurse) => assembler.Method("bothV"))
-                .OverrideAtomSerializationHandler<DropStep>((step, assembler, overridden, recurse) => assembler.Method("drop"))
-                .OverrideAtomSerializationHandler<FoldStep>((step, assembler, overridden, recurse) => assembler.Method("fold"))
-                .OverrideAtomSerializationHandler<ExplainStep>((step, assembler, overridden, recurse) => assembler.Method("explain"))
-                .OverrideAtomSerializationHandler<ProfileStep>((step, assembler, overridden, recurse) => assembler.Method("profile"))
-                .OverrideAtomSerializationHandler<CountStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<RepeatStep>((step, assembler, overridden, recurse) => assembler.Method("repeat", step.Traversal, recurse))
+                .OverrideAtomSerializer<SideEffectStep>((step, assembler, overridden, recurse) => assembler.Method("sideEffect", step.Traversal, recurse))
+                .OverrideAtomSerializer<ToTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("to", step.Traversal, recurse))
+                .OverrideAtomSerializer<UnionStep>((step, assembler, overridden, recurse) => assembler.Method("union", step.Traversals, recurse))
+                .OverrideAtomSerializer<UntilStep>((step, assembler, overridden, recurse) => assembler.Method("until", step.Traversal, recurse))
+                .OverrideAtomSerializer<ValuesStep>((step, assembler, overridden, recurse) => assembler.Method("values", step.Keys, recurse))
+                .OverrideAtomSerializer<VerticesStep>((step, assembler, overridden, recurse) => assembler.Method("vertices", step.Traversal, recurse))
+                .OverrideAtomSerializer<WhereTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("where", step.Traversal, recurse))
+                .OverrideAtomSerializer<WithStrategiesStep>((step, assembler, overridden, recurse) => assembler.Method("withStrategies", step.Traversal, recurse))
+                .OverrideAtomSerializer<IdStep>((step, assembler, overridden, recurse) => assembler.Method("id"))
+                .OverrideAtomSerializer<BarrierStep>((step, assembler, overridden, recurse) => assembler.Method("barrier"))
+                .OverrideAtomSerializer<OrderStep>((step, assembler, overridden, recurse) => assembler.Method("order"))
+                .OverrideAtomSerializer<CreateStep>((step, assembler, overridden, recurse) => assembler.Method("create"))
+                .OverrideAtomSerializer<UnfoldStep>((step, assembler, overridden, recurse) => assembler.Method("unfold"))
+                .OverrideAtomSerializer<IdentityStep>((step, assembler, overridden, recurse) => assembler.Method("identity"))
+                .OverrideAtomSerializer<EmitStep>((step, assembler, overridden, recurse) => assembler.Method("emit"))
+                .OverrideAtomSerializer<DedupStep>((step, assembler, overridden, recurse) => assembler.Method("dedup"))
+                .OverrideAtomSerializer<OutVStep>((step, assembler, overridden, recurse) => assembler.Method("outV"))
+                .OverrideAtomSerializer<OtherVStep>((step, assembler, overridden, recurse) => assembler.Method("otherV"))
+                .OverrideAtomSerializer<InVStep>((step, assembler, overridden, recurse) => assembler.Method("inV"))
+                .OverrideAtomSerializer<BothVStep>((step, assembler, overridden, recurse) => assembler.Method("bothV"))
+                .OverrideAtomSerializer<DropStep>((step, assembler, overridden, recurse) => assembler.Method("drop"))
+                .OverrideAtomSerializer<FoldStep>((step, assembler, overridden, recurse) => assembler.Method("fold"))
+                .OverrideAtomSerializer<ExplainStep>((step, assembler, overridden, recurse) => assembler.Method("explain"))
+                .OverrideAtomSerializer<ProfileStep>((step, assembler, overridden, recurse) => assembler.Method("profile"))
+                .OverrideAtomSerializer<CountStep>((step, assembler, overridden, recurse) =>
                 {
                     if (step.Scope.Equals(Scope.Local))
                         assembler.Method("count", step.Scope, recurse);
                     else
                         assembler.Method("count");
                 })
-                .OverrideAtomSerializationHandler<BuildStep>((step, assembler, overridden, recurse) => assembler.Method("build"))
-                .OverrideAtomSerializationHandler<SumStep>((step, assembler, overridden, recurse) => assembler.Method("sum", step.Scope, recurse))
-                .OverrideAtomSerializationHandler<TailStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<BuildStep>((step, assembler, overridden, recurse) => assembler.Method("build"))
+                .OverrideAtomSerializer<SumStep>((step, assembler, overridden, recurse) => assembler.Method("sum", step.Scope, recurse))
+                .OverrideAtomSerializer<TailStep>((step, assembler, overridden, recurse) =>
                 {
                     if (step.Scope.Equals(Scope.Local))
                         assembler.Method("tail", step.Scope, step.Count, recurse);
                     else
                         assembler.Method("tail", step.Count, recurse);
                 })
-                .OverrideAtomSerializationHandler<SelectStep>((step, assembler, overridden, recurse) => assembler.Method("select", step.StepLabels, recurse))
-                .OverrideAtomSerializationHandler<AsStep>((step, assembler, overridden, recurse) => assembler.Method("as", step.StepLabels, recurse))
-                .OverrideAtomSerializationHandler<FromLabelStep>((step, assembler, overridden, recurse) => assembler.Method("from", step.StepLabel, recurse))
-                .OverrideAtomSerializationHandler<ToLabelStep>((step, assembler, overridden, recurse) => assembler.Method("to", step.StepLabel, recurse))
-                .OverrideAtomSerializationHandler<TimesStep>((step, assembler, overridden, recurse) => assembler.Method("times", step.Count, recurse))
-                .OverrideAtomSerializationHandler<FilterStep>((step, assembler, overridden, recurse) => assembler.Method("filter", step.Lambda, recurse))
-                .OverrideAtomSerializationHandler<AggregateStep>((step, assembler, overridden, recurse) => assembler.Method("aggregate", step.StepLabel, recurse))
-                .OverrideAtomSerializationHandler<WherePredicateStep>((step, assembler, overridden, recurse) => assembler.Method("where", step.Predicate, recurse))
-                .OverrideAtomSerializationHandler<ByLambdaStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Lambda, recurse))
-                .OverrideAtomSerializationHandler<SkipStep>((step, assembler, overridden, recurse) => assembler.Method("skip", step.Count, recurse))
-                .OverrideAtomSerializationHandler<PropertyStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<SelectStep>((step, assembler, overridden, recurse) => assembler.Method("select", step.StepLabels, recurse))
+                .OverrideAtomSerializer<AsStep>((step, assembler, overridden, recurse) => assembler.Method("as", step.StepLabels, recurse))
+                .OverrideAtomSerializer<FromLabelStep>((step, assembler, overridden, recurse) => assembler.Method("from", step.StepLabel, recurse))
+                .OverrideAtomSerializer<ToLabelStep>((step, assembler, overridden, recurse) => assembler.Method("to", step.StepLabel, recurse))
+                .OverrideAtomSerializer<TimesStep>((step, assembler, overridden, recurse) => assembler.Method("times", step.Count, recurse))
+                .OverrideAtomSerializer<FilterStep>((step, assembler, overridden, recurse) => assembler.Method("filter", step.Lambda, recurse))
+                .OverrideAtomSerializer<AggregateStep>((step, assembler, overridden, recurse) => assembler.Method("aggregate", step.StepLabel, recurse))
+                .OverrideAtomSerializer<WherePredicateStep>((step, assembler, overridden, recurse) => assembler.Method("where", step.Predicate, recurse))
+                .OverrideAtomSerializer<ByLambdaStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Lambda, recurse))
+                .OverrideAtomSerializer<SkipStep>((step, assembler, overridden, recurse) => assembler.Method("skip", step.Count, recurse))
+                .OverrideAtomSerializer<PropertyStep>((step, assembler, overridden, recurse) =>
                 {
                     if (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
                         throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
@@ -233,42 +233,42 @@ namespace ExRam.Gremlinq.Core
                             () => assembler.Method("property", step.MetaProperties.Prepend(step.Value).Prepend(step.Key), recurse));
                     }
                 })
-                .OverrideAtomSerializationHandler<RangeStep>((step, assembler, overridden, recurse) => assembler.Method("range", step.Lower, step.Upper, recurse))
-                .OverrideAtomSerializationHandler<ByMemberStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Key, step.Order, recurse))
-                .OverrideAtomSerializationHandler<KeyStep>((step, assembler, overridden, recurse) => assembler.Method("key"))
-                .OverrideAtomSerializationHandler<PropertiesStep>((step, assembler, overridden, recurse) => assembler.Method("properties", step.Keys, recurse))
-                .OverrideAtomSerializationHandler<VStep>((step, assembler, overridden, recurse) => assembler.Method("V", step.Ids, recurse))
-                .OverrideAtomSerializationHandler<EStep>((step, assembler, overridden, recurse) => assembler.Method("E", step.Ids, recurse))
-                .OverrideAtomSerializationHandler<InjectStep>((step, assembler, overridden, recurse) => assembler.Method("inject", step.Elements, recurse))
-                .OverrideAtomSerializationHandler<P.Eq>((p, assembler, overridden, recurse) => assembler.Method("eq", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Between>((p, assembler, overridden, recurse) => assembler.Method("between", p.Lower, p.Upper, recurse))
-                .OverrideAtomSerializationHandler<P.Gt>((p, assembler, overridden, recurse) => assembler.Method("gt", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Gte>((p, assembler, overridden, recurse) => assembler.Method("gte", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Lt>((p, assembler, overridden, recurse) => assembler.Method("lt", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Lte>((p, assembler, overridden, recurse) => assembler.Method("lte", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Neq>((p, assembler, overridden, recurse) => assembler.Method("neq", p.Argument, recurse))
-                .OverrideAtomSerializationHandler<P.Within>((p, assembler, overridden, recurse) => assembler.Method("within", p.Arguments, recurse))
-                .OverrideAtomSerializationHandler<P.Without>((p, assembler, overridden, recurse) => assembler.Method("without", p.Arguments, recurse))
-                .OverrideAtomSerializationHandler<P.Outside>((p, assembler, overridden, recurse) => assembler.Method("outside", p.Lower, p.Upper, recurse))
-                .OverrideAtomSerializationHandler<P.AndP>((p, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<RangeStep>((step, assembler, overridden, recurse) => assembler.Method("range", step.Lower, step.Upper, recurse))
+                .OverrideAtomSerializer<ByMemberStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Key, step.Order, recurse))
+                .OverrideAtomSerializer<KeyStep>((step, assembler, overridden, recurse) => assembler.Method("key"))
+                .OverrideAtomSerializer<PropertiesStep>((step, assembler, overridden, recurse) => assembler.Method("properties", step.Keys, recurse))
+                .OverrideAtomSerializer<VStep>((step, assembler, overridden, recurse) => assembler.Method("V", step.Ids, recurse))
+                .OverrideAtomSerializer<EStep>((step, assembler, overridden, recurse) => assembler.Method("E", step.Ids, recurse))
+                .OverrideAtomSerializer<InjectStep>((step, assembler, overridden, recurse) => assembler.Method("inject", step.Elements, recurse))
+                .OverrideAtomSerializer<P.Eq>((p, assembler, overridden, recurse) => assembler.Method("eq", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Between>((p, assembler, overridden, recurse) => assembler.Method("between", p.Lower, p.Upper, recurse))
+                .OverrideAtomSerializer<P.Gt>((p, assembler, overridden, recurse) => assembler.Method("gt", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Gte>((p, assembler, overridden, recurse) => assembler.Method("gte", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Lt>((p, assembler, overridden, recurse) => assembler.Method("lt", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Lte>((p, assembler, overridden, recurse) => assembler.Method("lte", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Neq>((p, assembler, overridden, recurse) => assembler.Method("neq", p.Argument, recurse))
+                .OverrideAtomSerializer<P.Within>((p, assembler, overridden, recurse) => assembler.Method("within", p.Arguments, recurse))
+                .OverrideAtomSerializer<P.Without>((p, assembler, overridden, recurse) => assembler.Method("without", p.Arguments, recurse))
+                .OverrideAtomSerializer<P.Outside>((p, assembler, overridden, recurse) => assembler.Method("outside", p.Lower, p.Upper, recurse))
+                .OverrideAtomSerializer<P.AndP>((p, assembler, overridden, recurse) =>
                 {
                     recurse(p.Operand1);
                     assembler.Method("and", p.Operand2, recurse);
                 })
-                .OverrideAtomSerializationHandler<P.OrP>((p, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<P.OrP>((p, assembler, overridden, recurse) =>
                 {
                     recurse(p.Operand1);
                     assembler.Method("or", p.Operand2, recurse);
                 })
-                .OverrideAtomSerializationHandler<TextP.StartingWith>((p, assembler, overridden, recurse) => assembler.Method("startingWith", p.Value, recurse))
-                .OverrideAtomSerializationHandler<TextP.EndingWith>((p, assembler, overridden, recurse) => assembler.Method("endingWith", p.Value, recurse))
-                .OverrideAtomSerializationHandler<TextP.Containing>((p, assembler, overridden, recurse) => assembler.Method("containing", p.Value, recurse))
-                .OverrideAtomSerializationHandler<Lambda>((lambda, assembler, overridden, recurse) => assembler.Lambda(lambda.LambdaString))
-                .OverrideAtomSerializationHandler<Cardinality>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
-                .OverrideAtomSerializationHandler<Order>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
-                .OverrideAtomSerializationHandler<Scope>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
-                .OverrideAtomSerializationHandler<T>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
-                .OverrideAtomSerializationHandler<HasValueStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<TextP.StartingWith>((p, assembler, overridden, recurse) => assembler.Method("startingWith", p.Value, recurse))
+                .OverrideAtomSerializer<TextP.EndingWith>((p, assembler, overridden, recurse) => assembler.Method("endingWith", p.Value, recurse))
+                .OverrideAtomSerializer<TextP.Containing>((p, assembler, overridden, recurse) => assembler.Method("containing", p.Value, recurse))
+                .OverrideAtomSerializer<Lambda>((lambda, assembler, overridden, recurse) => assembler.Lambda(lambda.LambdaString))
+                .OverrideAtomSerializer<Cardinality>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
+                .OverrideAtomSerializer<Order>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
+                .OverrideAtomSerializer<Scope>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
+                .OverrideAtomSerializer<T>((enumValue, assembler, overridden, recurse) => assembler.Field(enumValue.Name))
+                .OverrideAtomSerializer<HasValueStep>((step, assembler, overridden, recurse) =>
                 {
                     assembler.Method(
                         "hasValue",
@@ -277,11 +277,11 @@ namespace ExRam.Gremlinq.Core
                             : step.Argument,
                         recurse);
                 })
-                .OverrideAtomSerializationHandler<AddEStep>((step, assembler, overridden, recurse) => assembler.Method("addE", step.Label, recurse))
-                .OverrideAtomSerializationHandler<AddVStep>((step, assembler, overridden, recurse) => assembler.Method("addV", step.Label, recurse))
-                .OverrideAtomSerializationHandler<AndStep>((step, assembler, overridden, recurse) => assembler.Method("and", step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>), recurse))
-                .OverrideAtomSerializationHandler<ByTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Traversal, step.Order, recurse))
-                .OverrideAtomSerializationHandler<ChooseTraversalStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<AddEStep>((step, assembler, overridden, recurse) => assembler.Method("addE", step.Label, recurse))
+                .OverrideAtomSerializer<AddVStep>((step, assembler, overridden, recurse) => assembler.Method("addV", step.Label, recurse))
+                .OverrideAtomSerializer<AndStep>((step, assembler, overridden, recurse) => assembler.Method("and", step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>), recurse))
+                .OverrideAtomSerializer<ByTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Traversal, step.Order, recurse))
+                .OverrideAtomSerializer<ChooseTraversalStep>((step, assembler, overridden, recurse) =>
                 {
                     step.ElseTraversal.Match(
                         elseTraversal => assembler.Method(
@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Core
                             step.ThenTraversal,
                             recurse));
                 })
-                .OverrideAtomSerializationHandler<ChoosePredicateStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<ChoosePredicateStep>((step, assembler, overridden, recurse) =>
                 {
                     step.ElseTraversal.Match(
                         elseTraversal => assembler.Method(
@@ -311,21 +311,21 @@ namespace ExRam.Gremlinq.Core
                             step.ThenTraversal,
                             recurse));
                 })
-                .OverrideAtomSerializationHandler<CoalesceStep>((step, assembler, overridden, recurse) => assembler.Method("coalesce", step.Traversals, recurse))
-                .OverrideAtomSerializationHandler<CoinStep>((step, assembler, overridden, recurse) => assembler.Method("coin", step.Probability, recurse))
-                .OverrideAtomSerializationHandler<ConstantStep>((step, assembler, overridden, recurse) => assembler.Method("constant", step.Value, recurse))
-                .OverrideAtomSerializationHandler<BothStep>((step, assembler, overridden, recurse) => assembler.Method("both", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<BothEStep>((step, assembler, overridden, recurse) => assembler.Method("bothE", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<InStep>((step, assembler, overridden, recurse) => assembler.Method("in", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<InEStep>((step, assembler, overridden, recurse) => assembler.Method("inE", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<OutStep>((step, assembler, overridden, recurse) => assembler.Method("out", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<OutEStep>((step, assembler, overridden, recurse) => assembler.Method("outE", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<HasLabelStep>((step, assembler, overridden, recurse) => assembler.Method("hasLabel", step.Labels, recurse))
-                .OverrideAtomSerializationHandler<LabelStep>((step, assembler, overridden, recurse) => assembler.Method("label"))
-                .OverrideAtomSerializationHandler<EdgesStep>((step, assembler, overridden, recurse) => assembler.Method("edges", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<FromTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("from", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<IdentifierStep>((step, assembler, overridden, recurse) => assembler.Identifier(step.Identifier))
-                .OverrideAtomSerializationHandler<IsStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<CoalesceStep>((step, assembler, overridden, recurse) => assembler.Method("coalesce", step.Traversals, recurse))
+                .OverrideAtomSerializer<CoinStep>((step, assembler, overridden, recurse) => assembler.Method("coin", step.Probability, recurse))
+                .OverrideAtomSerializer<ConstantStep>((step, assembler, overridden, recurse) => assembler.Method("constant", step.Value, recurse))
+                .OverrideAtomSerializer<BothStep>((step, assembler, overridden, recurse) => assembler.Method("both", step.Labels, recurse))
+                .OverrideAtomSerializer<BothEStep>((step, assembler, overridden, recurse) => assembler.Method("bothE", step.Labels, recurse))
+                .OverrideAtomSerializer<InStep>((step, assembler, overridden, recurse) => assembler.Method("in", step.Labels, recurse))
+                .OverrideAtomSerializer<InEStep>((step, assembler, overridden, recurse) => assembler.Method("inE", step.Labels, recurse))
+                .OverrideAtomSerializer<OutStep>((step, assembler, overridden, recurse) => assembler.Method("out", step.Labels, recurse))
+                .OverrideAtomSerializer<OutEStep>((step, assembler, overridden, recurse) => assembler.Method("outE", step.Labels, recurse))
+                .OverrideAtomSerializer<HasLabelStep>((step, assembler, overridden, recurse) => assembler.Method("hasLabel", step.Labels, recurse))
+                .OverrideAtomSerializer<LabelStep>((step, assembler, overridden, recurse) => assembler.Method("label"))
+                .OverrideAtomSerializer<EdgesStep>((step, assembler, overridden, recurse) => assembler.Method("edges", step.Traversal, recurse))
+                .OverrideAtomSerializer<FromTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("from", step.Traversal, recurse))
+                .OverrideAtomSerializer<IdentifierStep>((step, assembler, overridden, recurse) => assembler.Identifier(step.Identifier))
+                .OverrideAtomSerializer<IsStep>((step, assembler, overridden, recurse) =>
                 {
                     assembler.Method(
                         "is",
@@ -334,31 +334,31 @@ namespace ExRam.Gremlinq.Core
                             : step.Argument,
                         recurse);
                 })
-                .OverrideAtomSerializationHandler<LimitStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<LimitStep>((step, assembler, overridden, recurse) =>
                 {
                     if (step.Scope.Equals(Scope.Local))
                         assembler.Method("limit", step.Scope, step.Count, recurse);
                     else
                         assembler.Method("limit", step.Count, recurse);
                 })
-                .OverrideAtomSerializationHandler<LocalStep>((step, assembler, overridden, recurse) => assembler.Method("local", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<MapStep>((step, assembler, overridden, recurse) => assembler.Method("map", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<NoneStep>((step, assembler, overridden, recurse) => assembler.Method("none"))
-                .OverrideAtomSerializationHandler<FlatMapStep>((step, assembler, overridden, recurse) => assembler.Method("flatMap", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<MatchStep>((step, assembler, overridden, recurse) => assembler.Method("match", step.Traversals, recurse))
-                .OverrideAtomSerializationHandler<NotStep>((step, assembler, overridden, recurse) =>
+                .OverrideAtomSerializer<LocalStep>((step, assembler, overridden, recurse) => assembler.Method("local", step.Traversal, recurse))
+                .OverrideAtomSerializer<MapStep>((step, assembler, overridden, recurse) => assembler.Method("map", step.Traversal, recurse))
+                .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => assembler.Method("none"))
+                .OverrideAtomSerializer<FlatMapStep>((step, assembler, overridden, recurse) => assembler.Method("flatMap", step.Traversal, recurse))
+                .OverrideAtomSerializer<MatchStep>((step, assembler, overridden, recurse) => assembler.Method("match", step.Traversals, recurse))
+                .OverrideAtomSerializer<NotStep>((step, assembler, overridden, recurse) =>
                 {
                     var traversalSteps = step.Traversal.AsAdmin().Steps;
 
                     if (!(traversalSteps.Count != 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false)))
                         assembler.Method("not", step.Traversal, recurse);
                 })
-                .OverrideAtomSerializationHandler<OptionalStep>((step, assembler, overridden, recurse) => assembler.Method("optional", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<OrStep>((step, assembler, overridden, recurse) => assembler.Method("or", step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>), recurse))
-                .OverrideAtomSerializationHandler<ValueStep>((step, assembler, overridden, recurse) => assembler.Method("value"))
-                .OverrideAtomSerializationHandler<ValueMapStep>((step, assembler, overridden, recurse) => assembler.Method("valueMap", step.Keys, recurse))
-                .OverrideAtomSerializationHandler<ProjectStep.ByTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Traversal, recurse))
-                .OverrideAtomSerializationHandler<ProjectStep>((step, assembler, overridden, recurse) => assembler.Method("project", step.Projections, recurse));
+                .OverrideAtomSerializer<OptionalStep>((step, assembler, overridden, recurse) => assembler.Method("optional", step.Traversal, recurse))
+                .OverrideAtomSerializer<OrStep>((step, assembler, overridden, recurse) => assembler.Method("or", step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>), recurse))
+                .OverrideAtomSerializer<ValueStep>((step, assembler, overridden, recurse) => assembler.Method("value"))
+                .OverrideAtomSerializer<ValueMapStep>((step, assembler, overridden, recurse) => assembler.Method("valueMap", step.Keys, recurse))
+                .OverrideAtomSerializer<ProjectStep.ByTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("by", step.Traversal, recurse))
+                .OverrideAtomSerializer<ProjectStep>((step, assembler, overridden, recurse) => assembler.Method("project", step.Projections, recurse));
         }
 
         private static IEnumerable<IGremlinQuery> FlattenLogicalTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
