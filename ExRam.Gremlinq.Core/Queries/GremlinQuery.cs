@@ -504,11 +504,17 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] orTraversals)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] orTraversalTransformations)
         {
-            return AddStep(new OrStep(orTraversals
-                .Select(orTraversal => orTraversal(Anonymize()))
-                .ToArray()));
+            var anonymous = Anonymize();
+            var orTraversals = orTraversalTransformations
+                .Select(orTraversal => orTraversal(anonymous))
+                .TakeWhile(orTraversal => orTraversal != anonymous)
+                .ToArray();
+
+            return orTraversals.Length < orTraversalTransformations.Length
+                ? this
+                : AddStep(new OrStep(orTraversals));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order) => AddStep(OrderStep.Instance).By(projection, order);

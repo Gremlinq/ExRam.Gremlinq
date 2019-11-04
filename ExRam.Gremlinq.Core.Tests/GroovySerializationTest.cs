@@ -1050,6 +1050,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Or_identity()
+        {
+            _g
+                .V<Person>()
+                .Or(
+                    __ => __,
+                    __ => __
+                        .OutE<LivesIn>())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Or_nested()
         {
             _g
