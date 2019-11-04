@@ -72,5 +72,16 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .SerializeToGroovy("g.V().skip(_a)")
                 .WithParameters(10);
         }
+
+        [Fact]
+        public void Where_none_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
+                .WithParameters("Person");
+        }
     }
 }

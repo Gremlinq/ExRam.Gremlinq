@@ -726,9 +726,16 @@ namespace ExRam.Gremlinq.Core
             var anonymous = Anonymize();
             var filtered = filterTraversal(anonymous);
 
-            return filtered == anonymous
-                ? this
-                : AddStep(new WhereTraversalStep(filtered));
+            if (filtered == anonymous)
+                return this;
+
+            if (filtered is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> filteredKnown)
+            {
+                if (filteredKnown.Steps.Count == 2 && filteredKnown.Steps[1] == NoneStep.Instance)
+                    return None();
+            }
+
+            return AddStep(new WhereTraversalStep(filtered));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(LambdaExpression predicate)

@@ -59,5 +59,16 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy("g.V().range(_a, _b)")
                 .WithParameters(10, -1);
         }
+
+        [Fact]
+        public void Where_none_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Person");
+        }
     }
 }
