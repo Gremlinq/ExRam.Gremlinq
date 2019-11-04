@@ -378,17 +378,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Anonymous()
-        {
-            _g
-                .V()
-                .Where(_ => _)
-                .Should()
-                .SerializeToGroovy("g.V().where(__.identity())")
-                .WithoutParameters();
-        }
-
-        [Fact]
         public void As_explicit_label1()
         {
             _g
@@ -3337,6 +3326,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).where(__.out(_b))")
                 .WithParameters("Person", "LivesIn");
+        }
+
+        [Fact]
+        public void Where_identity_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
         }
 
         [Fact]
