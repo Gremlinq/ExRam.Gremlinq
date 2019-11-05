@@ -3343,6 +3343,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_traversal_untyped()
+        {
+            IGremlinQuery g = _g
+                .V<Person>();
+
+            g
+                .Where(_ => _.Count())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).where(__.count())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Where_identity_traversal()
         {
             _g

@@ -1735,7 +1735,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Expression<Func<
 new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Expression<Func<TProperty, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
 
-
     public partial interface IGremlinQuery<TElement>
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
@@ -1745,7 +1744,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> Fold();
-        new IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IValueGremlinQuery<TElement>
     {
@@ -1756,7 +1754,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IValueGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> Fold();
-        new IValueGremlinQuery<TElement> Where(Func<IValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IArrayGremlinQuery<TArray, TQuery>
     {
@@ -1767,7 +1764,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IArrayGremlinQuery<TArray, TQuery> Coin(double probability);
 
         new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
-        new IArrayGremlinQuery<TArray, TQuery> Where(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
     }
     public partial interface IElementGremlinQuery<TElement>
     {
@@ -1778,7 +1774,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IElementGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> Fold();
-        new IElementGremlinQuery<TElement> Where(Func<IElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IVertexGremlinQuery<TVertex>
     {
@@ -1789,7 +1784,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IVertexGremlinQuery<TVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TVertex[], IVertexGremlinQuery<TVertex>> Fold();
-        new IVertexGremlinQuery<TVertex> Where(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IEdgeGremlinQuery<TEdge>
     {
@@ -1800,7 +1794,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IEdgeGremlinQuery<TEdge> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge>> Fold();
-        new IEdgeGremlinQuery<TEdge> Where(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
     }
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
@@ -1811,7 +1804,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TAdjacentVertex>> Fold();
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
@@ -1822,7 +1814,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> Fold();
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
@@ -1833,7 +1824,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IInEdgeGremlinQuery<TEdge, TInVertex>> Fold();
-        new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
@@ -1844,7 +1834,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IOutEdgeGremlinQuery<TEdge, TOutVertex>> Fold();
-        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
@@ -1855,7 +1844,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
-        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
@@ -1866,7 +1854,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> Fold();
-        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
     }
     public partial interface IPropertyGremlinQuery<TElement>
     {
@@ -1877,7 +1864,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IPropertyGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> Fold();
-        new IPropertyGremlinQuery<TElement> Where(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedGremlinQuery<TElement>
     {
@@ -1888,7 +1874,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> Fold();
-        new IGremlinQuery<TElement> Where(Func<IOrderedGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedValueGremlinQuery<TElement>
     {
@@ -1899,7 +1884,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedValueGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> Fold();
-        new IValueGremlinQuery<TElement> Where(Func<IOrderedValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
     {
@@ -1910,7 +1894,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
 
         new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
-        new IArrayGremlinQuery<TArray, TQuery> Where(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedElementGremlinQuery<TElement>
     {
@@ -1921,7 +1904,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedElementGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> Fold();
-        new IElementGremlinQuery<TElement> Where(Func<IOrderedElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedVertexGremlinQuery<TVertex>
     {
@@ -1932,7 +1914,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedVertexGremlinQuery<TVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TVertex[], IVertexGremlinQuery<TVertex>> Fold();
-        new IVertexGremlinQuery<TVertex> Where(Func<IOrderedVertexGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge>
     {
@@ -1943,7 +1924,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedEdgeGremlinQuery<TEdge> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge>> Fold();
-        new IEdgeGremlinQuery<TEdge> Where(Func<IOrderedEdgeGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
@@ -1954,7 +1934,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TAdjacentVertex>> Fold();
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
@@ -1965,7 +1944,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> Fold();
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
     {
@@ -1976,7 +1954,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IInEdgeGremlinQuery<TEdge, TInVertex>> Fold();
-        new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
@@ -1987,7 +1964,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
 
         new IArrayGremlinQuery<TEdge[], IOutEdgeGremlinQuery<TEdge, TOutVertex>> Fold();
-        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
     {
@@ -1998,7 +1974,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
-        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
@@ -2009,7 +1984,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> Fold();
-        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
     }
     public partial interface IOrderedPropertyGremlinQuery<TElement>
     {
@@ -2020,6 +1994,142 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
         new IOrderedPropertyGremlinQuery<TElement> Coin(double probability);
 
         new IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> Fold();
+    }
+
+    public partial interface IGremlinQuery
+    {
+        new IGremlinQuery Where(Func<IGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IElementGremlinQuery
+    {
+        new IElementGremlinQuery Where(Func<IElementGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IVertexGremlinQuery
+    {
+        new IVertexGremlinQuery Where(Func<IVertexGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IEdgeGremlinQuery
+    {
+        new IEdgeGremlinQuery Where(Func<IEdgeGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IGremlinQuery<TElement>
+    {
+        new IGremlinQuery<TElement> Where(Func<IGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IValueGremlinQuery<TElement>
+    {
+        new IValueGremlinQuery<TElement> Where(Func<IValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IArrayGremlinQuery<TArray, TQuery>
+    {
+        new IArrayGremlinQuery<TArray, TQuery> Where(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IElementGremlinQuery<TElement>
+    {
+        new IElementGremlinQuery<TElement> Where(Func<IElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IVertexGremlinQuery<TVertex>
+    {
+        new IVertexGremlinQuery<TVertex> Where(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IEdgeGremlinQuery<TEdge>
+    {
+        new IEdgeGremlinQuery<TEdge> Where(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
+    {
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
+    {
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
+    {
+        new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
+    {
+        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
+    {
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    {
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IPropertyGremlinQuery<TElement>
+    {
+        new IPropertyGremlinQuery<TElement> Where(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedGremlinQuery
+    {
+        new IGremlinQuery Where(Func<IOrderedGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedElementGremlinQuery
+    {
+        new IElementGremlinQuery Where(Func<IOrderedElementGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedVertexGremlinQuery
+    {
+        new IVertexGremlinQuery Where(Func<IOrderedVertexGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedEdgeGremlinQuery
+    {
+        new IEdgeGremlinQuery Where(Func<IOrderedEdgeGremlinQuery, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedGremlinQuery<TElement>
+    {
+        new IGremlinQuery<TElement> Where(Func<IOrderedGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedValueGremlinQuery<TElement>
+    {
+        new IValueGremlinQuery<TElement> Where(Func<IOrderedValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
+    {
+        new IArrayGremlinQuery<TArray, TQuery> Where(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedElementGremlinQuery<TElement>
+    {
+        new IElementGremlinQuery<TElement> Where(Func<IOrderedElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedVertexGremlinQuery<TVertex>
+    {
+        new IVertexGremlinQuery<TVertex> Where(Func<IOrderedVertexGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedEdgeGremlinQuery<TEdge>
+    {
+        new IEdgeGremlinQuery<TEdge> Where(Func<IOrderedEdgeGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
+    {
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
+    {
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
+    {
+        new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
+    {
+        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
+    {
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    {
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
+    }
+    public partial interface IOrderedPropertyGremlinQuery<TElement>
+    {
         new IPropertyGremlinQuery<TElement> Where(Func<IOrderedPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 }

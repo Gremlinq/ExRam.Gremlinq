@@ -175,7 +175,6 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
     }
 <# } #>
 
-
 <# foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces)))) { #>
     public partial interface <#= iface #>
     {
@@ -186,6 +185,12 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
         new <#= iface #> Coin(double probability);
 
         new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
+    }
+<# } #>
+
+<# foreach(var iface in baseInterfaces.Concat(MakeOrdered(baseInterfaces))) { #>
+    public partial interface <#= iface #>
+    {
         new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
     }
 <# } #>

@@ -160,7 +160,9 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery <#= iface #>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) => As(continuation);
 
         IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> <#= iface #>.Fold() => Fold<<#= MakeUnordered(iface) #>>();
+<# } #>
 
+<# foreach(var iface in substitutedBaseInterfaces.Concat(MakeOrdered(substitutedBaseInterfaces))){ #>
         <#= MakeUnordered(iface) #> <#= iface #>.Where(Func<<#= iface #>, IGremlinQuery> filterTraversal) => Where(filterTraversal);
 <# } #>
    }
