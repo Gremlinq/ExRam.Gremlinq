@@ -384,6 +384,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void And_nested_or_optimization()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __.Or(
+                        ___ => ___),
+                    __ => __.Out())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void And_infix()
         {
             _g
@@ -1117,6 +1131,23 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("Person", "LivesIn", "WorksFor");
+        }
+
+        [Fact]
+        public void Or_nested_and_optimization()
+        {
+            _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .OutE<LivesIn>(),
+                    __ => __
+                        .And(
+                            ___ => ___,
+                            ___ => ___))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
         }
 
         [Fact]
