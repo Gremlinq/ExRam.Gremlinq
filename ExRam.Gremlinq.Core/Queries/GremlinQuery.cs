@@ -756,7 +756,7 @@ namespace ExRam.Gremlinq.Core
 
             if (filtered is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> filteredKnown)
             {
-                if (filteredKnown.Steps.Count == 2 && filteredKnown.Steps[1] == NoneStep.Instance)
+                if (ReferenceEquals(filteredKnown.Steps, AnonymousNoneSteps))
                     return None();
             }
 
