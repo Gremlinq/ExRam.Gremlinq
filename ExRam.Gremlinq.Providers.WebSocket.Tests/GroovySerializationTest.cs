@@ -83,5 +83,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .SerializeToGroovy("g.V().hasLabel(_a).none()")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void And_none()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
+                .WithParameters("Person");
+        }
     }
 }

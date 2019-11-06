@@ -70,5 +70,17 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void And_none()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Person");
+        }
     }
 }

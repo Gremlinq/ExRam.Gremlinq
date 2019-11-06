@@ -246,14 +246,22 @@ namespace ExRam.Gremlinq.Core
                 return AddStep(AndStep.Infix);
 
             var anonymous = Anonymize();
-            var andTraversals = andTraversalTransformations
-                .Select(orTraversal => orTraversal(anonymous))
-                .Where(orTraversal => orTraversal != anonymous)
-                .ToArray();
+            var subQueries = default(List<IGremlinQuery>);
 
-            return andTraversals.Length == 0
+            foreach (var transformation in andTraversalTransformations)
+            {
+                var transformed = transformation(anonymous);
+
+                if (transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps))
+                    return None();
+
+                if (transformed != anonymous)
+                    (subQueries ?? (subQueries = new List<IGremlinQuery>())).Add(transformed);
+            }
+
+            return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
-                : AddStep(new AndStep(andTraversals));
+                : AddStep(new AndStep(subQueries.ToArray()));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
