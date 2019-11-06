@@ -238,11 +238,20 @@ namespace ExRam.Gremlinq.Core
                 stepLabel);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] andTraversals)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] andTraversalTransformations)
         {
-            return AddStep(new AndStep(andTraversals
-                .Select(andTraversal => andTraversal(Anonymize()))
-                .ToArray()));
+            if (andTraversalTransformations.Length == 0)
+                return AddStep(AndStep.Infix);
+
+            var anonymous = Anonymize();
+            var andTraversals = andTraversalTransformations
+                .Select(orTraversal => orTraversal(anonymous))
+                .Where(orTraversal => orTraversal != anonymous)
+                .ToArray();
+
+            return andTraversals.Length == 0
+                ? this
+                : AddStep(new AndStep(andTraversals));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();

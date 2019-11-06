@@ -359,6 +359,43 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void And_identity()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void And_optimization()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __,
+                    __ => __.Out())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void And_infix()
+        {
+            _g
+                .V<Person>()
+                .And()
+                .Out()
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).and().out()")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void And_nested()
         {
             _g
