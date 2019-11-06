@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="7.0.0-preview-0220" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
