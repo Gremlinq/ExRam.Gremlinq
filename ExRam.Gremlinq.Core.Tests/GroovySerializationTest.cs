@@ -1115,6 +1115,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Or_none()
+        {
+            _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .None(),
+                    __ => __
+                        .OutE())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Or_nested()
         {
             _g

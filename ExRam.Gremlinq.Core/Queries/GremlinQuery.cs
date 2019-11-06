@@ -528,12 +528,14 @@ namespace ExRam.Gremlinq.Core
             var anonymous = Anonymize();
             var orTraversals = orTraversalTransformations
                 .Select(orTraversal => orTraversal(anonymous))
-                .TakeWhile(orTraversal => orTraversal != anonymous)
+                .Where(orTraversal => (!(orTraversal is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps))))
                 .ToArray();
 
-            return orTraversals.Length < orTraversalTransformations.Length
-                ? this
-                : AddStep(new OrStep(orTraversals));
+            return orTraversals.Length == 0
+                ? None()
+                : orTraversals.Any(traversal => traversal == anonymous)
+                    ? this
+                    : AddStep(new OrStep(orTraversals));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order) => AddStep(OrderStep.Instance).By(projection, order);
