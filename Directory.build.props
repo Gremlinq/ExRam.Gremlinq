@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006</NoWarn>
   </PropertyGroup>
 
