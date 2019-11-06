@@ -15,24 +15,12 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public void Where_property_array_intersects_empty_array()
+        public void And_none()
         {
-            _g
-                .V<Company>()
-                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
-                .WithParameters("Company");
-        }
-        
-        [Fact]
-        public void Where_property_is_contained_in_empty_enumerable()
-        {
-            var enumerable = Enumerable.Empty<int>();
-
             _g
                 .V<Person>()
-                .Where(t => enumerable.Contains(t.Age))
+                .And(
+                    __ => __.None())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
@@ -72,12 +60,24 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public void And_none()
+        public void Where_property_array_intersects_empty_array()
         {
             _g
+                .V<Company>()
+                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Company");
+        }
+
+        [Fact]
+        public void Where_property_is_contained_in_empty_enumerable()
+        {
+            var enumerable = Enumerable.Empty<int>();
+
+            _g
                 .V<Person>()
-                .And(
-                    __ => __.None())
+                .Where(t => enumerable.Contains(t.Age))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");

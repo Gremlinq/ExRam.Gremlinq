@@ -17,21 +17,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
-        [Fact]
-        public void V_IAuthority()
+
+
+        private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
         {
-            _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Authority>(__ => __
-                            .ConfigureName(x => x.Name, "n"))))
-                .V<IAuthority>()
-                .Where(x => x.Name.Value == "some name")
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a, _b).has(_c, _d)")
-                .WithParameters("Company", "Person", "n", "some name");
+            return source.V<TVertex>();
         }
-        
+
         [Fact]
         public void AddE_from_StepLabel()
         {
@@ -371,33 +363,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void And_optimization()
-        {
-            _g
-                .V<Person>()
-                .And(
-                    __ => __,
-                    __ => __.Out())
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
-                .WithParameters("Person");
-        }
-
-        [Fact]
-        public void And_nested_or_optimization()
-        {
-            _g
-                .V<Person>()
-                .And(
-                    __ => __.Or(
-                        ___ => ___),
-                    __ => __.Out())
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
-                .WithParameters("Person");
-        }
-
-        [Fact]
         public void And_infix()
         {
             _g
@@ -426,6 +391,33 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("Person", "LivesIn", "WorksFor");
+        }
+
+        [Fact]
+        public void And_nested_or_optimization()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __.Or(
+                        ___ => ___),
+                    __ => __.Out())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void And_optimization()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __,
+                    __ => __.Out())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -461,6 +453,32 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
+        }
+
+        [Fact]
+        public void Choose_one_case()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Case(3, __ => __.Constant(1)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b))")
+                .WithParameters(3, 1);
+        }
+
+        [Fact]
+        public void Choose_only_default_case()
+        {
+            _g
+                .V()
+                .Choose(_ => _
+                    .On(__ => __.Values())
+                    .Default(__ => __.Constant(1)))
+                .Should()
+                .SerializeToGroovy("g.V().choose(__.values()).option(none, __.constant(_a))")
+                .WithParameters(1);
         }
 
         [Fact]
@@ -597,32 +615,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().choose(__.values(), __.out())")
                 .WithoutParameters();
-        }
-
-        [Fact]
-        public void Choose_only_default_case()
-        {
-            _g
-                .V()
-                .Choose(_ => _
-                    .On(__ => __.Values())
-                    .Default(__ => __.Constant(1)))
-                .Should()
-                .SerializeToGroovy("g.V().choose(__.values()).option(none, __.constant(_a))")
-                .WithParameters(1);
-        }
-
-        [Fact]
-        public void Choose_one_case()
-        {
-            _g
-                .V()
-                .Choose(_ => _
-                    .On(__ => __.Values())
-                    .Case(3, __ => __.Constant(1)))
-                .Should()
-                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b))")
-                .WithParameters(3, 1);
         }
 
         [Fact]
@@ -844,6 +836,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().fold().unfold()")
                 .WithoutParameters();
+        }
+
+        [Fact]
+        public void Generic_constraint()
+        {
+            V2<Person>(_g)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
         }
 
         [Fact]
@@ -1115,17 +1116,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Or_none()
+        public void Or_infix()
         {
             _g
                 .V<Person>()
-                .Or(
-                    __ => __
-                        .None(),
-                    __ => __
-                        .OutE())
+                .Out()
+                .Or()
+                .In()
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE())")
+                .SerializeToGroovy("g.V().hasLabel(_a).out().or().in()")
                 .WithParameters("Person");
         }
 
@@ -1166,15 +1165,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Or_infix()
+        public void Or_none()
         {
             _g
                 .V<Person>()
-                .Out()
-                .Or()
-                .In()
+                .Or(
+                    __ => __
+                        .None(),
+                    __ => __
+                        .OutE())
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).out().or().in()")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE())")
                 .WithParameters("Person");
         }
 
@@ -1380,6 +1381,44 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Project_with_builder_0()
+        {
+            _g
+                .V()
+                .Project(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().project()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Project_with_builder_1()
+        {
+            _g
+                .V()
+                .Project(_ => _
+                    .By("in!", __ => __.In()))
+                .Should()
+                .SerializeToGroovy("g.V().project(_a).by(__.in())")
+                .WithParameters("in!");
+        }
+
+        [Fact]
+        public void Project_with_builder_4()
+        {
+            _g
+                .V()
+                .Project(_ => _
+                    .By("in!", __ => __.In())
+                    .By("out!", __ => __.Out())
+                    .By("count!", __ => __.Count())
+                    .By("properties!", __ => __.Properties()))
+                .Should()
+                .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
+                .WithParameters("count!", "in!", "out!", "properties!");
+        }
+
+        [Fact]
         public void Project2()
         {
             _g
@@ -1419,44 +1458,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
                 .WithParameters("Item1", "Item2", "Item3", "Item4");
-        }
-
-        [Fact]
-        public void Project_with_builder_0()
-        {
-            _g
-                .V()
-                .Project(_ => _)
-                .Should()
-                .SerializeToGroovy("g.V().project()")
-                .WithoutParameters();
-        }
-
-        [Fact]
-        public void Project_with_builder_1()
-        {
-            _g
-                .V()
-                .Project(_ => _
-                    .By("in!", __ => __.In()))
-                .Should()
-                .SerializeToGroovy("g.V().project(_a).by(__.in())")
-                .WithParameters("in!");
-        }
-
-        [Fact]
-        public void Project_with_builder_4()
-        {
-            _g
-                .V()
-                .Project(_ => _
-                    .By("in!", __ => __.In())
-                    .By("out!", __ => __.Out())
-                    .By("count!", __ => __.Count())
-                    .By("properties!", __ => __.Properties()))
-                .Should()
-                .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
-                .WithParameters("count!", "in!", "out!", "properties!");
         }
 
         [Fact]
@@ -2407,6 +2408,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_IAuthority()
+        {
+            _g
+                .ConfigureModel(model => model
+                    .ConfigureProperties(_ => _
+                        .ConfigureElement<Authority>(__ => __
+                            .ConfigureName(x => x.Name, "n"))))
+                .V<IAuthority>()
+                .Where(x => x.Name.Value == "some name")
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a, _b).has(_c, _d)")
+                .WithParameters("Company", "Person", "n", "some name");
+        }
+
+        [Fact]
         public void V_of_abstract_type()
         {
             _g
@@ -2815,6 +2831,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_identity_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_outside_model()
+        {
+            _g
+                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>())
+                .V()
+#pragma warning disable 252,253
+                .Where(x => x.Id == "hallo")
+#pragma warning restore 252,253
+                .Should()
+                .SerializeToGroovy("g.V().has(id, _a)");
+        }
+
+        [Fact]
         public void Where_property_array_contains_element()
         {
             _g
@@ -2835,20 +2875,6 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(c => c.PhoneNumbers.Contains(t)))
                 .Should()
                 .SerializeToGroovy("g.inject(_a).as(_b).V().hasLabel(_c).has(_d, __.where(eq(_b)))")
-                .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
-        }
-
-        [Fact]
-        public void Where_property_array_intersects_stepLabel()
-        {
-            _g
-                .Inject("+4912345")
-                .Fold()
-                .As((__, t) => __
-                    .V<Company>()
-                    .Where(c => c.PhoneNumbers.Intersect(t).Any()))
-                .Should()
-                .SerializeToGroovy("g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))")
                 .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
         }
 
@@ -2897,6 +2923,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_array_intersects_stepLabel()
+        {
+            _g
+                .Inject("+4912345")
+                .Fold()
+                .As((__, t) => __
+                    .V<Company>()
+                    .Where(c => c.PhoneNumbers.Intersect(t).Any()))
+                .Should()
+                .SerializeToGroovy("g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))")
+                .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
+        }
+
+        [Fact]
         public void Where_property_array_is_empty()
         {
             _g
@@ -2916,6 +2956,102 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Company", "PhoneNumbers");
+        }
+
+        [Fact]
+        public void Where_property_contains_constant_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains("456"))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing(_c))")
+                .WithParameters("Country", "CountryCallingCode", "456");
+        }
+
+        [Fact]
+        public void Where_property_contains_constant_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing))
+                .V<Country>()
+                .Invoking(_ =>
+                    _.Where(c => c.CountryCallingCode.Contains("456")))
+                .Should()
+                .Throw<ExpressionNotSupportedException>();
+        }
+
+        [Fact]
+        public void Where_property_contains_empty_string_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_contains_empty_string_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.Contains(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_ends_with_constant_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith("7890"))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith(_c))")
+                .WithParameters("Country", "CountryCallingCode", "7890");
+        }
+
+        [Fact]
+        public void Where_property_ends_with_constant_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
+                .V<Country>()
+                .Invoking(_ => _
+                    .Where(c => c.CountryCallingCode.EndsWith("7890")))
+                .Should()
+                .Throw<ExpressionNotSupportedException>();
+        }
+
+        [Fact]
+        public void Where_property_ends_with_empty_string_with_TextP_support()
+        {
+            _g
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
+        }
+
+        [Fact]
+        public void Where_property_ends_with_empty_string_without_TextP_support()
+        {
+            _g
+                .ConfigureOptions(c => c
+                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
+                .V<Country>()
+                .Where(c => c.CountryCallingCode.EndsWith(""))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -2983,70 +3119,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_is_greater_than_stepLabel()
-        {
-            var a = new StepLabel<int>();
-
-            _g
-                .V<Person>()
-                .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age > a)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c)))")
-                .WithParameters("Person", "Age", "l1");
-        }
-
-        [Fact]
-        public void Where_property_is_greater_than_or_equal_stepLabel()
-        {
-            var a = new StepLabel<int>();
-
-            _g
-                .V<Person>()
-                .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age >= a)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))")
-                .WithParameters("Person", "Age", "l1");
-        }
-
-        [Fact]
-        public void Where_property_is_lower_than_stepLabel()
-        {
-            var a = new StepLabel<int>();
-
-            _g
-                .V<Person>()
-                .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age < a)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c)))")
-                .WithParameters("Person", "Age", "l1");
-        }
-
-        [Fact]
-        public void Where_property_is_lower_than_or_equal_stepLabel()
-        {
-            var a = new StepLabel<int>();
-
-            _g
-                .V<Person>()
-                .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age <= a)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c)))")
-                .WithParameters("Person", "Age", "l1");
-        }
-
-        [Fact]
         public void Where_property_equals_value_of_anonymous_object()
         {
             var local = new { Value = 1 };
@@ -3107,6 +3179,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_is_greater_than_or_equal_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age >= a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
+        public void Where_property_is_greater_than_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age > a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
         public void Where_property_is_lower_or_equal_than_constant()
         {
             _g
@@ -3126,6 +3230,38 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b, lt(_c))")
                 .WithParameters("Person", "Age", 36);
+        }
+
+        [Fact]
+        public void Where_property_is_lower_than_or_equal_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age <= a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c)))")
+                .WithParameters("Person", "Age", "l1");
+        }
+
+        [Fact]
+        public void Where_property_is_lower_than_stepLabel()
+        {
+            var a = new StepLabel<int>();
+
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .As(a)
+                .V<Person>()
+                .Where(l2 => l2.Age < a)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c)))")
+                .WithParameters("Person", "Age", "l1");
         }
 
         [Fact]
@@ -3259,17 +3395,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_starts_with_empty_string_with_TextP_support()
-        {
-            _g
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.StartsWith(""))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("Country", "CountryCallingCode");
-        }
-
-        [Fact]
         public void Where_property_starts_with_constant_without_TextP_support()
         {
             _g
@@ -3283,11 +3408,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_starts_with_empty_string_without_TextP_support()
+        public void Where_property_starts_with_empty_string_with_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
@@ -3296,96 +3419,13 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_ends_with_constant_with_TextP_support()
-        {
-            _g
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.EndsWith("7890"))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith(_c))")
-                .WithParameters("Country", "CountryCallingCode", "7890");
-        }
-
-        [Fact]
-        public void Where_property_ends_with_empty_string_with_TextP_support()
-        {
-            _g
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.EndsWith(""))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("Country", "CountryCallingCode");
-        }
-
-        [Fact]
-        public void Where_property_ends_with_constant_without_TextP_support()
-        {
-            _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
-                .V<Country>()
-                .Invoking(_ => _
-                    .Where(c => c.CountryCallingCode.EndsWith("7890")))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
-        }
-
-        [Fact]
-        public void Where_property_ends_with_empty_string_without_TextP_support()
-        {
-            _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.EndsWith(""))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("Country", "CountryCallingCode");
-        }
-
-        [Fact]
-        public void Where_property_contains_constant_with_TextP_support()
-        {
-            _g
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.Contains("456"))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing(_c))")
-                .WithParameters("Country", "CountryCallingCode", "456");
-        }
-
-        [Fact]
-        public void Where_property_contains_empty_string_with_TextP_support()
-        {
-            _g
-                .V<Country>()
-                .Where(c => c.CountryCallingCode.Contains(""))
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
-                .WithParameters("Country", "CountryCallingCode");
-        }
-
-        [Fact]
-        public void Where_property_contains_constant_without_TextP_support()
-        {
-            _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing))
-                .V<Country>()
-                .Invoking(_ =>
-                    _.Where(c => c.CountryCallingCode.Contains("456")))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
-        }
-
-        [Fact]
-        public void Where_property_contains_empty_string_without_TextP_support()
+        public void Where_property_starts_with_empty_string_without_TextP_support()
         {
             _g
                 .ConfigureOptions(c => c
                     .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
                 .V<Country>()
-                .Where(c => c.CountryCallingCode.Contains(""))
+                .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
@@ -3448,17 +3488,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _.Count())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).where(__.count())")
-                .WithParameters("Person");
-        }
-
-        [Fact]
-        public void Where_identity_traversal()
-        {
-            _g
-                .V<Person>()
-                .Where(_ => _)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -3559,33 +3588,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("Person");
-        }
-
-        [Fact]
-        public void Generic_constraint()
-        {
-            V2<Person>(_g)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a)")
-                .WithParameters("Person");
-        }
-
-        [Fact]
-        public void Where_outside_model()
-        {
-            _g
-                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>())
-                .V()
-#pragma warning disable 252,253
-                .Where(x => x.Id == "hallo")
-#pragma warning restore 252,253
-                .Should()
-                .SerializeToGroovy("g.V().has(id, _a)");
-        }
-
-        private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
-        {
-            return source.V<TVertex>();
         }
     }
 }
