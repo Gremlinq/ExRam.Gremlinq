@@ -25,7 +25,7 @@
                     upperBound = new string(upperBoundChars);
                 }
 
-                return new P.Between(Value, upperBound);
+                return new Between(Value, upperBound);
             }
         }
 
