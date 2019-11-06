@@ -1083,6 +1083,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Or_infix()
+        {
+            _g
+                .V<Person>()
+                .Out()
+                .Or()
+                .In()
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).out().or().in()")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Order_Fold_Unfold()
         {
             _g

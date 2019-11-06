@@ -506,6 +506,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] orTraversalTransformations)
         {
+            if (orTraversalTransformations.Length == 0)
+                return AddStep(OrStep.Infix);
+
             var anonymous = Anonymize();
             var orTraversals = orTraversalTransformations
                 .Select(orTraversal => orTraversal(anonymous))
