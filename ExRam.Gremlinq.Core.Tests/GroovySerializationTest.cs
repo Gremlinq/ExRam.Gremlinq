@@ -1097,6 +1097,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void OfType_redundant3()
+        {
+            _g
+                .V()
+                .OfType<Authority>()
+                .OfType<Company>()
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Company");
+        }
+
+        [Fact]
         public void Optional()
         {
             _g

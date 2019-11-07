@@ -515,9 +515,18 @@ namespace ExRam.Gremlinq.Core
             return model
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
                 .Match(
-                    labels => labels.Length > 0
-                        ? AddStep<TTarget>(new HasLabelStep(labels))
-                        : Cast<TTarget>(),
+                    labels =>
+                    {
+                        if (labels.Length > 0)
+                        {
+                            if (Steps[Steps.Count - 1] is HasLabelStep)
+                                return new GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.SetItem(Steps.Count - 1, new HasLabelStep(labels)), Environment);
+
+                            return AddStep<TTarget>(new HasLabelStep(labels));
+                        }
+
+                        return Cast<TTarget>();
+                    },
                     () => AddStep<TTarget>(NoneStep.Instance));
         }
 
