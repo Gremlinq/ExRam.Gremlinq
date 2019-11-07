@@ -451,7 +451,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Id() => AddStep<object, Unit, Unit, Unit, Unit, Unit>(IdStep.Instance);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Identity() => AddStep(IdentityStep.Instance);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Identity() => this;
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
 

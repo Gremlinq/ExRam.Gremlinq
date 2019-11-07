@@ -17,8 +17,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
         }
 
-
-
         private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
         {
             return source.V<TVertex>();
@@ -2831,11 +2829,22 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_identity_traversal()
+        public void Where_anonymous()
         {
             _g
                 .V<Person>()
                 .Where(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_identity()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.Identity())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
