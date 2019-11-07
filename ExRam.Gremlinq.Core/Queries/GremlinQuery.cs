@@ -222,10 +222,12 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Insert(Steps.Count, step), Environment);
 
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> AddStepWithUnitTypes<TNewElement>(Step step) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(step);
+
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
         {
             return this
-                .AddStep<TVertex, Unit, Unit, Unit, Unit, Unit>(new AddVStep(Environment.Model, vertex))
+                .AddStepWithUnitTypes<TVertex>(new AddVStep(Environment.Model, vertex))
                 .AddOrUpdate(vertex, true, true);
         }
 
@@ -283,7 +285,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> BothV<TTarget>() => AddStep<TTarget, Unit, Unit, Unit, Unit, Unit>(BothVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> BothV<TTarget>() => AddStepWithUnitTypes<TTarget>(BothVStep.Instance);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> By(Expression<Func<TElement, object>> projection, Order order)
         {
@@ -449,17 +451,17 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
 
-        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Id() => AddStep<object, Unit, Unit, Unit, Unit, Unit>(IdStep.Instance);
+        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Id() => AddStepWithUnitTypes<object>(IdStep.Instance);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Identity() => this;
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new InjectStep(elements.Cast<object>().ToArray()));
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStepWithUnitTypes<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(InVStep.Instance);
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStepWithUnitTypes<TNewElement>(InVStep.Instance);
 
-        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Key() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(KeyStep.Instance);
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Key() => AddStepWithUnitTypes<string>(KeyStep.Instance);
 
-        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Label() => AddStep<string, Unit, Unit, Unit, Unit, Unit>(LabelStep.Instance);
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Label() => AddStepWithUnitTypes<string>(LabelStep.Instance);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Limit(long count)
         {
@@ -558,9 +560,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(string lambda) => AddStep(OrderStep.Instance).By(lambda);
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OtherV<TTarget>() => AddStep<TTarget, Unit, Unit, Unit, Unit, Unit>(OtherVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OtherV<TTarget>() => AddStepWithUnitTypes<TTarget>(OtherVStep.Instance);
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStep<TTarget, Unit, Unit, Unit, Unit, Unit>(OutVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStepWithUnitTypes<TTarget>(OutVStep.Instance);
 
         private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IProjectBuilder<IGremlinQuery>> continuation)
         {
@@ -570,7 +572,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var ret = this
-                .AddStep<object, Unit, Unit, Unit, Unit, Unit>(new ProjectStep(projections.Select(x => x.Key).ToArray()));
+                .AddStepWithUnitTypes<object>(new ProjectStep(projections.Select(x => x.Key).ToArray()));
 
             foreach (var projection in projections)
             {
@@ -583,7 +585,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TTuple, Unit, Unit, Unit, Unit, Unit> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
         {
             var ret = this
-                .AddStep<TTuple, Unit, Unit, Unit, Unit, Unit>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
+                .AddStepWithUnitTypes<TTuple>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
 
             foreach (var projection in projections)
             {
@@ -653,7 +655,7 @@ namespace ExRam.Gremlinq.Core
         }
 
 
-        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabel));
+        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStepWithUnitTypes<TSelectedElement>(new SelectStep(stepLabel));
 
         private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(params StepLabel[] stepLabels)
         {
@@ -694,9 +696,9 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStep<TNewPropertyValue, Unit, Unit, Unit, Unit, Unit>(ValueStep.Instance);
+        private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithUnitTypes<TNewPropertyValue>(ValueStep.Instance);
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(keys));
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStepWithUnitTypes<TNewElement>(new ValueMapStep(keys));
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
@@ -710,7 +712,7 @@ namespace ExRam.Gremlinq.Core
             if (stringKeys.Length != projectionsArray.Length)
                 throw new ExpressionNotSupportedException();
 
-            return AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new ValueMapStep(stringKeys));
+            return AddStepWithUnitTypes<TNewElement>(new ValueMapStep(stringKeys));
         }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
@@ -723,9 +725,9 @@ namespace ExRam.Gremlinq.Core
                 case 0:
                     throw new ExpressionNotSupportedException();
                 case 1:
-                    return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(stepsArray[0]);
+                    return AddStepWithUnitTypes<TValue>(stepsArray[0]);
                 default:
-                    return AddStep<TValue, Unit, Unit, Unit, Unit, Unit>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step))));
+                    return AddStepWithUnitTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step))));
             }
         }
 
