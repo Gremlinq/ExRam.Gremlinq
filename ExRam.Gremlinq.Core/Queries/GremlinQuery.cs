@@ -358,6 +358,8 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
 
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(configurator(Steps), Environment, true);
+
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Dedup() => AddStep(DedupStep.Instance);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Drop() => AddStep(DropStep.Instance);
@@ -515,18 +517,11 @@ namespace ExRam.Gremlinq.Core
             return model
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
                 .Match(
-                    labels =>
-                    {
-                        if (labels.Length > 0)
-                        {
-                            if (Steps[Steps.Count - 1] is HasLabelStep)
-                                return new GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps.SetItem(Steps.Count - 1, new HasLabelStep(labels)), Environment);
-
-                            return AddStep<TTarget>(new HasLabelStep(labels));
-                        }
-
-                        return Cast<TTarget>();
-                    },
+                    labels => labels.Length > 0
+                        ? Steps[Steps.Count - 1] is HasLabelStep
+                            ? ConfigureSteps<TTarget>(steps => steps.SetItem(steps.Count - 1, new HasLabelStep(labels)))
+                            : AddStep<TTarget>(new HasLabelStep(labels))
+                        : Cast<TTarget>(),
                     () => AddStep<TTarget>(NoneStep.Instance));
         }
 
