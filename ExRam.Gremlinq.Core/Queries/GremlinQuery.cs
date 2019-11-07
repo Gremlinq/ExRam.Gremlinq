@@ -453,7 +453,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Identity() => this;
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(new InjectStep(elements.Cast<object>().ToArray()));
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(InVStep.Instance);
 
@@ -580,10 +580,10 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        private GremlinQuery<TTuple, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
+        private GremlinQuery<TTuple, Unit, Unit, Unit, Unit, Unit> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
         {
             var ret = this
-                .AddStep<TTuple>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
+                .AddStep<TTuple, Unit, Unit, Unit, Unit, Unit>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
 
             foreach (var projection in projections)
             {
@@ -655,7 +655,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel stepLabel) => AddStep<TSelectedElement, Unit, Unit, Unit, Unit, Unit>(new SelectStep(stepLabel));
 
-        private GremlinQuery<TSelectedElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Select<TSelectedElement>(params StepLabel[] stepLabels)
+        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(params StepLabel[] stepLabels)
         {
             return this
                 .Project<TSelectedElement>(stepLabels
