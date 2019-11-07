@@ -258,7 +258,7 @@ namespace ExRam.Gremlinq.Core
                     return None();
 
                 if (transformed != anonymous)
-                    (subQueries ?? (subQueries = new List<IGremlinQuery>())).Add(transformed);
+                    (subQueries ??= new List<IGremlinQuery>()).Add(transformed);
             }
 
             return (subQueries?.Count).GetValueOrDefault() == 0
@@ -546,7 +546,7 @@ namespace ExRam.Gremlinq.Core
                     return this;
 
                 if (!(transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps)))
-                    (subQueries ?? (subQueries = new List<IGremlinQuery>())).Add(transformed);
+                    (subQueries ??= new List<IGremlinQuery>()).Add(transformed);
             }
 
             return (subQueries?.Count).GetValueOrDefault() == 0
