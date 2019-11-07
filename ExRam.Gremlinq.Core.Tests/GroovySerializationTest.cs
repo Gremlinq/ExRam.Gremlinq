@@ -846,6 +846,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Identity()
+        {
+            _g
+                .V<Person>()
+                .Identity()
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Identity_Identity()
+        {
+            _g
+                .V<Person>()
+                .Identity()
+                .Identity()
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+
+        [Fact]
         public void In()
         {
             _g
