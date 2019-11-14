@@ -82,5 +82,55 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
+
+        [Fact]
+        public void StringKey()
+        {
+            _g
+                .V<Person>("id")
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("id", "Person");
+        }
+
+        [Fact]
+        public void CosmosDbKey()
+        {
+            _g
+                .V<Person>(new CosmosDbKey("pk", "id"))
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters(new[] { "pk", "id" }, "Person");
+        }
+
+        [Fact]
+        public void CosmosDbKey_with_null_partitionKey()
+        {
+            _g
+                .V<Person>(new CosmosDbKey("id"))
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("id", "Person");
+        }
+
+        [Fact]
+        public void Mixed_StringKey_CosmosDbKey()
+        {
+            _g
+                .V<Person>(new CosmosDbKey("pk", "id"), "id2")
+                .Should()
+                .SerializeToGroovy("g.V(_a, _b).hasLabel(_c)")
+                .WithParameters(new[] { "pk", "id" }, "id2", "Person");
+        }
+
+        [Fact]
+        public void Mixed_StringKey_CosmosDbKey_with_null_partitionKey()
+        {
+            _g
+                .V<Person>(new CosmosDbKey("id"), "id2")
+                .Should()
+                .SerializeToGroovy("g.V(_a, _b).hasLabel(_c)")
+                .WithParameters("id", "id2", "Person");
+        }
     }
 }
