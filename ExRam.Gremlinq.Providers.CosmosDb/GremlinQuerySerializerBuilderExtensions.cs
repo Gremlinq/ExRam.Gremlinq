@@ -9,6 +9,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializerBuilder UseCosmosDbWorkarounds(this IGremlinQuerySerializerBuilder builder)
         {
             return builder
+                .OverrideAtomSerializer<CosmosDbKey>((key, assembler, overridden, recurse) => recurse(new[] { key.PartitionKey, key.Id }))
                 .OverrideAtomSerializer<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
                 .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
                 .OverrideAtomSerializer<LimitStep>((step, assembler, overridden, recurse) =>
