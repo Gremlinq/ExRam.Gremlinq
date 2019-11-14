@@ -60,7 +60,11 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
 
                     key = "_" + key;
-                    _groovySerializedQuery.Bindings.Should().Contain(key, parameters[i]);
+
+                    _groovySerializedQuery.Bindings.Should().ContainKey(key);
+                    var value = _groovySerializedQuery.Bindings[key];
+
+                    value.Should().BeEquivalentTo(parameters[i]);
                 }
 
                 return this;
