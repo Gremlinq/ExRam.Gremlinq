@@ -4,6 +4,7 @@
     <PublicRelease>true</PublicRelease>
     <LangVersion>8.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006</NoWarn>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
