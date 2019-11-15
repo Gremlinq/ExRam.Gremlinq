@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace ExRam.Gremlinq.Core
             {
                 private readonly Action<object> _recurse;
                 private readonly ISerializedGremlinQueryAssembler _assembler;
-                private readonly IReadOnlyDictionary<Type, AtomSerializer<object>> _dict;
+                private readonly ConcurrentDictionary<Type, AtomSerializer<object>> _dict;
 
-                public Recurse(IReadOnlyDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssembler assembler)
+                public Recurse(ConcurrentDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssembler assembler)
                 {
                     _dict = dict;
                     _assembler = assembler;
@@ -39,25 +40,37 @@ namespace ExRam.Gremlinq.Core
                     }
                     else
                     {
-                        var action = _dict
-                            .TryGetValue(o.GetType())
-                            .IfNone((atom, assembler, baseSerializer, recurse) => assembler.Constant(atom));
+                        var action = GetSerializer(o.GetType());
 
                         action(o, _assembler, _ => throw new NotImplementedException(), _recurse);
                     }
+                }
+
+                private AtomSerializer<object> GetSerializer(Type type)
+                {
+                    return _dict
+                        .GetOrAdd(
+                            type,
+                            closureType =>
+                            {
+                                if (closureType.BaseType is Type baseType)
+                                    return GetSerializer(baseType);
+
+                                return (atom, assembler, baseSerializer, recurse) => assembler.Constant(atom);
+                            });
                 }
             }
 
             private readonly IImmutableDictionary<Type, AtomSerializer<object>> _dict;
             private readonly ISerializedGremlinQueryAssemblerFactory _assemblerFactory;
-            private readonly Lazy<Dictionary<Type, AtomSerializer<object>>> _lazyFastDict;
+            private readonly Lazy<ConcurrentDictionary<Type, AtomSerializer<object>>> _lazyFastDict;
 
             public GremlinQuerySerializerImpl(IImmutableDictionary<Type, AtomSerializer<object>> dict, ISerializedGremlinQueryAssemblerFactory assemblerFactory)
             {
                 _dict = dict;
                 _assemblerFactory = assemblerFactory;
-                _lazyFastDict = new Lazy<Dictionary<Type, AtomSerializer<object>>>(
-                    () => dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value),
+                _lazyFastDict = new Lazy<ConcurrentDictionary<Type, AtomSerializer<object>>>(
+                    () => new ConcurrentDictionary<Type, AtomSerializer<object>>(dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)),
                     LazyThreadSafetyMode.PublicationOnly);
             }
 
