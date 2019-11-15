@@ -10,7 +10,12 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class ExecutionPipelinesTest
     {
-        private class FancyId
+        private interface IFancyId
+        {
+            string Id { get; set; }
+        }
+
+        private class FancyId : IFancyId
         {
             public string Id { get; set; }
         }
@@ -75,6 +80,38 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideAtomSerializer<FancyId>((key, assembler, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("someId", "Person");
+        }
+
+        [Fact]
+        public void OverrideAtomSerializer_recognizes_interface()
+        {
+            g
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>())
+                .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
+                    .EchoGroovyString
+                    .ConfigureSerializer(_ => _
+                        .OverrideAtomSerializer<IFancyId>((key, assembler, overridden, recurse) => recurse(key.Id))))
+                .V<Person>(new FancyId { Id = "someId" })
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("someId", "Person");
+        }
+
+        [Fact]
+        public void OverrideAtomSerializer_recognizes_interface_through_derived_type()
+        {
+            g
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>())
+                .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
+                    .EchoGroovyString
+                    .ConfigureSerializer(_ => _
+                        .OverrideAtomSerializer<IFancyId>((key, assembler, overridden, recurse) => recurse(key.Id))))
+                .V<Person>(new FancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("g.V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
