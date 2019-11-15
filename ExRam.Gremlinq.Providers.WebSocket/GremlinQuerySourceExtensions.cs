@@ -16,12 +16,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
-            private readonly ILogger _logger;
+            private readonly ILogger? _logger;
             private readonly Lazy<IGremlinClient> _lazyGremlinClient;
 
             public WebSocketGremlinQueryExecutor(
                 Func<IGremlinClient> clientFactory,
-                ILogger logger = null)
+                ILogger? logger = null)
             {
                 _logger = logger;
                 _lazyGremlinClient = new Lazy<IGremlinClient>(clientFactory, LazyThreadSafetyMode.ExecutionAndPublication);
@@ -62,10 +62,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             GraphsonVersion graphsonVersion,
             int port = 8182,
             bool enableSsl = false,
-            string username = null,
-            string password = null,
-            IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null)
+            string? username = null,
+            string? password = null,
+            IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
+            IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
         {
             return source.ConfigureExecutionPipeline(conf => conf
                 .UseSerializer(GremlinQuerySerializer.Groovy)
@@ -78,12 +78,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             string hostname,
             int port = 8182,
             bool enableSsl = false,
-            string username = null,
-            string password = null,
+            string? username = null,
+            string? password = null,
             GraphsonVersion graphsonVersion = GraphsonVersion.V2,
-            IReadOnlyDictionary<Type, IGraphSONSerializer> additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer> additionalGraphsonDeserializers = null,
-            ILogger logger = null)
+            IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
+            IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null,
+            ILogger? logger = null)
         {
             var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
             var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                     logger);
         }
 
-        public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, ILogger logger = null)
+        public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, ILogger? logger = null)
         {
             return pipeline
                 .UseExecutor(new WebSocketGremlinQueryExecutor(clientFactory, logger));

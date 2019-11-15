@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class AssemblyGraphElementModel : IGraphElementModel
             {
-                public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger logger)
+                public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger? logger)
                 {
                     Metadata = assemblies
                         .Distinct()
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                 public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
             }
 
-            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger logger)
+            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger? logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                     throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -94,17 +94,17 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
 
-        public static IGraphModel Dynamic(ILogger logger = null)
+        public static IGraphModel Dynamic(ILogger? logger = null)
         {
             return FromBaseTypes<IVertex, IEdge>(logger, AppDomain.CurrentDomain.GetAssemblies());
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger logger = null, params Assembly[] additionalAssemblies)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger? logger = null, params Assembly[] additionalAssemblies)
         {
             return FromBaseTypes(typeof(TVertex), typeof(TEdge), logger, additionalAssemblies);
         }
 
-        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, ILogger logger = null, params Assembly[] additionalAssemblies)
+        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, ILogger? logger = null, params Assembly[] additionalAssemblies)
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
         }
