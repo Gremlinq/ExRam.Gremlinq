@@ -10,6 +10,15 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public class ExecutionPipelinesTest
     {
+        private class FancyId
+        {
+            public string Id { get; set; }
+        }
+
+        private class EvenMoreFancyId : FancyId
+        {
+        }
+
         [Fact]
         public async Task Echo()
         {
@@ -37,6 +46,38 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ToArrayAsync())
                 .Should()
                 .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void OverrideAtomSerializer()
+        {
+            g
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>())
+                .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
+                    .EchoGroovyString
+                    .ConfigureSerializer(_ => _
+                        .OverrideAtomSerializer<FancyId>((key, assembler, overridden, recurse) => recurse(key.Id))))
+                .V<Person>(new FancyId {Id = "someId"})
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("someId", "Person");
+        }
+
+        [Fact]
+        public void OverrideAtomSerializer_recognizes_derived_type()
+        {
+            g
+                .UseModel(GraphModel
+                    .FromBaseTypes<Vertex, Edge>())
+                .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
+                    .EchoGroovyString
+                    .ConfigureSerializer(_ => _
+                        .OverrideAtomSerializer<FancyId>((key, assembler, overridden, recurse) => recurse(key.Id))))
+                .V<Person>(new EvenMoreFancyId { Id = "someId" })
+                .Should()
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .WithParameters("someId", "Person");
         }
     }
 }
