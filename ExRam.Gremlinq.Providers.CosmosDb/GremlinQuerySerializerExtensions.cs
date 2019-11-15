@@ -2,11 +2,11 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQuerySerializerBuilderExtensions
+    public static class GremlinQuerySerializerExtensions
     {
         private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
-        public static IGremlinQuerySerializerBuilder UseCosmosDbWorkarounds(this IGremlinQuerySerializerBuilder builder)
+        public static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer builder)
         {
             return builder
                 .OverrideAtomSerializer<CosmosDbKey>((key, assembler, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))

@@ -67,6 +67,57 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class UnitSerializedGremlinQueryAssemblerFactory : ISerializedGremlinQueryAssemblerFactory
+        {
+            private sealed class UnitSerializedGremlinQueryAssembler : ISerializedGremlinQueryAssembler
+            {
+                public void Identifier(string identifier)
+                {
+                    
+                }
+
+                public void Field(string fieldName)
+                {
+                }
+
+                public void OpenMethod(string methodName)
+                {
+                }
+
+                public void CloseMethod()
+                {
+                }
+
+                public void StartParameter()
+                {
+                }
+
+                public void EndParameter()
+                {
+                }
+
+                public void Lambda(string methodName)
+                {
+                }
+
+                public void Constant(object constant)
+                {
+                }
+
+                public object Assemble()
+                {
+                    return LanguageExt.Unit.Default;
+                }
+            }
+
+            private static readonly ISerializedGremlinQueryAssembler Instance = new UnitSerializedGremlinQueryAssembler();
+
+            public ISerializedGremlinQueryAssembler Create()
+            {
+                return Instance;
+            }
+        }
+
         private sealed class GroovySerializedGremlinQueryAssemblerFactory : ISerializedGremlinQueryAssemblerFactory
         {
             private sealed class GroovySerializedGremlinQueryAssembler : ISerializedGremlinQueryAssembler
@@ -211,6 +262,8 @@ namespace ExRam.Gremlinq.Core
                 return new GroovySerializedGremlinQueryAssembler();
             }
         }
+
+        public static readonly ISerializedGremlinQueryAssemblerFactory Unit = new UnitSerializedGremlinQueryAssemblerFactory();
 
         public static readonly ISerializedGremlinQueryAssemblerFactory Invalid = new InvalidSerializedGremlinQueryAssemblerFactory();
 
