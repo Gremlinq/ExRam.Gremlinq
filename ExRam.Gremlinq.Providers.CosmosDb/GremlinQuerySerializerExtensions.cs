@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
-        public static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer builder)
+        public static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer serializer)
         {
-            return builder
+            return serializer
                 .OverrideAtomSerializer<CosmosDbKey>((key, assembler, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
                 .OverrideAtomSerializer<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
                 .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))

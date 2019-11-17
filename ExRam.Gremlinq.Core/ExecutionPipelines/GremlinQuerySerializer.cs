@@ -143,15 +143,15 @@ namespace ExRam.Gremlinq.Core
             .UseDefaultGremlinStepSerializationHandlers()
             .UseGroovy();
 
-        public static IGremlinQuerySerializer UseGroovy(this IGremlinQuerySerializer builder)
+        public static IGremlinQuerySerializer UseGroovy(this IGremlinQuerySerializer serializer)
         {
-            return builder
+            return serializer
                 .ConfigureAssemblerFactory(_ => SerializedGremlinQueryAssemblerFactory.Groovy);
         }
 
-        public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer builder)
+        public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer)
         {
-            return builder
+            return serializer
                 .OverrideAtomSerializer<HasNotStep>((step, assembler, overridden, recurse) => assembler.Method("hasNot", step.Key, recurse))
                 .OverrideAtomSerializer<ChooseOptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("choose", step.Traversal, recurse))
                 .OverrideAtomSerializer<OptionTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("option", step.Guard, step.OptionTraversal, recurse))
