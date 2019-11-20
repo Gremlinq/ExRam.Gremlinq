@@ -10,6 +10,16 @@ namespace ExRam.Gremlinq.Core
             return query.AsAdmin().InsertStep(query.AsAdmin().Steps.Count, step);
         }
 
+        internal static bool IsNone(this IGremlinQuery query)
+        {
+            return query is GremlinQuery gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousNoneSteps);
+        }
+
+        internal static bool IsIdentity(this IGremlinQuery query)
+        {
+            return query is GremlinQuery gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousIdentifierSteps);
+        }
+
         /// <summary>
         /// Creates a continuation delegate from a <paramref name="sourceQuery"/> and <paramref name="targetQuery"/>
         /// when <paramref name="sourceQuery"/> is a prefix of <paramref name="targetQuery"/>.

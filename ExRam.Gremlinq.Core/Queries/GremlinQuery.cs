@@ -15,8 +15,8 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class GremlinQuery
     {
-        protected static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
-        protected static readonly IImmutableList<Step> AnonymousNoneSteps = AnonymousIdentifierSteps.Add(NoneStep.Instance);
+        protected internal static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
+        protected internal static readonly IImmutableList<Step> AnonymousNoneSteps = AnonymousIdentifierSteps.Add(NoneStep.Instance);
 
         private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
 
@@ -31,8 +31,8 @@ namespace ExRam.Gremlinq.Core
             Environment = environment;
         }
 
-        protected IImmutableList<Step> Steps { get; }
-        protected IGremlinQueryEnvironment Environment { get; }
+        protected internal IImmutableList<Step> Steps { get; }
+        protected internal IGremlinQueryEnvironment Environment { get; }
 
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var transformed = transformation(anonymous);
 
-                if (transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps))
+                if (transformed.IsNone())
                     return None();
 
                 if (transformed != anonymous)
@@ -505,7 +505,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> None()
         {
-            return ReferenceEquals(Steps, AnonymousIdentifierSteps)
+            return this.IsIdentity()
                 ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(AnonymousNoneSteps, Environment)
                 : AddStep(NoneStep.Instance);
         }
@@ -514,10 +514,10 @@ namespace ExRam.Gremlinq.Core
         {
             var transformed = notTraversal(Anonymize());
 
-            if (ReferenceEquals(Steps, AnonymousIdentifierSteps))
+            if (this.IsIdentity())
                 return None();
 
-            if (transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps))
+            if (transformed.IsNone())
                 return this;
 
             return AddStep(new NotStep(transformed));
@@ -563,7 +563,7 @@ namespace ExRam.Gremlinq.Core
                 if (transformed == anonymous)
                     return this;
 
-                if (!(transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps)))
+                if (!transformed.IsNone())
                     (subQueries ??= new List<IGremlinQuery>()).Add(transformed);
             }
 
@@ -790,13 +790,9 @@ namespace ExRam.Gremlinq.Core
             if (filtered == anonymous)
                 return this;
 
-            if (filtered is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> filteredKnown)
-            {
-                if (ReferenceEquals(filteredKnown.Steps, AnonymousNoneSteps))
-                    return None();
-            }
-
-            return AddStep(new WhereTraversalStep(filtered));
+            return filtered.IsNone()
+                ? None()
+                : AddStep(new WhereTraversalStep(filtered));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(LambdaExpression predicate)
