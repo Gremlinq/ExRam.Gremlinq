@@ -2887,6 +2887,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_or_identity()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _
+                    .Or(
+                        _ => _))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_identity_with_type_change()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.OfType<Authority>())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Where_outside_model()
         {
             _g

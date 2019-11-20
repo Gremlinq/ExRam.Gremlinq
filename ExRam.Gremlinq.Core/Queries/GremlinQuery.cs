@@ -790,7 +790,7 @@ namespace ExRam.Gremlinq.Core
             var anonymous = Anonymize();
             var filtered = filterTraversal(anonymous);
 
-            if (filtered == anonymous)
+            if (filtered.IsIdentity())
                 return this;
 
             return filtered.IsNone()
