@@ -13,26 +13,10 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class GremlinQuery
+    public static class GremlinQuery
     {
-        protected internal static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
-        protected internal static readonly IImmutableList<Step> AnonymousNoneSteps = AnonymousIdentifierSteps.Add(NoneStep.Instance);
-
-        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
-
-        private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
-            .GetInterfaces()
-            .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
-            .ToArray();
-
-        protected GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
-        {
-            Steps = steps;
-            Environment = environment;
-        }
-
-        protected internal IImmutableList<Step> Steps { get; }
-        protected internal IGremlinQueryEnvironment Environment { get; }
+        internal static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
+        internal static readonly IImmutableList<Step> AnonymousNoneSteps = AnonymousIdentifierSteps.Add(NoneStep.Instance);
 
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
@@ -54,6 +38,22 @@ namespace ExRam.Gremlinq.Core
                 steps,
                 environment,
                 true);
+        }
+    }
+
+    internal abstract class GremlinQueryBase
+    {
+        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
+
+        private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
+            .GetInterfaces()
+            .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
+            .ToArray();
+
+        protected GremlinQueryBase(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
+        {
+            Steps = steps;
+            Environment = environment;
         }
 
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
@@ -118,9 +118,12 @@ namespace ExRam.Gremlinq.Core
 
             return typeof(Unit);
         }
+
+        protected internal IImmutableList<Step> Steps { get; }
+        protected internal IGremlinQueryEnvironment Environment { get; }
     }
 
-    internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQuery
+    internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQueryBase
     {
         public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : this(steps, environment, false)
         {
@@ -506,7 +509,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> None()
         {
             return this.IsIdentity()
-                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(AnonymousNoneSteps, Environment)
+                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment)
                 : AddStep(NoneStep.Instance);
         }
 

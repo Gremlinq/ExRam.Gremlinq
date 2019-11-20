@@ -12,12 +12,12 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsNone(this IGremlinQuery query)
         {
-            return query is GremlinQuery gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousNoneSteps);
+            return query is GremlinQueryBase gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousNoneSteps);
         }
 
         internal static bool IsIdentity(this IGremlinQuery query)
         {
-            return query is GremlinQuery gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousIdentifierSteps);
+            return query is GremlinQueryBase gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousIdentifierSteps);
         }
 
         /// <summary>
