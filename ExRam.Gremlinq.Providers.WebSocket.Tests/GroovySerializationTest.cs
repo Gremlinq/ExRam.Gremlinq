@@ -72,6 +72,32 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
         }
 
         [Fact]
+        public void Where_or_none_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _
+                    .Or(_ => _
+                        .None()))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_or_dead_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _
+                    .Or(_ => _
+                        .Where(x => new object[0].Contains(x.Id))))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).none()")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Where_property_array_intersects_empty_array()
         {
             _g

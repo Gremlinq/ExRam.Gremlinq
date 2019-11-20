@@ -439,6 +439,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
         {
+            if (predicate.EqualsConstant(false))
+                return None();
+
             if (expression is MemberExpression memberExpression)
                 return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), predicate));
 
@@ -507,7 +510,18 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(NoneStep.Instance);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> notTraversal) => AddStep(new NotStep(notTraversal(Anonymize())));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> notTraversal)
+        {
+            var transformed = notTraversal(Anonymize());
+
+            if (ReferenceEquals(Steps, AnonymousIdentifierSteps))
+                return None();
+
+            if (transformed is GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query && ReferenceEquals(query.Steps, AnonymousNoneSteps))
+                return this;
+
+            return AddStep(new NotStep(transformed));
+        }
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
         {
