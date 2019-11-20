@@ -790,12 +790,11 @@ namespace ExRam.Gremlinq.Core
             var anonymous = Anonymize();
             var filtered = filterTraversal(anonymous);
 
-            if (filtered.IsIdentity())
-                return this;
-
-            return filtered.IsNone()
-                ? None()
-                : AddStep(new WhereTraversalStep(filtered));
+            return filtered.IsIdentity()
+                ? this
+                : filtered.IsNone()
+                    ? None()
+                    : AddStep(new WhereTraversalStep(filtered));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(LambdaExpression predicate)
