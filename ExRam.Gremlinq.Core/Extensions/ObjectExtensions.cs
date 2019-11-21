@@ -26,6 +26,7 @@ namespace System
                     type => type
                         .GetTypeHierarchy()
                         .SelectMany(typeInHierarchy => typeInHierarchy.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                        .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
                         .Select(p =>
                         {
                             var metadata = model.Metadata
