@@ -143,6 +143,8 @@ namespace ExRam.Gremlinq.Core
             .UseDefaultGremlinStepSerializationHandlers()
             .UseGroovy();
 
+        private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
+
         public static IGremlinQuerySerializer UseGroovy(this IGremlinQuerySerializer serializer)
         {
             return serializer
@@ -377,7 +379,8 @@ namespace ExRam.Gremlinq.Core
                 })
                 .OverrideAtomSerializer<LocalStep>((step, assembler, overridden, recurse) => assembler.Method("local", step.Traversal, recurse))
                 .OverrideAtomSerializer<MapStep>((step, assembler, overridden, recurse) => assembler.Method("map", step.Traversal, recurse))
-                .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => assembler.Method("none"))
+                //.OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => assembler.Method("none"))
+                .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
                 .OverrideAtomSerializer<FlatMapStep>((step, assembler, overridden, recurse) => assembler.Method("flatMap", step.Traversal, recurse))
                 .OverrideAtomSerializer<MatchStep>((step, assembler, overridden, recurse) => assembler.Method("match", step.Traversals, recurse))
                 .OverrideAtomSerializer<NotStep>((step, assembler, overridden, recurse) =>

@@ -4,14 +4,11 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySerializerExtensions
     {
-        private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
-
         public static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer serializer)
         {
             return serializer
                 .OverrideAtomSerializer<CosmosDbKey>((key, assembler, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
                 .OverrideAtomSerializer<SkipStep>((step, assembler, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
-                .OverrideAtomSerializer<NoneStep>((step, assembler, overridden, recurse) => recurse(NoneWorkaround))
                 .OverrideAtomSerializer<LimitStep>((step, assembler, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has

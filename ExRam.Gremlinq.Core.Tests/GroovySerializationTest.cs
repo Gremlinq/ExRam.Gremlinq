@@ -406,6 +406,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void And_none()
+        {
+            _g
+                .V<Person>()
+                .And(
+                    __ => __.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void And_optimization()
         {
             _g
@@ -1411,6 +1423,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OutE<object>()
                 .Should()
                 .SerializeToGroovy("g.V().outE()")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void OutE_of_no_derived_types()
+        {
+            _g
+                .V()
+                .OutE<string>()
+                .Should()
+                .SerializeToGroovy("g.V().not(__.identity())")
                 .WithoutParameters();
         }
 
@@ -2651,6 +2674,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_anonymous()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _)
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Where_array_does_not_intersect_property_array()
         {
             _g
@@ -2832,6 +2866,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_empty_array_intersects_property_array()
+        {
+            _g
+                .V<Company>()
+                .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Company");
+        }
+
+        [Fact]
         public void Where_has_conjunction_of_three()
         {
             _g
@@ -2865,17 +2910,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_anonymous()
-        {
-            _g
-                .V<Person>()
-                .Where(_ => _)
-                .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a)")
-                .WithParameters("Person");
-        }
-
-        [Fact]
         public void Where_identity()
         {
             _g
@@ -2883,6 +2917,28 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _.Identity())
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_identity_with_type_change()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.OfType<Authority>())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .WithParameters("Person");
+        }
+
+        [Fact]
+        public void Where_none_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _.None())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -2900,6 +2956,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_or_dead_traversal()
+        {
+            _g
+                .V<Person>()
+                .Where(_ => _
+                    .Or(_ => _
+                        .Where(x => new object[0].Contains(x.Id))))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Where_or_identity()
         {
             _g
@@ -2912,13 +2981,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_identity_with_type_change()
+        public void Where_or_none_traversal()
         {
             _g
                 .V<Person>()
-                .Where(_ => _.OfType<Authority>())
+                .Where(_ => _
+                    .Or(_ => _
+                        .None()))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -3001,6 +3072,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
+        }
+
+        [Fact]
+        public void Where_property_array_intersects_empty_array()
+        {
+            _g
+                .V<Company>()
+                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Company");
         }
 
         [Fact]
@@ -3221,6 +3303,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
                 .WithParameters("Person", "Age", 36, 37, 38);
+        }
+
+        [Fact]
+        public void Where_property_is_contained_in_empty_enumerable()
+        {
+            var enumerable = Enumerable.Empty<int>();
+
+            _g
+                .V<Person>()
+                .Where(t => enumerable.Contains(t.Age))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
+                .WithParameters("Person");
         }
 
         [Fact]
