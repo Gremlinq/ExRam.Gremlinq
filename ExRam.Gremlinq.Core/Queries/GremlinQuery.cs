@@ -517,13 +517,11 @@ namespace ExRam.Gremlinq.Core
         {
             var transformed = notTraversal(Anonymize());
 
-            if (this.IsIdentity())
-                return None();
-
-            if (transformed.IsNone())
-                return this;
-
-            return AddStep(new NotStep(transformed));
+            return transformed.IsIdentity()
+                ? None()
+                : transformed.IsNone()
+                    ? this
+                    : AddStep(new NotStep(transformed));
         }
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
