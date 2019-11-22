@@ -6,12 +6,12 @@ namespace System.Reflection
     internal static class MethodInfoExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition();
-        private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExpressions.Contains<object>(default, default))?.GetGenericMethodDefinition();
+        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExpressions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default(string)));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default(string)));

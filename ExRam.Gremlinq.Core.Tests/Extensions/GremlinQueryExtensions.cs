@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 for (var i = 0; i < parameters.Length; i++)
                 {
                     var label = i;
-                    string key = null;
+                    string? key = null;
 
                     while (label > 0 || key == null)
                     {

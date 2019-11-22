@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                     if (o is IGremlinQuery query)
                     {
                         var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
-                        if (query.AsAdmin().Environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112))
+                        if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
                             steps = steps.WorkaroundTINKERPOP_2112();
 
                         foreach (var step in steps)
@@ -138,8 +138,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Unit = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, AtomSerializer<object>>.Empty, SerializedGremlinQueryAssemblerFactory.Unit);
 
-        public static readonly IGremlinQuerySerializer Groovy = GremlinQuerySerializer
-            .Unit
+        public static readonly IGremlinQuerySerializer Groovy = Unit
             .UseDefaultGremlinStepSerializationHandlers()
             .UseGroovy();
 

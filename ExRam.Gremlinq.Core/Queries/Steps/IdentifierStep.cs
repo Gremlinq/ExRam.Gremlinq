@@ -15,11 +15,12 @@
 
         public static IdentifierStep Create(string name)
         {
-            return name == "g"
-                ? g
-                : name == "__"
-                    ? __
-                    : new IdentifierStep(name);
+            return name switch
+            {
+                "g" => g,
+                "__" => __,
+                _ => new IdentifierStep(name)
+            };
         }
 
         public string Identifier { get; }
