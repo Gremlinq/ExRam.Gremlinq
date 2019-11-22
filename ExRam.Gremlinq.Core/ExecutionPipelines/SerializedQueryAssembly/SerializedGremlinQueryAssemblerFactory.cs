@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core
                 private State _state = State.Idle;
 
                 private readonly StringBuilder _builder = new StringBuilder();
-                private readonly Stack<State> _stateQueue = new Stack<State>();
+                private readonly Stack<State> _stateStack = new Stack<State>();
                 private readonly Dictionary<object, string> _variables = new Dictionary<object, string>();
                 private readonly Dictionary<StepLabel, string> _stepLabelNames = new Dictionary<StepLabel, string>();
 
@@ -221,14 +221,14 @@ namespace ExRam.Gremlinq.Core
                     _builder.Append(methodName);
                     _builder.Append("(");
 
-                    _stateQueue.Push(State.Chaining);
+                    _stateStack.Push(State.Chaining);
                     _state = State.InMethodBeforeFirstParameter;
                 }
 
                 public void CloseMethod()
                 {
                     _builder.Append(")");
-                    _state = _stateQueue.Pop();
+                    _state = _stateStack.Pop();
                 }
 
                 public void StartParameter()
@@ -239,13 +239,13 @@ namespace ExRam.Gremlinq.Core
                     if (_state == State.InMethodAfterFirstParameter)
                         _builder.Append(", ");
 
-                    _stateQueue.Push(State.InMethodAfterFirstParameter);
+                    _stateStack.Push(State.InMethodAfterFirstParameter);
                     _state = State.Idle;
                 }
 
                 public void EndParameter()
                 {
-                    _state = _stateQueue.Pop();
+                    _state = _stateStack.Pop();
                 }
 
                 public object Assemble()
