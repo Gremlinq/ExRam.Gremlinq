@@ -21,9 +21,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Select<(<#= GetArgumentList("T{0}", i) #>)>(<#= GetArgumentList("label{0}", i) #>);
 <# } #>
 
-<# for(var i = 2; i <= 16; i++) { #>
-        IGremlinQuery IGremlinQuery.Project(<#= GetArgumentList("Func<IGremlinQuery, IGremlinQuery> projection{0}", i) #>) => Project<Unit>(<#= GetArgumentList("projection{0}", i) #>);
-<# } #>
 
 <# foreach(var iface in substitutedBaseInterfaces)
 { #>
@@ -64,6 +61,10 @@ namespace ExRam.Gremlinq.Core
 
 <# for(var i = 2; i <= 16; i++) { #>
         IGremlinQuery<(<#= GetArgumentList("TElement{0}", i) #>)> <#= iface #>.Project<<#= GetArgumentList("TElement{0}", i) #>>(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery<TElement{0}>> projection{0}", i) #>) => Project<(<#= GetArgumentList("TElement{0}", i) #>)>(<#= GetArgumentList("projection{0}", i) #>);
+<# } #>
+
+<# for(var i = 2; i <= 16; i++) { #>
+        IGremlinQuery <#= iface #>.Project(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery> projection{0}", i) #>) => Project<Unit>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
 
         IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>>, IProjectBuilder<<#= iface #>>> continuation) => Project(continuation);
