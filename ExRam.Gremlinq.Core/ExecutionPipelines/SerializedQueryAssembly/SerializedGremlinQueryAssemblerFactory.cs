@@ -23,24 +23,9 @@ namespace ExRam.Gremlinq.Core
                     throw new InvalidOperationException();
                 }
 
-                public void OpenMethod(string methodName)
+                public void Method(string methodName, params Action[] parameters)
                 {
-                    throw new InvalidOperationException();
-                }
-
-                public void CloseMethod()
-                {
-                    throw new InvalidOperationException();
-                }
-
-                public void StartParameter()
-                {
-                    throw new InvalidOperationException();
-                }
-
-                public void EndParameter()
-                {
-                    throw new InvalidOperationException();
+                    throw new NotImplementedException();
                 }
 
                 public void Lambda(string methodName)
@@ -80,19 +65,7 @@ namespace ExRam.Gremlinq.Core
                 {
                 }
 
-                public void OpenMethod(string methodName)
-                {
-                }
-
-                public void CloseMethod()
-                {
-                }
-
-                public void StartParameter()
-                {
-                }
-
-                public void EndParameter()
+                public void Method(string methodName, params Action[] parameters)
                 {
                 }
 
@@ -146,6 +119,20 @@ namespace ExRam.Gremlinq.Core
                         _builder.Append(".");
 
                     _builder.Append(fieldName);
+                }
+
+                public void Method(string methodName, params Action[] parameters)
+                {
+                    OpenMethod(methodName);
+
+                    foreach(var parameter in parameters)
+                    {
+                        StartParameter();
+                        parameter();
+                        EndParameter();
+                    }
+
+                    CloseMethod();
                 }
 
                 public void Lambda(string lambda)

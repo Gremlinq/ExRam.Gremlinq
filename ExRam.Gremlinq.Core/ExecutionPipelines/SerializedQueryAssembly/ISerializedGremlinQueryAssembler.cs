@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System;
+
+namespace ExRam.Gremlinq.Core
 {
     public interface ISerializedGremlinQueryAssembler
     {
@@ -6,11 +8,7 @@
 
         void Field(string fieldName);
 
-        void OpenMethod(string methodName);
-        void CloseMethod();
-
-        void StartParameter();
-        void EndParameter();
+        void Method(string methodName, params Action[] parameters);
 
         void Lambda(string methodName);
 
