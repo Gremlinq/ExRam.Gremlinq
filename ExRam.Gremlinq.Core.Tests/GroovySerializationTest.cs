@@ -1476,6 +1476,34 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Project_untyped1()
+        {
+            IGremlinQuery query = _g
+                .V();
+
+            query
+                .Project(
+                    __ => (IGremlinQuery)__.Count(),
+                    __ => __.Count())
+                .Should()
+                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
+                .WithParameters("Item1", "Item2");
+        }
+
+        [Fact]
+        public void Project_untyped2()
+        {
+            _g
+                .V()
+                .Project(
+                    __ => (IGremlinQuery)__.Count(),
+                    __ => __.Count())
+                .Should()
+                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
+                .WithParameters("Item1", "Item2");
+        }
+
+        [Fact]
         public void Project2()
         {
             _g

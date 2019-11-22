@@ -21,6 +21,10 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Select<(<#= GetArgumentList("T{0}", i) #>)>(<#= GetArgumentList("label{0}", i) #>);
 <# } #>
 
+<# for(var i = 2; i <= 16; i++) { #>
+        IGremlinQuery IGremlinQuery.Project(<#= GetArgumentList("Func<IGremlinQuery, IGremlinQuery> projection{0}", i) #>) => Project<Unit>(<#= GetArgumentList("projection{0}", i) #>);
+<# } #>
+
 <# foreach(var iface in substitutedBaseInterfaces)
 { #>
         <#= iface #> <#= iface #>.And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals) => And(andTraversals);
