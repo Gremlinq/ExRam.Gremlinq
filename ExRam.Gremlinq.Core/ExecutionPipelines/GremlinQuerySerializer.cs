@@ -13,50 +13,6 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
-            private sealed class Recurse
-            {
-                private static readonly AtomSerializer<object> Constant = (atom, baseSerializer, recurse) => atom;
-
-                private readonly Func<object, object> _recurse;
-                private readonly ConcurrentDictionary<Type, AtomSerializer<object>?> _dict;
-
-                public Recurse(ConcurrentDictionary<Type, AtomSerializer<object>?> dict)
-                {
-                    _dict = dict;
-                    _recurse = RecurseImpl;
-                }
-
-                public object RecurseImpl(object o)
-                {
-                    var action = GetSerializer(o.GetType()) ?? Constant;
-
-                    return action(o, _ => throw new NotImplementedException(), _recurse);
-                }
-
-                private AtomSerializer<object>? GetSerializer(Type type)
-                {
-                    return _dict
-                        .GetOrAdd(
-                            type,
-                            closureType =>
-                            {
-                                foreach (var implementedInterface in closureType.GetInterfaces())
-                                {
-                                    if (GetSerializer(implementedInterface) is AtomSerializer<object> interfaceSerializer)
-                                        return interfaceSerializer;
-                                }
-
-                                if (closureType.BaseType is Type baseType)
-                                {
-                                    if (GetSerializer(baseType) is AtomSerializer<object> baseSerializer)
-                                        return baseSerializer;
-                                }
-
-                                return null;
-                            });
-                }
-            }
-
             private readonly IImmutableDictionary<Type, AtomSerializer<object>> _dict;
             private readonly Lazy<ConcurrentDictionary<Type, AtomSerializer<object>?>> _lazyFastDict;
 
@@ -70,8 +26,55 @@ namespace ExRam.Gremlinq.Core
 
             public object Serialize(IGremlinQuery query)
             {
-                return new Recurse(_lazyFastDict.Value)
-                    .RecurseImpl(query);
+                var _bindings = new Dictionary<object, Binding>();
+                var _stepLabelNames = new Dictionary<StepLabel, string>();
+
+                object Constant<TAtom>(TAtom atom, Func<TAtom, object> baseSerializer, Func<object, object> recurse)
+                {
+                    if (atom is StepLabel stepLabel)
+                    {
+                        if (!_stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
+                        {
+                            stepLabelMapping = "l" + (_stepLabelNames.Count + 1);
+                            _stepLabelNames.Add(stepLabel, stepLabelMapping);
+                        }
+
+                        // ReSharper disable once TailRecursiveCall
+                        return recurse(stepLabelMapping);
+                    }
+
+                    if (atom is IOptional optional)
+                        return optional.MatchUntyped(recurse, () => "none");
+
+                    if (_bindings.TryGetValue(atom, out var binding))
+                        return binding;
+
+                    var bindingKey = string.Empty;
+                    var next = _bindings.Count;
+
+                    do
+                    {
+                        bindingKey = (char)('a' + next % 26) + bindingKey;
+                        next = next / 26;
+                    }
+                    while (next > 0);
+
+                    bindingKey = "_" + bindingKey;
+                    binding = new Binding(bindingKey, atom);
+
+                    _bindings.Add(atom, binding);
+
+                    return binding;
+                };
+
+                object RecurseImpl(object o)
+                {
+                    var action = GetSerializer(o.GetType()) ?? Constant;
+
+                    return action(o, _ => throw new NotImplementedException(), RecurseImpl);
+                }
+
+                return RecurseImpl(query);
             }
 
             public IGremlinQuerySerializer OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer)
@@ -82,6 +85,29 @@ namespace ExRam.Gremlinq.Core
                         .Match(
                             existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => atomSerializer((TAtom)atom, _ => existingAtomSerializer(_, baseSerializer, recurse), recurse)),
                             () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => atomSerializer((TAtom)atom, _ => throw new NotImplementedException(), recurse))));
+            }
+
+            private AtomSerializer<object>? GetSerializer(Type type)
+            {
+                return _lazyFastDict.Value
+                    .GetOrAdd(
+                        type,
+                        closureType =>
+                        {
+                            foreach (var implementedInterface in closureType.GetInterfaces())
+                            {
+                                if (GetSerializer(implementedInterface) is AtomSerializer<object> interfaceSerializer)
+                                    return interfaceSerializer;
+                            }
+
+                            if (closureType.BaseType is Type baseType)
+                            {
+                                if (GetSerializer(baseType) is AtomSerializer<object> baseSerializer)
+                                    return baseSerializer;
+                            }
+
+                            return null;
+                        });
             }
         }
 
