@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using ExRam.Gremlinq.Tests.Entities;
 using LanguageExt;
 using Newtonsoft.Json.Linq;
@@ -20,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
             return source.ConfigureExecutionPipeline(pipeline => pipeline
-                .UseSerializer(GremlinQuerySerializer.Groovy)
+                .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(executor)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
         }

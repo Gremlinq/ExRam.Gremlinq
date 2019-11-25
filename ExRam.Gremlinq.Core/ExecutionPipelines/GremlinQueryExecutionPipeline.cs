@@ -87,9 +87,9 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Empty);
 
-        public static readonly IGremlinQueryExecutionPipeline EchoGroovyString = Invalid
-            .UseSerializer(GremlinQuerySerializer.Groovy)
+        public static readonly IGremlinQueryExecutionPipeline EchoGraphson = Invalid
+            .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Echo)
-            .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
+            .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphson);
     }
 }

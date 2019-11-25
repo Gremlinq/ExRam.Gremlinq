@@ -1,6 +1,8 @@
-﻿using ExRam.Gremlinq.Core.Serialization;
+﻿using System;
 using FluentAssertions;
 using FluentAssertions.Primitives;
+using Gremlin.Net.Structure.IO.GraphSON;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -19,15 +21,13 @@ namespace ExRam.Gremlinq.Core.Tests
                 get => typeof(IGremlinQuery).Name;
             }
 
-            public SerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
+            public SerializedGremlinQueryAssertions SerializeToGraphson(string serialization)
             {
                 var pipeline = Subject.AsAdmin().Environment.Pipeline;
-                var serializedQuery = pipeline.Serializer
-                    .Serialize(Subject)
-                    .As<GroovySerializedGremlinQuery>();
-                    
+                var serializedQuery = new GraphSON2Writer().WriteObject(pipeline.Serializer
+                    .Serialize(Subject));
+
                 serializedQuery
-                    .QueryString
                     .Should()
                     .Be(serialization);
 
@@ -37,16 +37,17 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public sealed class SerializedGremlinQueryAssertions : ObjectAssertions
         {
-            private readonly GroovySerializedGremlinQuery _groovySerializedQuery;
+            private readonly string _groovySerializedQuery;
 
-            public SerializedGremlinQueryAssertions(GroovySerializedGremlinQuery groovySerializedQuery) : base(groovySerializedQuery)
+            public SerializedGremlinQueryAssertions(string groovySerializedQuery) : base(groovySerializedQuery)
             {
                 _groovySerializedQuery = groovySerializedQuery;
             }
 
             public SerializedGremlinQueryAssertions WithParameters(params object[] parameters)
             {
-                _groovySerializedQuery.Bindings.Should().HaveCount(parameters.Length);
+                throw new NotImplementedException();
+                /*_groovySerializedQuery.Bindings.Should().HaveCount(parameters.Length);
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -65,14 +66,16 @@ namespace ExRam.Gremlinq.Core.Tests
                     var value = _groovySerializedQuery.Bindings[key];
 
                     value.Should().BeEquivalentTo(parameters[i]);
-                }
+                }*/
 
                 return this;
             }
 
             public SerializedGremlinQueryAssertions WithoutParameters()
             {
-                _groovySerializedQuery.Bindings.Should().BeEmpty();
+                throw new NotImplementedException();
+
+                //_groovySerializedQuery.Bindings.Should().BeEmpty();
 
                 return this;
             }

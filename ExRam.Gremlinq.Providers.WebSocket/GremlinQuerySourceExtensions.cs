@@ -4,8 +4,8 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Serialization;
 using Gremlin.Net.Driver;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
             public IAsyncEnumerable<object> Execute(object serializedQuery)
             {
-                if (serializedQuery is GroovySerializedGremlinQuery groovySerializedQuery)
+                /*if (serializedQuery is Bytecode groovySerializedQuery)
                 {
                     _logger?.LogTrace("Executing Gremlin query {0}.", groovySerializedQuery.QueryString);
 
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
                             return AsyncEnumerableEx.Throw<JToken>(ex);
                         });
-                }
+                }*/
 
                 throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.");
             }
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
         {
             return source.ConfigureExecutionPipeline(conf => conf
-                .UseSerializer(GremlinQuerySerializer.Groovy)
+                .UseSerializer(GremlinQuerySerializer.Default)
                 .UseWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
         }

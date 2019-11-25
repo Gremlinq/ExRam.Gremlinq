@@ -34,24 +34,24 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Working()
         {
-            var _g = g.UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString);
+            var _g = g.UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson);
 
             _g
                 .AddV(new Item {Value = "MyValue"})
                 .Should()
-                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
+                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
                 .WithParameters("Item", "PartitionKey", "MyKey", "Value", "MyValue");
         }
 
         [Fact]
         public async Task Buggy()
         {
-            var _g = g.UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovyString);
+            var _g = g.UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson);
 
             _g
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Should()
-                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
+                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
                 .WithParameters("ItemOverride", "PartitionKey", "MyKey", "Value", "MyValue");
         }
     }

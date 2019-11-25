@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V()
                 .Skip(10)
                 .Should()
-                .SerializeToGroovy("g.V().skip(_a)")
+                .SerializeToGraphson("g.V().skip(_a)")
                 .WithParameters(10);
         }
     }

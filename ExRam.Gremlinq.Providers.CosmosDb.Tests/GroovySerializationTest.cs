@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V()
                 .Skip(10)
                 .Should()
-                .SerializeToGroovy("g.V().range(_a, _b)")
+                .SerializeToGraphson("g.V().range(_a, _b)")
                 .WithParameters(10, -1);
         }
 
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>("id")
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
                 .WithParameters("id", "Person");
         }
 
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"))
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
                 .WithParameters(new[] { "pk", "id" }, "Person");
         }
 
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("id"))
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
                 .WithParameters("id", "Person");
         }
 
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"), "id2")
                 .Should()
-                .SerializeToGroovy("g.V(_a, _b).hasLabel(_c)")
+                .SerializeToGraphson("g.V(_a, _b).hasLabel(_c)")
                 .WithParameters(new[] { "pk", "id" }, "id2", "Person");
         }
 
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("id"), "id2")
                 .Should()
-                .SerializeToGroovy("g.V(_a, _b).hasLabel(_c)")
+                .SerializeToGraphson("g.V(_a, _b).hasLabel(_c)")
                 .WithParameters("id", "id2", "Person");
         }
     }

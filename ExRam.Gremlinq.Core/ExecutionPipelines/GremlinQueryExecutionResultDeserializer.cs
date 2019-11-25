@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Providers;
+using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -26,14 +27,14 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class ToStringGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
+        private sealed class ToGraphsonGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
             {
                 if (!typeof(TElement).IsAssignableFrom(typeof(string)))
                     throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
 
-                return AsyncEnumerableEx.Return((TElement)(object)result?.ToString());
+                return AsyncEnumerableEx.Return((TElement)(object)new GraphSON2Writer().WriteObject(result));
             }
         }
 
@@ -78,7 +79,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
+        public static new readonly IGremlinQueryExecutionResultDeserializer ToGraphson = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 

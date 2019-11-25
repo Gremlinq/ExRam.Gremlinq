@@ -59,7 +59,6 @@ namespace ExRam.Gremlinq.Core
             return pipeline
                 .ConfigureSerializer(serializer => serializer
                     .UseDefaultGremlinStepSerializationHandlers()
-                    .UseGroovy()
                     .UseCosmosDbWorkarounds());
         }
 
