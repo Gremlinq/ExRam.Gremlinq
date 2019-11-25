@@ -170,7 +170,10 @@ namespace ExRam.Gremlinq.Core
                     if (_state == State.Chaining)
                         throw new InvalidOperationException();
 
-                    _builder.Append(Cache(constant));
+                    if (constant is Type type)
+                        Identifier(type.Name);
+                    else
+                        _builder.Append(Cache(constant));
                 }
 
                 private string Cache(object constant)

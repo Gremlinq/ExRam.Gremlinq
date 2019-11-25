@@ -3,6 +3,7 @@ using System.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Xunit;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -3732,10 +3733,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithoutStrategies1()
         {
             _g
-                .RemoveStrategies("ReferenceElementStrategy")
+                .RemoveStrategies(typeof(SubgraphStrategy))
                 .V()
                 .Should()
-                .SerializeToGroovy("g.withoutStrategies(ReferenceElementStrategy).V()")
+                .SerializeToGroovy("g.withoutStrategies(SubgraphStrategy).V()")
                 .WithoutParameters();
         }
 
@@ -3743,10 +3744,10 @@ namespace ExRam.Gremlinq.Core.Tests
         public void WithoutStrategies2()
         {
             _g
-                .RemoveStrategies("ReferenceElementStrategy", "SomeOtherStrategy")
+                .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
                 .Should()
-                .SerializeToGroovy("g.withoutStrategies(ReferenceElementStrategy, SomeOtherStrategy).V()")
+                .SerializeToGroovy("g.withoutStrategies(SubgraphStrategy, ElementIdStrategy).V()")
                 .WithoutParameters();
         }
 

@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Gremlin.Net" Version="3.4.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj" />
   </ItemGroup>
 

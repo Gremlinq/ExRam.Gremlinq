@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class WithoutStrategiesStep : Step
     {
-        public string[] ClassNames { get; }
-
-        public WithoutStrategiesStep(string[] classNames)
+        public WithoutStrategiesStep(Type[] strategyTypes)
         {
-            ClassNames = classNames;
+            StrategyTypes = strategyTypes;
         }
+
+        public Type[] StrategyTypes { get; }
     }
 }

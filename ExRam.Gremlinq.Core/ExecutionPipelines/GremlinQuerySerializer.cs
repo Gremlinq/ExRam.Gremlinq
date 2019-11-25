@@ -160,9 +160,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     assembler.Method(
                         "withoutStrategies",
-                        step.ClassNames
-                            .Select(className => new Action(() => assembler.Identifier(className)))
-                            .ToArray());
+                        step.StrategyTypes,
+                        recurse);
                 })
                 .OverrideAtomSerializer<HasStep>((step, assembler, overridden, recurse) =>
                 {
