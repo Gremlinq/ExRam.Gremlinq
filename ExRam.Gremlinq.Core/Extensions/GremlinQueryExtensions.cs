@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsIdentity(this IGremlinQuery query)
         {
-            return query is GremlinQueryBase gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousIdentifierSteps);
+            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.Count == 0;
         }
 
         /// <summary>

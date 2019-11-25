@@ -28,6 +28,11 @@ namespace ExRam.Gremlinq.Core
                     throw new NotImplementedException();
                 }
 
+                public ISerializedGremlinQueryAssembler SubQuery()
+                {
+                    throw new NotImplementedException();
+                }
+
                 public void Lambda(string methodName)
                 {
                     throw new InvalidOperationException();
@@ -67,6 +72,11 @@ namespace ExRam.Gremlinq.Core
 
                 public void Method(string methodName, params Action[] parameters)
                 {
+                }
+
+                public ISerializedGremlinQueryAssembler SubQuery()
+                {
+                    return this;
                 }
 
                 public void Lambda(string methodName)

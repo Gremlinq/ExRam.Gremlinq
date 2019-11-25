@@ -35,6 +35,7 @@ namespace ExRam.Gremlinq.Core
                         if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
                             steps = steps.WorkaroundTINKERPOP_2112();
 
+                        _assembler.Identifier(query.Identifier);
                         foreach (var step in steps)
                         {
                             RecurseImpl(step);
@@ -353,7 +354,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<LabelStep>((step, assembler, overridden, recurse) => SerializedGremlinQueryAssembler.Method(assembler, "label"))
                 .OverrideAtomSerializer<EdgesStep>((step, assembler, overridden, recurse) => assembler.Method("edges", step.Traversal, recurse))
                 .OverrideAtomSerializer<FromTraversalStep>((step, assembler, overridden, recurse) => assembler.Method("from", step.Traversal, recurse))
-                .OverrideAtomSerializer<IdentifierStep>((step, assembler, overridden, recurse) => assembler.Identifier(step.Identifier))
                 .OverrideAtomSerializer<IsStep>((step, assembler, overridden, recurse) =>
                 {
                     assembler.Method(
@@ -380,7 +380,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversalSteps = step.Traversal.AsAdmin().Steps;
 
-                    if (!(traversalSteps.Count != 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false)))
+                    if (!(traversalSteps.Count > 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false)))
                         assembler.Method("not", step.Traversal, recurse);
                 })
                 .OverrideAtomSerializer<OptionalStep>((step, assembler, overridden, recurse) => assembler.Method("optional", step.Traversal, recurse))
@@ -395,7 +395,7 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = query.AsAdmin().Steps;
 
-            if (steps.Count == 2 && steps[1] is TStep otherStep)
+            if (steps.Count == 1 && steps[0] is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {

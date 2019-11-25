@@ -15,44 +15,46 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuery
     {
-        internal static readonly IImmutableList<Step> AnonymousIdentifierSteps = ImmutableList<Step>.Empty.Add(IdentifierStep.Create("__"));
-        internal static readonly IImmutableList<Step> AnonymousNoneSteps = AnonymousIdentifierSteps.Add(NoneStep.Instance);
+        internal static readonly IImmutableList<Step> AnonymousNoneSteps = ImmutableList<Step>.Empty.Add(NoneStep.Instance);
 
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
             return Create<Unit>(
-                AnonymousIdentifierSteps,
+                "__",
+                ImmutableList<Step>.Empty,
                 environment);
         }
 
         public static IGremlinQuery<TElement> Create<TElement>(string graphName, IGremlinQueryEnvironment environment)
         {
             return Create<TElement>(
-                ImmutableList<Step>.Empty.Add(IdentifierStep.Create(graphName)),
+                graphName,
+                ImmutableList<Step>.Empty,
                 environment);
         }
 
-        public static IGremlinQuery<TElement> Create<TElement>(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
+        public static IGremlinQuery<TElement> Create<TElement>(string graphName, IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
         {
             return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
+                graphName,
                 steps,
-                environment,
-                true);
+                environment);
         }
     }
 
     internal abstract class GremlinQueryBase
     {
-        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
+        private static readonly ConcurrentDictionary<Type, Func<string, IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<string, IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>();
 
         private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
             .GetInterfaces()
             .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
             .ToArray();
 
-        protected GremlinQueryBase(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
+        protected GremlinQueryBase(string identifier, IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
         {
             Steps = steps;
+            Identifier = identifier;
             Environment = environment;
         }
 
@@ -78,25 +80,29 @@ namespace ExRam.Gremlinq.Core
                         GetMatchingType(closureType, "TMeta"),
                         GetMatchingType(closureType, "TQuery"));
 
+                    var identifierParameter = Expression.Parameter(typeof(string));
                     var stepsParameter = Expression.Parameter(typeof(IImmutableList<Step>));
                     var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
 
                     return Expression
-                        .Lambda<Func<IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>(
+                        .Lambda<Func<string, IImmutableList<Step>, IGremlinQueryEnvironment, IGremlinQuery>>(
                             Expression.New(
                                 genericType.GetConstructor(new[]
                                 {
+                                    identifierParameter.Type,
                                     stepsParameter.Type,
                                     environmentParameter.Type
                                 }),
+                                identifierParameter,
                                 stepsParameter,
                                 environmentParameter),
+                            identifierParameter,
                             stepsParameter,
                             environmentParameter)
                         .Compile();
                 });
 
-            return (TTargetQuery)constructor(Steps, Environment);
+            return (TTargetQuery)constructor(Identifier, Steps, Environment);
         }
 
         private static Type GetMatchingType(Type interfaceType, params string[] argumentNames)
@@ -119,27 +125,16 @@ namespace ExRam.Gremlinq.Core
             return typeof(Unit);
         }
 
+        public string Identifier { get; }
         protected internal IImmutableList<Step> Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
     }
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQueryBase
     {
-        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : this(steps, environment, false)
+        public GremlinQuery(string identifier, IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : base(identifier, steps, environment)
         {
 
-        }
-
-        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment, bool verify) : base(steps, environment)
-        {
-            if (verify)
-            {
-                if (steps.Count == 0)
-                    throw new ArgumentException($"{nameof(steps)} must contain at least one step, which must be an {nameof(IdentifierStep)}.");
-
-                if (!(steps[0] is IdentifierStep))
-                    throw new ArgumentException($"The first step in {nameof(steps)} must be an {nameof(IdentifierStep)}.");
-            }
         }
 
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> AddE<TEdge>(TEdge newEdge)
@@ -223,7 +218,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(step);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Insert(Steps.Count, step), Environment);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Identifier, Steps.Insert(Steps.Count, step), Environment);
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> AddStepWithUnitTypes<TNewElement>(Step step) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(step);
 
@@ -271,7 +266,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize() => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(GremlinQuery.AnonymousIdentifierSteps, Environment);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>("__", ImmutableList<Step>.Empty, Environment);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
@@ -304,7 +299,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Identifier, Steps, Environment);
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQuery
         {
@@ -361,7 +356,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(configurator(Steps), Environment, true);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Identifier, configurator(Steps), Environment);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Dedup() => AddStep(DedupStep.Instance);
 
@@ -509,7 +504,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> None()
         {
             return this.IsIdentity()
-                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment)
+                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Identifier, GremlinQuery.AnonymousNoneSteps, Environment)
                 : AddStep(NoneStep.Instance);
         }
 
@@ -533,7 +528,7 @@ namespace ExRam.Gremlinq.Core
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
                 .Match(
                     labels => labels.Length > 0
-                        ? Steps[Steps.Count - 1] is HasLabelStep
+                        ? Steps.Count > 0 && Steps[Steps.Count - 1] is HasLabelStep
                             ? ConfigureSteps<TTarget>(steps => steps.SetItem(steps.Count - 1, new HasLabelStep(labels)))
                             : AddStep<TTarget>(new HasLabelStep(labels))
                         : Cast<TTarget>(),
