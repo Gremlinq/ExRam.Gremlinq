@@ -123,16 +123,36 @@ namespace ExRam.Gremlinq.Core
 
                 public void Method(string methodName, params Action[] parameters)
                 {
-                    OpenMethod(methodName);
+                    if (_state != State.Idle && _state != State.Chaining)
+                        throw new InvalidOperationException();
 
-                    foreach(var parameter in parameters)
+                    if (_state == State.Chaining)
+                        _builder.Append(".");
+
+                    _builder.Append(methodName);
+                    _builder.Append("(");
+
+                    _stateStack.Push(State.Chaining);
+                    _state = State.InMethodBeforeFirstParameter;
+
+                    foreach (var parameter in parameters)
                     {
-                        StartParameter();
+                        if (_state != State.InMethodBeforeFirstParameter && _state != State.InMethodAfterFirstParameter)
+                            throw new InvalidOperationException();
+
+                        if (_state == State.InMethodAfterFirstParameter)
+                            _builder.Append(", ");
+
+                        _stateStack.Push(State.InMethodAfterFirstParameter);
+                        _state = State.Idle;
+
                         parameter();
-                        EndParameter();
+
+                        _state = _stateStack.Pop();
                     }
 
-                    CloseMethod();
+                    _builder.Append(")");
+                    _state = _stateStack.Pop();
                 }
 
                 public void Lambda(string lambda)
@@ -195,44 +215,6 @@ namespace ExRam.Gremlinq.Core
 
                     _builder.Append(identifier);
                     _state = State.Chaining;
-                }
-
-                public void OpenMethod(string methodName)
-                {
-                    if (_state != State.Idle && _state != State.Chaining)
-                        throw new InvalidOperationException();
-
-                    if (_state == State.Chaining)
-                        _builder.Append(".");
-
-                    _builder.Append(methodName);
-                    _builder.Append("(");
-
-                    _stateStack.Push(State.Chaining);
-                    _state = State.InMethodBeforeFirstParameter;
-                }
-
-                public void CloseMethod()
-                {
-                    _builder.Append(")");
-                    _state = _stateStack.Pop();
-                }
-
-                public void StartParameter()
-                {
-                    if (_state != State.InMethodBeforeFirstParameter && _state != State.InMethodAfterFirstParameter)
-                        throw new InvalidOperationException();
-
-                    if (_state == State.InMethodAfterFirstParameter)
-                        _builder.Append(", ");
-
-                    _stateStack.Push(State.InMethodAfterFirstParameter);
-                    _state = State.Idle;
-                }
-
-                public void EndParameter()
-                {
-                    _state = _stateStack.Pop();
                 }
 
                 public object Assemble()
