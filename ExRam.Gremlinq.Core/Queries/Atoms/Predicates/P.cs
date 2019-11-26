@@ -1,4 +1,5 @@
-﻿using NullGuard;
+﻿using System.Linq;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -16,14 +17,14 @@ namespace ExRam.Gremlinq.Core
             [AllowNull]
             public object Argument { get; }
 
-            internal override bool ContainsSingleStepLabel() => Argument is StepLabel;
+            internal override bool ContainsOnlyStepLabels() => Argument is StepLabel;
         }
 
         private sealed class TrueP : P
         {
             public override bool EqualsConstant(bool value) => value;
 
-            internal override bool ContainsSingleStepLabel() => false;
+            internal override bool ContainsOnlyStepLabels() => false;
         }
 
         public sealed class Eq : SingleArgumentP
@@ -77,7 +78,7 @@ namespace ExRam.Gremlinq.Core
 
             public override bool EqualsConstant(bool value) => !value && Arguments.Length == 0;
 
-            internal override bool ContainsSingleStepLabel() => Arguments.Length == 1 && Arguments[0] is StepLabel;
+            internal override bool ContainsOnlyStepLabels() => Arguments.Any() && Arguments.All(x => x is StepLabel);
 
             public object[] Arguments { get; }
         }
@@ -91,7 +92,7 @@ namespace ExRam.Gremlinq.Core
 
             public override bool EqualsConstant(bool value) => value && Arguments.Length == 0;
 
-            internal override bool ContainsSingleStepLabel() => Arguments.Length == 1 && Arguments[0] is StepLabel;
+            internal override bool ContainsOnlyStepLabels() => Arguments.Any() && Arguments.All(x => x is StepLabel);
 
             public object[] Arguments { get; }
         }
@@ -104,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                 Upper = upper;
             }
 
-            internal override bool ContainsSingleStepLabel() => false;
+            internal override bool ContainsOnlyStepLabels() => Lower is StepLabel && Upper is StepLabel;
 
             public object Lower { get; }
             public object Upper { get; }
@@ -118,8 +119,8 @@ namespace ExRam.Gremlinq.Core
                 Upper = upper;
             }
 
-            internal override bool ContainsSingleStepLabel() => false;
-            
+            internal override bool ContainsOnlyStepLabels() => Lower is StepLabel && Upper is StepLabel;
+
             public object Lower { get; }
             public object Upper { get; }
         }
@@ -139,7 +140,7 @@ namespace ExRam.Gremlinq.Core
                     : Operand1.EqualsConstant(false) || Operand2.EqualsConstant(false);
             }
 
-            internal override bool ContainsSingleStepLabel() => Operand1.ContainsSingleStepLabel() && Operand2.ContainsSingleStepLabel();
+            internal override bool ContainsOnlyStepLabels() => Operand1.ContainsOnlyStepLabels() && Operand2.ContainsOnlyStepLabels();
 
             public P Operand1 { get; }
             public P Operand2 { get; }
@@ -160,7 +161,7 @@ namespace ExRam.Gremlinq.Core
                     : Operand1.EqualsConstant(false) && Operand2.EqualsConstant(false);
             }
 
-            internal override bool ContainsSingleStepLabel() => Operand1.ContainsSingleStepLabel() && Operand2.ContainsSingleStepLabel();
+            internal override bool ContainsOnlyStepLabels() => Operand1.ContainsOnlyStepLabels() && Operand2.ContainsOnlyStepLabels();
             
             public P Operand1 { get; }
             public P Operand2 { get; }
@@ -179,13 +180,11 @@ namespace ExRam.Gremlinq.Core
 
         public virtual bool EqualsConstant(bool value) => false;
 
-        internal abstract bool ContainsSingleStepLabel();
+        internal abstract bool ContainsOnlyStepLabels();
 
         internal virtual P WorkaroundLimitations(GremlinqOptions gremlinqOptions)
         {
             return this;
         }
-
-        internal static readonly P True = new TrueP();
     }
 }

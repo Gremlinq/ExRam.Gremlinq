@@ -153,7 +153,7 @@ namespace System.Linq.Expressions
                                         parameter,
                                         memberExpression,
                                         str.Length == 0
-                                            ? P.True
+                                            ? (P)new P.Without(Array.Empty<object>())
                                             : methodInfo.IsStringStartsWith()
                                                 ? new TextP.StartingWith(str)
                                                 : methodInfo.IsStringContains()

@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq.Core
                             if (p2 is P.Eq)
                                 argument = singleArgumentP.Argument;
                         }
-                        else if (p2 == P.True)
+                        else if (p2.EqualsConstant(true))
                             argument = null;
                     }
 

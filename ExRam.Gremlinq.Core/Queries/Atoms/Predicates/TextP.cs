@@ -64,7 +64,7 @@
             Value = value;
         }
 
-        internal override bool ContainsSingleStepLabel()
+        internal override bool ContainsOnlyStepLabels()
         {
             return false;
         }

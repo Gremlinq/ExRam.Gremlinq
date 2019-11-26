@@ -882,14 +882,14 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(MemberExpression expression, P predicate)
         {
-            return predicate.ContainsSingleStepLabel()
+            return predicate.ContainsOnlyStepLabels()
                 ? Has(expression, Anonymize().Where(predicate))
                 : Has(expression, predicate);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
         {
-            return predicate.ContainsSingleStepLabel()
+            return predicate.ContainsOnlyStepLabels()
                 ? AddStep(new WherePredicateStep(predicate))
                 : AddStep(new IsStep(predicate));
         }
