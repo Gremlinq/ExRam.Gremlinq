@@ -62,9 +62,6 @@ namespace ExRam.Gremlinq.Core
                         return recurse(stepLabelMapping);
                     }
 
-                    if (atom is IOptional optional)
-                        return optional.MatchUntyped(recurse, () => Pick.None);
-
                     if (_bindings.TryGetValue(atom, out var binding))
                         return binding;
 
@@ -182,28 +179,67 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .OverrideAtomSerializer<IGremlinQuery>((query, overridden, recurse) =>
-                {
-                    var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
-                    if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
-                        steps = steps.WorkaroundTINKERPOP_2112();
-
-                    var byteCode = new Bytecode();
-
-                    foreach (var step in steps)
-                    {
-                        if (recurse(step) is Instruction instruction)
-                            byteCode.StepInstructions.Add(instruction);
-                    }
-
-                    return byteCode;
-                })
-                .OverrideAtomSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
+                .OverrideAtomSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
+                .OverrideAtomSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
+                .OverrideAtomSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
+                .OverrideAtomSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
+                .OverrideAtomSerializer<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
+                .OverrideAtomSerializer<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier", recurse))
+                .OverrideAtomSerializer<BothStep>((step, overridden, recurse) => CreateInstruction("both", recurse, step.Labels))
+                .OverrideAtomSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
+                .OverrideAtomSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV", recurse))
+                .OverrideAtomSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build", recurse))
+                .OverrideAtomSerializer<ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
+                .OverrideAtomSerializer<ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
+                .OverrideAtomSerializer<ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
                 .OverrideAtomSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
-                .OverrideAtomSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard, step.OptionTraversal))
-                .OverrideAtomSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
-                    recurse,
-                    step.StrategyTypes))
+                .OverrideAtomSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
+                {
+                    return step.ElseTraversal.Match(
+                        elseTraversal => CreateInstruction(
+                            "choose",
+                            recurse,
+                            step.Predicate,
+                            step.ThenTraversal,
+                            elseTraversal),
+                        () => CreateInstruction(
+                            "choose",
+                            recurse,
+                            step.Predicate,
+                            step.ThenTraversal));
+                })
+                .OverrideAtomSerializer<ChooseTraversalStep>((step, overridden, recurse) =>
+                {
+                    return step.ElseTraversal.Match(
+                        elseTraversal => CreateInstruction(
+                            "choose",
+                            recurse,
+                            step.IfTraversal,
+                            step.ThenTraversal,
+                            elseTraversal),
+                        () => CreateInstruction(
+                            "choose",
+                            recurse,
+                            step.IfTraversal,
+                            step.ThenTraversal));
+                })
+                .OverrideAtomSerializer<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
+                .OverrideAtomSerializer<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))
+                .OverrideAtomSerializer<ConstantStep>((step, overridden, recurse) => CreateInstruction("constant", recurse, step.Value))
+                .OverrideAtomSerializer<CountStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("count", recurse, step.Scope) : CreateInstruction("count", recurse))
+                .OverrideAtomSerializer<CreateStep>((step, overridden, recurse) => CreateInstruction("create", recurse))
+                .OverrideAtomSerializer<DedupStep>((step, overridden, recurse) => CreateInstruction("dedup", recurse))
+                .OverrideAtomSerializer<DropStep>((step, overridden, recurse) => CreateInstruction("drop", recurse))
+                .OverrideAtomSerializer<EdgesStep>((step, overridden, recurse) => CreateInstruction("edges", recurse, step.Traversal))
+                .OverrideAtomSerializer<EmitStep>((step, overridden, recurse) => CreateInstruction("emit", recurse))
+                .OverrideAtomSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
+                .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
+                .OverrideAtomSerializer<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain", recurse))
+                .OverrideAtomSerializer<FoldStep>((step, overridden, recurse) => CreateInstruction("fold", recurse))
+                .OverrideAtomSerializer<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
+                .OverrideAtomSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
+                .OverrideAtomSerializer<FromLabelStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.StepLabel))
+                .OverrideAtomSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
                 .OverrideAtomSerializer<HasStep>((step, overridden, recurse) =>
                 {
                     if (step.Value is P p1 && p1.EqualsConstant(false))
@@ -235,57 +271,78 @@ namespace ExRam.Gremlinq.Core
                         ? CreateInstruction(stepName, recurse, step.Key, argument)
                         : CreateInstruction(stepName, recurse, step.Key);
                 })
-                .OverrideAtomSerializer<RepeatStep>((step, overridden, recurse) => CreateInstruction("repeat", recurse, step.Traversal))
-                .OverrideAtomSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
-                .OverrideAtomSerializer<ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
-                .OverrideAtomSerializer<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<UntilStep>((step, overridden, recurse) => CreateInstruction("until", recurse, step.Traversal))
-                .OverrideAtomSerializer<ValuesStep>((step, overridden, recurse) => CreateInstruction("values", recurse, step.Keys))
-                .OverrideAtomSerializer<VerticesStep>((step, overridden, recurse) => CreateInstruction("vertices", recurse, step.Traversal))
-                .OverrideAtomSerializer<WhereTraversalStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Traversal))
-                .OverrideAtomSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
-                .OverrideAtomSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
-                .OverrideAtomSerializer<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier", recurse))
-                .OverrideAtomSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
-                .OverrideAtomSerializer<CreateStep>((step, overridden, recurse) => CreateInstruction("create", recurse))
-                .OverrideAtomSerializer<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold", recurse))
+                .OverrideAtomSerializer<HasLabelStep>((step, overridden, recurse) => CreateInstruction("hasLabel", recurse, step.Labels))
+                .OverrideAtomSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
+                .OverrideAtomSerializer<HasValueStep>((step, overridden, recurse) => CreateInstruction(
+                    "hasValue",
+                    recurse,
+                    step.Argument is P p && p.OperatorName == "eq"
+                        ? p.Value
+                        : step.Argument))
                 .OverrideAtomSerializer<IdentityStep>((step, overridden, recurse) => CreateInstruction("identity", recurse))
-                .OverrideAtomSerializer<EmitStep>((step, overridden, recurse) => CreateInstruction("emit", recurse))
-                .OverrideAtomSerializer<DedupStep>((step, overridden, recurse) => CreateInstruction("dedup", recurse))
+                .OverrideAtomSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
+                .OverrideAtomSerializer<IGremlinQuery>((query, overridden, recurse) =>
+                {
+                    var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
+                    if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
+                        steps = steps.WorkaroundTINKERPOP_2112();
+
+                    var byteCode = new Bytecode();
+
+                    foreach (var step in steps)
+                    {
+                        if (recurse(step) is Instruction instruction)
+                            byteCode.StepInstructions.Add(instruction);
+                    }
+
+                    return byteCode;
+                })
+                .OverrideAtomSerializer<ILambda>((lambda, overridden, recurse) => lambda)
+                .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
+                .OverrideAtomSerializer<InEStep>((step, overridden, recurse) => CreateInstruction("inE", recurse, step.Labels))
+                .OverrideAtomSerializer<InStep>((step, overridden, recurse) => CreateInstruction("in", recurse, step.Labels))
+                .OverrideAtomSerializer<InVStep>((step, overridden, recurse) => CreateInstruction("inV", recurse))
+                .OverrideAtomSerializer<IsStep>((step, overridden, recurse) => CreateInstruction(
+                    "is",
+                    recurse,
+                    step.Argument is P p && p.OperatorName == "eq"
+                        ? p.Value
+                        : step.Argument))
+                .OverrideAtomSerializer<KeyStep>((step, overridden, recurse) => CreateInstruction("key", recurse))
+                .OverrideAtomSerializer<LabelStep>((step, overridden, recurse) => CreateInstruction("label", recurse))
+                .OverrideAtomSerializer<LimitStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
+                    ? CreateInstruction("limit", recurse, step.Scope, step.Count)
+                    : CreateInstruction("limit", recurse, step.Count))
+                .OverrideAtomSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
+                .OverrideAtomSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
+                .OverrideAtomSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
+                .OverrideAtomSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
+                .OverrideAtomSerializer<NotStep>((step, overridden, recurse) =>
+                {
+                    var traversalSteps = step.Traversal.AsAdmin().Steps;
+
+                    return !(traversalSteps.Count > 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false))
+                        ? CreateInstruction("not", recurse, step.Traversal)
+                        : null;
+                })
+                .OverrideAtomSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
+                .OverrideAtomSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard.IfNone(Pick.None), step.OptionTraversal))
+                .OverrideAtomSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
+                .OverrideAtomSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
+                .OverrideAtomSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
+                .OverrideAtomSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
                 .OverrideAtomSerializer<OutVStep>((step, overridden, recurse) => CreateInstruction("outV", recurse))
                 .OverrideAtomSerializer<OtherVStep>((step, overridden, recurse) => CreateInstruction("otherV", recurse))
-                .OverrideAtomSerializer<InVStep>((step, overridden, recurse) => CreateInstruction("inV", recurse))
-                .OverrideAtomSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV", recurse))
-                .OverrideAtomSerializer<DropStep>((step, overridden, recurse) => CreateInstruction("drop", recurse))
-                .OverrideAtomSerializer<FoldStep>((step, overridden, recurse) => CreateInstruction("fold", recurse))
-                .OverrideAtomSerializer<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain", recurse))
+                .OverrideAtomSerializer<P>((p, overridden, recurse) =>
+                {
+                    //TODO: Have the array bound!
+                    if (!(p.Value is string) && p.Value is IEnumerable enumerable)
+                        return new P(p.OperatorName, enumerable.Cast<object>().Select(recurse).ToArray(), (P)recurse(p.Other));
+
+                    return new P(p.OperatorName, recurse(p.Value), (P)recurse(p.Other));
+                })
                 .OverrideAtomSerializer<ProfileStep>((step, overridden, recurse) => CreateInstruction("profile", recurse))
-                .OverrideAtomSerializer<CountStep>((step, overridden, recurse) =>
-                {
-                    if (step.Scope.Equals(Scope.Local))
-                        return CreateInstruction("count", recurse, step.Scope);
-                    else
-                        return CreateInstruction("count", recurse);
-                })
-                .OverrideAtomSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build", recurse))
-                .OverrideAtomSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
-                .OverrideAtomSerializer<TailStep>((step, overridden, recurse) =>
-                {
-                    if (step.Scope.Equals(Scope.Local))
-                        return CreateInstruction("tail", recurse, step.Scope, step.Count);
-                    else
-                        return CreateInstruction("tail", recurse, step.Count);
-                })
-                .OverrideAtomSerializer<SelectStep>((step, overridden, recurse) => CreateInstruction("select", recurse, step.StepLabels))
-                .OverrideAtomSerializer<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
-                .OverrideAtomSerializer<FromLabelStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.StepLabel))
-                .OverrideAtomSerializer<ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
-                .OverrideAtomSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
-                .OverrideAtomSerializer<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
-                .OverrideAtomSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
-                .OverrideAtomSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
-                .OverrideAtomSerializer<ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
-                .OverrideAtomSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
+                .OverrideAtomSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
                 .OverrideAtomSerializer<PropertyStep>((step, overridden, recurse) =>
                 {
                     if (T.Id.Equals(step.Key))
@@ -300,115 +357,33 @@ namespace ExRam.Gremlinq.Core
                         c => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(c).ToArray()),
                         () => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray()));
                 })
-                .OverrideAtomSerializer<RangeStep>((step, overridden, recurse) => CreateInstruction("range", recurse, step.Lower, step.Upper))
-                .OverrideAtomSerializer<ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
-                .OverrideAtomSerializer<KeyStep>((step, overridden, recurse) => CreateInstruction("key", recurse))
-                .OverrideAtomSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
-                .OverrideAtomSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
-                .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
-                .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
-                .OverrideAtomSerializer<ILambda>((lambda, overridden, recurse) => lambda)
-                .OverrideAtomSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
-                .OverrideAtomSerializer<HasValueStep>((step, overridden, recurse) =>
-                {
-                    return CreateInstruction(
-                        "hasValue",
-                        recurse,
-                        step.Argument is P p && p.OperatorName == "eq"
-                            ? p.Value
-                            : step.Argument);
-                })
-                .OverrideAtomSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
-                .OverrideAtomSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
-                .OverrideAtomSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
-                .OverrideAtomSerializer<ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
-                .OverrideAtomSerializer<ChooseTraversalStep>((step, overridden, recurse) =>
-                {
-                    return step.ElseTraversal.Match(
-                        elseTraversal => CreateInstruction(
-                            "choose",
-                            recurse,
-                            step.IfTraversal,
-                            step.ThenTraversal,
-                            elseTraversal),
-                        () => CreateInstruction(
-                            "choose",
-                            recurse,
-                            step.IfTraversal,
-                            step.ThenTraversal));
-                })
-                .OverrideAtomSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
-                {
-                    return step.ElseTraversal.Match(
-                        elseTraversal => CreateInstruction(
-                            "choose",
-                            recurse,
-                            step.Predicate,
-                            step.ThenTraversal,
-                            elseTraversal),
-                        () => CreateInstruction(
-                            "choose",
-                            recurse,
-                            step.Predicate,
-                            step.ThenTraversal));
-                })
-                .OverrideAtomSerializer<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))
-                .OverrideAtomSerializer<ConstantStep>((step, overridden, recurse) => CreateInstruction("constant", recurse, step.Value))
-                .OverrideAtomSerializer<BothStep>((step, overridden, recurse) => CreateInstruction("both", recurse, step.Labels))
-                .OverrideAtomSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
-                .OverrideAtomSerializer<InStep>((step, overridden, recurse) => CreateInstruction("in", recurse, step.Labels))
-                .OverrideAtomSerializer<InEStep>((step, overridden, recurse) => CreateInstruction("inE", recurse, step.Labels))
-                .OverrideAtomSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
-                .OverrideAtomSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
-                .OverrideAtomSerializer<HasLabelStep>((step, overridden, recurse) => CreateInstruction("hasLabel", recurse, step.Labels))
-                .OverrideAtomSerializer<LabelStep>((step, overridden, recurse) => CreateInstruction("label", recurse))
-                .OverrideAtomSerializer<EdgesStep>((step, overridden, recurse) => CreateInstruction("edges", recurse, step.Traversal))
-                .OverrideAtomSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
-                .OverrideAtomSerializer<IsStep>((step, overridden, recurse) =>
-                {
-                    return CreateInstruction(
-                        "is",
-                        recurse,
-                        step.Argument is P p && p.OperatorName == "eq"
-                            ? p.Value
-                            : step.Argument);
-                })
-                .OverrideAtomSerializer<LimitStep>((step, overridden, recurse) =>
-                {
-                    if (step.Scope.Equals(Scope.Local))
-                        return CreateInstruction("limit", recurse, step.Scope, step.Count);
-                    else
-                        return CreateInstruction("limit", recurse, step.Count);
-                })
-                .OverrideAtomSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
-                .OverrideAtomSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
-                .OverrideAtomSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
-                .OverrideAtomSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
-                .OverrideAtomSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<NotStep>((step, overridden, recurse) =>
-                {
-                    var traversalSteps = step.Traversal.AsAdmin().Steps;
-
-                    if (!(traversalSteps.Count > 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false)))
-                        return CreateInstruction("not", recurse, step.Traversal);
-
-                    return null;
-                })
-                .OverrideAtomSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
-                .OverrideAtomSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
-                .OverrideAtomSerializer<ValueStep>((step, overridden, recurse) => CreateInstruction("value", recurse))
-                .OverrideAtomSerializer<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
                 .OverrideAtomSerializer<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                 .OverrideAtomSerializer<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
-                .OverrideAtomSerializer<P>((p, overridden, recurse) =>
-                {
-                    if (!(p.Value is string) && p.Value is IEnumerable enumerable)
-                        return new P(p.OperatorName, enumerable.Cast<object>().Select(recurse).ToArray(), (P)recurse(p.Other));
-
-                    return new P(p.OperatorName, recurse(p.Value), (P)recurse(p.Other));
-                })
-                .OverrideAtomSerializer<Type>((type, overridden, recurse) => type);
+                .OverrideAtomSerializer<RangeStep>((step, overridden, recurse) => CreateInstruction("range", recurse, step.Lower, step.Upper))
+                .OverrideAtomSerializer<RepeatStep>((step, overridden, recurse) => CreateInstruction("repeat", recurse, step.Traversal))
+                .OverrideAtomSerializer<SelectStep>((step, overridden, recurse) => CreateInstruction("select", recurse, step.StepLabels))
+                .OverrideAtomSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
+                .OverrideAtomSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
+                .OverrideAtomSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
+                .OverrideAtomSerializer<TailStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("tail", recurse, step.Scope, step.Count) : CreateInstruction("tail", recurse, step.Count))
+                .OverrideAtomSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
+                .OverrideAtomSerializer<ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
+                .OverrideAtomSerializer<ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
+                .OverrideAtomSerializer<Type>((type, overridden, recurse) => type)
+                .OverrideAtomSerializer<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold", recurse))
+                .OverrideAtomSerializer<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
+                .OverrideAtomSerializer<UntilStep>((step, overridden, recurse) => CreateInstruction("until", recurse, step.Traversal))
+                .OverrideAtomSerializer<ValueStep>((step, overridden, recurse) => CreateInstruction("value", recurse))
+                .OverrideAtomSerializer<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
+                .OverrideAtomSerializer<ValuesStep>((step, overridden, recurse) => CreateInstruction("values", recurse, step.Keys))
+                .OverrideAtomSerializer<VerticesStep>((step, overridden, recurse) => CreateInstruction("vertices", recurse, step.Traversal))
+                .OverrideAtomSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
+                .OverrideAtomSerializer<WhereTraversalStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Traversal))
+                .OverrideAtomSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
+                .OverrideAtomSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
+                    recurse,
+                    step.StrategyTypes))
+                .OverrideAtomSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate));
         }
 
         public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<object, object> projection)
