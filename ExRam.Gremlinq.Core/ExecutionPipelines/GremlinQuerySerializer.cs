@@ -198,45 +198,39 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
                 .OverrideAtomSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
                 .OverrideAtomSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard, step.OptionTraversal))
-                .OverrideAtomSerializer<WithoutStrategiesStep>((step, overridden, recurse) =>
-                {
-                    return CreateInstruction(
-                        "withoutStrategies",
-                        recurse,
-                        step.StrategyTypes);
-                })
+                .OverrideAtomSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
+                    recurse,
+                    step.StrategyTypes))
                 .OverrideAtomSerializer<HasStep>((step, overridden, recurse) =>
                 {
                     if (step.Value is P p1 && p1.EqualsConstant(false))
                         return recurse(NoneStep.Instance);
-                    else
+
+                    var stepName = "has";
+                    var argument = (object?)step.Value;
+
+                    if (argument is P p2)
                     {
-                        var stepName = "has";
-                        var argument = step.Value;
-
-                        if (argument is P p2)
+                        if (p2 is P.SingleArgumentP singleArgumentP)
                         {
-                            if (p2 is P.SingleArgumentP singleArgumentP)
+                            if (singleArgumentP.Argument == null)
                             {
-                                if (singleArgumentP.Argument == null)
-                                {
-                                    if (p2 is P.Eq)
-                                        stepName = "hasNot";
-                                    else if (p2 is P.Neq)
-                                        argument = null;
-                                }
-
                                 if (p2 is P.Eq)
-                                    argument = singleArgumentP.Argument;
+                                    stepName = "hasNot";
+                                else if (p2 is P.Neq)
+                                    argument = null;
                             }
-                            else if (p2 == P.True)
-                                argument = null;
-                        }
 
-                        if (argument != null)
-                            return CreateInstruction(stepName, recurse, step.Key, argument);
-                        return CreateInstruction(stepName, recurse, step.Key);
+                            if (p2 is P.Eq)
+                                argument = singleArgumentP.Argument;
+                        }
+                        else if (p2 == P.True)
+                            argument = null;
                     }
+
+                    return argument != null
+                        ? CreateInstruction(stepName, recurse, step.Key, argument)
+                        : CreateInstruction(stepName, recurse, step.Key);
                 })
                 .OverrideAtomSerializer<RepeatStep>((step, overridden, recurse) => CreateInstruction("repeat", recurse, step.Traversal))
                 .OverrideAtomSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
