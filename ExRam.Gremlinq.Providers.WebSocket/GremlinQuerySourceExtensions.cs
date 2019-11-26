@@ -68,7 +68,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
         {
             return source.ConfigureExecutionPipeline(conf => conf
-                .UseSerializer(GremlinQuerySerializer.Default)
                 .UseWebSocketExecutor(hostname, port, enableSsl, username, password, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, source.Logger)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
         }

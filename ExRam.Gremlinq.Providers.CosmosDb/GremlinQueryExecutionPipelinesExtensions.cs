@@ -57,9 +57,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryExecutionPipeline UseCosmosDbSerializer(this IGremlinQueryExecutionPipeline pipeline)
         {
             return pipeline
-                .ConfigureSerializer(serializer => GremlinQuerySerializer
-                    .Default
-                    .UseDefaultGremlinStepSerializationHandlers()
+                .ConfigureSerializer(serializer => serializer
                     .UseCosmosDbWorkarounds()
                     .ToGroovy());
         }

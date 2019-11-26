@@ -141,7 +141,8 @@ namespace ExRam.Gremlinq.Core
                 GraphModel.Dynamic(NullLogger.Instance),
                 default,
                 false,
-                GremlinQueryExecutionPipeline.Empty,
+                GremlinQueryExecutionPipeline.Empty
+                    .UseSerializer(GremlinQuerySerializer.Default),
                 ImmutableList<IGremlinQueryStrategy>.Empty,
                 ImmutableList<Type>.Empty,
                 NullLogger.Instance);
