@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using FluentAssertions.Primitives;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -21,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 get => typeof(IGremlinQuery).Name;
             }
 
-            public GroovySerializedGremlinQueryAssertions SerializeToGroovy(string serialization)
+            public BindingsAssertions SerializeToGroovy(string serialization)
             {
                 var pipeline = Subject.AsAdmin().Environment.Pipeline;
                 var serializedQuery = pipeline.Serializer
@@ -33,35 +32,60 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Should()
                     .Be(serialization);
 
-                return new GroovySerializedGremlinQueryAssertions(serializedQuery);
+                return new BindingsAssertions(serializedQuery.Bindings);
             }
 
-            public GraphsonSerializedGremlinQueryAssertions SerializeToGaphson(string serialization)
+            public BindingsAssertions SerializeToGraphson(string serialization)
             {
                 var pipeline = Subject.AsAdmin().Environment.Pipeline;
-                var serializedQuery = new GraphSON2Writer().WriteObject(pipeline.Serializer
-                    .Serialize(Subject));
+                var serializedQuery = pipeline.Serializer
+                    .Serialize(Subject);
 
                 serializedQuery
                     .Should()
+                    .BeOfType<Bytecode>();
+
+                var bytecode = (Bytecode)serializedQuery;
+
+                new GraphSON2Writer()
+                    .WriteObject(bytecode)
+                    .Should()
                     .Be(serialization);
 
-                return new GraphsonSerializedGremlinQueryAssertions(serializedQuery);
+                var bindings = new Dictionary<string, object>();
+
+                void Collect(Bytecode bytecode)
+                {
+                    foreach(var instruction in bytecode.StepInstructions)
+                    {
+                        foreach(var argument in instruction.Arguments)
+                        {
+                            if (argument is Binding binding)
+                                bindings[binding.Key] = binding.Value;
+                            else if (argument is Bytecode subBytecode)
+                                Collect(subBytecode);
+                        }
+                    }
+                }
+
+                Collect(bytecode);
+
+                return new BindingsAssertions(bindings);
             }
         }
 
-        public sealed class GroovySerializedGremlinQueryAssertions : ObjectAssertions
+        public sealed class BindingsAssertions : ObjectAssertions
         {
-            private readonly GroovySerializedGremlinQuery _groovySerializedQuery;
+            private readonly Dictionary<string, object> _bindings;
 
-            public GroovySerializedGremlinQueryAssertions(GroovySerializedGremlinQuery groovySerializedQuery) : base(groovySerializedQuery)
+            public BindingsAssertions(Dictionary<string, object> bindings) : base(bindings)
             {
-                _groovySerializedQuery = groovySerializedQuery;
+                _bindings = bindings;
             }
 
-            public GroovySerializedGremlinQueryAssertions WithParameters(params object[] parameters)
+            public BindingsAssertions WithParameters(params object[] parameters)
             {
-                _groovySerializedQuery.Bindings.Should().HaveCount(parameters.Length);
+                _bindings.Should().HaveCount(parameters.Length);
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
@@ -76,8 +100,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
                     key = "_" + key;
 
-                    _groovySerializedQuery.Bindings.Should().ContainKey(key);
-                    var value = _groovySerializedQuery.Bindings[key];
+                    _bindings.Should().ContainKey(key);
+                    var value = _bindings[key];
 
                     value.Should().BeEquivalentTo(parameters[i]);
                 }
@@ -85,54 +109,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 return this;
             }
 
-            public GroovySerializedGremlinQueryAssertions WithoutParameters()
+            public BindingsAssertions WithoutParameters()
             {
-                _groovySerializedQuery.Bindings.Should().BeEmpty();
+                _bindings.Should().BeEmpty();
 
                 return this;
-            }
-        }
-
-        public sealed class GraphsonSerializedGremlinQueryAssertions : ObjectAssertions
-        {
-            private readonly string _graphsonSerializedQuery;
-
-            public GraphsonSerializedGremlinQueryAssertions(string graphsonSerializedQuery) : base(graphsonSerializedQuery)
-            {
-                _graphsonSerializedQuery = graphsonSerializedQuery;
-            }
-
-            public GraphsonSerializedGremlinQueryAssertions WithParameters(params object[] parameters)
-            {
-                return this;
-                /*_groovySerializedQuery.Bindings.Should().HaveCount(parameters.Length);
-
-                for (var i = 0; i < parameters.Length; i++)
-                {
-                    var label = i;
-                    string? key = null;
-
-                    while (label > 0 || key == null)
-                    {
-                        key = (char)('a' + label % 26) + key;
-                        label = label / 26;
-                    }
-
-                    key = "_" + key;
-
-                    _groovySerializedQuery.Bindings.Should().ContainKey(key);
-                    var value = _groovySerializedQuery.Bindings[key];
-
-                    value.Should().BeEquivalentTo(parameters[i]);
-                }
-
-                return this;*/
-            }
-
-            public GraphsonSerializedGremlinQueryAssertions WithoutParameters()
-            {
-                return this;
-                //_groovySerializedQuery.Bindings.Should().BeEmpty();
             }
         }
 
