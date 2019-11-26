@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core;
+using Gremlin.Net.Process.Traversal;
 
 namespace System
 {

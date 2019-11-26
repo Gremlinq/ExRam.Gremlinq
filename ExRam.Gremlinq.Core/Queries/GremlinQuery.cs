@@ -418,9 +418,9 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var t in keys.OfType<T>())
             {
-                if (t == T.Id)
+                if (T.Id.Equals(t))
                     yield return IdStep.Instance;
-                else if (t == T.Label)
+                else if (T.Label.Equals(t))
                     yield return LabelStep.Instance;
                 else
                     throw new ExpressionNotSupportedException();

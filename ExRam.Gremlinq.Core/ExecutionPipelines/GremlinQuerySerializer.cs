@@ -288,11 +288,13 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
                 .OverrideAtomSerializer<PropertyStep>((step, overridden, recurse) =>
                 {
-                    if (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
-                        throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+                    if (T.Id.Equals(step.Key))
+                    {
+                        if (!Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
+                            throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
-                    if (ReferenceEquals(step.Key, T.Id))
                         return CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
+                    }
 
                     return step.Cardinality.Match(
                         c => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(c).ToArray()),
@@ -306,10 +308,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
                 .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
                 .OverrideAtomSerializer<Lambda>((lambda, overridden, recurse) => Gremlin.Net.Process.Traversal.Lambda.Groovy(lambda.LambdaString))
-                .OverrideAtomSerializer<Cardinality>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.Cardinality.GetByValue(enumValue.Name))
-                .OverrideAtomSerializer<Order>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.Order.GetByValue(enumValue.Name))
-                .OverrideAtomSerializer<Scope>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.Scope.GetByValue(enumValue.Name))
-                .OverrideAtomSerializer<T>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.T.GetByValue(enumValue.Name))
+                .OverrideAtomSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
                 .OverrideAtomSerializer<HasValueStep>((step, overridden, recurse) =>
                 {
                     return CreateInstruction(
