@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddE<Speaks>()
                     .From(c))
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d)")
                 .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "Speaks");
         }
 
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).from(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("Person", "Age", 0, "Gender", 0, "Name", "Bob", "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>("id"))
                 .InV()
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).inV()");
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>("id"))
                 .OutV()
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).to(__.V(_i).hasLabel(_j)).outV()");
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .To(__ => __
                     .V<Country>("id"))
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).property(_i, _j).to(__.V(_k).hasLabel(_l))");
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).addE(_h).property(_i, _j).to(__.V(_k).hasLabel(_l))");
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddE<Speaks>()
                     .To(l))
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d)")
                 .WithParameters("Language", "IetfLanguageTag", "en", "l1", "Country", "CountryCallingCode", "+49", "Speaks");
         }
 
@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).property(single, _h, _i).addE(_j).to(__.V().hasLabel(_k).has(_l, _m))")
                 .WithParameters("Person", "Age", 0, "Gender", 0, "Name", "Bob", "RegistrationDate", now, "LivesIn", "Country", "CountryCallingCode", "+49");
         }
 
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreAlways(p => p.Role))))
                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                .Should()
-               .SerializeToGraphson("g.addE(_a).property(_b, _c)")
+               .SerializeToGroovy("g.addE(_a).property(_b, _c)")
                .WithParameters("WorksFor", nameof(WorksFor.To), now);
         }
 
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -177,7 +177,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).property(single, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).property(single, _g, _h)")
                 .WithParameters("Person", "Age", 0, "Gender", 1, 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112, true))
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)")
                 .WithParameters("Person", 1, "Age", 0, "Gender" , 1, "RegistrationDate", DateTimeOffset.MinValue);
         }
 
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreAlways(p => p.Gender))))
                .AddV(person)
                .Should()
-               .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
+               .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(single, _d, _e)")
                .WithParameters("Person", "Name", "Marko", "RegistrationDate", now);
         }
 
@@ -221,7 +221,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreOnAdd(p => p.IetfLanguageTag))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -242,7 +242,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d, _e, _f, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d, _e, _f, _g, _h)")
                 .WithParameters("Country", 1, "Name", "GER", "de", "Deutschland", "en", "Germany");
         }
 
@@ -252,7 +252,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Country { Id = 1, Name = "GER"})
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Country", 1, "Name", "GER");
         }
 
@@ -275,7 +275,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     }
                 })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h)")
                 .WithParameters("Company", "FoundingDate", DateTime.MinValue, 1, "Names", "Bob", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -285,7 +285,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g)")
                 .WithParameters("Company", "FoundingDate", DateTime.MinValue, 1, "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -295,7 +295,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Language { Id = 1 })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -309,7 +309,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureName(x => x.IetfLanguageTag, "lang"))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "lang", "en");
         }
 
@@ -319,7 +319,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Language { IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(single, _b, _c)")
+                .SerializeToGroovy("g.addV(_a).property(single, _b, _c)")
                 .WithParameters("Language", "IetfLanguageTag", "en");
         }
 
@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel.Empty)
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGraphson("g.addV(_a).property(id, _b).property(single, _c, _d)")
+                .SerializeToGroovy("g.addV(_a).property(id, _b).property(single, _c, _d)")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.inE(_b), __.outE(_c))")
                 .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
@@ -357,7 +357,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And(
                     __ => __)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -369,7 +369,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And()
                 .Out()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).and().out()")
+                .SerializeToGroovy("g.V().hasLabel(_a).and().out()")
                 .WithParameters("Person");
         }
 
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             ___ => ___
                                 .OutE<WorksFor>()))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("Person", "LivesIn", "WorksFor");
         }
 
@@ -402,7 +402,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         ___ => ___),
                     __ => __.Out())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).and(__.out())")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
                 .WithParameters("Person");
         }
 
@@ -414,7 +414,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And(
                     __ => __.None())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -427,7 +427,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __,
                     __ => __.Out())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).and(__.out())")
+                .SerializeToGroovy("g.V().hasLabel(_a).and(__.out())")
                 .WithParameters("Person");
         }
 
@@ -438,7 +438,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .As(new StepLabel<Person>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b)")
                 .WithParameters("Person", "l1");
         }
 
@@ -449,7 +449,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .As(new StepLabel<Person>(), new StepLabel<Person>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b, _c)")
                 .WithParameters("Person", "l1", "l2");
         }
 
@@ -462,7 +462,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
@@ -475,7 +475,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .On(__ => __.Values())
                     .Case(3, __ => __.Constant(1)))
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values()).option(_a, __.constant(_b))")
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b))")
                 .WithParameters(3, 1);
         }
 
@@ -488,7 +488,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .On(__ => __.Values())
                     .Default(__ => __.Constant(1)))
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values()).option(none, __.constant(_a))")
+                .SerializeToGroovy("g.V().choose(__.values()).option(none, __.constant(_a))")
                 .WithParameters(1);
         }
 
@@ -503,7 +503,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(eq(_a), __.constant(_b), __.constant(_c))")
+                .SerializeToGroovy("g.V().id().choose(eq(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
         }
 
@@ -517,7 +517,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x == (object)42,
                     _ => _.Constant(true))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(eq(_a), __.constant(_b))")
+                .SerializeToGroovy("g.V().id().choose(eq(_a), __.constant(_b))")
                 .WithParameters(42, true);
         }
 
@@ -533,7 +533,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
+                .SerializeToGroovy("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
         }
 
@@ -549,7 +549,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
+                .SerializeToGroovy("g.V().id().choose(lt(_a), __.constant(_b), __.constant(_c))")
                 .WithParameters(42, true, false);
         }
 
@@ -565,7 +565,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(gt(_a).and(lt(_b)), __.constant(_c), __.constant(_d))")
+                .SerializeToGroovy("g.V().id().choose(gt(_a).and(lt(_b)), __.constant(_c), __.constant(_d))")
                 .WithParameters(0, 42, true, false);
         }
 
@@ -581,7 +581,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)), __.constant(_d), __.constant(_e))")
+                .SerializeToGroovy("g.V().id().choose(gt(_a).and(lt(_b)).or(neq(_c)), __.constant(_d), __.constant(_e))")
                 .WithParameters(0, 42, 37, true, false);
         }
 
@@ -597,7 +597,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Constant(true),
                     _ => _.Constant(false))
                 .Should()
-                .SerializeToGraphson("g.V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))")
+                .SerializeToGroovy("g.V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))")
                 .WithParameters(0, 42, 37, true, false);
         }
 
@@ -611,7 +611,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Out(),
                     _ => _.In())
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values(), __.out(), __.in())")
+                .SerializeToGroovy("g.V().choose(__.values(), __.out(), __.in())")
                 .WithoutParameters();
         }
 
@@ -624,7 +624,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Values(),
                     _ => _.Out())
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values(), __.out())")
+                .SerializeToGroovy("g.V().choose(__.values(), __.out())")
                 .WithoutParameters();
         }
 
@@ -638,7 +638,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Case(3, __ => __.Constant(1))
                     .Case(4, __ => __.Constant(2)))
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d))")
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d))")
                 .WithParameters(3, 1, 4, 2);
         }
 
@@ -653,7 +653,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Case(4, __ => __.Constant(2))
                     .Default(__ => __.Constant(3)))
                 .Should()
-                .SerializeToGraphson("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d)).option(none, __.constant(_a))")
+                .SerializeToGroovy("g.V().choose(__.values()).option(_a, __.constant(_b)).option(_c, __.constant(_d)).option(none, __.constant(_a))")
                 .WithParameters(3, 1, 4, 2);
         }
 
@@ -666,7 +666,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Identity())
                 .Should()
-                .SerializeToGraphson("g.V().coalesce(__.identity())")
+                .SerializeToGroovy("g.V().coalesce(__.identity())")
                 .WithoutParameters();
         }
 
@@ -677,7 +677,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Constant(42)
                 .Should()
-                .SerializeToGraphson("g.V().constant(_a)")
+                .SerializeToGroovy("g.V().constant(_a)")
                 .WithParameters(42);
         }
 
@@ -688,7 +688,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Count()
                 .Should()
-                .SerializeToGraphson("g.V().count()")
+                .SerializeToGroovy("g.V().count()")
                 .WithoutParameters();
         }
 
@@ -699,7 +699,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Count()
                 .Should()
-                .SerializeToGraphson("g.V().count()")
+                .SerializeToGroovy("g.V().count()")
                 .WithoutParameters();
         }
 
@@ -710,7 +710,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .CountLocal()
                 .Should()
-                .SerializeToGraphson("g.V().count(local)")
+                .SerializeToGroovy("g.V().count(local)")
                 .WithoutParameters();
         }
 
@@ -721,7 +721,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Drop()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).drop()")
+                .SerializeToGroovy("g.V().hasLabel(_a).drop()")
                 .WithParameters("Person");
         }
 
@@ -731,7 +731,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .E<object>()
                 .Should()
-                .SerializeToGraphson("g.E()")
+                .SerializeToGroovy("g.E()")
                 .WithoutParameters();
         }
 
@@ -741,7 +741,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .E<IEdge>()
                 .Should()
-                .SerializeToGraphson("g.E()")
+                .SerializeToGroovy("g.E()")
                 .WithoutParameters();
         }
 
@@ -751,7 +751,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .E<WorksFor>()
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a)")
+                .SerializeToGroovy("g.E().hasLabel(_a)")
                 .WithParameters("WorksFor");
         }
 
@@ -762,7 +762,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E()
                 .Properties()
                 .Should()
-                .SerializeToGraphson("g.E().properties()")
+                .SerializeToGroovy("g.E().properties()")
                 .WithoutParameters();
         }
 
@@ -773,7 +773,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<LivesIn>()
                 .Properties(x => x.Since)
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a).properties(_b)")
+                .SerializeToGroovy("g.E().hasLabel(_a).properties(_b)")
                 .WithParameters("LivesIn", "Since");
         }
 
@@ -784,7 +784,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where("it.property('str').value().length() == 2")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
+                .SerializeToGroovy("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
                 .WithParameters("Person");
         }
 
@@ -795,7 +795,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .FlatMap(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).flatMap(__.out(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).flatMap(__.out(_b))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -806,7 +806,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Fold()
                 .Should()
-                .SerializeToGraphson("g.V().fold()")
+                .SerializeToGroovy("g.V().fold()")
                 .WithoutParameters();
         }
 
@@ -820,7 +820,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Unfold()
                 .Unfold()
                 .Should()
-                .SerializeToGraphson("g.V().fold().fold().unfold().unfold()")
+                .SerializeToGroovy("g.V().fold().fold().unfold().unfold()")
                 .WithoutParameters();
         }
 
@@ -833,7 +833,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SideEffect(x => x.Identity())
                 .Unfold()
                 .Should()
-                .SerializeToGraphson("g.V().fold().sideEffect(__.identity()).unfold()")
+                .SerializeToGroovy("g.V().fold().sideEffect(__.identity()).unfold()")
                 .WithoutParameters();
         }
 
@@ -845,7 +845,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGraphson("g.V().fold().unfold()")
+                .SerializeToGroovy("g.V().fold().unfold()")
                 .WithoutParameters();
         }
 
@@ -854,7 +854,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             V2<Person>(_g)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -865,7 +865,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Identity()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -877,7 +877,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Identity()
                 .Identity()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -889,7 +889,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .In<WorksFor>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).in(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).in(_b)")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -900,7 +900,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
-                .SerializeToGraphson("g.V().in(_a, _b, _c)")
+                .SerializeToGroovy("g.V().in(_a, _b, _c)")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -909,7 +909,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
-                .SerializeToGraphson("g.V().in()")
+                .SerializeToGroovy("g.V().in()")
                 .WithoutParameters();
         }
 
@@ -920,7 +920,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .InE<object>()
                 .Should()
-                .SerializeToGraphson("g.V().inE(_a, _b, _c)")
+                .SerializeToGroovy("g.V().inE(_a, _b, _c)")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -929,7 +929,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .InE<object>()
                 .Should()
-                .SerializeToGraphson("g.V().inE()")
+                .SerializeToGroovy("g.V().inE()")
                 .WithoutParameters();
         }
 
@@ -939,7 +939,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .Inject(36, 37, 38)
                 .Should()
-                .SerializeToGraphson("g.inject(_a, _b, _c)")
+                .SerializeToGroovy("g.inject(_a, _b, _c)")
                 .WithParameters(36, 37, 38);
         }
 
@@ -950,7 +950,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Label()
                 .Should()
-                .SerializeToGraphson("g.V().label()")
+                .SerializeToGroovy("g.V().label()")
                 .WithoutParameters();
         }
 
@@ -971,7 +971,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Limit(1)
                 .Should()
-                .SerializeToGraphson("g.V().limit(_a)")
+                .SerializeToGroovy("g.V().limit(_a)")
                 .WithParameters(1);
         }
 
@@ -982,7 +982,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .LimitLocal(1)
                 .Should()
-                .SerializeToGraphson("g.V().limit(local, _a)")
+                .SerializeToGroovy("g.V().limit(local, _a)")
                 .WithParameters(1);
         }
 
@@ -993,7 +993,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Map(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).map(__.out(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).map(__.out(_b))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Map(___ => ___
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b)).by(__.select(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b)).by(__.select(_c)))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
@@ -1022,7 +1022,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(tuple, stepLabel1))))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
@@ -1037,7 +1037,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(stepLabel1, tuple))))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_b)).by(__.select(_f))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_b)).by(__.select(_f))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
@@ -1048,7 +1048,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGraphson("g.V().not(__.out(_a))")
+                .SerializeToGroovy("g.V().not(__.out(_a))")
                 .WithParameters("WorksFor");
         }
 
@@ -1059,7 +1059,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Should()
-                .SerializeToGraphson("g.V().not(__.hasLabel(_a))")
+                .SerializeToGroovy("g.V().not(__.hasLabel(_a))")
                 .WithParameters("Language");
         }
 
@@ -1070,7 +1070,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.OfType<Authority>())
                 .Should()
-                .SerializeToGraphson("g.V().not(__.hasLabel(_a, _b))")
+                .SerializeToGroovy("g.V().not(__.hasLabel(_a, _b))")
                 .WithParameters("Company", "Person");
         }
 
@@ -1081,7 +1081,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OfType<Authority>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a, _b)")
                 .WithParameters("Company", "Person");
         }
 
@@ -1093,7 +1093,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Company>()
                 .OfType<Authority>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Company");
         }
 
@@ -1105,7 +1105,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Company>()
                 .OfType<object>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Company");
         }
 
@@ -1117,7 +1117,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Authority>()
                 .OfType<Company>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Company");
         }
 
@@ -1129,7 +1129,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Optional(
                     __ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGraphson("g.V().optional(__.out(_a))")
+                .SerializeToGroovy("g.V().optional(__.out(_a))")
                 .WithParameters("WorksFor");
         }
 
@@ -1144,7 +1144,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.inE(_b), __.outE(_c))")
                 .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
@@ -1158,7 +1158,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -1171,7 +1171,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Or()
                 .In()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).out().or().in()")
+                .SerializeToGroovy("g.V().hasLabel(_a).out().or().in()")
                 .WithParameters("Person");
         }
 
@@ -1190,7 +1190,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             ___ => ___
                                 .OutE<WorksFor>()))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c))")
                 .WithParameters("Person", "LivesIn", "WorksFor");
         }
 
@@ -1207,7 +1207,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             ___ => ___,
                             ___ => ___))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -1222,7 +1222,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __
                         .OutE())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).or(__.outE())")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.outE())")
                 .WithParameters("Person");
         }
 
@@ -1235,7 +1235,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGraphson("g.V().order().by(id, incr).fold().unfold()");
+                .SerializeToGroovy("g.V().order().by(id, incr).fold().unfold()");
         }
 
         [Fact]
@@ -1245,7 +1245,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderBy("it.property('str').value().length()")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
                 .WithParameters("Person");
         }
 
@@ -1256,7 +1256,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderBy(x => x.Name)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(_b, incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, incr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1268,7 +1268,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(x => x.Name)
                 .ThenBy(x => x.Age)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(_b, incr).by(_c, incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Age");
         }
 
@@ -1280,7 +1280,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy("it.property('str1').value().length()")
                 .ThenBy("it.property('str2').value().length()")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
                 .WithParameters("Person");
         }
 
@@ -1292,7 +1292,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(x => x.Name)
                 .ThenByDescending(x => x.Age)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(_b, incr).by(_c, decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Age");
         }
 
@@ -1304,7 +1304,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenByDescending(__ => __.Gender)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -1315,7 +1315,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderBy(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(__.values(_b), incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), incr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1327,7 +1327,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Gender)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -1339,7 +1339,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OrderBy(__ => __.Values(x => x.Name))
                 .ThenBy(__ => __.Values(x => x.Gender))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -1350,7 +1350,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderByDescending(x => x.Name)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(_b, decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(_b, decr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1361,7 +1361,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderByDescending(__ => __.Values(x => x.Name))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).order().by(__.values(_b), decr)")
+                .SerializeToGroovy("g.V().hasLabel(_a).order().by(__.values(_b), decr)")
                 .WithParameters("Person", "Name");
         }
 
@@ -1372,7 +1372,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<WorksFor>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).out(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).out(_b)")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -1383,7 +1383,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).out(_b, _c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).out(_b, _c, _d)")
                 .WithParameters("Person", "LivesIn", "Speaks", "WorksFor");
         }
 
@@ -1394,7 +1394,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Out<object>()
                 .Should()
-                .SerializeToGraphson("g.V().out(_a, _b, _c)")
+                .SerializeToGroovy("g.V().out(_a, _b, _c)")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -1403,7 +1403,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Out<object>()
                 .Should()
-                .SerializeToGraphson("g.V().out()")
+                .SerializeToGroovy("g.V().out()")
                 .WithoutParameters();
         }
 
@@ -1414,7 +1414,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OutE<object>()
                 .Should()
-                .SerializeToGraphson("g.V().outE(_a, _b, _c)")
+                .SerializeToGroovy("g.V().outE(_a, _b, _c)")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -1423,7 +1423,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OutE<object>()
                 .Should()
-                .SerializeToGraphson("g.V().outE()")
+                .SerializeToGroovy("g.V().outE()")
                 .WithoutParameters();
         }
 
@@ -1434,7 +1434,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OutE<string>()
                 .Should()
-                .SerializeToGraphson("g.V().not(__.identity())")
+                .SerializeToGroovy("g.V().not(__.identity())")
                 .WithoutParameters();
         }
 
@@ -1445,7 +1445,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Project(_ => _)
                 .Should()
-                .SerializeToGraphson("g.V().project()")
+                .SerializeToGroovy("g.V().project()")
                 .WithoutParameters();
         }
 
@@ -1457,7 +1457,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Project(_ => _
                     .By("in!", __ => __.In()))
                 .Should()
-                .SerializeToGraphson("g.V().project(_a).by(__.in())")
+                .SerializeToGroovy("g.V().project(_a).by(__.in())")
                 .WithParameters("in!");
         }
 
@@ -1472,7 +1472,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By("count!", __ => __.Count())
                     .By("properties!", __ => __.Properties()))
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
+                .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
                 .WithParameters("count!", "in!", "out!", "properties!");
         }
 
@@ -1487,7 +1487,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => (IGremlinQuery)__.Count(),
                     __ => __.Count())
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b).by(__.count()).by(__.count())")
+                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
                 .WithParameters("Item1", "Item2");
         }
 
@@ -1500,7 +1500,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => (IGremlinQuery)__.Count(),
                     __ => __.Count())
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b).by(__.count()).by(__.count())")
+                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
                 .WithParameters("Item1", "Item2");
         }
 
@@ -1513,7 +1513,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.In(),
                     __ => __.Out())
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b).by(__.in()).by(__.out())")
+                .SerializeToGroovy("g.V().project(_a, _b).by(__.in()).by(__.out())")
                 .WithParameters("Item1", "Item2");
         }
 
@@ -1527,7 +1527,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Out(),
                     __ => __.Count())
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())")
+                .SerializeToGroovy("g.V().project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())")
                 .WithParameters("Item1", "Item2", "Item3");
         }
 
@@ -1542,7 +1542,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Count(),
                     __ => __.Properties())
                 .Should()
-                .SerializeToGraphson("g.V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
+                .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
                 .WithParameters("Item1", "Item2", "Item3", "Item4");
         }
 
@@ -1554,7 +1554,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Meta<PropertyValidity>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b)")
                 .WithParameters("Country", "Name");
         }
 
@@ -1567,7 +1567,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Meta<PropertyValidity>()
                 .ValueMap()
                 .Should()
-                .SerializeToGraphson("g.V().properties().valueMap()")
+                .SerializeToGroovy("g.V().properties().valueMap()")
                 .WithoutParameters();
         }
 
@@ -1580,7 +1580,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Meta<PropertyValidity>()
                 .Values()
                 .Should()
-                .SerializeToGraphson("g.V().properties().values()")
+                .SerializeToGroovy("g.V().properties().values()")
                 .WithoutParameters();
         }
 
@@ -1593,7 +1593,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Meta<PropertyValidity>()
                 .Values(x => x.ValidFrom)
                 .Should()
-                .SerializeToGraphson("g.V().properties().values(_a)")
+                .SerializeToGroovy("g.V().properties().values(_a)")
                 .WithParameters("ValidFrom");
         }
 
@@ -1606,7 +1606,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Meta<PropertyValidity>()
                 .Where(x => x.Properties.ValidFrom >= DateTimeOffset.Parse("01.01.2019 08:00"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).has(_c, gte(_d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(_c, gte(_d))")
                 .WithParameters("Country", "Name", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -1617,7 +1617,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties<int>("propertyName")
                 .Should()
-                .SerializeToGraphson("g.V().properties(_a)")
+                .SerializeToGroovy("g.V().properties(_a)")
                 .WithParameters("propertyName");
         }
 
@@ -1628,7 +1628,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties("propertyName")
                 .Should()
-                .SerializeToGraphson("g.V().properties(_a)")
+                .SerializeToGroovy("g.V().properties(_a)")
                 .WithParameters("propertyName");
         }
 
@@ -1639,7 +1639,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b)")
                 .WithParameters("Country", "Name");
         }
 
@@ -1650,7 +1650,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name, x => x.CountryCallingCode, x => x.Languages)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b, _c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b, _c, _d)")
                 .WithParameters("Country", "Name", "CountryCallingCode", "Languages");
         }
 
@@ -1661,7 +1661,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name, x => x.CountryCallingCode)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b, _c)")
                 .WithParameters("Country", "Name", "CountryCallingCode");
         }
 
@@ -1672,7 +1672,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name, x => x.Languages)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b, _c)")
                 .WithParameters("Country", "Name", "Languages");
         }
 
@@ -1686,7 +1686,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, s) => __
                     .Select(s))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties().as(_c).select(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().as(_c).select(_c)")
                 .WithParameters("Country", "Name", "l1");
         }
 
@@ -1699,7 +1699,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Key()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties().key()")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().key()")
                 .WithParameters("Country", "Name");
         }
 
@@ -1712,7 +1712,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Value()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties().value()")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().value()")
                 .WithParameters("Company", "Names");
         }
 
@@ -1725,7 +1725,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => x.Key == "someKey")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties().where(__.key().is(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().where(__.key().is(_c))")
                 .WithParameters("Company", "Names", "someKey");
         }
 
@@ -1740,7 +1740,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => x.Key == stepLabel)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
                 .WithParameters("Company", "Names", "l1");
         }
 
@@ -1752,7 +1752,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Properties()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties()")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties()")
                 .WithParameters("Country", "Name");
         }
 
@@ -1764,7 +1764,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Properties()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).properties()")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).properties()")
                 .WithParameters("Company", "Names");
         }
 
@@ -1775,7 +1775,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties<string>()
                 .Should()
-                .SerializeToGraphson("g.V().properties()")
+                .SerializeToGroovy("g.V().properties()")
                 .WithoutParameters();
         }
 
@@ -1787,7 +1787,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .ValueMap<string>()
                 .Should()
-                .SerializeToGraphson("g.V().properties().valueMap()")
+                .SerializeToGroovy("g.V().properties().valueMap()")
                 .WithoutParameters();
         }
 
@@ -1799,7 +1799,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .ValueMap()
                 .Should()
-                .SerializeToGraphson("g.V().properties().valueMap()")
+                .SerializeToGroovy("g.V().properties().valueMap()")
                 .WithoutParameters();
         }
 
@@ -1811,7 +1811,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Values(x => x.Id)
                 .Should()
-                .SerializeToGraphson("g.V().properties().id()")
+                .SerializeToGroovy("g.V().properties().id()")
                 .WithoutParameters();
         }
 
@@ -1825,7 +1825,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x.Label,
                     x => x.Id)
                 .Should()
-                .SerializeToGraphson("g.V().properties().union(__.label(), __.id())")
+                .SerializeToGroovy("g.V().properties().union(__.label(), __.id())")
                 .WithoutParameters();
         }
 
@@ -1837,7 +1837,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Values(x => x.Label)
                 .Should()
-                .SerializeToGraphson("g.V().properties().label()")
+                .SerializeToGroovy("g.V().properties().label()")
                 .WithoutParameters();
         }
 
@@ -1849,7 +1849,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Values()
                 .Should()
-                .SerializeToGraphson("g.V().properties().values()")
+                .SerializeToGroovy("g.V().properties().values()")
                 .WithoutParameters();
         }
 
@@ -1861,7 +1861,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Values<int>("MetaProperty")
                 .Should()
-                .SerializeToGraphson("g.V().properties().values(_a)")
+                .SerializeToGroovy("g.V().properties().values(_a)")
                 .WithParameters("MetaProperty");
         }
 
@@ -1875,7 +1875,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Properties["MetaKey"] == "MetaValue")
 #pragma warning restore 252,253
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties().has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties().has(_b, _c)")
                 .WithParameters("Person", "MetaKey", "MetaValue");
         }
 
@@ -1887,7 +1887,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => (int)x.Properties["MetaKey"] < 100)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties().has(_b, lt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties().has(_b, lt(_c))")
                 .WithParameters("Person", "MetaKey", 100);
         }
 
@@ -1901,7 +1901,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Id == "id")
 #pragma warning restore 252,253
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).has(id, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(id, _c)")
                 .WithParameters("Country", "Languages", "id");
         }
 
@@ -1913,7 +1913,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Where(x => x.Label == "someKey")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
                 .WithParameters("Company", "Names", "someKey");
         }
 
@@ -1925,7 +1925,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).where(__.label().is(_c))")
                 .WithParameters("Country", "Languages", "label");
         }
 
@@ -1937,7 +1937,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Where(x => x.Properties.ValidFrom == DateTimeOffset.Parse("01.01.2019 08:00"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
                 .WithParameters("Company", "Names", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -1949,7 +1949,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Where(x => DateTimeOffset.Parse("01.01.2019 08:00") == x.Properties.ValidFrom)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).has(_c, _d)")
                 .WithParameters("Company", "Names", "ValidFrom", DateTimeOffset.Parse("01.01.2019 08:00"));
         }
 
@@ -1961,7 +1961,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => "de" == x.Value)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 
@@ -1973,7 +1973,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
                 .Where(x => x.Value == "de")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).hasValue(_c)")
                 .WithParameters("Country", "Languages", "de");
         }
 
@@ -1985,7 +1985,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Where(x => (int)x.Value < 10)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties().hasValue(lt(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties().hasValue(lt(_b))")
                 .WithParameters("Country", 10);
         }
 
@@ -1996,7 +1996,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Should()
-                .SerializeToGraphson("g.V().properties()")
+                .SerializeToGroovy("g.V().properties()")
                 .WithoutParameters();
         }
 
@@ -2007,7 +2007,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E()
                 .Properties()
                 .Should()
-                .SerializeToGraphson("g.E().properties()")
+                .SerializeToGroovy("g.E().properties()")
                 .WithoutParameters();
         }
 
@@ -2018,7 +2018,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b).property(list, _c, _d)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).property(list, _c, _d)")
                 .WithParameters("id", "Company", "PhoneNumbers", "+4912345");
         }
 
@@ -2029,7 +2029,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>("id")
                 .Property<string>(x => x.PhoneNumbers, null)
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c).drop())")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c).drop())")
                 .WithParameters("id", "Company", "PhoneNumbers");
         }
 
@@ -2040,7 +2040,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Property(x => x.Age, 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).property(single, _b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).property(single, _b, _c)")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -2053,7 +2053,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Out<WorksFor>()
                     .OfType<Person>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
+                .SerializeToGroovy("g.V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -2066,7 +2066,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.InE().OutV(),
                     __ => __.V<Company>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))")
                 .WithParameters("Person", "Company"); ;
         }
 
@@ -2081,7 +2081,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGraphson("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
+                .SerializeToGroovy("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
                 .WithParameters(id, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), now, "Admin");
         }
 
@@ -2099,7 +2099,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreOnUpdate(p => p.Id))))
                 .ReplaceE(worksFor)
                 .Should()
-                .SerializeToGraphson("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
+                .SerializeToGroovy("g.E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)")
                 .WithParameters(id, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), now, "Admin");
         }
 
@@ -2113,7 +2113,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ReplaceV(person)
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j)")
                 .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), 21, Gender.Male, "Marko", now);
         }
 
@@ -2131,7 +2131,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .IgnoreOnUpdate(p => p.RegistrationDate))))
                 .ReplaceV(person)
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)")
                 .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), 21, Gender.Male, "Marko");
         }
 
@@ -2145,7 +2145,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).select(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).select(_b)")
                 .WithParameters("Person", "l1");
         }
 
@@ -2157,7 +2157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Property("metaKey", null)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).sideEffect(__.properties(_c).drop())")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).sideEffect(__.properties(_c).drop())")
                 .WithParameters("Country", "Name", "metaKey");
         }
 
@@ -2169,7 +2169,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Property("metaKey", 1)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
                 .WithParameters("Country", "Name", "metaKey", 1);
         }
 
@@ -2183,7 +2183,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Property(x => x.ValidFrom, d)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a).properties(_b).property(_c, _d)")
                 .WithParameters("Person", "Name", "ValidFrom", d);
         }
 
@@ -2197,7 +2197,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Person>()
                     .Where(person => ints.Contains(person.Age)))
                 .Should()
-                .SerializeToGraphson("g.inject(_a, _b, _c).fold().as(_d).V().hasLabel(_e).has(_f, __.where(within(_d)))")
+                .SerializeToGroovy("g.inject(_a, _b, _c).fold().as(_d).V().hasLabel(_e).has(_f, __.where(within(_d)))")
                 .WithParameters(1, 2, 3, "l1", "Person", "Age");
         }
 
@@ -2209,7 +2209,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumGlobal()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).sum(global)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(global)")
                 .WithParameters("Person", "Age");
         }
 
@@ -2221,7 +2221,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumLocal()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).sum(local)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(local)")
                 .WithParameters("Person", "Age");
         }
 
@@ -2235,7 +2235,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x == 100)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).sum(local).is(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(local).is(_c)")
                 .WithParameters("Person", "Age", 100);
         }
 
@@ -2248,7 +2248,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SumLocal()
                 .Where(x => x < 100)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).sum(local).is(lt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).sum(local).is(lt(_c))")
                 .WithParameters("Person", "Age", 100);
         }
 
@@ -2269,7 +2269,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Tail(1)
                 .Should()
-                .SerializeToGraphson("g.V().tail(_a)")
+                .SerializeToGroovy("g.V().tail(_a)")
                 .WithParameters(1);
         }
 
@@ -2280,7 +2280,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .TailLocal(1)
                 .Should()
-                .SerializeToGraphson("g.V().tail(local, _a)")
+                .SerializeToGroovy("g.V().tail(local, _a)")
                 .WithParameters(1);
         }
 
@@ -2293,7 +2293,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Out<WorksFor>(),
                     __ => __.Out<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.out(_b), __.out(_c))")
                 .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
@@ -2308,7 +2308,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __,
                     __ => __.Out<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).union(__.identity(), __.out(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.identity(), __.out(_b))")
                 .WithParameters("Person", "LivesIn");
         }
 
@@ -2321,7 +2321,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.InE().OutV(),
                     __ => __.V<Company>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV())")
+                .SerializeToGroovy("g.V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV())")
                 .WithParameters("Person", "Company"); ;
         }
 
@@ -2339,7 +2339,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OutE<WorksFor>()
                 .Update(worksFor)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n)")
                 .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), person.Age, person.Gender, "Marko", person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.From), nameof(WorksFor.Role), nameof(WorksFor.To), worksFor.From, worksFor.Role);
         }
 
@@ -2365,7 +2365,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OutE<WorksFor>()
                 .Update(worksFor)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)")
                 .WithParameters(nameof(Person), nameof(Person.Gender), nameof(Person.RegistrationDate), person.Gender, person.RegistrationDate, nameof(WorksFor), nameof(WorksFor.To), worksFor.To);
         }
 
@@ -2383,7 +2383,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .SerializeToGroovy("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
         }
 
@@ -2401,7 +2401,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .SerializeToGroovy("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
         }
 
@@ -2419,7 +2419,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
+                .SerializeToGroovy("g.E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)")
                 .WithParameters(nameof(WorksFor), nameof(WorksFor.To), now);
         }
 
@@ -2432,7 +2432,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i)")
                 .WithParameters(nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), nameof(Person.RegistrationDate), 21, Gender.Male, "Marko", now);
         }
 
@@ -2451,7 +2451,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Update(person)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
         }
 
@@ -2470,7 +2470,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Update(person)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
         }
 
@@ -2489,7 +2489,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Update(person)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
+                .SerializeToGroovy("g.V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e)")
                 .WithParameters(nameof(Person), nameof(Person.Name), nameof(Person.RegistrationDate), "Marko", now);
         }
 
@@ -2504,7 +2504,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<IAuthority>()
                 .Where(x => x.Name.Value == "some name")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a, _b).has(_c, _d)")
+                .SerializeToGroovy("g.V().hasLabel(_a, _b).has(_c, _d)")
                 .WithParameters("Company", "Person", "n", "some name");
         }
 
@@ -2514,7 +2514,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Authority>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a, _b)")
                 .WithParameters("Company", "Person");
         }
 
@@ -2524,7 +2524,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<object>()
                 .Should()
-                .SerializeToGraphson("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
 
@@ -2534,7 +2534,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<IVertex>()
                 .Should()
-                .SerializeToGraphson("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
 
@@ -2544,7 +2544,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -2554,7 +2554,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Should()
-                .SerializeToGraphson("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
 
@@ -2566,7 +2566,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Value()
                 .Should()
-                .SerializeToGraphson("g.V().properties().value()");
+                .SerializeToGroovy("g.V().properties().value()");
         }
 
         [Fact]
@@ -2576,7 +2576,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .ValueMap(x => x.Age)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).valueMap(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).valueMap(_b)")
                 .WithParameters("Person", "Age");
         }
 
@@ -2587,7 +2587,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .ValueMap("key")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).valueMap(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).valueMap(_b)")
                 .WithParameters("Person", "key");
         }
 
@@ -2598,7 +2598,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "Age");
         }
 
@@ -2609,7 +2609,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Name, x => x.Id)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).union(__.id(), __.values(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.id(), __.values(_b))")
                 .WithParameters("Person", "Name");
         }
 
@@ -2620,7 +2620,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).union(__.id(), __.values(_b, _c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).union(__.id(), __.values(_b, _c))")
                 .WithParameters("Person", "Name", "Gender");
         }
 
@@ -2631,7 +2631,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Id)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).id()")
+                .SerializeToGroovy("g.V().hasLabel(_a).id()")
                 .WithParameters("Person");
         }
 
@@ -2642,7 +2642,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values()
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values()")
+                .SerializeToGroovy("g.V().hasLabel(_a).values()")
                 .WithParameters("Person");
         }
 
@@ -2653,7 +2653,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E<LivesIn>()
                 .Values(x => x.Since)
                 .Should()
-                .SerializeToGraphson("g.E().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.E().hasLabel(_a).values(_b)")
                 .WithParameters("LivesIn", "Since");
         }
 
@@ -2664,7 +2664,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Name)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "Name");
         }
 
@@ -2675,7 +2675,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Name)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "Name");
         }
 
@@ -2686,7 +2686,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values("key")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "key");
         }
 
@@ -2698,7 +2698,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Properties("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
                 .Should()
-                .SerializeToGraphson("g.V().properties().properties(_a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _ba, _bb, _bc, _bd)")
+                .SerializeToGroovy("g.V().properties().properties(_a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _ba, _bb, _bc, _bd)")
                 .WithParameters("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30");
         }
 
@@ -2709,7 +2709,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -2720,7 +2720,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -2731,7 +2731,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -2743,7 +2743,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -2754,7 +2754,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", false);
         }
 
@@ -2765,7 +2765,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -2776,7 +2776,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, _c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, _c))")
                 .WithParameters("TimeFrame", "Enabled", true);
         }
 
@@ -2787,7 +2787,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f)))")
                 .WithParameters("Person", "Name", "Some name", "Age", 42, 99);
         }
 
@@ -2798,7 +2798,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e)))")
                 .WithParameters("Person", "Name", "Age", 42, 99);
         }
 
@@ -2809,7 +2809,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)))")
                 .WithParameters("Person", "Age", 36, 42);
         }
 
@@ -2820,7 +2820,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => (t.Age == 36 && t.Name.Value == "Hallo") && t.Age == 42)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).has(_b, eq(_e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).has(_b, eq(_e))")
                 .WithParameters("Person", "Age", 36, "Name", 42);
         }
 
@@ -2831,7 +2831,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && t.Age == 42)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c).has(_d, _e)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c).has(_d, _e)")
                 .WithParameters("Person", "Name", "Some name", "Age", 42);
         }
 
@@ -2842,7 +2842,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => (int)t.Id == 1)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -2857,7 +2857,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2 == l)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))")
                 .WithParameters("Language", "l1");
         }
 
@@ -2868,7 +2868,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)))")
                 .WithParameters("Person", "Age", 36, 42);
         }
 
@@ -2879,7 +2879,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" || t.Age == 42)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).or(__.has(_b, _c), __.has(_d, _e))")
                 .WithParameters("Person", "Name", "Some name", "Age", 42);
         }
 
@@ -2890,7 +2890,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Company");
         }
 
@@ -2901,7 +2901,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Company");
         }
 
@@ -2912,7 +2912,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)).and(eq(_e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, eq(_c).and(eq(_d)).and(eq(_e)))")
                 .WithParameters("Person", "Age", 36, 42, 99);
         }
 
@@ -2923,7 +2923,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e)))")
                 .WithParameters("Person", "Age", 36, 42, 99);
         }
 
@@ -2934,7 +2934,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)1)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -2945,7 +2945,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _.Identity())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -2956,7 +2956,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _.OfType<Authority>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -2967,7 +2967,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _.None())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -2980,7 +2980,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Not(_ => _
                         .None()))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -2993,7 +2993,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Or(_ => _
                         .Where(x => new object[0].Contains(x.Id))))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -3005,7 +3005,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _
                     .Or(_ => _))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -3018,7 +3018,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Or(_ => _
                         .None()))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -3032,7 +3032,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Id == "hallo")
 #pragma warning restore 252,253
                 .Should()
-                .SerializeToGraphson("g.V().has(id, _a)");
+                .SerializeToGroovy("g.V().has(id, _a)");
         }
 
         [Fact]
@@ -3042,7 +3042,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("Company", "PhoneNumbers", "+4912345");
         }
 
@@ -3055,7 +3055,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Company>()
                     .Where(c => c.PhoneNumbers.Contains(t)))
                 .Should()
-                .SerializeToGraphson("g.inject(_a).as(_b).V().hasLabel(_c).has(_d, __.where(eq(_b)))")
+                .SerializeToGroovy("g.inject(_a).as(_b).V().hasLabel(_c).has(_d, __.where(eq(_b)))")
                 .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
         }
 
@@ -3066,7 +3066,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, _c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, _c))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345");
         }
 
@@ -3077,7 +3077,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d)))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -3088,7 +3088,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Company");
         }
 
@@ -3099,7 +3099,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456");
         }
 
@@ -3110,7 +3110,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Company");
         }
 
@@ -3124,7 +3124,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Company>()
                     .Where(c => c.PhoneNumbers.Intersect(t).Any()))
                 .Should()
-                .SerializeToGraphson("g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))")
+                .SerializeToGroovy("g.inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))")
                 .WithParameters("+4912345", "l1", "Company", "PhoneNumbers");
         }
 
@@ -3135,7 +3135,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b))")
                 .WithParameters("Company", "PhoneNumbers");
         }
 
@@ -3146,7 +3146,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Any())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Company", "PhoneNumbers");
         }
 
@@ -3157,8 +3157,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains("456"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, containing(_c))")
-                .WithParameters("Country", "CountryCallingCode", "456");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing('456'))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -3181,7 +3181,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3194,7 +3194,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3205,8 +3205,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith("7890"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, endingWith(_c))")
-                .WithParameters("Country", "CountryCallingCode", "7890");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith('7890'))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -3229,7 +3229,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3242,7 +3242,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3253,7 +3253,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3264,7 +3264,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => (object)t.Age == (object)36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3277,7 +3277,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == i + i)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3290,7 +3290,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", local);
         }
 
@@ -3306,7 +3306,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(l2 => l2.IetfLanguageTag == l)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(eq(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(eq(_c)))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
         }
 
@@ -3319,7 +3319,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Language>()
                 .Where(t => t.Id == (object)local.Value)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(id, _b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(id, _b)")
                 .WithParameters("Language", 1);
         }
 
@@ -3330,7 +3330,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
                 .WithParameters("Person", "Age", 36, 37, 38);
         }
 
@@ -3343,7 +3343,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.identity())")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.identity())")
                 .WithParameters("Person");
         }
 
@@ -3357,7 +3357,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e))")
                 .WithParameters("Person", "Age", 36, 37, 38);
         }
 
@@ -3368,7 +3368,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age >= 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, gte(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, gte(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3379,7 +3379,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age > 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, gt(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3395,7 +3395,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(l2 => l2.Age >= a)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c)))")
                 .WithParameters("Person", "Age", "l1");
         }
 
@@ -3411,7 +3411,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(l2 => l2.Age > a)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c)))")
                 .WithParameters("Person", "Age", "l1");
         }
 
@@ -3422,7 +3422,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age <= 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, lte(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, lte(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3433,7 +3433,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age < 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, lt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, lt(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3449,7 +3449,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(l2 => l2.Age <= a)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c)))")
                 .WithParameters("Person", "Age", "l1");
         }
 
@@ -3465,7 +3465,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(l2 => l2.Age < a)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c)))")
                 .WithParameters("Person", "Age", "l1");
         }
 
@@ -3476,7 +3476,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
                 .WithParameters("Person", "Age", 36, 37, 38);
         }
 
@@ -3489,7 +3489,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a)")
+                .SerializeToGroovy("g.V().hasLabel(_a)")
                 .WithParameters("Person");
         }
 
@@ -3503,7 +3503,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
+                .SerializeToGroovy("g.V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))")
                 .WithParameters("Person", "Age", 36, 37, 38);
         }
 
@@ -3514,7 +3514,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name == null)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).hasNot(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).hasNot(_b)")
                 .WithParameters("Person", "Name");
         }
 
@@ -3525,7 +3525,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => "+49123".StartsWith(c.CountryCallingCode))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -3536,7 +3536,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => "".StartsWith(c.CountryCallingCode))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c))")
                 .WithParameters("Country", "CountryCallingCode", "");
         }
 
@@ -3549,7 +3549,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -3562,7 +3562,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => str.StartsWith(c.CountryCallingCode))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, within(_c, _d, _e, _f, _g, _h, _i))")
                 .WithParameters("Country", "CountryCallingCode", "", "+", "+4", "+49", "+491", "+4912", "+49123");
         }
 
@@ -3573,7 +3573,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Name != null)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Person", "Name");
         }
 
@@ -3584,7 +3584,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age != 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, neq(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, neq(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3595,8 +3595,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, startingWith(_c))")
-                .WithParameters("Country", "CountryCallingCode", "+49123");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, startingWith('+49123'))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -3608,7 +3608,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, between(_c, _d))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, between(_c, _d))")
                 .WithParameters("Country", "CountryCallingCode", "+49123", "+49124");
         }
 
@@ -3619,7 +3619,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3632,7 +3632,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b)")
                 .WithParameters("Country", "CountryCallingCode");
         }
 
@@ -3646,7 +3646,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Inject(36))
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, __.inject(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, __.inject(_c))")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3658,7 +3658,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).values(_b).is(_c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).values(_b).is(_c)")
                 .WithParameters("Person", "Age", 36);
         }
 
@@ -3679,7 +3679,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _.Out<LivesIn>())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).where(__.out(_b))")
+                .SerializeToGroovy("g.V().hasLabel(_a).where(__.out(_b))")
                 .WithParameters("Person", "LivesIn");
         }
 
@@ -3692,7 +3692,7 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .Where(_ => _.Count())
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).where(__.count())")
+                .SerializeToGroovy("g.V().hasLabel(_a).where(__.count())")
                 .WithParameters("Person");
         }
 
@@ -3703,7 +3703,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x.Name.Value == "SomeName")
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, _c)")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, _c)")
                 .WithParameters("Person", "Name", "SomeName");
         }
 
@@ -3714,7 +3714,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => ((int)(object)x.Name.Value) > 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, gt(_c))")
                 .WithParameters("Person", "Name", 36);
         }
 
@@ -3725,7 +3725,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => (int)x.Name.Id == 36)
                 .Should()
-                .SerializeToGraphson("g.V().hasLabel(_a).has(_b, gt(_c))")
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, gt(_c))")
                 .WithParameters("Person", "Name", 36);
         }
 
@@ -3736,7 +3736,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RemoveStrategies(typeof(SubgraphStrategy))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.withoutStrategies(SubgraphStrategy).V()")
+                .SerializeToGroovy("g.withoutStrategies(SubgraphStrategy).V()")
                 .WithoutParameters();
         }
 
@@ -3747,7 +3747,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.withoutStrategies(SubgraphStrategy, ElementIdStrategy).V()")
+                .SerializeToGroovy("g.withoutStrategies(SubgraphStrategy, ElementIdStrategy).V()")
                 .WithoutParameters();
         }
 
@@ -3758,7 +3758,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
+                .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -3769,7 +3769,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.V()")
+                .SerializeToGroovy("g.V()")
                 .WithoutParameters();
         }
 
@@ -3780,7 +3780,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
+                .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
                 .WithParameters("WorksFor");
         }
 
@@ -3791,7 +3791,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
                 .V()
                 .Should()
-                .SerializeToGraphson("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
+                .SerializeToGroovy("g.withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
                 .WithParameters("Person");
         }
     }

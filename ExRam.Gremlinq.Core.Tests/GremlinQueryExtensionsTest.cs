@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson)
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy)
                 .V()
                 .OfType<Person>();
 
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Tests
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .Should()
-                .SerializeToGraphson("__.has(_a, _b)");
+                .SerializeToGroovy("__.has(_a, _b)");
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson)
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy)
                 .V()
                 .OfType<Person>();
 
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Tests
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .Should()
-                .SerializeToGraphson("__.identity()");
+                .SerializeToGroovy("__.identity()");
         }
     }
 }

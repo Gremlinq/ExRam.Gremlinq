@@ -91,5 +91,10 @@ namespace ExRam.Gremlinq.Core
             .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Echo)
             .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphson);
+
+        public static readonly IGremlinQueryExecutionPipeline EchoGroovy = Invalid
+            .UseSerializer(GremlinQuerySerializer.Default.ToGroovy())
+            .UseExecutor(GremlinQueryExecutor.Echo)
+            .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
     }
 }

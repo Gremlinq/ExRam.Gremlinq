@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var query = await g
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson)
+                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy)
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
@@ -60,12 +60,12 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                    .EchoGraphson
+                    .EchoGroovy
                     .ConfigureSerializer(_ => _
                         .OverrideAtomSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId {Id = "someId"})
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -76,12 +76,12 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                    .EchoGraphson
+                    .EchoGroovy
                     .ConfigureSerializer(_ => _
                         .OverrideAtomSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -92,12 +92,12 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                    .EchoGraphson
+                    .EchoGroovy
                     .ConfigureSerializer(_ => _
                         .OverrideAtomSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -108,12 +108,12 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UseModel(GraphModel
                     .FromBaseTypes<Vertex, Edge>())
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                    .EchoGraphson
+                    .EchoGroovy
                     .ConfigureSerializer(_ => _
                         .OverrideAtomSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGraphson("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
     }
