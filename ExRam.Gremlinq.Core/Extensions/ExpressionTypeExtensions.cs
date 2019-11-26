@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ExRam.Gremlinq.Core;
+using Gremlin.Net.Process.Traversal;
 
 namespace System.Linq.Expressions
 {
@@ -7,12 +8,12 @@ namespace System.Linq.Expressions
     {
         private static readonly IReadOnlyDictionary<ExpressionType, Func<object, P>> SupportedComparisons = new Dictionary<ExpressionType, Func<object, P>>
         {
-            { ExpressionType.Equal, _ => new P.Eq(_) },
-            { ExpressionType.NotEqual, _ => new P.Neq(_) },
-            { ExpressionType.LessThan, _ => new P.Lt(_) },
-            { ExpressionType.LessThanOrEqual, _ => new P.Lte(_) },
-            { ExpressionType.GreaterThanOrEqual, _ => new P.Gte(_) },
-            { ExpressionType.GreaterThan, _ => new P.Gt(_) }
+            { ExpressionType.Equal, _ => P.Eq(_) },
+            { ExpressionType.NotEqual, _ => P.Neq(_) },
+            { ExpressionType.LessThan, _ => P.Lt(_) },
+            { ExpressionType.LessThanOrEqual, _ => P.Lte(_) },
+            { ExpressionType.GreaterThanOrEqual, _ => P.Gte(_) },
+            { ExpressionType.GreaterThan, _ => P.Gt(_) }
         };
 
         public static P ToP(this ExpressionType expressionType, object argument)

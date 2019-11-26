@@ -1,4 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using Gremlin.Net.Process.Traversal;
 
 namespace System.Linq.Expressions
 {

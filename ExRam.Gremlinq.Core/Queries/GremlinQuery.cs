@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using ExRam.Gremlinq.Core.GraphElements;
+using Gremlin.Net.Process.Traversal;
 using LanguageExt;
 using NullGuard;
 
@@ -825,8 +826,9 @@ namespace ExRam.Gremlinq.Core
 
             if (gremlinExpression is TerminalGremlinExpression terminal)
             {
-                var effectivePredicate = terminal.Predicate
-                    .WorkaroundLimitations(Environment.Options);
+                var effectivePredicate = terminal.Predicate is TextP textP
+                    ? textP.WorkaroundLimitations(Environment.Options)
+                    : terminal.Predicate;
 
                 switch (terminal.Key)
                 {

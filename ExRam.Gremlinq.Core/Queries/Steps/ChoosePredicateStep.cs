@@ -1,4 +1,5 @@
-﻿using LanguageExt;
+﻿using Gremlin.Net.Process.Traversal;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {

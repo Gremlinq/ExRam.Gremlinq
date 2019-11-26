@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class WherePredicateStep : Step
     {

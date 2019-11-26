@@ -2,6 +2,7 @@
 using System.Reflection;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
+using Gremlin.Net.Process.Traversal;
 
 namespace System.Linq.Expressions
 {
@@ -89,7 +90,7 @@ namespace System.Linq.Expressions
                     case MemberExpression memberExpression:
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return new TerminalGremlinExpression(parameter, memberExpression, new P.Eq(true));
+                            return new TerminalGremlinExpression(parameter, memberExpression, P.Eq(true));
 
                         break;
                     }
@@ -120,12 +121,12 @@ namespace System.Linq.Expressions
                                     return new TerminalGremlinExpression(parameter, argument, previousExpression.Arguments[0].ToPWithin());
                             }
                             else
-                                return new TerminalGremlinExpression(parameter, methodCallExpression.Arguments[0], new P.Neq(null));
+                                return new TerminalGremlinExpression(parameter, methodCallExpression.Arguments[0], P.Neq(new object[] { null }));
                         }
                         else if (methodInfo.IsEnumerableContains() || methodInfo.IsStepLabelContains())
                         {
                             if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == parameter)
-                                return new TerminalGremlinExpression(parameter, sourceMember, new P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                                return new TerminalGremlinExpression(parameter, sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
 
                             if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
                                 return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
@@ -139,7 +140,7 @@ namespace System.Linq.Expressions
                                     return new TerminalGremlinExpression(
                                         parameter,
                                         argumentExpression,
-                                        new P.Within(Enumerable
+                                        P.Within(Enumerable
                                             .Range(0, stringValue.Length + 1)
                                             .Select(i => stringValue.Substring(0, i))
                                             .ToArray<object>()));
@@ -153,12 +154,12 @@ namespace System.Linq.Expressions
                                         parameter,
                                         memberExpression,
                                         str.Length == 0
-                                            ? (P)new P.Without(Array.Empty<object>())
+                                            ? P.Without(Array.Empty<object>())
                                             : methodInfo.IsStringStartsWith()
-                                                ? new TextP.StartingWith(str)
+                                                ? TextP.StartingWith(str)
                                                 : methodInfo.IsStringContains()
-                                                    ? (TextP)new TextP.Containing(str)
-                                                    : new TextP.EndingWith(str));
+                                                    ? TextP.Containing(str)
+                                                    : TextP.EndingWith(str));
                                 }
                             }
                         }
@@ -178,10 +179,10 @@ namespace System.Linq.Expressions
         internal static P ToPWithin(this Expression expression)
         {
             if (expression.GetValue() is IEnumerable enumerable)
-                return new P.Within(enumerable.Cast<object>().ToArray());
+                return P.Within(enumerable.Cast<object>().ToArray());
 
             if (expression.GetValue() is StepLabel stepLabel)
-                return new P.Within(new object[] { stepLabel });
+                return P.Within(stepLabel);
 
             throw new ExpressionNotSupportedException(expression);
         }

@@ -88,6 +88,9 @@ namespace ExRam.Gremlinq.Core
 
                 object RecurseImpl(object o)
                 {
+                    if (ReferenceEquals(o, null))
+                        return o;
+
                     var action = GetSerializer(o.GetType()) ?? Constant;
 
                     return action(o, _ => throw new NotImplementedException(), RecurseImpl);
@@ -211,21 +214,21 @@ namespace ExRam.Gremlinq.Core
 
                     if (argument is P p2)
                     {
-                        if (p2 is P.SingleArgumentP singleArgumentP)
+                        if (p2.EqualsConstant(true))
+                            argument = null;
+                        else
                         {
-                            if (singleArgumentP.Argument == null)
+                            if (p2.Value == null)
                             {
-                                if (p2 is P.Eq)
+                                if (p2.OperatorName == "eq")
                                     stepName = "hasNot";
-                                else if (p2 is P.Neq)
+                                else if (p2.OperatorName == "neq")
                                     argument = null;
                             }
 
-                            if (p2 is P.Eq)
-                                argument = singleArgumentP.Argument;
+                            if (p2.OperatorName == "eq")
+                                argument = p2.Value;
                         }
-                        else if (p2.EqualsConstant(true))
-                            argument = null;
                     }
 
                     return argument != null
@@ -302,27 +305,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
                 .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
                 .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
-                .OverrideAtomSerializer<P.Eq>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Eq(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Between>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Between(recurse(p.Lower), recurse(p.Upper)))
-                .OverrideAtomSerializer<P.Gt>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Gt(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Gte>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Gte(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Lt>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Lt(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Lte>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Lte(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Neq>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Neq(recurse(p.Argument)))
-                .OverrideAtomSerializer<P.Within>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Within(p.Arguments.Select(recurse).ToArray()))
-                .OverrideAtomSerializer<P.Without>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Without(p.Arguments.Select(recurse).ToArray()))
-                .OverrideAtomSerializer<P.Outside>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.P.Outside(recurse(p.Lower), recurse(p.Upper)))
-                .OverrideAtomSerializer<P.AndP>((p, overridden, recurse) =>
-                {
-                    return ((Gremlin.Net.Process.Traversal.P)recurse(p.Operand1)).And(((Gremlin.Net.Process.Traversal.P)recurse(p.Operand2)));
-                })
-                .OverrideAtomSerializer<P.OrP>((p, overridden, recurse) =>
-                {
-                    return ((Gremlin.Net.Process.Traversal.P)recurse(p.Operand1)).Or(((Gremlin.Net.Process.Traversal.P)recurse(p.Operand2)));
-                })
-                .OverrideAtomSerializer<TextP.StartingWith>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.TextP.StartingWith(p.Value))
-                .OverrideAtomSerializer<TextP.EndingWith>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.TextP.EndingWith(p.Value))
-                .OverrideAtomSerializer<TextP.Containing>((p, overridden, recurse) => Gremlin.Net.Process.Traversal.TextP.Containing(p.Value))
                 .OverrideAtomSerializer<Lambda>((lambda, overridden, recurse) => Gremlin.Net.Process.Traversal.Lambda.Groovy(lambda.LambdaString))
                 .OverrideAtomSerializer<Cardinality>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.Cardinality.GetByValue(enumValue.Name))
                 .OverrideAtomSerializer<Order>((enumValue, overridden, recurse) => Gremlin.Net.Process.Traversal.Order.GetByValue(enumValue.Name))
@@ -333,8 +315,8 @@ namespace ExRam.Gremlinq.Core
                     return CreateInstruction(
                         "hasValue",
                         recurse,
-                        step.Argument is P.Eq eq
-                            ? eq.Argument
+                        step.Argument is P p && p.OperatorName == "eq"
+                            ? p.Value
                             : step.Argument);
                 })
                 .OverrideAtomSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
@@ -389,8 +371,8 @@ namespace ExRam.Gremlinq.Core
                     return CreateInstruction(
                         "is",
                         recurse,
-                        step.Argument is P.Eq eq
-                            ? eq.Argument
+                        step.Argument is P p && p.OperatorName == "eq"
+                            ? p.Value
                             : step.Argument);
                 })
                 .OverrideAtomSerializer<LimitStep>((step, overridden, recurse) =>
@@ -402,7 +384,6 @@ namespace ExRam.Gremlinq.Core
                 })
                 .OverrideAtomSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
                 .OverrideAtomSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
-                //.OverrideAtomSerializer<NoneStep>((step, overridden, recurse) => CreateInstruction("none"))
                 .OverrideAtomSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
                 .OverrideAtomSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
                 .OverrideAtomSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
@@ -421,6 +402,13 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
                 .OverrideAtomSerializer<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                 .OverrideAtomSerializer<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
+                .OverrideAtomSerializer<P>((p, overridden, recurse) =>
+                {
+                    if (!(p.Value is string) && p.Value is IEnumerable enumerable)
+                        return new P(p.OperatorName, enumerable.Cast<object>().Select(recurse).ToArray(), (P)recurse(p.Other));
+
+                    return new P(p.OperatorName, recurse(p.Value), (P)recurse(p.Other));
+                })
                 .OverrideAtomSerializer<Type>((type, overridden, recurse) => type);
         }
 
@@ -447,8 +435,6 @@ namespace ExRam.Gremlinq.Core
                         }
                         if (obj is Bytecode bytecode)
                         {
-                            //builder.Append(builder.Length == 0 ? "g" : "__");
-
                             foreach (var instruction in bytecode.StepInstructions)
                             {
                                 builder.Append($".{instruction.OperatorName}(");
@@ -463,9 +449,9 @@ namespace ExRam.Gremlinq.Core
                             builder.Append(binding.Key);
                             variables[binding.Key] = binding.Value;
                         }
-                        else if (obj is Gremlin.Net.Process.Traversal.P p)
+                        else if (obj is P p)
                         {
-                            if (p.Value is Gremlin.Net.Process.Traversal.P p1)
+                            if (p.Value is P p1)
                             {
                                 Append(p1);
                                 builder.Append($".{p.OperatorName}(");

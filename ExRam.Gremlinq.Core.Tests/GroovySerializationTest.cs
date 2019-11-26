@@ -3157,8 +3157,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains("456"))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing('456'))")
-                .WithParameters("Country", "CountryCallingCode");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, containing(_c))")
+                .WithParameters("Country", "CountryCallingCode", "456");
         }
 
         [Fact]
@@ -3205,8 +3205,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith("7890"))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith('7890'))")
-                .WithParameters("Country", "CountryCallingCode");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, endingWith(_c))")
+                .WithParameters("Country", "CountryCallingCode", "7890");
         }
 
         [Fact]
@@ -3595,8 +3595,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, startingWith('+49123'))")
-                .WithParameters("Country", "CountryCallingCode");
+                .SerializeToGroovy("g.V().hasLabel(_a).has(_b, startingWith(_c))")
+                .WithParameters("Country", "CountryCallingCode", "+49123");
         }
 
         [Fact]
