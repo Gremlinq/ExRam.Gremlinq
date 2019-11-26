@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideAtomSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
                 .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
                 .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
-                .OverrideAtomSerializer<Lambda>((lambda, overridden, recurse) => Gremlin.Net.Process.Traversal.Lambda.Groovy(lambda.LambdaString))
+                .OverrideAtomSerializer<ILambda>((lambda, overridden, recurse) => lambda)
                 .OverrideAtomSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
                 .OverrideAtomSerializer<HasValueStep>((step, overridden, recurse) =>
                 {

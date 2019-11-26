@@ -1,5 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
-using static ExRam.Gremlinq.Core.GremlinQuerySource;
+﻿using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {

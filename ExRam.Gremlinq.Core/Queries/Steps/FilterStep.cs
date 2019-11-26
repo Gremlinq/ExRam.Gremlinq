@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class FilterStep : Step
     {
-        public FilterStep(Lambda lambda)
+        public FilterStep(ILambda lambda)
         {
             Lambda = lambda;
         }
 
-        public Lambda Lambda { get; }
+        public ILambda Lambda { get; }
     }
 }

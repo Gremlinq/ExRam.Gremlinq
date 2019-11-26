@@ -5,6 +5,7 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal;
 using Xunit;
 
 namespace ExRam.Gremlinq.Providers.Tests
@@ -801,7 +802,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .Where("it.property('str').value().length() == 2")
+                .Where(Lambda.Groovy("it.property('str').value().length() == 2"))
                 .ToArrayAsync();
         }
 
@@ -846,7 +847,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy("it.property('str').value().length()")
+                .OrderBy(Lambda.Groovy("it.property('str').value().length()"))
                 .ToArrayAsync();
         }
 
@@ -893,8 +894,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy("it.property('str1').value().length()")
-                .ThenBy("it.property('str2').value().length()")
+                .OrderBy(Lambda.Groovy("it.property('str1').value().length()"))
+                .ThenBy(Lambda.Groovy("it.property('str2').value().length()"))
                 .ToArrayAsync();
         }
 

@@ -4,9 +4,9 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ByLambdaStep : Step
     {
-        public Lambda Lambda { get; }
+        public ILambda Lambda { get; }
 
-        public ByLambdaStep(Lambda lambda)
+        public ByLambdaStep(ILambda lambda)
         {
             Lambda = lambda;
         }

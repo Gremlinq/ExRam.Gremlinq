@@ -9,6 +9,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -85,7 +86,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
 
-        new <#= iface #> Where(string lambda);
+        new <#= iface #> Where(ILambda lambda);
     }
 <# } #>
 
@@ -111,7 +112,7 @@ namespace ExRam.Gremlinq.Core
     public partial interface <#= iface #>
     {
         new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
-        new <#= MakeOrdered(iface) #> OrderBy(string lambda);
+        new <#= MakeOrdered(iface) #> OrderBy(ILambda lambda);
         new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
     }
 <# } #>
@@ -122,7 +123,7 @@ namespace ExRam.Gremlinq.Core
     {
         <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
         <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-        new <#= iface #> ThenBy(string lambda);
+        new <#= iface #> ThenBy(ILambda lambda);
     }
 <# } #>
     

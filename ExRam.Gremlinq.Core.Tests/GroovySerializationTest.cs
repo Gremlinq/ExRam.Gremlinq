@@ -3,6 +3,7 @@ using System.Linq;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Xunit;
 
@@ -782,7 +783,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .Where("it.property('str').value().length() == 2")
+                .Where(Lambda.Groovy("it.property('str').value().length() == 2"))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).filter({it.property('str').value().length() == 2})")
                 .WithParameters("Person");
@@ -1243,7 +1244,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy("it.property('str').value().length()")
+                .OrderBy(Lambda.Groovy("it.property('str').value().length()"))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str').value().length()})")
                 .WithParameters("Person");
@@ -1277,8 +1278,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy("it.property('str1').value().length()")
-                .ThenBy("it.property('str2').value().length()")
+                .OrderBy(Lambda.Groovy("it.property('str1').value().length()"))
+                .ThenBy(Lambda.Groovy("it.property('str2').value().length()"))
                 .Should()
                 .SerializeToGroovy("g.V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
                 .WithParameters("Person");
