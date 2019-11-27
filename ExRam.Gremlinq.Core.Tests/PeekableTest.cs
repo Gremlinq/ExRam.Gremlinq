@@ -305,5 +305,31 @@ namespace ExRam.Gremlinq.Providers.Tests
                 }
             }
         }
+
+        [Fact]
+        public void Test8()
+        {
+            using (var e = new[] { 1, 2, 3, 4 }
+                .AsEnumerable()
+                .GetEnumerator())
+            {
+                using (var p1 = e.WithPebbles())
+                {
+                    p1.MoveNext().Should().Be(true);
+                    p1.DropPebble();
+
+                    p1.Current.Should().Be(1);
+
+                    p1.MoveNext().Should().Be(true);
+                    p1.Current.Should().Be(2);
+
+                    var replay = p1.Replay();
+                    replay.MoveNext().Should().BeTrue();
+                    replay.Current.Should().Be(1);
+
+                    replay.MoveNext().Should().BeFalse();
+                }
+            }
+        }
     }
 }

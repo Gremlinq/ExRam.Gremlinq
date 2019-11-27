@@ -76,6 +76,7 @@ namespace ExRam.Gremlinq.Core
                                 .Apply(JsonTransform
                                     .Identity()
                                     .GraphElements()
+                                    .Traversers()
                                     .NestedValues())
                                 .ToJsonReader())
                             .ToAsyncEnumerable();

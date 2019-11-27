@@ -115,6 +115,11 @@ namespace ExRam.Gremlinq.Core
             return transform.Combine(Create((source, recurse) => source.GraphElements(recurse)));
         }
 
+        public static IJsonTransform Traversers(this IJsonTransform transform)
+        {
+            return transform.Combine(Create((source, recurse) => source.Traversers(recurse)));
+        }
+
         public static IJsonTransform Create(Func<IEnumerator<(JsonToken tokenType, object tokenValue)>, IJsonTransform, IEnumerator<(JsonToken tokenType, object tokenValue)>> factory)
         {
             return new JsonTransformImpl(factory);
@@ -197,37 +202,118 @@ namespace ExRam.Gremlinq.Core
         {
             if (source.Current.tokenType == JsonToken.StartObject)
             {
+                var pebbled = source.WithPebbles();
+                pebbled.DropPebble();
+
                 string elementType = default;
 
-                yield return source.Current;
-
-                while (source.MoveNext() && source.Current.tokenType != JsonToken.EndObject)
+                while (pebbled.MoveNext() && pebbled.Current.tokenType != JsonToken.EndObject)
                 {
-                    if (source.Current.tokenType != JsonToken.PropertyName)
+                    if (pebbled.Current.tokenType != JsonToken.PropertyName)
                         throw new InvalidOperationException();
 
-                    var propertyName = source.Current.tokenValue.ToString();
+                    var propertyName = pebbled.Current.tokenValue.ToString();
 
-                    if (propertyName.Equals("properties", StringComparison.OrdinalIgnoreCase))
+                    if (propertyName.Equals("properties", StringComparison.OrdinalIgnoreCase) && elementType != null)
                     {
-                        if (source.MoveNext())
+                        if (pebbled.MoveNext())
                         {
-                            if (source.Current.tokenType == JsonToken.StartObject && ("vertex".Equals(elementType, StringComparison.OrdinalIgnoreCase) || "edge".Equals(elementType, StringComparison.OrdinalIgnoreCase)))
+                            if (pebbled.Current.tokenType == JsonToken.StartObject)
                             {
-                                while (source.MoveNext() && source.Current.tokenType != JsonToken.EndObject)
+                                while (pebbled.MoveNext() && pebbled.Current.tokenType != JsonToken.EndObject)
                                 {
-                                    var valueToken = recurse.Transform(source);
+                                    var valueToken = recurse.Transform(pebbled);
 
                                     while (valueToken.MoveNext())
                                         yield return valueToken.Current;
                                 }
                             }
                             else
+                                yield break;
+                        }
+                    }
+                    else
+                    {
+                        if (!pebbled.HasPebble)
+                            yield return pebbled.Current;
+
+                        if (pebbled.MoveNext())
+                        {
+                            if (propertyName.Equals("type", StringComparison.OrdinalIgnoreCase) && pebbled.Current.tokenType == JsonToken.String)
                             {
-                                yield return (JsonToken.PropertyName, "properties");
+                                var name = pebbled.Current.tokenValue.ToString();
 
-                                var valueToken = recurse.Transform(source);
+                                if ("vertex".Equals(name, StringComparison.OrdinalIgnoreCase) || "edge".Equals(name, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    elementType = name;
 
+                                    if (pebbled.HasPebble)
+                                    {
+                                        var replay = pebbled.Replay();
+
+                                        while (replay.MoveNext())
+                                            yield return replay.Current;
+
+                                        pebbled.LiftPebble();
+                                    }
+
+                                    yield return pebbled.Current;
+                                }
+                                else
+                                    yield break;
+                            }
+                            else
+                            {
+                                var valueToken = recurse.Transform(pebbled);
+
+                                while (valueToken.MoveNext())
+                                {
+                                    if (!pebbled.HasPebble)
+                                        yield return valueToken.Current;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (elementType != null)
+                    yield return (JsonToken.EndObject, null);
+            }
+        }
+
+        private static IEnumerator<(JsonToken tokenType, object tokenValue)> Traversers(this IEnumerator<(JsonToken tokenType, object tokenValue)> source, IJsonTransform recurse)
+        {
+            if (source.Current.tokenType == JsonToken.StartObject)
+            {
+                var bulk = (long)-1;
+
+                while (source.MoveNext() && source.Current.tokenType != JsonToken.EndObject)
+                {
+                    if ("bulk".Equals(source.Current.tokenValue))
+                    {
+                        bulk = Convert.ToInt64(recurse.Transform(source).Last().tokenValue);
+                    }
+                    else if ("value".Equals(source.Current.tokenValue) && bulk > -1)
+                    {
+                        if (source.MoveNext())
+                        {
+                            var valueToken = recurse.Transform(source);
+
+                            if (bulk > 1)
+                            {
+                                var pebbled = valueToken.WithPebbles();
+                                pebbled.DropPebble();
+
+                                for (var i = 0; i < bulk; i++)
+                                {
+                                    while (pebbled.MoveNext())
+                                        yield return pebbled.Current;
+
+                                    pebbled.Return();
+                                }
+                            }
+                            else
+                            {
                                 while (valueToken.MoveNext())
                                     yield return valueToken.Current;
                             }
@@ -235,28 +321,9 @@ namespace ExRam.Gremlinq.Core
                     }
                     else
                     {
-                        yield return source.Current;
-
-                        if (source.MoveNext())
-                        {
-                            if (propertyName.Equals("type", StringComparison.OrdinalIgnoreCase) && source.Current.tokenType == JsonToken.String)
-                            {
-                                elementType = source.Current.tokenValue.ToString();
-
-                                yield return source.Current;
-                            }
-                            else
-                            {
-                                var valueToken = recurse.Transform(source);
-
-                                while (valueToken.MoveNext())
-                                    yield return valueToken.Current;
-                            }
-                        }
+                        recurse.Transform(source).Iterate();
                     }
                 }
-
-                yield return (JsonToken.EndObject, null);
             }
         }
 
@@ -304,6 +371,11 @@ namespace ExRam.Gremlinq.Core
                     else if ("g:Edge".Equals(type, StringComparison.OrdinalIgnoreCase))
                     {
                         source = source.InjectProperty("type", "edge");
+                        source.MoveNext();
+                    }
+                    else if ("g:Traverser".Equals(type, StringComparison.OrdinalIgnoreCase))
+                    {
+                        source = source.InjectProperty("type", "traverser");
                         source.MoveNext();
                     }
 

@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core;
+using LanguageExt;
 
 namespace System.Collections.Generic
 {
@@ -85,9 +86,22 @@ namespace System.Collections.Generic
 
             object IEnumerator.Current => ((IEnumerator)_baseEnumerator).Current;
 
+            public bool HasPebble => _pebbles.Count > 0;
+
             public void Dispose()
             {
                 _baseEnumerator.Dispose();
+            }
+
+            public IEnumerator<TSource> Replay()
+            {
+                if (_list.Count > 0)
+                {
+                    for (var i = _pebbles.Peek(); i < _list.Count; i++)
+                    {
+                        yield return _list[i];
+                    }
+                }
             }
         }
 
@@ -95,5 +109,21 @@ namespace System.Collections.Generic
         {
             return new PebbleEnumerator<TSource>(source);
         }
+
+        public static TSource Last<TSource>(this IEnumerator<TSource> source)
+        {
+            var last = default(Option<TSource>);
+
+            while (source.MoveNext())
+                last = source.Current;
+
+            return last.IfNone(() => throw new InvalidOperationException());
+        }
+
+        public static void Iterate<TSource>(this IEnumerator<TSource> source)
+        {
+            while (source.MoveNext());
+        }
+
     }
 }

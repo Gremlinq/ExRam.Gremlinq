@@ -7,5 +7,9 @@ namespace ExRam.Gremlinq.Core
         void DropPebble();
         void LiftPebble();
         void Return();
+
+        IEnumerator<TSource> Replay();
+
+        bool HasPebble { get; }
     }
 }

@@ -144,6 +144,22 @@ namespace ExRam.Gremlinq.Providers.Tests
                 "[ { \"value\": 1540202009475,\r\n    \"label\": \"Property1\",\r\n    \"properties\": {\r\n        \"metaKey\": \"MetaValue\"\r\n    }\r\n},\r\n{\r\n\"value\": \"Some string\",\r\n\"label\": \"Property2\"\r\n},\r\n{\r\n\"value\": 36,\r\n\"label\": \"Property3\"\r\n}\r\n]");
         }
 
+        [Fact]
+        public void Traverser()
+        {
+            var transform = JsonTransform.Identity().Traversers().NestedValues();
+
+            Assert(
+                transform,
+                "{ \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 1 }, \"value\": { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 28 }, \"label\": \"Person\" } }}",
+                "{ \"type\": \"vertex\", \"id\": 28, \"label\": \"Person\" }");
+
+            Assert(
+                transform,
+                "[ { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 2 }, \"value\": { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 28 }, \"label\": \"Person\" } }} ]",
+                "[ { \"type\": \"vertex\", \"id\": 28, \"label\": \"Person\" } , { \"type\": \"vertex\", \"id\": 28, \"label\": \"Person\" } ]");
+        }
+        
         private static void AssertIdentity(IJsonTransform transform, string source)
         {
             Assert(transform, source, source);
