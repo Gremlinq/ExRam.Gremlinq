@@ -61,15 +61,19 @@ namespace ExRam.Gremlinq.Core
 
             IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex)
             {
-                return Create()
-                    .V<TNewVertex>(vertex.GetId())
+                var query = Create();
+
+                return query
+                    .V<TNewVertex>(vertex.GetId(query.AsAdmin().Environment.Model.PropertiesModel))
                     .Update(vertex);
             }
 
             IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge)
             {
-                return Create()
-                    .E<TNewEdge>(edge.GetId())
+                var query = Create();
+
+                return query
+                    .E<TNewEdge>(edge.GetId(query.AsAdmin().Environment.Model.PropertiesModel))
                     .Update(edge);
             }
 

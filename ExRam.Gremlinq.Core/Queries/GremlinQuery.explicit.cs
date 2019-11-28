@@ -265,14 +265,14 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex)
         {
             return this
-                .V<TNewVertex>(vertex.GetId())
+                .V<TNewVertex>(vertex.GetId(Environment.Model.PropertiesModel))
                 .Update(vertex);
         }
 
         IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge)
         {
             return this
-                .E<TNewEdge>(edge.GetId())
+                .E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel))
                 .Update(edge);
         }
     }

@@ -15,26 +15,7 @@ namespace System
 
         public static IEnumerable<(PropertyInfo property, object identifier, object value)> Serialize(this object obj, IGraphElementPropertyModel model, SerializationBehaviour ignoreMask)
         {
-            var propertyInfoTuples = TypeProperties
-                .GetOrCreateValue(model.Metadata)
-                .GetOrAdd(
-                    obj.GetType(),
-                    type => type
-                        .GetTypeHierarchy()
-                        .SelectMany(typeInHierarchy => typeInHierarchy.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
-                        .Select(p =>
-                        {
-                            var metadata = model.Metadata
-                                .GetValueOrDefault(p, new PropertyMetadata(p.Name));
-
-                            return (
-                                property: p,
-                                identifier: model.GetIdentifier(metadata),
-                                serializationBehaviour: metadata.SerializationBehaviour);
-                        })
-                        .OrderBy(x => x.property.Name)
-                        .ToArray());
+            var propertyInfoTuples = GetSerializationData(model, obj.GetType());
 
             foreach (var (propertyInfo, identifier, serializationBehaviour) in propertyInfoTuples)
             {
@@ -43,6 +24,7 @@ namespace System
                 if (identifier is T t)
                 {
                     actualSerializationBehaviour = SerializationBehaviour.IgnoreOnUpdate;
+
                     if (T.Label.Equals(t))
                         actualSerializationBehaviour = SerializationBehaviour.IgnoreAlways;
                 }
@@ -57,16 +39,41 @@ namespace System
             }
         }
 
-        public static object GetId(this object element)
+        public static object GetId(this object element, IGraphElementPropertyModel model)
         {
-            var pi = element.GetType().GetProperties().FirstOrDefault(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
+            var propertyInfoTuples = GetSerializationData(model, element.GetType());
 
-            if (pi == null)
-            {
-                throw new InvalidOperationException($"Unable to determine Id for {element}");
-            }
+            var (propertyInfo, _, _) = propertyInfoTuples
+                .FirstOrDefault(info => T.Id.Equals(info.identifier));
 
-            return pi.GetValue(element);
+            return propertyInfo == null
+                ? throw new InvalidOperationException($"Unable to determine Id for {element}")
+                : propertyInfo.GetValue(element);
+        }
+
+        private static (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[] GetSerializationData(IGraphElementPropertyModel model, Type type)
+        {
+            return TypeProperties
+                .GetOrCreateValue(model.Metadata)
+                .GetOrAdd(
+                    type,
+                    closureType => closureType
+                        .GetTypeHierarchy()
+                        .SelectMany(typeInHierarchy => typeInHierarchy
+                            .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                        .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
+                        .Select(p =>
+                        {
+                            var metadata = model.Metadata
+                                .GetValueOrDefault(p, new PropertyMetadata(p.Name));
+
+                            return (
+                                property: p,
+                                identifier: model.GetIdentifier(metadata),
+                                serializationBehaviour: metadata.SerializationBehaviour);
+                        })
+                        .OrderBy(x => x.property.Name)
+                        .ToArray());
         }
     }
 }
