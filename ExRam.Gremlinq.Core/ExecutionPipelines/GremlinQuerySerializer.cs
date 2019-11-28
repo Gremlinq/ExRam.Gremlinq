@@ -32,14 +32,14 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
-            private readonly IImmutableDictionary<Type, AtomSerializer<object>> _dict;
-            private readonly Lazy<ConcurrentDictionary<Type, AtomSerializer<object>?>> _lazyFastDict;
+            private readonly IImmutableDictionary<Type, QueryFragmentSerializer<object>> _dict;
+            private readonly Lazy<ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>> _lazyFastDict;
 
-            public GremlinQuerySerializerImpl(IImmutableDictionary<Type, AtomSerializer<object>> dict)
+            public GremlinQuerySerializerImpl(IImmutableDictionary<Type, QueryFragmentSerializer<object>> dict)
             {
                 _dict = dict;
-                _lazyFastDict = new Lazy<ConcurrentDictionary<Type, AtomSerializer<object>?>>(
-                    () => new ConcurrentDictionary<Type, AtomSerializer<object>?>(dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)),
+                _lazyFastDict = new Lazy<ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>>(
+                    () => new ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>(dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)),
                     LazyThreadSafetyMode.PublicationOnly);
             }
 
@@ -96,17 +96,17 @@ namespace ExRam.Gremlinq.Core
                 return RecurseImpl(query);
             }
 
-            public IGremlinQuerySerializer OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer)
+            public IGremlinQuerySerializer OverrideFragmentSerializer<TAtom>(QueryFragmentSerializer<TAtom> queryFragmentSerializer)
             {
                 return new GremlinQuerySerializerImpl(
                     _dict
                         .TryGetValue(typeof(TAtom))
                         .Match(
-                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => atomSerializer((TAtom)atom, _ => existingAtomSerializer(_, baseSerializer, recurse), recurse)),
-                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => atomSerializer((TAtom)atom, _ => throw new NotImplementedException(), recurse))));
+                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_, baseSerializer, recurse), recurse)),
+                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => throw new NotImplementedException(), recurse))));
             }
 
-            private AtomSerializer<object>? GetSerializer(Type type)
+            private QueryFragmentSerializer<object>? GetSerializer(Type type)
             {
                 return _lazyFastDict.Value
                     .GetOrAdd(
@@ -115,13 +115,13 @@ namespace ExRam.Gremlinq.Core
                         {
                             foreach (var implementedInterface in closureType.GetInterfaces())
                             {
-                                if (GetSerializer(implementedInterface) is AtomSerializer<object> interfaceSerializer)
+                                if (GetSerializer(implementedInterface) is QueryFragmentSerializer<object> interfaceSerializer)
                                     return interfaceSerializer;
                             }
 
                             if (closureType.BaseType is Type baseType)
                             {
-                                if (GetSerializer(baseType) is AtomSerializer<object> baseSerializer)
+                                if (GetSerializer(baseType) is QueryFragmentSerializer<object> baseSerializer)
                                     return baseSerializer;
                             }
 
@@ -132,9 +132,9 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class InvalidGremlinQuerySerializer : IGremlinQuerySerializer
         {
-            public IGremlinQuerySerializer OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer)
+            public IGremlinQuerySerializer OverrideFragmentSerializer<TAtom>(QueryFragmentSerializer<TAtom> queryFragmentSerializer)
             {
-                throw new InvalidOperationException($"{nameof(OverrideAtomSerializer)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
+                throw new InvalidOperationException($"{nameof(OverrideFragmentSerializer)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
             }
 
             public object Serialize(IGremlinQuery query)
@@ -154,9 +154,9 @@ namespace ExRam.Gremlinq.Core
                 _projection = projection;
             }
 
-            public IGremlinQuerySerializer OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer)
+            public IGremlinQuerySerializer OverrideFragmentSerializer<TAtom>(QueryFragmentSerializer<TAtom> queryFragmentSerializer)
             {
-                return new SelectGremlinQuerySerializer(_baseSerializer.OverrideAtomSerializer(atomSerializer), _projection);
+                return new SelectGremlinQuerySerializer(_baseSerializer.OverrideFragmentSerializer(queryFragmentSerializer), _projection);
             }
 
             public object Serialize(IGremlinQuery query)
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static readonly IGremlinQuerySerializer Unit = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, AtomSerializer<object>>.Empty);
+        public static readonly IGremlinQuerySerializer Unit = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
 
         public static readonly IGremlinQuerySerializer Default = Unit
             .UseDefaultGremlinStepSerializationHandlers();
@@ -179,21 +179,21 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .OverrideAtomSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
-                .OverrideAtomSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
-                .OverrideAtomSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
-                .OverrideAtomSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
-                .OverrideAtomSerializer<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
-                .OverrideAtomSerializer<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier", recurse))
-                .OverrideAtomSerializer<BothStep>((step, overridden, recurse) => CreateInstruction("both", recurse, step.Labels))
-                .OverrideAtomSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
-                .OverrideAtomSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV", recurse))
-                .OverrideAtomSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build", recurse))
-                .OverrideAtomSerializer<ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
-                .OverrideAtomSerializer<ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
-                .OverrideAtomSerializer<ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
-                .OverrideAtomSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
-                .OverrideAtomSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
+                .OverrideFragmentSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
+                .OverrideFragmentSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
+                .OverrideFragmentSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
+                .OverrideFragmentSerializer<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
+                .OverrideFragmentSerializer<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier", recurse))
+                .OverrideFragmentSerializer<BothStep>((step, overridden, recurse) => CreateInstruction("both", recurse, step.Labels))
+                .OverrideFragmentSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
+                .OverrideFragmentSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV", recurse))
+                .OverrideFragmentSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build", recurse))
+                .OverrideFragmentSerializer<ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
+                .OverrideFragmentSerializer<ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
+                .OverrideFragmentSerializer<ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
+                .OverrideFragmentSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
+                .OverrideFragmentSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
                 {
                     return step.ElseTraversal.Match(
                         elseTraversal => CreateInstruction(
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core
                             step.Predicate,
                             step.ThenTraversal));
                 })
-                .OverrideAtomSerializer<ChooseTraversalStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<ChooseTraversalStep>((step, overridden, recurse) =>
                 {
                     return step.ElseTraversal.Match(
                         elseTraversal => CreateInstruction(
@@ -223,24 +223,24 @@ namespace ExRam.Gremlinq.Core
                             step.IfTraversal,
                             step.ThenTraversal));
                 })
-                .OverrideAtomSerializer<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))
-                .OverrideAtomSerializer<ConstantStep>((step, overridden, recurse) => CreateInstruction("constant", recurse, step.Value))
-                .OverrideAtomSerializer<CountStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("count", recurse, step.Scope) : CreateInstruction("count", recurse))
-                .OverrideAtomSerializer<CreateStep>((step, overridden, recurse) => CreateInstruction("create", recurse))
-                .OverrideAtomSerializer<DedupStep>((step, overridden, recurse) => CreateInstruction("dedup", recurse))
-                .OverrideAtomSerializer<DropStep>((step, overridden, recurse) => CreateInstruction("drop", recurse))
-                .OverrideAtomSerializer<EdgesStep>((step, overridden, recurse) => CreateInstruction("edges", recurse, step.Traversal))
-                .OverrideAtomSerializer<EmitStep>((step, overridden, recurse) => CreateInstruction("emit", recurse))
-                .OverrideAtomSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
-                .OverrideAtomSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
-                .OverrideAtomSerializer<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain", recurse))
-                .OverrideAtomSerializer<FoldStep>((step, overridden, recurse) => CreateInstruction("fold", recurse))
-                .OverrideAtomSerializer<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
-                .OverrideAtomSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
-                .OverrideAtomSerializer<FromLabelStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.StepLabel))
-                .OverrideAtomSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
-                .OverrideAtomSerializer<HasStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
+                .OverrideFragmentSerializer<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))
+                .OverrideFragmentSerializer<ConstantStep>((step, overridden, recurse) => CreateInstruction("constant", recurse, step.Value))
+                .OverrideFragmentSerializer<CountStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("count", recurse, step.Scope) : CreateInstruction("count", recurse))
+                .OverrideFragmentSerializer<CreateStep>((step, overridden, recurse) => CreateInstruction("create", recurse))
+                .OverrideFragmentSerializer<DedupStep>((step, overridden, recurse) => CreateInstruction("dedup", recurse))
+                .OverrideFragmentSerializer<DropStep>((step, overridden, recurse) => CreateInstruction("drop", recurse))
+                .OverrideFragmentSerializer<EdgesStep>((step, overridden, recurse) => CreateInstruction("edges", recurse, step.Traversal))
+                .OverrideFragmentSerializer<EmitStep>((step, overridden, recurse) => CreateInstruction("emit", recurse))
+                .OverrideFragmentSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
+                .OverrideFragmentSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
+                .OverrideFragmentSerializer<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain", recurse))
+                .OverrideFragmentSerializer<FoldStep>((step, overridden, recurse) => CreateInstruction("fold", recurse))
+                .OverrideFragmentSerializer<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
+                .OverrideFragmentSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
+                .OverrideFragmentSerializer<FromLabelStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.StepLabel))
+                .OverrideFragmentSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
+                .OverrideFragmentSerializer<HasStep>((step, overridden, recurse) =>
                 {
                     if (step.Value is P p1 && p1.EqualsConstant(false))
                         return recurse(NoneStep.Instance);
@@ -271,17 +271,17 @@ namespace ExRam.Gremlinq.Core
                         ? CreateInstruction(stepName, recurse, step.Key, argument)
                         : CreateInstruction(stepName, recurse, step.Key);
                 })
-                .OverrideAtomSerializer<HasLabelStep>((step, overridden, recurse) => CreateInstruction("hasLabel", recurse, step.Labels))
-                .OverrideAtomSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
-                .OverrideAtomSerializer<HasValueStep>((step, overridden, recurse) => CreateInstruction(
+                .OverrideFragmentSerializer<HasLabelStep>((step, overridden, recurse) => CreateInstruction("hasLabel", recurse, step.Labels))
+                .OverrideFragmentSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
+                .OverrideFragmentSerializer<HasValueStep>((step, overridden, recurse) => CreateInstruction(
                     "hasValue",
                     recurse,
                     step.Argument is P p && p.OperatorName == "eq"
                         ? p.Value
                         : step.Argument))
-                .OverrideAtomSerializer<IdentityStep>((step, overridden, recurse) => CreateInstruction("identity", recurse))
-                .OverrideAtomSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
-                .OverrideAtomSerializer<IGremlinQuery>((query, overridden, recurse) =>
+                .OverrideFragmentSerializer<IdentityStep>((step, overridden, recurse) => CreateInstruction("identity", recurse))
+                .OverrideFragmentSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
+                .OverrideFragmentSerializer<IGremlinQuery>((query, overridden, recurse) =>
                 {
                     var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
                     if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
@@ -297,27 +297,27 @@ namespace ExRam.Gremlinq.Core
 
                     return byteCode;
                 })
-                .OverrideAtomSerializer<ILambda>((lambda, overridden, recurse) => lambda)
-                .OverrideAtomSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
-                .OverrideAtomSerializer<InEStep>((step, overridden, recurse) => CreateInstruction("inE", recurse, step.Labels))
-                .OverrideAtomSerializer<InStep>((step, overridden, recurse) => CreateInstruction("in", recurse, step.Labels))
-                .OverrideAtomSerializer<InVStep>((step, overridden, recurse) => CreateInstruction("inV", recurse))
-                .OverrideAtomSerializer<IsStep>((step, overridden, recurse) => CreateInstruction(
+                .OverrideFragmentSerializer<ILambda>((lambda, overridden, recurse) => lambda)
+                .OverrideFragmentSerializer<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
+                .OverrideFragmentSerializer<InEStep>((step, overridden, recurse) => CreateInstruction("inE", recurse, step.Labels))
+                .OverrideFragmentSerializer<InStep>((step, overridden, recurse) => CreateInstruction("in", recurse, step.Labels))
+                .OverrideFragmentSerializer<InVStep>((step, overridden, recurse) => CreateInstruction("inV", recurse))
+                .OverrideFragmentSerializer<IsStep>((step, overridden, recurse) => CreateInstruction(
                     "is",
                     recurse,
                     step.Argument is P p && p.OperatorName == "eq"
                         ? p.Value
                         : step.Argument))
-                .OverrideAtomSerializer<KeyStep>((step, overridden, recurse) => CreateInstruction("key", recurse))
-                .OverrideAtomSerializer<LabelStep>((step, overridden, recurse) => CreateInstruction("label", recurse))
-                .OverrideAtomSerializer<LimitStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
+                .OverrideFragmentSerializer<KeyStep>((step, overridden, recurse) => CreateInstruction("key", recurse))
+                .OverrideFragmentSerializer<LabelStep>((step, overridden, recurse) => CreateInstruction("label", recurse))
+                .OverrideFragmentSerializer<LimitStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("limit", recurse, step.Scope, step.Count)
                     : CreateInstruction("limit", recurse, step.Count))
-                .OverrideAtomSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
-                .OverrideAtomSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
-                .OverrideAtomSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
-                .OverrideAtomSerializer<NotStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
+                .OverrideFragmentSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
+                .OverrideFragmentSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
+                .OverrideFragmentSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
+                .OverrideFragmentSerializer<NotStep>((step, overridden, recurse) =>
                 {
                     var traversalSteps = step.Traversal.AsAdmin().Steps;
 
@@ -325,15 +325,15 @@ namespace ExRam.Gremlinq.Core
                         ? CreateInstruction("not", recurse, step.Traversal)
                         : null;
                 })
-                .OverrideAtomSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
-                .OverrideAtomSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard.IfNone(Pick.None), step.OptionTraversal))
-                .OverrideAtomSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
-                .OverrideAtomSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
-                .OverrideAtomSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
-                .OverrideAtomSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
-                .OverrideAtomSerializer<OutVStep>((step, overridden, recurse) => CreateInstruction("outV", recurse))
-                .OverrideAtomSerializer<OtherVStep>((step, overridden, recurse) => CreateInstruction("otherV", recurse))
-                .OverrideAtomSerializer<P>((p, overridden, recurse) =>
+                .OverrideFragmentSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
+                .OverrideFragmentSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard.IfNone(Pick.None), step.OptionTraversal))
+                .OverrideFragmentSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
+                .OverrideFragmentSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
+                .OverrideFragmentSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
+                .OverrideFragmentSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
+                .OverrideFragmentSerializer<OutVStep>((step, overridden, recurse) => CreateInstruction("outV", recurse))
+                .OverrideFragmentSerializer<OtherVStep>((step, overridden, recurse) => CreateInstruction("otherV", recurse))
+                .OverrideFragmentSerializer<P>((p, overridden, recurse) =>
                 {
                     //TODO: Have the array bound!
                     if (!(p.Value is string) && p.Value is IEnumerable enumerable)
@@ -341,9 +341,9 @@ namespace ExRam.Gremlinq.Core
 
                     return new P(p.OperatorName, recurse(p.Value), (P)recurse(p.Other));
                 })
-                .OverrideAtomSerializer<ProfileStep>((step, overridden, recurse) => CreateInstruction("profile", recurse))
-                .OverrideAtomSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
-                .OverrideAtomSerializer<PropertyStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<ProfileStep>((step, overridden, recurse) => CreateInstruction("profile", recurse))
+                .OverrideFragmentSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
+                .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) =>
                 {
                     if (T.Id.Equals(step.Key))
                     {
@@ -357,33 +357,33 @@ namespace ExRam.Gremlinq.Core
                         c => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(c).ToArray()),
                         () => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray()));
                 })
-                .OverrideAtomSerializer<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
-                .OverrideAtomSerializer<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
-                .OverrideAtomSerializer<RangeStep>((step, overridden, recurse) => CreateInstruction("range", recurse, step.Lower, step.Upper))
-                .OverrideAtomSerializer<RepeatStep>((step, overridden, recurse) => CreateInstruction("repeat", recurse, step.Traversal))
-                .OverrideAtomSerializer<SelectStep>((step, overridden, recurse) => CreateInstruction("select", recurse, step.StepLabels))
-                .OverrideAtomSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
-                .OverrideAtomSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
-                .OverrideAtomSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
-                .OverrideAtomSerializer<TailStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("tail", recurse, step.Scope, step.Count) : CreateInstruction("tail", recurse, step.Count))
-                .OverrideAtomSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
-                .OverrideAtomSerializer<ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
-                .OverrideAtomSerializer<ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
-                .OverrideAtomSerializer<Type>((type, overridden, recurse) => type)
-                .OverrideAtomSerializer<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold", recurse))
-                .OverrideAtomSerializer<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
-                .OverrideAtomSerializer<UntilStep>((step, overridden, recurse) => CreateInstruction("until", recurse, step.Traversal))
-                .OverrideAtomSerializer<ValueStep>((step, overridden, recurse) => CreateInstruction("value", recurse))
-                .OverrideAtomSerializer<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
-                .OverrideAtomSerializer<ValuesStep>((step, overridden, recurse) => CreateInstruction("values", recurse, step.Keys))
-                .OverrideAtomSerializer<VerticesStep>((step, overridden, recurse) => CreateInstruction("vertices", recurse, step.Traversal))
-                .OverrideAtomSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
-                .OverrideAtomSerializer<WhereTraversalStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Traversal))
-                .OverrideAtomSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
-                .OverrideAtomSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
+                .OverrideFragmentSerializer<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
+                .OverrideFragmentSerializer<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
+                .OverrideFragmentSerializer<RangeStep>((step, overridden, recurse) => CreateInstruction("range", recurse, step.Lower, step.Upper))
+                .OverrideFragmentSerializer<RepeatStep>((step, overridden, recurse) => CreateInstruction("repeat", recurse, step.Traversal))
+                .OverrideFragmentSerializer<SelectStep>((step, overridden, recurse) => CreateInstruction("select", recurse, step.StepLabels))
+                .OverrideFragmentSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
+                .OverrideFragmentSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
+                .OverrideFragmentSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
+                .OverrideFragmentSerializer<TailStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("tail", recurse, step.Scope, step.Count) : CreateInstruction("tail", recurse, step.Count))
+                .OverrideFragmentSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
+                .OverrideFragmentSerializer<ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
+                .OverrideFragmentSerializer<ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
+                .OverrideFragmentSerializer<Type>((type, overridden, recurse) => type)
+                .OverrideFragmentSerializer<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold", recurse))
+                .OverrideFragmentSerializer<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
+                .OverrideFragmentSerializer<UntilStep>((step, overridden, recurse) => CreateInstruction("until", recurse, step.Traversal))
+                .OverrideFragmentSerializer<ValueStep>((step, overridden, recurse) => CreateInstruction("value", recurse))
+                .OverrideFragmentSerializer<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
+                .OverrideFragmentSerializer<ValuesStep>((step, overridden, recurse) => CreateInstruction("values", recurse, step.Keys))
+                .OverrideFragmentSerializer<VerticesStep>((step, overridden, recurse) => CreateInstruction("vertices", recurse, step.Traversal))
+                .OverrideFragmentSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
+                .OverrideFragmentSerializer<WhereTraversalStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Traversal))
+                .OverrideFragmentSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
+                .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
                     recurse,
                     step.StrategyTypes))
-                .OverrideAtomSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate));
+                .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate));
         }
 
         public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<object, object> projection)
@@ -394,7 +394,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .OverrideAtomSerializer<IGremlinQuery>((query, overridden, recurse) => (query.Identifier, overridden(query)))
+                .OverrideFragmentSerializer<IGremlinQuery>((query, overridden, recurse) => (query.Identifier, overridden(query)))
                 .Select(serialized =>
                 {
                     var builder = new StringBuilder();

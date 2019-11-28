@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                     .EchoGroovy
                     .ConfigureSerializer(_ => _
-                        .OverrideAtomSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
+                        .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId {Id = "someId"})
                 .Should()
                 .SerializeToGroovy("g.V(_a).hasLabel(_b)")
@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                     .EchoGroovy
                     .ConfigureSerializer(_ => _
-                        .OverrideAtomSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
+                        .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("g.V(_a).hasLabel(_b)")
@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                     .EchoGroovy
                     .ConfigureSerializer(_ => _
-                        .OverrideAtomSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
+                        .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("g.V(_a).hasLabel(_b)")
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                     .EchoGroovy
                     .ConfigureSerializer(_ => _
-                        .OverrideAtomSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
+                        .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("g.V(_a).hasLabel(_b)")

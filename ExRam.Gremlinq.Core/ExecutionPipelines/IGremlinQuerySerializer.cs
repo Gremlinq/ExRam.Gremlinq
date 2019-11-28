@@ -2,7 +2,7 @@
 {
     public interface IGremlinQuerySerializer
     {
-        IGremlinQuerySerializer OverrideAtomSerializer<TAtom>(AtomSerializer<TAtom> atomSerializer);
+        IGremlinQuerySerializer OverrideFragmentSerializer<TFragment>(QueryFragmentSerializer<TFragment> queryFragmentSerializer);
 
         object Serialize(IGremlinQuery query);
     }
