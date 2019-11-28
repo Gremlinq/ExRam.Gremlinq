@@ -301,6 +301,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddV_ignores_label()
+        {
+            _g
+                .AddV(new Language {Label = "Language"})
+                .Should()
+                .SerializeToGroovy("g.addV(_a)")
+                .WithParameters("Language");
+        }
+
+        [Fact]
         public void AddV_with_overridden_name()
         {
             _g

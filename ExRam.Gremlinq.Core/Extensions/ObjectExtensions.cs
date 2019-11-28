@@ -48,7 +48,7 @@ namespace System
                 if (identifier is T t)
                 {
                     actualSerializationBehaviour = SerializationBehaviour.IgnoreOnUpdate;
-                    if (t == T.Label)
+                    if (T.Label.Equals(t))
                         actualSerializationBehaviour = SerializationBehaviour.IgnoreAlways;
                 }
 
