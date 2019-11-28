@@ -261,5 +261,19 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
+
+        IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex)
+        {
+            return this
+                .V<TNewVertex>(vertex.GetId())
+                .Update(vertex);
+        }
+
+        IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge)
+        {
+            return this
+                .E<TNewEdge>(edge.GetId())
+                .Update(edge);
+        }
     }
 }

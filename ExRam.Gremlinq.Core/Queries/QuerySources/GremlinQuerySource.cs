@@ -59,6 +59,20 @@ namespace ExRam.Gremlinq.Core
                     .Inject(elements);
             }
 
+            IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex)
+            {
+                return Create()
+                    .V<TNewVertex>(vertex.GetId())
+                    .Update(vertex);
+            }
+
+            IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge)
+            {
+                return Create()
+                    .E<TNewEdge>(edge.GetId())
+                    .Update(edge);
+            }
+
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.UseName(string name)
             {
                 if (string.IsNullOrEmpty(name))
@@ -161,20 +175,6 @@ namespace ExRam.Gremlinq.Core
         public static IConfigurableGremlinQuerySource UseModel(this IConfigurableGremlinQuerySource source, IGraphModel model)
         {
             return source.ConfigureModel(_ => model);
-        }
-
-        public static IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(this IGremlinQuerySource source, TNewVertex vertex)
-        {
-            return source
-                .V<TNewVertex>(vertex.GetId())
-                .Update(vertex);
-        }
-
-        public static IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(this IGremlinQuerySource source, TNewEdge edge)
-        {
-            return source
-                .E<TNewEdge>(edge.GetId())
-                .Update(edge);
         }
 
         public static IEdgeGremlinQuery<TEdge> E<TEdge>(this IGremlinQuerySource source, params object[] ids)

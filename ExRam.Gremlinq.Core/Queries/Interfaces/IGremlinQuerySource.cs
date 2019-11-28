@@ -9,5 +9,8 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<IVertex> V(params object[] ids);
         IEdgeGremlinQuery<IEdge> E(params object[] ids);
         IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+
+        IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
+        IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
     }
 }
