@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Tests.Entities;
+﻿using System;
+using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
 using LanguageExt;
@@ -14,6 +15,17 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private sealed class VertexInsideHierarchy : Vertex
         {
+        }
+
+        [Fact]
+        public void PropertyMetadata_name_cannot_be_null()
+        {
+            var m = default(PropertyMetadata);
+
+            m
+                .Invoking(_ => _.Name)
+                .Should()
+                .Throw<InvalidOperationException>();
         }
 
         [Fact]
