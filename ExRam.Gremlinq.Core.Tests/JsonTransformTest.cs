@@ -158,8 +158,18 @@ namespace ExRam.Gremlinq.Providers.Tests
                 transform,
                 "[ { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 2 }, \"value\": { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 28 }, \"label\": \"Person\" } }} ]",
                 "[ { \"type\": \"vertex\", \"id\": 28, \"label\": \"Person\" } , { \"type\": \"vertex\", \"id\": 28, \"label\": \"Person\" } ]");
+
+            Assert(
+                transform,
+                "{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 1 }, \"value\": { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 0 }, \"label\": \"Person\" } } } } ]}",
+                "[ { \"type\": \"vertex\", \"id\": 0, \"label\": \"Person\" } ]");
+
+            Assert(
+                transform,
+                "{ \"@type\": \"g:List\", \"@value\": [ { \"@type\": \"g:Traverser\", \"@value\": { \"bulk\": { \"@type\": \"g:Int64\", \"@value\": 2 }, \"value\": { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 0 }, \"label\": \"Person\" } } } } ]}",
+                "[ { \"type\": \"vertex\", \"id\": 0, \"label\": \"Person\" }, { \"type\": \"vertex\", \"id\": 0, \"label\": \"Person\" } ]");
         }
-        
+
         private static void AssertIdentity(IJsonTransform transform, string source)
         {
             Assert(transform, source, source);

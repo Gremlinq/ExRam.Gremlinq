@@ -293,7 +293,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         bulk = Convert.ToInt64(recurse.Transform(source).Last().tokenValue);
                     }
-                    else if ("value".Equals(source.Current.tokenValue) && bulk > -1)
+                    else if ("value".Equals(source.Current.tokenValue) && bulk > 0)
                     {
                         if (source.MoveNext())
                         {
