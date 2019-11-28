@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
         private abstract class BlockableConverter : JsonConverter
         {
             [ThreadStatic]
-            private static List<JsonConverter> _blockedConverters;
+            private static List<JsonConverter>? _blockedConverters;
 
             private sealed class BlockDisposable : IDisposable
             {
@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq.Core
 
                 public void Dispose()
                 {
-                    _blockedConverters.Remove(_blockedConverter);
+                    _blockedConverters?.Remove(_blockedConverter);
                 }
             }
 
