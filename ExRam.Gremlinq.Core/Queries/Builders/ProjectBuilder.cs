@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Immutable;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class ProjectBuilder
     {
-        private sealed class ProjectBuilderImpl<TSourceQuery> : IProjectBuilder<TSourceQuery> where TSourceQuery : IGremlinQuery
+        private sealed class ProjectBuilderImpl<TSourceQuery, TElement> : IProjectBuilder<TSourceQuery, TElement> where TSourceQuery : IGremlinQuery<TElement>
         {
             private readonly TSourceQuery _sourceQuery;
 
@@ -15,19 +16,24 @@ namespace ExRam.Gremlinq.Core
                 Projections = projections;
             }
 
-            public IProjectBuilder<TSourceQuery> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            public IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
             {
-                return new ProjectBuilderImpl<TSourceQuery>(
+                return new ProjectBuilderImpl<TSourceQuery, TElement>(
                     _sourceQuery,
                     Projections.SetItem(name, projection(_sourceQuery)));
+            }
+
+            IProjectBuilder<TSourceQuery> IProjectBuilder<TSourceQuery>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(name, projection);
             }
 
             public IImmutableDictionary<string, IGremlinQuery> Projections { get; }
         }
 
-        public static IProjectBuilder<TSourceQuery> Create<TSourceQuery>(TSourceQuery sourceQuery) where TSourceQuery : IGremlinQuery
+        public static IProjectBuilder<TSourceQuery, TElement> Create<TSourceQuery, TElement>(TSourceQuery sourceQuery) where TSourceQuery : IGremlinQuery<TElement>
         {
-            return new ProjectBuilderImpl<TSourceQuery>(sourceQuery, ImmutableDictionary<string, IGremlinQuery>.Empty);
+            return new ProjectBuilderImpl<TSourceQuery, TElement>(sourceQuery, ImmutableDictionary<string, IGremlinQuery>.Empty);
         }
     }
 }

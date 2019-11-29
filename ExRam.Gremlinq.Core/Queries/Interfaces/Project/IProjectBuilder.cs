@@ -10,4 +10,10 @@ namespace ExRam.Gremlinq.Core
 
         IImmutableDictionary<string, IGremlinQuery> Projections { get; }
     }
+
+    public interface IProjectBuilder<out TSourceQuery, TElement> : IProjectBuilder<TSourceQuery>
+        where TSourceQuery : IGremlinQuery<TElement>
+    {
+        new IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection);
+    }
 }

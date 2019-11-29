@@ -68,8 +68,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery <#= iface #>.Project(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery> projection{0}", i) #>) => Project<Unit>(<#= GetArgumentList("projection{0}", i) #>);
 <# } #>
 
-        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>>, IProjectBuilder<<#= iface #>>> continuation) => Project(continuation);
-
+       
         <#= iface #> <#= iface #>.Range(long low, long high) => Range(low, high);
 
         <#= iface #> <#= iface #>.Repeat(Func<<#= iface #>, <#= iface #>> repeatTraversal) => Repeat(repeatTraversal);
@@ -90,6 +89,12 @@ namespace ExRam.Gremlinq.Core
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
+        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>>, IProjectBuilder<<#= iface #>>> continuation) => Project(continuation);
+<# } #>
+
+
+<# foreach(var iface in Typed(substitutedBaseInterfaces)){ #>
+        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>> continuation) => Project(continuation);
 <# } #>
 
 
