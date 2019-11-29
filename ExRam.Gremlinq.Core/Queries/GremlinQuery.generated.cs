@@ -1596,6 +1596,11 @@ namespace ExRam.Gremlinq.Core
         IOrderedPropertyGremlinQuery<TElement> IOrderedPropertyGremlinQuery<TElement>.ThenByDescending(Expression<Func<TElement, object>> projection) => By(projection, Order.Decr);
 
 
+        IValueGremlinQuery<IDictionary<string, TTarget>> IElementGremlinQuery<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
+
+        IValueGremlinQuery<TTarget> IElementGremlinQuery<TElement>.Values<TTarget>() => ValuesForProjections<TTarget>(Enumerable.Empty<LambdaExpression>()); 
+        IValueGremlinQuery<TTarget> IElementGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
+        IValueGremlinQuery<TTarget> IElementGremlinQuery<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections) => ValuesForProjections<TTarget>(projections);
         IValueGremlinQuery<IDictionary<string, TTarget>> IVertexGremlinQuery<TElement>.ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys) => ValueMap<IDictionary<string, TTarget>>(keys);
 
         IValueGremlinQuery<TTarget> IVertexGremlinQuery<TElement>.Values<TTarget>() => ValuesForProjections<TTarget>(Enumerable.Empty<LambdaExpression>()); 

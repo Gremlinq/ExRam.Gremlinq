@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-<# foreach(var iface in Typed(Simple(Qualified(Element(baseInterfaces))))) { #>
+<# foreach(var iface in Typed(Simple(Element(baseInterfaces)))) { #>
     public partial interface <#= iface #>
     {
 <# if (!iface.Contains("VertexProperty")) { #>

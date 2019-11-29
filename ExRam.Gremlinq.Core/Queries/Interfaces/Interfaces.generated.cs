@@ -1901,6 +1901,14 @@ namespace ExRam.Gremlinq.Core
 
 
 
+    public partial interface IElementGremlinQuery<TElement>
+    {
+        new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TElement, TTarget>>[] keys);
+
+        new IValueGremlinQuery<TTarget> Values<TTarget>(); 
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections);
+        new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections);
+    }
     public partial interface IVertexGremlinQuery<TVertex>
     {
         new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params Expression<Func<TVertex, TTarget>>[] keys);
