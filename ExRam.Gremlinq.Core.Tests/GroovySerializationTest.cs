@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -1485,6 +1486,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
                 .WithParameters("count!", "in!", "out!", "properties!");
+        }
+
+        [Fact]
+        public void Project_to_property_with_builder()
+        {
+            _g
+                .V<Person>()
+                .Project(_ => _
+                    .By("in!", __ => __.In())
+                    .By(x => x.Age))
+                .Should()
+                .SerializeToGroovy("g.V().hasLabel(_a).project(_b, _c).by(__.values(_b)).by(__.in())")
+                .WithParameters("Person", "Age", "in!");
         }
 
         [Fact]
