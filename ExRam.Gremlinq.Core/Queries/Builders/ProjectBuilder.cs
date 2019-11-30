@@ -16,17 +16,37 @@ namespace ExRam.Gremlinq.Core
                 _sourceQuery = sourceQuery;
                 Projections = projections;
             }
-
-            public IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
-            {
-                return new ProjectBuilderImpl<TSourceQuery, TElement>(
-                    _sourceQuery,
-                    Projections.SetItem(name, projection(_sourceQuery)));
-            }
             
             IProjectBuilder<TSourceQuery> IProjectBuilder<TSourceQuery>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
             {
                 return By(name, projection);
+            }
+
+            IProjectBuilder<TSourceQuery> IProjectBuilder<TSourceQuery>.By(Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(projection);
+            }
+
+            IProjectBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(projection);
+            }
+
+            IProjectBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(name, projection);
+            }
+
+            private IProjectBuilder<TSourceQuery, TElement> By( Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By($"Item{Projections.Count + 1}", projection);
+            }
+
+            private IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return new ProjectBuilderImpl<TSourceQuery, TElement>(
+                    _sourceQuery,
+                    Projections.SetItem(name, projection(_sourceQuery)));
             }
 
             public IImmutableDictionary<string, IGremlinQuery> Projections { get; }

@@ -1508,9 +1508,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V();
 
             query
-                .Project(
-                    __ => (IGremlinQuery)__.Count(),
-                    __ => __.Count())
+                .Project(__ => __
+                    .By(__ => (IGremlinQuery)__.Count())
+                    .By(__ => __.Count()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
                 .WithParameters("Item1", "Item2");
@@ -1521,9 +1521,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Project(
-                    __ => (IGremlinQuery)__.Count(),
-                    __ => __.Count())
+                .Project(__ => __
+                    .By(__ => (IGremlinQuery)__.Count())
+                    .By(__ => __.Count()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
                 .WithParameters("Item1", "Item2");
@@ -1534,9 +1534,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Project(
-                    __ => __.In(),
-                    __ => __.Out())
+                .Project(__ => __
+                    .By(__ => __.In())
+                    .By(__ => __.Out()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b).by(__.in()).by(__.out())")
                 .WithParameters("Item1", "Item2");
@@ -1547,10 +1547,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Project(
-                    __ => __.In(),
-                    __ => __.Out(),
-                    __ => __.Count())
+                .Project(__ => __
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())")
                 .WithParameters("Item1", "Item2", "Item3");
@@ -1561,11 +1561,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Project(
-                    __ => __.In(),
-                    __ => __.Out(),
-                    __ => __.Count(),
-                    __ => __.Properties())
+                .Project(__ => __
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count())
+                    .By(__ => __.Properties()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
                 .WithParameters("Item1", "Item2", "Item3", "Item4");

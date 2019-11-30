@@ -60,15 +60,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery <#= iface #>.Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) => Optional(optionalTraversal);
         <#= iface #> <#= iface #>.Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals) => Or(orTraversals);
 
-<# for(var i = 2; i <= 16; i++) { #>
-        IGremlinQuery<(<#= GetArgumentList("TElement{0}", i) #>)> <#= iface #>.Project<<#= GetArgumentList("TElement{0}", i) #>>(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery<TElement{0}>> projection{0}", i) #>) => Project<(<#= GetArgumentList("TElement{0}", i) #>)>(<#= GetArgumentList("projection{0}", i) #>);
-<# } #>
-
-<# for(var i = 2; i <= 16; i++) { #>
-        IGremlinQuery <#= iface #>.Project(<#= GetArgumentList("Func<" + iface + ", IGremlinQuery> projection{0}", i) #>) => Project<Unit>(<#= GetArgumentList("projection{0}", i) #>);
-<# } #>
-
-       
         <#= iface #> <#= iface #>.Range(long low, long high) => Range(low, high);
 
         <#= iface #> <#= iface #>.Repeat(Func<<#= iface #>, <#= iface #>> repeatTraversal) => Repeat(repeatTraversal);
