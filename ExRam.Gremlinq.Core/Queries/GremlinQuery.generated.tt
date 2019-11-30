@@ -80,12 +80,12 @@ namespace ExRam.Gremlinq.Core
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>>, IProjectBuilder<<#= iface #>>> continuation) => Project(continuation);
+        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectTupleBuilder<<#= iface #>, object>, IProjectBuilder<<#= iface #>, object>> continuation) => Project(continuation);
 <# } #>
 
 
 <# foreach(var iface in Typed(substitutedBaseInterfaces)){ #>
-        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>> continuation) => Project(continuation);
+        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectTupleBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>> continuation) => Project(continuation);
 <# } #>
 
 

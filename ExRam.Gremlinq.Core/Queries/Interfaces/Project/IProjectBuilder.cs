@@ -3,19 +3,19 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IProjectBuilder<out TSourceQuery>
-        where TSourceQuery : IGremlinQuery
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement> :
+        IProjectBuilder<TSourceQuery, TElement>
+        where TSourceQuery : IGremlinQuery<TElement>
     {
-        IProjectBuilder<TSourceQuery> By(Func<TSourceQuery, IGremlinQuery> projection);
-        IProjectBuilder<TSourceQuery> By(string name, Func<TSourceQuery, IGremlinQuery> projection);
-
-        IImmutableDictionary<string, IGremlinQuery> Projections { get; }
+        new IProjectTupleBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
     }
 
-    public interface IProjectBuilder<out TSourceQuery, TElement> : IProjectBuilder<TSourceQuery>
+    public interface IProjectBuilder<out TSourceQuery, TElement>
         where TSourceQuery : IGremlinQuery<TElement>
     {
         new IProjectBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
         new IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection);
+
+        IImmutableDictionary<string, IGremlinQuery> Projections { get; }
     }
 }

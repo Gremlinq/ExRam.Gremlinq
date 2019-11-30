@@ -579,9 +579,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStepWithUnitTypes<TTarget>(OutVStep.Instance);
 
-        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Project(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TElement>, IProjectBuilder<IGremlinQuery>> continuation)
+        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Project<TActualElement>(Func<IProjectTupleBuilder<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>, IProjectBuilder<IGremlinQuery<TActualElement>, TActualElement>> continuation)
         {
-            var projections = continuation(ProjectBuilder.Create<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TElement>(Anonymize()))
+            var projections = continuation(ProjectBuilder.Create<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>(Anonymize().Cast<TActualElement>()))
                 .Projections
                 .OrderBy(x => x.Key)
                 .ToArray();
