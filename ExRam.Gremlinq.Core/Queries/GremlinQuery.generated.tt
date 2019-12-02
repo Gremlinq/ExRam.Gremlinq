@@ -80,12 +80,14 @@ namespace ExRam.Gremlinq.Core
 
 <# foreach(var iface in Untyped(substitutedBaseInterfaces)){ #>
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectTupleBuilder<<#= iface #>, object>, IProjectBuilder<<#= iface #>, object>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 <# } #>
 
 
 <# foreach(var iface in Typed(substitutedBaseInterfaces)){ #>
-        IGremlinQuery<object> <#= iface #>.Project(Func<IProjectTupleBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation) => Project<<#= GetElement(iface) #>, dynamic>(continuation);
+        IGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation) => Project<<#= GetElement(iface) #>, TResult>(continuation);
 <# } #>
 
 

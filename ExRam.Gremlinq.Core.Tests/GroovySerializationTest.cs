@@ -1451,22 +1451,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Project_with_builder_0()
-        {
-            _g
-                .V()
-                .Project(_ => _)
-                .Should()
-                .SerializeToGroovy("g.V().project()")
-                .WithoutParameters();
-        }
-
-        [Fact]
         public void Project_with_builder_1()
         {
             _g
                 .V()
                 .Project(_ => _
+                    .ToDynamic()
                     .By("in!", __ => __.In()))
                 .Should()
                 .SerializeToGroovy("g.V().project(_a).by(__.in())")
@@ -1479,6 +1469,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Project(_ => _
+                    .ToDynamic()
                     .By("in!", __ => __.In())
                     .By("out!", __ => __.Out())
                     .By("count!", __ => __.Count())
@@ -1494,6 +1485,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Project(_ => _
+                    .ToDynamic()
                     .By("in!", __ => __.In())
                     .By(x => x.Age))
                 .Should()
@@ -1509,6 +1501,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             query
                 .Project(__ => __
+                    .ToTuple()
                     .By(__ => (IGremlinQuery)__.Count())
                     .By(__ => __.Count()))
                 .Should()
@@ -1522,6 +1515,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Project(__ => __
+                    .ToTuple()
                     .By(__ => (IGremlinQuery)__.Count())
                     .By(__ => __.Count()))
                 .Should()
@@ -1535,6 +1529,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Project(__ => __
+                    .ToTuple()
                     .By(__ => __.In())
                     .By(__ => __.Out()))
                 .Should()
@@ -1548,6 +1543,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Project(__ => __
+                    .ToTuple()
                     .By(__ => __.In())
                     .By(__ => __.Out())
                     .By(__ => __.Count()))
@@ -1562,6 +1558,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Project(__ => __
+                    .ToTuple()
                     .By(__ => __.In())
                     .By(__ => __.Out())
                     .By(__ => __.Count())

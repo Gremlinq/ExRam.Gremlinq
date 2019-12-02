@@ -3,19 +3,33 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement> :
-        IProjectBuilder<TSourceQuery, TElement>
-        where TSourceQuery : IGremlinQuery<TElement>
+    public interface IProjectResult
     {
-        new IProjectTupleBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
+        IImmutableDictionary<string, IGremlinQuery> Projections { get; }
+    }
+
+    public interface IProjectResult<TResult> : IProjectResult
+    {
+        
     }
 
     public interface IProjectBuilder<out TSourceQuery, TElement>
-        where TSourceQuery : IGremlinQuery<TElement>
+        where TSourceQuery : IGremlinQuery
     {
-        new IProjectBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
-        new IProjectBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection);
+        IProjectTupleBuilder<TSourceQuery, TElement> ToTuple();
+        IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
+    }
 
-        IImmutableDictionary<string, IGremlinQuery> Projections { get; }
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement> : IProjectResult<object>
+        where TSourceQuery : IGremlinQuery
+    {
+        IProjectTupleBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
+    }
+
+    public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectResult
+        where TSourceQuery : IGremlinQuery
+    {
+        IProjectDynamicBuilder<TSourceQuery, TElement> By(Func<TSourceQuery, IGremlinQuery> projection);
+        IProjectDynamicBuilder<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection);
     }
 }

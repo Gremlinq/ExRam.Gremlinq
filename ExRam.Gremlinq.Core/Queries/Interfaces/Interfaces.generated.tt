@@ -85,7 +85,8 @@ namespace ExRam.Gremlinq.Core
     public partial interface <#= iface #>
     {
         new <#= iface + "<TResult>" #> Cast<TResult>();
-        new IGremlinQuery<object> Project(Func<IProjectTupleBuilder<<#= iface #><object>, object>, IProjectBuilder<<#= iface #><object>, object>> continuation);
+        new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation);
+        new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation);
     }
 <# } #>
 
@@ -93,7 +94,8 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in Typed(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
-        new IGremlinQuery<object> Project(Func<IProjectTupleBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>> continuation);
+        new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation);
+        new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation);
     }
 <# } #>
 

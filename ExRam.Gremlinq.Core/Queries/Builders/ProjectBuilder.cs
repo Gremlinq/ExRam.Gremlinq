@@ -7,7 +7,11 @@ namespace ExRam.Gremlinq.Core
 {
     public static class ProjectBuilder
     {
-        private sealed class ProjectBuilderImpl<TSourceQuery, TElement> : IProjectTupleBuilder<TSourceQuery, TElement> where TSourceQuery : IGremlinQuery<TElement>
+        private sealed class ProjectBuilderImpl<TSourceQuery, TElement> :
+            IProjectBuilder<TSourceQuery, TElement>,
+            IProjectDynamicBuilder<TSourceQuery, TElement>,
+            IProjectTupleBuilder<TSourceQuery, TElement>
+            where TSourceQuery : IGremlinQuery<TElement>
         {
             private readonly TSourceQuery _sourceQuery;
 
@@ -17,21 +21,6 @@ namespace ExRam.Gremlinq.Core
                 Projections = projections;
             }
             
-            IProjectBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
-            {
-                return By(projection);
-            }
-
-            IProjectBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
-            {
-                return By(name, projection);
-            }
-
-            IProjectTupleBuilder<TSourceQuery, TElement> IProjectTupleBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
-            {
-                return By(projection);
-            }
-
             private ProjectBuilderImpl<TSourceQuery, TElement> By( Func<TSourceQuery, IGremlinQuery> projection)
             {
                 return By($"Item{Projections.Count + 1}", projection);
@@ -43,18 +32,43 @@ namespace ExRam.Gremlinq.Core
                     _sourceQuery,
                     Projections.SetItem(name, projection(_sourceQuery)));
             }
-            
+
+            IProjectTupleBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.ToTuple()
+            {
+                return this;
+            }
+
+            IProjectDynamicBuilder<TSourceQuery, TElement> IProjectBuilder<TSourceQuery, TElement>.ToDynamic()
+            {
+                return this;
+            }
+
+            IProjectTupleBuilder<TSourceQuery, TElement> IProjectTupleBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(projection);
+            }
+
+            IProjectDynamicBuilder<TSourceQuery, TElement> IProjectDynamicBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(projection);
+            }
+
+            IProjectDynamicBuilder<TSourceQuery, TElement> IProjectDynamicBuilder<TSourceQuery, TElement>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return By(name, projection);
+            }
+
             public IImmutableDictionary<string, IGremlinQuery> Projections { get; }
-
-            IImmutableDictionary<string, IGremlinQuery> IProjectBuilder<TSourceQuery, TElement>.Projections => throw new NotImplementedException();
         }
 
-        internal static IProjectTupleBuilder<TSourceQuery, TElement> Create<TSourceQuery, TElement>(TSourceQuery sourceQuery) where TSourceQuery : IGremlinQuery<TElement>
+        internal static IProjectBuilder<TSourceQuery, TElement> Create<TSourceQuery, TElement>(TSourceQuery sourceQuery) where TSourceQuery : IGremlinQuery<TElement>
         {
-            return new ProjectBuilderImpl<TSourceQuery, TElement>(sourceQuery, ImmutableDictionary<string, IGremlinQuery>.Empty);
+            return new ProjectBuilderImpl<TSourceQuery, TElement>(
+                sourceQuery,
+                ImmutableDictionary<string, IGremlinQuery>.Empty);
         }
 
-        public static IProjectBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectBuilder<TSourceQuery, TElement> projectBuilder, Expression<Func<TElement, object>> projection)
+        public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, Expression<Func<TElement, object>> projection)
             where TSourceQuery : IElementGremlinQuery<TElement>
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)

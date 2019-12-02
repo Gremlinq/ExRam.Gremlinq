@@ -881,28 +881,45 @@ namespace ExRam.Gremlinq.Core
 
 
         IGremlinQuery<TResult> IGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> IGremlinQuery.Project(Func<IProjectTupleBuilder<IGremlinQuery<object>, object>, IProjectBuilder<IGremlinQuery<object>, object>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> IGremlinQuery.Project(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IGremlinQuery<TResult> IGremlinQuery.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
         IElementGremlinQuery<TResult> IElementGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> IElementGremlinQuery.Project(Func<IProjectTupleBuilder<IElementGremlinQuery<object>, object>, IProjectBuilder<IElementGremlinQuery<object>, object>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> IElementGremlinQuery.Project(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IGremlinQuery<TResult> IElementGremlinQuery.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
         IVertexGremlinQuery<TResult> IVertexGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> IVertexGremlinQuery.Project(Func<IProjectTupleBuilder<IVertexGremlinQuery<object>, object>, IProjectBuilder<IVertexGremlinQuery<object>, object>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> IVertexGremlinQuery.Project(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IGremlinQuery<TResult> IVertexGremlinQuery.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
         IEdgeGremlinQuery<TResult> IEdgeGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<object> IEdgeGremlinQuery.Project(Func<IProjectTupleBuilder<IEdgeGremlinQuery<object>, object>, IProjectBuilder<IEdgeGremlinQuery<object>, object>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> IEdgeGremlinQuery.Project(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IGremlinQuery<TResult> IEdgeGremlinQuery.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 
 
-        IGremlinQuery<object> IGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IGremlinQuery<TElement>, TElement>, IProjectBuilder<IGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IValueGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectBuilder<IValueGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IArrayGremlinQuery<TElement, TFoldedQuery>.Project(Func<IProjectTupleBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IElementGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectBuilder<IElementGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IVertexGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IEdgeGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectTupleBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project(Func<IProjectTupleBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IInEdgeGremlinQuery<TElement, TInVertex>.Project(Func<IProjectTupleBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectTupleBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project(Func<IProjectTupleBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project(Func<IProjectTupleBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>> continuation) => Project(continuation);
-        IGremlinQuery<object> IPropertyGremlinQuery<TElement>.Project(Func<IProjectTupleBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>> continuation) => Project(continuation);
+        IGremlinQuery<dynamic> IGremlinQuery<TElement>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IValueGremlinQuery<TElement>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IValueGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IArrayGremlinQuery<TElement, TFoldedQuery>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IArrayGremlinQuery<TElement, TFoldedQuery>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IElementGremlinQuery<TElement>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IElementGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IVertexGremlinQuery<TElement>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IVertexGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IInEdgeGremlinQuery<TElement, TInVertex>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IInEdgeGremlinQuery<TElement, TInVertex>.Project<TResult>(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IGremlinQuery<dynamic> IPropertyGremlinQuery<TElement>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IGremlinQuery<TResult> IPropertyGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
 
 
         IOrderedValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.OrderBy(Expression<Func<TElement, object>> projection) => OrderBy(projection, Order.Incr);
