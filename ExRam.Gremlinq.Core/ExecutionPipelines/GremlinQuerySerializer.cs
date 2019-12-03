@@ -180,6 +180,8 @@ namespace ExRam.Gremlinq.Core
         {
             return serializer
                 .OverrideFragmentSerializer<AddEStep>((step, overridden, recurse) => CreateInstruction("addE", recurse, step.Label))
+                .OverrideFragmentSerializer<AddEStep.ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
+                .OverrideFragmentSerializer<AddEStep.ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
                 .OverrideFragmentSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
                 .OverrideFragmentSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
                 .OverrideFragmentSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
@@ -369,8 +371,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
                 .OverrideFragmentSerializer<TailStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("tail", recurse, step.Scope, step.Count) : CreateInstruction("tail", recurse, step.Count))
                 .OverrideFragmentSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
-                .OverrideFragmentSerializer<ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
-                .OverrideFragmentSerializer<ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
                 .OverrideFragmentSerializer<Type>((type, overridden, recurse) => type)
                 .OverrideFragmentSerializer<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold", recurse))
                 .OverrideFragmentSerializer<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
@@ -382,9 +382,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<VStep>((step, overridden, recurse) => CreateInstruction("V", recurse, step.Ids))
                 .OverrideFragmentSerializer<WhereTraversalStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Traversal))
                 .OverrideFragmentSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
-                .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies",
-                    recurse,
-                    step.StrategyTypes))
+                .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, step.StrategyTypes))
                 .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate));
         }
 
