@@ -3,5 +3,10 @@
     public sealed class ProfileStep : Step
     {
         public static readonly ProfileStep Instance = new ProfileStep();
+
+        private ProfileStep()
+        {
+
+        }
     }
 }
