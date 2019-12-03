@@ -189,9 +189,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
                 .OverrideFragmentSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV", recurse))
                 .OverrideFragmentSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build", recurse))
-                .OverrideFragmentSerializer<ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
-                .OverrideFragmentSerializer<ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
-                .OverrideFragmentSerializer<ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
                 .OverrideFragmentSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
                 .OverrideFragmentSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
                 {
@@ -330,6 +327,9 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
                 .OverrideFragmentSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard.IfNone(Pick.None), step.OptionTraversal))
                 .OverrideFragmentSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
+                .OverrideFragmentSerializer<OrderStep.ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
+                .OverrideFragmentSerializer<OrderStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
+                .OverrideFragmentSerializer<OrderStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
                 .OverrideFragmentSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
                 .OverrideFragmentSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
                 .OverrideFragmentSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
