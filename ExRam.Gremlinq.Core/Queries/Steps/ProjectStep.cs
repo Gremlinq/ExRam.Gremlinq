@@ -2,13 +2,10 @@
 {
     public sealed class ProjectStep : Step
     {
-        public sealed class ByTraversalStep : Step
+        public sealed class ByTraversalStep : SingleTraversalArgumentStep
         {
-            public IGremlinQuery Traversal { get; }
-
-            public ByTraversalStep(IGremlinQuery traversal)
+            public ByTraversalStep(IGremlinQuery traversal) : base(traversal)
             {
-                Traversal = traversal;
             }
         }
 

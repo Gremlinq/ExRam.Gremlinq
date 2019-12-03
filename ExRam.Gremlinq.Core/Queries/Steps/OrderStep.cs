@@ -26,15 +26,13 @@ namespace ExRam.Gremlinq.Core
             public object Key { get; }
         }
 
-        public sealed class ByTraversalStep : Step
+        public sealed class ByTraversalStep : SingleTraversalArgumentStep
         {
             public Order Order { get; }
-            public IGremlinQuery Traversal { get; }
 
-            public ByTraversalStep(IGremlinQuery traversal, Order order)
+            public ByTraversalStep(IGremlinQuery traversal, Order order) : base(traversal)
             {
                 Order = order;
-                Traversal = traversal;
             }
         }
 
