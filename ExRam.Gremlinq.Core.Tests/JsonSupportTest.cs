@@ -146,6 +146,22 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task DynamicData()
+        {
+            var array = await _g
+                .WithExecutor(new TestJsonQueryExecutor(SingleWorksFor))
+                .V()
+                .Project(_ => _
+                    .ToDynamic()
+                    .By("in!", __ => __.In()))
+                .ToArrayAsync();
+
+            array.Should().HaveCount(1);
+            ((object)array[0].Id).Should().Be(9);
+            ((object)array[0].Label).Should().Be("WorksFor");
+        }
+
+        [Fact]
         public async Task WorksFor_with_Graphson3()
         {
             var array = await _g

@@ -1493,35 +1493,35 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person", "Age", "in!");
         }
 
-        [Fact]
-        public void Project_untyped1()
-        {
-            IGremlinQuery query = _g
-                .V();
+        //[Fact]
+        //public void Project_untyped1()
+        //{
+        //    IGremlinQuery query = _g
+        //        .V();
 
-            query
-                .Project(__ => __
-                    .ToTuple()
-                    .By(__ => (IGremlinQuery)__.Count())
-                    .By(__ => __.Count()))
-                .Should()
-                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
-                .WithParameters("Item1", "Item2");
-        }
+        //    query
+        //        .Project(__ => __
+        //            .ToTuple()
+        //            .By(__ => (IGremlinQuery)__.Count())
+        //            .By(__ => __.Count()))
+        //        .Should()
+        //        .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
+        //        .WithParameters("Item1", "Item2");
+        //}
 
-        [Fact]
-        public void Project_untyped2()
-        {
-            _g
-                .V()
-                .Project(__ => __
-                    .ToTuple()
-                    .By(__ => (IGremlinQuery)__.Count())
-                    .By(__ => __.Count()))
-                .Should()
-                .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
-                .WithParameters("Item1", "Item2");
-        }
+        //[Fact]
+        //public void Project_untyped2()
+        //{
+        //    _g
+        //        .V()
+        //        .Project(__ => __
+        //            .ToTuple()
+        //            .By(__ => (IGremlinQuery)__.Count())
+        //            .By(__ => __.Count()))
+        //        .Should()
+        //        .SerializeToGroovy("g.V().project(_a, _b).by(__.count()).by(__.count())")
+        //        .WithParameters("Item1", "Item2");
+        //}
 
         [Fact]
         public void Project2()

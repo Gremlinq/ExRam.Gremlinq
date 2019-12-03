@@ -5,14 +5,13 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class ProjectBuilder
+    public static partial class ProjectBuilder
     {
-        private sealed class ProjectBuilderImpl<TSourceQuery, TElement> :
+        private sealed partial class ProjectBuilderImpl<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
             IProjectBuilder<TSourceQuery, TElement>,
-            IProjectDynamicBuilder<TSourceQuery, TElement>,
-            IProjectTupleBuilder<TSourceQuery, TElement>
-            where TSourceQuery : IGremlinQuery<TElement>
-        {
+            IProjectDynamicBuilder<TSourceQuery, TElement>
+            where TSourceQuery : IGremlinQuery
+        { 
             private readonly TSourceQuery _sourceQuery;
 
             public ProjectBuilderImpl(TSourceQuery sourceQuery, IImmutableDictionary<string, IGremlinQuery> projections)
@@ -21,14 +20,19 @@ namespace ExRam.Gremlinq.Core
                 Projections = projections;
             }
             
-            private ProjectBuilderImpl<TSourceQuery, TElement> By( Func<TSourceQuery, IGremlinQuery> projection)
+            private ProjectBuilderImpl<TSourceQuery, TElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(Func<TSourceQuery, IGremlinQuery> projection)
             {
-                return By($"Item{Projections.Count + 1}", projection);
+                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>($"Item{Projections.Count + 1}", projection);
             }
 
-            private ProjectBuilderImpl<TSourceQuery, TElement> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            private ProjectBuilderImpl<TSourceQuery, TElement, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit> By(string name, Func<TSourceQuery, IGremlinQuery> projection)
             {
-                return new ProjectBuilderImpl<TSourceQuery, TElement>(
+                return By<Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit>(name, projection);
+            }
+
+            private ProjectBuilderImpl<TSourceQuery, TElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Func<TSourceQuery, IGremlinQuery> projection)
+            {
+                return new ProjectBuilderImpl<TSourceQuery, TElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(
                     _sourceQuery,
                     Projections.SetItem(name, projection(_sourceQuery)));
             }
@@ -43,14 +47,19 @@ namespace ExRam.Gremlinq.Core
                 return this;
             }
 
-            IProjectTupleBuilder<TSourceQuery, TElement> IProjectTupleBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
+            IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TNewItem16> IProjectTupleBuilder<TSourceQuery, TElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>.By<TNewItem16>(Func<TSourceQuery, IGremlinQuery<TNewItem16>> projection)
             {
-                return By(projection);
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TNewItem16>(projection);
+            }
+
+            IProjectTupleBuilder<TSourceQuery, TElement, TNewItem1> IProjectTupleBuilder<TSourceQuery, TElement>.By<TNewItem1>(Func<TSourceQuery, IGremlinQuery<TNewItem1>> projection)
+            {
+                return By<TNewItem1, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit>(projection);
             }
 
             IProjectDynamicBuilder<TSourceQuery, TElement> IProjectDynamicBuilder<TSourceQuery, TElement>.By(Func<TSourceQuery, IGremlinQuery> projection)
             {
-                return By(projection);
+                return By($"Item{Projections.Count + 1}", projection);
             }
 
             IProjectDynamicBuilder<TSourceQuery, TElement> IProjectDynamicBuilder<TSourceQuery, TElement>.By(string name, Func<TSourceQuery, IGremlinQuery> projection)
@@ -63,7 +72,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static IProjectBuilder<TSourceQuery, TElement> Create<TSourceQuery, TElement>(TSourceQuery sourceQuery) where TSourceQuery : IGremlinQuery<TElement>
         {
-            return new ProjectBuilderImpl<TSourceQuery, TElement>(
+            return new ProjectBuilderImpl<TSourceQuery, TElement, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit, Unit>(
                 sourceQuery,
                 ImmutableDictionary<string, IGremlinQuery>.Empty);
         }
