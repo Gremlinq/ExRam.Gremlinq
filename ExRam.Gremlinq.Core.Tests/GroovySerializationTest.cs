@@ -871,6 +871,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Group_with_key()
+        {
+            _g
+                .V()
+                .Group(_ => _
+                    .ByKey(_ => _.Label()))
+                .Should()
+                .SerializeToGroovy("g.V().group().by(__.label())");
+        }
+
+        [Fact]
+        public void Group_with_key_and_value()
+        {
+            _g
+                .V()
+                .Group(_ => _
+                    .ByKey(_ => _.Label())
+                    .ByValue(_ => _.Values("v")))
+                .Should()
+                .SerializeToGroovy("g.V().group().by(__.label()).by(__.values(_a))")
+                .WithParameters("v");
+        }
+
+        [Fact]
         public void Identity()
         {
             _g

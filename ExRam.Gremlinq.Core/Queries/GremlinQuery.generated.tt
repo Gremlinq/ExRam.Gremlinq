@@ -45,6 +45,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery <#= iface #>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> <#= iface #>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> <#= iface #>.Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         <#= iface #> <#= iface #>.Identity() => Identity();
 
         <#= iface #> <#= iface #>.Limit(long count) => Limit(count);

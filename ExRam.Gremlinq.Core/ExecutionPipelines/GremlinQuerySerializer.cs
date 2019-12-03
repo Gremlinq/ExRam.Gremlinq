@@ -240,6 +240,8 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<FlatMapStep>((step, overridden, recurse) => CreateInstruction("flatMap", recurse, step.Traversal))
                 .OverrideFragmentSerializer<FromLabelStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.StepLabel))
                 .OverrideFragmentSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
+                .OverrideFragmentSerializer<GroupStep>((step, overridden, recurse) => CreateInstruction("group", recurse))
+                .OverrideFragmentSerializer<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                 .OverrideFragmentSerializer<HasStep>((step, overridden, recurse) =>
                 {
                     if (step.Value is P p1 && p1.EqualsConstant(false))

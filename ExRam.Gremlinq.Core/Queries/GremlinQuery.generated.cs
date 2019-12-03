@@ -48,6 +48,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQuery.FlatMap<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKey<IGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IGremlinQuery IGremlinQuery.Identity() => Identity();
 
         IGremlinQuery IGremlinQuery.Limit(long count) => Limit(count);
@@ -97,6 +100,9 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery IElementGremlinQuery.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IElementGremlinQuery.FlatMap<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKey<IElementGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IElementGremlinQuery IElementGremlinQuery.Identity() => Identity();
 
@@ -148,6 +154,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexGremlinQuery.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKey<IVertexGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IVertexGremlinQuery IVertexGremlinQuery.Identity() => Identity();
 
         IVertexGremlinQuery IVertexGremlinQuery.Limit(long count) => Limit(count);
@@ -197,6 +206,9 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery IEdgeGremlinQuery.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKey<IEdgeGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery IEdgeGremlinQuery.Identity() => Identity();
 
@@ -248,6 +260,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKey<IGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Identity();
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Limit(long count) => Limit(count);
@@ -297,6 +312,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IValueGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IValueGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IValueGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IValueGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKey<IValueGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Identity() => Identity();
 
@@ -348,6 +366,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKey<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Identity() => Identity();
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Limit(long count) => Limit(count);
@@ -397,6 +418,9 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IElementGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKey<IElementGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Identity() => Identity();
 
@@ -448,6 +472,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Identity() => Identity();
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Limit(long count) => Limit(count);
@@ -497,6 +524,9 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Identity() => Identity();
 
@@ -548,6 +578,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
 
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Limit(long count) => Limit(count);
@@ -597,6 +630,9 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Identity() => Identity();
 
@@ -648,6 +684,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.FlatMap<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKeyAndValue<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKey<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Identity() => Identity();
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Limit(long count) => Limit(count);
@@ -697,6 +736,9 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
 
@@ -748,6 +790,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Identity() => Identity();
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Limit(long count) => Limit(count);
@@ -798,6 +843,9 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
 
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
+
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Identity() => Identity();
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Limit(long count) => Limit(count);
@@ -847,6 +895,9 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Where(ILambda lambda) => Where(lambda);
 
         TTargetQuery IPropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
+
+        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IPropertyGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IPropertyGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IGremlinQuery<IDictionary<TNewKey, object>> IPropertyGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKey<IPropertyGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Identity() => Identity();
 

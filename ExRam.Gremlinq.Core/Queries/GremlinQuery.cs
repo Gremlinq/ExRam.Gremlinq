@@ -384,6 +384,25 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery>(FoldStep.Instance);
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit> From<TNewElement, TNewOutVertex, TNewInVertex>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> fromVertexTraversal) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize())));
+        
+        private GremlinQuery<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TKey, TValue>> projection)
+        {
+            var group = projection(GroupBuilder.Create(this.Anonymize()));
+
+            return this
+                .AddStep<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery))
+                .AddStep(new GroupStep.ByTraversalStep(group.ValueQuery));
+        }
+
+        private GremlinQuery<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQuery, TKey>> projection)
+        {
+            var group = projection(GroupBuilder.Create(this.Anonymize()));
+
+            return this
+                .AddStep<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery));
+        }
 
         private IAsyncEnumerator<TResult> GetAsyncEnumerator<TResult>(CancellationToken ct = default)
         {
