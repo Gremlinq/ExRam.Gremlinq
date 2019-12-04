@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
                     submitTask = _lazyGremlinClient
                         .Value
-                        .SubmitAsync<JToken>(groovyScript.QueryString, groovyScript.Bindings);
+                        .SubmitAsync<JToken>($"{_alias}.{groovyScript.QueryString}", groovyScript.Bindings);
                 }
                 else if (serializedQuery is Bytecode bytecode)
                 {
