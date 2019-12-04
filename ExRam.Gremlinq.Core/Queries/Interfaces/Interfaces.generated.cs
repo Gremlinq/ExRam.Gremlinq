@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery Not(Func<IGremlinQuery, IGremlinQuery> notTraversal);
         new IGremlinQuery None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IGremlinQuery Optional(Func<IGremlinQuery, IGremlinQuery> optionalTraversal);
         IGremlinQuery Or(params Func<IGremlinQuery, IGremlinQuery>[] orTraversals);
 
         new IGremlinQuery Range(long low, long high);
@@ -124,7 +124,7 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery Not(Func<IElementGremlinQuery, IGremlinQuery> notTraversal);
         new IElementGremlinQuery None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IElementGremlinQuery Optional(Func<IElementGremlinQuery, IElementGremlinQuery> optionalTraversal);
         IElementGremlinQuery Or(params Func<IElementGremlinQuery, IGremlinQuery>[] orTraversals);
 
         new IElementGremlinQuery Range(long low, long high);
@@ -184,7 +184,7 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery Not(Func<IVertexGremlinQuery, IGremlinQuery> notTraversal);
         new IVertexGremlinQuery None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IVertexGremlinQuery Optional(Func<IVertexGremlinQuery, IVertexGremlinQuery> optionalTraversal);
         IVertexGremlinQuery Or(params Func<IVertexGremlinQuery, IGremlinQuery>[] orTraversals);
 
         new IVertexGremlinQuery Range(long low, long high);
@@ -244,7 +244,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery Not(Func<IEdgeGremlinQuery, IGremlinQuery> notTraversal);
         new IEdgeGremlinQuery None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IEdgeGremlinQuery Optional(Func<IEdgeGremlinQuery, IEdgeGremlinQuery> optionalTraversal);
         IEdgeGremlinQuery Or(params Func<IEdgeGremlinQuery, IGremlinQuery>[] orTraversals);
 
         new IEdgeGremlinQuery Range(long low, long high);
@@ -304,7 +304,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> Not(Func<IGremlinQuery<TElement>, IGremlinQuery> notTraversal);
         new IGremlinQuery<TElement> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IGremlinQuery<TElement> Optional(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> optionalTraversal);
         IGremlinQuery<TElement> Or(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
         new IGremlinQuery<TElement> Range(long low, long high);
@@ -364,7 +364,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> Not(Func<IValueGremlinQuery<TElement>, IGremlinQuery> notTraversal);
         new IValueGremlinQuery<TElement> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IValueGremlinQuery<TElement> Optional(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> optionalTraversal);
         IValueGremlinQuery<TElement> Or(params Func<IValueGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
         new IValueGremlinQuery<TElement> Range(long low, long high);
@@ -424,7 +424,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TArray, TQuery> Not(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> notTraversal);
         new IArrayGremlinQuery<TArray, TQuery> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IArrayGremlinQuery<TArray, TQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IArrayGremlinQuery<TArray, TQuery> Optional(Func<IArrayGremlinQuery<TArray, TQuery>, IArrayGremlinQuery<TArray, TQuery>> optionalTraversal);
         IArrayGremlinQuery<TArray, TQuery> Or(params Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery>[] orTraversals);
 
         new IArrayGremlinQuery<TArray, TQuery> Range(long low, long high);
@@ -484,7 +484,7 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<TElement> Not(Func<IElementGremlinQuery<TElement>, IGremlinQuery> notTraversal);
         new IElementGremlinQuery<TElement> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IElementGremlinQuery<TElement> Optional(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> optionalTraversal);
         IElementGremlinQuery<TElement> Or(params Func<IElementGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
         new IElementGremlinQuery<TElement> Range(long low, long high);
@@ -544,7 +544,7 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<TVertex> Not(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> notTraversal);
         new IVertexGremlinQuery<TVertex> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IVertexGremlinQuery<TVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IVertexGremlinQuery<TVertex> Optional(Func<IVertexGremlinQuery<TVertex>, IVertexGremlinQuery<TVertex>> optionalTraversal);
         IVertexGremlinQuery<TVertex> Or(params Func<IVertexGremlinQuery<TVertex>, IGremlinQuery>[] orTraversals);
 
         new IVertexGremlinQuery<TVertex> Range(long low, long high);
@@ -604,7 +604,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TEdge> Not(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> notTraversal);
         new IEdgeGremlinQuery<TEdge> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IEdgeGremlinQuery<TEdge> Optional(Func<IEdgeGremlinQuery<TEdge>, IEdgeGremlinQuery<TEdge>> optionalTraversal);
         IEdgeGremlinQuery<TEdge> Or(params Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery>[] orTraversals);
 
         new IEdgeGremlinQuery<TEdge> Range(long low, long high);
@@ -664,7 +664,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TEdge, TAdjacentVertex> Not(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> notTraversal);
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex> Optional(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IEdgeGremlinQuery<TEdge, TAdjacentVertex>> optionalTraversal);
         IEdgeGremlinQuery<TEdge, TAdjacentVertex> Or(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] orTraversals);
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Range(long low, long high);
@@ -724,7 +724,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Not(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> notTraversal);
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Optional(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> optionalTraversal);
         IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Or(params Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery>[] orTraversals);
 
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Range(long low, long high);
@@ -784,7 +784,7 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQuery<TEdge, TInVertex> Not(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> notTraversal);
         new IInEdgeGremlinQuery<TEdge, TInVertex> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IInEdgeGremlinQuery<TEdge, TInVertex> Optional(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IInEdgeGremlinQuery<TEdge, TInVertex>> optionalTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> Or(params Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery>[] orTraversals);
 
         new IInEdgeGremlinQuery<TEdge, TInVertex> Range(long low, long high);
@@ -844,7 +844,7 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TEdge, TOutVertex> Not(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> notTraversal);
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> Optional(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IOutEdgeGremlinQuery<TEdge, TOutVertex>> optionalTraversal);
         IOutEdgeGremlinQuery<TEdge, TOutVertex> Or(params Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery>[] orTraversals);
 
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Range(long low, long high);
@@ -904,7 +904,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TProperty, TValue> Not(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> notTraversal);
         new IVertexPropertyGremlinQuery<TProperty, TValue> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IVertexPropertyGremlinQuery<TProperty, TValue> Optional(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IVertexPropertyGremlinQuery<TProperty, TValue>> optionalTraversal);
         IVertexPropertyGremlinQuery<TProperty, TValue> Or(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery>[] orTraversals);
 
         new IVertexPropertyGremlinQuery<TProperty, TValue> Range(long low, long high);
@@ -964,7 +964,7 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Not(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> notTraversal);
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Optional(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> optionalTraversal);
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Or(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery>[] orTraversals);
 
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Range(long low, long high);
@@ -1024,7 +1024,7 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<TElement> Not(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> notTraversal);
         new IPropertyGremlinQuery<TElement> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        IPropertyGremlinQuery<TElement> Optional(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> optionalTraversal);
         IPropertyGremlinQuery<TElement> Or(params Func<IPropertyGremlinQuery<TElement>, IGremlinQuery>[] orTraversals);
 
         new IPropertyGremlinQuery<TElement> Range(long low, long high);

@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> Not(Func<<#= iface #>, IGremlinQuery> notTraversal);
         new <#= iface #> None();
 
-        TTargetQuery Optional<TTargetQuery>(Func<<#= iface #>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery;
+        <#= iface #> Optional(Func<<#= iface #>, <#= iface #>> optionalTraversal);
         <#= iface #> Or(params Func<<#= iface #>, IGremlinQuery>[] orTraversals);
 
         new <#= iface #> Range(long low, long high);
