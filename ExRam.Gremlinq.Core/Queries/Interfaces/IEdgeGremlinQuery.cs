@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IEdgeGremlinQuery<TEdge> : IElementGremlinQuery<TEdge>, IEdgeGremlinQuery
     {
-        IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery, IGremlinQuery<TOutVertex>> fromVertexTraversal);
+        IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IGremlinQuery, IVertexGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
 
         IPropertyGremlinQuery<Property<object>> Properties();
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue[]>>[] projections);
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, Property<TValue>[]>>[] projections);
 
-        IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
+        IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(Func<IGremlinQuery, IVertexGremlinQuery<TInVertex>> toVertexTraversal);
         IInEdgeGremlinQuery<TEdge, TInVertex> To<TInVertex>(StepLabel<TInVertex> stepLabel);
 
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TEdge, Property<TTarget>>>[] projections);
@@ -49,10 +49,10 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge>
     {
-        IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IVertexGremlinQuery<TAdjacentVertex>, IGremlinQuery<TTargetVertex>> fromVertexTraversal);
+        IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(Func<IVertexGremlinQuery<TAdjacentVertex>, IVertexGremlinQuery<TTargetVertex>> fromVertexTraversal);
         new IEdgeGremlinQuery<TEdge, TTargetVertex, TAdjacentVertex> From<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
 
-        IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IVertexGremlinQuery<TAdjacentVertex>, IGremlinQuery<TTargetVertex>> toVertexTraversal);
+        IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(Func<IVertexGremlinQuery<TAdjacentVertex>, IVertexGremlinQuery<TTargetVertex>> toVertexTraversal);
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
     }
 
