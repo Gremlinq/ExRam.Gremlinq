@@ -394,7 +394,6 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
         {
             return serializer
-                .OverrideFragmentSerializer<IGremlinQuery>((query, overridden, recurse) => (query.Identifier, overridden(query)))
                 .Select(serialized =>
                 {
                     var builder = new StringBuilder();
@@ -402,16 +401,18 @@ namespace ExRam.Gremlinq.Core
 
                     void Append(object obj)
                     {
-                        if (obj is ValueTuple<string, object> tuple)
+                        if (obj is GroovySerializedGremlinQuery serializedQuery)
+                            builder.Append(serializedQuery.QueryString);
+                        else if (obj is Bytecode bytecode)
                         {
-                            builder.Append(tuple.Item1);
-                            Append(tuple.Item2);
-                        }
-                        if (obj is Bytecode bytecode)
-                        {
+                            if (builder.Length > 0)
+                                builder.Append("__");
+
                             foreach (var instruction in bytecode.StepInstructions)
                             {
-                                builder.Append($".{instruction.OperatorName}(");
+                                builder.Append(builder.Length != 0
+                                    ? $".{instruction.OperatorName}("
+                                    : $"{instruction.OperatorName}(");
 
                                 Append(instruction.Arguments);
 

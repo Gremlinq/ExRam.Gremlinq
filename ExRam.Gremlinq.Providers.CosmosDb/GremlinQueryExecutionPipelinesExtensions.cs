@@ -81,6 +81,7 @@ namespace ExRam.Gremlinq.Core
                     enableSsl,
                     $"/dbs/{database}/colls/{graphName}",
                     authKey,
+                    "g",
                     GraphsonVersion.V2,
                     new Dictionary<Type, IGraphSONSerializer>
                     {

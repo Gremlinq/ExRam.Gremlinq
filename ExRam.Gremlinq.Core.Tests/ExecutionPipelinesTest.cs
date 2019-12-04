@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             query
                 .Should()
-                .Be("g.V().hasLabel(_a).has(_b, _c)");
+                .Be("V().hasLabel(_a).has(_b, _c)");
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId {Id = "someId"})
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
 
@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("g.V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b)")
                 .WithParameters("someId", "Person");
         }
     }

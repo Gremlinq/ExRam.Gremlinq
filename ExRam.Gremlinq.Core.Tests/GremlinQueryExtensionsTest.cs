@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core.Tests
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .Should()
-                .SerializeToGroovy("__.has(_a, _b)");
+                .SerializeToGroovy("has(_a, _b)");
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core.Tests
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .Should()
-                .SerializeToGroovy("__.identity()");
+                .SerializeToGroovy("identity()");
         }
     }
 }

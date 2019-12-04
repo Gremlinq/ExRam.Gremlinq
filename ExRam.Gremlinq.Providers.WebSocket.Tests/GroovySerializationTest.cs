@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V()
                 .Skip(10)
                 .Should()
-                .SerializeToGroovy("g.V().skip(_a)")
+                .SerializeToGroovy("V().skip(_a)")
                 .WithParameters(10);
         }
     }
