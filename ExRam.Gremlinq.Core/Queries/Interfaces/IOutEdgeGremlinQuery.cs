@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core
     {
         new IVertexGremlinQuery<TOutVertex> OutV();
 
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(Func<IGremlinQuery, IGremlinQuery<TInVertex>> toVertexTraversal);
+        IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IGremlinQuery<TInVertex>> toVertexTraversal);
     }
 }
