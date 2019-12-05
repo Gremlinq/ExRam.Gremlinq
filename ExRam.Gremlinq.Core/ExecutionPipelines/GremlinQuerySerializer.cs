@@ -176,6 +176,61 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
 
+        private static readonly Instruction[] VertexProjectionInstructions;
+        private static readonly Instruction[] EdgeProjectionInstructions;
+
+        static GremlinQuerySerializer()
+        {
+            VertexProjectionInstructions = new[]
+            {
+                new Instruction("project", "id", "label", "properties"),
+                new Instruction("by", T.Id),
+                new Instruction("by", T.Label),
+                new Instruction(
+                    "by",
+                    new Bytecode
+                    {
+                        StepInstructions =
+                        {
+                            new Instruction("properties"),
+                            new Instruction("group"),
+                            new Instruction("by", T.Label),
+                            new Instruction("by", new Bytecode
+                            {
+                                StepInstructions =
+                                {
+                                    new Instruction("project", "id", "label", "value", "properties"),
+                                    new Instruction("by", T.Id),
+                                    new Instruction("by", T.Label),
+                                    new Instruction("by", T.Value),
+                                    new Instruction("by", new Bytecode
+                                    {
+                                        StepInstructions =
+                                        {
+                                            new Instruction("valueMap")
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+            };
+
+            EdgeProjectionInstructions = new[]
+            {
+                new Instruction("project", "id", "label", "properties"),
+                new Instruction("by", T.Id),
+                new Instruction("by", T.Label),
+                new Instruction("by", new Bytecode
+                {
+                    StepInstructions =
+                    {
+                        new Instruction("valueMap")
+                    }
+                })
+            };
+        }
+
         public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer)
         {
             return serializer
@@ -285,6 +340,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<IGremlinQuery>((query, overridden, recurse) =>
                 {
                     var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
+
                     if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
                         steps = steps.WorkaroundTINKERPOP_2112();
 
@@ -294,6 +350,17 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (recurse(step) is Instruction instruction)
                             byteCode.StepInstructions.Add(instruction);
+                    }
+
+                    if (query is GremlinQueryBase gremlinQueryBase && gremlinQueryBase.SurfaceVisible)
+                    {
+                        var model = query.AsAdmin().Environment.Model;
+                        var elementType = query.GetType().GetGenericArguments()[0];
+
+                        if (model.VerticesModel.Metadata.ContainsKey(elementType))
+                            byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
+                        else if (model.EdgesModel.Metadata.ContainsKey(elementType))
+                            byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
                     }
 
                     return byteCode;
