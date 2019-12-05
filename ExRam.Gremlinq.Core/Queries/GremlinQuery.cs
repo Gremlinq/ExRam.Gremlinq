@@ -21,20 +21,18 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuery<Unit> Anonymous(IGremlinQueryEnvironment environment)
         {
             return Create<Unit>(
-                "__",
                 ImmutableList<Step>.Empty,
                 environment);
         }
 
-        public static IGremlinQuery<TElement> Create<TElement>(string graphName, IGremlinQueryEnvironment environment)
+        public static IGremlinQuery<TElement> Create<TElement>(IGremlinQueryEnvironment environment)
         {
             return Create<TElement>(
-                graphName,
                 ImmutableList<Step>.Empty,
                 environment);
         }
 
-        public static IGremlinQuery<TElement> Create<TElement>(string graphName, IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
+        public static IGremlinQuery<TElement> Create<TElement>(IImmutableList<Step> steps, IGremlinQueryEnvironment environment)
         {
             return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
                 steps,
