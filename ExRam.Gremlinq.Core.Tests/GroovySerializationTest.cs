@@ -474,7 +474,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).by(__.select(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()))))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
@@ -1043,7 +1043,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Map(___ => ___
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b)).by(__.select(_c)))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).by(__.select(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 
@@ -1058,7 +1058,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(tuple, stepLabel1))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).by(__.select(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()))))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
@@ -1073,7 +1073,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(stepLabel1, tuple))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b)).by(__.select(_c)).as(_f).project(_d, _e).by(__.select(_b)).by(__.select(_f))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).by(__.select(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).as(_f).project(_d, _e).by(__.select(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))).by(__.select(_f))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
         }
 
