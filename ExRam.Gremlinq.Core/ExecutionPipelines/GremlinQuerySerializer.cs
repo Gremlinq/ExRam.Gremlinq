@@ -183,9 +183,16 @@ namespace ExRam.Gremlinq.Core
         {
             VertexProjectionInstructions = new[]
             {
-                new Instruction("project", "id", "label", "properties"),
+                new Instruction("project", "id", "label", "type", "properties"),
                 new Instruction("by", T.Id),
                 new Instruction("by", T.Label),
+                new Instruction("by", new Bytecode
+                {
+                    StepInstructions =
+                    {
+                        new Instruction("constant", "vertex")
+                    }
+                }),
                 new Instruction(
                     "by",
                     new Bytecode
@@ -209,7 +216,8 @@ namespace ExRam.Gremlinq.Core
                                         {
                                             new Instruction("valueMap")
                                         }
-                                    })
+                                    }),
+                                    new Instruction("fold")
                                 }
                             })
                         }
@@ -218,9 +226,16 @@ namespace ExRam.Gremlinq.Core
 
             EdgeProjectionInstructions = new[]
             {
-                new Instruction("project", "id", "label", "properties"),
+                new Instruction("project", "id", "label", "type", "properties"),
                 new Instruction("by", T.Id),
                 new Instruction("by", T.Label),
+                new Instruction("by", new Bytecode
+                {
+                    StepInstructions =
+                    {
+                        new Instruction("constant", "edge")
+                    }
+                }),
                 new Instruction("by", new Bytecode
                 {
                     StepInstructions =
