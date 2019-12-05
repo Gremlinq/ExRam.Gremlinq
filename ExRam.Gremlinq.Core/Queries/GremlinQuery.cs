@@ -14,7 +14,7 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQuery
+    internal static class GremlinQuery
     {
         internal static readonly IImmutableList<Step> AnonymousNoneSteps = ImmutableList<Step>.Empty.Add(NoneStep.Instance);
 
