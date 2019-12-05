@@ -77,12 +77,17 @@ private static string GetElement(string str)
 
 private static string GetArgumentList(string template, int argumentCount)
 {
+    return GetArgumentList(template, ", ", argumentCount);
+}
+
+private static string GetArgumentList(string template, string separator, int argumentCount)
+{
     var str = "";
 
     for (var i = 1; i <= argumentCount; i++)
     {
         if (i > 1)
-            str = str + ", ";
+            str = str + separator;
 
         str += string.Format(template, i);
     }
