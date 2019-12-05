@@ -81,8 +81,6 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, Unit, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize<TInVertex, Unit, Unit, Unit, Unit, Unit>())));
 
-        IAsyncEnumerator<TElement> IAsyncEnumerable<TElement>.GetAsyncEnumerator(CancellationToken ct) => GetAsyncEnumerator<TElement>(ct);
-
         IValueGremlinQuery<object> IElementGremlinQuery.Id() => Id();
 
         IVertexGremlinQuery<IVertex> IVertexGremlinQuery.In() => AddStepWithUnitTypes<IVertex>(InStep.NoLabels);
@@ -98,6 +96,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TNewElement> IGremlinQuerySource.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
+
+        IAsyncEnumerable<TElement> IGremlinQuery<TElement>.ToAsyncEnumerable() => Environment.Pipeline.Execute(this);
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 

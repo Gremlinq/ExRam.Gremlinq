@@ -829,7 +829,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
+                .Order(b => b
+                    .By(x => x.Name))
                 .ToArrayAsync();
         }
 
@@ -858,7 +859,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderByDescending(x => x.Name)
+                .Order(b => b
+                    .ByDescending(x => x.Name))
                 .ToArrayAsync();
         }
 
@@ -877,8 +879,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
-                .ThenBy(x => x.Age)
+                .Order(b => b
+                    .By(x => x.Name)
+                    .By(x => x.Age))
                 .ToArrayAsync();
         }
 
@@ -909,8 +912,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
-                .ThenByDescending(x => x.Age)
+                .Order(b => b
+                    .By(x => x.Name)
+                    .ByDescending(x => x.Age))
                 .ToArrayAsync();
         }
 

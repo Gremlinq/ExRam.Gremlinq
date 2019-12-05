@@ -590,13 +590,6 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery));
         }
 
-        private IAsyncEnumerator<TResult> GetAsyncEnumerator<TResult>(CancellationToken ct = default)
-        {
-            return Environment.Pipeline
-                .Execute(this.Cast<TResult>())
-                .GetAsyncEnumerator(ct);
-        }
-
         private object[] GetKeys(IEnumerable<LambdaExpression> projections)
         {
             return GetKeys(projections

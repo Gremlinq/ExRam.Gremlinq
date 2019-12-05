@@ -17,8 +17,10 @@ namespace ExRam.Gremlinq.Core
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQuery;
     }
 
-    public partial interface IGremlinQuery<TElement> : IGremlinQuery, IAsyncEnumerable<TElement>
+    public partial interface IGremlinQuery<TElement> : IGremlinQuery
     {
         IGremlinQuery<TElement> Inject(params TElement[] elements);
+
+        IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
 }

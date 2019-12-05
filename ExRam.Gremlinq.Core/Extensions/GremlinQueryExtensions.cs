@@ -1,10 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions
     {
+        public static ValueTask<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        {
+            return query.ToAsyncEnumerable().ToArrayAsync(ct);
+        }
+
+        public static ValueTask<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        {
+            return query.ToAsyncEnumerable().FirstAsync(ct);
+        }
+
+        public static ValueTask<TElement> FirstOrDefaultAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        {
+            return query.ToAsyncEnumerable().FirstOrDefaultAsync(ct);
+        }
+
         internal static IGremlinQuery AddStep(this IGremlinQuery query, Step step)
         {
             return query.AsAdmin().InsertStep(query.AsAdmin().Steps.Count, step);
