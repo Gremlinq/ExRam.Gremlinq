@@ -13,23 +13,23 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
-        IOrderedGremlinQuery,
-        IOrderedElementGremlinQuery,
-        IOrderedArrayGremlinQuery<TElement, TFoldedQuery>,
-        IOrderedGremlinQuery<TElement>,
-        IOrderedElementGremlinQuery<TElement>,
-        IOrderedValueGremlinQuery<TElement>,
-        IOrderedVertexGremlinQuery,
-        IOrderedVertexGremlinQuery<TElement>,
-        IOrderedEdgeGremlinQuery,
-        IOrderedEdgeGremlinQuery<TElement>,
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex>,
-        IOrderedInEdgeGremlinQuery<TElement, TInVertex>,
-        IOrderedOutEdgeGremlinQuery<TElement, TOutVertex>,
-        IOrderedEdgeGremlinQuery<TElement, TOutVertex, TInVertex>,
-        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue>,
-        IOrderedVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,
-        IOrderedPropertyGremlinQuery<TElement>
+        IGremlinQuery,
+        IElementGremlinQuery,
+        IArrayGremlinQuery<TElement, TFoldedQuery>,
+        IGremlinQuery<TElement>,
+        IElementGremlinQuery<TElement>,
+        IValueGremlinQuery<TElement>,
+        IVertexGremlinQuery,
+        IVertexGremlinQuery<TElement>,
+        IEdgeGremlinQuery,
+        IEdgeGremlinQuery<TElement>,
+        IEdgeGremlinQuery<TElement, TOutVertex>,
+        IInEdgeGremlinQuery<TElement, TInVertex>,
+        IOutEdgeGremlinQuery<TElement, TOutVertex>,
+        IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>,
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue>,
+        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,
+        IPropertyGremlinQuery<TElement>
     {
         IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
 

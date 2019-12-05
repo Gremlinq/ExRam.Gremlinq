@@ -838,7 +838,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name)))
                 .ToArrayAsync();
         }
 
@@ -847,7 +848,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(Lambda.Groovy("it.property('str').value().length()"))
+                .Order(b => b
+                    .By(Lambda.Groovy("it.property('str').value().length()")))
                 .ToArrayAsync();
         }
 
@@ -865,7 +867,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderByDescending(__ => __.Values(x => x.Name))
+                .Order(b => b
+                    .ByDescending(__ => __.Values(x => x.Name)))
                 .ToArrayAsync();
         }
         
@@ -884,8 +887,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenBy(__ => __.Gender)
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name))
+                    .By(__ => __.Gender))
                 .ToArrayAsync();
         }
 
@@ -894,8 +898,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(Lambda.Groovy("it.property('str1').value().length()"))
-                .ThenBy(Lambda.Groovy("it.property('str2').value().length()"))
+                .Order(b => b
+                    .By(Lambda.Groovy("it.property('str1').value().length()"))
+                    .By(Lambda.Groovy("it.property('str2').value().length()")))
                 .ToArrayAsync();
         }
 
@@ -914,8 +919,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             await _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenByDescending(__ => __.Gender)
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name))
+                    .ByDescending(__ => __.Gender))
                 .ToArrayAsync();
         }
 

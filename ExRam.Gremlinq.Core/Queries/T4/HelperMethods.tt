@@ -1,22 +1,5 @@
 ﻿<#+
 
-private string MakeUnordered(string str)
-{
-    return str.Replace("Ordered", "");
-}
-
-private string[] MakeOrdered(IEnumerable<string> interfaces)
-{
-    return interfaces
-        .Select(iface => MakeOrdered(iface))
-        .ToArray();
-}
-
-private string MakeOrdered(string str)
-{
-    return "IOrdered" + str.Replace("Ordered", "").Substring(1);
-}
-
 private static string[] Untyped(IEnumerable<string> interfaces)
 {
     return interfaces

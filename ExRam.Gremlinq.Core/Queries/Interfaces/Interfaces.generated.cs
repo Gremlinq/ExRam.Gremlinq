@@ -26,8 +26,6 @@ namespace ExRam.Gremlinq.Core
     }
 
 
-    public partial interface IOrderedGremlinQuery : IGremlinQuery { }
-
     public partial interface IGremlinQuery
     {
         IGremlinQuery And(params Func<IGremlinQuery, IGremlinQuery>[] andTraversals);
@@ -85,8 +83,6 @@ namespace ExRam.Gremlinq.Core
 
         new IGremlinQuery Where(ILambda lambda);
     }
-
-    public partial interface IOrderedElementGremlinQuery : IElementGremlinQuery { }
 
     public partial interface IElementGremlinQuery
     {
@@ -146,8 +142,6 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery Where(ILambda lambda);
     }
 
-    public partial interface IOrderedVertexGremlinQuery : IVertexGremlinQuery { }
-
     public partial interface IVertexGremlinQuery
     {
         IVertexGremlinQuery And(params Func<IVertexGremlinQuery, IGremlinQuery>[] andTraversals);
@@ -205,8 +199,6 @@ namespace ExRam.Gremlinq.Core
 
         new IVertexGremlinQuery Where(ILambda lambda);
     }
-
-    public partial interface IOrderedEdgeGremlinQuery : IEdgeGremlinQuery { }
 
     public partial interface IEdgeGremlinQuery
     {
@@ -266,8 +258,6 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery Where(ILambda lambda);
     }
 
-    public partial interface IOrderedGremlinQuery<TElement> : IGremlinQuery<TElement> { }
-
     public partial interface IGremlinQuery<TElement>
     {
         IGremlinQuery<TElement> And(params Func<IGremlinQuery<TElement>, IGremlinQuery>[] andTraversals);
@@ -325,8 +315,6 @@ namespace ExRam.Gremlinq.Core
 
         new IGremlinQuery<TElement> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedValueGremlinQuery<TElement> : IValueGremlinQuery<TElement> { }
 
     public partial interface IValueGremlinQuery<TElement>
     {
@@ -386,8 +374,6 @@ namespace ExRam.Gremlinq.Core
         new IValueGremlinQuery<TElement> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery> : IArrayGremlinQuery<TArray, TQuery> { }
-
     public partial interface IArrayGremlinQuery<TArray, TQuery>
     {
         IArrayGremlinQuery<TArray, TQuery> And(params Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery>[] andTraversals);
@@ -445,8 +431,6 @@ namespace ExRam.Gremlinq.Core
 
         new IArrayGremlinQuery<TArray, TQuery> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedElementGremlinQuery<TElement> : IElementGremlinQuery<TElement> { }
 
     public partial interface IElementGremlinQuery<TElement>
     {
@@ -506,8 +490,6 @@ namespace ExRam.Gremlinq.Core
         new IElementGremlinQuery<TElement> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedVertexGremlinQuery<TVertex> : IVertexGremlinQuery<TVertex> { }
-
     public partial interface IVertexGremlinQuery<TVertex>
     {
         IVertexGremlinQuery<TVertex> And(params Func<IVertexGremlinQuery<TVertex>, IGremlinQuery>[] andTraversals);
@@ -565,8 +547,6 @@ namespace ExRam.Gremlinq.Core
 
         new IVertexGremlinQuery<TVertex> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedEdgeGremlinQuery<TEdge> : IEdgeGremlinQuery<TEdge> { }
 
     public partial interface IEdgeGremlinQuery<TEdge>
     {
@@ -626,8 +606,6 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> : IEdgeGremlinQuery<TEdge, TAdjacentVertex> { }
-
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
         IEdgeGremlinQuery<TEdge, TAdjacentVertex> And(params Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery>[] andTraversals);
@@ -685,8 +663,6 @@ namespace ExRam.Gremlinq.Core
 
         new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> : IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> { }
 
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
@@ -746,8 +722,6 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex> : IInEdgeGremlinQuery<TEdge, TInVertex> { }
-
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
         IInEdgeGremlinQuery<TEdge, TInVertex> And(params Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery>[] andTraversals);
@@ -805,8 +779,6 @@ namespace ExRam.Gremlinq.Core
 
         new IInEdgeGremlinQuery<TEdge, TInVertex> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> : IOutEdgeGremlinQuery<TEdge, TOutVertex> { }
 
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
@@ -866,8 +838,6 @@ namespace ExRam.Gremlinq.Core
         new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue> : IVertexPropertyGremlinQuery<TProperty, TValue> { }
-
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
         IVertexPropertyGremlinQuery<TProperty, TValue> And(params Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery>[] andTraversals);
@@ -926,8 +896,6 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue> Where(ILambda lambda);
     }
 
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> { }
-
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> And(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery>[] andTraversals);
@@ -985,8 +953,6 @@ namespace ExRam.Gremlinq.Core
 
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(ILambda lambda);
     }
-
-    public partial interface IOrderedPropertyGremlinQuery<TElement> : IPropertyGremlinQuery<TElement> { }
 
     public partial interface IPropertyGremlinQuery<TElement>
     {
@@ -1142,287 +1108,58 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IValueGremlinQuery<TElement>
     {
-        new IOrderedValueGremlinQuery<TElement> OrderBy(Expression<Func<TElement, object>> projection);
-        new IOrderedValueGremlinQuery<TElement> OrderByDescending(Expression<Func<TElement, object>> projection);
+        new IValueGremlinQuery<TElement> Order(Func<IOrderBuilder<TElement, IValueGremlinQuery<TElement>>, IOrderBuilderWithBy<TElement, IValueGremlinQuery<TElement>>> projection);
     }
     public partial interface IArrayGremlinQuery<TArray, TQuery>
     {
-        new IOrderedArrayGremlinQuery<TArray, TQuery> OrderBy(Expression<Func<TArray, object>> projection);
-        new IOrderedArrayGremlinQuery<TArray, TQuery> OrderByDescending(Expression<Func<TArray, object>> projection);
+        new IArrayGremlinQuery<TArray, TQuery> Order(Func<IOrderBuilder<TArray, IArrayGremlinQuery<TArray, TQuery>>, IOrderBuilderWithBy<TArray, IArrayGremlinQuery<TArray, TQuery>>> projection);
     }
     public partial interface IVertexGremlinQuery<TVertex>
     {
-        new IOrderedVertexGremlinQuery<TVertex> OrderBy(Expression<Func<TVertex, object>> projection);
-        new IOrderedVertexGremlinQuery<TVertex> OrderByDescending(Expression<Func<TVertex, object>> projection);
+        new IVertexGremlinQuery<TVertex> Order(Func<IOrderBuilder<TVertex, IVertexGremlinQuery<TVertex>>, IOrderBuilderWithBy<TVertex, IVertexGremlinQuery<TVertex>>> projection);
     }
     public partial interface IEdgeGremlinQuery<TEdge>
     {
-        new IOrderedEdgeGremlinQuery<TEdge> OrderBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        new IEdgeGremlinQuery<TEdge> Order(Func<IOrderBuilder<TEdge, IEdgeGremlinQuery<TEdge>>, IOrderBuilderWithBy<TEdge, IEdgeGremlinQuery<TEdge>>> projection);
     }
     public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
     {
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Order(Func<IOrderBuilder<TEdge, IEdgeGremlinQuery<TEdge, TAdjacentVertex>>, IOrderBuilderWithBy<TEdge, IEdgeGremlinQuery<TEdge, TAdjacentVertex>>> projection);
     }
     public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
     {
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Order(Func<IOrderBuilder<TEdge, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>, IOrderBuilderWithBy<TEdge, IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>> projection);
     }
     public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
     {
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> OrderBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        new IInEdgeGremlinQuery<TEdge, TInVertex> Order(Func<IOrderBuilder<TEdge, IInEdgeGremlinQuery<TEdge, TInVertex>>, IOrderBuilderWithBy<TEdge, IInEdgeGremlinQuery<TEdge, TInVertex>>> projection);
     }
     public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
     {
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> OrderBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> OrderByDescending(Expression<Func<TEdge, object>> projection);
+        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Order(Func<IOrderBuilder<TEdge, IOutEdgeGremlinQuery<TEdge, TOutVertex>>, IOrderBuilderWithBy<TEdge, IOutEdgeGremlinQuery<TEdge, TOutVertex>>> projection);
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
     {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> OrderBy(Expression<Func<TProperty, object>> projection);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> OrderByDescending(Expression<Func<TProperty, object>> projection);
+        new IVertexPropertyGremlinQuery<TProperty, TValue> Order(Func<IOrderBuilder<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>, IOrderBuilderWithBy<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>> projection);
     }
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
     {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> OrderBy(Expression<Func<TProperty, object>> projection);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> OrderByDescending(Expression<Func<TProperty, object>> projection);
+        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Order(Func<IOrderBuilder<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, IOrderBuilderWithBy<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>> projection);
     }
     public partial interface IPropertyGremlinQuery<TElement>
     {
-        new IOrderedPropertyGremlinQuery<TElement> OrderBy(Expression<Func<TElement, object>> projection);
-        new IOrderedPropertyGremlinQuery<TElement> OrderByDescending(Expression<Func<TElement, object>> projection);
+        new IPropertyGremlinQuery<TElement> Order(Func<IOrderBuilder<TElement, IPropertyGremlinQuery<TElement>>, IOrderBuilderWithBy<TElement, IPropertyGremlinQuery<TElement>>> projection);
     }
 
 
     public partial interface IVertexGremlinQuery
     {
-        new IOrderedVertexGremlinQuery OrderBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal);
-        new IOrderedVertexGremlinQuery OrderBy(ILambda lambda);
-        new IOrderedVertexGremlinQuery OrderByDescending(Func<IVertexGremlinQuery, IGremlinQuery> traversal);
+        new IVertexGremlinQuery Order(Func<IOrderBuilder<IVertexGremlinQuery>, IOrderBuilderWithBy<IVertexGremlinQuery>> projection);
     }
     public partial interface IEdgeGremlinQuery
     {
-        new IOrderedEdgeGremlinQuery OrderBy(Func<IEdgeGremlinQuery, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery OrderBy(ILambda lambda);
-        new IOrderedEdgeGremlinQuery OrderByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal);
+        new IEdgeGremlinQuery Order(Func<IOrderBuilder<IEdgeGremlinQuery>, IOrderBuilderWithBy<IEdgeGremlinQuery>> projection);
     }
-    public partial interface IValueGremlinQuery<TElement>
-    {
-        new IOrderedValueGremlinQuery<TElement> OrderBy(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal);
-        new IOrderedValueGremlinQuery<TElement> OrderBy(ILambda lambda);
-        new IOrderedValueGremlinQuery<TElement> OrderByDescending(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal);
-    }
-    public partial interface IArrayGremlinQuery<TArray, TQuery>
-    {
-        new IOrderedArrayGremlinQuery<TArray, TQuery> OrderBy(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversal);
-        new IOrderedArrayGremlinQuery<TArray, TQuery> OrderBy(ILambda lambda);
-        new IOrderedArrayGremlinQuery<TArray, TQuery> OrderByDescending(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversal);
-    }
-    public partial interface IVertexGremlinQuery<TVertex>
-    {
-        new IOrderedVertexGremlinQuery<TVertex> OrderBy(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        new IOrderedVertexGremlinQuery<TVertex> OrderBy(ILambda lambda);
-        new IOrderedVertexGremlinQuery<TVertex> OrderByDescending(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversal);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge> OrderBy(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge> OrderBy(ILambda lambda);
-        new IOrderedEdgeGremlinQuery<TEdge> OrderByDescending(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversal);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> OrderBy(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> OrderBy(ILambda lambda);
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> OrderByDescending(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
-    }
-    public partial interface IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> OrderBy(ILambda lambda);
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> OrderByDescending(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
-    }
-    public partial interface IInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> OrderBy(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversal);
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> OrderBy(ILambda lambda);
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> OrderByDescending(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversal);
-    }
-    public partial interface IOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> OrderBy(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversal);
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> OrderBy(ILambda lambda);
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> OrderByDescending(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversal);
-    }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> OrderBy(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversal);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> OrderBy(ILambda lambda);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> OrderByDescending(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversal);
-    }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> OrderBy(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversal);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> OrderBy(ILambda lambda);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> OrderByDescending(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversal);
-    }
-    public partial interface IPropertyGremlinQuery<TElement>
-    {
-        new IOrderedPropertyGremlinQuery<TElement> OrderBy(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal);
-        new IOrderedPropertyGremlinQuery<TElement> OrderBy(ILambda lambda);
-        new IOrderedPropertyGremlinQuery<TElement> OrderByDescending(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal);
-    }
-
-
-    public partial interface IOrderedVertexGremlinQuery
-    {
-        IOrderedVertexGremlinQuery ThenBy(Func<IVertexGremlinQuery, IGremlinQuery> traversal);
-        IOrderedVertexGremlinQuery ThenByDescending(Func<IVertexGremlinQuery, IGremlinQuery> traversal);
-        new IOrderedVertexGremlinQuery ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedEdgeGremlinQuery
-    {
-        IOrderedEdgeGremlinQuery ThenBy(Func<IEdgeGremlinQuery, IGremlinQuery> traversal);
-        IOrderedEdgeGremlinQuery ThenByDescending(Func<IEdgeGremlinQuery, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedValueGremlinQuery<TElement>
-    {
-        IOrderedValueGremlinQuery<TElement> ThenBy(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal);
-        IOrderedValueGremlinQuery<TElement> ThenByDescending(Func<IValueGremlinQuery<TElement>, IGremlinQuery> traversal);
-        new IOrderedValueGremlinQuery<TElement> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
-    {
-        IOrderedArrayGremlinQuery<TArray, TQuery> ThenBy(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversal);
-        IOrderedArrayGremlinQuery<TArray, TQuery> ThenByDescending(Func<IArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> traversal);
-        new IOrderedArrayGremlinQuery<TArray, TQuery> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedVertexGremlinQuery<TVertex>
-    {
-        IOrderedVertexGremlinQuery<TVertex> ThenBy(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        IOrderedVertexGremlinQuery<TVertex> ThenByDescending(Func<IVertexGremlinQuery<TVertex>, IGremlinQuery> traversal);
-        new IOrderedVertexGremlinQuery<TVertex> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge>
-    {
-        IOrderedEdgeGremlinQuery<TEdge> ThenBy(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversal);
-        IOrderedEdgeGremlinQuery<TEdge> ThenByDescending(Func<IEdgeGremlinQuery<TEdge>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> ThenBy(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
-        IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> ThenByDescending(Func<IEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> ThenBy(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
-        IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> ThenByDescending(Func<IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> traversal);
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        IOrderedInEdgeGremlinQuery<TEdge, TInVertex> ThenBy(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversal);
-        IOrderedInEdgeGremlinQuery<TEdge, TInVertex> ThenByDescending(Func<IInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> traversal);
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> ThenBy(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversal);
-        IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> ThenByDescending(Func<IOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> traversal);
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        IOrderedVertexPropertyGremlinQuery<TProperty, TValue> ThenBy(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversal);
-        IOrderedVertexPropertyGremlinQuery<TProperty, TValue> ThenByDescending(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> traversal);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> ThenBy(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversal);
-        IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> ThenByDescending(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> traversal);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> ThenBy(ILambda lambda);
-    }
-    public partial interface IOrderedPropertyGremlinQuery<TElement>
-    {
-        IOrderedPropertyGremlinQuery<TElement> ThenBy(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal);
-        IOrderedPropertyGremlinQuery<TElement> ThenByDescending(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> traversal);
-        new IOrderedPropertyGremlinQuery<TElement> ThenBy(ILambda lambda);
-    }
-    
-        
-    public partial interface IOrderedValueGremlinQuery<TElement>
-    {
-        new IOrderedValueGremlinQuery<TElement> ThenBy(Expression<Func<TElement, object>> projection);
-        new IOrderedValueGremlinQuery<TElement> ThenByDescending(Expression<Func<TElement, object>> projection);
-    }
-
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
-    {
-        new IOrderedArrayGremlinQuery<TArray, TQuery> ThenBy(Expression<Func<TArray, object>> projection);
-        new IOrderedArrayGremlinQuery<TArray, TQuery> ThenByDescending(Expression<Func<TArray, object>> projection);
-    }
-
-    public partial interface IOrderedVertexGremlinQuery<TVertex>
-    {
-        new IOrderedVertexGremlinQuery<TVertex> ThenBy(Expression<Func<TVertex, object>> projection);
-        new IOrderedVertexGremlinQuery<TVertex> ThenByDescending(Expression<Func<TVertex, object>> projection);
-    }
-
-    public partial interface IOrderedEdgeGremlinQuery<TEdge>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge> ThenBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge> ThenByDescending(Expression<Func<TEdge, object>> projection);
-    }
-
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> ThenBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> ThenByDescending(Expression<Func<TEdge, object>> projection);
-    }
-
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> ThenBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> ThenByDescending(Expression<Func<TEdge, object>> projection);
-    }
-
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> ThenBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> ThenByDescending(Expression<Func<TEdge, object>> projection);
-    }
-
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> ThenBy(Expression<Func<TEdge, object>> projection);
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> ThenByDescending(Expression<Func<TEdge, object>> projection);
-    }
-
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> ThenBy(Expression<Func<TProperty, object>> projection);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> ThenByDescending(Expression<Func<TProperty, object>> projection);
-    }
-
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> ThenBy(Expression<Func<TProperty, object>> projection);
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> ThenByDescending(Expression<Func<TProperty, object>> projection);
-    }
-
-    public partial interface IOrderedPropertyGremlinQuery<TElement>
-    {
-        new IOrderedPropertyGremlinQuery<TElement> ThenBy(Expression<Func<TElement, object>> projection);
-        new IOrderedPropertyGremlinQuery<TElement> ThenByDescending(Expression<Func<TElement, object>> projection);
-    }
-
 
 
     public partial interface IElementGremlinQuery<TElement>
@@ -1694,136 +1431,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
 
         new IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> Fold();
     }
-    public partial interface IOrderedGremlinQuery<TElement>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedGremlinQuery<TElement>, StepLabel<IOrderedGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedGremlinQuery<TElement> Coin(double probability);
-
-        new IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> Fold();
-    }
-    public partial interface IOrderedValueGremlinQuery<TElement>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedValueGremlinQuery<TElement>, StepLabel<IOrderedValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedValueGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedValueGremlinQuery<TElement> Coin(double probability);
-
-        new IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> Fold();
-    }
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, StepLabel<TArray[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, StepLabel<IOrderedArrayGremlinQuery<TArray, TQuery>, TArray>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedArrayGremlinQuery<TResult, TQuery> Cast<TResult>();
-        new IOrderedArrayGremlinQuery<TArray, TQuery> Coin(double probability);
-
-        new IArrayGremlinQuery<TArray[], IArrayGremlinQuery<TArray, TQuery>> Fold();
-    }
-    public partial interface IOrderedElementGremlinQuery<TElement>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedElementGremlinQuery<TElement>, StepLabel<IOrderedElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedElementGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedElementGremlinQuery<TElement> Coin(double probability);
-
-        new IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> Fold();
-    }
-    public partial interface IOrderedVertexGremlinQuery<TVertex>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TVertex>, StepLabel<TVertex[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedVertexGremlinQuery<TVertex>, StepLabel<IOrderedVertexGremlinQuery<TVertex>, TVertex>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedVertexGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedVertexGremlinQuery<TVertex> Coin(double probability);
-
-        new IArrayGremlinQuery<TVertex[], IVertexGremlinQuery<TVertex>> Fold();
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge>, StepLabel<IOrderedEdgeGremlinQuery<TEdge>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedEdgeGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedEdgeGremlinQuery<TEdge> Coin(double probability);
-
-        new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge>> Fold();
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedEdgeGremlinQuery<TResult, TAdjacentVertex> Cast<TResult>();
-        new IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex> Coin(double probability);
-
-        new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TAdjacentVertex>> Fold();
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, StepLabel<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedEdgeGremlinQuery<TResult, TOutVertex, TInVertex> Cast<TResult>();
-        new IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Coin(double probability);
-
-        new IArrayGremlinQuery<TEdge[], IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>> Fold();
-    }
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, StepLabel<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedInEdgeGremlinQuery<TResult, TInVertex> Cast<TResult>();
-        new IOrderedInEdgeGremlinQuery<TEdge, TInVertex> Coin(double probability);
-
-        new IArrayGremlinQuery<TEdge[], IInEdgeGremlinQuery<TEdge, TInVertex>> Fold();
-    }
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<TEdge[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, StepLabel<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, TEdge>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedOutEdgeGremlinQuery<TResult, TOutVertex> Cast<TResult>();
-        new IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex> Coin(double probability);
-
-        new IArrayGremlinQuery<TEdge[], IOutEdgeGremlinQuery<TEdge, TOutVertex>> Fold();
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedVertexPropertyGremlinQuery<TResult, TValue> Cast<TResult>();
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue> Coin(double probability);
-
-        new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedVertexPropertyGremlinQuery<TResult, TValue, TMeta> Cast<TResult>();
-        new IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Coin(double probability);
-
-        new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>> Fold();
-    }
-    public partial interface IOrderedPropertyGremlinQuery<TElement>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<IOrderedPropertyGremlinQuery<TElement>, StepLabel<TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<IOrderedPropertyGremlinQuery<TElement>, StepLabel<IOrderedPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new IOrderedPropertyGremlinQuery<TResult> Cast<TResult>();
-        new IOrderedPropertyGremlinQuery<TElement> Coin(double probability);
-
-        new IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> Fold();
-    }
 
     public partial interface IGremlinQuery
     {
@@ -1892,74 +1499,6 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     public partial interface IPropertyGremlinQuery<TElement>
     {
         new IPropertyGremlinQuery<TElement> Where(Func<IPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedGremlinQuery
-    {
-        new IGremlinQuery Where(Func<IOrderedGremlinQuery, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedElementGremlinQuery
-    {
-        new IElementGremlinQuery Where(Func<IOrderedElementGremlinQuery, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedVertexGremlinQuery
-    {
-        new IVertexGremlinQuery Where(Func<IOrderedVertexGremlinQuery, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedEdgeGremlinQuery
-    {
-        new IEdgeGremlinQuery Where(Func<IOrderedEdgeGremlinQuery, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedGremlinQuery<TElement>
-    {
-        new IGremlinQuery<TElement> Where(Func<IOrderedGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedValueGremlinQuery<TElement>
-    {
-        new IValueGremlinQuery<TElement> Where(Func<IOrderedValueGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedArrayGremlinQuery<TArray, TQuery>
-    {
-        new IArrayGremlinQuery<TArray, TQuery> Where(Func<IOrderedArrayGremlinQuery<TArray, TQuery>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedElementGremlinQuery<TElement>
-    {
-        new IElementGremlinQuery<TElement> Where(Func<IOrderedElementGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedVertexGremlinQuery<TVertex>
-    {
-        new IVertexGremlinQuery<TVertex> Where(Func<IOrderedVertexGremlinQuery<TVertex>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge>
-    {
-        new IEdgeGremlinQuery<TEdge> Where(Func<IOrderedEdgeGremlinQuery<TEdge>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>
-    {
-        new IEdgeGremlinQuery<TEdge, TAdjacentVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TAdjacentVertex>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>
-    {
-        new IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> Where(Func<IOrderedEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedInEdgeGremlinQuery<TEdge, TInVertex>
-    {
-        new IInEdgeGremlinQuery<TEdge, TInVertex> Where(Func<IOrderedInEdgeGremlinQuery<TEdge, TInVertex>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>
-    {
-        new IOutEdgeGremlinQuery<TEdge, TOutVertex> Where(Func<IOrderedOutEdgeGremlinQuery<TEdge, TOutVertex>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IOrderedVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
-    }
-    public partial interface IOrderedPropertyGremlinQuery<TElement>
-    {
-        new IPropertyGremlinQuery<TElement> Where(Func<IOrderedPropertyGremlinQuery<TElement>, IGremlinQuery> filterTraversal);
     }
 
 public interface IProjectTupleBuilder<out TSourceQuery, TElement, TItem1, TItem2> : IProjectResult<(TItem1, TItem2)>

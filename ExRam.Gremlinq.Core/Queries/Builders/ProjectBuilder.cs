@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
+using Gremlin.Net.Process.Traversal;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core

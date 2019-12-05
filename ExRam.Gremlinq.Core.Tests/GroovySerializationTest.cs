@@ -1267,7 +1267,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .OrderBy(x => x.Id)
+                .Order(b => b
+                    .By(x => x.Id))
                 .Fold()
                 .Unfold()
                 .Should()
@@ -1279,7 +1280,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(Lambda.Groovy("it.property('str').value().length()"))
+                .Order(b => b
+                    .By(Lambda.Groovy("it.property('str').value().length()")))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by({it.property('str').value().length()})")
                 .WithParameters("Person");
@@ -1290,7 +1292,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
+                .Order(b => b
+                    .By(x => x.Name))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(_b, incr)")
                 .WithParameters("Person", "Name");
@@ -1301,8 +1304,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
-                .ThenBy(x => x.Age)
+                .Order(b => b
+                    .By(x => x.Name)
+                    .By(x => x.Age))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(_b, incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Age");
@@ -1313,8 +1317,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(Lambda.Groovy("it.property('str1').value().length()"))
-                .ThenBy(Lambda.Groovy("it.property('str2').value().length()"))
+                .Order(b => b
+                    .By(Lambda.Groovy("it.property('str1').value().length()"))
+                    .By(Lambda.Groovy("it.property('str2').value().length()")))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by({it.property('str1').value().length()}).by({it.property('str2').value().length()})")
                 .WithParameters("Person");
@@ -1325,8 +1330,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(x => x.Name)
-                .ThenByDescending(x => x.Age)
+                .Order(b => b
+                    .By(x => x.Name)
+                    .ByDescending(x => x.Age))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(_b, incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Age");
@@ -1337,8 +1343,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenByDescending(__ => __.Gender)
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name))
+                    .ByDescending(__ => __.Gender))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, decr)")
                 .WithParameters("Person", "Name", "Gender");
@@ -1349,7 +1356,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name)))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(__.values(_b), incr)")
                 .WithParameters("Person", "Name");
@@ -1360,8 +1368,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenBy(__ => __.Gender)
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name))
+                    .By(__ => __.Gender))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(__.values(_b), incr).by(_c, incr)")
                 .WithParameters("Person", "Name", "Gender");
@@ -1372,8 +1381,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderBy(__ => __.Values(x => x.Name))
-                .ThenBy(__ => __.Values(x => x.Gender))
+                .Order(b => b
+                    .By(__ => __.Values(x => x.Name))
+                    .By(__ => __.Values(x => x.Gender)))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(__.values(_b), incr).by(__.values(_c), incr)")
                 .WithParameters("Person", "Name", "Gender");
@@ -1384,7 +1394,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderByDescending(x => x.Name)
+                .Order(b => b
+                    .ByDescending(x => x.Name))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(_b, decr)")
                 .WithParameters("Person", "Name");
@@ -1395,7 +1406,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .OrderByDescending(__ => __.Values(x => x.Name))
+                .Order(b => b
+                    .ByDescending(__ => __.Values(x => x.Name)))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(__.values(_b), decr)")
                 .WithParameters("Person", "Name");

@@ -124,6 +124,61 @@ namespace ExRam.Gremlinq.Core
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQueryBase
     {
+        private sealed class OrderBuilder : IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>
+        {
+            private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> _query;
+
+            public OrderBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> query)
+            {
+                _query = query;
+            }
+
+            GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.Build()
+            {
+                return _query;
+            }
+
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Expression<Func<TElement, object>> projection)
+            {
+                return new OrderBuilder(_query.By(projection, Gremlin.Net.Process.Traversal.Order.Incr));
+            }
+
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal)
+            {
+                return new OrderBuilder(_query.By(traversal, Gremlin.Net.Process.Traversal.Order.Incr));
+            }
+
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(ILambda lambda)
+            {
+                return new OrderBuilder(_query.By(lambda));
+            }
+
+            IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal)
+            {
+                return new OrderBuilder(_query.By(traversal, Gremlin.Net.Process.Traversal.Order.Incr));
+            }
+
+            IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(ILambda lambda)
+            {
+                return new OrderBuilder(_query.By(lambda));
+            }
+
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Expression<Func<TElement, object>> projection)
+            {
+                return new OrderBuilder(_query.By(projection, Gremlin.Net.Process.Traversal.Order.Decr));
+            }
+
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal)
+            {
+                return new OrderBuilder(_query.By(traversal, Gremlin.Net.Process.Traversal.Order.Decr));
+            }
+
+            IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal)
+            {
+                return new OrderBuilder(_query.By(traversal, Gremlin.Net.Process.Traversal.Order.Decr));
+            }
+        }
+
         public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : base(steps, environment)
         {
 
@@ -133,7 +188,7 @@ namespace ExRam.Gremlinq.Core
         {
             return this
                 .AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(new AddEStep(Environment.Model, newEdge))
-                .AddOrUpdate(newEdge, true,false);
+                .AddOrUpdate(newEdge, true, false);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddOrUpdate(TElement element, bool add, bool allowExplicitCardinality)
@@ -577,11 +632,9 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new OrStep(subQueries.ToArray()));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(Expression<Func<TElement, object>> projection, Order order) => AddStep(OrderStep.Instance).By(projection, order);
+        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQuery => projection(new OrderBuilder(this.AddStep(OrderStep.Instance))).Build();
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order) => AddStep(OrderStep.Instance).By(traversal, order);
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OrderBy(ILambda lambda) => AddStep(OrderStep.Instance).By(lambda);
+        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TElement, TTargetQuery>> projection) where TTargetQuery : IGremlinQuery<TElement> => projection(new OrderBuilder(this.AddStep(OrderStep.Instance))).Build();
 
         private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OtherV<TTarget>() => AddStepWithUnitTypes<TTarget>(OtherVStep.Instance);
 
@@ -589,7 +642,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TResult, Unit, Unit, Unit, Unit, Unit> Project<TActualElement, TResult>(Func<IProjectBuilder<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>, IProjectResult> continuation)
         {
-            var projections = continuation(ProjectBuilder.Create<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>(Anonymize().Cast<TActualElement>()))
+            var projections = continuation(ProjectBuilder.Create<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>(Anonymize<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>()))
                 .Projections
                 .OrderBy(x => x.Key)
                 .ToArray();
@@ -600,19 +653,6 @@ namespace ExRam.Gremlinq.Core
             foreach (var projection in projections)
             {
                 ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection.Value));
-            }
-
-            return ret;
-        }
-
-        private GremlinQuery<TTuple, Unit, Unit, Unit, Unit, Unit> Project<TTuple>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] projections)
-        {
-            var ret = this
-                .AddStepWithUnitTypes<TTuple>(new ProjectStep(Enumerable.Range(1, projections.Length).Select(i => $"Item{i}").ToArray()));
-
-            foreach (var projection in projections)
-            {
-                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection(Anonymize())));
             }
 
             return ret;

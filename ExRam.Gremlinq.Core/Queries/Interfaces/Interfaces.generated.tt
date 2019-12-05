@@ -22,8 +22,6 @@ namespace ExRam.Gremlinq.Core
 
 <# foreach(var iface in baseInterfaces) { #>
 
-    public partial interface <#= MakeOrdered(iface) #> : <#= iface #> { }
-
     public partial interface <#= iface #>
     {
         <#= iface #> And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals);
@@ -106,39 +104,16 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in Typed(Qualified(baseInterfaces))) { #>
     public partial interface <#= iface #>
     {
-        new <#= MakeOrdered(iface) #> OrderBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        new <#= MakeOrdered(iface) #> OrderByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
+        new <#= iface #> Order(Func<IOrderBuilder<<#= GetElement(iface) #>, <#= iface #>>, IOrderBuilderWithBy<<#= GetElement(iface) #>, <#= iface #>>> projection);
     }
 <# } #>
 
 
-<# foreach(var iface in Qualified(baseInterfaces)) { #>
+<# foreach(var iface in Untyped(Qualified(baseInterfaces))) { #>
     public partial interface <#= iface #>
     {
-        new <#= MakeOrdered(iface) #> OrderBy(Func<<#= iface #>, IGremlinQuery> traversal);
-        new <#= MakeOrdered(iface) #> OrderBy(ILambda lambda);
-        new <#= MakeOrdered(iface) #> OrderByDescending(Func<<#= iface #>, IGremlinQuery> traversal);
+        new <#= iface #> Order(Func<IOrderBuilder<<#= iface #>>, IOrderBuilderWithBy<<#= iface #>>> projection);
     }
-<# } #>
-
-
-<# foreach(var iface in MakeOrdered(Qualified(baseInterfaces))) { #>
-    public partial interface <#= iface #>
-    {
-        <#= iface #> ThenBy(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-        <#= iface #> ThenByDescending(Func<<#= MakeUnordered(iface) #>, IGremlinQuery> traversal);
-        new <#= iface #> ThenBy(ILambda lambda);
-    }
-<# } #>
-    
-        
-<# foreach(var iface in Typed(MakeOrdered(Qualified(baseInterfaces)))) { #>
-    public partial interface <#= iface #>
-    {
-        new <#= iface #> ThenBy(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-        new <#= iface #> ThenByDescending(Expression<Func<<#= GetElement(iface) #>, object>> projection);
-    }
-
 <# } #>
 
 
@@ -184,7 +159,7 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
     }
 <# } #>
 
-<# foreach(var iface in Typed(baseInterfaces.Concat(MakeOrdered(baseInterfaces)))) { #>
+<# foreach(var iface in Typed(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= GetElement(iface) #>[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
@@ -193,14 +168,14 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
         new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
         new <#= iface #> Coin(double probability);
 
-        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= MakeUnordered(iface) #>> Fold();
+        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> Fold();
     }
 <# } #>
 
-<# foreach(var iface in baseInterfaces.Concat(MakeOrdered(baseInterfaces))) { #>
+<# foreach(var iface in baseInterfaces) { #>
     public partial interface <#= iface #>
     {
-        new <#= MakeUnordered(iface) #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
+        new <#= iface #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
     }
 <# } #>
 
