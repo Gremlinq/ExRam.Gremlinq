@@ -217,6 +217,46 @@ namespace ExRam.Gremlinq.Core
                 }
             }
         }
+
+        private sealed class GroupBuilder<TKey, TValue> :
+            IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>,
+            IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TKey>,
+            IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TKey, TValue>
+        {
+            private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> _sourceQuery;
+
+            public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> sourceQuery) : this(sourceQuery, default, default)
+            {
+
+            }
+
+            public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> sourceQuery, IGremlinQuery<TKey>? keyQuery, IGremlinQuery<TValue>? valueQuery)
+            {
+                KeyQuery = keyQuery;
+                ValueQuery = valueQuery;
+                _sourceQuery = sourceQuery;
+            }
+
+            IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TNewKey> IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByKey<TNewKey>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TNewKey>> keySelector)
+            {
+                return new GroupBuilder<TNewKey, Unit>(
+                    _sourceQuery,
+                    keySelector(_sourceQuery),
+                    default);
+            }
+
+            IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TNewValue>> valueSelector)
+            {
+                return new GroupBuilder<TKey, TNewValue>(
+                    _sourceQuery,
+                    KeyQuery,
+                    valueSelector(_sourceQuery));
+            }
+
+            public IGremlinQuery<TKey> KeyQuery { get; }
+
+            public IGremlinQuery<TValue> ValueQuery { get; }
+        }
         
         public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment) : base(steps, environment)
         {
@@ -458,7 +498,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TKey, TValue>> projection)
         {
-            var group = projection(GroupBuilder.Create(Anonymize()));
+            var group = projection(new GroupBuilder<Unit, Unit>(Anonymize()));
 
             return this
                 .AddStep<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
@@ -468,7 +508,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQuery, TKey>> projection)
         {
-            var group = projection(GroupBuilder.Create(this.Anonymize()));
+            var group = projection(new GroupBuilder<Unit, Unit>(Anonymize()));
 
             return this
                 .AddStep<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
