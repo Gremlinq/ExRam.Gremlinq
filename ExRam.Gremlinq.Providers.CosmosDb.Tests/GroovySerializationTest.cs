@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>("id")
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters("id", "Person");
         }
 
@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"))
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters(new[] { "pk", "id" }, "Person");
         }
 
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("id"))
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b)")
+                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters("id", "Person");
         }
 
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"), "id2")
                 .Should()
-                .SerializeToGroovy("V(_a, _b).hasLabel(_c)")
+                .SerializeToGroovy("V(_a, _b).hasLabel(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters(new[] { "pk", "id" }, "id2", "Person");
         }
 
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
             _g
                 .V<Person>(new CosmosDbKey("id"), "id2")
                 .Should()
-                .SerializeToGroovy("V(_a, _b).hasLabel(_c)")
+                .SerializeToGroovy("V(_a, _b).hasLabel(_c).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters("id", "id2", "Person");
         }
     }

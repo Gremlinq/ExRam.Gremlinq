@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Item {Value = "MyValue"})
                 .Should()
-                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e)")
+                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters("Item", "PartitionKey", "MyKey", "Value", "MyValue");
         }
 
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Should()
-                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e)")
+                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap())))")
                 .WithParameters("ItemOverride", "PartitionKey", "MyKey", "Value", "MyValue");
         }
     }
