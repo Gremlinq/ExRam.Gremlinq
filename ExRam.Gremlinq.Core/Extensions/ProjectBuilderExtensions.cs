@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class ProjectBuilder
+    public static class ProjectBuilderExtensions
     {
         public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, Expression<Func<TElement, object>> projection)
             where TSourceQuery : IElementGremlinQuery<TElement>
