@@ -70,15 +70,10 @@ namespace ExRam.Gremlinq.Core
 
                     try
                     {
+                        var transformed = Transform(jToken);
+
                         return baseDeserializer
-                            .Deserialize<TElement[]>(new JTokenReader(jToken)
-                                .ToTokenEnumerable()
-                                .Apply(JsonTransform
-                                    .Identity()
-                                    .GraphElements()
-                                    .Traversers()
-                                    .NestedValues())
-                                .ToJsonReader())
+                            .Deserialize<TElement[]>(new JTokenReader(transformed))
                             .ToAsyncEnumerable();
                     }
                     catch (JsonReaderException ex)
@@ -88,6 +83,92 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 throw new ArgumentException($"Cannot handle execution results of type {executionResult.GetType()}.");
+            }
+
+            private JToken Transform(JToken jToken)
+            {
+                if (jToken is JObject jObject)
+                {
+                    foreach (var property in jObject)
+                    {
+                        jObject[property.Key] = Transform(property.Value);
+                    }
+
+                    if (jObject.TryGetValue("@type", out var nestedType))
+                    {
+                        if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
+                            {
+                                var retObject = new JObject();
+
+                                for (var i = 0; i < mapArray.Count / 2; i++)
+                                {
+                                    retObject.Add(mapArray[i * 2].Value<string>(), Transform(mapArray[i * 2 + 1]));
+                                }
+
+                                return retObject;
+                            }
+                        }
+                        else if ("g:Vertex".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (jObject.TryGetValue("@value", out var value) && value is JObject vertexObject)
+                            {
+                                vertexObject.Add("type", "vertex");
+
+                                return Transform(vertexObject);
+                            }
+                        }
+                        else if ("g:Edge".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (jObject.TryGetValue("@value", out var value) && value is JObject edgeObject)
+                            {
+                                edgeObject.Add("type", "edge");
+
+                                return Transform(edgeObject);
+                            }
+                        }
+                        else if ("g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (jObject.TryGetValue("@value", out var value) && value is JObject traverserObject)
+                            {
+                                traverserObject.Add("type", "traverser");
+
+                                return Transform(traverserObject);
+                            }
+                        }
+                        else if (jObject.TryGetValue("@value", out var value))
+                            return Transform(value);
+                    }
+                    else if (jObject.TryGetValue("type", out var type))
+                    {
+                        if ("vertex".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase) || "edge".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
+                            {
+                                foreach (var property in propertiesObject)
+                                {
+                                    jObject[property.Key] = Transform(property.Value);
+                                }
+
+                                jObject.Remove("properties");
+
+                                return jObject;
+                            }
+                        }
+                    }
+                }
+                if (jToken is JArray jArray)
+                {
+                    for (var i = 0; i < jArray.Count; i++)
+                    {
+                        jArray[i] = Transform(jArray[i]);
+                    }
+
+                    return jArray;
+                }
+
+                return jToken;
             }
         }
 
