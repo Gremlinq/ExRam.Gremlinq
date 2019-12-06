@@ -58,6 +58,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string SingleTimeFrameJson;
         private static readonly string TupleOfPersonLanguageJson;
         private static readonly string Graphson3ReferenceVertex;
+        private static readonly string ThreeCompaniesAsTraverser;
         private static readonly string CountryWithMetaProperties;
         private static readonly string NestedArrayOfLanguagesJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
@@ -71,6 +72,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         {
             SingleLanguageJson = GetJson("Single_Language");
             SingleCompanyJson = GetJson("Single_Company");
+            ThreeCompaniesAsTraverser = GetJson("Traverser");
             SinglePersonJson = GetJson("Single_Person");
             SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
             SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
@@ -667,6 +669,20 @@ namespace ExRam.Gremlinq.Providers.Tests
             properties.Should().HaveCount(1);
             properties[0].Should().NotBeNull();
             properties[0].Value.Should().Be(DateTimeOffset.FromUnixTimeMilliseconds(1548169812555));
+        }
+
+        [Fact]
+        public async Task Traverser()
+        {
+            var companies = await _g
+                .WithExecutor(new TestJsonQueryExecutor(ThreeCompaniesAsTraverser))
+                .V<Company>()
+                .ToArrayAsync();
+
+            companies.Should().HaveCount(3);
+            companies[0].Id.Should().Be("b9b89d7f-9313-4eed-b354-2760ba7a3fbe");
+            companies[1].Id.Should().Be("b9b89d7f-9313-4eed-b354-2760ba7a3fbe");
+            companies[2].Id.Should().Be("b9b89d7f-9313-4eed-b354-2760ba7a3fbe");
         }
 
         [Fact]

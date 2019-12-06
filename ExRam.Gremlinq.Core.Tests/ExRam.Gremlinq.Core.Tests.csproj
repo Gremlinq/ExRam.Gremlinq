@@ -20,6 +20,7 @@
     <None Remove="Json\Single_TimeFrame.json" />
     <None Remove="Json\Single_TimeFrame_with_numbers.json" />
     <None Remove="Json\Single_WorksFor.json" />
+    <None Remove="Json\Traverser.json" />
     <None Remove="Json\Tuple_of_Person_Language.json" />
     <None Remove="Json\VertexProperties.json" />
   </ItemGroup>
@@ -31,6 +32,7 @@
     <EmbeddedResource Include="Json\Graphson3_Tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
     <EmbeddedResource Include="Json\Properties.json" />
+    <EmbeddedResource Include="Json\Traverser.json" />
     <EmbeddedResource Include="Json\Single_Company.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />
     <EmbeddedResource Include="Json\Single_Person.json" />
