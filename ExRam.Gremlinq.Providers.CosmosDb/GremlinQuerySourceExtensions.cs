@@ -4,20 +4,20 @@
     {
         public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
-            return source
+            return source.ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(pipeline => pipeline
                     .UseCosmosDbSerializer()
-                    .UseCosmosDbExecutor(hostname, database, graphName, authKey, source.Logger, port)
-                    .UseCosmosDbDeserializer());
+                    .UseCosmosDbExecutor(hostname, database, graphName, authKey, env.Logger, port)
+                    .UseCosmosDbDeserializer()));
         }
 
         public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
         {
-            return source
+            return source.ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(pipeline => pipeline
                     .UseCosmosDbSerializer()
-                    .UseCosmosDbEmulatorExecutor(hostname, database, graphName, authKey, source.Logger, port)
-                    .UseCosmosDbDeserializer());
+                    .UseCosmosDbEmulatorExecutor(hostname, database, graphName, authKey, env.Logger, port)
+                    .UseCosmosDbDeserializer()));
         }
     }
 }

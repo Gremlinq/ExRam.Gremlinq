@@ -16,14 +16,11 @@ namespace ExRam.Gremlinq.Core
             private IGremlinQuery _startQuery;
             private readonly bool _isUserSetModel;
 
-            public ConfigurableGremlinQuerySourceImpl(string name, IGraphModel model, GremlinqOptions gremlinqOptions, bool isUserSetModel, IGremlinQueryExecutionPipeline pipeline, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies, ILogger logger)
+            public ConfigurableGremlinQuerySourceImpl(string name, IGremlinQueryEnvironment environment, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies)
             {
                 Name = name;
-                Model = model;
-                Logger = logger;
-                Options = gremlinqOptions;
-                Pipeline = pipeline;
-                _isUserSetModel = isUserSetModel;
+                Environment = environment;
+                //_isUserSetModel = isUserSetModel;
                 IncludedStrategies = includedStrategies;
                 ExcludedStrategyTypes = excludedStrategies;
             }
@@ -82,41 +79,22 @@ namespace ExRam.Gremlinq.Core
                 if (string.IsNullOrEmpty(name))
                     throw new ArgumentException($"Invalid value for {nameof(name)}.", nameof(name));
 
-                return new ConfigurableGremlinQuerySourceImpl(name, Model, Options, _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyTypes, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(name, Environment, IncludedStrategies, ExcludedStrategyTypes);
             }
 
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.UseLogger(ILogger logger)
+            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
             {
-                var newModel = _isUserSetModel
-                    ? Model
-                    : GraphModel.Dynamic(logger);
-
-                return new ConfigurableGremlinQuerySourceImpl(Name, newModel, Options, _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyTypes, logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, environmentTransformation(Environment), IncludedStrategies, ExcludedStrategyTypes);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.AddStrategies(params IGremlinQueryStrategy[] strategies)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Pipeline, IncludedStrategies.AddRange(strategies), ExcludedStrategyTypes, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Environment, IncludedStrategies.AddRange(strategies), ExcludedStrategyTypes);
             }
 
             IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
             {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyTypes.AddRange(strategyTypes), Logger);
-            }
-
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureOptions(Func<IGremlinQueryEnvironment, GremlinqOptions, GremlinqOptions> optionsTransformation)
-            {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, optionsTransformation(this, Options), _isUserSetModel, Pipeline, IncludedStrategies, ExcludedStrategyTypes, Logger);
-            }
-
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureModel(Func<IGremlinQueryEnvironment, IGraphModel, IGraphModel> modelTransformation)
-            {
-                return new ConfigurableGremlinQuerySourceImpl(Name, modelTransformation(this, Model), Options, true, Pipeline, IncludedStrategies, ExcludedStrategyTypes, Logger);
-            }
-
-            IConfigurableGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureExecutionPipeline(Func<IGremlinQueryEnvironment, IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation)
-            {
-                return new ConfigurableGremlinQuerySourceImpl(Name, Model, Options, true, pipelineTransformation(this, Pipeline), IncludedStrategies, ExcludedStrategyTypes, Logger);
+                return new ConfigurableGremlinQuerySourceImpl(Name, Environment, IncludedStrategies, ExcludedStrategyTypes.AddRange(strategyTypes));
             }
 
             private IGremlinQuery Create()
@@ -125,7 +103,7 @@ namespace ExRam.Gremlinq.Core
                 if (startQuery != null)
                     return startQuery;
 
-                IGremlinQuery ret = GremlinQuery.Create<Unit>(this);
+                IGremlinQuery ret = GremlinQuery.Create<Unit>(Environment);
 
                 if (!ExcludedStrategyTypes.IsEmpty)
                     ret = ret.AddStep(new WithoutStrategiesStep(ExcludedStrategyTypes.ToArray()));
@@ -139,10 +117,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             public string Name { get; }
-            public ILogger Logger { get; }
-            public GremlinqOptions Options { get; }
-            public IGraphModel Model { get; }
-            public IGremlinQueryExecutionPipeline Pipeline { get; }
+            public IGremlinQueryEnvironment Environment { get; }
             public ImmutableList<Type> ExcludedStrategyTypes { get; }
             public ImmutableList<IGremlinQueryStrategy> IncludedStrategies { get; }
         }
@@ -156,14 +131,9 @@ namespace ExRam.Gremlinq.Core
         {
             return new ConfigurableGremlinQuerySourceImpl(
                 name,
-                GraphModel.Dynamic(NullLogger.Instance),
-                default,
-                false,
-                GremlinQueryExecutionPipeline.Empty
-                    .UseSerializer(GremlinQuerySerializer.Default),
+                GremlinQueryEnvironment.Default,
                 ImmutableList<IGremlinQueryStrategy>.Empty,
-                ImmutableList<Type>.Empty,
-                NullLogger.Instance);
+                ImmutableList<Type>.Empty);
         }
 
         public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQuerySource source) where TEdge : new()
@@ -176,11 +146,6 @@ namespace ExRam.Gremlinq.Core
             return source.AddV(new TVertex());
         }
 
-        public static IConfigurableGremlinQuerySource UseModel(this IConfigurableGremlinQuerySource source, IGraphModel model)
-        {
-            return source.ConfigureModel(_ => model);
-        }
-
         public static IEdgeGremlinQuery<TEdge> E<TEdge>(this IGremlinQuerySource source, params object[] ids)
         {
             return source.E(ids).OfType<TEdge>();
@@ -189,26 +154,6 @@ namespace ExRam.Gremlinq.Core
         public static IVertexGremlinQuery<TVertex> V<TVertex>(this IGremlinQuerySource source, params object[] ids)
         {
             return source.V(ids).OfType<TVertex>();
-        }
-
-        public static IConfigurableGremlinQuerySource ConfigureOptions(this IConfigurableGremlinQuerySource source, Func<GremlinqOptions, GremlinqOptions> optionsTransformation)
-        {
-            return source.ConfigureOptions((_, o) => optionsTransformation(o));
-        }
-
-        public static IConfigurableGremlinQuerySource ConfigureModel(this IConfigurableGremlinQuerySource source, Func<IGraphModel, IGraphModel> modelTransformation)
-        {
-            return source.ConfigureModel((_, m) => modelTransformation(m));
-        }
-
-        public static IConfigurableGremlinQuerySource ConfigureExecutionPipeline(this IConfigurableGremlinQuerySource source, Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation)
-        {
-            return source.ConfigureExecutionPipeline((_, b) => pipelineTransformation(b));
-        }
-
-        public static IConfigurableGremlinQuerySource UseExecutionPipeline(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutionPipeline pipeline)
-        {
-            return source.ConfigureExecutionPipeline((_, __) => pipeline);
         }
     }
 }

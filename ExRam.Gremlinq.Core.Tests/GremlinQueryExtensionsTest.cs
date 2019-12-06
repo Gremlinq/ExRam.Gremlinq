@@ -13,8 +13,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CreateContinuation()
         {
             var query1 = g
-                .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
                 .V()
                 .OfType<Person>();
 
@@ -33,8 +34,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CreateContinuation_incomparable()
         {
             var query1 = g
-                .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson))
                 .V()
                 .OfType<Person>();
 
@@ -52,8 +54,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CreateContinuation_equal()
         {
             var query1 = g
-                .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
                 .V()
                 .OfType<Person>();
 

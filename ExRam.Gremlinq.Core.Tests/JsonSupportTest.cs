@@ -18,10 +18,11 @@ namespace ExRam.Gremlinq.Providers.Tests
     {
         public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
-            return source.ConfigureExecutionPipeline(pipeline => pipeline
-                .UseSerializer(GremlinQuerySerializer.Default)
-                .UseExecutor(executor)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
+            return source.ConfigureEnvironment(env => env
+                .ConfigureExecutionPipeline(pipeline => pipeline
+                    .UseSerializer(GremlinQuerySerializer.Default)
+                    .UseExecutor(executor)
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson)));
         }
     }
 
@@ -88,7 +89,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         public JsonSupportTest()
         {
             _g = g
-                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
+                .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
         [Fact]
@@ -111,10 +112,11 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Configured_property_name()
         {
             var persons = await _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(prop => prop
-                        .ConfigureElement<Person>(conf => conf
-                            .ConfigureName(x => x.Name, "replacement"))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(prop => prop
+                            .ConfigureElement<Person>(conf => conf
+                                .ConfigureName(x => x.Name, "replacement")))))
                 .WithExecutor(new TestJsonQueryExecutor("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]"))
                 .V<Person>()
                 .ToArrayAsync();
@@ -280,7 +282,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_unknown_type_without_model()
         {
             var language = await _g
-                .UseModel(GraphModel.Empty)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.Empty))
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<object>()
@@ -307,7 +310,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task Language_strongly_typed_without_model()
         {
             var language = await _g
-                .UseModel(GraphModel.Empty)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.Empty))
                 .WithExecutor(new TestJsonQueryExecutor(SingleLanguageJson))
                 .V()
                 .Cast<Language>()

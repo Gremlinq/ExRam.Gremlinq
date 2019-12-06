@@ -17,7 +17,8 @@ namespace ExRam.Gremlinq.Core.Tests
         protected GroovySerializationTest(IConfigurableGremlinQuerySource g)
         {
             _g = g
-                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>());
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
         private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
@@ -140,11 +141,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTime.UtcNow;
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreAlways(p => p.Role))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreAlways(p => p.From)
+                                .IgnoreAlways(p => p.Role)))))
                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
                .Should()
                .SerializeToGroovy("addE(_a).property(_b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('edge')).by(__.valueMap())")
@@ -165,8 +167,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_list_cardinality_id()
         {
             _g
-                .UseModel(GraphModel
-                    .FromBaseTypes<VertexWithListAsId, Edge>())
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel
+                        .FromBaseTypes<VertexWithListAsId, Edge>()))
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
                 .Awaiting(async x => await x.FirstAsync())
                 .Should()
@@ -187,8 +190,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_with_enum_property_with_workaround()
         {
             _g
-                .ConfigureOptions(options => options
-                    .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112, true))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(options => options
+                        .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2112, true)))
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
                 .Should()
                 .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -202,11 +206,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreAlways(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreAlways(p => p.Age)
+                                .IgnoreAlways(p => p.Gender)))))
                .AddV(person)
                .Should()
                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -217,10 +222,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_with_ignored_property()
         {
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Language>(conf => conf
-                            .IgnoreOnAdd(p => p.IetfLanguageTag))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Language>(conf => conf
+                                .IgnoreOnAdd(p => p.IetfLanguageTag)))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeToGroovy("addV(_a).property(id, _b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -315,10 +321,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_with_overridden_name()
         {
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(propModel => propModel
-                        .ConfigureElement<Language>(conf => conf
-                            .ConfigureName(x => x.IetfLanguageTag, "lang"))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(propModel => propModel
+                            .ConfigureElement<Language>(conf => conf
+                                .ConfigureName(x => x.IetfLanguageTag, "lang")))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -339,7 +346,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void AddV_without_model()
         {
             _g
-                .UseModel(GraphModel.Empty)
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.Empty))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
                 .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d)")
@@ -940,8 +948,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
-                .ConfigureOptions(o => o
-                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(o => o
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .In<object>()
                 .Should()
@@ -960,8 +969,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
-                .ConfigureOptions(x => x
-                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(x => x
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .InE<object>()
                 .Should()
@@ -1446,8 +1456,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
-                .ConfigureOptions(o => o
-                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(o => o
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .Out<object>()
                 .Should()
@@ -1466,8 +1477,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
-                .ConfigureOptions(o => o
-                    .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(o => o
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .OutE<object>()
                 .Should()
@@ -2151,10 +2163,11 @@ namespace ExRam.Gremlinq.Core.Tests
             var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreOnUpdate(p => p.Id))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreOnUpdate(p => p.Id)))))
                 .ReplaceE(worksFor)
                 .Should()
                 .SerializeToGroovy("E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('edge')).by(__.valueMap())")
@@ -2183,10 +2196,11 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Id = id, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreOnUpdate(p => p.RegistrationDate))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreOnUpdate(p => p.RegistrationDate)))))
                 .ReplaceV(person)
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -2410,14 +2424,15 @@ namespace ExRam.Gremlinq.Core.Tests
             var worksFor = new WorksFor { From = edgeNow, To = edgeNow, Role = "Admin" };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreAlways(p => p.Name))
-                    .ConfigureElement<WorksFor>(conf => conf
-                        .IgnoreAlways(p => p.From)
-                        .IgnoreOnUpdate(p => p.Role))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreOnUpdate(p => p.Age)
+                                .IgnoreAlways(p => p.Name))
+                        .ConfigureElement<WorksFor>(conf => conf
+                            .IgnoreAlways(p => p.From)
+                            .IgnoreOnUpdate(p => p.Role)))))
                 .V<Person>()
                 .Update(person)
                 .OutE<WorksFor>()
@@ -2433,11 +2448,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTime.UtcNow;
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreAlways(p => p.Role))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreAlways(p => p.From)
+                                .IgnoreAlways(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -2451,11 +2467,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTime.UtcNow;
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreOnUpdate(p => p.Role))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreAlways(p => p.From)
+                                .IgnoreOnUpdate(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -2469,11 +2486,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var now = DateTime.UtcNow;
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreOnUpdate(p => p.From)
-                            .IgnoreOnUpdate(p => p.Role))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreOnUpdate(p => p.From)
+                                .IgnoreOnUpdate(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
                 .Should()
@@ -2501,11 +2519,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreAlways(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreAlways(p => p.Age)
+                                .IgnoreAlways(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -2520,11 +2539,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreAlways(p => p.Gender))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreOnUpdate(p => p.Age)
+                                .IgnoreAlways(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -2539,11 +2559,12 @@ namespace ExRam.Gremlinq.Core.Tests
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
 
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Person>(conf => conf
-                            .IgnoreOnUpdate(p => p.Age)
-                            .IgnoreOnUpdate(p => p.Gender))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Person>(conf => conf
+                                .IgnoreOnUpdate(p => p.Age)
+                                .IgnoreOnUpdate(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
                 .Should()
@@ -2555,10 +2576,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public void V_IAuthority()
         {
             _g
-                .ConfigureModel(model => model
-                    .ConfigureProperties(_ => _
-                        .ConfigureElement<Authority>(__ => __
-                            .ConfigureName(x => x.Name, "n"))))
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Authority>(__ => __
+                                .ConfigureName(x => x.Name, "n")))))
                 .V<IAuthority>()
                 .Where(x => x.Name.Value == "some name")
                 .Should()
@@ -3084,7 +3106,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_outside_model()
         {
             _g
-                .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>())
+                .ConfigureEnvironment(env => env
+                    .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
                 .V()
 #pragma warning disable 252,253
                 .Where(x => x.Id == "hallo")
@@ -3223,8 +3246,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_contains_constant_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing)))
                 .V<Country>()
                 .Invoking(_ =>
                     _.Where(c => c.CountryCallingCode.Contains("456")))
@@ -3247,8 +3271,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_contains_empty_string_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
                 .Should()
@@ -3271,8 +3296,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_ends_with_constant_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
                 .V<Country>()
                 .Invoking(_ => _
                     .Where(c => c.CountryCallingCode.EndsWith("7890")))
@@ -3295,8 +3321,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_ends_with_empty_string_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
                 .Should()
@@ -3661,8 +3688,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_constant_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
@@ -3685,8 +3713,9 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Where_property_starts_with_empty_string_without_TextP_support()
         {
             _g
-                .ConfigureOptions(c => c
-                    .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith))
+                .ConfigureEnvironment(env => env
+                    .ConfigureOptions(c => c
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Should()
