@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
     public class DefaultGroovySerializationTest : GroovySerializationTest
     {
         public DefaultGroovySerializationTest() : base(g
+            .UseWebSocket("localhost", GraphsonVersion.V2)
             .ConfigureEnvironment(env => env
-                .UseWebSocket("localhost", GraphsonVersion.V2)
                 .ConfigureExecutionPipeline(p => p
                     .ConfigureSerializer(s => s
                         .ToGroovy()))))
