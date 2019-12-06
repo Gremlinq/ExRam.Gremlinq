@@ -1,4 +1,4 @@
-﻿namespace ExRam.Gremlinq.Providers
+﻿namespace ExRam.Gremlinq.Core
 {
     public enum GraphsonVersion
     {

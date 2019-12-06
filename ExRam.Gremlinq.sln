@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.CosmosDb.Tests", "ExRam.Gremlinq.Providers.CosmosDb.Tests\ExRam.Gremlinq.Providers.CosmosDb.Tests.csproj", "{E0F57FD2-0666-42B5-95ED-14D155A47F38}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers", "ExRam.Gremlinq.Providers\ExRam.Gremlinq.Providers.csproj", "{B72A76C3-473C-4093-ACC9-406B97F6E121}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples", "ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.csproj", "{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}"
@@ -62,10 +60,6 @@ Global
 		{E0F57FD2-0666-42B5-95ED-14D155A47F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0F57FD2-0666-42B5-95ED-14D155A47F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0F57FD2-0666-42B5-95ED-14D155A47F38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B72A76C3-473C-4093-ACC9-406B97F6E121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B72A76C3-473C-4093-ACC9-406B97F6E121}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B72A76C3-473C-4093-ACC9-406B97F6E121}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B72A76C3-473C-4093-ACC9-406B97F6E121}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
