@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers.WebSocket;
+using ExRam.Gremlinq.Providers;
 using Gremlin.Net.Structure.IO.GraphSON;
 
-namespace ExRam.Gremlinq.Providers.GremlinServer
+namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySourceExtensions
     {
