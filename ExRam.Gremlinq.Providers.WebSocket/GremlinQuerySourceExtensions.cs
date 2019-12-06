@@ -125,7 +125,6 @@ namespace ExRam.Gremlinq.Providers.WebSocket
                         if (environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323))
                         {
                             conf = conf.ConfigureSerializer(serializer => serializer
-                                //Workaround for https://issues.apache.org/jira/browse/TINKERPOP-2323
                                 .OverrideFragmentSerializer<P>((p, overridden, recurse) => p));
                         }
 
