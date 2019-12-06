@@ -10,6 +10,7 @@ using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -39,44 +40,69 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
             public IAsyncEnumerable<object> Execute(object serializedQuery)
             {
-                Task<ResultSet<JToken>> submitTask;
+                return AsyncEnumerable.Create(Core);
 
-                if (serializedQuery is GroovySerializedGremlinQuery groovyScript)
+                async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
-                    _logger?.LogTrace("Executing Gremlin query {0}.", groovyScript.QueryString);
+                    var results = default(ResultSet<JToken>);
 
-                    submitTask = _lazyGremlinClient
-                        .Value
-                        .SubmitAsync<JToken>($"{_alias}.{groovyScript.QueryString}", groovyScript.Bindings);
-                }
-                else if (serializedQuery is Bytecode bytecode)
-                {
-                    _logger?.LogTrace("Executing Gremlin query {0}.", bytecode);
-
-                    var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
-                        .Processor(Tokens.ProcessorTraversal)
-                        .OverrideRequestId(Guid.NewGuid())
-                            .AddArgument(Tokens.ArgsGremlin, bytecode)
-                            .AddArgument(Tokens.ArgsAliases, new Dictionary<string, string> { { "g", _alias } })
-                            .Create();
-
-                    submitTask = _lazyGremlinClient
-                        .Value
-                        .SubmitAsync<JToken>(requestMsg);
-                }
-                else
-                    throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.");
-
-                return submitTask
-                    .ToAsyncEnumerable()
-                    .SelectMany(x => x
-                        .ToAsyncEnumerable())
-                    .Catch<JToken, Exception>(ex =>
+                    if (serializedQuery is GroovySerializedGremlinQuery groovyScript)
                     {
-                        _logger?.LogError("Error executing Gremlin query {0}.", groovyScript.QueryString);
+                        _logger?.LogTrace("Executing Gremlin query {0}.", groovyScript.QueryString);
 
-                        return AsyncEnumerableEx.Throw<JToken>(ex);
-                    });
+                        try
+                        {
+                            results = await _lazyGremlinClient
+                                .Value
+                                .SubmitAsync<JToken>($"{_alias}.{groovyScript.QueryString}", groovyScript.Bindings)
+                                .ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger?.LogError(
+                                "Error executing Gremlin query {0}:\r\n{1}",
+                                groovyScript.QueryString,
+                                ex);
+
+                        }
+                    }
+                    else if (serializedQuery is Bytecode bytecode)
+                    {
+                        _logger?.LogTrace("Executing Gremlin query {0}.", bytecode);
+
+                        var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
+                            .Processor(Tokens.ProcessorTraversal)
+                            .OverrideRequestId(Guid.NewGuid())
+                                .AddArgument(Tokens.ArgsGremlin, bytecode)
+                                .AddArgument(Tokens.ArgsAliases, new Dictionary<string, string> { { "g", _alias } })
+                                .Create();
+
+                        try
+                        {
+                            results = await _lazyGremlinClient
+                                .Value
+                                .SubmitAsync<JToken>(requestMsg)
+                                .ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger?.LogError(
+                                "Error executing Gremlin query {0}:\r\n{1}",
+                                JsonConvert.SerializeObject(requestMsg),
+                                ex);
+                        }
+                    }
+                    else
+                        throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.");
+
+                    if (results != null)
+                    {
+                        foreach (var obj in results)
+                        {
+                            yield return obj;
+                        }
+                    }
+                }
             }
         }
 
