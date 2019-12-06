@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -14,13 +12,11 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQuerySourceImpl : IGremlinQuerySource
         {
             private IGremlinQuery _startQuery;
-            private readonly bool _isUserSetModel;
 
             public GremlinQuerySourceImpl(string name, IGremlinQueryEnvironment environment, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies)
             {
                 Name = name;
                 Environment = environment;
-                //_isUserSetModel = isUserSetModel;
                 IncludedStrategies = includedStrategies;
                 ExcludedStrategyTypes = excludedStrategies;
             }

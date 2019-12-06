@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                 throw new ArgumentException($"Cannot handle execution results of type {executionResult.GetType()}.");
             }
 
-            private JToken Transform(JToken jToken)
+            private static JToken Transform(JToken jToken)
             {
                 if (jToken is JObject jObject)
                 {
