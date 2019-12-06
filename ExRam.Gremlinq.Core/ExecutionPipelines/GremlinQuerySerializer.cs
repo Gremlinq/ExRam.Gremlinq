@@ -181,6 +181,24 @@ namespace ExRam.Gremlinq.Core
 
         static GremlinQuerySerializer()
         {
+            //CosmosDB workaround
+            var labelBytecode = new Bytecode
+            {
+                StepInstructions =
+                {
+                    new Instruction("label")
+                }
+            };
+
+            //CosmosDB workaround
+            var valueBytecode = new Bytecode
+            {
+                StepInstructions =
+                {
+                    new Instruction("value")
+                }
+            };
+
             VertexProjectionInstructions = new[]
             {
                 new Instruction("project", "id", "label", "type", "properties"),
@@ -201,15 +219,15 @@ namespace ExRam.Gremlinq.Core
                         {
                             new Instruction("properties"),
                             new Instruction("group"),
-                            new Instruction("by", T.Label),
+                            new Instruction("by", labelBytecode),
                             new Instruction("by", new Bytecode
                             {
                                 StepInstructions =
                                 {
                                     new Instruction("project", "id", "label", "value", "properties"),
                                     new Instruction("by", T.Id),
-                                    new Instruction("by", T.Label),
-                                    new Instruction("by", T.Value),
+                                    new Instruction("by", labelBytecode),
+                                    new Instruction("by", valueBytecode),
                                     new Instruction("by", new Bytecode
                                     {
                                         StepInstructions =
