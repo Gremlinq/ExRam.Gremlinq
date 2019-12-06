@@ -149,23 +149,28 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
                 }
-                if (jToken is JArray jArray)
+                else if (jToken is JArray jArray)
                 {
                     var newArray = new JArray();
                     
                     foreach (var arrayItem in jArray)
                     {
-                        var maybeTraversers = ExpandTraverser(arrayItem);
-
-                        if (maybeTraversers != null)
+                        if (arrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
                         {
-                            if (maybeTraversers is JToken traverserToken)
-                                newArray.Add(traverserToken);
-                            else if (maybeTraversers is IEnumerable<JToken> traverserEnumerable)
+                            var bulk = 1;
+
+                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
                             {
-                                foreach (var traverser in traverserEnumerable)
+                                bulk = Transform(bulkToken).Value<int>();
+                            }
+
+                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                            {
+                                traverserValue = Transform(traverserValue);
+
+                                for (var i = 0; i < bulk; i++)
                                 {
-                                    newArray.Add(traverser);
+                                    newArray.Add(traverserValue);
                                 }
                             }
                         }
@@ -177,39 +182,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return jToken;
-            }
-
-            private object? ExpandTraverser(JToken jToken)
-            {
-                if (jToken is JObject jObject)
-                {
-                    if (jObject.TryGetValue("@type", out var nestedType))
-                    {
-                        if ("g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                        {
-                            if (jObject.TryGetValue("@value", out var value) && value is JObject traverserObject)
-                            {
-                                var bulk = 1;
-
-                                if (traverserObject.TryGetValue("bulk", out var bulkToken))
-                                {
-                                    bulk = Transform(bulkToken).Value<int>();
-                                }
-
-                                if (traverserObject.TryGetValue("value", out var traverserValue))
-                                {
-                                    traverserValue = Transform(traverserValue);
-
-                                    return bulk > 1
-                                        ? Enumerable.Repeat(traverserValue, bulk)
-                                        : traverserValue;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return default;
             }
         }
 
