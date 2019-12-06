@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IGremlinQuery : IGremlinQuerySource
+    public partial interface IGremlinQuery : IGremlinQueryBase
     {
         IGremlinQueryAdmin AsAdmin();
         IValueGremlinQuery<long> Count();

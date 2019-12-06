@@ -31,13 +31,13 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,
         IPropertyGremlinQuery<TElement>
     {
-        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.AddE<TEdge>(TEdge edge) => AddE(edge);
+        IEdgeGremlinQuery<TEdge> IGremlinQueryBase.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.AddE<TEdge>() => AddE(new TEdge());
         
-        IVertexGremlinQuery<TVertex> IGremlinQuerySource.AddV<TVertex>(TVertex vertex) => AddV(vertex);
+        IVertexGremlinQuery<TVertex> IGremlinQueryBase.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
         IGremlinQueryAdmin IGremlinQuery.AsAdmin() => this;
 
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<long> IGremlinQuery.CountLocal() => AddStepWithUnitTypes<long>(CountStep.Local);
 
-        IEdgeGremlinQuery<IEdge> IGremlinQuerySource.E(params object[] ids) => AddStepWithUnitTypes<IEdge>(new EStep(ids));
+        IEdgeGremlinQuery<IEdge> IGremlinQueryBase.E(params object[] ids) => AddStepWithUnitTypes<IEdge>(new EStep(ids));
 
         IGremlinQuery<string> IGremlinQuery.Explain() => AddStepWithUnitTypes<string>(ExplainStep.Instance);
 
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TEdge, TElement> IVertexGremlinQuery<TElement>.InE<TEdge>() => AddStep<TEdge, Unit, TElement, Unit, Unit, Unit>(Environment.Model.EdgesModel.GetFilterStepOrNone(typeof(TEdge), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity), labels => new InEStep(labels)));
 
-        IGremlinQuery<TNewElement> IGremlinQuerySource.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
+        IGremlinQuery<TNewElement> IGremlinQueryBase.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Inject(params TElement[] elements) => Inject(elements);
 
@@ -218,7 +218,7 @@ namespace ExRam.Gremlinq.Core
 
         TFoldedQuery IArrayGremlinQuery<TElement, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
-        IVertexGremlinQuery<IVertex> IGremlinQuerySource.V(params object[] ids) => AddStepWithUnitTypes<IVertex>(new VStep(ids));
+        IVertexGremlinQuery<IVertex> IGremlinQueryBase.V(params object[] ids) => AddStepWithUnitTypes<IVertex>(new VStep(ids));
 
         IValueGremlinQuery<TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Value() => Value<TPropertyValue>();
 
@@ -262,14 +262,14 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IVertexGremlinQuery<TNewVertex> IGremlinQuerySource.ReplaceV<TNewVertex>(TNewVertex vertex)
+        IVertexGremlinQuery<TNewVertex> IGremlinQueryBase.ReplaceV<TNewVertex>(TNewVertex vertex)
         {
             return this
                 .V<TNewVertex>(vertex.GetId(Environment.Model.PropertiesModel))
                 .Update(vertex);
         }
 
-        IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge)
+        IEdgeGremlinQuery<TNewEdge> IGremlinQueryBase.ReplaceE<TNewEdge>(TNewEdge edge)
         {
             return this
                 .E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel))

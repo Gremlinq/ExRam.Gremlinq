@@ -1,16 +1,18 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+﻿using System;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQuerySource
+    public interface IGremlinQuerySource : IGremlinQueryBase
     {
-        IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
-        IEdgeGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
-        IVertexGremlinQuery<IVertex> V(params object[] ids);
-        IEdgeGremlinQuery<IEdge> E(params object[] ids);
-        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+        IGremlinQuerySource UseName(string name);
+        IGremlinQuerySource ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation);
+        IGremlinQuerySource AddStrategies(params IGremlinQueryStrategy[] strategies);
+        IGremlinQuerySource RemoveStrategies(params Type[] strategyTypes);
 
-        IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
-        IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
+        string Name { get; }
+        IGremlinQueryEnvironment Environment { get; }
+        ImmutableList<Type> ExcludedStrategyTypes { get; }
+        ImmutableList<IGremlinQueryStrategy> IncludedStrategies { get; }
     }
 }

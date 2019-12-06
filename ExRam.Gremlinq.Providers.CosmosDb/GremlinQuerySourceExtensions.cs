@@ -2,7 +2,7 @@
 {
     public static class GremlinQuerySourceExtensions
     {
-        public static IConfigurableGremlinQuerySource UseCosmosDb(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
+        public static IGremlinQuerySource UseCosmosDb(this IGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 443)
         {
             return source.ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(pipeline => pipeline
@@ -11,7 +11,7 @@
                     .UseCosmosDbDeserializer()));
         }
 
-        public static IConfigurableGremlinQuerySource UseCosmosDbEmulator(this IConfigurableGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
+        public static IGremlinQuerySource UseCosmosDbEmulator(this IGremlinQuerySource source, string hostname, string database, string graphName, string authKey, int port = 8901)
         {
             return source.ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(pipeline => pipeline

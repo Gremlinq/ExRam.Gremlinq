@@ -12,9 +12,9 @@ namespace ExRam.Gremlinq.Providers.Tests
 {
     public abstract class IntegrationTests
     {
-        protected readonly IConfigurableGremlinQuerySource _g;
+        protected readonly IGremlinQuerySource _g;
 
-        protected IntegrationTests(IConfigurableGremlinQuerySource g)
+        protected IntegrationTests(IGremlinQuerySource g)
         {
             _g = g;
         }

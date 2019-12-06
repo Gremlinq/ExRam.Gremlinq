@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 {
     public static class ConfigurableGremlinSourceExtensions
     {
-        public static IConfigurableGremlinQuerySource WithExecutor(this IConfigurableGremlinQuerySource source, IGremlinQueryExecutor executor)
+        public static IGremlinQuerySource WithExecutor(this IGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
             return source.ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(pipeline => pipeline
@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string SinglePersonLowercasePropertiesJson;
         private static readonly string Graphson3TupleOfPersonLanguageJson;
 
-        private readonly IConfigurableGremlinQuerySource _g;
+        private readonly IGremlinQuerySource _g;
 
         static JsonSupportTest()
         {

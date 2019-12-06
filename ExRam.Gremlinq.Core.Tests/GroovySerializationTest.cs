@@ -12,16 +12,16 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public abstract class GroovySerializationTest
     {
-        protected readonly IConfigurableGremlinQuerySource _g;
+        protected readonly IGremlinQuerySource _g;
 
-        protected GroovySerializationTest(IConfigurableGremlinQuerySource g)
+        protected GroovySerializationTest(IGremlinQuerySource g)
         {
             _g = g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
         }
 
-        private IVertexGremlinQuery<TVertex> V2<TVertex>(IConfigurableGremlinQuerySource source) where TVertex : IVertex
+        private IVertexGremlinQuery<TVertex> V2<TVertex>(IGremlinQuerySource source) where TVertex : IVertex
         {
             return source.V<TVertex>();
         }

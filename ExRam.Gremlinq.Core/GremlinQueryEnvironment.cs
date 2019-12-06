@@ -52,11 +52,19 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureExecutionPipeline(_ => pipeline);
         }
 
+        public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
+            GraphModel.Empty,
+            GremlinQueryExecutionPipeline.Empty,
+            default,
+            NullLogger.Instance);
+
         public static readonly IGremlinQueryEnvironment Default = new GremlinQueryEnvironmentImpl(
             GraphModel.Dynamic(NullLogger.Instance),
             GremlinQueryExecutionPipeline.Empty
                 .UseSerializer(GremlinQuerySerializer.Default),
             default,
             NullLogger.Instance);
+
+        internal static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Empty).Identity());
     }
 }

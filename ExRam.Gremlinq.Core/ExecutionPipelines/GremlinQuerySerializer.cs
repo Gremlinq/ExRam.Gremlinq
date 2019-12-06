@@ -157,8 +157,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQuerySerializer Default = Unit
             .UseDefaultGremlinStepSerializationHandlers();
 
-        private static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Default).Identity());
-
         private static readonly Instruction[] VertexProjectionInstructions;
         private static readonly Instruction[] EdgeProjectionInstructions;
 
@@ -400,7 +398,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<LocalStep>((step, overridden, recurse) => CreateInstruction("local", recurse, step.Traversal))
                 .OverrideFragmentSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
                 .OverrideFragmentSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
-                .OverrideFragmentSerializer<NoneStep>((step, overridden, recurse) => recurse(NoneWorkaround))
+                .OverrideFragmentSerializer<NoneStep>((step, overridden, recurse) => recurse(GremlinQueryEnvironment.NoneWorkaround))
                 .OverrideFragmentSerializer<NotStep>((step, overridden, recurse) =>
                 {
                     var traversalSteps = step.Traversal.AsAdmin().Steps;
