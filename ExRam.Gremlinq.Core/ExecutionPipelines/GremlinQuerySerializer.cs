@@ -149,6 +149,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
+        public static readonly GremlinqOption<bool> WorkaroundTinkerpop2323 = new GremlinqOption<bool>(false);
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 

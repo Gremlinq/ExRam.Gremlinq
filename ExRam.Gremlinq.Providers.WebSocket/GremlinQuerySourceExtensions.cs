@@ -118,9 +118,20 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
             IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
         {
-            return environment.ConfigureExecutionPipeline(conf => conf
-                .UseWebSocketExecutor(hostname, port, enableSsl, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
+            return environment
+                .ConfigureExecutionPipeline(conf =>
+                {
+                    if (environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323))
+                    {
+                        conf = conf.ConfigureSerializer(serializer => serializer
+                            //Workaround for https://issues.apache.org/jira/browse/TINKERPOP-2323
+                            .OverrideFragmentSerializer<P>((p, overridden, recurse) => p));
+                    }
+
+                    return conf
+                        .UseWebSocketExecutor(hostname, port, enableSsl, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
+                        .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson);
+                });
         }
 
         public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(
