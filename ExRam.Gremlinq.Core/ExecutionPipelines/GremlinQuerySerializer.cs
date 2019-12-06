@@ -496,14 +496,15 @@ namespace ExRam.Gremlinq.Core
             return serializer
                 .Select(serialized =>
                 {
+                    if (serialized is GroovySerializedGremlinQuery serializedQuery)
+                        return serializedQuery;
+
                     var builder = new StringBuilder();
                     var variables = new Dictionary<string, object>();
 
                     void Append(object obj)
                     {
-                        if (obj is GroovySerializedGremlinQuery serializedQuery)
-                            builder.Append(serializedQuery.QueryString);
-                        else if (obj is Bytecode bytecode)
+                        if (obj is Bytecode bytecode)
                         {
                             if (builder.Length > 0)
                                 builder.Append("__");
