@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Providers;
-using ExRam.Gremlinq.Providers.WebSocket;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Samples
@@ -17,6 +13,7 @@ namespace ExRam.Gremlinq.Samples
 
             await program.CreateGraph();
             await program.CreateKnowsRelationInOneQuery();
+
             await program.WhoDoesMarkoKnow();
             await program.WhoIsOlderThan30();
             await program.WhoseNameStartsWithB();
@@ -32,24 +29,19 @@ namespace ExRam.Gremlinq.Samples
         }
 
         private Person _marko;
-        private readonly IConfigurableGremlinQuerySource _g;
+        private readonly IGremlinQuerySource _g;
 
         public Program()
         {
             _g = g
-                //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
-                //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
-                //in a currently loaded assembly). We explicitly set a model here anyway.
-                .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>())
+                .ConfigureEnvironment(env => env
+                    //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
+                    //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
+                    //in a currently loaded assembly). We explicitly set a model here anyway.
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()))
 
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
-                .UseWebSocket("localhost", GraphsonVersion.V3)
-
-                //For Gremlin Server >= 3.4.0, we need to remove all ReferenceElementStrategies
-                //from the traversals, or else we don't get any vertex properties in the returned
-                //json-payloads and we end up with NullReferenceExceptions. Uncomment below
-                //when running on Gremlin Server >= 3.4.0.
-                .RemoveStrategies("ReferenceElementStrategy");
+                .UseGremlinServer("localhost", GraphsonVersion.V3);
 
                 //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
                 //.UseCosmosDb(hostname, database, graphName, authKey);
@@ -58,16 +50,11 @@ namespace ExRam.Gremlinq.Samples
         public async Task CreateGraph()
         {
             // Uncomment to delete the whole graph on every run.
-            //await _g.V().Drop().ToArray();
+            await _g.V().Drop().ToArrayAsync();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
                 .FirstAsync();
-
-            Debug.Assert(
-                _marko.Name != null,
-                "The json payload returned from the server did not include any vertex properties." +
-                "If you are running Gremlin Server >= 3.4.0, see the note above and try uncommenting 'RemoveStrategies'. ");
 
             var vadas = await _g
                 .AddV(new Person { Name = "Vadas", Age = 27 })
@@ -171,7 +158,7 @@ namespace ExRam.Gremlinq.Samples
                 .Where(x => x.Name.Value == "Marko")
                 .Out<Knows>()
                 .OfType<Person>()
-                .OrderBy(x => x.Name)
+                .Order(x => x.By(x => x.Name))
                 .Values(x => x.Name)
                 .ToArrayAsync();
 

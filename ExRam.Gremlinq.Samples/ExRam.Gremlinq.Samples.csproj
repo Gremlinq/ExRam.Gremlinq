@@ -8,6 +8,7 @@
 
   <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq'">
     <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
+    <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
