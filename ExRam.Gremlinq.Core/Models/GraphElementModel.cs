@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using ExRam.Gremlinq.Core.Extensions;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExRam.Gremlinq.Providers;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

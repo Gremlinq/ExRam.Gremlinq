@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Providers
+namespace ExRam.Gremlinq.Core
 {
     public sealed class GraphsonMappingException : Exception
     {
