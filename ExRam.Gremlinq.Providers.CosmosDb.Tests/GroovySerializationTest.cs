@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
@@ -9,7 +10,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbGroovySerializationTest : GroovySerializationTest
     {
-        public CosmosDbGroovySerializationTest() : base(g.UseCosmosDb("localhost", "database", "graph", "authKey"))
+        public CosmosDbGroovySerializationTest() : base(g.UseCosmosDb(new Uri("wss://localhost"), "database", "graph", "authKey"))
         {
 
         }

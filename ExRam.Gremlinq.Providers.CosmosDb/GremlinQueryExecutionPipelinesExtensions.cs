@@ -60,23 +60,23 @@ namespace ExRam.Gremlinq.Core
                     .ToGroovy());
         }
 
-        public static IGremlinQueryExecutionPipeline UseCosmosDbExecutor(this IGremlinQueryExecutionPipeline pipeline, string hostname, string database, string graphName, string authKey, ILogger logger, int port = 443)
+        public static IGremlinQueryExecutionPipeline UseCosmosDbExecutor(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
         {
-            return pipeline.UseCosmosDbExecutor(hostname, port, true, database, graphName, authKey, logger);
+            //, int port = 443)
+            return pipeline.UseCosmosDbExecutorImpl(uri, database, graphName, authKey, logger);
         }
 
-        public static IGremlinQueryExecutionPipeline UseCosmosDbEmulatorExecutor(this IGremlinQueryExecutionPipeline pipeline, string hostname, string database, string graphName, string authKey, ILogger logger, int port = 8901)
+        public static IGremlinQueryExecutionPipeline UseCosmosDbEmulatorExecutor(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
         {
-            return pipeline.UseCosmosDbExecutor(hostname, port, false, database, graphName, authKey, logger);
+            //, int port = 8901)
+            return pipeline.UseCosmosDbExecutorImpl(uri, database, graphName, authKey, logger);
         }
 
-        private static IGremlinQueryExecutionPipeline UseCosmosDbExecutor(this IGremlinQueryExecutionPipeline pipeline, string hostname, int port, bool enableSsl, string database, string graphName, string authKey, ILogger logger)
+        private static IGremlinQueryExecutionPipeline UseCosmosDbExecutorImpl(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
         {
             return pipeline
                 .UseWebSocketExecutor(
-                    hostname,
-                    port,
-                    enableSsl,
+                    uri,
                     $"/dbs/{database}/colls/{graphName}",
                     authKey,
                     "g",

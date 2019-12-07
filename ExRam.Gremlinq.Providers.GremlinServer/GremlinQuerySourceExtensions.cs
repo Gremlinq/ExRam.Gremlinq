@@ -7,10 +7,8 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQuerySourceExtensions
     {
         public static IGremlinQuerySource UseGremlinServer(this IGremlinQuerySource source,
-            string hostname,
+            Uri uri,
             GraphsonVersion graphsonVersion,
-            int port = 8182,
-            bool enableSsl = false,
             string? username = null,
             string? password = null,
             string alias = "g",
@@ -22,10 +20,8 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureOptions(opt => opt
                         .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323, true)))
                 .UseWebSocket(
-                    hostname,
+                    uri,
                     graphsonVersion,
-                    port,
-                    enableSsl,
                     username,
                     password,
                     alias,

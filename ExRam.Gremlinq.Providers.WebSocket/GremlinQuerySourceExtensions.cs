@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Gremlin.Net.Driver;
@@ -106,10 +107,8 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQuerySource UseWebSocket(
             this IGremlinQuerySource source,
-            string hostname,
+            Uri uri,
             GraphsonVersion graphsonVersion,
-            int port = 8182,
-            bool enableSsl = false,
             string? username = null,
             string? password = null,
             string alias = "g",
@@ -127,16 +126,14 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return conf
-                            .UseWebSocketExecutor(hostname, port, enableSsl, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
+                            .UseWebSocketExecutor(uri, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
                             .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson);
                     }));
         }
 
         public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(
             this IGremlinQueryExecutionPipeline pipeline,
-            string hostname,
-            int port = 8182,
-            bool enableSsl = false,
+            Uri uri,
             string? username = null,
             string? password = null,
             string alias = "g",
@@ -148,10 +145,13 @@ namespace ExRam.Gremlinq.Core
             var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
             var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
 
+            if (!"ws".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException();
+
             return pipeline
                 .UseWebSocketExecutor(
                     () => new GremlinClient(
-                        new GremlinServer(hostname, port, enableSsl, username, password),
+                        new GremlinServer((uri.Host + uri.AbsolutePath).TrimEnd('/'), uri.Port, "wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase), username, password),
                         graphsonVersion == GraphsonVersion.V2
                             ? new GraphSON2Reader(actualAdditionalGraphsonDeserializers)
                             : (GraphSONReader)new GraphSON3Reader(actualAdditionalGraphsonDeserializers),

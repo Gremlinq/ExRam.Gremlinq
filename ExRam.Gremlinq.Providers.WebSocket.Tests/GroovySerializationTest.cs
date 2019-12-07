@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -8,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
     public class DefaultGroovySerializationTest : GroovySerializationTest
     {
         public DefaultGroovySerializationTest() : base(g
-            .UseWebSocket("localhost", GraphsonVersion.V2)
+            .UseWebSocket(new Uri("ws://localhost"), GraphsonVersion.V2)
             .ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(p => p
                     .ConfigureSerializer(s => s
