@@ -13,9 +13,8 @@ namespace ExRam.Gremlinq.Core
         {
             private IGremlinQuery _startQuery;
 
-            public GremlinQuerySourceImpl(string name, IGremlinQueryEnvironment environment, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies)
+            public GremlinQuerySourceImpl(IGremlinQueryEnvironment environment, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies)
             {
-                Name = name;
                 Environment = environment;
                 IncludedStrategies = includedStrategies;
                 ExcludedStrategyTypes = excludedStrategies;
@@ -70,27 +69,19 @@ namespace ExRam.Gremlinq.Core
                     .Update(edge);
             }
 
-            IGremlinQuerySource IGremlinQuerySource.UseName(string name)
-            {
-                if (string.IsNullOrEmpty(name))
-                    throw new ArgumentException($"Invalid value for {nameof(name)}.", nameof(name));
-
-                return new GremlinQuerySourceImpl(name, Environment, IncludedStrategies, ExcludedStrategyTypes);
-            }
-
             IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
             {
-                return new GremlinQuerySourceImpl(Name, environmentTransformation(Environment), IncludedStrategies, ExcludedStrategyTypes);
+                return new GremlinQuerySourceImpl(environmentTransformation(Environment), IncludedStrategies, ExcludedStrategyTypes);
             }
 
             IGremlinQuerySource IGremlinQuerySource.AddStrategies(params IGremlinQueryStrategy[] strategies)
             {
-                return new GremlinQuerySourceImpl(Name, Environment, IncludedStrategies.AddRange(strategies), ExcludedStrategyTypes);
+                return new GremlinQuerySourceImpl(Environment, IncludedStrategies.AddRange(strategies), ExcludedStrategyTypes);
             }
 
             IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
             {
-                return new GremlinQuerySourceImpl(Name, Environment, IncludedStrategies, ExcludedStrategyTypes.AddRange(strategyTypes));
+                return new GremlinQuerySourceImpl(Environment, IncludedStrategies, ExcludedStrategyTypes.AddRange(strategyTypes));
             }
 
             private IGremlinQuery Create()
@@ -112,7 +103,6 @@ namespace ExRam.Gremlinq.Core
                 return Interlocked.CompareExchange(ref _startQuery, ret, null) ?? ret;
             }
 
-            public string Name { get; }
             public IGremlinQueryEnvironment Environment { get; }
             public ImmutableList<Type> ExcludedStrategyTypes { get; }
             public ImmutableList<IGremlinQueryStrategy> IncludedStrategies { get; }
@@ -120,17 +110,10 @@ namespace ExRam.Gremlinq.Core
 
         // ReSharper disable once InconsistentNaming
         #pragma warning disable IDE1006 // Naming Styles
-        public static readonly IGremlinQuerySource g = Create();
+        public static readonly IGremlinQuerySource g = new GremlinQuerySourceImpl(GremlinQueryEnvironment.Default,
+            ImmutableList<IGremlinQueryStrategy>.Empty,
+            ImmutableList<Type>.Empty);
         #pragma warning restore IDE1006 // Naming Styles
-    
-        public static IGremlinQuerySource Create(string name = "g")
-        {
-            return new GremlinQuerySourceImpl(
-                name,
-                GremlinQueryEnvironment.Default,
-                ImmutableList<IGremlinQueryStrategy>.Empty,
-                ImmutableList<Type>.Empty);
-        }
 
         public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IGremlinQueryBase source) where TEdge : new()
         {
