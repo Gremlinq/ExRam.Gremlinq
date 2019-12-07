@@ -12,14 +12,5 @@ namespace ExRam.Gremlinq.Core
                     .UseCosmosDbExecutor(uri, database, graphName, authKey, env.Logger)
                     .UseCosmosDbDeserializer()));
         }
-
-        public static IGremlinQuerySource UseCosmosDbEmulator(this IGremlinQuerySource source,  Uri uri, string database, string graphName, string authKey)
-        {
-            return source.ConfigureEnvironment(env => env
-                .ConfigureExecutionPipeline(pipeline => pipeline
-                    .UseCosmosDbSerializer()
-                    .UseCosmosDbEmulatorExecutor(uri, database, graphName, authKey, env.Logger)
-                    .UseCosmosDbDeserializer()));
-        }
     }
 }

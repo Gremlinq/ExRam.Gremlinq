@@ -62,18 +62,6 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryExecutionPipeline UseCosmosDbExecutor(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
         {
-            //, int port = 443)
-            return pipeline.UseCosmosDbExecutorImpl(uri, database, graphName, authKey, logger);
-        }
-
-        public static IGremlinQueryExecutionPipeline UseCosmosDbEmulatorExecutor(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
-        {
-            //, int port = 8901)
-            return pipeline.UseCosmosDbExecutorImpl(uri, database, graphName, authKey, logger);
-        }
-
-        private static IGremlinQueryExecutionPipeline UseCosmosDbExecutorImpl(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
-        {
             return pipeline
                 .UseWebSocketExecutor(
                     uri,
