@@ -22,10 +22,10 @@ namespace ExRam.Gremlinq.Samples
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()))
 
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
-                .UseGremlinServer("localhost", GraphsonVersion.V3);
+                .UseGremlinServer(new Uri("ws://localhost:8182"), GraphsonVersion.V3);
 
                 //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
-                //.UseCosmosDb(hostname, database, graphName, authKey);
+                //.UseCosmosDb(uri, database, graphName, authKey);
         }
 
         public async Task Run()
