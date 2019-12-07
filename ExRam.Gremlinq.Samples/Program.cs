@@ -1,33 +1,13 @@
-﻿using System;
+﻿// ReSharper disable ConsiderUsingConfigureAwait
+using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Samples
 {
-    class Program
+    public class Program
     {
-        static async Task Main()
-        {
-            var program = new Program();
-
-            await program.CreateGraph();
-            await program.CreateKnowsRelationInOneQuery();
-
-            await program.WhoDoesMarkoKnow();
-            await program.WhoIsOlderThan30();
-            await program.WhoseNameStartsWithB();
-            await program.WhoKnowsWho();
-
-            await program.WhatPetsAreAround();
-            await program.WhoOwnsAPet();
-
-            await program.SetAndGetMetaDataOnMarko();
-
-            Console.Write("Press any key...");
-            Console.Read();
-        }
-
         private Person _marko;
         private readonly IGremlinQuerySource _g;
 
@@ -47,10 +27,28 @@ namespace ExRam.Gremlinq.Samples
                 //.UseCosmosDb(hostname, database, graphName, authKey);
         }
 
-        public async Task CreateGraph()
+        public async Task Run()
+        {
+            await CreateGraph();
+            await CreateKnowsRelationInOneQuery();
+
+            await WhoDoesMarkoKnow();
+            await WhoIsOlderThan30();
+            await WhoseNameStartsWithB();
+            await WhoKnowsWho();
+            await WhatPetsAreAround();
+            await WhoOwnsAPet();
+
+            await SetAndGetMetaDataOnMarko();
+
+            Console.Write("Press any key...");
+            Console.Read();
+        }
+
+        private async Task CreateGraph()
         {
             // Uncomment to delete the whole graph on every run.
-            await _g.V().Drop().ToArrayAsync();
+            //await _g.V().Drop().ToArrayAsync();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
@@ -141,7 +139,7 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
         }
 
-        public async Task CreateKnowsRelationInOneQuery()
+        private async Task CreateKnowsRelationInOneQuery()
         {
             await _g
                 .AddV(new Person { Name = "Bob", Age = 36 })
@@ -151,7 +149,7 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
         }
 
-        public async Task WhoDoesMarkoKnow()
+        private async Task WhoDoesMarkoKnow()
         {
             var knownPersonsToMarko = await _g
                 .V<Person>()
@@ -172,7 +170,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task WhoIsOlderThan30()
+        private async Task WhoIsOlderThan30()
         {
             var personsOlderThan30 = await _g
                 .V<Person>()
@@ -189,7 +187,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task WhoseNameStartsWithB()
+        private async Task WhoseNameStartsWithB()
         {
             var nameStartsWithB = await _g
                 .V<Person>()
@@ -206,7 +204,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task WhoKnowsWho()
+        private async Task WhoKnowsWho()
         {
             var friendTuples = await _g
                 .V<Person>()
@@ -227,7 +225,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task WhatPetsAreAround()
+        private async Task WhatPetsAreAround()
         {
             var pets = await _g
                 .V<Pet>()
@@ -243,7 +241,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task WhoOwnsAPet()
+        private async Task WhoOwnsAPet()
         {
             var petOwners = await _g
                 .V<Person>()
@@ -270,7 +268,7 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        public async Task SetAndGetMetaDataOnMarko()
+        private async Task SetAndGetMetaDataOnMarko()
         {
             await _g
                 .V<Person>(_marko.Id)
@@ -293,6 +291,11 @@ namespace ExRam.Gremlinq.Samples
             }
 
             Console.WriteLine();
+        }
+
+        static async Task Main()
+        {
+            await new Program().Run();
         }
     }
 }
