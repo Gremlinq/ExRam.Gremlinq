@@ -38,6 +38,7 @@ namespace ExRam.Gremlinq.Samples
             await Whose_name_starts_with_B();
             await Who_knows_who();
             await What_pets_are_around();
+            await How_many_pets_does_everybody_have();
 
             await Set_and_get_metadata_on_Marko();
 
@@ -51,7 +52,7 @@ namespace ExRam.Gremlinq.Samples
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
 
             // Uncomment to delete the whole graph on every run.
-            //await _g.V().Drop().ToArrayAsync();
+            await _g.V().Drop().ToArrayAsync();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
@@ -66,11 +67,19 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             var peter = await _g
-                .AddV(new Person { Name = "Peter", Age = 29 })
+                .AddV(new Person { Name = "Peter", Age = 35 })
+                .FirstAsync();
+
+            var daniel = await _g
+                .AddV(new Person { Name = "Daniel", Age = 37 })
                 .FirstAsync();
 
             var charlie = await _g
                 .AddV(new Dog {Name = "Charlie", Age = 2})
+                .FirstAsync();
+
+            var catmanJohn = await _g
+                .AddV(new Cat { Name = "Catman John", Age = 5 })
                 .FirstAsync();
 
             var luna = await _g
@@ -135,10 +144,17 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             await _g
-                .V(peter.Id)
+                .V(josh.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(luna.Id))
+                .FirstAsync();
+
+            await _g
+                .V(daniel.Id)
+                .AddE<Owns>()
+                .To(__ => __
+                    .V(catmanJohn.Id))
                 .FirstAsync();
         }
 
@@ -293,6 +309,32 @@ namespace ExRam.Gremlinq.Samples
             foreach (var pet in pets)
             {
                 Console.WriteLine($" There's a {pet.GetType().Name} named {pet.Name.Value}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task How_many_pets_does_everybody_have()
+        {
+            // This sample demonstrates how to fluently build projections with
+            // ExRam.Gremlinq. It can project to a ValueTuple or to a dynamic.
+            // In the latter case, the user may specify the name of each projection.
+
+            var dynamics = await _g
+                .V<Person>()
+                .Project(b => b
+                    .ToDynamic()
+                    .By(person => person.Name)
+                    .By(
+                        "count",
+                        __ => __
+                            .Out<Owns>()
+                            .OfType<Pet>()
+                            .Count()));
+
+            foreach (var d in dynamics)
+            {
+                Console.WriteLine($"{d.Name} owns {d.count} pets.");
             }
 
             Console.WriteLine();
