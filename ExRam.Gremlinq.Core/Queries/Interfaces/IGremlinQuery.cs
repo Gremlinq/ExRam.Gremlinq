@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
     public partial interface IGremlinQuery : IGremlinQueryBase
     {
+        GremlinQueryAwaiter GetAwaiter();
+
         IGremlinQueryAdmin AsAdmin();
         IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();
@@ -19,6 +22,8 @@ namespace ExRam.Gremlinq.Core
 
     public partial interface IGremlinQuery<TElement> : IGremlinQuery
     {
+        new GremlinQueryAwaiter<TElement> GetAwaiter();
+
         IGremlinQuery<TElement> Inject(params TElement[] elements);
 
         IAsyncEnumerable<TElement> ToAsyncEnumerable();

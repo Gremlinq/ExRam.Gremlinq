@@ -4,12 +4,68 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
 using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
+    public struct GremlinQueryAwaiter : ICriticalNotifyCompletion, INotifyCompletion
+    {
+        private readonly ValueTaskAwaiter<Unit> _valueTaskAwaiter;
+
+        internal GremlinQueryAwaiter(ValueTaskAwaiter<Unit> valueTaskAwaiter)
+        {
+            _valueTaskAwaiter = valueTaskAwaiter;
+        }
+
+        public void GetResult()
+        {
+            _valueTaskAwaiter.GetResult();
+        }
+
+        public void OnCompleted(Action continuation)
+        {
+            _valueTaskAwaiter.OnCompleted(continuation);
+        }
+
+        public void UnsafeOnCompleted(Action continuation)
+        {
+            _valueTaskAwaiter.UnsafeOnCompleted(continuation);
+        }
+
+        public bool IsCompleted { get => _valueTaskAwaiter.IsCompleted; }
+    }
+
+    public struct GremlinQueryAwaiter<TElement> : ICriticalNotifyCompletion, INotifyCompletion
+    {
+        private readonly ValueTaskAwaiter<TElement[]> _valueTaskAwaiter;
+
+        internal GremlinQueryAwaiter(ValueTaskAwaiter<TElement[]> valueTaskAwaiter)
+        {
+            _valueTaskAwaiter = valueTaskAwaiter;
+        }
+
+        public TElement[] GetResult()
+        {
+            return _valueTaskAwaiter.GetResult();
+        }
+
+        public void OnCompleted(Action continuation)
+        {
+            _valueTaskAwaiter.OnCompleted(continuation);
+        }
+
+        public void UnsafeOnCompleted(Action continuation)
+        {
+            _valueTaskAwaiter.UnsafeOnCompleted(continuation);
+        }
+
+        public bool IsCompleted { get => _valueTaskAwaiter.IsCompleted; }
+    }
+
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
         IGremlinQuery,
@@ -79,6 +135,10 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TNewOutVertex> IEdgeGremlinQuery<TElement>.From<TNewOutVertex>(Func<IVertexGremlinQuery, IVertexGremlinQuery<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, Unit, Unit, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize())));
 
         IEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IGremlinQuery<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, Unit, Unit, Unit>(new FromTraversalStep(fromVertexTraversal(Anonymize<TInVertex, Unit, Unit, Unit, Unit, Unit>())));
+
+        GremlinQueryAwaiter IGremlinQuery.GetAwaiter() => new GremlinQueryAwaiter(((IGremlinQuery<TElement>)this).ToAsyncEnumerable().Select(_ => Unit.Default).LastAsync().GetAwaiter());
+
+        GremlinQueryAwaiter<TElement> IGremlinQuery<TElement>.GetAwaiter() => new GremlinQueryAwaiter<TElement>(this.ToArrayAsync().GetAwaiter());
 
         IValueGremlinQuery<object> IElementGremlinQuery.Id() => Id();
 
