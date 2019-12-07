@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+// Put this into static scope to access the default GremlinQuerySource as "g". 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Samples
@@ -29,24 +30,26 @@ namespace ExRam.Gremlinq.Samples
 
         public async Task Run()
         {
-            await CreateGraph();
-            await CreateKnowsRelationInOneQuery();
+            await Create_the_graph();
+            await Create_vertices_and_a_relation_in_one_query();
 
-            await WhoDoesMarkoKnow();
-            await WhoIsOlderThan30();
-            await WhoseNameStartsWithB();
-            await WhoKnowsWho();
-            await WhatPetsAreAround();
-            await WhoOwnsAPet();
+            await Who_does_Marko_know();
+            await Who_is_older_than_30();
+            await Whose_name_starts_with_B();
+            await Who_knows_who();
+            await What_pets_are_around();
 
-            await SetAndGetMetaDataOnMarko();
+            await Set_and_get_metadata_on_Marko();
 
             Console.Write("Press any key...");
             Console.Read();
         }
 
-        private async Task CreateGraph()
+        private async Task Create_the_graph()
         {
+            // Create a graph very similar to the one
+            // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
+
             // Uncomment to delete the whole graph on every run.
             //await _g.V().Drop().ToArrayAsync();
 
@@ -139,8 +142,11 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
         }
 
-        private async Task CreateKnowsRelationInOneQuery()
+        private async Task Create_vertices_and_a_relation_in_one_query()
         {
+            // This demonstrates how to create 2 vertices and a connecting
+            // edge between them in a single query.
+
             await _g
                 .AddV(new Person { Name = "Bob", Age = 36 })
                 .AddE<Knows>()
@@ -149,14 +155,16 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
         }
 
-        private async Task WhoDoesMarkoKnow()
+        private async Task Who_does_Marko_know()
         {
+            // From Marko, walk all the 'Knows' edge to all the persons
+            // that he knows and order them by their name.
             var knownPersonsToMarko = await _g
-                .V<Person>()
-                .Where(x => x.Name.Value == "Marko")
+                .V(_marko.Id)
                 .Out<Knows>()
                 .OfType<Person>()
-                .Order(x => x.By(x => x.Name))
+                .Order(x => x
+                    .By(x => x.Name))
                 .Values(x => x.Name)
                 .ToArrayAsync();
 
@@ -170,12 +178,22 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        private async Task WhoIsOlderThan30()
+        private async Task Who_is_older_than_30()
         {
+            // Gremlinq supports boolean expressions like you're used to use them
+            // in your Linq-queries. Under the hood, they will be translated to the
+            // corresponding Gremlin-expressions, like
+            //
+            //   "g.hasLabel('Person').has('Age', gt(30))"
+            //
+            // in this case
+
+            // Also, this sample demonstrates that instead of calling ToArrayAsync
+            // and awaiting that, you may just await the IGremlinQuery<Person>!
+
             var personsOlderThan30 = await _g
                 .V<Person>()
-                .Where(x => x.Age > 30)
-                .ToArrayAsync();
+                .Where(x => x.Age > 30);
 
             Console.WriteLine("Who is older than 30?");
 
@@ -187,8 +205,12 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        private async Task WhoseNameStartsWithB()
+        private async Task Whose_name_starts_with_B()
         {
+            // This sample demonstrates the power of ExRam.Gremlinq! Even an expression
+            // like 'StartsWith' on a string will be recognized by ExRam.Gremlinq and translated
+            // to proper Gremlin syntax!
+
             var nameStartsWithB = await _g
                 .V<Person>()
                 .Where(x => x.Name.Value.StartsWith("B"))
@@ -204,16 +226,25 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        private async Task WhoKnowsWho()
+        private async Task Who_knows_who()
         {
+            // Here, we demonstrate how to deal with Gremlin step labels. Instead of
+            // dealing with raw strings, ExRam.Gremlinq uses a dedicated 'StepLabel'-type
+            // for these. And you don't even need to declare them upfront, as the
+            // As-operator of ExRam.Gremlinq will put them in scope for you, along
+            // with a continuation-query that you can further build upon!
+
+            // Also, ExRam.Gremlinq's Select operators will not leave you with
+            // raw dictionaries (or maps, as Java calls them). Instead, you'll get
+            // nice ValueTuples!
+
             var friendTuples = await _g
                 .V<Person>()
                 .As((__, person) => __
                     .Out<Knows>()
                     .OfType<Person>()
                     .As((___, friend) => ___
-                        .Select(person, friend)))
-                .ToArrayAsync();
+                        .Select(person, friend)));
 
             Console.WriteLine("Who knows who?");
 
@@ -225,50 +256,49 @@ namespace ExRam.Gremlinq.Samples
             Console.WriteLine();
         }
 
-        private async Task WhatPetsAreAround()
+        private async Task Who_does_what()
         {
-            var pets = await _g
-                .V<Pet>()
-                .ToArrayAsync();
+            // So far, we have only been dealing with vertices. ExRam.Gremlinq is cool
+            // with edges too!
 
-            Console.WriteLine("What pets are there?");
+            var tuples = await _g
+                .V<Person>()
+                .As((__, person) => __
+                    .OutE<Edge>()
+                    .As((__, edge) => __
+                        .InV<Vertex>()
+                        .As((__, what) => __
+                            .Select(person, edge, what))));
+
+            Console.WriteLine("Who does what?");
+
+            foreach (var (person, does, what) in tuples)
+            {
+                Console.WriteLine($" {person} {does.Label} {what}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task What_pets_are_around()
+        {
+            // ExRam.Gremlinq supports inheritance! Below query will find all the dogs
+            // and all the cats and instantiate the right type, as 'pet.GetType()' proves.
+
+            var pets = await _g
+                .V<Pet>();
+
+            Console.WriteLine("What pets are around?");
 
             foreach (var pet in pets)
             {
-                Console.WriteLine($" There is {pet.Name.Value}.");
+                Console.WriteLine($" There's a {pet.GetType().Name} named {pet.Name.Value}.");
             }
 
             Console.WriteLine();
         }
 
-        private async Task WhoOwnsAPet()
-        {
-            var petOwners = await _g
-                .V<Person>()
-                .Where(__ => __
-                    .Out<Owns>()
-                    .OfType<Pet>())
-                .ToArrayAsync();
-
-            //Alternatively:
-            //var petOwners = await _g
-            //    .V<Pet>()
-            //    .In<Owns>()
-            //    .OfType<Person>()
-            //    .Dedup()
-            //    .ToArray();
-
-            Console.WriteLine("Who owns a pet?");
-
-            foreach (var petOwner in petOwners)
-            {
-                Console.WriteLine($" {petOwner.Name.Value} owns a pet.");
-            }
-
-            Console.WriteLine();
-        }
-
-        private async Task SetAndGetMetaDataOnMarko()
+        private async Task Set_and_get_metadata_on_Marko()
         {
             await _g
                 .V<Person>(_marko.Id)
