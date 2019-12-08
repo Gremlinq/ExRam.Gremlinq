@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ConsiderUsingConfigureAwait
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 // Put this into static scope to access the default GremlinQuerySource as "g". 
@@ -39,6 +40,8 @@ namespace ExRam.Gremlinq.Samples
             await Who_knows_who();
             await What_pets_are_around();
             await How_many_pets_does_everybody_have();
+            await Who_has_that_phone_number();
+            await Who_has_a_phone();
 
             await Set_and_get_metadata_on_Marko();
 
@@ -71,7 +74,16 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             var daniel = await _g
-                .AddV(new Person { Name = "Daniel", Age = 37 })
+                .AddV(new Person
+                {
+                    Name = "Daniel",
+                    Age = 37,
+                    PhoneNumbers = new []
+                    {
+                        "+491234567",
+                        "+492345678"
+                    }
+                })
                 .FirstAsync();
 
             var charlie = await _g
@@ -320,6 +332,8 @@ namespace ExRam.Gremlinq.Samples
             // ExRam.Gremlinq. It can project to a ValueTuple or to a dynamic.
             // In the latter case, the user may specify the name of each projection.
 
+            Console.WriteLine("How many pets does everybody have?");
+
             var dynamics = await _g
                 .V<Person>()
                 .Project(b => b
@@ -334,7 +348,51 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var d in dynamics)
             {
-                Console.WriteLine($"{d.Name} owns {d.count} pets.");
+                Console.WriteLine($" {d.Name} owns {d.count} pets.");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task Who_has_that_phone_number()
+        {
+            // ExRam.Gremlinq supports multi-properties! And since these are
+            // represented on the POCOs as arrays (in this case PhoneNumbers),
+            // you want to call things like "Contains" on them! Surprise: ExRam.Gremlinq
+            // recognizes these expressions!
+
+            Console.WriteLine("Who got the phone number +491234567 ?");
+
+            var personWithThatPhoneNumber = await _g
+                .V<Person>()
+                .Where(person => person
+                    .PhoneNumbers
+                    .Contains("+491234567"))
+                .FirstOrDefaultAsync();
+
+            Console.WriteLine(personWithThatPhoneNumber != null
+                ? $" {personWithThatPhoneNumber.Name.Value} has a phone with the number +491234567"
+                : " Nobody got a phone with the phone number +491234567");
+
+            Console.WriteLine();
+        }
+
+        private async Task Who_has_a_phone()
+        {
+            // Another example of an expression on the Person-POCO that ExRam.Gremlinq
+            // recognizes:
+
+            Console.WriteLine("Who has got a phone?");
+
+            var personsWithPhoneNumber = await _g
+                .V<Person>()
+                .Where(person => person
+                    .PhoneNumbers
+                    .Any());
+
+            foreach (var person in personsWithPhoneNumber)
+            {
+                Console.WriteLine($" {person.Name.Value} has a phone!");
             }
 
             Console.WriteLine();
