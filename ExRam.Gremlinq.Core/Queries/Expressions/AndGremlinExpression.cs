@@ -1,6 +1,7 @@
-﻿using Gremlin.Net.Process.Traversal;
+﻿using System.Linq.Expressions;
+using Gremlin.Net.Process.Traversal;
 
-namespace System.Linq.Expressions
+namespace ExRam.Gremlinq.Core
 {
     internal sealed class AndGremlinExpression : BinaryGremlinExpression
     {

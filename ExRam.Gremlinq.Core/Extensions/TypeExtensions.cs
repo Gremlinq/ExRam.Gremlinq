@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace System
+namespace ExRam.Gremlinq.Core
 {
     internal static class TypeExtensions
     {

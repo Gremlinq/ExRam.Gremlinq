@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
-using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 
-namespace System.Linq.Expressions
+namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionExtensions
     {

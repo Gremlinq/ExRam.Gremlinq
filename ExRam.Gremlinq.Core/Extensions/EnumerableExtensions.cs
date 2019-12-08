@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using ExRam.Gremlinq.Core;
+﻿using System;
+using System.Collections.Generic;
 using Gremlin.Net.Process.Traversal;
 
-namespace System.Linq
+namespace ExRam.Gremlinq.Core
 {
     public static class EnumerableExtensions
     {

@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
-namespace System.Reflection
+namespace ExRam.Gremlinq.Core
 {
     internal static class MethodInfoExtensions
     {

@@ -1,4 +1,6 @@
-﻿namespace System.Linq.Expressions
+﻿using System.Linq.Expressions;
+
+namespace ExRam.Gremlinq.Core
 {
     internal abstract class GremlinExpression
     {

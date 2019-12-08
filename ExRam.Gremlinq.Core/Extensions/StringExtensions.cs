@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace ExRam.Gremlinq.Core
 {
     internal static class StringExtensions
     {

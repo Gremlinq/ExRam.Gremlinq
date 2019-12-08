@@ -1,6 +1,6 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System;
 
-namespace System.Linq
+namespace ExRam.Gremlinq.Core
 {
     public static class StepLabelExpressions
     {

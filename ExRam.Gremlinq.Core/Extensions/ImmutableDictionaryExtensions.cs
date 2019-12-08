@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
-using ExRam.Gremlinq.Core;
 using LanguageExt;
+using System.Linq;
 
-namespace System.Linq
+namespace ExRam.Gremlinq.Core
 {
     public static class ImmutableDictionaryExtensions
     {

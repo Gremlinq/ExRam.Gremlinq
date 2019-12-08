@@ -1,13 +1,13 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using ExRam.Gremlinq.Core;
 using Gremlin.Net.Process.Traversal;
 
-namespace System
+namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {

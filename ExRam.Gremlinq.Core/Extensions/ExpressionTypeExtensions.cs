@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using ExRam.Gremlinq.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
 
-namespace System.Linq.Expressions
+namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionTypeExtensions
     {
