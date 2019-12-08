@@ -3207,8 +3207,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains("456"))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).has(_b, containing(_c)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Country", "CountryCallingCode", "456");
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, containing('456')).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -3257,8 +3257,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith("7890"))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).has(_b, endingWith(_c)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Country", "CountryCallingCode", "7890");
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, endingWith('7890')).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
@@ -3649,8 +3649,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).has(_b, startingWith(_c)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Country", "CountryCallingCode", "+49123");
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, startingWith('+49123')).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Country", "CountryCallingCode");
         }
 
         [Fact]
