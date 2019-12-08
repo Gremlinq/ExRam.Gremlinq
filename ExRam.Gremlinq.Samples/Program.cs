@@ -42,6 +42,7 @@ namespace ExRam.Gremlinq.Samples
             await How_many_pets_does_everybody_have();
             await Who_has_that_phone_number();
             await Who_has_a_phone();
+            await What_entities_are_there();
 
             await Set_and_get_metadata_on_Marko();
 
@@ -393,6 +394,27 @@ namespace ExRam.Gremlinq.Samples
             foreach (var person in personsWithPhoneNumber)
             {
                 Console.WriteLine($" {person.Name.Value} has a phone!");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task What_entities_are_there()
+        {
+            // "Group" also has a beautiful fluent interface!
+
+            Console.WriteLine("What entities are there?");
+
+            var entityGroups = await _g
+                .V()
+                .Group(g => g
+                    .ByKey(__ => __.Label())
+                    .ByValue(__ => __.Count()))
+                .FirstAsync();
+
+            foreach (var entityGroup in entityGroups)
+            {
+                Console.WriteLine($" There {(entityGroup.Value == 1 ? "is" : "are")} {entityGroup.Value} instance{(entityGroup.Value == 1 ? "" : "s")} of {entityGroup.Key}.");
             }
 
             Console.WriteLine();
