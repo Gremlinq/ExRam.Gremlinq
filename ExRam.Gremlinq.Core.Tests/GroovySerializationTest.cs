@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -1540,36 +1539,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SerializeToGroovy("V().hasLabel(_a).project(_b, _c).by(__.values(_b)).by(__.in())")
                 .WithParameters("Person", "Age", "in!");
         }
-
-        //[Fact]
-        //public void Project_untyped1()
-        //{
-        //    IGremlinQuery query = _g
-        //        .V();
-
-        //    query
-        //        .Project(__ => __
-        //            .ToTuple()
-        //            .By(__ => (IGremlinQuery)__.Count())
-        //            .By(__ => __.Count()))
-        //        .Should()
-        //        .SerializeToGroovy("V().project(_a, _b).by(__.count()).by(__.count())")
-        //        .WithParameters("Item1", "Item2");
-        //}
-
-        //[Fact]
-        //public void Project_untyped2()
-        //{
-        //    _g
-        //        .V()
-        //        .Project(__ => __
-        //            .ToTuple()
-        //            .By(__ => (IGremlinQuery)__.Count())
-        //            .By(__ => __.Count()))
-        //        .Should()
-        //        .SerializeToGroovy("V().project(_a, _b).by(__.count()).by(__.count())")
-        //        .WithParameters("Item1", "Item2");
-        //}
 
         [Fact]
         public void Project2()
