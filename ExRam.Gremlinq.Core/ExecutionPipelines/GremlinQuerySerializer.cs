@@ -451,6 +451,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<SideEffectStep>((step, overridden, recurse) => CreateInstruction("sideEffect", recurse, step.Traversal))
                 .OverrideFragmentSerializer<SkipStep>((step, overridden, recurse) => CreateInstruction("skip", recurse, step.Count))
                 .OverrideFragmentSerializer<SumStep>((step, overridden, recurse) => CreateInstruction("sum", recurse, step.Scope))
+                .OverrideFragmentSerializer<TextP>((textP, overridden, recurse) => textP)
                 .OverrideFragmentSerializer<TailStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local) ? CreateInstruction("tail", recurse, step.Scope, step.Count) : CreateInstruction("tail", recurse, step.Count))
                 .OverrideFragmentSerializer<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
                 .OverrideFragmentSerializer<Type>((type, overridden, recurse) => type)
