@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
             return source
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(opt => opt
-                        .SetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323, true)))
+                        .SetItem(GremlinQuerySerializer.WorkaroundTinkerpop2323, true)))
                 .UseWebSocket(
                     uri,
                     graphsonVersion,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -8,7 +9,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQueryEnvironmentImpl : IGremlinQueryEnvironment
         {
-            public GremlinQueryEnvironmentImpl(IGraphModel model, IGremlinQueryExecutionPipeline pipeline, GremlinqOptions options, ILogger logger)
+            public GremlinQueryEnvironmentImpl(IGraphModel model, IGremlinQueryExecutionPipeline pipeline, IImmutableDictionary<GremlinqOption, object> options, ILogger logger)
             {
                 Model = model;
                 Pipeline = pipeline;
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQueryEnvironmentImpl(Model, pipelineTransformation(Pipeline), Options, Logger);
             }
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<GremlinqOptions, GremlinqOptions> optionsTransformation)
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation)
             {
                 return new GremlinQueryEnvironmentImpl(Model, Pipeline, optionsTransformation(Options), Logger);
             }
@@ -38,8 +39,8 @@ namespace ExRam.Gremlinq.Core
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
-            public GremlinqOptions Options { get; }
             public IGremlinQueryExecutionPipeline Pipeline { get; }
+            public IImmutableDictionary<GremlinqOption, object> Options { get; }
         }
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model)
@@ -55,14 +56,14 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             GremlinQueryExecutionPipeline.Empty,
-            default,
+            ImmutableDictionary<GremlinqOption, object>.Empty,
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = new GremlinQueryEnvironmentImpl(
             GraphModel.Dynamic(NullLogger.Instance),
             GremlinQueryExecutionPipeline.Empty
                 .UseSerializer(GremlinQuerySerializer.Default),
-            default,
+            ImmutableDictionary<GremlinqOption, object>.Empty,
             NullLogger.Instance);
 
         internal static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Empty).Identity());

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Immutable;
 using System.Linq;
 using Gremlin.Net.Process.Traversal;
 
@@ -47,7 +48,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static P WorkaroundLimitations(this TextP textP, GremlinqOptions gremlinqOptions)
+        public static P WorkaroundLimitations(this TextP textP, IImmutableDictionary<GremlinqOption, object> gremlinqOptions)
         {
             if (textP.OperatorName == "startingWith")
             {
