@@ -44,6 +44,7 @@ namespace ExRam.Gremlinq.Samples
             await Who_has_a_phone();
             await What_entities_are_there();
             await Who_created_some_software();
+            await Whose_age_is_29_30_or_31();
 
             await Set_and_get_metadata_on_Marko();
 
@@ -439,6 +440,35 @@ namespace ExRam.Gremlinq.Samples
             foreach (var creator in creators)
             {
                 Console.WriteLine($" {creator.Name.Value} created some software.");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task Whose_age_is_29_30_or_31()
+        {
+            // ExRam.Gremlinq even defines extension methods on StepLabels so
+            // you can ask question like the following: Which persons have an age
+            // that's within a previously collected set of ages, referenced by a step label?
+            //
+            // So first, for simplicity, we inject 3 values (29, 30, 31), fold them
+            // and store them in a step label 'ages'. Note that these values 29, 30 and 31
+            // don't need to be hard coded but can come from an ordinary traversal.
+            // Then, we ask for all the persons whose age is contained within the array
+            // that the 'ages' step label references.
+
+            Console.WriteLine("Whose age is either 29, 30 or 31.");
+
+            var personsWithSpecificAges = await _g
+                .Inject(29, 30, 31)
+                .Fold()
+                .As((_, ages) => _
+                    .V<Person>()
+                    .Where(person => ages.Contains(person.Age)));
+
+            foreach(var person in personsWithSpecificAges)
+            {
+                Console.WriteLine($" {person.Name.Value}'s age is either 29, 30 or 31.");
             }
 
             Console.WriteLine();
