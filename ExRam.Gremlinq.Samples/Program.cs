@@ -43,6 +43,7 @@ namespace ExRam.Gremlinq.Samples
             await Who_has_that_phone_number();
             await Who_has_a_phone();
             await What_entities_are_there();
+            await Who_created_some_software();
 
             await Set_and_get_metadata_on_Marko();
 
@@ -415,6 +416,29 @@ namespace ExRam.Gremlinq.Samples
             foreach (var entityGroup in entityGroups)
             {
                 Console.WriteLine($" There {(entityGroup.Value == 1 ? "is" : "are")} {entityGroup.Value} instance{(entityGroup.Value == 1 ? "" : "s")} of {entityGroup.Key}.");
+            }
+
+            Console.WriteLine();
+        }
+
+        private async Task Who_created_some_software()
+        {
+            // This showcases the power of the fluent interface of ExRam.Gremlinq.
+            // Once we go from a 'Person' to the 'Created' edge, the entity we
+            // came from is actually encoded in the interface, so on calling "OutV",
+            // ExRam.Gremlinq remembers that we're now on "Persons" again.
+
+            Console.WriteLine("Who created some software?");
+
+            var creators = await _g
+                .V<Person>()
+                .OutE<Created>()
+                .OutV()
+                .Dedup();
+
+            foreach (var creator in creators)
+            {
+                Console.WriteLine($" {creator.Name.Value} created some software.");
             }
 
             Console.WriteLine();
