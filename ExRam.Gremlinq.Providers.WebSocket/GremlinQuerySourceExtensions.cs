@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -122,7 +123,30 @@ namespace ExRam.Gremlinq.Core
                         if (environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323))
                         {
                             conf = conf.ConfigureSerializer(serializer => serializer
-                                .OverrideFragmentSerializer<P>((p, overridden, recurse) => p));
+                                .OverrideFragmentSerializer<P>((p, overridden, recurse) =>
+                                {
+                                    object Unbind(object o)
+                                    {
+                                        if (o is P p) 
+                                        {
+                                            return new P(
+                                                p.OperatorName,
+                                                Unbind(p.Value),
+                                                Unbind(p.Other) as P);
+                                        }
+
+                                        if (o is Binding binding)
+                                            return Unbind(binding.Value);
+
+                                        if (o is IEnumerable enumerable && !(o is string))
+                                            return enumerable.Cast<object>().Select(Unbind).ToArray();
+
+                                        return o;
+                                    }
+
+                                    return Unbind(overridden(p));
+                                })
+                                .OverrideFragmentSerializer<TextP>((textP, overridden, recurse) => textP));
                         }
 
                         return conf
