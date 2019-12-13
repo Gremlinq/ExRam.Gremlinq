@@ -2366,6 +2366,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Union_different_types()
+        {
+            _g
+                .V<Person>()
+                .Union<IGremlinQuery>(
+                    __ => __.Out<WorksFor>(),
+                    __ => __.OutE<LivesIn>())
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).union(__.out(_b), __.outE(_c))")
+                .WithParameters("Person", "WorksFor", "LivesIn");
+        }
+
+        [Fact]
         public void Union_untyped()
         {
             IVertexGremlinQuery q = _g
