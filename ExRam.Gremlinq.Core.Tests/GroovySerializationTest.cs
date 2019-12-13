@@ -488,6 +488,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void As_followed_by_Select()
+        {
+            _g
+                .V<Person>()
+                .As((_, stepLabel1) => _
+                    .Select(stepLabel1))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1");
+        }
+
+        [Fact]
         public void As_idempotency_is_detected()
         {
             _g
@@ -1740,7 +1752,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, s) => __
                     .Select(s))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).properties(_b).properties().as(_c).select(_c)")
+                .SerializeToGroovy("V().hasLabel(_a).properties(_b).properties().as(_c)")
                 .WithParameters("Country", "Name", "l1");
         }
 

@@ -250,8 +250,11 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQuery.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
+            if (Steps.LastOrDefault() is AsStep asStep && asStep.StepLabels.Contains(label))
+                return this.ChangeQueryType<TQuery>();
+
             return this
-                .Select<TStepElement>(label)
+                .Select(label)
                 .ChangeQueryType<TQuery>();
         }
 
