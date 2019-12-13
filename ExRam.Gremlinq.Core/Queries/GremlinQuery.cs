@@ -61,6 +61,10 @@ namespace ExRam.Gremlinq.Core
         protected TTargetQuery ChangeQueryType<TTargetQuery>()
         {
             var targetQueryType = typeof(TTargetQuery);
+
+            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType)
+                return (TTargetQuery)(object)this;
+
             var genericTypeDef = targetQueryType.IsGenericType
                 ? targetQueryType.GetGenericTypeDefinition()
                 : targetQueryType;

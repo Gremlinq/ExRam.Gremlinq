@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -25,6 +26,28 @@ namespace ExRam.Gremlinq.Core.Tests
             {
                 typeof(IGremlinQueryAdmin).GetMethod(nameof(IGremlinQueryAdmin.ChangeQueryType)).MakeGenericMethod(iface).Invoke(anon, Array.Empty<object>());
             }
+        }
+
+        [Fact]
+        public void ChangeQueryType_optimizes()
+        {
+            var query = GremlinQuerySource.g.V<Person>();
+
+            query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<Person>>()
+                .Should()
+                .BeSameAs(query);
+
+            query.AsAdmin().ChangeQueryType<IGremlinQuery<Person>>()
+                .Should()
+                .BeSameAs(query);
+
+            query.AsAdmin().ChangeQueryType<IGremlinQuery>()
+                .Should()
+                .NotBeSameAs(query);
+
+            query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<object>>()
+                .Should()
+                .NotBeSameAs(query);
         }
     }
 }
