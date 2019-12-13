@@ -51,4 +51,8 @@
     <ProjectReference Include="..\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
   </Project>
