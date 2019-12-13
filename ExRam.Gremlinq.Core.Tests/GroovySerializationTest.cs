@@ -478,11 +478,26 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .As((_, stepLabel1) => _
+                    .Out()
+                    .OfType<Person>()
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
+        }
+
+        [Fact]
+        public void As_idempotency_is_detected()
+        {
+            _g
+                .V<Person>()
+                .As((_, stepLabel1) => _
+                    .As((__, stepLabel2) => __
+                        .Select(stepLabel1, stepLabel2)))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
+                .WithParameters("Person", "l1", "Item1", "Item2");
         }
 
         [Fact]
@@ -1052,8 +1067,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Map(___ => ___
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).map(__.project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))))")
-                .WithParameters("Person", "l1", "l2", "Item1", "Item2");
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).map(__.project(_c, _d).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))))")
+                .WithParameters("Person", "l1", "Item1", "Item2");
         }
 
         [Fact]
@@ -1067,8 +1082,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(tuple, stepLabel1))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_f).project(_d, _e).by(__.select(_f)).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
-                .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_e).project(_c, _d).by(__.select(_e)).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
+                .WithParameters("Person", "l1", "Item1", "Item2", "l2");
         }
 
         [Fact]
@@ -1082,8 +1097,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .As((___, tuple) => ___
                             .Select(stepLabel1, tuple))))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_f).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_f))")
-                .WithParameters("Person", "l1", "l2", "Item1", "Item2", "l3");
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_e).project(_c, _d).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_e))")
+                .WithParameters("Person", "l1", "Item1", "Item2", "l2");
         }
 
         [Fact]

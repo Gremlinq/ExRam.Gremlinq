@@ -472,6 +472,9 @@ namespace ExRam.Gremlinq.Core
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQuery
         {
+            if (Steps.LastOrDefault() is AsStep asStep && asStep.StepLabels.FirstOrDefault() is TStepLabel existingStepLabel)
+                return continuation(this, existingStepLabel);
+
             var stepLabel = new TStepLabel();
 
             return continuation(
