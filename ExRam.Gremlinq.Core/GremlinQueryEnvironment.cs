@@ -53,6 +53,11 @@ namespace ExRam.Gremlinq.Core
             return source.ConfigureExecutionPipeline(_ => pipeline);
         }
 
+        public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger)
+        {
+            return source.ConfigureLogger(_ => logger);
+        }
+
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
             GremlinQueryExecutionPipeline.Empty,
