@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using LanguageExt;
 
@@ -372,9 +373,9 @@ namespace ExRam.Gremlinq.Core
                         var model = query.AsAdmin().Environment.Model;
                         var elementType = query.GetType().GetGenericArguments()[0];
 
-                        if (model.VerticesModel.Metadata.ContainsKey(elementType))
+                        if (typeof(IVertex).IsAssignableFrom(elementType) || model.VerticesModel.Metadata.ContainsKey(elementType))
                             byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
-                        else if (model.EdgesModel.Metadata.ContainsKey(elementType))
+                        else if (typeof(IEdge).IsAssignableFrom(elementType) || model.EdgesModel.Metadata.ContainsKey(elementType))
                             byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
                     }
 

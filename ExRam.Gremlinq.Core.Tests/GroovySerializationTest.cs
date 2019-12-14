@@ -349,7 +349,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.Empty))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
                 .Should()
-                .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d)")
+                .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Language", 1, "IetfLanguageTag", "en");
         }
 
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And()
                 .Out()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).and().out()")
+                .SerializeToGroovy("V().hasLabel(_a).and().out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person");
         }
 
@@ -657,7 +657,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Out(),
                     _ => _.In())
                 .Should()
-                .SerializeToGroovy("V().choose(__.values(), __.out(), __.in())")
+                .SerializeToGroovy("V().choose(__.values(), __.out(), __.in()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -670,7 +670,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Values(),
                     _ => _.Out())
                 .Should()
-                .SerializeToGroovy("V().choose(__.values(), __.out())")
+                .SerializeToGroovy("V().choose(__.values(), __.out()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -712,7 +712,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Identity())
                 .Should()
-                .SerializeToGroovy("V().coalesce(__.identity())")
+                .SerializeToGroovy("V().coalesce(__.identity()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -787,7 +787,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .E<IEdge>()
                 .Should()
-                .SerializeToGroovy("E()")
+                .SerializeToGroovy("E().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('edge')).by(__.valueMap())")
                 .WithoutParameters();
         }
 
@@ -841,7 +841,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .FlatMap(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).flatMap(__.out(_b))")
+                .SerializeToGroovy("V().hasLabel(_a).flatMap(__.out(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -866,7 +866,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Unfold()
                 .Unfold()
                 .Should()
-                .SerializeToGroovy("V().fold().fold().unfold().unfold()")
+                .SerializeToGroovy("V().fold().fold().unfold().unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -879,7 +879,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .SideEffect(x => x.Identity())
                 .Unfold()
                 .Should()
-                .SerializeToGroovy("V().fold().sideEffect(__.identity()).unfold()")
+                .SerializeToGroovy("V().fold().sideEffect(__.identity()).unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -891,7 +891,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGroovy("V().fold().unfold()")
+                .SerializeToGroovy("V().fold().unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -959,7 +959,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .In<WorksFor>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).in(_b)")
+                .SerializeToGroovy("V().hasLabel(_a).in(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -970,7 +970,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
-                .SerializeToGroovy("V().in(_a, _b, _c)")
+                .SerializeToGroovy("V().in(_a, _b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -980,7 +980,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
-                .SerializeToGroovy("V().in()")
+                .SerializeToGroovy("V().in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -1043,7 +1043,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Limit(1)
                 .Should()
-                .SerializeToGroovy("V().limit(_a)")
+                .SerializeToGroovy("V().limit(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(1);
         }
 
@@ -1054,7 +1054,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .LimitLocal(1)
                 .Should()
-                .SerializeToGroovy("V().limit(local, _a)")
+                .SerializeToGroovy("V().limit(local, _a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(1);
         }
 
@@ -1065,7 +1065,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Map(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).map(__.out(_b))")
+                .SerializeToGroovy("V().hasLabel(_a).map(__.out(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -1120,7 +1120,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGroovy("V().not(__.out(_a))")
+                .SerializeToGroovy("V().not(__.out(_a)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("WorksFor");
         }
 
@@ -1131,7 +1131,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.OfType<Language>())
                 .Should()
-                .SerializeToGroovy("V().not(__.hasLabel(_a))")
+                .SerializeToGroovy("V().not(__.hasLabel(_a)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Language");
         }
 
@@ -1142,7 +1142,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Not(__ => __.OfType<Authority>())
                 .Should()
-                .SerializeToGroovy("V().not(__.hasLabel(_a, _b))")
+                .SerializeToGroovy("V().not(__.hasLabel(_a, _b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Company", "Person");
         }
 
@@ -1153,7 +1153,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OfType<Authority>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a, _b)")
+                .SerializeToGroovy("V().hasLabel(_a, _b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Company", "Person");
         }
 
@@ -1165,7 +1165,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Company>()
                 .OfType<Authority>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a)")
+                .SerializeToGroovy("V().hasLabel(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Company");
         }
 
@@ -1201,7 +1201,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Optional(
                     __ => __.Out<WorksFor>())
                 .Should()
-                .SerializeToGroovy("V().optional(__.out(_a))")
+                .SerializeToGroovy("V().optional(__.out(_a)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("WorksFor");
         }
 
@@ -1243,7 +1243,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Or()
                 .In()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).out().or().in()")
+                .SerializeToGroovy("V().hasLabel(_a).out().or().in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person");
         }
 
@@ -1308,7 +1308,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGroovy("V().order().by(id, incr).fold().unfold()");
+                .SerializeToGroovy("V().order().by(id, incr).fold().unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]
@@ -1456,7 +1456,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<WorksFor>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).out(_b)")
+                .SerializeToGroovy("V().hasLabel(_a).out(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "WorksFor");
         }
 
@@ -1467,7 +1467,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).out(_b, _c, _d)")
+                .SerializeToGroovy("V().hasLabel(_a).out(_b, _c, _d).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "LivesIn", "Speaks", "WorksFor");
         }
 
@@ -1478,7 +1478,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Out<object>()
                 .Should()
-                .SerializeToGroovy("V().out(_a, _b, _c)")
+                .SerializeToGroovy("V().out(_a, _b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("LivesIn", "Speaks", "WorksFor");
 
             _g
@@ -1488,7 +1488,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Out<object>()
                 .Should()
-                .SerializeToGroovy("V().out()")
+                .SerializeToGroovy("V().out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -1533,7 +1533,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ToDynamic()
                     .By("in!", __ => __.In()))
                 .Should()
-                .SerializeToGroovy("V().project(_a).by(__.in())")
+                .SerializeToGroovy("V().project(_a).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
                 .WithParameters("in!");
         }
 
@@ -1549,7 +1549,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By("count!", __ => __.Count())
                     .By("properties!", __ => __.Properties()))
                 .Should()
-                .SerializeToGroovy("V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())")
+                .SerializeToGroovy("V().project(_a, _b, _c, _d).by(__.count()).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.properties())")
                 .WithParameters("count!", "in!", "out!", "properties!");
         }
 
@@ -1563,7 +1563,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By("in!", __ => __.In())
                     .By(x => x.Age))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).project(_b, _c).by(__.values(_b)).by(__.in())")
+                .SerializeToGroovy("V().hasLabel(_a).project(_b, _c).by(__.values(_b)).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
                 .WithParameters("Person", "Age", "in!");
         }
 
@@ -1577,7 +1577,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.In())
                     .By(__ => __.Out()))
                 .Should()
-                .SerializeToGroovy("V().project(_a, _b).by(__.in()).by(__.out())")
+                .SerializeToGroovy("V().project(_a, _b).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
                 .WithParameters("Item1", "Item2");
         }
 
@@ -1592,7 +1592,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.Out())
                     .By(__ => __.Count()))
                 .Should()
-                .SerializeToGroovy("V().project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())")
+                .SerializeToGroovy("V().project(_a, _b, _c).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.count())")
                 .WithParameters("Item1", "Item2", "Item3");
         }
 
@@ -1608,7 +1608,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.Count())
                     .By(__ => __.Properties()))
                 .Should()
-                .SerializeToGroovy("V().project(_a, _b, _c, _d).by(__.in()).by(__.out()).by(__.count()).by(__.properties())")
+                .SerializeToGroovy("V().project(_a, _b, _c, _d).by(__.in().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.count()).by(__.properties())")
                 .WithParameters("Item1", "Item2", "Item3", "Item4");
         }
 
@@ -2337,7 +2337,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Tail(1)
                 .Should()
-                .SerializeToGroovy("V().tail(_a)")
+                .SerializeToGroovy("V().tail(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(1);
         }
 
@@ -2348,7 +2348,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .TailLocal(1)
                 .Should()
-                .SerializeToGroovy("V().tail(local, _a)")
+                .SerializeToGroovy("V().tail(local, _a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(1);
         }
 
@@ -2361,7 +2361,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Out<WorksFor>(),
                     __ => __.Out<LivesIn>())
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).union(__.out(_b), __.out(_c))")
+                .SerializeToGroovy("V().hasLabel(_a).union(__.out(_b), __.out(_c)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "WorksFor", "LivesIn");
         }
 
@@ -2603,7 +2603,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Authority>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a, _b)")
+                .SerializeToGroovy("V().hasLabel(_a, _b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Company", "Person");
         }
 
@@ -2623,7 +2623,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<IVertex>()
                 .Should()
-                .SerializeToGroovy("V()")
+                .SerializeToGroovy("V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -2643,7 +2643,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V()
                 .Should()
-                .SerializeToGroovy("V()")
+                .SerializeToGroovy("V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -3122,7 +3122,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Id == "hallo")
 #pragma warning restore 252,253
                 .Should()
-                .SerializeToGroovy("V().has(id, _a)");
+                .SerializeToGroovy("V().has(id, _a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]
@@ -3832,7 +3832,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RemoveStrategies(typeof(SubgraphStrategy))
                 .V()
                 .Should()
-                .SerializeToGroovy("withoutStrategies(SubgraphStrategy).V()")
+                .SerializeToGroovy("withoutStrategies(SubgraphStrategy).V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 
@@ -3843,7 +3843,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
                 .Should()
-                .SerializeToGroovy("withoutStrategies(SubgraphStrategy, ElementIdStrategy).V()")
+                .SerializeToGroovy("withoutStrategies(SubgraphStrategy, ElementIdStrategy).V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 

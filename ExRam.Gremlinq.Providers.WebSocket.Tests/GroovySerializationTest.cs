@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
                 .V()
                 .Skip(10)
                 .Should()
-                .SerializeToGroovy("V().skip(_a)")
+                .SerializeToGroovy("V().skip(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(10);
         }
     }

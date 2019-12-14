@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V()
                 .Skip(10)
                 .Should()
-                .SerializeToGroovy("V().range(_a, _b)")
+                .SerializeToGroovy("V().range(_a, _b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(10, -1);
         }
 
