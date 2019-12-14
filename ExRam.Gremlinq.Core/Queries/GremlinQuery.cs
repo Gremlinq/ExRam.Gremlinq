@@ -13,6 +13,15 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
+    internal enum QuerySemantics
+    {
+        None = 0,
+        Vertex = 1,
+        Edge = 2,
+        Property = 3,
+        VertexProperty = 4
+    }
+
     internal static class GremlinQuery
     {
         internal static readonly IImmutableList<Step> AnonymousNoneSteps = ImmutableList<Step>.Empty.Add(NoneStep.Instance);
@@ -38,6 +47,7 @@ namespace ExRam.Gremlinq.Core
             return new GremlinQuery<TElement, Unit, Unit, Unit, Unit, Unit>(
                 steps,
                 environment,
+                QuerySemantics.None,
                 surfaceVisible);
         }
     }
@@ -51,9 +61,14 @@ namespace ExRam.Gremlinq.Core
             .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
             .ToArray();
 
-        protected GremlinQueryBase(IImmutableList<Step> steps, IGremlinQueryEnvironment environment, bool surfaceVisible)
+        protected GremlinQueryBase(
+            IImmutableList<Step> steps,
+            IGremlinQueryEnvironment environment,
+            QuerySemantics semantics,
+            bool surfaceVisible)
         {
             Steps = steps;
+            Semantics = semantics;
             Environment = environment;
             SurfaceVisible = surfaceVisible;
         }
@@ -130,6 +145,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         protected internal bool SurfaceVisible { get; }
+        protected internal QuerySemantics Semantics { get; }
         protected internal IImmutableList<Step> Steps { get; }
         protected internal IGremlinQueryEnvironment Environment { get; }
     }
@@ -166,14 +182,14 @@ namespace ExRam.Gremlinq.Core
             private OrderBuilder By(Expression<Func<TElement, object>> projection, Order order)
             {
                 if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                    return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), order)));
+                    return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), order), _query.Semantics));
 
                 throw new ExpressionNotSupportedException(projection);
             }
 
-            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(traversal(_query.Anonymize()), order)));
+            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(traversal(_query.Anonymize()), order), _query.Semantics));
 
-            private OrderBuilder By(ILambda lambda) => new OrderBuilder(_query.AddStep(new OrderStep.ByLambdaStep(lambda)));
+            private OrderBuilder By(ILambda lambda) => new OrderBuilder(_query.AddStep(new OrderStep.ByLambdaStep(lambda), _query.Semantics));
         }
 
         private sealed class ChooseBuilder<TTargetQuery, TPickElement> :
@@ -336,7 +352,11 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<string, IGremlinQuery> Projections { get; }
         }
 
-        public GremlinQuery(IImmutableList<Step> steps, IGremlinQueryEnvironment environment, bool surfaceVisible) : base(steps, environment, surfaceVisible)
+        public GremlinQuery(
+            IImmutableList<Step> steps,
+            IGremlinQueryEnvironment environment,
+            QuerySemantics semantics,
+            bool surfaceVisible) : base(steps, environment, semantics, surfaceVisible)
         {
 
         }
@@ -344,7 +364,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TEdge, TElement, Unit, Unit, Unit, Unit> AddE<TEdge>(TEdge newEdge)
         {
             return this
-                .AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(new AddEStep(Environment.Model, newEdge))
+                .AddStep<TEdge, TElement, Unit, Unit, Unit, Unit>(new AddEStep(Environment.Model, newEdge), QuerySemantics.Edge)
                 .AddOrUpdate(newEdge, true, false);
         }
 
@@ -360,9 +380,11 @@ namespace ExRam.Gremlinq.Core
             if (!add)
             {
                 ret = ret.SideEffect(_ => _
-                    .Properties<Unit, Unit, Unit>(props
-                        .Select(p => p.identifier)
-                        .OfType<string>())
+                    .Properties<Unit, Unit, Unit>(
+                        props
+                            .Select(p => p.identifier)
+                            .OfType<string>(),
+                        Semantics)
                     .Drop());
             }
 
@@ -370,7 +392,7 @@ namespace ExRam.Gremlinq.Core
             {
                 foreach (var propertyStep in GetPropertySteps(property.PropertyType, identifier, value, allowExplicitCardinality))
                 {
-                    ret = ret.AddStep(propertyStep);
+                    ret = ret.AddStep(propertyStep, Semantics);
                 }
             }
 
@@ -418,18 +440,18 @@ namespace ExRam.Gremlinq.Core
             return new PropertyStep(key, value, metaProperties, cardinality);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step) => AddStep<TElement>(step);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep(Step step, QuerySemantics querySemantics) => AddStep<TElement>(step, querySemantics);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step) => AddStep<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(step);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, QuerySemantics querySemantics) => AddStep<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(step, querySemantics);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Insert(Steps.Count, step), Environment, SurfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, QuerySemantics querySemantics) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Insert(Steps.Count, step), Environment, querySemantics, SurfaceVisible);
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> AddStepWithUnitTypes<TNewElement>(Step step) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(step);
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> AddStepWithUnitTypes<TNewElement>(Step step, QuerySemantics querySemantics) => AddStep<TNewElement, Unit, Unit, Unit, Unit, Unit>(step, querySemantics);
 
         private GremlinQuery<TVertex, Unit, Unit, Unit, Unit, Unit> AddV<TVertex>(TVertex vertex)
         {
             return this
-                .AddStepWithUnitTypes<TVertex>(new AddVStep(Environment.Model, vertex))
+                .AddStepWithUnitTypes<TVertex>(new AddVStep(Environment.Model, vertex), QuerySemantics.Vertex)
                 .AddOrUpdate(vertex, true, true);
         }
 
@@ -440,14 +462,14 @@ namespace ExRam.Gremlinq.Core
             var stepLabel = new TStepLabel();
 
             return continuation(
-                AddStep(new AggregateStep(stepLabel)),
+                AddStep(new AggregateStep(stepLabel), QuerySemantics.None),
                 stepLabel);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> And(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] andTraversalTransformations)
         {
             if (andTraversalTransformations.Length == 0)
-                return AddStep(AndStep.Infix);
+                return AddStep(AndStep.Infix, Semantics);
 
             var anonymous = Anonymize();
             var subQueries = default(List<IGremlinQuery>);
@@ -465,12 +487,12 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
-                : AddStep(new AndStep(subQueries.ToArray()));
+                : AddStep(new AndStep(subQueries.ToArray()), Semantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize(bool surfaceVisible = false) => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(surfaceVisible);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty, Environment, surfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty, Environment, Semantics, surfaceVisible);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
@@ -486,15 +508,15 @@ namespace ExRam.Gremlinq.Core
                 stepLabel);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> As(params StepLabel[] stepLabels) => AddStep(new AsStep(stepLabels));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> As(params StepLabel[] stepLabels) => AddStep(new AsStep(stepLabels), Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance, Semantics);
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> BothV<TTarget>() => AddStepWithUnitTypes<TTarget>(BothVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> BothV<TTarget>() => AddStepWithUnitTypes<TTarget>(BothVStep.Instance, QuerySemantics.Vertex);
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment, SurfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment, Semantics, SurfaceVisible);
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQuery
         {
@@ -509,7 +531,7 @@ namespace ExRam.Gremlinq.Core
                     var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQuery)falseChoice(anonymous));
 
                     return this
-                        .AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, maybeFalseQuery))
+                        .AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, maybeFalseQuery), QuerySemantics.None)
                         .ChangeQueryType<TTargetQuery>();
                 }
             }
@@ -525,7 +547,7 @@ namespace ExRam.Gremlinq.Core
 
             return maybeFalseQuery
                 .BiFold(
-                    AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery)),
+                    AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery), QuerySemantics.None),
                     (query, falseQuery) => query,
                     (query, _) => query)
                 .ChangeQueryType<TTargetQuery>();
@@ -545,46 +567,46 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             return this
-                .AddStep(new CoalesceStep(coalesceQueries))
+                .AddStep(new CoalesceStep(coalesceQueries), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability), Semantics);
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(configurator(Steps), Environment, SurfaceVisible);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(configurator(Steps), Environment, Semantics, SurfaceVisible);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Dedup() => AddStep(DedupStep.Instance);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Dedup() => AddStep(DedupStep.Instance, Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Drop() => AddStep(DropStep.Instance);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Drop() => AddStep(DropStep.Instance, Semantics);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> DropProperties(string key)
         {
             return SideEffect(_ => _
-                .Properties<Unit, Unit, Unit>(new[] { key })
+                .Properties<Unit, Unit, Unit>(new[] { key }, QuerySemantics.Property)
                 .Drop());
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Emit() => AddStep(EmitStep.Instance, Semantics);
 
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
         {
             var mappedTraversal = mapping(Anonymize());
 
             return this
-                .AddStep(new FlatMapStep(mappedTraversal))
+                .AddStep(new FlatMapStep(mappedTraversal), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery>(FoldStep.Instance);
+        private GremlinQuery<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery> Fold<TNewFoldedQuery>() => AddStep<TElement[], Unit, Unit, Unit, Unit, TNewFoldedQuery>(FoldStep.Instance, QuerySemantics.None);
 
         private GremlinQuery<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TKey, TValue>> projection)
         {
             var group = projection(new GroupBuilder<Unit, Unit>(Anonymize()));
 
             return this
-                .AddStep<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
-                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery))
-                .AddStep(new GroupStep.ByTraversalStep(group.ValueQuery));
+                .AddStep<IDictionary<TKey, TValue>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance, QuerySemantics.None)
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery), QuerySemantics.None)
+                .AddStep(new GroupStep.ByTraversalStep(group.ValueQuery), QuerySemantics.None);
         }
 
         private GremlinQuery<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQuery, TKey>> projection)
@@ -592,8 +614,8 @@ namespace ExRam.Gremlinq.Core
             var group = projection(new GroupBuilder<Unit, Unit>(Anonymize()));
 
             return this
-                .AddStep<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance)
-                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery));
+                .AddStep<IDictionary<TKey, object>, Unit, Unit, Unit, Unit, Unit>(GroupStep.Instance, QuerySemantics.None)
+                .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery), QuerySemantics.None);
         }
 
         private object[] GetKeys(IEnumerable<LambdaExpression> projections)
@@ -646,7 +668,7 @@ namespace ExRam.Gremlinq.Core
                 return None();
 
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), predicate));
+                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), predicate), Semantics);
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
@@ -654,35 +676,39 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQuery traversal)
         {
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), traversal));
+                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), traversal), Semantics);
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
 
-        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Id() => AddStepWithUnitTypes<object>(IdStep.Instance);
+        private GremlinQuery<object, Unit, Unit, Unit, Unit, Unit> Id() => AddStepWithUnitTypes<object>(IdStep.Instance, QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Identity() => this;
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStepWithUnitTypes<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()));
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStepWithUnitTypes<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()), QuerySemantics.None);
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStepWithUnitTypes<TNewElement>(InVStep.Instance);
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> InV<TNewElement>() => AddStepWithUnitTypes<TNewElement>(InVStep.Instance, QuerySemantics.Vertex);
 
-        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Key() => AddStepWithUnitTypes<string>(KeyStep.Instance);
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Key() => AddStepWithUnitTypes<string>(KeyStep.Instance, QuerySemantics.None);
 
-        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Label() => AddStepWithUnitTypes<string>(LabelStep.Instance);
+        private GremlinQuery<string, Unit, Unit, Unit, Unit, Unit> Label() => AddStepWithUnitTypes<string>(LabelStep.Instance, QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Limit(long count)
         {
-            return AddStep(count == 1
-                ? LimitStep.LimitGlobal1
-                : new LimitStep(count, Scope.Global));
+            return AddStep(
+                count == 1
+                    ? LimitStep.LimitGlobal1
+                    : new LimitStep(count, Scope.Global),
+                Semantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> LimitLocal(long count)
         {
-            return AddStep(count == 1
-                ? LimitStep.LimitLocal1
-                : new LimitStep(count, Scope.Local));
+            return AddStep(
+                count == 1
+                    ? LimitStep.LimitLocal1
+                    : new LimitStep(count, Scope.Local),
+                Semantics);
         }
 
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)
@@ -691,7 +717,7 @@ namespace ExRam.Gremlinq.Core
             var localTraversalQuery = localTraversal(Anonymize());
 
             return this
-                .AddStep(new LocalStep(localTraversalQuery))
+                .AddStep(new LocalStep(localTraversalQuery), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -700,17 +726,17 @@ namespace ExRam.Gremlinq.Core
             var mappedTraversal = mapping(Anonymize());
 
             return this
-                .AddStep(new MapStep(mappedTraversal))
+                .AddStep(new MapStep(mappedTraversal), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()))));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()))), Semantics);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> None()
         {
             return this.IsIdentity()
-                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment, SurfaceVisible)
-                : AddStep(NoneStep.Instance);
+                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment, Semantics, SurfaceVisible)
+                : AddStep(NoneStep.Instance, Semantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> notTraversal)
@@ -721,7 +747,7 @@ namespace ExRam.Gremlinq.Core
                 ? None()
                 : transformed.IsNone()
                     ? this
-                    : AddStep(new NotStep(transformed));
+                    : AddStep(new NotStep(transformed), Semantics);
         }
 
         private GremlinQuery<TTarget, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> OfType<TTarget>(IGraphElementModel model)
@@ -735,9 +761,9 @@ namespace ExRam.Gremlinq.Core
                     labels => labels.Length > 0
                         ? Steps.Count > 0 && Steps[Steps.Count - 1] is HasLabelStep
                             ? ConfigureSteps<TTarget>(steps => steps.SetItem(steps.Count - 1, new HasLabelStep(labels)))
-                            : AddStep<TTarget>(new HasLabelStep(labels))
+                            : AddStep<TTarget>(new HasLabelStep(labels), Semantics)
                         : Cast<TTarget>(),
-                    () => AddStep<TTarget>(NoneStep.Instance));
+                    () => AddStep<TTarget>(NoneStep.Instance, Semantics));
         }
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery
@@ -745,14 +771,14 @@ namespace ExRam.Gremlinq.Core
             var optionalQuery = optionalTraversal(Anonymize());
 
             return this
-                .AddStep(new OptionalStep(optionalQuery))
+                .AddStep(new OptionalStep(optionalQuery), Semantics)
                 .ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] orTraversalTransformations)
         {
             if (orTraversalTransformations.Length == 0)
-                return AddStep(OrStep.Infix);
+                return AddStep(OrStep.Infix, Semantics);
 
             var anonymous = Anonymize();
             var subQueries = default(List<IGremlinQuery>);
@@ -770,16 +796,16 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? None()
-                : AddStep(new OrStep(subQueries.ToArray()));
+                : AddStep(new OrStep(subQueries.ToArray()), Semantics);
         }
 
-        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQuery => projection(new OrderBuilder(this.AddStep(OrderStep.Instance))).Build();
+        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQuery => projection(new OrderBuilder(this.AddStep(OrderStep.Instance, Semantics))).Build();
 
-        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TElement, TTargetQuery>> projection) where TTargetQuery : IGremlinQuery<TElement> => projection(new OrderBuilder(this.AddStep(OrderStep.Instance))).Build();
+        private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TElement, TTargetQuery>> projection) where TTargetQuery : IGremlinQuery<TElement> => projection(new OrderBuilder(this.AddStep(OrderStep.Instance, Semantics))).Build();
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OtherV<TTarget>() => AddStepWithUnitTypes<TTarget>(OtherVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OtherV<TTarget>() => AddStepWithUnitTypes<TTarget>(OtherVStep.Instance, QuerySemantics.Vertex);
 
-        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStepWithUnitTypes<TTarget>(OutVStep.Instance);
+        private GremlinQuery<TTarget, Unit, Unit, Unit, Unit, Unit> OutV<TTarget>() => AddStepWithUnitTypes<TTarget>(OutVStep.Instance, QuerySemantics.Vertex);
 
         private GremlinQuery<TResult, Unit, Unit, Unit, Unit, Unit> Project<TActualElement, TResult>(Func<IProjectBuilder<GremlinQuery<TActualElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TActualElement>, IProjectResult> continuation)
         {
@@ -789,23 +815,25 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var ret = this
-                .AddStepWithUnitTypes<TResult>(new ProjectStep(projections.Select(x => x.Key).ToArray()));
+                .AddStepWithUnitTypes<TResult>(new ProjectStep(projections.Select(x => x.Key).ToArray()), QuerySemantics.None);
 
             foreach (var projection in projections)
             {
-                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection.Value));
+                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection.Value), QuerySemantics.None);
             }
 
             return ret;
         }
 
-        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(params LambdaExpression[] projections)
+        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(QuerySemantics querySemantics, params LambdaExpression[] projections)
         {
-            return Properties<TNewElement, TNewPropertyValue, TNewMeta>(projections
-                .Select(projection => projection.GetMemberInfo().Name));
+            return Properties<TNewElement, TNewPropertyValue, TNewMeta>(
+                projections
+                    .Select(projection => projection.GetMemberInfo().Name),
+                querySemantics);
         }
 
-        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()));
+        private GremlinQuery<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys, QuerySemantics querySemantics) => AddStep<TNewElement, Unit, Unit, TNewPropertyValue, TNewMeta, Unit>(new PropertiesStep(keys.ToArray()), querySemantics);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
         {
@@ -819,10 +847,10 @@ namespace ExRam.Gremlinq.Core
         {
             return value == null
                 ? DropProperties(key)
-                : AddStep(new PropertyStep(key, value));
+                : AddStep(new PropertyStep(key, value), Semantics);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Range(long low, long high) => AddStep(new RangeStep(low, high));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Range(long low, long high) => AddStep(new RangeStep(low, high), Semantics);
 
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal)
             where TTargetQuery : IGremlinQuery
@@ -830,7 +858,7 @@ namespace ExRam.Gremlinq.Core
             var repeatQuery = repeatTraversal(Anonymize());
 
             return this
-                .AddStep(new RepeatStep(repeatQuery))
+                .AddStep(new RepeatStep(repeatQuery), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -841,8 +869,8 @@ namespace ExRam.Gremlinq.Core
             var repeatQuery = repeatTraversal(anonymous);
 
             return this
-                .AddStep(new RepeatStep(repeatQuery))
-                .AddStep(new UntilStep(untilTraversal(anonymous)))
+                .AddStep(new RepeatStep(repeatQuery), QuerySemantics.None)
+                .AddStep(new UntilStep(untilTraversal(anonymous)), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -853,30 +881,30 @@ namespace ExRam.Gremlinq.Core
             var repeatQuery = repeatTraversal(anonymous);
 
             return this
-                .AddStep(new UntilStep(untilTraversal(anonymous)))
-                .AddStep(new RepeatStep(repeatQuery))
+                .AddStep(new UntilStep(untilTraversal(anonymous)), QuerySemantics.None)
+                .AddStep(new RepeatStep(repeatQuery), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => AddStepWithUnitTypes<TSelectedElement>(new SelectStep(stepLabel));
+        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => AddStepWithUnitTypes<TSelectedElement>(new SelectStep(stepLabel), QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())), Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Skip(long count) => AddStep(new SkipStep(count));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Skip(long count) => AddStep(new SkipStep(count), Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SumGlobal() => AddStep(SumStep.Global);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SumGlobal() => AddStep(SumStep.Global, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SumLocal() => AddStep(SumStep.Local);
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SumLocal() => AddStep(SumStep.Local, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Tail(long count) => AddStep(new TailStep(count, Scope.Global));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Tail(long count) => AddStep(new TailStep(count, Scope.Global), Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> TailLocal(long count) => AddStep(new TailStep(count, Scope.Local));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> TailLocal(long count) => AddStep(new TailStep(count, Scope.Local), Semantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count), Semantics);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit>(new AddEStep.ToLabelStep(stepLabel));
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, Unit, Unit, Unit>(new AddEStep.ToLabelStep(stepLabel), Semantics);
 
-        private TTargetQuery Unfold<TTargetQuery>() => AddStep(UnfoldStep.Instance).ChangeQueryType<TTargetQuery>();
+        private TTargetQuery Unfold<TTargetQuery>() => AddStep(UnfoldStep.Instance, Semantics).ChangeQueryType<TTargetQuery>();
 
         private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery
         {
@@ -885,13 +913,13 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             return this
-                .AddStep(new UnionStep(unionQueries))
+                .AddStep(new UnionStep(unionQueries), Semantics)
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithUnitTypes<TNewPropertyValue>(ValueStep.Instance);
+        private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithUnitTypes<TNewPropertyValue>(ValueStep.Instance, QuerySemantics.None);
 
-        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStepWithUnitTypes<TNewElement>(new ValueMapStep(keys));
+        private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(string[] keys) => AddStepWithUnitTypes<TNewElement>(new ValueMapStep(keys), QuerySemantics.None);
 
         private GremlinQuery<TNewElement, Unit, Unit, Unit, Unit, Unit> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
@@ -905,7 +933,7 @@ namespace ExRam.Gremlinq.Core
             if (stringKeys.Length != projectionsArray.Length)
                 throw new ExpressionNotSupportedException();
 
-            return AddStepWithUnitTypes<TNewElement>(new ValueMapStep(stringKeys));
+            return AddStepWithUnitTypes<TNewElement>(new ValueMapStep(stringKeys), QuerySemantics.None);
         }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForKeys<TValue>(object[] keys)
@@ -918,15 +946,15 @@ namespace ExRam.Gremlinq.Core
                 case 0:
                     throw new ExpressionNotSupportedException();
                 case 1:
-                    return AddStepWithUnitTypes<TValue>(stepsArray[0]);
+                    return AddStepWithUnitTypes<TValue>(stepsArray[0], QuerySemantics.None);
                 default:
-                    return AddStepWithUnitTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step))));
+                    return AddStepWithUnitTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None))), QuerySemantics.None);
             }
         }
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(projections);
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(QuerySemantics.Vertex, projections);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object value)
         {
@@ -945,7 +973,7 @@ namespace ExRam.Gremlinq.Core
 
                     foreach(var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
                     {
-                        ret = ret.AddStep(propertyStep);
+                        ret = ret.AddStep(propertyStep, Semantics);
                     }
 
                     return ret;
@@ -955,7 +983,7 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(projection);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(ILambda lambda) => AddStep(new FilterStep(lambda), Semantics);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> filterTraversal)
         {
@@ -966,7 +994,7 @@ namespace ExRam.Gremlinq.Core
                 ? this
                 : filtered.IsNone()
                     ? None()
-                    : AddStep(new WhereTraversalStep(filtered));
+                    : AddStep(new WhereTraversalStep(filtered), Semantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(LambdaExpression predicate)
@@ -1018,7 +1046,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             // x => x.Value == P.xy(...)
                             if (leftMemberExpression.IsPropertyValue())
-                                return AddStep(new HasValueStep(effectivePredicate));
+                                return AddStep(new HasValueStep(effectivePredicate),Semantics);
 
                             if (leftMemberExpression.IsPropertyKey())
                                 return Where(__ => __.Key().Where(effectivePredicate));
@@ -1049,7 +1077,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), effectivePredicate));
+                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), effectivePredicate), Semantics);
                         }
 
                         break;
@@ -1070,8 +1098,8 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
         {
             return predicate.ContainsOnlyStepLabels()
-                ? AddStep(new WherePredicateStep(predicate))
-                : AddStep(new IsStep(predicate));
+                ? AddStep(new WherePredicateStep(predicate), Semantics)
+                : AddStep(new IsStep(predicate), Semantics);
         }
     }
 }

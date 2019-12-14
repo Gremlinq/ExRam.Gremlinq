@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
