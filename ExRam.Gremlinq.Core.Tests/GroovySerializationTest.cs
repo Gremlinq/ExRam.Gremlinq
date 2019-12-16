@@ -1082,6 +1082,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Local_identity()
+        {
+            _g
+                .V()
+                .Local(__ => __)
+                .Should()
+                .SerializeToGroovy("V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Map()
         {
             _g

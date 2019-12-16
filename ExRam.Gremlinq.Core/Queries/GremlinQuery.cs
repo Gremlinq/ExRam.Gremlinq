@@ -725,9 +725,9 @@ namespace ExRam.Gremlinq.Core
         {
             var localTraversalQuery = localTraversal(Anonymize());
 
-            return this
-                .AddStep(new LocalStep(localTraversalQuery), QuerySemantics.None)
-                .ChangeQueryType<TTargetQuery>();
+            return (localTraversalQuery.IsIdentity()
+                ? this
+                : AddStep(new LocalStep(localTraversalQuery), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery
