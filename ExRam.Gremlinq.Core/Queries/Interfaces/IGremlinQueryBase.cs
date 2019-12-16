@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     {
         IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IEdgeGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);
-        IVertexGremlinQuery<IVertex> V(params object[] ids);
+        IVertexGremlinQuery<object> V(params object[] ids);
         IEdgeGremlinQuery<IEdge> E(params object[] ids);
         IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
 

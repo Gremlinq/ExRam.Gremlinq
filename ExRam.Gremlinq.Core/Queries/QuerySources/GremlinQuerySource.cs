@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
                     .AddE(edge);
             }
 
-            IVertexGremlinQuery<IVertex> IGremlinQueryBase.V(params object[] ids)
+            IVertexGremlinQuery<object> IGremlinQueryBase.V(params object[] ids)
             {
                 return Create()
                     .V(ids);

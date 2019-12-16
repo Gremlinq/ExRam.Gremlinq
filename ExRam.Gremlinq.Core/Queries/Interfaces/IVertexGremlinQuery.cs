@@ -6,20 +6,20 @@ namespace ExRam.Gremlinq.Core
 {
     public partial interface IVertexGremlinQuery : IElementGremlinQuery
     {
-        IVertexGremlinQuery<IVertex> Both();
-        IVertexGremlinQuery<IVertex> Both<TEdge>();
+        IVertexGremlinQuery<object> Both();
+        IVertexGremlinQuery<object> Both<TEdge>();
 
         IEdgeGremlinQuery<IEdge> BothE();
         IEdgeGremlinQuery<TEdge> BothE<TEdge>();
 
-        IVertexGremlinQuery<IVertex> In();
-        IVertexGremlinQuery<IVertex> In<TEdge>();
+        IVertexGremlinQuery<object> In();
+        IVertexGremlinQuery<object> In<TEdge>();
 
         IEdgeGremlinQuery<IEdge> InE();
         IEdgeGremlinQuery<TEdge> InE<TEdge>();
 
-        IVertexGremlinQuery<IVertex> Out();
-        IVertexGremlinQuery<IVertex> Out<TEdge>();
+        IVertexGremlinQuery<object> Out();
+        IVertexGremlinQuery<object> Out<TEdge>();
 
         IEdgeGremlinQuery<IEdge> OutE();
         IEdgeGremlinQuery<TEdge> OutE<TEdge>();

@@ -1302,13 +1302,13 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Order_Fold_Unfold()
         {
             _g
-                .V()
+                .V<IVertex>()
                 .Order(b => b
                     .By(x => x.Id))
                 .Fold()
                 .Unfold()
                 .Should()
-                .SerializeToGroovy("V().order().by(id, incr).fold().unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
+                .SerializeToGroovy("V().hasLabel(_a, _b, _c, _d, _e).order().by(id, incr).fold().unfold().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]
@@ -2621,7 +2621,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void V_of_all_types2()
         {
             _g
-                .V<IVertex>()
+                .V()
                 .Should()
                 .SerializeToGroovy("V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
@@ -3117,12 +3117,12 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
-                .V()
+                .V<VertexWithStringId>()
 #pragma warning disable 252,253
                 .Where(x => x.Id == "hallo")
 #pragma warning restore 252,253
                 .Should()
-                .SerializeToGroovy("V().has(id, _a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
+                .SerializeToGroovy("V().hasLabel(_a).has(id, _b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]

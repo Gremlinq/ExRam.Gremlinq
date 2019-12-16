@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
             GremlinQuerySource.g
                 .ConfigureEnvironment(env => env
                     .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson))
-                .V()
+                .V<Person>()
                 .Awaiting(async _ => await _
                     .ToArrayAsync())
                 .Should()
