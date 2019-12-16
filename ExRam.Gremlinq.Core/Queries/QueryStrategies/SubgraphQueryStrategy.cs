@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
 
             if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0 || edgeCriterionTraversal.AsAdmin().Steps.Count > 0)
             {
-                var strategy = GremlinQuery.Create<Unit>(environment)
+                var strategy = GremlinQuery.Create<object>(environment)
                     .AddStep(BuildStep.Instance);
 
                 if (vertexCriterionTraversal.AsAdmin().Steps.Count > 0)

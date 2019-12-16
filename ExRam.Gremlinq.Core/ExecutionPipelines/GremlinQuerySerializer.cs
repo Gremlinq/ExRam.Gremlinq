@@ -6,7 +6,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using LanguageExt;
 
@@ -154,9 +153,9 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static readonly IGremlinQuerySerializer Unit = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
+        public static readonly IGremlinQuerySerializer Object = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
 
-        public static readonly IGremlinQuerySerializer Default = Unit
+        public static readonly IGremlinQuerySerializer Default = Object
             .UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly Instruction[] VertexProjectionInstructions;

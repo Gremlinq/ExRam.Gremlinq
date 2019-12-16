@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryExecutionResultDeserializer.Invalid);
 
         public static readonly IGremlinQueryExecutionPipeline Empty = new GremlinQueryExecutionPipelineImpl(
-            GremlinQuerySerializer.Unit,
+            GremlinQuerySerializer.Object,
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Empty);
         

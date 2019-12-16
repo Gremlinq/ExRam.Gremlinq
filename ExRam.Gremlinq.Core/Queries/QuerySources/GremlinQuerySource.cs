@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
                 if (startQuery != null)
                     return startQuery;
 
-                IGremlinQuery ret = GremlinQuery.Create<Unit>(Environment);
+                IGremlinQuery ret = GremlinQuery.Create<object>(Environment);
 
                 if (!ExcludedStrategyTypes.IsEmpty)
                     ret = ret.AddStep(new WithoutStrategiesStep(ExcludedStrategyTypes.ToArray()));

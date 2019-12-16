@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TNewItem<#= i+1 #>>> projection)
             {
-                return By<<#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>, <#= GetArgumentList("Unit", 15 - i) #>>(projection);
+                return By<<#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>, <#= GetArgumentList("object", 15 - i) #>>(projection);
             }
 <# } #>
         }
