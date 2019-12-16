@@ -64,6 +64,7 @@ namespace ExRam.Gremlinq.Core
                                 groovyScript.QueryString,
                                 ex);
 
+                            throw;
                         }
                     }
                     else if (serializedQuery is Bytecode bytecode)
@@ -90,6 +91,8 @@ namespace ExRam.Gremlinq.Core
                                 "Error executing Gremlin query {0}:\r\n{1}",
                                 JsonConvert.SerializeObject(requestMsg),
                                 ex);
+
+                            throw;
                         }
                     }
                     else
