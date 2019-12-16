@@ -734,9 +734,9 @@ namespace ExRam.Gremlinq.Core
         {
             var mappedTraversal = mapping(Anonymize());
 
-            return this
-                .AddStep(new MapStep(mappedTraversal), QuerySemantics.None)
-                .ChangeQueryType<TTargetQuery>();
+            return (mappedTraversal.IsIdentity()
+                ? this
+                : AddStep(new MapStep(mappedTraversal), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()))), Semantics);

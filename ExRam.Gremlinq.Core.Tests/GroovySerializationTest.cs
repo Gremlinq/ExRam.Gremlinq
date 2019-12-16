@@ -1104,6 +1104,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Map_Identity()
+        {
+            _g
+                .V<Person>()
+                .Map(__ => __)
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person");
+        }
+
+        [Fact]
         public void Map_Select_operation()
         {
             _g
