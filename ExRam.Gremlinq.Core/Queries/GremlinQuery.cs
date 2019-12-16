@@ -568,6 +568,9 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)
             where TTargetQuery : IGremlinQuery
         {
+            if (traversals.Length == 0)
+                throw new ArgumentException("Coalesce must have at least one subquery.");
+
             var coalesceQueries = traversals
                 .Select(traversal => (IGremlinQuery)traversal(Anonymize()))
                 .ToArray();

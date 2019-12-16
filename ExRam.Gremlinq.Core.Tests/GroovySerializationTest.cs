@@ -704,6 +704,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Coalesce_empty()
+        {
+            _g
+                .V()
+                .Invoking(__ => __.Coalesce<IGremlinQuery>())
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
         public void Coalesce_identity()
         {
             _g
