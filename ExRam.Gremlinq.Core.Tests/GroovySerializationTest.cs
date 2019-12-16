@@ -473,6 +473,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void As_with_type_change()
+        {
+            IGremlinQuery<Person> g = _g
+                .V<Person>();
+
+            g
+                .As((_, stepLabel1) => _
+                    .Count()
+                    .Select(stepLabel1))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).count().select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1");
+        }
+
+        [Fact]
         public void As_inlined_nested_Select()
         {
             _g
@@ -484,6 +499,22 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Select(stepLabel1, stepLabel2)))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
+                .WithParameters("Person", "l1", "l2", "Item1", "Item2");
+        }
+
+        [Fact]
+        public void As_inlined_nested_Select2()
+        {
+            _g
+                .V<Person>()
+                .As((_, stepLabel1) => _
+                    .Out()
+                    .OfType<Person>()
+                    .As((__, stepLabel2) => __
+                        .Count()
+                        .Select(stepLabel1, stepLabel2)))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).count().project(_d, _e).by(__.select(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
                 .WithParameters("Person", "l1", "l2", "Item1", "Item2");
         }
 

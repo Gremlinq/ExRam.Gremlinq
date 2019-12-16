@@ -500,14 +500,12 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableList<Step>.Empty, Environment, Semantics, surfaceVisible);
 
-        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
-            where TStepLabel : StepLabel, new()
+        private TTargetQuery As<TStepLabel, TTargetQuery>(TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel
             where TTargetQuery : IGremlinQuery
         {
-            if (Steps.LastOrDefault() is AsStep asStep && asStep.StepLabels.FirstOrDefault() is TStepLabel existingStepLabel)
-                return continuation(this, existingStepLabel);
-
-            var stepLabel = new TStepLabel();
+            if (Steps.LastOrDefault() is AsStep asStep && asStep.StepLabels.FirstOrDefault() is TStepLabel existingStepLabel1)
+                return continuation(this, existingStepLabel1);
 
             return continuation(
                 As(stepLabel),
