@@ -2,8 +2,6 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
-using ExRam.Gremlinq.Core.GraphElements;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {

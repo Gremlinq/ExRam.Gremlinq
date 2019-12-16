@@ -12,48 +12,11 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
-    public struct GremlinQueryAwaiter<TElement> : ICriticalNotifyCompletion, INotifyCompletion
-    {
-        private readonly TaskAwaiter<TElement[]> _valueTaskAwaiter;
-
-        internal GremlinQueryAwaiter(TaskAwaiter<TElement[]> valueTaskAwaiter)
-        {
-            _valueTaskAwaiter = valueTaskAwaiter;
-        }
-
-        public TElement[] GetResult()
-        {
-            return _valueTaskAwaiter.GetResult();
-        }
-
-        public void OnCompleted(Action continuation)
-        {
-            _valueTaskAwaiter.OnCompleted(continuation);
-        }
-
-        public void UnsafeOnCompleted(Action continuation)
-        {
-            _valueTaskAwaiter.UnsafeOnCompleted(continuation);
-        }
-
-        public bool IsCompleted { get => _valueTaskAwaiter.IsCompleted; }
-    }
-
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
-        IGremlinQuery,
-        IElementGremlinQuery,
         IArrayGremlinQuery<TElement, TFoldedQuery>,
-        IGremlinQuery<TElement>,
-        IElementGremlinQuery<TElement>,
         IValueGremlinQuery<TElement>,
-        IVertexGremlinQuery,
         IVertexGremlinQuery<TElement>,
-        IEdgeGremlinQuery,
-        IEdgeGremlinQuery<TElement>,
-        IEdgeGremlinQuery<TElement, TOutVertex>,
-        IInEdgeGremlinQuery<TElement, TInVertex>,
-        IOutEdgeGremlinQuery<TElement, TOutVertex>,
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>,
         IVertexPropertyGremlinQuery<TElement, TPropertyValue>,
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>,

@@ -1,7 +1,6 @@
 ﻿// ReSharper disable ArrangeThisQualifier
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -13,15 +12,6 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal enum QuerySemantics
-    {
-        None = 0,
-        Vertex = 1,
-        Edge = 2,
-        Property = 3,
-        VertexProperty = 4
-    }
-
     internal static class GremlinQuery
     {
         internal static readonly IImmutableList<Step> AnonymousNoneSteps = ImmutableList<Step>.Empty.Add(NoneStep.Instance);
@@ -50,107 +40,6 @@ namespace ExRam.Gremlinq.Core
                 QuerySemantics.None,
                 surfaceVisible);
         }
-    }
-
-    internal abstract class GremlinQueryBase
-    {
-        private static readonly ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>> QueryTypes = new ConcurrentDictionary<Type, Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>>();
-
-        private static readonly Type[] SupportedInterfaceDefinitions = typeof(GremlinQuery<,,,,,>)
-            .GetInterfaces()
-            .Select(iface => iface.IsGenericType ? iface.GetGenericTypeDefinition() : iface)
-            .ToArray();
-
-        protected GremlinQueryBase(
-            IImmutableList<Step> steps,
-            IGremlinQueryEnvironment environment,
-            QuerySemantics semantics,
-            bool surfaceVisible)
-        {
-            Steps = steps;
-            Semantics = semantics;
-            Environment = environment;
-            SurfaceVisible = surfaceVisible;
-        }
-
-        protected TTargetQuery ChangeQueryType<TTargetQuery>()
-        {
-            var targetQueryType = typeof(TTargetQuery);
-
-            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
-                return (TTargetQuery)(object)this;
-
-            var genericTypeDef = targetQueryType.IsGenericType
-                ? targetQueryType.GetGenericTypeDefinition()
-                : targetQueryType;
-
-            if (!SupportedInterfaceDefinitions.Contains(genericTypeDef))
-                throw new NotSupportedException($"Cannot change the query type to {targetQueryType}.");
-
-            var constructor = QueryTypes.GetOrAdd(
-                targetQueryType,
-                closureType =>
-                {
-                    var semantics = closureType.GetQuerySemantics();
-                    var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
-                        GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
-                        GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
-                        GetMatchingType(closureType, "TInVertex"),
-                        GetMatchingType(closureType, "TValue"),
-                        GetMatchingType(closureType, "TMeta"),
-                        GetMatchingType(closureType, "TQuery"));
-
-                    var stepsParameter = Expression.Parameter(typeof(IImmutableList<Step>));
-                    var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                    var surfaceVisibleParameter = Expression.Parameter(typeof(bool));
-
-                    return Expression
-                        .Lambda<Func<IImmutableList<Step>, IGremlinQueryEnvironment, bool, IGremlinQuery>>(
-                            Expression.New(
-                                genericType.GetConstructor(new[]
-                                {
-                                    stepsParameter.Type,
-                                    environmentParameter.Type,
-                                    typeof(QuerySemantics),
-                                    surfaceVisibleParameter.Type
-                                }),
-                                stepsParameter,
-                                environmentParameter,
-                                Expression.Constant(semantics, typeof(QuerySemantics)),
-                                surfaceVisibleParameter),
-                            stepsParameter,
-                            environmentParameter,
-                            surfaceVisibleParameter)
-                        .Compile();
-                });
-
-            return (TTargetQuery)constructor(Steps, Environment, SurfaceVisible);
-        }
-
-        private static Type GetMatchingType(Type interfaceType, params string[] argumentNames)
-        {
-            if (interfaceType.IsGenericType)
-            {
-                var genericArguments = interfaceType.GetGenericArguments();
-                var genericTypeDefinitionArguments = interfaceType.GetGenericTypeDefinition().GetGenericArguments();
-
-                foreach (var argumentName in argumentNames)
-                {
-                    for (var i = 0; i < genericTypeDefinitionArguments.Length; i++)
-                    {
-                        if (genericTypeDefinitionArguments[i].ToString() == argumentName)
-                            return genericArguments[i];
-                    }
-                }
-            }
-
-            return typeof(object);
-        }
-
-        protected internal bool SurfaceVisible { get; }
-        protected internal QuerySemantics Semantics { get; }
-        protected internal IImmutableList<Step> Steps { get; }
-        protected internal IGremlinQueryEnvironment Environment { get; }
     }
 
     internal sealed partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> : GremlinQueryBase where TMeta : class

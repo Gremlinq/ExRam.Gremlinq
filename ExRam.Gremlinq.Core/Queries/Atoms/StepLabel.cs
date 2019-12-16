@@ -11,8 +11,6 @@ namespace ExRam.Gremlinq.Core
     public class StepLabel<TElement> : StepLabel
 #pragma warning restore 660,661
     {
-        internal QuerySemantics QuerySemantics { get; }
-
         internal StepLabel(QuerySemantics querySemantics)
         {
             QuerySemantics = querySemantics;
@@ -47,6 +45,8 @@ namespace ExRam.Gremlinq.Core
         {
             throw new NotImplementedException("Only for expressions.");
         }
+
+        internal QuerySemantics QuerySemantics { get; }
     }
 
 #pragma warning disable 660, 661
