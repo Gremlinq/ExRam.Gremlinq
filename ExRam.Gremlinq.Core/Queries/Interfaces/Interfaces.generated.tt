@@ -26,8 +26,6 @@ namespace ExRam.Gremlinq.Core
     {
         <#= iface #> And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals);
 
-        new <#= iface #> As(params StepLabel[] stepLabels);
-
         new <#= iface #> Barrier();
 
         TTargetQuery Choose<TTargetQuery>(Func<<#= iface #>, IGremlinQuery> traversalPredicate, Func<<#= iface #>, TTargetQuery> trueChoice, Func<<#= iface #>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQuery;

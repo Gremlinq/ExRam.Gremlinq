@@ -13,11 +13,6 @@ namespace ExRam.Gremlinq.Core
     {
         internal QuerySemantics QuerySemantics { get; }
 
-        public StepLabel() : this(QuerySemantics.None)
-        {
-
-        }
-
         internal StepLabel(QuerySemantics querySemantics)
         {
             QuerySemantics = querySemantics;
@@ -58,11 +53,6 @@ namespace ExRam.Gremlinq.Core
     public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQuery
 #pragma warning restore 660,661
     {
-        public StepLabel() : base(typeof(TQuery).GetQuerySemantics())
-        {
-
-        }
-
         internal StepLabel(QuerySemantics querySemantics) : base(querySemantics)
         {
 

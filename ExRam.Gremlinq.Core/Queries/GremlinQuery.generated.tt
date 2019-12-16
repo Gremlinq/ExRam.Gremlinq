@@ -26,7 +26,6 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in substitutedBaseInterfaces)
 { #>
         <#= iface #> <#= iface #>.And(params Func<<#= iface #>, IGremlinQuery>[] andTraversals) => And(andTraversals);
-        <#= iface #> <#= iface #>.As(params StepLabel[] stepLabels) => As(stepLabels);
 
         <#= iface #> <#= iface #>.Barrier() => Barrier();
 

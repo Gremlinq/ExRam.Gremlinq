@@ -451,28 +451,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void As_explicit_label1()
-        {
-            _g
-                .V<Person>()
-                .As(new StepLabel<Person>())
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Person", "l1");
-        }
-
-        [Fact]
-        public void As_explicit_label2()
-        {
-            _g
-                .V<Person>()
-                .As(new StepLabel<Person>(), new StepLabel<Person>())
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Person", "l1", "l2");
-        }
-
-        [Fact]
         public void As_with_type_change()
         {
             IGremlinQuery<Person> g = _g
@@ -1874,16 +1852,16 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Properties_Properties_Where_key_equals_stepLabel()
         {
-            var stepLabel = new StepLabel<string>();
-
             _g
-                .V<Company>()
-                .Properties(x => x.Names)
-                .Properties()
-                .Where(x => x.Key == stepLabel)
+                .Inject("hello")
+                .As((__, stepLabel) => __
+                    .V<Company>()
+                    .Properties(x => x.Names)
+                    .Properties()
+                    .Where(x => x.Key == stepLabel))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).properties(_b).properties().where(__.key().where(eq(_c)))")
-                .WithParameters("Company", "Names", "l1");
+                .SerializeToGroovy("inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().where(__.key().where(eq(_b)))")
+                .WithParameters("hello", "l1", "Company", "Names");
         }
 
         [Fact]
@@ -2277,20 +2255,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters(id, nameof(Person), nameof(Person.Age), nameof(Person.Gender), nameof(Person.Name), 21, Gender.Male, "Marko");
-        }
-
-        [Fact]
-        public void Select()
-        {
-            var stepLabel = new StepLabel<Person>();
-
-            _g
-                .V<Person>()
-                .As(stepLabel)
-                .Select(stepLabel)
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).select(_b)")
-                .WithParameters("Person", "l1");
         }
 
         [Fact]
@@ -3014,13 +2978,11 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_current_element_equals_stepLabel()
         {
-            var l = new StepLabel<Language>();
-
             _g
                 .V<Language>()
-                .As(l)
-                .V<Language>()
-                .Where(l2 => l2 == l)
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l2 == l))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b)).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Language", "l1");
@@ -3467,14 +3429,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_property_equals_stepLabel()
         {
-            var l = new StepLabel<string>();
-
             _g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
-                .As(l)
-                .V<Language>()
-                .Where(l2 => l2.IetfLanguageTag == l)
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l2.IetfLanguageTag == l))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(eq(_c))).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Language", "IetfLanguageTag", "l1");
@@ -3556,14 +3516,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_property_is_greater_than_or_equal_stepLabel()
         {
-            var a = new StepLabel<int>();
-
             _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age >= a)
+                .As((__, a) => __
+                    .V<Person>()
+                    .Where(l2 => l2.Age >= a))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gte(_c))).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Age", "l1");
@@ -3572,14 +3530,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_property_is_greater_than_stepLabel()
         {
-            var a = new StepLabel<int>();
-
             _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age > a)
+                .As((__, a) => __
+                    .V<Person>()
+                    .Where(l2 => l2.Age > a))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(gt(_c))).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Age", "l1");
@@ -3610,14 +3566,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_property_is_lower_than_or_equal_stepLabel()
         {
-            var a = new StepLabel<int>();
-
             _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age <= a)
+                .As((__, a) => __
+                    .V<Person>()
+                    .Where(l2 => l2.Age <= a))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lte(_c))).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Age", "l1");
@@ -3626,14 +3580,12 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void Where_property_is_lower_than_stepLabel()
         {
-            var a = new StepLabel<int>();
-
             _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .As(a)
-                .V<Person>()
-                .Where(l2 => l2.Age < a)
+                .As((__, a) => __
+                    .V<Person>()
+                    .Where(l2 => l2.Age < a))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).as(_c).V().hasLabel(_a).has(_b, __.where(lt(_c))).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Age", "l1");

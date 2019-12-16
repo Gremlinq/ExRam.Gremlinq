@@ -589,27 +589,23 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact(Skip = "Integration Test")]
         public async Task Where_current_element_equals_stepLabel()
         {
-            var l = new StepLabel<Language>();
-
             await _g
                 .V<Language>()
-                .As(l)
-                .V<Language>()
-                .Where(l2 => l2 == l)
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l2 == l))
                 .ToArrayAsync();
         }
 
         [Fact(Skip = "Integration Test")]
         public async Task Where_property_equals_stepLabel()
         {
-            var l = new StepLabel<string>();
-
             await _g
                 .V<Language>()
                 .Values(x => x.IetfLanguageTag)
-                .As(l)
-                .V<Language>()
-                .Where(l2 => l2.IetfLanguageTag == l)
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l2.IetfLanguageTag == l))
                 .ToArrayAsync();
         }
 
@@ -1062,23 +1058,12 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact(Skip = "Integration Test")]
-        public async Task As_explicit_label()
-        {
-            await _g
-                .V<Person>()
-                .As(new StepLabel<Person>())
-                .ToArrayAsync();
-        }
-
-        [Fact(Skip = "Integration Test")]
         public async Task Select()
         {
-            var stepLabel = new StepLabel<Person>();
-
             await _g
                 .V<Person>()
-                .As(stepLabel)
-                .Select(stepLabel)
+                .As((__, stepLabel) => __
+                    .Select(stepLabel))
                 .ToArrayAsync();
         }
 
