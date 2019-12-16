@@ -50,11 +50,16 @@ namespace ExRam.Gremlinq.Core
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
             {
+                var serialized = Serializer
+                    .Serialize(query);
+
+                if (serialized == null)
+                    return AsyncEnumerableEx.Throw<TElement>(new Exception("Can't serialize query."));
+
                 return Executor
-                    .Execute(Serializer
-                        .Serialize(query))
+                    .Execute(serialized)
                     .SelectMany(executionResult => Deserializer
-                        .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
+                    .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
             }
 
             public IGremlinQuerySerializer Serializer { get; }

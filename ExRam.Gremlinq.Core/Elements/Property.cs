@@ -37,6 +37,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException();
         public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException();
 
-        [AllowNull] public TValue Value { get; set; }
+        public TValue Value { get; protected set; }
     }
 }

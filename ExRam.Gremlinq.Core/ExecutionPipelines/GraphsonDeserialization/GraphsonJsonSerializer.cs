@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             [return: AllowNull]
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -283,12 +283,12 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class VertexImpl : IVertex
             {
-                [AllowNull] public object Id { get; set; }
+                [AllowNull] public object? Id { get; set; }
             }
 
             private sealed class EdgeImpl : IEdge
             {
-                [AllowNull] public object Id { get; set; }
+                [AllowNull] public object? Id { get; set; }
             }
 
             private readonly IGraphModel _model;

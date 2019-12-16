@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public class VertexBase : IVertex
         {
             public string PartitionKey { get; set; } = "MyKey";
-            public object Id { get; set; }
+            public object? Id { get; set; }
         }
 
         public class Item : VertexBase
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public abstract class VertexBaseAbstract : IVertex
         {
             public abstract string PartitionKey { get; set; }
-            public object Id { get; set; }
+            public object? Id { get; set; }
         }
 
         public class ItemOverride : VertexBaseAbstract

@@ -32,6 +32,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         [AllowNull] public object? Id { get; set; }
         [AllowNull] public string? Label { get; set; }
         [AllowNull] public TMeta? Properties { get; set; }
+
+        object? IElement.Id { get => Id; set => throw new NotSupportedException(); }
     }
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>

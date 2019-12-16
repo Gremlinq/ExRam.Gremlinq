@@ -17,8 +17,8 @@ namespace ExRam.Gremlinq.Core
         IOrderBuilder<TSourceQuery>
         where TSourceQuery : IGremlinQuery<TElement>
     {
-        IOrderBuilderWithBy<TElement, TSourceQuery> By(Expression<Func<TElement, object>> projection);
-        IOrderBuilderWithBy<TElement, TSourceQuery> ByDescending(Expression<Func<TElement, object>> projection);
+        IOrderBuilderWithBy<TElement, TSourceQuery> By(Expression<Func<TElement, object?>> projection);
+        IOrderBuilderWithBy<TElement, TSourceQuery> ByDescending(Expression<Func<TElement, object?>> projection);
 
         new IOrderBuilderWithBy<TElement, TSourceQuery> By(ILambda lambda);
 

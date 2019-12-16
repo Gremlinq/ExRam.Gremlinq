@@ -26,13 +26,16 @@ namespace ExRam.Gremlinq.Core
                     LazyThreadSafetyMode.PublicationOnly);
             }
 
-            public object Serialize(IGremlinQuery query)
+            public object? Serialize(IGremlinQuery query)
             {
                 var _bindings = new Dictionary<object, Binding>();
                 var _stepLabelNames = new Dictionary<StepLabel, string>();
 
-                object Constant<TAtom>(TAtom atom, Func<TAtom, object> baseSerializer, Func<object, object> recurse)
+                object? Constant<TAtom>(TAtom atom, Func<TAtom, object?> baseSerializer, Func<object, object?> recurse)
                 {
+                    if (atom == null)
+                        return null;
+
                     if (atom is StepLabel stepLabel)
                     {
                         if (!_stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
@@ -66,9 +69,9 @@ namespace ExRam.Gremlinq.Core
                     return binding;
                 };
 
-                object RecurseImpl(object o)
+                object? RecurseImpl(object o)
                 {
-                    if (ReferenceEquals(o, null))
+                    if (o is null)
                         return o;
 
                     var action = GetSerializer(o.GetType()) ?? Constant;
@@ -142,9 +145,11 @@ namespace ExRam.Gremlinq.Core
                 return new SelectGremlinQuerySerializer(_baseSerializer.OverrideFragmentSerializer(queryFragmentSerializer), _projection);
             }
 
-            public object Serialize(IGremlinQuery query)
+            public object? Serialize(IGremlinQuery query)
             {
-                return _projection(_baseSerializer.Serialize(query));
+                return (_baseSerializer.Serialize(query) is object serialized)
+                    ? _projection(serialized)
+                    : null;
             }
         }
 
@@ -409,7 +414,7 @@ namespace ExRam.Gremlinq.Core
                         : null;
                 })
                 .OverrideFragmentSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
-                .OverrideFragmentSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard.IfNone(Pick.None), step.OptionTraversal))
+                .OverrideFragmentSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard ?? Pick.None, step.OptionTraversal))
                 .OverrideFragmentSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
                 .OverrideFragmentSerializer<OrderStep.ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
                 .OverrideFragmentSerializer<OrderStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
@@ -433,15 +438,15 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (T.Id.Equals(step.Key))
                     {
-                        if (!Cardinality.Single.Equals(step.Cardinality.IfNone(Cardinality.Single)))
+                        if (!Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
                             throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
 
                         return CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
                     }
 
-                    return step.Cardinality.Match(
-                        c => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(c).ToArray()),
-                        () => CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray()));
+                    return (step.Cardinality != null)
+                         ? CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(step.Cardinality).ToArray())
+                         : CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
                 })
                 .OverrideFragmentSerializer<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                 .OverrideFragmentSerializer<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
@@ -567,7 +572,7 @@ namespace ExRam.Gremlinq.Core
                 });
         }
 
-        private static Instruction CreateInstruction(string name, Func<object, object> recurse, params object[] parameters)
+        private static Instruction CreateInstruction(string name, Func<object, object?> recurse, params object[] parameters)
         {
             return new Instruction(
                 name,

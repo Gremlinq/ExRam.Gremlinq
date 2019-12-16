@@ -13,8 +13,11 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
 
-        public static IEnumerable<(PropertyInfo property, object identifier, object value)> Serialize(this object obj, IGraphElementPropertyModel model, SerializationBehaviour ignoreMask)
+        public static IEnumerable<(PropertyInfo property, object identifier, object value)> Serialize(this object? obj, IGraphElementPropertyModel model, SerializationBehaviour ignoreMask)
         {
+            if (obj == null)
+                yield break;
+
             var propertyInfoTuples = GetSerializationData(model, obj.GetType());
 
             foreach (var (propertyInfo, identifier, serializationBehaviour) in propertyInfoTuples)
