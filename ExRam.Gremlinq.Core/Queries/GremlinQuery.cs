@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
         {
             var targetQueryType = typeof(TTargetQuery);
 
-            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType)
+            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
                 return (TTargetQuery)(object)this;
 
             var genericTypeDef = targetQueryType.IsGenericType
@@ -91,6 +91,7 @@ namespace ExRam.Gremlinq.Core
                 targetQueryType,
                 closureType =>
                 {
+                    var semantics = closureType.GetQuerySemantics();
                     var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
                         GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
                         GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
@@ -110,10 +111,12 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     stepsParameter.Type,
                                     environmentParameter.Type,
+                                    typeof(QuerySemantics),
                                     surfaceVisibleParameter.Type
                                 }),
                                 stepsParameter,
                                 environmentParameter,
+                                Expression.Constant(semantics, typeof(QuerySemantics)),
                                 surfaceVisibleParameter),
                             stepsParameter,
                             environmentParameter,
@@ -886,7 +889,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => AddStepWithUnitTypes<TSelectedElement>(new SelectStep(stepLabel), QuerySemantics.None);
+        private GremlinQuery<TSelectedElement, Unit, Unit, Unit, Unit, Unit> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel) => AddStepWithUnitTypes<TSelectedElement>(new SelectStep(stepLabel), stepLabel.QuerySemantics);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())), Semantics);
 
@@ -954,7 +957,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TValue, Unit, Unit, Unit, Unit, Unit> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
 
-        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(QuerySemantics.Vertex, projections);
+        private GremlinQuery<VertexProperty<TNewPropertyValue>, Unit, Unit, TNewPropertyValue, Unit, Unit> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, Unit>(QuerySemantics.VertexProperty, projections);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object value)
         {

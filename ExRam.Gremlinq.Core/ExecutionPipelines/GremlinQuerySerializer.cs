@@ -370,12 +370,12 @@ namespace ExRam.Gremlinq.Core
 
                     if (query is GremlinQueryBase gremlinQueryBase && gremlinQueryBase.SurfaceVisible)
                     {
-                        var model = query.AsAdmin().Environment.Model;
+                        var semantics = gremlinQueryBase.Semantics;
                         var elementType = query.GetType().GetGenericArguments()[0];
 
-                        if (typeof(IVertex).IsAssignableFrom(elementType) || model.VerticesModel.Metadata.ContainsKey(elementType))
+                        if (semantics == QuerySemantics.Vertex)
                             byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
-                        else if (typeof(IEdge).IsAssignableFrom(elementType) || model.EdgesModel.Metadata.ContainsKey(elementType))
+                        else if (semantics == QuerySemantics.Edge)
                             byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
                     }
 

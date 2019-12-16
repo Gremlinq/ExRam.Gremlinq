@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             query
                 .Should()
-                .Be("V().hasLabel(_a).has(_b, _c)");
+                .Be("V().hasLabel(_a).has(_b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]

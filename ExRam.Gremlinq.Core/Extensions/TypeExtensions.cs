@@ -13,5 +13,26 @@ namespace ExRam.Gremlinq.Core
                 type = type.BaseType;
             }
         }
+
+        public static QuerySemantics GetQuerySemantics(this Type type)
+        {
+            var semantics = QuerySemantics.None;
+            var containsVertex = type.Name.Contains("Vertex");
+            var containsProperty = type.Name.Contains("Property");
+
+            if (containsVertex || containsProperty)
+            {
+                if (containsVertex && containsProperty)
+                    semantics = QuerySemantics.VertexProperty;
+                else if (containsVertex)
+                    semantics = QuerySemantics.Vertex;
+                else
+                    semantics = QuerySemantics.Property;
+            }
+            if (type.Name.Contains("Edge"))
+                semantics = QuerySemantics.Edge;
+
+            return semantics;
+        }
     }
 }

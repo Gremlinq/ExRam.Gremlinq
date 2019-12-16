@@ -258,7 +258,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TQuery>();
         }
 
-        IGremlinQuery<TStep> IGremlinQuery.Select<TStep>(StepLabel<TStep> label) => Select<TStep>(label);
+        IGremlinQuery<TLabelledElement> IGremlinQuery.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
         IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
 
