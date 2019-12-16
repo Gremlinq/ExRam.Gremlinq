@@ -704,7 +704,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Coalesce()
+        public void Coalesce_identity()
         {
             _g
                 .V()
@@ -712,7 +712,20 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _
                         .Identity())
                 .Should()
-                .SerializeToGroovy("V().coalesce(__.identity()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .SerializeToGroovy("V().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithoutParameters();
+        }
+
+        [Fact]
+        public void Coalesce()
+        {
+            _g
+                .V()
+                .Coalesce(
+                    _ => _
+                        .Out())
+                .Should()
+                .SerializeToGroovy("V().coalesce(__.out()).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithoutParameters();
         }
 

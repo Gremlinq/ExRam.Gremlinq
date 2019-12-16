@@ -166,7 +166,7 @@ namespace ExRam.Gremlinq.Core
 
             GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.Build() => _query;
 
-            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Expression<Func<TElement, object>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Incr);
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Expression<Func<TElement, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Incr);
 
             IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Incr);
 
@@ -176,13 +176,13 @@ namespace ExRam.Gremlinq.Core
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.By(ILambda lambda) => By(lambda);
 
-            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Expression<Func<TElement, object>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Decr);
+            IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Expression<Func<TElement, object?>> projection) => By(projection, Gremlin.Net.Process.Traversal.Order.Decr);
 
             IOrderBuilderWithBy<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<TElement, GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Decr);
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Decr);
 
-            private OrderBuilder By(Expression<Func<TElement, object>> projection, Order order)
+            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order)
             {
                 if (projection.Body.StripConvert() is MemberExpression memberExpression)
                     return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), order), _query.Semantics));
@@ -263,8 +263,11 @@ namespace ExRam.Gremlinq.Core
 
             public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> sourceQuery, IGremlinQuery<TKey>? keyQuery, IGremlinQuery<TValue>? valueQuery)
             {
+#pragma warning disable CS8601 // Possible null reference assignment.
                 KeyQuery = keyQuery;
                 ValueQuery = valueQuery;
+#pragma warning restore CS8601 // Possible null reference assignment.
+
                 _sourceQuery = sourceQuery;
             }
 
@@ -426,7 +429,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private PropertyStep GetPropertyStep(object key, object value, Cardinality cardinality)
+        private PropertyStep GetPropertyStep(object key, object value, Cardinality? cardinality)
         {
             var metaProperties = Array.Empty<object>();
 
@@ -490,7 +493,7 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
-                : AddStep(new AndStep(subQueries.ToArray()), Semantics);
+                : AddStep(new AndStep(subQueries!.ToArray()), Semantics);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Anonymize(bool surfaceVisible = false) => Anonymize<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(surfaceVisible);
@@ -569,9 +572,9 @@ namespace ExRam.Gremlinq.Core
                 .Select(traversal => (IGremlinQuery)traversal(Anonymize()))
                 .ToArray();
 
-            return this
-                .AddStep(new CoalesceStep(coalesceQueries), QuerySemantics.None)
-                .ChangeQueryType<TTargetQuery>();
+            return (coalesceQueries.All(x => x.IsIdentity())
+                ? this
+                : AddStep(new CoalesceStep(coalesceQueries), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability), Semantics);
@@ -799,7 +802,7 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? None()
-                : AddStep(new OrStep(subQueries.ToArray()), Semantics);
+                : AddStep(new OrStep(subQueries!.ToArray()), Semantics);
         }
 
         private TTargetQuery Order<TTargetQuery>(Func<IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>>, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQuery => projection(new OrderBuilder(this.AddStep(OrderStep.Instance, Semantics))).Build();
@@ -838,7 +841,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys, QuerySemantics querySemantics) where TNewMeta : class => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToArray()), querySemantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object? value)
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member) is string identifier)
                 return Property(identifier, value);
@@ -846,7 +849,7 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(projection);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property(string key, [AllowNull] object value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property(string key, [AllowNull] object? value)
         {
             return value == null
                 ? DropProperties(key)
