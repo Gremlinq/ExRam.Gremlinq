@@ -785,7 +785,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public void E_of_all_types2()
         {
             _g
-                .E<IEdge>()
+                .E()
                 .Should()
                 .SerializeToGroovy("E().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('edge')).by(__.valueMap())")
                 .WithoutParameters();

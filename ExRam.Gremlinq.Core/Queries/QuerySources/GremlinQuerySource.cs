@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
                     .V(ids);
             }
 
-            IEdgeGremlinQuery<IEdge> IGremlinQueryBase.E(params object[] ids)
+            IEdgeGremlinQuery<object> IGremlinQueryBase.E(params object[] ids)
             {
                 return Create()
                     .E(ids);

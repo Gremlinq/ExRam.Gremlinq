@@ -9,19 +9,19 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<object> Both();
         IVertexGremlinQuery<object> Both<TEdge>();
 
-        IEdgeGremlinQuery<IEdge> BothE();
+        IEdgeGremlinQuery<object> BothE();
         IEdgeGremlinQuery<TEdge> BothE<TEdge>();
 
         IVertexGremlinQuery<object> In();
         IVertexGremlinQuery<object> In<TEdge>();
 
-        IEdgeGremlinQuery<IEdge> InE();
+        IEdgeGremlinQuery<object> InE();
         IEdgeGremlinQuery<TEdge> InE<TEdge>();
 
         IVertexGremlinQuery<object> Out();
         IVertexGremlinQuery<object> Out<TEdge>();
 
-        IEdgeGremlinQuery<IEdge> OutE();
+        IEdgeGremlinQuery<object> OutE();
         IEdgeGremlinQuery<TEdge> OutE<TEdge>();
     }
 
