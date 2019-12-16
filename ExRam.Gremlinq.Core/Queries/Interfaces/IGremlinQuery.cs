@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public partial interface IGremlinQuery : IGremlinQueryBase
     {
-        GremlinQueryAwaiter GetAwaiter();
+        TaskAwaiter GetAwaiter();
 
         IGremlinQueryAdmin AsAdmin();
         IValueGremlinQuery<long> Count();
