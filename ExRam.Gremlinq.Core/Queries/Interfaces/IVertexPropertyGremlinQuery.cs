@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public partial interface IVertexPropertyGremlinQuery<TProperty, TValue> : IElementGremlinQuery<TProperty>
     {
-        IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Meta<TMeta>();
+        IVertexPropertyGremlinQuery<VertexProperty<TValue, TMeta>, TValue, TMeta> Meta<TMeta>() where TMeta : class;
 
         IPropertyGremlinQuery<Property<TMetaValue>> Properties<TMetaValue>(params string[] keys);
         IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);
@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TValue> Value();
     }
 
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IElementGremlinQuery<TProperty>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> : IElementGremlinQuery<TProperty> where TMeta : class
     {
         IPropertyGremlinQuery<Property<TTarget>> Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
         IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);

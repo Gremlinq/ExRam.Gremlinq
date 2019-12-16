@@ -2,6 +2,6 @@
 {
     public interface IElement
     {
-        object Id { get; set; }
+        object? Id { get; set; }
     }
 }

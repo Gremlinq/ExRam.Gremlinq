@@ -7,6 +7,7 @@ using NullGuard;
 namespace ExRam.Gremlinq.Core.GraphElements
 {
     public class VertexProperty<TValue, TMeta> : Property<TValue>, IVertexProperty
+        where TMeta : class
     {
         public VertexProperty(TValue value) : base(value)
         {
@@ -28,9 +29,9 @@ namespace ExRam.Gremlinq.Core.GraphElements
             .Where(x => x.identifier is string)
             .ToDictionary(x => (string)x.identifier, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
 
-        [AllowNull] public object Id { get; set; }
-        [AllowNull] public string Label { get; set; }
-        [AllowNull] public TMeta Properties { get; set; }
+        [AllowNull] public object? Id { get; set; }
+        [AllowNull] public string? Label { get; set; }
+        [AllowNull] public TMeta? Properties { get; set; }
     }
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>

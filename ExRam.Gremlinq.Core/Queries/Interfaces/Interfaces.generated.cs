@@ -896,7 +896,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexPropertyGremlinQuery<TProperty, TValue> Where(ILambda lambda);
     }
 
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> And(params Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery>[] andTraversals);
 
@@ -1094,7 +1094,7 @@ namespace ExRam.Gremlinq.Core
         new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, IProjectResult> continuation);
         new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TProperty, TValue>, TProperty>, IProjectResult<TResult>> continuation);
     }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
         new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, IProjectResult> continuation);
         new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, IProjectResult<TResult>> continuation);
@@ -1142,7 +1142,7 @@ namespace ExRam.Gremlinq.Core
     {
         new IVertexPropertyGremlinQuery<TProperty, TValue> Order(Func<IOrderBuilder<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>, IOrderBuilderWithBy<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>> projection);
     }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Order(Func<IOrderBuilder<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>, IOrderBuilderWithBy<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>> projection);
     }
@@ -1293,7 +1293,7 @@ new IVertexPropertyGremlinQuery<TProperty, TValue> Property(string key, object v
 new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Expression<Func<TProperty, bool>> predicate);
 new IVertexPropertyGremlinQuery<TProperty, TValue> Where<TProjection>(Expression<Func<TProperty, TProjection>> projection, Func<IGremlinQuery<TProjection>, IGremlinQuery> propertyTraversal);
     }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
 
 new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Property(string key, object value);
@@ -1411,7 +1411,7 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
 
         new IArrayGremlinQuery<TProperty[], IVertexPropertyGremlinQuery<TProperty, TValue>> Fold();
     }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
         TTargetQuery Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<TProperty[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
         TTargetQuery As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, TProperty>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
@@ -1492,7 +1492,7 @@ new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where<TProjection>(Exp
     {
         new IVertexPropertyGremlinQuery<TProperty, TValue> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue>, IGremlinQuery> filterTraversal);
     }
-    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>
+    public partial interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> where TMeta : class
     {
         new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Func<IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>, IGremlinQuery> filterTraversal);
     }
