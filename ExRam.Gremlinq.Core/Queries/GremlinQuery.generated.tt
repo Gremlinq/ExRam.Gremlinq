@@ -152,7 +152,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface.Replace(GetElement(iface), "TResult") #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
         <#= iface #> <#= iface #>.Coin(double probability) => Coin(probability);
 
-        TTargetQuery <#= iface #>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= GetElement(iface) #>[]>, TTargetQuery> continuation) => Aggregate(continuation);
+        TTargetQuery <#= iface #>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) => Aggregate(new StepLabel<<#= iface #>, <#= GetElement(iface) #>>(Semantics), continuation);
         TTargetQuery <#= iface #>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) => As(new StepLabel<<#= iface #>, <#= GetElement(iface) #>>(Semantics), continuation);
 
         IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> <#= iface #>.Fold() => Fold<<#= iface #>>();
