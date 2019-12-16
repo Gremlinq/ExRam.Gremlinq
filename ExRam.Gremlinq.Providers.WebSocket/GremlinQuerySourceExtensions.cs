@@ -128,7 +128,7 @@ namespace ExRam.Gremlinq.Core
                             conf = conf.ConfigureSerializer(serializer => serializer
                                 .OverrideFragmentSerializer<P>((p, overridden, recurse) =>
                                 {
-                                    object? Unbind(object? o)
+                                    static object? Unbind(object? o)
                                     {
                                         if (o is P p) 
                                         {
