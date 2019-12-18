@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
 <# for(var i = 2; i <= 16; i++) { #>
-        IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<TElement, (<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>);
+        IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQuery.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<TElement, (<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>);
 <# } #>
 
 
@@ -42,8 +42,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery <#= iface #>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> <#= iface #>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> <#= iface #>.Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> <#= iface #>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> <#= iface #>.Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         <#= iface #> <#= iface #>.Identity() => Identity();
 
@@ -86,8 +86,8 @@ namespace ExRam.Gremlinq.Core
         <#= iface #><TTarget> <#= iface #>.OfType<TTarget>() => OfType<TTarget>(<#= iface.Contains("VertexGremlinQuery") ? "Environment.Model.VerticesModel" : "Environment.Model.EdgesModel" #>);
 
         <#= iface + "<TResult>" #> <#= iface #>.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
-        IGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        IValueGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IValueGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 <# } #>
 
 
@@ -100,8 +100,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> <#= iface #>.Fold() => Fold<<#= iface #>>();
 
-        IGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation) => Project<<#= GetElement(iface) #>, dynamic>(continuation);
-        IGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation) => Project<<#= GetElement(iface) #>, TResult>(continuation);
+        IValueGremlinQuery<dynamic> <#= iface #>.Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation) => Project<<#= GetElement(iface) #>, dynamic>(continuation);
+        IValueGremlinQuery<TResult> <#= iface #>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation) => Project<<#= GetElement(iface) #>, TResult>(continuation);
 <# } #>
 
 

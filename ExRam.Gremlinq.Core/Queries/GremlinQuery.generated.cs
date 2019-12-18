@@ -11,21 +11,21 @@ namespace ExRam.Gremlinq.Core
 {
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
-        IGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2) => Project<TElement, (T1, T2)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)));
-        IGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3) => Project<TElement, (T1, T2, T3)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)));
-        IGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4) => Project<TElement, (T1, T2, T3, T4)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)));
-        IGremlinQuery<(T1, T2, T3, T4, T5)> IGremlinQuery.Select<T1, T2, T3, T4, T5>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5) => Project<TElement, (T1, T2, T3, T4, T5)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6) => Project<TElement, (T1, T2, T3, T4, T5, T6)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)).By(_ => _.Select(label15)));
-        IGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15, StepLabel<T16> label16) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)).By(_ => _.Select(label15)).By(_ => _.Select(label16)));
+        IValueGremlinQuery<(T1, T2)> IGremlinQuery.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2) => Project<TElement, (T1, T2)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)));
+        IValueGremlinQuery<(T1, T2, T3)> IGremlinQuery.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3) => Project<TElement, (T1, T2, T3)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)));
+        IValueGremlinQuery<(T1, T2, T3, T4)> IGremlinQuery.Select<T1, T2, T3, T4>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4) => Project<TElement, (T1, T2, T3, T4)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5)> IGremlinQuery.Select<T1, T2, T3, T4, T5>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5) => Project<TElement, (T1, T2, T3, T4, T5)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6) => Project<TElement, (T1, T2, T3, T4, T5, T6)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)).By(_ => _.Select(label15)));
+        IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)> IGremlinQuery.Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15, StepLabel<T16> label16) => Project<TElement, (T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)).By(_ => _.Select(label4)).By(_ => _.Select(label5)).By(_ => _.Select(label6)).By(_ => _.Select(label7)).By(_ => _.Select(label8)).By(_ => _.Select(label9)).By(_ => _.Select(label10)).By(_ => _.Select(label11)).By(_ => _.Select(label12)).By(_ => _.Select(label13)).By(_ => _.Select(label14)).By(_ => _.Select(label15)).By(_ => _.Select(label16)));
 
 
         IGremlinQuery IGremlinQuery.And(params Func<IGremlinQuery, IGremlinQuery>[] andTraversals) => And(andTraversals);
@@ -45,8 +45,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQuery.FlatMap<TTargetQuery>(Func<IGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKey<IGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKeyAndValue<IGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery>, IGroupBuilderWithKey<IGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IGremlinQuery IGremlinQuery.Identity() => Identity();
 
@@ -98,8 +98,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IElementGremlinQuery.FlatMap<TTargetQuery>(Func<IElementGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKey<IElementGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery>, IGroupBuilderWithKey<IElementGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IElementGremlinQuery IElementGremlinQuery.Identity() => Identity();
 
@@ -151,8 +151,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexGremlinQuery.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKey<IVertexGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery>, IGroupBuilderWithKey<IVertexGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexGremlinQuery IVertexGremlinQuery.Identity() => Identity();
 
@@ -204,8 +204,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgeGremlinQuery.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKey<IEdgeGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery>, IGroupBuilderWithKey<IEdgeGremlinQuery, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery IEdgeGremlinQuery.Identity() => Identity();
 
@@ -257,8 +257,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKey<IGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IGremlinQuery<TElement>>, IGroupBuilderWithKey<IGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IGremlinQuery<TElement> IGremlinQuery<TElement>.Identity() => Identity();
 
@@ -310,8 +310,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IValueGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IValueGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IValueGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IValueGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IValueGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKey<IValueGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IValueGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IValueGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IValueGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IValueGremlinQuery<TElement>>, IGroupBuilderWithKey<IValueGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Identity() => Identity();
 
@@ -363,8 +363,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.FlatMap<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKey<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IArrayGremlinQuery<TElement, TFoldedQuery>.Group<TNewKey>(Func<IGroupBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IGroupBuilderWithKey<IArrayGremlinQuery<TElement, TFoldedQuery>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IArrayGremlinQuery<TElement, TFoldedQuery> IArrayGremlinQuery<TElement, TFoldedQuery>.Identity() => Identity();
 
@@ -416,8 +416,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IElementGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IElementGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKey<IElementGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IElementGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IElementGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IElementGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IElementGremlinQuery<TElement>>, IGroupBuilderWithKey<IElementGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IElementGremlinQuery<TElement> IElementGremlinQuery<TElement>.Identity() => Identity();
 
@@ -469,8 +469,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IVertexGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IVertexGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IVertexGremlinQuery<TElement>>, IGroupBuilderWithKey<IVertexGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexGremlinQuery<TElement> IVertexGremlinQuery<TElement>.Identity() => Identity();
 
@@ -522,8 +522,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgeGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement> IEdgeGremlinQuery<TElement>.Identity() => Identity();
 
@@ -575,8 +575,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement, TOutVertex> IEdgeGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
 
@@ -628,8 +628,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.FlatMap<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKeyAndValue<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>, IGroupBuilderWithKey<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Identity() => Identity();
 
@@ -681,8 +681,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.FlatMap<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKeyAndValue<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKey<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKeyAndValue<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IInEdgeGremlinQuery<TElement, TInVertex>.Group<TNewKey>(Func<IGroupBuilder<IInEdgeGremlinQuery<TElement, TInVertex>>, IGroupBuilderWithKey<IInEdgeGremlinQuery<TElement, TInVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IInEdgeGremlinQuery<TElement, TInVertex>.Identity() => Identity();
 
@@ -734,8 +734,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.FlatMap<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKeyAndValue<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Group<TNewKey>(Func<IGroupBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>>, IGroupBuilderWithKey<IOutEdgeGremlinQuery<TElement, TOutVertex>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IOutEdgeGremlinQuery<TElement, TOutVertex>.Identity() => Identity();
 
@@ -787,8 +787,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Identity() => Identity();
 
@@ -840,8 +840,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Identity() => Identity();
 
@@ -893,8 +893,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IPropertyGremlinQuery<TElement>.FlatMap<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IGremlinQuery<IDictionary<TNewKey, TNewValue>> IPropertyGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IPropertyGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IGremlinQuery<IDictionary<TNewKey, object>> IPropertyGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKey<IPropertyGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IPropertyGremlinQuery<TElement>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKeyAndValue<IPropertyGremlinQuery<TElement>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IPropertyGremlinQuery<TElement>.Group<TNewKey>(Func<IGroupBuilder<IPropertyGremlinQuery<TElement>>, IGroupBuilderWithKey<IPropertyGremlinQuery<TElement>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
         IPropertyGremlinQuery<TElement> IPropertyGremlinQuery<TElement>.Identity() => Identity();
 
@@ -935,26 +935,26 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TTarget> IGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IGremlinQuery<TResult> IGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<dynamic> IGremlinQuery.Project(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
-        IGremlinQuery<TResult> IGremlinQuery.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IGremlinQuery.Project(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IGremlinQuery.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 
         IElementGremlinQuery<TTarget> IElementGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IElementGremlinQuery<TResult> IElementGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<dynamic> IElementGremlinQuery.Project(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
-        IGremlinQuery<TResult> IElementGremlinQuery.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IElementGremlinQuery.Project(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IElementGremlinQuery.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 
         IVertexGremlinQuery<TTarget> IVertexGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.VerticesModel);
 
         IVertexGremlinQuery<TResult> IVertexGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<dynamic> IVertexGremlinQuery.Project(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
-        IGremlinQuery<TResult> IVertexGremlinQuery.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IVertexGremlinQuery.Project(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IVertexGremlinQuery.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 
         IEdgeGremlinQuery<TTarget> IEdgeGremlinQuery.OfType<TTarget>() => OfType<TTarget>(Environment.Model.EdgesModel);
 
         IEdgeGremlinQuery<TResult> IEdgeGremlinQuery.Cast<TResult>() => Cast<TResult>();
-        IGremlinQuery<dynamic> IEdgeGremlinQuery.Project(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
-        IGremlinQuery<TResult> IEdgeGremlinQuery.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IEdgeGremlinQuery.Project(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult> continuation) => Project<object, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IEdgeGremlinQuery.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<object>, object>, IProjectResult<TResult>> continuation) => Project<object, TResult>(continuation);
 
 
         TTargetQuery IGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IGremlinQuery<TElement>, StepLabel<IGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IGremlinQuery<TElement>, TElement>(Semantics), continuation);
@@ -965,8 +965,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IGremlinQuery<TElement>> IGremlinQuery<TElement>.Fold() => Fold<IGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IGremlinQuery<TElement>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IGremlinQuery<TElement>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IValueGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IValueGremlinQuery<TElement>, TElement>(Semantics), continuation);
         TTargetQuery IValueGremlinQuery<TElement>.As<TTargetQuery>(Func<IValueGremlinQuery<TElement>, StepLabel<IValueGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IValueGremlinQuery<TElement>, TElement>(Semantics), continuation);
 
@@ -975,8 +975,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IValueGremlinQuery<TElement>> IValueGremlinQuery<TElement>.Fold() => Fold<IValueGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IValueGremlinQuery<TElement>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IValueGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IValueGremlinQuery<TElement>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IValueGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.Aggregate<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>(Semantics), continuation);
         TTargetQuery IArrayGremlinQuery<TElement, TFoldedQuery>.As<TTargetQuery>(Func<IArrayGremlinQuery<TElement, TFoldedQuery>, StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>(Semantics), continuation);
 
@@ -985,8 +985,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IArrayGremlinQuery<TElement, TFoldedQuery>> IArrayGremlinQuery<TElement, TFoldedQuery>.Fold() => Fold<IArrayGremlinQuery<TElement, TFoldedQuery>>();
 
-        IGremlinQuery<dynamic> IArrayGremlinQuery<TElement, TFoldedQuery>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IArrayGremlinQuery<TElement, TFoldedQuery>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IArrayGremlinQuery<TElement, TFoldedQuery>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IArrayGremlinQuery<TElement, TFoldedQuery>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IElementGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IElementGremlinQuery<TElement>, TElement>(Semantics), continuation);
         TTargetQuery IElementGremlinQuery<TElement>.As<TTargetQuery>(Func<IElementGremlinQuery<TElement>, StepLabel<IElementGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IElementGremlinQuery<TElement>, TElement>(Semantics), continuation);
 
@@ -995,8 +995,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IElementGremlinQuery<TElement>> IElementGremlinQuery<TElement>.Fold() => Fold<IElementGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IElementGremlinQuery<TElement>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IElementGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IElementGremlinQuery<TElement>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IElementGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IVertexGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IVertexGremlinQuery<TElement>, TElement>(Semantics), continuation);
         TTargetQuery IVertexGremlinQuery<TElement>.As<TTargetQuery>(Func<IVertexGremlinQuery<TElement>, StepLabel<IVertexGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexGremlinQuery<TElement>, TElement>(Semantics), continuation);
 
@@ -1005,8 +1005,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IVertexGremlinQuery<TElement>> IVertexGremlinQuery<TElement>.Fold() => Fold<IVertexGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IVertexGremlinQuery<TElement>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IVertexGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IVertexGremlinQuery<TElement>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IVertexGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IEdgeGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IEdgeGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IEdgeGremlinQuery<TElement>, TElement>(Semantics), continuation);
         TTargetQuery IEdgeGremlinQuery<TElement>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement>, StepLabel<IEdgeGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IEdgeGremlinQuery<TElement>, TElement>(Semantics), continuation);
 
@@ -1015,8 +1015,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement>> IEdgeGremlinQuery<TElement>.Fold() => Fold<IEdgeGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IEdgeGremlinQuery<TElement>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IEdgeGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>(Semantics), continuation);
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>(Semantics), continuation);
 
@@ -1025,8 +1025,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex>> IEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex>>();
 
-        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Aggregate<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>(Semantics), continuation);
         TTargetQuery IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.As<TTargetQuery>(Func<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>(Semantics), continuation);
 
@@ -1035,8 +1035,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Fold() => Fold<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>();
 
-        IGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.Aggregate<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>(Semantics), continuation);
         TTargetQuery IInEdgeGremlinQuery<TElement, TInVertex>.As<TTargetQuery>(Func<IInEdgeGremlinQuery<TElement, TInVertex>, StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>(Semantics), continuation);
 
@@ -1045,8 +1045,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IInEdgeGremlinQuery<TElement, TInVertex>> IInEdgeGremlinQuery<TElement, TInVertex>.Fold() => Fold<IInEdgeGremlinQuery<TElement, TInVertex>>();
 
-        IGremlinQuery<dynamic> IInEdgeGremlinQuery<TElement, TInVertex>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IInEdgeGremlinQuery<TElement, TInVertex>.Project<TResult>(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IInEdgeGremlinQuery<TElement, TInVertex>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IInEdgeGremlinQuery<TElement, TInVertex>.Project<TResult>(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.Aggregate<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>(Semantics), continuation);
         TTargetQuery IOutEdgeGremlinQuery<TElement, TOutVertex>.As<TTargetQuery>(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>(Semantics), continuation);
 
@@ -1055,8 +1055,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IOutEdgeGremlinQuery<TElement, TOutVertex>> IOutEdgeGremlinQuery<TElement, TOutVertex>.Fold() => Fold<IOutEdgeGremlinQuery<TElement, TOutVertex>>();
 
-        IGremlinQuery<dynamic> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IOutEdgeGremlinQuery<TElement, TOutVertex>.Project<TResult>(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>(Semantics), continuation);
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>(Semantics), continuation);
 
@@ -1065,8 +1065,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue>> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>();
 
-        IGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>(Semantics), continuation);
         TTargetQuery IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>(Semantics), continuation);
 
@@ -1075,8 +1075,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>();
 
-        IGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
         TTargetQuery IPropertyGremlinQuery<TElement>.Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => Aggregate(new StepLabel<IPropertyGremlinQuery<TElement>, TElement>(Semantics), continuation);
         TTargetQuery IPropertyGremlinQuery<TElement>.As<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IPropertyGremlinQuery<TElement>, TElement>(Semantics), continuation);
 
@@ -1085,8 +1085,8 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement[], IPropertyGremlinQuery<TElement>> IPropertyGremlinQuery<TElement>.Fold() => Fold<IPropertyGremlinQuery<TElement>>();
 
-        IGremlinQuery<dynamic> IPropertyGremlinQuery<TElement>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IGremlinQuery<TResult> IPropertyGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IPropertyGremlinQuery<TElement>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IPropertyGremlinQuery<TElement>.Project<TResult>(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
 
 
         IValueGremlinQuery<TElement> IValueGremlinQuery<TElement>.Order(Func<IOrderBuilder<TElement, IValueGremlinQuery<TElement>>, IOrderBuilderWithBy<TElement, IValueGremlinQuery<TElement>>> projection) => Order(projection);

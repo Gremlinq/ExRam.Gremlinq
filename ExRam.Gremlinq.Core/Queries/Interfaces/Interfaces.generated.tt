@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
     partial interface IGremlinQuery
     {
 <# for(var i = 2; i <= 16; i++) { #>
-        IGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>);
+        IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>);
 <# } #>
     }
 
@@ -42,8 +42,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) where TTargetQuery : IGremlinQuery;
 
-        new IGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder);
-        new IGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder);
+        new IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder);
+        new IValueGremlinQuery<IDictionary<TNewKey, object>> Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder);
 
         new <#= iface #> Identity();
 
@@ -88,8 +88,8 @@ namespace ExRam.Gremlinq.Core
 
         new <#= iface #><TTarget> OfType<TTarget>();
 
-        new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation);
-        new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation);
+        new IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation);
+        new IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation);
     }
 <# } #>
 
@@ -105,8 +105,8 @@ namespace ExRam.Gremlinq.Core
 
         new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> Fold();
 
-        new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation);
-        new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation);
+        new IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation);
+        new IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation);
 
     }
 <# } #>
