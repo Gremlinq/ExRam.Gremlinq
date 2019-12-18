@@ -76,6 +76,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Union<TTargetQuery>(params Func<<#= iface #>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQuery;
 
         new <#= iface #> Where(ILambda lambda);
+        new <#= iface #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
     }
 <# } #>
 
@@ -84,6 +85,9 @@ namespace ExRam.Gremlinq.Core
     public partial interface <#= iface #>
     {
         new <#= iface + "<TResult>" #> Cast<TResult>();
+
+        new <#= iface #><TTarget> OfType<TTarget>();
+
         new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult> continuation);
         new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #><object>, object>, IProjectResult<TResult>> continuation);
     }
@@ -93,8 +97,17 @@ namespace ExRam.Gremlinq.Core
 <# foreach(var iface in Typed(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
+        TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+        TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
+
+        new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
+        new <#= iface #> Coin(double probability);
+
+        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> Fold();
+
         new IGremlinQuery<dynamic> Project(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult> continuation);
         new IGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<<#= iface #>, <#= GetElement(iface) #>>, IProjectResult<TResult>> continuation);
+
     }
 <# } #>
 
@@ -127,14 +140,6 @@ namespace ExRam.Gremlinq.Core
         new IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<<#= GetElement(iface) #>, TTarget[]>>[] projections);
     }
 <# } #>
-
-
-<# foreach(var iface in Untyped(baseInterfaces)) { #>
-    public partial interface <#= iface #>
-    {
-        new <#= iface #><TTarget> OfType<TTarget>();
-    }
-<# } #>
     
 
 <# foreach(var iface in Typed(Qualified(Element(baseInterfaces)))) { #>
@@ -157,25 +162,6 @@ new <#= iface #> Where<TProjection>(Expression<Func<<#= GetElement(iface) #>, TP
     }
 <# } #>
 
-<# foreach(var iface in Typed(baseInterfaces)) { #>
-    public partial interface <#= iface #>
-    {
-        TTargetQuery Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-        TTargetQuery As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, <#= GetElement(iface) #>>, TTargetQuery> continuation) where TTargetQuery : IGremlinQuery;
-
-        new <#= iface.Replace(GetElement(iface), "TResult") #> Cast<TResult>();
-        new <#= iface #> Coin(double probability);
-
-        new IArrayGremlinQuery<<#= GetElement(iface) #>[], <#= iface #>> Fold();
-    }
-<# } #>
-
-<# foreach(var iface in baseInterfaces) { #>
-    public partial interface <#= iface #>
-    {
-        new <#= iface #> Where(Func<<#= iface #>, IGremlinQuery> filterTraversal);
-    }
-<# } #>
 
 <# for(var i = 2; i <= 16; i++) { #>
 public interface IProjectTupleBuilder<out TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i) #>> : IProjectResult<(<#= GetArgumentList("TItem{0}", i) #>)>
