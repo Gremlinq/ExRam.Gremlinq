@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQuerySource : IGremlinQueryBase
+    public interface IGremlinQuerySource : IStartGremlinQuery
     {
         IGremlinQuerySource ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation);
         IGremlinQuerySource AddStrategies(params IGremlinQueryStrategy[] strategies);

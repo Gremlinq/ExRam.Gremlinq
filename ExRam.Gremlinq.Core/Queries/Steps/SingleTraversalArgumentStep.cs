@@ -3,11 +3,11 @@
     // ReSharper disable once InconsistentNaming
     public abstract class SingleTraversalArgumentStep : Step
     {
-        protected SingleTraversalArgumentStep(IGremlinQuery traversal)
+        protected SingleTraversalArgumentStep(IGremlinQueryBase traversal)
         {
             Traversal = traversal;
         }
 
-        public IGremlinQuery Traversal { get; }
+        public IGremlinQueryBase Traversal { get; }
     }
 }

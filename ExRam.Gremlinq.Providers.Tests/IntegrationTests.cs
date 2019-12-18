@@ -609,15 +609,15 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .ToArrayAsync();
         }
 
-        [Fact(Skip = "Integration Test")]
-        public async Task Where_scalar_element_equals_constant()
-        {
-            await _g
-                .V<Person>()
-                .Values(x => x.Age)
-                .Where(_ => _ == 36)
-                .ToArrayAsync();
-        }
+        //[Fact(Skip = "Integration Test")]
+        //public async Task Where_scalar_element_equals_constant()
+        //{
+        //    await _g
+        //        .V<Person>()
+        //        .Values(x => x.Age)
+        //        .Where(_ => _ == 36)
+        //        .ToArrayAsync();
+        //}
 
         [Fact(Skip = "Integration Test")]
         public async Task Where_traversal()

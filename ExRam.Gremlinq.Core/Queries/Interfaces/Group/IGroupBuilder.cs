@@ -3,22 +3,22 @@
 namespace ExRam.Gremlinq.Core
 {
     public interface IGroupBuilder<out TSourceQuery>
-        where TSourceQuery : IGremlinQuery
+        where TSourceQuery : IGremlinQueryBase
     {
-        IGroupBuilderWithKey<TSourceQuery, TKey> ByKey<TKey>(Func<TSourceQuery, IGremlinQuery<TKey>> keySelector);
+        IGroupBuilderWithKey<TSourceQuery, TKey> ByKey<TKey>(Func<TSourceQuery, IGremlinQueryBase<TKey>> keySelector);
     }
 
     public interface IGroupBuilderWithKey<out TSourceQuery, TKey>
-        where TSourceQuery : IGremlinQuery
+        where TSourceQuery : IGremlinQueryBase
     {
-        IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQuery<TValue>> valueSelector);
+        IGroupBuilderWithKeyAndValue<TSourceQuery, TKey, TValue> ByValue<TValue>(Func<TSourceQuery, IGremlinQueryBase<TValue>> valueSelector);
 
-        IGremlinQuery<TKey> KeyQuery { get; }
+        IGremlinQueryBase<TKey> KeyQuery { get; }
     }
 
     public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue> : IGroupBuilderWithKey<TSourceQuery, TKey>
-        where TSourceQuery : IGremlinQuery
+        where TSourceQuery : IGremlinQueryBase
     {
-        IGremlinQuery<TValue> ValueQuery { get; }
+        IGremlinQueryBase<TValue> ValueQuery { get; }
     }
 }

@@ -4,9 +4,9 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class MultiTraversalArgumentStep : Step
     {
-        public IEnumerable<IGremlinQuery> Traversals { get; }
+        public IEnumerable<IGremlinQueryBase> Traversals { get; }
 
-        protected MultiTraversalArgumentStep(IEnumerable<IGremlinQuery> traversals)
+        protected MultiTraversalArgumentStep(IEnumerable<IGremlinQueryBase> traversals)
         {
             Traversals = traversals;
         }

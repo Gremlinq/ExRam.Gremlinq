@@ -2,7 +2,7 @@
 {
     public sealed class FromTraversalStep : SingleTraversalArgumentStep
     {
-        public FromTraversalStep(IGremlinQuery traversal) : base(traversal)
+        public FromTraversalStep(IGremlinQueryBase traversal) : base(traversal)
         {
         }
     }

@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinQueryBase
+    public interface IStartGremlinQuery
     {
         IVertexGremlinQuery<TVertex> AddV<TVertex>(TVertex vertex);
         IEdgeGremlinQuery<TEdge> AddE<TEdge>(TEdge edge);

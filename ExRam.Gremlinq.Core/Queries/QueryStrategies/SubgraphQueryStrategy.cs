@@ -6,16 +6,16 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class SubgraphQueryStrategy : IGremlinQueryStrategy
     {
-        private readonly Func<IEdgeGremlinQuery<object>, IGremlinQuery> _edgeCriterion;
-        private readonly Func<IVertexGremlinQuery<object>, IGremlinQuery> _vertexCriterion;
+        private readonly Func<IEdgeGremlinQuery<object>, IGremlinQueryBase> _edgeCriterion;
+        private readonly Func<IVertexGremlinQuery<object>, IGremlinQueryBase> _vertexCriterion;
 
-        public SubgraphQueryStrategy(Func<IVertexGremlinQuery<object>, IGremlinQuery> vertexCriterion, Func<IEdgeGremlinQuery<object>, IGremlinQuery> edgeCriterion)
+        public SubgraphQueryStrategy(Func<IVertexGremlinQuery<object>, IGremlinQueryBase> vertexCriterion, Func<IEdgeGremlinQuery<object>, IGremlinQueryBase> edgeCriterion)
         {
             _edgeCriterion = edgeCriterion;
             _vertexCriterion = vertexCriterion;
         }
 
-        public IGremlinQuery Apply(IGremlinQuery query)
+        public IGremlinQueryBase Apply(IGremlinQueryBase query)
         {
             var environment = query.AsAdmin().Environment;
             var anonymous = GremlinQuery.Anonymous(environment);

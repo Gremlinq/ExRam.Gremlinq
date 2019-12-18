@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class CoalesceStep : MultiTraversalArgumentStep
     {
-        public CoalesceStep(IEnumerable<IGremlinQuery> traversals) : base(traversals)
+        public CoalesceStep(IEnumerable<IGremlinQueryBase> traversals) : base(traversals)
         {
         }
     }

@@ -27,10 +27,8 @@ namespace ExRam.Gremlinq.Core.Tests
         private sealed class Edge
         {
             public string String { get; }
-            public string[] Strings { get; }
-
+            
             public Property<string> StringEdgeProperty { get; }
-            public Property<string>[] StringEdgeProperties { get; }
         }
 
         [Fact]
@@ -132,16 +130,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<string, object>, string, object>>();
         }
-
-        //[Fact]
-        //public void V_Properties_MetaObjectVertexProperty_MetaStringVertexProperty()
-        //{
-        //    g
-        //        .V<Vertex>()
-        //        .Properties(x => x.MetaObjectVertexProperty, x => x.MetaStringVertexProperty)
-        //        .Should()
-        //        .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object, object>, object, object>>();
-        //}
 
         [Fact]
         public void V_Properties_MetaObjectVertexProperty_MetaStringVertexProperties()
@@ -386,47 +374,11 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void E_Properties_Strings()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.Strings)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
-        }
-
-        [Fact]
         public void E_Properties_StringEdgeProperty()
         {
             g
                 .E<Edge>()
                 .Properties(x => x.StringEdgeProperty)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
-        }
-
-        [Fact]
-        public void E_Properties_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
-        }
-
-        [Fact]
-        public void E_Properties_String_Strings()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.String, x => x.Strings)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
-
-            g
-                .E<Edge>()
-                .Properties<string>(x => x.String, x => x.Strings)
                 .Should()
                 .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
         }
@@ -442,51 +394,11 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void E_Properties_Strings_StringEdgeProperty()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.Strings, x => x.StringEdgeProperty)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<string>>>();
-        }
-
-        [Fact]
-        public void E_Properties_String_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.String, x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
-        }
-
-        [Fact]
-        public void E_Properties_Strings_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Properties(x => x.Strings, x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IPropertyGremlinQuery<Property<object>>>();
-        }
-
-        [Fact]
         public void E_Values_String()
         {
             g
                 .E<Edge>()
                 .Values(x => x.String)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
-        }
-
-        [Fact]
-        public void E_Values_Strings()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.Strings)
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<string>>();
         }
@@ -502,32 +414,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void E_Values_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
-        }
-
-        [Fact]
-        public void E_Values_String_Strings()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.String, x => x.Strings)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
-
-            g
-                .E<Edge>()
-                .Values<string>(x => x.String, x => x.Strings)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
-        }
-
-        [Fact]
         public void E_Values_String_StringEdgeProperty()
         {
             g
@@ -535,36 +421,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.String, x => x.StringEdgeProperty)
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<string>>();
-        }
-
-        [Fact]
-        public void E_Values_Strings_StringEdgeProperty()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.Strings, x => x.StringEdgeProperty)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<string>>();
-        }
-
-        [Fact]
-        public void E_Values_String_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.String, x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
-        }
-
-        [Fact]
-        public void E_Values_Strings_StringEdgeProperties()
-        {
-            g
-                .E<Edge>()
-                .Values(x => x.Strings, x => x.StringEdgeProperties)
-                .Should()
-                .BeAssignableTo<IValueGremlinQuery<object>>();
         }
     }
 }

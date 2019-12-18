@@ -2,7 +2,7 @@
 {
     public sealed class SideEffectStep : SingleTraversalArgumentStep
     {
-        public SideEffectStep(IGremlinQuery traversal) : base(traversal)
+        public SideEffectStep(IGremlinQueryBase traversal) : base(traversal)
         {
         }
     }

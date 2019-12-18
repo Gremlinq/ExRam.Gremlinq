@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(IEnumerable<IGremlinQuery> traversals) : base(traversals)
+        public MatchStep(IEnumerable<IGremlinQueryBase> traversals) : base(traversals)
         {
         }
     }

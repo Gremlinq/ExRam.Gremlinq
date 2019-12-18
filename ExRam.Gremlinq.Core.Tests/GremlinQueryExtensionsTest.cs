@@ -22,7 +22,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var query2 = query1
                 .Where(x => x.Age == 36);
 
-            var cont = ((IGremlinQuery)query1).CreateContinuationFrom(query2);
+            var cont = ((IGremlinQueryBase)query1).CreateContinuationFrom(query2);
 
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Company>();
 
             query1
-                .Invoking(q => ((IGremlinQuery)q).CreateContinuationFrom(query2))
+                .Invoking(q => ((IGremlinQueryBase)q).CreateContinuationFrom(query2))
                 .Should()
                 .Throw<ArgumentException>();
         }
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var query2 = query1;
 
-            var cont = ((IGremlinQuery)query1).CreateContinuationFrom(query2);
+            var cont = ((IGremlinQueryBase)query1).CreateContinuationFrom(query2);
 
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))

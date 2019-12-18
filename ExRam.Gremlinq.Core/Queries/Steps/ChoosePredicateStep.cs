@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ChoosePredicateStep : ChooseStep
     {
-        public ChoosePredicateStep(P predicate, IGremlinQuery thenTraversal, Option<IGremlinQuery> elseTraversal = default) : base(thenTraversal, elseTraversal)
+        public ChoosePredicateStep(P predicate, IGremlinQueryBase thenTraversal, Option<IGremlinQueryBase> elseTraversal = default) : base(thenTraversal, elseTraversal)
         {
             Predicate = predicate;
         }

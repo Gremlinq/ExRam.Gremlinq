@@ -8,32 +8,32 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExtensions
     {
-        public static ValueTask<TElement[]> ToArrayAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        public static ValueTask<TElement[]> ToArrayAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
             return query.ToAsyncEnumerable().ToArrayAsync(ct);
         }
 
-        public static ValueTask<TElement> FirstAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        public static ValueTask<TElement> FirstAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
             return query.ToAsyncEnumerable().FirstAsync(ct);
         }
 
-        public static ValueTask<TElement> FirstOrDefaultAsync<TElement>(this IGremlinQuery<TElement> query, CancellationToken ct = default)
+        public static ValueTask<TElement> FirstOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
             return query.ToAsyncEnumerable().FirstOrDefaultAsync(ct);
         }
 
-        internal static IGremlinQuery AddStep(this IGremlinQuery query, Step step)
+        internal static IGremlinQueryBase AddStep(this IGremlinQueryBase query, Step step)
         {
             return query.AsAdmin().InsertStep(query.AsAdmin().Steps.Count, step);
         }
 
-        internal static bool IsNone(this IGremlinQuery query)
+        internal static bool IsNone(this IGremlinQueryBase query)
         {
             return query is GremlinQueryBase gremlinQuery && ReferenceEquals(gremlinQuery.Steps, GremlinQuery.AnonymousNoneSteps);
         }
 
-        internal static bool IsIdentity(this IGremlinQuery query)
+        internal static bool IsIdentity(this IGremlinQueryBase query)
         {
             return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.Count == 0;
         }
@@ -48,8 +48,8 @@ namespace ExRam.Gremlinq.Core
         /// <param name="targetQuery"></param>
         /// <returns></returns>
         public static Func<TSourceQuery, TTargetQuery> CreateContinuationFrom<TSourceQuery, TTargetQuery>(this TSourceQuery sourceQuery, TTargetQuery targetQuery)
-            where TSourceQuery : IGremlinQuery
-            where TTargetQuery : IGremlinQuery
+            where TSourceQuery : IGremlinQueryBase
+            where TTargetQuery : IGremlinQueryBase
         {
             var sourceAdmin = sourceQuery.AsAdmin();
             var targetAdmin = targetQuery.AsAdmin();

@@ -3,8 +3,8 @@
 namespace ExRam.Gremlinq.Core
 {
     public interface IChooseBuilder<out TSourceQuery>
-        where TSourceQuery : IGremlinQuery
+        where TSourceQuery : IGremlinQueryBase
     {
-        IChooseBuilderWithCondition<TSourceQuery, TElement> On<TElement>(Func<TSourceQuery, IGremlinQuery<TElement>> chooseTraversal);
+        IChooseBuilderWithCondition<TSourceQuery, TElement> On<TElement>(Func<TSourceQuery, IGremlinQueryBase<TElement>> chooseTraversal);
     }
 }

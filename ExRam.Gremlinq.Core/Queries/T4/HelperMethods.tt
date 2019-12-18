@@ -14,27 +14,27 @@ private static string[] Typed(IEnumerable<string> interfaces)
         .ToArray();
 }
 
-private static string[] Qualified(IEnumerable<string> interfaces)
-{
-    return interfaces
-        .Where(iface => !iface.StartsWith("IGremlinQuery") && !iface.StartsWith("IElementGremlinQuery"))
-        .ToArray();
-}
-
 private static string[] Element(IEnumerable<string> interfaces)
 {
     return interfaces
-        .Where(iface => iface.Contains("ElementGremlinQuery") || iface.Contains("VertexGremlinQuery") || iface.Contains("EdgeGremlinQuery") || iface.Contains("VertexPropertyGremlinQuery"))
+        .Where(iface => iface.Contains("IElement") || iface.Contains("IVertex") || iface.Contains("Edge"))
         .ToArray();
 }
 
-private static string[] Simple(IEnumerable<string> interfaces)
+private static string[] EdgeOrVertex(IEnumerable<string> interfaces)
 {
     return interfaces
-        .Where(iface => GetTypeParameters(iface).Length <= 1 || (iface.StartsWith("IVertexProperty") && GetTypeParameters(iface).Length == 2))
+        .Where(iface => iface.Contains("IVertex") || iface.Contains("EdgeGremlinQuery"))
         .ToArray();
 }
 
+private static string ChangeType(string iface, string newType)
+{
+    if (GetElement(iface) is string elementType)
+        return iface.Replace(elementType, newType);
+
+    return iface + "<" + newType + ">";
+}
 
 private static string[] GetTypeParameters(string str)
 {

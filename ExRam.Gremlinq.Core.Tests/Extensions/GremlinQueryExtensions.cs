@@ -8,16 +8,16 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQueryExtensions
     {
-        public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQuery, GremlinQueryAssertions>
+        public sealed class GremlinQueryAssertions : ReferenceTypeAssertions<IGremlinQueryBase, GremlinQueryAssertions>
         {
-            public GremlinQueryAssertions(IGremlinQuery query)
+            public GremlinQueryAssertions(IGremlinQueryBase query)
             {
                 Subject = query;
             }
 
             protected override string Identifier
             {
-                get => typeof(IGremlinQuery).Name;
+                get => typeof(IGremlinQueryBase).Name;
             }
 
             public BindingsAssertions SerializeToGroovy(string serialization)
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Tests
             }
         }
 
-        public static GremlinQueryAssertions Should(this IGremlinQuery query)
+        public static GremlinQueryAssertions Should(this IGremlinQueryBase query)
         {
             return new GremlinQueryAssertions(query);
         }

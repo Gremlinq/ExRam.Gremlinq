@@ -11,6 +11,18 @@ using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
+<# for(var i = 2; i <= 16; i++) { #>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i) #>> : IProjectResult<(<#= GetArgumentList("TItem{0}", i) #>)>
+        where TSourceQuery : IGremlinQueryBase
+    {
+<# if (i < 16) { #>
+        IProjectTupleBuilder<TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i + 1) #>> By<TItem<#= i + 1 #>>(Func<TSourceQuery, IGremlinQueryBase<TItem<#= i + 1 #>>> projection);
+<# } #>
+    }
+
+<# } #>
+
+
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
     {
         private sealed partial class ProjectBuilderImpl<TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
@@ -22,7 +34,7 @@ namespace ExRam.Gremlinq.Core
         {
 <# for(var i = 1; i < 15; i++) { #>
 
-            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQuery<TNewItem<#= i+1 #>>> projection)
+            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem<#= i+1 #>>> projection)
             {
                 return By<<#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>, <#= GetArgumentList("object", 15 - i) #>>(projection);
             }

@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQueryExecutionPipelineImpl(Serializer, Executor, deserializerFactory);
             }
 
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query)
+            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQueryBase<TElement> query)
             {
                 var serialized = Serializer
                     .Serialize(query);

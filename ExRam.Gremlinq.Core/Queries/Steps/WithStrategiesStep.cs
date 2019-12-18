@@ -2,7 +2,7 @@
 {
     public sealed class WithStrategiesStep : SingleTraversalArgumentStep
     {
-        public WithStrategiesStep(IGremlinQuery traversal) : base(traversal)
+        public WithStrategiesStep(IGremlinQueryBase traversal) : base(traversal)
         {
         }
     }

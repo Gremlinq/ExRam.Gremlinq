@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
         {
             public Order Order { get; }
 
-            public ByTraversalStep(IGremlinQuery traversal, Order order) : base(traversal)
+            public ByTraversalStep(IGremlinQueryBase traversal, Order order) : base(traversal)
             {
                 Order = order;
             }

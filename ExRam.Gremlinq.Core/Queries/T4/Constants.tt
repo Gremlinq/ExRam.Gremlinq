@@ -1,18 +1,24 @@
 ﻿<#
     var baseInterfaces = new[]
     {
-        "IGremlinQuery",
-        "IElementGremlinQuery",
-        "IVertexGremlinQuery",
-        "IEdgeGremlinQuery",
+        "IGremlinQueryBase",
+        "IValueGremlinQueryBase",
+        "IElementGremlinQueryBase",
+        "IEdgeOrVertexGremlinQueryBase",
+        "IVertexGremlinQueryBase",
+        "IEdgeGremlinQueryBase",
+        "IPropertyGremlinQueryBase",
+
+
         "IGremlinQuery<TElement>",
         "IValueGremlinQuery<TElement>",
         "IArrayGremlinQuery<TArray, TQuery>",
         "IElementGremlinQuery<TElement>",
+        "IEdgeOrVertexGremlinQuery<TElement>",
         "IVertexGremlinQuery<TVertex>",
         "IEdgeGremlinQuery<TEdge>",
-        "IEdgeGremlinQuery<TEdge, TAdjacentVertex>",
-        "IEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>",
+        "IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>",
+        "IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>",
         "IInEdgeGremlinQuery<TEdge, TInVertex>",
         "IOutEdgeGremlinQuery<TEdge, TOutVertex>",
         "IVertexPropertyGremlinQuery<TProperty, TValue>",

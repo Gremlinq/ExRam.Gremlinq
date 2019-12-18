@@ -16,7 +16,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Assembly
                 .GetTypes()
                 .Where(iface => iface.IsInterface)
-                .Where(iface => typeof(IGremlinQuery).IsAssignableFrom(iface))
+                .Where(iface => typeof(IGremlinQueryBase).IsAssignableFrom(iface))
+                .Where(iface => !iface.Name.Contains("Rec"))
                 .Select(iface => iface.IsGenericTypeDefinition
                     ? iface.MakeGenericType(iface.GetGenericArguments().Select(_ => typeof(object)).ToArray())
                     : iface)
@@ -41,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeSameAs(query);
 
-            query.AsAdmin().ChangeQueryType<IGremlinQuery>()
+            query.AsAdmin().ChangeQueryType<IGremlinQueryBase>()
                 .Should()
                 .NotBeSameAs(query);
 

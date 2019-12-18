@@ -16,22 +16,22 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Queries\Builders\ProjectBuilder.generated.tt">
+    <None Update="Queries\Builders\ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProjectBuilder.generated.cs</LastGenOutput>
     </None>
-    <None Update="Queries\T4\Constants.tt">
-      <Generator></Generator>
-    </None>
-    <None Update="Queries\Interfaces\Interfaces.generated.tt">
+    <None Update="Queries\Interfaces\Interfaces.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Interfaces.generated.cs</LastGenOutput>
     </None>
-    <None Update="Queries\GremlinQuery.generated.tt">
+    <None Update="Queries\GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
     </None>
     <None Update="Queries\T4\HelperMethods.tt">
+      <Generator></Generator>
+    </None>
+    <None Update="Queries\T4\Constants.tt">
       <Generator></Generator>
     </None>
   </ItemGroup>
@@ -44,17 +44,17 @@
     <Compile Update="Queries\Builders\ProjectBuilder.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ProjectBuilder.generated.tt</DependentUpon>
+      <DependentUpon>ProjectBuilder.tt</DependentUpon>
     </Compile>
     <Compile Update="Queries\Interfaces\Interfaces.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Interfaces.generated.tt</DependentUpon>
+      <DependentUpon>Interfaces.tt</DependentUpon>
     </Compile>
- <Compile Update="Queries\GremlinQuery.generated.cs">
+    <Compile Update="Queries\GremlinQuery.generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>GremlinQuery.generated.tt</DependentUpon>
+      <DependentUpon>GremlinQuery.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   

@@ -27,10 +27,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task V_SomeEntity()
         {
             g
-                .ConfigureExecutionPipeline(x => x.UseSerializer(GremlinQuerySerializer.Groovy))
+                .ConfigureEnvironment(e => e
+                    .ConfigureExecutionPipeline(p => p.ConfigureSerializer(s => s.ToGroovy())))
                 .V<SomeEntity>()
                 .Should()
-                .SerializeToGroovy("g.V().hasLabel(_a)")
+                .SerializeToGroovy("V().hasLabel(_a).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("SomeEntity");
         }
     }

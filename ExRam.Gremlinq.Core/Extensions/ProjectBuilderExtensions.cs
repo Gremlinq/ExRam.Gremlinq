@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     public static class ProjectBuilderExtensions
     {
         public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, Expression<Func<TElement, object>> projection)
-            where TSourceQuery : IElementGremlinQuery<TElement>
+            where TSourceQuery : IElementGremlinQueryBase<TElement>
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
                 return projectBuilder.By(memberExpression.Member.Name, projection);
@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, string name, Expression<Func<TElement, object>> projection)
-            where TSourceQuery : IElementGremlinQuery<TElement>
+            where TSourceQuery : IElementGremlinQueryBase<TElement>
         {
             return projectBuilder.By(name, _ => _.Values(projection));
         }

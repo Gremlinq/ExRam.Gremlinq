@@ -2,7 +2,7 @@
 {
     public sealed class FlatMapStep : SingleTraversalArgumentStep
     {
-        public FlatMapStep(IGremlinQuery traversal) : base(traversal)
+        public FlatMapStep(IGremlinQueryBase traversal) : base(traversal)
         {
         }
     }

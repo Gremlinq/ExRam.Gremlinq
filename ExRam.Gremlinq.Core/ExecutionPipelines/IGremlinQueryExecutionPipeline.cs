@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryExecutionPipeline ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         IGremlinQueryExecutionPipeline ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> executorTransformation);
 
-        IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQuery<TElement> query);
+        IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQueryBase<TElement> query);
 
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }

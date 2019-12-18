@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
                     LazyThreadSafetyMode.PublicationOnly);
             }
 
-            public object? Serialize(IGremlinQuery query)
+            public object? Serialize(IGremlinQueryBase query)
             {
                 var _bindings = new Dictionary<object, Binding>();
                 var _stepLabelNames = new Dictionary<StepLabel, string>();
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
                 throw new InvalidOperationException($"{nameof(OverrideFragmentSerializer)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
             }
 
-            public object Serialize(IGremlinQuery query)
+            public object Serialize(IGremlinQueryBase query)
             {
                 throw new InvalidOperationException($"{nameof(Serialize)} must not be called on {nameof(GremlinQuerySerializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQuerySerializer)} on your {nameof(GremlinQuerySource)}.");
             }
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
                 return new SelectGremlinQuerySerializer(_baseSerializer.OverrideFragmentSerializer(queryFragmentSerializer), _projection);
             }
 
-            public object? Serialize(IGremlinQuery query)
+            public object? Serialize(IGremlinQueryBase query)
             {
                 return (_baseSerializer.Serialize(query) is object serialized)
                     ? _projection(serialized)
@@ -357,7 +357,7 @@ namespace ExRam.Gremlinq.Core
                         : step.Argument))
                 .OverrideFragmentSerializer<IdentityStep>((step, overridden, recurse) => CreateInstruction("identity", recurse))
                 .OverrideFragmentSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
-                .OverrideFragmentSerializer<IGremlinQuery>((query, overridden, recurse) =>
+                .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                 {
                     var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
 
@@ -581,7 +581,7 @@ namespace ExRam.Gremlinq.Core
                     .ToArray());
         }
 
-        private static IEnumerable<IGremlinQuery> FlattenLogicalTraversals<TStep>(IGremlinQuery query) where TStep : LogicalStep
+        private static IEnumerable<IGremlinQueryBase> FlattenLogicalTraversals<TStep>(IGremlinQueryBase query) where TStep : LogicalStep
         {
             var steps = query.AsAdmin().Steps;
 

@@ -4,6 +4,6 @@
     {
         IGremlinQuerySerializer OverrideFragmentSerializer<TFragment>(QueryFragmentSerializer<TFragment> queryFragmentSerializer);
 
-        object? Serialize(IGremlinQuery query);
+        object? Serialize(IGremlinQueryBase query);
     }
 }

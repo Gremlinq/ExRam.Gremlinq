@@ -4,13 +4,13 @@ namespace ExRam.Gremlinq.Core
 {
     public abstract class ChooseStep : Step
     {
-        protected ChooseStep(IGremlinQuery thenTraversal, Option<IGremlinQuery> elseTraversal = default)
+        protected ChooseStep(IGremlinQueryBase thenTraversal, Option<IGremlinQueryBase> elseTraversal = default)
         {
             ThenTraversal = thenTraversal;
             ElseTraversal = elseTraversal;
         }
 
-        public IGremlinQuery ThenTraversal { get; }
-        public Option<IGremlinQuery> ElseTraversal { get; }
+        public IGremlinQueryBase ThenTraversal { get; }
+        public Option<IGremlinQueryBase> ElseTraversal { get; }
     }
 }
