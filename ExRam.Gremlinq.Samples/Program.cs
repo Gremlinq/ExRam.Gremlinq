@@ -345,6 +345,7 @@ namespace ExRam.Gremlinq.Samples
                     .By(
                         "count",
                         __ => __
+                            .Cast<object>()
                             .Out<Owns>()
                             .OfType<Pet>()
                             .Count()));
