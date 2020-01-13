@@ -486,13 +486,13 @@ namespace ExRam.Gremlinq.Core
             if (typeof(TTarget).IsAssignableFrom(typeof(TElement)))
                 return Cast<TTarget>();
 
-            return model
+            var labels = model
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
-                .Match(
-                    labels => labels.Length > 0
-                        ? AddStep<TTarget>(new HasLabelStep(labels))
-                        : Cast<TTarget>(),
-                    () => AddStep<TTarget>(NoneStep.Instance));
+                .IfNone(new[] { typeof(TTarget).Name });
+
+            return labels.Length > 0
+                ? AddStep<TTarget>(new HasLabelStep(labels))
+                : Cast<TTarget>();
         }
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQuery
