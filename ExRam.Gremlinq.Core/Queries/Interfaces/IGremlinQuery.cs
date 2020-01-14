@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
         IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
 
-    public partial interface IGremlinQueryBaseRec<TSelf> : IGremlinQueryBase
+    public interface IGremlinQueryBaseRec<TSelf> : IGremlinQueryBase
         where TSelf : IGremlinQueryBaseRec<TSelf>
     {
         TSelf And(params Func<TSelf, IGremlinQueryBase>[] andTraversals);
@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Where(Func<TSelf, IGremlinQueryBase> filterTraversal);
     }
 
-    public partial interface IGremlinQueryBaseRec<TElement, TSelf> :
+    public interface IGremlinQueryBaseRec<TElement, TSelf> :
         IGremlinQueryBaseRec<TSelf>,
         IGremlinQueryBase<TElement>
         where TSelf : IGremlinQueryBaseRec<TElement, TSelf>
@@ -110,7 +110,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
     }
 
-    public partial interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>
+    public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>
     {
     }
 }

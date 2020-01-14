@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
 
         private static MethodInfo Get(Expression<Action> expression)
         {
-            return (expression.Body as MethodCallExpression)?.Method;
+            return ((MethodCallExpression)expression.Body).Method;
         }
     }
 }

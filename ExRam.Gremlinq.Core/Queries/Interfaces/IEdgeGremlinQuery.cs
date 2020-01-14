@@ -49,13 +49,13 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<object> Values(params Expression<Func<TEdge, Property<object>>>[] projections);
     }
 
-    public partial interface IEdgeGremlinQueryBaseRec<TSelf> : IEdgeGremlinQueryBase, IElementGremlinQueryBaseRec<TSelf>
+    public interface IEdgeGremlinQueryBaseRec<TSelf> : IEdgeGremlinQueryBase, IElementGremlinQueryBaseRec<TSelf>
         where TSelf : IEdgeGremlinQueryBaseRec<TSelf>
     {
 
     }
 
-    public partial interface IEdgeGremlinQueryBaseRec<TEdge, TSelf> :
+    public interface IEdgeGremlinQueryBaseRec<TEdge, TSelf> :
         IEdgeGremlinQueryBaseRec<TSelf>,
         IEdgeGremlinQueryBase<TEdge>,
         IEdgeOrVertexGremlinQueryBaseRec<TEdge, TSelf>
@@ -64,14 +64,14 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IEdgeGremlinQuery<TEdge> :
+    public interface IEdgeGremlinQuery<TEdge> :
         IEdgeGremlinQueryBaseRec<TEdge, IEdgeGremlinQuery<TEdge>>
     {
        
     }
 
 
-    public partial interface IInOrOutEdgeGremlinQueryBase : IEdgeGremlinQueryBase
+    public interface IInOrOutEdgeGremlinQueryBase : IEdgeGremlinQueryBase
     {
 
     }
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
         new IBothEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel);
     }
 
-    public partial interface IInOrOutEdgeGremlinQueryBaseRec<TSelf> :
+    public interface IInOrOutEdgeGremlinQueryBaseRec<TSelf> :
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
         where TSelf : IInOrOutEdgeGremlinQueryBaseRec<TSelf>
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
+    public interface IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, TSelf> :
         IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
         IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
@@ -104,14 +104,14 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> :
+    public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> :
         IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>
     {
     }
 
 
 
-    public partial interface IBothEdgeGremlinQueryBase :
+    public interface IBothEdgeGremlinQueryBase :
         IInOrOutEdgeGremlinQueryBase,
         IOutEdgeGremlinQueryBase,
         IInEdgeGremlinQueryBase
@@ -124,9 +124,10 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>
     {
+        
     }
 
-    public partial interface IBothEdgeGremlinQueryRec<TSelf> :
+    public interface IBothEdgeGremlinQueryRec<TSelf> :
         IBothEdgeGremlinQueryBase,
         IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
         IOutEdgeGremlinQueryBaseRec<TSelf>,
@@ -136,7 +137,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, TSelf> :
+    public interface IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, TSelf> :
         IBothEdgeGremlinQueryRec<TSelf>,
         IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
@@ -145,7 +146,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
+    public interface IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
         IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
     {
 

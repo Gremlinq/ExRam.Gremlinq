@@ -301,5 +301,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
 
         IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
+
+        IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TFoldedQuery>.Lower() => this;
     }
 }

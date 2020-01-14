@@ -6,7 +6,7 @@
         IValueGremlinQuery<TTarget> Values<TTarget>();
     }
 
-    public partial interface IEdgeOrVertexGremlinQueryBaseRec<TSelf> :
+    public interface IEdgeOrVertexGremlinQueryBaseRec<TSelf> :
         IEdgeOrVertexGremlinQueryBase,
         IElementGremlinQueryBaseRec<TSelf>
         where TSelf : IElementGremlinQueryBaseRec<TSelf>
@@ -19,7 +19,7 @@
     {
     }
 
-    public partial interface IEdgeOrVertexGremlinQueryBaseRec<TElement, TSelf> :
+    public interface IEdgeOrVertexGremlinQueryBaseRec<TElement, TSelf> :
         IEdgeOrVertexGremlinQueryBaseRec<TSelf>,
         IEdgeOrVertexGremlinQueryBase<TElement>,
         IElementGremlinQueryBaseRec<TElement, TSelf>
@@ -27,7 +27,7 @@
     {
     }
 
-    public partial interface IEdgeOrVertexGremlinQuery<TElement> :
+    public interface IEdgeOrVertexGremlinQuery<TElement> :
         IEdgeOrVertexGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>
     {
     }

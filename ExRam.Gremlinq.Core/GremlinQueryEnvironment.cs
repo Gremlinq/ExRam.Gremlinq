@@ -71,6 +71,6 @@ namespace ExRam.Gremlinq.Core
             ImmutableDictionary<GremlinqOption, object>.Empty,
             NullLogger.Instance);
 
-        internal static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(GremlinQueryEnvironment.Empty).Identity());
+        internal static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(Empty).Identity());
     }
 }

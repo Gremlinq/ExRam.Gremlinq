@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
     }
 
-    public partial interface IElementGremlinQueryBaseRec<TSelf> :
+    public interface IElementGremlinQueryBaseRec<TSelf> :
         IElementGremlinQueryBase,
         IGremlinQueryBaseRec<TSelf>
         where TSelf : IElementGremlinQueryBaseRec<TSelf>
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TTarget> Values<TTarget>(params Expression<Func<TElement, TTarget[]>>[] projections);
     }
 
-    public partial interface IElementGremlinQueryBaseRec<TElement, TSelf> :
+    public interface IElementGremlinQueryBaseRec<TElement, TSelf> :
         IElementGremlinQueryBaseRec<TSelf>,
         IElementGremlinQueryBase<TElement>,
         IGremlinQueryBaseRec<TElement, TSelf>
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value);
     }
 
-    public partial interface IElementGremlinQuery<TElement> :
+    public interface IElementGremlinQuery<TElement> :
         IElementGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>
     {
     }

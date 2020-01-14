@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IInEdgeGremlinQueryBase :
+    public interface IInEdgeGremlinQueryBase :
         IEdgeGremlinQueryBase
     {
 
@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery<TInVertex> InV();
     }
 
-    public partial interface IInEdgeGremlinQueryBaseRec<TSelf> :
+    public interface IInEdgeGremlinQueryBaseRec<TSelf> :
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBaseRec<TSelf>
         where TSelf : IInEdgeGremlinQueryBaseRec<TSelf>
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf> :
+    public interface IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, TSelf> :
         IInEdgeGremlinQueryBaseRec<TSelf>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>,
         IEdgeGremlinQueryBaseRec<TEdge, TSelf>
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IInEdgeGremlinQuery<TEdge, TInVertex> :
+    public interface IInEdgeGremlinQuery<TEdge, TInVertex> :
         IInEdgeGremlinQueryBaseRec<TEdge, TInVertex, IInEdgeGremlinQuery<TEdge, TInVertex>>
     {
 

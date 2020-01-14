@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core
                     do
                     {
                         bindingKey = (char)('a' + next % 26) + bindingKey;
-                        next = next / 26;
+                        next /= 26;
                     }
                     while (next > 0);
 
@@ -67,12 +67,12 @@ namespace ExRam.Gremlinq.Core
                     _bindings.Add(atom, binding);
 
                     return binding;
-                };
+                }
 
                 object? RecurseImpl(object o)
                 {
                     if (o is null)
-                        return o;
+                        return null;
 
                     var action = GetSerializer(o.GetType()) ?? Constant;
 

@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TTarget> Values<TTarget, TMeta>(params Expression<Func<TVertex, VertexProperty<TTarget, TMeta>[]>>[] projections) where TMeta : class;
     }
 
-    public partial interface IVertexGremlinQueryBaseRec<TSelf> :
+    public interface IVertexGremlinQueryBaseRec<TSelf> :
         IVertexGremlinQueryBase,
         IEdgeOrVertexGremlinQueryBaseRec<TSelf>
         where TSelf : IVertexGremlinQueryBaseRec<TSelf>
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IVertexGremlinQueryBaseRec<TVertex, TSelf> :
+    public interface IVertexGremlinQueryBaseRec<TVertex, TSelf> :
         IVertexGremlinQueryBaseRec<TSelf>,
         IVertexGremlinQueryBase<TVertex>,
         IEdgeOrVertexGremlinQueryBaseRec<TVertex, TSelf>
@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue[]>> projection, TProjectedValue value);
     }
 
-    public partial interface IVertexGremlinQuery<TVertex> :
+    public interface IVertexGremlinQuery<TVertex> :
         IVertexGremlinQueryBaseRec<TVertex, IVertexGremlinQuery<TVertex>>
     {
 

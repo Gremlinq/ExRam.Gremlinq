@@ -1,6 +1,4 @@
 ﻿using System;
-using ExRam.Gremlinq.Core.GraphElements;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {

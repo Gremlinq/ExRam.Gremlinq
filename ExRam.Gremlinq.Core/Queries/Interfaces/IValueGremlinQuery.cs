@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 
-    public partial interface IValueGremlinQueryBaseRec<TSelf> :
+    public interface IValueGremlinQueryBaseRec<TSelf> :
         IValueGremlinQueryBase,
         IGremlinQueryBaseRec<TSelf>
         where TSelf : IValueGremlinQueryBaseRec<TSelf>
@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IValueGremlinQueryBaseRec<TElement, TSelf> :
+    public interface IValueGremlinQueryBaseRec<TElement, TSelf> :
         IValueGremlinQueryBaseRec<TSelf>,
         IValueGremlinQueryBase<TElement>,
         IGremlinQueryBaseRec<TElement, TSelf>
@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IValueGremlinQuery<TElement> :
+    public interface IValueGremlinQuery<TElement> :
         IValueGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>
     {
 
