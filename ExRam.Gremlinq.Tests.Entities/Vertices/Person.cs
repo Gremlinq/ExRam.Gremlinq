@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Tests.Entities
 
         public Gender Gender { get; set; }
 
-        public DateTimeOffset RegistrationDate { get; set; }
+        public DateTimeOffset? RegistrationDate { get; set; }
 
         public VertexProperty<object> SomeObscureProperty { get; set; }
     }

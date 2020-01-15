@@ -154,6 +154,24 @@ namespace ExRam.Gremlinq.Core
             public override bool CanWrite => true;
         }
 
+        private sealed class NullableConverter : BlockableConverter
+        {
+            protected override bool CanConvertImpl(Type objectType)
+            {
+                return objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>);
+            }
+
+            [return: AllowNull]
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            {
+                var token = JToken.Load(reader);
+
+                return token is JValue value && value.Value == null
+                    ? null
+                    : token.ToObject(objectType.GetGenericArguments()[0], serializer);
+            }
+        }
+
         private sealed class TimespanConverter : BlockableConverter
         {
             protected override bool CanConvertImpl(Type objectType)
@@ -360,6 +378,7 @@ namespace ExRam.Gremlinq.Core
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
             Converters.Add(new DateTimeConverter());
+            Converters.Add(new NullableConverter());
             Converters.Add(new ElementConverter(environment.Model));
 
             ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);

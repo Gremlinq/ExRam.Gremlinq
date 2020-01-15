@@ -17,6 +17,7 @@
     <None Remove="Json\Single_Person_lowercase_properties.json" />
     <None Remove="Json\Single_Person_String_Id.json" />
     <None Remove="Json\Single_Person_without_PhoneNumbers.json" />
+    <None Remove="Json\Single_Person_with_null.json" />
     <None Remove="Json\Single_TimeFrame.json" />
     <None Remove="Json\Single_TimeFrame_with_numbers.json" />
     <None Remove="Json\Single_WorksFor.json" />
@@ -32,6 +33,7 @@
     <EmbeddedResource Include="Json\Graphson3_Tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
     <EmbeddedResource Include="Json\Properties.json" />
+    <EmbeddedResource Include="Json\Single_Person_with_null.json" />
     <EmbeddedResource Include="Json\Traverser.json" />
     <EmbeddedResource Include="Json\Single_Company.json" />
     <EmbeddedResource Include="Json\Single_Language.json" />

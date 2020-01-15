@@ -56,6 +56,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string SingleLanguageJson;
         private static readonly string SingleWorksFor;
         private static readonly string SingleTimeFrameJson;
+        private static readonly string SinglePersonWithNullJson;
         private static readonly string TupleOfPersonLanguageJson;
         private static readonly string Graphson3ReferenceVertex;
         private static readonly string ThreeCompaniesAsTraverser;
@@ -74,6 +75,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             SingleCompanyJson = GetJson("Single_Company");
             ThreeCompaniesAsTraverser = GetJson("Traverser");
             SinglePersonJson = GetJson("Single_Person");
+            SinglePersonWithNullJson = GetJson("Single_Person_with_null");
             SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
             SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
             TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
@@ -363,6 +365,22 @@ namespace ExRam.Gremlinq.Providers.Tests
             user.Gender.Should().Be(Gender.Female);
             user.PhoneNumbers.Select(x => x.Value).Should().Equal("+123456", "+234567");
             user.RegistrationDate.Should().Be(new DateTimeOffset(2016, 12, 14, 21, 14, 36, 295, TimeSpan.Zero));
+        }
+
+        [Fact]
+        public async Task Person_with_null()
+        {
+            var user = await _g
+                .WithExecutor(new TestJsonQueryExecutor(SinglePersonWithNullJson))
+                .V<Person>()
+                .FirstAsync();
+
+            user.Should().NotBeNull();
+            user.Id.Should().Be(13);
+            user.Age.Should().Be(36);
+            user.Gender.Should().Be(Gender.Female);
+            user.PhoneNumbers.Select(x => x.Value).Should().Equal("+123456", "+234567");
+            user.RegistrationDate.Should().BeNull();
         }
 
         [Fact]
