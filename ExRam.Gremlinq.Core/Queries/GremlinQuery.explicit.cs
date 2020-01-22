@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+using LanguageExt;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core
@@ -88,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
        
-        GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new GremlinQueryAwaiter<TElement>(this.ToArrayAsync().AsTask().GetAwaiter());
+        GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new GremlinQueryAwaiter<TElement>((this).ToArrayAsync().AsTask().GetAwaiter());
 
         IValueGremlinQuery<object> IElementGremlinQueryBase.Id() => Id();
 
@@ -303,5 +304,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
 
         IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TFoldedQuery>.Lower() => this;
+
+        IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
     }
 }

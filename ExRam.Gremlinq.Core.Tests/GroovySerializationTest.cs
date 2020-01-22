@@ -817,6 +817,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person");
         }
 
+
+        [Fact]
+        public void Drop_in_local()
+        {
+            _g
+                .Inject(1)
+                .Local(__ => __
+                    .V()
+                    .Drop())
+                .Should()
+                .SerializeToGroovy("inject(_a).local(__.V().drop())")
+                .WithParameters(1);
+        }
+
         [Fact]
         public void E_of_all_types1()
         {

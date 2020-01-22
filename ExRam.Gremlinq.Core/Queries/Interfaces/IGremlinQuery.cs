@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
+using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -13,6 +14,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
+
+        IValueGremlinQuery<object> Drop();
 
         IValueGremlinQuery<string> Explain();
 
@@ -50,7 +53,6 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
 
         TSelf Dedup();
-        TSelf Drop();
 
         TSelf Emit();
 

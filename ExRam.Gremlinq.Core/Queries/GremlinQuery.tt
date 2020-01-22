@@ -45,8 +45,6 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Dedup() => Dedup();
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Drop() => Drop();
-
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit() => Emit();
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
