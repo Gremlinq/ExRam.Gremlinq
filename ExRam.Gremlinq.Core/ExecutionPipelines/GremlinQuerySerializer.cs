@@ -374,13 +374,19 @@ namespace ExRam.Gremlinq.Core
 
                     if (query is GremlinQueryBase gremlinQueryBase && gremlinQueryBase.SurfaceVisible)
                     {
-                        var semantics = gremlinQueryBase.Semantics;
-                        var elementType = query.GetType().GetGenericArguments()[0];
-
-                        if (semantics == QuerySemantics.Vertex)
-                            byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
-                        else if (semantics == QuerySemantics.Edge)
-                            byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
+                        switch (gremlinQueryBase.Semantics)
+                        {
+                            case QuerySemantics.Vertex:
+                            {
+                                byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
+                                break;
+                            }
+                            case QuerySemantics.Edge:
+                            {
+                                byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
+                                break;
+                            }
+                        }
                     }
 
                     return byteCode;
