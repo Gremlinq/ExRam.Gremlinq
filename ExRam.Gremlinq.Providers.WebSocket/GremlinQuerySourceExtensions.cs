@@ -120,41 +120,9 @@ namespace ExRam.Gremlinq.Core
         {
             return source
                 .ConfigureEnvironment(environment => environment
-                    .ConfigureExecutionPipeline(conf =>
-                    {
-                        if (environment.Options.GetValue(GremlinQuerySerializer.WorkaroundTinkerpop2323))
-                        {
-                            conf = conf.ConfigureSerializer(serializer => serializer
-                                .OverrideFragmentSerializer<P>((p, overridden, recurse) =>
-                                {
-                                    static object? Unbind(object? o)
-                                    {
-                                        if (o is P p) 
-                                        {
-                                            return new P(
-                                                p.OperatorName,
-                                                Unbind(p.Value),
-                                                Unbind(p.Other) as P);
-                                        }
-
-                                        if (o is Binding binding)
-                                            return Unbind(binding.Value);
-
-                                        if (o is IEnumerable enumerable && !(o is string))
-                                            return enumerable.Cast<object>().Select(Unbind).ToArray();
-
-                                        return o;
-                                    }
-
-                                    return Unbind(overridden(p));
-                                })
-                                .OverrideFragmentSerializer<TextP>((textP, overridden, recurse) => textP));
-                        }
-
-                        return conf
-                            .UseWebSocketExecutor(uri, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
-                            .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson);
-                    }));
+                    .ConfigureExecutionPipeline(conf => conf
+                        .UseWebSocketExecutor(uri, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
+                        .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson)));
         }
 
         public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(

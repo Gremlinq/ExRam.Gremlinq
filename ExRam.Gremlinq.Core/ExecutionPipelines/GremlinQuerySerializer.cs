@@ -135,7 +135,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
-        public static readonly GremlinqOption<bool> WorkaroundTinkerpop2323 = new GremlinqOption<bool>(false);
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
@@ -475,7 +474,7 @@ namespace ExRam.Gremlinq.Core
                         return serializedQuery;
 
                     var builder = new StringBuilder();
-                    var bindings = new Dictionary<object, Binding>();
+                    var bindings = new Dictionary<object, string>();
                     var variables = new Dictionary<string, object>();
 
                     void Append(object obj, bool allowEnumerableExpansion = false)
@@ -495,11 +494,6 @@ namespace ExRam.Gremlinq.Core
                                 
                                 builder.Append(")");
                             }
-                        }
-                        else if (obj is Binding binding)
-                        {
-                            builder.Append(binding.Key);
-                            variables[binding.Key] = binding.Value;
                         }
                         else if (obj is P p)
                         {
@@ -551,9 +545,8 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            if (!bindings.TryGetValue(obj, out var existingBinding))
+                            if (!bindings.TryGetValue(obj, out var bindingKey))
                             {
-                                var bindingKey = string.Empty;
                                 var next = bindings.Count;
 
                                 do
@@ -564,14 +557,12 @@ namespace ExRam.Gremlinq.Core
                                 while (next > 0);
 
                                 bindingKey = "_" + bindingKey;
-                                existingBinding = new Binding(bindingKey, obj);
+                                bindings.Add(obj, bindingKey);
 
-                                bindings.Add(obj, existingBinding);
-
-                                variables[existingBinding.Key] = existingBinding.Value;
+                                variables[bindingKey] = obj;
                             }
 
-                            builder.Append(existingBinding.Key);
+                            builder.Append(bindingKey);
                         }
                     }
 

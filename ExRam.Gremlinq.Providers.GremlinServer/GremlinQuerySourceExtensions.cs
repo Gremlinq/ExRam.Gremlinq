@@ -16,9 +16,6 @@ namespace ExRam.Gremlinq.Core
             IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
         {
             return source
-                .ConfigureEnvironment(env => env
-                    .ConfigureOptions(opt => opt
-                        .SetItem(GremlinQuerySerializer.WorkaroundTinkerpop2323, true)))
                 .UseWebSocket(
                     uri,
                     graphsonVersion,
