@@ -813,7 +813,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Drop()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).drop().project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .SerializeToGroovy("V().hasLabel(_a).drop()")
                 .WithParameters("Person");
         }
 
