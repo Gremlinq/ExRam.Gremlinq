@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             query
                 .Should()
-                .Be("V().hasLabel(_a).has(_b, _c).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
+                .Be("V().hasLabel(_a).has(_b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
         }
 
         [Fact]
@@ -68,8 +68,8 @@ namespace ExRam.Gremlinq.Core.Tests
                             .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id)))))
                 .V<Person>(new FancyId {Id = "someId"})
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person");
+                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -85,8 +85,8 @@ namespace ExRam.Gremlinq.Core.Tests
                             .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person");
+                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -102,8 +102,8 @@ namespace ExRam.Gremlinq.Core.Tests
                             .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person");
+                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -119,8 +119,8 @@ namespace ExRam.Gremlinq.Core.Tests
                             .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person");
+                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
         }
     }
 }

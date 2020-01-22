@@ -40,8 +40,8 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new Item {Value = "MyValue"})
                 .Should()
-                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Item", "PartitionKey", "MyKey", "Value", "MyValue");
+                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Item", "PartitionKey", "MyKey", "Value", "MyValue", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -53,8 +53,8 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Should()
-                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project('id', 'label', 'type', 'properties').by(id).by(label).by(__.constant('vertex')).by(__.properties().group().by(__.label()).by(__.project('id', 'label', 'value', 'properties').by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("ItemOverride", "PartitionKey", "MyKey", "Value", "MyValue");
+                .SerializeToGroovy("addV(_a).property(single, _b, _c).property(single, _d, _e).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("ItemOverride", "PartitionKey", "MyKey", "Value", "MyValue", "id", "label", "type", "properties", "vertex", "value");
         }
     }
 }

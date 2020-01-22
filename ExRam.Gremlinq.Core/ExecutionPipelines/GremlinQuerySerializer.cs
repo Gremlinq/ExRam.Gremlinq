@@ -28,7 +28,6 @@ namespace ExRam.Gremlinq.Core
 
             public object? Serialize(IGremlinQueryBase query)
             {
-                var _bindings = new Dictionary<object, Binding>();
                 var _stepLabelNames = new Dictionary<StepLabel, string>();
 
                 object? Constant<TAtom>(TAtom atom, Func<TAtom, object?> baseSerializer, Func<object, object?> recurse)
@@ -48,25 +47,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse(stepLabelMapping);
                     }
 
-                    if (_bindings.TryGetValue(atom, out var binding))
-                        return binding;
-
-                    var bindingKey = string.Empty;
-                    var next = _bindings.Count;
-
-                    do
-                    {
-                        bindingKey = (char)('a' + next % 26) + bindingKey;
-                        next /= 26;
-                    }
-                    while (next > 0);
-
-                    bindingKey = "_" + bindingKey;
-                    binding = new Binding(bindingKey, atom);
-
-                    _bindings.Add(atom, binding);
-
-                    return binding;
+                    return atom;
                 }
 
                 object? RecurseImpl(object o)
@@ -494,9 +475,10 @@ namespace ExRam.Gremlinq.Core
                         return serializedQuery;
 
                     var builder = new StringBuilder();
+                    var bindings = new Dictionary<object, Binding>();
                     var variables = new Dictionary<string, object>();
 
-                    void Append(object obj)
+                    void Append(object obj, bool allowEnumerableExpansion = false)
                     {
                         if (obj is Bytecode bytecode)
                         {
@@ -509,8 +491,8 @@ namespace ExRam.Gremlinq.Core
                                     ? $".{instruction.OperatorName}("
                                     : $"{instruction.OperatorName}(");
 
-                                Append(instruction.Arguments);
-
+                                Append(instruction.Arguments, true);
+                                
                                 builder.Append(")");
                             }
                         }
@@ -533,11 +515,10 @@ namespace ExRam.Gremlinq.Core
                             {
                                 builder.Append($"{p.OperatorName}(");
 
-                                Append(p.Value);
+                                Append(p.Value, true);
 
                                 builder.Append(")");
                             }
-
                         }
                         else if (obj is EnumWrapper t)
                         {
@@ -547,15 +528,15 @@ namespace ExRam.Gremlinq.Core
                         {
                             builder.Append($"{{{lambda.LambdaExpression}}}");
                         }
-                        else if (obj is string str)
+                        else if (obj is string str && allowEnumerableExpansion)
                         {
-                            builder.Append($"'{str}'");
+                            Append(str);
                         }
                         else if (obj is Type type)
                         {
                             builder.Append(type.Name);
                         }
-                        else if (obj is IEnumerable enumerable)
+                        else if (obj is IEnumerable enumerable && allowEnumerableExpansion)
                         {
                             var comma = false;
                             foreach (var argument in enumerable)
@@ -567,6 +548,30 @@ namespace ExRam.Gremlinq.Core
 
                                 Append(argument);
                             }
+                        }
+                        else
+                        {
+                            if (!bindings.TryGetValue(obj, out var existingBinding))
+                            {
+                                var bindingKey = string.Empty;
+                                var next = bindings.Count;
+
+                                do
+                                {
+                                    bindingKey = (char)('a' + next % 26) + bindingKey;
+                                    next /= 26;
+                                }
+                                while (next > 0);
+
+                                bindingKey = "_" + bindingKey;
+                                existingBinding = new Binding(bindingKey, obj);
+
+                                bindings.Add(obj, existingBinding);
+
+                                variables[existingBinding.Key] = existingBinding.Value;
+                            }
+
+                            builder.Append(existingBinding.Key);
                         }
                     }
 
