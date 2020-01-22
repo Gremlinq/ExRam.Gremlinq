@@ -410,14 +410,12 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
                 .OverrideFragmentSerializer<OutVStep>((step, overridden, recurse) => CreateInstruction("outV", recurse))
                 .OverrideFragmentSerializer<OtherVStep>((step, overridden, recurse) => CreateInstruction("otherV", recurse))
-                .OverrideFragmentSerializer<P>((p, overridden, recurse) =>
-                {
-                    //TODO: Have the array bound!
-                    if (!(p.Value is string) && p.Value is IEnumerable enumerable)
-                        return new P(p.OperatorName, enumerable.Cast<object>().Select(recurse).ToArray(), (P)recurse(p.Other));
-
-                    return new P(p.OperatorName, recurse(p.Value), (P)recurse(p.Other));
-                })
+                .OverrideFragmentSerializer<P>((p, overridden, recurse) => new P(
+                    p.OperatorName,
+                    !(p.Value is string) && p.Value is IEnumerable enumerable
+                        ? enumerable.Cast<object>().Select(recurse).ToArray()
+                        : recurse(p.Value),
+                    (P)recurse(p.Other)))
                 .OverrideFragmentSerializer<ProfileStep>((step, overridden, recurse) => CreateInstruction("profile", recurse))
                 .OverrideFragmentSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
                 .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) =>
