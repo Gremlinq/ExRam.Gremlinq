@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Core
 
                     var action = GetSerializer(o.GetType()) ?? Constant;
 
-                    return action(o, _ => throw new NotImplementedException(), RecurseImpl);
+                    return action(o, _ => Constant(_, _ => throw new NotImplementedException(), RecurseImpl), RecurseImpl);
                 }
 
                 return RecurseImpl(query);
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
                         .TryGetValue(typeof(TAtom))
                         .Match(
                             existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_, baseSerializer, recurse), recurse)),
-                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => throw new NotImplementedException(), recurse))));
+                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_), recurse))));
             }
 
             private QueryFragmentSerializer<object>? GetSerializer(Type type)
