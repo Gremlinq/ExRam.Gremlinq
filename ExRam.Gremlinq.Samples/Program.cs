@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq.Samples
                     //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                     //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                     //in a currently loaded assembly). We explicitly set a model here anyway.
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()))
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes())))
 
                 //Configure Gremlinq to work on a locally running instance of Gremlin server.
                 .UseGremlinServer(new Uri("ws://localhost:8182"), GraphsonVersion.V3);
