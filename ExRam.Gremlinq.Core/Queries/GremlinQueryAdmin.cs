@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Generic;
+
+namespace ExRam.Gremlinq.Core
 {
     internal static class GremlinQueryAdmin
     {
@@ -7,7 +9,7 @@
             return admin.InsertStep(admin.Steps.Count, step);
         }
 
-        public static IGremlinQueryBase AddSteps(this IGremlinQueryAdmin admin, Step[] steps)
+        public static IGremlinQueryBase AddSteps(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
         {
             return admin.ConfigureSteps(x => x.InsertRange(admin.Steps.Count, steps));
         }
@@ -17,7 +19,7 @@
             return admin.ConfigureSteps(x => x.Insert(index, step));
         }
 
-        public static IGremlinQueryBase InsertSteps(this IGremlinQueryAdmin admin, int index, Step[] steps)
+        public static IGremlinQueryBase InsertSteps(this IGremlinQueryAdmin admin, int index, IEnumerable<Step> steps)
         {
             return admin.ConfigureSteps(x => x.InsertRange(index, steps));
         }

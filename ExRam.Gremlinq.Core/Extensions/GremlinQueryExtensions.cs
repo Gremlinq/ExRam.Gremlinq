@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
 
                     return _ => _
                         .AsAdmin()
-                        .AddSteps(list.ToArray())
+                        .AddSteps(list)
                         .AsAdmin()
                         .ChangeQueryType<TTargetQuery>();
                 }
