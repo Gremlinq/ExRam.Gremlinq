@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using LanguageExt;
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -22,6 +25,43 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
 
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>>();
+
+        public static IGraphElementModel FromTypes(IEnumerable<Type> types)
+        {
+            return new GraphElementModelImpl(types
+                .Where(x => x.IsClass)
+                .Where(type => !type.IsAbstract)
+                .ToImmutableDictionary(
+                    type => type,
+                    type => new ElementMetadata(type.Name)));
+        }
+
+        public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies, ILogger? logger)
+        {
+            return FromBaseType(typeof(TType), assemblies, logger);
+        }
+
+        public static IGraphElementModel FromBaseType(Type baseType, IEnumerable<Assembly>? assemblies, ILogger? logger)
+        {
+            return FromTypes((assemblies ?? Enumerable.Empty<Assembly>())
+                .Distinct()
+                .SelectMany(assembly =>
+                {
+                    try
+                    {
+                        return assembly
+                            .DefinedTypes
+                            .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
+                            .Select(typeInfo => typeInfo);
+                    }
+                    catch (ReflectionTypeLoadException ex)
+                    {
+                        logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
+                        return Array.Empty<TypeInfo>();
+                    }
+                })
+                .Prepend(baseType));
+        }
 
         public static IGraphElementModel ConfigureLabels(this IGraphElementModel model, Func<Type, string, string> overrideTransformation)
         {

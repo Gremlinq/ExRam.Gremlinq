@@ -36,38 +36,6 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class AssemblyGraphModel : IGraphModel
         {
-            private sealed class AssemblyGraphElementModel : IGraphElementModel
-            {
-                public AssemblyGraphElementModel(Type baseType, IEnumerable<Assembly> assemblies, ILogger? logger)
-                {
-                    Metadata = assemblies
-                        .Distinct()
-                        .SelectMany(assembly =>
-                        {
-                            try
-                            {
-                                return assembly
-                                    .DefinedTypes
-                                    .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
-                                    .Select(typeInfo => typeInfo);
-                            }
-                            catch (ReflectionTypeLoadException ex)
-                            {
-                                logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
-                                return Array.Empty<TypeInfo>();
-                            }
-                        })
-                        .Prepend(baseType)
-                        .Where(x => x.IsClass)
-                        .Where(type => !type.IsAbstract)
-                        .ToImmutableDictionary(
-                            type => type,
-                            type => new ElementMetadata(type.Name));
-                }
-
-                public IImmutableDictionary<Type, ElementMetadata> Metadata { get; }
-            }
-
             public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger? logger)
             {
                 if (vertexBaseType.IsAssignableFrom(edgeBaseType))
@@ -82,8 +50,8 @@ namespace ExRam.Gremlinq.Core
                     .Distinct()
                     .ToArray();
 
-                VerticesModel = new AssemblyGraphElementModel(vertexBaseType, assemblyArray, logger);
-                EdgesModel = new AssemblyGraphElementModel(edgeBaseType, assemblyArray, logger);
+                VerticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblyArray, logger);
+                EdgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblyArray, logger);
                 PropertiesModel = GraphElementPropertyModel.FromGraphElementModels(VerticesModel, EdgesModel);
             }
 
@@ -108,6 +76,11 @@ namespace ExRam.Gremlinq.Core
         {
             return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
         }
+
+        //public static IGraphModel FromTypes(Type[] vertexTypes, Type[] edgeTypes, ILogger? logger = null, params Assembly[] additionalAssemblies)
+        //{
+        //    return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
+        //}
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
         {
