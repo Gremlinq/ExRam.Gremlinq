@@ -34,32 +34,6 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertyModel.Default;
         }
 
-        private sealed class AssemblyGraphModel : IGraphModel
-        {
-            public AssemblyGraphModel(Type vertexBaseType, Type edgeBaseType, IEnumerable<Assembly> assemblies, ILogger? logger)
-            {
-                if (vertexBaseType.IsAssignableFrom(edgeBaseType))
-                    throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
-
-                if (edgeBaseType.IsAssignableFrom(vertexBaseType))
-                    throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
-
-                var assemblyArray = assemblies
-                    .Append(vertexBaseType.Assembly)
-                    .Append(edgeBaseType.Assembly)
-                    .Distinct()
-                    .ToArray();
-
-                VerticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblyArray, logger);
-                EdgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblyArray, logger);
-                PropertiesModel = GraphElementPropertyModel.FromGraphElementModels(VerticesModel, EdgesModel);
-            }
-
-            public IGraphElementModel EdgesModel { get; }
-            public IGraphElementModel VerticesModel { get; }
-            public IGraphElementPropertyModel PropertiesModel { get; }
-        }
-
         public static readonly IGraphModel Empty = new EmptyGraphModel();
 
         public static IGraphModel Dynamic(ILogger? logger = null)
@@ -74,7 +48,25 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, ILogger? logger = null, params Assembly[] additionalAssemblies)
         {
-            return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
+            if (vertexBaseType.IsAssignableFrom(edgeBaseType))
+                throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
+
+            if (edgeBaseType.IsAssignableFrom(vertexBaseType))
+                throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
+
+            var assemblyArray = additionalAssemblies
+                .Append(vertexBaseType.Assembly)
+                .Append(edgeBaseType.Assembly)
+                .Distinct()
+                .ToArray();
+
+            var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblyArray, logger);
+            var edgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblyArray, logger);
+
+            return new GraphModelImpl(
+                verticesModel,
+                edgesModel,
+                GraphElementPropertyModel.FromGraphElementModels(verticesModel, edgesModel));
         }
 
         //public static IGraphModel FromTypes(Type[] vertexTypes, Type[] edgeTypes, ILogger? logger = null, params Assembly[] additionalAssemblies)
