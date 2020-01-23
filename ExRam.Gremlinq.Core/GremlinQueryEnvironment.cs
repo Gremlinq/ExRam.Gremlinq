@@ -65,7 +65,8 @@ namespace ExRam.Gremlinq.Core
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = new GremlinQueryEnvironmentImpl(
-            GraphModel.Dynamic(NullLogger.Instance),
+            GraphModel.Default(lookup => lookup
+                .IncludeAssembliesFromAppDomain()),
             GremlinQueryExecutionPipeline.Empty
                 .UseSerializer(GremlinQuerySerializer.Default),
             ImmutableDictionary<GremlinqOption, object>.Empty,

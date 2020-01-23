@@ -17,7 +17,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g = g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
+                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes())));
         }
 
         private IVertexGremlinQuery<TVertex> V2<TVertex>(IGremlinQuerySource source) where TVertex : IVertex
@@ -168,7 +169,8 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<VertexWithListAsId, Edge>()))
+                        .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes())))
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
                 .Awaiting(async x => await x.FirstAsync())
                 .Should()
@@ -3196,7 +3198,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>()))
+                    .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes())))
                 .V<VertexWithStringId>()
 #pragma warning disable 252,253
                 .Where(x => x.Id == "hallo")

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Immutable;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using Microsoft.Extensions.Logging;
@@ -34,17 +34,17 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphModel Empty = new EmptyGraphModel();
 
-        public static IGraphModel Dynamic(ILogger? logger = null)
+        public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
         {
-            return FromBaseTypes<IVertex, IEdge>(logger, AppDomain.CurrentDomain.GetAssemblies());
+            return FromBaseTypes<IVertex, IEdge>(assemblyLookupTransformation, logger);
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(ILogger? logger = null, params Assembly[] additionalAssemblies)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
         {
-            return FromBaseTypes(typeof(TVertex), typeof(TEdge), logger, additionalAssemblies);
+            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation, logger);
         }
 
-        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, ILogger? logger = null, params Assembly[] additionalAssemblies)
+        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation,  ILogger? logger = null)
         {
             if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                 throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -52,14 +52,11 @@ namespace ExRam.Gremlinq.Core
             if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                 throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-            var assemblyArray = additionalAssemblies
-                .Append(vertexBaseType.Assembly)
-                .Append(edgeBaseType.Assembly)
-                .Distinct()
-                .ToArray();
+            var assemblies = assemblyLookupTransformation(new AssemblyLookupSet(new []{ vertexBaseType, edgeBaseType}, ImmutableList<Assembly>.Empty))
+                .Assemblies;
 
-            var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblyArray, logger);
-            var edgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblyArray, logger);
+            var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblies, logger);
+            var edgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblies, logger);
 
             return new GraphModelImpl(
                 verticesModel,

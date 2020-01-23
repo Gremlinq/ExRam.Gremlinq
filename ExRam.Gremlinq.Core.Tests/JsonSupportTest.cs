@@ -93,7 +93,8 @@ namespace ExRam.Gremlinq.Providers.Tests
         public JsonSupportTest()
         {
             _g = g
-                .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>()));
+                .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())));
         }
 
         [Fact]

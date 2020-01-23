@@ -30,7 +30,8 @@ namespace ExRam.Gremlinq.Core.Tests
             var query = await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
                 .V<Person>()
                 .Where(x => x.Age == 36)
@@ -61,7 +62,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                         .EchoGroovy
                         .ConfigureSerializer(_ => _
@@ -78,7 +80,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                         .EchoGroovy
                         .ConfigureSerializer(_ => _
@@ -95,7 +98,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                         .EchoGroovy
                         .ConfigureSerializer(_ => _
@@ -112,7 +116,8 @@ namespace ExRam.Gremlinq.Core.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
-                        .FromBaseTypes<Vertex, Edge>())
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes()))
                     .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
                         .EchoGroovy
                         .ConfigureSerializer(_ => _

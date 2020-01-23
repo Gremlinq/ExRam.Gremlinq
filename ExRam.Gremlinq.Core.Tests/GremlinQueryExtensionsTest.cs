@@ -14,7 +14,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes()))
                     .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
                 .V()
                 .OfType<Person>();
@@ -35,7 +36,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes()))
                     .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson))
                 .V()
                 .OfType<Person>();
@@ -55,7 +57,8 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             var query1 = g
                 .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>())
+                    .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
+                        .IncludeAssembliesOfBaseTypes()))
                     .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
                 .V()
                 .OfType<Person>();

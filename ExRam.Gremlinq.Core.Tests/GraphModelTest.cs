@@ -31,7 +31,8 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void TryGetFilterLabels_does_not_include_abstract_type()
         {
-            var model = GraphModel.Dynamic();
+            var model = GraphModel.Default(lookup => lookup
+                .IncludeAssembliesFromAppDomain());
 
             model.VerticesModel
                 .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum)
@@ -46,7 +47,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Hierarchy_inside_model()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(Person))
@@ -59,7 +61,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Hierarchy_outside_model()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(VertexInsideHierarchy))
@@ -71,7 +74,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Outside_hierarchy()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
                 .TryGetValue(typeof(VertexOutsideHierarchy))
@@ -83,7 +87,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Lowercase()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseLowerCaseLabels())
                 .VerticesModel
@@ -98,7 +103,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void CamelcaseLabel_Vertices()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .VerticesModel
@@ -113,7 +119,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Edges()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .EdgesModel
@@ -128,7 +135,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_MemberExpression()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .UseCamelCaseNames())
                 .PropertiesModel
@@ -143,7 +151,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Identifier_By_ParameterExpression()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .UseCamelCaseNames())
                 .PropertiesModel
@@ -158,7 +167,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .UseCamelCaseNames());
 
@@ -183,7 +193,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Identifier()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels());
 
@@ -208,7 +219,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels())
                 .ConfigureProperties(pm => pm
@@ -235,7 +247,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .UseCamelCaseNames())
                 .ConfigureElements(em => em
@@ -262,7 +275,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_IgnoreOnUpdate()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -280,7 +294,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_can_be_found_for_base_class()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -298,7 +313,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_can_be_found_for_derived_class()
         {
             GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
@@ -339,7 +355,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_IgnoreAlways()
         {
             var maybeMetadata = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
@@ -359,7 +376,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_Unconfigured()
         {
             var maybeMetadata = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .PropertiesModel
                 .Metadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
@@ -373,7 +391,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_Before_Model_Changes()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
@@ -414,7 +433,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public void Configuration_After_Model_Changes()
         {
             var model = GraphModel
-                .FromBaseTypes<Vertex, Edge>()
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .UseCamelCaseNames()
                     .ConfigureElement<Person>(conf => conf
