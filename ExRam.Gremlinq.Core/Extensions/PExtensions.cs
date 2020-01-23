@@ -9,14 +9,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static bool ContainsOnlyStepLabels(this P p)
         {
-            switch (p.OperatorName)
+            return p.OperatorName switch
             {
-                case "and":
-                case "or":
-                    return ((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels();
-                default:
-                    return p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.Cast<object>().Any() && enumerable.Cast<object>().All(x => x is StepLabel);
-            }
+                "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
+                "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
+                _ => (p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.Cast<object>().Any() && enumerable.Cast<object>().All(x => x is StepLabel))
+            };
         }
 
         public static bool EqualsConstant(this P p, bool value)
@@ -50,45 +48,40 @@ namespace ExRam.Gremlinq.Core
 
         public static P WorkaroundLimitations(this TextP textP, IImmutableDictionary<GremlinqOption, object> gremlinqOptions)
         {
-            if (textP.OperatorName == "startingWith")
+            switch (textP.OperatorName)
             {
-                var value = (string)textP.Value;
-
-                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.StartingWith) == 0)
-                    return textP;
-
-                string upperBound;
-
-                if (value[value.Length - 1] == char.MaxValue)
-                    upperBound = value + char.MinValue;
-                else
+                case "startingWith":
                 {
-                    var upperBoundChars = value.ToCharArray();
+                    var value = (string)textP.Value;
 
-                    upperBoundChars[upperBoundChars.Length - 1]++;
-                    upperBound = new string(upperBoundChars);
+                    if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.StartingWith) == 0)
+                        return textP;
+
+                    string upperBound;
+
+                    if (value[value.Length - 1] == char.MaxValue)
+                        upperBound = value + char.MinValue;
+                    else
+                    {
+                        var upperBoundChars = value.ToCharArray();
+
+                        upperBoundChars[upperBoundChars.Length - 1]++;
+                        upperBound = new string(upperBoundChars);
+                    }
+
+                    return P.Between(value, upperBound);
                 }
-
-                return P.Between(value, upperBound);
-            }
-
-            if (textP.OperatorName == "endingWith")
-            {
-                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.EndingWith) != 0)
+                case "endingWith" when (gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.EndingWith) != 0:
                     throw new ExpressionNotSupportedException();
-
-                return textP;
-            }
-
-            if (textP.OperatorName == "containing")
-            {
-                if ((gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.Containing) != 0)
+                case "endingWith":
+                    return textP;
+                case "containing" when (gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.Containing) != 0:
                     throw new ExpressionNotSupportedException();
-
-                return textP;
+                case "containing":
+                    return textP;
+                default:
+                    return textP;
             }
-
-            return textP;
         }
     }
 }

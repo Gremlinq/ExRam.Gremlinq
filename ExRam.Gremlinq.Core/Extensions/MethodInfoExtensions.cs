@@ -14,6 +14,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
+        // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default(string)));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default(string)));

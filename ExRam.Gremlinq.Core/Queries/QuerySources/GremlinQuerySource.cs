@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GremlinQuerySourceImpl : IGremlinQuerySource
         {
-            private IGremlinQueryBase _startQuery;
+            private IGremlinQueryBase? _startQuery;
 
             public GremlinQuerySourceImpl(IGremlinQueryEnvironment environment, ImmutableList<IGremlinQueryStrategy> includedStrategies, ImmutableList<Type> excludedStrategies)
             {

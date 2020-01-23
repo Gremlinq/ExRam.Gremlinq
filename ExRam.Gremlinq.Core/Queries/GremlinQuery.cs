@@ -338,8 +338,6 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, QuerySemantics? querySemantics = null) => AddStep<TNewElement, object, object, object, object, object>(step, querySemantics);
 
-        //private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SetStepLabelSemantics(StepLabel stepLabel) => new GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>(Steps, Environment, Semantics, StepLabelSemantics.Add(stepLabel, Semantics), SurfaceVisible);
-
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex)
         {
             return this

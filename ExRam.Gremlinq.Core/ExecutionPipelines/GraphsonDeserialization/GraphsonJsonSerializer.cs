@@ -198,14 +198,20 @@ namespace ExRam.Gremlinq.Core
 
                 if (token is JValue jValue)
                 {
-                    if (jValue.Value is DateTime dateTime)
-                        return new DateTimeOffset(dateTime);
+                    switch (jValue.Value)
+                    {
+                        case DateTime dateTime:
+                            return new DateTimeOffset(dateTime);
+                        case DateTimeOffset dateTimeOffset:
+                            return dateTimeOffset;
+                        default:
+                        {
+                            if (jValue.Type == JTokenType.Integer)
+                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
 
-                    if (jValue.Value is DateTimeOffset dateTimeOffset)
-                        return dateTimeOffset;
-
-                    if (jValue.Type == JTokenType.Integer)
-                        return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                            break;
+                        }
+                    }
                 }
 
                 using (Block())

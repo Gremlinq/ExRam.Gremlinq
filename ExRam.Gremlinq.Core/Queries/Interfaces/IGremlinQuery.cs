@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {

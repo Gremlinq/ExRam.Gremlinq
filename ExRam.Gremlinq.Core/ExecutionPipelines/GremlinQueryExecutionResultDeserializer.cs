@@ -86,98 +86,103 @@ namespace ExRam.Gremlinq.Core
 
             private static JToken Transform(JToken jToken)
             {
-                if (jToken is JObject jObject)
+                switch (jToken)
                 {
-                    foreach (var property in jObject)
+                    case JObject jObject:
                     {
-                        jObject[property.Key] = Transform(property.Value);
-                    }
-
-                    if (jObject.TryGetValue("@type", out var nestedType))
-                    {
-                        if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                        foreach (var property in jObject)
                         {
-                            if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
-                            {
-                                var retObject = new JObject();
+                            jObject[property.Key] = Transform(property.Value);
+                        }
 
-                                for (var i = 0; i < mapArray.Count / 2; i++)
+                        if (jObject.TryGetValue("@type", out var nestedType))
+                        {
+                            if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
                                 {
-                                    retObject.Add(mapArray[i * 2].Value<string>(), Transform(mapArray[i * 2 + 1]));
+                                    var retObject = new JObject();
+
+                                    for (var i = 0; i < mapArray.Count / 2; i++)
+                                    {
+                                        retObject.Add(mapArray[i * 2].Value<string>(), Transform(mapArray[i * 2 + 1]));
+                                    }
+
+                                    return retObject;
                                 }
-
-                                return retObject;
                             }
-                        }
-                        else if ("g:Vertex".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                        {
-                            if (jObject.TryGetValue("@value", out var value) && value is JObject vertexObject)
+                            else if ("g:Vertex".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                             {
-                                vertexObject.Add("type", "vertex");
-
-                                return Transform(vertexObject);
-                            }
-                        }
-                        else if ("g:Edge".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                        {
-                            if (jObject.TryGetValue("@value", out var value) && value is JObject edgeObject)
-                            {
-                                edgeObject.Add("type", "edge");
-
-                                return Transform(edgeObject);
-                            }
-                        }
-                        else if (jObject.TryGetValue("@value", out var value))
-                            return Transform(value);
-                    }
-                    else if (jObject.TryGetValue("type", out var type))
-                    {
-                        if ("vertex".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase) || "edge".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                        {
-                            if (jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
-                            {
-                                foreach (var property in propertiesObject)
+                                if (jObject.TryGetValue("@value", out var value) && value is JObject vertexObject)
                                 {
-                                    jObject[property.Key] = Transform(property.Value);
+                                    vertexObject.Add("type", "vertex");
+
+                                    return Transform(vertexObject);
                                 }
+                            }
+                            else if ("g:Edge".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (jObject.TryGetValue("@value", out var value) && value is JObject edgeObject)
+                                {
+                                    edgeObject.Add("type", "edge");
 
-                                jObject.Remove("properties");
+                                    return Transform(edgeObject);
+                                }
+                            }
+                            else if (jObject.TryGetValue("@value", out var value))
+                                return Transform(value);
+                        }
+                        else if (jObject.TryGetValue("type", out var type))
+                        {
+                            if ("vertex".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase) || "edge".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
+                                {
+                                    foreach (var property in propertiesObject)
+                                    {
+                                        jObject[property.Key] = Transform(property.Value);
+                                    }
 
-                                return jObject;
+                                    jObject.Remove("properties");
+
+                                    return jObject;
+                                }
                             }
                         }
+
+                        break;
                     }
-                }
-                else if (jToken is JArray jArray)
-                {
-                    var newArray = new JArray();
+                    case JArray jArray:
+                    {
+                        var newArray = new JArray();
                     
-                    foreach (var arrayItem in jArray)
-                    {
-                        if (arrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
+                        foreach (var arrayItem in jArray)
                         {
-                            var bulk = 1;
-
-                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
+                            if (arrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
                             {
-                                bulk = Transform(bulkToken).Value<int>();
-                            }
+                                var bulk = 1;
 
-                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                            {
-                                traverserValue = Transform(traverserValue);
-
-                                for (var i = 0; i < bulk; i++)
+                                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
                                 {
-                                    newArray.Add(traverserValue);
+                                    bulk = Transform(bulkToken).Value<int>();
+                                }
+
+                                if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                                {
+                                    traverserValue = Transform(traverserValue);
+
+                                    for (var i = 0; i < bulk; i++)
+                                    {
+                                        newArray.Add(traverserValue);
+                                    }
                                 }
                             }
+                            else
+                                newArray.Add(Transform(arrayItem));
                         }
-                        else
-                            newArray.Add(Transform(arrayItem));
-                    }
 
-                    return newArray;
+                        return newArray;
+                    }
                 }
 
                 return jToken;
