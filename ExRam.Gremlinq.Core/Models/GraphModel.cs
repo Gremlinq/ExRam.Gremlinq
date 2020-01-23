@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -69,10 +67,16 @@ namespace ExRam.Gremlinq.Core
                 GraphElementPropertyModel.FromGraphElementModels(verticesModel, edgesModel));
         }
 
-        //public static IGraphModel FromTypes(Type[] vertexTypes, Type[] edgeTypes, ILogger? logger = null, params Assembly[] additionalAssemblies)
-        //{
-        //    return new AssemblyGraphModel(vertexBaseType, edgeBaseType, additionalAssemblies, logger);
-        //}
+        public static IGraphModel FromTypes(Type[] vertexTypes, Type[] edgeTypes)
+        {
+            var verticesModel = GraphElementModel.FromTypes(vertexTypes);
+            var edgesModel = GraphElementModel.FromTypes(edgeTypes);
+
+            return new GraphModelImpl(
+                verticesModel,
+                edgesModel,
+                GraphElementPropertyModel.FromGraphElementModels(verticesModel, edgesModel));
+        }
 
         public static IGraphModel ConfigureElements(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
         {
