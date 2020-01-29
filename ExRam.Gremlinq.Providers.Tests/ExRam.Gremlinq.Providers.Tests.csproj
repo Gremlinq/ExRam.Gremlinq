@@ -8,8 +8,4 @@
     <ProjectReference Include="..\ExRam.Gremlinq.Core.Tests\ExRam.Gremlinq.Core.Tests.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-  </ItemGroup>
-
 </Project>

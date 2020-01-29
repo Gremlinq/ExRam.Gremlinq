@@ -9,8 +9,4 @@
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-  </ItemGroup>
-
 </Project>
