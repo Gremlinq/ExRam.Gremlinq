@@ -17,25 +17,13 @@ namespace ExRam.Gremlinq.Core
                 Logger = logger;
             }
 
-            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation)
-            {
-                return new GremlinQueryEnvironmentImpl(modelTransformation(Model), Pipeline, Options, Logger);
-            }
+            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), Pipeline, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureExecutionPipeline(Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation)
-            {
-                return new GremlinQueryEnvironmentImpl(Model, pipelineTransformation(Pipeline), Options, Logger);
-            }
+            public IGremlinQueryEnvironment ConfigureExecutionPipeline(Func<IGremlinQueryExecutionPipeline, IGremlinQueryExecutionPipeline> pipelineTransformation) => new GremlinQueryEnvironmentImpl(Model, pipelineTransformation(Pipeline), Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation)
-            {
-                return new GremlinQueryEnvironmentImpl(Model, Pipeline, optionsTransformation(Options), Logger);
-            }
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, Pipeline, optionsTransformation(Options), Logger);
 
-            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation)
-            {
-                return new GremlinQueryEnvironmentImpl(Model, Pipeline, Options, loggerTransformation(Logger));
-            }
+            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Pipeline, Options, loggerTransformation(Logger));
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
@@ -43,20 +31,11 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<GremlinqOption, object> Options { get; }
         }
 
-        public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model)
-        {
-            return source.ConfigureModel(_ => model);
-        }
+        public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 
-        public static IGremlinQueryEnvironment UseExecutionPipeline(this IGremlinQueryEnvironment source, IGremlinQueryExecutionPipeline pipeline)
-        {
-            return source.ConfigureExecutionPipeline(_ => pipeline);
-        }
+        public static IGremlinQueryEnvironment UseExecutionPipeline(this IGremlinQueryEnvironment source, IGremlinQueryExecutionPipeline pipeline) => source.ConfigureExecutionPipeline(_ => pipeline);
 
-        public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger)
-        {
-            return source.ConfigureLogger(_ => logger);
-        }
+        public static IGremlinQueryEnvironment UseLogger(this IGremlinQueryEnvironment source, ILogger logger) => source.ConfigureLogger(_ => logger);
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
             GraphModel.Empty,
