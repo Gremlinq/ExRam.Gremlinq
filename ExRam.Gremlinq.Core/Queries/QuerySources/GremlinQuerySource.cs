@@ -108,7 +108,8 @@ namespace ExRam.Gremlinq.Core
 
         // ReSharper disable once InconsistentNaming
         #pragma warning disable IDE1006 // Naming Styles
-        public static readonly IGremlinQuerySource g = new GremlinQuerySourceImpl(GremlinQueryEnvironment.Default,
+        public static readonly IGremlinQuerySource g = new GremlinQuerySourceImpl(
+            GremlinQueryEnvironment.Default,
             ImmutableList<IGremlinQueryStrategy>.Empty,
             ImmutableList<Type>.Empty);
         #pragma warning restore IDE1006 // Naming Styles

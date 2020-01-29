@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
@@ -16,11 +17,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Execution()
         {
-            (await g
+            g
+                .Awaiting(async _ => await _
                     .V()
                     .ToArrayAsync())
                 .Should()
-                .BeEmpty();
+                .Throw<InvalidOperationException>()
+                .Where(x => x.Message.StartsWith("'Execute' must not be called on GremlinQueryExecutor.Invalid"));
         }
 
         [Fact]

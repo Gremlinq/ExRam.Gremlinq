@@ -138,9 +138,9 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static readonly IGremlinQuerySerializer Object = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
+        public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
 
-        public static readonly IGremlinQuerySerializer Default = Object
+        public static readonly IGremlinQuerySerializer Default = Identity
             .UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly Instruction[] VertexProjectionInstructions;

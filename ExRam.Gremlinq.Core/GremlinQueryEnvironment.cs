@@ -68,7 +68,8 @@ namespace ExRam.Gremlinq.Core
             GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain()),
             GremlinQueryExecutionPipeline.Empty
-                .UseSerializer(GremlinQuerySerializer.Default),
+                .UseSerializer(GremlinQuerySerializer.Default)
+                .UseExecutor(GremlinQueryExecutor.Invalid),
             ImmutableDictionary<GremlinqOption, object>.Empty,
             NullLogger.Instance);
 

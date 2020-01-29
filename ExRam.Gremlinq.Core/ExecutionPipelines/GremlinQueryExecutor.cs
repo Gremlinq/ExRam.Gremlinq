@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<object> Execute(object serializedQuery)
             {
-                return AsyncEnumerableEx.Throw<object>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.Invalid. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.WithRemote(...)' for WebSockets which can be found in the 'ExRam.Gremlinq.Providers.WebSocket' package)."));
+                return AsyncEnumerableEx.Throw<object>(new InvalidOperationException($"'{nameof(Execute)}' must not be called on {nameof(GremlinQueryExecutor)}.{nameof(Invalid)}. If you are getting this exception while executing a query, set a proper {nameof(GremlinQueryExecutor)} on the {nameof(GremlinQuerySource)} (e.g. with 'g.UseGremlinServer(...)' for GremlinServer which can be found in the 'ExRam.Gremlinq.Providers.UseGremlinServer' package)."));
             }
         }
 
@@ -35,6 +35,5 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryExecutor Echo = new EchoGremlinQueryExecutor();
 
         public static readonly IGremlinQueryExecutor Empty = new EmptyGremlinQueryExecutor();
-
     }
 }
