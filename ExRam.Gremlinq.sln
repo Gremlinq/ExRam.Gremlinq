@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer", "ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj", "{20804D10-7599-407F-898E-B53A6BCA5C1D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.GremlinServer.Tests", "ExRam.Gremlinq.Providers.GremlinServer.Tests\ExRam.Gremlinq.Providers.GremlinServer.Tests.csproj", "{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{20804D10-7599-407F-898E-B53A6BCA5C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20804D10-7599-407F-898E-B53A6BCA5C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20804D10-7599-407F-898E-B53A6BCA5C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{E0F57FD2-0666-42B5-95ED-14D155A47F38} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 		{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 		{65F0D284-7DD6-40DA-8B89-BDAA02326DF0} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
+		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}

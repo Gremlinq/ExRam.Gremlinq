@@ -6,9 +6,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
-    public class DefaultGroovySerializationTest : GroovySerializationTest
+    public class WebSocketGroovySerializationTest : GroovySerializationTest
     {
-        public DefaultGroovySerializationTest() : base(g
+        public WebSocketGroovySerializationTest() : base(g
             .UseWebSocket(new Uri("ws://localhost"), GraphsonVersion.V2)
             .ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(p => p

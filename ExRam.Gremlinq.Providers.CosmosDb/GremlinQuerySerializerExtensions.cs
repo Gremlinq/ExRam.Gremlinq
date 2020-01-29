@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {

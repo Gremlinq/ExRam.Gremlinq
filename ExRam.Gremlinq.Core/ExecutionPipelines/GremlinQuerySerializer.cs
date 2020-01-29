@@ -125,8 +125,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly GremlinqOption<bool> WorkaroundTinkerpop2112 = new GremlinqOption<bool>(false);
-
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
         public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(ImmutableDictionary<Type, QueryFragmentSerializer<object>>.Empty);
@@ -331,10 +329,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                 {
                     var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
-
-                    if (query.AsAdmin().Environment.Options.GetValue(WorkaroundTinkerpop2112))
-                        steps = steps.WorkaroundTINKERPOP_2112();
-
                     var byteCode = new Bytecode();
 
                     foreach (var step in steps)

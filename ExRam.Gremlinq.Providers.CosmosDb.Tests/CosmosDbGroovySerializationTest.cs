@@ -9,7 +9,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbGroovySerializationTest : GroovySerializationTest
     {
-        public CosmosDbGroovySerializationTest() : base(g.UseCosmosDb(new Uri("wss://localhost"), "database", "graph", "authKey"))
+        public CosmosDbGroovySerializationTest() : base(g
+            .UseCosmosDb(new Uri("wss://localhost"), "database", "graph", "authKey"))
         {
 
         }
