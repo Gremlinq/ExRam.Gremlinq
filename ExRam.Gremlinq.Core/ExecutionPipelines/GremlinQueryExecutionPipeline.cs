@@ -18,35 +18,11 @@ namespace ExRam.Gremlinq.Core
                 Deserializer = deserializer;
             }
 
-            public IGremlinQueryExecutionPipeline UseSerializer(IGremlinQuerySerializer serializer)
-            {
-                return new GremlinQueryExecutionPipelineImpl(serializer, GremlinQueryExecutor.Invalid, Deserializer);
-            }
+            public IGremlinQueryExecutionPipeline ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryExecutionPipelineImpl(Serializer, Executor, configurator(Deserializer));
 
-            public IGremlinQueryExecutionPipeline ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator)
-            {
-                return new GremlinQueryExecutionPipelineImpl(Serializer, Executor, configurator(Deserializer));
-            }
+            public IGremlinQueryExecutionPipeline ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryExecutionPipelineImpl(configurator(Serializer), Executor, Deserializer);
 
-            public IGremlinQueryExecutionPipeline ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator)
-            {
-                return new GremlinQueryExecutionPipelineImpl(configurator(Serializer), Executor, Deserializer);
-            }
-
-            public IGremlinQueryExecutionPipeline UseExecutor(IGremlinQueryExecutor executor)
-            {
-                return new GremlinQueryExecutionPipelineImpl(Serializer, executor, GremlinQueryExecutionResultDeserializer.Invalid);
-            }
-
-            public IGremlinQueryExecutionPipeline ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator)
-            {
-                return new GremlinQueryExecutionPipelineImpl(Serializer, configurator(Executor), Deserializer);
-            }
-
-            public IGremlinQueryExecutionPipeline UseDeserializer(IGremlinQueryExecutionResultDeserializer deserializerFactory)
-            {
-                return new GremlinQueryExecutionPipelineImpl(Serializer, Executor, deserializerFactory);
-            }
+            public IGremlinQueryExecutionPipeline ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryExecutionPipelineImpl(Serializer, configurator(Executor), Deserializer);
 
             public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQueryBase<TElement> query)
             {
@@ -67,20 +43,11 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         }
 
-        public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQuerySerializer serializer)
-        {
-            return pipeline.ConfigureSerializer(_ => serializer);
-        }
+        public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQuerySerializer serializer) => pipeline.ConfigureSerializer(_ => serializer);
 
-        public static IGremlinQueryExecutionPipeline UseDeserializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutionResultDeserializer deserializer)
-        {
-            return pipeline.ConfigureDeserializer(_ => deserializer);
-        }
+        public static IGremlinQueryExecutionPipeline UseDeserializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutionResultDeserializer deserializer) => pipeline.ConfigureDeserializer(_ => deserializer);
 
-        public static IGremlinQueryExecutionPipeline UseExecutor(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutor executor)
-        {
-            return pipeline.ConfigureExecutor(_ => executor);
-        }
+        public static IGremlinQueryExecutionPipeline UseExecutor(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryExecutor executor) => pipeline.ConfigureExecutor(_ => executor);
 
         public static readonly IGremlinQueryExecutionPipeline Invalid = new GremlinQueryExecutionPipelineImpl(
             GremlinQuerySerializer.Invalid,
