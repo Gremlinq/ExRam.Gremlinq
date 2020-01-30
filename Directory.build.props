@@ -16,7 +16,7 @@
     <PackageIcon>NuGetIcon.png</PackageIcon>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
     <None Include="..\Assets\NuGetIcon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
