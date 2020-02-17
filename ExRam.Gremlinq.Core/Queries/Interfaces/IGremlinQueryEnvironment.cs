@@ -9,6 +9,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation);
         IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
         IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation);
+        IGremlinQueryEnvironment ConfigureFeatureSet(Func<FeatureSet, FeatureSet> featureSetTransformation);
 
         IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> serializerTransformation);
         IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
@@ -19,6 +20,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
+        FeatureSet FeatureSet { get; }
         IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         IImmutableDictionary<GremlinqOption, object> Options { get; }
     }

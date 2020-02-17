@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;

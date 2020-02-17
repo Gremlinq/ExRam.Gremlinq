@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Core
                 IGremlinQuerySerializer serializer,
                 IGremlinQueryExecutor executor,
                 IGremlinQueryExecutionResultDeserializer deserializer,
+                FeatureSet featureSet,
                 IImmutableDictionary<GremlinqOption, object> options,
                 ILogger logger)
             {
@@ -23,24 +24,28 @@ namespace ExRam.Gremlinq.Core
                 Logger = logger;
                 Options = options;
                 Executor = executor;
+                FeatureSet = featureSet;
                 Serializer = serializer;
                 Deserializer = deserializer;
             }
 
-            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), Serializer, Executor, Deserializer, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, optionsTransformation(Options), Logger);
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
 
-            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, Options, loggerTransformation(Logger));
+            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<FeatureSet, FeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), Options, Logger);
+            public IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, Deserializer, FeatureSet, Options, loggerTransformation(Logger));
 
-            public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureDeserializer(Func<IGremlinQueryExecutionResultDeserializer, IGremlinQueryExecutionResultDeserializer> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, Executor, configurator(Deserializer), FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, configurator(Executor), Deserializer, Options, Logger);
+            public IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> configurator) => new GremlinQueryEnvironmentImpl(Model, configurator(Serializer), Executor, Deserializer, FeatureSet, Options, Logger);
+
+            public IGremlinQueryEnvironment ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryEnvironmentImpl(Model, Serializer, configurator(Executor), Deserializer, FeatureSet, Options, Logger);
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
+            public FeatureSet FeatureSet { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
@@ -52,6 +57,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Empty,
+            FeatureSet.Full,
             ImmutableDictionary<GremlinqOption, object>.Empty,
             NullLogger.Instance);
 

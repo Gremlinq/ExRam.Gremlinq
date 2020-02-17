@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.GremlinServer;
+using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
