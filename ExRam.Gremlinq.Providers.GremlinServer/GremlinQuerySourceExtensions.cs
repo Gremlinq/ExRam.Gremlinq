@@ -9,18 +9,18 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQuerySourceExtensions
     {
         public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
-            Action<IWebSocketQuerySourceBuilder> builderAction)
+            Func<IWebSocketQuerySourceBuilder, IWebSocketQuerySourceBuilder> builderAction)
         {
             return environment
                 .UseWebSocket(builderAction)
-                .ConfigureExecutionPipeline(p => p.ConfigureSerializer(s => s
+                .ConfigureSerializer(s => s
                     .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                     {
                         if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
                             query = query.AsAdmin().ConfigureSteps(steps => steps.WorkaroundTINKERPOP_2112().ToImmutableList());
 
                         return overridden(query);
-                    })));
+                    }));
         }
 
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.

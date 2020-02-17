@@ -16,5 +16,7 @@ namespace ExRam.Gremlinq.Core
         IWebSocketQuerySourceBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 
         IWebSocketQuerySourceBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
+
+        IGremlinQueryEnvironment Build();
     }
 }

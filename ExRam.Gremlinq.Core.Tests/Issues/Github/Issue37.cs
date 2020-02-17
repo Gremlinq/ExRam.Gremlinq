@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Working()
         {
             var _g = g.ConfigureEnvironment(env => env
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy));
+                .EchoGroovy());
 
             _g
                 .AddV(new Item {Value = "MyValue"})
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Buggy()
         {
             var _g = g.ConfigureEnvironment(env => env
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy));
+                .EchoGroovy());
 
             _g
                 .AddV(new ItemOverride { Value = "MyValue" })

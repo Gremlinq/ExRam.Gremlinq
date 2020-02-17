@@ -53,11 +53,10 @@ namespace ExRam.Gremlinq.Core
                     .AuthenticateBy($"/dbs/{database}/colls/{graphName}", authKey)
                     .SetGraphSONVersion(GraphsonVersion.V2)
                     .AddGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))
-                .ConfigureExecutionPipeline(pipeline => pipeline
-                    .ConfigureSerializer(serializer => serializer
-                        .UseCosmosDbWorkarounds()
-                        .ToGroovy())
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter())));
+                .ConfigureSerializer(serializer => serializer
+                    .UseCosmosDbWorkarounds()
+                    .ToGroovy())
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
     }
 }

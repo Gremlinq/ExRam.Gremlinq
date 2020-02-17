@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
     public class WebSocketIntegrationTests : IntegrationTests
     {
-        public WebSocketIntegrationTests() : base(g.ConfigureEnvironment(env => env.UseWebSocket(builder => { })))
+        public WebSocketIntegrationTests() : base(g.ConfigureEnvironment(env => env.UseWebSocket(builder => builder)))
         {
         }
     }

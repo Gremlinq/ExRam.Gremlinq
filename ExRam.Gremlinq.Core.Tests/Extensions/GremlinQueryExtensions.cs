@@ -22,8 +22,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public BindingsAssertions SerializeToGroovy(string serialization)
             {
-                var pipeline = Subject.AsAdmin().Environment.Pipeline;
-                var serializedQuery = pipeline.Serializer
+                var environment = Subject.AsAdmin().Environment;
+                var serializedQuery = environment.Serializer
                     .Serialize(Subject)
                     .As<GroovySerializedGremlinQuery>();
 
@@ -37,8 +37,8 @@ namespace ExRam.Gremlinq.Core.Tests
 
             public BindingsAssertions SerializeToGraphson(string serialization)
             {
-                var pipeline = Subject.AsAdmin().Environment.Pipeline;
-                var serializedQuery = pipeline.Serializer
+                var environment = Subject.AsAdmin().Environment;
+                var serializedQuery = environment.Serializer
                     .Serialize(Subject);
 
                 serializedQuery

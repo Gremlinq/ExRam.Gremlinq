@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .ConfigureEnvironment(env => env
-                .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
+                    .EchoGroovy())
                 .V()
                 .Drop()
                 .Should()

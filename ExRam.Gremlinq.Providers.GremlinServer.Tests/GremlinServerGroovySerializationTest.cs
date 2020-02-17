@@ -10,10 +10,11 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     {
         public GremlinServerGroovySerializationTest() : base(g
             .ConfigureEnvironment(env => env
-                .UseGremlinServer(builder => builder.SetGraphSONVersion(GraphsonVersion.V2))
-                .ConfigureExecutionPipeline(p => p
-                    .ConfigureSerializer(s => s
-                        .ToGroovy()))))
+                .UseGremlinServer(builder => builder
+                    .AtLocalhost()
+                    .SetGraphSONVersion(GraphsonVersion.V2))
+                .ConfigureSerializer(s => s
+                    .ToGroovy())))
         {
 
         }

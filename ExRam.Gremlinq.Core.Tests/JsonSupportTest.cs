@@ -19,10 +19,9 @@ namespace ExRam.Gremlinq.Providers.Tests
         public static IGremlinQuerySource WithExecutor(this IGremlinQuerySource source, IGremlinQueryExecutor executor)
         {
             return source.ConfigureEnvironment(env => env
-                .ConfigureExecutionPipeline(pipeline => pipeline
-                    .UseSerializer(GremlinQuerySerializer.Default)
-                    .UseExecutor(executor)
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson)));
+                .UseSerializer(GremlinQuerySerializer.Default)
+                .UseExecutor(executor)
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
         }
     }
 

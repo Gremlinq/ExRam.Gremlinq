@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGroovy))
+                    .EchoGroovy())
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             GremlinQuerySource.g
                 .ConfigureEnvironment(env => env
-                    .UseExecutionPipeline(GremlinQueryExecutionPipeline.EchoGraphson))
+                    .EchoGraphson())
                 .V<Person>()
                 .Awaiting(async _ => await _
                     .ToArrayAsync())
@@ -64,10 +64,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                        .EchoGroovy
-                        .ConfigureSerializer(_ => _
-                            .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id)))))
+                    .EchoGroovy()
+                    .ConfigureSerializer(_ => _
+                        .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId {Id = "someId"})
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -82,10 +81,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                        .EchoGroovy
-                        .ConfigureSerializer(_ => _
-                            .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id)))))
+                    .EchoGroovy()
+                    .ConfigureSerializer(_ => _
+                        .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -100,10 +98,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                        .EchoGroovy
-                        .ConfigureSerializer(_ => _
-                            .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id)))))
+                    .EchoGroovy()
+                    .ConfigureSerializer(_ => _
+                        .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -118,10 +115,9 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes()))
-                    .ConfigureExecutionPipeline(_ => GremlinQueryExecutionPipeline
-                        .EchoGroovy
-                        .ConfigureSerializer(_ => _
-                            .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id)))))
+                    .EchoGroovy()
+                    .ConfigureSerializer(_ => _
+                        .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Should()
                 .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")

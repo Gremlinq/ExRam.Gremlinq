@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TNewElement> IStartGremlinQuery.Inject<TNewElement>(params TNewElement[] elements) => Inject(elements);
 
-        IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Pipeline.Execute(this);
+        IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable() => Environment.Execute(this);
 
         IVertexGremlinQuery<object> IEdgeGremlinQueryBase.InV() => InV<object>();
 

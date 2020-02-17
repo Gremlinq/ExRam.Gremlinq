@@ -182,7 +182,7 @@ namespace ExRam.Gremlinq.Core
                     throw new ArgumentException();
 
                 return _environment
-                    .ConfigureExecutionPipeline(pipeline => pipeline.UseExecutor(
+                    .UseExecutor(
                         new WebSocketGremlinQueryExecutor(
                             () => new GremlinClient(
                                 new GremlinServer((_uri.Host + _uri.AbsolutePath).TrimEnd('/'), _uri.Port, "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase), _auth?.username, _auth?.password),
@@ -196,22 +196,17 @@ namespace ExRam.Gremlinq.Core
                                     ? GremlinClient.GraphSON2MimeType
                                     : GremlinClient.DefaultMimeType),
                             _alias,
-                            _environment.Logger)));
+                            _environment.Logger));
             }
         }
 
         public static IGremlinQueryEnvironment UseWebSocket(
             this IGremlinQueryEnvironment environment,
-            Action<IWebSocketQuerySourceBuilder> builderAction)
+            Func<IWebSocketQuerySourceBuilder, IWebSocketQuerySourceBuilder> builderAction)
         {
-            var builder = new WebSocketQuerySourceBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty);
-            builderAction(builder);
-
-            environment = builder.Build();
-
-            return environment
-                .ConfigureExecutionPipeline(pipeline => pipeline
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson));
+            return builderAction(new WebSocketQuerySourceBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty))
+                .Build()
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson);
         }
     }
 }
