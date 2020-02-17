@@ -1,7 +1,8 @@
 ﻿using System;
+using ExRam.Gremlinq.Core;
 using Gremlin.Net.Structure.IO.GraphSON;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public interface IWebSocketConfigurationBuilder
     {

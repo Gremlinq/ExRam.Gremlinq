@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;

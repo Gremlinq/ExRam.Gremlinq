@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public static class WebSocketQuerySourceBuilder
     {
