@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public class GremlinServerIntegrationTests : IntegrationTests
     {
-        public GremlinServerIntegrationTests() : base(g.UseWebSocket(_ => {}))
+        public GremlinServerIntegrationTests() : base(g.ConfigureEnvironment(env => env.UseWebSocket(_ => {})))
         {
         }
     }

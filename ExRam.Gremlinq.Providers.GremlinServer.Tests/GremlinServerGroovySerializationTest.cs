@@ -9,8 +9,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     public class GremlinServerGroovySerializationTest : GroovySerializationTest
     {
         public GremlinServerGroovySerializationTest() : base(g
-            .UseGremlinServer(builder => builder.WithGraphSONVersion(GraphsonVersion.V2))
             .ConfigureEnvironment(env => env
+                .UseGremlinServer(builder => builder.WithGraphSONVersion(GraphsonVersion.V2))
                 .ConfigureExecutionPipeline(p => p
                     .ConfigureSerializer(s => s
                         .ToGroovy()))))

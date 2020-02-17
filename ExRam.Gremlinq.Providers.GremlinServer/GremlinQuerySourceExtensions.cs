@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using Gremlin.Net.Process.Traversal;
-using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySourceExtensions
     {
-        public static IGremlinQuerySource UseGremlinServer(this IGremlinQuerySource source,
-            Action<IWebSocketQuerySourceBuilder> builderAction)
+        public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
+            Action<IWebSocketQuerySourceBuilder>? builderAction = default)
         {
-            return source
+            return environment
                 .UseWebSocket(builderAction)
-                .ConfigureEnvironment(env => env
-                    .ConfigureExecutionPipeline(p => p.ConfigureSerializer(s => s
-                        .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
-                        {
-                            if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
-                                query = query.AsAdmin().ConfigureSteps(steps => steps.WorkaroundTINKERPOP_2112().ToImmutableList());
+                .ConfigureExecutionPipeline(p => p.ConfigureSerializer(s => s
+                    .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
+                    {
+                        if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
+                            query = query.AsAdmin().ConfigureSteps(steps => steps.WorkaroundTINKERPOP_2112().ToImmutableList());
 
-                            return overridden(query);
-                        }))));
+                        return overridden(query);
+                    })));
         }
 
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.

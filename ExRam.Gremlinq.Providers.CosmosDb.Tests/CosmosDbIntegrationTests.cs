@@ -7,8 +7,8 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public class CosmosDbIntegrationTests : IntegrationTests
     {
-        public CosmosDbIntegrationTests() : base(g
-            .UseCosmosDb( new Uri("wss://xyz.gremlin.cosmosdb.azure.com"), "db", "graph", "authkey"))
+        public CosmosDbIntegrationTests() : base(g.ConfigureEnvironment(env => env
+            .UseCosmosDb( new Uri("wss://xyz.gremlin.cosmosdb.azure.com"), "db", "graph", "authkey")))
         {
         }
     }

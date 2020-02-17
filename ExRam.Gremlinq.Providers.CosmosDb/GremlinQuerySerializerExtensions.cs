@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySerializerExtensions
     {
-        public static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer serializer)
+        internal static IGremlinQuerySerializer UseCosmosDbWorkarounds(this IGremlinQuerySerializer serializer)
         {
             return serializer
                 .OverrideFragmentSerializer<CosmosDbKey>((key, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
