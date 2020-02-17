@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -9,11 +8,36 @@ using Gremlin.Net.Driver.Messages;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
+    public interface IWebSocketQuerySourceBuilder
+    {
+        IWebSocketQuerySourceBuilder WithUri(Uri uri);
+
+        IWebSocketQuerySourceBuilder WithGraphSONVersion(GraphsonVersion version);
+
+        IWebSocketQuerySourceBuilder WithAuthentication(string username, string password);
+
+        IWebSocketQuerySourceBuilder WithAlias(string alias);
+
+        IWebSocketQuerySourceBuilder WithGraphSONSerializer(Type type, IGraphSONSerializer serializer);
+
+        IWebSocketQuerySourceBuilder WithGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
+
+        IWebSocketQuerySourceBuilder WithLogger(ILogger logger);
+
+        IGremlinQueryExecutionPipeline Build();
+    }
+
+    public static class WebSocketQuerySourceBuilder
+    {
+        
+    }
+
     public static class GremlinQuerySourceExtensions
     {
         private class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
@@ -108,55 +132,117 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class WebSocketQuerySourceBuilderImpl : IWebSocketQuerySourceBuilder
+        {
+            private readonly Uri _uri;
+            private readonly string _alias;
+            private readonly ILogger _logger;
+            private readonly GraphsonVersion _version;
+            private readonly IGremlinQueryExecutionPipeline _pipeline;
+            private readonly (string username, string password)? _auth;
+            private readonly ImmutableDictionary<Type, IGraphSONSerializer> _additionalSerializers;
+            private readonly ImmutableDictionary<string, IGraphSONDeserializer> _additionalDeserializers;
+
+            public WebSocketQuerySourceBuilderImpl(
+                IGremlinQueryExecutionPipeline pipeline,
+                Uri uri,
+                GraphsonVersion version,
+                (string username, string password)? auth,
+                string @alias,
+                ImmutableDictionary<Type, IGraphSONSerializer> additionalSerializers,
+                ImmutableDictionary<string, IGraphSONDeserializer> additionalDeserializers, ILogger logger)
+            {
+                _uri = uri;
+                _auth = auth;
+                _alias = alias;
+                _logger = logger;
+                _pipeline = pipeline;
+                _version = version;
+                _additionalSerializers = additionalSerializers;
+                _additionalDeserializers = additionalDeserializers;
+            }
+
+            public IWebSocketQuerySourceBuilder WithUri(Uri uri)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithGraphSONVersion(GraphsonVersion version)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithAuthentication(string username, string password)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, _version, (username, password), _alias, _additionalSerializers, _additionalDeserializers, _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithAlias(string alias)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, _version, _auth, alias, _additionalSerializers, _additionalDeserializers, _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithGraphSONSerializer(Type type, IGraphSONSerializer serializer)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, _version, _auth, _alias, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _logger);
+            }
+
+            public IWebSocketQuerySourceBuilder WithLogger(ILogger logger)
+            {
+                return new WebSocketQuerySourceBuilderImpl(_pipeline, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _logger);
+            }
+
+            public IGremlinQueryExecutionPipeline Build()
+            {
+                if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
+                    throw new ArgumentException();
+
+                return _pipeline.UseWebSocketExecutor(
+                    () => new GremlinClient(
+                        new GremlinServer((_uri.Host + _uri.AbsolutePath).TrimEnd('/'), _uri.Port, "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase), _auth?.username, _auth?.password),
+                        _version == GraphsonVersion.V2
+                            ? new GraphSON2Reader(_additionalDeserializers)
+                            : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
+                        _version == GraphsonVersion.V2
+                            ? new GraphSON2Writer(_additionalSerializers)
+                            : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
+                        _version == GraphsonVersion.V2
+                            ? GremlinClient.GraphSON2MimeType
+                            : GremlinClient.DefaultMimeType),
+                    _alias,
+                    _logger);
+            }
+        }
+
         public static IGremlinQuerySource UseWebSocket(
             this IGremlinQuerySource source,
-            Uri uri,
-            GraphsonVersion graphsonVersion,
-            string? username = null,
-            string? password = null,
-            string alias = "g",
-            IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
+            Action<IWebSocketQuerySourceBuilder> builderAction)
         {
             return source
                 .ConfigureEnvironment(environment => environment
                     .ConfigureExecutionPipeline(conf => conf
-                        .UseWebSocketExecutor(uri, username, password, alias, graphsonVersion, additionalGraphsonSerializers, additionalGraphsonDeserializers, environment.Logger)
+                        .UseWebSocketExecutor(builder =>
+                        {
+                            builderAction(builder);
+                            builder.WithLogger(environment.Logger);
+                        })
                         .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson)));
         }
 
         public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(
             this IGremlinQueryExecutionPipeline pipeline,
-            Uri uri,
-            string? username = null,
-            string? password = null,
-            string alias = "g",
-            GraphsonVersion graphsonVersion = GraphsonVersion.V2,
-            IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null,
-            ILogger? logger = null)
+            Action<IWebSocketQuerySourceBuilder> builderAction)
         {
-            var actualAdditionalGraphsonSerializers = additionalGraphsonSerializers ?? ImmutableDictionary<Type, IGraphSONSerializer>.Empty;
-            var actualAdditionalGraphsonDeserializers = additionalGraphsonDeserializers ?? ImmutableDictionary<string, IGraphSONDeserializer>.Empty;
+            var builder = new WebSocketQuerySourceBuilderImpl(pipeline, new Uri("ws://localhost:8182"), GraphsonVersion.V3, null, "g", ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, NullLogger.Instance);
 
-            if (!"ws".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
-                throw new ArgumentException();
+            builderAction(builder);
 
-            return pipeline
-                .UseWebSocketExecutor(
-                    () => new GremlinClient(
-                        new GremlinServer((uri.Host + uri.AbsolutePath).TrimEnd('/'), uri.Port, "wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase), username, password),
-                        graphsonVersion == GraphsonVersion.V2
-                            ? new GraphSON2Reader(actualAdditionalGraphsonDeserializers)
-                            : (GraphSONReader)new GraphSON3Reader(actualAdditionalGraphsonDeserializers),
-                        graphsonVersion == GraphsonVersion.V2
-                            ? new GraphSON2Writer(actualAdditionalGraphsonSerializers)
-                            : (GraphSONWriter)new GraphSON3Writer(actualAdditionalGraphsonSerializers),
-                        graphsonVersion == GraphsonVersion.V2
-                            ? GremlinClient.GraphSON2MimeType
-                            : GremlinClient.DefaultMimeType),
-                    alias,
-                    logger);
+            return builder.Build();
         }
 
         public static IGremlinQueryExecutionPipeline UseWebSocketExecutor(this IGremlinQueryExecutionPipeline pipeline, Func<IGremlinClient> clientFactory, string alias = "g", ILogger? logger = null)

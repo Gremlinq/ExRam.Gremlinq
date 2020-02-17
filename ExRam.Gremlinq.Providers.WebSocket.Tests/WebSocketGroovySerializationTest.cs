@@ -9,7 +9,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
     public class WebSocketGroovySerializationTest : GroovySerializationTest
     {
         public WebSocketGroovySerializationTest() : base(g
-            .UseWebSocket(new Uri("ws://localhost"), GraphsonVersion.V2)
+            .UseWebSocket(builder => builder
+                .WithGraphSONVersion(GraphsonVersion.V2))
             .ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(p => p
                     .ConfigureSerializer(s => s

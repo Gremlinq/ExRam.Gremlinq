@@ -1,7 +1,5 @@
-﻿using System;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.WebSocket.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -11,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
     public class GremlinServerGroovySerializationTest : GroovySerializationTest
     {
         public GremlinServerGroovySerializationTest() : base(g
-            .UseGremlinServer(new Uri("ws://localhost"), GraphsonVersion.V2)
+            .UseGremlinServer(builder => builder.WithGraphSONVersion(GraphsonVersion.V2))
             .ConfigureEnvironment(env => env
                 .ConfigureExecutionPipeline(p => p
                     .ConfigureSerializer(s => s

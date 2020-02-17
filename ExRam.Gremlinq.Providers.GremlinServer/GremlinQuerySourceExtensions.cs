@@ -10,23 +10,10 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQuerySourceExtensions
     {
         public static IGremlinQuerySource UseGremlinServer(this IGremlinQuerySource source,
-            Uri uri,
-            GraphsonVersion graphsonVersion,
-            string? username = null,
-            string? password = null,
-            string alias = "g",
-            IReadOnlyDictionary<Type, IGraphSONSerializer>? additionalGraphsonSerializers = null,
-            IReadOnlyDictionary<string, IGraphSONDeserializer>? additionalGraphsonDeserializers = null)
+            Action<IWebSocketQuerySourceBuilder> builderAction)
         {
             return source
-                .UseWebSocket(
-                    uri,
-                    graphsonVersion,
-                    username,
-                    password,
-                    alias,
-                    additionalGraphsonSerializers,
-                    additionalGraphsonDeserializers)
+                .UseWebSocket(builderAction)
                 .ConfigureEnvironment(env => env
                     .ConfigureExecutionPipeline(p => p.ConfigureSerializer(s => s
                         .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>

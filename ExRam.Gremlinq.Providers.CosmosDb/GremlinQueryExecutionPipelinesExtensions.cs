@@ -63,18 +63,12 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryExecutionPipeline UseCosmosDbExecutor(this IGremlinQueryExecutionPipeline pipeline, Uri uri, string database, string graphName, string authKey, ILogger logger)
         {
             return pipeline
-                .UseWebSocketExecutor(
-                    uri,
-                    $"/dbs/{database}/colls/{graphName}",
-                    authKey,
-                    "g",
-                    GraphsonVersion.V2,
-                    new Dictionary<Type, IGraphSONSerializer>
-                    {
-                        {typeof(TimeSpan), new TimeSpanSerializer()}
-                    },
-                    default,
-                    logger);
+                .UseWebSocketExecutor(builder => builder
+                    .WithUri(uri)
+                    .WithAuthentication($"/dbs/{database}/colls/{graphName}", authKey)
+                    .WithGraphSONVersion(GraphsonVersion.V2)
+                    .WithGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer())
+                    .WithLogger(logger));
         }
     }
 }
