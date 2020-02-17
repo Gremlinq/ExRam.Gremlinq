@@ -15,9 +15,9 @@ namespace ExRam.Gremlinq.Core
 {
     public static class WebSocketQuerySourceBuilder
     {
-        public static IWebSocketQuerySourceBuilder UseLocalhost(this IWebSocketQuerySourceBuilder builder)
+        public static IWebSocketQuerySourceBuilder AtLocalhost(this IWebSocketQuerySourceBuilder builder)
         {
-            return builder.UseUri(new Uri("ws://localhost:8182"));
+            return builder.At(new Uri("ws://localhost:8182"));
         }
     }
 
@@ -143,32 +143,32 @@ namespace ExRam.Gremlinq.Core
                 _additionalDeserializers = additionalDeserializers;
             }
 
-            public IWebSocketQuerySourceBuilder UseUri(Uri uri)
+            public IWebSocketQuerySourceBuilder At(Uri uri)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers);
             }
 
-            public IWebSocketQuerySourceBuilder UseGraphSONVersion(GraphsonVersion version)
+            public IWebSocketQuerySourceBuilder SetGraphSONVersion(GraphsonVersion version)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, _uri, version, _auth, _alias, _additionalSerializers, _additionalDeserializers);
             }
 
-            public IWebSocketQuerySourceBuilder UseAuthentication(string username, string password)
+            public IWebSocketQuerySourceBuilder AuthenticateBy(string username, string password)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, _uri, _version, (username, password), _alias, _additionalSerializers, _additionalDeserializers);
             }
 
-            public IWebSocketQuerySourceBuilder UseAlias(string alias)
+            public IWebSocketQuerySourceBuilder SetAlias(string alias)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, _uri, _version, _auth, alias, _additionalSerializers, _additionalDeserializers);
             }
 
-            public IWebSocketQuerySourceBuilder UseGraphSONSerializer(Type type, IGraphSONSerializer serializer)
+            public IWebSocketQuerySourceBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers);
             }
 
-            public IWebSocketQuerySourceBuilder UseGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
+            public IWebSocketQuerySourceBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
             {
                 return new WebSocketQuerySourceBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer));
             }
@@ -176,7 +176,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryEnvironment Build()
             {
                 if (_uri == null)
-                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(UseUri)} on the builder to set a valid Gremlin endpoint.");
+                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
 
                 if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException();

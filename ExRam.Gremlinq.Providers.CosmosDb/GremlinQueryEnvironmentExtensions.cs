@@ -48,11 +48,11 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Uri uri, string database, string graphName, string authKey)
         {
             return env
-                .UseWebSocket(builder => builder
-                    .UseUri(uri)
-                    .UseAuthentication($"/dbs/{database}/colls/{graphName}", authKey)
-                    .UseGraphSONVersion(GraphsonVersion.V2)
-                    .UseGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))
+                .UseWebSocket(_ => _
+                    .At(uri)
+                    .AuthenticateBy($"/dbs/{database}/colls/{graphName}", authKey)
+                    .SetGraphSONVersion(GraphsonVersion.V2)
+                    .AddGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))
                 .ConfigureExecutionPipeline(pipeline => pipeline
                     .ConfigureSerializer(serializer => serializer
                         .UseCosmosDbWorkarounds()

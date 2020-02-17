@@ -5,16 +5,16 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IWebSocketQuerySourceBuilder
     {
-        IWebSocketQuerySourceBuilder UseUri(Uri uri);
+        IWebSocketQuerySourceBuilder At(Uri uri);
 
-        IWebSocketQuerySourceBuilder UseGraphSONVersion(GraphsonVersion version);
+        IWebSocketQuerySourceBuilder AuthenticateBy(string username, string password);
 
-        IWebSocketQuerySourceBuilder UseAuthentication(string username, string password);
+        IWebSocketQuerySourceBuilder SetAlias(string alias);
 
-        IWebSocketQuerySourceBuilder UseAlias(string alias);
+        IWebSocketQuerySourceBuilder SetGraphSONVersion(GraphsonVersion version);
 
-        IWebSocketQuerySourceBuilder UseGraphSONSerializer(Type type, IGraphSONSerializer serializer);
+        IWebSocketQuerySourceBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 
-        IWebSocketQuerySourceBuilder UseGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
+        IWebSocketQuerySourceBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
     }
 }
