@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             g
                 .Awaiting(async _ => await _
+                    .ConfigureEnvironment(_ => _)
                     .V()
                     .ToArrayAsync())
                 .Should()

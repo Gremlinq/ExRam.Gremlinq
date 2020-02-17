@@ -43,6 +43,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Person>();
 
             var query2 = g
+                .ConfigureEnvironment(_ => _)
                 .V()
                 .OfType<Company>();
 

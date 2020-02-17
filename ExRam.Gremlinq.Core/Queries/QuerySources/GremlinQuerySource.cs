@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
                     .Update(edge);
             }
 
-            IGremlinQuerySource IGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+            IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
             {
                 return new GremlinQuerySourceImpl(environmentTransformation(Environment), IncludedStrategies, ExcludedStrategyTypes);
             }
@@ -108,7 +108,7 @@ namespace ExRam.Gremlinq.Core
 
         // ReSharper disable once InconsistentNaming
         #pragma warning disable IDE1006 // Naming Styles
-        public static readonly IGremlinQuerySource g = new GremlinQuerySourceImpl(
+        public static readonly IConfigurableGremlinQuerySource g = new GremlinQuerySourceImpl(
             GremlinQueryEnvironment.Default,
             ImmutableList<IGremlinQueryStrategy>.Empty,
             ImmutableList<Type>.Empty);

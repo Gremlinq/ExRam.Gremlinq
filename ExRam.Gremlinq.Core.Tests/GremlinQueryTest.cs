@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ChangeQueryType()
         {
-            var anon = GremlinQuerySource.g.V().AsAdmin();
+            var anon = GremlinQuerySource.g.ConfigureEnvironment(_ => _).V().AsAdmin();
 
             var interfaces = typeof(GremlinQuery)
                 .Assembly
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void ChangeQueryType_optimizes()
         {
-            var query = GremlinQuerySource.g.V<Person>();
+            var query = GremlinQuerySource.g.ConfigureEnvironment(_ => _).V<Person>();
 
             query.AsAdmin().ChangeQueryType<IVertexGremlinQuery<Person>>()
                 .Should()

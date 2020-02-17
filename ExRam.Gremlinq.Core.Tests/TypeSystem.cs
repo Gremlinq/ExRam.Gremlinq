@@ -31,10 +31,17 @@ namespace ExRam.Gremlinq.Core.Tests
             public Property<string> StringEdgeProperty { get; }
         }
 
+        private IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
+
+        public TypeSystem()
+        {
+
+        }
+
         [Fact]
         public void V_Properties_String()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String)
                 .Should()
@@ -44,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_Strings()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.Strings)
                 .Should()
@@ -54,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.StringVertexProperty)
                 .Should()
@@ -64,7 +71,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_IntVertexProperty_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.IntVertexProperty, x => x.StringVertexProperty)
                 .Should()
@@ -74,7 +81,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_IntVertexProperty_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.IntVertexProperty, x => x.StringVertexProperty)
                 .Should()
@@ -84,7 +91,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.StringVertexProperties)
                 .Should()
@@ -94,7 +101,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_MetaStringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.MetaStringVertexProperty)
                 .Should()
@@ -104,7 +111,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_Strings_MetaStringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.Strings, x => x.MetaStringVertexProperty)
                 .Should()
@@ -114,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_Strings_MetaStringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.Strings, x => x.MetaStringVertexProperty)
                 .Should()
@@ -124,7 +131,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_MetaStringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.MetaStringVertexProperty)
                 .Should()
@@ -134,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_MetaObjectVertexProperty_MetaStringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.MetaObjectVertexProperty, x => x.MetaStringVertexProperties)
                 .Should()
@@ -144,7 +151,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_MetaStringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.MetaStringVertexProperties)
                 .Should()
@@ -154,13 +161,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_Strings()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.Strings)
                 .Should()
                 .BeAssignableTo<IVertexPropertyGremlinQuery<VertexProperty<object>, object>>();
 
-            g
+            _g
                 .V<Vertex>()
                 .Properties<string>(x => x.String, x => x.Strings)
                 .Should()
@@ -170,7 +177,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.StringVertexProperty)
                 .Should()
@@ -180,7 +187,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_Strings_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.Strings, x => x.StringVertexProperty)
                 .Should()
@@ -190,7 +197,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.String, x => x.StringVertexProperties)
                 .Should()
@@ -200,7 +207,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_String_StringVertexProperties_Explicit()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties<string>(x => x.String, x => x.StringVertexProperties)
                 .Should()
@@ -210,7 +217,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Properties_Strings_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Properties(x => x.Strings, x => x.StringVertexProperties)
                 .Should()
@@ -220,7 +227,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_String()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.String)
                 .Should()
@@ -230,7 +237,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_Strings()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.Strings)
                 .Should()
@@ -240,7 +247,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.StringVertexProperty)
                 .Should()
@@ -250,7 +257,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.StringVertexProperties)
                 .Should()
@@ -260,7 +267,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_MetaStringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.MetaStringVertexProperty)
                 .Should()
@@ -270,7 +277,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_MetaStringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.MetaStringVertexProperties)
                 .Should()
@@ -280,13 +287,13 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_String_Strings()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.String, x => x.Strings)
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<object>>();
 
-            g
+            _g
                 .V<Vertex>()
                 .Values<string>(x => x.String, x => x.Strings)
                 .Should()
@@ -296,7 +303,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_String_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.String, x => x.StringVertexProperty)
                 .Should()
@@ -306,7 +313,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_Strings_StringVertexProperty()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.Strings, x => x.StringVertexProperty)
                 .Should()
@@ -316,7 +323,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_String_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.String, x => x.StringVertexProperties)
                 .Should()
@@ -326,47 +333,17 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void V_Values_Strings_StringVertexProperties()
         {
-            g
+            _g
                 .V<Vertex>()
                 .Values(x => x.Strings, x => x.StringVertexProperties)
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<object>>();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         [Fact]
         public void E_Properties_String()
         {
-            g
+            _g
                 .E<Edge>()
                 .Properties(x => x.String)
                 .Should()
@@ -376,7 +353,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void E_Properties_StringEdgeProperty()
         {
-            g
+            _g
                 .E<Edge>()
                 .Properties(x => x.StringEdgeProperty)
                 .Should()
@@ -386,7 +363,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void E_Properties_String_StringEdgeProperty()
         {
-            g
+            _g
                 .E<Edge>()
                 .Properties(x => x.String, x => x.StringEdgeProperty)
                 .Should()
@@ -396,7 +373,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void E_Values_String()
         {
-            g
+            _g
                 .E<Edge>()
                 .Values(x => x.String)
                 .Should()
@@ -406,7 +383,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void E_Values_StringEdgeProperty()
         {
-            g
+            _g
                 .E<Edge>()
                 .Values(x => x.StringEdgeProperty)
                 .Should()
@@ -416,7 +393,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void E_Values_String_StringEdgeProperty()
         {
-            g
+            _g
                 .E<Edge>()
                 .Values(x => x.String, x => x.StringEdgeProperty)
                 .Should()
