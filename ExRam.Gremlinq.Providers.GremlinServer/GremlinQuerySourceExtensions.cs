@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQuerySourceExtensions
     {
         public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
-            Action<IWebSocketQuerySourceBuilder>? builderAction = default)
+            Action<IWebSocketQuerySourceBuilder> builderAction)
         {
             return environment
                 .UseWebSocket(builderAction)

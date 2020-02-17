@@ -49,10 +49,10 @@ namespace ExRam.Gremlinq.Core
         {
             return env
                 .UseWebSocket(builder => builder
-                    .WithUri(uri)
-                    .WithAuthentication($"/dbs/{database}/colls/{graphName}", authKey)
-                    .WithGraphSONVersion(GraphsonVersion.V2)
-                    .WithGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))
+                    .UseUri(uri)
+                    .UseAuthentication($"/dbs/{database}/colls/{graphName}", authKey)
+                    .UseGraphSONVersion(GraphsonVersion.V2)
+                    .UseGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))
                 .ConfigureExecutionPipeline(pipeline => pipeline
                     .ConfigureSerializer(serializer => serializer
                         .UseCosmosDbWorkarounds()
