@@ -3,19 +3,19 @@ using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IWebSocketQuerySourceBuilder
+    public interface IWebSocketConfigurationBuilder
     {
-        IWebSocketQuerySourceBuilder At(Uri uri);
+        IWebSocketConfigurationBuilder At(Uri uri);
 
-        IWebSocketQuerySourceBuilder AuthenticateBy(string username, string password);
+        IWebSocketConfigurationBuilder AuthenticateBy(string username, string password);
 
-        IWebSocketQuerySourceBuilder SetAlias(string alias);
+        IWebSocketConfigurationBuilder SetAlias(string alias);
 
-        IWebSocketQuerySourceBuilder SetGraphSONVersion(GraphsonVersion version);
+        IWebSocketConfigurationBuilder SetGraphSONVersion(GraphsonVersion version);
 
-        IWebSocketQuerySourceBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
+        IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 
-        IWebSocketQuerySourceBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
+        IWebSocketConfigurationBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
 
         IGremlinQueryEnvironment Build();
     }
