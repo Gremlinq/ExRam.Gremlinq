@@ -24,23 +24,23 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryExecutionPipeline ConfigureExecutor(Func<IGremlinQueryExecutor, IGremlinQueryExecutor> configurator) => new GremlinQueryExecutionPipelineImpl(Serializer, configurator(Executor), Deserializer);
 
-            public IAsyncEnumerable<TElement> Execute<TElement>(IGremlinQueryBase<TElement> query)
-            {
-                var serialized = Serializer
-                    .Serialize(query);
-
-                if (serialized == null)
-                    return AsyncEnumerableEx.Throw<TElement>(new Exception("Can't serialize query."));
-
-                return Executor
-                    .Execute(serialized)
-                    .SelectMany(executionResult => Deserializer
-                    .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
-            }
-
             public IGremlinQuerySerializer Serializer { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
+        }
+
+        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQueryExecutionPipeline pipeline, IGremlinQueryBase<TElement> query)
+        {
+            var serialized = pipeline.Serializer
+                .Serialize(query);
+
+            if (serialized == null)
+                return AsyncEnumerableEx.Throw<TElement>(new Exception("Can't serialize query."));
+
+            return pipeline.Executor
+                .Execute(serialized)
+                .SelectMany(executionResult => pipeline.Deserializer
+                    .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
         }
 
         public static IGremlinQueryExecutionPipeline UseSerializer(this IGremlinQueryExecutionPipeline pipeline, IGremlinQuerySerializer serializer) => pipeline.ConfigureSerializer(_ => serializer);
