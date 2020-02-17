@@ -13,14 +13,6 @@ using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class WebSocketQuerySourceBuilder
-    {
-        public static IWebSocketConfigurationBuilder AtLocalhost(this IWebSocketConfigurationBuilder builder)
-        {
-            return builder.At(new Uri("ws://localhost:8182"));
-        }
-    }
-
     public static class GremlinQueryEnvironmentExtensions
     {
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
