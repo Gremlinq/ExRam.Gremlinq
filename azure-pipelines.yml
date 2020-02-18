@@ -37,7 +37,7 @@ steps:
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
     SourceFolder: '$(build.sourcesdirectory)'
-    Contents: '**/bin/$(BuildConfiguration)/**/*.nupkg'
+    Contents: '**/*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
     flattenFolders: true
 
