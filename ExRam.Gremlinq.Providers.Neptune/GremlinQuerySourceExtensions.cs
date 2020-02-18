@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -10,6 +12,8 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseWebSocket(builder => builder
                     .At(uri))
+                .ConfigureSerializer(serializer => serializer
+                    .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step)))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(graphFeatures => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(variableFeatures => VariableFeatures.None)
