@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket.Tests\ExRam.Gremlinq.Providers.WebSocket.Tests.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
+  </ItemGroup>
+
+</Project>
