@@ -134,6 +134,7 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly Instruction[] VertexProjectionInstructions;
         private static readonly Instruction[] EdgeProjectionInstructions;
+        private static readonly Instruction[] VertexProjectionInstructionsWithoutMetaProperties;
 
         static GremlinQuerySerializer()
         {
@@ -191,6 +192,42 @@ namespace ExRam.Gremlinq.Core
                                             new Instruction("valueMap")
                                         }
                                     }),
+                                    new Instruction("fold")
+                                }
+                            })
+                        }
+                    })
+            };
+
+            VertexProjectionInstructionsWithoutMetaProperties = new[]
+            {
+                new Instruction("project", "id", "label", "type", "properties"),
+                new Instruction("by", T.Id),
+                new Instruction("by", T.Label),
+                new Instruction("by", new Bytecode
+                {
+                    StepInstructions =
+                    {
+                        new Instruction("constant", "vertex")
+                    }
+                }),
+                new Instruction(
+                    "by",
+                    new Bytecode
+                    {
+                        StepInstructions =
+                        {
+                            new Instruction("properties"),
+                            new Instruction("group"),
+                            new Instruction("by", labelBytecode),
+                            new Instruction("by", new Bytecode
+                            {
+                                StepInstructions =
+                                {
+                                    new Instruction("project", "id", "label", "value"),
+                                    new Instruction("by", T.Id),
+                                    new Instruction("by", labelBytecode),
+                                    new Instruction("by", valueBytecode),
                                     new Instruction("fold")
                                 }
                             })
@@ -343,7 +380,10 @@ namespace ExRam.Gremlinq.Core
                         {
                             case QuerySemantics.Vertex:
                             {
-                                byteCode.StepInstructions.AddRange(VertexProjectionInstructions);
+                                byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.VertexFeatures.HasFlag(VertexFeatures.MetaProperties)
+                                    ? VertexProjectionInstructions
+                                    : VertexProjectionInstructionsWithoutMetaProperties);
+
                                 break;
                             }
                             case QuerySemantics.Edge:

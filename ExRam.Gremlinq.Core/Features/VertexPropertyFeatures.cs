@@ -1,5 +1,8 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System;
+
+namespace ExRam.Gremlinq.Core
 {
+    [Flags]
     public enum VertexPropertyFeatures
     {
         None = 0,

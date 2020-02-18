@@ -2719,6 +2719,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_untyped_without_metaproperties()
+        {
+            _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureFeatureSet(set => set.ConfigureVertexFeatures(features => features & ~VertexFeatures.MetaProperties)))
+                .V()
+                .Should()
+                .SerializeToGroovy("V().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.properties().group().by(__.label()).by(__.project(_a, _b, _f).by(id).by(__.label()).by(__.value()).fold()))")
+                .WithParameters("id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void Value()
         {
             _g
