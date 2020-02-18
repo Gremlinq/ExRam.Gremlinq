@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Providers.WebSocket;
 // Put this into static scope to access the default GremlinQuerySource as "g". 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -21,13 +22,16 @@ namespace ExRam.Gremlinq.Samples
                     //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                     //in a currently loaded assembly). We explicitly set a model here anyway.
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes())))
+                        .IncludeAssembliesOfBaseTypes()))
 
-                //Configure Gremlinq to work on a locally running instance of Gremlin server.
-                .UseGremlinServer(new Uri("ws://localhost:8182"), GraphsonVersion.V3);
+                    //Configure Gremlinq to work on a locally running instance of Gremlin server.
+                    .UseGremlinServer(builder => builder
+                        .AtLocalhost()));
 
-                //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
-                //.UseCosmosDb(uri, database, graphName, authKey);
+                    //.UseNeptune(new Uri("ws://localhost:8182")));
+
+                    //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
+                    //.UseCosmosDb(uri, database, graphName, authKey);
         }
 
         public async Task Run()
@@ -91,7 +95,7 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             var charlie = await _g
-                .AddV(new Dog {Name = "Charlie", Age = 2})
+                .AddV(new Dog { Name = "Charlie", Age = 2 })
                 .FirstAsync();
 
             var catmanJohn = await _g
@@ -99,7 +103,7 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             var luna = await _g
-                .AddV(new Cat {Name = "Luna", Age = 9})
+                .AddV(new Cat { Name = "Luna", Age = 9 })
                 .FirstAsync();
 
             var lop = await _g
@@ -503,6 +507,7 @@ namespace ExRam.Gremlinq.Samples
 
         static async Task Main()
         {
+
             await new Program().Run();
         }
     }
