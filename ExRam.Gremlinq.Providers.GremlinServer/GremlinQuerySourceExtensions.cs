@@ -14,6 +14,11 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .UseWebSocket(builderAction)
+                .ConfigureFeatureSet(featureSet => featureSet
+                    .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
+                    .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
+                    .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
+                    .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
                 .ConfigureSerializer(s => s
                     .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                     {
