@@ -1,9 +1,13 @@
-﻿// ReSharper disable ConsiderUsingConfigureAwait
+﻿#define GremlinServer
+//#define CosmosDB
+//#define AWSNeptune
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
+
 // Put this into static scope to access the default GremlinQuerySource as "g". 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -24,14 +28,14 @@ namespace ExRam.Gremlinq.Samples
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes()))
 
-                    //Configure Gremlinq to work on a locally running instance of Gremlin server.
+#if GremlinServer
                     .UseGremlinServer(builder => builder
                         .AtLocalhost()));
-
-                    //.UseNeptune(new Uri("ws://localhost:8182")));
-
-                    //Uncomment below, comment above and enter appropriate data to configure Gremlinq to work on CosmosDB!
-                    //.UseCosmosDb(uri, database, graphName, authKey);
+#elif AWSNeptune
+                    .UseNeptune(new Uri("ws://localhost:8182")));
+#elif CosmosDB
+                    .UseCosmosDb(uri, database, graphName, authKey));
+#endif
         }
 
         public async Task Run()
