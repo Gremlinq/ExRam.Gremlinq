@@ -22,21 +22,5 @@ namespace ExRam.Gremlinq.Core
 
             return enumerator.MoveNext();
         }
-
-        internal static IEnumerable<Step> HandleAnonymousQueries(this IEnumerable<Step> steps)
-        {
-            using (var e = steps.GetEnumerator())
-            {
-                if (!e.MoveNext())
-                    yield return IdentityStep.Instance;
-                else
-                {
-                    do
-                    {
-                        yield return e.Current;
-                    } while (e.MoveNext());
-                }
-            }
-        }
     }
 }

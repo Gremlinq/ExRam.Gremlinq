@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
 
             public object? Serialize(IGremlinQueryBase query)
             {
-                var _stepLabelNames = new Dictionary<StepLabel, string>();
+                var stepLabelNames = new Dictionary<StepLabel, string>();
 
                 object? Constant<TAtom>(TAtom atom, Func<TAtom, object?> baseSerializer, Func<object, object?> recurse)
                 {
@@ -37,10 +37,10 @@ namespace ExRam.Gremlinq.Core
 
                     if (atom is StepLabel stepLabel)
                     {
-                        if (!_stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
+                        if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
                         {
-                            stepLabelMapping = "l" + (_stepLabelNames.Count + 1);
-                            _stepLabelNames.Add(stepLabel, stepLabelMapping);
+                            stepLabelMapping = "l" + (stepLabelNames.Count + 1);
+                            stepLabelNames.Add(stepLabel, stepLabelMapping);
                         }
 
                         // ReSharper disable once TailRecursiveCall
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core
                     if (o is null)
                         return null;
 
-                    var action = GetSerializer(o.GetType()) ?? Constant;
+                    var action = TryGetSerializer(o.GetType()) ?? Constant;
 
                     return action(o, _ => Constant(_, _ => throw new NotImplementedException(), RecurseImpl), RecurseImpl);
                 }
@@ -73,7 +73,7 @@ namespace ExRam.Gremlinq.Core
                             () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_), recurse))));
             }
 
-            private QueryFragmentSerializer<object>? GetSerializer(Type type)
+            private QueryFragmentSerializer<object>? TryGetSerializer(Type type)
             {
                 return _lazyFastDict.Value
                     .GetOrAdd(
@@ -82,13 +82,13 @@ namespace ExRam.Gremlinq.Core
                         {
                             foreach (var implementedInterface in closureType.GetInterfaces())
                             {
-                                if (GetSerializer(implementedInterface) is QueryFragmentSerializer<object> interfaceSerializer)
+                                if (TryGetSerializer(implementedInterface) is { } interfaceSerializer)
                                     return interfaceSerializer;
                             }
 
-                            if (closureType.BaseType is Type baseType)
+                            if (closureType.BaseType is { } baseType)
                             {
-                                if (GetSerializer(baseType) is QueryFragmentSerializer<object> baseSerializer)
+                                if (TryGetSerializer(baseType) is { } baseSerializer)
                                     return baseSerializer;
                             }
 
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core
 
             public object? Serialize(IGremlinQueryBase query)
             {
-                return (_baseSerializer.Serialize(query) is object serialized)
+                return (_baseSerializer.Serialize(query) is { } serialized)
                     ? _projection(serialized)
                     : null;
             }
@@ -365,13 +365,23 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
                 .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                 {
-                    var steps = query.AsAdmin().Steps.Reverse().HandleAnonymousQueries();
                     var byteCode = new Bytecode();
+                    var steps = query.AsAdmin().Steps;
 
-                    foreach (var step in steps)
+                    if (steps.IsEmpty)
                     {
-                        if (recurse(step) is Instruction instruction)
+                        if (recurse(IdentityStep.Instance) is Instruction instruction)
                             byteCode.StepInstructions.Add(instruction);
+                    }
+                    else
+                    {
+                        var stepsArray = steps.ToArray();
+
+                        for (var i = stepsArray.Length - 1; i >= 0; i--)
+                        {
+                            if (recurse(stepsArray[i]) is Instruction instruction)
+                                byteCode.StepInstructions.Add(instruction);
+                        }
                     }
 
                     if (query is GremlinQueryBase gremlinQueryBase && gremlinQueryBase.SurfaceVisible)
@@ -389,6 +399,7 @@ namespace ExRam.Gremlinq.Core
                             case QuerySemantics.Edge:
                             {
                                 byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
+
                                 break;
                             }
                         }
