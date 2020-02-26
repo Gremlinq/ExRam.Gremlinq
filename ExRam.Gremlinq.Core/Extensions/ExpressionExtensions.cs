@@ -98,15 +98,18 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression binaryExpression:
                     {
+                        var left = binaryExpression.Left.StripConvert();
+                        var right = binaryExpression.Right.StripConvert();
+
                         if (binaryExpression.NodeType == ExpressionType.AndAlso)
-                            return new AndGremlinExpression(parameter, binaryExpression.Left.StripConvert().ToGremlinExpression(parameter), binaryExpression.Right.StripConvert().ToGremlinExpression(parameter));
+                            return new AndGremlinExpression(parameter, left.ToGremlinExpression(parameter), right.ToGremlinExpression(parameter));
 
                         if (binaryExpression.NodeType == ExpressionType.OrElse)
-                            return new OrGremlinExpression(parameter, binaryExpression.Left.StripConvert().ToGremlinExpression(parameter), binaryExpression.Right.StripConvert().ToGremlinExpression(parameter));
+                            return new OrGremlinExpression(parameter, left.ToGremlinExpression(parameter), right.ToGremlinExpression(parameter));
 
-                        return binaryExpression.Right.HasExpressionInMemberChain(parameter)
-                            ? new TerminalGremlinExpression(parameter, binaryExpression.Right.StripConvert(), binaryExpression.NodeType.Switch().ToP(binaryExpression.Left.GetValue()))
-                            : new TerminalGremlinExpression(parameter, binaryExpression.Left.StripConvert(), binaryExpression.NodeType.ToP(binaryExpression.Right.GetValue()));
+                        return right.HasExpressionInMemberChain(parameter)
+                            ? new TerminalGremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()))
+                            : new TerminalGremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
                     }
                     case MethodCallExpression methodCallExpression:
                     {
@@ -141,9 +144,12 @@ namespace ExRam.Gremlinq.Core
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
-                            if (methodInfo.IsStringStartsWith() && methodCallExpression.Arguments[0] is MemberExpression argumentExpression)
+                            var methodCallExpressionObject = methodCallExpression.Object.StripConvert();
+                            var methodCallArgument = methodCallExpression.Arguments[0].StripConvert();
+
+                            if (methodInfo.IsStringStartsWith() && methodCallArgument is MemberExpression argumentExpression)
                             {
-                                if (methodCallExpression.Object.GetValue() is string stringValue)
+                                if (methodCallExpressionObject.GetValue() is string stringValue)
                                 {
                                     return new TerminalGremlinExpression(
                                         parameter,
@@ -154,9 +160,9 @@ namespace ExRam.Gremlinq.Core
                                             .ToArray<object>()));
                                 }
                             }
-                            else if (methodCallExpression.Object is MemberExpression memberExpression)
+                            else if (methodCallExpressionObject is MemberExpression memberExpression)
                             {
-                                if (methodCallExpression.Arguments[0].GetValue() is string str)
+                                if (methodCallArgument.GetValue() is string str)
                                 {
                                     return new TerminalGremlinExpression(
                                         parameter,

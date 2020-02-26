@@ -971,11 +971,11 @@ namespace ExRam.Gremlinq.Core
                     }
                     case MethodCallExpression methodCallExpression:
                     {
-                        var targetExpression = methodCallExpression.Object;
+                        var targetExpression = methodCallExpression.Object.StripConvert();
 
                         if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                         {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].GetValue(), effectivePredicate));
+                            return AddStep(new HasStep(methodCallExpression.Arguments[0].StripConvert().GetValue(), effectivePredicate));
                         }
 
                         break;
