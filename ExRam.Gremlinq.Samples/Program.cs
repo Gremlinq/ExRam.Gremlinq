@@ -482,32 +482,39 @@ namespace ExRam.Gremlinq.Samples
 
         private async Task Set_and_get_metadata_on_Marko()
         {
-            await _g
-                .V<Person>(_marko.Id)
-                .Properties(x => x.Name)
-                .Property(x => x.Creator, "Stephen")
-                .Property(x => x.Date, DateTimeOffset.Now)
-                .ToArrayAsync();
+            // Demonstrates setting and retrieving properties on vertex properties.
+            // Furthermore, we demonstrate how to dynamically avoid queries if the
+            // underlying graph database provider doesn't support them. In this case,
+            // this will not run on AWS Neptune since it doesn't support meta properties.
 
-            var metaProperties = await _g
-                .V()
-                .Properties()
-                .Properties()
-                .ToArrayAsync();
-
-            Console.WriteLine("Meta properties on Vertex properties:");
-
-            foreach (var metaProperty in metaProperties)
+            if ((_g.Environment.FeatureSet.VertexFeatures & VertexFeatures.MetaProperties) != 0)
             {
-                Console.WriteLine($" {metaProperty}");
-            }
+                await _g
+                    .V<Person>(_marko.Id)
+                    .Properties(x => x.Name)
+                    .Property(x => x.Creator, "Stephen")
+                    .Property(x => x.Date, DateTimeOffset.Now)
+                    .ToArrayAsync();
 
-            Console.WriteLine();
+                var metaProperties = await _g
+                    .V()
+                    .Properties()
+                    .Properties()
+                    .ToArrayAsync();
+
+                Console.WriteLine("Meta properties on Vertex properties:");
+
+                foreach (var metaProperty in metaProperties)
+                {
+                    Console.WriteLine($" {metaProperty}");
+                }
+
+                Console.WriteLine();
+            }
         }
 
         static async Task Main()
         {
-
             await new Program().Run();
         }
     }
