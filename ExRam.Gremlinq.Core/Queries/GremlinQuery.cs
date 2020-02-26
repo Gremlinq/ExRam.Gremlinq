@@ -414,7 +414,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (predicate.TryToGremlinExpression() is { } terminal)
             {
-                if (terminal.Key == terminal.Parameter)
+                if (terminal.Key is ParameterExpression)
                 {
                     var anonymous = Anonymize();
                     var trueQuery = trueChoice(anonymous);
@@ -951,7 +951,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var leftMemberExpressionExpression = leftMemberExpression.Expression.StripConvert();
 
-                    if (leftMemberExpressionExpression == terminal.Parameter)
+                    if (leftMemberExpressionExpression is ParameterExpression)
                     {
                         // x => x.Value == P.xy(...)
                         if (leftMemberExpression.IsPropertyValue())
@@ -975,7 +975,7 @@ namespace ExRam.Gremlinq.Core
                     // x => x.Name == P.xy(...)
                     return Where(leftMemberExpression, effectivePredicate);
                 }
-                case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
+                case ParameterExpression _:
                 {
                     // x => x == P.xy(...)
                     return Where(effectivePredicate);

@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
                     case MemberExpression memberExpression when memberExpression.HasExpressionInMemberChain(parameter):
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return new GremlinExpression(parameter, memberExpression, P.Eq(true));
+                            return new GremlinExpression(memberExpression, P.Eq(true));
 
                         break;
                     }
@@ -103,7 +103,6 @@ namespace ExRam.Gremlinq.Core
                                 if (leftExpression.Key == rightExpression.Key || leftExpression.Key is MemberExpression memberExpression1 && rightExpression.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
                                 {
                                     return new GremlinExpression(
-                                        parameter,
                                         leftExpression.Key,
                                         binaryExpression.NodeType switch
                                         {
@@ -120,10 +119,10 @@ namespace ExRam.Gremlinq.Core
                             var parameterIsInLeft = left.HasExpressionInMemberChain(parameter);
 
                             if (parameterIsInRight && !parameterIsInLeft)
-                                return new GremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()));
+                                return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left.GetValue()));
 
                             if (parameterIsInLeft || !parameterIsInRight)
-                                return new GremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
+                                return new GremlinExpression(left, binaryExpression.NodeType.ToP(right.GetValue()));
                         }
 
                         break;
@@ -137,13 +136,13 @@ namespace ExRam.Gremlinq.Core
                             if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return new GremlinExpression(parameter, sourceMember, previousExpression.Arguments[1].ToPWithin());
+                                    return new GremlinExpression(sourceMember, previousExpression.Arguments[1].ToPWithin());
 
                                 if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                    return new GremlinExpression(parameter, argument, previousExpression.Arguments[0].ToPWithin());
+                                    return new GremlinExpression(argument, previousExpression.Arguments[0].ToPWithin());
                             }
                             else
-                                return new GremlinExpression(parameter, methodCallExpression.Arguments[0], P.Neq(new object[] { null }));
+                                return new GremlinExpression(methodCallExpression.Arguments[0], P.Neq(new object[] { null }));
                         }
                         else if (methodInfo.IsEnumerableContains() || methodInfo.IsStepLabelContains())
                         {
@@ -151,13 +150,13 @@ namespace ExRam.Gremlinq.Core
                             var methodCallArgument1 = methodCallExpression.Arguments[1].StripConvert();
 
                             if (methodCallArgument0 is MemberExpression sourceMember && sourceMember.Expression == parameter)
-                                return new GremlinExpression(parameter, sourceMember, P.Eq(methodCallArgument1.GetValue()));
+                                return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1.GetValue()));
 
                             if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
-                                return new GremlinExpression(parameter, argument, methodCallArgument0.ToPWithin());
+                                return new GremlinExpression(argument, methodCallArgument0.ToPWithin());
 
                             if (methodCallArgument1 == parameter)
-                                return new GremlinExpression(parameter, parameter, methodCallArgument0.ToPWithin());
+                                return new GremlinExpression(parameter, methodCallArgument0.ToPWithin());
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
@@ -169,7 +168,6 @@ namespace ExRam.Gremlinq.Core
                                 if (methodCallExpressionObject.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
-                                        parameter,
                                         argumentExpression,
                                         P.Within(Enumerable
                                             .Range(0, stringValue.Length + 1)
@@ -182,7 +180,6 @@ namespace ExRam.Gremlinq.Core
                                 if (methodCallArgument.GetValue() is string str)
                                 {
                                     return new GremlinExpression(
-                                        parameter,
                                         memberExpression,
                                         str.Length == 0
                                             ? P.Without(Array.Empty<object>())
