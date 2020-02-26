@@ -939,7 +939,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(TerminalGremlinExpression terminal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression terminal)
         {
             var effectivePredicate = terminal.Predicate is TextP textP
                 ? textP.WorkaroundLimitations(Environment.Options)

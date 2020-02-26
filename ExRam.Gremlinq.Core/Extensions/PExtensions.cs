@@ -33,16 +33,6 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        public static P Fuse(this P p1, P p2, ExpressionType expressionType)
-        {
-            return expressionType switch
-            {
-                ExpressionType.AndAlso => p1.And(p2),
-                ExpressionType.OrElse => p1.Or(p2),
-                _ => throw new ExpressionNotSupportedException()
-            };
-        }
-
         public static bool EqualsConstant(this P p, bool value)
         {
             return p.OperatorName switch
@@ -55,8 +45,8 @@ namespace ExRam.Gremlinq.Core
                 "or" => value
                     ? ((P)p.Value).EqualsConstant(true) || p.Other.EqualsConstant(true)
                     : ((P)p.Value).EqualsConstant(false) && p.Other.EqualsConstant(false),
-                _ => false;
-            }
+                _ => false
+            };
         }
 
         public static P WorkaroundLimitations(this TextP textP, IImmutableDictionary<GremlinqOption, object> gremlinqOptions)

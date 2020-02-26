@@ -3,9 +3,9 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal struct TerminalGremlinExpression
+    internal struct GremlinExpression
     {
-        public TerminalGremlinExpression(Expression parameter, Expression key, P predicate)
+        public GremlinExpression(Expression parameter, Expression key, P predicate)
         {
             Key = key;
             Predicate = predicate;
