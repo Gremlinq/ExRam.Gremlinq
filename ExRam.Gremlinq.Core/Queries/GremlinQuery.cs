@@ -837,15 +837,12 @@ namespace ExRam.Gremlinq.Core
             var stepsArray = GetStepsForKeys(keys)
                 .ToArray();
 
-            switch (stepsArray.Length)
+            return stepsArray.Length switch
             {
-                case 0:
-                    throw new ExpressionNotSupportedException();
-                case 1:
-                    return AddStepWithObjectTypes<TValue>(stepsArray[0], QuerySemantics.None);
-                default:
-                    return AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None))), QuerySemantics.None);
-            }
+                0 => throw new ExpressionNotSupportedException(),
+                1 => AddStepWithObjectTypes<TValue>(stepsArray[0], QuerySemantics.None),
+                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None))), QuerySemantics.None)
+            };
         }
 
         private GremlinQuery<TValue, object, object, object, object, object> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
@@ -914,7 +911,7 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                if (expression.TryToGremlinExpression(parameter) is TerminalGremlinExpression terminal)
+                if (expression.TryToGremlinExpression(parameter) is { } terminal)
                 {
                     return Where(terminal);
                 }
