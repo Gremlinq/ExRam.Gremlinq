@@ -343,7 +343,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("l1");
         }
 
-
         [Fact]
         public void AddV_without_model()
         {
@@ -2345,6 +2344,51 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .Inject(1, 2, 3)
+                .Fold()
+                .As((_, ints) => _
+                    .V<Person>()
+                    .Where(person => ints.Contains(person.Age)))
+                .Should()
+                .SerializeToGroovy("inject(_a, _b, _c).fold().as(_d).V().hasLabel(_e).has(_f, __.where(within(_d))).project(_g, _h, _i, _j).by(id).by(label).by(__.constant(_k)).by(__.properties().group().by(__.label()).by(__.project(_g, _h, _l, _j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters(1, 2, 3, "l1", "Person", "Age", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void StepLabel_of_array_contains_vertex()
+        {
+            _g
+                .V()
+                .Fold()
+                .As((_, v) => _
+                    .V<Person>()
+                    .Where(person => v.Contains(person)))
+                .Count()
+                .Should()
+                .SerializeToGroovy("V().fold().as(_a).V().hasLabel(_b).where(within(_a)).count()")
+                .WithParameters("l1", "Person");
+        }
+
+        [Fact]
+        public void StepLabel_of_array_does_not_contain_vertex()
+        {
+            _g
+                .V()
+                .Fold()
+                .As((_, v) => _
+                    .V<Person>()
+                    .Where(person => !v.Contains(person)))
+                .Count()
+                .Should()
+                .SerializeToGroovy("V().fold().as(_a).V().hasLabel(_b).not(__.where(within(_a))).count()")
+                .WithParameters("l1", "Person");
+        }
+
+        [Fact]
+        public void StepLabel_of_object_array_contains_element()
+        {
+            _g
+                .Inject(1, 2, 3)
+                .Cast<object>()
                 .Fold()
                 .As((_, ints) => _
                     .V<Person>()

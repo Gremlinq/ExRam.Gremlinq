@@ -127,11 +127,17 @@ namespace ExRam.Gremlinq.Core
                         }
                         else if (methodInfo.IsEnumerableContains() || methodInfo.IsStepLabelContains())
                         {
-                            if (methodCallExpression.Arguments[0] is MemberExpression sourceMember && sourceMember.Expression == parameter)
-                                return new TerminalGremlinExpression(parameter, sourceMember, P.Eq(methodCallExpression.Arguments[1].GetValue()));
+                            var methodCallArgument0 = methodCallExpression.Arguments[0].StripConvert();
+                            var methodCallArgument1 = methodCallExpression.Arguments[1].StripConvert();
 
-                            if (methodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                return new TerminalGremlinExpression(parameter, argument, methodCallExpression.Arguments[0].ToPWithin());
+                            if (methodCallArgument0 is MemberExpression sourceMember && sourceMember.Expression == parameter)
+                                return new TerminalGremlinExpression(parameter, sourceMember, P.Eq(methodCallArgument1.GetValue()));
+
+                            if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
+                                return new TerminalGremlinExpression(parameter, argument, methodCallArgument0.ToPWithin());
+
+                            if (methodCallArgument1 == parameter)
+                                return new TerminalGremlinExpression(parameter, parameter, methodCallArgument0.ToPWithin());
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
