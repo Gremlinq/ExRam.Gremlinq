@@ -5,10 +5,10 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryAdmin
     {
-        IGremlinQuery<object> ConfigureSteps(Func<IImmutableList<Step>, IImmutableList<Step>> configurator);
+        IGremlinQuery<object> ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator);
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
 
-        IImmutableList<Step> Steps { get; }
+        IImmutableStack<Step> Steps { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
 }

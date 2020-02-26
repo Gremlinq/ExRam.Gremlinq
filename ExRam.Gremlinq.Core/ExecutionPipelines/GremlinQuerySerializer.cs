@@ -365,7 +365,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<IdStep>((step, overridden, recurse) => CreateInstruction("id", recurse))
                 .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
                 {
-                    var steps = query.AsAdmin().Steps.HandleAnonymousQueries();
+                    var steps = query.AsAdmin().Steps.Reverse().HandleAnonymousQueries();
                     var byteCode = new Bytecode();
 
                     foreach (var step in steps)
@@ -420,7 +420,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversalSteps = step.Traversal.AsAdmin().Steps;
 
-                    return !(traversalSteps.Count > 0 && traversalSteps[traversalSteps.Count - 1] is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false))
+                    return !(!traversalSteps.IsEmpty  && traversalSteps.Peek() is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false))
                         ? CreateInstruction("not", recurse, step.Traversal)
                         : null;
                 })
@@ -610,7 +610,7 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = query.AsAdmin().Steps;
 
-            if (steps.Count == 1 && steps[0] is TStep otherStep)
+            if (!steps.IsEmpty && steps.Pop().IsEmpty && steps.Peek() is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {

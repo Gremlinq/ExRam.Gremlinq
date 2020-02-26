@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static IGremlinQueryBase AddStep(this IGremlinQueryBase query, Step step)
         {
-            return query.AsAdmin().InsertStep(query.AsAdmin().Steps.Count, step);
+            return query.AsAdmin().ConfigureSteps(steps => steps.Push(step));
         }
 
         internal static bool IsNone(this IGremlinQueryBase query)
@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsIdentity(this IGremlinQueryBase query)
         {
-            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.Count == 0;
+            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.IsEmpty;
         }
 
         /// <summary>
@@ -57,27 +57,19 @@ namespace ExRam.Gremlinq.Core
             if (!ReferenceEquals(sourceAdmin.Environment, targetAdmin.Environment))
                 throw new ArgumentException($"{nameof(sourceQuery)} and {nameof(targetQuery)} don't agree on environments.");
 
-            if (sourceAdmin.Steps.Count > targetAdmin.Steps.Count)
-                throw new ArgumentException($"{nameof(sourceQuery)} must not have more steps than {nameof(targetQuery)}.");
-
-            if (sourceAdmin.Steps.Count == targetAdmin.Steps.Count)
+            using (var e1 = sourceAdmin.Steps.Reverse().GetEnumerator())
             {
-                return _ => _
-                    .AsAdmin()
-                    .ChangeQueryType<TTargetQuery>();
-            }
-
-            using (var e1 = sourceAdmin.Steps.GetEnumerator())
-            {
-                using (var e2 = targetAdmin.Steps.GetEnumerator())
+                using (var e2 = targetAdmin.Steps.Reverse().GetEnumerator())
                 {
                     var list = new List<Step>();
 
                     while (true)
                     {
+                        var e1MoveNext = e1.MoveNext();
+
                         if (e2.MoveNext())
                         {
-                            if (e1.MoveNext())
+                            if (e1MoveNext)
                             {
                                 if (!ReferenceEquals(e1.Current, e2.Current))
                                     throw new ArgumentException($"{nameof(sourceQuery)} is not a proper prefix of {nameof(targetQuery)}.");
@@ -93,7 +85,12 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
                         else
+                        {
+                            if (e1MoveNext)
+                                throw new ArgumentException($"{nameof(sourceQuery)} must not have more steps than {nameof(targetQuery)}.");
+
                             break;
+                        }
                     }
 
                     return _ => _

@@ -58,7 +58,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IEdgeGremlinQueryBase.BothV<TVertex>() => BothV<object>().OfType<TVertex>(Environment.Model.VerticesModel);
 
-        IGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableList<Step>, IImmutableList<Step>> configurator) => ConfigureSteps<object>(configurator);
+        IGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) => ConfigureSteps<object>(configurator);
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
 
@@ -188,7 +188,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
-            if (Steps.LastOrDefault() is AsStep asStep && asStep.StepLabels.Contains(label))
+            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabels.Contains(label))
                 return ChangeQueryType<TQuery>();
 
             return this
@@ -198,7 +198,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
-        IImmutableList<Step> IGremlinQueryAdmin.Steps => Steps;
+        IImmutableStack<Step> IGremlinQueryAdmin.Steps => Steps;
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 

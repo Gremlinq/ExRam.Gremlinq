@@ -6,22 +6,20 @@ namespace ExRam.Gremlinq.Core
     {
         public static IGremlinQueryBase AddStep(this IGremlinQueryAdmin admin, Step step)
         {
-            return admin.InsertStep(admin.Steps.Count, step);
+            return admin.ConfigureSteps(steps => steps.Push(step));
         }
 
         public static IGremlinQueryBase AddSteps(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
         {
-            return admin.ConfigureSteps(x => x.InsertRange(admin.Steps.Count, steps));
-        }
+            return admin.ConfigureSteps(existingSteps =>
+            {
+                foreach (var step in steps)
+                {
+                    existingSteps = existingSteps.Push(step);
+                }
 
-        public static IGremlinQueryBase InsertStep(this IGremlinQueryAdmin admin, int index, Step step)
-        {
-            return admin.ConfigureSteps(x => x.Insert(index, step));
-        }
-
-        public static IGremlinQueryBase InsertSteps(this IGremlinQueryAdmin admin, int index, IEnumerable<Step> steps)
-        {
-            return admin.ConfigureSteps(x => x.InsertRange(index, steps));
+                return existingSteps;
+            });
         }
     }
 }
