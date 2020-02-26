@@ -14,8 +14,23 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
                 "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
-                _ => (p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.Cast<object>().Any() && enumerable.Cast<object>().All(x => x is StepLabel))
+                _ => (p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.ContainsOnlyStepLabels())
             };
+        }
+
+        private static bool ContainsOnlyStepLabels(this IEnumerable enumerable)
+        {
+            var ret = false;
+
+            foreach (var item in enumerable)
+            {
+                ret = true;
+
+                if (!(item is StepLabel))
+                    return false;
+            }
+
+            return ret;
         }
 
         public static P Fuse(this P p1, P p2, ExpressionType expressionType)
@@ -30,30 +45,17 @@ namespace ExRam.Gremlinq.Core
 
         public static bool EqualsConstant(this P p, bool value)
         {
-            switch (p.OperatorName)
+            return p.OperatorName switch
             {
-                case "within":
-                {
-                    return !value && p.Value is IEnumerable enumerable && !enumerable.Cast<object>().Any(); //TODO: Any extension;
-                }
-                case "without":
-                {
-                    return value && p.Value is IEnumerable enumerable && !enumerable.Cast<object>().Any(); //TODO: Any extension
-                }
-                case "and":
-                {
-                    return value
-                        ? ((P)p.Value).EqualsConstant(true) && p.Other.EqualsConstant(true)
-                        : ((P)p.Value).EqualsConstant(false) || p.Other.EqualsConstant(false);
-                }
-                case "or":
-                {
-                    return value
-                        ? ((P)p.Value).EqualsConstant(true) || p.Other.EqualsConstant(true)
-                        : ((P)p.Value).EqualsConstant(false) && p.Other.EqualsConstant(false);
-                }
-                default:
-                    return false;
+                "within" => !value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
+                "without" => value && p.Value is IEnumerable enumerable && !enumerable.InternalAny(),
+                "and" => value
+                    ? ((P)p.Value).EqualsConstant(true) && p.Other.EqualsConstant(true)
+                    : ((P)p.Value).EqualsConstant(false) || p.Other.EqualsConstant(false),
+                "or" => value
+                    ? ((P)p.Value).EqualsConstant(true) || p.Other.EqualsConstant(true)
+                    : ((P)p.Value).EqualsConstant(false) && p.Other.EqualsConstant(false),
+                _ => false;
             }
         }
 
