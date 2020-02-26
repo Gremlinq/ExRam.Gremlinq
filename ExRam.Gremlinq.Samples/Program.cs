@@ -47,6 +47,7 @@ namespace ExRam.Gremlinq.Samples
             await Who_is_older_than_30();
             await Whose_name_starts_with_B();
             await Who_knows_who();
+            await Who_does_what();
             await What_pets_are_around();
             await How_many_pets_does_everybody_have();
             await Who_has_that_phone_number();
@@ -226,7 +227,7 @@ namespace ExRam.Gremlinq.Samples
             //
             //   "g.hasLabel('Person').has('Age', gt(30))"
             //
-            // in this case
+            // in this case.
 
             // Also, this sample demonstrates that instead of calling ToArrayAsync
             // and awaiting that, you may just await the IGremlinQuery<Person>!
@@ -283,7 +284,7 @@ namespace ExRam.Gremlinq.Samples
                 .As((__, person) => __
                     .Out<Knows>()
                     .OfType<Person>()
-                    .As((___, friend) => ___
+                    .As((__, friend) => __
                         .Select(person, friend)));
 
             Console.WriteLine("Who knows who?");
