@@ -23,12 +23,13 @@ namespace ExRam.Gremlinq.Core
 
         public static object GetValue(this Expression expression)
         {
-            if (expression is ConstantExpression constantExpression)
-                return constantExpression.Value;
-
-            return Expression
-                .Lambda<Func<object>>(Expression.Convert(expression, typeof(object)))
-                .Compile()();
+            return expression switch
+            {
+                ConstantExpression constantExpression => constantExpression.Value,
+                MemberExpression memberExpression when memberExpression.Member is FieldInfo fieldInfo && memberExpression.Expression is ConstantExpression constant => fieldInfo.GetValue(constant.Value),
+                LambdaExpression lambdaExpression => lambdaExpression.Compile().DynamicInvoke(),
+                _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
+            };
         }
 
         public static bool HasExpressionInMemberChain(this Expression expression, Expression searchedExpression)
@@ -76,11 +77,11 @@ namespace ExRam.Gremlinq.Core
             return expression.Body.TryToGremlinExpression(expression.Parameters[0]);
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression expression, Expression parameter)
+        public static GremlinExpression? TryToGremlinExpression(this Expression body, Expression parameter)
         {
             try
             {
-                switch (expression)
+                switch (body)
                 {
                     case MemberExpression memberExpression:
                     {
@@ -107,7 +108,7 @@ namespace ExRam.Gremlinq.Core
                                         {
                                             ExpressionType.AndAlso => leftExpression.Predicate.And(rightExpression.Predicate),
                                             ExpressionType.OrElse => leftExpression.Predicate.Or(rightExpression.Predicate),
-                                            _ => throw new ExpressionNotSupportedException(expression)
+                                            _ => throw new ExpressionNotSupportedException(body)
                                         });
                                 }
                             }
@@ -194,7 +195,7 @@ namespace ExRam.Gremlinq.Core
             }
             catch (ExpressionNotSupportedException ex)
             {
-                throw new ExpressionNotSupportedException(expression, ex);
+                throw new ExpressionNotSupportedException(body, ex);
             }
 
             return default;
