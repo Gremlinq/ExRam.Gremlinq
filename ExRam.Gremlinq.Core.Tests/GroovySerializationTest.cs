@@ -331,6 +331,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Aggregate()
+        {
+            _g
+                .V()
+                .Aggregate((__, aggregated) =>
+                    __.Out())
+                .Count()
+                .Should()
+                .SerializeToGroovy("V().aggregate(_a).out().count()")
+                .WithParameters("l1");
+        }
+
+
+        [Fact]
         public void AddV_without_model()
         {
             _g
