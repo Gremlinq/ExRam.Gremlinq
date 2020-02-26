@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBase<TElement>
         where TSelf : IGremlinQueryBaseRec<TElement, TSelf>
     {
-        TTargetQuery Aggregate<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
+        TTargetQuery Aggregate<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
         TSelf As<TTargetQuery>(StepLabel<TSelf, TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
