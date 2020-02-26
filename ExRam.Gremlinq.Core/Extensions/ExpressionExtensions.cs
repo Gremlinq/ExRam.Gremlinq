@@ -36,16 +36,17 @@ namespace ExRam.Gremlinq.Core
         {
             while (true)
             {
+                expression = expression.StripConvert();
+
                 if (expression == searchedExpression)
                     return true;
 
                 if (expression is MemberExpression memberExpression)
-                {
                     expression = memberExpression.Expression;
-                    continue;
-                }
-
-                return false;
+                else if (expression is MethodCallExpression methodCallExpression)
+                    expression = methodCallExpression.Object;
+                else
+                    return false;
             }
         }
 
@@ -83,7 +84,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (body)
                 {
-                    case MemberExpression memberExpression:
+                    case MemberExpression memberExpression when memberExpression.HasExpressionInMemberChain(parameter):
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
                             return new GremlinExpression(parameter, memberExpression, P.Eq(true));
@@ -115,9 +116,14 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            return right.HasExpressionInMemberChain(parameter)
-                                ? new GremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()))
-                                : new GremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
+                            var parameterIsInRight = right.HasExpressionInMemberChain(parameter);
+                            var parameterIsInLeft = left.HasExpressionInMemberChain(parameter);
+
+                            if (parameterIsInRight && !parameterIsInLeft)
+                                return new GremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()));
+
+                            if (parameterIsInLeft || !parameterIsInRight)
+                                return new GremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
                         }
 
                         break;
