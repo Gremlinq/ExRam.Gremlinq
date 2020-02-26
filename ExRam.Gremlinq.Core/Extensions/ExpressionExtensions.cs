@@ -12,13 +12,13 @@ namespace ExRam.Gremlinq.Core
     {
         public static Expression StripConvert(this Expression expression)
         {
-            if (expression is UnaryExpression unaryExpression && expression.NodeType == ExpressionType.Convert)
+            while (true)
             {
-                // ReSharper disable once TailRecursiveCall
-                return unaryExpression.Operand.StripConvert();
+                if (expression is UnaryExpression unaryExpression && expression.NodeType == ExpressionType.Convert)
+                    expression = unaryExpression.Operand;
+                else
+                    return expression;
             }
-
-            return expression;
         }
 
         public static object GetValue(this Expression expression)
