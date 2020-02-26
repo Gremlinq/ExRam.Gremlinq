@@ -17,11 +17,10 @@ namespace ExRam.Gremlinq.Core
 
         ILogger Logger { get; }
         IGraphModel Model { get; }
-
+        FeatureSet FeatureSet { get; }
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
-        FeatureSet FeatureSet { get; }
-        IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         IImmutableDictionary<GremlinqOption, object> Options { get; }
+        IGremlinQueryExecutionResultDeserializer Deserializer { get; }
     }
 }

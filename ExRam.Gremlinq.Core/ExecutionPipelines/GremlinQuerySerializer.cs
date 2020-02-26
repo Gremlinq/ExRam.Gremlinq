@@ -390,7 +390,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             case QuerySemantics.Vertex:
                             {
-                                byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.VertexFeatures.HasFlag(VertexFeatures.MetaProperties)
+                                byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
                                     ? VertexProjectionInstructions
                                     : VertexProjectionInstructionsWithoutMetaProperties);
 
