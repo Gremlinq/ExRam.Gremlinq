@@ -68,27 +68,20 @@ namespace ExRam.Gremlinq.Core
             return typeof(IVertexProperty).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(VertexProperty<object>.Properties);
         }
 
-        public static GremlinExpression ToGremlinExpression(this LambdaExpression expression)
+        public static TerminalGremlinExpression? TryToGremlinExpression(this LambdaExpression expression)
         {
             if (expression.Parameters.Count != 1)
                 throw new ExpressionNotSupportedException(expression);
 
-            return expression.Body.ToGremlinExpression(expression.Parameters[0]).Simplify();
+            return expression.Body.TryToGremlinExpression(expression.Parameters[0]);
         }
 
-        private static GremlinExpression ToGremlinExpression(this Expression expression, Expression parameter)
+        public static TerminalGremlinExpression? TryToGremlinExpression(this Expression expression, Expression parameter)
         {
             try
             {
                 switch (expression)
                 {
-                    case UnaryExpression unaryExpression:
-                    {
-                        if (unaryExpression.NodeType == ExpressionType.Not)
-                            return unaryExpression.Operand.ToGremlinExpression(parameter).Negate();
-
-                        break;
-                    }
                     case MemberExpression memberExpression:
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
@@ -101,15 +94,22 @@ namespace ExRam.Gremlinq.Core
                         var left = binaryExpression.Left.StripConvert();
                         var right = binaryExpression.Right.StripConvert();
 
-                        if (binaryExpression.NodeType == ExpressionType.AndAlso)
-                            return new AndGremlinExpression(parameter, left.ToGremlinExpression(parameter), right.ToGremlinExpression(parameter));
+                        if (binaryExpression.NodeType == ExpressionType.AndAlso || binaryExpression.NodeType == ExpressionType.OrElse)
+                        {
+                            if (left.TryToGremlinExpression(parameter) is { } leftExpression && right.TryToGremlinExpression(parameter) is { } rightExpression)
+                            {
+                                if (leftExpression.Key == rightExpression.Key || leftExpression.Key is MemberExpression memberExpression1 && rightExpression.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
+                                    return new TerminalGremlinExpression(parameter, leftExpression.Key, leftExpression.Predicate.Fuse(rightExpression.Predicate, binaryExpression.NodeType));
+                            }
+                        }
+                        else
+                        {
+                            return right.HasExpressionInMemberChain(parameter)
+                                ? new TerminalGremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()))
+                                : new TerminalGremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
+                        }
 
-                        if (binaryExpression.NodeType == ExpressionType.OrElse)
-                            return new OrGremlinExpression(parameter, left.ToGremlinExpression(parameter), right.ToGremlinExpression(parameter));
-
-                        return right.HasExpressionInMemberChain(parameter)
-                            ? new TerminalGremlinExpression(parameter, right, binaryExpression.NodeType.Switch().ToP(left.GetValue()))
-                            : new TerminalGremlinExpression(parameter, left, binaryExpression.NodeType.ToP(right.GetValue()));
+                        break;
                     }
                     case MethodCallExpression methodCallExpression:
                     {
@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Core
                 throw new ExpressionNotSupportedException(expression, ex);
             }
 
-            throw new ExpressionNotSupportedException(expression);
+            return default;
         }
 
         internal static P ToPWithin(this Expression expression)

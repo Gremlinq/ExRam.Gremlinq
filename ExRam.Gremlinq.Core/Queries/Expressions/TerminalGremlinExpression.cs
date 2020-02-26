@@ -3,25 +3,17 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class TerminalGremlinExpression : GremlinExpression
+    internal struct TerminalGremlinExpression
     {
-        public TerminalGremlinExpression(Expression parameter, Expression key, P predicate) : base(parameter)
+        public TerminalGremlinExpression(Expression parameter, Expression key, P predicate)
         {
             Key = key;
             Predicate = predicate;
-        }
-
-        public override GremlinExpression Negate()
-        {
-            return new NotGremlinExpression(Parameter, this);
-        }
-
-        public override GremlinExpression Simplify()
-        {
-            return this;
+            Parameter = parameter;
         }
 
         public P Predicate { get; }
         public Expression Key { get; }
+        public Expression Parameter { get; }
     }
 }

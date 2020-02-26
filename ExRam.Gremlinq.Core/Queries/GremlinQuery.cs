@@ -412,9 +412,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
-            var gremlinExpression = predicate.ToGremlinExpression();
-
-            if (gremlinExpression is TerminalGremlinExpression terminal)
+            if (predicate.TryToGremlinExpression() is { } terminal)
             {
                 if (terminal.Key == terminal.Parameter)
                 {
@@ -869,7 +867,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var ret = this;
 
-                    foreach(var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
+                    foreach (var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
@@ -899,87 +897,102 @@ namespace ExRam.Gremlinq.Core
         {
             try
             {
-                return Where(predicate.ToGremlinExpression());
+                return Where(predicate.Body, predicate.Parameters[0]);
             }
             catch (ExpressionNotSupportedException ex)
             {
-                throw new ExpressionNotSupportedException(ex);
+                throw new ExpressionNotSupportedException(predicate, ex);
             }
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, Expression parameter)
+        {
+            if (expression is UnaryExpression unaryExpression)
+            {
+                if (unaryExpression.NodeType == ExpressionType.Not)
+                    return Not(_ => _.Where(unaryExpression.Operand, parameter));
+            }
+            else
+            {
+                if (expression.TryToGremlinExpression(parameter) is TerminalGremlinExpression terminal)
+                {
+                    return Where(terminal);
+                }
+
+                if (expression is BinaryExpression binary)
+                {
+                    if (binary.NodeType == ExpressionType.OrElse)
+                    {
+                        return Or(
+                            _ => _.Where(binary.Left, parameter),
+                            _ => _.Where(binary.Right, parameter));
+                    }
+
+                    if (binary.NodeType == ExpressionType.AndAlso)
+                    {
+                        return this
+                            .Where(binary.Left, parameter)
+                            .Where(binary.Right, parameter);
+                    }
+                }
+            }
+
+            throw new ExpressionNotSupportedException(expression);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(TerminalGremlinExpression terminal)
         {
-            if (gremlinExpression is OrGremlinExpression or)
+            var effectivePredicate = terminal.Predicate is TextP textP
+                ? textP.WorkaroundLimitations(Environment.Options)
+                : terminal.Predicate;
+
+            switch (terminal.Key)
             {
-                return Or(
-                    _ => _.Where(or.Operand1),
-                    _ => _.Where(or.Operand2));
-            }
-
-            if (gremlinExpression is AndGremlinExpression and)
-            {
-                return this
-                    .Where(and.Operand1)
-                    .Where(and.Operand2);
-            }
-
-            if (gremlinExpression is NotGremlinExpression not)
-                return Not(_ => _.Where(not.Negate()));
-
-            if (gremlinExpression is TerminalGremlinExpression terminal)
-            {
-                var effectivePredicate = terminal.Predicate is TextP textP
-                    ? textP.WorkaroundLimitations(Environment.Options)
-                    : terminal.Predicate;
-
-                switch (terminal.Key)
+                case MemberExpression leftMemberExpression:
                 {
-                    case MemberExpression leftMemberExpression:
+                    var leftMemberExpressionExpression = leftMemberExpression.Expression.StripConvert();
+
+                    if (leftMemberExpressionExpression == terminal.Parameter)
                     {
-                        var leftMemberExpressionExpression = leftMemberExpression.Expression.StripConvert();
+                        // x => x.Value == P.xy(...)
+                        if (leftMemberExpression.IsPropertyValue())
+                            return AddStep(new HasValueStep(effectivePredicate));
 
-                        if (leftMemberExpressionExpression == terminal.Parameter)
-                        {
-                            // x => x.Value == P.xy(...)
-                            if (leftMemberExpression.IsPropertyValue())
-                                return AddStep(new HasValueStep(effectivePredicate));
+                        if (leftMemberExpression.IsPropertyKey())
+                            return Where(__ => __.Key().Where(effectivePredicate));
 
-                            if (leftMemberExpression.IsPropertyKey())
-                                return Where(__ => __.Key().Where(effectivePredicate));
-
-                            if (leftMemberExpression.IsVertexPropertyLabel())
-                                return Where(__ => __.Label().Where(effectivePredicate));
-                        }
-                        else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression) 
-                        {
-                            // x => x.Name.Value == P.xy(...)
-                            if (leftMemberExpression.IsPropertyValue())
-                                leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
-                        }
-                        else
-                            break;
-
-                        // x => x.Name == P.xy(...)
-                        return Where(leftMemberExpression, effectivePredicate);
+                        if (leftMemberExpression.IsVertexPropertyLabel())
+                            return Where(__ => __.Label().Where(effectivePredicate));
                     }
-                    case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
+                    else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
                     {
-                        // x => x == P.xy(...)
-                        return Where(effectivePredicate);
+                        // x => x.Name.Value == P.xy(...)
+                        if (leftMemberExpression.IsPropertyValue())
+                            leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
                     }
-                    case MethodCallExpression methodCallExpression:
-                    {
-                        var targetExpression = methodCallExpression.Object.StripConvert();
-
-                        if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
-                        {
-                            return AddStep(new HasStep(methodCallExpression.Arguments[0].StripConvert().GetValue(), effectivePredicate));
-                        }
-
+                    else
                         break;
+
+                    // x => x.Name == P.xy(...)
+                    return Where(leftMemberExpression, effectivePredicate);
+                }
+                case ParameterExpression leftParameterExpression when terminal.Parameter == leftParameterExpression:
+                {
+                    // x => x == P.xy(...)
+                    return Where(effectivePredicate);
+                }
+                case MethodCallExpression methodCallExpression:
+                {
+                    var targetExpression = methodCallExpression.Object.StripConvert();
+
+                    if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
+                    {
+                        return AddStep(new HasStep(methodCallExpression.Arguments[0].StripConvert().GetValue(), effectivePredicate));
                     }
+
+                    break;
                 }
             }
 

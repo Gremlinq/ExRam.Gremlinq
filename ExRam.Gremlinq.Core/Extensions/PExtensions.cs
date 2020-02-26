@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -14,6 +15,16 @@ namespace ExRam.Gremlinq.Core
                 "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
                 "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
                 _ => (p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.Cast<object>().Any() && enumerable.Cast<object>().All(x => x is StepLabel))
+            };
+        }
+
+        public static P Fuse(this P p1, P p2, ExpressionType expressionType)
+        {
+            return expressionType switch
+            {
+                ExpressionType.AndAlso => p1.And(p2),
+                ExpressionType.OrElse => p1.Or(p2),
+                _ => throw new ExpressionNotSupportedException()
             };
         }
 
