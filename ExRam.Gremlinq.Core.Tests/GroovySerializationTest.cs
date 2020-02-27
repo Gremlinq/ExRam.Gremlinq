@@ -3895,7 +3895,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Invoking(query => query.Where(t => t.Name.Value == t.CountryCallingCode))
                 .Should()
-                .Throw<InvalidOperationException>();
+                .Throw<ExpressionNotSupportedException>();
         }
 
         [Fact]

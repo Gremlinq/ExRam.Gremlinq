@@ -121,7 +121,7 @@ namespace ExRam.Gremlinq.Core
                             if (parameterIsInRight && !parameterIsInLeft)
                                 return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left.GetValue()));
 
-                            if (parameterIsInLeft || !parameterIsInRight)
+                            if (parameterIsInLeft && !parameterIsInRight)
                                 return new GremlinExpression(left, binaryExpression.NodeType.ToP(right.GetValue()));
                         }
 
