@@ -404,9 +404,9 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OutE<LivesIn>(),
                     __ => __
                         .And(
-                            ___ => ___
+                            __ => __
                                 .InE<WorksFor>(),
-                            ___ => ___
+                            __ => __
                                 .OutE<WorksFor>()))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).and(__.outE(_b), __.inE(_c), __.outE(_c)).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -420,7 +420,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And(
                     __ => __.Or(
-                        ___ => ___),
+                        __ => __),
                     __ => __.Out())
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).and(__.out()).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -1160,7 +1160,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
-                        .Map(___ => ___
+                        .Map(__ => __
                             .Select(stepLabel1, stepLabel2))))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).map(__.project(_c, _d).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))))")
@@ -1172,10 +1172,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .As((_, stepLabel1) => _
+                .As((__, stepLabel1) => __
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)
-                        .As((___, tuple) => ___
+                        .As((__, tuple) => __
                             .Select(tuple, stepLabel1))))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_k).project(_c, _d).by(__.select(_k)).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))")
@@ -1187,10 +1187,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V<Person>()
-                .As((_, stepLabel1) => _
+                .As((__, stepLabel1) => __
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)
-                        .As((___, tuple) => ___
+                        .As((__, tuple) => __
                             .Select(stepLabel1, tuple))))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).as(_k).project(_c, _d).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_k))")
@@ -1354,9 +1354,9 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OutE<LivesIn>(),
                     __ => __
                         .Or(
-                            ___ => ___
+                            __ => __
                                 .InE<WorksFor>(),
-                            ___ => ___
+                            __ => __
                                 .OutE<WorksFor>()))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).or(__.outE(_b), __.inE(_c), __.outE(_c)).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
@@ -1373,8 +1373,8 @@ namespace ExRam.Gremlinq.Core.Tests
                         .OutE<LivesIn>(),
                     __ => __
                         .And(
-                            ___ => ___,
-                            ___ => ___))
+                            __ => __,
+                            __ => __))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "id", "label", "type", "properties", "vertex", "value");

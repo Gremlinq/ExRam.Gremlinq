@@ -747,9 +747,9 @@ namespace ExRam.Gremlinq.Providers.Tests
                         .OutE<LivesIn>(),
                     __ => __
                         .And(
-                            ___ => ___
+                            __ => __
                                 .InE<WorksFor>(),
-                            ___ => ___
+                            __ => __
                                 .OutE<WorksFor>()))
                 .ToArrayAsync();
         }
@@ -777,9 +777,9 @@ namespace ExRam.Gremlinq.Providers.Tests
                         .OutE<LivesIn>(),
                     __ => __
                         .Or(
-                            ___ => ___
+                            __ => __
                                 .InE<WorksFor>(),
-                            ___ => ___
+                            __ => __
                                 .OutE<WorksFor>()))
                 .ToArrayAsync();
         }
