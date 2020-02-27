@@ -492,7 +492,7 @@ namespace ExRam.Gremlinq.Samples
             // underlying graph database provider doesn't support them. In this case,
             // this will not run on AWS Neptune since it doesn't support meta properties.
 
-            if ((_g.Environment.FeatureSet.VertexFeatures & VertexFeatures.MetaProperties) != 0)
+            if (_g.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties))
             {
                 await _g
                     .V<Person>(_marko.Id)
@@ -518,7 +518,7 @@ namespace ExRam.Gremlinq.Samples
             }
         }
 
-        static async Task Main()
+        private static async Task Main()
         {
             await new Program().Run();
         }

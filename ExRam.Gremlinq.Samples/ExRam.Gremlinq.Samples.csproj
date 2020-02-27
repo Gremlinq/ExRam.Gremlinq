@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
-    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="8.0.0-preview-0161" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="8.0.0-preview-0161" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="8.0.0-preview-0161" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="8.0.0-preview-0176" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="8.0.0-preview-0176" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="8.0.0-preview-0176" />
   </ItemGroup>
 </Project>
