@@ -935,7 +935,10 @@ namespace ExRam.Gremlinq.Core
                             .Where(binary.Right, parameter);
                     }
 
-                    if (left.HasExpressionInMemberChain(parameter) && right.HasExpressionInMemberChain(parameter))
+                    var leftHasParameter = left.HasExpressionInMemberChain(parameter);
+                    var rightHasParameter = right.HasExpressionInMemberChain(parameter);
+
+                    if (leftHasParameter && rightHasParameter)
                     {
                         if (left is MemberExpression leftMember && right is MemberExpression rightMember)
                         {
@@ -946,6 +949,11 @@ namespace ExRam.Gremlinq.Core
                                     .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMember)))
                                     .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
                         }
+                    }
+                    else if (!leftHasParameter && !rightHasParameter)
+                    {
+                        if (left.GetValue() is StepLabel leftStepLabel && right.GetValue() is StepLabel rightStepLabel)
+                            return Where(leftStepLabel, binary.NodeType.ToP(rightStepLabel));
                     }
                 }
             }
@@ -1026,9 +1034,9 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new IsStep(predicate));
         }
 
-        //private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(StepLabel stepLabel, P predicate)
-        //{
-        //    return AddStep(new WhereStepLabelAndPredicateStep(stepLabel, predicate));
-        //}
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(StepLabel stepLabel, P predicate)
+        {
+            return AddStep(new WhereStepLabelAndPredicateStep(stepLabel, predicate));
+        }
     }
 }

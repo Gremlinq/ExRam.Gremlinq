@@ -492,7 +492,8 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
                 .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, step.StrategyTypes))
                 .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
-                .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key));
+                .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
+                .OverrideFragmentSerializer< WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate));
 
         }
 

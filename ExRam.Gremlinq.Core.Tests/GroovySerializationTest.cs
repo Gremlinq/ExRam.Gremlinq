@@ -3694,6 +3694,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_stepLabel_is_lower_than_stepLabel()
+        {
+            _g
+                .V<Person>()
+                .As((__, person1) => __
+                    .Values(x => x.Age)
+                    .As((__, age1) => __
+                        .Select(person1)
+                        .Where(_ => _
+                            .Out<WorksFor>()
+                            .OfType<Person>()
+                            .As((__, person2) => __
+                                .Values(x => x.Age)
+                                .As((__, age2) => __
+                                    .Select(person2)
+                                    .Where(p => age1 < age2))))))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).values(_c).as(_d).select(_b).where(__.out(_e).hasLabel(_a).as(_f).values(_c).as(_g).select(_f).where(_d, lt(_g))).project(_h, _i, _j, _k).by(id).by(label).by(__.constant(_l)).by(__.properties().group().by(__.label()).by(__.project(_h, _i, _m, _k).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1", "Age", "l2", "WorksFor", "l3", "l4", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void Where_property_is_not_contained_in_array()
         {
             _g
