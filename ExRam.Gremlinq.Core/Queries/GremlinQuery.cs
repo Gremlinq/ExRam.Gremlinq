@@ -555,23 +555,16 @@ namespace ExRam.Gremlinq.Core
                 yield return new ValuesStep(stringKeys);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, P predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, P predicate)
         {
-            if (predicate.EqualsConstant(false))
-                return None();
-
-            if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression), predicate));
-
-            throw new ExpressionNotSupportedException(expression);//TODO: Lift?
+            return predicate.EqualsConstant(false)
+                ? None()
+                : AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), predicate));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQueryBase traversal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
         {
-            if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression), traversal));
-
-            throw new ExpressionNotSupportedException(expression);//TODO: Lift?
+            return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), traversal));
         }
 
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, QuerySemantics.None);
@@ -961,7 +954,12 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(expression);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
+        {
+            return predicate.Body is MemberExpression memberExpression
+                ? Has(memberExpression, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()))
+                : throw new ExpressionNotSupportedException(predicate);
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
         {
@@ -997,7 +995,9 @@ namespace ExRam.Gremlinq.Core
                         break;
 
                     // x => x.Name == P.xy(...)
-                    return Where(leftMemberExpression, effectivePredicate);
+                    return effectivePredicate.ContainsOnlyStepLabels()
+                        ? Has(leftMemberExpression, Anonymize().Where(effectivePredicate))
+                        : Has(leftMemberExpression, effectivePredicate);
                 }
                 case ParameterExpression _:
                 {
@@ -1018,13 +1018,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             throw new ExpressionNotSupportedException();
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(MemberExpression expression, P predicate)
-        {
-            return predicate.ContainsOnlyStepLabels()
-                ? Has(expression, Anonymize().Where(predicate))
-                : Has(expression, predicate);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
