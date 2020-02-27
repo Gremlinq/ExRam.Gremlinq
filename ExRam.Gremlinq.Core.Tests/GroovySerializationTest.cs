@@ -2737,6 +2737,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void V_Both()
+        {
+            _g
+                .V()
+                .Both<Edge>()
+                .Should()
+                .SerializeToGroovy("V().both(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void V_of_all_types1()
         {
             _g
