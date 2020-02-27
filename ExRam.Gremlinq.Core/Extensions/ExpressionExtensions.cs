@@ -78,7 +78,7 @@ namespace ExRam.Gremlinq.Core
             return expression.Body.TryToGremlinExpression(expression.Parameters[0]);
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression body, Expression parameter)
+        public static GremlinExpression? TryToGremlinExpression(this Expression body, ParameterExpression parameter)
         {
             try
             {

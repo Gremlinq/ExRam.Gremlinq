@@ -412,16 +412,16 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
-            if (predicate.TryToGremlinExpression() is { } terminal)
+            if (predicate.TryToGremlinExpression() is { } gremlinExpression)
             {
-                if (terminal.Key is ParameterExpression)
+                if (gremlinExpression.Key is ParameterExpression)
                 {
                     var anonymous = Anonymize();
                     var trueQuery = trueChoice(anonymous);
                     var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQueryBase)falseChoice(anonymous));
 
                     return this
-                        .AddStep(new ChoosePredicateStep(terminal.Predicate, trueQuery, maybeFalseQuery), QuerySemantics.None)
+                        .AddStep(new ChoosePredicateStep(gremlinExpression.Predicate, trueQuery, maybeFalseQuery), QuerySemantics.None)
                         .ChangeQueryType<TTargetQuery>();
                 }
             }
@@ -902,7 +902,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, Expression parameter)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, ParameterExpression parameter)
         {
             if (expression is UnaryExpression unaryExpression)
             {
@@ -911,9 +911,9 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                if (expression.TryToGremlinExpression(parameter) is { } terminal)
+                if (expression.TryToGremlinExpression(parameter) is { } gremlinExpression)
                 {
-                    return Where(terminal);
+                    return Where(gremlinExpression);
                 }
 
                 if (expression is BinaryExpression binary)
@@ -939,13 +939,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Has(predicate.Body, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression terminal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
         {
-            var effectivePredicate = terminal.Predicate is TextP textP
+            var effectivePredicate = gremlinExpression.Predicate is TextP textP
                 ? textP.WorkaroundLimitations(Environment.Options)
-                : terminal.Predicate;
+                : gremlinExpression.Predicate;
 
-            switch (terminal.Key)
+            switch (gremlinExpression.Key)
             {
                 case MemberExpression leftMemberExpression:
                 {
