@@ -1617,8 +1617,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OutE<string>()
                 .Should()
-                .SerializeToGroovy("V().not(__.identity()).project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.valueMap())")
-                .WithParameters("id", "label", "type", "properties", "edge");
+                .SerializeToGroovy("V().outE(_a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.valueMap())")
+                .WithParameters("String", "id", "label", "type", "properties", "edge");
         }
 
         [Fact]

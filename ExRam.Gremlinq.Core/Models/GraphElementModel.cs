@@ -80,16 +80,14 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
-        internal static Step GetFilterStepOrNone(this IGraphElementModel model, Type type,
-            FilterLabelsVerbosity verbosity, Func<string[], Step> stepFactory)
+        internal static string[] GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             return model
                 .TryGetFilterLabels(type, verbosity)
-                .Map(stepFactory)
-                .IfNone(NoneStep.Instance);
+                .IfNoneUnsafe(default(string[])) ?? new[] { type.Name };
         }
 
-        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity filterLabelsVerbosity)
+        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             var labels = DerivedLabels
                 .GetOrCreateValue(model)
@@ -107,7 +105,7 @@ namespace ExRam.Gremlinq.Core
 
             return labels.Length == 0
                 ? default(Option<string[]>)
-                : labels.Length == model.Metadata.Count && filterLabelsVerbosity == FilterLabelsVerbosity.Minimum
+                : labels.Length == model.Metadata.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? Array.Empty<string>()
                     : labels;
         }

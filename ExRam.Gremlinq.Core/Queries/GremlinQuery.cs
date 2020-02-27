@@ -645,7 +645,9 @@ namespace ExRam.Gremlinq.Core
 
             return labels.Length > 0
                 ? !Steps.IsEmpty && Steps.Peek() is HasLabelStep hasLabelStep
-                    ? ConfigureSteps<TTarget>(steps => steps.Pop().Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToArray())))
+                    ? ConfigureSteps<TTarget>(steps => steps
+                        .Pop()
+                        .Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToArray())))
                     : AddStep<TTarget>(new HasLabelStep(labels), Semantics)
                 : Cast<TTarget>();
         }
