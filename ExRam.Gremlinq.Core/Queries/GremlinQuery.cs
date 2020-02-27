@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
             private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order)
             {
                 if (projection.Body.StripConvert() is MemberExpression memberExpression)
-                    return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), order)));
+                    return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression), order)));
 
                 throw new ExpressionNotSupportedException(projection);
             }
@@ -526,7 +526,7 @@ namespace ExRam.Gremlinq.Core
         private object[] GetKeys(IEnumerable<MemberExpression> projections)
         {
             return projections
-                .Select(projection => Environment.Model.PropertiesModel.GetIdentifier(projection.Member))
+                .Select(projection => Environment.Model.PropertiesModel.GetIdentifier(projection))
                 .ToArray();
         }
 
@@ -561,7 +561,7 @@ namespace ExRam.Gremlinq.Core
                 return None();
 
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), predicate));
+                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression), predicate));
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
@@ -569,7 +569,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(Expression expression, IGremlinQueryBase traversal)
         {
             if (expression is MemberExpression memberExpression)
-                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member), traversal));
+                return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression), traversal));
 
             throw new ExpressionNotSupportedException(expression);//TODO: Lift?
         }
@@ -726,7 +726,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object? value)
         {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member) is string identifier)
+            if (projection.Body.StripConvert() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression) is string identifier)
                 return Property(identifier, value);
 
             throw new ExpressionNotSupportedException(projection);
@@ -853,7 +853,7 @@ namespace ExRam.Gremlinq.Core
         {
             if (projection.Body.StripConvert() is MemberExpression memberExpression)
             {
-                var identifier = Environment.Model.PropertiesModel.GetIdentifier(memberExpression.Member);
+                var identifier = Environment.Model.PropertiesModel.GetIdentifier(memberExpression);
 
                 if (value == null)
                 {
@@ -918,6 +918,9 @@ namespace ExRam.Gremlinq.Core
 
                 if (expression is BinaryExpression binary)
                 {
+                    var left = binary.Left.StripConvert();
+                    var right = binary.Right.StripConvert();
+
                     if (binary.NodeType == ExpressionType.OrElse)
                     {
                         return Or(
@@ -930,6 +933,19 @@ namespace ExRam.Gremlinq.Core
                         return this
                             .Where(binary.Left, parameter)
                             .Where(binary.Right, parameter);
+                    }
+
+                    if (left.HasExpressionInMemberChain(parameter) && right.HasExpressionInMemberChain(parameter))
+                    {
+                        if (left is MemberExpression leftMember && right is MemberExpression rightMember)
+                        {
+                            return As(
+                                new StepLabel<TElement>(),
+                                (_, label) => _
+                                    .Where(binary.NodeType.ToP(label))
+                                    .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMember)))
+                                    .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
+                        }
                     }
                 }
             }
@@ -1009,5 +1025,10 @@ namespace ExRam.Gremlinq.Core
                 ? AddStep(new WherePredicateStep(predicate))
                 : AddStep(new IsStep(predicate));
         }
+
+        //private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(StepLabel stepLabel, P predicate)
+        //{
+        //    return AddStep(new WhereStepLabelAndPredicateStep(stepLabel, predicate));
+        //}
     }
 }

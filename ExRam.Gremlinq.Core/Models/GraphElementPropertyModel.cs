@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
@@ -55,7 +56,15 @@ namespace ExRam.Gremlinq.Core
                 metadata => action(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
-        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
+        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberExpression memberExpression)
+        {
+            if (memberExpression.IsPropertyValue() && memberExpression.Expression is MemberExpression sourceMemberExpression)
+                return model.GetIdentifier(sourceMemberExpression);
+
+            return model.GetIdentifier(memberExpression.Member);
+        }
+
+        private static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
         {
             return IdentifierDict
                 .GetOrCreateValue(model)

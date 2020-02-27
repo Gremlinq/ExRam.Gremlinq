@@ -3889,13 +3889,25 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_source_expression_on_both_sides()
+        public void Where_source_expression_on_both_sides1()
         {
             _g
                 .V<Country>()
-                .Invoking(query => query.Where(t => t.Name.Value == t.CountryCallingCode))
+                .Where(t => t.Name.Value == t.CountryCallingCode)
                 .Should()
-                .Throw<ExpressionNotSupportedException>();
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).where(eq(_b)).by(_c).by(_d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Country", "l1", "Name", "CountryCallingCode", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Where_source_expression_on_both_sides2()
+        {
+            _g
+                .V<EntityWithTwoIntProperties>()
+                .Where(x => x.IntProperty1 > x.IntProperty2)
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("EntityWithTwoIntProperties", "l1", "IntProperty1", "IntProperty2", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
