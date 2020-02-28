@@ -8,5 +8,10 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         {
             return builder.At(new Uri(uri));
         }
+
+        public static IWebSocketConfigurationBuilder AtLocalhost(this IWebSocketConfigurationBuilder builder)
+        {
+            return builder.At(new Uri("ws://localhost:8182"));
+        }
     }
 }
