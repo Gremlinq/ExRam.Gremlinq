@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Linq;
+using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQuerySourceExtensions
     {
-        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment,
-            Uri uri)
+        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
         {
             return environment
-                .UseWebSocket(builder => builder
-                    .At(uri))
+                .UseWebSocket(transformation)
                 .ConfigureSerializer(serializer => serializer
                     .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step)))
                 .ConfigureFeatureSet(featureSet => featureSet

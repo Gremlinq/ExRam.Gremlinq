@@ -1,6 +1,7 @@
 ﻿using System;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -15,9 +16,7 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         {
             _g = g
                 .ConfigureEnvironment(env => env
-                    .UseNeptune(new Uri("ws://localhost:8182"))
-                    .ConfigureSerializer(s => s
-                        .ToGroovy()));
+                    .UseNeptune(builder => builder.AtLocalhost()));
         }
 
         [Fact]
