@@ -145,8 +145,8 @@ some of the many features of ExRam.Gremlinq.
 ```
 
 #### Build nice queries
-From `marko`, walk all the `Knows` edge to all the `Persons`
-that he knows and order them by their name:
+From `marko`, walk all the `Knows` edges to all the `Persons`
+that he knows and order them by their names:
 
 ``` csharp
     var peopleKnownToMarko = await _g
@@ -164,7 +164,7 @@ in your Linq-queries. Under the hood, they will be translated to the
 corresponding Gremlin-expressions, like
 
 ```
-g.hasLabel('Person').has('Age', gt(30))
+g.V().hasLabel('Person').has('Age', gt(30))
 ```
 in this case:
 
