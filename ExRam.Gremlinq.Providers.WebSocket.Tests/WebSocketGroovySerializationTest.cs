@@ -11,9 +11,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             .ConfigureEnvironment(env => env
                 .UseWebSocket(builder => builder
                     .AtLocalhost()
-                    .SetGraphSONVersion(GraphsonVersion.V2))
-                .ConfigureSerializer(s => s
-                    .ToGroovy())))
+                    .SetGraphSONVersion(GraphsonVersion.V2))))
         {
 
         }

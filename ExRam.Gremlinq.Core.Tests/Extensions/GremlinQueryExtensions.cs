@@ -24,53 +24,41 @@ namespace ExRam.Gremlinq.Core.Tests
             {
                 var environment = Subject.AsAdmin().Environment;
                 var serializedQuery = environment.Serializer
-                    .Serialize(Subject)
-                    .As<GroovySerializedGremlinQuery>();
+                    .Serialize(Subject);
+                
+                if (serializedQuery is Bytecode bytecode)
+                    serializedQuery = bytecode.ToGroovy();
 
-                serializedQuery
+                var groovy = serializedQuery
+                    .Should()
+                    .BeOfType<GroovySerializedGremlinQuery>()
+                    .Subject;
+
+                groovy
                     .QueryString
                     .Should()
                     .Be(serialization);
 
-                return new BindingsAssertions(serializedQuery.Bindings);
+                return new BindingsAssertions(groovy.Bindings);
             }
 
-            public BindingsAssertions SerializeToGraphson(string serialization)
+            public GremlinQueryAssertions SerializeToGraphson(string serialization)
             {
                 var environment = Subject.AsAdmin().Environment;
                 var serializedQuery = environment.Serializer
                     .Serialize(Subject);
 
-                serializedQuery
+                var bytecode = serializedQuery
                     .Should()
-                    .BeOfType<Bytecode>();
-
-                var bytecode = (Bytecode)serializedQuery;
+                    .BeOfType<Bytecode>()
+                    .Subject;
 
                 new GraphSON2Writer()
                     .WriteObject(bytecode)
                     .Should()
                     .Be(serialization);
 
-                var bindings = new Dictionary<string, object>();
-
-                void Collect(Bytecode bytecode)
-                {
-                    foreach(var instruction in bytecode.StepInstructions)
-                    {
-                        foreach(var argument in instruction.Arguments)
-                        {
-                            if (argument is Binding binding)
-                                bindings[binding.Key] = binding.Value;
-                            else if (argument is Bytecode subBytecode)
-                                Collect(subBytecode);
-                        }
-                    }
-                }
-
-                Collect(bytecode);
-
-                return new BindingsAssertions(bindings);
+                return this;
             }
         }
 
