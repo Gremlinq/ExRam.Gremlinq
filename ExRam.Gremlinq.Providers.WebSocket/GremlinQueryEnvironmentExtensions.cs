@@ -70,7 +70,8 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (serializedQuery is Bytecode bytecode)
                     {
-                        _logger?.LogTrace("Executing Gremlin query {0}.", bytecode);
+                        if ((_logger?.IsEnabled(LogLevel.Trace)).GetValueOrDefault())
+                            _logger?.LogTrace("Executing Gremlin query {0}.", JsonConvert.SerializeObject(bytecode.ToGroovy()));
 
                         var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
