@@ -8,22 +8,6 @@ using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface ICosmosDbConfigurationBuilder
-    {
-        ICosmosDbConfigurationBuilderWithUri At(Uri uri, string databaseName, string graphName);
-    }
-
-    public interface ICosmosDbConfigurationBuilderWithUri
-    {
-        ICosmosDbConfigurationBuilderWithAuthKey AuthenticateBy(string authKey);
-    }
-
-    public interface ICosmosDbConfigurationBuilderWithAuthKey
-    {
-        IWebSocketConfigurationBuilder Build();
-        ICosmosDbConfigurationBuilderWithAuthKey ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation);
-    }
-
     public static class GremlinQueryEnvironmentExtensions
     {
         private sealed class CosmosDbConfigurationBuilder :
