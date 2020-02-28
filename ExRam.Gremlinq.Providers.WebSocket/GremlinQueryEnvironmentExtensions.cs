@@ -20,6 +20,7 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly string _alias;
             private readonly ILogger? _logger;
+            private readonly Dictionary<string, string> _aliasArgs;
             private readonly Lazy<IGremlinClient> _lazyGremlinClient;
 
             public WebSocketGremlinQueryExecutor(
@@ -29,6 +30,7 @@ namespace ExRam.Gremlinq.Core
             {
                 _alias = alias;
                 _logger = logger;
+                _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
                 _lazyGremlinClient = new Lazy<IGremlinClient>(clientFactory, LazyThreadSafetyMode.ExecutionAndPublication);
             }
 
@@ -74,7 +76,7 @@ namespace ExRam.Gremlinq.Core
                             .Processor(Tokens.ProcessorTraversal)
                             .OverrideRequestId(Guid.NewGuid())
                             .AddArgument(Tokens.ArgsGremlin, bytecode)
-                            .AddArgument(Tokens.ArgsAliases, new Dictionary<string, string> { { "g", _alias } })
+                            .AddArgument(Tokens.ArgsAliases, _aliasArgs)
                             .Create();
 
                         try
