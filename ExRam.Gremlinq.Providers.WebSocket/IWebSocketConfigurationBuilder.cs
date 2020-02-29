@@ -17,5 +17,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 
         IWebSocketConfigurationBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
+
+        IWebSocketConfigurationBuilder ConfigureQueryLoggingOptions(Func<QueryLoggingOptions, QueryLoggingOptions> transformation);
     }
 }
