@@ -43,9 +43,9 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public IWebSocketConfigurationBuilder Build()
+            public IGremlinQueryEnvironment Build()
             {
-                return _webSocketBuilder;
+                return _webSocketBuilder.Build();
             }
         }
 
@@ -93,8 +93,7 @@ namespace ExRam.Gremlinq.Core
                         new CosmosDbConfigurationBuilder(
                             builder
                                 .SetGraphSONVersion(GraphsonVersion.V2)
-                                .AddGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer())))
-                    .Build())
+                                .AddGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))))
                 .ConfigureSerializer(serializer => serializer
                     .UseCosmosDbWorkarounds()
                     .ToGroovy())
