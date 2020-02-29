@@ -15,12 +15,12 @@ namespace ExRam.Gremlinq.Core
 
         public static ValueTask<TElement> FirstAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
-            return query.ToAsyncEnumerable().FirstAsync(ct);
+            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstAsync(ct);
         }
 
         public static ValueTask<TElement> FirstOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
-            return query.ToAsyncEnumerable().FirstOrDefaultAsync(ct);
+            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstOrDefaultAsync(ct);
         }
 
         internal static IGremlinQueryBase AddStep(this IGremlinQueryBase query, Step step)
