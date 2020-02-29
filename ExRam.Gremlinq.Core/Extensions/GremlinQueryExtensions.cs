@@ -23,6 +23,16 @@ namespace ExRam.Gremlinq.Core
             return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstOrDefaultAsync(ct);
         }
 
+        public static ValueTask<TElement> SingleAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
+        {
+            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleAsync(ct);
+        }
+
+        public static ValueTask<TElement> SingleOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
+        {
+            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
+        }
+
         internal static IGremlinQueryBase AddStep(this IGremlinQueryBase query, Step step)
         {
             return query.AsAdmin().ConfigureSteps(steps => steps.Push(step));
