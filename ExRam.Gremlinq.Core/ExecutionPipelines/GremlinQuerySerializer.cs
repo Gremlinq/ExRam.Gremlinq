@@ -493,7 +493,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, step.StrategyTypes))
                 .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
                 .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
-                .OverrideFragmentSerializer< WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate));
+                .OverrideFragmentSerializer<WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate));
 
         }
 
@@ -507,13 +507,12 @@ namespace ExRam.Gremlinq.Core
             return serializer
                 .Select(serialized =>
                 {
-                    if (serialized is GroovySerializedGremlinQuery serializedQuery)
-                        return serializedQuery;
-
-                    if (serialized is Bytecode bytecode)
-                        return bytecode.ToGroovy();
-
-                    throw new NotSupportedException();
+                    return serialized switch
+                    {
+                        GroovySerializedGremlinQuery serializedQuery => serializedQuery,
+                        Bytecode bytecode => bytecode.ToGroovy(),
+                        _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovySerializedGremlinQuery)}.")
+                    };
                 });
         }
 

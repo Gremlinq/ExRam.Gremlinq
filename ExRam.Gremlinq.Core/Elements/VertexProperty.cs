@@ -15,8 +15,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         }
 
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
-        public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException();
-        public static implicit operator VertexProperty<TValue, TMeta>(VertexProperty<TValue, TMeta>[] value) => throw new NotSupportedException();
+        public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
+        public static implicit operator VertexProperty<TValue, TMeta>(VertexProperty<TValue, TMeta>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
         public override string ToString()
         {
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         [AllowNull] public string? Label { get; set; }
         [AllowNull] public TMeta? Properties { get; set; }
 
-        object? IElement.Id { get => Id; set => throw new NotSupportedException(); }
+        object? IElement.Id { get => Id; set => throw new InvalidOperationException($"Can't set the {nameof(Id)}-property of a {nameof(VertexProperty<TValue, TMeta>)}."); }
     }
 
     public class VertexProperty<TValue> : VertexProperty<TValue, IDictionary<string, object>>
@@ -45,8 +45,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         }
 
         public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);
-        public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException();
-        public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException();
+        public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
+        public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
         internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => Properties;
     }

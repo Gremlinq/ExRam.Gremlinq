@@ -542,7 +542,7 @@ namespace ExRam.Gremlinq.Core
                 else if (T.Label.Equals(t))
                     yield return LabelStep.Instance;
                 else
-                    throw new ExpressionNotSupportedException();
+                    throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
                 hasYielded = true;
             }
@@ -822,7 +822,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             if (stringKeys.Length != projectionsArray.Length)
-                throw new ExpressionNotSupportedException();
+                throw new ExpressionNotSupportedException($"One of the expressions in {nameof(ValueMap)} maps to a {nameof(T)}-token. Can't have special tokens in {nameof(ValueMap)}.");
 
             return AddStepWithObjectTypes<TNewElement>(new ValueMapStep(stringKeys), QuerySemantics.None);
         }

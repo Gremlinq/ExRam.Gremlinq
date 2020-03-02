@@ -75,11 +75,11 @@ namespace ExRam.Gremlinq.Core
                     return P.Between(value, upperBound);
                 }
                 case "endingWith" when (gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.EndingWith) != 0:
-                    throw new ExpressionNotSupportedException();
+                    throw new ExpressionNotSupportedException($"Can't work around {nameof(TextP.EndingWith)} without the use of {nameof(TextP)} predicates.");
                 case "endingWith":
                     return textP;
                 case "containing" when (gremlinqOptions.GetValue(GremlinqOption.DisabledTextPredicates) & DisabledTextPredicates.Containing) != 0:
-                    throw new ExpressionNotSupportedException();
+                    throw new ExpressionNotSupportedException($"Can't work around {nameof(TextP.Containing)} without the use of {nameof(TextP)} predicates.");
                 case "containing":
                     return textP;
                 default:

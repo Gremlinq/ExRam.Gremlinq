@@ -34,8 +34,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => ImmutableDictionary<string, object>.Empty;
 
         public static implicit operator Property<TValue>(TValue value) => new Property<TValue>(value);
-        public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException();
-        public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException();
+        public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
+        public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
         public TValue Value { get; protected set; }
     }
