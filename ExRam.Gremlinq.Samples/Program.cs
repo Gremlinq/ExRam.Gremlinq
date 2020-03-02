@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 // Put this into static scope to access the default GremlinQuerySource as "g". 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -20,8 +22,16 @@ namespace ExRam.Gremlinq.Samples
 
         public Program()
         {
+            var logger = LoggerFactory
+                .Create(builder => builder
+                    .AddFilter(__ => true)
+                    .AddConsole())
+                .CreateLogger("Queries");
+
             _g = g
                 .ConfigureEnvironment(env => env
+                    .UseLogger(logger)
+
                     //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                     //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                     //in a currently loaded assembly). We explicitly set a model here anyway.
@@ -30,11 +40,27 @@ namespace ExRam.Gremlinq.Samples
 
 #if GremlinServer
                     .UseGremlinServer(builder => builder
-                        .AtLocalhost()));
+                        .AtLocalhost()
+                        //Disable query logging for a noise free console output.
+                        //Enable logging by setting the verbosity to anything but None.
+                        .ConfigureQueryLoggingOptions(o => o
+                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
 #elif AWSNeptune
-                    .UseNeptune(new Uri("ws://localhost:8182")));
+                    .UseNeptune(builder => builder
+                        .AtLocalhost()
+                        //Disable query logging for a noise free console output.
+                        //Enable logging by setting the verbosity to anything but None.
+                        .ConfigureQueryLoggingOptions(o => o
+                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
 #elif CosmosDB
-                    .UseCosmosDb(uri, database, graphName, authKey));
+                    .UseCosmosDb(builder => builder
+                        .At(uri, databaseName, graphName)
+                        .AuthenticateBy(authKey)
+                        .ConfigureWebSocket(builder => builder
+                            //Disable query logging for a noise free console output.
+                            //Enable logging by setting the verbosity to anything but None.
+                            .ConfigureQueryLoggingOptions(o => o
+                                .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None)))));
 #endif
         }
 
@@ -68,7 +94,7 @@ namespace ExRam.Gremlinq.Samples
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
 
             // Uncomment to delete the whole graph on every run.
-            await _g.V().Drop().ToArrayAsync();
+            //await _g.V().Drop();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
@@ -468,7 +494,7 @@ namespace ExRam.Gremlinq.Samples
             // Then, we ask for all the persons whose age is contained within the array
             // that the 'ages' step label references.
 
-            Console.WriteLine("Whose age is either 29, 30 or 31.");
+            Console.WriteLine("Whose age is either 29, 30 or 31?");
 
             var personsWithSpecificAges = await _g
                 .Inject(29, 30, 31)
