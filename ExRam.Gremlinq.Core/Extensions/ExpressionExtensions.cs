@@ -32,6 +32,13 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
+        public static bool IsMemberOnStepLabelValue(this Expression expression)
+        {
+            return expression is MemberExpression valueMemberExpression
+                && valueMemberExpression.Expression is MemberExpression valueExpression
+                && valueExpression.IsStepLabelValue();
+        }
+
         public static bool HasExpressionInMemberChain(this Expression expression, Expression searchedExpression)
         {
             while (true)
@@ -58,6 +65,11 @@ namespace ExRam.Gremlinq.Core
         public static bool IsPropertyKey(this MemberExpression expression)
         {
             return typeof(Property).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(Property<object>.Key);
+        }
+
+        public static bool IsStepLabelValue(this MemberExpression expression)
+        {
+            return typeof(StepLabel).IsAssignableFrom(expression.Expression.Type) && expression.Member.Name == nameof(StepLabel<object>.Value);
         }
 
         public static bool IsVertexPropertyLabel(this MemberExpression expression)

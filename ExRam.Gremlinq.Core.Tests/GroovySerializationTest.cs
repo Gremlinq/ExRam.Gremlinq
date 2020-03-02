@@ -3641,6 +3641,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Where_property_is_greater_than_or_equal_stepLabel_value()
+        {
+            _g
+                .V<Person>()
+                .As((__, person1) => __
+                    .V<Person>()
+                    .Where(person2 => person2.Age >= person1.Value.Age))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).has(_c, __.where(gte(_b)).by(_c)).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1", "Age", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void Where_property_is_greater_than_stepLabel()
         {
             _g

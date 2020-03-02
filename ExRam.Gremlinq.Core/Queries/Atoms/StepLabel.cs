@@ -24,6 +24,14 @@ namespace ExRam.Gremlinq.Core
         {
             throw new NotImplementedException("Only for expressions.");
         }
+
+        public TElement Value
+        {
+            get
+            {
+                throw new NotImplementedException("Only for expressions.");
+            }
+        }
     }
 
     public class StepLabel<TQuery, TElement> : StepLabel<TElement> where TQuery : IGremlinQueryBase

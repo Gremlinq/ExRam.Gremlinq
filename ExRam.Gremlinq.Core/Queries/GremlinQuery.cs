@@ -978,7 +978,7 @@ namespace ExRam.Gremlinq.Core
                     if (leftMemberExpressionExpression is ParameterExpression)
                     {
                         // x => x.Value == P.xy(...)
-                        if (leftMemberExpression.IsPropertyValue() && !effectivePredicate.ContainsOnlyStepLabels())
+                        if (leftMemberExpression.IsPropertyValue() && !effectivePredicate.RefersToStepLabel())
                             return AddStep(new HasValueStep(effectivePredicate));
 
                         if (leftMemberExpression.IsPropertyKey())
@@ -997,7 +997,7 @@ namespace ExRam.Gremlinq.Core
                         break;
 
                     // x => x.Name == P.xy(...)
-                    return effectivePredicate.ContainsOnlyStepLabels()
+                    return effectivePredicate.RefersToStepLabel()
                         ? Has(leftMemberExpression, Anonymize().Where(effectivePredicate))
                         : Has(leftMemberExpression, effectivePredicate);
                 }
@@ -1024,9 +1024,19 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
         {
-            return predicate.ContainsOnlyStepLabels()
-                ? AddStep(new WherePredicateStep(predicate))
-                : AddStep(new IsStep(predicate));
+            if (predicate.RefersToStepLabel())
+            {
+                if (predicate.Value is MemberExpression expression && expression.IsMemberOnStepLabelValue())
+                {
+                    return this
+                        .AddStep(new WherePredicateStep(new P(predicate.OperatorName, ((MemberExpression)expression.Expression).Expression, predicate.Other)))
+                        .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(expression)));
+                }
+
+                return AddStep(new WherePredicateStep(predicate));
+            }
+
+            return AddStep(new IsStep(predicate));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(StepLabel stepLabel, P predicate)

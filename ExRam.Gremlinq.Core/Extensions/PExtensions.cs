@@ -7,13 +7,13 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class PExtensions
     {
-        public static bool ContainsOnlyStepLabels(this P p)
+        public static bool RefersToStepLabel(this P p)
         {
             return p.OperatorName switch
             {
-                "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
-                "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
-                _ => p.Value is StepLabel || (p.Value is Expression expression && typeof(StepLabel).IsAssignableFrom(expression.Type))
+                "and" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
+                "or" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
+                _ => p.Value is StepLabel || (p.Value is Expression expression && (typeof(StepLabel).IsAssignableFrom(expression.Type) || expression.IsMemberOnStepLabelValue()))
             };
         }
 
