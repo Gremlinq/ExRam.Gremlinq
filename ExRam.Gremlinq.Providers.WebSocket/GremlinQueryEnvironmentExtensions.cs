@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var results = default(ResultSet<JToken>);
 
-                    if (serializedQuery is GroovySerializedGremlinQuery groovyScript)
+                    if (serializedQuery is GroovyScript groovyScript)
                     {
                         Log(groovyScript);
 
@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(GroovySerializedGremlinQuery query)
+            private void Log(GroovyScript query)
             {
                 if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
                 {

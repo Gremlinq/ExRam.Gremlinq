@@ -2,9 +2,9 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class GroovySerializedGremlinQuery
+    public sealed class GroovyScript
     {
-        public GroovySerializedGremlinQuery(string queryString, Dictionary<string, object> bindings)
+        public GroovyScript(string queryString, Dictionary<string, object> bindings)
         {
             QueryString = queryString;
             Bindings = bindings;
