@@ -1032,8 +1032,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .In<object>()
                 .Should()
-                .SerializeToGroovy("V().in(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
+                .SerializeToGroovy("V().in(_a, _b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
 
             _g
                 .ConfigureEnvironment(env => env
@@ -1053,8 +1053,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .InE<object>()
                 .Should()
-                .SerializeToGroovy("V().inE(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.valueMap())")
-                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "edge");
+                .SerializeToGroovy("V().inE(_a, _b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.valueMap())")
+                .WithParameters("Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "edge");
 
             _g
                 .ConfigureEnvironment(env => env
@@ -1564,8 +1564,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Out<Edge>()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).out(_b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("Person", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
+                .SerializeToGroovy("V().hasLabel(_a).out(_b, _c, _d, _e).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -1575,8 +1575,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Out<object>()
                 .Should()
-                .SerializeToGroovy("V().out(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
+                .SerializeToGroovy("V().out(_a, _b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
 
             _g
                 .ConfigureEnvironment(env => env
@@ -1596,8 +1596,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OutE<object>()
                 .Should()
-                .SerializeToGroovy("V().outE(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.valueMap())")
-                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "edge");
+                .SerializeToGroovy("V().outE(_a, _b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.valueMap())")
+                .WithParameters("Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "edge");
 
             _g
                 .ConfigureEnvironment(env => env
@@ -2743,8 +2743,8 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Both<Edge>()
                 .Should()
-                .SerializeToGroovy("V().both(_a, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
+                .SerializeToGroovy("V().both(_a, _b, _c, _d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Knows", "LivesIn", "Speaks", "WorksFor", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
