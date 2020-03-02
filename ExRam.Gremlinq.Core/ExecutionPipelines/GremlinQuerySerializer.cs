@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core
 
                     var action = TryGetSerializer(o.GetType()) ?? Constant;
 
-                    return action(o, _ => Constant(_, _ => throw new NotImplementedException(), RecurseImpl), RecurseImpl);
+                    return action(o, _ => Constant(_, _ => _, RecurseImpl), RecurseImpl);
                 }
 
                 return RecurseImpl(query);
