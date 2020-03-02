@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -14,23 +12,8 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
                 "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
-                _ => (p.Value is StepLabel || p.Value is IEnumerable enumerable && enumerable.ContainsOnlyStepLabels())
+                _ => p.Value is StepLabel
             };
-        }
-
-        private static bool ContainsOnlyStepLabels(this IEnumerable enumerable)
-        {
-            var ret = false;
-
-            foreach (var item in enumerable)
-            {
-                ret = true;
-
-                if (!(item is StepLabel))
-                    return false;
-            }
-
-            return ret;
         }
 
         public static bool EqualsConstant(this P p, bool value)

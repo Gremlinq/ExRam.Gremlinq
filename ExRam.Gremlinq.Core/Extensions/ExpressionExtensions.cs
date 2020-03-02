@@ -206,13 +206,14 @@ namespace ExRam.Gremlinq.Core
 
         internal static P ToPWithin(this Expression expression)
         {
-            if (expression.GetValue() is IEnumerable enumerable)
-                return P.Within(enumerable.Cast<object>().ToArray());
-
-            if (expression.GetValue() is StepLabel stepLabel)
-                return P.Within(stepLabel);
-
-            throw new ExpressionNotSupportedException(expression);
+            return new P(
+                "within",
+                expression.GetValue() switch
+                {
+                    IEnumerable enumerable => enumerable.Cast<object>().ToArray(),
+                    StepLabel stepLabel => stepLabel,
+                    _ => throw new ExpressionNotSupportedException(expression)
+                });
         }
 
         internal static MemberInfo GetMemberInfo(this LambdaExpression expression)
