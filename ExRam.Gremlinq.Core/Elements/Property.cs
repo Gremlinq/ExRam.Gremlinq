@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         internal abstract object GetValue();
         internal abstract IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model);
 
-        [AllowNull] public string Key { get; set; }
+        [AllowNull] public string? Key { get; set; }
     }
 
     public class Property<TValue> : Property
@@ -25,11 +25,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
             Value = value;
         }
 
-        protected Property()
-        {
-        }
-
-        internal override object GetValue() => Value;
+        internal override object GetValue() => Value!;
 
         internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => ImmutableDictionary<string, object>.Empty;
 
@@ -37,6 +33,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
-        public TValue Value { get; protected set; }
+        public TValue Value { get; }
     }
 }

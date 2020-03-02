@@ -83,7 +83,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     while (label > 0 || key == null)
                     {
                         key = (char)('a' + label % 26) + key;
-                        label = label / 26;
+                        label /= 26;
                     }
 
                     key = "_" + key;

@@ -11,7 +11,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         public VertexProperty(TValue value) : base(value)
         {
-            Value = value;
         }
 
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
@@ -40,7 +39,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         public VertexProperty(TValue value) : base(value)
         {
-            Value = value;
             Properties = new Dictionary<string, object>();
         }
 
