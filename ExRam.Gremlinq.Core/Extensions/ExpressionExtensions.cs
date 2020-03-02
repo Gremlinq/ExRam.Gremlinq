@@ -119,10 +119,10 @@ namespace ExRam.Gremlinq.Core
                             var parameterIsInLeft = left.HasExpressionInMemberChain(parameter);
 
                             if (parameterIsInRight && !parameterIsInLeft)
-                                return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left.GetValue()));
+                                return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left));
 
                             if (parameterIsInLeft && !parameterIsInRight)
-                                return new GremlinExpression(left, binaryExpression.NodeType.ToP(right.GetValue()));
+                                return new GremlinExpression(left, binaryExpression.NodeType.ToP(right));
                         }
 
                         break;
@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Core
                             var methodCallArgument1 = methodCallExpression.Arguments[1].StripConvert();
 
                             if (methodCallArgument0 is MemberExpression sourceMember && sourceMember.Expression == parameter)
-                                return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1.GetValue()));
+                                return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1));
 
                             if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
                                 return new GremlinExpression(argument, methodCallArgument0.ToPWithin());

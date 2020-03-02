@@ -978,7 +978,7 @@ namespace ExRam.Gremlinq.Core
                     if (leftMemberExpressionExpression is ParameterExpression)
                     {
                         // x => x.Value == P.xy(...)
-                        if (leftMemberExpression.IsPropertyValue())
+                        if (leftMemberExpression.IsPropertyValue() && !effectivePredicate.ContainsOnlyStepLabels())
                             return AddStep(new HasValueStep(effectivePredicate));
 
                         if (leftMemberExpression.IsPropertyKey())

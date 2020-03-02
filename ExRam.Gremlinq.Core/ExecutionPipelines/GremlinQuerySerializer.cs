@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using Gremlin.Net.Process.Traversal;
@@ -314,6 +315,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<EmitStep>((step, overridden, recurse) => CreateInstruction("emit", recurse))
                 .OverrideFragmentSerializer<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
                 .OverrideFragmentSerializer<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
+                .OverrideFragmentSerializer<Expression>((expression, overridden, recurse) => recurse(expression.GetValue()))
                 .OverrideFragmentSerializer<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain", recurse))
                 .OverrideFragmentSerializer<FoldStep>((step, overridden, recurse) => CreateInstruction("fold", recurse))
                 .OverrideFragmentSerializer<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
@@ -336,15 +338,14 @@ namespace ExRam.Gremlinq.Core
                             argument = null;
                         else
                         {
-                            if (p2.Value == null)
+                            if (p2.Value == null || p2.Value is ConstantExpression constant && constant.Value == default)
                             {
+                                argument = null;
+
                                 if (p2.OperatorName == "eq")
                                     stepName = "hasNot";
-                                else if (p2.OperatorName == "neq")
-                                    argument = null;
                             }
-
-                            if (p2.OperatorName == "eq")
+                            else if (p2.OperatorName == "eq")
                                 argument = p2.Value;
                         }
                     }

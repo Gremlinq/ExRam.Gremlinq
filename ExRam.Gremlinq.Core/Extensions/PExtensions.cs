@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
+using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -12,7 +13,7 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
                 "or" => (((P)p.Value).ContainsOnlyStepLabels() && p.Other.ContainsOnlyStepLabels()),
-                _ => p.Value is StepLabel
+                _ => p.Value is StepLabel || (p.Value is Expression expression && typeof(StepLabel).IsAssignableFrom(expression.Type))
             };
         }
 
