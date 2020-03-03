@@ -39,13 +39,13 @@ namespace ExRam.Gremlinq.Core
                 && valueExpression.IsStepLabelValue();
         }
 
-        public static bool HasExpressionInMemberChain(this Expression expression, Expression searchedExpression)
+        public static bool RefersToParameter(this Expression expression, ParameterExpression parameterExpression)
         {
             while (true)
             {
                 expression = expression.StripConvert();
 
-                if (expression == searchedExpression)
+                if (expression == parameterExpression)
                     return true;
 
                 if (expression is MemberExpression memberExpression)
@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (body)
                 {
-                    case MemberExpression memberExpression when memberExpression.HasExpressionInMemberChain(parameter):
+                    case MemberExpression memberExpression when memberExpression.RefersToParameter(parameter):
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
                             return new GremlinExpression(memberExpression, P.Eq(true));
@@ -127,8 +127,8 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            var parameterIsInRight = right.HasExpressionInMemberChain(parameter);
-                            var parameterIsInLeft = left.HasExpressionInMemberChain(parameter);
+                            var parameterIsInRight = right.RefersToParameter(parameter);
+                            var parameterIsInLeft = left.RefersToParameter(parameter);
 
                             if (parameterIsInRight && !parameterIsInLeft)
                                 return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left));

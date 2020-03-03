@@ -930,8 +930,8 @@ namespace ExRam.Gremlinq.Core
                             .Where(binary.Right, parameter);
                     }
 
-                    var leftHasParameter = left.HasExpressionInMemberChain(parameter);
-                    var rightHasParameter = right.HasExpressionInMemberChain(parameter);
+                    var leftHasParameter = left.RefersToParameter(parameter);
+                    var rightHasParameter = right.RefersToParameter(parameter);
 
                     if (leftHasParameter && rightHasParameter)
                     {
