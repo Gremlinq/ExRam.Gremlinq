@@ -32,14 +32,14 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, out Expression stepLabelExpression, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
-            stepLabelExpression = null;
+            stepLabel = null;
             stepLabelValueMemberExpression = null;
 
             if (typeof(StepLabel).IsAssignableFrom(expression.Type))
             {
-                stepLabelExpression = expression;
+                stepLabel = (StepLabel)expression.GetValue();
 
                 return true;
             }
@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (outerMemberExpression.IsStepLabelValue())
                 {
-                    stepLabelExpression = outerMemberExpression.Expression;
+                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue();
 
                     return true;
                 }
@@ -59,7 +59,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (innerMemberExpression.IsStepLabelValue())
                     {
-                        stepLabelExpression = innerMemberExpression.Expression;
+                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue();
+
                         return true;
                     }
                 }

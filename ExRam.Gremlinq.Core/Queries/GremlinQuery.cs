@@ -907,9 +907,7 @@ namespace ExRam.Gremlinq.Core
             else
             {
                 if (expression.TryToGremlinExpression(parameter) is { } gremlinExpression)
-                {
                     return Where(gremlinExpression);
-                }
 
                 if (expression is BinaryExpression binary)
                 {
@@ -930,10 +928,7 @@ namespace ExRam.Gremlinq.Core
                             .Where(binary.Right, parameter);
                     }
 
-                    var leftHasParameter = left.RefersToParameter(parameter);
-                    var rightHasParameter = right.RefersToParameter(parameter);
-
-                    if (leftHasParameter && rightHasParameter)
+                    if (left.RefersToParameter(parameter) && right.RefersToParameter(parameter))
                     {
                         if (left is MemberExpression leftMember && right is MemberExpression rightMember)
                         {
@@ -1016,16 +1011,16 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            throw new ExpressionNotSupportedException();
+            throw new ExpressionNotSupportedException(gremlinExpression.Key);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
         {
             if (predicate.RefersToStepLabel())
             {
-                if (predicate.Value is Expression expression && expression.TryParseStepLabelExpression(out var stepLabelExpression, out var stepLabelValueMemberExpression))
+                if (predicate.Value is Expression expression && expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelValueMemberExpression))
                 {
-                    var ret = AddStep(new WherePredicateStep(new P(predicate.OperatorName, stepLabelExpression, predicate.Other)));
+                    var ret = AddStep(new WherePredicateStep(new P(predicate.OperatorName, stepLabel, predicate.Other)));
 
                     if (stepLabelValueMemberExpression != null)
                         ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(stepLabelValueMemberExpression)));
@@ -1041,13 +1036,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, P predicate)
         {
-            if (expression.TryParseStepLabelExpression(out var leftStepLabelExpression, out var leftStepLabelValueMemberExpression))
+            if (expression.TryParseStepLabelExpression(out var leftStepLabel, out var leftStepLabelValueMemberExpression))
             {
-                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabelExpression, out var predicateStepLabelValueMemberExpression))
+                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabel, out var predicateStepLabelValueMemberExpression))
                 {
-                    predicate = new P(predicate.OperatorName, predicateStepLabelExpression, predicate.Other);
+                    predicate = new P(predicate.OperatorName, predicateStepLabel, predicate.Other);
 
-                    var ret = AddStep(new WhereStepLabelAndPredicateStep((StepLabel)leftStepLabelExpression.GetValue(), predicate));
+                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
 
                     if (leftStepLabelValueMemberExpression != null)
                         ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepLabelValueMemberExpression)));
@@ -1058,7 +1053,7 @@ namespace ExRam.Gremlinq.Core
                     return ret;
                 }
 
-                return AddStep(new WhereStepLabelAndPredicateStep((StepLabel)leftStepLabelExpression.GetValue(), predicate));
+                return AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
             }
 
             throw new ExpressionNotSupportedException(expression);
