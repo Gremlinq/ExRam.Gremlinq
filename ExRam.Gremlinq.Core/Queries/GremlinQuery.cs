@@ -1026,11 +1026,14 @@ namespace ExRam.Gremlinq.Core
         {
             if (predicate.RefersToStepLabel())
             {
-                if (predicate.Value is MemberExpression expression && expression.IsMemberOnStepLabelValue())
+                if (predicate.Value is Expression expression && expression.TryParseStepLabelExpression(out var stepLabelExpression, out var stepLabelValueMemberExpression))
                 {
-                    return this
-                        .AddStep(new WherePredicateStep(new P(predicate.OperatorName, ((MemberExpression)expression.Expression).Expression, predicate.Other)))
-                        .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(expression)));
+                    var ret = AddStep(new WherePredicateStep(new P(predicate.OperatorName, stepLabelExpression, predicate.Other)));
+
+                    if (stepLabelValueMemberExpression != null)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(stepLabelValueMemberExpression)));
+
+                    return ret;
                 }
 
                 return AddStep(new WherePredicateStep(predicate));

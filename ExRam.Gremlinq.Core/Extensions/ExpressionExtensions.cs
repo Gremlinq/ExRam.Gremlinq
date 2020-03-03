@@ -32,11 +32,40 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static bool IsMemberOnStepLabelValue(this Expression expression)
+        public static bool TryParseStepLabelExpression(this Expression expression, out Expression stepLabelExpression, out MemberExpression? stepLabelValueMemberExpression)
         {
-            return expression is MemberExpression valueMemberExpression
-                && valueMemberExpression.Expression is MemberExpression valueExpression
-                && valueExpression.IsStepLabelValue();
+            stepLabelExpression = null;
+            stepLabelValueMemberExpression = null;
+
+            if (typeof(StepLabel).IsAssignableFrom(expression.Type))
+            {
+                stepLabelExpression = expression;
+
+                return true;
+            }
+
+            if (expression is MemberExpression outerMemberExpression)
+            {
+                if (outerMemberExpression.IsStepLabelValue())
+                {
+                    stepLabelExpression = outerMemberExpression.Expression;
+
+                    return true;
+                }
+
+                stepLabelValueMemberExpression = outerMemberExpression;
+
+                if (outerMemberExpression.Expression is MemberExpression innerMemberExpression)
+                {
+                    if (innerMemberExpression.IsStepLabelValue())
+                    {
+                        stepLabelExpression = innerMemberExpression.Expression;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static bool RefersToParameter(this Expression expression, ParameterExpression parameterExpression)

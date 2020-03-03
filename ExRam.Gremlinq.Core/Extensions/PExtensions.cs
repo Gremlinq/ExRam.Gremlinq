@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
                 "or" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
-                _ => p.Value is StepLabel || (p.Value is Expression expression && (typeof(StepLabel).IsAssignableFrom(expression.Type) || expression.IsMemberOnStepLabelValue()))
+                _ => p.Value is StepLabel || (p.Value is Expression expression && expression.TryParseStepLabelExpression(out _, out _))
             };
         }
 
