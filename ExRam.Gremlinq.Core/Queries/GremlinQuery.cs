@@ -945,11 +945,8 @@ namespace ExRam.Gremlinq.Core
                                     .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
                         }
                     }
-                    else if (!leftHasParameter && !rightHasParameter)
-                    {
-                        if (left.GetValue() is StepLabel leftStepLabel && right.GetValue() is StepLabel rightStepLabel)
-                            return Where(leftStepLabel, binary.NodeType.ToP(rightStepLabel));
-                    }
+                    else
+                        return Where(left, binary.NodeType.ToP(right));
                 }
             }
 
@@ -1042,9 +1039,29 @@ namespace ExRam.Gremlinq.Core
             return AddStep(new IsStep(predicate));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(StepLabel stepLabel, P predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, P predicate)
         {
-            return AddStep(new WhereStepLabelAndPredicateStep(stepLabel, predicate));
+            if (expression.TryParseStepLabelExpression(out var leftStepLabelExpression, out var leftStepLabelValueMemberExpression))
+            {
+                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabelExpression, out var predicateStepLabelValueMemberExpression))
+                {
+                    predicate = new P(predicate.OperatorName, predicateStepLabelExpression, predicate.Other);
+
+                    var ret = AddStep(new WhereStepLabelAndPredicateStep((StepLabel)leftStepLabelExpression.GetValue(), predicate));
+
+                    if (leftStepLabelValueMemberExpression != null)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepLabelValueMemberExpression)));
+
+                    if (predicateStepLabelValueMemberExpression != null)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(predicateStepLabelValueMemberExpression)));
+
+                    return ret;
+                }
+
+                return AddStep(new WhereStepLabelAndPredicateStep((StepLabel)leftStepLabelExpression.GetValue(), predicate));
+            }
+
+            throw new ExpressionNotSupportedException(expression);
         }
     }
 }
