@@ -911,9 +911,6 @@ namespace ExRam.Gremlinq.Core
 
                 if (expression is BinaryExpression binary)
                 {
-                    var left = binary.Left.StripConvert();
-                    var right = binary.Right.StripConvert();
-
                     if (binary.NodeType == ExpressionType.OrElse)
                     {
                         return Or(
@@ -927,21 +924,6 @@ namespace ExRam.Gremlinq.Core
                             .Where(binary.Left, parameter)
                             .Where(binary.Right, parameter);
                     }
-
-                    if (left.RefersToParameter() && right.RefersToParameter())
-                    {
-                        if (left is MemberExpression leftMember && right is MemberExpression rightMember)
-                        {
-                            return As(
-                                new StepLabel<TElement>(),
-                                (_, label) => _
-                                    .Where(binary.NodeType.ToP(label))
-                                    .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMember)))
-                                    .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
-                        }
-                    }
-                    else
-                        return Where(left, binary.NodeType.ToP(right));
                 }
             }
 
@@ -960,6 +942,40 @@ namespace ExRam.Gremlinq.Core
             var effectivePredicate = gremlinExpression.Predicate is TextP textP
                 ? textP.WorkaroundLimitations(Environment.Options)
                 : gremlinExpression.Predicate;
+
+            if (gremlinExpression.Key.RefersToParameter() && gremlinExpression.Predicate.Value is Expression expression && expression.RefersToParameter())
+            {
+                if (gremlinExpression.Key is MemberExpression leftMember && expression is MemberExpression rightMember)
+                {
+                    return As(
+                        new StepLabel<TElement>(),
+                        (_, label) => _
+                            .Where(new P(gremlinExpression.Predicate.OperatorName, label, gremlinExpression.Predicate.Other))
+                            .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMember)))
+                            .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
+                }
+            }
+            else if (gremlinExpression.Key.TryParseStepLabelExpression(out var leftStepLabel, out var leftStepLabelValueMemberExpression))
+            {
+                var predicate = gremlinExpression.Predicate;
+
+                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabel, out var predicateStepLabelValueMemberExpression))
+                {
+                    predicate = new P(predicate.OperatorName, predicateStepLabel, predicate.Other);
+
+                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
+
+                    if (leftStepLabelValueMemberExpression != null)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepLabelValueMemberExpression)));
+
+                    if (predicateStepLabelValueMemberExpression != null)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(predicateStepLabelValueMemberExpression)));
+
+                    return ret;
+                }
+
+                return AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
+            }
 
             switch (gremlinExpression.Key)
             {
@@ -1032,31 +1048,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return AddStep(new IsStep(predicate));
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, P predicate)
-        {
-            if (expression.TryParseStepLabelExpression(out var leftStepLabel, out var leftStepLabelValueMemberExpression))
-            {
-                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabel, out var predicateStepLabelValueMemberExpression))
-                {
-                    predicate = new P(predicate.OperatorName, predicateStepLabel, predicate.Other);
-
-                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
-
-                    if (leftStepLabelValueMemberExpression != null)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepLabelValueMemberExpression)));
-
-                    if (predicateStepLabelValueMemberExpression != null)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(predicateStepLabelValueMemberExpression)));
-
-                    return ret;
-                }
-
-                return AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
-            }
-
-            throw new ExpressionNotSupportedException(expression);
         }
     }
 }

@@ -157,14 +157,9 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            var parameterIsInRight = right.RefersToParameter();
-                            var parameterIsInLeft = left.RefersToParameter();
-
-                            if (parameterIsInRight && !parameterIsInLeft)
-                                return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left));
-
-                            if (parameterIsInLeft && !parameterIsInRight)
-                                return new GremlinExpression(left, binaryExpression.NodeType.ToP(right));
+                            return right.RefersToParameter() && !left.RefersToParameter()
+                                ? new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left))
+                                : new GremlinExpression(left, binaryExpression.NodeType.ToP(right));
                         }
 
                         break;
