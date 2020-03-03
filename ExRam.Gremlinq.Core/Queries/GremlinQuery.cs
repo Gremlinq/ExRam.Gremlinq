@@ -928,7 +928,7 @@ namespace ExRam.Gremlinq.Core
                             .Where(binary.Right, parameter);
                     }
 
-                    if (left.RefersToParameter(parameter) && right.RefersToParameter(parameter))
+                    if (left.RefersToParameter() && right.RefersToParameter())
                     {
                         if (left is MemberExpression leftMember && right is MemberExpression rightMember)
                         {

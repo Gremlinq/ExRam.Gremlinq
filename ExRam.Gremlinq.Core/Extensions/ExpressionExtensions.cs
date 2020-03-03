@@ -69,13 +69,13 @@ namespace ExRam.Gremlinq.Core
             return false;
         }
 
-        public static bool RefersToParameter(this Expression expression, ParameterExpression parameterExpression)
+        public static bool RefersToParameter(this Expression expression)
         {
             while (true)
             {
                 expression = expression.StripConvert();
 
-                if (expression == parameterExpression)
+                if (expression is ParameterExpression)
                     return true;
 
                 if (expression is MemberExpression memberExpression)
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (body)
                 {
-                    case MemberExpression memberExpression when memberExpression.RefersToParameter(parameter):
+                    case MemberExpression memberExpression when memberExpression.RefersToParameter():
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
                             return new GremlinExpression(memberExpression, P.Eq(true));
@@ -157,8 +157,8 @@ namespace ExRam.Gremlinq.Core
                         }
                         else
                         {
-                            var parameterIsInRight = right.RefersToParameter(parameter);
-                            var parameterIsInLeft = left.RefersToParameter(parameter);
+                            var parameterIsInRight = right.RefersToParameter();
+                            var parameterIsInLeft = left.RefersToParameter();
 
                             if (parameterIsInRight && !parameterIsInLeft)
                                 return new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left));
