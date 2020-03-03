@@ -420,14 +420,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
                 .OverrideFragmentSerializer<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
                 .OverrideFragmentSerializer<NoneStep>((step, overridden, recurse) => recurse(GremlinQueryEnvironment.NoneWorkaround))
-                .OverrideFragmentSerializer<NotStep>((step, overridden, recurse) =>
-                {
-                    var traversalSteps = step.Traversal.AsAdmin().Steps;
-
-                    return !(!traversalSteps.IsEmpty  && traversalSteps.Peek() is HasStep hasStep && hasStep.Value is P p && p.EqualsConstant(false))
-                        ? CreateInstruction("not", recurse, step.Traversal)
-                        : null;
-                })
+                .OverrideFragmentSerializer<NotStep>((step, overridden, recurse) => CreateInstruction("not", recurse, step.Traversal))
                 .OverrideFragmentSerializer<OptionalStep>((step, overridden, recurse) => CreateInstruction("optional", recurse, step.Traversal))
                 .OverrideFragmentSerializer<OptionTraversalStep>((step, overridden, recurse) => CreateInstruction("option", recurse, step.Guard ?? Pick.None, step.OptionTraversal))
                 .OverrideFragmentSerializer<OrderStep>((step, overridden, recurse) => CreateInstruction("order", recurse))
@@ -487,7 +480,6 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
                 .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
                 .OverrideFragmentSerializer<WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate));
-
         }
 
         public static IGremlinQuerySerializer Select(this IGremlinQuerySerializer serializer, Func<object, object> projection)
