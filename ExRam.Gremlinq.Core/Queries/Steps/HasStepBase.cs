@@ -2,13 +2,13 @@
 {
     public abstract class HasStepBase : Step
     {
-        protected HasStepBase(object key, object value)
+        protected HasStepBase(object key, object? value)
         {
             Key = key;
             Value = value;
         }
 
         public object Key { get; }
-        public object Value { get; }
+        public object? Value { get; }
     }
 }

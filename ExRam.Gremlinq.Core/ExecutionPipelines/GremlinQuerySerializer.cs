@@ -326,28 +326,20 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                 .OverrideFragmentSerializer<HasStep>((step, overridden, recurse) =>
                 {
-                    if (step.Value is P p1 && p1.EqualsConstant(false))
-                        return recurse(NoneStep.Instance);
-
                     var stepName = "has";
-                    var argument = (object?)step.Value;
+                    var argument = step.Value;
 
                     if (argument is P p2)
                     {
-                        if (p2.EqualsConstant(true))
-                            argument = null;
-                        else
+                        if (p2.Value == null || p2.Value is ConstantExpression constant && constant.Value == default)
                         {
-                            if (p2.Value == null || p2.Value is ConstantExpression constant && constant.Value == default)
-                            {
-                                argument = null;
+                            argument = null;
 
-                                if (p2.OperatorName == "eq")
-                                    stepName = "hasNot";
-                            }
-                            else if (p2.OperatorName == "eq")
-                                argument = p2.Value;
+                            if (p2.OperatorName == "eq")
+                                stepName = "hasNot";
                         }
+                        else if (p2.OperatorName == "eq")
+                            argument = p2.Value;
                     }
 
                     return argument != null

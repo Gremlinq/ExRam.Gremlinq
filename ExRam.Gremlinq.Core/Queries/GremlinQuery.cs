@@ -559,7 +559,9 @@ namespace ExRam.Gremlinq.Core
         {
             return predicate.EqualsConstant(false)
                 ? None()
-                : AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), predicate));
+                : AddStep(predicate.EqualsConstant(true)
+                    ? new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression))
+                    : new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), predicate));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
