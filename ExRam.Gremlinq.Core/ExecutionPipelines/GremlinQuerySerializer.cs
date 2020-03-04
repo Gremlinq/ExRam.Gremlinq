@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using Gremlin.Net.Process.Traversal;
 using LanguageExt;
@@ -130,6 +129,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly Instruction[] VertexProjectionInstructions;
         private static readonly Instruction[] EdgeProjectionInstructions;
         private static readonly Instruction[] VertexProjectionInstructionsWithoutMetaProperties;
+        private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new ConcurrentDictionary<string, Instruction>();
 
         static GremlinQuerySerializer()
         {
@@ -502,7 +502,9 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction(string name)
         {
-            return new Instruction(name);
+            return SimpleInstructions.GetOrAdd(
+                name,
+                closure => new Instruction(closure));
         }
 
         private static Instruction CreateInstruction(string name, Func<object, object> recurse, object parameter)
@@ -517,11 +519,13 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction(string name, Func<object, object> recurse, params object[] parameters)
         {
-            return new Instruction(
-                name,
-                parameters
-                    .Select(recurse)
-                    .ToArray());
+            return parameters.Length == 0
+                ? CreateInstruction(name)
+                : new Instruction(
+                    name,
+                    parameters
+                        .Select(recurse)
+                        .ToArray());
         }
 
         private static IEnumerable<IGremlinQueryBase> FlattenLogicalTraversals<TStep>(IGremlinQueryBase query) where TStep : LogicalStep
