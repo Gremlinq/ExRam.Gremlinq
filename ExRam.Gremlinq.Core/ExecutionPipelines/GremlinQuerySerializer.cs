@@ -513,12 +513,27 @@ namespace ExRam.Gremlinq.Core
                 : new Instruction(name);
         }
 
+        private static Instruction CreateInstruction(string name, Func<object, object?> recurse, object parameter1, object parameter2)
+        {
+            var recursed1 = recurse(parameter1);
+            var recursed2 = recurse(parameter2);
+
+            if (recursed1 == null && recursed2 == null)
+                return new Instruction(name);
+
+            if (recursed1 != null && recursed2 != null)
+                return new Instruction(name, recursed1, recursed2);
+
+            return new Instruction(name, recursed1 ?? recursed2);
+        }
+
         private static Instruction CreateInstruction(string name, Func<object, object?> recurse, params object[] parameters)
         {
             return new Instruction(
                 name,
                 parameters
                     .Select(recurse)
+                    .Where(x => x != null)
                     .ToArray());
         }
 
