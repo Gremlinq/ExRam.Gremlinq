@@ -173,10 +173,10 @@ namespace ExRam.Gremlinq.Core
                             if (methodCallExpression.Arguments[0] is MethodCallExpression previousExpression && previousExpression.Method.IsEnumerableIntersect())
                             {
                                 if (previousExpression.Arguments[0] is MemberExpression sourceMember)
-                                    return new GremlinExpression(sourceMember, new P("within", previousExpression.Arguments[1].GetValue()));
+                                    return new GremlinExpression(sourceMember, previousExpression.Arguments[1].ToPWithin());
 
                                 if (previousExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                    return new GremlinExpression(argument, new P("within", previousExpression.Arguments[0].GetValue()));
+                                    return new GremlinExpression(argument, previousExpression.Arguments[0].ToPWithin());
                             }
                             else
                                 return new GremlinExpression(methodCallExpression.Arguments[0], P.Neq(new object[] { null }));
@@ -190,10 +190,10 @@ namespace ExRam.Gremlinq.Core
                                 return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1));
 
                             if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
-                                return new GremlinExpression(argument, new P("within", methodCallArgument0.GetValue()));
+                                return new GremlinExpression(argument, methodCallArgument0.ToPWithin());
 
                             if (methodCallArgument1 == parameter)
-                                return new GremlinExpression(parameter, new P("within", methodCallArgument0.GetValue()));
+                                return new GremlinExpression(parameter, methodCallArgument0.ToPWithin());
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
@@ -239,6 +239,16 @@ namespace ExRam.Gremlinq.Core
             }
 
             return default;
+        }
+
+        internal static P ToPWithin(this Expression expression)
+        {
+            return expression.GetValue() switch
+            {
+                IEnumerable enumerable => P.Within(enumerable.Cast<object>().ToArray()),
+                StepLabel stepLabel => P.Within(stepLabel),
+                _ => throw new ExpressionNotSupportedException(expression)
+            };
         }
 
         internal static MemberInfo GetMemberInfo(this LambdaExpression expression)

@@ -30,5 +30,18 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                 .SerializeToGroovy("addV(_a).property(id, _b).property(single, _c, _d).property(single, _e, _f).project(_g, _h, _i, _j).by(id).by(label).by(__.constant(_k)).by(__.properties().group().by(__.label()).by(__.project(_g, _h, _l, _j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", 1, "Gender", 1, "Age", 0, "id", "label", "type", "properties", "vertex", "value");
         }
+
+        [Fact]
+        public void StepLabel_of_array_contains_element_graphson()
+        {
+            _g
+                .Inject(1, 2, 3)
+                .Fold()
+                .As((_, ints) => _
+                    .V<Person>()
+                    .Where(person => ints.Contains(person.Age)))
+                .Should()
+                .SerializeToGraphson("{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"inject\",{\"@type\":\"g:Int32\",\"@value\":1},{\"@type\":\"g:Int32\",\"@value\":2},{\"@type\":\"g:Int32\",\"@value\":3}],[\"fold\"],[\"as\",\"l1\"],[\"V\"],[\"hasLabel\",\"Person\"],[\"has\",\"Age\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"where\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"within\",\"value\":[\"l1\"]}}]]}}],[\"project\",\"id\",\"label\",\"type\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"constant\",\"vertex\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\"],[\"group\"],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"value\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}],[\"fold\"]]}}]]}}]]}}");
+        }
     }
 }

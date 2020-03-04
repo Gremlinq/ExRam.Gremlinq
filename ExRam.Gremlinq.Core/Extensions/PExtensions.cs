@@ -13,7 +13,9 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
                 "or" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
-                _ => p.Value is StepLabel || (p.Value is Expression expression && expression.TryParseStepLabelExpression(out _, out _))
+                _ => p.Value is StepLabel
+                    || (p.Value is IList list && list.Count == 1 && list[0] is StepLabel)
+                    || (p.Value is Expression expression && expression.TryParseStepLabelExpression(out _, out _))
             };
         }
 
