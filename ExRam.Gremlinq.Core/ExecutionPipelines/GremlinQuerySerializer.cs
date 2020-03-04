@@ -31,11 +31,8 @@ namespace ExRam.Gremlinq.Core
             {
                 var stepLabelNames = new Dictionary<StepLabel, string>();
 
-                object? Constant<TAtom>(TAtom atom, Func<TAtom, object?> baseSerializer, Func<object, object?> recurse)
+                object Constant<TAtom>(TAtom atom, Func<TAtom, object> baseSerializer, Func<object, object> recurse)
                 {
-                    if (atom == null)
-                        return null;
-
                     if (atom is StepLabel stepLabel)
                     {
                         if (!stepLabelNames.TryGetValue(stepLabel, out var stepLabelMapping))
@@ -51,11 +48,8 @@ namespace ExRam.Gremlinq.Core
                     return atom;
                 }
 
-                object? RecurseImpl(object o)
+                object RecurseImpl(object o)
                 {
-                    if (o is null)
-                        return null;
-
                     var action = TryGetSerializer(o.GetType()) ?? Constant;
 
                     return action(o, _ => Constant(_, _ => _, RecurseImpl), RecurseImpl);
@@ -435,9 +429,14 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<P>((p, overridden, recurse) => new P(
                     p.OperatorName,
                     !(p.Value is string) && p.Value is IEnumerable enumerable
-                        ? enumerable.Cast<object>().Select(recurse).ToArray()
+                        ? enumerable
+                            .Cast<object>()
+                            .Select(recurse)
+                            .ToArray()
                         : recurse(p.Value),
-                    (P)recurse(p.Other)))
+                    p.Other is { } other
+                        ? recurse(other) as P
+                        : null))
                 .OverrideFragmentSerializer<ProfileStep>((step, overridden, recurse) => CreateInstruction("profile"))
                 .OverrideFragmentSerializer<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
                 .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) =>
@@ -506,34 +505,22 @@ namespace ExRam.Gremlinq.Core
             return new Instruction(name);
         }
 
-        private static Instruction CreateInstruction(string name, Func<object, object?> recurse, object parameter)
+        private static Instruction CreateInstruction(string name, Func<object, object> recurse, object parameter)
         {
-            return recurse(parameter) is { } recursed
-                ? new Instruction(name, recursed)
-                : new Instruction(name);
+            return new Instruction(name, recurse(parameter));
         }
 
-        private static Instruction CreateInstruction(string name, Func<object, object?> recurse, object parameter1, object parameter2)
+        private static Instruction CreateInstruction(string name, Func<object, object> recurse, object parameter1, object parameter2)
         {
-            var recursed1 = recurse(parameter1);
-            var recursed2 = recurse(parameter2);
-
-            if (recursed1 == null && recursed2 == null)
-                return new Instruction(name);
-
-            if (recursed1 != null && recursed2 != null)
-                return new Instruction(name, recursed1, recursed2);
-
-            return new Instruction(name, recursed1 ?? recursed2);
+            return new Instruction(name, recurse(parameter1), recurse(parameter2));
         }
 
-        private static Instruction CreateInstruction(string name, Func<object, object?> recurse, params object[] parameters)
+        private static Instruction CreateInstruction(string name, Func<object, object> recurse, params object[] parameters)
         {
             return new Instruction(
                 name,
                 parameters
                     .Select(recurse)
-                    .Where(x => x != null)
                     .ToArray());
         }
 
