@@ -341,7 +341,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var (person, does, what) in tuples)
             {
-                Console.WriteLine($" {person} {does.Label} {what}.");
+                Console.WriteLine($" {person.Name} {does.Label} a {what.Label}.");
             }
 
             Console.WriteLine();
