@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class AndStep : LogicalStep
+    public sealed class AndStep : LogicalStep<AndStep>
     {
         public static readonly AndStep Infix = new AndStep(Array.Empty<IGremlinQueryBase>());
 

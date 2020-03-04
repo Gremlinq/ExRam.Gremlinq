@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class OrStep : LogicalStep
+    public sealed class OrStep : LogicalStep<OrStep>
     {
         public static readonly OrStep Infix = new OrStep(Array.Empty<IGremlinQueryBase>());
 

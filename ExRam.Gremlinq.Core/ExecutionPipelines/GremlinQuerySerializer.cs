@@ -259,7 +259,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<AddEStep.ToLabelStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.StepLabel))
                 .OverrideFragmentSerializer<AddEStep.ToTraversalStep>((step, overridden, recurse) => CreateInstruction("to", recurse, step.Traversal))
                 .OverrideFragmentSerializer<AddVStep>((step, overridden, recurse) => CreateInstruction("addV", recurse, step.Label))
-                .OverrideFragmentSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<AndStep>).ToArray()))
+                .OverrideFragmentSerializer<AndStep>((step, overridden, recurse) => CreateInstruction("and", recurse, step.Traversals))
                 .OverrideFragmentSerializer<AggregateStep>((step, overridden, recurse) => CreateInstruction("aggregate", recurse, step.StepLabel))
                 .OverrideFragmentSerializer<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
                 .OverrideFragmentSerializer<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier"))
@@ -421,7 +421,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<OrderStep.ByLambdaStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Lambda))
                 .OverrideFragmentSerializer<OrderStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key, step.Order))
                 .OverrideFragmentSerializer<OrderStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal, step.Order))
-                .OverrideFragmentSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals.SelectMany(FlattenLogicalTraversals<OrStep>).ToArray()))
+                .OverrideFragmentSerializer<OrStep>((step, overridden, recurse) => CreateInstruction("or", recurse, step.Traversals))
                 .OverrideFragmentSerializer<OutStep>((step, overridden, recurse) => CreateInstruction("out", recurse, step.Labels))
                 .OverrideFragmentSerializer<OutEStep>((step, overridden, recurse) => CreateInstruction("outE", recurse, step.Labels))
                 .OverrideFragmentSerializer<OutVStep>((step, overridden, recurse) => CreateInstruction("outV"))
@@ -526,24 +526,6 @@ namespace ExRam.Gremlinq.Core
                     parameters
                         .Select(recurse)
                         .ToArray());
-        }
-
-        private static IEnumerable<IGremlinQueryBase> FlattenLogicalTraversals<TStep>(IGremlinQueryBase query) where TStep : LogicalStep
-        {
-            var steps = query.AsAdmin().Steps;
-
-            if (!steps.IsEmpty && steps.Pop().IsEmpty && steps.Peek() is TStep otherStep)
-            {
-                foreach (var subTraversal in otherStep.Traversals)
-                {
-                    foreach (var flattenedSubTraversal in FlattenLogicalTraversals<TStep>(subTraversal))
-                    {
-                        yield return flattenedSubTraversal;
-                    }
-                }
-            }
-            else
-                yield return query;
         }
     }
 }
