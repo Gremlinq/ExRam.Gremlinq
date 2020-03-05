@@ -183,20 +183,20 @@ namespace ExRam.Gremlinq.Core
                         }
                         else if (methodInfo.IsEnumerableContains())
                         {
-                            var methodCallArgument0 = methodCallExpression.Arguments[0].StripConvert();
-                            var methodCallArgument1 = methodCallExpression.Arguments[1].StripConvert();
+                            var thisExpression = methodCallExpression.Arguments[0].StripConvert();
+                            var argumentExpression = methodCallExpression.Arguments[1].StripConvert();
 
-                            if (methodCallArgument0 is MemberExpression sourceMember && sourceMember.Expression == parameter)
-                                return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1));
+                            if (thisExpression is MemberExpression thisMemberExpression)
+                            {
+                                if (thisMemberExpression.Expression == parameter)
+                                    return new GremlinExpression(thisExpression, P.Eq(argumentExpression));
 
-                            if (methodCallArgument0 is MemberExpression @thisExpression && @thisExpression.IsStepLabelValue())
-                                methodCallArgument0 = @thisExpression.Expression;
+                                if (thisMemberExpression.IsStepLabelValue())
+                                    thisExpression = thisMemberExpression.Expression;
+                            }
 
-                            if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
-                                return new GremlinExpression(argument, methodCallArgument0.ToPWithin());
-
-                            if (methodCallArgument1 == parameter)
-                                return new GremlinExpression(parameter, methodCallArgument0.ToPWithin());
+                            if ((argumentExpression is MemberExpression argument && argument.Expression == parameter) || (argumentExpression == parameter))
+                                return new GremlinExpression(argumentExpression, thisExpression.ToPWithin());
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
