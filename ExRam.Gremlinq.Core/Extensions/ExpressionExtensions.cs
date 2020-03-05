@@ -124,10 +124,10 @@ namespace ExRam.Gremlinq.Core
             if (expression.Parameters.Count != 1)
                 throw new ExpressionNotSupportedException(expression);
 
-            return expression.Body.TryToGremlinExpression(expression.Parameters[0]);
+            return expression.Body.TryToGremlinExpression();
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression body, ParameterExpression parameter)
+        public static GremlinExpression? TryToGremlinExpression(this Expression body)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (binaryExpression.NodeType == ExpressionType.AndAlso || binaryExpression.NodeType == ExpressionType.OrElse)
                         {
-                            if (left.TryToGremlinExpression(parameter) is { } leftExpression && right.TryToGremlinExpression(parameter) is { } rightExpression)
+                            if (left.TryToGremlinExpression() is { } leftExpression && right.TryToGremlinExpression() is { } rightExpression)
                             {
                                 if (leftExpression.Key == rightExpression.Key || leftExpression.Key is MemberExpression memberExpression1 && rightExpression.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
                                 {
@@ -177,18 +177,25 @@ namespace ExRam.Gremlinq.Core
 
                         if (methodInfo.IsStatic)
                         {
-                            var thisExpression = methodCallExpression.Arguments[0].StripConvert();
+                            var thisExpression = methodCallExpression.Arguments[0]
+                                .StripConvert()
+                                .StripStepLabelValue();
 
                             if (methodInfo.IsEnumerableAny())
                             {
                                 if (thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsEnumerableIntersect())
                                 {
-                                    var argumentExpression1 = previousMethodCallExpression.Arguments[0].StripConvert().StripStepLabelValue();
-                                    var argumentExpression2 = previousMethodCallExpression.Arguments[1].StripConvert().StripStepLabelValue();
+                                    thisExpression = previousMethodCallExpression.Arguments[0]
+                                        .StripConvert()
+                                        .StripStepLabelValue();
 
-                                    return argumentExpression2.RefersToParameter()
-                                        ? new GremlinExpression(argumentExpression2, argumentExpression1.ToPWithin())
-                                        : new GremlinExpression(argumentExpression1, argumentExpression2.ToPWithin());
+                                    var argumentExpression = previousMethodCallExpression.Arguments[1]
+                                        .StripConvert()
+                                        .StripStepLabelValue();
+
+                                    return argumentExpression.RefersToParameter()
+                                        ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
+                                        : new GremlinExpression(thisExpression, argumentExpression.ToPWithin());
                                 }
 
                                 return new GremlinExpression(thisExpression, P.Neq(new object[] { null }));
@@ -196,29 +203,28 @@ namespace ExRam.Gremlinq.Core
 
                             if (methodInfo.IsEnumerableContains())
                             {
-                                var argumentExpression = methodCallExpression.Arguments[1].StripConvert();
+                                var argumentExpression = methodCallExpression.Arguments[1]
+                                    .StripConvert()
+                                    .StripStepLabelValue();
 
-                                if (thisExpression is MemberExpression thisMemberExpression)
-                                {
-                                    if (thisMemberExpression.Expression == parameter)
-                                        return new GremlinExpression(thisExpression, P.Eq(argumentExpression));
-
-                                    if (thisMemberExpression.IsStepLabelValue())
-                                        thisExpression = thisMemberExpression.Expression;
-                                }
-
-                                if ((argumentExpression is MemberExpression argument && argument.Expression == parameter) || (argumentExpression == parameter))
-                                    return new GremlinExpression(argumentExpression, thisExpression.ToPWithin());
+                                return argumentExpression.RefersToParameter()
+                                    ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
+                                    : new GremlinExpression(thisExpression, P.Eq(argumentExpression));
                             }
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
-                            var methodCallExpressionObject = methodCallExpression.Object.StripConvert();
-                            var methodCallArgument = methodCallExpression.Arguments[0].StripConvert();
+                            var instanceExpression = methodCallExpression.Object
+                                .StripConvert()
+                                .StripStepLabelValue();
 
-                            if (methodInfo.IsStringStartsWith() && methodCallArgument is MemberExpression argumentExpression)
+                            var argumentExpression = methodCallExpression.Arguments[0]
+                                .StripConvert()
+                                .StripStepLabelValue();
+
+                            if (methodInfo.IsStringStartsWith() && argumentExpression is MemberExpression)
                             {
-                                if (methodCallExpressionObject.GetValue() is string stringValue)
+                                if (instanceExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
                                         argumentExpression,
@@ -228,12 +234,12 @@ namespace ExRam.Gremlinq.Core
                                             .ToArray<object>()));
                                 }
                             }
-                            else if (methodCallExpressionObject is MemberExpression memberExpression)
+                            else if (instanceExpression is MemberExpression)
                             {
-                                if (methodCallArgument.GetValue() is string str)
+                                if (argumentExpression.GetValue() is string str)
                                 {
                                     return new GremlinExpression(
-                                        memberExpression,
+                                        instanceExpression,
                                         str.Length == 0
                                             ? P.Without(Array.Empty<object>())
                                             : methodInfo.IsStringStartsWith()

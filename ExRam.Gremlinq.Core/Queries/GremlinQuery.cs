@@ -908,7 +908,7 @@ namespace ExRam.Gremlinq.Core
             }
             else
             {
-                if (expression.TryToGremlinExpression(parameter) is { } gremlinExpression)
+                if (expression.TryToGremlinExpression() is { } gremlinExpression)
                     return Where(gremlinExpression);
 
                 if (expression is BinaryExpression binary)
