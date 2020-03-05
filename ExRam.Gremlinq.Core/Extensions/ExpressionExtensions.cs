@@ -11,6 +11,8 @@ namespace ExRam.Gremlinq.Core
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
+        private static readonly P P_Eq_True = P.Eq(true);
+        private static readonly P P_Neq_Null = P.Neq(new object[] { null });
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
@@ -116,7 +118,7 @@ namespace ExRam.Gremlinq.Core
                     case MemberExpression memberExpression when memberExpression.RefersToParameter():
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return new GremlinExpression(memberExpression, P.Eq(true));
+                            return new GremlinExpression(memberExpression, P_Eq_True);
 
                         break;
                     }
@@ -171,7 +173,7 @@ namespace ExRam.Gremlinq.Core
                                         : new GremlinExpression(thisExpression, argumentExpression.ToPWithin());
                                 }
 
-                                return new GremlinExpression(thisExpression, P.Neq(new object[] { null }));
+                                return new GremlinExpression(thisExpression, P_Neq_Null);
                             }
 
                             if (methodCallExpression.IsEnumerableContains())
