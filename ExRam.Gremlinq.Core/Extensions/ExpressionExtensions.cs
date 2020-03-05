@@ -183,16 +183,18 @@ namespace ExRam.Gremlinq.Core
                             {
                                 if (thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsEnumerableIntersect())
                                 {
-                                    if (previousMethodCallExpression.Arguments[0] is MemberExpression sourceMember)
-                                        return new GremlinExpression(sourceMember, previousMethodCallExpression.Arguments[1].StripStepLabelValue().ToPWithin());
+                                    var argumentExpression1 = previousMethodCallExpression.Arguments[0].StripConvert().StripStepLabelValue();
+                                    var argumentExpression2 = previousMethodCallExpression.Arguments[1].StripConvert().StripStepLabelValue();
 
-                                    if (previousMethodCallExpression.Arguments[1] is MemberExpression argument && argument.Expression == parameter)
-                                        return new GremlinExpression(argument, previousMethodCallExpression.Arguments[0].StripStepLabelValue().ToPWithin());
+                                    return argumentExpression2.RefersToParameter()
+                                        ? new GremlinExpression(argumentExpression2, argumentExpression1.ToPWithin())
+                                        : new GremlinExpression(argumentExpression1, argumentExpression2.ToPWithin());
                                 }
-                                else
-                                    return new GremlinExpression(thisExpression, P.Neq(new object[] { null }));
+
+                                return new GremlinExpression(thisExpression, P.Neq(new object[] { null }));
                             }
-                            else if (methodInfo.IsEnumerableContains())
+
+                            if (methodInfo.IsEnumerableContains())
                             {
                                 var argumentExpression = methodCallExpression.Arguments[1].StripConvert();
 
