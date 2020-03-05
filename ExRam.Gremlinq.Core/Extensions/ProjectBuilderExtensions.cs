@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, Expression<Func<TElement, object>> projection)
             where TSourceQuery : IElementGremlinQueryBase<TElement>
         {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+            if (projection.Body.Strip() is MemberExpression memberExpression)
                 return projectBuilder.By(memberExpression.Member.Name, projection);
 
             throw new ExpressionNotSupportedException(projection);

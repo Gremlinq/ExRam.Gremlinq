@@ -10,22 +10,17 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionExtensions
     {
-        public static Expression StripConvert(this Expression expression)
+        public static Expression Strip(this Expression expression)
         {
             while (true)
             {
                 if (expression is UnaryExpression unaryExpression && expression.NodeType == ExpressionType.Convert)
                     expression = unaryExpression.Operand;
+                else if (expression is MemberExpression memberExpression && memberExpression.IsStepLabelValue())
+                    return memberExpression.Expression;
                 else
                     return expression;
             }
-        }
-
-        public static Expression StripStepLabelValue(this Expression expression)
-        {
-            return expression is MemberExpression memberExpression && memberExpression.IsStepLabelValue()
-                ? memberExpression.Expression
-                : expression;
         }
 
         public static object GetValue(this Expression expression)
@@ -80,7 +75,7 @@ namespace ExRam.Gremlinq.Core
         {
             while (true)
             {
-                expression = expression.StripConvert();
+                expression = expression.Strip();
 
                 if (expression is ParameterExpression)
                     return true;
@@ -142,8 +137,8 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression binaryExpression:
                     {
-                        var left = binaryExpression.Left.StripConvert();
-                        var right = binaryExpression.Right.StripConvert();
+                        var left = binaryExpression.Left.Strip();
+                        var right = binaryExpression.Right.Strip();
 
                         if (binaryExpression.NodeType == ExpressionType.AndAlso || binaryExpression.NodeType == ExpressionType.OrElse)
                         {
@@ -177,21 +172,14 @@ namespace ExRam.Gremlinq.Core
 
                         if (methodInfo.IsStatic)
                         {
-                            var thisExpression = methodCallExpression.Arguments[0]
-                                .StripConvert()
-                                .StripStepLabelValue();
+                            var thisExpression = methodCallExpression.Arguments[0].Strip();
 
                             if (methodInfo.IsEnumerableAny())
                             {
                                 if (thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsEnumerableIntersect())
                                 {
-                                    thisExpression = previousMethodCallExpression.Arguments[0]
-                                        .StripConvert()
-                                        .StripStepLabelValue();
-
-                                    var argumentExpression = previousMethodCallExpression.Arguments[1]
-                                        .StripConvert()
-                                        .StripStepLabelValue();
+                                    thisExpression = previousMethodCallExpression.Arguments[0].Strip();
+                                    var argumentExpression = previousMethodCallExpression.Arguments[1].Strip();
 
                                     return argumentExpression.RefersToParameter()
                                         ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
@@ -203,9 +191,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (methodInfo.IsEnumerableContains())
                             {
-                                var argumentExpression = methodCallExpression.Arguments[1]
-                                    .StripConvert()
-                                    .StripStepLabelValue();
+                                var argumentExpression = methodCallExpression.Arguments[1].Strip();
 
                                 return argumentExpression.RefersToParameter()
                                     ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
@@ -214,13 +200,8 @@ namespace ExRam.Gremlinq.Core
                         }
                         else if (methodInfo.IsStringStartsWith() || methodInfo.IsStringEndsWith() || methodInfo.IsStringContains())
                         {
-                            var instanceExpression = methodCallExpression.Object
-                                .StripConvert()
-                                .StripStepLabelValue();
-
-                            var argumentExpression = methodCallExpression.Arguments[0]
-                                .StripConvert()
-                                .StripStepLabelValue();
+                            var instanceExpression = methodCallExpression.Object.Strip();
+                            var argumentExpression = methodCallExpression.Arguments[0].Strip();
 
                             if (methodInfo.IsStringStartsWith() && argumentExpression is MemberExpression)
                             {
@@ -275,7 +256,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static MemberInfo GetMemberInfo(this LambdaExpression expression)
         {
-            if (expression.Body.StripConvert() is MemberExpression memberExpression)
+            if (expression.Body.Strip() is MemberExpression memberExpression)
                 return memberExpression.Member;
 
             throw new ExpressionNotSupportedException(expression);

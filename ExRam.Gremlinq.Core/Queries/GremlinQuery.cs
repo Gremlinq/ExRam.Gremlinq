@@ -74,7 +74,7 @@ namespace ExRam.Gremlinq.Core
 
             private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order)
             {
-                if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                if (projection.Body.Strip() is MemberExpression memberExpression)
                     return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression), order)));
 
                 throw new ExpressionNotSupportedException(projection);
@@ -516,7 +516,7 @@ namespace ExRam.Gremlinq.Core
             return GetKeys(projections
                 .Select(projection =>
                 {
-                    if (projection.Body.StripConvert() is MemberExpression memberExpression)
+                    if (projection.Body.Strip() is MemberExpression memberExpression)
                         return memberExpression;
 
                     throw new ExpressionNotSupportedException(projection);
@@ -723,7 +723,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object? value)
         {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression) is string identifier)
+            if (projection.Body.Strip() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression) is string identifier)
                 return Property(identifier, value);
 
             throw new ExpressionNotSupportedException(projection);
@@ -848,7 +848,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object value)
         {
-            if (projection.Body.StripConvert() is MemberExpression memberExpression)
+            if (projection.Body.Strip() is MemberExpression memberExpression)
             {
                 var identifier = Environment.Model.PropertiesModel.GetIdentifier(memberExpression);
 
@@ -983,7 +983,7 @@ namespace ExRam.Gremlinq.Core
             {
                 case MemberExpression leftMemberExpression:
                 {
-                    var leftMemberExpressionExpression = leftMemberExpression.Expression.StripConvert();
+                    var leftMemberExpressionExpression = leftMemberExpression.Expression.Strip();
 
                     if (leftMemberExpressionExpression is ParameterExpression)
                     {
@@ -1018,11 +1018,11 @@ namespace ExRam.Gremlinq.Core
                 }
                 case MethodCallExpression methodCallExpression:
                 {
-                    var targetExpression = methodCallExpression.Object.StripConvert();
+                    var targetExpression = methodCallExpression.Object.Strip();
 
                     if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                     {
-                        return AddStep(new HasStep(methodCallExpression.Arguments[0].StripConvert().GetValue(), effectivePredicate));
+                        return AddStep(new HasStep(methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate));
                     }
 
                     break;
