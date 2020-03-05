@@ -3334,11 +3334,22 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_array_intersects_aray()
+        public void Where_property_array_intersects_array1()
         {
             _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, within(_c, _d)).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Where_property_array_intersects_array2()
+        {
+            _g
+                .V<Company>()
+                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).has(_b, within(_c, _d)).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Company", "PhoneNumbers", "+4912345", "+4923456", "id", "label", "type", "properties", "vertex", "value");
