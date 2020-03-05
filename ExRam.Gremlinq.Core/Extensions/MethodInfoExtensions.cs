@@ -13,7 +13,6 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsStepLabel = Get(() => EnumerableExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
-        private static readonly MethodInfo StepLabelContainsElement = Get(() => StepLabelExtensions.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default(string)));
@@ -48,11 +47,6 @@ namespace ExRam.Gremlinq.Core
         public static bool IsStringEndsWith(this MethodInfo methodInfo)
         {
             return methodInfo == StringEndsWith;
-        }
-
-        public static bool IsStepLabelContains(this MethodInfo methodInfo)
-        {
-            return methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == StepLabelContainsElement;
         }
 
         private static MethodInfo Get(Expression<Action> expression)

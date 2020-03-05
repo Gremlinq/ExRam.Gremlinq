@@ -181,13 +181,16 @@ namespace ExRam.Gremlinq.Core
                             else
                                 return new GremlinExpression(methodCallExpression.Arguments[0], P.Neq(new object[] { null }));
                         }
-                        else if (methodInfo.IsEnumerableContains() || methodInfo.IsStepLabelContains())
+                        else if (methodInfo.IsEnumerableContains())
                         {
                             var methodCallArgument0 = methodCallExpression.Arguments[0].StripConvert();
                             var methodCallArgument1 = methodCallExpression.Arguments[1].StripConvert();
 
                             if (methodCallArgument0 is MemberExpression sourceMember && sourceMember.Expression == parameter)
                                 return new GremlinExpression(sourceMember, P.Eq(methodCallArgument1));
+
+                            if (methodCallArgument0 is MemberExpression @thisExpression && @thisExpression.IsStepLabelValue())
+                                methodCallArgument0 = @thisExpression.Expression;
 
                             if (methodCallArgument1 is MemberExpression argument && argument.Expression == parameter)
                                 return new GremlinExpression(argument, methodCallArgument0.ToPWithin());
