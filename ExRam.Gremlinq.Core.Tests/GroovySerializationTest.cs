@@ -3363,7 +3363,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .As((__, t) => __
                     .V<Company>()
-                    .Where(c => c.PhoneNumbers.Intersect(t).Any()))
+                    .Where(c => c.PhoneNumbers.Intersect(t.Value).Any()))
                 .Should()
                 .SerializeToGroovy("inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b))).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("+4912345", "l1", "Company", "PhoneNumbers", "id", "label", "type", "properties", "vertex", "value");

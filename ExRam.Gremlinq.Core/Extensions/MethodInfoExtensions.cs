@@ -10,7 +10,6 @@ namespace ExRam.Gremlinq.Core
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
-        private static readonly MethodInfo EnumerableIntersectsStepLabel = Get(() => EnumerableExtensions.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
@@ -30,7 +29,7 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsEnumerableIntersect(this MethodInfo methodInfo)
         {
-            return methodInfo.IsGenericMethod && (methodInfo.GetGenericMethodDefinition() == EnumerableIntersect || methodInfo.GetGenericMethodDefinition() == EnumerableIntersectsStepLabel);
+            return methodInfo.IsGenericMethod && (methodInfo.GetGenericMethodDefinition() == EnumerableIntersect);
         }
 
         public static bool IsStringStartsWith(this MethodInfo methodInfo)
