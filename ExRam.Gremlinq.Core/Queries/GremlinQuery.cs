@@ -889,46 +889,46 @@ namespace ExRam.Gremlinq.Core
                     : AddStep(new WhereTraversalStep(filtered));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(LambdaExpression predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression)
         {
             try
             {
-                return Where(predicate.Body, predicate.Parameters[0]);
-            }
-            catch (ExpressionNotSupportedException ex)
-            {
-                throw new ExpressionNotSupportedException(predicate, ex);
-            }
-        }
-
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(Expression expression, ParameterExpression parameter)
-        {
-            if (expression is UnaryExpression unaryExpression)
-            {
-                if (unaryExpression.NodeType == ExpressionType.Not)
-                    return Not(_ => _.Where(unaryExpression.Operand, parameter));
-            }
-            else
-            {
-                if (expression.TryToGremlinExpression() is { } gremlinExpression)
-                    return Where(gremlinExpression);
-
-                if (expression is BinaryExpression binary)
+                if (expression is LambdaExpression lambdaExpression)
                 {
-                    if (binary.NodeType == ExpressionType.OrElse)
-                    {
-                        return Or(
-                            _ => _.Where(binary.Left, parameter),
-                            _ => _.Where(binary.Right, parameter));
-                    }
+                    return Where(lambdaExpression.Body);
+                }
 
-                    if (binary.NodeType == ExpressionType.AndAlso)
+                if (expression is UnaryExpression unaryExpression)
+                {
+                    if (unaryExpression.NodeType == ExpressionType.Not)
+                        return Not(_ => _.Where(unaryExpression.Operand));
+                }
+                else
+                {
+                    if (expression.TryToGremlinExpression() is { } gremlinExpression)
+                        return Where(gremlinExpression);
+
+                    if (expression is BinaryExpression binary)
                     {
-                        return this
-                            .Where(binary.Left, parameter)
-                            .Where(binary.Right, parameter);
+                        if (binary.NodeType == ExpressionType.OrElse)
+                        {
+                            return Or(
+                                _ => _.Where(binary.Left),
+                                _ => _.Where(binary.Right));
+                        }
+
+                        if (binary.NodeType == ExpressionType.AndAlso)
+                        {
+                            return this
+                                .Where(binary.Left)
+                                .Where(binary.Right);
+                        }
                     }
                 }
+            }
+            catch(ExpressionNotSupportedException ex)
+            {
+                throw new ExpressionNotSupportedException(expression, ex);
             }
 
             throw new ExpressionNotSupportedException(expression);
@@ -977,8 +977,6 @@ namespace ExRam.Gremlinq.Core
 
                     return ret;
                 }
-
-                return AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
             }
 
             switch (gremlinExpression.Key)
