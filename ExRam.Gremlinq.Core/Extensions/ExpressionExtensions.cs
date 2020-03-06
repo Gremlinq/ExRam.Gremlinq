@@ -169,8 +169,8 @@ namespace ExRam.Gremlinq.Core
                                     var argumentExpression = previousMethodCallExpression.Arguments[1].Strip();
 
                                     return argumentExpression.RefersToParameter()
-                                        ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
-                                        : new GremlinExpression(thisExpression, argumentExpression.ToPWithin());
+                                        ? new GremlinExpression(argumentExpression, P.Within(thisExpression))
+                                        : new GremlinExpression(thisExpression, P.Within(argumentExpression));
                                 }
 
                                 return new GremlinExpression(thisExpression, P_Neq_Null);
@@ -181,7 +181,7 @@ namespace ExRam.Gremlinq.Core
                                 var argumentExpression = methodCallExpression.Arguments[1].Strip();
 
                                 return argumentExpression.RefersToParameter()
-                                    ? new GremlinExpression(argumentExpression, thisExpression.ToPWithin())
+                                    ? new GremlinExpression(argumentExpression, P.Within(thisExpression))
                                     : new GremlinExpression(thisExpression, P.Eq(argumentExpression));
                             }
                         }
@@ -229,16 +229,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return default;
-        }
-
-        public static P ToPWithin(this Expression expression)
-        {
-            return expression.GetValue() switch
-            {
-                IEnumerable enumerable => P.Within(enumerable.Cast<object>().ToArray()),
-                StepLabel stepLabel => P.Within(stepLabel),
-                _ => throw new ExpressionNotSupportedException(expression)
-            };
         }
 
         public static MemberInfo GetMemberInfo(this LambdaExpression expression)

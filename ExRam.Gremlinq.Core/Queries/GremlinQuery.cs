@@ -557,6 +557,8 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, P predicate)
         {
+            predicate = predicate.Resolve();
+
             return predicate.EqualsConstant(false)
                 ? None()
                 : AddStep(predicate.EqualsConstant(true)

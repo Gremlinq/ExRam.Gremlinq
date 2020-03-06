@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
 
@@ -13,10 +14,41 @@ namespace ExRam.Gremlinq.Core
             {
                 "and" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
                 "or" => (((P)p.Value).RefersToStepLabel() && p.Other.RefersToStepLabel()),
-                _ => p.Value is StepLabel
-                    || (p.Value is IList list && list.Count == 1 && list[0] is StepLabel)
-                    || (p.Value is Expression expression && expression.TryParseStepLabelExpression(out _, out _))
+                _ => ((object)p.Value).RefersToStepLabel()
             };
+        }
+
+        private static bool RefersToStepLabel(this object obj)
+        {
+            return obj is StepLabel
+                || obj is IList list && list.Count == 1 && list[0].RefersToStepLabel()
+                || obj is Expression expression && expression.TryParseStepLabelExpression(out _, out _);
+        }
+
+        public static P Resolve(this P p)
+        {
+            return new P(
+                p.OperatorName,
+                p.Value switch
+                {
+                    string s => s,
+                    IEnumerable enumerable => enumerable
+                        .Cast<object>()
+                        .Select(o => o switch
+                        {
+                            Expression e => e.GetValue(),
+                            var v => v
+                        })
+                        .SelectMany(x => x switch
+                        {
+                            string s => new[] { s },
+                            IEnumerable e => e.Cast<object>(),
+                            var v => new[] { v }
+                        })
+                        .ToArray(),
+                    var v => v
+                },
+                p.Other?.Resolve());
         }
 
         public static bool EqualsConstant(this P p, bool value)
