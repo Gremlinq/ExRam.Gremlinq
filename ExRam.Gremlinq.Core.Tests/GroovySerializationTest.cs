@@ -3054,6 +3054,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person", "Age", 36, 42, "id", "label", "type", "properties", "vertex", "value");
         }
 
+        [Fact]
+        public void Where_sequential()
+        {
+            _g
+                .V<Person>()
+                .Where(t => t.Age == 36)
+                .Where(t => t.Age == 42)
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, eq(_c).and(eq(_d))).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "Age", 36, 42, "id", "label", "type", "properties", "vertex", "value");
+        }
+
         [Fact(Skip="Optimizable")]
         public void Where_conjunction_optimizable()
         {
@@ -3161,6 +3173,20 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e))).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "Age", 36, 42, 99, "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact(Skip = "Optimization opportunity.")]
+        public void Where_has_disjunction_of_three_with_or()
+        {
+            _g
+                .V<Person>()
+                .Or(
+                    __ => __.Where(t => t.Age == 36),
+                    __ => __.Where(t => t.Age == 42),
+                    __ => __.Where(t => t.Age == 99))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).has(_b, eq(_c).or(eq(_d)).or(eq(_e))).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Age", 36, 42, 99, "id", "label", "type", "properties", "vertex", "value");
@@ -3674,7 +3700,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Person>()
                     .Where(person2 => person2.Age >= person1.Value.Age))
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).has(_c, __.where(gte(_b)).by(_c)).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(gte(_b)).by(_c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "l1", "Age", "id", "label", "type", "properties", "vertex", "value");
         }
 

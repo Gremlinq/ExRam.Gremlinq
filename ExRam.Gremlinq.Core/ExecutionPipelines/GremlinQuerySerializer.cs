@@ -318,10 +318,10 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
                 .OverrideFragmentSerializer<GroupStep>((step, overridden, recurse) => CreateInstruction("group"))
                 .OverrideFragmentSerializer<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
-                .OverrideFragmentSerializer<HasStep>((step, overridden, recurse) =>
+                .OverrideFragmentSerializer<HasPredicateStep>((step, overridden, recurse) =>
                 {
                     var stepName = "has";
-                    var argument = step.Value;
+                    var argument = (object)step.Predicate;
 
                     if (argument is P p2)
                     {
@@ -340,6 +340,7 @@ namespace ExRam.Gremlinq.Core
                         ? CreateInstruction(stepName, recurse, step.Key, argument)
                         : CreateInstruction(stepName, recurse, step.Key);
                 })
+                .OverrideFragmentSerializer<HasTraversalStep>((step, overridden, recurse) => CreateInstruction("has", recurse, step.Key, step.Traversal))
                 .OverrideFragmentSerializer<HasLabelStep>((step, overridden, recurse) => CreateInstruction("hasLabel", recurse, step.Labels))
                 .OverrideFragmentSerializer<HasNotStep>((step, overridden, recurse) => CreateInstruction("hasNot", recurse, step.Key))
                 .OverrideFragmentSerializer<HasValueStep>((step, overridden, recurse) => CreateInstruction(
@@ -402,9 +403,9 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<IsStep>((step, overridden, recurse) => CreateInstruction(
                     "is",
                     recurse,
-                    step.Argument is P p && p.OperatorName == "eq"
-                        ? p.Value
-                        : step.Argument))
+                    step.Predicate.OperatorName == "eq"
+                        ? step.Predicate.Value
+                        : step.Predicate))
                 .OverrideFragmentSerializer<KeyStep>((step, overridden, recurse) => CreateInstruction("key"))
                 .OverrideFragmentSerializer<LabelStep>((step, overridden, recurse) => CreateInstruction("label"))
                 .OverrideFragmentSerializer<LimitStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
@@ -477,7 +478,9 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<WithStrategiesStep>((step, overridden, recurse) => CreateInstruction("withStrategies", recurse, step.Traversal))
                 .OverrideFragmentSerializer<WithoutStrategiesStep>((step, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, step.StrategyTypes))
                 .OverrideFragmentSerializer<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
-                .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
+                .OverrideFragmentSerializer<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => step.Key != null
+                    ? CreateInstruction("by", recurse, step.Key)
+                    : CreateInstruction("by", recurse))
                 .OverrideFragmentSerializer<WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate));
         }
 

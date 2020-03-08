@@ -8,11 +8,139 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
+    internal abstract class ExpressionFragment
+    {
+        public static readonly ConstantExpressionFragment True = new ConstantExpressionFragment(true);
+        public static readonly ConstantExpressionFragment Null = new ConstantExpressionFragment(default);
+
+        protected ExpressionFragment(Expression? expression = default)
+        {
+            Expression = expression;
+        }
+
+        public Expression? Expression { get; }
+
+        public static ExpressionFragment Create(Expression expression)
+        {
+            return expression.RefersToParameter()
+                ? (ExpressionFragment)new ParameterExpressionFragment(expression)
+                : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
+                    ? new StepLabelExpressionFragment(stepLabel, stepLabelExpression)
+                    : new ConstantExpressionFragment(expression.GetValue());
+        }
+    }
+
+    internal class ConstantExpressionFragment : ExpressionFragment
+    {
+        public ConstantExpressionFragment(object? value, Expression? expression = default) : base(expression)
+        {
+            if (value is IEnumerable enumerable && !(value is ICollection) && !(value is string))
+                value = enumerable.Cast<object>().ToArray();
+
+            Value = value;
+        }
+
+        public object? Value { get; }
+    }
+
+    internal class ParameterExpressionFragment : ExpressionFragment
+    {
+        public ParameterExpressionFragment(Expression expression) : base(expression)
+        {
+        }
+    }
+
+    internal class StepLabelExpressionFragment : ConstantExpressionFragment
+    {
+        public StepLabelExpressionFragment(StepLabel stepLabel, Expression? expression = default) : base(stepLabel, expression)
+        {
+        }
+    }
+
+    internal static class ExpressionSemanticsExtensions
+    {
+        private static readonly P P_Eq_True = P.Eq(true);
+        private static readonly P P_Neq_Null = P.Neq(new object[] { null });
+
+        public static ExpressionSemantics Flip(this ExpressionSemantics semantics)
+        {
+            return semantics switch
+            {
+                ExpressionSemantics.Contains => ExpressionSemantics.IsContainedIn,
+                ExpressionSemantics.StartsWith => ExpressionSemantics.IsPrefixOf,
+                ExpressionSemantics.EndsWith => ExpressionSemantics.IsSuffixOf,
+                ExpressionSemantics.HasInfix => ExpressionSemantics.IsInfixOf,
+                ExpressionSemantics.LowerThan => ExpressionSemantics.GreaterThan,
+                ExpressionSemantics.GreaterThan => ExpressionSemantics.LowerThan,
+                ExpressionSemantics.Equals => ExpressionSemantics.Equals,
+                ExpressionSemantics.Intersects => ExpressionSemantics.Intersects,
+                ExpressionSemantics.GreaterThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
+                ExpressionSemantics.LowerThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
+            };
+        }
+
+        public static P ToP(this ExpressionSemantics semantics, object? value)
+        {
+            return semantics switch
+            {
+                ExpressionSemantics.Contains => P.Eq(value),
+                ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(Enumerable
+                    .Range(0, stringValue.Length + 1)
+                    .Select(i => stringValue.Substring(0, i))
+                    .ToArray<object>()),
+                ExpressionSemantics.HasInfix when value is string stringValue => stringValue.Length > 0
+                    ? TextP.Containing(stringValue)
+                    : P_Neq_Null,
+                ExpressionSemantics.StartsWith when value is string stringValue => stringValue.Length > 0
+                    ? TextP.StartingWith(stringValue)
+                    : P_Neq_Null,
+                ExpressionSemantics.EndsWith when value is string stringValue => stringValue.Length > 0
+                    ? TextP.EndingWith(stringValue)
+                    : P_Neq_Null,
+                ExpressionSemantics.LowerThan => P.Lt(value),
+                ExpressionSemantics.GreaterThan => P.Gt(value),
+                ExpressionSemantics.Equals => P.Eq(value),
+                ExpressionSemantics.NotEquals => P.Neq(value),
+                ExpressionSemantics.Intersects => P.Within(value),
+                ExpressionSemantics.GreaterThanOrEqual => P.Gte(value),
+                ExpressionSemantics.LowerThanOrEqual => P.Lte(value),
+                ExpressionSemantics.IsContainedIn => P.Within(value),
+            };
+        }
+    }
+
+    internal enum ExpressionSemantics
+    {
+        Equals,
+        LowerThan,
+        LowerThanOrEqual,
+        GreaterThan,
+        GreaterThanOrEqual,
+        Intersects,
+        Contains,
+        HasInfix,
+        StartsWith,
+        EndsWith,
+        NotEquals,
+        IsContainedIn,
+        IsInfixOf,
+        IsPrefixOf,
+        IsSuffixOf,
+    }
+
+    internal enum MethodCallPattern
+    {
+        EnumerableIntersectAny,
+        EnumerableAny,
+        EnumerableContains,
+        StringContains,
+        StringStartsWith,
+        StringEndsWith,
+    }
+
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        private static readonly P P_Eq_True = P.Eq(true);
-        private static readonly P P_Neq_Null = P.Neq(new object[] { null });
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
@@ -92,6 +220,8 @@ namespace ExRam.Gremlinq.Core
                 if (expression is ParameterExpression)
                     return true;
 
+                if (expression is LambdaExpression lambdaExpression)
+                    expression = lambdaExpression.Body;
                 if (expression is MemberExpression memberExpression)
                     expression = memberExpression.Expression;
                 else if (expression is MethodCallExpression methodCallExpression)
@@ -118,7 +248,12 @@ namespace ExRam.Gremlinq.Core
                     case MemberExpression memberExpression when memberExpression.RefersToParameter():
                     {
                         if (memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool))
-                            return new GremlinExpression(memberExpression, P_Eq_True);
+                        {
+                            return new GremlinExpression(
+                                ExpressionFragment.Create(memberExpression),
+                                ExpressionSemantics.Equals,
+                                ExpressionFragment.True);
+                        }
 
                         break;
                     }
@@ -129,7 +264,7 @@ namespace ExRam.Gremlinq.Core
 
                         if (binaryExpression.NodeType == ExpressionType.AndAlso || binaryExpression.NodeType == ExpressionType.OrElse)
                         {
-                            if (left.TryToGremlinExpression() is { } leftExpression && right.TryToGremlinExpression() is { } rightExpression)
+                            /*if (left.TryToGremlinExpression() is { } leftExpression && right.TryToGremlinExpression() is { } rightExpression)
                             {
                                 if (leftExpression.Key == rightExpression.Key || leftExpression.Key is MemberExpression memberExpression1 && rightExpression.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
                                 {
@@ -142,80 +277,85 @@ namespace ExRam.Gremlinq.Core
                                             _ => throw new ExpressionNotSupportedException(body)
                                         });
                                 }
-                            }
+                            }*/
                         }
                         else
                         {
-                            return right.RefersToParameter() && !left.RefersToParameter()
-                                ? new GremlinExpression(right, binaryExpression.NodeType.Switch().ToP(left))
-                                : new GremlinExpression(left, binaryExpression.NodeType.ToP(right));
+                            return new GremlinExpression(
+                                ExpressionFragment.Create(left),
+                                binaryExpression.NodeType.ToSemantics(),
+                                ExpressionFragment.Create(right));
                         }
 
                         break;
                     }
                     case MethodCallExpression methodCallExpression:
                     {
-                        var methodInfo = methodCallExpression.Method;
+                        var pattern = methodCallExpression.GetMethodCallSemantics();
 
-                        if (methodInfo.IsStatic)
-                        {
                             var thisExpression = methodCallExpression.Arguments[0].Strip();
 
-                            if (methodCallExpression.IsEnumerableAny())
+                            switch(pattern)
                             {
-                                if (thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.IsEnumerableIntersect())
+                                case MethodCallPattern.EnumerableIntersectAny:
                                 {
-                                    thisExpression = previousMethodCallExpression.Arguments[0].Strip();
-                                    var argumentExpression = previousMethodCallExpression.Arguments[1].Strip();
+                                    var arguments = ((MethodCallExpression)thisExpression).Arguments;
 
-                                    return argumentExpression.RefersToParameter()
-                                        ? new GremlinExpression(argumentExpression, P.Within(thisExpression))
-                                        : new GremlinExpression(thisExpression, P.Within(argumentExpression));
+                                    return new GremlinExpression(
+                                        ExpressionFragment.Create(arguments[0].Strip()),
+                                        ExpressionSemantics.Intersects,
+                                        ExpressionFragment.Create(arguments[1].Strip()));
                                 }
-
-                                return new GremlinExpression(thisExpression, P_Neq_Null);
-                            }
-
-                            if (methodCallExpression.IsEnumerableContains())
-                            {
-                                var argumentExpression = methodCallExpression.Arguments[1].Strip();
-
-                                return argumentExpression.RefersToParameter()
-                                    ? new GremlinExpression(argumentExpression, P.Within(thisExpression))
-                                    : new GremlinExpression(thisExpression, P.Eq(argumentExpression));
-                            }
-                        }
-                        else if (methodCallExpression.IsStringStartsWith() || methodCallExpression.IsStringEndsWith() || methodCallExpression.IsStringContains())
-                        {
-                            var instanceExpression = methodCallExpression.Object.Strip();
-                            var argumentExpression = methodCallExpression.Arguments[0].Strip();
-
-                            if (methodCallExpression.IsStringStartsWith() && argumentExpression is MemberExpression)
-                            {
-                                if (instanceExpression.GetValue() is string stringValue)
+                                case MethodCallPattern.EnumerableAny:
                                 {
                                     return new GremlinExpression(
-                                        argumentExpression,
-                                        P.Within(Enumerable
-                                            .Range(0, stringValue.Length + 1)
-                                            .Select(i => stringValue.Substring(0, i))
-                                            .ToArray<object>()));
+                                        ExpressionFragment.Create(thisExpression),
+                                        ExpressionSemantics.NotEquals,
+                                        ExpressionFragment.Null);
                                 }
-                            }
-                            else if (instanceExpression is MemberExpression)
-                            {
-                                if (argumentExpression.GetValue() is string str)
+                                case MethodCallPattern.EnumerableContains:
                                 {
+                                    var argumentExpression = methodCallExpression.Arguments[1].Strip();
+
                                     return new GremlinExpression(
-                                        instanceExpression,
-                                        str.Length == 0
-                                            ? P.Without(Array.Empty<object>())
-                                            : methodCallExpression.IsStringStartsWith()
-                                                ? TextP.StartingWith(str)
-                                                : methodCallExpression.IsStringContains()
-                                                    ? TextP.Containing(str)
-                                                    : TextP.EndingWith(str));
+                                        ExpressionFragment.Create(thisExpression),
+                                        ExpressionSemantics.Contains,
+                                        ExpressionFragment.Create(argumentExpression));
                                 }
+                            case MethodCallPattern.StringStartsWith:
+                            case MethodCallPattern.StringEndsWith:
+                            case MethodCallPattern.StringContains:
+                            {
+                                var instanceExpression = methodCallExpression.Object.Strip();
+                                var argumentExpression = methodCallExpression.Arguments[0].Strip();
+
+                                if (pattern == MethodCallPattern.StringStartsWith && argumentExpression is MemberExpression)
+                                {
+                                    if (instanceExpression.GetValue() is string stringValue)
+                                    {
+                                        return new GremlinExpression(
+                                            new ConstantExpressionFragment(stringValue),
+                                            ExpressionSemantics.StartsWith,
+                                            ExpressionFragment.Create(argumentExpression));
+                                    }
+                                }
+                                else if (instanceExpression is MemberExpression)
+                                {
+                                    if (argumentExpression.GetValue() is string str)
+                                    {
+                                        return new GremlinExpression(
+                                            ExpressionFragment.Create(instanceExpression),
+                                            pattern switch
+                                            {
+                                                MethodCallPattern.StringStartsWith => ExpressionSemantics.StartsWith,
+                                                MethodCallPattern.StringContains => ExpressionSemantics.HasInfix,
+                                                MethodCallPattern.StringEndsWith => ExpressionSemantics.EndsWith
+                                            },
+                                            new ConstantExpressionFragment(str));
+                                    }
+                                }
+
+                                break;
                             }
                         }
 
@@ -229,6 +369,34 @@ namespace ExRam.Gremlinq.Core
             }
 
             return default;
+        }
+
+        public static MethodCallPattern GetMethodCallSemantics(this MethodCallExpression methodCallExpression)
+        {
+            var methodInfo = methodCallExpression.Method;
+
+            if (methodInfo.IsStatic)
+            {
+                var thisExpression = methodCallExpression.Arguments[0].Strip();
+
+                if (methodCallExpression.IsEnumerableAny())
+                {
+                    return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.IsEnumerableIntersect()
+                        ? MethodCallPattern.EnumerableIntersectAny
+                        : MethodCallPattern.EnumerableAny;
+                }
+
+                if (methodCallExpression.IsEnumerableContains())
+                    return MethodCallPattern.EnumerableContains;
+            }
+            else if (methodCallExpression.IsStringStartsWith())
+                return MethodCallPattern.StringStartsWith;
+            else if (methodCallExpression.IsStringEndsWith())
+                return MethodCallPattern.StringEndsWith;
+            else if (methodCallExpression.IsStringContains())
+                return MethodCallPattern.StringContains;
+
+            throw new ExpressionNotSupportedException(methodCallExpression);
         }
 
         public static MemberInfo GetMemberInfo(this LambdaExpression expression)

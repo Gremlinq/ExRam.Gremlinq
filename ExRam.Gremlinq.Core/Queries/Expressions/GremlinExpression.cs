@@ -5,13 +5,24 @@ namespace ExRam.Gremlinq.Core
 {
     internal struct GremlinExpression
     {
-        public GremlinExpression(Expression key, P predicate)
+        public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            Key = key;
-            Predicate = predicate;
+            if (!(left is ParameterExpressionFragment) && right is ParameterExpressionFragment)
+            {
+                Left = right;
+                Semantics = semantics.Flip();
+                Right = left;
+            }
+            else
+            {
+                Left = left;
+                Right = right;
+                Semantics = semantics;
+            }
         }
 
-        public P Predicate { get; }
-        public Expression Key { get; }
+        public ExpressionFragment Left { get; }
+        public ExpressionFragment Right { get; }
+        public ExpressionSemantics Semantics { get; }
     }
 }

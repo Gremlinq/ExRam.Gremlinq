@@ -17,6 +17,19 @@ namespace ExRam.Gremlinq.Core
             { ExpressionType.GreaterThan, _ => P.Gt(_) }
         };
 
+        public static ExpressionSemantics ToSemantics(this ExpressionType type)
+        {
+            return type switch
+            {
+                ExpressionType.Equal => ExpressionSemantics.Equals,
+                ExpressionType.NotEqual => ExpressionSemantics.NotEquals,
+                ExpressionType.LessThan => ExpressionSemantics.LowerThan,
+                ExpressionType.LessThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
+                ExpressionType.GreaterThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
+                ExpressionType.GreaterThan => ExpressionSemantics.GreaterThan
+            };
+        }
+
         public static P ToP(this ExpressionType expressionType, object argument)
         {
             return SupportedComparisons[expressionType](argument);

@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class IsStep : Step
     {
-        public IsStep(object argument)
+        public IsStep(P predicate)
         {
-            Argument = argument;
+            Predicate = predicate;
         }
 
-        public object Argument { get; }
+        public P Predicate { get; }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using LanguageExt;
@@ -412,21 +413,34 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
-            if (predicate.TryToGremlinExpression() is { } gremlinExpression)
-            {
-                if (gremlinExpression.Key is ParameterExpression)
-                {
-                    var anonymous = Anonymize();
-                    var trueQuery = trueChoice(anonymous);
-                    var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQueryBase)falseChoice(anonymous));
+            var anonymous = Anonymize();
+            var trueQuery = trueChoice(anonymous);
+            var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQueryBase)falseChoice(anonymous));
 
-                    return this
-                        .AddStep(new ChoosePredicateStep(gremlinExpression.Predicate, trueQuery, maybeFalseQuery), QuerySemantics.None)
-                        .ChangeQueryType<TTargetQuery>();
-                }
+            var query = this
+                .Anonymize()
+                .Where(predicate);
+
+            if (!query.Steps.IsEmpty && query.Steps.Pop().IsEmpty && query.Steps.Peek() is IsStep isStep)
+            {
+                return this
+                    .AddStep(
+                        new ChoosePredicateStep(
+                            isStep.Predicate,
+                            trueQuery,
+                            maybeFalseQuery),
+                        QuerySemantics.None)
+                    .ChangeQueryType<TTargetQuery>();
             }
 
-            throw new ExpressionNotSupportedException(predicate);
+            return this
+                .AddStep(
+                    new ChooseTraversalStep(
+                        query,
+                        trueQuery,
+                        maybeFalseQuery),
+                    QuerySemantics.None)
+                .ChangeQueryType<TTargetQuery>();
         }
 
         private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
@@ -557,18 +571,37 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, P predicate)
         {
-            predicate = predicate.Resolve();
-
             return predicate.EqualsConstant(false)
                 ? None()
-                : AddStep(predicate.EqualsConstant(true)
-                    ? new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression))
-                    : new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), predicate));
+                : Has(
+                    Environment.Model.PropertiesModel.GetIdentifier(expression),
+                    predicate.EqualsConstant(true)
+                        ? default
+                        : predicate);
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(object key, P? predicate)
+        {
+            return ConfigureSteps<TElement>(steps =>
+            {
+                if (!steps.IsEmpty && steps.Peek() is HasPredicateStep hasStep && hasStep.Key == key)
+                {
+                    if (predicate == null)
+                        return steps;
+
+                    steps = steps.Pop();
+                    predicate = hasStep.Predicate is { } otherPredicate
+                        ? otherPredicate.And(predicate)
+                        : predicate;
+                }
+
+                return steps.Push(new HasPredicateStep(key, predicate));
+            });
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
         {
-            return AddStep(new HasStep(Environment.Model.PropertiesModel.GetIdentifier(expression), traversal));
+            return AddStep(new HasTraversalStep(Environment.Model.PropertiesModel.GetIdentifier(expression), traversal));
         }
 
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, QuerySemantics.None);
@@ -578,6 +611,20 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToArray()), QuerySemantics.None);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => AddStepWithObjectTypes<TNewElement>(InVStep.Instance, QuerySemantics.Vertex);
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Is(P predicate)
+        {
+            return ConfigureSteps<TElement>(steps =>
+            {
+                if (!steps.IsEmpty && steps.Peek() is IsStep isStep)
+                {
+                    steps = steps.Pop();
+                    predicate = isStep.Predicate.And(predicate);
+                }
+
+                return steps.Push(new IsStep(predicate));
+            });
+        }
 
         private GremlinQuery<string, object, object, object, object, object> Key() => AddStepWithObjectTypes<string>(KeyStep.Instance, QuerySemantics.None);
 
@@ -667,17 +714,51 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations)
         {
-            if (orTraversalTransformations.Length == 0)
+            var anonymous = Anonymize();
+
+            return Or(orTraversalTransformations.Select(transformation => transformation(anonymous)).ToArray());
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(
+            GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> left,
+            GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> right)
+        {
+            if (!left.Steps.IsEmpty && !right.Steps.IsEmpty && left.Steps.Pop().IsEmpty && right.Steps.Pop().IsEmpty)
+            {
+                var leftStep = left.Steps.Peek();
+                var rightStep = right.Steps.Peek();
+
+                if (leftStep is HasPredicateStep leftHasPredicate && rightStep is HasPredicateStep rightHasPredicateStep)
+                {
+                    if (leftHasPredicate.Key == rightHasPredicateStep.Key)
+                    {
+                        return Has(
+                            leftHasPredicate.Key,
+                            leftHasPredicate.Predicate is { } leftP && rightHasPredicateStep.Predicate is { } rightP
+                                ? leftP.Or(rightP)
+                                : null);
+                    }
+                }
+                else
+                {
+                    if (leftStep is IsStep leftIsStep && rightStep is IsStep rightIsStep)
+                        return Is(leftIsStep.Predicate.Or(rightIsStep.Predicate));
+                }
+            }
+
+            return Or(new IGremlinQueryBase[] { left, right });
+        }
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Or(params IGremlinQueryBase[] orTraversals)
+        {
+            if (orTraversals.Length == 0)
                 return AddStep(OrStep.Infix);
 
-            var anonymous = Anonymize();
             var subQueries = default(List<IGremlinQueryBase>);
 
-            foreach (var transformation in orTraversalTransformations)
+            foreach (var transformed in orTraversals)
             {
-                var transformed = transformation(anonymous);
-
-                if (transformed == anonymous)
+                if (transformed.IsIdentity())
                     return this;
 
                 if (!transformed.IsNone())
@@ -898,33 +979,32 @@ namespace ExRam.Gremlinq.Core
                     return Where(lambdaExpression.Body);
                 }
 
-                if (expression is UnaryExpression unaryExpression)
+                if (expression is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.Not)
                 {
-                    if (unaryExpression.NodeType == ExpressionType.Not)
-                        return Not(_ => _.Where(unaryExpression.Operand));
+                    return Not(_ => _.Where(unaryExpression.Operand));
                 }
-                else
+
+                if (expression is BinaryExpression binary)
                 {
-                    if (expression.TryToGremlinExpression() is { } gremlinExpression)
-                        return Where(gremlinExpression);
-
-                    if (expression is BinaryExpression binary)
+                    if (binary.NodeType == ExpressionType.OrElse)
                     {
-                        if (binary.NodeType == ExpressionType.OrElse)
-                        {
-                            return Or(
-                                _ => _.Where(binary.Left),
-                                _ => _.Where(binary.Right));
-                        }
+                        var anonymous = Anonymize();
 
-                        if (binary.NodeType == ExpressionType.AndAlso)
-                        {
-                            return this
-                                .Where(binary.Left)
-                                .Where(binary.Right);
-                        }
+                        return Or(
+                            anonymous.Where(binary.Left),
+                            anonymous.Where(binary.Right));
+                    }
+
+                    if (binary.NodeType == ExpressionType.AndAlso)
+                    {
+                        return this
+                            .Where(binary.Left)
+                            .Where(binary.Right);
                     }
                 }
+
+                if (expression.TryToGremlinExpression() is { } gremlinExpression)
+                    return Where(gremlinExpression);
             }
             catch(ExpressionNotSupportedException ex)
             {
@@ -936,120 +1016,158 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
-            return predicate.Body is MemberExpression memberExpression
+            return predicate.RefersToParameter() && predicate.Body is MemberExpression memberExpression
                 ? Has(memberExpression, propertyTraversal(Anonymize<TProjection, object, object, object, object, object>()))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(GremlinExpression gremlinExpression)
         {
-            var effectivePredicate = gremlinExpression.Predicate is TextP textP
-                ? textP.WorkaroundLimitations(Environment.Options)
-                : gremlinExpression.Predicate;
-
-            if (gremlinExpression.Key.RefersToParameter() && gremlinExpression.Predicate.Value is Expression expression && expression.RefersToParameter())
-            {
-                if (gremlinExpression.Key is MemberExpression leftMember && expression is MemberExpression rightMember)
-                {
-                    return As(
-                        new StepLabel<TElement>(),
-                        (_, label) => _
-                            .Where(new P(gremlinExpression.Predicate.OperatorName, label, gremlinExpression.Predicate.Other))
-                            .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMember)))
-                            .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightMember))));
-                }
-            }
-            else if (gremlinExpression.Key.TryParseStepLabelExpression(out var leftStepLabel, out var leftStepLabelValueMemberExpression))
-            {
-                var predicate = gremlinExpression.Predicate;
-
-                if (predicate.Value is Expression predicateExpression && predicateExpression.TryParseStepLabelExpression(out var predicateStepLabel, out var predicateStepLabelValueMemberExpression))
-                {
-                    predicate = new P(predicate.OperatorName, predicateStepLabel, predicate.Other);
-
-                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, predicate));
-
-                    if (leftStepLabelValueMemberExpression != null)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepLabelValueMemberExpression)));
-
-                    if (predicateStepLabelValueMemberExpression != null)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(predicateStepLabelValueMemberExpression)));
-
-                    return ret;
-                }
-            }
-
-            switch (gremlinExpression.Key)
-            {
-                case MemberExpression leftMemberExpression:
-                {
-                    var leftMemberExpressionExpression = leftMemberExpression.Expression.Strip();
-
-                    if (leftMemberExpressionExpression is ParameterExpression)
-                    {
-                        // x => x.Value == P.xy(...)
-                        if (leftMemberExpression.IsPropertyValue() && !effectivePredicate.RefersToStepLabel())
-                            return AddStep(new HasValueStep(effectivePredicate));
-
-                        if (leftMemberExpression.IsPropertyKey())
-                            return Where(__ => __.Key().Where(effectivePredicate));
-
-                        if (leftMemberExpression.IsVertexPropertyLabel())
-                            return Where(__ => __.Label().Where(effectivePredicate));
-                    }
-                    else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
-                    {
-                        // x => x.Name.Value == P.xy(...)
-                        if (leftMemberExpression.IsPropertyValue())
-                            leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
-                    }
-                    else
-                        break;
-
-                    // x => x.Name == P.xy(...)
-                    return effectivePredicate.RefersToStepLabel()
-                        ? Has(leftMemberExpression, Anonymize().Where(effectivePredicate))
-                        : Has(leftMemberExpression, effectivePredicate);
-                }
-                case ParameterExpression _:
-                {
-                    // x => x == P.xy(...)
-                    return Where(effectivePredicate);
-                }
-                case MethodCallExpression methodCallExpression:
-                {
-                    var targetExpression = methodCallExpression.Object.Strip();
-
-                    if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
-                    {
-                        return AddStep(new HasStep(methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate));
-                    }
-
-                    break;
-                }
-            }
-
-            throw new ExpressionNotSupportedException(gremlinExpression.Key);
+            return Where(
+                gremlinExpression.Left,
+                gremlinExpression.Semantics,
+                gremlinExpression.Right);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(P predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> Where(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (predicate.RefersToStepLabel())
+            if (right is ConstantExpressionFragment rightConstantFragment)
             {
-                if (predicate.Value is Expression expression && expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelValueMemberExpression))
+                var effectivePredicate = semantics
+                    .ToP(rightConstantFragment.Value)
+                    .WorkaroundLimitations(Environment.Options);
+
+                if (left is ParameterExpressionFragment leftParameterFragment)
                 {
-                    var ret = AddStep(new WherePredicateStep(new P(predicate.OperatorName, stepLabel, predicate.Other)));
+                    switch (leftParameterFragment.Expression)
+                    {
+                        case MemberExpression leftMemberExpression:
+                        {
+                            var leftMemberExpressionExpression = leftMemberExpression.Expression.Strip();
 
-                    if (stepLabelValueMemberExpression != null)
-                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(stepLabelValueMemberExpression)));
+                            if (leftMemberExpressionExpression is ParameterExpression)
+                            {
+                                // x => x.Value == P.xy(...)
+                                if (leftMemberExpression.IsPropertyValue() && !(rightConstantFragment.Value is StepLabel))
+                                    return AddStep(new HasValueStep(effectivePredicate));
 
-                    return ret;
+                                if (leftMemberExpression.IsPropertyKey())
+                                {
+                                    return Where(__ => __
+                                        .Key()
+                                        .Where(
+                                            ExpressionFragment.Create(leftMemberExpression.Expression),
+                                            semantics,
+                                            right));
+                                }
+
+                                if (leftMemberExpression.IsVertexPropertyLabel())
+                                {
+                                    return Where(__ => __
+                                        .Label()
+                                        .Where(
+                                            ExpressionFragment.Create(leftMemberExpression.Expression),
+                                            semantics,
+                                            right));
+                                }
+                            }
+                            else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
+                            {
+                                // x => x.Name.Value == P.xy(...)
+                                if (leftMemberExpression.IsPropertyValue())
+                                    leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
+                            }
+                            else
+                                break;
+
+                            // x => x.Name == P.xy(...)
+                            if (rightConstantFragment.Value is StepLabel)
+                            {
+                                if (rightConstantFragment.Expression is MemberExpression memberExpression)
+                                {
+                                    var ret = this
+                                        .AddStep(new WherePredicateStep(effectivePredicate))
+                                        .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMemberExpression)));
+
+                                    if (memberExpression.Member != leftMemberExpression.Member)
+                                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression)));
+
+                                    return ret;
+                                }
+
+                                return Has(
+                                    leftMemberExpression,
+                                    this
+                                        .Anonymize()
+                                        .AddStep(new WherePredicateStep(effectivePredicate)));
+                            }
+
+                            return Has(leftMemberExpression, effectivePredicate);
+                        }
+                        case ParameterExpression _:
+                        {
+                            // x => x == P.xy(...)
+                            if (rightConstantFragment is StepLabelExpressionFragment stepLabelExpressionFragment)
+                            {
+                                var ret = AddStep(new WherePredicateStep(effectivePredicate));
+
+                                if (stepLabelExpressionFragment.Expression is MemberExpression memberExpression)
+                                    ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression)));
+
+                                return ret;
+                            }
+
+                            return Is(effectivePredicate);
+                        }
+                        case MethodCallExpression methodCallExpression:
+                        {
+                            var targetExpression = methodCallExpression.Object.Strip();
+
+                            if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
+                            {
+                                return Has(methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate);
+                            }
+
+                            break;
+                        }
+                    }
                 }
+                else if (left is ConstantExpressionFragment leftConstantFragment)
+                {
+                    if (leftConstantFragment.Value is StepLabel leftStepLabel && rightConstantFragment.Value is StepLabel rightStepLabel)
+                    {
+                        var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                return AddStep(new WherePredicateStep(predicate));
+                        //TODO: What if x < x.Value.Prop ? i.e only one by operator?
+                        if (leftConstantFragment.Expression is MemberExpression leftStepValueExpression)
+                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepValueExpression)));
+
+                        if (rightConstantFragment.Expression is MemberExpression rightStepValueExpression)
+                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightStepValueExpression)));
+
+                        return ret;
+                    }
+                }
+            }
+            else if (right is ParameterExpressionFragment rightParameterFragment)
+            {
+                if (left is ParameterExpressionFragment leftParameterFragment)
+                {
+                    if (leftParameterFragment.Expression is MemberExpression && rightParameterFragment.Expression is MemberExpression rightMember)
+                    {
+                        //TODO: Nur eine seite Expression?
+                        return As(
+                            new StepLabel<TElement>(),
+                            (_, label) => _
+                                .Where(
+                                    leftParameterFragment,
+                                    semantics,
+                                    new StepLabelExpressionFragment(label, rightMember)));
+                    }
+                }
             }
 
-            return AddStep(new IsStep(predicate));
+            throw new ExpressionNotSupportedException();
         }
     }
 }
