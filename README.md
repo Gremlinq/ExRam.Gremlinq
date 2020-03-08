@@ -2,6 +2,8 @@
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
+> Please note that these examples use preview packages
+
 ## Packages
 
 Package  | Link | 
