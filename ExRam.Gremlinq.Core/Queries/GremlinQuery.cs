@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using LanguageExt;
@@ -320,10 +319,12 @@ namespace ExRam.Gremlinq.Core
 
             if (value is IVertexProperty && value is Property property)
             {
-                metaProperties = property
-                    .GetMetaProperties(Environment.Model.PropertiesModel)
-                    .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                    .ToArray();
+                if (property.GetMetaProperties(Environment.Model.PropertiesModel) is { } dict)
+                {
+                    metaProperties = dict
+                        .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                        .ToArray() ?? Array.Empty<object>();
+                }
 
                 value = property.GetValue();
             }
@@ -974,19 +975,17 @@ namespace ExRam.Gremlinq.Core
         {
             try
             {
-                if (expression is LambdaExpression lambdaExpression)
+                switch (expression)
                 {
-                    return Where(lambdaExpression.Body);
-                }
-
-                if (expression is UnaryExpression unaryExpression && unaryExpression.NodeType == ExpressionType.Not)
-                {
-                    return Not(_ => _.Where(unaryExpression.Operand));
-                }
-
-                if (expression is BinaryExpression binary)
-                {
-                    if (binary.NodeType == ExpressionType.OrElse)
+                    case LambdaExpression lambdaExpression:
+                    {
+                        return Where(lambdaExpression.Body);
+                    }
+                    case UnaryExpression unaryExpression when unaryExpression.NodeType == ExpressionType.Not:
+                    {
+                        return Not(_ => _.Where(unaryExpression.Operand));
+                    }
+                    case BinaryExpression binary when binary.NodeType == ExpressionType.OrElse:
                     {
                         var anonymous = Anonymize();
 
@@ -994,8 +993,7 @@ namespace ExRam.Gremlinq.Core
                             anonymous.Where(binary.Left),
                             anonymous.Where(binary.Right));
                     }
-
-                    if (binary.NodeType == ExpressionType.AndAlso)
+                    case BinaryExpression binary when binary.NodeType == ExpressionType.AndAlso:
                     {
                         return this
                             .Where(binary.Left)
@@ -1134,7 +1132,7 @@ namespace ExRam.Gremlinq.Core
                 }
                 else if (left is ConstantExpressionFragment leftConstantFragment)
                 {
-                    if (leftConstantFragment.Value is StepLabel leftStepLabel && rightConstantFragment.Value is StepLabel rightStepLabel)
+                    if (leftConstantFragment.Value is StepLabel leftStepLabel && rightConstantFragment.Value is StepLabel)
                     {
                         var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 

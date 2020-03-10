@@ -16,90 +16,108 @@ namespace ExRam.Gremlinq.Core
 
             void Append(object obj, bool allowEnumerableExpansion = false)
             {
-                if (obj is Bytecode bytecode)
+                switch (obj)
                 {
-                    if (builder.Length > 0)
-                        builder.Append("__");
-
-                    foreach (var instruction in bytecode.StepInstructions)
+                    case Bytecode bytecode:
                     {
-                        builder.Append(builder.Length != 0
-                            ? $".{instruction.OperatorName}("
-                            : $"{instruction.OperatorName}(");
+                        if (builder.Length > 0)
+                            builder.Append("__");
 
-                        Append(instruction.Arguments, true);
+                        foreach (var instruction in bytecode.StepInstructions)
+                        {
+                            builder.Append(builder.Length != 0
+                                ? $".{instruction.OperatorName}("
+                                : $"{instruction.OperatorName}(");
 
-                        builder.Append(")");
+                            Append(instruction.Arguments, true);
+
+                            builder.Append(")");
+                        }
+
+                        break;
                     }
-                }
-                else if (obj is P p)
-                {
-                    if (p.Value is P p1)
+                    case P p when p.Value is P p1:
                     {
                         Append(p1);
                         builder.Append($".{p.OperatorName}(");
                         Append(p.Other);
 
                         builder.Append(")");
+
+                        break;
                     }
-                    else
+                    case P p:
                     {
                         builder.Append($"{p.OperatorName}(");
 
                         Append(p.Value, true);
 
                         builder.Append(")");
-                    }
-                }
-                else if (obj is EnumWrapper t)
-                {
-                    builder.Append($"{t.EnumValue}");
-                }
-                else if (obj is ILambda lambda)
-                {
-                    builder.Append($"{{{lambda.LambdaExpression}}}");
-                }
-                else if (obj is string str && allowEnumerableExpansion)
-                {
-                    Append(str);
-                }
-                else if (obj is Type type)
-                {
-                    builder.Append(type.Name);
-                }
-                else if (obj is IEnumerable enumerable && allowEnumerableExpansion)
-                {
-                    var comma = false;
-                    foreach (var argument in enumerable)
-                    {
-                        if (comma)
-                            builder.Append(", ");
-                        else
-                            comma = true;
 
-                        Append(argument);
+                        break;
                     }
-                }
-                else
-                {
-                    if (!bindings.TryGetValue(obj, out var bindingKey))
+                    case EnumWrapper t:
                     {
-                        var next = bindings.Count;
+                        builder.Append($"{t.EnumValue}");
 
-                        do
+                        break;
+                    }
+                    case ILambda lambda:
+                    {
+                        builder.Append($"{{{lambda.LambdaExpression}}}");
+
+                        break;
+                    }
+                    case string str when allowEnumerableExpansion:
+                    {
+                        Append(str);
+
+                        break;
+                    }
+                    case Type type:
+                    {
+                        builder.Append(type.Name);
+
+                        break;
+                    }
+                    case IEnumerable enumerable when allowEnumerableExpansion:
+                    {
+                        var comma = false;
+                        foreach (var argument in enumerable)
                         {
-                            bindingKey = (char)('a' + next % 26) + bindingKey;
-                            next /= 26;
+                            if (comma)
+                                builder.Append(", ");
+                            else
+                                comma = true;
+
+                            Append(argument);
                         }
-                        while (next > 0);
 
-                        bindingKey = "_" + bindingKey;
-                        bindings.Add(obj, bindingKey);
-
-                        variables[bindingKey] = obj;
+                        break;
                     }
+                    default:
+                    {
+                        if (!bindings.TryGetValue(obj, out var bindingKey))
+                        {
+                            var next = bindings.Count;
 
-                    builder.Append(bindingKey);
+                            do
+                            {
+                                bindingKey = (char)('a' + next % 26) + bindingKey;
+                                next /= 26;
+                            }
+                            while (next > 0);
+
+                            bindingKey = "_" + bindingKey;
+                            bindings.Add(obj, bindingKey);
+
+                            variables[bindingKey] = obj;
+                        }
+
+                        builder.Append(bindingKey);
+
+                        break;
+                    }
                 }
             }
 

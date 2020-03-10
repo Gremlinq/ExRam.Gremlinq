@@ -18,9 +18,7 @@ namespace ExRam.Gremlinq.Core
             if (obj == null)
                 yield break;
 
-            var propertyInfoTuples = GetSerializationData(model, obj.GetType());
-
-            foreach (var (propertyInfo, identifier, serializationBehaviour) in propertyInfoTuples)
+            foreach (var (propertyInfo, identifier, serializationBehaviour) in GetSerializationData(model, obj.GetType()))
             {
                 var actualSerializationBehaviour = serializationBehaviour;
 
@@ -44,9 +42,7 @@ namespace ExRam.Gremlinq.Core
 
         public static object GetId(this object element, IGraphElementPropertyModel model)
         {
-            var propertyInfoTuples = GetSerializationData(model, element.GetType());
-
-            var (propertyInfo, _, _) = propertyInfoTuples
+            var (propertyInfo, _, _) = GetSerializationData(model, element.GetType())
                 .FirstOrDefault(info => T.Id.Equals(info.identifier));
 
             return propertyInfo == null
@@ -54,6 +50,7 @@ namespace ExRam.Gremlinq.Core
                 : propertyInfo.GetValue(element);
         }
 
+        // ReSharper disable once ReturnTypeCanBeEnumerable.Local
         private static (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[] GetSerializationData(IGraphElementPropertyModel model, Type type)
         {
             return TypeProperties

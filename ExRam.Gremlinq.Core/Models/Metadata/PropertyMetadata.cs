@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public struct PropertyMetadata
+    public readonly struct PropertyMetadata
     {
         public PropertyMetadata(string name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
         {

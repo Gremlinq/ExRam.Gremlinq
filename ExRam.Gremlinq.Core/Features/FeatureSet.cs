@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public struct FeatureSet
+    public readonly struct FeatureSet
     {
         public static FeatureSet Full = new FeatureSet(
             GraphFeatures.All,

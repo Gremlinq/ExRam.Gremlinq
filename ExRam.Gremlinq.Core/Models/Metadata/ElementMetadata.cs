@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public struct ElementMetadata
+    public readonly struct ElementMetadata
     {
         public ElementMetadata(string label)
         {

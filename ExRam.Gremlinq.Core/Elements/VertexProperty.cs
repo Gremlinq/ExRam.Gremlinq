@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         }
 
         //TODO: Honor Mask.
-        internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => Properties?
+        internal override IDictionary<string, object>? GetMetaProperties(IGraphElementPropertyModel model) => Properties?
             .Serialize(model, SerializationBehaviour.Default)
             .Where(x => x.identifier is string)
             .ToDictionary(x => (string)x.identifier, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
@@ -46,6 +46,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
-        internal override IDictionary<string, object> GetMetaProperties(IGraphElementPropertyModel model) => Properties;
+        internal override IDictionary<string, object>? GetMetaProperties(IGraphElementPropertyModel model) => Properties;
     }
 }

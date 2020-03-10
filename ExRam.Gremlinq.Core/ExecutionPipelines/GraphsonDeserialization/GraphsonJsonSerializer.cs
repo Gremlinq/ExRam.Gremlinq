@@ -162,7 +162,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             [return: AllowNull]
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -234,11 +234,13 @@ namespace ExRam.Gremlinq.Core
 
                 if (token is JValue jValue)
                 {
-                    if (jValue.Value is DateTime dateTime)
-                        return dateTime;
-
-                    if (jValue.Value is DateTimeOffset dateTimeOffset)
-                        return dateTimeOffset.UtcDateTime;
+                    switch (jValue.Value)
+                    {
+                        case DateTime dateTime:
+                            return dateTime;
+                        case DateTimeOffset dateTimeOffset:
+                            return dateTimeOffset.UtcDateTime;
+                    }
 
                     if (jValue.Type == JTokenType.Integer)
                         return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);

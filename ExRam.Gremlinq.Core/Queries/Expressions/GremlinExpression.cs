@@ -1,9 +1,6 @@
-﻿using System.Linq.Expressions;
-using Gremlin.Net.Process.Traversal;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
-    internal struct GremlinExpression
+    internal readonly struct GremlinExpression
     {
         public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {

@@ -76,6 +76,12 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.Intersects => ExpressionSemantics.Intersects,
                 ExpressionSemantics.GreaterThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
                 ExpressionSemantics.LowerThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
+                ExpressionSemantics.NotEquals => ExpressionSemantics.NotEquals,
+                ExpressionSemantics.IsContainedIn => ExpressionSemantics.Contains,
+                ExpressionSemantics.IsInfixOf => ExpressionSemantics.HasInfix,
+                ExpressionSemantics.IsPrefixOf => ExpressionSemantics.StartsWith,
+                ExpressionSemantics.IsSuffixOf => ExpressionSemantics.EndsWith,
+                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
             };
         }
 
@@ -105,6 +111,9 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.GreaterThanOrEqual => P.Gte(value),
                 ExpressionSemantics.LowerThanOrEqual => P.Lte(value),
                 ExpressionSemantics.IsContainedIn => P.Within(value),
+                ExpressionSemantics.IsInfixOf => throw new ExpressionNotSupportedException(),
+                ExpressionSemantics.IsSuffixOf => throw new ExpressionNotSupportedException(),
+                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
             };
         }
     }
@@ -143,23 +152,35 @@ namespace ExRam.Gremlinq.Core
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
         private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
         private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
+#pragma warning disable 8625
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
+#pragma warning restore 8625
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
-        private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(default(string)));
-        private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(default(string)));
-        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(default(string)));
+        private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(string.Empty));
+        private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
+        private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         public static Expression Strip(this Expression expression)
         {
             while (true)
             {
-                if (expression is UnaryExpression unaryExpression && expression.NodeType == ExpressionType.Convert)
-                    expression = unaryExpression.Operand;
-                else if (expression is MemberExpression memberExpression && memberExpression.IsStepLabelValue())
-                    return memberExpression.Expression;
-                else
-                    return expression;
+                switch (expression)
+                {
+                    case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
+                    {
+                        expression = unaryExpression.Operand;
+                        break;
+                    }
+                    case MemberExpression memberExpression when memberExpression.IsStepLabelValue():
+                    {
+                        return memberExpression.Expression;
+                    }
+                    default:
+                    {
+                        return expression;
+                    }
+                }
             }
         }
 
@@ -217,26 +238,33 @@ namespace ExRam.Gremlinq.Core
             {
                 expression = expression.Strip();
 
-                if (expression is ParameterExpression)
-                    return true;
-
-                if (expression is LambdaExpression lambdaExpression)
-                    expression = lambdaExpression.Body;
-                if (expression is MemberExpression memberExpression)
-                    expression = memberExpression.Expression;
-                else if (expression is MethodCallExpression methodCallExpression)
-                    expression = methodCallExpression.Object;
-                else
-                    return false;
+                switch (expression)
+                {
+                    case ParameterExpression _:
+                    {
+                        return true;
+                    }
+                    case LambdaExpression lambdaExpression:
+                    {
+                        expression = lambdaExpression.Body;
+                        break;
+                    }
+                    case MemberExpression memberExpression:
+                    {
+                        expression = memberExpression.Expression;
+                        break;
+                    }
+                    case MethodCallExpression methodCallExpression:
+                    {
+                        expression = methodCallExpression.Object;
+                        break;
+                    }
+                    default:
+                    {
+                        return false;
+                    }
+                }
             }
-        }
-
-        public static GremlinExpression? TryToGremlinExpression(this LambdaExpression expression)
-        {
-            if (expression.Parameters.Count != 1)
-                throw new ExpressionNotSupportedException(expression);
-
-            return expression.Body.TryToGremlinExpression();
         }
 
         public static GremlinExpression? TryToGremlinExpression(this Expression body)
@@ -292,36 +320,35 @@ namespace ExRam.Gremlinq.Core
                     case MethodCallExpression methodCallExpression:
                     {
                         var pattern = methodCallExpression.GetMethodCallSemantics();
+                        var thisExpression = methodCallExpression.Arguments[0].Strip();
 
-                            var thisExpression = methodCallExpression.Arguments[0].Strip();
-
-                            switch(pattern)
+                        switch (pattern)
+                        {
+                            case MethodCallPattern.EnumerableIntersectAny:
                             {
-                                case MethodCallPattern.EnumerableIntersectAny:
-                                {
-                                    var arguments = ((MethodCallExpression)thisExpression).Arguments;
+                                var arguments = ((MethodCallExpression)thisExpression).Arguments;
 
-                                    return new GremlinExpression(
-                                        ExpressionFragment.Create(arguments[0].Strip()),
-                                        ExpressionSemantics.Intersects,
-                                        ExpressionFragment.Create(arguments[1].Strip()));
-                                }
-                                case MethodCallPattern.EnumerableAny:
-                                {
-                                    return new GremlinExpression(
-                                        ExpressionFragment.Create(thisExpression),
-                                        ExpressionSemantics.NotEquals,
-                                        ExpressionFragment.Null);
-                                }
-                                case MethodCallPattern.EnumerableContains:
-                                {
-                                    var argumentExpression = methodCallExpression.Arguments[1].Strip();
+                                return new GremlinExpression(
+                                    ExpressionFragment.Create(arguments[0].Strip()),
+                                    ExpressionSemantics.Intersects,
+                                    ExpressionFragment.Create(arguments[1].Strip()));
+                            }
+                            case MethodCallPattern.EnumerableAny:
+                            {
+                                return new GremlinExpression(
+                                    ExpressionFragment.Create(thisExpression),
+                                    ExpressionSemantics.NotEquals,
+                                    ExpressionFragment.Null);
+                            }
+                            case MethodCallPattern.EnumerableContains:
+                            {
+                                var argumentExpression = methodCallExpression.Arguments[1].Strip();
 
-                                    return new GremlinExpression(
-                                        ExpressionFragment.Create(thisExpression),
-                                        ExpressionSemantics.Contains,
-                                        ExpressionFragment.Create(argumentExpression));
-                                }
+                                return new GremlinExpression(
+                                    ExpressionFragment.Create(thisExpression),
+                                    ExpressionSemantics.Contains,
+                                    ExpressionFragment.Create(argumentExpression));
+                            }
                             case MethodCallPattern.StringStartsWith:
                             case MethodCallPattern.StringEndsWith:
                             case MethodCallPattern.StringContains:
@@ -349,7 +376,8 @@ namespace ExRam.Gremlinq.Core
                                             {
                                                 MethodCallPattern.StringStartsWith => ExpressionSemantics.StartsWith,
                                                 MethodCallPattern.StringContains => ExpressionSemantics.HasInfix,
-                                                MethodCallPattern.StringEndsWith => ExpressionSemantics.EndsWith
+                                                MethodCallPattern.StringEndsWith => ExpressionSemantics.EndsWith,
+                                                _ => throw new ArgumentOutOfRangeException()
                                             },
                                             new ConstantExpressionFragment(str));
                                     }
