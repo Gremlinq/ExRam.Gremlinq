@@ -3100,7 +3100,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_current_element_equals_stepLabel()
+        public void Where_current_element_equals_stepLabel1()
         {
             _g
                 .V<Language>()
@@ -3109,6 +3109,45 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(l2 => l2 == l))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b)).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Language", "l1", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Where_current_element_equals_stepLabel2()
+        {
+            _g
+                .V<Language>()
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l == l2))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b)).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Language", "l1", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Where_current_element_not_equals_stepLabel1()
+        {
+            _g
+                .V<Language>()
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l2 != l))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b)).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Language", "l1", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Where_current_element_not_equals_stepLabel2()
+        {
+            _g
+                .V<Language>()
+                .As((__, l) => __
+                    .V<Language>()
+                    .Where(l2 => l != l2))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b)).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Language", "l1", "id", "label", "type", "properties", "vertex", "value");
         }
 
