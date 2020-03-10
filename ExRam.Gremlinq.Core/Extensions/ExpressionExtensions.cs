@@ -1,152 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ExRam.Gremlinq.Core.GraphElements;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal abstract class ExpressionFragment
-    {
-        public static readonly ConstantExpressionFragment True = new ConstantExpressionFragment(true);
-        public static readonly ConstantExpressionFragment Null = new ConstantExpressionFragment(default);
-
-        protected ExpressionFragment(Expression? expression = default)
-        {
-            Expression = expression;
-        }
-
-        public Expression? Expression { get; }
-
-        public static ExpressionFragment Create(Expression expression)
-        {
-            return expression.RefersToParameter()
-                ? (ExpressionFragment)new ParameterExpressionFragment(expression)
-                : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                    ? new StepLabelExpressionFragment(stepLabel, stepLabelExpression)
-                    : new ConstantExpressionFragment(expression.GetValue());
-        }
-    }
-
-    internal class ConstantExpressionFragment : ExpressionFragment
-    {
-        public ConstantExpressionFragment(object? value, Expression? expression = default) : base(expression)
-        {
-            if (value is IEnumerable enumerable && !(value is ICollection) && !(value is string))
-                value = enumerable.Cast<object>().ToArray();
-
-            Value = value;
-        }
-
-        public object? Value { get; }
-    }
-
-    internal class ParameterExpressionFragment : ExpressionFragment
-    {
-        public ParameterExpressionFragment(Expression expression) : base(expression)
-        {
-        }
-    }
-
-    internal class StepLabelExpressionFragment : ConstantExpressionFragment
-    {
-        public StepLabelExpressionFragment(StepLabel stepLabel, Expression? expression = default) : base(stepLabel, expression)
-        {
-        }
-    }
-
-    internal static class ExpressionSemanticsExtensions
-    {
-        private static readonly P P_Eq_True = P.Eq(true);
-        private static readonly P P_Neq_Null = P.Neq(new object[] { null });
-
-        public static ExpressionSemantics Flip(this ExpressionSemantics semantics)
-        {
-            return semantics switch
-            {
-                ExpressionSemantics.Contains => ExpressionSemantics.IsContainedIn,
-                ExpressionSemantics.StartsWith => ExpressionSemantics.IsPrefixOf,
-                ExpressionSemantics.EndsWith => ExpressionSemantics.IsSuffixOf,
-                ExpressionSemantics.HasInfix => ExpressionSemantics.IsInfixOf,
-                ExpressionSemantics.LowerThan => ExpressionSemantics.GreaterThan,
-                ExpressionSemantics.GreaterThan => ExpressionSemantics.LowerThan,
-                ExpressionSemantics.Equals => ExpressionSemantics.Equals,
-                ExpressionSemantics.Intersects => ExpressionSemantics.Intersects,
-                ExpressionSemantics.GreaterThanOrEqual => ExpressionSemantics.LowerThanOrEqual,
-                ExpressionSemantics.LowerThanOrEqual => ExpressionSemantics.GreaterThanOrEqual,
-                ExpressionSemantics.NotEquals => ExpressionSemantics.NotEquals,
-                ExpressionSemantics.IsContainedIn => ExpressionSemantics.Contains,
-                ExpressionSemantics.IsInfixOf => ExpressionSemantics.HasInfix,
-                ExpressionSemantics.IsPrefixOf => ExpressionSemantics.StartsWith,
-                ExpressionSemantics.IsSuffixOf => ExpressionSemantics.EndsWith,
-                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
-            };
-        }
-
-        public static P ToP(this ExpressionSemantics semantics, object? value)
-        {
-            return semantics switch
-            {
-                ExpressionSemantics.Contains => P.Eq(value),
-                ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(Enumerable
-                    .Range(0, stringValue.Length + 1)
-                    .Select(i => stringValue.Substring(0, i))
-                    .ToArray<object>()),
-                ExpressionSemantics.HasInfix when value is string stringValue => stringValue.Length > 0
-                    ? TextP.Containing(stringValue)
-                    : P_Neq_Null,
-                ExpressionSemantics.StartsWith when value is string stringValue => stringValue.Length > 0
-                    ? TextP.StartingWith(stringValue)
-                    : P_Neq_Null,
-                ExpressionSemantics.EndsWith when value is string stringValue => stringValue.Length > 0
-                    ? TextP.EndingWith(stringValue)
-                    : P_Neq_Null,
-                ExpressionSemantics.LowerThan => P.Lt(value),
-                ExpressionSemantics.GreaterThan => P.Gt(value),
-                ExpressionSemantics.Equals => P.Eq(value),
-                ExpressionSemantics.NotEquals => P.Neq(value),
-                ExpressionSemantics.Intersects => P.Within(value),
-                ExpressionSemantics.GreaterThanOrEqual => P.Gte(value),
-                ExpressionSemantics.LowerThanOrEqual => P.Lte(value),
-                ExpressionSemantics.IsContainedIn => P.Within(value),
-                ExpressionSemantics.IsInfixOf => throw new ExpressionNotSupportedException(),
-                ExpressionSemantics.IsSuffixOf => throw new ExpressionNotSupportedException(),
-                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
-            };
-        }
-    }
-
-    internal enum ExpressionSemantics
-    {
-        Equals,
-        LowerThan,
-        LowerThanOrEqual,
-        GreaterThan,
-        GreaterThanOrEqual,
-        Intersects,
-        Contains,
-        HasInfix,
-        StartsWith,
-        EndsWith,
-        NotEquals,
-        IsContainedIn,
-        IsInfixOf,
-        IsPrefixOf,
-        IsSuffixOf,
-    }
-
-    internal enum MethodCallPattern
-    {
-        EnumerableIntersectAny,
-        EnumerableAny,
-        EnumerableContains,
-        StringContains,
-        StringStartsWith,
-        StringEndsWith,
-    }
-
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
@@ -287,32 +146,12 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression binaryExpression:
                     {
-                        var left = binaryExpression.Left.Strip();
-                        var right = binaryExpression.Right.Strip();
-
-                        if (binaryExpression.NodeType == ExpressionType.AndAlso || binaryExpression.NodeType == ExpressionType.OrElse)
-                        {
-                            /*if (left.TryToGremlinExpression() is { } leftExpression && right.TryToGremlinExpression() is { } rightExpression)
-                            {
-                                if (leftExpression.Key == rightExpression.Key || leftExpression.Key is MemberExpression memberExpression1 && rightExpression.Key is MemberExpression memberExpression2 && memberExpression1.Member == memberExpression2.Member)
-                                {
-                                    return new GremlinExpression(
-                                        leftExpression.Key,
-                                        binaryExpression.NodeType switch
-                                        {
-                                            ExpressionType.AndAlso => leftExpression.Predicate.And(rightExpression.Predicate),
-                                            ExpressionType.OrElse => leftExpression.Predicate.Or(rightExpression.Predicate),
-                                            _ => throw new ExpressionNotSupportedException(body)
-                                        });
-                                }
-                            }*/
-                        }
-                        else
+                        if (binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse)
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(left),
+                                ExpressionFragment.Create(binaryExpression.Left.Strip()),
                                 binaryExpression.NodeType.ToSemantics(),
-                                ExpressionFragment.Create(right));
+                                ExpressionFragment.Create(binaryExpression.Right.Strip()));
                         }
 
                         break;
