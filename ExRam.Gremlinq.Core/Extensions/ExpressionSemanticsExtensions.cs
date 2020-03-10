@@ -6,7 +6,6 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionSemanticsExtensions
     {
-        private static readonly P P_Eq_True = P.Eq(true);
         private static readonly P P_Neq_Null = P.Neq(new object[] { null });
 
         public static ExpressionSemantics Flip(this ExpressionSemantics semantics)

@@ -325,7 +325,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (argument is P p2)
                     {
-                        if (p2.Value == null || p2.Value is ConstantExpression constant && constant.Value == default)
+                        if (p2.Value == null)
                         {
                             argument = null;
 
