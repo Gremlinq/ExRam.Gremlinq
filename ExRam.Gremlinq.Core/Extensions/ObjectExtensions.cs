@@ -57,23 +57,24 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(model.Metadata)
                 .GetOrAdd(
                     type,
-                    closureType => closureType
+                    (closureType, closureModel) => closureType
                         .GetTypeHierarchy()
                         .SelectMany(typeInHierarchy => typeInHierarchy
                             .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                         .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
                         .Select(p =>
                         {
-                            var metadata = model.Metadata
+                            var metadata = closureModel.Metadata
                                 .GetValueOrDefault(p, new PropertyMetadata(p.Name));
 
                             return (
                                 property: p,
-                                identifier: model.GetIdentifier(metadata),
+                                identifier: closureModel.GetIdentifier(metadata),
                                 serializationBehaviour: metadata.SerializationBehaviour);
                         })
                         .OrderBy(x => x.property.Name)
-                        .ToArray());
+                        .ToArray(),
+                    model);
         }
     }
 }

@@ -72,22 +72,23 @@ namespace ExRam.Gremlinq.Core
                 return _lazyFastDict.Value
                     .GetOrAdd(
                         type,
-                        closureType =>
+                        (closureType, @this) =>
                         {
                             foreach (var implementedInterface in closureType.GetInterfaces())
                             {
-                                if (TryGetSerializer(implementedInterface) is { } interfaceSerializer)
+                                if (@this.TryGetSerializer(implementedInterface) is { } interfaceSerializer)
                                     return interfaceSerializer;
                             }
 
                             if (closureType.BaseType is { } baseType)
                             {
-                                if (TryGetSerializer(baseType) is { } baseSerializer)
+                                if (@this.TryGetSerializer(baseType) is { } baseSerializer)
                                     return baseSerializer;
                             }
 
                             return null;
-                        });
+                        },
+                        this);
             }
         }
 

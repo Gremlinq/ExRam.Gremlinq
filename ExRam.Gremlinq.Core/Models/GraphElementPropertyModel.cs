@@ -69,13 +69,13 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(model)
                 .GetOrAdd(
                     member,
-                    closureMember =>
+                    (closureMember, closureModel) =>
                     {
                         if (closureMember.DeclaringType != null && closureMember.DeclaringType.IsInterface)
                         {
                             var interfaceGetter = ((PropertyInfo)closureMember).GetMethod;
 
-                            var implementingGetters = model.Metadata.Keys
+                            var implementingGetters = closureModel.Metadata.Keys
                                 .Select(x => x.DeclaringType)
                                 .Distinct()
                                 .Where(declaringType => closureMember.DeclaringType.IsAssignableFrom(declaringType))
@@ -94,11 +94,11 @@ namespace ExRam.Gremlinq.Core
 
                             if (implementingGetters.Length > 0)
                             {
-                                var identifiers = model.Metadata.Keys
+                                var identifiers = closureModel.Metadata.Keys
                                     .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
                                     .OfType<PropertyInfo>()
                                     .Where(p => implementingGetters.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
-                                    .Select(model.GetIdentifier)
+                                    .Select(closureModel.GetIdentifier)
                                     .Distinct()
                                     .ToArray();
                                 
@@ -110,10 +110,11 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
-                        return model.GetIdentifier(model.Metadata
+                        return closureModel.GetIdentifier(closureModel.Metadata
                             .TryGetValue(closureMember)
                             .IfNone(new PropertyMetadata(closureMember.Name)));
-                    });
+                    },
+                    model);
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)

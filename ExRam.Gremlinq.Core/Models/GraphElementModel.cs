@@ -93,14 +93,15 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(model)
                 .GetOrAdd(
                     type,
-                    closureType =>
+                    (closureType, closureModel) =>
                     {
-                        return model.Metadata
+                        return closureModel.Metadata
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
                             .Select(kvp => kvp.Value.Label)
                             .OrderBy(x => x)
                             .ToArray();
-                    });
+                    },
+                    model);
 
 
             return labels.Length == 0

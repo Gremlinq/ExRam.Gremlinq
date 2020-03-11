@@ -16,14 +16,15 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(elementModel)
                 .GetOrAdd(
                     value.GetType(),
-                    closureType => closureType
+                    (closureType, closureModel) => closureType
                         .GetTypeHierarchy()
                         .Where(type => !type.IsAbstract)
-                        .SelectMany(type => elementModel.Metadata
+                        .SelectMany(type => closureModel.Metadata
                             .TryGetValue(type)
                             .Map(x => x.Label))
                         .HeadOrNone()
-                        .IfNone(closureType.Name));
+                        .IfNone(closureType.Name),
+                    elementModel);
         }
 
         public string Label { get; }
