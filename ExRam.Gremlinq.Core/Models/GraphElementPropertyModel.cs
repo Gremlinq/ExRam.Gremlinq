@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
         internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberExpression memberExpression)
         {
             return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                ? model.GetIdentifier(sourceMemberExpression)
+                ? model.GetIdentifier(sourceMemberExpression.Member)
                 : model.GetIdentifier(memberExpression.Member);
         }
 
