@@ -13,6 +13,8 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         protected readonly IGremlinQuerySource _g;
 
+        private static string id = "id";
+
         protected GroovySerializationTest(IGremlinQuerySource g)
         {
             _g = g
@@ -2062,6 +2064,20 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Languages)
 #pragma warning disable 252,253
                 .Where(x => x.Id == "id")
+#pragma warning restore 252,253
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).properties(_b).has(id, _c)")
+                .WithParameters("Country", "Languages", "id");
+        }
+
+        [Fact]
+        public void Properties_Where_Id_equals_static_field()
+        {
+            _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+#pragma warning disable 252,253
+                .Where(x => x.Id == id)
 #pragma warning restore 252,253
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).properties(_b).has(id, _c)")

@@ -276,22 +276,22 @@ namespace ExRam.Gremlinq.Core
 
         public static bool IsPropertyValue(this Expression expression)
         {
-            return expression is MemberExpression memberExpression && typeof(Property).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(Property<object>.Value);
+            return expression is MemberExpression memberExpression && typeof(Property).IsAssignableFrom(memberExpression.Member.DeclaringType) && memberExpression.Member.Name == nameof(Property<object>.Value);
         }
 
         public static bool IsPropertyKey(this Expression expression)
         {
-            return expression is MemberExpression memberExpression && typeof(Property).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(Property<object>.Key);
+            return expression is MemberExpression memberExpression && typeof(Property).IsAssignableFrom(memberExpression.Member.DeclaringType) && memberExpression.Member.Name == nameof(Property<object>.Key);
         }
 
         public static bool IsStepLabelValue(this Expression expression)
         {
-            return expression is MemberExpression memberExpression && typeof(StepLabel).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(StepLabel<object>.Value);
+            return expression is MemberExpression memberExpression && typeof(StepLabel).IsAssignableFrom(memberExpression.Member.DeclaringType) && memberExpression.Member.Name == nameof(StepLabel<object>.Value);
         }
 
         public static bool IsVertexPropertyLabel(this Expression expression)
         {
-            return expression is MemberExpression memberExpression && typeof(IVertexProperty).IsAssignableFrom(memberExpression.Expression.Type) && memberExpression.Member.Name == nameof(VertexProperty<object>.Label);
+            return expression is MemberExpression memberExpression && typeof(IVertexProperty).IsAssignableFrom(memberExpression.Member.DeclaringType) && memberExpression.Member.Name == nameof(VertexProperty<object>.Label);
         }
 
         public static bool IsEnumerableAny(this Expression expression)
