@@ -974,6 +974,12 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
+                    case ConstantExpression constantExpression when constantExpression.GetValue() is bool value:
+                    {
+                        return value
+                            ? this
+                            : None();
+                    }
                     case LambdaExpression lambdaExpression:
                     {
                         return Where(lambdaExpression.Body);
