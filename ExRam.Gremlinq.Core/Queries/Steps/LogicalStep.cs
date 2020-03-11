@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
         {
             var steps = query.AsAdmin().Steps;
 
-            if (!steps.IsEmpty && steps.Pop().IsEmpty && steps.Peek() is TStep otherStep)
+            if (steps.TryGetSingleStep() is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {

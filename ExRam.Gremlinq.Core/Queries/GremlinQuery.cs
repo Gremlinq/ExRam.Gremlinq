@@ -422,7 +422,7 @@ namespace ExRam.Gremlinq.Core
                 .Anonymize()
                 .Where(predicate);
 
-            if (!query.Steps.IsEmpty && query.Steps.Pop().IsEmpty && query.Steps.Peek() is IsStep isStep)
+            if (query.Steps.TryGetSingleStep() is IsStep isStep)
             {
                 return this
                     .AddStep(
@@ -724,11 +724,8 @@ namespace ExRam.Gremlinq.Core
             GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> left,
             GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> right)
         {
-            if (!left.Steps.IsEmpty && !right.Steps.IsEmpty && left.Steps.Pop().IsEmpty && right.Steps.Pop().IsEmpty)
+            if (left.Steps.TryGetSingleStep() is { } leftStep && right.Steps.TryGetSingleStep() is { } rightStep)
             {
-                var leftStep = left.Steps.Peek();
-                var rightStep = right.Steps.Peek();
-
                 if (leftStep is HasPredicateStep leftHasPredicate && rightStep is HasPredicateStep rightHasPredicateStep)
                 {
                     if (leftHasPredicate.Key == rightHasPredicateStep.Key)
