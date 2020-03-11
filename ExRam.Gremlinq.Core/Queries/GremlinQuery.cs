@@ -1038,38 +1038,36 @@ namespace ExRam.Gremlinq.Core
                     {
                         case MemberExpression leftMemberExpression:
                         {
+                            var memberSemantics = leftMemberExpression.TryGetWellKnownMember();
                             var leftMemberExpressionExpression = leftMemberExpression.Expression.Strip();
 
                             if (leftMemberExpressionExpression is ParameterExpression)
                             {
-                                // x => x.Value == P.xy(...)
-                                if (leftMemberExpression.IsPropertyValue() && !(rightConstantFragment.Value is StepLabel))
-                                    return AddStep(new HasValueStep(effectivePredicate));
-
-                                if (leftMemberExpression.IsPropertyKey())
+                                switch (memberSemantics)
                                 {
-                                    return Where(__ => __
-                                        .Key()
-                                        .Where(
-                                            ExpressionFragment.Create(leftMemberExpression.Expression),
-                                            semantics,
-                                            right));
-                                }
-
-                                if (leftMemberExpression.IsVertexPropertyLabel())
-                                {
-                                    return Where(__ => __
-                                        .Label()
-                                        .Where(
-                                            ExpressionFragment.Create(leftMemberExpression.Expression),
-                                            semantics,
-                                            right));
+                                    // x => x.Value == P.xy(...)
+                                    case WellKnownMember.PropertyValue when !(rightConstantFragment.Value is StepLabel):
+                                        return AddStep(new HasValueStep(effectivePredicate));
+                                    case WellKnownMember.PropertyKey:
+                                        return Where(__ => __
+                                            .Key()
+                                            .Where(
+                                                ExpressionFragment.Create(leftMemberExpression.Expression),
+                                                semantics,
+                                                right));
+                                    case WellKnownMember.VertexPropertyLabel:
+                                        return Where(__ => __
+                                            .Label()
+                                            .Where(
+                                                ExpressionFragment.Create(leftMemberExpression.Expression),
+                                                semantics,
+                                                right));
                                 }
                             }
                             else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
                             {
                                 // x => x.Name.Value == P.xy(...)
-                                if (leftMemberExpression.IsPropertyValue())
+                                if (memberSemantics == WellKnownMember.PropertyValue)
                                     leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
                             }
                             else

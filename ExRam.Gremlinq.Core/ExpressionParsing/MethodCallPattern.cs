@@ -1,7 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    internal enum MethodCallPattern
+    internal enum WellKnownMember
     {
+        PropertyValue,
+        PropertyKey,
+        StepLabelValue,
+        VertexPropertyLabel,
+        
         EnumerableIntersectAny,
         EnumerableAny,
         EnumerableContains,
