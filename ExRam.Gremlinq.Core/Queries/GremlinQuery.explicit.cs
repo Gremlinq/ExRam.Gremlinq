@@ -262,14 +262,14 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TNewVertex> IStartGremlinQuery.ReplaceV<TNewVertex>(TNewVertex vertex)
         {
-            return this
+            return ((IStartGremlinQuery)this)
                 .V<TNewVertex>(vertex.GetId(Environment.Model.PropertiesModel))
                 .Update(vertex);
         }
 
         IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge)
         {
-            return this
+            return ((IStartGremlinQuery)this)
                 .E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel))
                 .Update(edge);
         }
@@ -305,5 +305,13 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TFoldedQuery>.Lower() => this;
 
         IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
+
+        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>() => AddE(new TEdge());
+
+        IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>() => AddV(new TVertex());
+
+        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => ((IStartGremlinQuery)this).E(ids).OfType<TEdge>();
+
+        IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => ((IStartGremlinQuery)this).V(ids).OfType<TVertex>();
     }
 }

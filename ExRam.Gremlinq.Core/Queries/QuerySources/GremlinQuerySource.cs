@@ -24,10 +24,22 @@ namespace ExRam.Gremlinq.Core
                     .AddV(vertex);
             }
 
+            public IVertexGremlinQuery<TVertex> AddV<TVertex>() where TVertex : new()
+            {
+                return Create()
+                    .AddV<TVertex>();
+            }
+
             IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge)
             {
                 return Create()
                     .AddE(edge);
+            }
+
+            public IEdgeGremlinQuery<TEdge> AddE<TEdge>() where TEdge : new()
+            {
+                return Create()
+                    .AddE<TEdge>();
             }
 
             IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids)
@@ -36,10 +48,22 @@ namespace ExRam.Gremlinq.Core
                     .V(ids);
             }
 
+            public IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids)
+            {
+                return Create()
+                    .V<TVertex>(ids);
+            }
+
             IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids)
             {
                 return Create()
                     .E(ids);
+            }
+
+            public IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids)
+            {
+                return Create()
+                    .E<TEdge>(ids);
             }
 
             IGremlinQuery<TElement> IStartGremlinQuery.Inject<TElement>(params TElement[] elements)
@@ -113,25 +137,5 @@ namespace ExRam.Gremlinq.Core
             ImmutableList<IGremlinQueryStrategy>.Empty,
             ImmutableList<Type>.Empty);
         #pragma warning restore IDE1006 // Naming Styles
-
-        public static IEdgeGremlinQuery<TEdge> AddE<TEdge>(this IStartGremlinQuery source) where TEdge : new()
-        {
-            return source.AddE(new TEdge());
-        }
-
-        public static IVertexGremlinQuery<TVertex> AddV<TVertex>(this IStartGremlinQuery source) where TVertex : new()
-        {
-            return source.AddV(new TVertex());
-        }
-
-        public static IEdgeGremlinQuery<TEdge> E<TEdge>(this IStartGremlinQuery source, params object[] ids)
-        {
-            return source.E(ids).OfType<TEdge>();
-        }
-
-        public static IVertexGremlinQuery<TVertex> V<TVertex>(this IStartGremlinQuery source, params object[] ids)
-        {
-            return source.V(ids).OfType<TVertex>();
-        }
     }
 }
