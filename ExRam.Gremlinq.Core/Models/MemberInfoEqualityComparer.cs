@@ -14,12 +14,12 @@ namespace ExRam.Gremlinq.Core
 
         public bool Equals(MemberInfo x, MemberInfo y)
         {
-            return (x?.DeclaringType, x?.Name).Equals((y?.DeclaringType, y?.Name));
+            return (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
         }
 
         public int GetHashCode(MemberInfo obj)
         {
-            return (obj.DeclaringType, obj.Name).GetHashCode();
+            return (obj.DeclaringType, obj.MetadataToken).GetHashCode();
         }
     }
 }
