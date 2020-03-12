@@ -236,9 +236,9 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseWebSocket(
             this IGremlinQueryEnvironment environment,
-            Func<IWebSocketConfigurationBuilder, IGremlinQueryEnvironmentBuilder> builderAction, ConnectionPoolSettings connectionPoolSettings = null)
+            Func<IWebSocketConfigurationBuilder, IGremlinQueryEnvironmentBuilder> builderAction)
         {
-            return builderAction(new WebSocketConfigurationBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, QueryLoggingOptions.Default, connectionPoolSettings ?? new ConnectionPoolSettings()))
+            return builderAction(new WebSocketConfigurationBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, QueryLoggingOptions.Default, new ConnectionPoolSettings()))
                 .Build()
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.Graphson);
         }

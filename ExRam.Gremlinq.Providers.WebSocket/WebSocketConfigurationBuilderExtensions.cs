@@ -1,4 +1,5 @@
 ﻿using System;
+using Gremlin.Net.Driver;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
@@ -12,6 +13,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         public static IWebSocketConfigurationBuilder AtLocalhost(this IWebSocketConfigurationBuilder builder)
         {
             return builder.At(new Uri("ws://localhost:8182"));
+        }
+
+        public static IWebSocketConfigurationBuilder SetConnectionPoolSettings(this IWebSocketConfigurationBuilder builder, ConnectionPoolSettings connectionPoolSettings)
+        {
+            return builder.SetConnectionPoolSettings(connectionPoolSettings);
         }
     }
 }
