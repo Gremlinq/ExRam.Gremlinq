@@ -1,5 +1,6 @@
 ﻿using System;
 using ExRam.Gremlinq.Core;
+using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -11,6 +12,8 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         IWebSocketConfigurationBuilder AuthenticateBy(string username, string password);
 
         IWebSocketConfigurationBuilder SetAlias(string alias);
+
+        IWebSocketConfigurationBuilder SetConnectionPoolSettings(ConnectionPoolSettings connectionPoolSettings);
 
         IWebSocketConfigurationBuilder SetGraphSONVersion(GraphsonVersion version);
 

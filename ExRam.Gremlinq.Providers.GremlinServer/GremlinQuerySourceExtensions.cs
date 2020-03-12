@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -11,10 +12,10 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQuerySourceExtensions
     {
         public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
-            Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> builderAction)
+            Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> builderAction, ConnectionPoolSettings connectionPoolSettings = null)
         {
             return environment
-                .UseWebSocket(builderAction)
+                .UseWebSocket(builderAction, connectionPoolSettings)
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                     .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))
