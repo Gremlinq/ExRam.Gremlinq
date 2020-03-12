@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureNames((member, name) => name.ToCamelCase());
         }
 
-        public static IGraphElementPropertyModel WithLowerCaseNames(this IGraphElementPropertyModel model)
+        public static IGraphElementPropertyModel UseLowerCaseNames(this IGraphElementPropertyModel model)
         {
             return model.ConfigureNames((member, name) => name.ToLower());
         }
