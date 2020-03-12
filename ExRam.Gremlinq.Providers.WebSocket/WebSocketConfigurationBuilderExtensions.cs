@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
             return builder.At(new Uri("ws://localhost:8182"));
         }
 
-        public static IWebSocketConfigurationBuilder SetConnectionPoolSettings(this IWebSocketConfigurationBuilder builder, ConnectionPoolSettings connectionPoolSettings)
+        public static IWebSocketConfigurationBuilder ConfigureConnectionPool(this IWebSocketConfigurationBuilder builder, Func<ConnectionPoolSettings> connectionPoolSettings)
         {
             return builder.SetConnectionPoolSettings(connectionPoolSettings);
         }

@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             .ConfigureEnvironment(env => env
                 .UseWebSocket(builder => builder
                     .AtLocalhost()
-                    .SetConnectionPoolSettings(new ConnectionPoolSettings() { MaxInProcessPerConnection = 100})
+                    .ConfigureConnectionPool(() => new ConnectionPoolSettings { MaxInProcessPerConnection = 100, PoolSize = 10 })
                     .SetGraphSONVersion(GraphsonVersion.V2))))
         {
 

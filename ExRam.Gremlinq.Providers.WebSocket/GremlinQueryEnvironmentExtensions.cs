@@ -185,9 +185,9 @@ namespace ExRam.Gremlinq.Core
                 return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
-            public IWebSocketConfigurationBuilder SetConnectionPoolSettings(ConnectionPoolSettings connectionPoolSettings)
+            public IWebSocketConfigurationBuilder SetConnectionPoolSettings(Func<ConnectionPoolSettings> connectionPoolSettings)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, connectionPoolSettings());
             }
 
             public IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
