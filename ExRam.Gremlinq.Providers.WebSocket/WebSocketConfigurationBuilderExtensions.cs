@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         public static IWebSocketConfigurationBuilder ConfigureConnectionPool(this IWebSocketConfigurationBuilder builder, Func<ConnectionPoolSettings> connectionPoolSettings)
         {
-            return builder.SetConnectionPoolSettings(connectionPoolSettings);
+            return builder.ConfigureConnectionPool(connectionPoolSettings);
         }
     }
 }

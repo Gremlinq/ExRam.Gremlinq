@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketConfigurationBuilder SetAlias(string alias);
 
-        IWebSocketConfigurationBuilder SetConnectionPoolSettings(Func<ConnectionPoolSettings> connectionPoolSettings);
+        IWebSocketConfigurationBuilder ConfigureConnectionPool(Func<ConnectionPoolSettings> connectionPoolSettings);
 
         IWebSocketConfigurationBuilder SetGraphSONVersion(GraphsonVersion version);
 
