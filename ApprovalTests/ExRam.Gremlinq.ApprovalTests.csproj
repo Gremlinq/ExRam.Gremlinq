@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PublicApiGenerator" Version="10.0.2" />
+    <PackageReference Include="ApprovalTests" Version="4.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="*.approved.cs" />
+    <Compile Remove="*.received.cs" />
+    <None Include="*.approved.cs" />
+    <None Include="*.received.cs" />
+  </ItemGroup>
+
+</Project>
