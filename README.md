@@ -1,4 +1,7 @@
-![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/Logo.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/Logo.png" alt="Gremlinq mascor" title="Gremlinq mascot" />
+</p>
+
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
@@ -306,6 +309,3 @@ AWS Neptune since it doesn't support meta properties.
  - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
  - [AWS Neptune](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)
 
-## Acknowledgements
-
-The 'Gremlin'-graphic used in this project's logo on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
