@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
                 if (identifier is T t)
                 {
-                    actualSerializationBehaviour = SerializationBehaviour.IgnoreOnUpdate;
+                    actualSerializationBehaviour |= SerializationBehaviour.IgnoreOnUpdate;
 
                     if (T.Label.Equals(t))
                         actualSerializationBehaviour = SerializationBehaviour.IgnoreAlways;

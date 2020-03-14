@@ -224,6 +224,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void AddV_with_ignored_id_property()
+        {
+            _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureModel(model => model
+                        .ConfigureProperties(_ => _
+                            .ConfigureElement<Language>(conf => conf
+                                .IgnoreOnAdd(p => p.Id)))))
+                .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
+                .Should()
+                .SerializeToGroovy("addV(_a).property(single, _b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.properties().group().by(__.label()).by(__.project(_d, _e, _i, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Language", "IetfLanguageTag", "en", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void AddV_with_Meta_with_properties()
         {
             _g
