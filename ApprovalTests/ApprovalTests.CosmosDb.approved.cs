@@ -1,6 +1,10 @@
 ﻿[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core
 {
+    public static class CosmosDbConfigurationBuilderExtensions
+    {
+        public static ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithUri At(this ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilder builder, string uri, string databaseName, string graphName) { }
+    }
     public sealed class CosmosDbKey
     {
         public CosmosDbKey(string id) { }
