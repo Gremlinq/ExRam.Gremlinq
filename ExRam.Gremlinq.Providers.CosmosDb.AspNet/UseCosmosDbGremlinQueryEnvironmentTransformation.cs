@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                         .ConfigureWebSocket(webSocketBuilder => webSocketBuilder
                             .Configure(_configuration))
                         .At(
-                            new Uri(_configuration.GetRequiredConfiguration("Uri")),
+                            _configuration.GetRequiredConfiguration("Uri"),
                             _configuration.GetRequiredConfiguration("Database"),
                             _configuration.GetRequiredConfiguration("Graph"))
                         .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"));
