@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -31,51 +30,11 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        private sealed class GremlinqConfiguration : IGremlinqConfiguration
-        {
-            private readonly IConfiguration _baseConfiguration;
-
-            public GremlinqConfiguration(IConfiguration baseConfiguration)
-            {
-                _baseConfiguration = baseConfiguration;
-            }
-
-            public IEnumerable<IConfigurationSection> GetChildren()
-            {
-                return _baseConfiguration.GetChildren();
-            }
-
-            public IChangeToken GetReloadToken()
-            {
-                return _baseConfiguration.GetReloadToken();
-            }
-
-            public IConfigurationSection GetSection(string key)
-            {
-                return _baseConfiguration.GetSection(key);
-            }
-
-            public string this[string key]
-            {
-                get => _baseConfiguration[key];
-                set => _baseConfiguration[key] = value;
-            }
-        }
-
-        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqOptions> configuration, string? configurationSection = default)
+        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqOptions> configuration)
         {
             serviceCollection
-                .AddSingleton<IGremlinqConfiguration>(serviceProvider =>
-                {
-                    var configuration = serviceProvider.GetService<IConfiguration>();
-
-                    if (configurationSection != null)
-                        configuration = configuration.GetSection(configurationSection);
-
-                    return new GremlinqConfiguration(configuration.GetSection("Gremlinq"));
-                });
-
-            serviceCollection
+                .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetService<IConfiguration>().GetSection("Gremlinq")))
+                .AddSingleton<IGremlinQueryEnvironmentTransformation, UseLoggerGremlinQueryEnvironmentTransformation>()
                 .AddSingleton(c =>
                 {
                     var transformations = c.GetService<IEnumerable<IGremlinQueryEnvironmentTransformation>>();
@@ -91,8 +50,6 @@ namespace ExRam.Gremlinq.Core.AspNet
                             return env;
                         });
                 });
-
-            serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseLoggerGremlinQueryEnvironmentTransformation>();
 
             configuration(new GremlinqOptions(serviceCollection));
 

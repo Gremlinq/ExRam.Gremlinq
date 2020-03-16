@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
   </ItemGroup>
 
