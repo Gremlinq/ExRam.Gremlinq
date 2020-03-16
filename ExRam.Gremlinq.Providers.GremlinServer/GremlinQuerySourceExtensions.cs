@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.WebSocket;
-using Gremlin.Net.Driver;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
