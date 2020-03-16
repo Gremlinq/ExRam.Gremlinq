@@ -1,5 +1,6 @@
 ﻿using System;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Driver;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,25 +17,25 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             builder = builder
                 .At(configuration.GetRequiredConfiguration("Uri"))
-                .ConfigureQueryLoggingOptions(o =>
+                .ConfigureQueryLoggingOptions(options =>
                 {
                     if (Enum.TryParse<QueryLoggingVerbosity>(loggingSection["Verbosity"], out var verbosity))
-                        o = o.SetQueryLoggingVerbosity(verbosity);
+                        options = options.SetQueryLoggingVerbosity(verbosity);
 
-                    if (Enum.TryParse<LogLevel>(loggingSection["LogLevel"], out var logLevel))
-                        o = o.SetLogLevel(logLevel);
+                    if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
+                        options = options.SetLogLevel(logLevel);
 
-                    if (Enum.TryParse<Formatting>(loggingSection["LogLevel"], out var formatting))
-                        o = o.SetFormatting(formatting);
+                    if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
+                        options = options.SetFormatting(formatting);
 
-                    return o;
+                    return options;
                 })
                 .ConfigureConnectionPool(connectionPoolSettings =>
                 {
-                    if (int.TryParse(connectionPoolSection["MaxInProcessPerConnection"], out var maxInProcessPerConnection))
+                    if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.MaxInProcessPerConnection)}"], out var maxInProcessPerConnection))
                         connectionPoolSettings.MaxInProcessPerConnection = maxInProcessPerConnection;
 
-                    if (int.TryParse(connectionPoolSection["PoolSize"], out var poolSize))
+                    if (int.TryParse(connectionPoolSection[$"{nameof(ConnectionPoolSettings.PoolSize)}"], out var poolSize))
                         connectionPoolSettings.PoolSize = poolSize;
                 });
 
@@ -44,7 +45,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
                 builder = builder.AuthenticateBy(username, password);
 
-            if (Enum.TryParse<GraphsonVersion>(loggingSection["GraphsonVersion"], out var graphsonVersion))
+            if (Enum.TryParse<GraphsonVersion>(loggingSection[$"{nameof(GraphsonVersion)}"], out var graphsonVersion))
                 builder = builder.SetGraphSONVersion(graphsonVersion);
 
             return builder;
