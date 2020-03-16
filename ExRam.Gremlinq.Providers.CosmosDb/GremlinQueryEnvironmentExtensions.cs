@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public ICosmosDbConfigurationBuilderWithAuthKey ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
+            public ICosmosDbConfigurationBuilder ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
             {
                 return new CosmosDbConfigurationBuilder(
                     transformation(_webSocketBuilder),
