@@ -10,10 +10,6 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        private struct GremlinqQueries
-        {
-        }
-
         private sealed class UseLoggerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly ILogger<GremlinqQueries>? _logger;
