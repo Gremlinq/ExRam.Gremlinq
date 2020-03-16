@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
     {
         public static IWebSocketConfigurationBuilder Configure(this IWebSocketConfigurationBuilder builder, IConfiguration configuration)
         {
-            var loggingSection = configuration.GetSection("QueryLoggingg");
+            var loggingSection = configuration.GetSection("QueryLogging");
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
 
