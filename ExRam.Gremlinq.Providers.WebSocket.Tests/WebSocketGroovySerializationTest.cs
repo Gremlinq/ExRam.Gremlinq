@@ -1,5 +1,6 @@
 ﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+using Gremlin.Net.Driver;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -11,6 +12,12 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             .ConfigureEnvironment(env => env
                 .UseWebSocket(builder => builder
                     .AtLocalhost()
+                    .ConfigureConnectionPool(c =>
+                    {
+                        c.PoolSize = 100;
+                        c.MaxInProcessPerConnection = 100;
+
+                    })
                     .SetGraphSONVersion(GraphsonVersion.V2))))
         {
 
