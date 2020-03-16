@@ -185,16 +185,17 @@ namespace ExRam.Gremlinq.Core
                 return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
-            public IWebSocketConfigurationBuilder ConfigureConnectionPool(Func<ConnectionPoolSettings> connectionPoolSettings)
+            public IWebSocketConfigurationBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, connectionPoolSettings());
-            }
+                var newConnectionPoolSettings = new ConnectionPoolSettings
+                {
+                    MaxInProcessPerConnection = _connectionPoolSettings.MaxInProcessPerConnection,
+                    PoolSize = _connectionPoolSettings.PoolSize
+                };
 
-            public IWebSocketConfigurationBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> connectionPoolSettings)
-            {
-                var connection = new ConnectionPoolSettings();
-                connectionPoolSettings(connection);
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, connection);
+                transformation(newConnectionPoolSettings);
+
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, newConnectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
