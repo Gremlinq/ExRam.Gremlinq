@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 {
     public readonly struct QueryLoggingOptions
     {
-        public static readonly QueryLoggingOptions Default = new QueryLoggingOptions(LogLevel.Trace, QueryLoggingVerbosity.QueryOnly, Formatting.None);
+        public static readonly QueryLoggingOptions Default = new QueryLoggingOptions(LogLevel.Debug, QueryLoggingVerbosity.QueryOnly, Formatting.None);
 
         public QueryLoggingOptions(LogLevel logLevel, QueryLoggingVerbosity verbosity, Formatting formatting)
         {
