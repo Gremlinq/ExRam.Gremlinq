@@ -36,7 +36,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "ExRam.Gremlinq.Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.ApprovalTests", "ApprovalTests\ExRam.Gremlinq.ApprovalTests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.ApprovalTests", "ApprovalTests\ExRam.Gremlinq.ApprovalTests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Core.AspNet", "ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{179A3F19-19B0-4DE2-B843-83AF4241244A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.GremlinServer.AspNet", "ExRam.Gremlinq.Providers.GremlinServer.AspNet\ExRam.Gremlinq.Providers.GremlinServer.AspNet.csproj", "{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +106,14 @@ Global
 		{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +127,8 @@ Global
 		{91CDCB6C-CCB1-4695-9C75-6D31D807C86F} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 		{C6EA6478-0A18-4D8F-B475-8370413C79BE} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 		{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
+		{6E351A4C-C1E6-4EEB-A956-3E241CB377A9} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
+		{A3E92EDA-3FAC-4B65-BE3E-106A1BB1167C} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}

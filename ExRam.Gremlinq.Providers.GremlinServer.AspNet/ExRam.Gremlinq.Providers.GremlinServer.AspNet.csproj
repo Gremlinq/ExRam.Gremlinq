@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
+  </ItemGroup>
+
+</Project>
