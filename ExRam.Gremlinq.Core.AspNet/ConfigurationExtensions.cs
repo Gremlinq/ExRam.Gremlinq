@@ -1,9 +1,8 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace Microsoft.Extensions.Configuration
 {
-    internal static class ConfigurationExtensions
+    public static class ConfigurationExtensions
     {
         public static string GetRequiredConfiguration(this IConfiguration configuration, string key)
         {
