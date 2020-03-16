@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using ExRam.Gremlinq.Core;
+using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Core.AspNet
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
