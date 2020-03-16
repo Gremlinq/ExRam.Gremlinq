@@ -9,6 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             private readonly IConfiguration _configuration;
 
+            // ReSharper disable once SuggestBaseTypeForParameter
             public UseGremlinServerGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
