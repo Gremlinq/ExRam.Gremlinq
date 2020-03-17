@@ -20,11 +20,9 @@ namespace ExRam.Gremlinq.Core
     public interface ICosmosDbConfigurationBuilder
     {
         ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithUri At(System.Uri uri, string databaseName, string graphName);
+        ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilder ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder> transformation);
     }
-    public interface ICosmosDbConfigurationBuilderWithAuthKey : ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder
-    {
-        ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithAuthKey ConfigureWebSocket(System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder> transformation);
-    }
+    public interface ICosmosDbConfigurationBuilderWithAuthKey : ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder { }
     public interface ICosmosDbConfigurationBuilderWithUri
     {
         ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithAuthKey AuthenticateBy(string authKey);
