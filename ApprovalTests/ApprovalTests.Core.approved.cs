@@ -1004,6 +1004,12 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery Choose<TTargetQuery>(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, System.Func<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>, TTargetQuery> falseChoice)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Max();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> MaxLocal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Mean();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> MeanLocal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Min();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> MinLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Sum();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> SumLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Where(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate);
@@ -1172,6 +1178,27 @@ namespace ExRam.Gremlinq.Core
     public sealed class MatchStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
         public MatchStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> traversals) { }
+    }
+    public sealed class MaxStep : ExRam.Gremlinq.Core.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.MaxStep Global;
+        public static readonly ExRam.Gremlinq.Core.MaxStep Local;
+        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class MeanStep : ExRam.Gremlinq.Core.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.MeanStep Global;
+        public static readonly ExRam.Gremlinq.Core.MeanStep Local;
+        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public sealed class MinStep : ExRam.Gremlinq.Core.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.MinStep Global;
+        public static readonly ExRam.Gremlinq.Core.MinStep Local;
+        public MinStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
     {

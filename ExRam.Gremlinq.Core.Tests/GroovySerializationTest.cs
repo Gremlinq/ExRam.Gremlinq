@@ -2466,6 +2466,77 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("Person", "Age");
         }
 
+        [Fact]
+        public void MinGlobal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .Min()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).min(global)")
+                .WithParameters("Person", "Age");
+        }
+
+        [Fact]
+        public void MinLocal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .MinLocal()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).min(local)")
+                .WithParameters("Person", "Age");
+        }
+
+        [Fact]
+        public void MaxGlobal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .Max()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).max(global)")
+                .WithParameters("Person", "Age");
+        }
+
+        [Fact]
+        public void MaxLocal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .MaxLocal()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).max(local)")
+                .WithParameters("Person", "Age");
+        }
+
+        [Fact]
+        public void MeanGlobal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .Mean()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).mean(global)")
+                .WithParameters("Person", "Age");
+        }
+
+        [Fact]
+        public void MeanLocal()
+        {
+            _g
+                .V<Person>()
+                .Values(x => x.Age)
+                .MeanLocal()
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).mean(local)")
+                .WithParameters("Person", "Age");
+        }
 
         [Fact]
         public void SumLocal_Where1()

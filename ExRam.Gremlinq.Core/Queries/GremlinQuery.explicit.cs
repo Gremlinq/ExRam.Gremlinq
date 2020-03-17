@@ -206,6 +206,18 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.SumLocal() => SumLocal();
 
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Min() => MinGlobal();
+
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MinLocal() => MinLocal();
+
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Max() => MaxGlobal();
+
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MaxLocal() => MaxLocal();
+
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Mean() => MeanGlobal();
+
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MeanLocal() => MeanLocal();
+
         IInEdgeGremlinQuery<TElement, TNewInVertex> IEdgeGremlinQueryBase<TElement>.To<TNewInVertex>(StepLabel<TNewInVertex> stepLabel) => To<TElement, object, TNewInVertex>(stepLabel);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TTargetVertex> IInOrOutEdgeGremlinQueryBase<TElement, TOutVertex>.To<TTargetVertex>(StepLabel<TTargetVertex> stepLabel) => To<TElement, TOutVertex, TTargetVertex>(stepLabel);

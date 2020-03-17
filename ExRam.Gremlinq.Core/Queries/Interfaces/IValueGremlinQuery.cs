@@ -18,6 +18,15 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> SumLocal();
         IValueGremlinQuery<TElement> Sum();
 
+        IValueGremlinQuery<TElement> MinLocal();
+        IValueGremlinQuery<TElement> Min();
+
+        IValueGremlinQuery<TElement> MaxLocal();
+        IValueGremlinQuery<TElement> Max();
+
+        IValueGremlinQuery<TElement> MeanLocal();
+        IValueGremlinQuery<TElement> Mean();
+
         IValueGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 
