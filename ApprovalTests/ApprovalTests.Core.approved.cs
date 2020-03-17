@@ -1004,7 +1004,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery Choose<TTargetQuery>(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate, System.Func<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, System.Func<ExRam.Gremlinq.Core.IValueGremlinQuery<TElement>, TTargetQuery> falseChoice)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> SumGlobal();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Sum();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> SumLocal();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Where(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate);
     }

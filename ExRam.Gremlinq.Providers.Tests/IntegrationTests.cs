@@ -941,7 +941,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .SumGlobal()
+                .Sum()
                 .ToArrayAsync();
         }
 

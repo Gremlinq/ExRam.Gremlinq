@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.SumGlobal() => SumGlobal();
+        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Sum() => SumGlobal();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.SumLocal() => SumLocal();
 

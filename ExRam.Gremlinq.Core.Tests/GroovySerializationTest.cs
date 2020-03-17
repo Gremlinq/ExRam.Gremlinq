@@ -2448,7 +2448,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .SumGlobal()
+                .Sum()
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b).sum(global)")
                 .WithParameters("Person", "Age");
