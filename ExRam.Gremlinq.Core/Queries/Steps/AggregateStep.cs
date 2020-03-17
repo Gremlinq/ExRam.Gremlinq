@@ -1,12 +1,16 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using Gremlin.Net.Process.Traversal;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class AggregateStep : Step
     {
-        public AggregateStep(StepLabel stepLabel)
+        public AggregateStep(Scope scope, StepLabel stepLabel)
         {
+            Scope = scope;
             StepLabel = stepLabel;
         }
 
+        public Scope Scope { get; }
         public StepLabel StepLabel { get; }
     }
 }

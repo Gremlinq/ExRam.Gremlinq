@@ -26,7 +26,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class AggregateStep : ExRam.Gremlinq.Core.Step
     {
-        public AggregateStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public AggregateStep(Gremlin.Net.Process.Traversal.Scope scope, ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class AndStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.AndStep>
@@ -708,6 +709,8 @@ namespace ExRam.Gremlinq.Core
         where TSelf : ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, TSelf>
     {
         TTargetQuery Aggregate<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement[]>, TTargetQuery> continuation)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
+        TTargetQuery AggregateGlobal<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement[]>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf As<TTargetQuery>(ExRam.Gremlinq.Core.StepLabel<TSelf, TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement>, TTargetQuery> continuation)

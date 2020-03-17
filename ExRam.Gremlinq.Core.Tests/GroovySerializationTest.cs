@@ -348,7 +348,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Aggregate()
+        public void Aggregate_Local()
         {
             _g
                 .V()
@@ -356,7 +356,20 @@ namespace ExRam.Gremlinq.Core.Tests
                     __.Out())
                 .Count()
                 .Should()
-                .SerializeToGroovy("V().aggregate(_a).out().count()")
+                .SerializeToGroovy("V().aggregate(local, _a).out().count()")
+                .WithParameters("l1");
+        }
+
+        [Fact]
+        public void Aggregate_Global()
+        {
+            _g
+                .V()
+                .AggregateGlobal((__, aggregated) =>
+                    __.Out())
+                .Count()
+                .Should()
+                .SerializeToGroovy("V().aggregate(global, _a).out().count()")
                 .WithParameters("l1");
         }
 
