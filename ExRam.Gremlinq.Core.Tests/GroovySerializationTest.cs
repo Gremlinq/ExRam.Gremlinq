@@ -381,7 +381,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __.Out())
                 .Count()
                 .Should()
-                .SerializeToGroovy("V().aggregate(local, _a).out().count()")
+                .SerializeToGroovy("V().aggregate(_a).out().count()")
                 .WithParameters("l1");
         }
 
