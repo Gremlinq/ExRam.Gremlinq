@@ -1498,6 +1498,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Order_scalars()
+        {
+            _g
+                .V<Person>()
+                .Local(__ => __.Count())
+                .Order(b => b
+                    .By(__ => __))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).local(__.count()).order().by(__.identity(), incr)");
+        }
+
+        [Fact]
         public void Order_Fold_Unfold()
         {
             _g

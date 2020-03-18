@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBaseRec<TElement, TSelf>
         where TSelf : IValueGremlinQueryBaseRec<TElement, TSelf>
     {
-
+        TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
     }
 
     public interface IValueGremlinQuery<TElement> :
