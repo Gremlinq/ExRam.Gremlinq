@@ -1233,8 +1233,10 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class OrderStep : ExRam.Gremlinq.Core.Step
     {
-        public static readonly ExRam.Gremlinq.Core.OrderStep Instance;
-        public OrderStep() { }
+        public static readonly ExRam.Gremlinq.Core.OrderStep Global;
+        public static readonly ExRam.Gremlinq.Core.OrderStep Local;
+        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Step
         {
             public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }

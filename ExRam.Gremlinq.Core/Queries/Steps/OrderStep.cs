@@ -4,6 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class OrderStep : Step
     {
+        public Scope Scope { get; }
+
         public sealed class ByLambdaStep : Step
         {
             public ILambda Lambda { get; }
@@ -36,6 +38,12 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly OrderStep Instance = new OrderStep();
+        public static readonly OrderStep Global = new OrderStep(Scope.Global);
+        public static readonly OrderStep Local = new OrderStep(Scope.Local);
+
+        public OrderStep(Scope scope)
+        {
+            Scope = scope;
+        }
     }
 }
