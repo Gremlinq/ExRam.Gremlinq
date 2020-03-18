@@ -75,13 +75,16 @@ namespace ExRam.Gremlinq.Core
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
 
         TSelf Range(long low, long high);
+        TSelf RangeLocal(long low, long high);
 
         TSelf Repeat(Func<TSelf, TSelf> repeatTraversal);
         TSelf RepeatUntil(Func<TSelf, TSelf> repeatTraversal, Func<TSelf, IGremlinQueryBase> untilTraversal);
         TSelf UntilRepeat(Func<TSelf, TSelf> repeatTraversal, Func<TSelf, IGremlinQueryBase> untilTraversal);
 
         TSelf SideEffect(Func<TSelf, IGremlinQueryBase> sideEffectTraversal);
+
         TSelf Skip(long count);
+        TSelf SkipLocal(long count);
 
         TSelf Tail(long count);
         TSelf TailLocal(int count);

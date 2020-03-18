@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         {
             return serializer
                 .OverrideFragmentSerializer<CosmosDbKey>((key, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
-                .OverrideFragmentSerializer<SkipStep>((step, overridden, recurse) => recurse(new RangeStep(step.Count, -1)))
+                .OverrideFragmentSerializer<SkipStep>((step, overridden, recurse) => recurse(new RangeStep(step.Count, -1, step.Scope)))
                 .OverrideFragmentSerializer<LimitStep>((step, overridden, recurse) =>
                 {
                     // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has

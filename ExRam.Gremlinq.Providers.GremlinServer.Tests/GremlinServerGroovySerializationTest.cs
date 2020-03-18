@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
+using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
@@ -43,6 +45,39 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     .Where(person => ints.Value.Contains(person.Age)))
                 .Should()
                 .SerializeToGraphson("{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"inject\",{\"@type\":\"g:Int32\",\"@value\":1},{\"@type\":\"g:Int32\",\"@value\":2},{\"@type\":\"g:Int32\",\"@value\":3}],[\"fold\"],[\"as\",\"l1\"],[\"V\"],[\"hasLabel\",\"Person\"],[\"has\",\"Age\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"where\",{\"@type\":\"g:P\",\"@value\":{\"predicate\":\"within\",\"value\":[\"l1\"]}}]]}}],[\"project\",\"id\",\"label\",\"type\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:T\",\"@value\":\"label\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"constant\",\"vertex\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"properties\"],[\"group\"],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"project\",\"id\",\"label\",\"value\",\"properties\"],[\"by\",{\"@type\":\"g:T\",\"@value\":\"id\"}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"label\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"value\"]]}}],[\"by\",{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"valueMap\"]]}}],[\"fold\"]]}}]]}}]]}}");
+        }
+
+
+        [Fact]
+        public void Skip_underflow()
+        {
+            _g
+                .V()
+                .Invoking(_ => _.Skip(-1))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void SkipGlobal()
+        {
+            _g
+                .V()
+                .Skip(1)
+                .Should()
+                .SerializeToGroovy("V().skip(_a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters(1, "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void SkipLocal()
+        {
+            _g
+                .V()
+                .SkipLocal(1)
+                .Should()
+                .SerializeToGroovy("V().skip(local, _a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters(1, "id", "label", "type", "properties", "vertex", "value");
         }
     }
 }

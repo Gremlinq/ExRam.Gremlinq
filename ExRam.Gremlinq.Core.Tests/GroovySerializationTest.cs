@@ -2360,6 +2360,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Range_underflow()
+        {
+            _g
+                .V()
+                .Invoking(_ => _.Range(-1, 0))
+                .Should()
+                .Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void RangeGlobal()
+        {
+            _g
+                .V()
+                .Range(1, 3)
+                .Should()
+                .SerializeToGroovy("V().range(_a, _b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters(1, 3, "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void RangeLocal()
+        {
+            _g
+                .V()
+                .RangeLocal(1, 3)
+                .Should()
+                .SerializeToGroovy("V().range(local, _a, _b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters(1, 3, "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void Repeat_Out()
         {
             _g

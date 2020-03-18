@@ -693,10 +693,12 @@ namespace ExRam.Gremlinq.Core
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params System.Func<, >[] orTraversals);
         TSelf Range(long low, long high);
+        TSelf RangeLocal(long low, long high);
         TSelf Repeat(System.Func<TSelf, TSelf> repeatTraversal);
         TSelf RepeatUntil(System.Func<TSelf, TSelf> repeatTraversal, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> untilTraversal);
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
         TSelf Skip(long count);
+        TSelf SkipLocal(long count);
         TSelf Tail(long count);
         TSelf TailLocal(int count);
         TSelf Times(int count);
@@ -1319,8 +1321,9 @@ namespace ExRam.Gremlinq.Core
     public delegate object QueryFragmentSerializer<TFragment>(TFragment atom, System.Func<TFragment, object> baseSerializer, System.Func<object, object> recurse);
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
-        public RangeStep(long lower, long upper) { }
+        public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
         public long Lower { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public long Upper { get; }
     }
     public sealed class RepeatStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
@@ -1351,8 +1354,9 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class SkipStep : ExRam.Gremlinq.Core.Step
     {
-        public SkipStep(long count) { }
+        public SkipStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
         public long Count { get; }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class Step
     {
