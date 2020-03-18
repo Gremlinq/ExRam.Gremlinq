@@ -857,6 +857,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Dedup_Global()
+        {
+            _g
+                .V()
+                .Dedup()
+                .Should()
+                .SerializeToGroovy("V().dedup().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.properties().group().by(__.label()).by(__.project(_a, _b, _f, _d).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Dedup_Local()
+        {
+            _g
+                .V()
+                .DedupLocal()
+                .Should()
+                .SerializeToGroovy("V().dedup(local).project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.properties().group().by(__.label()).by(__.project(_a, _b, _f, _d).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
         public void Drop()
         {
             _g

@@ -44,7 +44,9 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Coin(double probability) => Coin(probability);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Dedup() => Dedup();
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Dedup() => DedupGlobal();
+
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.DedupLocal() => DedupLocal();
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Emit() => Emit();
 
