@@ -12,7 +12,7 @@
     <Company>ExRam EDV GmbH &amp; Co. KG</Company>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
