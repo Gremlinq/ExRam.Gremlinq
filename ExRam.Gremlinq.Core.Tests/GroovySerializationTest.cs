@@ -1510,6 +1510,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Order_scalars_local()
+        {
+            _g
+                .V<Person>()
+                .Local(__ => __.Count())
+                .OrderLocal(b => b
+                    .By(__ => __))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).local(__.count()).order(local).by(__.identity(), incr)");
+        }
+
+        [Fact]
         public void Order_Fold_Unfold()
         {
             _g
@@ -1543,6 +1555,18 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(x => x.Name))
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).order().by(_b, incr).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "Name", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void OrderLocal_by_member()
+        {
+            _g
+                .V<Person>()
+                .OrderLocal(b => b
+                    .By(x => x.Name))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).order(local).by(_b, incr).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("Person", "Name", "id", "label", "type", "properties", "vertex", "value");
         }
 
