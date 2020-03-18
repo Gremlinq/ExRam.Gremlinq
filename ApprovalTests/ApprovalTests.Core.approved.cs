@@ -122,8 +122,10 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Step
     {
-        public static readonly ExRam.Gremlinq.Core.DedupStep Instance;
-        public DedupStep() { }
+        public static readonly ExRam.Gremlinq.Core.DedupStep Global;
+        public static readonly ExRam.Gremlinq.Core.DedupStep Local;
+        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope) { }
+        public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Step
     {
@@ -684,6 +686,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Coin(double probability);
         TSelf Dedup();
+        TSelf DedupLocal();
         TSelf Emit();
         TTargetQuery FlatMap<TTargetQuery>(System.Func<TSelf, TTargetQuery> mapping)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
