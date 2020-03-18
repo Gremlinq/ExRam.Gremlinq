@@ -69,6 +69,11 @@ namespace ExRam.Gremlinq.Core
     {
         public static ExRam.Gremlinq.Core.GroovyScript ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
     }
+    public sealed class CapStep : ExRam.Gremlinq.Core.Step
+    {
+        public CapStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+    }
     public sealed class ChooseOptionTraversalStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
     {
         public ChooseOptionTraversalStep(ExRam.Gremlinq.Core.IGremlinQueryBase chooseTraversal) { }
@@ -616,6 +621,9 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IGremlinQueryAdmin AsAdmin();
+        ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TElement, TQuery> Cap<TQuery, TElement>(ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> label)
+            where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
+        ;
         ExRam.Gremlinq.Core.IGremlinQuery<TResult> Cast<TResult>();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> Count();

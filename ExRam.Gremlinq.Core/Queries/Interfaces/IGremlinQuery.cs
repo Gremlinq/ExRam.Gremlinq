@@ -24,6 +24,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TStepElement> Select<TStepElement>(StepLabel<TStepElement> label);
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
+
+        IArrayGremlinQueryBase<TElement, TQuery> Cap<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
     }
 
     public partial interface IGremlinQueryBase<TElement> : IGremlinQueryBase

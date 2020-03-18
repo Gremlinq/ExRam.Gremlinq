@@ -364,12 +364,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .AggregateGlobal((__, aggregated) =>
-                    __.Out())
-                .Count()
+                .AggregateGlobal((__, aggregated) => __)
                 .Should()
-                .SerializeToGroovy("V().aggregate(global, _a).out().count()")
-                .WithParameters("l1");
+                .SerializeToGroovy("V().aggregate(global, _a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("l1", "id", "label", "type", "properties", "vertex", "value");
         }
 
         [Fact]
@@ -377,12 +375,46 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g
                 .V()
-                .Aggregate((__, aggregated) =>
-                    __.Out())
-                .Count()
+                .Aggregate((__, aggregated) => __)
                 .Should()
-                .SerializeToGroovy("V().aggregate(_a).out().count()")
-                .WithParameters("l1");
+                .SerializeToGroovy("V().aggregate(_a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("l1", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Aggregate_Cap()
+        {
+            _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated))
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).aggregate(_b).cap(_b)")
+                .WithParameters("Person", "l1");
+        }
+
+        [Fact]
+        public void Aggregate_Cap_unfold()
+        {
+            _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated)
+                    .Unfold())
+                .Should()
+                .SerializeToGroovy("V().hasLabel(_a).aggregate(_b).cap(_b).unfold().project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .WithParameters("Person", "l1", "id", "label", "type", "properties", "vertex", "value");
+        }
+
+        [Fact]
+        public void Aggregate_Cap_type()
+        {
+            _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated))
+                .Should()
+                .BeAssignableTo<IGremlinQueryBase<Person[]>>();
         }
 
         [Fact]

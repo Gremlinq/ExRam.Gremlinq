@@ -270,6 +270,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))
                 .OverrideFragmentSerializer<BothVStep>((step, overridden, recurse) => CreateInstruction("bothV"))
                 .OverrideFragmentSerializer<BuildStep>((step, overridden, recurse) => CreateInstruction("build"))
+                .OverrideFragmentSerializer<CapStep>((step, overridden, recurse) => CreateInstruction("cap", recurse, step.StepLabel))
                 .OverrideFragmentSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
                 .OverrideFragmentSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
                 {

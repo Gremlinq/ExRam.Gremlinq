@@ -352,7 +352,7 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : IGremlinQueryBase
         {
             return continuation(
-                AddStep(new AggregateStep(scope, stepLabel), QuerySemantics.None, StepLabelSemantics.Add(stepLabel, Semantics)),
+                AddStep(new AggregateStep(scope, stepLabel)),
                 stepLabel);
         }
 
@@ -865,6 +865,8 @@ namespace ExRam.Gremlinq.Core
 
             return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(stepLabel), stepLabelSemantics);
         }
+
+        private GremlinQuery<TSelectedElement, object, object, object, object, TQuery> Cap<TQuery, TSelectedElement>(StepLabel<TQuery, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, object, object, TQuery>(new CapStep(stepLabel), QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize())));
 

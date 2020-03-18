@@ -153,6 +153,8 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TQuery>();
         }
 
+        IArrayGremlinQueryBase<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<TQuery, TNewElement> label) => Cap(label);
+
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
         IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => AddStepWithObjectTypes<object>(new VStep(ids), QuerySemantics.Vertex);
