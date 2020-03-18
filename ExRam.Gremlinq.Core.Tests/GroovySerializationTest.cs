@@ -1205,7 +1205,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .Max()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).values(_b).max(global)")
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).max()")
                 .WithParameters("Person", "Age");
         }
 
@@ -1229,7 +1229,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .Mean()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).values(_b).mean(global)")
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).mean()")
                 .WithParameters("Person", "Age");
         }
 
@@ -1253,7 +1253,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .Min()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).values(_b).min(global)")
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).min()")
                 .WithParameters("Person", "Age");
         }
 
@@ -2522,7 +2522,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .Sum()
                 .Should()
-                .SerializeToGroovy("V().hasLabel(_a).values(_b).sum(global)")
+                .SerializeToGroovy("V().hasLabel(_a).values(_b).sum()")
                 .WithParameters("Person", "Age");
         }
 
