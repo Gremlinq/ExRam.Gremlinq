@@ -1062,19 +1062,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Group_with_key_and_value()
-        {
-            _g
-                .V()
-                .Group(_ => _
-                    .ByKey(_ => _.Label())
-                    .ByValue(_ => _.Values("v")))
-                .Should()
-                .SerializeToGroovy("V().group().by(__.label()).by(__.values(_a))")
-                .WithParameters("v");
-        }
-
-        [Fact]
         public void Identity()
         {
             _g
@@ -3155,17 +3142,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).values(_b)")
                 .WithParameters("Person", "Name");
-        }
-
-        [Fact]
-        public void Values_string_key()
-        {
-            _g
-                .V<Person>()
-                .Values("key")
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).values(_b)")
-                .WithParameters("Person", "key");
         }
 
         [Fact]

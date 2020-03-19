@@ -6,6 +6,8 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IVertexPropertyGremlinQueryBase : IElementGremlinQueryBase
     {
+        IValueGremlinQuery<TTarget> Values<TTarget>(params string[] keys);
+        IValueGremlinQuery<object> Values(params string[] keys);
     }
 
     public interface IVertexPropertyGremlinQueryBaseRec<TSelf> :

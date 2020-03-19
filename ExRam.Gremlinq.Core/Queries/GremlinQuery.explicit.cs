@@ -96,8 +96,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TTarget> IEdgeGremlinQueryBase<TElement>.Values<TTarget>(params Expression<Func<TElement, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
-        IValueGremlinQuery<TTarget> IEdgeOrVertexGremlinQueryBase.Values<TTarget>() => ValuesForProjections<TTarget>(Enumerable.Empty<LambdaExpression>());
-
         IValueGremlinQuery<object> IElementGremlinQueryBase.Id() => Id();
 
         IValueGremlinQuery<string> IElementGremlinQueryBase.Label() => Label();
@@ -106,9 +104,13 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<IDictionary<string, object>> IElementGremlinQueryBase.ValueMap(params string[] keys) => ValueMap<IDictionary<string, object>>(keys);
 
-        IValueGremlinQuery<TValue> IElementGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForKeys<TValue>(keys);
+        IValueGremlinQuery<TValue> IVertexPropertyGremlinQueryBase.Values<TValue>(params string[] keys) => ValuesForKeys<TValue>(keys);
 
-        IValueGremlinQuery<object> IElementGremlinQueryBase.Values(params string[] keys) => ValuesForKeys<object>(keys);
+        IValueGremlinQuery<object> IVertexPropertyGremlinQueryBase.Values(params string[] keys) => ValuesForKeys<object>(keys);
+
+        IValueGremlinQuery<TValue> IElementGremlinQueryBase.Values<TValue>() => ValuesForKeys<TValue>(Array.Empty<string>());
+
+        IValueGremlinQuery<object> IElementGremlinQueryBase.Values() => ValuesForKeys<object>(Array.Empty<string>());
 
         IElementGremlinQuery<TElement> IElementGremlinQueryBase<TElement>.Update(TElement element) => AddOrUpdate(element, false, false);
 
