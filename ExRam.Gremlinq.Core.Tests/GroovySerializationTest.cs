@@ -2122,6 +2122,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Properties_Values_typed()
+        {
+            _g
+                .V()
+                .Properties()
+                .Values<string>()
+                .Should()
+                .SerializeToGroovy("V().properties().values()")
+                .WithoutParameters();
+        }
+
+        [Fact]
         public void Properties_ValueMap_typed()
         {
             _g
@@ -3043,17 +3055,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .SerializeToGroovy("V().hasLabel(_a).valueMap(_b)")
                 .WithParameters("Person", "Age");
-        }
-
-        [Fact]
-        public void ValueMap_untyped()
-        {
-            _g
-                .V<Person>()
-                .ValueMap("key")
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).valueMap(_b)")
-                .WithParameters("Person", "key");
         }
 
         [Fact]

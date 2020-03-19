@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 
@@ -6,8 +7,13 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IVertexPropertyGremlinQueryBase : IElementGremlinQueryBase
     {
+        new IValueGremlinQuery<TTarget> Values<TTarget>();
         IValueGremlinQuery<TTarget> Values<TTarget>(params string[] keys);
         IValueGremlinQuery<object> Values(params string[] keys);
+
+        new IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>();
+        IValueGremlinQuery<IDictionary<string, TTarget>> ValueMap<TTarget>(params string[] keys);
+        IValueGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
     }
 
     public interface IVertexPropertyGremlinQueryBaseRec<TSelf> :
@@ -61,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> Value();
         IValueGremlinQuery<TMetaValue> Values<TMetaValue>(params Expression<Func<TMeta, TMetaValue>>[] projections);
-        IGremlinQuery<TMeta> ValueMap();
+        new IGremlinQuery<TMeta> ValueMap();
 
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Expression<Func<VertexProperty<TValue, TMeta>, bool>> predicate);
     }
