@@ -60,11 +60,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.BothVStep Instance;
         public BothVStep() { }
     }
-    public sealed class BuildStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.BuildStep Instance;
-        public BuildStep() { }
-    }
     public static class BytecodeExtensions
     {
         public static ExRam.Gremlinq.Core.GroovyScript ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
@@ -114,11 +109,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.CountStep Local;
         public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-    }
-    public sealed class CreateStep : ExRam.Gremlinq.Core.Step
-    {
-        public static readonly ExRam.Gremlinq.Core.CreateStep Instance;
-        public CreateStep() { }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Step
     {
@@ -193,10 +183,6 @@ namespace ExRam.Gremlinq.Core
         DoubleValues = 262144,
         IntegerValues = 524288,
         All = 255,
-    }
-    public sealed class EdgesStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
-    {
-        public EdgesStep(ExRam.Gremlinq.Core.IGremlinQueryBase traversal) { }
     }
     public readonly struct ElementMetadata
     {
@@ -765,13 +751,7 @@ namespace ExRam.Gremlinq.Core
     {
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         System.Collections.Immutable.ImmutableList<System.Type> ExcludedStrategyTypes { get; }
-        System.Collections.Immutable.ImmutableList<ExRam.Gremlinq.Core.IGremlinQueryStrategy> IncludedStrategies { get; }
-        ExRam.Gremlinq.Core.IGremlinQuerySource AddStrategies(params ExRam.Gremlinq.Core.IGremlinQueryStrategy[] strategies);
         ExRam.Gremlinq.Core.IGremlinQuerySource RemoveStrategies(params System.Type[] strategyTypes);
-    }
-    public interface IGremlinQueryStrategy
-    {
-        ExRam.Gremlinq.Core.IGremlinQueryBase Apply(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue> : ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSourceQuery, TKey>
@@ -1376,11 +1356,6 @@ namespace ExRam.Gremlinq.Core
     {
         public StepLabel() { }
     }
-    public sealed class SubgraphQueryStrategy : ExRam.Gremlinq.Core.IGremlinQueryStrategy
-    {
-        public SubgraphQueryStrategy(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQuery<object>, ExRam.Gremlinq.Core.IGremlinQueryBase> vertexCriterion, System.Func<ExRam.Gremlinq.Core.IEdgeGremlinQuery<object>, ExRam.Gremlinq.Core.IGremlinQueryBase> edgeCriterion) { }
-        public ExRam.Gremlinq.Core.IGremlinQueryBase Apply(ExRam.Gremlinq.Core.IGremlinQueryBase query) { }
-    }
     public sealed class SumStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.SumStep Global;
@@ -1506,10 +1481,6 @@ namespace ExRam.Gremlinq.Core
         DoubleValues = 16777216,
         IntegerValues = 33554432,
         All = 255,
-    }
-    public sealed class VerticesStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
-    {
-        public VerticesStep(ExRam.Gremlinq.Core.IGremlinQueryBase traversal) { }
     }
     public sealed class WherePredicateStep : ExRam.Gremlinq.Core.Step
     {

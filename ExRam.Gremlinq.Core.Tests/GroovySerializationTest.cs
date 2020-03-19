@@ -4329,48 +4329,48 @@ namespace ExRam.Gremlinq.Core.Tests
                 .WithParameters("id", "label", "type", "properties", "vertex", "value");
         }
 
-        [Fact(Skip = "Can't handle currently!")]
-        public void WithSubgraphStrategy()
-        {
-            _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
-                .V()
-                .Should()
-                .SerializeToGroovy("withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
-                .WithParameters("Person", "WorksFor");
-        }
+        //[Fact(Skip = "Can't handle currently!")]
+        //public void WithSubgraphStrategy()
+        //{
+        //    _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _.OfType<WorksFor>()))
+        //        .V()
+        //        .Should()
+        //        .SerializeToGroovy("withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).edges(__.hasLabel(_b)).create()).V()")
+        //        .WithParameters("Person", "WorksFor");
+        //}
 
-        [Fact(Skip = "Can't handle currently!")]
-        public void WithSubgraphStrategy_empty()
-        {
-            _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
-                .V()
-                .Should()
-                .SerializeToGroovy("V()")
-                .WithoutParameters();
-        }
+        //[Fact(Skip = "Can't handle currently!")]
+        //public void WithSubgraphStrategy_empty()
+        //{
+        //    _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
+        //        .V()
+        //        .Should()
+        //        .SerializeToGroovy("V()")
+        //        .WithoutParameters();
+        //}
 
-        [Fact(Skip = "Can't handle currently!")]
-        public void WithSubgraphStrategy_only_edges()
-        {
-            _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
-                .V()
-                .Should()
-                .SerializeToGroovy("withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
-                .WithParameters("WorksFor");
-        }
+        //[Fact(Skip = "Can't handle currently!")]
+        //public void WithSubgraphStrategy_only_edges()
+        //{
+        //    _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _.OfType<WorksFor>()))
+        //        .V()
+        //        .Should()
+        //        .SerializeToGroovy("withStrategies(SubgraphStrategy.build().edges(__.hasLabel(_a)).create()).V()")
+        //        .WithParameters("WorksFor");
+        //}
 
-        [Fact(Skip = "Can't handle currently!")]
-        public void WithSubgraphStrategy_only_vertices()
-        {
-            _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
-                .V()
-                .Should()
-                .SerializeToGroovy("withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
-                .WithParameters("Person");
-        }
+        //[Fact(Skip = "Can't handle currently!")]
+        //public void WithSubgraphStrategy_only_vertices()
+        //{
+        //    _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
+        //        .V()
+        //        .Should()
+        //        .SerializeToGroovy("withStrategies(SubgraphStrategy.build().vertices(__.hasLabel(_a)).create()).V()")
+        //        .WithParameters("Person");
+        //}
     }
 }

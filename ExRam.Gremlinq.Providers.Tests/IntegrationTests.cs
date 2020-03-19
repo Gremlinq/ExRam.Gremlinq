@@ -1174,22 +1174,22 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .ToArrayAsync();
         }
 
-        [Fact(Skip = "Integration Test")]
-        public async Task WithSubgraphStrategy()
-        {
-            await _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
-                .V()
-                .ToArrayAsync();
-        }
+        //[Fact(Skip = "Integration Test")]
+        //public async Task WithSubgraphStrategy()
+        //{
+        //    await _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _.OfType<Person>(), _ => _))
+        //        .V()
+        //        .ToArrayAsync();
+        //}
 
-        [Fact(Skip = "Integration Test")]
-        public async Task WithSubgraphStrategy_empty()
-        {
-            await _g
-                .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
-                .V()
-                .ToArrayAsync();
-        }
+        //[Fact(Skip = "Integration Test")]
+        //public async Task WithSubgraphStrategy_empty()
+        //{
+        //    await _g
+        //        .AddStrategies(new SubgraphQueryStrategy(_ => _, _ => _))
+        //        .V()
+        //        .ToArrayAsync();
+        //}
     }
 }
