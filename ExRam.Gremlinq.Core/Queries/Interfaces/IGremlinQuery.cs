@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
         TSelf SkipLocal(long count);
 
         TSelf Tail(long count);
-        TSelf TailLocal(int count);
+        TSelf TailLocal(long count);
 
         TSelf Times(int count);
 
