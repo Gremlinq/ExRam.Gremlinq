@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TPropertyValue> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Value() => Value<TPropertyValue>();
 
-        IGremlinQuery<TMeta> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.ValueMap() => ValueMap<TMeta>(Array.Empty<string>());
+        IValueGremlinQuery<TMeta> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.ValueMap() => ValueMap<TMeta>(Array.Empty<string>());
 
         IValueGremlinQuery<TTarget> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Values<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections) => ValuesForProjections<TTarget>(projections);
 
