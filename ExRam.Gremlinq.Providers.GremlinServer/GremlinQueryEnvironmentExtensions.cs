@@ -8,7 +8,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class GremlinQuerySourceExtensions
+    public static class GremlinQueryEnvironmentExtensions
     {
         public static IGremlinQueryEnvironment UseGremlinServer(this IGremlinQueryEnvironment environment,
             Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> builderAction)
