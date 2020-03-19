@@ -313,7 +313,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Properties<TValue>(params Expression<Func<TMeta, TValue>>[] projections) => Properties<Property<TValue>, TValue, object>(QuerySemantics.Property, projections);
 
-        IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Properties(params string[] keys) => Properties<Property<object>, object, object>(keys, QuerySemantics.Property);
+        IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase.Properties(params string[] keys) => Properties<Property<object>, object, object>(keys, QuerySemantics.Property);
 
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Property<TValue>(Expression<Func<TMeta, TValue>> projection, TValue value) => Property(projection, value);
 
@@ -326,8 +326,6 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue, TMeta>.Where(Expression<Func<VertexProperty<TPropertyValue, TMeta>, bool>> predicate) => Where(predicate);
 
         IVertexPropertyGremlinQuery<VertexProperty<TPropertyValue, TNewMeta>, TPropertyValue, TNewMeta> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue>.Meta<TNewMeta>() where TNewMeta : class => Cast<VertexProperty<TPropertyValue, TNewMeta>, object, object, TPropertyValue, TNewMeta, object>();
-
-        IPropertyGremlinQuery<Property<object>> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue>.Properties(params string[] keys) => Properties<Property<object>, object, object>(keys, QuerySemantics.Property);
 
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TPropertyValue>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(keys, QuerySemantics.Property);
 
