@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.AggregateGlobal<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<<#= iface #>, TElement[]>(), continuation);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, TElement>, TTargetQuery> continuation) => As(new StepLabel<<#= iface #>, TElement>(), continuation);
-        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.As<TTargetQuery>(StepLabel<<#= iface #>, TElement> stepLabel) => As(stepLabel);
+        <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.As(StepLabel<<#= iface #>, TElement> stepLabel) => As(stepLabel);
         <#= iface #> <#= iface.Replace("<", "Base<") #>.As(StepLabel<<#= GetElement(iface) #>> stepLabel) => As(stepLabel);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.And(params Func<<#= iface #>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
