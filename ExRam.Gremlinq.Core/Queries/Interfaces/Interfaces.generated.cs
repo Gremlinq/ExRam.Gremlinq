@@ -1,8 +1,4 @@
 ﻿#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-using System;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -24,7 +20,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)> Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15);
         IValueGremlinQuery<(T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16)> Select<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3, StepLabel<T4> label4, StepLabel<T5> label5, StepLabel<T6> label6, StepLabel<T7> label7, StepLabel<T8> label8, StepLabel<T9> label9, StepLabel<T10> label10, StepLabel<T11> label11, StepLabel<T12> label12, StepLabel<T13> label13, StepLabel<T14> label14, StepLabel<T15> label15, StepLabel<T16> label16);
     }
-
 
     public partial interface IGremlinQueryBase
     {
@@ -55,7 +50,6 @@ namespace ExRam.Gremlinq.Core
         new IPropertyGremlinQuery<TResult> Cast<TResult>();
     }
 
-
     public partial interface IVertexGremlinQueryBase
     {
         new IVertexGremlinQuery<TTarget> OfType<TTarget>();
@@ -64,7 +58,6 @@ namespace ExRam.Gremlinq.Core
     {
         new IEdgeGremlinQuery<TTarget> OfType<TTarget>();
     }
-
 }
 
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required

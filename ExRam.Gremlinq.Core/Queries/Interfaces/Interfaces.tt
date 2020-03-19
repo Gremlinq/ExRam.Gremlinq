@@ -6,10 +6,6 @@
 <#@ output extension=".generated.cs" #>
 <#@ include file="..\T4\Constants.tt" #>
 #pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
-using System;
-using System.Linq.Expressions;
-using System.Collections.Generic;
-using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -20,7 +16,6 @@ namespace ExRam.Gremlinq.Core
 <# } #>
     }
 
-
 <# foreach (var iface in Untyped(baseInterfaces)) { #>
     public partial interface <#= iface #>
     {
@@ -28,14 +23,12 @@ namespace ExRam.Gremlinq.Core
     }
 <# } #>
 
-
 <# foreach (var iface in Untyped(EdgeOrVertex(baseInterfaces))) { #>
     public partial interface <#= iface #>
     {
         new <#= ChangeType(iface, "TTarget").Replace("Base", "") #> OfType<TTarget>();
     }
 <# } #>
-
 }
 
 #pragma warning restore CS0109 // Member does not hide an inherited member; new keyword is not required
