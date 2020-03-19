@@ -20,9 +20,6 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<Property<object>> Properties();
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>();
-
-        IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params string[] keys);
-        IPropertyGremlinQuery<Property<object>> Properties(params string[] keys);
     }
 
     public partial interface IEdgeGremlinQueryBase<TEdge> :
