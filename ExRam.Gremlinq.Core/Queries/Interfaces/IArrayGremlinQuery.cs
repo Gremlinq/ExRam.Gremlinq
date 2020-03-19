@@ -13,7 +13,7 @@
 
     }
 
-    public partial interface IArrayGremlinQueryBase<TArray, TQuery> :
+    public partial interface IArrayGremlinQueryBase<TArray, out TQuery> :
         IArrayGremlinQueryBase,
         IGremlinQueryBase<TArray>
     {
@@ -21,7 +21,7 @@
         new IGremlinQuery<TArray> Lower();
     }
 
-    public interface IArrayGremlinQueryBaseRec<TArray, TQuery, TSelf> :
+    public interface IArrayGremlinQueryBaseRec<TArray, out TQuery, TSelf> :
         IArrayGremlinQueryBaseRec<TSelf>,
         IArrayGremlinQueryBase<TArray, TQuery>,
         IGremlinQueryBaseRec<TArray, TSelf>
