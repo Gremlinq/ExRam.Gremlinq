@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -8,7 +7,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource RemoveStrategies(params Type[] strategyTypes);
 
         IGremlinQueryEnvironment Environment { get; }
-        ImmutableList<Type> ExcludedStrategyTypes { get; }
     }
 
     public interface IConfigurableGremlinQuerySource

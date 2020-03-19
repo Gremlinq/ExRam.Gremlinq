@@ -4325,7 +4325,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
                 .Should()
-                .SerializeToGroovy("withoutStrategies(SubgraphStrategy, ElementIdStrategy).V().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.properties().group().by(__.label()).by(__.project(_a, _b, _f, _d).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
+                .SerializeToGroovy("withoutStrategies(ElementIdStrategy, SubgraphStrategy).V().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.properties().group().by(__.label()).by(__.project(_a, _b, _f, _d).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
                 .WithParameters("id", "label", "type", "properties", "vertex", "value");
         }
 

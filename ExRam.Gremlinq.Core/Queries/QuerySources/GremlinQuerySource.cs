@@ -10,11 +10,12 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQuerySourceImpl : IGremlinQuerySource
         {
             private IGremlinQueryBase? _startQuery;
+            private readonly ImmutableHashSet<Type> _excludedStrategyTypes;
 
-            public GremlinQuerySourceImpl(IGremlinQueryEnvironment environment, ImmutableList<Type> excludedStrategies)
+            public GremlinQuerySourceImpl(IGremlinQueryEnvironment environment, ImmutableHashSet<Type> excludedStrategies)
             {
                 Environment = environment;
-                ExcludedStrategyTypes = excludedStrategies;
+                _excludedStrategyTypes = excludedStrategies;
             }
 
             IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>(TVertex vertex)
@@ -92,12 +93,19 @@ namespace ExRam.Gremlinq.Core
 
             IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
             {
-                return new GremlinQuerySourceImpl(environmentTransformation(Environment), ExcludedStrategyTypes);
+                return new GremlinQuerySourceImpl(environmentTransformation(Environment), _excludedStrategyTypes);
             }
 
             IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
             {
-                return new GremlinQuerySourceImpl(Environment, ExcludedStrategyTypes.AddRange(strategyTypes));
+                var excludedStrategies = _excludedStrategyTypes;
+
+                foreach(var strategyType in strategyTypes)
+                {
+                    excludedStrategies = excludedStrategies.Add(strategyType);
+                }
+
+                return new GremlinQuerySourceImpl(Environment, excludedStrategies);
             }
 
             private IGremlinQueryBase Create()
@@ -108,21 +116,20 @@ namespace ExRam.Gremlinq.Core
 
                 IGremlinQueryBase ret = GremlinQuery.Create<object>(Environment);
 
-                if (!ExcludedStrategyTypes.IsEmpty)
-                    ret = ret.AddStep(new WithoutStrategiesStep(ExcludedStrategyTypes.ToArray()));
+                if (!_excludedStrategyTypes.IsEmpty)
+                    ret = ret.AddStep(new WithoutStrategiesStep(_excludedStrategyTypes.OrderBy(x => x.Name).ToArray()));
 
                 return Interlocked.CompareExchange(ref _startQuery, ret, null) ?? ret;
             }
 
             public IGremlinQueryEnvironment Environment { get; }
-            public ImmutableList<Type> ExcludedStrategyTypes { get; }
         }
 
         // ReSharper disable once InconsistentNaming
         #pragma warning disable IDE1006 // Naming Styles
         public static readonly IConfigurableGremlinQuerySource g = new GremlinQuerySourceImpl(
             GremlinQueryEnvironment.Default,
-            ImmutableList<Type>.Empty);
+            ImmutableHashSet<Type>.Empty);
         #pragma warning restore IDE1006 // Naming Styles
     }
 }
