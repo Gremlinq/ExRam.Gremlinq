@@ -26,64 +26,6 @@ namespace ExRam.Gremlinq.Core
     }
 
 
-    public partial interface IGremlinQueryBase<TElement>
-    {
-        new IGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
-    }
-    public partial interface IValueGremlinQueryBase<TElement>
-    {
-        new IValueGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
-    }
-    public partial interface IArrayGremlinQueryBase<TArray, TQuery>
-    {
-        new IArrayGremlinQuery<TArray, TQuery> As(StepLabel<TArray> stepLabel);
-    }
-    public partial interface IElementGremlinQueryBase<TElement>
-    {
-        new IElementGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
-    }
-    public partial interface IEdgeOrVertexGremlinQueryBase<TElement>
-    {
-        new IEdgeOrVertexGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
-    }
-    public partial interface IVertexGremlinQueryBase<TVertex>
-    {
-        new IVertexGremlinQuery<TVertex> As(StepLabel<TVertex> stepLabel);
-    }
-    public partial interface IEdgeGremlinQueryBase<TEdge>
-    {
-        new IEdgeGremlinQuery<TEdge> As(StepLabel<TEdge> stepLabel);
-    }
-    public partial interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>
-    {
-        new IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> As(StepLabel<TEdge> stepLabel);
-    }
-    public partial interface IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>
-    {
-        new IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> As(StepLabel<TEdge> stepLabel);
-    }
-    public partial interface IInEdgeGremlinQueryBase<TEdge, TInVertex>
-    {
-        new IInEdgeGremlinQuery<TEdge, TInVertex> As(StepLabel<TEdge> stepLabel);
-    }
-    public partial interface IOutEdgeGremlinQueryBase<TEdge, TOutVertex>
-    {
-        new IOutEdgeGremlinQuery<TEdge, TOutVertex> As(StepLabel<TEdge> stepLabel);
-    }
-    public partial interface IVertexPropertyGremlinQueryBase<TProperty, TValue>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue> As(StepLabel<TProperty> stepLabel);
-    }
-    public partial interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta>
-    {
-        new IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> As(StepLabel<TProperty> stepLabel);
-    }
-    public partial interface IPropertyGremlinQueryBase<TElement>
-    {
-        new IPropertyGremlinQuery<TElement> As(StepLabel<TElement> stepLabel);
-    }
-
-
     public partial interface IGremlinQueryBase
     {
         new IGremlinQuery<TResult> Cast<TResult>();
