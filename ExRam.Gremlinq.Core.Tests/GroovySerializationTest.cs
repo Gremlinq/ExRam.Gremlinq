@@ -1953,28 +1953,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Properties_name_typed()
-        {
-            _g
-                .V()
-                .Properties<int>("propertyName")
-                .Should()
-                .SerializeToGroovy("V().properties(_a)")
-                .WithParameters("propertyName");
-        }
-
-        [Fact]
-        public void Properties_name_untyped()
-        {
-            _g
-                .V()
-                .Properties("propertyName")
-                .Should()
-                .SerializeToGroovy("V().properties(_a)")
-                .WithParameters("propertyName");
-        }
-
-        [Fact]
         public void Properties_of_member()
         {
             _g

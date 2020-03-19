@@ -1050,13 +1050,11 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<object>, object> Properties();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<object>, object> Properties(params System.Linq.Expressions.Expression<>[] projections);
-        ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<object>, object> Properties(params string[] keys);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>(params System.Linq.Expressions.Expression<>[] projections);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>(params System.Linq.Expressions.Expression<>[] projections);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>(params System.Linq.Expressions.Expression<>[] projections);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>(params System.Linq.Expressions.Expression<>[] projections);
-        ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue>, TValue> Properties<TValue>(params string[] keys);
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params System.Linq.Expressions.Expression<>[] projections)
             where TMeta :  class;
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta>, TValue, TMeta> Properties<TValue, TMeta>(params System.Linq.Expressions.Expression<>[] projections)

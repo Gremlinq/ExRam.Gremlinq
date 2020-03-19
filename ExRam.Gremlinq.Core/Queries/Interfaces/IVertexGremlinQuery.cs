@@ -41,9 +41,6 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties();
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>();
 
-        IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params string[] keys);
-        IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties(params string[] keys);
-
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, TValue>>[] projections);
         IVertexPropertyGremlinQuery<VertexProperty<TValue>, TValue> Properties<TValue>(params Expression<Func<TVertex, VertexProperty<TValue>>>[] projections);
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties(params Expression<Func<TVertex, VertexProperty<object>>>[] projections);
