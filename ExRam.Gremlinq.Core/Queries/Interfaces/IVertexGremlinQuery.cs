@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
         new IVertexGremlinQuery<TVertex> Update(TVertex element);
 
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>(TEdge edge);
-        IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
+        new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
 
         new IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
         new IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
