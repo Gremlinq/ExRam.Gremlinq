@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         protected readonly IGremlinQuerySource _g;
 
-        private static string id = "id";
+        private static readonly string id = "id";
 
         protected GroovySerializationTest(IGremlinQuerySource g)
         {
