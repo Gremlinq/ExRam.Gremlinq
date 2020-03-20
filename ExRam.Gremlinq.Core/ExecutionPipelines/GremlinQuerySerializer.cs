@@ -16,14 +16,11 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQuerySerializerImpl : IGremlinQuerySerializer
         {
             private readonly IImmutableDictionary<Type, QueryFragmentSerializer<object>> _dict;
-            private readonly Lazy<ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>> _lazyFastDict;
+            private ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>? _fastDict;
 
             public GremlinQuerySerializerImpl(IImmutableDictionary<Type, QueryFragmentSerializer<object>> dict)
             {
                 _dict = dict;
-                _lazyFastDict = new Lazy<ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>>(
-                    () => new ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>(dict.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)),
-                    LazyThreadSafetyMode.PublicationOnly);
             }
 
             public object? Serialize(IGremlinQueryBase query)
@@ -69,7 +66,11 @@ namespace ExRam.Gremlinq.Core
 
             private QueryFragmentSerializer<object>? TryGetSerializer(Type type)
             {
-                return _lazyFastDict.Value
+                var fastDict = Volatile.Read(ref _fastDict);
+                if (fastDict == null)
+                    Volatile.Write(ref _fastDict, fastDict = new ConcurrentDictionary<Type, QueryFragmentSerializer<object>?>(_dict));
+
+                return fastDict
                     .GetOrAdd(
                         type,
                         (closureType, @this) =>
