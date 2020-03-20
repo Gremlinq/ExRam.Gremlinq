@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class ExpressionSemanticsExtensions
     {
-        private static readonly P P_Neq_Null = P.Neq(new object[] { null });
+        private static readonly P PNeqNull = P.Neq(new object?[] { null });
 
         public static ExpressionSemantics Flip(this ExpressionSemantics semantics)
         {
@@ -36,19 +35,16 @@ namespace ExRam.Gremlinq.Core
             return semantics switch
             {
                 ExpressionSemantics.Contains => P.Eq(value),
-                ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(Enumerable
-                    .Range(0, stringValue.Length + 1)
-                    .Select(i => stringValue.Substring(0, i))
-                    .ToArray<object>()),
+                ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(SubStrings(stringValue)),
                 ExpressionSemantics.HasInfix when value is string stringValue => stringValue.Length > 0
                     ? TextP.Containing(stringValue)
-                    : P_Neq_Null,
+                    : PNeqNull,
                 ExpressionSemantics.StartsWith when value is string stringValue => stringValue.Length > 0
                     ? TextP.StartingWith(stringValue)
-                    : P_Neq_Null,
+                    : PNeqNull,
                 ExpressionSemantics.EndsWith when value is string stringValue => stringValue.Length > 0
                     ? TextP.EndingWith(stringValue)
-                    : P_Neq_Null,
+                    : PNeqNull,
                 ExpressionSemantics.LowerThan => P.Lt(value),
                 ExpressionSemantics.GreaterThan => P.Gt(value),
                 ExpressionSemantics.Equals => P.Eq(value),
@@ -61,6 +57,18 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.IsSuffixOf => throw new ExpressionNotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
             };
+        }
+
+        private static object[] SubStrings(string value)
+        {
+            var ret = new object[value.Length + 1];
+
+            for(var i = 0; i < ret.Length; i++)
+            {
+                ret[i] = value.Substring(0, i);
+            }
+
+            return ret;
         }
     }
 }
