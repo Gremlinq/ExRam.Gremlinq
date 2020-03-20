@@ -13,11 +13,15 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<object> BothE();
         IEdgeGremlinQuery<TEdge> BothE<TEdge>();
 
+        new IVertexGremlinQuery<TResult> Cast<TResult>();
+        
         IVertexGremlinQuery<object> In();
         IVertexGremlinQuery<object> In<TEdge>();
 
         IEdgeGremlinQuery<object> InE();
         IEdgeGremlinQuery<TEdge> InE<TEdge>();
+
+        IVertexGremlinQuery<TTarget> OfType<TTarget>();
 
         IVertexGremlinQuery<object> Out();
         IVertexGremlinQuery<object> Out<TEdge>();

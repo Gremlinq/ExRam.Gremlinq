@@ -21,10 +21,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProjectBuilder.generated.cs</LastGenOutput>
     </None>
-    <None Update="Queries\Interfaces\Interfaces.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Interfaces.generated.cs</LastGenOutput>
-    </None>
     <None Update="Queries\GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GremlinQuery.generated.cs</LastGenOutput>
@@ -50,11 +46,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProjectBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Queries\Interfaces\Interfaces.generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Interfaces.tt</DependentUpon>
     </Compile>
     <Compile Update="Queries\GremlinQuery.generated.cs">
       <DesignTime>True</DesignTime>

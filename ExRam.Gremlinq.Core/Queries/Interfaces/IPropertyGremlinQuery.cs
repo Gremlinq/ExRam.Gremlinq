@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public partial interface IPropertyGremlinQueryBase : IGremlinQueryBase
     {
+        new IPropertyGremlinQuery<TResult> Cast<TResult>();
     }
 
     public partial interface IPropertyGremlinQueryBase<TElement> :

@@ -9,8 +9,12 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<object> BothV();
         IVertexGremlinQuery<TVertex> BothV<TVertex>();
 
+        new IEdgeGremlinQuery<TResult> Cast<TResult>();
+
         IVertexGremlinQuery<object> InV();
         IVertexGremlinQuery<TVertex> InV<TVertex>();
+
+        IEdgeGremlinQuery<TTarget> OfType<TTarget>();
 
         IVertexGremlinQuery<object> OtherV();
         IVertexGremlinQuery<TVertex> OtherV<TVertex>();

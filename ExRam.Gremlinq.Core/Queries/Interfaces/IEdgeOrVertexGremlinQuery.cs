@@ -3,7 +3,7 @@
     public partial interface IEdgeOrVertexGremlinQueryBase :
         IElementGremlinQueryBase
     {
-
+        new IEdgeOrVertexGremlinQuery<TResult> Cast<TResult>();
     }
 
     public interface IEdgeOrVertexGremlinQueryBaseRec<TSelf> :

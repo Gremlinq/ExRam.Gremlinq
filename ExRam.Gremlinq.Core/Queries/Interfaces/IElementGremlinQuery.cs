@@ -7,6 +7,8 @@ namespace ExRam.Gremlinq.Core
     public partial interface IElementGremlinQueryBase :
         IGremlinQueryBase
     {
+        new IElementGremlinQuery<TResult> Cast<TResult>();
+
         IValueGremlinQuery<object> Id();
 
         IValueGremlinQuery<string> Label();
