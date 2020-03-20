@@ -6,7 +6,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
+    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
         IValueGremlinQuery<(T1, T2)> IGremlinQueryBase.Select<T1, T2>(StepLabel<T1> label1, StepLabel<T2> label2) => Project<TElement, (T1, T2)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)));
         IValueGremlinQuery<(T1, T2, T3)> IGremlinQueryBase.Select<T1, T2, T3>(StepLabel<T1> label1, StepLabel<T2> label2, StepLabel<T3> label3) => Project<TElement, (T1, T2, T3)>(p => p.ToTuple().By(_ => _.Select(label1)).By(_ => _.Select(label2)).By(_ => _.Select(label3)));
@@ -923,167 +923,167 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(ILambda lambda) => Where(lambda);
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement[]>(), continuation);
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.AggregateGlobal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.AggregateGlobal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement[]>(), continuation);
 
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>(), continuation);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>(), continuation);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.And(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.And(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Barrier() => Barrier();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Barrier() => Barrier();
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Choose<TTargetQuery>(Func<IChooseBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Choose<TTargetQuery>(Func<IChooseBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Coin(double probability) => Coin(probability);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Coin(double probability) => Coin(probability);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Dedup() => DedupGlobal();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Dedup() => DedupGlobal();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.DedupLocal() => DedupLocal();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.DedupLocal() => DedupLocal();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Emit() => Emit();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Emit() => Emit();
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => FlatMap(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>();
+        IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TScalar>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TScalar>>();
 
-        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TScalar>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Identity() => Identity();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Identity() => Identity();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Inject(params TElement[] elements) => Inject(elements);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Limit(long count) => Limit(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Limit(long count) => Limit(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.LimitLocal(long count) => LimitLocal(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.LimitLocal(long count) => LimitLocal(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue> , TTargetQuery> localTraversal) => Local(localTraversal);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar> , TTargetQuery> localTraversal) => Local(localTraversal);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery> mapping) => Map(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery> mapping) => Map(mapping);
         
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.None() => None();
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.None() => None();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Optional(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IVertexPropertyGremlinQuery<TElement, TPropertyValue>> optionalTraversal) => Optional(optionalTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Optional(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> optionalTraversal) => Optional(optionalTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Or(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Or(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Range(long low, long high) => Range(low, high, Scope.Global);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IVertexPropertyGremlinQuery<TElement, TPropertyValue>> repeatTraversal) => Repeat(repeatTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> repeatTraversal) => Repeat(repeatTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.RepeatUntil(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IVertexPropertyGremlinQuery<TElement, TPropertyValue>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.RepeatUntil(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.UntilRepeat(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IVertexPropertyGremlinQuery<TElement, TPropertyValue>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.UntilRepeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Skip(long count) => Skip(count, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Skip(long count) => Skip(count, Scope.Global);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.SkipLocal(long count) => Skip(count, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Tail(long count) => Tail(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Tail(long count) => Tail(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.TailLocal(long count) => TailLocal(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.TailLocal(long count) => TailLocal(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Times(int count) => Times(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Where(ILambda lambda) => Where(lambda);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Where(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Where(ILambda lambda) => Where(lambda);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Where(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement[]>(), continuation);
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.AggregateGlobal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Aggregate<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.AggregateGlobal<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement[]>(), continuation);
 
-        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>(), continuation);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
+        TTargetQuery IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.As<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, TTargetQuery> continuation) => As(new StepLabel<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>(), continuation);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.And(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.And(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase>[] andTraversals) => And(andTraversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Barrier() => Barrier();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Barrier() => Barrier();
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Choose<TTargetQuery>(Func<IChooseBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> trueChoice, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> falseChoice) => Choose(traversalPredicate, trueChoice, falseChoice);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Choose<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> traversalPredicate, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> trueChoice) => Choose(traversalPredicate, trueChoice);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Choose<TTargetQuery>(Func<IChooseBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation) => Choose<TTargetQuery>(continuation);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery>[] traversals) => Coalesce(traversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Coalesce<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery>[] traversals) => Coalesce(traversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Coin(double probability) => Coin(probability);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Coin(double probability) => Coin(probability);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Dedup() => DedupGlobal();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Dedup() => DedupGlobal();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.DedupLocal() => DedupLocal();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.DedupLocal() => DedupLocal();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Emit() => Emit();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Emit() => Emit();
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.FlatMap<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>();
+        IArrayGremlinQuery<TElement[], IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Fold() => Fold<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>();
 
-        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
-        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKeyAndValue<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
+        IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Group<TNewKey>(Func<IGroupBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IGroupBuilderWithKey<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TNewKey>> groupBuilder) => Group(groupBuilder);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Identity() => Identity();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Identity() => Identity();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Inject(params TElement[] elements) => Inject(elements);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Limit(long count) => Limit(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Limit(long count) => Limit(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.LimitLocal(long count) => LimitLocal(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.LimitLocal(long count) => LimitLocal(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> , TTargetQuery> localTraversal) => Local(localTraversal);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Local<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> , TTargetQuery> localTraversal) => Local(localTraversal);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery> mapping) => Map(mapping);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Map<TTargetQuery>(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery> mapping) => Map(mapping);
         
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Not(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> notTraversal) => Not(notTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.None() => None();
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.None() => None();
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Optional(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> optionalTraversal) => Optional(optionalTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Optional(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> optionalTraversal) => Optional(optionalTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Or(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Or(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
-        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
-        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
+        IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult> continuation) => Project<TElement, dynamic>(continuation);
+        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TElement, TResult>(continuation);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Range(long low, long high) => Range(low, high, Scope.Global);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> repeatTraversal) => Repeat(repeatTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> repeatTraversal) => Repeat(repeatTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.RepeatUntil(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.RepeatUntil(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> untilTraversal) => RepeatUntil(repeatTraversal, untilTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.UntilRepeat(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.UntilRepeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> repeatTraversal, Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Skip(long count) => Skip(count, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Skip(long count) => Skip(count, Scope.Global);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.SkipLocal(long count) => Skip(count, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Tail(long count) => Tail(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Tail(long count) => Tail(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.TailLocal(long count) => TailLocal(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.TailLocal(long count) => TailLocal(count);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Times(int count) => Times(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Times(int count) => Times(count);
 
-        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
+        TTargetQuery IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Union<TTargetQuery>(params Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TTargetQuery>[] unionTraversals) => Union(unionTraversals);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Where(ILambda lambda) => Where(lambda);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Where(Func<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where(ILambda lambda) => Where(lambda);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> filterTraversal) => Where(filterTraversal);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Aggregate<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IPropertyGremlinQuery<TElement>, TElement[]>(), continuation);
         TTargetQuery IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.AggregateGlobal<TTargetQuery>(Func<IPropertyGremlinQuery<TElement>, StepLabel<IPropertyGremlinQuery<TElement>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IPropertyGremlinQuery<TElement>, TElement[]>(), continuation);
@@ -1236,22 +1236,22 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IElementGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
         IOutEdgeGremlinQuery<TElement, TOutVertex> IElementGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Order(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>> projection) => OrderGlobal(projection);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.OrderLocal(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>> projection) => OrderLocal(projection);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Order(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>> projection) => OrderGlobal(projection);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.OrderLocal(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>> projection) => OrderLocal(projection);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Property(string key, [AllowNull] object value) => Property(key, value);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Property(string key, [AllowNull] object value) => Property(key, value);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Order(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>> projection) => OrderGlobal(projection);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.OrderLocal(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>> projection) => OrderLocal(projection);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Order(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> projection) => OrderGlobal(projection);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.OrderLocal(Func<IOrderBuilder<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>, IOrderBuilderWithBy<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>> projection) => OrderLocal(projection);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Property(string key, [AllowNull] object value) => Property(key, value);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Property(string key, [AllowNull] object value) => Property(key, value);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => Property(projection, value);
 
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
-        IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TPropertyValue, TMeta>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
    }
 }
 
