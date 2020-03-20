@@ -29,8 +29,7 @@ namespace ExRam.Gremlinq.Core
         public static IGraphElementModel FromTypes(IEnumerable<Type> types)
         {
             return new GraphElementModelImpl(types
-                .Where(x => x.IsClass)
-                .Where(type => !type.IsAbstract)
+                .Where(type => type.IsClass && !type.IsAbstract)
                 .ToImmutableDictionary(
                     type => type,
                     type => new ElementMetadata(type.Name)));
