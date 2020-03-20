@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => Tail(count);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(int count) => TailLocal(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Times(int count) => Times(count);
 
