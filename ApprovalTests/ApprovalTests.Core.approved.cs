@@ -1537,6 +1537,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public class VertexProperty<TValue> : ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, System.Collections.Generic.IDictionary<string, object>>
     {
         public VertexProperty(TValue value) { }
+        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue[] value) { }
