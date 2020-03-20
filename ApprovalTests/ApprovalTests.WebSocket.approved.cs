@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder At(System.Uri uri);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder AuthenticateBy(string username, string password);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureConnectionPool(System.Action<Gremlin.Net.Driver.ConnectionPoolSettings> transformation);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureGremlinClient(System.Func<Gremlin.Net.Driver.IGremlinClient, Gremlin.Net.Driver.IGremlinClient> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureQueryLoggingOptions(System.Func<ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions, ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder SetAlias(string alias);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder SetGraphSONVersion(ExRam.Gremlinq.Core.GraphsonVersion version);
