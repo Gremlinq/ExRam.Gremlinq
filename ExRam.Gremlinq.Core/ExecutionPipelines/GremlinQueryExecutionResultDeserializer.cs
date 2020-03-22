@@ -50,13 +50,12 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class DefaultGraphsonDeserializer : IGremlinQueryExecutionResultDeserializer
         {
+            private readonly ConditionalWeakTable<IGremlinQueryEnvironment, GraphsonJsonSerializer>.CreateValueCallback _serializerFactory;
             private readonly ConditionalWeakTable<IGremlinQueryEnvironment, GraphsonJsonSerializer> _serializers = new ConditionalWeakTable<IGremlinQueryEnvironment, GraphsonJsonSerializer>();
-
-            private readonly JsonConverter[] _additionalConverters;
 
             public DefaultGraphsonDeserializer(params JsonConverter[] additionalConverters)
             {
-                _additionalConverters = additionalConverters;
+                _serializerFactory = env => new GraphsonJsonSerializer(env, additionalConverters);
             }
 
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment)
@@ -65,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var baseDeserializer = _serializers.GetValue(
                         environment,
-                        gremlinQueryEnvironment => new GraphsonJsonSerializer(gremlinQueryEnvironment, _additionalConverters));
+                        _serializerFactory);
 
                     try
                     {
@@ -200,6 +199,5 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryExecutionResultDeserializer Graphson = new DefaultGraphsonDeserializer();
 
         public static IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params JsonConverter[] additionalConverters) => new DefaultGraphsonDeserializer(additionalConverters);
-
     }
 }
