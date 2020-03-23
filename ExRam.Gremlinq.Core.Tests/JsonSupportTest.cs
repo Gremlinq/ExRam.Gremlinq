@@ -48,6 +48,12 @@ namespace ExRam.Gremlinq.Providers.Tests
             public string MetaKey { get; set; }
         }
 
+        private sealed class PersonLanguageTuple
+        {
+            public Person Key { get; set; }
+            public Language Value { get; set; }
+        }
+
         private static readonly string SinglePersonJson;
         private static readonly string ArrayOfLanguages;
         private static readonly string SingleCompanyJson;
@@ -61,6 +67,7 @@ namespace ExRam.Gremlinq.Providers.Tests
         private static readonly string ThreeCompaniesAsTraverser;
         private static readonly string CountryWithMetaProperties;
         private static readonly string NestedArrayOfLanguagesJson;
+        private static readonly string NamedTupleOfPersonLanguageJson;
         private static readonly string SingleTimeFrameWithNumbersJson;
         private static readonly string SinglePersonWithoutPhoneNumbersJson;
         private static readonly string SinglePersonLowercasePropertiesJson;
@@ -78,6 +85,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             SinglePersonLowercasePropertiesJson = GetJson("Single_Person_lowercase_properties");
             SinglePersonWithoutPhoneNumbersJson = GetJson("Single_Person_without_PhoneNumbers");
             TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
+            NamedTupleOfPersonLanguageJson = GetJson("Named_tuple_of_Person_Language");
             ArrayOfLanguages = GetJson("Array_of_Languages");
             NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
             SingleTimeFrameJson = GetJson("Single_TimeFrame");
@@ -503,6 +511,23 @@ namespace ExRam.Gremlinq.Providers.Tests
             tuple.Item2.Id.Should().Be(17);
             tuple.Item2.Should().BeOfType<Language>();
             tuple.Item2.As<Language>().IetfLanguageTag.Should().Be("de");
+        }
+
+        [Fact]
+        public async Task NamedTuple()
+        {
+            var tuple = await _g
+                .WithExecutor(new TestJsonQueryExecutor(NamedTupleOfPersonLanguageJson))
+                .V()
+                .Cast<PersonLanguageTuple>()
+                .FirstAsync();
+
+            tuple.Key.Id.Should().Be(16);
+            tuple.Key.Name.Value.Should().Be("Name of some base entity");
+            tuple.Key.Age.Should().Be(36);
+
+            tuple.Value.Id.Should().Be(17);
+            tuple.Value.IetfLanguageTag.Should().Be("de");
         }
 
         [Fact]

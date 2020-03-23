@@ -296,7 +296,10 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (token is JObject jObject && !typeof(Property).IsAssignableFrom(objectType) && jObject.ContainsKey("value"))
-                    token = jObject["value"];
+                {
+                    if (objectType.GetMember("Value", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase).Length == 0)
+                        token = jObject["value"];
+                }
 
                 using (Block())
                 {

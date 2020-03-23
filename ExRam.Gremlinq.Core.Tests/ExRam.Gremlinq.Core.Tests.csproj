@@ -9,6 +9,7 @@
     <None Remove="Json\Country_with_meta_properties.json" />
     <None Remove="Json\Graphson3ReferenceVertex.json" />
     <None Remove="Json\Graphson3_Tuple_of_Person_Language.json" />
+    <None Remove="Json\Named_tuple_of_Person_Language.json" />
     <None Remove="Json\Nested_array_of_Languages.json" />
     <None Remove="Json\Properties.json" />
     <None Remove="Json\Single_Company.json" />
@@ -44,6 +45,7 @@
     <EmbeddedResource Include="Json\Single_TimeFrame.json" />
     <EmbeddedResource Include="Json\Single_TimeFrame_with_numbers.json" />
     <EmbeddedResource Include="Json\Single_WorksFor.json" />
+    <EmbeddedResource Include="Json\Named_tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\Tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\VertexProperties.json" />
   </ItemGroup>
