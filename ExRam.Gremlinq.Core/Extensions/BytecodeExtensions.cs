@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class BytecodeExtensions
     {
-        public static GroovyScript ToGroovy(this Bytecode bytecode)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode)
         {
             var builder = new StringBuilder();
             var bindings = new Dictionary<object, string>();
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
 
             Append(bytecode);
 
-            return new GroovyScript(
+            return new GroovyGremlinQuery(
                 builder.ToString(),
                 variables);
         }

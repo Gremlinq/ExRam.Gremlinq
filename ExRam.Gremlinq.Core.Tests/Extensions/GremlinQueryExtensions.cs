@@ -31,11 +31,11 @@ namespace ExRam.Gremlinq.Core.Tests
 
                 var groovy = serializedQuery
                     .Should()
-                    .BeOfType<GroovyScript>()
+                    .BeOfType<GroovyGremlinQuery>()
                     .Subject;
 
                 groovy
-                    .QueryString
+                    .Script
                     .Should()
                     .Be(serialization);
 

@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var results = default(ResultSet<JToken>);
 
-                    if (serializedQuery is GroovyScript groovyScript)
+                    if (serializedQuery is GroovyGremlinQuery groovyScript)
                     {
                         Log(groovyScript);
 
@@ -58,14 +58,14 @@ namespace ExRam.Gremlinq.Core
                         {
                             results = await _lazyGremlinClient
                                 .Value
-                                .SubmitAsync<JToken>($"{_alias}.{groovyScript.QueryString}", groovyScript.Bindings)
+                                .SubmitAsync<JToken>($"{_alias}.{groovyScript.Script}", groovyScript.Bindings)
                                 .ConfigureAwait(false);
                         }
                         catch (Exception ex)
                         {
                             _logger?.LogError(
                                 "Error executing Gremlin query {0}:\r\n{1}",
-                                groovyScript.QueryString,
+                                groovyScript.Script,
                                 ex);
 
                             throw;
@@ -113,7 +113,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(GroovyScript query)
+            private void Log(GroovyGremlinQuery query)
             {
                 if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
                 {
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
                         JsonConvert.SerializeObject(
                             new
                             {
-                                Script = query.QueryString,
+                                Script = query.Script,
                                 Bindings = _loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParameters
                                     ? query.Bindings
                                     : null

@@ -2,20 +2,20 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class GroovyScript
+    public sealed class GroovyGremlinQuery
     {
-        public GroovyScript(string queryString, Dictionary<string, object> bindings)
+        public GroovyGremlinQuery(string script, Dictionary<string, object> bindings)
         {
-            QueryString = queryString;
+            Script = script;
             Bindings = bindings;
         }
 
         public override string ToString()
         {
-            return QueryString;
+            return Script;
         }
 
-        public string QueryString { get; }
+        public string Script { get; }
         public Dictionary<string, object> Bindings { get; }
     }
 }

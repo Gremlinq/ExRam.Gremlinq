@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.GroovyScript ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
+        public static ExRam.Gremlinq.Core.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
     }
     public sealed class CapStep : ExRam.Gremlinq.Core.Step
     {
@@ -395,11 +395,11 @@ namespace ExRam.Gremlinq.Core
         public GremlinqOption(TValue defaultValue) { }
         public TValue DefaultValue { get; }
     }
-    public sealed class GroovyScript
+    public sealed class GroovyGremlinQuery
     {
-        public GroovyScript(string queryString, System.Collections.Generic.Dictionary<string, object> bindings) { }
+        public GroovyGremlinQuery(string script, System.Collections.Generic.Dictionary<string, object> bindings) { }
         public System.Collections.Generic.Dictionary<string, object> Bindings { get; }
-        public string QueryString { get; }
+        public string Script { get; }
         public override string ToString() { }
     }
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step

@@ -520,9 +520,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     return serialized switch
                     {
-                        GroovyScript serializedQuery => serializedQuery,
+                        GroovyGremlinQuery serializedQuery => serializedQuery,
                         Bytecode bytecode => bytecode.ToGroovy(),
-                        _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyScript)}.")
+                        _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
                     };
                 });
         }
