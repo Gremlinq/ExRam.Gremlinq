@@ -306,12 +306,10 @@ namespace ExRam.Gremlinq.Core
                 [AllowNull] public object? Id { get; set; }
             }
 
-            private readonly IGraphModel _model;
             private readonly IDictionary<string, Type[]> _types;
 
             public ElementConverter(IGraphModel model)
             {
-                _model = model;
                 _types = model
                     .VerticesModel
                     .Metadata
@@ -359,7 +357,7 @@ namespace ExRam.Gremlinq.Core
 
             protected override bool CanConvertImpl(Type objectType)
             {
-                return _model.VerticesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome;
+                return true;
             }
         }
 
@@ -399,14 +397,14 @@ namespace ExRam.Gremlinq.Core
                 Converters.Add(additionalConverter);
             }
 
-            Converters.Add(new ElementConverter(environment.Model));
             Converters.Add(new FlatteningConverter());
             Converters.Add(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)));
             Converters.Add(new NullableConverter());
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
             Converters.Add(new DateTimeConverter());
-
+            Converters.Add(new ElementConverter(environment.Model));
+            
             ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
             DefaultValueHandling = DefaultValueHandling.Populate;
         }
