@@ -303,10 +303,7 @@ namespace ExRam.Gremlinq.Core
     public static class GraphModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphModel Empty;
-        public static ExRam.Gremlinq.Core.IGraphModel ConfigureEdges(this ExRam.Gremlinq.Core.IGraphModel model, System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation) { }
         public static ExRam.Gremlinq.Core.IGraphModel ConfigureElements(this ExRam.Gremlinq.Core.IGraphModel model, System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation) { }
-        public static ExRam.Gremlinq.Core.IGraphModel ConfigureProperties(this ExRam.Gremlinq.Core.IGraphModel model, System.Func<ExRam.Gremlinq.Core.IGraphElementPropertyModel, ExRam.Gremlinq.Core.IGraphElementPropertyModel> transformation) { }
-        public static ExRam.Gremlinq.Core.IGraphModel ConfigureVertices(this ExRam.Gremlinq.Core.IGraphModel model, System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation) { }
         public static ExRam.Gremlinq.Core.IGraphModel Default(System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation, Microsoft.Extensions.Logging.ILogger? logger = null) { }
         public static ExRam.Gremlinq.Core.IGraphModel FromBaseTypes(System.Type vertexBaseType, System.Type edgeBaseType, System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation, Microsoft.Extensions.Logging.ILogger? logger = null) { }
         public static ExRam.Gremlinq.Core.IGraphModel FromBaseTypes<TVertex, TEdge>(System.Func<ExRam.Gremlinq.Core.IAssemblyLookupBuilder, ExRam.Gremlinq.Core.IAssemblyLookupSet> assemblyLookupTransformation, Microsoft.Extensions.Logging.ILogger? logger = null) { }
@@ -587,6 +584,9 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGraphElementModel EdgesModel { get; }
         ExRam.Gremlinq.Core.IGraphElementPropertyModel PropertiesModel { get; }
         ExRam.Gremlinq.Core.IGraphElementModel VerticesModel { get; }
+        ExRam.Gremlinq.Core.IGraphModel ConfigureEdges(System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation);
+        ExRam.Gremlinq.Core.IGraphModel ConfigureProperties(System.Func<ExRam.Gremlinq.Core.IGraphElementPropertyModel, ExRam.Gremlinq.Core.IGraphElementPropertyModel> transformation);
+        ExRam.Gremlinq.Core.IGraphModel ConfigureVertices(System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation);
     }
     public interface IGremlinQueryAdmin
     {

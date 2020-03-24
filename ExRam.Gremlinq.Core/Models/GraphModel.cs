@@ -17,6 +17,30 @@ namespace ExRam.Gremlinq.Core
                 PropertiesModel = propertiesModel;
             }
 
+            public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation)
+            {
+                return new GraphModelImpl(
+                    transformation(VerticesModel),
+                    EdgesModel,
+                    PropertiesModel);
+            }
+
+            public IGraphModel ConfigureEdges(Func<IGraphElementModel, IGraphElementModel> transformation)
+            {
+                return new GraphModelImpl(
+                    VerticesModel,
+                    transformation(EdgesModel),
+                    PropertiesModel);
+            }
+
+            public IGraphModel ConfigureProperties(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
+            {
+                return new GraphModelImpl(
+                    VerticesModel,
+                    EdgesModel,
+                    transformation(PropertiesModel));
+            }
+
             public IGraphElementModel VerticesModel { get; }
 
             public IGraphElementModel EdgesModel { get; }
@@ -24,15 +48,7 @@ namespace ExRam.Gremlinq.Core
             public IGraphElementPropertyModel PropertiesModel { get; }
         }
 
-        private sealed class EmptyGraphModel : IGraphModel
-        {
-            public IGraphElementModel VerticesModel => GraphElementModel.Empty;
-            public IGraphElementModel EdgesModel => GraphElementModel.Empty;
-
-            public IGraphElementPropertyModel PropertiesModel { get; } = GraphElementPropertyModel.Default;
-        }
-
-        public static readonly IGraphModel Empty = new EmptyGraphModel();
+        public static readonly IGraphModel Empty = new GraphModelImpl(GraphElementModel.Empty, GraphElementModel.Empty, GraphElementPropertyModel.Default);
 
         public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
         {
@@ -80,30 +96,6 @@ namespace ExRam.Gremlinq.Core
             return model
                 .ConfigureVertices(transformation)
                 .ConfigureEdges(transformation);
-        }
-
-        public static IGraphModel ConfigureVertices(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
-        {
-            return new GraphModelImpl(
-                transformation(model.VerticesModel),
-                model.EdgesModel,
-                model.PropertiesModel);
-        }
-
-        public static IGraphModel ConfigureEdges(this IGraphModel model, Func<IGraphElementModel, IGraphElementModel> transformation)
-        {
-            return new GraphModelImpl(
-                model.VerticesModel,
-                transformation(model.EdgesModel),
-                model.PropertiesModel);
-        }
-
-        public static IGraphModel ConfigureProperties(this IGraphModel model, Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
-        {
-            return new GraphModelImpl(
-                model.VerticesModel,
-                model.EdgesModel,
-                transformation(model.PropertiesModel));
         }
     }
 }
