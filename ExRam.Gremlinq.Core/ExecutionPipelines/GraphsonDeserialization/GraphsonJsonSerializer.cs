@@ -99,9 +99,11 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        // ReSharper disable once UnusedTypeParameter
         private abstract class BlockableConverter<TSelf> : JsonConverter
         {
             [ThreadStatic]
+            // ReSharper disable once StaticMemberInGenericType
             private static bool _isBlocked;
 
             private sealed class BlockDisposable : IDisposable
@@ -285,12 +287,6 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                if (token is JObject jObject && !typeof(Property).IsAssignableFrom(objectType) && jObject.ContainsKey("value"))
-                {
-                    if (objectType.GetMember("Value", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase).Length == 0)
-                        token = jObject["value"];
-                }
-
                 using (Block())
                 {
                     return token.ToObject(objectType, serializer);
@@ -366,6 +362,46 @@ namespace ExRam.Gremlinq.Core
                 return _model.VerticesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome || _model.EdgesModel.TryGetFilterLabels(objectType, FilterLabelsVerbosity.Maximum).IsSome;
             }
         }
+
+        private sealed class NativeTypeConverter : BlockableConverter<NativeTypeConverter>
+        {
+            private static readonly System.Collections.Generic.HashSet<Type> HashSet = new System.Collections.Generic.HashSet<Type>
+            {
+                typeof(bool),
+                typeof(byte),
+                typeof(byte[]),
+                typeof(sbyte),
+                typeof(short),
+                typeof(ushort),
+                typeof(int),
+                typeof(uint),
+                typeof(long),
+                typeof(ulong),
+                typeof(float),
+                typeof(double),
+                typeof(string),
+                typeof(DateTime),
+                typeof(DateTimeOffset)
+            };
+
+            protected override bool CanConvertImpl(Type objectType)
+            {
+                return HashSet.Contains(objectType) || objectType.IsEnum;
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            {
+                var token = JToken.Load(reader);
+
+                if (token is JObject jObject && jObject.ContainsKey("value"))
+                    token = jObject["value"];
+
+                using (Block())
+                {
+                    return token.ToObject(objectType, serializer);
+                }
+            }
+        }
         #endregion
 
         public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params JsonConverter[] additionalConverters)
@@ -377,6 +413,7 @@ namespace ExRam.Gremlinq.Core
 
             Converters.Add(new ElementConverter(environment.Model));
             Converters.Add(new FlatteningConverter());
+            Converters.Add(new NativeTypeConverter());
             Converters.Add(new NullableConverter());
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
