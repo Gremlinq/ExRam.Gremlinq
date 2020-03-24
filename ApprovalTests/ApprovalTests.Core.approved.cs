@@ -582,9 +582,11 @@ namespace ExRam.Gremlinq.Core
     public interface IGraphModel
     {
         ExRam.Gremlinq.Core.IGraphElementModel EdgesModel { get; }
+        System.Collections.Immutable.IImmutableSet<System.Type> NativeTypes { get; }
         ExRam.Gremlinq.Core.IGraphElementPropertyModel PropertiesModel { get; }
         ExRam.Gremlinq.Core.IGraphElementModel VerticesModel { get; }
         ExRam.Gremlinq.Core.IGraphModel ConfigureEdges(System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation);
+        ExRam.Gremlinq.Core.IGraphModel ConfigureNativeTypes(System.Func<System.Collections.Immutable.IImmutableSet<System.Type>, System.Collections.Immutable.IImmutableSet<System.Type>> transformation);
         ExRam.Gremlinq.Core.IGraphModel ConfigureProperties(System.Func<ExRam.Gremlinq.Core.IGraphElementPropertyModel, ExRam.Gremlinq.Core.IGraphElementPropertyModel> transformation);
         ExRam.Gremlinq.Core.IGraphModel ConfigureVertices(System.Func<ExRam.Gremlinq.Core.IGraphElementModel, ExRam.Gremlinq.Core.IGraphElementModel> transformation);
     }

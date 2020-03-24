@@ -10,11 +10,30 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            public GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel, IGraphElementPropertyModel propertiesModel)
+            private static readonly IImmutableSet<Type> DefaultNativeTypes = new[] {typeof(bool), typeof(byte), typeof(byte[]), typeof(sbyte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(string), typeof(DateTime), typeof(DateTimeOffset)}.ToImmutableHashSet();
+
+            public GraphModelImpl(
+                IGraphElementModel verticesModel,
+                IGraphElementModel edgesModel,
+                IGraphElementPropertyModel propertiesModel) : this(verticesModel, edgesModel, propertiesModel, DefaultNativeTypes)
+            {
+            }
+
+            private GraphModelImpl(IGraphElementModel verticesModel, IGraphElementModel edgesModel, IGraphElementPropertyModel propertiesModel, IImmutableSet<Type> nativeTypes)
             {
                 VerticesModel = verticesModel;
                 EdgesModel = edgesModel;
                 PropertiesModel = propertiesModel;
+                NativeTypes = nativeTypes;
+            }
+
+            public IGraphModel ConfigureNativeTypes(Func<IImmutableSet<Type>, IImmutableSet<Type>> transformation)
+            {
+                return new GraphModelImpl(
+                    VerticesModel,
+                    EdgesModel,
+                    PropertiesModel,
+                    transformation(NativeTypes));
             }
 
             public IGraphModel ConfigureVertices(Func<IGraphElementModel, IGraphElementModel> transformation)
@@ -22,7 +41,8 @@ namespace ExRam.Gremlinq.Core
                 return new GraphModelImpl(
                     transformation(VerticesModel),
                     EdgesModel,
-                    PropertiesModel);
+                    PropertiesModel,
+                    NativeTypes);
             }
 
             public IGraphModel ConfigureEdges(Func<IGraphElementModel, IGraphElementModel> transformation)
@@ -30,7 +50,8 @@ namespace ExRam.Gremlinq.Core
                 return new GraphModelImpl(
                     VerticesModel,
                     transformation(EdgesModel),
-                    PropertiesModel);
+                    PropertiesModel,
+                    NativeTypes);
             }
 
             public IGraphModel ConfigureProperties(Func<IGraphElementPropertyModel, IGraphElementPropertyModel> transformation)
@@ -38,17 +59,20 @@ namespace ExRam.Gremlinq.Core
                 return new GraphModelImpl(
                     VerticesModel,
                     EdgesModel,
-                    transformation(PropertiesModel));
+                    transformation(PropertiesModel),
+                    NativeTypes);
             }
 
             public IGraphElementModel VerticesModel { get; }
-
             public IGraphElementModel EdgesModel { get; }
-
             public IGraphElementPropertyModel PropertiesModel { get; }
+            public IImmutableSet<Type> NativeTypes { get; }
         }
 
-        public static readonly IGraphModel Empty = new GraphModelImpl(GraphElementModel.Empty, GraphElementModel.Empty, GraphElementPropertyModel.Default);
+        public static readonly IGraphModel Empty = new GraphModelImpl(
+            GraphElementModel.Empty,
+            GraphElementModel.Empty,
+            GraphElementPropertyModel.Default);
 
         public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
         {
