@@ -350,7 +350,7 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 using (Block())
-                { 
+                {
                     return jToken.ToObject(objectType, serializer);
                 }
             }

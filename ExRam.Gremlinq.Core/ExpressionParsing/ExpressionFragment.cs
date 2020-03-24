@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
             return expression.RefersToParameter()
                 ? (ExpressionFragment)new ParameterExpressionFragment(expression)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                    ? new StepLabelExpressionFragment(stepLabel, stepLabelExpression)
+                    ? new StepLabelExpressionFragment(stepLabel!, stepLabelExpression)
                     : new ConstantExpressionFragment(expression.GetValue());
         }
     }

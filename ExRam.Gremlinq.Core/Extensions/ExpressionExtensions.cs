@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel stepLabel, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
             stepLabel = null;
             stepLabelValueMemberExpression = null;

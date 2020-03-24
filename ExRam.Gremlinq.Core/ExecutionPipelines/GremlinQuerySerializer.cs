@@ -41,7 +41,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse(stepLabelMapping);
                     }
 
-                    return atom;
+                    return atom!;
                 }
 
                 object RecurseImpl(object o)
@@ -60,8 +60,8 @@ namespace ExRam.Gremlinq.Core
                     _dict
                         .TryGetValue(typeof(TAtom))
                         .Match(
-                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_, baseSerializer, recurse), recurse)),
-                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_), recurse))));
+                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse)),
+                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_!), recurse))));
             }
 
             private QueryFragmentSerializer<object>? TryGetSerializer(Type type)
@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<HasPredicateStep>((step, overridden, recurse) =>
                 {
                     var stepName = "has";
-                    var argument = (object)step.Predicate;
+                    var argument = (object?)step.Predicate;
 
                     if (argument is P p2)
                     {
