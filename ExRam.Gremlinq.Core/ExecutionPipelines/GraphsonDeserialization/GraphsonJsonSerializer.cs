@@ -365,28 +365,16 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class NativeTypeConverter : BlockableConverter<NativeTypeConverter>
         {
-            private static readonly System.Collections.Generic.HashSet<Type> HashSet = new System.Collections.Generic.HashSet<Type>
+            private readonly System.Collections.Generic.HashSet<Type> _nativeTypes;
+
+            public NativeTypeConverter(System.Collections.Generic.HashSet<Type> nativeTypes)
             {
-                typeof(bool),
-                typeof(byte),
-                typeof(byte[]),
-                typeof(sbyte),
-                typeof(short),
-                typeof(ushort),
-                typeof(int),
-                typeof(uint),
-                typeof(long),
-                typeof(ulong),
-                typeof(float),
-                typeof(double),
-                typeof(string),
-                typeof(DateTime),
-                typeof(DateTimeOffset)
-            };
+                _nativeTypes = nativeTypes;
+            }
 
             protected override bool CanConvertImpl(Type objectType)
             {
-                return HashSet.Contains(objectType) || objectType.IsEnum;
+                return _nativeTypes.Contains(objectType) || (objectType.IsEnum && _nativeTypes.Contains(objectType.GetEnumUnderlyingType()));
             }
 
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
@@ -413,7 +401,7 @@ namespace ExRam.Gremlinq.Core
 
             Converters.Add(new ElementConverter(environment.Model));
             Converters.Add(new FlatteningConverter());
-            Converters.Add(new NativeTypeConverter());
+            Converters.Add(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)));
             Converters.Add(new NullableConverter());
             Converters.Add(new TimespanConverter());
             Converters.Add(new DateTimeOffsetConverter());
