@@ -99,33 +99,26 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private abstract class BlockableConverter : JsonConverter
+        private abstract class BlockableConverter<TSelf> : JsonConverter
         {
             [ThreadStatic]
-            private static List<JsonConverter>? _blockedConverters;
+            private static bool _isBlocked;
 
             private sealed class BlockDisposable : IDisposable
             {
-                private readonly JsonConverter _blockedConverter;
-
-                public BlockDisposable(JsonConverter blockedConverter)
-                {
-                    _blockedConverter = blockedConverter;
-                }
+                public static readonly BlockDisposable Instance = new BlockDisposable();
 
                 public void Dispose()
                 {
-                    _blockedConverters?.Remove(_blockedConverter);
+                    _isBlocked = false;
                 }
             }
 
             public sealed override bool CanConvert(Type objectType)
             {
-                var blocked = (_blockedConverters?.Contains(this)).GetValueOrDefault();
-
-                if (blocked)
+                if (_isBlocked)
                 {
-                    _blockedConverters?.Remove(this);
+                    _isBlocked = false;
 
                     return false;
                 }
@@ -140,12 +133,9 @@ namespace ExRam.Gremlinq.Core
 
             protected IDisposable Block()
             {
-                if (_blockedConverters == null)
-                    _blockedConverters = new List<JsonConverter>();
+                _isBlocked = true;
 
-                _blockedConverters.Add(this);
-
-                return new BlockDisposable(this);
+                return BlockDisposable.Instance;
             }
 
             protected abstract bool CanConvertImpl(Type objectType);
@@ -154,7 +144,7 @@ namespace ExRam.Gremlinq.Core
             public override bool CanWrite => true;
         }
 
-        private sealed class NullableConverter : BlockableConverter
+        private sealed class NullableConverter : BlockableConverter<NullableConverter>
         {
             protected override bool CanConvertImpl(Type objectType)
             {
@@ -172,7 +162,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimespanConverter : BlockableConverter
+        private sealed class TimespanConverter : BlockableConverter<TimespanConverter>
         {
             protected override bool CanConvertImpl(Type objectType)
             {
@@ -185,7 +175,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class DateTimeOffsetConverter : BlockableConverter
+        private sealed class DateTimeOffsetConverter : BlockableConverter<DateTimeOffsetConverter>
         {
             protected override bool CanConvertImpl(Type objectType)
             {
@@ -221,7 +211,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class DateTimeConverter : BlockableConverter
+        private sealed class DateTimeConverter : BlockableConverter<DateTimeConverter>
         {
             protected override bool CanConvertImpl(Type objectType)
             {
@@ -253,7 +243,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class FlatteningConverter : BlockableConverter
+        private sealed class FlatteningConverter : BlockableConverter<FlatteningConverter>
         {
             protected override bool CanConvertImpl(Type objectType)
             {
@@ -308,7 +298,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class ElementConverter : BlockableConverter
+        private sealed class ElementConverter : BlockableConverter<ElementConverter>
         {
             private sealed class VertexImpl : IVertex
             {
