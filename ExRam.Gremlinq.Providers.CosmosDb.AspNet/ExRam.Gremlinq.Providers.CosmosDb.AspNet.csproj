@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Description>ASP.NET Core support package for ExRam.Gremlinq.Providers.CosmosDb.</Description>
   </PropertyGroup>
 
   <ItemGroup>
