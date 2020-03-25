@@ -17,6 +17,7 @@
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
