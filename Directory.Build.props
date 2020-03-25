@@ -12,6 +12,8 @@
     <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>
+    <Authors>Daniel Weber</Authors>
+    <Company>ExRam EDV GmbH &amp; Co. KG</Company>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +25,6 @@
 
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <Company>ExRam EDV GmbH &amp; Co. KG</Company>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
