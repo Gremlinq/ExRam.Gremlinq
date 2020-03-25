@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <PackageIcon>grey-icon.png</PackageIcon>
-    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,13 +11,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\Assets\grey-icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

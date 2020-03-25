@@ -2,20 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <PackageIcon>blue-icon.png</PackageIcon>
-    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket.AspNet\ExRam.Gremlinq.Providers.WebSocket.AspNet.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\Assets\blue-icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

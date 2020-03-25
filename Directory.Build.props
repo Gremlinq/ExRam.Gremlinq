@@ -5,7 +5,21 @@
     <LangVersion>8.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006</NoWarn>
     <Nullable>enable</Nullable>
+    <PackageIconUrl />
+    <PackageIcon>grey-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('CosmosDb'))">blue-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Assets\$(PackageIcon)">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

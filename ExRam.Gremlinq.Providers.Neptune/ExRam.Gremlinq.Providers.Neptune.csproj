@@ -3,19 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Description>AWS Neptune provider binding for ExRam.Gremlinq.</Description>
-    <PackageIcon>orange-icon.png</PackageIcon>
-    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\Assets\orange-icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

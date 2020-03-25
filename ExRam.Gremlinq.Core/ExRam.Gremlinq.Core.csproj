@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Description>.NET object-graph-mapper for Apache TinkerPop™ Gremlin enabled databases.</Description>
-    <PackageIcon>grey-icon.png</PackageIcon>
-    <PackageIconUrl />
   </PropertyGroup>
   
   <ItemGroup>
@@ -30,10 +28,6 @@
     </None>
     <None Update="Queries\T4\Constants.tt">
       <Generator></Generator>
-    </None>
-    <None Include="..\Assets\grey-icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
   
