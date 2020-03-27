@@ -347,7 +347,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Invalid;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToGraphson;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToString;
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params Newtonsoft.Json.JsonConverter[] additionalConverters) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params ExRam.Gremlinq.Core.IJTokenConverter[] additionalConverters) { }
     }
     public static class GremlinQueryExecutor
     {
@@ -797,6 +797,10 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IBothEdgeGremlinQuery<TEdge, TAdjacentVertex, TTargetVertex> To<TTargetVertex>(System.Func<ExRam.Gremlinq.Core.IVertexGremlinQuery<TAdjacentVertex>, ExRam.Gremlinq.Core.IVertexGremlinQuery<TTargetVertex>> toVertexTraversal);
     }
     public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> : ExRam.Gremlinq.Core.IEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IJTokenConverter
+    {
+        LanguageExt.OptionUnsafe<object> TryConvert(Newtonsoft.Json.Linq.JToken jToken, System.Type objectType, ExRam.Gremlinq.Core.IJTokenConverter recurse);
+    }
     public interface IOrderBuilderWithBy<out TSourceQuery> : ExRam.Gremlinq.Core.IOrderBuilder<TSourceQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {

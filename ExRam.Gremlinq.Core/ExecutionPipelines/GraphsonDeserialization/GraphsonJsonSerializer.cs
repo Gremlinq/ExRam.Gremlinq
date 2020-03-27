@@ -12,6 +12,51 @@ using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
+    public interface IJTokenConverter
+    {
+        OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse);
+    }
+
+    internal static class JTokenConverter
+    {
+        private sealed class NullJTokenConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                return default;
+            }
+        }
+
+        private sealed class CombinedJTokenConverter : IJTokenConverter
+        {
+            private readonly IJTokenConverter _converter1;
+            private readonly IJTokenConverter _converter2;
+
+            public CombinedJTokenConverter(IJTokenConverter converter1, IJTokenConverter converter2)
+            {
+                _converter1 = converter1;
+                _converter2 = converter2;
+            }
+
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                var ret = _converter2
+                    .TryConvert(jToken, objectType, recurse);
+
+                return ret.IsSome
+                    ? ret
+                    : _converter1.TryConvert(jToken, objectType, recurse);
+            }
+        }
+
+        public static readonly IJTokenConverter Null = new NullJTokenConverter();
+
+        public static IJTokenConverter Combine(this IJTokenConverter converter1, IJTokenConverter converter2)
+        {
+            return new CombinedJTokenConverter(converter1, converter2);
+        }
+    }
+
     internal sealed class GraphsonJsonSerializer : JsonSerializer
     {
         #region Nested
@@ -75,9 +120,7 @@ namespace ExRam.Gremlinq.Core
                 _model.Metadata
                     .TryGetValue(member)
                     .Map(x => x.Name)
-                    .IfSome(name => property.PropertyName = name);
-
-                return property;
+                    .IfSome(name => property.PropertyName = name);return property;
             }
 
             protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
@@ -146,155 +189,118 @@ namespace ExRam.Gremlinq.Core
             public override bool CanWrite => true;
         }
 
-        private sealed class NullableConverter : BlockableConverter<NullableConverter>
+        private sealed class TimespanConverter : IJTokenConverter
         {
-            protected override bool CanConvertImpl(Type objectType)
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                return objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>);
-            }
-
-            [return: AllowNull]
-            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                var token = JToken.Load(reader);
-
-                return token is JValue value && value.Value == null
-                    ? null
-                    : token.ToObject(objectType.GetGenericArguments()[0], serializer);
-            }
-        }
-
-        private sealed class TimespanConverter : BlockableConverter<TimespanConverter>
-        {
-            protected override bool CanConvertImpl(Type objectType)
-            {
-                return objectType == typeof(TimeSpan);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                return XmlConvert.ToTimeSpan(serializer.Deserialize<string>(reader));
-            }
-        }
-
-        private sealed class DateTimeOffsetConverter : BlockableConverter<DateTimeOffsetConverter>
-        {
-            protected override bool CanConvertImpl(Type objectType)
-            {
-                return objectType == typeof(DateTimeOffset);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                var token = JToken.Load(reader);
-
-                if (token is JValue jValue)
+                if (objectType == typeof(TimeSpan))
                 {
-                    switch (jValue.Value)
-                    {
-                        case DateTime dateTime:
-                            return new DateTimeOffset(dateTime);
-                        case DateTimeOffset dateTimeOffset:
-                            return dateTimeOffset;
-                        default:
-                        {
-                            if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                    return recurse
+                        .TryConvert(jToken, typeof(string), recurse)
+                        .Map(x => (object)XmlConvert.ToTimeSpan((string)x));
+                }
 
-                            break;
+                return default;
+            }
+        }
+
+        private sealed class DateTimeOffsetConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                if (objectType == typeof(DateTimeOffset))
+                {
+                    if (jToken is JValue jValue)
+                    {
+                        switch (jValue.Value)
+                        {
+                            case DateTime dateTime:
+                                return new DateTimeOffset(dateTime);
+                            case DateTimeOffset dateTimeOffset:
+                                return dateTimeOffset;
+                            default:
+                            {
+                                if (jValue.Type == JTokenType.Integer)
+                                    return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+
+                                break;
+                            }
                         }
                     }
                 }
 
-                using (Block())
-                {
-                    return token.ToObject(objectType, serializer);
-                }
+                return default;
             }
         }
 
-        private sealed class DateTimeConverter : BlockableConverter<DateTimeConverter>
+        private sealed class DateTimeConverter : IJTokenConverter
         {
-            protected override bool CanConvertImpl(Type objectType)
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                return objectType == typeof(DateTime);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                var token = JToken.Load(reader);
-
-                if (token is JValue jValue)
+                if (objectType == typeof(DateTime))
                 {
-                    switch (jValue.Value)
+                    if (jToken is JValue jValue)
                     {
-                        case DateTime dateTime:
-                            return dateTime;
-                        case DateTimeOffset dateTimeOffset:
-                            return dateTimeOffset.UtcDateTime;
-                    }
-
-                    if (jValue.Type == JTokenType.Integer)
-                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
-                }
-
-                using (Block())
-                {
-                    return token.ToObject(objectType, serializer);
-                }
-            }
-        }
-
-        private sealed class FlatteningConverter : BlockableConverter<FlatteningConverter>
-        {
-            protected override bool CanConvertImpl(Type objectType)
-            {
-                return !objectType.IsArray;
-            }
-
-            [return: AllowNull]
-            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                var token = JToken.Load(reader);
-
-                if (!objectType.IsInstanceOfType(token))
-                {
-                    if (token is JArray array)
-                    {
-                        if (array.Count != 1)
+                        switch (jValue.Value)
                         {
-                            if (objectType == typeof(Unit))
-                                return Unit.Default;
+                            case DateTime dateTime:
+                                return dateTime;
+                            case DateTimeOffset dateTimeOffset:
+                                return dateTimeOffset.UtcDateTime;
+                        }
 
-                            if (array.Count == 0)
+                        if (jValue.Type == JTokenType.Integer)
+                            return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
+                    }
+                }
+
+                return default;
+            }
+        }
+
+        private sealed class FlatteningConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                if (!objectType.IsArray)
+                {
+                    if (!objectType.IsInstanceOfType(jToken))
+                    {
+                        var itemType = default(Type);
+
+                        if (objectType.IsGenericType)
+                        {
+                            var genericTypeDefinition = objectType.GetGenericTypeDefinition();
+                            if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
+                                itemType = objectType.GetGenericArguments()[0];
+                        }
+
+                        if (jToken is JArray array)
+                        {
+                            if (array.Count != 1)
                             {
-                                if (objectType.IsClass)
-                                    return null;
+                                if (objectType == typeof(Unit))
+                                    return Unit.Default;
 
-                                if (objectType.IsGenericType)
-                                {
-                                    var genericTypeDefinition = objectType.GetGenericTypeDefinition();
+                                if (array.Count == 0 && (objectType.IsClass || itemType != null))
+                                    return default(object);
 
-                                    if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
-                                        return Activator.CreateInstance(objectType);
-                                }
+                                throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
                             }
 
-                            throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
+                            return recurse.TryConvert(array[0], itemType ?? objectType, recurse);
                         }
 
-                        token = array[0];
+                        if (jToken is JValue value && value.Value == null && itemType != null)
+                            return default(object);
                     }
                 }
 
-                using (Block())
-                {
-                    return token.ToObject(objectType, serializer);
-                }
+                return default;
             }
         }
 
-        private sealed class ElementConverter : BlockableConverter<ElementConverter>
+        private sealed class ElementConverter : IJTokenConverter
         {
             private sealed class VertexImpl : IVertex
             {
@@ -323,10 +329,8 @@ namespace ExRam.Gremlinq.Core
                         StringComparer.OrdinalIgnoreCase);
             }
 
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                var jToken = JToken.Load(reader);
-
                 if (jToken is JObject)
                 {
                     var label = jToken["label"]?.ToString();
@@ -338,30 +342,23 @@ namespace ExRam.Gremlinq.Core
                             .FirstOrDefault(type => objectType.IsAssignableFrom(type))
                         : default;
 
-                    if (modelType != null)
-                        objectType = modelType;
-                    else
+                    if (modelType == null)
                     {
                         if (objectType == typeof(IVertex))
-                            objectType = typeof(VertexImpl);
+                            modelType = typeof(VertexImpl);
                         else if (objectType == typeof(IEdge))
-                            objectType = typeof(EdgeImpl);
+                            modelType = typeof(EdgeImpl);
                     }
+
+                    if (modelType != null && modelType != objectType)
+                        return recurse.TryConvert(jToken, modelType, recurse);
                 }
 
-                using (Block())
-                {
-                    return jToken.ToObject(objectType, serializer);
-                }
-            }
-
-            protected override bool CanConvertImpl(Type objectType)
-            {
-                return true;
+                return default;
             }
         }
 
-        private sealed class NativeTypeConverter : BlockableConverter<NativeTypeConverter>
+        private sealed class NativeTypeConverter : IJTokenConverter
         {
             private readonly System.Collections.Generic.HashSet<Type> _nativeTypes;
 
@@ -370,43 +367,85 @@ namespace ExRam.Gremlinq.Core
                 _nativeTypes = nativeTypes;
             }
 
-            protected override bool CanConvertImpl(Type objectType)
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                return _nativeTypes.Contains(objectType) || (objectType.IsEnum && _nativeTypes.Contains(objectType.GetEnumUnderlyingType()));
+                if (_nativeTypes.Contains(objectType) || (objectType.IsEnum && _nativeTypes.Contains(objectType.GetEnumUnderlyingType())))
+                {
+                    if (jToken is JObject jObject && jObject.ContainsKey("value"))
+                    {
+                        return recurse.TryConvert(jObject["value"], objectType, recurse);
+                    }
+                }
+
+                return default;
+            }
+        }
+        
+        private sealed class ThisConverter : IJTokenConverter
+        {
+            private readonly JsonSerializer _serializer;
+
+            public ThisConverter(JsonSerializer serializer)
+            {
+                _serializer = serializer;
             }
 
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                return jToken.ToObject(objectType, _serializer);
+            }
+        }
+
+        private sealed class JTokenConverterConverter : BlockableConverter<JTokenConverterConverter>
+        {
+            private readonly IJTokenConverter _converter;
+
+            public JTokenConverterConverter(IJTokenConverter converter)
+            {
+                _converter = converter;
+            }
+
+            protected override bool CanConvertImpl(Type objectType)
+            {
+                return true;
+            }
+
+            [return: AllowNull]
             public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
-                if (token is JObject jObject && jObject.ContainsKey("value"))
-                    token = jObject["value"];
-
                 using (Block())
                 {
-                    return token.ToObject(objectType, serializer);
+                    return _converter
+                        .TryConvert(token, objectType, _converter)
+                        .IfNoneUnsafe(default(object));
                 }
             }
         }
         #endregion
 
-        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params JsonConverter[] additionalConverters)
+        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters)
         {
+            var converter = JTokenConverter
+                .Null
+                .Combine(new ThisConverter(this))
+                .Combine(new TimespanConverter())
+                .Combine(new DateTimeOffsetConverter())
+                .Combine(new DateTimeConverter())
+                .Combine(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)))
+                .Combine(new FlatteningConverter())
+                .Combine(new ElementConverter(environment.Model));
+
             foreach (var additionalConverter in additionalConverters)
             {
-                Converters.Add(additionalConverter);
+                converter = converter
+                    .Combine(additionalConverter);
             }
 
-            Converters.Add(new FlatteningConverter());
-            Converters.Add(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)));
-            Converters.Add(new NullableConverter());
-            Converters.Add(new TimespanConverter());
-            Converters.Add(new DateTimeOffsetConverter());
-            Converters.Add(new DateTimeConverter());
-            Converters.Add(new ElementConverter(environment.Model));
-            
-            ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
+            Converters.Add(new JTokenConverterConverter(converter));
             DefaultValueHandling = DefaultValueHandling.Populate;
+            ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
         }
     }
 }

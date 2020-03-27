@@ -105,6 +105,19 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public void JToken_Load_does_not_reuse()
+        {
+            var token = JToken.Parse(SingleLanguageJson);
+
+            var readToken1 = JToken.Load(new JTokenReader(token));
+            var readToken2 = JToken.Load(new JTokenReader(token));
+
+            readToken1
+                .Should()
+                .NotBeSameAs(readToken2);
+        }
+
+        [Fact]
         public async Task GraphSon3ReferenceVertex()
         {
             var array = await _g

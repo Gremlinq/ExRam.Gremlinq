@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Structure.IO.GraphSON;
-using Newtonsoft.Json;
+using LanguageExt;
 using Newtonsoft.Json.Linq;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -64,25 +63,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimespanConverter : JsonConverter
+        private sealed class TimespanConverter : IJTokenConverter
         {
-            public override bool CanConvert(Type objectType)
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                return objectType == typeof(TimeSpan);
-            }
+                if (objectType == typeof(TimeSpan))
+                {
+                    return recurse
+                        .TryConvert(jToken, typeof(long), recurse)
+                        .Map(x => (object)TimeSpan.FromMilliseconds((long)x));
+                }
 
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
-            {
-                return TimeSpan.FromMilliseconds(serializer.Deserialize<long>(reader));
+                return default;
             }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            public override bool CanRead => true;
-            public override bool CanWrite => true;
         }
 
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, ICosmosDbConfigurationBuilderWithAuthKey> transformation)
