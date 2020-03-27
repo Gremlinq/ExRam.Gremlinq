@@ -120,7 +120,9 @@ namespace ExRam.Gremlinq.Core
                 _model.Metadata
                     .TryGetValue(member)
                     .Map(x => x.Name)
-                    .IfSome(name => property.PropertyName = name);return property;
+                    .IfSome(name => property.PropertyName = name);
+
+                return property;
             }
 
             protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
@@ -423,6 +425,31 @@ namespace ExRam.Gremlinq.Core
                 }
             }
         }
+
+        private sealed class ArrayConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                if (objectType.IsArray && jToken is JArray jArray)
+                {
+                    var elementType = objectType.GetElementType();
+                    var array = Array.CreateInstance(elementType, jArray.Count);
+
+                    for (var i = 0; i < jArray.Count; i++)
+                    {
+                        var item = recurse
+                            .TryConvert(jArray[i], elementType, recurse);
+
+                        if (item.IsSome)
+                            array.SetValue(item.IfNoneUnsafe(default(object)), i);
+                    }
+
+                    return array;
+                }
+
+                return default;
+            }
+        }
         #endregion
 
         public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters)
@@ -435,7 +462,8 @@ namespace ExRam.Gremlinq.Core
                 .Combine(new DateTimeConverter())
                 .Combine(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)))
                 .Combine(new FlatteningConverter())
-                .Combine(new ElementConverter(environment.Model));
+                .Combine(new ElementConverter(environment.Model))
+                .Combine(new ArrayConverter());
 
             foreach (var additionalConverter in additionalConverters)
             {
