@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
@@ -433,18 +434,44 @@ namespace ExRam.Gremlinq.Core
                 if (objectType.IsArray && jToken is JArray jArray)
                 {
                     var elementType = objectType.GetElementType();
-                    var array = Array.CreateInstance(elementType, jArray.Count);
+                    var array = new ArrayList(jArray.Count);
 
-                    for (var i = 0; i < jArray.Count; i++)
+                    foreach (var jArrayItem in jArray)
                     {
-                        var item = recurse
-                            .TryConvert(jArray[i], elementType, recurse);
+                        var bulk = 1;
+                        var effectiveArrayItem = jArrayItem;
 
-                        if (item.IsSome)
-                            array.SetValue(item.IfNoneUnsafe(default(object)), i);
+                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
+                        {
+                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
+                            {
+                                bulk = recurse
+                                    .TryConvert(bulkToken, typeof(int), recurse)
+                                    .Map(x => (int)x)
+                                    .IfNoneUnsafe(1);
+                            }
+
+                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                            {
+                                effectiveArrayItem = traverserValue;
+                            }
+                        }
+
+                        var maybeItem = recurse
+                            .TryConvert(effectiveArrayItem, elementType, recurse);
+
+                        if (maybeItem.IsSome)
+                        {
+                            var item = maybeItem.IfNoneUnsafe(default(object));
+
+                            for (var i = 0; i < bulk; i++)
+                            {
+                                array.Add(item);
+                            }
+                        }
                     }
 
-                    return array;
+                    return array.ToArray(elementType);
                 }
 
                 return default;

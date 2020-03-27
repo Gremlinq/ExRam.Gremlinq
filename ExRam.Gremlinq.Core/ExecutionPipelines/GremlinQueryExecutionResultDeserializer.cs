@@ -128,6 +128,8 @@ namespace ExRam.Gremlinq.Core
                                     return Transform(edgeObject);
                                 }
                             }
+                            else if ("g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                                return jObject;
                             else if (jObject.TryGetValue("@value", out var value))
                                 return Transform(value);
                         }
@@ -153,34 +155,12 @@ namespace ExRam.Gremlinq.Core
                     }
                     case JArray jArray:
                     {
-                        var newArray = new JArray();
-                    
-                        foreach (var arrayItem in jArray)
+                        for(var i = 0; i < jArray.Count; i++)
                         {
-                            if (arrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
-                            {
-                                var bulk = 1;
-
-                                if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
-                                {
-                                    bulk = Transform(bulkToken).Value<int>();
-                                }
-
-                                if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                                {
-                                    traverserValue = Transform(traverserValue);
-
-                                    for (var i = 0; i < bulk; i++)
-                                    {
-                                        newArray.Add(traverserValue);
-                                    }
-                                }
-                            }
-                            else
-                                newArray.Add(Transform(arrayItem));
+                            jArray[i] = Transform(jArray[i]);
                         }
 
-                        return newArray;
+                        return jArray;
                     }
                 }
 
