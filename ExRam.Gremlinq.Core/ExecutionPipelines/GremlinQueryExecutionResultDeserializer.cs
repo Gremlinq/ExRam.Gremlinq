@@ -110,45 +110,10 @@ namespace ExRam.Gremlinq.Core
                                     return retObject;
                                 }
                             }
-                            else if ("g:Vertex".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                            {
-                                if (jObject.TryGetValue("@value", out var value) && value is JObject vertexObject)
-                                {
-                                    vertexObject.Add("type", "vertex");
-
-                                    return Transform(vertexObject);
-                                }
-                            }
-                            else if ("g:Edge".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                            {
-                                if (jObject.TryGetValue("@value", out var value) && value is JObject edgeObject)
-                                {
-                                    edgeObject.Add("type", "edge");
-
-                                    return Transform(edgeObject);
-                                }
-                            }
                             else if ("g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                                 return jObject;
                             else if (jObject.TryGetValue("@value", out var value))
                                 return Transform(value);
-                        }
-                        else if (jObject.TryGetValue("type", out var type))
-                        {
-                            if ("vertex".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase) || "edge".Equals(type.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                            {
-                                if (jObject.TryGetValue("properties", out var propertiesToken) && propertiesToken is JObject propertiesObject)
-                                {
-                                    foreach (var property in propertiesObject)
-                                    {
-                                        jObject[property.Key] = Transform(property.Value);
-                                    }
-
-                                    jObject.Remove("properties");
-
-                                    return jObject;
-                                }
-                            }
                         }
 
                         break;

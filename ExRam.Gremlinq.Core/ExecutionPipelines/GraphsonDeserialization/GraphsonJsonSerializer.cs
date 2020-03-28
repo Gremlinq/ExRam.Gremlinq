@@ -395,7 +395,19 @@ namespace ExRam.Gremlinq.Core
 
             public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
             {
-                return jToken.ToObject(objectType, _serializer);
+                var ret = jToken.ToObject(objectType, _serializer);
+
+                if (!(ret is JToken) && jToken is JObject element)
+                {
+                    if (element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
+                    {
+                        _serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
+                        _serializer.Populate(new JTokenReader(propertiesToken), ret);
+                        _serializer.DefaultValueHandling = DefaultValueHandling.Populate;
+                    }
+                }
+
+                return ret;
             }
         }
 
