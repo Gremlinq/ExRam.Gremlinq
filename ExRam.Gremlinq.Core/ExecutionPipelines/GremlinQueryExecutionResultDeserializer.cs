@@ -68,10 +68,8 @@ namespace ExRam.Gremlinq.Core
 
                     try
                     {
-                        var transformed = Transform(jToken);
-
                         return baseDeserializer
-                            .Deserialize<TElement[]>(new JTokenReader(transformed))
+                            .Deserialize<TElement[]>(new JTokenReader(jToken))
                             .ToAsyncEnumerable();
                     }
                     catch (JsonReaderException ex)
@@ -81,42 +79,6 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 throw new ArgumentException($"Cannot handle execution results of type {executionResult.GetType()}.");
-            }
-
-            private static JToken Transform(JToken jToken)
-            {
-                switch (jToken)
-                {
-                    case JObject jObject:
-                    {
-                        foreach (var property in jObject)
-                        {
-                            jObject[property.Key] = Transform(property.Value);
-                        }
-
-                        if (jObject.TryGetValue("@type", out var nestedType))
-                        {
-                            if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) || "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                                return jObject;
-
-                            if (jObject.TryGetValue("@value", out var value))
-                                return Transform(value);
-                        }
-
-                        break;
-                    }
-                    case JArray jArray:
-                    {
-                        for(var i = 0; i < jArray.Count; i++)
-                        {
-                            jArray[i] = Transform(jArray[i]);
-                        }
-
-                        return jArray;
-                    }
-                }
-
-                return jToken;
             }
         }
 

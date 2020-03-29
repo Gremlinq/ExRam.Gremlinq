@@ -127,7 +127,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .ToArrayAsync();
 
             array.Should().HaveCount(1);
-            array[0]["id"].ToObject<int>().Should().Be(1);
+            array[0]["id"]["@value"].ToObject<int>().Should().Be(1);
             array[0]["label"].ToObject<string>().Should().Be("person");
             array[0]["properties"]["name"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("marko");
             array[0]["properties"]["location"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");

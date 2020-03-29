@@ -512,6 +512,20 @@ namespace ExRam.Gremlinq.Core
                 return default;
             }
         }
+
+        private sealed class NestedValueConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                if (jToken is JObject jObject)
+                {
+                    if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var value))
+                        return recurse.TryConvert(value, objectType, recurse);
+                }
+
+                return default;
+            }
+        }
         #endregion
 
         public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters)
@@ -522,6 +536,7 @@ namespace ExRam.Gremlinq.Core
                 .Combine(new TimespanConverter())
                 .Combine(new DateTimeOffsetConverter())
                 .Combine(new DateTimeConverter())
+                .Combine(new NestedValueConverter())
                 .Combine(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)))
                 .Combine(new FlatteningConverter())
                 .Combine(new ElementConverter(environment.Model))
