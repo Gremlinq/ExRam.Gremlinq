@@ -489,6 +489,29 @@ namespace ExRam.Gremlinq.Core
                 return default;
             }
         }
+
+        private sealed class MapConverter : IJTokenConverter
+        {
+            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            {
+                if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                {
+                    if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
+                    {
+                        var retObject = new JObject();
+
+                        for (var i = 0; i < mapArray.Count / 2; i++)
+                        {
+                            retObject.Add(mapArray[i * 2].Value<string>(), mapArray[i * 2 + 1]);
+                        }
+
+                        return recurse.TryConvert(retObject, objectType, recurse);
+                    }
+                }
+
+                return default;
+            }
+        }
         #endregion
 
         public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters)
@@ -502,6 +525,7 @@ namespace ExRam.Gremlinq.Core
                 .Combine(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)))
                 .Combine(new FlatteningConverter())
                 .Combine(new ElementConverter(environment.Model))
+                .Combine(new MapConverter())
                 .Combine(new ArrayConverter());
 
             foreach (var additionalConverter in additionalConverters)

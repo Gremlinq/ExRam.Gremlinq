@@ -96,23 +96,10 @@ namespace ExRam.Gremlinq.Core
 
                         if (jObject.TryGetValue("@type", out var nestedType))
                         {
-                            if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                            {
-                                if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
-                                {
-                                    var retObject = new JObject();
-
-                                    for (var i = 0; i < mapArray.Count / 2; i++)
-                                    {
-                                        retObject.Add(mapArray[i * 2].Value<string>(), Transform(mapArray[i * 2 + 1]));
-                                    }
-
-                                    return retObject;
-                                }
-                            }
-                            else if ("g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                            if ("g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) || "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                                 return jObject;
-                            else if (jObject.TryGetValue("@value", out var value))
+
+                            if (jObject.TryGetValue("@value", out var value))
                                 return Transform(value);
                         }
 
