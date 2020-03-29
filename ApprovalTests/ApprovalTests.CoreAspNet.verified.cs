@@ -1,4 +1,4 @@
-﻿[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public readonly struct GremlinqOptions

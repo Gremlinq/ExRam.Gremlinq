@@ -1,20 +1,27 @@
 ﻿using System.Reflection;
-using ApprovalTests.Reporters;
+using System.Runtime.CompilerServices;
+//using ApprovalTests.Reporters;
+//using ApprovalTests.Reporters.Windows;
 using PublicApiGenerator;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
-    [UseReporter(typeof(DiffReporter))]
-    public class ApprovalTests
+    public class ApprovalTests : VerifyXunit.VerifyBase
     {
+        public ApprovalTests(ITestOutputHelper output) : base(output)
+        {
+
+        }
+
         [Fact]
         public void Core()
         {
             Assembly
                 .Load("ExRam.Gremlinq.Core")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -23,7 +30,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.CosmosDb")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -32,7 +39,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.GremlinServer")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -41,7 +48,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.Neptune")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -50,7 +57,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.WebSocket")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -59,7 +66,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Core.AspNet")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -68,7 +75,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.CosmosDb.AspNet")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -77,7 +84,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.GremlinServer.AspNet")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -86,7 +93,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.Neptune.AspNet")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
 
         [Fact]
@@ -95,7 +102,7 @@ namespace ExRam.Gremlinq.ApprovalTests
             Assembly
                 .Load("ExRam.Gremlinq.Providers.WebSocket.AspNet")
                 .GeneratePublicApi()
-                .VerifyCSharp();
+                .VerifyCSharp(this);
         }
     }
 }

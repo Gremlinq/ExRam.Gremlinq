@@ -1,4 +1,4 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ExRam.Gremlinq.Core.Tests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ExRam.Gremlinq.Core.Tests")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core
 {
