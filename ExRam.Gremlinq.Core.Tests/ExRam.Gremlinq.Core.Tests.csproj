@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="*.verified.json" />
+    <None Remove="*.received.json" />
     <None Remove="Json\Array_of_Languages.json" />
     <None Remove="Json\Country_with_meta_properties.json" />
     <None Remove="Json\Graphson3ReferenceVertex.json" />
@@ -48,6 +50,10 @@
     <EmbeddedResource Include="Json\Named_tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\Tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\VertexProperties.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Verify.Xunit" Version="1.27.1-beta.1" />
   </ItemGroup>
 
   <ItemGroup>

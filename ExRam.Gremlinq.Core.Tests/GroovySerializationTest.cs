@@ -6,16 +6,35 @@ using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Xunit;
+using Xunit.Abstractions;
+using Verify;
+using VerifyXunit;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GroovySerializationTest
+    public static class StringExtensions
+    {
+        public static void VerifyQuery(this IGremlinQueryBase query, GroovySerializationTest verifyBase)
+        {
+            var verifySettings = new VerifySettings();
+            verifySettings.UseExtension("json");
+
+            var environment = query.AsAdmin().Environment;
+            var serializedQuery = environment.Serializer
+                .Serialize(query);
+
+            verifyBase.Verify(serializedQuery, verifySettings);
+        }
+    }
+
+    public abstract class GroovySerializationTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string id = "id";
 
-        protected GroovySerializationTest(IGremlinQuerySource g)
+        protected GroovySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _g = g
                 .ConfigureEnvironment(env => env
@@ -37,9 +56,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddV(new Language { IetfLanguageTag = "en" })
                     .AddE<Speaks>()
                     .From(c))
-                .Should()
-                .SerializeToGroovy("addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d).project(_i, _j, _k, _l).by(id).by(label).by(__.constant(_m)).by(__.valueMap())")
-                .WithParameters("Country", "CountryCallingCode", "+49", "l1", "Language", "IetfLanguageTag", "en", "Speaks", "id", "label", "type", "properties", "edge");
+                .VerifyQuery(this);
         }
 
         [Fact]

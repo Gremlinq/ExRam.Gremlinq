@@ -6,17 +6,20 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
     public class GremlinServerGroovySerializationTest : GroovySerializationTest
     {
-        public GremlinServerGroovySerializationTest() : base(g
-            .ConfigureEnvironment(env => env
+        public GremlinServerGroovySerializationTest(ITestOutputHelper testOutputHelper) : base(
+            g
+                .ConfigureEnvironment(env => env
                 .UseGremlinServer(builder => builder
                     .AtLocalhost()
-                    .SetGraphSONVersion(GraphsonVersion.V2))))
+                    .SetGraphSONVersion(GraphsonVersion.V2))),
+            testOutputHelper)
         {
 
         }
