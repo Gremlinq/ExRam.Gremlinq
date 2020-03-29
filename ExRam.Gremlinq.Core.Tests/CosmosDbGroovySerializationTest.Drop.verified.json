@@ -1,0 +1,6 @@
+{
+  Script: 'V().hasLabel(_a).drop()',
+  Bindings: {
+    _a: 'Person'
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Script: 'V().hasLabel(_a).aggregate(_b).cap(_b)',
+  Bindings: {
+    _a: 'Person',
+    _b: 'l1'
+  }
+}

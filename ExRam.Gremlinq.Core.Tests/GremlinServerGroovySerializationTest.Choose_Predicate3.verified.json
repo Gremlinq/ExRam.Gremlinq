@@ -1,0 +1,39 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'id'
+    },
+    {
+      OperatorName: 'choose',
+      Arguments: [
+        {
+          OperatorName: 'lt',
+          Value: 42
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'constant',
+              Arguments: [
+                true
+              ]
+            }
+          ]
+        },
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'constant',
+              Arguments: [
+                false
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'VertexWithStringId'
+      ]
+    },
+    {
+      OperatorName: 'has',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
+        'hallo'
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'type',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'constant',
+              Arguments: [
+                'vertex'
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties'
+            },
+            {
+              OperatorName: 'group'
+            },
+            {
+              OperatorName: 'by',
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: 'label'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: 'by',
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: 'project',
+                      Arguments: [
+                        'id',
+                        'label',
+                        'value'
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          EnumName: 'T',
+                          EnumValue: 'id'
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: 'label'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: 'value'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'fold'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

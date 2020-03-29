@@ -1,0 +1,17 @@
+{
+  Script: 'V().hasLabel(_a).has(_b, _c).has(_d, eq(_e).or(eq(_f))).project(_g, _h, _i, _j).by(id).by(label).by(__.constant(_k)).by(__.properties().group().by(__.label()).by(__.project(_g, _h, _l, _j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Name',
+    _c: 'Some name',
+    _d: 'Age',
+    _e: 42,
+    _f: 99,
+    _g: 'id',
+    _h: 'label',
+    _i: 'type',
+    _j: 'properties',
+    _k: 'vertex',
+    _l: 'value'
+  }
+}

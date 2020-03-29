@@ -1,0 +1,16 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'count',
+      Arguments: [
+        {
+          EnumName: 'Scope',
+          EnumValue: 'local'
+        }
+      ]
+    }
+  ]
+}

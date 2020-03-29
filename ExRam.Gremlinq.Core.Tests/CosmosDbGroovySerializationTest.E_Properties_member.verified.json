@@ -1,0 +1,7 @@
+{
+  Script: 'E().hasLabel(_a).properties(_b)',
+  Bindings: {
+    _a: 'LivesIn',
+    _b: 'Since'
+  }
+}

@@ -1,0 +1,15 @@
+{
+  Script: 'V().project(_a, _b, _c, _d).by(__.count()).by(__.in().project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.properties())',
+  Bindings: {
+    _a: 'count!',
+    _b: 'in!',
+    _c: 'out!',
+    _d: 'properties!',
+    _e: 'id',
+    _f: 'label',
+    _g: 'type',
+    _h: 'properties',
+    _i: 'vertex',
+    _j: 'value'
+  }
+}

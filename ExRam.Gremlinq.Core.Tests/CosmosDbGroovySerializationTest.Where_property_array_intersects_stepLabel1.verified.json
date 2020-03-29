@@ -1,0 +1,15 @@
+{
+  Script: 'inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b))).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: '+4912345',
+    _b: 'l1',
+    _c: 'Company',
+    _d: 'PhoneNumbers',
+    _e: 'id',
+    _f: 'label',
+    _g: 'type',
+    _h: 'properties',
+    _i: 'vertex',
+    _j: 'value'
+  }
+}

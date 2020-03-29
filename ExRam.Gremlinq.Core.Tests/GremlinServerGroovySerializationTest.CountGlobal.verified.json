@@ -1,0 +1,10 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'count'
+    }
+  ]
+}

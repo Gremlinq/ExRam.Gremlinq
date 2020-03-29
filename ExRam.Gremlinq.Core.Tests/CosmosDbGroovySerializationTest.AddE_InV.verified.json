@@ -1,0 +1,18 @@
+{
+  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.V(_g).hasLabel(_h)).inV().project(_g, _i, _j, _k).by(id).by(label).by(__.constant(_l)).by(__.properties().group().by(__.label()).by(__.project(_g, _i, _m, _k).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Age',
+    _c: 0,
+    _d: 'Gender',
+    _e: 'Male',
+    _f: 'LivesIn',
+    _g: 'id',
+    _h: 'Country',
+    _i: 'label',
+    _j: 'type',
+    _k: 'properties',
+    _l: 'vertex',
+    _m: 'value'
+  }
+}

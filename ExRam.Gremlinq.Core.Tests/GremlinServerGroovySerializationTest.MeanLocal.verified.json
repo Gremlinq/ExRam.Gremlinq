@@ -1,0 +1,28 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'Person'
+      ]
+    },
+    {
+      OperatorName: 'values',
+      Arguments: [
+        'Age'
+      ]
+    },
+    {
+      OperatorName: 'mean',
+      Arguments: [
+        {
+          EnumName: 'Scope',
+          EnumValue: 'local'
+        }
+      ]
+    }
+  ]
+}

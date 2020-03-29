@@ -3,13 +3,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
+using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class OutOfTheBoxTest
+    public class OutOfTheBoxTest : VerifyBase
     {
         private class SomeEntity
+        {
+
+        }
+
+        public OutOfTheBoxTest(ITestOutputHelper output) : base(output)
         {
 
         }
@@ -34,9 +41,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(e => e
                     .ConfigureSerializer(s => s.ToGroovy()))
                 .V<SomeEntity>()
-                .Should()
-                .SerializeToGroovy("V().hasLabel(_a).project(_b, _c, _d, _e).by(id).by(label).by(__.constant(_f)).by(__.properties().group().by(__.label()).by(__.project(_b, _c, _g, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("SomeEntity", "id", "label", "type", "properties", "vertex", "value");
+                .VerifyQuery(this);
         }
     }
 }

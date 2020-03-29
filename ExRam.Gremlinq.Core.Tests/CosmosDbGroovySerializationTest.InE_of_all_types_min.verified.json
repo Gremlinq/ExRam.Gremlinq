@@ -1,0 +1,10 @@
+{
+  Script: 'V().inE().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.valueMap())',
+  Bindings: {
+    _a: 'id',
+    _b: 'label',
+    _c: 'type',
+    _d: 'properties',
+    _e: 'edge'
+  }
+}

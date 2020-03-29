@@ -1,4 +1,5 @@
 ﻿using ExRam.Gremlinq.Core.GraphElements;
+using FluentAssertions;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 

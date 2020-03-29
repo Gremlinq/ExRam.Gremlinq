@@ -2,13 +2,20 @@
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryExtensionsTest
+    public class GremlinQueryExtensionsTest : VerifyBase
     {
+        public GremlinQueryExtensionsTest(ITestOutputHelper output) : base(output)
+        {
+
+        }
+
         [Fact]
         public void CreateContinuation()
         {
@@ -27,8 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
-                .Should()
-                .SerializeToGroovy("has(_a, _b)");
+                .VerifyQuery(this);
         }
 
         [Fact]
@@ -70,8 +76,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
-                .Should()
-                .SerializeToGroovy("identity()");
+                .VerifyQuery(this);
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
+using Xunit.Abstractions;
+using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class ExecutionPipelinesTest
+    public class ExecutionPipelinesTest : VerifyBase
     {
         private interface IFancyId
         {
@@ -18,6 +19,11 @@ namespace ExRam.Gremlinq.Core.Tests
         private class FancyId : IFancyId
         {
             public string Id { get; set; }
+        }
+
+        public ExecutionPipelinesTest(ITestOutputHelper output) : base(output)
+        {
+
         }
 
         private class EvenMoreFancyId : FancyId
@@ -67,10 +73,8 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovy()
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
-                .V<Person>(new FancyId {Id = "someId"})
-                .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
+                .V<Person>(new FancyId { Id = "someId" })
+                .VerifyQuery(this);
         }
 
         [Fact]
@@ -85,9 +89,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
-                .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
+                .VerifyQuery(this);
         }
 
         [Fact]
@@ -102,9 +104,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
+                .VerifyQuery(this);
         }
 
         [Fact]
@@ -119,9 +119,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .Should()
-                .SerializeToGroovy("V(_a).hasLabel(_b).project(_c, _d, _e, _f).by(id).by(label).by(__.constant(_g)).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _h, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))")
-                .WithParameters("someId", "Person", "id", "label", "type", "properties", "vertex", "value");
+                .VerifyQuery(this);
         }
     }
 }

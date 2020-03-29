@@ -1,0 +1,21 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'Country'
+      ]
+    },
+    {
+      OperatorName: 'properties',
+      Arguments: [
+        'Name',
+        'CountryCallingCode',
+        'Languages'
+      ]
+    }
+  ]
+}

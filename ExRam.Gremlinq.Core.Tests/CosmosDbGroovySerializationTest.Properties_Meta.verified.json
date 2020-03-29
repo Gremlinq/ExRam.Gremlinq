@@ -1,0 +1,7 @@
+{
+  Script: 'V().hasLabel(_a).properties(_b)',
+  Bindings: {
+    _a: 'Country',
+    _b: 'Name'
+  }
+}

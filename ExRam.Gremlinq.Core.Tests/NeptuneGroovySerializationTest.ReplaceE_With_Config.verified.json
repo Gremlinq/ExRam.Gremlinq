@@ -1,0 +1,111 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'E',
+      Arguments: [
+        Guid_1
+      ]
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'WorksFor'
+      ]
+    },
+    {
+      OperatorName: 'sideEffect',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties',
+              Arguments: [
+                'From',
+                'Role',
+                'To'
+              ]
+            },
+            {
+              OperatorName: 'drop'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'From',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'Role',
+        'Admin'
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'To',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'type',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'constant',
+              Arguments: [
+                'edge'
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'valueMap'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

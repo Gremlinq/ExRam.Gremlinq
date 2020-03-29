@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ExRam.Gremlinq.Tests.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace ExRam.Gremlinq.Core.Tests

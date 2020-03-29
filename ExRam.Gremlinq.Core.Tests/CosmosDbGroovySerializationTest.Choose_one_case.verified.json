@@ -1,0 +1,7 @@
+{
+  Script: 'V().choose(__.values()).option(_a, __.constant(_b))',
+  Bindings: {
+    _a: 3,
+    _b: 1
+  }
+}

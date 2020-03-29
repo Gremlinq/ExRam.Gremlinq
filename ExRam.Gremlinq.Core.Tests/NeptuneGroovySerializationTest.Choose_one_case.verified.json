@@ -1,0 +1,35 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'choose',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'values'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'option',
+      Arguments: [
+        3,
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'constant',
+              Arguments: [
+                1
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

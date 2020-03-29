@@ -1,0 +1,10 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'E'
+    },
+    {
+      OperatorName: 'properties'
+    }
+  ]
+}

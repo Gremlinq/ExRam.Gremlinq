@@ -1,0 +1,15 @@
+{
+  Script: 'V().hasLabel(_a).as(_b).project(_c, _d).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.select(_b).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold())))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'l1',
+    _c: 'Item1',
+    _d: 'Item2',
+    _e: 'id',
+    _f: 'label',
+    _g: 'type',
+    _h: 'properties',
+    _i: 'vertex',
+    _j: 'value'
+  }
+}
