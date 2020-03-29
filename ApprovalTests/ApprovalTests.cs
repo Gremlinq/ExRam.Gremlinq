@@ -1,14 +1,12 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-//using ApprovalTests.Reporters;
-//using ApprovalTests.Reporters.Windows;
 using PublicApiGenerator;
 using Xunit;
 using Xunit.Abstractions;
+using VerifyXunit;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
-    public class ApprovalTests : VerifyXunit.VerifyBase
+    public class ApprovalTests : VerifyBase
     {
         public ApprovalTests(ITestOutputHelper output) : base(output)
         {
