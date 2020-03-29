@@ -13,7 +13,9 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public CosmosDbGroovySerializationTest() : base(g.ConfigureEnvironment(env => env
             .UseCosmosDb(builder => builder
                 .At(new Uri("wss://localhost"), "database", "graph")
-                .AuthenticateBy("authKey"))))
+                .AuthenticateBy("authKey"))
+            .ConfigureOptions(options => options
+                .SetItem(GremlinqOption.DontAddElementProjectionSteps, false))))
         {
 
         }

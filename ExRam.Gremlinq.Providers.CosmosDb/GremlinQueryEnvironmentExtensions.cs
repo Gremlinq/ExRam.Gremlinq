@@ -97,6 +97,8 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureSerializer(serializer => serializer
                     .UseCosmosDbWorkarounds()
                     .ToGroovy())
+                .ConfigureOptions(options => options
+                    .SetItem(GremlinqOption.DontAddElementProjectionSteps, true))
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
     }

@@ -378,23 +378,26 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    if (query is GremlinQueryBase gremlinQueryBase && gremlinQueryBase.SurfaceVisible)
+                    if (query is GremlinQueryBase gremlinQueryBase)
                     {
-                        switch (gremlinQueryBase.Semantics)
+                        if (gremlinQueryBase.SurfaceVisible && !gremlinQueryBase.Environment.Options.GetValue(GremlinqOption.DontAddElementProjectionSteps))
                         {
-                            case QuerySemantics.Vertex:
+                            switch (gremlinQueryBase.Semantics)
                             {
-                                byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                                    ? VertexProjectionInstructions
-                                    : VertexProjectionInstructionsWithoutMetaProperties);
+                                case QuerySemantics.Vertex:
+                                {
+                                    byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                                        ? VertexProjectionInstructions
+                                        : VertexProjectionInstructionsWithoutMetaProperties);
 
-                                break;
-                            }
-                            case QuerySemantics.Edge:
-                            {
-                                byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
+                                    break;
+                                }
+                                case QuerySemantics.Edge:
+                                {
+                                    byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
 
-                                break;
+                                    break;
+                                }
                             }
                         }
                     }

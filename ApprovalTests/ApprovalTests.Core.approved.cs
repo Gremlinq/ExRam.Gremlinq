@@ -384,6 +384,7 @@ namespace ExRam.Gremlinq.Core
     public class GremlinqOption
     {
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
+        public static ExRam.Gremlinq.Core.GremlinqOption<bool> DontAddElementProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public GremlinqOption() { }
     }
