@@ -1,5 +1,4 @@
-﻿using System;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 

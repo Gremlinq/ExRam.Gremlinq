@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace System.Collections.Concurrent
+﻿namespace System.Collections.Concurrent
 {
     internal static class ConcurrentDictionaryExtensions
     {
