@@ -16,11 +16,13 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public static Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
-            var environment = query.AsAdmin().Environment;
-            var serializedQuery = environment.Serializer
-                .Serialize(query);
-
-            return verifyBase.Verify(serializedQuery, Settings);
+            return verifyBase.Verify(
+                query
+                    .AsAdmin()
+                    .Environment
+                    .Serializer
+                    .Serialize(query),
+                Settings);
         }
     }
 }
