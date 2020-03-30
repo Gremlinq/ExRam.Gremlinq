@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Echo()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -59,9 +59,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OverrideAtomSerializer()
+        public async Task OverrideAtomSerializer()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -74,9 +74,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OverrideAtomSerializer_recognizes_derived_type()
+        public async Task OverrideAtomSerializer_recognizes_derived_type()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -89,9 +89,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OverrideAtomSerializer_recognizes_interface()
+        public async Task OverrideAtomSerializer_recognizes_interface()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -104,9 +104,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void OverrideAtomSerializer_recognizes_interface_through_derived_type()
+        public async Task OverrideAtomSerializer_recognizes_interface_through_derived_type()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup

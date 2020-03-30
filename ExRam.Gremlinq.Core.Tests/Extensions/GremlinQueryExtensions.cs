@@ -13,13 +13,13 @@ namespace ExRam.Gremlinq.Core.Tests
             Settings.UseExtension("json");
         }
 
-        public static void VerifyQuery(this IGremlinQueryBase query, VerifyBase verifyBase)
+        public static Task VerifyQuery(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
             var environment = query.AsAdmin().Environment;
             var serializedQuery = environment.Serializer
                 .Serialize(query);
 
-            Task.Run(() => verifyBase.Verify(serializedQuery, Settings)).Wait();
+            return verifyBase.Verify(serializedQuery, Settings);
         }
     }
 }

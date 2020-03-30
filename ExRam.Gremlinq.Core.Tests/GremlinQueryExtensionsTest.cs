@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -17,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void CreateContinuation()
+        public async Task CreateContinuation()
         {
             var query1 = g
                 .ConfigureEnvironment(env => env
@@ -32,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var cont = ((IGremlinQueryBase)query1).CreateContinuationFrom(query2);
 
-            cont(GremlinQuery
+            await cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .VerifyQuery(this);
         }
@@ -60,7 +61,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void CreateContinuation_equal()
+        public async Task CreateContinuation_equal()
         {
             var query1 = g
                 .ConfigureEnvironment(env => env
@@ -74,7 +75,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             var cont = ((IGremlinQueryBase)query1).CreateContinuationFrom(query2);
 
-            cont(GremlinQuery
+            await cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
                 .VerifyQuery(this);
         }

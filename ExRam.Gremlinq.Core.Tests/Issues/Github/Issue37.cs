@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var _g = g.ConfigureEnvironment(env => env
                 .EchoGroovy());
 
-            _g
+            await _g
                 .AddV(new Item { Value = "MyValue" })
                 .VerifyQuery(this);
         }
@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var _g = g.ConfigureEnvironment(env => env
                 .EchoGroovy());
 
-            _g
+            await _g
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .VerifyQuery(this);
         }

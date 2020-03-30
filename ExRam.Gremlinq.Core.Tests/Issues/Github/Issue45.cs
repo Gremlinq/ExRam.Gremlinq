@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
+using Xunit;
 using Xunit.Abstractions;
 using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -13,9 +14,9 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Repro()
+        public async Task Repro()
         {
-            g
+            await g
                 .ConfigureEnvironment(env => env
                     .EchoGroovy())
                 .V()

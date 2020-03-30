@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task V_SomeEntity()
         {
-            g
+            await g
                 .ConfigureEnvironment(e => e
                     .ConfigureSerializer(s => s.ToGroovy()))
                 .V<SomeEntity>()
