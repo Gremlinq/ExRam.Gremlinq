@@ -17,8 +17,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             g
                 .ConfigureEnvironment(env => env
                 .UseGremlinServer(builder => builder
-                    .AtLocalhost()
-                    .SetGraphSONVersion(GraphsonVersion.V2))),
+                    .AtLocalhost())),
             testOutputHelper)
         {
 
