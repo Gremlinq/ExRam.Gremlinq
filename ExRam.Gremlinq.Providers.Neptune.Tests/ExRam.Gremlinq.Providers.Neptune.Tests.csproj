@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="*.verified.json" />
+    <None Remove="*.received.json" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket.Tests\ExRam.Gremlinq.Providers.WebSocket.Tests.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
   </ItemGroup>
