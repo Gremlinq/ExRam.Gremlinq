@@ -11,6 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         static GremlinQueryExtensions()
         {
             Settings.UseExtension("json");
+            Settings.DisableDiff();
         }
 
         public static Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
