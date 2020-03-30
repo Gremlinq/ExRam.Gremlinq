@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbGroovySerializationTestWithProjection : CosmosDbGroovySerializationTest
+    public class CosmosDbGroovySerializationTestWithProjection : CosmosDbGroovySerializationTestBase
     {
         public CosmosDbGroovySerializationTestWithProjection(ITestOutputHelper testOutputHelper) : base(
             GremlinQuerySource.g
