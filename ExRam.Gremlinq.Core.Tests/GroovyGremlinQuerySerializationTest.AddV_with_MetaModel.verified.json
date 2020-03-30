@@ -1,0 +1,17 @@
+{
+  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h).project(_i, _j, _k).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_i, _j, _l, _k).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: 'Company',
+    _b: 'FoundingDate',
+    _c: DateTime_1,
+    _d: 1,
+    _e: 'Names',
+    _f: 'Bob',
+    _g: 'ValidFrom',
+    _h: DateTimeOffset_1,
+    _i: 'id',
+    _j: 'label',
+    _k: 'properties',
+    _l: 'value'
+  }
+}

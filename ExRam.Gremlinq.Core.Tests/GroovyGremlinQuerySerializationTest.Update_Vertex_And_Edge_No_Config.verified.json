@@ -1,0 +1,23 @@
+{
+  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n).project(_p, _q, _r).by(id).by(label).by(__.valueMap())',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Age',
+    _c: 'Gender',
+    _d: 'Name',
+    _e: 'RegistrationDate',
+    _f: 21,
+    _g: 'Male',
+    _h: 'Marko',
+    _i: DateTimeOffset_1,
+    _j: 'WorksFor',
+    _k: 'From',
+    _l: 'Role',
+    _m: 'To',
+    _n: DateTime_1,
+    _o: 'Admin',
+    _p: 'id',
+    _q: 'label',
+    _r: 'properties'
+  }
+}

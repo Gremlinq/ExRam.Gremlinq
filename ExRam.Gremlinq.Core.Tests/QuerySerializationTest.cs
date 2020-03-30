@@ -6,9 +6,9 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using VerifyXunit;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -182,7 +182,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes())))
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
-                .Awaiting(async x => await x.FirstAsync())
+                .Awaiting(async x => await Core.GremlinQueryExtensions.FirstAsync<VertexWithListAsId>(x))
                 .Should()
                 .Throw<NotSupportedException>();
         }
@@ -268,22 +268,22 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task AddV_with_MetaModel()
         {
-           await _g
-               .AddV(new Company
-               {
-                   Id = 1,
-                   Names = new[]
-                   {
-                       new VertexProperty<string, PropertyValidity>("Bob")
-                       {
-                           Properties = new PropertyValidity
-                           {
-                               ValidFrom = DateTimeOffset.Parse("01.01.2019 08:00")
-                           }
-                       }
-                   }
-               })
-               .VerifyQuery(this);
+            await _g
+                .AddV(new Company
+                {
+                    Id = 1,
+                    Names = new[]
+                    {
+                        new VertexProperty<string, PropertyValidity>("Bob")
+                        {
+                            Properties = new PropertyValidity
+                            {
+                                ValidFrom = DateTimeOffset.Parse("01.01.2019 08:00")
+                            }
+                        }
+                    }
+                })
+                .VerifyQuery(this);
         }
 
         [Fact]
@@ -2440,9 +2440,9 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.Age)
                                 .IgnoreAlways(p => p.Name))
-                        .ConfigureElement<WorksFor>(conf => conf
-                            .IgnoreAlways(p => p.From)
-                            .IgnoreOnUpdate(p => p.Role)))))
+                            .ConfigureElement<WorksFor>(conf => conf
+                                .IgnoreAlways(p => p.From)
+                                .IgnoreOnUpdate(p => p.Role)))))
                 .V<Person>()
                 .Update(person)
                 .OutE<WorksFor>()

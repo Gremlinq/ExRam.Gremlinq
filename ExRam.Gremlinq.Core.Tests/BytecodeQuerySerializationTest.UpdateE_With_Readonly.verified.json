@@ -1,0 +1,76 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'E'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'WorksFor'
+      ]
+    },
+    {
+      OperatorName: 'sideEffect',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties',
+              Arguments: [
+                'To'
+              ]
+            },
+            {
+              OperatorName: 'drop'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'To',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'valueMap'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g).project(_h, _i, _j).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_h, _i, _k, _j).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: 'Company',
+    _b: 'FoundingDate',
+    _c: DateTime_1,
+    _d: 1,
+    _e: 'PhoneNumbers',
+    _f: '+4912345',
+    _g: '+4923456',
+    _h: 'id',
+    _i: 'label',
+    _j: 'properties',
+    _k: 'value'
+  }
+}

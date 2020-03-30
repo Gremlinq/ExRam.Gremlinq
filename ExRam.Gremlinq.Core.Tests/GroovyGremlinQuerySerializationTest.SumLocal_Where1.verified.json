@@ -1,0 +1,8 @@
+{
+  Script: 'V().hasLabel(_a).values(_b).sum(local).is(_c)',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Age',
+    _c: 100
+  }
+}

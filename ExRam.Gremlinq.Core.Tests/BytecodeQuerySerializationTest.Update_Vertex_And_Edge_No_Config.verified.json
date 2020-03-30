@@ -1,0 +1,163 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'Person'
+      ]
+    },
+    {
+      OperatorName: 'sideEffect',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties',
+              Arguments: [
+                'Age',
+                'Gender',
+                'Name',
+                'RegistrationDate'
+              ]
+            },
+            {
+              OperatorName: 'drop'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        {
+          EnumName: 'Cardinality',
+          EnumValue: 'single'
+        },
+        'Age',
+        21
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        {
+          EnumName: 'Cardinality',
+          EnumValue: 'single'
+        },
+        'Gender',
+        'Male'
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        {
+          EnumName: 'Cardinality',
+          EnumValue: 'single'
+        },
+        'Name',
+        'Marko'
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        {
+          EnumName: 'Cardinality',
+          EnumValue: 'single'
+        },
+        'RegistrationDate',
+        DateTimeOffset_1
+      ]
+    },
+    {
+      OperatorName: 'outE',
+      Arguments: [
+        'WorksFor'
+      ]
+    },
+    {
+      OperatorName: 'sideEffect',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties',
+              Arguments: [
+                'From',
+                'Role',
+                'To'
+              ]
+            },
+            {
+              OperatorName: 'drop'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'From',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'Role',
+        'Admin'
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'To',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'valueMap'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

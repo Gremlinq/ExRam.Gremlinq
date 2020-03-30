@@ -1,0 +1,55 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'addE',
+      Arguments: [
+        'WorksFor'
+      ]
+    },
+    {
+      OperatorName: 'property',
+      Arguments: [
+        'To',
+        DateTime_1
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'valueMap'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

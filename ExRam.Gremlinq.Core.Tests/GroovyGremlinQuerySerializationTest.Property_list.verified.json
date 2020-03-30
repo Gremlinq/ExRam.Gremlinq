@@ -1,0 +1,12 @@
+{
+  Script: 'V(_a).hasLabel(_b).property(list, _c, _d).project(_a, _e, _f).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_a, _e, _g, _f).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Bindings: {
+    _a: 'id',
+    _b: 'Company',
+    _c: 'PhoneNumbers',
+    _d: '+4912345',
+    _e: 'label',
+    _f: 'properties',
+    _g: 'value'
+  }
+}

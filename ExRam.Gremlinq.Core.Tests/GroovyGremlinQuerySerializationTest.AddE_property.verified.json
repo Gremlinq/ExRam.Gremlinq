@@ -1,0 +1,19 @@
+{
+  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.V(_i).hasLabel(_j)).project(_i, _k, _l).by(id).by(label).by(__.valueMap())',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Age',
+    _c: 0,
+    _d: 'Gender',
+    _e: 'Male',
+    _f: 'LivesIn',
+    _g: 'Since',
+    _h: {
+      Value: DateTimeOffset_1
+    },
+    _i: 'id',
+    _j: 'Country',
+    _k: 'label',
+    _l: 'properties'
+  }
+}

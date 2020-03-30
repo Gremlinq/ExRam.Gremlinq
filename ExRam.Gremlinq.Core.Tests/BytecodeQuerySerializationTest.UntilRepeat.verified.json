@@ -1,0 +1,165 @@
+{
+  StepInstructions: [
+    {
+      OperatorName: 'V'
+    },
+    {
+      OperatorName: 'hasLabel',
+      Arguments: [
+        'Person'
+      ]
+    },
+    {
+      OperatorName: 'until',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'V'
+            },
+            {
+              OperatorName: 'hasLabel',
+              Arguments: [
+                'Company'
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'repeat',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'inE'
+            },
+            {
+              OperatorName: 'outV'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      OperatorName: 'project',
+      Arguments: [
+        'id',
+        'label',
+        'properties'
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'label'
+        }
+      ]
+    },
+    {
+      OperatorName: 'by',
+      Arguments: [
+        {
+          StepInstructions: [
+            {
+              OperatorName: 'properties'
+            },
+            {
+              OperatorName: 'group'
+            },
+            {
+              OperatorName: 'by',
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: 'label'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              OperatorName: 'by',
+              Arguments: [
+                {
+                  StepInstructions: [
+                    {
+                      OperatorName: 'project',
+                      Arguments: [
+                        'id',
+                        'label',
+                        'value',
+                        'properties'
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          EnumName: 'T',
+                          EnumValue: 'id'
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: 'label'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: 'value'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'by',
+                      Arguments: [
+                        {
+                          StepInstructions: [
+                            {
+                              OperatorName: 'valueMap'
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      OperatorName: 'fold'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
