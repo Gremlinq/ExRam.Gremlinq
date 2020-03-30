@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<FancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureSerializer(_ => _
                         .OverrideFragmentSerializer<IFancyId>((key, overridden, recurse) => recurse(key.Id))))
                 .V<Person>(new FancyId { Id = "someId" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

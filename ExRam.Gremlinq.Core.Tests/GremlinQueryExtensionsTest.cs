@@ -35,7 +35,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await cont(GremlinQuery
                     .Anonymous(query1.AsAdmin().Environment))
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

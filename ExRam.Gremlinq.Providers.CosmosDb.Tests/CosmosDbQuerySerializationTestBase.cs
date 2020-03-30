@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
@@ -8,7 +9,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
     public abstract class CosmosDbQuerySerializationTestBase : QuerySerializationTest
     {
-        protected CosmosDbQuerySerializationTestBase(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(g, testOutputHelper)
+        protected CosmosDbQuerySerializationTestBase(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(g, testOutputHelper, callerFilePath)
         {
 
         }
@@ -18,7 +19,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             _g
                 .V<Person>(new CosmosDbKey("id"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -34,7 +35,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             _g
                 .V<Person>(new CosmosDbKey("pk", "id"), "id2")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -42,7 +43,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         {
             _g
                 .V<Person>(new CosmosDbKey("id"), "id2")
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

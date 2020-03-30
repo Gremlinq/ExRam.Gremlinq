@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.Tests
             Settings.UseExtension("json");
         }
 
-        public static Task VerifyQuery(this IGremlinQueryBase query, VerifyBase verifyBase)
+        public static Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
             var environment = query.AsAdmin().Environment;
             var serializedQuery = environment.Serializer

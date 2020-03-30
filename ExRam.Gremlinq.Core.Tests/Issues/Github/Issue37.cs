@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .AddV(new Item { Value = "MyValue" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .AddV(new ItemOverride { Value = "MyValue" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

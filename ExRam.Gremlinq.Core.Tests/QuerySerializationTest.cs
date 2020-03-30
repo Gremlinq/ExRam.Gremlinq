@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
@@ -18,7 +19,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private static readonly string id = "id";
 
-        protected QuerySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        protected QuerySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
         {
             _g = g
                 .ConfigureEnvironment(env => env
@@ -40,7 +41,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((_, ints) => _
                     .V<Person>()
                     .Where(person => ints.Value.Contains(person.Age)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -52,7 +53,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddV(new Language { IetfLanguageTag = "en" })
                     .AddE<Speaks>()
                     .From(c))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -70,7 +71,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .From(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -82,7 +83,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .To(__ => __
                     .V<Country>("id"))
                 .InV()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -94,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .To(__ => __
                     .V<Country>("id"))
                 .OutV()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -108,7 +109,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 })
                 .To(__ => __
                     .V<Country>("id"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -120,7 +121,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .AddV(new Country { CountryCallingCode = "+49" })
                     .AddE<Speaks>()
                     .To(l))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -138,7 +139,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .To(__ => __
                     .V<Country>()
                     .Where(t => t.CountryCallingCode == "+49"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -154,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreAlways(p => p.From)
                                 .IgnoreAlways(p => p.Role)))))
                 .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -162,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -170,7 +171,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Language {Label = "Language"})
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -182,7 +183,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
                             .IncludeAssembliesOfBaseTypes())))
                 .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
-                .Awaiting(async x => await Core.GremlinQueryExtensions.FirstAsync<VertexWithListAsId>(x))
+                .Awaiting(async x => await x.FirstAsync())
                 .Should()
                 .Throw<NotSupportedException>();
         }
@@ -192,7 +193,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -209,7 +210,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreAlways(p => p.Age)
                                 .IgnoreAlways(p => p.Gender)))))
                 .AddV(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -222,7 +223,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<Language>(conf => conf
                                 .IgnoreOnAdd(p => p.Id)))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -235,7 +236,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<Language>(conf => conf
                                 .IgnoreOnAdd(p => p.IetfLanguageTag)))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -254,7 +255,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         }
                     }
                 })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -262,7 +263,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Country { Id = 1, Name = "GER"})
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -283,7 +284,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         }
                     }
                 })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -291,7 +292,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Company { Id = 1, PhoneNumbers = new[] { "+4912345", "+4923456" } })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -299,7 +300,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Language { Id = 1 })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -312,7 +313,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<Language>(conf => conf
                                 .ConfigureName(x => x.IetfLanguageTag, "lang")))))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -320,7 +321,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -330,7 +331,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
                 .AddV(new Language { Id = 1, IetfLanguageTag = "en" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -339,7 +340,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .AggregateGlobal((__, aggregated) => __)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -348,7 +349,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Aggregate((__, aggregated) => __)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -358,7 +359,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Aggregate((__, aggregated) => __
                     .Cap(aggregated))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -369,7 +370,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Aggregate((__, aggregated) => __
                     .Cap(aggregated)
                     .Unfold())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -393,7 +394,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -403,7 +404,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And(
                     __ => __)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -413,7 +414,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And()
                 .Out()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -430,7 +431,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .InE<WorksFor>(),
                             __ => __
                                 .OutE<WorksFor>()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -442,7 +443,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Or(
                         __ => __),
                     __ => __.Out())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -452,7 +453,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And(
                     __ => __.None())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -463,7 +464,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .And(
                     __ => __,
                     __ => __.Out())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -473,7 +474,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .As((_, stepLabel1) => _
                     .Select(stepLabel1))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -484,7 +485,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((_, stepLabel1) => _
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -497,7 +498,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .OfType<Person>()
                     .As((__, stepLabel2) => __
                         .Select(stepLabel1, stepLabel2)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -511,7 +512,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .As((__, stepLabel2) => __
                         .Count()
                         .Select(stepLabel1, stepLabel2)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -524,7 +525,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((_, stepLabel1) => _
                     .Count()
                     .Select(stepLabel1))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -535,7 +536,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Choose(_ => _
                     .On(__ => __.Values())
                     .Case(3, __ => __.Constant(1)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -546,7 +547,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Choose(_ => _
                     .On(__ => __.Values())
                     .Default(__ => __.Constant(1)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -559,7 +560,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x == (object)42,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -571,7 +572,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Choose(
                     x => x == (object)42,
                     _ => _.Constant(true))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -585,7 +586,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x < 42,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -599,7 +600,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => 42 > x,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -613,7 +614,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => 0 < x && x < 42,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -627,7 +628,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => 0 < x && x < 42 || x != 37,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -641,7 +642,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => 0 < x || x < 42 && x != 37,
                     _ => _.Constant(true),
                     _ => _.Constant(false))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -653,7 +654,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     _ => _.Values(),
                     _ => _.Out(),
                     _ => _.In())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -664,7 +665,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Choose(
                     _ => _.Values(),
                     _ => _.Out())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -676,7 +677,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .On(__ => __.Values())
                     .Case(3, __ => __.Constant(1))
                     .Case(4, __ => __.Constant(2)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -689,7 +690,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Case(3, __ => __.Constant(1))
                     .Case(4, __ => __.Constant(2))
                     .Default(__ => __.Constant(3)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -700,7 +701,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Coalesce(
                     _ => _
                         .Out())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -721,7 +722,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Coalesce(
                     _ => _
                         .Identity())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -730,7 +731,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Constant(42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -739,7 +740,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Count()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -748,7 +749,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Count()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -757,7 +758,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .CountLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -766,7 +767,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Dedup()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -775,7 +776,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .DedupLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -784,7 +785,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Drop()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
 
@@ -796,7 +797,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Local(__ => __
                     .V()
                     .Drop())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -804,7 +805,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .E<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -812,7 +813,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .E()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -820,7 +821,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .E<WorksFor>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -829,7 +830,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .E()
                 .Properties()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -838,7 +839,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .E<LivesIn>()
                 .Properties(x => x.Since)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -850,7 +851,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .As(stepLabel)
                 .Select(stepLabel)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -859,7 +860,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(Lambda.Groovy("it.property('str').value().length() == 2"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -868,7 +869,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .FlatMap(__ => __.Out<WorksFor>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -877,7 +878,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Fold()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -889,7 +890,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .Unfold()
                 .Unfold()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -900,7 +901,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .SideEffect(x => x.Identity())
                 .Unfold()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -910,14 +911,14 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Fold()
                 .Unfold()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
         public async Task Generic_constraint()
         {
             await V2<Person>(_g)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -927,7 +928,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Group(_ => _
                     .ByKey(_ => _.Label()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -936,7 +937,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Identity()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -946,7 +947,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Identity()
                 .Identity()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
 
@@ -956,7 +957,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .In<WorksFor>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -965,7 +966,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .In<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -977,7 +978,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .In<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -986,7 +987,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .InE<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -998,7 +999,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .InE<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1006,7 +1007,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .Inject(36, 37, 38)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1015,7 +1016,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Label()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1034,7 +1035,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Limit(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1043,7 +1044,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .LimitLocal(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1052,7 +1053,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Local(__ => __)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1061,7 +1062,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Map(__ => __.Out<WorksFor>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1070,7 +1071,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Map(__ => __)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1082,7 +1083,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .As((__, stepLabel2) => __
                         .Map(__ => __
                             .Select(stepLabel1, stepLabel2))))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1092,7 +1093,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Max()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1102,7 +1103,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .MaxLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1112,7 +1113,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Mean()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1122,7 +1123,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .MeanLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1132,7 +1133,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Min()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1142,7 +1143,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .MinLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1155,7 +1156,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Select(stepLabel1, stepLabel2)
                         .As((__, tuple) => __
                             .Select(tuple, stepLabel1))))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1168,7 +1169,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .Select(stepLabel1, stepLabel2)
                         .As((__, tuple) => __
                             .Select(stepLabel1, tuple))))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1177,7 +1178,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Not(__ => __.Out<WorksFor>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1186,7 +1187,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Not(__ => __.OfType<Language>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1195,7 +1196,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Not(__ => __.OfType<Authority>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1204,7 +1205,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .OfType<Authority>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1214,7 +1215,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OfType<Company>()
                 .OfType<Authority>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1224,7 +1225,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OfType<Company>()
                 .OfType<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1235,7 +1236,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .OfType<Company>()
                 .Cast<object>()
                 .OfType<Authority>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1245,7 +1246,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .OfType<Authority>()
                 .OfType<Company>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1255,7 +1256,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Optional(
                     __ => __.Out<WorksFor>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1268,7 +1269,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .InE<WorksFor>(),
                     __ => __
                         .OutE<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1280,7 +1281,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __,
                     __ => __
                         .OutE<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1291,7 +1292,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Out()
                 .Or()
                 .In()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1308,7 +1309,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .InE<WorksFor>(),
                             __ => __
                                 .OutE<WorksFor>()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1323,7 +1324,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .And(
                             __ => __,
                             __ => __))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1336,7 +1337,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .None(),
                     __ => __
                         .OutE())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1347,7 +1348,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Local(__ => __.Count())
                 .Order(b => b
                     .By(__ => __))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1358,7 +1359,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Local(__ => __.Count())
                 .OrderLocal(b => b
                     .By(__ => __))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1370,7 +1371,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(x => x.Id))
                 .Fold()
                 .Unfold()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1380,7 +1381,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Order(b => b
                     .By(Lambda.Groovy("it.property('str').value().length()")))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1390,7 +1391,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Order(b => b
                     .By(x => x.Name))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1400,7 +1401,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .OrderLocal(b => b
                     .By(x => x.Name))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1411,7 +1412,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(x => x.Name)
                     .By(x => x.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1422,7 +1423,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(Lambda.Groovy("it.property('str1').value().length()"))
                     .By(Lambda.Groovy("it.property('str2').value().length()")))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1433,7 +1434,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(x => x.Name)
                     .ByDescending(x => x.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1444,7 +1445,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(__ => __.Values(x => x.Name))
                     .ByDescending(__ => __.Gender))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1454,7 +1455,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Order(b => b
                     .By(__ => __.Values(x => x.Name)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1465,7 +1466,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(__ => __.Values(x => x.Name))
                     .By(__ => __.Gender))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1476,7 +1477,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Order(b => b
                     .By(__ => __.Values(x => x.Name))
                     .By(__ => __.Values(x => x.Gender)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1486,7 +1487,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Order(b => b
                     .ByDescending(x => x.Name))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1496,7 +1497,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Order(b => b
                     .ByDescending(__ => __.Values(x => x.Name)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1505,7 +1506,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Out<WorksFor>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1514,7 +1515,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Out<Edge>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1523,7 +1524,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Out<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1535,7 +1536,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .Out<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1544,7 +1545,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .OutE<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1556,7 +1557,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .OutE<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1565,7 +1566,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .OutE<string>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1577,7 +1578,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ToDynamic()
                     .By("in!", __ => __.In())
                     .By(x => x.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1588,7 +1589,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Project(_ => _
                     .ToDynamic()
                     .By("in!", __ => __.In()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1602,7 +1603,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By("out!", __ => __.Out())
                     .By("count!", __ => __.Count())
                     .By("properties!", __ => __.Properties()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1614,7 +1615,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ToTuple()
                     .By(__ => __.In())
                     .By(__ => __.Out()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1627,7 +1628,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.In())
                     .By(__ => __.Out())
                     .By(__ => __.Count()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1641,7 +1642,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.Out())
                     .By(__ => __.Count())
                     .By(__ => __.Properties()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1651,7 +1652,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Meta<PropertyValidity>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1662,7 +1663,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Meta<PropertyValidity>()
                 .ValueMap()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1673,7 +1674,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Meta<PropertyValidity>()
                 .Values()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1684,7 +1685,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .Meta<PropertyValidity>()
                 .Values(x => x.ValidFrom)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1695,7 +1696,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Meta<PropertyValidity>()
                 .Where(x => x.Properties.ValidFrom >= DateTimeOffset.Parse("01.01.2019 08:00"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1704,7 +1705,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1713,7 +1714,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name, x => x.CountryCallingCode, x => x.Languages)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1722,7 +1723,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name, x => x.CountryCallingCode)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1731,7 +1732,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Properties(x => x.Name, x => x.Languages)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1743,7 +1744,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties()
                 .As((__, s) => __
                     .Select(s))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1754,7 +1755,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Name)
                 .Properties()
                 .Key()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1765,7 +1766,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Properties()
                 .Value()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1776,7 +1777,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Properties(x => x.Names)
                 .Properties()
                 .Where(x => x.Key == "someKey")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1789,7 +1790,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Properties(x => x.Names)
                     .Properties()
                     .Where(x => x.Key == stepLabel))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1799,7 +1800,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Properties()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1809,7 +1810,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Properties(x => x.Names)
                 .Properties()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1818,7 +1819,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Properties<string>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1828,7 +1829,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values<string>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1838,7 +1839,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .ValueMap<string>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1848,7 +1849,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .ValueMap()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1858,7 +1859,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values(x => x.Id)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1870,7 +1871,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(
                     x => x.Label,
                     x => x.Id)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1880,7 +1881,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values(x => x.Label)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1890,7 +1891,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1900,7 +1901,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values<int>("MetaProperty")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1912,7 +1913,7 @@ namespace ExRam.Gremlinq.Core.Tests
 #pragma warning disable 252,253
                 .Where(x => x.Properties["MetaKey"] == "MetaValue")
 #pragma warning restore 252,253
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1922,7 +1923,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Properties()
                 .Where(x => (int)x.Properties["MetaKey"] < 100)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1934,7 +1935,7 @@ namespace ExRam.Gremlinq.Core.Tests
 #pragma warning disable 252,253
                 .Where(x => x.Id == "id")
 #pragma warning restore 252,253
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1946,7 +1947,7 @@ namespace ExRam.Gremlinq.Core.Tests
 #pragma warning disable 252,253
                 .Where(x => x.Id == id)
 #pragma warning restore 252,253
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1956,7 +1957,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Properties(x => x.Names)
                 .Where(x => x.Label == "someKey")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1966,7 +1967,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1976,7 +1977,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Properties(x => x.Names)
                 .Where(x => x.Properties.ValidFrom == DateTimeOffset.Parse("01.01.2019 08:00"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1986,7 +1987,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Properties(x => x.Names)
                 .Where(x => DateTimeOffset.Parse("01.01.2019 08:00") == x.Properties.ValidFrom)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -1996,7 +1997,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => "de" == x.Value)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2006,7 +2007,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Value == "de")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2016,7 +2017,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties()
                 .Where(x => (int)x.Value < 10)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2025,7 +2026,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Properties()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2034,7 +2035,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .E()
                 .Properties()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2043,7 +2044,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>("id")
                 .Property(x => x.PhoneNumbers, "+4912345")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2052,7 +2053,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>("id")
                 .Property<string>(x => x.PhoneNumbers, null)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2061,7 +2062,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Property(x => x.Age, 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2080,7 +2081,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Range(1, 3)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2089,7 +2090,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .RangeLocal(1, 3)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2100,7 +2101,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Repeat(__ => __
                     .Out<WorksFor>()
                     .OfType<Person>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2112,7 +2113,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .RepeatUntil(
                     __ => __.InE().OutV().Cast<object>(),
                     __ => __.V<Company>().Cast<object>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2125,7 +2126,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .ReplaceE(worksFor)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2142,7 +2143,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<WorksFor>(conf => conf
                                 .IgnoreOnUpdate(p => p.Id)))))
                 .ReplaceE(worksFor)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2154,7 +2155,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .ReplaceV(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2171,7 +2172,7 @@ namespace ExRam.Gremlinq.Core.Tests
                             .ConfigureElement<Person>(conf => conf
                                 .IgnoreOnUpdate(p => p.RegistrationDate)))))
                 .ReplaceV(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2181,7 +2182,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Property("metaKey", null)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2191,7 +2192,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Country>()
                 .Properties(x => x.Name)
                 .Property("metaKey", 1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2203,7 +2204,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Properties(x => x.Name)
                 .Property(x => x.ValidFrom, d)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2222,7 +2223,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Skip(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2231,7 +2232,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .SkipLocal(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2243,7 +2244,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((_, ints) => _
                     .V<Person>()
                     .Where(person => ints.Value.Contains(person.Age)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2256,7 +2257,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Person>()
                     .Where(person => v.Value.Contains(person)))
                 .Count()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2269,7 +2270,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Person>()
                     .Where(person => !v.Value.Contains(person)))
                 .Count()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2282,7 +2283,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((_, ints) => _
                     .V<Person>()
                     .Where(person => ints.Value.Contains(person.Age)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2290,7 +2291,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>("id")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2300,7 +2301,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Sum()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2310,7 +2311,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .SumLocal()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2321,7 +2322,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumLocal()
                 .Where(x => x == 100)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2332,7 +2333,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .SumLocal()
                 .Where(x => x < 100)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2351,7 +2352,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Tail(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2360,7 +2361,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .TailLocal(1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2371,7 +2372,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Union(
                     __ => __.Out<WorksFor>(),
                     __ => __.Out<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2382,7 +2383,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Union<IGremlinQueryBase>(
                     __ => __.Out<WorksFor>(),
                     __ => __.OutE<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
 
@@ -2394,7 +2395,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Union(
                     __ => __.Out<WorksFor>().Lower(),
                     __ => __.OutE<LivesIn>().Lower().Cast<object>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2406,7 +2407,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .UntilRepeat(
                     __ => __.InE().OutV().Cast<object>(),
                     __ => __.V<Company>().Cast<object>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2422,7 +2423,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Update(person)
                 .OutE<WorksFor>()
                 .Update(worksFor)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2447,7 +2448,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Update(person)
                 .OutE<WorksFor>()
                 .Update(worksFor)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2464,7 +2465,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreAlways(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2481,7 +2482,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreOnUpdate(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2498,7 +2499,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreOnUpdate(p => p.Role)))))
                 .E<WorksFor>()
                 .Update(new WorksFor { From = now, To = now, Role = "Admin" })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2509,7 +2510,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Update(new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now })
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2527,7 +2528,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreAlways(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2545,7 +2546,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreAlways(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2563,7 +2564,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .IgnoreOnUpdate(p => p.Gender)))))
                 .V<Person>()
                 .Update(person)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2572,7 +2573,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V()
                 .Both<Edge>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2586,7 +2587,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .ConfigureName(x => x.Name, "n")))))
                 .V<IAuthority>()
                 .Where(x => x.Name.Value == "some name")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2594,7 +2595,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Authority>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2602,7 +2603,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<object>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2610,7 +2611,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2618,7 +2619,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2626,7 +2627,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2636,7 +2637,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .ConfigureFeatureSet(set => set.ConfigureVertexFeatures(features => features & ~VertexFeatures.MetaProperties)))
                 .V()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2646,7 +2647,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Value()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2655,7 +2656,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .ValueMap(x => x.Age)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2664,7 +2665,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Age)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2673,7 +2674,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Name, x => x.Id)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2682,7 +2683,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Name, x => x.Gender, x => x.Id)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2691,7 +2692,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Id)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2700,7 +2701,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2709,7 +2710,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .E<LivesIn>()
                 .Values(x => x.Since)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2718,7 +2719,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Name)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2727,7 +2728,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Name)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2737,7 +2738,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Properties("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2746,7 +2747,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => _)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2755,7 +2756,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2764,7 +2765,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2774,7 +2775,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<TimeFrame>()
                 // ReSharper disable once RedundantBoolCompare
                 .Where(t => t.Enabled == true)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2783,7 +2784,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled == false)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2792,7 +2793,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<TimeFrame>()
                 .Where(t => t.Enabled)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2801,7 +2802,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<TimeFrame>()
                 .Where(t => !t.Enabled)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2810,7 +2811,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && (t.Age == 42 || t.Age == 99))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2819,7 +2820,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name == null && (t.Age == 42 || t.Age == 99))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2828,7 +2829,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact(Skip="Optimizable")]
@@ -2837,7 +2838,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => (t.Age == 36 && t.Name.Value == "Hallo") && t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2846,7 +2847,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" && t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2855,7 +2856,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Language>()
                 .Where(t => (int)t.Id == 1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2866,7 +2867,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Language>()
                     .Where(l2 => l2 == l))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2877,7 +2878,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Language>()
                     .Where(l2 => l == l2))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2888,7 +2889,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Language>()
                     .Where(l2 => l2 != l))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2899,7 +2900,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Language>()
                     .Where(l2 => l != l2))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2908,7 +2909,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2917,7 +2918,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name.Value == "Some name" || t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2926,7 +2927,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !new string[0].Intersect(t.PhoneNumbers).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2935,7 +2936,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2944,7 +2945,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == 36 && t.Age == 42 && t.Age == 99)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2953,7 +2954,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == 36 || t.Age == 42 || t.Age == 99)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact(Skip = "Optimization opportunity.")]
@@ -2965,7 +2966,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     __ => __.Where(t => t.Age == 36),
                     __ => __.Where(t => t.Age == 42),
                     __ => __.Where(t => t.Age == 99))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2974,7 +2975,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Language>()
                 .Where(t => t.Id == (object)1)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2983,7 +2984,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => _.Identity())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -2992,7 +2993,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => _.OfType<Authority>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3001,7 +3002,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => _.None())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3012,7 +3013,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _
                     .Not(_ => _
                         .None()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3023,7 +3024,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _
                     .Or(_ => _
                         .Where(x => new object[0].Contains(x.Id))))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3033,7 +3034,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _
                     .Or(_ => _))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3044,7 +3045,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(_ => _
                     .Or(_ => _
                         .None()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3058,7 +3059,7 @@ namespace ExRam.Gremlinq.Core.Tests
 #pragma warning disable 252,253
                 .Where(x => x.Id == "hallo")
 #pragma warning restore 252,253
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3067,7 +3068,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Contains("+4912345"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3078,7 +3079,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, t) => __
                     .V<Company>()
                     .Where(c => c.PhoneNumbers.Contains(t)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3087,7 +3088,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Contains("+4912345"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3096,7 +3097,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3105,7 +3106,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3114,7 +3115,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3123,7 +3124,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3132,7 +3133,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3144,7 +3145,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, t) => __
                     .V<Company>()
                     .Where(c => c.PhoneNumbers.Intersect(t.Value).Any()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3156,7 +3157,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, t) => __
                     .V<Company>()
                     .Where(c => t.Value.Intersect(c.PhoneNumbers).Any()))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3165,7 +3166,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => !t.PhoneNumbers.Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3174,7 +3175,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Where(t => t.PhoneNumbers.Any())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3183,7 +3184,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains("456"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3206,7 +3207,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3218,7 +3219,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3227,7 +3228,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith("7890"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3250,7 +3251,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3262,7 +3263,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3271,7 +3272,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3280,7 +3281,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => (object)t.Age == (object)36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3291,7 +3292,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age == i + i)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3302,7 +3303,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Language>()
                 .Where(t => t.Id == (object)local)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3314,7 +3315,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Language>()
                     .Where(l2 => l2.IetfLanguageTag == l))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3325,7 +3326,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Language>()
                 .Where(t => t.Id == (object)local.Value)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3334,7 +3335,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => new[] { 36, 37, 38 }.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3345,7 +3346,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3357,7 +3358,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => enumerable.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3366,7 +3367,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age >= 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3375,7 +3376,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age > 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3387,7 +3388,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, a) => __
                     .V<Person>()
                     .Where(l2 => l2.Age >= a))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3398,7 +3399,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, person1) => __
                     .V<Person>()
                     .Where(person2 => person2.Age >= person1.Value.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3410,7 +3411,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, a) => __
                     .V<Person>()
                     .Where(l2 => l2.Age > a))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3419,7 +3420,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age <= 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3428,7 +3429,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age < 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3440,7 +3441,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, a) => __
                     .V<Person>()
                     .Where(l2 => l2.Age <= a))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3452,7 +3453,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, a) => __
                     .V<Person>()
                     .Where(l2 => l2.Age < a))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3461,7 +3462,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => !new[] { 36, 37, 38 }.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3472,7 +3473,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3484,7 +3485,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => !enumerable.Contains(t.Age))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3493,7 +3494,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name == null)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3502,7 +3503,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => "+49123".StartsWith(c.CountryCallingCode))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3511,7 +3512,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => "".StartsWith(c.CountryCallingCode))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3522,7 +3523,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3533,7 +3534,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => str.StartsWith(c.CountryCallingCode))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3542,7 +3543,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Name != null)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3551,7 +3552,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(t => t.Age != 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3560,7 +3561,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3572,7 +3573,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3581,7 +3582,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3593,7 +3594,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3605,7 +3606,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     x => x.Age,
                     _ => _
                         .Inject(36))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3615,7 +3616,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Values(x => x.Age)
                 .Where(_ => _ == 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3625,7 +3626,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(t => t.Age == 36)
                 .Where(t => t.Age == 42)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3634,7 +3635,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Country>()
                 .Where(t => t.Name.Value == t.CountryCallingCode)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3643,7 +3644,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<EntityWithTwoIntProperties>()
                 .Where(x => x.IntProperty1 > x.IntProperty2)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3663,7 +3664,7 @@ namespace ExRam.Gremlinq.Core.Tests
                                 .As((__, age2) => __
                                     .Select(person2)
                                     .Where(p => age1 < age2))))))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3675,7 +3676,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Person>()
                     .As((__, person2) => __
                         .Where(_ => person1.Value.Age >= person2.Value.Age)))
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3684,7 +3685,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => _.Out<LivesIn>())
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3693,7 +3694,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(_ => true)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3702,7 +3703,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(x => x.Name.Value == "SomeName")
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3711,7 +3712,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(x => ((int)(object)x.Name.Value) > 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact(Skip="Feature!")]
@@ -3720,7 +3721,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(x => (int)x.Name.Id == 36)
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3729,7 +3730,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .RemoveStrategies(typeof(SubgraphStrategy))
                 .V()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         [Fact]
@@ -3738,7 +3739,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
-                .VerifyQuery(this);
+                .Verify(this);
         }
 
         //[Fact(Skip = "Can't handle currently!")]

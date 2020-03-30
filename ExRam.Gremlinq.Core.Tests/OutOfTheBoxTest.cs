@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(e => e
                     .ConfigureSerializer(s => s.ToGroovy()))
                 .V<SomeEntity>()
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

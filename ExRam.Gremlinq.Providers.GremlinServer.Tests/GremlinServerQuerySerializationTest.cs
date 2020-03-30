@@ -8,7 +8,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class GremlinServerQuerySerializationTest : QuerySerializationTest
+    public sealed class GremlinServerQuerySerializationTest : QuerySerializationTest
     {
         public GremlinServerQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     .ConfigureOptions(options => options
                         .SetItem(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112, true)))
                 .AddV(new Person { Id = 1, Gender = Gender.Female })
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }

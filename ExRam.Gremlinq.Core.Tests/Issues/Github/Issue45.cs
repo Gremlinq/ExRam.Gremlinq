@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovy())
                 .V()
                 .Drop()
-                .VerifyQuery(this);
+                .Verify(this);
         }
     }
 }
