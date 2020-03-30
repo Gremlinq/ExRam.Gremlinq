@@ -1,0 +1,6 @@
+{
+  Script: 'V().hasLabel(_a).order().by({it.property(\'str\').value().length()})',
+  Bindings: {
+    _a: 'Person'
+  }
+}

@@ -1,0 +1,13 @@
+{
+  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h)',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Gender',
+    _c: 'RegistrationDate',
+    _d: 'Male',
+    _e: DateTimeOffset_1,
+    _f: 'WorksFor',
+    _g: 'To',
+    _h: DateTime_1
+  }
+}

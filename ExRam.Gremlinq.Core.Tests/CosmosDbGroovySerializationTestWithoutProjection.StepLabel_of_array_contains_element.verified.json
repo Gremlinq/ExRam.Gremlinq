@@ -1,0 +1,11 @@
+{
+  Script: 'inject(_a, _b, _c).fold().as(_d).V().hasLabel(_e).has(_f, __.where(within(_d)))',
+  Bindings: {
+    _a: 1,
+    _b: 2,
+    _c: 3,
+    _d: 'l1',
+    _e: 'Person',
+    _f: 'Age'
+  }
+}

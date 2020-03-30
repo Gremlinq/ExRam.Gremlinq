@@ -1,0 +1,9 @@
+{
+  Script: 'V().hasLabel(_a).as(_b).where(eq(_b)).by(_c).by(_d)',
+  Bindings: {
+    _a: 'Country',
+    _b: 'l1',
+    _c: 'Name',
+    _d: 'CountryCallingCode'
+  }
+}

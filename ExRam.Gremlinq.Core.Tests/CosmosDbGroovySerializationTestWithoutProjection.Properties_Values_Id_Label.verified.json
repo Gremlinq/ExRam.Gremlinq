@@ -1,0 +1,3 @@
+{
+  Script: 'V().properties().union(__.label(), __.id())'
+}

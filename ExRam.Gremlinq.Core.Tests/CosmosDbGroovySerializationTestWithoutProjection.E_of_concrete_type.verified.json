@@ -1,0 +1,6 @@
+{
+  Script: 'E().hasLabel(_a)',
+  Bindings: {
+    _a: 'WorksFor'
+  }
+}

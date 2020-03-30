@@ -1,0 +1,6 @@
+{
+  Script: 'V().outE(_a)',
+  Bindings: {
+    _a: 'String'
+  }
+}

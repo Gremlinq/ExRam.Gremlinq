@@ -1,0 +1,6 @@
+{
+  Script: 'V().project(_a).by(__.in())',
+  Bindings: {
+    _a: 'in!'
+  }
+}

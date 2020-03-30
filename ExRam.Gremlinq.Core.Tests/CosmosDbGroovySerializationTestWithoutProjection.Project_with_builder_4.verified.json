@@ -1,0 +1,9 @@
+{
+  Script: 'V().project(_a, _b, _c, _d).by(__.count()).by(__.in()).by(__.out()).by(__.properties())',
+  Bindings: {
+    _a: 'count!',
+    _b: 'in!',
+    _c: 'out!',
+    _d: 'properties!'
+  }
+}

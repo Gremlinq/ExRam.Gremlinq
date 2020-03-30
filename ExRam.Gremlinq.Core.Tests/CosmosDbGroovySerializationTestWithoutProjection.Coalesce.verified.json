@@ -1,0 +1,3 @@
+{
+  Script: 'V().coalesce(__.out())'
+}

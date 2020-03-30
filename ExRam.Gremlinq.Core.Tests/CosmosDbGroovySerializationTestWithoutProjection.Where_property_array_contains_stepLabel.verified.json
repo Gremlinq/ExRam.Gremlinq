@@ -1,0 +1,9 @@
+{
+  Script: 'inject(_a).as(_b).V().hasLabel(_c).has(_d, __.where(eq(_b)))',
+  Bindings: {
+    _a: '+4912345',
+    _b: 'l1',
+    _c: 'Company',
+    _d: 'PhoneNumbers'
+  }
+}

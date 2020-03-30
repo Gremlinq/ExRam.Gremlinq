@@ -1,0 +1,7 @@
+{
+  Script: 'V().hasLabel(_a).not(__.has(_b))',
+  Bindings: {
+    _a: 'Company',
+    _b: 'PhoneNumbers'
+  }
+}

@@ -1,0 +1,12 @@
+{
+  Script: 'V().hasLabel(_a).as(_b).values(_c).as(_d).select(_b).where(__.out(_e).hasLabel(_a).as(_f).values(_c).as(_g).select(_f).where(_d, lt(_g)))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'l1',
+    _c: 'Age',
+    _d: 'l2',
+    _e: 'WorksFor',
+    _f: 'l3',
+    _g: 'l4'
+  }
+}

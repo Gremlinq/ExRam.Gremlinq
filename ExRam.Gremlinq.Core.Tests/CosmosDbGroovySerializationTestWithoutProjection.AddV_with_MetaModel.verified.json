@@ -1,0 +1,13 @@
+{
+  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h)',
+  Bindings: {
+    _a: 'Company',
+    _b: 'FoundingDate',
+    _c: DateTime_1,
+    _d: 1,
+    _e: 'Names',
+    _f: 'Bob',
+    _g: 'ValidFrom',
+    _h: DateTimeOffset_1
+  }
+}

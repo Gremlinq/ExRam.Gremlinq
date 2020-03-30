@@ -1,0 +1,9 @@
+{
+  Script: 'V(_a).hasLabel(_b).property(list, _c, _d)',
+  Bindings: {
+    _a: 'id',
+    _b: 'Company',
+    _c: 'PhoneNumbers',
+    _d: '+4912345'
+  }
+}

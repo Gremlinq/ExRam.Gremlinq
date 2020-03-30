@@ -1,0 +1,10 @@
+{
+  Script: 'V().hasLabel(_a).as(_b).out().hasLabel(_a).as(_c).count().project(_d, _e).by(__.select(_b)).by(__.select(_c))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'l1',
+    _c: 'l2',
+    _d: 'Item1',
+    _e: 'Item2'
+  }
+}

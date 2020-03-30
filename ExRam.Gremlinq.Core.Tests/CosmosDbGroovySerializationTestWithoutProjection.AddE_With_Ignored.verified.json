@@ -1,0 +1,8 @@
+{
+  Script: 'addE(_a).property(_b, _c)',
+  Bindings: {
+    _a: 'WorksFor',
+    _b: 'To',
+    _c: DateTime_1
+  }
+}

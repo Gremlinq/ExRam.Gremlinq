@@ -1,0 +1,6 @@
+{
+  Script: 'V().aggregate(_a)',
+  Bindings: {
+    _a: 'l1'
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Script: 'V().hasLabel(_a).in(_b)',
+  Bindings: {
+    _a: 'Person',
+    _b: 'WorksFor'
+  }
+}

@@ -2,16 +2,15 @@
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
-using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbGroovySerializationTest : GroovySerializationTest
+    public class CosmosDbGroovySerializationTestWithProjection : CosmosDbGroovySerializationTest
     {
-        public CosmosDbGroovySerializationTest(ITestOutputHelper testOutputHelper) : base(
+        public CosmosDbGroovySerializationTestWithProjection(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
                     .UseCosmosDb(builder => builder
@@ -20,6 +19,30 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .ConfigureOptions(options => options
                         .SetItem(GremlinqOption.DontAddElementProjectionSteps, false))),
             testOutputHelper)
+        {
+
+        }
+    }
+
+    public class CosmosDbGroovySerializationTestWithoutProjection : CosmosDbGroovySerializationTest
+    {
+        public CosmosDbGroovySerializationTestWithoutProjection(ITestOutputHelper testOutputHelper) : base(
+            g
+                .ConfigureEnvironment(env => env
+                    .UseCosmosDb(builder => builder
+                        .At(new Uri("wss://localhost"), "database", "graph")
+                        .AuthenticateBy("authKey"))
+                    .ConfigureOptions(options => options
+                        .SetItem(GremlinqOption.DontAddElementProjectionSteps, true))),
+            testOutputHelper)
+        {
+
+        }
+    }
+
+    public abstract class CosmosDbGroovySerializationTest : GroovySerializationTest
+    {
+        public CosmosDbGroovySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(g, testOutputHelper)
         {
 
         }

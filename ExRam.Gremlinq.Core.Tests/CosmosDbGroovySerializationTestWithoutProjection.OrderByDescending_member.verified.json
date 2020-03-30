@@ -1,0 +1,7 @@
+{
+  Script: 'V().hasLabel(_a).order().by(_b, decr)',
+  Bindings: {
+    _a: 'Person',
+    _b: 'Name'
+  }
+}

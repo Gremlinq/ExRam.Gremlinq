@@ -1,0 +1,9 @@
+{
+  Script: 'V().hasLabel(_a).as(_b).map(__.project(_c, _d).by(__.select(_b)).by(__.select(_b)))',
+  Bindings: {
+    _a: 'Person',
+    _b: 'l1',
+    _c: 'Item1',
+    _d: 'Item2'
+  }
+}

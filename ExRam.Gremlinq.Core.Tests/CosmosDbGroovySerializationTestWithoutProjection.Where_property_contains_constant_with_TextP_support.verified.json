@@ -1,0 +1,8 @@
+{
+  Script: 'V().hasLabel(_a).has(_b, containing(_c))',
+  Bindings: {
+    _a: 'Country',
+    _b: 'CountryCallingCode',
+    _c: '456'
+  }
+}
