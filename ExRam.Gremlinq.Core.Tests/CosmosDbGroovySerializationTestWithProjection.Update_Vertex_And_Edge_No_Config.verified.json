@@ -1,5 +1,5 @@
 {
-  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n).project(_p, _q, _r, _s).by(id).by(label).by(__.constant(_t)).by(__.valueMap())',
+  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).outE(_j).sideEffect(__.properties(_k, _l, _m).drop()).property(_k, _n).property(_l, _o).property(_m, _n).project(_p, _q, _r).by(id).by(label).by(__.valueMap())',
   Bindings: {
     _a: 'Person',
     _b: 'Age',
@@ -18,8 +18,6 @@
     _o: 'Admin',
     _p: 'id',
     _q: 'label',
-    _r: 'type',
-    _s: 'properties',
-    _t: 'edge'
+    _r: 'properties'
   }
 }

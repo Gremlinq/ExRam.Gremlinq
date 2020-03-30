@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Echo()
         {
-            var query = await g
+            g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel
                         .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -42,11 +42,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x.Age == 36)
                 .Cast<string>()
-                .FirstAsync();
-
-            query
-                .Should()
-                .Be("V().hasLabel(_a).has(_b, _c).limit(_d).project(_e, _f, _g, _h).by(id).by(label).by(__.constant(_i)).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _j, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))");
+                .VerifyQuery(this);
         }
 
         [Fact]

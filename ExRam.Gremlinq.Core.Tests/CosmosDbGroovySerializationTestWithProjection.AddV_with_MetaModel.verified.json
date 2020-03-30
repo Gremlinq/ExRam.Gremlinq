@@ -1,5 +1,5 @@
 {
-  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h).project(_i, _j, _k, _l).by(id).by(label).by(__.constant(_m)).by(__.properties().group().by(__.label()).by(__.project(_i, _j, _n, _l).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h).project(_i, _j, _k).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_i, _j, _l, _k).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
   Bindings: {
     _a: 'Company',
     _b: 'FoundingDate',
@@ -11,9 +11,7 @@
     _h: DateTimeOffset_1,
     _i: 'id',
     _j: 'label',
-    _k: 'type',
-    _l: 'properties',
-    _m: 'vertex',
-    _n: 'value'
+    _k: 'properties',
+    _l: 'value'
   }
 }

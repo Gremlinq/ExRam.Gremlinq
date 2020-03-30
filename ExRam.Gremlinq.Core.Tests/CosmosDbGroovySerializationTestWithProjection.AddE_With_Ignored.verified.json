@@ -1,13 +1,11 @@
 {
-  Script: 'addE(_a).property(_b, _c).project(_d, _e, _f, _g).by(id).by(label).by(__.constant(_h)).by(__.valueMap())',
+  Script: 'addE(_a).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())',
   Bindings: {
     _a: 'WorksFor',
     _b: 'To',
     _c: DateTime_1,
     _d: 'id',
     _e: 'label',
-    _f: 'type',
-    _g: 'properties',
-    _h: 'edge'
+    _f: 'properties'
   }
 }

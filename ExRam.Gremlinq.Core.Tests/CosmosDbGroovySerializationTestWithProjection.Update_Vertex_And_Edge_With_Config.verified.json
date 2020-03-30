@@ -1,5 +1,5 @@
 {
-  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h).project(_i, _j, _k, _l).by(id).by(label).by(__.constant(_m)).by(__.valueMap())',
+  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c).drop()).property(single, _b, _d).property(single, _c, _e).outE(_f).sideEffect(__.properties(_g).drop()).property(_g, _h).project(_i, _j, _k).by(id).by(label).by(__.valueMap())',
   Bindings: {
     _a: 'Person',
     _b: 'Gender',
@@ -11,8 +11,6 @@
     _h: DateTime_1,
     _i: 'id',
     _j: 'label',
-    _k: 'type',
-    _l: 'properties',
-    _m: 'edge'
+    _k: 'properties'
   }
 }

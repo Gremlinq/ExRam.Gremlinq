@@ -1,5 +1,5 @@
 {
-  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.V(_i).hasLabel(_j)).project(_i, _k, _l, _m).by(id).by(label).by(__.constant(_n)).by(__.valueMap())',
+  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.V(_i).hasLabel(_j)).project(_i, _k, _l).by(id).by(label).by(__.valueMap())',
   Bindings: {
     _a: 'Person',
     _b: 'Age',
@@ -14,8 +14,6 @@
     _i: 'id',
     _j: 'Country',
     _k: 'label',
-    _l: 'type',
-    _m: 'properties',
-    _n: 'edge'
+    _l: 'properties'
   }
 }

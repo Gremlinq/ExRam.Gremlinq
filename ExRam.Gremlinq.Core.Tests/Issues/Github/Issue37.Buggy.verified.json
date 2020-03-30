@@ -1,5 +1,5 @@
 {
-  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).project(_f, _g, _h, _i).by(id).by(label).by(__.constant(_j)).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _k, _i).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).project(_f, _g, _h).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _i, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
   Bindings: {
     _a: 'ItemOverride',
     _b: 'PartitionKey',
@@ -8,9 +8,7 @@
     _e: 'MyValue',
     _f: 'id',
     _g: 'label',
-    _h: 'type',
-    _i: 'properties',
-    _j: 'vertex',
-    _k: 'value'
+    _h: 'properties',
+    _i: 'value'
   }
 }

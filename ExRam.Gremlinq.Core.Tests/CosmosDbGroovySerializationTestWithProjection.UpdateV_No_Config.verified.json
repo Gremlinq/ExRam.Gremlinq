@@ -1,5 +1,5 @@
 {
-  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).project(_j, _k, _l, _m).by(id).by(label).by(__.constant(_n)).by(__.properties().group().by(__.label()).by(__.project(_j, _k, _o, _m).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+  Script: 'V().hasLabel(_a).sideEffect(__.properties(_b, _c, _d, _e).drop()).property(single, _b, _f).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).project(_j, _k, _l).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_j, _k, _m, _l).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
   Bindings: {
     _a: 'Person',
     _b: 'Age',
@@ -12,9 +12,7 @@
     _i: DateTimeOffset_1,
     _j: 'id',
     _k: 'label',
-    _l: 'type',
-    _m: 'properties',
-    _n: 'vertex',
-    _o: 'value'
+    _l: 'properties',
+    _m: 'value'
   }
 }

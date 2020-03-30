@@ -53,7 +53,6 @@
               Arguments: [
                 'id',
                 'label',
-                'type',
                 'properties'
               ]
             },
@@ -72,21 +71,6 @@
                 {
                   EnumName: 'T',
                   EnumValue: 'label'
-                }
-              ]
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'constant',
-                      Arguments: [
-                        'vertex'
-                      ]
-                    }
-                  ]
                 }
               ]
             },
@@ -203,7 +187,6 @@
               Arguments: [
                 'id',
                 'label',
-                'type',
                 'properties'
               ]
             },
@@ -222,21 +205,6 @@
                 {
                   EnumName: 'T',
                   EnumValue: 'label'
-                }
-              ]
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'constant',
-                      Arguments: [
-                        'vertex'
-                      ]
-                    }
-                  ]
                 }
               ]
             },

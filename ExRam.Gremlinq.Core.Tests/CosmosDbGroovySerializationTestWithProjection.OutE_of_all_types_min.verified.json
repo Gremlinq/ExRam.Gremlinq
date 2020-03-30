@@ -1,10 +1,8 @@
 {
-  Script: 'V().outE().project(_a, _b, _c, _d).by(id).by(label).by(__.constant(_e)).by(__.valueMap())',
+  Script: 'V().outE().project(_a, _b, _c).by(id).by(label).by(__.valueMap())',
   Bindings: {
     _a: 'id',
     _b: 'label',
-    _c: 'type',
-    _d: 'properties',
-    _e: 'edge'
+    _c: 'properties'
   }
 }
