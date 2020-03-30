@@ -118,10 +118,13 @@ namespace ExRam.Gremlinq.Core
             {
                 var property = base.CreateProperty(member, memberSerialization);
 
-                _model.Metadata
+                var name = _model.Metadata
                     .TryGetValue(member)
                     .Map(x => x.Name)
-                    .IfSome(name => property.PropertyName = name);
+                    .IfNoneUnsafe(default(string));
+
+                if (name != null)
+                    property.PropertyName = name;
 
                 return property;
             }
