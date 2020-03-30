@@ -402,7 +402,7 @@ namespace ExRam.Gremlinq.Core
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
-                    if (element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
+                    if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
                     {
                         _serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
                         _serializer.Populate(new JTokenReader(propertiesToken), ret);
