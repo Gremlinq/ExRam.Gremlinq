@@ -6,9 +6,9 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public abstract class CosmosDbGroovySerializationTestBase : GroovySerializationTest
+    public abstract class CosmosDbQuerySerializationTestBase : QuerySerializationTest
     {
-        protected CosmosDbGroovySerializationTestBase(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(g, testOutputHelper)
+        protected CosmosDbQuerySerializationTestBase(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(g, testOutputHelper)
         {
 
         }

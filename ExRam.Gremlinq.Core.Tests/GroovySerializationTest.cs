@@ -12,13 +12,13 @@ using VerifyXunit;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public abstract class GroovySerializationTest : VerifyBase
+    public abstract class QuerySerializationTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string id = "id";
 
-        protected GroovySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        protected QuerySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
             _g = g
                 .ConfigureEnvironment(env => env

@@ -8,9 +8,9 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class GremlinServerGroovySerializationTest : GroovySerializationTest
+    public class GremlinServerQuerySerializationTest : QuerySerializationTest
     {
-        public GremlinServerGroovySerializationTest(ITestOutputHelper testOutputHelper) : base(
+        public GremlinServerQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
                 .UseGremlinServer(builder => builder
