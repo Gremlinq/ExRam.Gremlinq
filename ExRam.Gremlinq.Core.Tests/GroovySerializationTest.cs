@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
@@ -8,26 +7,10 @@ using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using Xunit;
 using Xunit.Abstractions;
-using Verify;
 using VerifyXunit;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public static class GremlinQueryExtensions
-    {
-        public static void VerifyQuery(this IGremlinQueryBase query, VerifyBase verifyBase)
-        {
-            var verifySettings = new VerifySettings();
-            verifySettings.UseExtension("json");
-
-            var environment = query.AsAdmin().Environment;
-            var serializedQuery = environment.Serializer
-                .Serialize(query);
-
-            Task.Run(() => verifyBase.Verify(serializedQuery, verifySettings)).Wait();
-        }
-    }
-
     public abstract class GroovySerializationTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
