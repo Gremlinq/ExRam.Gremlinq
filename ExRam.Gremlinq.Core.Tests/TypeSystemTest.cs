@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TypeSystem
+    public class TypeSystemTest
     {
         private sealed class Vertex
         {
@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
 
-        public TypeSystem()
+        public TypeSystemTest()
         {
 
         }

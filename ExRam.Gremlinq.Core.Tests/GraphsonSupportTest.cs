@@ -13,7 +13,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
-    public class JsonSupportTest
+    public class GraphsonSupportTest
     {
         private sealed class MetaPoco
         {
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
         private readonly IGremlinQuerySource _g;
 
-        static JsonSupportTest()
+        static GraphsonSupportTest()
         {
             SingleLanguageJson = GetJson("Single_Language");
             SingleCompanyJson = GetJson("Single_Company");
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             SinglePersonStringId = GetJson("Single_Person_String_Id");
         }
 
-        public JsonSupportTest()
+        public GraphsonSupportTest()
         {
             _g = g
                 .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
