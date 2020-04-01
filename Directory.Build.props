@@ -7,15 +7,15 @@
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
     <Company>ExRam Innovations GmbH</Company>
-    <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
+    <Copyright>Â©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
+    <PackageIconUrl />
+    <PackageIcon>grey-icon.png</PackageIcon>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
-    <PackageIconUrl />
-    <PackageIcon>grey-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('CosmosDb'))">blue-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
