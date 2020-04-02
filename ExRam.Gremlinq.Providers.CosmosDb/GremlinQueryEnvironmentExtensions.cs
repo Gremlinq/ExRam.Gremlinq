@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Structure.IO.GraphSON;
-using LanguageExt;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -65,16 +65,19 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimespanConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (objectType == typeof(TimeSpan))
                 {
-                    return recurse
-                        .TryConvert(jToken, typeof(long), recurse)
-                        .Map(x => (object)TimeSpan.FromMilliseconds((long)x));
+                    if (recurse.TryConvert(jToken, typeof(long), recurse, out value))
+                    {
+                        value = TimeSpan.FromMilliseconds((long)value);
+                        return true;
+                    }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 

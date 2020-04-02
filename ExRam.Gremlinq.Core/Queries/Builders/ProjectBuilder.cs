@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
 using System;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {

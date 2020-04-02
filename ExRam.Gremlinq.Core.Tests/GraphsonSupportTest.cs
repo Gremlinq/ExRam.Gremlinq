@@ -714,18 +714,19 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
-        public async Task Maybe()
+        public async Task Nullable()
         {
             var tuple = await _g
-                .WithExecutor("[ { \"Item1\": [],  \"Item2\": [], \"Item3\": \"someString\", \"Item4\": \"someString\", \"Item5\": [] } ]")
-                .V<(string, Option<string>, string, Option<string>, int?)>()
+                .WithExecutor("[ { \"Item1\": [],  \"Item2\": [], \"Item3\": \"someString\", \"Item4\": \"someString\", \"Item5\": [],  \"Item5\": null } ]")
+                .V<(string, string?, string, string?, int?, int?)>()
                 .FirstAsync();
 
             tuple.Item1.Should().BeNull();
-            tuple.Item2.IsSome.Should().BeFalse();
+            tuple.Item2.Should().BeNull();
             tuple.Item3.Should().Be("someString");
-            tuple.Item4.Should().BeEqual("someString");
+            tuple.Item4.Should().Be("someString");
             tuple.Item5.Should().BeNull();
+            tuple.Item6.Should().BeNull();
         }
 
         private static string GetJson(string name)

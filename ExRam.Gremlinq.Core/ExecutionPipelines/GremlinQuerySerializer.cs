@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using Gremlin.Net.Process.Traversal;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -56,12 +55,11 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQuerySerializer OverrideFragmentSerializer<TAtom>(QueryFragmentSerializer<TAtom> queryFragmentSerializer)
             {
-                return new GremlinQuerySerializerImpl(
-                    _dict
-                        .TryGetValue(typeof(TAtom))
-                        .Match(
-                            existingAtomSerializer => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse)),
-                            () => _dict.SetItem(typeof(TAtom), (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_!), recurse))));
+                return new GremlinQuerySerializerImpl(_dict.SetItem(
+                    typeof(TAtom),
+                    _dict.TryGetValue(typeof(TAtom), out var existingAtomSerializer)
+                        ? new QueryFragmentSerializer<object>((atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse))
+                        : (atom, baseSerializer, recurse) => queryFragmentSerializer((TAtom)atom, _ => baseSerializer(_!), recurse)));
             }
 
             private QueryFragmentSerializer<object>? TryGetSerializer(Type type)
@@ -253,33 +251,33 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<ChooseOptionTraversalStep>((step, overridden, recurse) => CreateInstruction("choose", recurse, step.Traversal))
                 .OverrideFragmentSerializer<ChoosePredicateStep>((step, overridden, recurse) =>
                 {
-                    return step.ElseTraversal.Match(
-                        elseTraversal => CreateInstruction(
+                    return step.ElseTraversal is { } elseTraversal
+                        ? CreateInstruction(
                             "choose",
                             recurse,
                             step.Predicate,
                             step.ThenTraversal,
-                            elseTraversal),
-                        () => CreateInstruction(
+                            elseTraversal)
+                        : CreateInstruction(
                             "choose",
                             recurse,
                             step.Predicate,
-                            step.ThenTraversal));
+                            step.ThenTraversal);
                 })
                 .OverrideFragmentSerializer<ChooseTraversalStep>((step, overridden, recurse) =>
                 {
-                    return step.ElseTraversal.Match(
-                        elseTraversal => CreateInstruction(
+                    return step.ElseTraversal is { } elseTraversal
+                        ? CreateInstruction(
                             "choose",
                             recurse,
                             step.IfTraversal,
                             step.ThenTraversal,
-                            elseTraversal),
-                        () => CreateInstruction(
+                            elseTraversal)
+                        : CreateInstruction(
                             "choose",
                             recurse,
                             step.IfTraversal,
-                            step.ThenTraversal));
+                            step.ThenTraversal);
                 })
                 .OverrideFragmentSerializer<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
                 .OverrideFragmentSerializer<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))

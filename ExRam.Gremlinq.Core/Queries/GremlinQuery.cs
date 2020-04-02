@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
-using LanguageExt;
 using NullGuard;
 
 namespace ExRam.Gremlinq.Core
@@ -412,11 +411,13 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment, Semantics, StepLabelSemantics, SurfaceVisible);
 
-        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
+        private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>? maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
             var anonymous = Anonymize();
             var trueQuery = trueChoice(anonymous);
-            var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQueryBase)falseChoice(anonymous));
+            var maybeFalseQuery = maybeFalseChoice is { } falseChoice
+                ? falseChoice(anonymous)
+                : default;
 
             var query = this
                 .Anonymize()
@@ -444,17 +445,15 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TTargetQuery>();
         }
 
-        private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Option<Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>> maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
+        private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>? maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
             var anonymous = Anonymize();
             var trueQuery = trueChoice(anonymous);
-            var maybeFalseQuery = maybeFalseChoice.Map(falseChoice => (IGremlinQueryBase)falseChoice(anonymous));
+            var maybeFalseQuery = maybeFalseChoice is { } falseChoice
+                ? falseChoice(anonymous)
+                : default;
 
-            return maybeFalseQuery
-                .BiFold(
-                    AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery), QuerySemantics.None),
-                    (query, falseQuery) => query,
-                    (query, _) => query)
+            return AddStep(new ChooseTraversalStep(traversalPredicate(anonymous), trueQuery, maybeFalseQuery), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
@@ -694,8 +693,7 @@ namespace ExRam.Gremlinq.Core
                 return Cast<TTarget>();
 
             var labels = model
-                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity))
-                .IfNone(new[] { typeof(TTarget).Name });
+                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? new[] {typeof(TTarget).Name};
 
             return labels.Length > 0
                 ? !Steps.IsEmpty && Steps.Peek() is HasLabelStep hasLabelStep
@@ -861,11 +859,10 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
         {
-            var stepLabelSemantics = StepLabelSemantics
-                .TryGetValue(stepLabel)
-                .IfNone(() => throw new InvalidOperationException(/* TODO */ ));
+            if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
+                return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(stepLabel), stepLabelSemantics);
 
-            return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(stepLabel), stepLabelSemantics);
+            throw new InvalidOperationException(/* TODO */ );
         }
 
         private GremlinQuery<TSelectedElement, object, object, object, object, TQuery> Cap<TQuery, TSelectedElement>(StepLabel<TQuery, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, object, object, TQuery>(new CapStep(stepLabel), QuerySemantics.None);

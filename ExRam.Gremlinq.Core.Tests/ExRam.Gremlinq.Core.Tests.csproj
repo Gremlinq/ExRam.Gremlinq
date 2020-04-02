@@ -54,6 +54,7 @@
 
   <ItemGroup>
     <PackageReference Include="Verify.Xunit" Version="1.27.1-beta.1" />
+    <PackageReference Include="LanguageExt.Core" Version="3.3.28" />
   </ItemGroup>
 
   <ItemGroup>

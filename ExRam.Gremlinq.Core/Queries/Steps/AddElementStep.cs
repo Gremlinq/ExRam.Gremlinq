@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -19,11 +18,10 @@ namespace ExRam.Gremlinq.Core
                     (closureType, closureModel) => closureType
                         .GetTypeHierarchy()
                         .Where(type => !type.IsAbstract)
-                        .SelectMany(type => closureModel.Metadata
-                            .TryGetValue(type)
-                            .Map(x => x.Label))
-                        .HeadOrNone()
-                        .IfNone(closureType.Name),
+                        .Select(type => closureModel.Metadata.TryGetValue(type, out var metadata)
+                            ? metadata.Label
+                            : null)
+                        .FirstOrDefault() ?? closureType.Name,
                     elementModel);
         }
 

@@ -5,8 +5,8 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using LanguageExt;
 using Microsoft.Extensions.Logging;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -82,11 +82,11 @@ namespace ExRam.Gremlinq.Core
         internal static string[] GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             return model
-                .TryGetFilterLabels(type, verbosity)
-                .IfNoneUnsafe(default(string[])) ?? new[] { type.Name };
+                .TryGetFilterLabels(type, verbosity) ?? new[] {type.Name};
         }
 
-        public static Option<string[]> TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        [return: AllowNull]
+        public static string[]? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             var labels = DerivedLabels
                 .GetOrCreateValue(model)
@@ -104,7 +104,7 @@ namespace ExRam.Gremlinq.Core
 
 
             return labels.Length == 0
-                ? default(Option<string[]>)
+                ? default
                 : labels.Length == model.Metadata.Count && verbosity == FilterLabelsVerbosity.Minimum
                     ? Array.Empty<string>()
                     : labels;

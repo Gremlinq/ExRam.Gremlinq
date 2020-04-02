@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
-using LanguageExt;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
@@ -73,13 +72,8 @@ namespace ExRam.Gremlinq.Core
             {
                 var property = base.CreateProperty(member, memberSerialization);
 
-                var name = _model.Metadata
-                    .TryGetValue(member)
-                    .Map(x => x.Name)
-                    .IfNoneUnsafe(default(string));
-
-                if (name != null)
-                    property.PropertyName = name;
+                if (_model.Metadata.TryGetValue(member, out var name))
+                    property.PropertyName = name.Name;
 
                 return property;
             }
@@ -152,22 +146,25 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimespanConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (objectType == typeof(TimeSpan))
                 {
-                    return recurse
-                        .TryConvert(jToken, typeof(string), recurse)
-                        .Map(x => (object)XmlConvert.ToTimeSpan((string)x));
+                    if (recurse.TryConvert(jToken, typeof(string), recurse, out var strValue))
+                    {
+                        value = XmlConvert.ToTimeSpan((string)strValue);
+                        return true;
+                    }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
         private sealed class DateTimeOffsetConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object value)
             {
                 if (objectType == typeof(DateTimeOffset))
                 {
@@ -176,13 +173,22 @@ namespace ExRam.Gremlinq.Core
                         switch (jValue.Value)
                         {
                             case DateTime dateTime:
-                                return new DateTimeOffset(dateTime);
+                            {
+                                value = new DateTimeOffset(dateTime);
+                                return true;
+                            }
                             case DateTimeOffset dateTimeOffset:
-                                return dateTimeOffset;
+                            {
+                                value = dateTimeOffset;
+                                return true;
+                            }
                             default:
                             {
                                 if (jValue.Type == JTokenType.Integer)
-                                    return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                                {
+                                    value = DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                                    return true;
+                                }
 
                                 break;
                             }
@@ -190,13 +196,14 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
+                value = null;
                 return default;
             }
         }
 
         private sealed class DateTimeConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (objectType == typeof(DateTime))
                 {
@@ -205,23 +212,33 @@ namespace ExRam.Gremlinq.Core
                         switch (jValue.Value)
                         {
                             case DateTime dateTime:
-                                return dateTime;
+                            {
+                                value = dateTime;
+                                return true;
+                            }
                             case DateTimeOffset dateTimeOffset:
-                                return dateTimeOffset.UtcDateTime;
+                            {
+                                value = dateTimeOffset.UtcDateTime;
+                                return true;
+                            }
                         }
 
                         if (jValue.Type == JTokenType.Integer)
-                            return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
+                        {
+                            value = new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
+                            return true;
+                        }
                     }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
         private sealed class FlatteningConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (!objectType.IsArray)
                 {
@@ -232,7 +249,7 @@ namespace ExRam.Gremlinq.Core
                         if (objectType.IsGenericType)
                         {
                             var genericTypeDefinition = objectType.GetGenericTypeDefinition();
-                            if (genericTypeDefinition == typeof(Option<>) || genericTypeDefinition == typeof(Nullable<>))
+                            if (genericTypeDefinition == typeof(Nullable<>))
                                 itemType = objectType.GetGenericArguments()[0];
                         }
 
@@ -240,24 +257,28 @@ namespace ExRam.Gremlinq.Core
                         {
                             if (array.Count != 1)
                             {
-                                if (objectType == typeof(Unit))
-                                    return Unit.Default;
-
                                 if (array.Count == 0 && (objectType.IsClass || itemType != null))
-                                    return default(object);
+                                {
+                                    value = default(object);
+                                    return true;
+                                }
 
                                 throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {objectType}.");
                             }
 
-                            return recurse.TryConvert(array[0], itemType ?? objectType, recurse);
+                            return recurse.TryConvert(array[0], itemType ?? objectType, recurse, out value);
                         }
 
-                        if (jToken is JValue value && value.Value == null && itemType != null)
-                            return default(object);
+                        if (jToken is JValue jValue && jValue.Value == null && itemType != null)
+                        {
+                            value = null;
+                            return true;
+                        }
                     }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
@@ -290,17 +311,14 @@ namespace ExRam.Gremlinq.Core
                         StringComparer.OrdinalIgnoreCase);
             }
 
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (jToken is JObject)
                 {
                     var label = jToken["label"]?.ToString();
 
-                    var modelType = label != null
-                        ? _types
-                            .TryGetValue(label)
-                            .IfNone(Array.Empty<Type>())
-                            .FirstOrDefault(type => objectType.IsAssignableFrom(type))
+                    var modelType = label != null && _types.TryGetValue(label, out var types)
+                        ? types.FirstOrDefault(type => objectType.IsAssignableFrom(type))
                         : default;
 
                     if (modelType == null)
@@ -312,10 +330,11 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     if (modelType != null && modelType != objectType)
-                        return recurse.TryConvert(jToken, modelType, recurse);
+                        return recurse.TryConvert(jToken, modelType, recurse, out value);
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
@@ -328,17 +347,18 @@ namespace ExRam.Gremlinq.Core
                 _nativeTypes = nativeTypes;
             }
 
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (_nativeTypes.Contains(objectType) || (objectType.IsEnum && _nativeTypes.Contains(objectType.GetEnumUnderlyingType())))
                 {
                     if (jToken is JObject jObject && jObject.ContainsKey("value"))
                     {
-                        return recurse.TryConvert(jObject["value"], objectType, recurse);
+                        return recurse.TryConvert(jObject["value"], objectType, recurse, out value);
                     }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
         
@@ -351,7 +371,7 @@ namespace ExRam.Gremlinq.Core
                 _serializer = serializer;
             }
 
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 var ret = jToken.ToObject(objectType, _serializer);
 
@@ -372,7 +392,8 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return ret;
+                value = ret;
+                return true;
             }
         }
 
@@ -391,22 +412,23 @@ namespace ExRam.Gremlinq.Core
             }
 
             [return: AllowNull]
-            public override object ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
                 using (Block())
                 {
-                    return _converter
-                        .TryConvert(token, objectType, _converter)
-                        .IfNoneUnsafe(default(object));
+                    if (_converter.TryConvert(token, objectType, _converter, out var value))
+                        return value;
+
+                    return default;
                 }
             }
         }
 
         private sealed class ArrayConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (objectType.IsArray && jToken is JArray jArray)
                 {
@@ -418,14 +440,12 @@ namespace ExRam.Gremlinq.Core
                         var bulk = 1;
                         var effectiveArrayItem = jArrayItem;
 
-                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var value) && value is JObject nestedTraverserObject)
+                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
                         {
                             if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
                             {
-                                bulk = recurse
-                                    .TryConvert(bulkToken, typeof(int), recurse)
-                                    .Map(x => (int)x)
-                                    .IfNoneUnsafe(1);
+                                if (recurse.TryConvert(bulkToken, typeof(int), recurse, out var bulkObject) && bulkObject != null)
+                                    bulk = (int)bulkObject;
                             }
 
                             if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
@@ -434,13 +454,8 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
-                        var maybeItem = recurse
-                            .TryConvert(effectiveArrayItem, elementType, recurse);
-
-                        if (maybeItem.IsSome)
+                        if (recurse.TryConvert(effectiveArrayItem, elementType, recurse, out var item))
                         {
-                            var item = maybeItem.IfNoneUnsafe(default(object));
-
                             for (var i = 0; i < bulk; i++)
                             {
                                 array.Add(item);
@@ -448,20 +463,22 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    return array.ToArray(elementType);
+                    value = array.ToArray(elementType);
+                    return true;
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
         private sealed class MapConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                 {
-                    if (jObject.TryGetValue("@value", out var value) && value is JArray mapArray)
+                    if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                     {
                         var retObject = new JObject();
 
@@ -470,25 +487,27 @@ namespace ExRam.Gremlinq.Core
                             retObject.Add(mapArray[i * 2].Value<string>(), mapArray[i * 2 + 1]);
                         }
 
-                        return recurse.TryConvert(retObject, objectType, recurse);
+                        return recurse.TryConvert(retObject, objectType, recurse, out value);
                     }
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
 
         private sealed class NestedValueConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (jToken is JObject jObject)
                 {
-                    if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var value))
-                        return recurse.TryConvert(value, objectType, recurse);
+                    if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
+                        return recurse.TryConvert(valueToken, objectType, recurse, out value);
                 }
 
-                return default;
+                value = null;
+                return false;
             }
         }
         #endregion

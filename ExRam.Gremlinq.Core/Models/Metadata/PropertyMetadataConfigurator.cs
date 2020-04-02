@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
 using System.Reflection;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -58,9 +57,9 @@ namespace ExRam.Gremlinq.Core
             
             return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
                 memberInfo,
-                transformation(_metadata
-                    .TryGetValue(memberInfo)
-                    .IfNone(new PropertyMetadata(memberInfo.Name)))));
+                transformation(_metadata.TryGetValue(memberInfo, out var metadata)
+                    ? metadata
+                    : new PropertyMetadata(memberInfo.Name))));
         }
 
         #region Explicit

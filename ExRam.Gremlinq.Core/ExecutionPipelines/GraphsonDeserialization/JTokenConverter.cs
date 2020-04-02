@@ -1,6 +1,6 @@
 ﻿using System;
-using LanguageExt;
 using Newtonsoft.Json.Linq;
+using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -8,9 +8,9 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NullJTokenConverter : IJTokenConverter
         {
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
-                return default;
+                throw new NotImplementedException();
             }
         }
 
@@ -25,14 +25,9 @@ namespace ExRam.Gremlinq.Core
                 _converter2 = converter2;
             }
 
-            public OptionUnsafe<object> TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
-                var ret = _converter2
-                    .TryConvert(jToken, objectType, recurse);
-
-                return ret.IsSome
-                    ? ret
-                    : _converter1.TryConvert(jToken, objectType, recurse);
+                return _converter2.TryConvert(jToken, objectType, recurse, out value) || _converter1.TryConvert(jToken, objectType, recurse, out value);
             }
         }
 

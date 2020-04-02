@@ -7,7 +7,6 @@
 <#@ include file="..\T4\Constants.tt" #>
 #pragma warning disable CS0109 // Member does not hide an inherited member; new keyword is not required
 using System;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -23,18 +22,18 @@ namespace ExRam.Gremlinq.Core
 <# } #>
 
 
-    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
+    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
-        private sealed partial class ProjectBuilderImpl<TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
+        private sealed partial class ProjectBuilder<TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
 <# for(var i = 2; i <= 16; i++) { #>
-            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>,
+            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>,
 <# } #>
-            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement>,
-            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, TItem1>
+            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>,
+            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1>
         {
 <# for(var i = 1; i < 15; i++) { #>
 
-            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem<#= i+1 #>>> projection)
+            IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, <#= GetArgumentList("TItem{0}", i) #>>.By<TNewItem<#= i + 1 #>>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem<#= i+1 #>>> projection)
             {
                 return By<<#= GetArgumentList("TItem{0}", i) #>, TNewItem<#= i+1 #>, <#= GetArgumentList("object", 15 - i) #>>(projection);
             }

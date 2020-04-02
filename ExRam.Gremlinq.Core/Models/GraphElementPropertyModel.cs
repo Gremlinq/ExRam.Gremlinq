@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
-using LanguageExt;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -110,19 +109,18 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
-                        return closureModel.GetIdentifier(closureModel.Metadata
-                            .TryGetValue(closureMember)
-                            .IfNone(new PropertyMetadata(closureMember.Name)));
+                        return closureModel.GetIdentifier(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
+                            ? metadata
+                            : new PropertyMetadata(closureMember.Name));
                     },
                     model);
         }
 
         internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)
         {
-            return model.SpecialNames
-                .TryGetValue(metadata.Name)
-                .Map(x => (object)x)
-                .IfNone(metadata.Name);
+            return model.SpecialNames.TryGetValue(metadata.Name, out var name)
+                ? (object)name
+                : metadata.Name;
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)

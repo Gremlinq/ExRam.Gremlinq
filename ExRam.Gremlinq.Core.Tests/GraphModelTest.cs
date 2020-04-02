@@ -34,9 +34,8 @@ namespace ExRam.Gremlinq.Core.Tests
             var model = GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain());
 
-            model.VerticesModel
-                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum)
-                .IfNone(new string[0])
+            (model.VerticesModel
+                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? Array.Empty<string>())
                 .Should()
                 .Contain("Company").And
                 .Contain("Person").And

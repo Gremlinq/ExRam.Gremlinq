@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
-using LanguageExt;
 using System.Linq;
 
 namespace ExRam.Gremlinq.Core
@@ -11,11 +10,9 @@ namespace ExRam.Gremlinq.Core
     {
         public static TValue GetValue<TValue>(this IImmutableDictionary<GremlinqOption, object> options, GremlinqOption<TValue> option)
         {
-            return (options?.TryGetValue(option))
-                .ToOption()
-                .Bind(x => x)
-                .Map(optionValue => (TValue)optionValue)
-                .IfNone(option.DefaultValue);
+            return options.TryGetValue(option, out var value)
+                ? (TValue)value
+                : option.DefaultValue;
         }
 
         public static IImmutableDictionary<GremlinqOption, object> ConfigureValue<TValue>(this IImmutableDictionary<GremlinqOption, object> options, GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
