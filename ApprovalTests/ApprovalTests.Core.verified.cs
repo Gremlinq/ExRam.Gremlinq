@@ -75,18 +75,18 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class ChoosePredicateStep : ExRam.Gremlinq.Core.ChooseStep
     {
-        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, LanguageExt.Option<ExRam.Gremlinq.Core.IGremlinQueryBase> elseTraversal = default) { }
+        public ChoosePredicateStep(Gremlin.Net.Process.Traversal.P predicate, ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, ExRam.Gremlinq.Core.IGremlinQueryBase? elseTraversal = null) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public abstract class ChooseStep : ExRam.Gremlinq.Core.Step
     {
-        protected ChooseStep(ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, LanguageExt.Option<ExRam.Gremlinq.Core.IGremlinQueryBase> elseTraversal = default) { }
-        public LanguageExt.Option<ExRam.Gremlinq.Core.IGremlinQueryBase> ElseTraversal { get; }
+        protected ChooseStep(ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, ExRam.Gremlinq.Core.IGremlinQueryBase? elseTraversal = null) { }
+        public ExRam.Gremlinq.Core.IGremlinQueryBase? ElseTraversal { get; }
         public ExRam.Gremlinq.Core.IGremlinQueryBase ThenTraversal { get; }
     }
     public sealed class ChooseTraversalStep : ExRam.Gremlinq.Core.ChooseStep
     {
-        public ChooseTraversalStep(ExRam.Gremlinq.Core.IGremlinQueryBase ifTraversal, ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, LanguageExt.Option<ExRam.Gremlinq.Core.IGremlinQueryBase> elseTraversal = default) { }
+        public ChooseTraversalStep(ExRam.Gremlinq.Core.IGremlinQueryBase ifTraversal, ExRam.Gremlinq.Core.IGremlinQueryBase thenTraversal, ExRam.Gremlinq.Core.IGremlinQueryBase? elseTraversal = null) { }
         public ExRam.Gremlinq.Core.IGremlinQueryBase IfTraversal { get; }
     }
     public sealed class CoalesceStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies, Microsoft.Extensions.Logging.ILogger? logger) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies, Microsoft.Extensions.Logging.ILogger? logger) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromTypes(System.Collections.Generic.IEnumerable<System.Type> types) { }
-        public static LanguageExt.Option<string[]> TryGetFilterLabels(this ExRam.Gremlinq.Core.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
+        public static string[]? TryGetFilterLabels(this ExRam.Gremlinq.Core.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.IGraphElementModel model) { }
     }
@@ -392,6 +392,15 @@ namespace ExRam.Gremlinq.Core
     {
         public GremlinqOption(TValue defaultValue) { }
         public TValue DefaultValue { get; }
+    }
+    public readonly struct GremlinqOptions
+    {
+        public GremlinqOptions(System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> dictionary) { }
+        public ExRam.Gremlinq.Core.GremlinqOptions ConfigureValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, System.Func<TValue, TValue> configuration) { }
+        public bool Contains(ExRam.Gremlinq.Core.GremlinqOption option) { }
+        public TValue GetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option) { }
+        public ExRam.Gremlinq.Core.GremlinqOptions Remove(ExRam.Gremlinq.Core.GremlinqOption option) { }
+        public ExRam.Gremlinq.Core.GremlinqOptions SetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, TValue value) { }
     }
     public sealed class GroovyGremlinQuery
     {
@@ -729,14 +738,14 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.FeatureSet FeatureSet { get; }
         Microsoft.Extensions.Logging.ILogger Logger { get; }
         ExRam.Gremlinq.Core.IGraphModel Model { get; }
-        System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> Options { get; }
+        ExRam.Gremlinq.Core.GremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.IGremlinQuerySerializer Serializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutor, ExRam.Gremlinq.Core.IGremlinQueryExecutor> executorTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.FeatureSet, ExRam.Gremlinq.Core.FeatureSet> featureSetTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.IGraphModel, ExRam.Gremlinq.Core.IGraphModel> modelTransformation);
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object>, System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object>> optionsTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.GremlinqOptions, ExRam.Gremlinq.Core.GremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySerializer, ExRam.Gremlinq.Core.IGremlinQuerySerializer> serializerTransformation);
     }
     public interface IGremlinQueryExecutionResultDeserializer
@@ -800,7 +809,7 @@ namespace ExRam.Gremlinq.Core
     public interface IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex> : ExRam.Gremlinq.Core.IEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IEdgeOrVertexGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TEdge, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TEdge>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBase, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBaseRec<ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBaseRec<TEdge, TAdjacentVertex, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQuery<TEdge, TAdjacentVertex>>, ExRam.Gremlinq.Core.IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IJTokenConverter
     {
-        LanguageExt.OptionUnsafe<object> TryConvert(Newtonsoft.Json.Linq.JToken jToken, System.Type objectType, ExRam.Gremlinq.Core.IJTokenConverter recurse);
+        bool TryConvert(Newtonsoft.Json.Linq.JToken jToken, System.Type objectType, ExRam.Gremlinq.Core.IJTokenConverter recurse, out object? value);
     }
     public interface IOrderBuilderWithBy<out TSourceQuery> : ExRam.Gremlinq.Core.IOrderBuilder<TSourceQuery>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
@@ -1104,11 +1113,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IdentityStep Instance;
         public IdentityStep() { }
     }
-    public static class ImmutableDictionaryExtensions
-    {
-        public static System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> ConfigureValue<TValue>(this System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> options, ExRam.Gremlinq.Core.GremlinqOption<TValue> option, System.Func<TValue, TValue> configuration) { }
-        public static TValue GetValue<TValue>(this System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> options, ExRam.Gremlinq.Core.GremlinqOption<TValue> option) { }
-    }
+    public static class ImmutableDictionaryExtensions { }
     public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InEStep NoLabels;

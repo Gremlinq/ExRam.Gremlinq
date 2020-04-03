@@ -1,15 +1,15 @@
 [assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public readonly struct GremlinqOptions
+    public readonly struct GremlinqSetup
     {
-        public GremlinqOptions(Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
+        public GremlinqSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
         public Microsoft.Extensions.DependencyInjection.IServiceCollection ServiceCollection { get; }
     }
-    public static class GremlinqOptionsExtensions
+    public static class GremlinqSetupExtensions
     {
-        public static ExRam.Gremlinq.Core.AspNet.GremlinqOptions UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqOptions options, string sectionName) { }
-        public static ExRam.Gremlinq.Core.AspNet.GremlinqOptions UseModel(this ExRam.Gremlinq.Core.AspNet.GremlinqOptions options, ExRam.Gremlinq.Core.IGraphModel model) { }
+        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseConfigurationSection(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, string sectionName) { }
+        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseModel(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, ExRam.Gremlinq.Core.IGraphModel model) { }
     }
     public interface IGremlinQueryEnvironmentTransformation
     {
