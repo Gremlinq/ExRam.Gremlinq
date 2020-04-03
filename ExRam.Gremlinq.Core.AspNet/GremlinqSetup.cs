@@ -2,9 +2,9 @@
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public readonly struct GremlinqOptions
+    public readonly struct GremlinqSetup
     {
-        public GremlinqOptions(IServiceCollection serviceCollection)
+        public GremlinqSetup(IServiceCollection serviceCollection)
         {
             ServiceCollection = serviceCollection;
         }

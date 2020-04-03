@@ -27,7 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
 
-        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqOptions> configuration)
+        public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetService<IConfiguration>().GetSection("Gremlinq")))
@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         });
                 });
 
-            configuration(new GremlinqOptions(serviceCollection));
+            configuration(new GremlinqSetup(serviceCollection));
 
             return serviceCollection;
         }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class GremlinqOptionsExtensions
+    public static class GremlinqSetupExtensions
     {
         private sealed class UseGremlinServerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
@@ -23,9 +23,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static GremlinqOptions UseGremlinServer(this GremlinqOptions options)
+        public static GremlinqSetup UseGremlinServer(this GremlinqSetup setup)
         {
-            return new GremlinqOptions(options.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseGremlinServerGremlinQueryEnvironmentTransformation>());
+            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseGremlinServerGremlinQueryEnvironmentTransformation>());
         }
     }
 }
