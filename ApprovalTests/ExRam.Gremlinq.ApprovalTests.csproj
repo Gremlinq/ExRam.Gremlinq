@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="PublicApiGenerator" Version="10.0.2" />
-    <PackageReference Include="Verify.Xunit" Version="1.27.1-beta.1" />
+    <PackageReference Include="Verify.Xunit" Version="1.27.3" />
   </ItemGroup>
 
   <ItemGroup>
