@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
@@ -8,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation);
         IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
-        IGremlinQueryEnvironment ConfigureOptions(Func<IImmutableDictionary<GremlinqOption, object>, IImmutableDictionary<GremlinqOption, object>> optionsTransformation);
+        IGremlinQueryEnvironment ConfigureOptions(Func<GremlinqOptions, GremlinqOptions> optionsTransformation);
         IGremlinQueryEnvironment ConfigureFeatureSet(Func<FeatureSet, FeatureSet> featureSetTransformation);
 
         IGremlinQueryEnvironment ConfigureSerializer(Func<IGremlinQuerySerializer, IGremlinQuerySerializer> serializerTransformation);
@@ -18,9 +17,9 @@ namespace ExRam.Gremlinq.Core
         ILogger Logger { get; }
         IGraphModel Model { get; }
         FeatureSet FeatureSet { get; }
+        GremlinqOptions Options { get; }
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
-        IImmutableDictionary<GremlinqOption, object> Options { get; }
         IGremlinQueryExecutionResultDeserializer Deserializer { get; }
     }
 }

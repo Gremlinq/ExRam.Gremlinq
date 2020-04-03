@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
                     .UseCosmosDbWorkarounds()
                     .ToGroovy())
                 .ConfigureOptions(options => options
-                    .SetItem(GremlinqOption.DontAddElementProjectionSteps, true))
+                    .SetValue(GremlinqOption.DontAddElementProjectionSteps, true))
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
     }

@@ -975,7 +975,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(o => o
-                        .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .In<object>()
                 .Verify(this);
@@ -996,7 +996,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(x => x
-                        .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .InE<object>()
                 .Verify(this);
@@ -1533,7 +1533,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(o => o
-                        .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .Out<object>()
                 .Verify(this);
@@ -1554,7 +1554,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(o => o
-                        .SetItem(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
+                        .SetValue(GremlinqOption.FilterLabelsVerbosity, FilterLabelsVerbosity.Minimum)))
                 .V()
                 .OutE<object>()
                 .Verify(this);
@@ -3193,7 +3193,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.Containing)))
                 .V<Country>()
                 .Invoking(_ =>
                     _.Where(c => c.CountryCallingCode.Contains("456")))
@@ -3216,7 +3216,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.Contains(""))
                 .Verify(this);
@@ -3237,7 +3237,7 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
                 .V<Country>()
                 .Invoking(_ => _
                     .Where(c => c.CountryCallingCode.EndsWith("7890")))
@@ -3260,7 +3260,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.EndingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.EndsWith(""))
                 .Verify(this);
@@ -3570,7 +3570,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith("+49123"))
                 .Verify(this);
@@ -3591,7 +3591,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(c => c
-                        .SetItem(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
+                        .SetValue(GremlinqOption.DisabledTextPredicates, DisabledTextPredicates.StartingWith)))
                 .V<Country>()
                 .Where(c => c.CountryCallingCode.StartsWith(""))
                 .Verify(this);

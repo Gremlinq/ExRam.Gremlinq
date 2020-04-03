@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         .At(new Uri("wss://localhost"), "database", "graph")
                         .AuthenticateBy("authKey"))
                     .ConfigureOptions(options => options
-                        .SetItem(GremlinqOption.DontAddElementProjectionSteps, false))),
+                        .SetValue(GremlinqOption.DontAddElementProjectionSteps, false))),
             testOutputHelper)
         {
 
