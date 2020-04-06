@@ -1,28 +1,30 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Country'
-      ]
-    },
-    {
-      OperatorName: 'properties',
-      Arguments: [
-        'Name'
-      ]
-    },
-    {
-      OperatorName: 'properties'
-    },
-    {
-      OperatorName: 'as',
-      Arguments: [
-        'l1'
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      }
+    ]
+  }
+]

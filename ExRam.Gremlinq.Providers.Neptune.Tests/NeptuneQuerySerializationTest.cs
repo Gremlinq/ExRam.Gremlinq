@@ -11,7 +11,9 @@ namespace ExRam.Gremlinq.Providers.Neptune.Tests
         public NeptuneQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
-                    .UseNeptune(builder => builder.AtLocalhost())),
+                    .UseNeptune(builder => builder.AtLocalhost())
+                    .UseExecutor(GremlinQueryExecutor.Echo)
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper)
         {
         }

@@ -1,6 +1,8 @@
-{
-  Script: 'addV(_a)',
-  Bindings: {
-    _a: 'Language'
+[
+  {
+    Script: 'addV(_a)',
+    Bindings: {
+      _a: 'Language'
+    }
   }
-}
+]

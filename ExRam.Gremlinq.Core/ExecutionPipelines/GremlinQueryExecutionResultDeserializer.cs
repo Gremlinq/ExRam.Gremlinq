@@ -82,6 +82,17 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        private sealed class IdentityExecutionDeserializer : IGremlinQueryExecutionResultDeserializer
+        {
+            public IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment)
+            {
+                if (!(executionResult is TElement))
+                    throw new InvalidOperationException($"Can't deserialize a {executionResult.GetType().Name} to {typeof(TElement).Name}.");
+
+                return AsyncEnumerableEx.Return((TElement)executionResult);
+            }
+        }
+
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphson = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
@@ -91,6 +102,8 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer Graphson = new DefaultGraphsonDeserializer();
+
+        public static readonly IGremlinQueryExecutionResultDeserializer Identity = new IdentityExecutionDeserializer();
 
         public static IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params IJTokenConverter[] additionalConverters) => new DefaultGraphsonDeserializer(additionalConverters);
     }

@@ -1,9 +1,11 @@
-{
-  Script: 'inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))',
-  Bindings: {
-    _a: '+4912345',
-    _b: 'l1',
-    _c: 'Company',
-    _d: 'PhoneNumbers'
+[
+  {
+    Script: 'inject(_a).fold().as(_b).V().hasLabel(_c).has(_d, __.where(within(_b)))',
+    Bindings: {
+      _a: '+4912345',
+      _b: 'l1',
+      _c: 'Company',
+      _d: 'PhoneNumbers'
+    }
   }
-}
+]

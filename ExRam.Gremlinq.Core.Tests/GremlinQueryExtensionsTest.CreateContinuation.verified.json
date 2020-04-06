@@ -1,7 +1,3 @@
-{
-  Script: 'has(_a, _b)',
-  Bindings: {
-    _a: 'Age',
-    _b: 36
-  }
-}
+[
+  'has(_a, _b)'
+]

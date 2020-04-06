@@ -1,9 +1,11 @@
-{
-  Script: 'V().hasLabel(_a).properties(_b).has(_c, _d)',
-  Bindings: {
-    _a: 'Company',
-    _b: 'Names',
-    _c: 'ValidFrom',
-    _d: DateTimeOffset_1
+[
+  {
+    Script: 'V().hasLabel(_a).properties(_b).has(_c, _d)',
+    Bindings: {
+      _a: 'Company',
+      _b: 'Names',
+      _c: 'ValidFrom',
+      _d: DateTimeOffset_1
+    }
   }
-}
+]

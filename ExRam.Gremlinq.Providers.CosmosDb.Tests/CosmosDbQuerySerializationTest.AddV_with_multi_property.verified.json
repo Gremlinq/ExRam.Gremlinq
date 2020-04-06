@@ -1,12 +1,14 @@
-{
-  Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g)',
-  Bindings: {
-    _a: 'Company',
-    _b: 'FoundingDate',
-    _c: DateTime_1,
-    _d: 1,
-    _e: 'PhoneNumbers',
-    _f: '+4912345',
-    _g: '+4923456'
+[
+  {
+    Script: 'addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f).property(list, _e, _g)',
+    Bindings: {
+      _a: 'Company',
+      _b: 'FoundingDate',
+      _c: DateTime_1,
+      _d: 1,
+      _e: 'PhoneNumbers',
+      _f: '+4912345',
+      _g: '+4923456'
+    }
   }
-}
+]

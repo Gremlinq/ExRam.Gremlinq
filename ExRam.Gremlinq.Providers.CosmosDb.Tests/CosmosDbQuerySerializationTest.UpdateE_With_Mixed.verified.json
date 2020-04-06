@@ -1,8 +1,10 @@
-{
-  Script: 'E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)',
-  Bindings: {
-    _a: 'WorksFor',
-    _b: 'To',
-    _c: DateTime_1
+[
+  {
+    Script: 'E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)',
+    Bindings: {
+      _a: 'WorksFor',
+      _b: 'To',
+      _c: DateTime_1
+    }
   }
-}
+]

@@ -1,40 +1,42 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Company'
-      ]
-    },
-    {
-      OperatorName: 'properties',
-      Arguments: [
-        'Names'
-      ]
-    },
-    {
-      OperatorName: 'properties'
-    },
-    {
-      OperatorName: 'where',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'key'
-            },
-            {
-              OperatorName: 'is',
-              Arguments: [
-                'someKey'
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Company'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Names'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'key'
+              },
+              {
+                OperatorName: 'is',
+                Arguments: [
+                  'someKey'
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

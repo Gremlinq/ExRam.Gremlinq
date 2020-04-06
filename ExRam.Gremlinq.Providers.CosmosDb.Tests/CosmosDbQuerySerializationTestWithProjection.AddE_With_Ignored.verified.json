@@ -1,11 +1,13 @@
-{
-  Script: 'addE(_a).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())',
-  Bindings: {
-    _a: 'WorksFor',
-    _b: 'To',
-    _c: DateTime_1,
-    _d: 'id',
-    _e: 'label',
-    _f: 'properties'
+[
+  {
+    Script: 'addE(_a).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())',
+    Bindings: {
+      _a: 'WorksFor',
+      _b: 'To',
+      _c: DateTime_1,
+      _d: 'id',
+      _e: 'label',
+      _f: 'properties'
+    }
   }
-}
+]

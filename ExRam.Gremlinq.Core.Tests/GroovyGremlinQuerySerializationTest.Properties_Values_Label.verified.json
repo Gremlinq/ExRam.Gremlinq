@@ -1,3 +1,5 @@
-{
-  Script: 'V().properties().label()'
-}
+[
+  {
+    Script: 'V().properties().label()'
+  }
+]

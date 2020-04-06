@@ -1,10 +1,12 @@
-{
-  Script: 'V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Age',
-    _c: 36,
-    _d: 37,
-    _e: 38
+[
+  {
+    Script: 'V().hasLabel(_a).not(__.has(_b, within(_c, _d, _e)))',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Age',
+      _c: 36,
+      _d: 37,
+      _e: 38
+    }
   }
-}
+]

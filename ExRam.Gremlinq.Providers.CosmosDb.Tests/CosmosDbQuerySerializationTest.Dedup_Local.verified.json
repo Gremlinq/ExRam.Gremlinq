@@ -1,3 +1,5 @@
-{
-  Script: 'V().dedup(local)'
-}
+[
+  {
+    Script: 'V().dedup(local)'
+  }
+]

@@ -1,38 +1,40 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'choose',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'values'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      OperatorName: 'option',
-      Arguments: [
-        {
-          EnumName: 'Pick',
-          EnumValue: 'none'
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'constant',
-              Arguments: [
-                1
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'choose',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'values'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'option',
+        Arguments: [
+          {
+            EnumName: 'Pick',
+            EnumValue: 'none'
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'constant',
+                Arguments: [
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

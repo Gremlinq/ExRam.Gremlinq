@@ -13,8 +13,10 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public GremlinServerQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
-                .UseGremlinServer(builder => builder
-                    .AtLocalhost())),
+                    .UseGremlinServer(builder => builder
+                        .AtLocalhost())
+                    .UseExecutor(GremlinQueryExecutor.Echo)
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper)
         {
 

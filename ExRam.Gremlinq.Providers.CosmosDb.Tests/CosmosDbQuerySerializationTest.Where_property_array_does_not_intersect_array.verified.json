@@ -1,9 +1,11 @@
-{
-  Script: 'V().hasLabel(_a).not(__.has(_b, within(_c, _d)))',
-  Bindings: {
-    _a: 'Company',
-    _b: 'PhoneNumbers',
-    _c: '+4912345',
-    _d: '+4923456'
+[
+  {
+    Script: 'V().hasLabel(_a).not(__.has(_b, within(_c, _d)))',
+    Bindings: {
+      _a: 'Company',
+      _b: 'PhoneNumbers',
+      _c: '+4912345',
+      _d: '+4923456'
+    }
   }
-}
+]

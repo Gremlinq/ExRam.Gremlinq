@@ -1,3 +1,5 @@
-{
-  Script: 'V().coalesce(__.out())'
-}
+[
+  {
+    Script: 'V().coalesce(__.out())'
+  }
+]

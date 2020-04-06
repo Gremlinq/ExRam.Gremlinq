@@ -11,7 +11,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseWebSocket(builder => builder
-                        .AtLocalhost())),
+                        .AtLocalhost())
+                    .UseExecutor(GremlinQueryExecutor.Echo)
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper)
         {
 

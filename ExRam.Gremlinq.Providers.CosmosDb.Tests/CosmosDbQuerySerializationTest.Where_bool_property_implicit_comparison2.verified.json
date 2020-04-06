@@ -1,8 +1,10 @@
-{
-  Script: 'V().hasLabel(_a).not(__.has(_b, _c))',
-  Bindings: {
-    _a: 'TimeFrame',
-    _b: 'Enabled',
-    _c: true
+[
+  {
+    Script: 'V().hasLabel(_a).not(__.has(_b, _c))',
+    Bindings: {
+      _a: 'TimeFrame',
+      _b: 'Enabled',
+      _c: true
+    }
   }
-}
+]

@@ -1,10 +1,12 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'label'
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'label'
+      }
+    ]
+  }
+]

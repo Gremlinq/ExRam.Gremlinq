@@ -1,10 +1,12 @@
-{
-  Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e)',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Name',
-    _c: 'Marko',
-    _d: 'RegistrationDate',
-    _e: DateTimeOffset_1
+[
+  {
+    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e)',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Name',
+      _c: 'Marko',
+      _d: 'RegistrationDate',
+      _e: DateTimeOffset_1
+    }
   }
-}
+]

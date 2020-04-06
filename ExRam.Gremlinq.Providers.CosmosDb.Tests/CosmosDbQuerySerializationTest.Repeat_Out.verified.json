@@ -1,7 +1,9 @@
-{
-  Script: 'V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))',
-  Bindings: {
-    _a: 'Person',
-    _b: 'WorksFor'
+[
+  {
+    Script: 'V().hasLabel(_a).repeat(__.out(_b).hasLabel(_a))',
+    Bindings: {
+      _a: 'Person',
+      _b: 'WorksFor'
+    }
   }
-}
+]

@@ -1,8 +1,10 @@
-{
-  Script: 'V().hasLabel(_a).has(_b, gt(_c))',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Name',
-    _c: 36
+[
+  {
+    Script: 'V().hasLabel(_a).has(_b, gt(_c))',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Name',
+      _c: 36
+    }
   }
-}
+]

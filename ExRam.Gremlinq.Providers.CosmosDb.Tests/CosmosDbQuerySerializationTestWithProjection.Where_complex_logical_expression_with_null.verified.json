@@ -1,14 +1,16 @@
-{
-  Script: 'V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e))).project(_f, _g, _h).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _i, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Name',
-    _c: 'Age',
-    _d: 42,
-    _e: 99,
-    _f: 'id',
-    _g: 'label',
-    _h: 'properties',
-    _i: 'value'
+[
+  {
+    Script: 'V().hasLabel(_a).hasNot(_b).has(_c, eq(_d).or(eq(_e))).project(_f, _g, _h).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_f, _g, _i, _h).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Name',
+      _c: 'Age',
+      _d: 42,
+      _e: 99,
+      _f: 'id',
+      _g: 'label',
+      _h: 'properties',
+      _i: 'value'
+    }
   }
-}
+]

@@ -1,3 +1,5 @@
-{
-  Script: 'V().count(local)'
-}
+[
+  {
+    Script: 'V().count(local)'
+  }
+]

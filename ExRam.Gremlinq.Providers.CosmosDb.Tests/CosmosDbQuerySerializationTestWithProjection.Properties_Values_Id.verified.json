@@ -1,3 +1,5 @@
-{
-  Script: 'V().properties().id()'
-}
+[
+  {
+    Script: 'V().properties().id()'
+  }
+]

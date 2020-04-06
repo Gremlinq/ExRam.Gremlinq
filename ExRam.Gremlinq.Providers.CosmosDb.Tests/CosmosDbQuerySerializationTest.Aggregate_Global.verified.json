@@ -1,6 +1,8 @@
-{
-  Script: 'V().aggregate(global, _a)',
-  Bindings: {
-    _a: 'l1'
+[
+  {
+    Script: 'V().aggregate(global, _a)',
+    Bindings: {
+      _a: 'l1'
+    }
   }
-}
+]

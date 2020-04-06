@@ -1,7 +1,9 @@
-{
-  Script: 'V().hasLabel(_a).as(_b).select(_b)',
-  Bindings: {
-    _a: 'Person',
-    _b: 'l1'
+[
+  {
+    Script: 'V().hasLabel(_a).as(_b).select(_b)',
+    Bindings: {
+      _a: 'Person',
+      _b: 'l1'
+    }
   }
-}
+]

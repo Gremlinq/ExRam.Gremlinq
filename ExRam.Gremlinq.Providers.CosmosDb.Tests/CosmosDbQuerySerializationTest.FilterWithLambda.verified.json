@@ -1,6 +1,8 @@
-{
-  Script: 'V().hasLabel(_a).filter({it.property(\'str\').value().length() == 2})',
-  Bindings: {
-    _a: 'Person'
+[
+  {
+    Script: 'V().hasLabel(_a).filter({it.property(\'str\').value().length() == 2})',
+    Bindings: {
+      _a: 'Person'
+    }
   }
-}
+]

@@ -1,3 +1,5 @@
-{
-  Script: 'V().group().by(__.label())'
-}
+[
+  {
+    Script: 'V().group().by(__.label())'
+  }
+]

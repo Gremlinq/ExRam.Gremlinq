@@ -1,54 +1,56 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'inE',
-      Arguments: [
-        'Knows',
-        'LivesIn',
-        'Speaks',
-        'WorksFor'
-      ]
-    },
-    {
-      OperatorName: 'project',
-      Arguments: [
-        'id',
-        'label',
-        'properties'
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'id'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'label'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'valueMap'
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'inE',
+        Arguments: [
+          'Knows',
+          'LivesIn',
+          'Speaks',
+          'WorksFor'
+        ]
+      },
+      {
+        OperatorName: 'project',
+        Arguments: [
+          'id',
+          'label',
+          'properties'
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'label'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'valueMap'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

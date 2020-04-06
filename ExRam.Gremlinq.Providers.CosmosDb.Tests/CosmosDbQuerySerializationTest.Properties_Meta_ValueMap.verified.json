@@ -1,3 +1,5 @@
-{
-  Script: 'V().properties().valueMap()'
-}
+[
+  {
+    Script: 'V().properties().valueMap()'
+  }
+]

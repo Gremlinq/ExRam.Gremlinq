@@ -1,15 +1,17 @@
-{
-  Script: 'E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f).project(_h, _i, _j).by(id).by(label).by(__.valueMap())',
-  Bindings: {
-    _a: Guid_1,
-    _b: 'WorksFor',
-    _c: 'From',
-    _d: 'Role',
-    _e: 'To',
-    _f: DateTime_1,
-    _g: 'Admin',
-    _h: 'id',
-    _i: 'label',
-    _j: 'properties'
+[
+  {
+    Script: 'E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f).project(_h, _i, _j).by(id).by(label).by(__.valueMap())',
+    Bindings: {
+      _a: Guid_1,
+      _b: 'WorksFor',
+      _c: 'From',
+      _d: 'Role',
+      _e: 'To',
+      _f: DateTime_1,
+      _g: 'Admin',
+      _h: 'id',
+      _i: 'label',
+      _j: 'properties'
+    }
   }
-}
+]

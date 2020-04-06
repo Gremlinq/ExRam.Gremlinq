@@ -1,3 +1,5 @@
-{
-  Script: 'V().properties().union(__.label(), __.id())'
-}
+[
+  {
+    Script: 'V().properties().union(__.label(), __.id())'
+  }
+]

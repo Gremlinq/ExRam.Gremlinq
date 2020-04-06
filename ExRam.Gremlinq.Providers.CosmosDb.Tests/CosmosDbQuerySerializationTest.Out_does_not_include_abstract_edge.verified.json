@@ -1,10 +1,12 @@
-{
-  Script: 'V().hasLabel(_a).out(_b, _c, _d, _e)',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Knows',
-    _c: 'LivesIn',
-    _d: 'Speaks',
-    _e: 'WorksFor'
+[
+  {
+    Script: 'V().hasLabel(_a).out(_b, _c, _d, _e)',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Knows',
+      _c: 'LivesIn',
+      _d: 'Speaks',
+      _e: 'WorksFor'
+    }
   }
-}
+]

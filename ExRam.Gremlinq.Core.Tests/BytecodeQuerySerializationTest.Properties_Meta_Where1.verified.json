@@ -1,29 +1,31 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Country'
-      ]
-    },
-    {
-      OperatorName: 'properties',
-      Arguments: [
-        'Name'
-      ]
-    },
-    {
-      OperatorName: 'has',
-      Arguments: [
-        'ValidFrom',
-        {
-          OperatorName: 'gte',
-          Value: DateTimeOffset_1
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'has',
+        Arguments: [
+          'ValidFrom',
+          {
+            OperatorName: 'gte',
+            Value: DateTimeOffset_1
+          }
+        ]
+      }
+    ]
+  }
+]

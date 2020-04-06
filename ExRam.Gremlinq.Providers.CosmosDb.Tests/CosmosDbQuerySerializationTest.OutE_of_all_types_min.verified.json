@@ -1,3 +1,5 @@
-{
-  Script: 'V().outE()'
-}
+[
+  {
+    Script: 'V().outE()'
+  }
+]

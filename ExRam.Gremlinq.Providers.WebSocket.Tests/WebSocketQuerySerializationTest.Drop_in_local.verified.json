@@ -1,25 +1,27 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'inject',
-      Arguments: [
-        1
-      ]
-    },
-    {
-      OperatorName: 'local',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'V'
-            },
-            {
-              OperatorName: 'drop'
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'inject',
+        Arguments: [
+          1
+        ]
+      },
+      {
+        OperatorName: 'local',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'V'
+              },
+              {
+                OperatorName: 'drop'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

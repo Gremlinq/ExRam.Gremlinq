@@ -1,26 +1,28 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'properties',
-      Arguments: [
-        'Name'
-      ]
-    },
-    {
-      OperatorName: 'property',
-      Arguments: [
-        'ValidFrom',
-        DateTimeOffset_1
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          'ValidFrom',
+          DateTimeOffset_1
+        ]
+      }
+    ]
+  }
+]

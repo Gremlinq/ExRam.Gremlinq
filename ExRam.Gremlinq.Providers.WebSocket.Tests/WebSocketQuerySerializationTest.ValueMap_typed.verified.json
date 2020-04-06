@@ -1,19 +1,21 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'valueMap',
-      Arguments: [
-        'Age'
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'valueMap',
+        Arguments: [
+          'Age'
+        ]
+      }
+    ]
+  }
+]

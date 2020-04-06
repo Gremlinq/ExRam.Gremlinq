@@ -1,37 +1,39 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Country'
-      ]
-    },
-    {
-      OperatorName: 'properties',
-      Arguments: [
-        'Name'
-      ]
-    },
-    {
-      OperatorName: 'sideEffect',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'properties',
-              Arguments: [
-                'metaKey'
-              ]
-            },
-            {
-              OperatorName: 'drop'
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'sideEffect',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties',
+                Arguments: [
+                  'metaKey'
+                ]
+              },
+              {
+                OperatorName: 'drop'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

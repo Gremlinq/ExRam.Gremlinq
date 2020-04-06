@@ -1,19 +1,21 @@
-{
-  Script: 'V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j).project(_k, _l, _m).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_k, _l, _n, _m).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
-  Bindings: {
-    _a: Guid_1,
-    _b: 'Person',
-    _c: 'Age',
-    _d: 'Gender',
-    _e: 'Name',
-    _f: 'RegistrationDate',
-    _g: 21,
-    _h: 'Male',
-    _i: 'Marko',
-    _j: DateTimeOffset_1,
-    _k: 'id',
-    _l: 'label',
-    _m: 'properties',
-    _n: 'value'
+[
+  {
+    Script: 'V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e, _f).drop()).property(single, _c, _g).property(single, _d, _h).property(single, _e, _i).property(single, _f, _j).project(_k, _l, _m).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_k, _l, _n, _m).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+    Bindings: {
+      _a: Guid_1,
+      _b: 'Person',
+      _c: 'Age',
+      _d: 'Gender',
+      _e: 'Name',
+      _f: 'RegistrationDate',
+      _g: 21,
+      _h: 'Male',
+      _i: 'Marko',
+      _j: DateTimeOffset_1,
+      _k: 'id',
+      _l: 'label',
+      _m: 'properties',
+      _n: 'value'
+    }
   }
-}
+]

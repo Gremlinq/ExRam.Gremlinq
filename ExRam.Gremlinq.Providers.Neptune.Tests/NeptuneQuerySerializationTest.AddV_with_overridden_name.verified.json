@@ -1,137 +1,139 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'addV',
-      Arguments: [
-        'Language'
-      ]
-    },
-    {
-      OperatorName: 'property',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'id'
-        },
-        1
-      ]
-    },
-    {
-      OperatorName: 'property',
-      Arguments: [
-        {
-          EnumName: 'Cardinality',
-          EnumValue: 'single'
-        },
-        'lang',
-        'en'
-      ]
-    },
-    {
-      OperatorName: 'project',
-      Arguments: [
-        'id',
-        'label',
-        'properties'
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'id'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'label'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'properties'
-            },
-            {
-              OperatorName: 'group'
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'label'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'project',
-                      Arguments: [
-                        'id',
-                        'label',
-                        'value'
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          EnumName: 'T',
-                          EnumValue: 'id'
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          StepInstructions: [
-                            {
-                              OperatorName: 'label'
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          StepInstructions: [
-                            {
-                              OperatorName: 'value'
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'fold'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'addV',
+        Arguments: [
+          'Language'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          },
+          1
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'lang',
+          'en'
+        ]
+      },
+      {
+        OperatorName: 'project',
+        Arguments: [
+          'id',
+          'label',
+          'properties'
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'label'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              },
+              {
+                OperatorName: 'group'
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: 'label'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: 'project',
+                        Arguments: [
+                          'id',
+                          'label',
+                          'value'
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            EnumName: 'T',
+                            EnumValue: 'id'
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            StepInstructions: [
+                              {
+                                OperatorName: 'label'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            StepInstructions: [
+                              {
+                                OperatorName: 'value'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'fold'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

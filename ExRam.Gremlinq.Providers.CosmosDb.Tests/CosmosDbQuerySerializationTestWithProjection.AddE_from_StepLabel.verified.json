@@ -1,16 +1,18 @@
-{
-  Script: 'addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d).project(_i, _j, _k).by(id).by(label).by(__.valueMap())',
-  Bindings: {
-    _a: 'Country',
-    _b: 'CountryCallingCode',
-    _c: '+49',
-    _d: 'l1',
-    _e: 'Language',
-    _f: 'IetfLanguageTag',
-    _g: 'en',
-    _h: 'Speaks',
-    _i: 'id',
-    _j: 'label',
-    _k: 'properties'
+[
+  {
+    Script: 'addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).from(_d).project(_i, _j, _k).by(id).by(label).by(__.valueMap())',
+    Bindings: {
+      _a: 'Country',
+      _b: 'CountryCallingCode',
+      _c: '+49',
+      _d: 'l1',
+      _e: 'Language',
+      _f: 'IetfLanguageTag',
+      _g: 'en',
+      _h: 'Speaks',
+      _i: 'id',
+      _j: 'label',
+      _k: 'properties'
+    }
   }
-}
+]

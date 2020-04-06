@@ -1,8 +1,10 @@
-{
-  Script: 'E().project(_a, _b, _c).by(id).by(label).by(__.valueMap())',
-  Bindings: {
-    _a: 'id',
-    _b: 'label',
-    _c: 'properties'
+[
+  {
+    Script: 'E().project(_a, _b, _c).by(id).by(label).by(__.valueMap())',
+    Bindings: {
+      _a: 'id',
+      _b: 'label',
+      _c: 'properties'
+    }
   }
-}
+]

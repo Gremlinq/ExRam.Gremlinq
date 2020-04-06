@@ -1,9 +1,11 @@
-{
-  Script: 'V().inE(_a, _b, _c, _d)',
-  Bindings: {
-    _a: 'Knows',
-    _b: 'LivesIn',
-    _c: 'Speaks',
-    _d: 'WorksFor'
+[
+  {
+    Script: 'V().inE(_a, _b, _c, _d)',
+    Bindings: {
+      _a: 'Knows',
+      _b: 'LivesIn',
+      _c: 'Speaks',
+      _d: 'WorksFor'
+    }
   }
-}
+]

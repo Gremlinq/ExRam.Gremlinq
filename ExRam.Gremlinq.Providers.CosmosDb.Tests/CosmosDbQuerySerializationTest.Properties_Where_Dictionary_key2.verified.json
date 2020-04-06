@@ -1,8 +1,10 @@
-{
-  Script: 'V().hasLabel(_a).properties().has(_b, lt(_c))',
-  Bindings: {
-    _a: 'Person',
-    _b: 'MetaKey',
-    _c: 100
+[
+  {
+    Script: 'V().hasLabel(_a).properties().has(_b, lt(_c))',
+    Bindings: {
+      _a: 'Person',
+      _b: 'MetaKey',
+      _c: 100
+    }
   }
-}
+]

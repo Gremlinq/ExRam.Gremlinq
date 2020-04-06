@@ -1,6 +1,8 @@
-{
-  Script: 'E().hasLabel(_a)',
-  Bindings: {
-    _a: 'WorksFor'
+[
+  {
+    Script: 'E().hasLabel(_a)',
+    Bindings: {
+      _a: 'WorksFor'
+    }
   }
-}
+]

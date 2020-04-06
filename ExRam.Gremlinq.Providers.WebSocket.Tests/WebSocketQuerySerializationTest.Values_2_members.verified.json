@@ -1,35 +1,37 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'union',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'id'
-            }
-          ]
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'values',
-              Arguments: [
-                'Name'
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'union',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'id'
+              }
+            ]
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'values',
+                Arguments: [
+                  'Name'
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

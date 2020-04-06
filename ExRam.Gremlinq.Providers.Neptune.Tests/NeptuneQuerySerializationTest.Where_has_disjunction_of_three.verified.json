@@ -1,143 +1,145 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'has',
-      Arguments: [
-        'Age',
-        {
-          OperatorName: 'or',
-          Value: {
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'has',
+        Arguments: [
+          'Age',
+          {
             OperatorName: 'or',
             Value: {
-              OperatorName: 'eq',
-              Value: 36
+              OperatorName: 'or',
+              Value: {
+                OperatorName: 'eq',
+                Value: 36
+              },
+              Other: {
+                OperatorName: 'eq',
+                Value: 42
+              }
             },
             Other: {
               OperatorName: 'eq',
-              Value: 42
+              Value: 99
             }
-          },
-          Other: {
-            OperatorName: 'eq',
-            Value: 99
           }
-        }
-      ]
-    },
-    {
-      OperatorName: 'project',
-      Arguments: [
-        'id',
-        'label',
-        'properties'
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'id'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'label'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'properties'
-            },
-            {
-              OperatorName: 'group'
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'label'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              OperatorName: 'by',
-              Arguments: [
-                {
-                  StepInstructions: [
-                    {
-                      OperatorName: 'project',
-                      Arguments: [
-                        'id',
-                        'label',
-                        'value'
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          EnumName: 'T',
-                          EnumValue: 'id'
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          StepInstructions: [
-                            {
-                              OperatorName: 'label'
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'by',
-                      Arguments: [
-                        {
-                          StepInstructions: [
-                            {
-                              OperatorName: 'value'
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      OperatorName: 'fold'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+        ]
+      },
+      {
+        OperatorName: 'project',
+        Arguments: [
+          'id',
+          'label',
+          'properties'
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'label'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              },
+              {
+                OperatorName: 'group'
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: 'label'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: 'project',
+                        Arguments: [
+                          'id',
+                          'label',
+                          'value'
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            EnumName: 'T',
+                            EnumValue: 'id'
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            StepInstructions: [
+                              {
+                                OperatorName: 'label'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            StepInstructions: [
+                              {
+                                OperatorName: 'value'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'fold'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

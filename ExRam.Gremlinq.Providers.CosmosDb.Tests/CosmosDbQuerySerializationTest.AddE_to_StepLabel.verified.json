@@ -1,13 +1,15 @@
-{
-  Script: 'addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d)',
-  Bindings: {
-    _a: 'Language',
-    _b: 'IetfLanguageTag',
-    _c: 'en',
-    _d: 'l1',
-    _e: 'Country',
-    _f: 'CountryCallingCode',
-    _g: '+49',
-    _h: 'Speaks'
+[
+  {
+    Script: 'addV(_a).property(single, _b, _c).as(_d).addV(_e).property(single, _f, _g).addE(_h).to(_d)',
+    Bindings: {
+      _a: 'Language',
+      _b: 'IetfLanguageTag',
+      _c: 'en',
+      _d: 'l1',
+      _e: 'Country',
+      _f: 'CountryCallingCode',
+      _g: '+49',
+      _h: 'Speaks'
+    }
   }
-}
+]

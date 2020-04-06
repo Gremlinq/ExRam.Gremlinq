@@ -1,10 +1,12 @@
-{
-  Script: 'V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))',
-  Bindings: {
-    _a: 0,
-    _b: 42,
-    _c: 37,
-    _d: true,
-    _e: false
+[
+  {
+    Script: 'V().id().choose(gt(_a).or(lt(_b).and(neq(_c))), __.constant(_d), __.constant(_e))',
+    Bindings: {
+      _a: 0,
+      _b: 42,
+      _c: 37,
+      _d: true,
+      _e: false
+    }
   }
-}
+]

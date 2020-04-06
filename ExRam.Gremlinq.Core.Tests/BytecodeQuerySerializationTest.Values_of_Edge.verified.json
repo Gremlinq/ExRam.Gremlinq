@@ -1,19 +1,21 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'E'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'LivesIn'
-      ]
-    },
-    {
-      OperatorName: 'values',
-      Arguments: [
-        'Since'
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'E'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'LivesIn'
+        ]
+      },
+      {
+        OperatorName: 'values',
+        Arguments: [
+          'Since'
+        ]
+      }
+    ]
+  }
+]

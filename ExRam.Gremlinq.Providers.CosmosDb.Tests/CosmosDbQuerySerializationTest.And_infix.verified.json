@@ -1,6 +1,8 @@
-{
-  Script: 'V().hasLabel(_a).and().out()',
-  Bindings: {
-    _a: 'Person'
+[
+  {
+    Script: 'V().hasLabel(_a).and().out()',
+    Bindings: {
+      _a: 'Person'
+    }
   }
-}
+]

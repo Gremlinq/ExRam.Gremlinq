@@ -1,3 +1,5 @@
-{
-  Script: 'V().fold().unfold()'
-}
+[
+  {
+    Script: 'V().fold().unfold()'
+  }
+]

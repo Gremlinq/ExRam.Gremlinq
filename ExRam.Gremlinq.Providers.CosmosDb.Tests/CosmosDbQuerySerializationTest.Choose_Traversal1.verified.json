@@ -1,3 +1,5 @@
-{
-  Script: 'V().choose(__.values(), __.out(), __.in())'
-}
+[
+  {
+    Script: 'V().choose(__.values(), __.out(), __.in())'
+  }
+]

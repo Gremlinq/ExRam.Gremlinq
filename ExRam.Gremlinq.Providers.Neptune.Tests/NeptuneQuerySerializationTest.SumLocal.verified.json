@@ -1,28 +1,30 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'values',
-      Arguments: [
-        'Age'
-      ]
-    },
-    {
-      OperatorName: 'sum',
-      Arguments: [
-        {
-          EnumName: 'Scope',
-          EnumValue: 'local'
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'values',
+        Arguments: [
+          'Age'
+        ]
+      },
+      {
+        OperatorName: 'sum',
+        Arguments: [
+          {
+            EnumName: 'Scope',
+            EnumValue: 'local'
+          }
+        ]
+      }
+    ]
+  }
+]

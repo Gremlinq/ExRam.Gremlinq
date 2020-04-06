@@ -1,46 +1,48 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'id'
-    },
-    {
-      OperatorName: 'choose',
-      Arguments: [
-        {
-          OperatorName: 'and',
-          Value: {
-            OperatorName: 'gt',
-            Value: 0
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'id'
+      },
+      {
+        OperatorName: 'choose',
+        Arguments: [
+          {
+            OperatorName: 'and',
+            Value: {
+              OperatorName: 'gt',
+              Value: 0
+            },
+            Other: {
+              OperatorName: 'lt',
+              Value: 42
+            }
           },
-          Other: {
-            OperatorName: 'lt',
-            Value: 42
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'constant',
+                Arguments: [
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'constant',
+                Arguments: [
+                  false
+                ]
+              }
+            ]
           }
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'constant',
-              Arguments: [
-                true
-              ]
-            }
-          ]
-        },
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'constant',
-              Arguments: [
-                false
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+        ]
+      }
+    ]
+  }
+]

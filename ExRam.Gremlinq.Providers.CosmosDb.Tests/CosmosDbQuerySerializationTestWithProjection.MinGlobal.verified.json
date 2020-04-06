@@ -1,7 +1,9 @@
-{
-  Script: 'V().hasLabel(_a).values(_b).min()',
-  Bindings: {
-    _a: 'Person',
-    _b: 'Age'
+[
+  {
+    Script: 'V().hasLabel(_a).values(_b).min()',
+    Bindings: {
+      _a: 'Person',
+      _b: 'Age'
+    }
   }
-}
+]

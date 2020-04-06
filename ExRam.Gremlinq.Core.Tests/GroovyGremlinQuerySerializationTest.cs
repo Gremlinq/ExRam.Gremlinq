@@ -1,14 +1,15 @@
 ﻿using Xunit.Abstractions;
+using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class GroovyGremlinQuerySerializationTest : QuerySerializationTest
     {
         public GroovyGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
-            GremlinQuerySource.g
-                .ConfigureEnvironment(env => env
-                    .ConfigureSerializer(ser => ser
-                        .ToGroovy())),
+            g.ConfigureEnvironment(_ => _
+                .UseSerializer(GremlinQuerySerializer.Default.ToGroovy())
+                .UseExecutor(GremlinQueryExecutor.Echo)
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper)
         {
         }

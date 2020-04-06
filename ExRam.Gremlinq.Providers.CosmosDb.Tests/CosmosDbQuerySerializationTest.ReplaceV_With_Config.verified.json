@@ -1,13 +1,15 @@
-{
-  Script: 'V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)',
-  Bindings: {
-    _a: Guid_1,
-    _b: 'Person',
-    _c: 'Age',
-    _d: 'Gender',
-    _e: 'Name',
-    _f: 21,
-    _g: 'Male',
-    _h: 'Marko'
+[
+  {
+    Script: 'V(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(single, _c, _f).property(single, _d, _g).property(single, _e, _h)',
+    Bindings: {
+      _a: Guid_1,
+      _b: 'Person',
+      _c: 'Age',
+      _d: 'Gender',
+      _e: 'Name',
+      _f: 21,
+      _g: 'Male',
+      _h: 'Marko'
+    }
   }
-}
+]

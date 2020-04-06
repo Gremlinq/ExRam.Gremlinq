@@ -1,3 +1,5 @@
-{
-  Script: 'withoutStrategies(ElementIdStrategy, SubgraphStrategy).V()'
-}
+[
+  {
+    Script: 'withoutStrategies(ElementIdStrategy, SubgraphStrategy).V()'
+  }
+]

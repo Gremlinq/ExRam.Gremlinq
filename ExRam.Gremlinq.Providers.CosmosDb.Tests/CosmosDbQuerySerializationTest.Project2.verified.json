@@ -1,7 +1,9 @@
-{
-  Script: 'V().project(_a, _b).by(__.in()).by(__.out())',
-  Bindings: {
-    _a: 'Item1',
-    _b: 'Item2'
+[
+  {
+    Script: 'V().project(_a, _b).by(__.in()).by(__.out())',
+    Bindings: {
+      _a: 'Item1',
+      _b: 'Item2'
+    }
   }
-}
+]

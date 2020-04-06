@@ -1,94 +1,96 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'addV',
-      Arguments: [
-        'Country'
-      ]
-    },
-    {
-      OperatorName: 'property',
-      Arguments: [
-        {
-          EnumName: 'Cardinality',
-          EnumValue: 'single'
-        },
-        'CountryCallingCode',
-        '+49'
-      ]
-    },
-    {
-      OperatorName: 'as',
-      Arguments: [
-        'l1'
-      ]
-    },
-    {
-      OperatorName: 'addV',
-      Arguments: [
-        'Language'
-      ]
-    },
-    {
-      OperatorName: 'property',
-      Arguments: [
-        {
-          EnumName: 'Cardinality',
-          EnumValue: 'single'
-        },
-        'IetfLanguageTag',
-        'en'
-      ]
-    },
-    {
-      OperatorName: 'addE',
-      Arguments: [
-        'Speaks'
-      ]
-    },
-    {
-      OperatorName: 'from',
-      Arguments: [
-        'l1'
-      ]
-    },
-    {
-      OperatorName: 'project',
-      Arguments: [
-        'id',
-        'label',
-        'properties'
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'id'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          EnumName: 'T',
-          EnumValue: 'label'
-        }
-      ]
-    },
-    {
-      OperatorName: 'by',
-      Arguments: [
-        {
-          StepInstructions: [
-            {
-              OperatorName: 'valueMap'
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'addV',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'CountryCallingCode',
+          '+49'
+        ]
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'addV',
+        Arguments: [
+          'Language'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'IetfLanguageTag',
+          'en'
+        ]
+      },
+      {
+        OperatorName: 'addE',
+        Arguments: [
+          'Speaks'
+        ]
+      },
+      {
+        OperatorName: 'from',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'project',
+        Arguments: [
+          'id',
+          'label',
+          'properties'
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'label'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'valueMap'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

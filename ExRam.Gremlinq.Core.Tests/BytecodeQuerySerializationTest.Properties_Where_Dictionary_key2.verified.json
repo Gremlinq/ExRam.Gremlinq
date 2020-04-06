@@ -1,26 +1,28 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'properties'
-    },
-    {
-      OperatorName: 'has',
-      Arguments: [
-        'MetaKey',
-        {
-          OperatorName: 'lt',
-          Value: 100
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'has',
+        Arguments: [
+          'MetaKey',
+          {
+            OperatorName: 'lt',
+            Value: 100
+          }
+        ]
+      }
+    ]
+  }
+]

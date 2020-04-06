@@ -1,39 +1,41 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'fold'
-    },
-    {
-      OperatorName: 'as',
-      Arguments: [
-        'l1'
-      ]
-    },
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'hasLabel',
-      Arguments: [
-        'Person'
-      ]
-    },
-    {
-      OperatorName: 'where',
-      Arguments: [
-        {
-          OperatorName: 'within',
-          Value: [
-            'l1'
-          ]
-        }
-      ]
-    },
-    {
-      OperatorName: 'count'
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'fold'
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            OperatorName: 'within',
+            Value: [
+              'l1'
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'count'
+      }
+    ]
+  }
+]

@@ -14,14 +14,12 @@ namespace ExRam.Gremlinq.Core.Tests
             Settings.DisableDiff();
         }
 
-        public static Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
+        public static async Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
-            return verifyBase.Verify(
-                query
-                    .AsAdmin()
-                    .Environment
-                    .Serializer
-                    .Serialize(query),
+            await verifyBase.Verify(
+                await query
+                    .Cast<object>()
+                    .ToArrayAsync(),
                 Settings);
         }
     }

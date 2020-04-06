@@ -1,13 +1,15 @@
-{
-  StepInstructions: [
-    {
-      OperatorName: 'V'
-    },
-    {
-      OperatorName: 'properties'
-    },
-    {
-      OperatorName: 'value'
-    }
-  ]
-}
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'value'
+      }
+    ]
+  }
+]

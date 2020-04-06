@@ -1,7 +1,9 @@
-{
-  Script: 'V().hasLabel(_a).has(id, _b)',
-  Bindings: {
-    _a: 'VertexWithStringId',
-    _b: 'hallo'
+[
+  {
+    Script: 'V().hasLabel(_a).has(id, _b)',
+    Bindings: {
+      _a: 'VertexWithStringId',
+      _b: 'hallo'
+    }
   }
-}
+]

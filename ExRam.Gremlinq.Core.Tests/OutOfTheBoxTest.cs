@@ -38,7 +38,9 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(e => e
-                    .ConfigureSerializer(s => s.ToGroovy()))
+                    .ConfigureSerializer(s => s.ToGroovy())
+                    .UseExecutor(GremlinQueryExecutor.Echo)
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity))
                 .V<SomeEntity>()
                 .Verify(this);
         }

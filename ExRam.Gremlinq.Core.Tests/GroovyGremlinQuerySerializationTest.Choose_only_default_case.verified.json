@@ -1,6 +1,8 @@
-{
-  Script: 'V().choose(__.values()).option(none, __.constant(_a))',
-  Bindings: {
-    _a: 1
+[
+  {
+    Script: 'V().choose(__.values()).option(none, __.constant(_a))',
+    Bindings: {
+      _a: 1
+    }
   }
-}
+]
