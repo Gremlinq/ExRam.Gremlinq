@@ -13,6 +13,7 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
+    [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
     public abstract class QuerySerializationTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
