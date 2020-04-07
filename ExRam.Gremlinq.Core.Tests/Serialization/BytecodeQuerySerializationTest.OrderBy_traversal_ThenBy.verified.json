@@ -11,6 +11,27 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'values',
+                Arguments: [
+                  'Gender'
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'order'
       },
       {

@@ -11,6 +11,18 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'has',
+        Arguments: [
+          'CountryCallingCode'
+        ]
+      },
+      {
         OperatorName: 'as',
         Arguments: [
           'l1'

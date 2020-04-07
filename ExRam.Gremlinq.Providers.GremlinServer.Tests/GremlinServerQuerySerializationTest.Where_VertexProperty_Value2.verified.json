@@ -14,10 +14,7 @@
         OperatorName: 'has',
         Arguments: [
           'Name',
-          {
-            OperatorName: 'gt',
-            Value: 36
-          }
+          'SomeName'
         ]
       },
       {

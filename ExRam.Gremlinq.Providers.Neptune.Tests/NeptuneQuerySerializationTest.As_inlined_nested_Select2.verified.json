@@ -32,7 +32,7 @@
         ]
       },
       {
-        OperatorName: 'count'
+        OperatorName: 'out'
       },
       {
         OperatorName: 'project',

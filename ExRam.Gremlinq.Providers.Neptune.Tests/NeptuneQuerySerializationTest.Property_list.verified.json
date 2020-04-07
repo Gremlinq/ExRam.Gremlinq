@@ -2,15 +2,18 @@
   {
     StepInstructions: [
       {
-        OperatorName: 'V',
-        Arguments: [
-          'id'
-        ]
+        OperatorName: 'V'
       },
       {
         OperatorName: 'hasLabel',
         Arguments: [
           'Company'
+        ]
+      },
+      {
+        OperatorName: 'limit',
+        Arguments: [
+          1
         ]
       },
       {

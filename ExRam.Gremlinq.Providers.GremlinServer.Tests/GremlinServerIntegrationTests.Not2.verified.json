@@ -1,0 +1,74 @@
+[
+  {
+    Id: 0,
+    Label: 'Country'
+  },
+  {
+    Id: 5,
+    Label: 'Person'
+  },
+  {
+    Id: 200,
+    Label: 'Person'
+  },
+  {
+    Id: 11,
+    Label: 'Person'
+  },
+  {
+    Id: 14,
+    Label: 'Country'
+  },
+  {
+    Id: 16,
+    Label: 'Person'
+  },
+  {
+    Id: 19,
+    Label: 'Country'
+  },
+  {
+    Id: 21,
+    Label: 'Person'
+  },
+  {
+    Id: 24,
+    Label: 'Country'
+  },
+  {
+    Id: 600,
+    Label: 'Country'
+  },
+  {
+    Id: 28,
+    Label: 'Country'
+  },
+  {
+    Id: 31,
+    Label: 'Person'
+  },
+  {
+    Id: 800,
+    Label: 'Company'
+  },
+  {
+    Id: 37,
+    Label: 'Company'
+  },
+  {
+    Id: 39,
+    Label: 'Person'
+  },
+  {
+    Id: 50,
+    Label: 'Person'
+  },
+  {
+    Id: 500,
+    Label: 'Country'
+  },
+  {
+    Id: 700,
+    Label: 'Company'
+  }
+]

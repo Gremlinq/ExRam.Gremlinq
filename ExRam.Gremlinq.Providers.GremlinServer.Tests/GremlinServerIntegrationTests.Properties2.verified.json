@@ -1,0 +1,18 @@
+[
+  {
+    key: 'Since',
+    value: {
+      @type: 'g:Map',
+      @value: [
+        'Value',
+        DateTime_1,
+        'Key',
+        null
+      ]
+    }
+  },
+  {
+    key: 'To',
+    value: DateTime_2
+  }
+]

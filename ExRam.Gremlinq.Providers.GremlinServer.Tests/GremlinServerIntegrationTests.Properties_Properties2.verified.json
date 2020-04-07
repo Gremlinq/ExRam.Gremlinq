@@ -1,0 +1,9 @@
+[
+  {
+    key: 'ValidFrom',
+    value: {
+      @type: 'g:Date',
+      @value: 1546326000000
+    }
+  }
+]

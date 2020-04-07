@@ -1,9 +1,9 @@
 [
   {
-    Script: 'V(_a).hasLabel(_b).sideEffect(__.properties(_c).drop())',
+    Script: 'V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop())',
     Bindings: {
-      _a: 'id',
-      _b: 'Company',
+      _a: 'Company',
+      _b: 1,
       _c: 'PhoneNumbers'
     }
   }

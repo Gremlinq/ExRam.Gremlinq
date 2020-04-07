@@ -1,0 +1,22 @@
+[
+  {
+    Id: 15,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 20,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 25,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 36,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 37,
+    Label: 'Company'
+  }
+]

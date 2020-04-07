@@ -1,0 +1,70 @@
+[
+  {
+    Id: 0,
+    Label: 'Country'
+  },
+  {
+    Id: 2,
+    Label: 'Language'
+  },
+  {
+    Id: 900,
+    Label: 'Language'
+  },
+  {
+    Id: 1100,
+    Label: 'Language'
+  },
+  {
+    Id: 14,
+    Label: 'Country'
+  },
+  {
+    Id: 400,
+    Label: 'Language'
+  },
+  {
+    Id: 19,
+    Label: 'Country'
+  },
+  {
+    Id: 24,
+    Label: 'Country'
+  },
+  {
+    Id: 600,
+    Label: 'Country'
+  },
+  {
+    Id: 26,
+    Label: 'Language'
+  },
+  {
+    Id: 28,
+    Label: 'Country'
+  },
+  {
+    Id: 100,
+    Label: 'Language'
+  },
+  {
+    Id: 1000,
+    Label: 'Language'
+  },
+  {
+    Id: 44,
+    Label: 'Language'
+  },
+  {
+    Id: 45,
+    Label: 'Language'
+  },
+  {
+    Id: 500,
+    Label: 'Country'
+  },
+  {
+    Id: 53,
+    Label: 'Language'
+  }
+]

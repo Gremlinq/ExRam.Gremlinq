@@ -7,11 +7,17 @@
       {
         OperatorName: 'hasLabel',
         Arguments: [
-          'Country'
+          'Person'
         ]
       },
       {
         OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'hasKey',
+        Arguments: [
+          'Age'
+        ]
       },
       {
         OperatorName: 'hasValue',

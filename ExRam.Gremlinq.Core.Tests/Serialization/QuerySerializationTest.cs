@@ -1,4 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using ExRam.Gremlinq.Tests.Entities;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
@@ -13,6 +16,14 @@ namespace ExRam.Gremlinq.Core.Tests
             testOutputHelper,
             callerFilePath)
         {
+        }
+
+        [Fact]
+        public async Task StringKey()
+        {
+            await _g
+                .V<Person>("id")
+                .Verify(this);
         }
     }
 }

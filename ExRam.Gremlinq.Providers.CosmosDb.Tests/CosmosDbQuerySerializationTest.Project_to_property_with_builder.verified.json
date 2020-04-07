@@ -1,6 +1,6 @@
 [
   {
-    Script: 'V().hasLabel(_a).project(_b, _c).by(__.values(_b)).by(__.in())',
+    Script: 'V().hasLabel(_a).where(__.in()).project(_b, _c).by(__.values(_b)).by(__.in())',
     Bindings: {
       _a: 'Person',
       _b: 'Age',

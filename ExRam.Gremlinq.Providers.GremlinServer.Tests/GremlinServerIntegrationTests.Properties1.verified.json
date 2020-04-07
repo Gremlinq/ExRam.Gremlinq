@@ -1,0 +1,349 @@
+[
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 1
+    },
+    value: '+49',
+    label: 'CountryCallingCode'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 3
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 9
+    },
+    value: {
+      @type: 'g:Date',
+      @value: 1586270616000
+    },
+    label: 'RegistrationDate'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 7
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 6
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 8
+    },
+    value: 'Bob',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 49
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 1
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 48
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 13
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 12
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 47
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 18
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 17
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 23
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 22
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 57
+    },
+    value: 'GER',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 27
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 29
+    },
+    value: '+49',
+    label: 'CountryCallingCode'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 35
+    },
+    value: {
+      @type: 'g:Date',
+      @value: 1586270616000
+    },
+    label: 'RegistrationDate'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 33
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 32
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 34
+    },
+    value: 'Bob',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 60
+    },
+    value: '+4912345',
+    label: 'PhoneNumbers'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 61
+    },
+    value: '+4923456',
+    label: 'PhoneNumbers'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 59
+    },
+    value: DateTime_1,
+    label: 'FoundingDate'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 43
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 38
+    },
+    value: DateTime_1,
+    label: 'FoundingDate'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 41
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Gender'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 40
+    },
+    value: {
+      @type: 'g:Int32',
+      @value: 0
+    },
+    label: 'Age'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 62
+    },
+    value: 'en',
+    label: 'lang'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 46
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 52
+    },
+    value: {
+      @type: 'g:Date',
+      @value: 1586270616000
+    },
+    label: 'RegistrationDate'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 51
+    },
+    value: 'Marko',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 58
+    },
+    value: 'GER',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 54
+    },
+    value: 'en',
+    label: 'IetfLanguageTag'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 56
+    },
+    value: 'Bob',
+    label: 'Names'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 55
+    },
+    value: DateTime_1,
+    label: 'FoundingDate'
+  }
+]

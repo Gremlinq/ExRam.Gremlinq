@@ -1,5 +1,5 @@
 [
   {
-    Script: 'V().dedup(local)'
+    Script: 'V().fold().dedup(local)'
   }
 ]

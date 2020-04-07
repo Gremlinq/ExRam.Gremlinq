@@ -1,0 +1,304 @@
+[
+  {
+    Country: {
+      @type: 'g:List',
+      @value: [
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 0
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 14
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 19
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 24
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 600
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 28
+            },
+            label: 'Country'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 500
+            },
+            label: 'Country'
+          }
+        }
+      ]
+    },
+    Company: {
+      @type: 'g:List',
+      @value: [
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 800
+            },
+            label: 'Company'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 37
+            },
+            label: 'Company'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 700
+            },
+            label: 'Company'
+          }
+        }
+      ]
+    },
+    Language: {
+      @type: 'g:List',
+      @value: [
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 2
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 900
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 1100
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 400
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 26
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 100
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 1000
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 44
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 45
+            },
+            label: 'Language'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 53
+            },
+            label: 'Language'
+          }
+        }
+      ]
+    },
+    Person: {
+      @type: 'g:List',
+      @value: [
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 5
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 200
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 11
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 16
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 21
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 31
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 39
+            },
+            label: 'Person'
+          }
+        },
+        {
+          @type: 'g:Vertex',
+          @value: {
+            id: {
+              @type: 'g:Int64',
+              @value: 50
+            },
+            label: 'Person'
+          }
+        }
+      ]
+    }
+  }
+]

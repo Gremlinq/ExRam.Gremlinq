@@ -5,6 +5,42 @@
         OperatorName: 'V'
       },
       {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'in'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'out'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'project',
         Arguments: [
           'count!',

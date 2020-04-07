@@ -1,8 +1,9 @@
 [
   {
-    Script: 'V().hasLabel(_a).order().by({it.property(\'str\').value().length()})',
+    Script: 'V().hasLabel(_a).has(_b).order().by({it.property(\'Name\').value().length()})',
     Bindings: {
-      _a: 'Person'
+      _a: 'Person',
+      _b: 'Name'
     }
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.V(_i).hasLabel(_j))',
+    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.addV(_i))',
     Bindings: {
       _a: 'Person',
       _b: 'Age',
@@ -12,8 +12,7 @@
       _h: {
         Value: DateTimeOffset_1
       },
-      _i: 'id',
-      _j: 'Country'
+      _i: 'Country'
     }
   }
 ]

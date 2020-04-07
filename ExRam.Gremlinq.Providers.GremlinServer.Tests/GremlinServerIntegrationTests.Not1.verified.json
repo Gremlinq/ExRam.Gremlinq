@@ -1,0 +1,110 @@
+[
+  {
+    Id: 0,
+    Label: 'Country'
+  },
+  {
+    Id: 2,
+    Label: 'Language'
+  },
+  {
+    Id: 900,
+    Label: 'Language'
+  },
+  {
+    Id: 5,
+    Label: 'Person'
+  },
+  {
+    Id: 200,
+    Label: 'Person'
+  },
+  {
+    Id: 11,
+    Label: 'Person'
+  },
+  {
+    Id: 1100,
+    Label: 'Language'
+  },
+  {
+    Id: 14,
+    Label: 'Country'
+  },
+  {
+    Id: 16,
+    Label: 'Person'
+  },
+  {
+    Id: 400,
+    Label: 'Language'
+  },
+  {
+    Id: 19,
+    Label: 'Country'
+  },
+  {
+    Id: 21,
+    Label: 'Person'
+  },
+  {
+    Id: 24,
+    Label: 'Country'
+  },
+  {
+    Id: 600,
+    Label: 'Country'
+  },
+  {
+    Id: 26,
+    Label: 'Language'
+  },
+  {
+    Id: 28,
+    Label: 'Country'
+  },
+  {
+    Id: 31,
+    Label: 'Person'
+  },
+  {
+    Id: 800,
+    Label: 'Company'
+  },
+  {
+    Id: 100,
+    Label: 'Language'
+  },
+  {
+    Id: 37,
+    Label: 'Company'
+  },
+  {
+    Id: 1000,
+    Label: 'Language'
+  },
+  {
+    Id: 44,
+    Label: 'Language'
+  },
+  {
+    Id: 45,
+    Label: 'Language'
+  },
+  {
+    Id: 50,
+    Label: 'Person'
+  },
+  {
+    Id: 500,
+    Label: 'Country'
+  },
+  {
+    Id: 53,
+    Label: 'Language'
+  },
+  {
+    Id: 700,
+    Label: 'Company'
+  }
+]

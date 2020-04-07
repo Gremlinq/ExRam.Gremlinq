@@ -3,7 +3,7 @@
     Script: 'addV(_a).property(id, _b).property(single, _c, _d)',
     Bindings: {
       _a: 'Country',
-      _b: 1,
+      _b: 600,
       _c: 'Name',
       _d: 'GER'
     }

@@ -11,13 +11,19 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
         OperatorName: 'order'
       },
       {
         OperatorName: 'by',
         Arguments: [
           {
-            LambdaExpression: 'it.property(\'str\').value().length()',
+            LambdaExpression: 'it.property(\'Name\').value().length()',
             Language: 'gremlin-groovy',
             Arguments: -1
           }

@@ -50,13 +50,7 @@
           {
             StepInstructions: [
               {
-                OperatorName: 'V',
-                Arguments: [
-                  'id'
-                ]
-              },
-              {
-                OperatorName: 'hasLabel',
+                OperatorName: 'addV',
                 Arguments: [
                   'Country'
                 ]

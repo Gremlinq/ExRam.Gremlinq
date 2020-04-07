@@ -1,0 +1,26 @@
+[
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 8
+    },
+    value: 'Bob',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 34
+    },
+    value: 'Bob',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 51
+    },
+    value: 'Marko',
+    label: 'Name'
+  }
+]

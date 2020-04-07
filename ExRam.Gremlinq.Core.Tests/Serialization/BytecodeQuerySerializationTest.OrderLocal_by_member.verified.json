@@ -11,6 +11,12 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
         OperatorName: 'order',
         Arguments: [
           {

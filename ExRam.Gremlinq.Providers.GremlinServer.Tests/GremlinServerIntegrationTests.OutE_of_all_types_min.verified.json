@@ -1,0 +1,34 @@
+[
+  {
+    Id: 10,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 4,
+    Label: 'Speaks'
+  },
+  {
+    Id: 15,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 20,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 25,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 30,
+    Label: 'Speaks'
+  },
+  {
+    Id: 36,
+    Label: 'LivesIn'
+  },
+  {
+    Id: 42,
+    Label: 'WorksFor'
+  }
+]

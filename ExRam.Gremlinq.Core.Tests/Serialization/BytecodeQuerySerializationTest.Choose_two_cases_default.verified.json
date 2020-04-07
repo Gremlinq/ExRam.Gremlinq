@@ -5,6 +5,18 @@
         OperatorName: 'V'
       },
       {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'choose',
         Arguments: [
           {

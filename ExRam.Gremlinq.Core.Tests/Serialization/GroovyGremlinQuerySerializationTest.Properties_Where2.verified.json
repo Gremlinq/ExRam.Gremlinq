@@ -1,9 +1,10 @@
 [
   {
-    Script: 'V().hasLabel(_a).properties().hasValue(lt(_b))',
+    Script: 'V().hasLabel(_a).properties().hasKey(_b).hasValue(lt(_c))',
     Bindings: {
-      _a: 'Country',
-      _b: 10
+      _a: 'Person',
+      _b: 'Age',
+      _c: 10
     }
   }
 ]

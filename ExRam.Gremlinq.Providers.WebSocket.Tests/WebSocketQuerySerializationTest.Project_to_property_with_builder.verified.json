@@ -11,6 +11,18 @@
         ]
       },
       {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'in'
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'project',
         Arguments: [
           'Age',

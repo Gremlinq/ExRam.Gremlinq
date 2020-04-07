@@ -15,6 +15,69 @@
         ]
       },
       {
+        OperatorName: 'from',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'addV',
+                Arguments: [
+                  'Person'
+                ]
+              },
+              {
+                OperatorName: 'property',
+                Arguments: [
+                  {
+                    EnumName: 'Cardinality',
+                    EnumValue: 'single'
+                  },
+                  'Age',
+                  0
+                ]
+              },
+              {
+                OperatorName: 'property',
+                Arguments: [
+                  {
+                    EnumName: 'Cardinality',
+                    EnumValue: 'single'
+                  },
+                  'Gender',
+                  'Male'
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'to',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'addV',
+                Arguments: [
+                  'Company'
+                ]
+              },
+              {
+                OperatorName: 'property',
+                Arguments: [
+                  {
+                    EnumName: 'Cardinality',
+                    EnumValue: 'single'
+                  },
+                  'FoundingDate',
+                  DateTime_2
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'project',
         Arguments: [
           'id',

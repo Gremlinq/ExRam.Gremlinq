@@ -17,6 +17,9 @@
         ]
       },
       {
+        OperatorName: 'fold'
+      },
+      {
         OperatorName: 'mean',
         Arguments: [
           {

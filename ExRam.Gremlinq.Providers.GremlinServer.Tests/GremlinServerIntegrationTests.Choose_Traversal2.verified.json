@@ -1,0 +1,58 @@
+[
+  {
+    Id: 5,
+    Label: 'Person'
+  },
+  {
+    Id: 2,
+    Label: 'Language'
+  },
+  {
+    Id: 900,
+    Label: 'Language'
+  },
+  {
+    Id: 14,
+    Label: 'Country'
+  },
+  {
+    Id: 14,
+    Label: 'Country'
+  },
+  {
+    Id: 19,
+    Label: 'Country'
+  },
+  {
+    Id: 19,
+    Label: 'Country'
+  },
+  {
+    Id: 400,
+    Label: 'Language'
+  },
+  {
+    Id: 24,
+    Label: 'Country'
+  },
+  {
+    Id: 24,
+    Label: 'Country'
+  },
+  {
+    Id: 26,
+    Label: 'Language'
+  },
+  {
+    Id: 0,
+    Label: 'Country'
+  },
+  {
+    Id: 37,
+    Label: 'Company'
+  },
+  {
+    Id: 44,
+    Label: 'Language'
+  }
+]

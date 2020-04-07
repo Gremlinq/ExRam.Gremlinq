@@ -11,10 +11,16 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
         OperatorName: 'filter',
         Arguments: [
           {
-            LambdaExpression: 'it.property(\'str\').value().length() == 2',
+            LambdaExpression: 'it.get().property(\'Name\').value().length() == 2',
             Language: 'gremlin-groovy',
             Arguments: -1
           }

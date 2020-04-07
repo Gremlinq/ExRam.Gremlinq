@@ -1,13 +1,21 @@
 [
   {
-    Script: 'addE(_a).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())',
+    Script: 'addE(_a).property(_b, _c).from(__.addV(_d).property(single, _e, _f).property(single, _g, _h)).to(__.addV(_i).property(single, _j, _k)).project(_l, _m, _n).by(id).by(label).by(__.valueMap())',
     Bindings: {
       _a: 'WorksFor',
       _b: 'To',
       _c: DateTime_1,
-      _d: 'id',
-      _e: 'label',
-      _f: 'properties'
+      _d: 'Person',
+      _e: 'Age',
+      _f: 0,
+      _g: 'Gender',
+      _h: 'Male',
+      _i: 'Company',
+      _j: 'FoundingDate',
+      _k: DateTime_2,
+      _l: 'id',
+      _m: 'label',
+      _n: 'properties'
     }
   }
 ]

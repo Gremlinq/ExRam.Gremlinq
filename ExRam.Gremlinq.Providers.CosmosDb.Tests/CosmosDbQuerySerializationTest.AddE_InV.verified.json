@@ -1,6 +1,6 @@
 [
   {
-    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.V(_g).hasLabel(_h)).inV()',
+    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.addV(_g)).inV()',
     Bindings: {
       _a: 'Person',
       _b: 'Age',
@@ -8,8 +8,7 @@
       _d: 'Gender',
       _e: 'Male',
       _f: 'LivesIn',
-      _g: 'id',
-      _h: 'Country'
+      _g: 'Country'
     }
   }
 ]

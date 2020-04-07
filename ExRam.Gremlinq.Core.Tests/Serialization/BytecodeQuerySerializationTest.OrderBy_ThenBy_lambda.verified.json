@@ -11,13 +11,34 @@
         ]
       },
       {
+        OperatorName: 'has',
+        Arguments: [
+          'Name'
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'values',
+                Arguments: [
+                  'Age'
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'order'
       },
       {
         OperatorName: 'by',
         Arguments: [
           {
-            LambdaExpression: 'it.property(\'str1\').value().length()',
+            LambdaExpression: 'it.property(\'Name\').value().length()',
             Language: 'gremlin-groovy',
             Arguments: -1
           }
@@ -27,7 +48,7 @@
         OperatorName: 'by',
         Arguments: [
           {
-            LambdaExpression: 'it.property(\'str2\').value().length()',
+            LambdaExpression: 'it.property(\'Age\').value()',
             Language: 'gremlin-groovy',
             Arguments: -1
           }

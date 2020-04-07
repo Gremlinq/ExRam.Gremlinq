@@ -3,7 +3,7 @@
     Script: 'addV(_a).property(id, _b)',
     Bindings: {
       _a: 'Language',
-      _b: 1
+      _b: 400
     }
   }
 ]

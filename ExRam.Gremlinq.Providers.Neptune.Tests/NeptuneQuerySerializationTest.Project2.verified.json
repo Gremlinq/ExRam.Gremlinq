@@ -5,6 +5,30 @@
         OperatorName: 'V'
       },
       {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'in'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'out'
+              }
+            ]
+          }
+        ]
+      },
+      {
         OperatorName: 'project',
         Arguments: [
           'Item1',
