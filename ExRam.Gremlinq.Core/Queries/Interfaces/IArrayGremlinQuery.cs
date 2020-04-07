@@ -1,13 +1,13 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IArrayGremlinQueryBase : IGremlinQueryBase
+    public interface IArrayGremlinQueryBase : IValueGremlinQueryBase
     {
-        new IGremlinQuery<object[]> Lower();
+        new IValueGremlinQuery<object[]> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TSelf> :
         IArrayGremlinQueryBase,
-        IGremlinQueryBaseRec<TSelf>
+        IValueGremlinQueryBaseRec<TSelf>
         where TSelf : IArrayGremlinQueryBaseRec<TSelf>
     {
 
@@ -15,16 +15,16 @@
 
     public partial interface IArrayGremlinQueryBase<TArray, out TQuery> :
         IArrayGremlinQueryBase,
-        IGremlinQueryBase<TArray>
+        IValueGremlinQueryBase<TArray>
     {
         TQuery Unfold();
-        new IGremlinQuery<TArray> Lower();
+        new IValueGremlinQuery<TArray> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TArray, out TQuery, TSelf> :
         IArrayGremlinQueryBaseRec<TSelf>,
         IArrayGremlinQueryBase<TArray, TQuery>,
-        IGremlinQueryBaseRec<TArray, TSelf>
+        IValueGremlinQueryBaseRec<TArray, TSelf>
         where TSelf : IArrayGremlinQueryBaseRec<TArray, TQuery, TSelf>
     {
 
