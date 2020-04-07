@@ -8,15 +8,13 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public sealed class GremlinServerQuerySerializationTest : QueryExecutionTest
+    public sealed class GremlinServerQuerySerializationTest : QuerySerializationTest
     {
         public GremlinServerQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
                     .UseGremlinServer(builder => builder
-                        .AtLocalhost())
-                    .UseExecutor(GremlinQueryExecutor.Echo)
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
+                        .AtLocalhost())),
             testOutputHelper)
         {
 

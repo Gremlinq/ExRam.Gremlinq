@@ -6,14 +6,12 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class NeptuneQuerySerializationTest : QueryExecutionTest
+    public class NeptuneQuerySerializationTest : QuerySerializationTest
     {
         public NeptuneQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
-                    .UseNeptune(builder => builder.AtLocalhost())
-                    .UseExecutor(GremlinQueryExecutor.Echo)
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
+                    .UseNeptune(builder => builder.AtLocalhost())),
             testOutputHelper)
         {
         }

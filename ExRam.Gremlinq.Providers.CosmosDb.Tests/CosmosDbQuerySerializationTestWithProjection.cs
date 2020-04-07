@@ -12,8 +12,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                     .UseCosmosDb(builder => builder
                         .At(new Uri("wss://localhost"), "database", "graph")
                         .AuthenticateBy("authKey"))
-                    .UseExecutor(GremlinQueryExecutor.Echo)
-                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)
                     .ConfigureOptions(options => options
                         .SetValue(GremlinqOption.DontAddElementProjectionSteps, false))),
             testOutputHelper)
