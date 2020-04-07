@@ -14,13 +14,13 @@ using Xunit.Abstractions;
 namespace ExRam.Gremlinq.Core.Tests
 {
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
-    public abstract class QuerySerializationTest : VerifyBase
+    public abstract class QueryExecutionTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
 
         private static readonly string id = "id";
 
-        protected QuerySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
+        protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
         {
             _g = g
                 .ConfigureEnvironment(env => env

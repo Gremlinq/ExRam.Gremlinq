@@ -5,7 +5,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.WebSocket.Tests
 {
-    public class WebSocketQuerySerializationTest : QuerySerializationTest
+    public class WebSocketQuerySerializationTest : QueryExecutionTest
     {
         public WebSocketQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g

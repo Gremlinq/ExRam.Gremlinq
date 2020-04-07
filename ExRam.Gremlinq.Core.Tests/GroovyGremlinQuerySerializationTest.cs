@@ -3,7 +3,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public sealed class GroovyGremlinQuerySerializationTest : QuerySerializationTest
+    public sealed class GroovyGremlinQuerySerializationTest : QueryExecutionTest
     {
         public GroovyGremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g.ConfigureEnvironment(_ => _

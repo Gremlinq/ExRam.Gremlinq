@@ -6,7 +6,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Neptune.Tests
 {
-    public class NeptuneQuerySerializationTest : QuerySerializationTest
+    public class NeptuneQuerySerializationTest : QueryExecutionTest
     {
         public NeptuneQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             g
