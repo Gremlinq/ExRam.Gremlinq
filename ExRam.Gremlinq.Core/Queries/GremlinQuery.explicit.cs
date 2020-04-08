@@ -36,6 +36,8 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>,
         IPropertyGremlinQuery<TElement> where TMeta : class
     {
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MeanLocal() => MeanLocal().ChangeQueryType<TFoldedQuery>();
+
         TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
         IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
@@ -46,21 +48,27 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IValueGremlinQueryBase<TElement>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.SumLocal() => SumLocal().ChangeQueryType<TFoldedQuery>();
+
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MinLocal() => MinLocal().ChangeQueryType<TFoldedQuery>();
+
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MaxLocal() => MaxLocal().ChangeQueryType<TFoldedQuery>();
+
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Sum() => SumGlobal();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.SumLocal() => SumLocal();
+        IValueGremlinQuery<object> IValueGremlinQueryBase<TElement>.SumLocal() => SumLocal();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Min() => MinGlobal();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MinLocal() => MinLocal();
+        IValueGremlinQuery<object> IValueGremlinQueryBase<TElement>.MinLocal() => MinLocal();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Max() => MaxGlobal();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MaxLocal() => MaxLocal();
+        IValueGremlinQuery<object> IValueGremlinQueryBase<TElement>.MaxLocal() => MaxLocal();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Mean() => MeanGlobal();
 
-        IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.MeanLocal() => MeanLocal();
+        IValueGremlinQuery<object> IValueGremlinQueryBase<TElement>.MeanLocal() => MeanLocal();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 

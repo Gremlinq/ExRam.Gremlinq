@@ -873,17 +873,17 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumGlobal() => AddStep(SumStep.Global, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumLocal() => AddStep(SumStep.Local, QuerySemantics.None);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SumLocal() => AddStep<object>(SumStep.Local, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinLocal() => AddStep(MinStep.Local, QuerySemantics.None);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinLocal() => AddStep<object>(MinStep.Local, QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MinGlobal() => AddStep(MinStep.Global, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxLocal() => AddStep(MaxStep.Local, QuerySemantics.None);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxLocal() => AddStep<object>(MaxStep.Local, QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MaxGlobal() => AddStep(MaxStep.Global, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanLocal() => AddStep(MeanStep.Local, QuerySemantics.None);
+        private GremlinQuery<object, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanLocal() => AddStep<object>(MeanStep.Local, QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanGlobal() => AddStep(MeanStep.Global, QuerySemantics.None);
 

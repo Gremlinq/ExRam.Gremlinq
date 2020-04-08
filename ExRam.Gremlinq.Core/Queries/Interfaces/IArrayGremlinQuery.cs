@@ -17,6 +17,14 @@
         IArrayGremlinQueryBase,
         IValueGremlinQueryBase<TArray>
     {
+        new TQuery SumLocal();
+
+        new TQuery MinLocal();
+
+        new TQuery MaxLocal();
+
+        new TQuery MeanLocal();
+
         TQuery Unfold();
         new IValueGremlinQuery<TArray> Lower();
     }

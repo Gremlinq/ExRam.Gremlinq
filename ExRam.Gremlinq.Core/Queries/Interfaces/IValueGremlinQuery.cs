@@ -16,16 +16,16 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IValueGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
         TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQueryBase;
 
-        IValueGremlinQuery<TElement> SumLocal();
+        IValueGremlinQuery<object> SumLocal();
         IValueGremlinQuery<TElement> Sum();
 
-        IValueGremlinQuery<TElement> MinLocal();
+        IValueGremlinQuery<object> MinLocal();
         IValueGremlinQuery<TElement> Min();
 
-        IValueGremlinQuery<TElement> MaxLocal();
+        IValueGremlinQuery<object> MaxLocal();
         IValueGremlinQuery<TElement> Max();
 
-        IValueGremlinQuery<TElement> MeanLocal();
+        IValueGremlinQuery<object> MeanLocal();
         IValueGremlinQuery<TElement> Mean();
 
         IValueGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);

@@ -2321,6 +2321,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Age)
+                .Fold()
                 .SumLocal()
                 .Where(x => x == 100)
                 .Verify(this);
@@ -2332,6 +2333,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Values(x => x.Age)
+                .Fold()
                 .SumLocal()
                 .Where(x => x < 100)
                 .Verify(this);
