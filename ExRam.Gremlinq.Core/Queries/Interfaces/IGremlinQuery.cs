@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
 
-        IArrayGremlinQueryBase<TElement, TQuery> Cap<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
+        IArrayGremlinQuery<TElement, TQuery> Cap<TQuery, TElement>(StepLabel<IArrayGremlinQuery<TElement, TQuery>, TElement> label) where TQuery : IGremlinQueryBase;
     }
 
     public partial interface IGremlinQueryBase<TElement> : IGremlinQueryBase
@@ -122,8 +122,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBase<TElement>
         where TSelf : IGremlinQueryBaseRec<TElement, TSelf>
     {
-        TTargetQuery Aggregate<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
-        TTargetQuery AggregateGlobal<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
+        TTargetQuery Aggregate<TTargetQuery>(Func<TSelf, StepLabel<IArrayGremlinQuery<TElement[], TSelf>, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
+        TTargetQuery AggregateGlobal<TTargetQuery>(Func<TSelf, StepLabel<IArrayGremlinQuery<TElement[], TSelf>, TElement[]>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;
 
         TSelf As(StepLabel<TElement> stepLabel);
         TTargetQuery As<TTargetQuery>(Func<TSelf, StepLabel<TSelf, TElement>, TTargetQuery> continuation) where TTargetQuery : IGremlinQueryBase;

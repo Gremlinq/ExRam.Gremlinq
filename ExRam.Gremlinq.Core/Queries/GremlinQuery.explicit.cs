@@ -174,7 +174,7 @@ namespace ExRam.Gremlinq.Core
                 .ChangeQueryType<TQuery>();
         }
 
-        IArrayGremlinQueryBase<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<TQuery, TNewElement> label) => Cap(label);
+        IArrayGremlinQuery<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<IArrayGremlinQuery<TNewElement, TQuery>, TNewElement> label) => Cap(label);
 
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
