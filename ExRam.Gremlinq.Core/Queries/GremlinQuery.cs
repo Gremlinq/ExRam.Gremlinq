@@ -616,6 +616,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Is(P predicate)
         {
+            if (predicate.Value == null)
+                throw new ExpressionNotSupportedException();
+
             return ConfigureSteps<TElement>(steps =>
             {
                 if (!steps.IsEmpty && steps.Peek() is IsStep isStep)
