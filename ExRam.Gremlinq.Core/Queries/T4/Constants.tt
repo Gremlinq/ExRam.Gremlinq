@@ -32,7 +32,7 @@
             .Replace("TEdge", "TElement")
             .Replace("TAdjacentVertex", "TOutVertex")
             .Replace("TProperty", "TElement")
-            .Replace("TValue", "TPropertyValue")
+            .Replace("TValue", "TScalar")
             .Replace("TArray", "TElement")
             .Replace("TQuery", "TFoldedQuery"));
 #>

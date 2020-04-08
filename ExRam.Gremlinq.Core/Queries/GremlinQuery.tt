@@ -13,7 +13,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TPropertyValue, TMeta, TFoldedQuery>
+    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>
     {
 <# for(var i = 2; i <= 16; i++) { #>
         IValueGremlinQuery<(<#= GetArgumentList("T{0}", i) #>)> IGremlinQueryBase.Select<<#= GetArgumentList("T{0}", i) #>>(<#= GetArgumentList("StepLabel<T{0}> label{0}", i) #>) => Project<TElement, (<#= GetArgumentList("T{0}", i) #>)>(p => p.ToTuple()<#= GetArgumentList(".By(_ => _.Select(label{0}))", "", i) #>);
