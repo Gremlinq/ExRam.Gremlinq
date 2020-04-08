@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
             {
                 var stepLabelNames = new Dictionary<StepLabel, string>();
 
-                object Constant<TAtom>(TAtom atom, Func<TAtom, object> baseSerializer, Func<object, object> recurse)
+                object Constant<TAtom>(TAtom atom, Func<TAtom, object> baseSerializer, Func<object, object?> recurse)
                 {
                     if (atom is StepLabel stepLabel)
                     {
@@ -43,8 +43,11 @@ namespace ExRam.Gremlinq.Core
                     return atom!;
                 }
 
-                object RecurseImpl(object o)
+                object? RecurseImpl(object? o)
                 {
+                    if (o == null)
+                        return null;
+
                     var action = TryGetSerializer(o.GetType()) ?? Constant;
 
                     return action(o, _ => Constant(_, _ => _, RecurseImpl), RecurseImpl);
