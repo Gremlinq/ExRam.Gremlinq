@@ -1,0 +1,3 @@
+[
+  '{"@type":"g:Bytecode","@value":{"step":[["V"],["id"],["choose",{"@type":"g:P","@value":{"predicate":"and","value":[{"@type":"g:P","@value":{"predicate":"gt","value":{"@type":"g:Int32","@value":0}}},{"@type":"g:P","@value":{"predicate":"lt","value":{"@type":"g:Int32","@value":42}}}]}},{"@type":"g:Bytecode","@value":{"step":[["constant",true]]}},{"@type":"g:Bytecode","@value":{"step":[["constant",false]]}}]]}}'
+]

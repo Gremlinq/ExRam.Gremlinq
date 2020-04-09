@@ -1,0 +1,3 @@
+[
+  '{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Person"],["union",{"@type":"g:Bytecode","@value":{"step":[["id"]]}},{"@type":"g:Bytecode","@value":{"step":[["values","Name"]]}}]]}}'
+]

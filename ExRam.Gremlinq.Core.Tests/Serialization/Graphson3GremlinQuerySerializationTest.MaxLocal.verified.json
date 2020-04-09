@@ -1,0 +1,3 @@
+[
+  '{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Person"],["values","Age"],["fold"],["max",{"@type":"g:Scope","@value":"local"}]]}}'
+]
