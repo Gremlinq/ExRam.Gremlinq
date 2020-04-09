@@ -1,4 +1,5 @@
 ﻿using System;
+using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -8,6 +9,13 @@ namespace ExRam.Gremlinq.Core
         {
             return serializer
                 .OverrideFragmentSerializer<CosmosDbKey>((key, overridden, recurse) => recurse(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
+                .OverrideFragmentSerializer<HasKeyStep>((step, overridden, recurse) =>
+                {
+                    if (step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase)))
+                        throw new NotSupportedException("CosmosDb does not currently support 'hasKey(P)'.");
+
+                    return overridden(step);
+                })
                 .OverrideFragmentSerializer<SkipStep>((step, overridden, recurse) => recurse(new RangeStep(step.Count, -1, step.Scope)))
                 .OverrideFragmentSerializer<LimitStep>((step, overridden, recurse) =>
                 {

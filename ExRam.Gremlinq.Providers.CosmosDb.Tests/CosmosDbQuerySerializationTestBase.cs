@@ -1,7 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,35 +18,58 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public void CosmosDbKey()
+        public async Task CosmosDbKey()
         {
-            _g
+            await _g
                 .V<Person>(new CosmosDbKey("pk", "id"))
                 .Verify(this);
         }
 
         [Fact]
-        public void CosmosDbKey_with_null_partitionKey()
+        public async Task CosmosDbKey_with_null_partitionKey()
         {
-            _g
+            await _g
                 .V<Person>(new CosmosDbKey("id"))
                 .Verify(this);
         }
 
         [Fact]
-        public void Mixed_StringKey_CosmosDbKey()
+        public async Task Mixed_StringKey_CosmosDbKey()
         {
-            _g
+            await _g
                 .V<Person>(new CosmosDbKey("pk", "id"), "id2")
                 .Verify(this);
         }
 
         [Fact]
-        public void Mixed_StringKey_CosmosDbKey_with_null_partitionKey()
+        public async Task Mixed_StringKey_CosmosDbKey_with_null_partitionKey()
         {
-            _g
+            await _g
                 .V<Person>(new CosmosDbKey("id"), "id2")
                 .Verify(this);
+        }
+
+        [Fact]
+        public async Task Properties_Where_eq_Label_on_CosmosDb()
+        {
+            await _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Label == "label")
+                .Verify(this);
+        }
+
+        [Fact]
+        public void Properties_Where_neq_Label_on_CosmosDb()
+        {
+            _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Label != "label")
+                .Awaiting(__ => __
+                    .Verify(this))
+                .Should()
+                .Throw<NotSupportedException>();
         }
     }
 }
