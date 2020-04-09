@@ -32,7 +32,7 @@
         OperatorName: 'property',
         Arguments: [
           'To',
-          DateTime_1
+          DateTimeOffset_1
         ]
       },
       {

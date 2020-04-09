@@ -238,7 +238,10 @@
       @type: 'g:Int64',
       @value: 59
     },
-    value: DateTime_1,
+    value: {
+      @type: 'g:Date',
+      @value: -62135596800000
+    },
     label: 'FoundingDate'
   },
   {
@@ -254,7 +257,10 @@
       @type: 'g:Int64',
       @value: 38
     },
-    value: DateTime_1,
+    value: {
+      @type: 'g:Date',
+      @value: -62135596800000
+    },
     label: 'FoundingDate'
   },
   {
@@ -343,7 +349,10 @@
       @type: 'g:Int64',
       @value: 55
     },
-    value: DateTime_1,
+    value: {
+      @type: 'g:Date',
+      @value: -62135596800000
+    },
     label: 'FoundingDate'
   }
 ]

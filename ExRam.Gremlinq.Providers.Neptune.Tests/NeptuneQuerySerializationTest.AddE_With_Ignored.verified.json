@@ -11,7 +11,7 @@
         OperatorName: 'property',
         Arguments: [
           'To',
-          DateTime_1
+          DateTimeOffset_1
         ]
       },
       {
@@ -70,7 +70,7 @@
                     EnumValue: 'single'
                   },
                   'FoundingDate',
-                  DateTime_2
+                  DateTimeOffset_2
                 ]
               }
             ]

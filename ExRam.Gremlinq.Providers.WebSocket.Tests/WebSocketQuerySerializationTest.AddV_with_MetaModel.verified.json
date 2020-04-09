@@ -15,7 +15,7 @@
             EnumValue: 'single'
           },
           'FoundingDate',
-          DateTime_1
+          DateTimeOffset_1
         ]
       },
       {
@@ -38,7 +38,7 @@
           'Names',
           'Bob',
           'ValidFrom',
-          DateTimeOffset_1
+          DateTimeOffset_2
         ]
       },
       {

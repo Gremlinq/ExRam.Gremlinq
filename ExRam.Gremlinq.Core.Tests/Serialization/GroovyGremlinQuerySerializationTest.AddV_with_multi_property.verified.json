@@ -4,7 +4,7 @@
     Bindings: {
       _a: 'Company',
       _b: 'FoundingDate',
-      _c: DateTime_1,
+      _c: DateTimeOffset_1,
       _d: 800,
       _e: 'PhoneNumbers',
       _f: '+4912345',

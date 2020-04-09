@@ -4,7 +4,7 @@
     Bindings: {
       _a: 'WorksFor',
       _b: 'To',
-      _c: DateTime_1,
+      _c: DateTimeOffset_1,
       _d: 'Person',
       _e: 'Age',
       _f: 0,
@@ -12,7 +12,7 @@
       _h: 'Male',
       _i: 'Company',
       _j: 'FoundingDate',
-      _k: DateTime_2
+      _k: DateTimeOffset_2
     }
   }
 ]

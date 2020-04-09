@@ -4,7 +4,7 @@
     Bindings: {
       _a: 'WorksFor',
       _b: 'To',
-      _c: DateTime_1,
+      _c: DateTimeOffset_1,
       _d: 'id',
       _e: 'label',
       _f: 'properties'

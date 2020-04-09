@@ -105,7 +105,7 @@
         OperatorName: 'property',
         Arguments: [
           'From',
-          DateTime_1
+          DateTimeOffset_1
         ]
       },
       {
@@ -119,7 +119,7 @@
         OperatorName: 'property',
         Arguments: [
           'To',
-          DateTime_1
+          DateTimeOffset_1
         ]
       },
       {

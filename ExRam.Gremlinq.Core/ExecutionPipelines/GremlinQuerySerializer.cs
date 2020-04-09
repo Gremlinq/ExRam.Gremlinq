@@ -288,6 +288,7 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<CountStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("count", recurse, step.Scope)
                     : CreateInstruction("count"))
+                .OverrideFragmentSerializer<DateTime>((dateTime, overridden, recurse) => new DateTimeOffset(dateTime.ToUniversalTime()))
                 .OverrideFragmentSerializer<DedupStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("dedup", recurse, step.Scope)
                     : CreateInstruction("dedup"))
