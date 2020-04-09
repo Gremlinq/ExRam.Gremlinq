@@ -40,7 +40,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --configuration Release --no-build --verbosity normal
 
     - name: Publish NuGet packages
       uses: actions/upload-artifact@v2-preview
