@@ -12,14 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+
+    - name: Run Gremlin Server
+      run: docker run -d -p 8182:8182 tinkerpop/gremlin-server
+
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: 'true'
+
     - name: Setup .NET Core 2.2
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.207
+
     - name: Setup .NET Core 3.1
       uses: actions/setup-dotnet@v1
       with:
@@ -31,8 +38,10 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release
+
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
     - name: Publish NuGet packages
       uses: actions/upload-artifact@v2-preview
       with:
