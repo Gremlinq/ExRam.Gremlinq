@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿#if RELEASE && NETCOREAPP3_1
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit.Abstractions;
@@ -18,3 +19,4 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
     }
 }
+#endif
