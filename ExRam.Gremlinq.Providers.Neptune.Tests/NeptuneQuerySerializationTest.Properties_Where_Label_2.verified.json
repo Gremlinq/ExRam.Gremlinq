@@ -17,21 +17,9 @@
         ]
       },
       {
-        OperatorName: 'where',
+        OperatorName: 'hasKey',
         Arguments: [
-          {
-            StepInstructions: [
-              {
-                OperatorName: 'label'
-              },
-              {
-                OperatorName: 'is',
-                Arguments: [
-                  'label'
-                ]
-              }
-            ]
-          }
+          'label'
         ]
       }
     ]

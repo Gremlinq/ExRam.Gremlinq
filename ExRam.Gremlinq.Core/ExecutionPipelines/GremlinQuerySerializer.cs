@@ -304,6 +304,12 @@ namespace ExRam.Gremlinq.Core
                 .OverrideFragmentSerializer<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
                 .OverrideFragmentSerializer<GroupStep>((step, overridden, recurse) => CreateInstruction("group"))
                 .OverrideFragmentSerializer<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
+                .OverrideFragmentSerializer<HasKeyStep>((step, overridden, recurse) => CreateInstruction(
+                    "hasKey",
+                    recurse,
+                    step.Argument is P p && p.OperatorName == "eq"
+                        ? p.Value
+                        : step.Argument))
                 .OverrideFragmentSerializer<HasPredicateStep>((step, overridden, recurse) =>
                 {
                     var stepName = "has";

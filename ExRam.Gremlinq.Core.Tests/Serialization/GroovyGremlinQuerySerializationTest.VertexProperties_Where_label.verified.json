@@ -1,6 +1,6 @@
 [
   {
-    Script: 'V().hasLabel(_a).properties(_b).where(__.label().is(_c))',
+    Script: 'V().hasLabel(_a).properties(_b).hasKey(_c)',
     Bindings: {
       _a: 'Company',
       _b: 'Names',

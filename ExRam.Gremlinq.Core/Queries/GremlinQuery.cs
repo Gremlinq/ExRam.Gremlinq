@@ -1081,13 +1081,15 @@ namespace ExRam.Gremlinq.Core
                                                 ExpressionFragment.Create(leftMemberExpression.Expression),
                                                 semantics,
                                                 right));
-                                    case WellKnownMember.VertexPropertyLabel:
+                                    case WellKnownMember.VertexPropertyLabel when rightConstantFragment.Value is StepLabel:
                                         return Where(__ => __
                                             .Label()
                                             .Where(
                                                 ExpressionFragment.Create(leftMemberExpression.Expression),
                                                 semantics,
                                                 right));
+                                    case WellKnownMember.VertexPropertyLabel:
+                                        return AddStep(new HasKeyStep(effectivePredicate));
                                 }
                             }
                             else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
