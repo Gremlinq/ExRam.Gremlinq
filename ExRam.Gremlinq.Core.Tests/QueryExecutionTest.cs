@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task AddV_without_model()
         {
-            _g
+            await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
                 .AddV(new Language { Id = 1100, IetfLanguageTag = "en" })
@@ -2200,9 +2200,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task ReplaceE()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var id = Guid.NewGuid();
 
-            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
+            var worksFor = new WorksFor { Id = 0, From = now, To = now, Role = "Admin" };
 
             await _g
                 .ReplaceE(worksFor)
@@ -2213,8 +2212,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task ReplaceE_With_Config()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
-            var id = Guid.NewGuid();
-            var worksFor = new WorksFor { Id = id, From = now, To = now, Role = "Admin" };
+            var worksFor = new WorksFor { Id = 0, From = now, To = now, Role = "Admin" };
 
             await _g
                 .ConfigureEnvironment(env => env

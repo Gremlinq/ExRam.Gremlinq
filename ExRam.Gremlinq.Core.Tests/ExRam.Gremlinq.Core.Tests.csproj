@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="*.verified.json" />
-    <None Remove="*.received.json" />
+    <None Remove="**\*.verified.json" />
+    <None Remove="**\*.received.json" />
     <None Remove="Json\Array_of_Languages.json" />
     <None Remove="Json\Country_with_meta_properties.json" />
     <None Remove="Json\Graphson3ReferenceVertex.json" />
