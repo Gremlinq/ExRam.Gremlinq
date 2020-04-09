@@ -1972,6 +1972,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Properties_Where_Label_equals_StepLabel()
+        {
+            await _g
+                .Inject("label")
+                .As((__, l) => __
+                    .V<Country>()
+                    .Properties(x => x.Languages)
+                    .Where(x => x.Label == l))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Properties_Where_Meta_key()
         {
             await _g

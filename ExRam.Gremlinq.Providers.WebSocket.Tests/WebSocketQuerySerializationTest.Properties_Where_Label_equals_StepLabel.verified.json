@@ -1,0 +1,54 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'inject',
+        Arguments: [
+          'label'
+        ]
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Languages'
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'label'
+              },
+              {
+                OperatorName: 'where',
+                Arguments: [
+                  {
+                    OperatorName: 'eq',
+                    Value: 'l1'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
