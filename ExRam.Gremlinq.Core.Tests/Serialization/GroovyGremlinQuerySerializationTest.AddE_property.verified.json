@@ -9,9 +9,7 @@
       _e: 'Male',
       _f: 'LivesIn',
       _g: 'Since',
-      _h: {
-        Value: DateTimeOffset_1
-      },
+      _h: DateTimeOffset_1,
       _i: 'Country',
       _j: 'id',
       _k: 'label',

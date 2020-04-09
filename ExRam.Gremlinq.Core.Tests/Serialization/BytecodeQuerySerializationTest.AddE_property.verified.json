@@ -39,9 +39,7 @@
         OperatorName: 'property',
         Arguments: [
           'Since',
-          {
-            Value: DateTimeOffset_1
-          }
+          DateTimeOffset_1
         ]
       },
       {

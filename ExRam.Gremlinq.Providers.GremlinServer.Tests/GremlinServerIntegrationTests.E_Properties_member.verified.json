@@ -2,13 +2,8 @@
   {
     key: 'Since',
     value: {
-      @type: 'g:Map',
-      @value: [
-        'Value',
-        DateTime_1,
-        'Key',
-        null
-      ]
+      @type: 'g:Date',
+      @value: 1586270616000
     }
   }
 ]

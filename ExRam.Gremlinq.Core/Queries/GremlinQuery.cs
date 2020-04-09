@@ -316,13 +316,16 @@ namespace ExRam.Gremlinq.Core
         {
             var metaProperties = Array.Empty<object>();
 
-            if (value is IVertexProperty && value is Property property)
+            if (value is Property property)
             {
-                if (property.GetMetaProperties(Environment.Model.PropertiesModel) is { } dict)
+                if (value is IVertexProperty)
                 {
-                    metaProperties = dict
-                        .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                        .ToArray() ?? Array.Empty<object>();
+                    if (property.GetMetaProperties(Environment.Model.PropertiesModel) is { } dict)
+                    {
+                        metaProperties = dict
+                            .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
+                            .ToArray() ?? Array.Empty<object>();
+                    }
                 }
 
                 value = property.GetValue();
