@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core;
+﻿using System.Threading.Tasks;
+using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using ExRam.Gremlinq.Tests.Entities;
@@ -21,9 +22,9 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         }
 
         [Fact]
-        public void AddV_with_enum_property_with_workaround()
+        public async Task AddV_with_enum_property_with_workaround()
         {
-            _g
+            await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureOptions(options => options
                         .SetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112, true)))
