@@ -1,0 +1,40 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'true'
+    - name: Setup .NET Core 2.2
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.207
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+        
+    - name: .net SxS
+      run: |
+        rsync -a ${DOTNET_ROOT/3.1.101/2.2.207}/* $DOTNET_ROOT/
+
+    - name: Build
+      run: dotnet build --configuration Release
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Publish NuGet packages
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: Packages
+        path: '**/*.nupkg'
