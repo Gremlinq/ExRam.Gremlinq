@@ -1,0 +1,3 @@
+[
+  '{"@type":"g:Bytecode","@value":{"step":[["V"],["hasLabel","Country"],["properties","Name"],["has","ValidFrom",{"@type":"g:P","@value":{"predicate":"gte","value":{"@type":"g:Date","@value":1546304400000}}}]]}}'
+]
