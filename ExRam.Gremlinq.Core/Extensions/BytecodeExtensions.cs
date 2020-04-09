@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Gremlin.Net.Process.Traversal;
 
@@ -23,7 +24,7 @@ namespace ExRam.Gremlinq.Core
                         if (builder.Length > 0)
                             builder.Append("__");
 
-                        foreach (var instruction in bytecode.StepInstructions)
+                        foreach (var instruction in bytecode.SourceInstructions.Concat(bytecode.StepInstructions))
                         {
                             builder.Append(builder.Length != 0
                                 ? $".{instruction.OperatorName}("

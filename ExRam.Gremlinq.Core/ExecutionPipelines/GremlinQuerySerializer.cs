@@ -360,7 +360,12 @@ namespace ExRam.Gremlinq.Core
                         for (var i = stepsArray.Length - 1; i >= 0; i--)
                         {
                             if (recurse(stepsArray[i]) is Instruction instruction)
-                                byteCode.StepInstructions.Add(instruction);
+                            {
+                                if (instruction.OperatorName.Equals("withoutStrategies"))
+                                    byteCode.SourceInstructions.Add(instruction);
+                                else
+                                    byteCode.StepInstructions.Add(instruction);
+                            }
                         }
                     }
 

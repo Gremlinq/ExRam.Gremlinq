@@ -1,13 +1,15 @@
 [
   {
-    StepInstructions: [
+    SourceInstructions: [
       {
         OperatorName: 'withoutStrategies',
         Arguments: [
           'ElementIdStrategy',
           'SubgraphStrategy'
         ]
-      },
+      }
+    ],
+    StepInstructions: [
       {
         OperatorName: 'V'
       },
