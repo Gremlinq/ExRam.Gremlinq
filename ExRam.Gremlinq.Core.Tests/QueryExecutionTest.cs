@@ -1971,6 +1971,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+
+        [Fact]
+        public async Task Properties_Where_neq_Label_workaround()
+        {
+            await _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x
+                    .Label()
+                    .Where(l => l != "label"))
+                .Verify(this);
+        }
+
         [Fact]
         public async Task Properties_Where_Label_equals_StepLabel()
         {

@@ -1,0 +1,42 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Country'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Languages'
+        ]
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'label'
+              },
+              {
+                OperatorName: 'is',
+                Arguments: [
+                  {
+                    OperatorName: 'neq',
+                    Value: 'label'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

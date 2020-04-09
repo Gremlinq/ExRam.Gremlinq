@@ -50,17 +50,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_eq_Label_on_CosmosDb()
-        {
-            await _g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x.Label == "label")
-                .Verify(this);
-        }
-
-        [Fact]
-        public void Properties_Where_neq_Label_on_CosmosDb()
+        public void Properties_Where_neq_Label()
         {
             _g
                 .V<Country>()
