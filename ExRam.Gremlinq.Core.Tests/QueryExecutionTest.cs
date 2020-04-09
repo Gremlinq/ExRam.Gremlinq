@@ -832,7 +832,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-        [Fact(Skip="I don't know why.")]
         public async Task E_Properties()
         {
             await _g
@@ -2109,7 +2108,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-        [Fact(Skip = "I don't know why.")]
         public async Task Properties2()
         {
             await _g
