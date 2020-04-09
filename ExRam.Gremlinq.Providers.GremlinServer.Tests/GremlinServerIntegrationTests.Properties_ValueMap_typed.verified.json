@@ -41,7 +41,7 @@
   {
     ValidFrom: {
       @type: 'g:Date',
-      @value: 1546326000000
+      @value: 1546304400000
     }
   }
 ]

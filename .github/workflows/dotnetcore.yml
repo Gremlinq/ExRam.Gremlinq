@@ -14,7 +14,7 @@ jobs:
     steps:
 
     - name: Run Gremlin Server
-      run: docker run -d -p 8182:8182 tinkerpop/gremlin-server
+      run: docker run -d -p 8182:8182 -e TZ="Europe/Berlin" tinkerpop/gremlin-server
 
     - name: Checkout
       uses: actions/checkout@v2
