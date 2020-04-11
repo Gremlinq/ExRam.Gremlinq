@@ -97,53 +97,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        // ReSharper disable once UnusedTypeParameter
-        private abstract class BlockableConverter<TSelf> : JsonConverter
-        {
-            [ThreadStatic]
-            // ReSharper disable once StaticMemberInGenericType
-            private static bool _isBlocked;
-
-            private sealed class BlockDisposable : IDisposable
-            {
-                public static readonly BlockDisposable Instance = new BlockDisposable();
-
-                public void Dispose()
-                {
-                    _isBlocked = false;
-                }
-            }
-
-            public sealed override bool CanConvert(Type objectType)
-            {
-                if (_isBlocked)
-                {
-                    _isBlocked = false;
-
-                    return false;
-                }
-
-                return CanConvertImpl(objectType);
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                throw new NotSupportedException();
-            }
-
-            protected IDisposable Block()
-            {
-                _isBlocked = true;
-
-                return BlockDisposable.Instance;
-            }
-
-            protected abstract bool CanConvertImpl(Type objectType);
-
-            public override bool CanRead => true;
-            public override bool CanWrite => true;
-        }
-
         private sealed class TimespanConverter : IJTokenConverter
         {
             public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
@@ -390,18 +343,34 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class JTokenConverterConverter : BlockableConverter<JTokenConverterConverter>
+        private sealed class JTokenConverterConverter : JsonConverter
         {
             private readonly IJTokenConverter _converter;
+
+            [ThreadStatic]
+            // ReSharper disable once StaticMemberInGenericType
+            private static bool _isBlocked;
 
             public JTokenConverterConverter(IJTokenConverter converter)
             {
                 _converter = converter;
             }
 
-            protected override bool CanConvertImpl(Type objectType)
+            public override bool CanConvert(Type objectType)
             {
+                if (_isBlocked)
+                {
+                    _isBlocked = false;
+
+                    return false;
+                }
+
                 return true;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotSupportedException();
             }
 
             [return: AllowNull]
@@ -409,12 +378,17 @@ namespace ExRam.Gremlinq.Core
             {
                 var token = JToken.Load(reader);
 
-                using (Block())
+                try
                 {
-                    if (_converter.TryConvert(token, objectType, _converter, out var value))
-                        return value;
+                    _isBlocked = true;
 
-                    return default;
+                    return _converter.TryConvert(token, objectType, _converter, out var value)
+                        ? value
+                        : default;
+                }
+                finally
+                {
+                    _isBlocked = false;
                 }
             }
         }
