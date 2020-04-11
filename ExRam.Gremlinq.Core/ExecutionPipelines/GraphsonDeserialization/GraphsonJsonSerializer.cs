@@ -340,9 +340,9 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class NativeTypeConverter : IJTokenConverter
         {
-            private readonly System.Collections.Generic.HashSet<Type> _nativeTypes;
+            private readonly HashSet<Type> _nativeTypes;
 
-            public NativeTypeConverter(System.Collections.Generic.HashSet<Type> nativeTypes)
+            public NativeTypeConverter(HashSet<Type> nativeTypes)
             {
                 _nativeTypes = nativeTypes;
             }
@@ -364,31 +364,24 @@ namespace ExRam.Gremlinq.Core
         
         private sealed class ThisConverter : IJTokenConverter
         {
-            private readonly JsonSerializer _serializer;
+            private readonly JsonSerializer _populatingSerializer;
+            private readonly JsonSerializer _ignoringSerializer;
 
-            public ThisConverter(JsonSerializer serializer)
+            public ThisConverter(JsonSerializer populatingSerializer, JsonSerializer ignoringSerializer)
             {
-                _serializer = serializer;
+                _populatingSerializer = populatingSerializer;
+                _ignoringSerializer = ignoringSerializer;
             }
 
             public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
-                var ret = jToken.ToObject(objectType, _serializer);
+                var ret = jToken.ToObject(objectType, _populatingSerializer);
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
                     if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
                     {
-                        _serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
-
-                        try
-                        {
-                            _serializer.Populate(new JTokenReader(propertiesToken), ret);
-                        }
-                        finally
-                        {
-                            _serializer.DefaultValueHandling = DefaultValueHandling.Populate;
-                        }
+                        _ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                     }
                 }
 
@@ -512,16 +505,28 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters)
+        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters) : this(environment, DefaultValueHandling.Populate, additionalConverters)
+        {
+
+        }
+
+        private GraphsonJsonSerializer(IGremlinQueryEnvironment environment, DefaultValueHandling defaultValueHandling, params IJTokenConverter[] additionalConverters)
         {
             var converter = JTokenConverter
                 .Null
-                .Combine(new ThisConverter(this))
+                .Combine(new ThisConverter(
+                    this,
+                    defaultValueHandling == DefaultValueHandling.Populate
+                        ? new GraphsonJsonSerializer(
+                            environment,
+                            DefaultValueHandling.Ignore,
+                            additionalConverters)
+                        : this))
                 .Combine(new TimespanConverter())
                 .Combine(new DateTimeOffsetConverter())
                 .Combine(new DateTimeConverter())
                 .Combine(new NestedValueConverter())
-                .Combine(new NativeTypeConverter(new System.Collections.Generic.HashSet<Type>(environment.Model.NativeTypes)))
+                .Combine(new NativeTypeConverter(new HashSet<Type>(environment.Model.NativeTypes)))
                 .Combine(new FlatteningConverter())
                 .Combine(new ElementConverter(environment.Model))
                 .Combine(new MapConverter())
@@ -533,8 +538,8 @@ namespace ExRam.Gremlinq.Core
                     .Combine(additionalConverter);
             }
 
+            DefaultValueHandling = defaultValueHandling;
             Converters.Add(new JTokenConverterConverter(converter));
-            DefaultValueHandling = DefaultValueHandling.Populate;
             ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
         }
     }
