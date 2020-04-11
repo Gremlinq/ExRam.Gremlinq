@@ -505,12 +505,31 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters) : this(environment, DefaultValueHandling.Populate, additionalConverters)
+        public GraphsonJsonSerializer(IGremlinQueryEnvironment environment, params IJTokenConverter[] additionalConverters) : this(
+            DefaultValueHandling.Populate,
+            new IJTokenConverter[]
+            {
+                new TimespanConverter(),
+                new DateTimeOffsetConverter(),
+                new DateTimeConverter(),
+                new NestedValueConverter(),
+                new NativeTypeConverter(new HashSet<Type>(environment.Model.NativeTypes)),
+                new FlatteningConverter(),
+                new ElementConverter(environment.Model),
+                new MapConverter(),
+                new ArrayConverter()
+            },
+            additionalConverters,
+            new GremlinContractResolver(environment.Model.PropertiesModel))
         {
 
         }
 
-        private GraphsonJsonSerializer(IGremlinQueryEnvironment environment, DefaultValueHandling defaultValueHandling, params IJTokenConverter[] additionalConverters)
+        private GraphsonJsonSerializer(
+            DefaultValueHandling defaultValueHandling,
+            IEnumerable<IJTokenConverter> mandatoryConverters,
+            IEnumerable<IJTokenConverter> additionalConverters,
+            IContractResolver contractResolver)
         {
             var converter = JTokenConverter
                 .Null
@@ -518,19 +537,17 @@ namespace ExRam.Gremlinq.Core
                     this,
                     defaultValueHandling == DefaultValueHandling.Populate
                         ? new GraphsonJsonSerializer(
-                            environment,
                             DefaultValueHandling.Ignore,
-                            additionalConverters)
-                        : this))
-                .Combine(new TimespanConverter())
-                .Combine(new DateTimeOffsetConverter())
-                .Combine(new DateTimeConverter())
-                .Combine(new NestedValueConverter())
-                .Combine(new NativeTypeConverter(new HashSet<Type>(environment.Model.NativeTypes)))
-                .Combine(new FlatteningConverter())
-                .Combine(new ElementConverter(environment.Model))
-                .Combine(new MapConverter())
-                .Combine(new ArrayConverter());
+                            mandatoryConverters,
+                            additionalConverters,
+                            contractResolver)
+                        : this));
+
+            foreach (var additionalConverter in mandatoryConverters)
+            {
+                converter = converter
+                    .Combine(additionalConverter);
+            }
 
             foreach (var additionalConverter in additionalConverters)
             {
@@ -538,9 +555,9 @@ namespace ExRam.Gremlinq.Core
                     .Combine(additionalConverter);
             }
 
+            ContractResolver = contractResolver;
             DefaultValueHandling = defaultValueHandling;
             Converters.Add(new JTokenConverterConverter(converter));
-            ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
         }
     }
 }
