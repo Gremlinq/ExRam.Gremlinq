@@ -21,13 +21,14 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureVertexPropertyFeatures(vPropertiesFeatures => vPropertiesFeatures & ~(VertexPropertyFeatures.CustomIds))
                     .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
                 .ConfigureSerializer(s => s
-                    .OverrideFragmentSerializer<IGremlinQueryBase>((query, overridden, recurse) =>
-                    {
-                        if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
-                            query = query.AsAdmin().ConfigureSteps(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
+                    .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
+                        .Override<IGremlinQueryBase>((query, overridden, recurse) =>
+                        {
+                            if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
+                                query = query.AsAdmin().ConfigureSteps(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
 
-                        return overridden(query);
-                    }));
+                            return overridden(query);
+                        })));
         }
 
         //https://issues.apache.org/jira/browse/TINKERPOP-2112.

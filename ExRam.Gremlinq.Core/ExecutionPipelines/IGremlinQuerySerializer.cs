@@ -1,9 +1,11 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System;
+
+namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQuerySerializer
     {
-        IGremlinQuerySerializer OverrideFragmentSerializer<TFragment>(QueryFragmentSerializer<TFragment> queryFragmentSerializer);
-
         object? Serialize(IGremlinQueryBase query);
+
+        IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IQueryFragmentSerializer, IQueryFragmentSerializer> transformation);
     }
 }

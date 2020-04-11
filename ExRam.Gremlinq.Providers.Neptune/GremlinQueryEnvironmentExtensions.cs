@@ -11,7 +11,8 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseWebSocket(transformation)
                 .ConfigureSerializer(serializer => serializer
-                    .OverrideFragmentSerializer<PropertyStep>((step, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step)))
+                    .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
+                        .Override<PropertyStep>((step, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.None)
