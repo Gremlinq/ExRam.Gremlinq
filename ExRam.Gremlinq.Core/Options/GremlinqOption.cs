@@ -19,33 +19,15 @@ namespace ExRam.Gremlinq.Core
                         {
                             new Instruction("properties"),
                             new Instruction("group"),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("label")
-                                }
-                            }),
+                            new Instruction("by", T.Label),
                             new Instruction("by", new Bytecode
                             {
                                 StepInstructions =
                                 {
                                     new Instruction("project", "id", "label", "value", "properties"),
                                     new Instruction("by", T.Id),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("label")
-                                        }
-                                    }),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("value")
-                                        }
-                                    }),
+                                    new Instruction("by", T.Label),
+                                    new Instruction("by", T.Value),
                                     new Instruction("by", new Bytecode
                                     {
                                         StepInstructions =

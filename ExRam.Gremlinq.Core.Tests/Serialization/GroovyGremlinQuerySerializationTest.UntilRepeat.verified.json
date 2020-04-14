@@ -1,6 +1,6 @@
 [
   {
-    Script: 'V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).project(_c, _d, _e).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_c, _d, _f, _e).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))',
+    Script: 'V().hasLabel(_a).until(__.V().hasLabel(_b)).repeat(__.inE().outV()).project(_c, _d, _e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c, _d, _f, _e).by(id).by(label).by(value).by(__.valueMap()).fold()))',
     Bindings: {
       _a: 'Person',
       _b: 'Company',

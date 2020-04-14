@@ -54,11 +54,8 @@
                 OperatorName: 'by',
                 Arguments: [
                   {
-                    StepInstructions: [
-                      {
-                        OperatorName: 'label'
-                      }
-                    ]
+                    EnumName: 'T',
+                    EnumValue: 'label'
                   }
                 ]
               },
@@ -89,11 +86,8 @@
                         OperatorName: 'by',
                         Arguments: [
                           {
-                            StepInstructions: [
-                              {
-                                OperatorName: 'label'
-                              }
-                            ]
+                            EnumName: 'T',
+                            EnumValue: 'label'
                           }
                         ]
                       },
@@ -101,11 +95,8 @@
                         OperatorName: 'by',
                         Arguments: [
                           {
-                            StepInstructions: [
-                              {
-                                OperatorName: 'value'
-                              }
-                            ]
+                            EnumName: 'T',
+                            EnumValue: 'value'
                           }
                         ]
                       },

@@ -1,6 +1,6 @@
 [
   {
-    Script: 'V().where(__.in()).where(__.out()).where(__.properties()).project(_a, _b, _c, _d).by(__.count()).by(__.in().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _h, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.out().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(__.label()).by(__.project(_e, _f, _h, _g).by(id).by(__.label()).by(__.value()).by(__.valueMap()).fold()))).by(__.properties())',
+    Script: 'V().where(__.in()).where(__.out()).where(__.properties()).project(_a, _b, _c, _d).by(__.count()).by(__.in().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e, _f, _h, _g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.out().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e, _f, _h, _g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.properties())',
     Bindings: {
       _a: 'count!',
       _b: 'in!',
