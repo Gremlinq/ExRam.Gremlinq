@@ -27,8 +27,8 @@ namespace ExRam.Gremlinq.Core
 
             public object Serialize<TFragment>(TFragment fragment)
             {
-                return TryGetSerializer(typeof(TFragment), fragment.GetType()) is QueryFragmentSerializer<TFragment> del
-                    ? del(fragment, _ => _, this)
+                return TryGetSerializer(typeof(TFragment), fragment.GetType()) is Func<TFragment, object> del
+                    ? del(fragment)
                     : fragment;
             }
 
@@ -53,63 +53,52 @@ namespace ExRam.Gremlinq.Core
                         (staticType, actualType),
                         (typeTuple, @this) =>
                         {
-                            Delegate InnerLookup(Type staticType, Type actualType)
+                            Delegate? InnerLookup(Type actualType)
                             {
                                 if (@this._dict.TryGetValue(actualType, out var ret))
                                     return ret;
 
                                 foreach (var implementedInterface in actualType.GetInterfaces())
                                 {
-                                    if (InnerLookup(staticType, implementedInterface) is { } interfaceSerializer)
+                                    if (InnerLookup(implementedInterface) is { } interfaceSerializer)
                                         return interfaceSerializer;
                                 }
 
                                 if (actualType.BaseType is { } baseType)
                                 {
-                                    if (InnerLookup(staticType, baseType) is { } baseSerializer)
+                                    if (InnerLookup(baseType) is { } baseSerializer)
                                         return baseSerializer;
                                 }
 
                                 return null;
                             }
 
-                            if (InnerLookup(typeTuple.staticType, typeTuple.actualType) is { } del)
+                            if (InnerLookup(typeTuple.actualType) is { } del)
                             {
+                                //return (TStatic fragment) => del((TActualType)fragment, (TActual _) => _, @this);
+
                                 var effectiveType = del.GetType().GetGenericArguments()[0];
 
-                                if (effectiveType == typeTuple.staticType)
-                                    return del;
-
-                                //Func<TStatic, object>
-                                var staticBaseSerializerType = typeof(Func<,>).MakeGenericType(staticType, typeof(object));
-
-                                //Func<TActual, object>
-                                var actualBaseSerializerType = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
-
-                                //return (TStatic fragment, Func<TStatic, object> baseSerializer, IQueryFragmentSerializer recurse) => ret((TActualType)fragment, (TActual _) => baseSerializer((TStatic)_), recurse);
-
-                                var staticQuerySerializerType = typeof(QueryFragmentSerializer<>).MakeGenericType(staticType);
-
-                                var fragmentParameterExpression = Expression.Parameter(staticType);
-                                var baseSerializerParameterExpression = Expression.Parameter(staticBaseSerializerType);
-                                var recurseParameter = Expression.Parameter(typeof(IQueryFragmentSerializer));
-
-                                //(TActualType)fragment
-                                var argument1 = Expression.Convert(fragmentParameterExpression, effectiveType);
-
-                                //(TActual _) => baseSerializer((TFragment)_)
                                 var argument2Parameter = Expression.Parameter(effectiveType);
-                                var argument2 = Expression.Lambda(
-                                    actualBaseSerializerType,
-                                    Expression.Invoke(
-                                        baseSerializerParameterExpression,
-                                        Expression.Convert(argument2Parameter, staticType)),
-                                    argument2Parameter);
+                                var fragmentParameterExpression = Expression.Parameter(staticType);
 
-                                var retCall = Expression.Invoke(Expression.Constant(del), argument1, argument2, recurseParameter);
+                                var retCall = Expression.Invoke(
+                                    Expression.Constant(del),
+                                    Expression.Convert(
+                                        fragmentParameterExpression,
+                                        effectiveType),
+                                    Expression.Lambda(
+                                        typeof(Func<,>).MakeGenericType(effectiveType, typeof(object)), //Func<TActual, object>
+                                        Expression.Convert(argument2Parameter, typeof(object)),
+                                        argument2Parameter),
+                                    Expression.Constant(@this));
 
                                 return Expression
-                                    .Lambda(staticQuerySerializerType, retCall, fragmentParameterExpression, baseSerializerParameterExpression, recurseParameter)
+                                    .Lambda(
+                                        typeof(Func<,>)
+                                            .MakeGenericType(staticType, typeof(object)),
+                                        retCall,
+                                        fragmentParameterExpression)
                                     .Compile();
                             }
 
