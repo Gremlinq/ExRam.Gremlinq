@@ -3,6 +3,7 @@ using PublicApiGenerator;
 using Xunit;
 using Xunit.Abstractions;
 using VerifyXunit;
+using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
@@ -14,90 +15,90 @@ namespace ExRam.Gremlinq.ApprovalTests
         }
 
         [Fact]
-        public void Core()
+        public Task Core()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Core")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void CosmosDb()
+        public Task CosmosDb()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.CosmosDb")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void GremlinServer()
+        public Task GremlinServer()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.GremlinServer")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void Neptune()
+        public Task Neptune()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.Neptune")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void WebSocket()
+        public Task WebSocket()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.WebSocket")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void CoreAspNet()
+        public Task CoreAspNet()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Core.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void CosmosDbAspNet()
+        public Task CosmosDbAspNet()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.CosmosDb.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void GremlinServerAspNet()
+        public Task GremlinServerAspNet()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.GremlinServer.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void NeptuneAspNet()
+        public Task NeptuneAspNet()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.Neptune.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
 
         [Fact]
-        public void WebSocketAspNet()
+        public Task WebSocketAspNet()
         {
-            Assembly
+            return Assembly
                 .Load("ExRam.Gremlinq.Providers.WebSocket.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
