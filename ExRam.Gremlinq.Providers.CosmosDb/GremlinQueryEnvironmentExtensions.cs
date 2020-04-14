@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json.Linq;
 using NullGuard;
@@ -101,7 +103,9 @@ namespace ExRam.Gremlinq.Core
                     .UseCosmosDbWorkarounds()
                     .ToGroovy())
                 .ConfigureOptions(options => options
-                    .SetValue(GremlinqOption.DontAddElementProjectionSteps, true))
+                    .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Instruction>.Empty)
+                    .SetValue(GremlinqOption.VertexProjectionStepsWithoutMetaProperties, ImmutableList<Instruction>.Empty)
+                    .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Instruction>.Empty))
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
     }

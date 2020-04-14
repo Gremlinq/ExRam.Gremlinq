@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             var environment = gremlinQueryBase.Environment;
 
-                            if (gremlinQueryBase.SurfaceVisible && !environment.Options.GetValue(GremlinqOption.DontAddElementProjectionSteps))
+                            if (gremlinQueryBase.SurfaceVisible)
                             {
                                 switch (gremlinQueryBase.Semantics)
                                 {
