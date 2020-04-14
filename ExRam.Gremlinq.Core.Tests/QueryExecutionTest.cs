@@ -2023,7 +2023,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-
         [Fact]
         public async Task Properties_Where_neq_Label_workaround()
         {
@@ -2033,6 +2032,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x
                     .Label()
                     .Where(l => l != "label"))
+                .Verify(this);
+        }
+
+
+        [Fact]
+        public async Task Properties_Where_neq_Label()
+        {
+            await _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Label != "label")
                 .Verify(this);
         }
 

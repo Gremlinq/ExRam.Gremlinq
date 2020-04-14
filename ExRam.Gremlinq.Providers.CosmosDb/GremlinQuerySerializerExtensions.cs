@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<HasKeyStep>((step, overridden, recurse) =>
                     {
                         if (step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase)))
-                            throw new NotSupportedException("CosmosDb does not currently support 'hasKey(P)'.");
+                            return recurse.Serialize(new WhereTraversalStep(new Step[] { KeyStep.Instance, new IsStep(p) }));
 
                         return overridden(step);
                     })

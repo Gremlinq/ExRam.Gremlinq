@@ -48,18 +48,5 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                 .V<Person>(new CosmosDbKey("id"), "id2")
                 .Verify(this);
         }
-
-        [Fact]
-        public void Properties_Where_neq_Label()
-        {
-            _g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x.Label != "label")
-                .Awaiting(__ => __
-                    .Verify(this))
-                .Should()
-                .Throw<NotSupportedException>();
-        }
     }
 }
