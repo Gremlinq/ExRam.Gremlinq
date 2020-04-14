@@ -385,8 +385,9 @@ namespace ExRam.Gremlinq.Core
     public class GremlinqOption
     {
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
-        public static ExRam.Gremlinq.Core.GremlinqOption<bool> DontAddElementProjectionSteps;
+        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<Gremlin.Net.Process.Traversal.Instruction>> EdgeProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
+        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<Gremlin.Net.Process.Traversal.Instruction>> VertexProjectionSteps;
         public GremlinqOption() { }
     }
     public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.GremlinqOption
@@ -768,7 +769,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQuerySerializer
     {
-        ExRam.Gremlinq.Core.IGremlinQuerySerializer OverrideFragmentSerializer<TFragment>(ExRam.Gremlinq.Core.QueryFragmentSerializer<TFragment> queryFragmentSerializer);
+        ExRam.Gremlinq.Core.IGremlinQuerySerializer ConfigureFragmentSerializer(System.Func<ExRam.Gremlinq.Core.IQueryFragmentSerializer, ExRam.Gremlinq.Core.IQueryFragmentSerializer> transformation);
         object? Serialize(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -976,6 +977,11 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreAlways<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
+    }
+    public interface IQueryFragmentSerializer
+    {
+        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(ExRam.Gremlinq.Core.QueryFragmentSerializer<TFragment> serializer);
+        object Serialize<TFragment>(TFragment fragment);
     }
     public interface IStartGremlinQuery
     {
@@ -1316,7 +1322,11 @@ namespace ExRam.Gremlinq.Core
         public object[] MetaProperties { get; }
         public object Value { get; }
     }
-    public delegate object QueryFragmentSerializer<TFragment>(TFragment atom, System.Func<TFragment, object> baseSerializer, System.Func<object, object?> recurse);
+    public static class QueryFragmentSerializer
+    {
+        public static readonly ExRam.Gremlinq.Core.IQueryFragmentSerializer Identity;
+    }
+    public delegate object QueryFragmentSerializer<TFragment>(TFragment fragment, System.Func<TFragment, object> baseSerializer, ExRam.Gremlinq.Core.IQueryFragmentSerializer recurse);
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
         public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }
