@@ -623,6 +623,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryAdmin
     {
+        System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> EffectiveSteps { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> Steps { get; }
         TTargetQuery ChangeQueryType<TTargetQuery>()

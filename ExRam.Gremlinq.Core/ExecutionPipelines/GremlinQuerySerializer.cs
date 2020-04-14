@@ -213,63 +213,15 @@ namespace ExRam.Gremlinq.Core
                     .Override<IGremlinQueryBase>((query, overridden, recurse) =>
                     {
                         var byteCode = new Bytecode();
-                        var steps = query.AsAdmin().Steps;
 
-                        if (steps.IsEmpty)
+                        foreach (var step in query.AsAdmin().EffectiveSteps)
                         {
-                            if (recurse.Serialize(IdentityStep.Instance) is Instruction instruction)
-                                byteCode.StepInstructions.Add(instruction);
-                        }
-                        else
-                        {
-                            var stepsArray = steps.ToArray();
-
-                            for (var i = stepsArray.Length - 1; i >= 0; i--)
+                            if (recurse.Serialize(step) is Instruction instruction)
                             {
-                                if (recurse.Serialize(stepsArray[i]) is Instruction instruction)
-                                {
-                                    if (instruction.OperatorName.Equals("withoutStrategies"))
-                                        byteCode.SourceInstructions.Add(instruction);
-                                    else
-                                        byteCode.StepInstructions.Add(instruction);
-                                }
-                            }
-                        }
-
-                        var projectionSteps = default(IEnumerable<Step>);
-
-                        if (query is GremlinQueryBase gremlinQueryBase)
-                        {
-                            var environment = gremlinQueryBase.Environment;
-
-                            if (gremlinQueryBase.SurfaceVisible)
-                            {
-                                switch (gremlinQueryBase.Semantics)
-                                {
-                                    case QuerySemantics.Vertex:
-                                    {
-                                        projectionSteps = environment.Options.GetValue(GremlinqOption.VertexProjectionSteps);
-
-                                        break;
-                                    }
-                                    case QuerySemantics.Edge:
-                                    {
-                                        projectionSteps = environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
-
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (projectionSteps != null)
-                        {
-                            foreach (var step in projectionSteps)
-                            {
-                                if (recurse.Serialize(step) is Instruction instruction)
-                                {
+                                if (instruction.OperatorName.Equals("withoutStrategies"))
+                                    byteCode.SourceInstructions.Add(instruction);
+                                else
                                     byteCode.StepInstructions.Add(instruction);
-                                }
                             }
                         }
 

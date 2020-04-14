@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
@@ -9,6 +10,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
 
         IImmutableStack<Step> Steps { get; }
+        IEnumerable<Step> EffectiveSteps { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
 }
