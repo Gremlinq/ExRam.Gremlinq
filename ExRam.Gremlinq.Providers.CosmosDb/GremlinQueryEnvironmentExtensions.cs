@@ -103,8 +103,8 @@ namespace ExRam.Gremlinq.Core
                     .UseCosmosDbWorkarounds()
                     .ToGroovy())
                 .ConfigureOptions(options => options
-                    .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Instruction>.Empty)
-                    .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Instruction>.Empty))
+                    .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Step>.Empty)
+                    .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }
     }

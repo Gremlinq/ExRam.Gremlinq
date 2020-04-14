@@ -24,33 +24,25 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureOptions(options => options
                     .SetValue(
                         GremlinqOption.VertexProjectionSteps,
-                        new[]
+                        new Step[]
                         {
-                            new Instruction("project", "id", "label", "properties"),
-                            new Instruction("by", T.Id),
-                            new Instruction("by", T.Label),
-                            new Instruction(
-                                "by",
-                                new Bytecode
+                            new ProjectStep("id", "label", "properties"),
+                            new ProjectStep.ByKeyStep(T.Id),
+                            new ProjectStep.ByKeyStep(T.Label),
+                            new ProjectStep.ByStepsStep(new Step[]
+                            {
+                                new PropertiesStep(Array.Empty<string>()),
+                                GroupStep.Instance,
+                                new GroupStep.ByKeyStep(T.Label),
+                                new GroupStep.ByStepsStep(new Step[]
                                 {
-                                    StepInstructions =
-                                    {
-                                        new Instruction("properties"),
-                                        new Instruction("group"),
-                                        new Instruction("by", T.Label),
-                                        new Instruction("by", new Bytecode
-                                        {
-                                            StepInstructions =
-                                            {
-                                                new Instruction("project", "id", "label", "value"),
-                                                new Instruction("by", T.Id),
-                                                new Instruction("by", T.Label),
-                                                new Instruction("by", T.Value),
-                                                new Instruction("fold")
-                                            }
-                                        })
-                                    }
+                                    new ProjectStep("id", "label", "value"),
+                                    new ProjectStep.ByKeyStep(T.Id),
+                                    new ProjectStep.ByKeyStep(T.Label),
+                                    new ProjectStep.ByKeyStep(T.Value),
+                                    FoldStep.Instance
                                 })
+                            })
                         }
                         .ToImmutableList()));
         }

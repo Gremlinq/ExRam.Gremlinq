@@ -1,60 +1,47 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
     public class GremlinqOption
     {
-        public static GremlinqOption<IImmutableList<Instruction>> VertexProjectionSteps = new GremlinqOption<IImmutableList<Instruction>>(
-            new[]
+        public static GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new GremlinqOption<IImmutableList<Step>>(
+            new Step[]
             {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction(
-                    "by",
-                    new Bytecode
+                new ProjectStep("id", "label", "properties"),
+                new ProjectStep.ByKeyStep(T.Id),
+                new ProjectStep.ByKeyStep(T.Label),
+                new ProjectStep.ByStepsStep(new Step[]
+                {
+                    new PropertiesStep(Array.Empty<string>()),
+                    GroupStep.Instance,
+                    new GroupStep.ByKeyStep(T.Label),
+                    new GroupStep.ByStepsStep(new Step[]
                     {
-                        StepInstructions =
+                        new ProjectStep("id", "label", "value", "properties"),
+                        new ProjectStep.ByKeyStep(T.Id),
+                        new ProjectStep.ByKeyStep(T.Label),
+                        new ProjectStep.ByKeyStep(T.Value),
+                        new ProjectStep.ByStepsStep(new Step[]
                         {
-                            new Instruction("properties"),
-                            new Instruction("group"),
-                            new Instruction("by", T.Label),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("project", "id", "label", "value", "properties"),
-                                    new Instruction("by", T.Id),
-                                    new Instruction("by", T.Label),
-                                    new Instruction("by", T.Value),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("valueMap")
-                                        }
-                                    }),
-                                    new Instruction("fold")
-                                }
-                            })
-                        }
+                            new ValueMapStep(Array.Empty<string>())
+                        }),
+                        FoldStep.Instance
                     })
+                })
             }
             .ToImmutableList());
 
-        public static GremlinqOption<IImmutableList<Instruction>> EdgeProjectionSteps = new GremlinqOption<IImmutableList<Instruction>>(
-            new[]
+        public static GremlinqOption<IImmutableList<Step>> EdgeProjectionSteps = new GremlinqOption<IImmutableList<Step>>(
+            new Step[]
             {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction("by", new Bytecode
+                new ProjectStep("id", "label", "properties"),
+                new ProjectStep.ByKeyStep(T.Id),
+                new ProjectStep.ByKeyStep(T.Label),
+                new ProjectStep.ByStepsStep(new Step[]
                 {
-                    StepInstructions =
-                    {
-                        new Instruction("valueMap")
-                    }
+                    new ValueMapStep(Array.Empty<string>())
                 })
             }
             .ToImmutableList());

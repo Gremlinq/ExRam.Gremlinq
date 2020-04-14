@@ -169,6 +169,8 @@ namespace ExRam.Gremlinq.Core
                     .Override<FromTraversalStep>((step, overridden, recurse) => CreateInstruction("from", recurse, step.Traversal))
                     .Override<GroupStep>((step, overridden, recurse) => CreateInstruction("group"))
                     .Override<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
+                    .Override<GroupStep.ByKeyStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
+                    .Override<GroupStep.ByStepsStep>((step, overridden, recurse) => CreateInstruction("by", recurse, (object)step.Steps))
                     .Override<HasKeyStep>((step, overridden, recurse) => CreateInstruction(
                         "hasKey",
                         recurse,
@@ -234,6 +236,8 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
+                        var projectionSteps = default(IEnumerable<Step>);
+
                         if (query is GremlinQueryBase gremlinQueryBase)
                         {
                             var environment = gremlinQueryBase.Environment;
@@ -244,16 +248,27 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     case QuerySemantics.Vertex:
                                     {
-                                        byteCode.StepInstructions.AddRange(environment.Options.GetValue(GremlinqOption.VertexProjectionSteps));
+                                        projectionSteps = environment.Options.GetValue(GremlinqOption.VertexProjectionSteps);
 
                                         break;
                                     }
                                     case QuerySemantics.Edge:
                                     {
-                                        byteCode.StepInstructions.AddRange(environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps));
+                                        projectionSteps = environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps);
 
                                         break;
                                     }
+                                }
+                            }
+                        }
+
+                        if (projectionSteps != null)
+                        {
+                            foreach (var step in projectionSteps)
+                            {
+                                if (recurse.Serialize(step) is Instruction instruction)
+                                {
+                                    byteCode.StepInstructions.Add(instruction);
                                 }
                             }
                         }
@@ -330,8 +345,10 @@ namespace ExRam.Gremlinq.Core
                              ? CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(step.Cardinality).ToArray())
                              : CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
                     })
-                    .Override<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                     .Override<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
+                    .Override<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
+                    .Override<ProjectStep.ByKeyStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
+                    .Override<ProjectStep.ByStepsStep>((step, overridden, recurse) => CreateInstruction("by", recurse, (object)step.Steps))
                     .Override<RangeStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("range", recurse, step.Scope, step.Lower, step.Upper)
                         : CreateInstruction("range", recurse, step.Lower, step.Upper))
@@ -341,6 +358,20 @@ namespace ExRam.Gremlinq.Core
                     .Override<SkipStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("skip", recurse, step.Scope, step.Count)
                         : CreateInstruction("skip", recurse, step.Count))
+                    .Override<Step[]>((steps, overridden, recurse) =>
+                    {
+                        var byteCode = new Bytecode();
+
+                        foreach (var step in steps)
+                        {
+                            if (recurse.Serialize(step) is Instruction instruction)
+                            {
+                                byteCode.StepInstructions.Add(instruction);
+                            }
+                        }
+
+                        return byteCode;
+                    })
                     .Override<SumStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("sum", recurse, step.Scope)
                         : CreateInstruction("sum"))

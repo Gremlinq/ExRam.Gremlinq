@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class CoalesceStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public CoalesceStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> traversals) { }
+        public CoalesceStep(ExRam.Gremlinq.Core.IGremlinQueryBase[] traversals) { }
     }
     public sealed class CoinStep : ExRam.Gremlinq.Core.Step
     {
@@ -385,9 +385,9 @@ namespace ExRam.Gremlinq.Core
     public class GremlinqOption
     {
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
-        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<Gremlin.Net.Process.Traversal.Instruction>> EdgeProjectionSteps;
+        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
-        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<Gremlin.Net.Process.Traversal.Instruction>> VertexProjectionSteps;
+        public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionSteps;
         public GremlinqOption() { }
     }
     public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.GremlinqOption
@@ -414,6 +414,16 @@ namespace ExRam.Gremlinq.Core
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.GroupStep Instance;
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Step
+        {
+            public ByKeyStep(object key) { }
+            public object Key { get; }
+        }
+        public sealed class ByStepsStep : ExRam.Gremlinq.Core.Step
+        {
+            public ByStepsStep(ExRam.Gremlinq.Core.Step[] steps) { }
+            public ExRam.Gremlinq.Core.Step[] Steps { get; }
+        }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.IGremlinQueryBase traversal) { }
@@ -1188,7 +1198,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class MatchStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public MatchStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> traversals) { }
+        public MatchStep(ExRam.Gremlinq.Core.IGremlinQueryBase[] traversals) { }
     }
     public sealed class MaxStep : ExRam.Gremlinq.Core.Step
     {
@@ -1213,8 +1223,8 @@ namespace ExRam.Gremlinq.Core
     }
     public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
     {
-        protected MultiTraversalArgumentStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> traversals) { }
-        public System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> Traversals { get; }
+        protected MultiTraversalArgumentStep(ExRam.Gremlinq.Core.IGremlinQueryBase[] traversals) { }
+        public ExRam.Gremlinq.Core.IGremlinQueryBase[] Traversals { get; }
     }
     public sealed class NoneStep : ExRam.Gremlinq.Core.Step
     {
@@ -1297,6 +1307,16 @@ namespace ExRam.Gremlinq.Core
     {
         public ProjectStep(params string[] projections) { }
         public string[] Projections { get; }
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Step
+        {
+            public ByKeyStep(object key) { }
+            public object Key { get; }
+        }
+        public sealed class ByStepsStep : ExRam.Gremlinq.Core.Step
+        {
+            public ByStepsStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
+            public System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> Steps { get; }
+        }
         public sealed class ByTraversalStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.IGremlinQueryBase traversal) { }
@@ -1414,7 +1434,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class UnionStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public UnionStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.IGremlinQueryBase> traversals) { }
+        public UnionStep(ExRam.Gremlinq.Core.IGremlinQueryBase[] traversals) { }
     }
     public sealed class UntilStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
     {
