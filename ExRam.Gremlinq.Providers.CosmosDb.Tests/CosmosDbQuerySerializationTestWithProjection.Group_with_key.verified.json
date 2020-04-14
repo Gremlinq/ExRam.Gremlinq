@@ -1,5 +1,0 @@
-[
-  {
-    Script: 'V().group().by(__.label())'
-  }
-]

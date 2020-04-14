@@ -1,9 +1,0 @@
-[
-  {
-    Script: 'E().hasLabel(_a).values(_b)',
-    Bindings: {
-      _a: 'LivesIn',
-      _b: 'Since'
-    }
-  }
-]

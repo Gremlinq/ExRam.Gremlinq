@@ -1,8 +1,0 @@
-[
-  {
-    Script: 'V().where(__.properties()).choose(__.values()).option(none, __.constant(_a))',
-    Bindings: {
-      _a: 1
-    }
-  }
-]

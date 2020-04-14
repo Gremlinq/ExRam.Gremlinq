@@ -1,8 +1,0 @@
-[
-  {
-    Script: 'V().properties().values(_a)',
-    Bindings: {
-      _a: 'ValidFrom'
-    }
-  }
-]

@@ -1,9 +1,0 @@
-[
-  {
-    Script: 'V().hasLabel(_a).properties(_b).properties().value()',
-    Bindings: {
-      _a: 'Company',
-      _b: 'Names'
-    }
-  }
-]
