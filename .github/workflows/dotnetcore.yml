@@ -8,14 +8,15 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    services:
+      redis:
+        image: tinkerpop/gremlin-server
+        ports:
+          - 8182:8182
+
     steps:
-
-    - name: Run Gremlin Server
-      run: docker run -d -p 8182:8182 -e TZ="Europe/Berlin" tinkerpop/gremlin-server
-
     - name: Checkout
       uses: actions/checkout@v2
       with:
