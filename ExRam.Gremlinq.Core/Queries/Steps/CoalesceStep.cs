@@ -2,7 +2,7 @@
 {
     public sealed class CoalesceStep : MultiTraversalArgumentStep
     {
-        public CoalesceStep(IGremlinQueryBase[] traversals) : base(traversals)
+        public CoalesceStep(Traversal[] traversals) : base(traversals)
         {
         }
     }

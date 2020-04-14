@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        protected LogicalStep(string name, IGremlinQueryBase[] traversals)
+        protected LogicalStep(string name, Traversal[] traversals)
         {
             Name = name;
             Traversals = traversals
@@ -14,11 +14,9 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
         }
 
-        private static IEnumerable<IGremlinQueryBase> FlattenLogicalTraversals(IGremlinQueryBase query)
+        private static IEnumerable<Traversal> FlattenLogicalTraversals(Traversal traversal)
         {
-            var steps = query.AsAdmin().Steps;
-
-            if (steps.TryGetSingleStep() is TStep otherStep)
+            if (traversal.Steps.SingleOrDefault() is TStep otherStep)
             {
                 foreach (var subTraversal in otherStep.Traversals)
                 {
@@ -29,10 +27,10 @@ namespace ExRam.Gremlinq.Core
                 }
             }
             else
-                yield return query;
+                yield return traversal;
         }
 
         public string Name { get; }
-        public IGremlinQueryBase[] Traversals { get; }
+        public Traversal[] Traversals { get; }
     }
 }

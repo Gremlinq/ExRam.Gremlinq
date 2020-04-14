@@ -2,7 +2,7 @@
 {
     public sealed class UntilStep : SingleTraversalArgumentStep
     {
-        public UntilStep(IGremlinQueryBase traversal) : base(traversal)
+        public UntilStep(Traversal traversal) : base(traversal)
         {
         }
     }

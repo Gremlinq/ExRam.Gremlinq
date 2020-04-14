@@ -12,18 +12,18 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep("id", "label", "properties"),
                 new ProjectStep.ByKeyStep(T.Id),
                 new ProjectStep.ByKeyStep(T.Label),
-                new ProjectStep.ByStepsStep(new Step[]
+                new ProjectStep.ByTraversalStep(new Step[]
                 {
                     new PropertiesStep(Array.Empty<string>()),
                     GroupStep.Instance,
                     new GroupStep.ByKeyStep(T.Label),
-                    new GroupStep.ByStepsStep(new Step[]
+                    new GroupStep.ByTraversalStep(new Step[]
                     {
                         new ProjectStep("id", "label", "value", "properties"),
                         new ProjectStep.ByKeyStep(T.Id),
                         new ProjectStep.ByKeyStep(T.Label),
                         new ProjectStep.ByKeyStep(T.Value),
-                        new ProjectStep.ByStepsStep(new Step[]
+                        new ProjectStep.ByTraversalStep(new Step[]
                         {
                             new ValueMapStep(Array.Empty<string>())
                         }),
@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep("id", "label", "properties"),
                 new ProjectStep.ByKeyStep(T.Id),
                 new ProjectStep.ByKeyStep(T.Label),
-                new ProjectStep.ByStepsStep(new Step[]
+                new ProjectStep.ByTraversalStep(new Step[]
                 {
                     new ValueMapStep(Array.Empty<string>())
                 })

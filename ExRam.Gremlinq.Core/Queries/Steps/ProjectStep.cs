@@ -1,24 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class ProjectStep : Step
     {
         public sealed class ByTraversalStep : SingleTraversalArgumentStep
         {
-            public ByTraversalStep(IGremlinQueryBase traversal) : base(traversal)
+            public ByTraversalStep(Traversal traversal) : base(traversal)
             {
             }
-        }
-
-        public sealed class ByStepsStep : Step
-        {
-            public ByStepsStep(IEnumerable<Step> steps)
-            {
-                Steps = steps;
-            }
-
-            public IEnumerable<Step> Steps { get; }
         }
 
         public sealed class ByKeyStep : Step

@@ -48,6 +48,11 @@ namespace ExRam.Gremlinq.Core
             return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.IsEmpty;
         }
 
+        internal static Traversal ToTraversal(this IGremlinQueryBase query)
+        {
+            return query.AsAdmin().ToTraversal();
+        }
+
         /// <summary>
         /// Creates a continuation delegate from a <paramref name="sourceQuery"/> and <paramref name="targetQuery"/>
         /// when <paramref name="sourceQuery"/> is a prefix of <paramref name="targetQuery"/>.

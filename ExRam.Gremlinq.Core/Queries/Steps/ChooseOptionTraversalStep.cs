@@ -2,7 +2,7 @@
 {
     public sealed class ChooseOptionTraversalStep : SingleTraversalArgumentStep
     {
-        public ChooseOptionTraversalStep(IGremlinQueryBase chooseTraversal) : base(chooseTraversal)
+        public ChooseOptionTraversalStep(Traversal traversal) : base(traversal)
         {
         }
     }

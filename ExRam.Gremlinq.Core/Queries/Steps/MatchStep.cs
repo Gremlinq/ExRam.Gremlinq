@@ -2,7 +2,7 @@
 {
     public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(IGremlinQueryBase[] traversals) : base(traversals)
+        public MatchStep(Traversal[] traversals) : base(traversals)
         {
         }
     }

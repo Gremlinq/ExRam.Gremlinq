@@ -2,11 +2,11 @@
 {
     public sealed class ChooseTraversalStep : ChooseStep
     {
-        public ChooseTraversalStep(IGremlinQueryBase ifTraversal, IGremlinQueryBase thenTraversal, IGremlinQueryBase? elseTraversal = default) : base(thenTraversal, elseTraversal)
+        public ChooseTraversalStep(Traversal ifTraversal, Traversal thenTraversal, Traversal? elseTraversal = default) : base(thenTraversal, elseTraversal)
         {
             IfTraversal = ifTraversal;
         }
 
-        public IGremlinQueryBase IfTraversal { get; }
+        public Traversal IfTraversal { get; }
     }
 }

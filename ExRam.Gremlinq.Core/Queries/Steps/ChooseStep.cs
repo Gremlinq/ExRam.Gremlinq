@@ -1,14 +1,18 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using NullGuard;
+
+namespace ExRam.Gremlinq.Core
 {
     public abstract class ChooseStep : Step
     {
-        protected ChooseStep(IGremlinQueryBase thenTraversal, IGremlinQueryBase? elseTraversal = default)
+        protected ChooseStep(Traversal thenTraversal, Traversal? elseTraversal = default)
         {
             ThenTraversal = thenTraversal;
             ElseTraversal = elseTraversal;
         }
 
-        public IGremlinQueryBase ThenTraversal { get; }
-        public IGremlinQueryBase? ElseTraversal { get; }
+        public Traversal ThenTraversal { get; }
+
+        [AllowNull]
+        public Traversal? ElseTraversal { get; }
     }
 }

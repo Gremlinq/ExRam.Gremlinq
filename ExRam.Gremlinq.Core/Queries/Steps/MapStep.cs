@@ -2,7 +2,7 @@
 {
     public sealed class MapStep : SingleTraversalArgumentStep
     {
-        public MapStep(IGremlinQueryBase traversal) : base(traversal)
+        public MapStep(Traversal traversal) : base(traversal)
         {
         }
     }

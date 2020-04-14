@@ -2,7 +2,7 @@
 {
     public sealed class OptionalStep : SingleTraversalArgumentStep
     {
-        public OptionalStep(IGremlinQueryBase traversal) : base(traversal)
+        public OptionalStep(Traversal traversal) : base(traversal)
         {
         }
     }

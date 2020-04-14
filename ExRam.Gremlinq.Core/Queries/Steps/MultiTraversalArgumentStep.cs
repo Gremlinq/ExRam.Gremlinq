@@ -2,11 +2,11 @@
 {
     public abstract class MultiTraversalArgumentStep : Step
     {
-        protected MultiTraversalArgumentStep(IGremlinQueryBase[] traversals)
+        protected MultiTraversalArgumentStep(Traversal[] traversals)
         {
             Traversals = traversals;
         }
 
-        public IGremlinQueryBase[] Traversals { get; }
+        public Traversal[] Traversals { get; }
     }
 }

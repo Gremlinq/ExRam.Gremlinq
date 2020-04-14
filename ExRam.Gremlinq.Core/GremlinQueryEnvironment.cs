@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core
             .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid);
 
-        internal static readonly Step NoneWorkaround = new NotStep(GremlinQuery.Anonymous(Empty).Identity());
+        internal static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 

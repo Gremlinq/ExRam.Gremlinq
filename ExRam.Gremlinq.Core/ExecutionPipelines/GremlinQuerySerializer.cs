@@ -170,7 +170,6 @@ namespace ExRam.Gremlinq.Core
                     .Override<GroupStep>((step, overridden, recurse) => CreateInstruction("group"))
                     .Override<GroupStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                     .Override<GroupStep.ByKeyStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
-                    .Override<GroupStep.ByStepsStep>((step, overridden, recurse) => CreateInstruction("by", recurse, (object)step.Steps))
                     .Override<HasKeyStep>((step, overridden, recurse) => CreateInstruction(
                         "hasKey",
                         recurse,
@@ -214,7 +213,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var byteCode = new Bytecode();
 
-                        foreach (var step in query.AsAdmin().EffectiveSteps)
+                        foreach (var step in query.ToTraversal().Steps)
                         {
                             if (recurse.Serialize(step) is Instruction instruction)
                             {
@@ -300,7 +299,6 @@ namespace ExRam.Gremlinq.Core
                     .Override<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
                     .Override<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
                     .Override<ProjectStep.ByKeyStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Key))
-                    .Override<ProjectStep.ByStepsStep>((step, overridden, recurse) => CreateInstruction("by", recurse, (object)step.Steps))
                     .Override<RangeStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("range", recurse, step.Scope, step.Lower, step.Upper)
                         : CreateInstruction("range", recurse, step.Lower, step.Upper))
@@ -310,15 +308,20 @@ namespace ExRam.Gremlinq.Core
                     .Override<SkipStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("skip", recurse, step.Scope, step.Count)
                         : CreateInstruction("skip", recurse, step.Count))
-                    .Override<Step[]>((steps, overridden, recurse) =>
+                    .Override<Traversal>((traversal, overridden, recurse) =>
                     {
                         var byteCode = new Bytecode();
 
-                        foreach (var step in steps)
+                        if (traversal.Steps.Length == 0 && recurse.Serialize(IdentityStep.Instance) is Instruction identityInstruction)
+                            byteCode.StepInstructions.Add(identityInstruction);
+                        else
                         {
-                            if (recurse.Serialize(step) is Instruction instruction)
+                            foreach (var step in traversal.Steps)
                             {
-                                byteCode.StepInstructions.Add(instruction);
+                                if (recurse.Serialize(step) is Instruction instruction)
+                                {
+                                    byteCode.StepInstructions.Add(instruction);
+                                }
                             }
                         }
 

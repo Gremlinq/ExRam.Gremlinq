@@ -2,7 +2,7 @@
 {
     public sealed class NotStep : SingleTraversalArgumentStep
     {
-        public NotStep(IGremlinQueryBase traversal) : base(traversal)
+        public NotStep(Traversal traversal) : base(traversal)
         {
         }
     }

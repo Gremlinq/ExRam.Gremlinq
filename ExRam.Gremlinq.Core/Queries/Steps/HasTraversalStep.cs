@@ -2,13 +2,13 @@
 {
     public sealed class HasTraversalStep : Step
     { 
-        public HasTraversalStep(object key, IGremlinQueryBase traversal)
+        public HasTraversalStep(object key, Traversal traversal)
         {
             Key = key;
             Traversal = traversal;
         }
 
         public object Key { get; }
-        public IGremlinQueryBase Traversal { get; }
+        public Traversal Traversal { get; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public sealed class UnionStep : MultiTraversalArgumentStep
     {
-        public UnionStep(IGremlinQueryBase[] traversals) : base(traversals)
+        public UnionStep(Traversal[] traversals) : base(traversals)
         {
         }
     }

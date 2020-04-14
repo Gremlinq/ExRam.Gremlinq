@@ -2,7 +2,7 @@
 {
     public sealed class LocalStep : SingleTraversalArgumentStep
     {
-        public LocalStep(IGremlinQueryBase traversal) : base(traversal)
+        public LocalStep(Traversal traversal) : base(traversal)
         {
         }
     }
