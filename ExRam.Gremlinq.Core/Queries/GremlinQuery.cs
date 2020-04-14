@@ -673,7 +673,7 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new MapStep(mappedTraversal), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()))));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize())).ToArray()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
         {
@@ -942,7 +942,7 @@ namespace ExRam.Gremlinq.Core
             {
                 0 => throw new ExpressionNotSupportedException(),
                 1 => AddStepWithObjectTypes<TValue>(stepsArray[0], QuerySemantics.None),
-                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None))), QuerySemantics.None)
+                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None)).ToArray()), QuerySemantics.None)
             };
         }
 

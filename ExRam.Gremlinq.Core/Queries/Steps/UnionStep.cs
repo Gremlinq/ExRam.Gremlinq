@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class UnionStep : MultiTraversalArgumentStep
     {
-        public UnionStep(IEnumerable<IGremlinQueryBase> traversals) : base(traversals)
+        public UnionStep(IGremlinQueryBase[] traversals) : base(traversals)
         {
         }
     }

@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public abstract class MultiTraversalArgumentStep : Step
     {
-        public IEnumerable<IGremlinQueryBase> Traversals { get; }
-
-        protected MultiTraversalArgumentStep(IEnumerable<IGremlinQueryBase> traversals)
+        protected MultiTraversalArgumentStep(IGremlinQueryBase[] traversals)
         {
             Traversals = traversals;
         }
+
+        public IGremlinQueryBase[] Traversals { get; }
     }
 }

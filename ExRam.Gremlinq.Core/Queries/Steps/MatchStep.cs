@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(IEnumerable<IGremlinQueryBase> traversals) : base(traversals)
+        public MatchStep(IGremlinQueryBase[] traversals) : base(traversals)
         {
         }
     }

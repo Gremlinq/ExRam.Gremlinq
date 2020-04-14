@@ -146,7 +146,7 @@ namespace ExRam.Gremlinq.Core
                                 step.IfTraversal,
                                 step.ThenTraversal);
                     })
-                    .Override<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals.ToArray()))
+                    .Override<CoalesceStep>((step, overridden, recurse) => CreateInstruction("coalesce", recurse, step.Traversals))
                     .Override<CoinStep>((step, overridden, recurse) => CreateInstruction("coin", recurse, step.Probability))
                     .Override<ConstantStep>((step, overridden, recurse) => CreateInstruction("constant", recurse, step.Value))
                     .Override<CountStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<MaxStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("max", recurse, step.Scope)
                         : CreateInstruction("max"))
-                    .Override<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals.ToArray()))
+                    .Override<MatchStep>((step, overridden, recurse) => CreateInstruction("match", recurse, step.Traversals))
                     .Override<MapStep>((step, overridden, recurse) => CreateInstruction("map", recurse, step.Traversal))
                     .Override<MeanStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("mean", recurse, step.Scope)
@@ -351,7 +351,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<TimesStep>((step, overridden, recurse) => CreateInstruction("times", recurse, step.Count))
                     .Override<Type>((type, overridden, recurse) => type)
                     .Override<UnfoldStep>((step, overridden, recurse) => CreateInstruction("unfold"))
-                    .Override<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals.ToArray()))
+                    .Override<UnionStep>((step, overridden, recurse) => CreateInstruction("union", recurse, step.Traversals))
                     .Override<UntilStep>((step, overridden, recurse) => CreateInstruction("until", recurse, step.Traversal))
                     .Override<ValueStep>((step, overridden, recurse) => CreateInstruction("value"))
                     .Override<ValueMapStep>((step, overridden, recurse) => CreateInstruction("valueMap", recurse, step.Keys))
