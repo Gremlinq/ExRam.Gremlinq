@@ -53,34 +53,15 @@ namespace ExRam.Gremlinq.Core
                         (staticType, actualType),
                         (typeTuple, @this) =>
                         {
-                            Delegate? InnerLookup(Type actualType)
-                            {
-                                if (@this._dict.TryGetValue(actualType, out var ret))
-                                    return ret;
-
-                                foreach (var implementedInterface in actualType.GetInterfaces())
-                                {
-                                    if (InnerLookup(implementedInterface) is { } interfaceSerializer)
-                                        return interfaceSerializer;
-                                }
-
-                                if (actualType.BaseType is { } baseType)
-                                {
-                                    if (InnerLookup(baseType) is { } baseSerializer)
-                                        return baseSerializer;
-                                }
-
-                                return null;
-                            }
-
-                            if (InnerLookup(typeTuple.actualType) is { } del)
+                            if (@this.InnerLookup(typeTuple.actualType) is { } del)
                             {
                                 //return (TStatic fragment) => del((TActualType)fragment, (TActual _) => _, @this);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[0];
-
                                 var argument2Parameter = Expression.Parameter(effectiveType);
-                                var fragmentParameterExpression = Expression.Parameter(staticType);
+                                var fragmentParameterExpression = Expression.Parameter(typeTuple.staticType);
+                                var effectiveTypeFunc = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
+                                var staticTypeFunc = typeof(Func<,>).MakeGenericType(typeTuple.staticType, typeof(object));
 
                                 var retCall = Expression.Invoke(
                                     Expression.Constant(del),
@@ -88,15 +69,14 @@ namespace ExRam.Gremlinq.Core
                                         fragmentParameterExpression,
                                         effectiveType),
                                     Expression.Lambda(
-                                        typeof(Func<,>).MakeGenericType(effectiveType, typeof(object)), //Func<TActual, object>
+                                        effectiveTypeFunc,
                                         Expression.Convert(argument2Parameter, typeof(object)),
                                         argument2Parameter),
                                     Expression.Constant(@this));
 
                                 return Expression
                                     .Lambda(
-                                        typeof(Func<,>)
-                                            .MakeGenericType(staticType, typeof(object)),
+                                        staticTypeFunc,
                                         retCall,
                                         fragmentParameterExpression)
                                     .Compile();
@@ -105,6 +85,26 @@ namespace ExRam.Gremlinq.Core
                             return null;
                         },
                         this);
+            }
+
+            private Delegate? InnerLookup(Type actualType)
+            {
+                if (_dict.TryGetValue(actualType, out var ret))
+                    return ret;
+
+                foreach (var implementedInterface in actualType.GetInterfaces())
+                {
+                    if (InnerLookup(implementedInterface) is { } interfaceSerializer)
+                        return interfaceSerializer;
+                }
+
+                if (actualType.BaseType is { } baseType)
+                {
+                    if (InnerLookup(baseType) is { } baseSerializer)
+                        return baseSerializer;
+                }
+
+                return null;
             }
         }
 
