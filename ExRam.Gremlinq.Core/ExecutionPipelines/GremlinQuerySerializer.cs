@@ -462,7 +462,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<WherePredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.Predicate))
                     .Override<WherePredicateStep.ByMemberStep>((step, overridden, recurse) => step.Key != null
                         ? CreateInstruction("by", recurse, step.Key)
-                        : CreateInstruction("by", recurse))
+                        : CreateInstruction("by"))
                     .Override<WhereStepLabelAndPredicateStep>((step, overridden, recurse) => CreateInstruction("where", recurse, step.StepLabel, step.Predicate)));
         }
 
@@ -492,17 +492,31 @@ namespace ExRam.Gremlinq.Core
                 closure => new Instruction(closure));
         }
 
-        private static Instruction CreateInstruction(string name, IQueryFragmentSerializer recurse, object parameter)
+        private static Instruction CreateInstruction<TParam>(string name, IQueryFragmentSerializer recurse, TParam parameter)
         {
-            return new Instruction(name, recurse.Serialize(parameter));
+            return new Instruction(
+                name,
+                recurse.Serialize(parameter));
         }
 
-        private static Instruction CreateInstruction(string name, IQueryFragmentSerializer recurse, object parameter1, object parameter2)
+        private static Instruction CreateInstruction<TParam1, TParam2>(string name, IQueryFragmentSerializer recurse, TParam1 parameter1, TParam2 parameter2)
         {
-            return new Instruction(name, recurse.Serialize(parameter1), recurse.Serialize(parameter2));
+            return new Instruction(
+                name,
+                recurse.Serialize(parameter1),
+                recurse.Serialize(parameter2));
         }
 
-        private static Instruction CreateInstruction(string name, IQueryFragmentSerializer recurse, params object[] parameters)
+        private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, IQueryFragmentSerializer recurse, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
+        {
+            return new Instruction(
+                name,
+                recurse.Serialize(parameter1),
+                recurse.Serialize(parameter2),
+                recurse.Serialize(parameter3));
+        }
+
+        private static Instruction CreateInstruction<TParam>(string name, IQueryFragmentSerializer recurse, TParam[] parameters)
         {
             return parameters.Length == 0
                 ? CreateInstruction(name)
