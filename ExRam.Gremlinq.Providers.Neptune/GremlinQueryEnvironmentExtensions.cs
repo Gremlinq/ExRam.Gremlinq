@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 
@@ -19,7 +20,57 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
                     .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
                     .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
-                    .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues));
+                    .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
+                .ConfigureOptions(options => options
+                    .SetValue(
+                        GremlinqOption.VertexProjectionSteps,
+                        new[]
+                        {
+                            new Instruction("project", "id", "label", "properties"),
+                            new Instruction("by", T.Id),
+                            new Instruction("by", T.Label),
+                            new Instruction(
+                                "by",
+                                new Bytecode
+                                {
+                                    StepInstructions =
+                                    {
+                                        new Instruction("properties"),
+                                        new Instruction("group"),
+                                        new Instruction("by", new Bytecode
+                                        {
+                                            StepInstructions =
+                                            {
+                                                new Instruction("label")
+                                            }
+                                        }),
+                                        new Instruction("by", new Bytecode
+                                        {
+                                            StepInstructions =
+                                            {
+                                                new Instruction("project", "id", "label", "value"),
+                                                new Instruction("by", T.Id),
+                                                new Instruction("by", new Bytecode
+                                                {
+                                                    StepInstructions =
+                                                    {
+                                                        new Instruction("label")
+                                                    }
+                                                }),
+                                                new Instruction("by", new Bytecode
+                                                {
+                                                    StepInstructions =
+                                                    {
+                                                        new Instruction("value")
+                                                    }
+                                                }),
+                                                new Instruction("fold")
+                                            }
+                                        })
+                                    }
+                                })
+                        }
+                        .ToImmutableList()));
         }
     }
 }

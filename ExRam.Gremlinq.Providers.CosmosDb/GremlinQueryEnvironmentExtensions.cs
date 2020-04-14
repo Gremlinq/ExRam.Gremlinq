@@ -104,7 +104,6 @@ namespace ExRam.Gremlinq.Core
                     .ToGroovy())
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Instruction>.Empty)
-                    .SetValue(GremlinqOption.VertexProjectionStepsWithoutMetaProperties, ImmutableList<Instruction>.Empty)
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Instruction>.Empty))
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
         }

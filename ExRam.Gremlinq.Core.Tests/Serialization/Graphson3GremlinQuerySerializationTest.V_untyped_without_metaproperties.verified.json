@@ -1,3 +1,0 @@
-[
-  '{"@type":"g:Bytecode","@value":{"step":[["V"],["project","id","label","properties"],["by",{"@type":"g:T","@value":"id"}],["by",{"@type":"g:T","@value":"label"}],["by",{"@type":"g:Bytecode","@value":{"step":[["properties"],["group"],["by",{"@type":"g:Bytecode","@value":{"step":[["label"]]}}],["by",{"@type":"g:Bytecode","@value":{"step":[["project","id","label","value"],["by",{"@type":"g:T","@value":"id"}],["by",{"@type":"g:Bytecode","@value":{"step":[["label"]]}}],["by",{"@type":"g:Bytecode","@value":{"step":[["value"]]}}],["fold"]]}}]]}}]]}}'
-]

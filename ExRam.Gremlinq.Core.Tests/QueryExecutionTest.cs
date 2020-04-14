@@ -2702,16 +2702,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_untyped_without_metaproperties()
-        {
-            await _g
-                .ConfigureEnvironment(env => env
-                    .ConfigureFeatureSet(set => set.ConfigureVertexFeatures(features => features & ~VertexFeatures.MetaProperties)))
-                .V()
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task Value()
         {
             await _g

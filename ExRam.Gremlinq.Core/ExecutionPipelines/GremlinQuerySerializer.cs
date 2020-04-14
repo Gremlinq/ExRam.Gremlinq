@@ -244,9 +244,7 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     case QuerySemantics.Vertex:
                                     {
-                                        byteCode.StepInstructions.AddRange(environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                                            ? environment.Options.GetValue(GremlinqOption.VertexProjectionSteps)
-                                            : environment.Options.GetValue(GremlinqOption.VertexProjectionStepsWithoutMetaProperties));
+                                        byteCode.StepInstructions.AddRange(environment.Options.GetValue(GremlinqOption.VertexProjectionSteps));
 
                                         break;
                                     }

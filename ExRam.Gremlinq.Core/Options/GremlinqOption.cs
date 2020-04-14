@@ -61,55 +61,6 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableList());
 
-        public static GremlinqOption<IImmutableList<Instruction>> VertexProjectionStepsWithoutMetaProperties = new GremlinqOption<IImmutableList<Instruction>>(
-            new[]
-            {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction(
-                    "by",
-                    new Bytecode
-                    {
-                        StepInstructions =
-                        {
-                            new Instruction("properties"),
-                            new Instruction("group"),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("label")
-                                }
-                            }),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("project", "id", "label", "value"),
-                                    new Instruction("by", T.Id),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("label")
-                                        }
-                                    }),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("value")
-                                        }
-                                    }),
-                                    new Instruction("fold")
-                                }
-                            })
-                        }
-                    })
-            }
-            .ToImmutableList());
-
         public static GremlinqOption<IImmutableList<Instruction>> EdgeProjectionSteps = new GremlinqOption<IImmutableList<Instruction>>(
             new[]
             {
