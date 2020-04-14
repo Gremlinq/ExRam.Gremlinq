@@ -91,109 +91,10 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQuerySerializer Default = Identity
             .UseDefaultGremlinStepSerializationHandlers();
 
-        private static readonly Instruction[] VertexProjectionInstructions;
-        private static readonly Instruction[] EdgeProjectionInstructions;
-        private static readonly Instruction[] VertexProjectionInstructionsWithoutMetaProperties;
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new ConcurrentDictionary<string, Instruction>();
 
         static GremlinQuerySerializer()
         {
-            //CosmosDB workaround
-            var labelBytecode = new Bytecode
-            {
-                StepInstructions =
-                {
-                    new Instruction("label")
-                }
-            };
-
-            //CosmosDB workaround
-            var valueBytecode = new Bytecode
-            {
-                StepInstructions =
-                {
-                    new Instruction("value")
-                }
-            };
-
-            VertexProjectionInstructions = new[]
-            {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction(
-                    "by",
-                    new Bytecode
-                    {
-                        StepInstructions =
-                        {
-                            new Instruction("properties"),
-                            new Instruction("group"),
-                            new Instruction("by", labelBytecode),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("project", "id", "label", "value", "properties"),
-                                    new Instruction("by", T.Id),
-                                    new Instruction("by", labelBytecode),
-                                    new Instruction("by", valueBytecode),
-                                    new Instruction("by", new Bytecode
-                                    {
-                                        StepInstructions =
-                                        {
-                                            new Instruction("valueMap")
-                                        }
-                                    }),
-                                    new Instruction("fold")
-                                }
-                            })
-                        }
-                    })
-            };
-
-            VertexProjectionInstructionsWithoutMetaProperties = new[]
-            {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction(
-                    "by",
-                    new Bytecode
-                    {
-                        StepInstructions =
-                        {
-                            new Instruction("properties"),
-                            new Instruction("group"),
-                            new Instruction("by", labelBytecode),
-                            new Instruction("by", new Bytecode
-                            {
-                                StepInstructions =
-                                {
-                                    new Instruction("project", "id", "label", "value"),
-                                    new Instruction("by", T.Id),
-                                    new Instruction("by", labelBytecode),
-                                    new Instruction("by", valueBytecode),
-                                    new Instruction("fold")
-                                }
-                            })
-                        }
-                    })
-            };
-
-            EdgeProjectionInstructions = new[]
-            {
-                new Instruction("project", "id", "label", "properties"),
-                new Instruction("by", T.Id),
-                new Instruction("by", T.Label),
-                new Instruction("by", new Bytecode
-                {
-                    StepInstructions =
-                    {
-                        new Instruction("valueMap")
-                    }
-                })
-            };
         }
 
         public static IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQuerySerializer serializer)
@@ -335,21 +236,23 @@ namespace ExRam.Gremlinq.Core
 
                         if (query is GremlinQueryBase gremlinQueryBase)
                         {
-                            if (gremlinQueryBase.SurfaceVisible && !gremlinQueryBase.Environment.Options.GetValue(GremlinqOption.DontAddElementProjectionSteps))
+                            var environment = gremlinQueryBase.Environment;
+
+                            if (gremlinQueryBase.SurfaceVisible && !environment.Options.GetValue(GremlinqOption.DontAddElementProjectionSteps))
                             {
                                 switch (gremlinQueryBase.Semantics)
                                 {
                                     case QuerySemantics.Vertex:
                                     {
-                                        byteCode.StepInstructions.AddRange(gremlinQueryBase.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
-                                            ? VertexProjectionInstructions
-                                            : VertexProjectionInstructionsWithoutMetaProperties);
+                                        byteCode.StepInstructions.AddRange(environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                                            ? environment.Options.GetValue(GremlinqOption.VertexProjectionSteps)
+                                            : environment.Options.GetValue(GremlinqOption.VertexProjectionStepsWithoutMetaProperties));
 
                                         break;
                                     }
                                     case QuerySemantics.Edge:
                                     {
-                                        byteCode.StepInstructions.AddRange(EdgeProjectionInstructions);
+                                        byteCode.StepInstructions.AddRange(environment.Options.GetValue(GremlinqOption.EdgeProjectionSteps));
 
                                         break;
                                     }
