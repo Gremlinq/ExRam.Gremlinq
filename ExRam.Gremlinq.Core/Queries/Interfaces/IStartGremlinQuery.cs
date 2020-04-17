@@ -11,12 +11,8 @@
         IVertexGremlinQuery<object> V(params object[] ids);
         IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
 
-        IEdgeGremlinQuery<object> E(params object[] ids);
-        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
-
         IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
 
         IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
-        IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
     }
 }

@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
     {
         internal static readonly IImmutableStack<Step> AnonymousNoneSteps = ImmutableStack<Step>.Empty.Push(NoneStep.Instance);
 
-        public static IGremlinQuery<object> Anonymous(IGremlinQueryEnvironment environment)
+        public static GremlinQuery<object, object, object, object, object, object> Anonymous(IGremlinQueryEnvironment environment)
         {
             return Create<object>(
                 ImmutableStack<Step>.Empty,
@@ -23,7 +23,7 @@ namespace ExRam.Gremlinq.Core
                 false);
         }
 
-        public static IGremlinQuery<TElement> Create<TElement>(IGremlinQueryEnvironment environment)
+        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
         {
             return Create<TElement>(
                 ImmutableStack<Step>.Empty,
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                 true);
         }
 
-        public static IGremlinQuery<TElement> Create<TElement>(IImmutableStack<Step> steps, IGremlinQueryEnvironment environment, bool surfaceVisible)
+        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IImmutableStack<Step> steps, IGremlinQueryEnvironment environment, bool surfaceVisible)
         {
             return new GremlinQuery<TElement, object, object, object, object, object>(
                 steps,

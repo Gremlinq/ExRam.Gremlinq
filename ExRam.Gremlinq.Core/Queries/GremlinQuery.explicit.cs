@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Core
     partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
+        IGremlinQuerySource,
         IGremlinQuery<TElement>,
 
         IArrayGremlinQuery<TElement, TFoldedQuery>,
@@ -158,8 +159,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<long> IGremlinQueryBase.CountLocal() => AddStepWithObjectTypes<long>(CountStep.Local, QuerySemantics.None);
 
-        IEdgeGremlinQuery<object> IStartGremlinQuery.E(params object[] ids) => AddStepWithObjectTypes<object>(new EStep(ids), QuerySemantics.Edge);
-
         IValueGremlinQuery<string> IGremlinQueryBase.Explain() => AddStepWithObjectTypes<string>(ExplainStep.Instance, QuerySemantics.None);
 
         TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
@@ -195,13 +194,6 @@ namespace ExRam.Gremlinq.Core
                 .Update(vertex);
         }
 
-        IEdgeGremlinQuery<TNewEdge> IStartGremlinQuery.ReplaceE<TNewEdge>(TNewEdge edge)
-        {
-            return ((IStartGremlinQuery)this)
-                .E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel))
-                .Update(edge);
-        }
-
         IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
 
         IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
@@ -212,8 +204,6 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>() => AddV(new TVertex());
 
-        IEdgeGremlinQuery<TEdge> IStartGremlinQuery.E<TEdge>(params object[] ids) => ((IStartGremlinQuery)this).E(ids).OfType<TEdge>();
-
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.V<TVertex>(params object[] ids) => ((IStartGremlinQuery)this).V(ids).OfType<TVertex>();
 
         IGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) => ConfigureSteps<object>(configurator);
@@ -221,6 +211,8 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
 
         IImmutableStack<Step> IGremlinQueryAdmin.Steps => Steps;
+
+        IGremlinQueryEnvironment IGremlinQuerySource.Environment => Environment;
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
@@ -389,5 +381,20 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<Property<TValue>> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Properties<TValue>(params string[] keys) => Properties<Property<TValue>, object, object>(keys, QuerySemantics.Property);
 
         IValueGremlinQuery<TScalar> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Value() => Value<TScalar>();
+
+        IEdgeGremlinQuery<object> IGremlinQuerySource.E(params object[] ids) => AddStepWithObjectTypes<object>(new EStep(ids), QuerySemantics.Edge);
+
+        IEdgeGremlinQuery<TEdge> IGremlinQuerySource.E<TEdge>(params object[] ids) => ((IGremlinQuerySource)this).E(ids).OfType<TEdge>();
+
+        IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel)).Update(edge);
+
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Steps, environmentTransformation(Environment), Semantics, StepLabelSemantics, SurfaceVisible);
+
+        IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
+        {
+            return (!Steps.IsEmpty && Steps.Peek() is WithoutStrategiesStep withoutStrategies)
+                ? ConfigureSteps<TElement>(steps => steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(strategyTypes).Distinct().ToArray())))
+                : AddStep(new WithoutStrategiesStep(strategyTypes));
+        }
     }
 }

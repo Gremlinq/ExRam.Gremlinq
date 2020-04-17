@@ -4,8 +4,8 @@
       {
         OperatorName: 'withoutStrategies',
         Arguments: [
-          'ElementIdStrategy',
-          'SubgraphStrategy'
+          'SubgraphStrategy',
+          'ElementIdStrategy'
         ]
       }
     ],

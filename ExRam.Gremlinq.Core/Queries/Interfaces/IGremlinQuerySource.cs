@@ -4,6 +4,11 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQuerySource : IConfigurableGremlinQuerySource, IStartGremlinQuery
     {
+        IEdgeGremlinQuery<object> E(params object[] ids);
+        IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
+
+        IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
+
         IGremlinQuerySource RemoveStrategies(params Type[] strategyTypes);
 
         IGremlinQueryEnvironment Environment { get; }
