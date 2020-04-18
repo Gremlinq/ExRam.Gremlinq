@@ -13,7 +13,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="Queries\Builders\ProjectBuilder.tt">
+    <None Update="Queries\T4\ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ProjectBuilder.cs</LastGenOutput>
     </None>
@@ -34,7 +34,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="Queries\Builders\ProjectBuilder.cs">
+    <Compile Update="Queries\T4\ProjectBuilder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProjectBuilder.tt</DependentUpon>
