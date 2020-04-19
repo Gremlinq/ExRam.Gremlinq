@@ -23,10 +23,7 @@ namespace ExRam.Gremlinq.Core
                         new ProjectStep.ByKeyStep(T.Id),
                         new ProjectStep.ByKeyStep(T.Label),
                         new ProjectStep.ByKeyStep(T.Value),
-                        new ProjectStep.ByTraversalStep(new Step[]
-                        {
-                            new ValueMapStep(Array.Empty<string>())
-                        }),
+                        new ProjectStep.ByTraversalStep(new ValueMapStep(Array.Empty<string>())),
                         FoldStep.Instance
                     })
                 })
@@ -39,10 +36,7 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep("id", "label", "properties"),
                 new ProjectStep.ByKeyStep(T.Id),
                 new ProjectStep.ByKeyStep(T.Label),
-                new ProjectStep.ByTraversalStep(new Step[]
-                {
-                    new ValueMapStep(Array.Empty<string>())
-                })
+                new ProjectStep.ByTraversalStep(new ValueMapStep(Array.Empty<string>()))
             }
             .ToImmutableList());
 

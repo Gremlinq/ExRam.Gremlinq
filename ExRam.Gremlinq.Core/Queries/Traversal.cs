@@ -1,22 +1,34 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public readonly struct Traversal
     {
-        public Traversal(Step[] steps)
+        public Traversal(IEnumerable<Step> steps) : this(steps.ToImmutableArray())
+        {
+        }
+
+        public Traversal(ImmutableArray<Step> steps)
         {
             Steps = steps;
         }
 
-        public Step[] Steps { get; }
+        public ImmutableArray<Step> Steps { get; }
 
         public static implicit operator Traversal(Step[] steps)
         {
             return new Traversal(steps);
         }
 
+        public static implicit operator Traversal(ImmutableArray<Step> steps)
+        {
+            return new Traversal(steps);
+        }
+
         public static implicit operator Traversal(Step step)
         {
-            return new Traversal(new Step[] { step });
+            return new Traversal(ImmutableArray.Create(step));
         }
     }
 }

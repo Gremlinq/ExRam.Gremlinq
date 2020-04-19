@@ -216,7 +216,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;
 
-        Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl().ToArray();
+        Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl().ToImmutableArray();
 
         private IEnumerable<Step> ToTraversalImpl()
         {
