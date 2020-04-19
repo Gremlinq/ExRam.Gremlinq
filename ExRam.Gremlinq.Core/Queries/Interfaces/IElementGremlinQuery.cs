@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBaseRec<TSelf>
         where TSelf : IElementGremlinQueryBaseRec<TSelf>
     {
-        TSelf Property(string key, object value);
+        TSelf Property(string key, object? value);
     }
 
     public partial interface IElementGremlinQueryBase<TElement> :

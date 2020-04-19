@@ -10,7 +10,9 @@ namespace ExRam.Gremlinq.Core
             OptionTraversal = optionTraversal;
         }
 
-        [AllowNull] public object? Guard { get; }
+        [AllowNull]
+        public object? Guard { get; }
+
         public Traversal OptionTraversal { get; }
     }
 }

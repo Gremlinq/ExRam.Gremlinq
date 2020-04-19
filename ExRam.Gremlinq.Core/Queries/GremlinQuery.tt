@@ -118,7 +118,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Order(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderGlobal(projection);
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.OrderLocal(Func<IOrderBuilder<TElement, <#= iface #>>, IOrderBuilderWithBy<TElement, <#= iface #>>> projection) => OrderLocal(projection);
 
-        <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, [AllowNull] object value) => Property(key, value);
+        <#= iface #> IElementGremlinQueryBaseRec<<#= iface #>>.Property(string key, [AllowNull] object? value) => Property(key, value);
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, [AllowNull] TProjectedValue value) => <#= iface.StartsWith("IVertexGremlinQuery") ? "VertexProperty(projection, value);" : "Property(projection, value);" #>
 
         <#= iface #> IElementGremlinQueryBaseRec<TElement, <#= iface #>>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);

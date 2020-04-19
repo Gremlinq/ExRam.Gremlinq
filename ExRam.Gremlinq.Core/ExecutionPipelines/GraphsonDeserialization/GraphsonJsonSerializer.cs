@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
                     _defaultValue = Array.CreateInstance(elementType, 0);
                 }
 
-                public void SetValue(object target, [AllowNull] object value)
+                public void SetValue(object target, [AllowNull] object? value)
                 {
                     _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
                     _defaultValue = new Dictionary<string, object>();
                 }
 
-                public void SetValue(object target, [AllowNull] object value)
+                public void SetValue(object target, [AllowNull] object? value)
                 {
                     _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class DateTimeOffsetConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
             {
                 if (objectType == typeof(DateTimeOffset))
                 {
@@ -374,7 +374,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             [return: AllowNull]
-            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object? existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 

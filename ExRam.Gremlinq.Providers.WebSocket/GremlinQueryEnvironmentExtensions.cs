@@ -76,6 +76,19 @@ namespace ExRam.Gremlinq.Core
                         if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
                             Log(bytecode.ToGroovy());
 
+                        //bytecode = new Bytecode
+                        //{
+                        //    StepInstructions =
+                        //    {
+                        //        new Instruction("V"),
+                        //        new Instruction(
+                        //            "coalesce",
+                        //            new Bytecode {StepInstructions = {new Instruction("E")}},
+                        //            new Bytecode {StepInstructions = {new Instruction("constant", 1)}}
+                        //        )
+                        //    }
+                        //};
+
                         var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .OverrideRequestId(Guid.NewGuid())
