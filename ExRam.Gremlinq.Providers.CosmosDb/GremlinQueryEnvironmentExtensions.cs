@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimespanConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (objectType == typeof(TimeSpan))
                 {

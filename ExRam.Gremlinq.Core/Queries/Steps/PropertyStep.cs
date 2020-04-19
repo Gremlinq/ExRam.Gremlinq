@@ -22,6 +22,6 @@ namespace ExRam.Gremlinq.Core
         public object Key { get; }
         public object Value { get; }
         public object[] MetaProperties { get; }
-        [AllowNull] public Cardinality? Cardinality { get; }
+        public Cardinality? Cardinality { get; }
     }
 }

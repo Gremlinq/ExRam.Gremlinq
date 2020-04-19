@@ -7,12 +7,11 @@ namespace ExRam.Gremlinq.Core
     {
         public sealed class ByMemberStep : Step
         {
-            public ByMemberStep([AllowNull] object? key = default)
+            public ByMemberStep(object? key = default)
             {
                 Key = key;
             }
 
-            [AllowNull]
             public object? Key { get; }
         }
 

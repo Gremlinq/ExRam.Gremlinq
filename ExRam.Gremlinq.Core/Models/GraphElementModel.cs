@@ -85,7 +85,6 @@ namespace ExRam.Gremlinq.Core
                 .TryGetFilterLabels(type, verbosity) ?? new[] {type.Name};
         }
 
-        [return: AllowNull]
         public static string[]? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             var labels = DerivedLabels

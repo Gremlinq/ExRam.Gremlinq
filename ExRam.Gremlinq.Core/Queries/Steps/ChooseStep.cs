@@ -12,7 +12,6 @@ namespace ExRam.Gremlinq.Core
 
         public Traversal ThenTraversal { get; }
 
-        [AllowNull]
         public Traversal? ElseTraversal { get; }
     }
 }

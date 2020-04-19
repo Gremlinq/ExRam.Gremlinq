@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class NullJTokenConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 throw new NotImplementedException();
             }
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
                 _converter2 = converter2;
             }
 
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 return _converter2.TryConvert(jToken, objectType, recurse, out value) || _converter1.TryConvert(jToken, objectType, recurse, out value);
             }

@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public abstract class VertexBaseAbstract : IVertex
         {
             public abstract string PartitionKey { get; set; }
-            [AllowNull] public object? Id { get; set; }
+            public object? Id { get; set; }
         }
 
         public class ItemOverride : VertexBaseAbstract

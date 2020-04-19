@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
                     _defaultValue = Array.CreateInstance(elementType, 0);
                 }
 
-                public void SetValue(object target, [AllowNull] object? value)
+                public void SetValue(object target, object? value)
                 {
                     _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
@@ -50,7 +50,7 @@ namespace ExRam.Gremlinq.Core
                     _defaultValue = new Dictionary<string, object>();
                 }
 
-                public void SetValue(object target, [AllowNull] object? value)
+                public void SetValue(object target, object? value)
                 {
                     _innerProvider.SetValue(target, value ?? _defaultValue);
                 }
@@ -99,7 +99,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class TimespanConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (objectType == typeof(TimeSpan))
                 {
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class DateTimeOffsetConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (objectType == typeof(DateTimeOffset))
                 {
@@ -156,7 +156,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class DateTimeConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (objectType == typeof(DateTime))
                 {
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class FlatteningConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (!objectType.IsArray)
                 {
@@ -239,12 +239,12 @@ namespace ExRam.Gremlinq.Core
         {
             private sealed class VertexImpl : IVertex
             {
-                [AllowNull] public object? Id { get; set; }
+                public object? Id { get; set; }
             }
 
             private sealed class EdgeImpl : IEdge
             {
-                [AllowNull] public object? Id { get; set; }
+                public object? Id { get; set; }
             }
 
             private readonly IDictionary<string, Type[]> _types;
@@ -264,7 +264,7 @@ namespace ExRam.Gremlinq.Core
                         StringComparer.OrdinalIgnoreCase);
             }
 
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (jToken is JObject)
                 {
@@ -300,7 +300,7 @@ namespace ExRam.Gremlinq.Core
                 _nativeTypes = nativeTypes;
             }
 
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (_nativeTypes.Contains(objectType) || (objectType.IsEnum && _nativeTypes.Contains(objectType.GetEnumUnderlyingType())))
                 {
@@ -326,7 +326,7 @@ namespace ExRam.Gremlinq.Core
                 _ignoringSerializer = ignoringSerializer;
             }
 
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 var ret = jToken.ToObject(objectType, _populatingSerializer);
 
@@ -373,8 +373,7 @@ namespace ExRam.Gremlinq.Core
                 throw new NotSupportedException();
             }
 
-            [return: AllowNull]
-            public override object? ReadJson(JsonReader reader, Type objectType, [AllowNull] object? existingValue, JsonSerializer serializer)
+            public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
             {
                 var token = JToken.Load(reader);
 
@@ -395,7 +394,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class ArrayConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (objectType.IsArray && jToken is JArray jArray)
                 {
@@ -441,7 +440,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class MapConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
                 {
@@ -465,7 +464,7 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class NestedValueConverter : IJTokenConverter
         {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, [AllowNull] out object? value)
+            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
                 if (jToken is JObject jObject)
                 {

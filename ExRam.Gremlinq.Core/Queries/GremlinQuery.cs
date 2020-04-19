@@ -812,7 +812,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, object, object, TNewPropertyValue, TNewMeta, object> Properties<TNewElement, TNewPropertyValue, TNewMeta>(IEnumerable<string> keys, QuerySemantics querySemantics) where TNewMeta : class => AddStep<TNewElement, object, object, TNewPropertyValue, TNewMeta, object>(new PropertiesStep(keys.ToArray()), querySemantics);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, [AllowNull] object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, object? value)
         {
             if (projection.Body.Strip() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression) is string identifier)
                 return Property(identifier, value);
@@ -820,7 +820,7 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(projection);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(string key, [AllowNull] object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(string key, object? value)
         {
             return value == null
                 ? DropProperties(key)
@@ -950,7 +950,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(QuerySemantics.VertexProperty, projections);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, [AllowNull] object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, object? value)
         {
             if (projection.Body.Strip() is MemberExpression memberExpression)
             {

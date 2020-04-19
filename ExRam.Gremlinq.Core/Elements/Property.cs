@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         internal abstract object GetValue();
         internal abstract IDictionary<string, object>? GetMetaProperties(IGraphElementPropertyModel model);
 
-        [AllowNull] public string? Key { get; set; }
+        public string? Key { get; set; }
     }
 
     public class Property<TValue> : Property

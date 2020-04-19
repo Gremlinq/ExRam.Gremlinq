@@ -1222,6 +1222,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void NullGuard_works()
+        {
+            _g
+                .Invoking(_ => _
+                    .V<Company>(default(object[])))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public async Task OfType_abstract()
         {
             await _g

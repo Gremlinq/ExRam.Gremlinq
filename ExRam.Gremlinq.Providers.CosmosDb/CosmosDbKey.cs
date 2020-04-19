@@ -16,7 +16,6 @@ namespace ExRam.Gremlinq.Core
 
         public string Id { get; }
 
-        [AllowNull]
         public string? PartitionKey { get; }
     }
 }
