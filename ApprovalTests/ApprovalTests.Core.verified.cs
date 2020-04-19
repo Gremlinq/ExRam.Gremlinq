@@ -1420,10 +1420,12 @@ namespace ExRam.Gremlinq.Core
     }
     public readonly struct Traversal
     {
-        public Traversal(ExRam.Gremlinq.Core.Step[] steps) { }
-        public ExRam.Gremlinq.Core.Step[] Steps { get; }
+        public Traversal(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps) { }
+        public Traversal(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> Steps { get; }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step step) { }
         public static ExRam.Gremlinq.Core.Traversal op_Implicit(ExRam.Gremlinq.Core.Step[] steps) { }
+        public static ExRam.Gremlinq.Core.Traversal op_Implicit(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Step> steps) { }
     }
     public sealed class UnfoldStep : ExRam.Gremlinq.Core.Step
     {
