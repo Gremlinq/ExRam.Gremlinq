@@ -52,14 +52,14 @@ namespace ExRam.Gremlinq.Core
 
                     if (serializedQuery is GroovyGremlinQuery groovyScript)
                     {
-                        Log(groovyScript);
-
                         try
                         {
                             results = await _lazyGremlinClient
                                 .Value
                                 .SubmitAsync<JToken>($"{_alias}.{groovyScript.Script}", groovyScript.Bindings)
                                 .ConfigureAwait(false);
+
+                            Log(groovyScript, results.StatusAttributes);
                         }
                         catch (Exception ex)
                         {
@@ -73,9 +73,6 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (serializedQuery is Bytecode bytecode)
                     {
-                        if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
-                            Log(bytecode.ToGroovy());
-
                         var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .OverrideRequestId(Guid.NewGuid())
@@ -89,6 +86,9 @@ namespace ExRam.Gremlinq.Core
                                 .Value
                                 .SubmitAsync<JToken>(requestMsg)
                                 .ConfigureAwait(false);
+
+                            if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
+                                Log(bytecode.ToGroovy(), results.StatusAttributes);
                         }
                         catch (Exception ex)
                         {
@@ -113,21 +113,35 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(GroovyGremlinQuery query)
+            private void Log(GroovyGremlinQuery query, IReadOnlyDictionary<string, object> responseStatusAttributes)
             {
                 if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
                 {
-                    _logger?.Log(
-                        _loggingOptions.LogLevel,
-                        "Executing Gremlin query {0}.",
-                        JsonConvert.SerializeObject(
-                            new
-                            {
-                                Script = query.Script,
-                                Bindings = _loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParameters
-                                    ? query.Bindings
-                                    : null
-                            }));
+                    var loggingScope = default(IDisposable);
+
+                    if (_loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParametersWithStatusAttributes)
+                        loggingScope = _logger?.BeginScope(responseStatusAttributes);
+
+                    try
+                    {
+                        _logger?.Log(
+                            _loggingOptions.LogLevel,
+                            "Executing Gremlin query {0}.",
+                            JsonConvert.SerializeObject(
+                                new
+                                {
+                                    Script = query.Script,
+                                    Bindings =
+                                        _loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParameters ||
+                                        _loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParametersWithStatusAttributes
+                                            ? query.Bindings
+                                            : null
+                                }));
+                    }
+                    finally
+                    {
+                        loggingScope?.Dispose();
+                    }
                 }
             }
         }

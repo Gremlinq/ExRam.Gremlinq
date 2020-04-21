@@ -1,4 +1,4 @@
-[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
+﻿[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
@@ -40,6 +40,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         None = 0,
         QueryOnly = 1,
         QueryAndParameters = 2,
+        QueryAndParametersWithStatusAttributes = 3,
     }
     public static class WebSocketConfigurationBuilderExtensions
     {

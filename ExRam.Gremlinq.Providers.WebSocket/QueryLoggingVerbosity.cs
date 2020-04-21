@@ -4,6 +4,7 @@
     {
         None = 0,
         QueryOnly = 1,
-        QueryAndParameters,
+        QueryAndParameters = 2,
+        QueryAndParametersWithStatusAttributes = 3
     }
 }
