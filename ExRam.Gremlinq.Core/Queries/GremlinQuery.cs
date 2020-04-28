@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
+using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -278,12 +279,14 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var (property, identifier, value) in props)
             {
-                foreach (var propertyStep in GetPropertySteps(property.PropertyType, identifier, value, allowExplicitCardinality))
+                if (!allowUserSuppliedId && T.Id.Equals(identifier))
+                    Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
+                else
                 {
-                    if (!allowUserSuppliedId && T.Id.Equals(identifier))
-                        throw new NotSupportedException("User supplied ids are not supported according to the envrionment's FeatureSet.");
-
-                    ret = ret.AddStep(propertyStep);
+                    foreach (var propertyStep in GetPropertySteps(property.PropertyType, identifier, value, allowExplicitCardinality))
+                    {
+                        ret = ret.AddStep(propertyStep);
+                    }
                 }
             }
 
