@@ -46,6 +46,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Mid_query_g_throws()
+        {
+            _g
+                .V()
+                .Invoking(_ => _
+                    .Coalesce(
+                        __ => _g.V<object>(),
+                        __ => __.AddV<object>()))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public async Task AddE_from_StepLabel()
         {
             await _g

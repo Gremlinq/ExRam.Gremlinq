@@ -48,8 +48,11 @@ namespace ExRam.Gremlinq.Core
             return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.IsEmpty;
         }
 
-        internal static Traversal ToTraversal(this IGremlinQueryBase query)
+        internal static Traversal ToTraversal(this IGremlinQueryBase query, bool allowNonAnonymousQueries = false)
         {
+            if (!allowNonAnonymousQueries && query is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) != QueryFlags.IsAnonymous)
+                throw new InvalidOperationException();
+
             return query.AsAdmin().ToTraversal();
         }
 
