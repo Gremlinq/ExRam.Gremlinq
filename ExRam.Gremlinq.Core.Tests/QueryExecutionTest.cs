@@ -34,31 +34,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_array_contains_element_graphson()
-        {
-            await _g
-                .Inject(1, 2, 3)
-                .Fold()
-                .As((_, ints) => _
-                    .V<Person>()
-                    .Where(person => ints.Value.Contains(person.Age)))
-                .Verify(this);
-        }
-
-        [Fact]
-        public void Mid_query_g_throws()
-        {
-            _g
-                .V()
-                .Invoking(_ => _
-                    .Coalesce(
-                        __ => _g.V<object>(),
-                        __ => __.AddV<object>()))
-                .Should()
-                .Throw<InvalidOperationException>();
-        }
-
-        [Fact]
         public async Task AddE_from_StepLabel()
         {
             await _g
@@ -351,6 +326,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Aggregate_Cap()
+        {
+            await _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Aggregate_Cap_type()
+        {
+            _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated))
+                .Should()
+                .BeAssignableTo<IGremlinQueryBase<Person[]>>();
+        }
+
+        [Fact]
+        public async Task Aggregate_Cap_unfold()
+        {
+            await _g
+                .V<Person>()
+                .Aggregate((__, aggregated) => __
+                    .Cap(aggregated)
+                    .Unfold())
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Aggregate_Global()
         {
             await _g
@@ -366,38 +373,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Aggregate((__, aggregated) => __)
                 .Verify(this);
-        }
-
-        [Fact]
-        public async Task Aggregate_Cap()
-        {
-            await _g
-                .V<Person>()
-                .Aggregate((__, aggregated) => __
-                    .Cap(aggregated))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Aggregate_Cap_unfold()
-        {
-            await _g
-                .V<Person>()
-                .Aggregate((__, aggregated) => __
-                    .Cap(aggregated)
-                    .Unfold())
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Aggregate_Cap_type()
-        {
-            _g
-                .V<Person>()
-                .Aggregate((__, aggregated) => __
-                    .Cap(aggregated))
-                .Should()
-                .BeAssignableTo<IGremlinQueryBase<Person[]>>();
         }
 
         [Fact]
@@ -845,6 +820,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+        [Fact]
         public async Task E_Properties()
         {
             await _g
@@ -872,17 +848,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As(stepLabel)
                 .Select(stepLabel)
                 .Verify(this);
-        }
-
-        [Fact]
-        public void Vertex_comparison_with_null_throws()
-        {
-            _g
-                .V<Person>()
-                .Invoking(x => x
-                    .Where(y => y != null))
-                .Should()
-                .Throw<ExpressionNotSupportedException>();
         }
 
         [Fact]
@@ -1161,6 +1126,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Mid_query_g_throws()
+        {
+            _g
+                .V()
+                .Invoking(_ => _
+                    .Coalesce(
+                        __ => _g.V<object>(),
+                        __ => __.AddV<object>()))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public async Task MinGlobal()
         {
             await _g
@@ -1386,6 +1364,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Order_Fold_Unfold()
+        {
+            await _g
+                .V<IVertex>()
+                .Order(b => b
+                    .By(x => x.Id))
+                .Fold()
+                .Unfold()
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Order_scalars()
         {
             await _g
@@ -1408,18 +1398,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Order_Fold_Unfold()
-        {
-            await _g
-                .V<IVertex>()
-                .Order(b => b
-                    .By(x => x.Id))
-                .Fold()
-                .Unfold()
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task OrderBy_lambda()
         {
             await _g
@@ -1437,17 +1415,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(x => x.Name != null)
                 .Order(b => b
-                    .By(x => x.Name))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task OrderLocal_by_member()
-        {
-            await _g
-                .V<Person>()
-                .Where(x => x.Name != null)
-                .OrderLocal(b => b
                     .By(x => x.Name))
                 .Verify(this);
         }
@@ -1561,6 +1528,17 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => x.Name != null)
                 .Order(b => b
                     .ByDescending(__ => __.Values(x => x.Name)))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task OrderLocal_by_member()
+        {
+            await _g
+                .V<Person>()
+                .Where(x => x.Name != null)
+                .OrderLocal(b => b
+                    .By(x => x.Name))
                 .Verify(this);
         }
 
@@ -1899,16 +1877,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_typed()
-        {
-            await _g
-                .V()
-                .Properties()
-                .Values<string>()
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task Properties_ValueMap_typed()
         {
             await _g
@@ -1957,6 +1925,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Values(x => x.Label)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Properties_Values_typed()
+        {
+            await _g
+                .V()
+                .Properties()
+                .Values<string>()
                 .Verify(this);
         }
 
@@ -2027,45 +2005,12 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task VertexProperties_Where_label()
-        {
-            await _g
-                .V<Company>()
-                .Properties(x => x.Names)
-                .Where(x => x.Label == "someKey")
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task Properties_Where_Label_2()
         {
             await _g
                 .V<Country>()
                 .Properties(x => x.Languages)
                 .Where(x => x.Label == "label")
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Properties_Where_neq_Label_workaround()
-        {
-            await _g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x
-                    .Label()
-                    .Where(l => l != "label"))
-                .Verify(this);
-        }
-
-
-        [Fact]
-        public async Task Properties_Where_neq_Label()
-        {
-            await _g
-                .V<Country>()
-                .Properties(x => x.Languages)
-                .Where(x => x.Label != "label")
                 .Verify(this);
         }
 
@@ -2098,6 +2043,29 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Company>()
                 .Properties(x => x.Names)
                 .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties.ValidFrom)
+                .Verify(this);
+        }
+
+
+        [Fact]
+        public async Task Properties_Where_neq_Label()
+        {
+            await _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x.Label != "label")
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Properties_Where_neq_Label_workaround()
+        {
+            await _g
+                .V<Country>()
+                .Properties(x => x.Languages)
+                .Where(x => x
+                    .Label()
+                    .Where(l => l != "label"))
                 .Verify(this);
         }
 
@@ -2141,6 +2109,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+        [Fact]
         public async Task Properties2()
         {
             await _g
@@ -2346,6 +2315,18 @@ namespace ExRam.Gremlinq.Core.Tests
 
         [Fact]
         public async Task StepLabel_of_array_contains_element()
+        {
+            await _g
+                .Inject(1, 2, 3)
+                .Fold()
+                .As((_, ints) => _
+                    .V<Person>()
+                    .Where(person => ints.Value.Contains(person.Age)))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task StepLabel_of_array_contains_element_graphson()
         {
             await _g
                 .Inject(1, 2, 3)
@@ -2832,6 +2813,27 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Properties()
                 .Properties("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30")
+                .Verify(this);
+        }
+
+        [Fact]
+        public void Vertex_comparison_with_null_throws()
+        {
+            _g
+                .V<Person>()
+                .Invoking(x => x
+                    .Where(y => y != null))
+                .Should()
+                .Throw<ExpressionNotSupportedException>();
+        }
+
+        [Fact]
+        public async Task VertexProperties_Where_label()
+        {
+            await _g
+                .V<Company>()
+                .Properties(x => x.Names)
+                .Where(x => x.Label == "someKey")
                 .Verify(this);
         }
 
