@@ -5,14 +5,14 @@ using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
-namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
+namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
 {
-    public class GremlinServerIntegrationTests : QueryExecutionTest
+    public class JanusGraphIntegrationTests : QueryExecutionTest
     {
-        public GremlinServerIntegrationTests(ITestOutputHelper testOutputHelper) : base(
+        public JanusGraphIntegrationTests(ITestOutputHelper testOutputHelper) : base(
             g
                 .ConfigureEnvironment(env => env
-                    .UseWebSocket(builder => builder
+                    .UseJanusGraph(builder => builder
                         .AtLocalhost())),
             testOutputHelper)
         {
