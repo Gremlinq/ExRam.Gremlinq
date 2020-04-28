@@ -10,6 +10,13 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
+    [Flags]
+    internal enum QueryFlags
+    {
+        None = 0,
+        SurfaceVisible = 1,
+    }
+
     internal static class GremlinQuery
     {
         internal static readonly IImmutableStack<Step> AnonymousNoneSteps = ImmutableStack<Step>.Empty.Push(NoneStep.Instance);
@@ -19,7 +26,7 @@ namespace ExRam.Gremlinq.Core
             return Create<object>(
                 ImmutableStack<Step>.Empty,
                 environment,
-                false);
+                QueryFlags.None);
         }
 
         public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
@@ -27,17 +34,17 @@ namespace ExRam.Gremlinq.Core
             return Create<TElement>(
                 ImmutableStack<Step>.Empty,
                 environment,
-                true);
+                QueryFlags.SurfaceVisible);
         }
 
-        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IImmutableStack<Step> steps, IGremlinQueryEnvironment environment, bool surfaceVisible)
+        public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IImmutableStack<Step> steps, IGremlinQueryEnvironment environment, QueryFlags flags)
         {
             return new GremlinQuery<TElement, object, object, object, object, object>(
                 steps,
                 environment,
                 QuerySemantics.None,
                 ImmutableDictionary<StepLabel, QuerySemantics>.Empty,
-                surfaceVisible);
+                flags);
         }
     }
 
@@ -244,7 +251,7 @@ namespace ExRam.Gremlinq.Core
             IGremlinQueryEnvironment environment,
             QuerySemantics semantics,
             IImmutableDictionary<StepLabel, QuerySemantics> stepLabelSemantics,
-            bool surfaceVisible) : base(steps, environment, semantics, stepLabelSemantics, surfaceVisible)
+            QueryFlags flags) : base(steps, environment, semantics, stepLabelSemantics, flags)
         {
 
         }
@@ -337,7 +344,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> AddStep<TNewElement>(Step step, QuerySemantics? querySemantics = null, IImmutableDictionary<StepLabel, QuerySemantics>? stepLabelSemantics = null) => AddStep<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(step, querySemantics, stepLabelSemantics);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, QuerySemantics? querySemantics = null, IImmutableDictionary<StepLabel, QuerySemantics>? stepLabelSemantics = null) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Push(step), Environment, querySemantics ?? Semantics, stepLabelSemantics ?? StepLabelSemantics, SurfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> AddStep<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Step step, QuerySemantics? querySemantics = null, IImmutableDictionary<StepLabel, QuerySemantics>? stepLabelSemantics = null) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps.Push(step), Environment, querySemantics ?? Semantics, stepLabelSemantics ?? StepLabelSemantics, Flags);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> AddStepWithObjectTypes<TNewElement>(Step step, QuerySemantics? querySemantics = null) => AddStep<TNewElement, object, object, object, object, object>(step, querySemantics);
 
@@ -383,7 +390,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Anonymize(bool surfaceVisible = false) => Anonymize<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(surfaceVisible);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, surfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel
@@ -411,7 +418,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Cast<TNewElement>() => Cast<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>();
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment, Semantics, StepLabelSemantics, SurfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Cast<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>() where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(Steps, Environment, Semantics, StepLabelSemantics, Flags);
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>? maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
@@ -482,7 +489,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(configurator(Steps), Environment, Semantics, StepLabelSemantics, SurfaceVisible);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> ConfigureSteps<TNewElement>(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) => new GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(configurator(Steps), Environment, Semantics, StepLabelSemantics, Flags);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> DedupGlobal() => AddStep(DedupStep.Global);
 
@@ -677,7 +684,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
         {
             return this.IsIdentity()
-                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment, Semantics, StepLabelSemantics, SurfaceVisible)
+                ? new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(GremlinQuery.AnonymousNoneSteps, Environment, Semantics, StepLabelSemantics, Flags)
                 : AddStep(NoneStep.Instance);
         }
 

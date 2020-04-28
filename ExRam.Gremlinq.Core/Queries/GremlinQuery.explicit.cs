@@ -235,7 +235,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            if (SurfaceVisible)
+            if ((Flags & QueryFlags.SurfaceVisible) == QueryFlags.SurfaceVisible)
             {
                 switch (Semantics)
                 {
@@ -387,7 +387,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Steps, environmentTransformation(Environment), Semantics, StepLabelSemantics, SurfaceVisible);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Steps, environmentTransformation(Environment), Semantics, StepLabelSemantics, Flags);
 
         IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
         {
