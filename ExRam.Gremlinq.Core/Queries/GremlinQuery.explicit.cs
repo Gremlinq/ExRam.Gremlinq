@@ -9,7 +9,6 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {

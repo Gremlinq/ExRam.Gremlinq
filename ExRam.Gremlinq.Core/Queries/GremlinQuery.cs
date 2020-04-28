@@ -7,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {

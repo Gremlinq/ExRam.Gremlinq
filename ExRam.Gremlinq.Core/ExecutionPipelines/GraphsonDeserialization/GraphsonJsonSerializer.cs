@@ -7,7 +7,6 @@ using ExRam.Gremlinq.Core.GraphElements;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using NullGuard;
 using System.Linq;
 
 namespace ExRam.Gremlinq.Core

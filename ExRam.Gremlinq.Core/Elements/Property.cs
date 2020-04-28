@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
