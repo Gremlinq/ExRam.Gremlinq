@@ -792,9 +792,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TTarget, object, object, object, object, object> OutV<TTarget>() => AddStepWithObjectTypes<TTarget>(OutVStep.Instance, QuerySemantics.Vertex);
 
-        private GremlinQuery<TResult, object, object, object, object, object> Project<TActualElement, TResult>(Func<IProjectBuilder<GremlinQuery<TActualElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TActualElement>, IProjectResult> continuation)
+        private GremlinQuery<TResult, object, object, object, object, object> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectResult> continuation)
         {
-            var projections = continuation(new ProjectBuilder<TActualElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(Anonymize<TActualElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(true)))
+            var projections = continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(Anonymize(true)))
                 .Projections
                 .OrderBy(x => x.Key)
                 .ToArray();
