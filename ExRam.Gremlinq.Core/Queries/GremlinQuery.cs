@@ -15,6 +15,7 @@ namespace ExRam.Gremlinq.Core
     {
         None = 0,
         SurfaceVisible = 1,
+        IsAnonymous = 2
     }
 
     internal static class GremlinQuery
@@ -26,7 +27,7 @@ namespace ExRam.Gremlinq.Core
             return Create<object>(
                 ImmutableStack<Step>.Empty,
                 environment,
-                QueryFlags.None);
+                QueryFlags.IsAnonymous);
         }
 
         public static GremlinQuery<TElement, object, object, object, object, object> Create<TElement>(IGremlinQueryEnvironment environment)
@@ -390,7 +391,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Anonymize(bool surfaceVisible = false) => Anonymize<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(surfaceVisible);
 
-        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible);
+        private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery> Anonymize<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(bool surfaceVisible = false) where TNewMeta : class => new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous);
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel
