@@ -11,16 +11,6 @@
         OperatorName: 'property',
         Arguments: [
           {
-            EnumName: 'T',
-            EnumValue: 'id'
-          },
-          500
-        ]
-      },
-      {
-        OperatorName: 'property',
-        Arguments: [
-          {
             EnumName: 'Cardinality',
             EnumValue: 'single'
           },

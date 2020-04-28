@@ -8,16 +8,6 @@
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
-          {
-            EnumName: 'T',
-            EnumValue: 'id'
-          },
-          900
-        ]
-      },
-      {
         OperatorName: 'project',
         Arguments: [
           'id',
