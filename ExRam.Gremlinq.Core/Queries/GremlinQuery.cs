@@ -380,7 +380,7 @@ namespace ExRam.Gremlinq.Core
                 if (transformed.IsNone())
                     return None();
 
-                if (transformed != anonymous)
+                if (!transformed.IsIdentity())
                     (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
             }
 
