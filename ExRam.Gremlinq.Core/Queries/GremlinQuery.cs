@@ -86,7 +86,7 @@ namespace ExRam.Gremlinq.Core
                 throw new ExpressionNotSupportedException(projection);
             }
 
-            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(traversal(_query.Anonymize()).ToTraversal(), order)));
+            private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(_query.Continue(traversal).ToTraversal(), order)));
 
             private OrderBuilder By(ILambda lambda) => new OrderBuilder(_query.AddStep(new OrderStep.ByLambdaStep(lambda)));
         }
@@ -110,21 +110,21 @@ namespace ExRam.Gremlinq.Core
             {
                 return new ChooseBuilder<TTargetQuery, TNewPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep(new ChooseOptionTraversalStep(chooseTraversal(_sourceQuery).ToTraversal())));
+                    _targetQuery.AsAdmin().AddStep(new ChooseOptionTraversalStep(_sourceQuery.Continue(chooseTraversal).ToTraversal())));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TNewTargetQuery> Case<TNewTargetQuery>(TPickElement element, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
             {
                 return new ChooseBuilder<TNewTargetQuery, TPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(element, continuation(_sourceQuery).ToTraversal())));
+                    _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(element, _sourceQuery.Continue(continuation).ToTraversal())));
             }
 
             public IChooseBuilderWithCaseOrDefault<TNewTargetQuery> Default<TNewTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TNewTargetQuery> continuation) where TNewTargetQuery : IGremlinQueryBase
             {
                 return new ChooseBuilder<TNewTargetQuery, TPickElement>(
                     _sourceQuery,
-                    _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(default, continuation(_sourceQuery).ToTraversal())));
+                    _targetQuery.AsAdmin().AddStep(new OptionTraversalStep(default, _sourceQuery.Continue(continuation).ToTraversal())));
             }
 
             public IChooseBuilderWithCase<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TPickElement, TTargetQuery> Case(TPickElement element, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> continuation) => Case<TTargetQuery>(element, continuation);
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return new GroupBuilder<TNewKey, object>(
                     _sourceQuery,
-                    keySelector(_sourceQuery));
+                    _sourceQuery.Continue(keySelector));
             }
 
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TNewValue> IGroupBuilderWithKey<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey>.ByValue<TNewValue>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewValue>> valueSelector)
@@ -173,7 +173,7 @@ namespace ExRam.Gremlinq.Core
                 return new GroupBuilder<TKey, TNewValue>(
                     _sourceQuery,
                     KeyQuery,
-                    valueSelector(_sourceQuery));
+                    _sourceQuery.Continue(valueSelector));
             }
 
             public IGremlinQueryBase<TKey> KeyQuery { get; }
@@ -211,7 +211,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return new ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(
                     _sourceQuery,
-                    Projections.SetItem(name, projection(_sourceQuery)));
+                    Projections.SetItem(name, _sourceQuery.Continue(projection, true)));
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.ToTuple()
@@ -370,12 +370,11 @@ namespace ExRam.Gremlinq.Core
             if (andTraversalTransformations.Length == 0)
                 return AddStep(AndStep.Infix);
 
-            var anonymous = Anonymize();
             var subQueries = default(List<IGremlinQueryBase>);
 
             foreach (var transformation in andTraversalTransformations)
             {
-                var transformed = transformation(anonymous);
+                var transformed = Continue(transformation);
 
                 if (transformed.IsNone())
                     return None();
@@ -389,7 +388,7 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal()).ToArray()));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Anonymize(bool surfaceVisible = false) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous);
+        private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false) => transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
         private TTargetQuery As<TStepLabel, TTargetQuery>(TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel
@@ -421,14 +420,12 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>? maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
-            var anonymous = Anonymize();
-            var trueQuery = trueChoice(anonymous);
+            var trueQuery = Continue(trueChoice);
             var maybeFalseQuery = maybeFalseChoice is { } falseChoice
-                ? falseChoice(anonymous)
+                ? Continue(falseChoice)
                 : default;
 
-            var query = anonymous
-                .Where(predicate);
+            var query = Continue(__ => __.Where(predicate));
 
             if (query.Steps.TryGetSingleStep() is IsStep isStep)
             {
@@ -454,20 +451,19 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Choose<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversalPredicate, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> trueChoice, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>? maybeFalseChoice = default) where TTargetQuery : IGremlinQueryBase
         {
-            var anonymous = Anonymize();
-            var trueQuery = trueChoice(anonymous);
+            var trueQuery = Continue(trueChoice);
             var maybeFalseQuery = maybeFalseChoice is { } falseChoice
-                ? falseChoice(anonymous)
+                ? Continue(falseChoice)
                 : default;
 
-            return AddStep(new ChooseTraversalStep(traversalPredicate(anonymous).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal()), QuerySemantics.None)
+            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal()), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
         private TTargetQuery Choose<TTargetQuery>(Func<IChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IChooseBuilderWithCaseOrDefault<TTargetQuery>> continuation)
             where TTargetQuery : IGremlinQueryBase
         {
-            return continuation(new ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, object>(Anonymize(), this)).TargetQuery;
+            return continuation(new ChooseBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, object>(this, this)).TargetQuery;
         }
 
         private TTargetQuery Coalesce<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] traversals)
@@ -477,7 +473,7 @@ namespace ExRam.Gremlinq.Core
                 throw new ArgumentException("Coalesce must have at least one subquery.");
 
             var coalesceQueries = traversals
-                .Select(traversal => (IGremlinQueryBase)traversal(Anonymize()))
+                .Select(traversal => Continue(traversal))
                 .ToArray();
 
             return (coalesceQueries.All(x => x.IsIdentity())
@@ -506,7 +502,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery FlatMap<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
         {
-            var mappedTraversal = mapping(Anonymize());
+            var mappedTraversal = Continue(mapping);
 
             return this
                 .AddStep(new FlatMapStep(mappedTraversal.ToTraversal()), QuerySemantics.None)
@@ -517,7 +513,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<IDictionary<TKey, TValue>, object, object, object, object, object> Group<TKey, TValue>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKeyAndValue<IGremlinQueryBase, TKey, TValue>> projection)
         {
-            var group = projection(new GroupBuilder<object, object>(Anonymize()));
+            var group = projection(new GroupBuilder<object, object>(this));
 
             return this
                 .AddStep<IDictionary<TKey, TValue>, object, object, object, object, object>(GroupStep.Instance, QuerySemantics.None)
@@ -527,7 +523,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<IDictionary<TKey, object>, object, object, object, object, object> Group<TKey>(Func<IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>, IGroupBuilderWithKey<IGremlinQueryBase, TKey>> projection)
         {
-            var group = projection(new GroupBuilder<object, object>(Anonymize()));
+            var group = projection(new GroupBuilder<object, object>(this));
 
             return this
                 .AddStep<IDictionary<TKey, object>, object, object, object, object, object>(GroupStep.Instance, QuerySemantics.None)
@@ -661,7 +657,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)
             where TTargetQuery : IGremlinQueryBase
         {
-            var localTraversalQuery = localTraversal(Anonymize());
+            var localTraversalQuery = Continue(localTraversal);
 
             return (localTraversalQuery.IsIdentity()
                 ? this
@@ -670,14 +666,14 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Map<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase
         {
-            var mappedTraversal = mapping(Anonymize());
+            var mappedTraversal = Continue(mapping);
 
             return (mappedTraversal.IsIdentity()
                 ? this
                 : AddStep(new MapStep(mappedTraversal.ToTraversal()), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => traversal(Anonymize()).ToTraversal()).ToArray()));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => Continue(traversal).ToTraversal()).ToArray()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
         {
@@ -688,8 +684,8 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Not(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> notTraversal)
         {
-            var transformed = notTraversal(Anonymize());
-
+            var transformed = Continue(notTraversal);
+            
             return transformed.IsIdentity()
                 ? None()
                 : transformed.IsNone()
@@ -716,7 +712,7 @@ namespace ExRam.Gremlinq.Core
 
         private TTargetQuery Optional<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> optionalTraversal) where TTargetQuery : IGremlinQueryBase
         {
-            var optionalQuery = optionalTraversal(Anonymize());
+            var optionalQuery = Continue(optionalTraversal);
 
             return this
                 .AddStep(new OptionalStep(optionalQuery.ToTraversal()))
@@ -725,9 +721,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] orTraversalTransformations)
         {
-            var anonymous = Anonymize();
-
-            return Or(orTraversalTransformations.Select(transformation => transformation(anonymous)).ToArray());
+            return Or(orTraversalTransformations.Select(transformation => Continue(transformation)).ToArray());
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(
@@ -790,7 +784,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TResult, object, object, object, object, object> Project<TResult>(Func<IProjectBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, IProjectResult> continuation)
         {
-            var projections = continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(Anonymize(true)))
+            var projections = continuation(new ProjectBuilder<TElement, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(this))
                 .Projections
                 .OrderBy(x => x.Key)
                 .ToArray();
@@ -836,7 +830,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal)
             where TTargetQuery : IGremlinQueryBase
         {
-            var repeatQuery = repeatTraversal(Anonymize());
+            var repeatQuery = Continue(repeatTraversal);
 
             return this
                 .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.None)
@@ -846,23 +840,21 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery RepeatUntil<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
             where TTargetQuery : IGremlinQueryBase
         {
-            var anonymous = Anonymize();
-            var repeatQuery = repeatTraversal(anonymous);
+            var repeatQuery = Continue(repeatTraversal);
 
             return this
                 .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.None)
-                .AddStep(new UntilStep(untilTraversal(anonymous).ToTraversal()), QuerySemantics.None)
+                .AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
 
         private TTargetQuery UntilRepeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> untilTraversal)
             where TTargetQuery : IGremlinQueryBase
         {
-            var anonymous = Anonymize();
-            var repeatQuery = repeatTraversal(anonymous);
+            var repeatQuery = Continue(repeatTraversal);
 
             return this
-                .AddStep(new UntilStep(untilTraversal(anonymous).ToTraversal()), QuerySemantics.None)
+                .AddStep(new UntilStep(Continue(untilTraversal).ToTraversal()), QuerySemantics.None)
                 .AddStep(new RepeatStep(repeatQuery.ToTraversal()), QuerySemantics.None)
                 .ChangeQueryType<TTargetQuery>();
         }
@@ -877,7 +869,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, object, object, object, object, TQuery> Cap<TQuery, TSelectedElement>(StepLabel<IArrayGremlinQuery<TSelectedElement, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, object, object, TQuery>(new CapStep(stepLabel), QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(sideEffectTraversal(Anonymize()).ToTraversal()));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(Continue(sideEffectTraversal).ToTraversal()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Skip(long count, Scope scope) => AddStep(new SkipStep(count, scope));
 
@@ -910,7 +902,7 @@ namespace ExRam.Gremlinq.Core
         private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase
         {
             var unionQueries = unionTraversals
-                .Select(unionTraversal => ((IGremlinQueryBase)unionTraversal(Anonymize())).ToTraversal())
+                .Select(unionTraversal => ((IGremlinQueryBase)Continue(unionTraversal)).ToTraversal())
                 .ToArray();
 
             return this
@@ -946,7 +938,7 @@ namespace ExRam.Gremlinq.Core
             {
                 0 => throw new ExpressionNotSupportedException(),
                 1 => AddStepWithObjectTypes<TValue>(stepsArray[0], QuerySemantics.None),
-                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Anonymize().AddStep(step, QuerySemantics.None).ToTraversal()).ToArray()), QuerySemantics.None)
+                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Continue(__ => __.AddStep(step, QuerySemantics.None).ToTraversal())).ToArray()), QuerySemantics.None)
             };
         }
 
@@ -985,8 +977,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> filterTraversal)
         {
-            var anonymous = Anonymize();
-            var filtered = filterTraversal(anonymous);
+            var filtered = Continue(filterTraversal);
 
             return filtered.IsIdentity()
                 ? this
@@ -1017,11 +1008,9 @@ namespace ExRam.Gremlinq.Core
                     }
                     case BinaryExpression binary when binary.NodeType == ExpressionType.OrElse:
                     {
-                        var anonymous = Anonymize();
-
                         return Or(
-                            anonymous.Where(binary.Left),
-                            anonymous.Where(binary.Right));
+                            Continue(__ => __.Where(binary.Left)),
+                            Continue(__ => __.Where(binary.Right)));
                     }
                     case BinaryExpression binary when binary.NodeType == ExpressionType.AndAlso:
                     {
@@ -1045,7 +1034,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where<TProjection>(Expression<Func<TElement, TProjection>> predicate, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal)
         {
             return predicate.RefersToParameter() && predicate.Body is MemberExpression memberExpression
-                ? Has(memberExpression, propertyTraversal(Cast<TProjection>().Anonymize()))
+                ? Has(memberExpression, Cast<TProjection>().Continue(propertyTraversal))
                 : throw new ExpressionNotSupportedException(predicate);
         }
 
@@ -1125,9 +1114,8 @@ namespace ExRam.Gremlinq.Core
 
                                 return Has(
                                     leftMemberExpression,
-                                    this
-                                        .Anonymize()
-                                        .AddStep(new WherePredicateStep(effectivePredicate)));
+                                    Continue(__ => __
+                                        .AddStep(new WherePredicateStep(effectivePredicate))));
                             }
 
                             return Has(leftMemberExpression, effectivePredicate);
