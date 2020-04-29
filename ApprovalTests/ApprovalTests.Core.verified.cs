@@ -147,9 +147,10 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.DropStep Instance;
         public DropStep() { }
     }
-    public sealed class EStep : ExRam.Gremlinq.Core.FullScanStep
+    public sealed class EStep : ExRam.Gremlinq.Core.Step
     {
         public EStep(object[] ids) { }
+        public object[] Ids { get; }
     }
     [System.Flags]
     public enum EdgeFeatures
@@ -261,11 +262,6 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.FoldStep Instance;
         public FoldStep() { }
-    }
-    public abstract class FullScanStep : ExRam.Gremlinq.Core.Step
-    {
-        protected FullScanStep(object[] ids) { }
-        public object[] Ids { get; }
     }
     public static class GraphElementModel
     {
@@ -1458,9 +1454,10 @@ namespace ExRam.Gremlinq.Core
     {
         public UntilStep(ExRam.Gremlinq.Core.Traversal traversal) { }
     }
-    public sealed class VStep : ExRam.Gremlinq.Core.FullScanStep
+    public sealed class VStep : ExRam.Gremlinq.Core.Step
     {
         public VStep(object[] ids) { }
+        public object[] Ids { get; }
     }
     public sealed class ValueMapStep : ExRam.Gremlinq.Core.Step
     {
