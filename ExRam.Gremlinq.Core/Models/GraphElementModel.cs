@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
 
-        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string[]>>();
+        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, ImmutableArray<string>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, ImmutableArray<string>>>();
 
         public static IGraphElementModel FromTypes(IEnumerable<Type> types)
         {
@@ -79,13 +79,13 @@ namespace ExRam.Gremlinq.Core
             return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
         }
 
-        internal static string[] GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             return model
-                .TryGetFilterLabels(type, verbosity) ?? new[] {type.Name};
+                .TryGetFilterLabels(type, verbosity) ?? ImmutableArray.Create(type.Name);
         }
 
-        public static string[]? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
+        public static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
             var labels = DerivedLabels
                 .GetOrCreateValue(model)
@@ -97,15 +97,15 @@ namespace ExRam.Gremlinq.Core
                             .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
                             .Select(kvp => kvp.Value.Label)
                             .OrderBy(x => x)
-                            .ToArray();
+                            .ToImmutableArray();
                     },
                     model);
 
 
-            return labels.Length == 0
-                ? default
+            return labels.IsEmpty
+                ? default(ImmutableArray<string>?)
                 : labels.Length == model.Metadata.Count && verbosity == FilterLabelsVerbosity.Minimum
-                    ? Array.Empty<string>()
+                    ? ImmutableArray<string>.Empty
                     : labels;
         }
 

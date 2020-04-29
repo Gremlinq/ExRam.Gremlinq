@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class OutStep : DerivedLabelNamesStep
     {
-        public static readonly OutStep NoLabels = new OutStep(Array.Empty<string>());
+        public static readonly OutStep NoLabels = new OutStep(ImmutableArray<string>.Empty);
 
-        public OutStep(string[] labels) : base(labels)
+        public OutStep(ImmutableArray<string> labels) : base(labels)
         {
         }
     }

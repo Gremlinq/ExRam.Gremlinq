@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public abstract class DerivedLabelNamesStep : Step
     {
-        protected DerivedLabelNamesStep(string[] labels)
+        protected DerivedLabelNamesStep(ImmutableArray<string> labels)
         {
             Labels = labels;
         }
 
-        public string[] Labels { get; }
+        public ImmutableArray<string> Labels { get; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class HasLabelStep : DerivedLabelNamesStep
     {
-        public HasLabelStep(string[] labels) : base(labels)
+        public HasLabelStep(ImmutableArray<string> labels) : base(labels)
         {
             if (labels.Length == 0)
                 throw new ArgumentException($"{nameof(labels)} may not be empty.");

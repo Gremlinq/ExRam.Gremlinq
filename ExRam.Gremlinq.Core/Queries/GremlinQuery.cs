@@ -707,13 +707,13 @@ namespace ExRam.Gremlinq.Core
                 return Cast<TTarget>();
 
             var labels = model
-                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? new[] {typeof(TTarget).Name};
+                .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
 
             return labels.Length > 0
                 ? !Steps.IsEmpty && Steps.Peek() is HasLabelStep hasLabelStep
                     ? ConfigureSteps<TTarget>(steps => steps
                         .Pop()
-                        .Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToArray())))
+                        .Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToImmutableArray())))
                     : AddStep<TTarget>(new HasLabelStep(labels), Semantics)
                 : Cast<TTarget>();
         }

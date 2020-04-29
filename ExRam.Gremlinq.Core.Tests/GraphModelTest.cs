@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
@@ -35,7 +36,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .IncludeAssembliesFromAppDomain());
 
             (model.VerticesModel
-                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? Array.Empty<string>())
+                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty)
                 .Should()
                 .Contain("Company").And
                 .Contain("Person").And

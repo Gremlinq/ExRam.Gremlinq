@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class BothEStep : DerivedLabelNamesStep
     {
-        public static readonly BothEStep NoLabels = new BothEStep(Array.Empty<string>());
+        public static readonly BothEStep NoLabels = new BothEStep(ImmutableArray<string>.Empty);
 
-        public BothEStep(string[] labels) : base(labels)
+        public BothEStep(ImmutableArray<string> labels) : base(labels)
         {
         }
     }

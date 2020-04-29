@@ -57,12 +57,12 @@ namespace ExRam.Gremlinq.Core
     public sealed class BothEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.BothEStep NoLabels;
-        public BothEStep(string[] labels) { }
+        public BothEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class BothStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.BothStep NoLabels;
-        public BothStep(string[] labels) { }
+        public BothStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class BothVStep : ExRam.Gremlinq.Core.Step
     {
@@ -128,8 +128,8 @@ namespace ExRam.Gremlinq.Core
     }
     public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Step
     {
-        protected DerivedLabelNamesStep(string[] labels) { }
-        public string[] Labels { get; }
+        protected DerivedLabelNamesStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
+        public System.Collections.Immutable.ImmutableArray<string> Labels { get; }
     }
     [System.Flags]
     public enum DisabledTextPredicates
@@ -274,7 +274,7 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType(System.Type baseType, System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies, Microsoft.Extensions.Logging.ILogger? logger) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromBaseType<TType>(System.Collections.Generic.IEnumerable<System.Reflection.Assembly>? assemblies, Microsoft.Extensions.Logging.ILogger? logger) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel FromTypes(System.Collections.Generic.IEnumerable<System.Type> types) { }
-        public static string[]? TryGetFilterLabels(this ExRam.Gremlinq.Core.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
+        public static System.Collections.Immutable.ImmutableArray<string>? TryGetFilterLabels(this ExRam.Gremlinq.Core.IGraphElementModel model, System.Type type, ExRam.Gremlinq.Core.FilterLabelsVerbosity verbosity) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel UseCamelCaseLabels(this ExRam.Gremlinq.Core.IGraphElementModel model) { }
         public static ExRam.Gremlinq.Core.IGraphElementModel UseLowerCaseLabels(this ExRam.Gremlinq.Core.IGraphElementModel model) { }
     }
@@ -431,7 +431,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class HasLabelStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
-        public HasLabelStep(string[] labels) { }
+        public HasLabelStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class HasNotStep : ExRam.Gremlinq.Core.Step
     {
@@ -1157,12 +1157,12 @@ namespace ExRam.Gremlinq.Core
     public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InEStep NoLabels;
-        public InEStep(string[] labels) { }
+        public InEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class InStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InStep NoLabels;
-        public InStep(string[] labels) { }
+        public InStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class InVStep : ExRam.Gremlinq.Core.Step
     {
@@ -1294,12 +1294,12 @@ namespace ExRam.Gremlinq.Core
     public sealed class OutEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.OutEStep NoLabels;
-        public OutEStep(string[] labels) { }
+        public OutEStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class OutStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.OutStep NoLabels;
-        public OutStep(string[] labels) { }
+        public OutStep(System.Collections.Immutable.ImmutableArray<string> labels) { }
     }
     public sealed class OutVStep : ExRam.Gremlinq.Core.Step
     {
