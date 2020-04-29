@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class SelectStep : Step
     {
-        public SelectStep(params StepLabel[] stepLabels)
+        public SelectStep(ImmutableArray<StepLabel> stepLabels)
         {
             StepLabels = stepLabels;
         }
 
-        public StepLabel[] StepLabels { get; }
+        public ImmutableArray<StepLabel> StepLabels { get; }
     }
 }

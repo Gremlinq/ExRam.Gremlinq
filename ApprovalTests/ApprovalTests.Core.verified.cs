@@ -1365,8 +1365,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class SelectStep : ExRam.Gremlinq.Core.Step
     {
-        public SelectStep(params ExRam.Gremlinq.Core.StepLabel[] stepLabels) { }
-        public ExRam.Gremlinq.Core.StepLabel[] StepLabels { get; }
+        public SelectStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> stepLabels) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.StepLabel> StepLabels { get; }
     }
     [System.Flags]
     public enum SerializationBehaviour

@@ -870,7 +870,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
         {
             if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
-                return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(stepLabel), stepLabelSemantics);
+                return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), stepLabelSemantics);
 
             throw new InvalidOperationException(/* TODO */ );
         }
