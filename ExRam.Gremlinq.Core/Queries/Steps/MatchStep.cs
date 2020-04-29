@@ -1,8 +1,10 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class MatchStep : MultiTraversalArgumentStep
     {
-        public MatchStep(Traversal[] traversals) : base(traversals)
+        public MatchStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }
     }

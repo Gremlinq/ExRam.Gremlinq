@@ -1,8 +1,10 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class UnionStep : MultiTraversalArgumentStep
     {
-        public UnionStep(Traversal[] traversals) : base(traversals)
+        public UnionStep(ImmutableArray<Traversal> traversals) : base(traversals)
         {
         }
     }

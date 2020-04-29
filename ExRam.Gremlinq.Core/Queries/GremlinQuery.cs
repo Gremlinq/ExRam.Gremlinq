@@ -486,7 +486,7 @@ namespace ExRam.Gremlinq.Core
 
             return (coalesceQueries.All(x => x.IsIdentity())
                 ? this
-                : AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToArray()), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
+                : AddStep(new CoalesceStep(coalesceQueries.Select(x => x.ToTraversal()).ToImmutableArray()), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Coin(double probability) => AddStep(new CoinStep(probability));
@@ -681,7 +681,7 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new MapStep(mappedTraversal.ToTraversal()), QuerySemantics.None)).ChangeQueryType<TTargetQuery>();
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => Continue(traversal).ToTraversal()).ToArray()));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Match(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase>[] matchTraversals) => AddStep(new MatchStep(matchTraversals.Select(traversal => Continue(traversal).ToTraversal()).ToImmutableArray()));
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> None()
         {
@@ -911,7 +911,7 @@ namespace ExRam.Gremlinq.Core
         {
             var unionQueries = unionTraversals
                 .Select(unionTraversal => ((IGremlinQueryBase)Continue(unionTraversal)).ToTraversal())
-                .ToArray();
+                .ToImmutableArray();
 
             return this
                 .AddStep(new UnionStep(unionQueries))
@@ -946,7 +946,7 @@ namespace ExRam.Gremlinq.Core
             {
                 0 => throw new ExpressionNotSupportedException(),
                 1 => AddStepWithObjectTypes<TValue>(stepsArray[0], QuerySemantics.None),
-                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Continue(__ => __.AddStep(step, QuerySemantics.None).ToTraversal())).ToArray()), QuerySemantics.None)
+                _ => AddStepWithObjectTypes<TValue>(new UnionStep(stepsArray.Select(step => Continue(__ => __.AddStep(step, QuerySemantics.None).ToTraversal())).ToImmutableArray()), QuerySemantics.None)
             };
         }
 

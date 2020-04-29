@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class CoalesceStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public CoalesceStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        public CoalesceStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class CoinStep : ExRam.Gremlinq.Core.Step
     {
@@ -1208,7 +1208,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class MatchStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public MatchStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        public MatchStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class MaxStep : ExRam.Gremlinq.Core.Step
     {
@@ -1233,8 +1233,8 @@ namespace ExRam.Gremlinq.Core
     }
     public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
     {
-        protected MultiTraversalArgumentStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
-        public ExRam.Gremlinq.Core.Traversal[] Traversals { get; }
+        protected MultiTraversalArgumentStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class NoneStep : ExRam.Gremlinq.Core.Step
     {
@@ -1448,7 +1448,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class UnionStep : ExRam.Gremlinq.Core.MultiTraversalArgumentStep
     {
-        public UnionStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        public UnionStep(System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class UntilStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
     {

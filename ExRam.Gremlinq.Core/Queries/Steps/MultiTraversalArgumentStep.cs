@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public abstract class MultiTraversalArgumentStep : Step
     {
-        protected MultiTraversalArgumentStep(Traversal[] traversals)
+        protected MultiTraversalArgumentStep(ImmutableArray<Traversal> traversals)
         {
             Traversals = traversals;
         }
 
-        public Traversal[] Traversals { get; }
+        public ImmutableArray<Traversal> Traversals { get; }
     }
 }
