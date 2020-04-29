@@ -158,6 +158,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task AddV_TimeFrame()
+        {
+            await _g
+                .AddV(new TimeFrame
+                {
+                    StartTime = TimeSpan.FromHours(8),
+                    Duration = TimeSpan.FromHours(2)
+                })
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task AddV_ignores_label()
         {
             await _g

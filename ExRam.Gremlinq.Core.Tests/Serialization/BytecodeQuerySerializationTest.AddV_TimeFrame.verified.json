@@ -1,0 +1,155 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'addV',
+        Arguments: [
+          'TimeFrame'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'Duration',
+          '02:00:00'
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'Enabled',
+          false
+        ]
+      },
+      {
+        OperatorName: 'property',
+        Arguments: [
+          {
+            EnumName: 'Cardinality',
+            EnumValue: 'single'
+          },
+          'StartTime',
+          '08:00:00'
+        ]
+      },
+      {
+        OperatorName: 'project',
+        Arguments: [
+          'id',
+          'label',
+          'properties'
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'id'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            EnumName: 'T',
+            EnumValue: 'label'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              },
+              {
+                OperatorName: 'group'
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    EnumName: 'T',
+                    EnumValue: 'label'
+                  }
+                ]
+              },
+              {
+                OperatorName: 'by',
+                Arguments: [
+                  {
+                    StepInstructions: [
+                      {
+                        OperatorName: 'project',
+                        Arguments: [
+                          'id',
+                          'label',
+                          'value',
+                          'properties'
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            EnumName: 'T',
+                            EnumValue: 'id'
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            EnumName: 'T',
+                            EnumValue: 'label'
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            EnumName: 'T',
+                            EnumValue: 'value'
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'by',
+                        Arguments: [
+                          {
+                            StepInstructions: [
+                              {
+                                OperatorName: 'valueMap'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        OperatorName: 'fold'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

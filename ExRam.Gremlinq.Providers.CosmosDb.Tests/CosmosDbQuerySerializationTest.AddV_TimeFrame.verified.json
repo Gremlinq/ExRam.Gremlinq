@@ -1,0 +1,14 @@
+[
+  {
+    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g)',
+    Bindings: {
+      _a: 'TimeFrame',
+      _b: 'Duration',
+      _c: '02:00:00',
+      _d: 'Enabled',
+      _e: false,
+      _f: 'StartTime',
+      _g: '08:00:00'
+    }
+  }
+]
