@@ -11,6 +11,29 @@ using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
+    internal static class JTokenExtensions
+    {
+        public static JObject? TryUnmap(this JToken jToken)
+        {
+            if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+            {
+                if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
+                {
+                    var retObject = new JObject();
+
+                    for (var i = 0; i < mapArray.Count / 2; i++)
+                    {
+                        retObject.Add(mapArray[i * 2].Value<string>(), mapArray[i * 2 + 1]);
+                    }
+
+                    return retObject;
+                }
+            }
+
+            return null;
+        }
+    }
+
     internal sealed class GraphsonJsonSerializer : JsonSerializer
     {
         #region Nested
@@ -333,6 +356,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
                     {
+                        if (propertiesToken.TryUnmap() is { } jObject)
+                            propertiesToken = jObject;
+
                         _ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                     }
                 }
@@ -441,20 +467,8 @@ namespace ExRam.Gremlinq.Core
         {
             public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
             {
-                if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
-                {
-                    if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
-                    {
-                        var retObject = new JObject();
-
-                        for (var i = 0; i < mapArray.Count / 2; i++)
-                        {
-                            retObject.Add(mapArray[i * 2].Value<string>(), mapArray[i * 2 + 1]);
-                        }
-
-                        return recurse.TryConvert(retObject, objectType, recurse, out value);
-                    }
-                }
+                if (jToken.TryUnmap() is { } jObject)
+                    return recurse.TryConvert(jObject, objectType, recurse, out value);
 
                 value = null;
                 return false;
