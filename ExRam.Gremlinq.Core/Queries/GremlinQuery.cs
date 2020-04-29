@@ -385,7 +385,7 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
-                : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal()).ToArray()));
+                : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal())));
         }
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
@@ -777,7 +777,7 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? None()
-                : AddStep(new OrStep(subQueries.Select(x => x.ToTraversal()).ToArray()));
+                : AddStep(new OrStep(subQueries.Select(x => x.ToTraversal())));
         }
 
         private TTargetQuery OrderGlobal<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<TElement> => Order(projection, OrderStep.Global);

@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class AndStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.AndStep>
     {
         public static readonly ExRam.Gremlinq.Core.AndStep Infix;
-        public AndStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        public AndStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Step
     {
@@ -1202,9 +1202,9 @@ namespace ExRam.Gremlinq.Core
     public abstract class LogicalStep<TStep> : ExRam.Gremlinq.Core.Step
         where TStep : ExRam.Gremlinq.Core.LogicalStep<TStep>
     {
-        protected LogicalStep(string name, ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        protected LogicalStep(string name, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
         public string Name { get; }
-        public ExRam.Gremlinq.Core.Traversal[] Traversals { get; }
+        public System.Collections.Immutable.ImmutableArray<ExRam.Gremlinq.Core.Traversal> Traversals { get; }
     }
     public sealed class MapStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
     {
@@ -1261,7 +1261,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class OrStep : ExRam.Gremlinq.Core.LogicalStep<ExRam.Gremlinq.Core.OrStep>
     {
         public static readonly ExRam.Gremlinq.Core.OrStep Infix;
-        public OrStep(ExRam.Gremlinq.Core.Traversal[] traversals) { }
+        public OrStep(System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Traversal> traversals) { }
     }
     public sealed class OrderStep : ExRam.Gremlinq.Core.Step
     {

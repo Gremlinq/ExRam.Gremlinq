@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -6,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly AndStep Infix = new AndStep(Array.Empty<Traversal>());
 
-        public AndStep(Traversal[] traversals) : base("and", traversals)
+        public AndStep(IEnumerable<Traversal> traversals) : base("and", traversals)
         {
         }
     }

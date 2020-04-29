@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace ExRam.Gremlinq.Core
@@ -6,12 +7,12 @@ namespace ExRam.Gremlinq.Core
     public abstract class LogicalStep<TStep> : Step
         where TStep : LogicalStep<TStep>
     {
-        protected LogicalStep(string name, Traversal[] traversals)
+        protected LogicalStep(string name, IEnumerable<Traversal> traversals)
         {
             Name = name;
             Traversals = traversals
                 .SelectMany(FlattenLogicalTraversals)
-                .ToArray();
+                .ToImmutableArray();
         }
 
         private static IEnumerable<Traversal> FlattenLogicalTraversals(Traversal traversal)
@@ -31,6 +32,6 @@ namespace ExRam.Gremlinq.Core
         }
 
         public string Name { get; }
-        public Traversal[] Traversals { get; }
+        public ImmutableArray<Traversal> Traversals { get; }
     }
 }

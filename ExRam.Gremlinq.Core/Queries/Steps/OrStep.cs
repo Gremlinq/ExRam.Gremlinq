@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -6,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly OrStep Infix = new OrStep(Array.Empty<Traversal>());
 
-        public OrStep(Traversal[] traversals) : base("or", traversals)
+        public OrStep(IEnumerable<Traversal> traversals) : base("or", traversals)
         {
         }
     }

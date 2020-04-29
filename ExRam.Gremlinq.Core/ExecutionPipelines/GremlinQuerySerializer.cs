@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
 using Gremlin.Net.Process.Traversal;
@@ -407,11 +408,23 @@ namespace ExRam.Gremlinq.Core
         {
             return parameters.Length == 0
                 ? CreateInstruction(name)
-                : new Instruction(
-                    name,
-                    parameters
-                        .Select(x => recurse.Serialize(x))
-                        .ToArray());
+                : CreateInstruction(name, recurse, (IEnumerable<TParam>)parameters);
+        }
+
+        private static Instruction CreateInstruction<TParam>(string name, IQueryFragmentSerializer recurse, ImmutableArray<TParam> parameters)
+        {
+            return parameters.Length == 0
+                ? CreateInstruction(name)
+                : CreateInstruction(name, recurse, (IEnumerable<TParam>)parameters);
+        }
+
+        private static Instruction CreateInstruction<TParam>(string name, IQueryFragmentSerializer recurse, IEnumerable<TParam> parameters)
+        {
+            return new Instruction(
+                name,
+                parameters
+                    .Select(x => recurse.Serialize(x))
+                    .ToArray());
         }
     }
 }
