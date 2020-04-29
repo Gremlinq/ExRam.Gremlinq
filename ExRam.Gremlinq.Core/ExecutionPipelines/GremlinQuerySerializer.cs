@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         var byteCode = new Bytecode();
 
-                        foreach (var step in query.ToTraversal(true).Steps)
+                        foreach (var step in query.ToTraversal().Steps)
                         {
                             if (recurse.Serialize(step) is Instruction instruction)
                             {
