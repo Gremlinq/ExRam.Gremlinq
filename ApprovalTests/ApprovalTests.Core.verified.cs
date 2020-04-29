@@ -46,8 +46,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class AsStep : ExRam.Gremlinq.Core.Step
     {
-        public AsStep(ExRam.Gremlinq.Core.StepLabel[] stepLabels) { }
-        public ExRam.Gremlinq.Core.StepLabel[] StepLabels { get; }
+        public AsStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
     }
     public sealed class BarrierStep : ExRam.Gremlinq.Core.Step
     {

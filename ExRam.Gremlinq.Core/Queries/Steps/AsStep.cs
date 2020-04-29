@@ -2,11 +2,11 @@
 {
     public sealed class AsStep : Step
     {
-        public AsStep(StepLabel[] stepLabels)
+        public AsStep(StepLabel stepLabel)
         {
-            StepLabels = stepLabels;
+            StepLabel = stepLabel;
         }
 
-        public StepLabel[] StepLabels { get; }
+        public StepLabel StepLabel { get; }
     }
 }

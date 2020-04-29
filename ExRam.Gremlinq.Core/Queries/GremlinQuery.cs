@@ -402,7 +402,7 @@ namespace ExRam.Gremlinq.Core
             where TStepLabel : StepLabel
             where TTargetQuery : IGremlinQueryBase
         {
-            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabels.FirstOrDefault() is TStepLabel existingStepLabel1)
+            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel1)
                 return continuation(this, existingStepLabel1);
 
             return continuation(
@@ -410,12 +410,12 @@ namespace ExRam.Gremlinq.Core
                 stepLabel);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> As(params StepLabel[] stepLabels)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> As(StepLabel stepLabel)
         {
             return AddStep(
-                new AsStep(stepLabels),
+                new AsStep(stepLabel),
                 default,
-                StepLabelSemantics.AddRange(stepLabels.Select(stepLabel => new KeyValuePair<StepLabel, QuerySemantics>(stepLabel, Semantics))));
+                StepLabelSemantics.SetItem(stepLabel, Semantics));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Barrier() => AddStep(BarrierStep.Instance);

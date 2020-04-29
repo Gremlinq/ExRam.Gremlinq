@@ -112,7 +112,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<AggregateStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("aggregate", recurse, step.StepLabel)
                         : CreateInstruction("aggregate", recurse, step.Scope, step.StepLabel))
-                    .Override<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabels))
+                    .Override<AsStep>((step, overridden, recurse) => CreateInstruction("as", recurse, step.StepLabel))
                     .Override<BarrierStep>((step, overridden, recurse) => CreateInstruction("barrier"))
                     .Override<BothStep>((step, overridden, recurse) => CreateInstruction("both", recurse, step.Labels))
                     .Override<BothEStep>((step, overridden, recurse) => CreateInstruction("bothE", recurse, step.Labels))

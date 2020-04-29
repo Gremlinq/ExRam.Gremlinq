@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
-            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabels.Contains(label))
+            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && ReferenceEquals(asStep.StepLabel, label))
                 return ChangeQueryType<TQuery>();
 
             return this
