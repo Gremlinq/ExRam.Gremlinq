@@ -21,6 +21,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<object> InE();
         IEdgeGremlinQuery<TEdge> InE<TEdge>();
 
+        new IEdgeOrVertexGremlinQuery<object> Lower();
+
         IVertexGremlinQuery<TTarget> OfType<TTarget>();
 
         IVertexGremlinQuery<object> Out();
@@ -40,6 +42,9 @@ namespace ExRam.Gremlinq.Core
         new IInOrOutEdgeGremlinQuery<TEdge, TVertex> AddE<TEdge>() where TEdge : new();
 
         new IInEdgeGremlinQuery<TEdge, TVertex> InE<TEdge>();
+
+        new IEdgeOrVertexGremlinQuery<TVertex> Lower();
+
         new IOutEdgeGremlinQuery<TEdge, TVertex> OutE<TEdge>();
 
         IVertexPropertyGremlinQuery<VertexProperty<object>, object> Properties();

@@ -2478,8 +2478,14 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Union(
-                    __ => __.Out<WorksFor>().Lower(),
-                    __ => __.OutE<LivesIn>().Lower().Cast<object>())
+                    __ => __
+                        .Out<WorksFor>()
+                        .Lower(),
+                    __ => __
+                        .OutE<LivesIn>()
+                        .Lower()
+                        .Lower()
+                        .Cast<object>())
                 .Verify(this);
         }
 

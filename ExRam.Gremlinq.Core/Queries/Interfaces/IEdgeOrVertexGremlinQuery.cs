@@ -4,6 +4,8 @@
         IElementGremlinQueryBase
     {
         new IEdgeOrVertexGremlinQuery<TResult> Cast<TResult>();
+
+        new IElementGremlinQuery<object> Lower();
     }
 
     public interface IEdgeOrVertexGremlinQueryBaseRec<TSelf> :
@@ -17,6 +19,7 @@
         IEdgeOrVertexGremlinQueryBase,
         IElementGremlinQueryBase<TElement>
     {
+        new IElementGremlinQuery<TElement> Lower();
     }
 
     public interface IEdgeOrVertexGremlinQueryBaseRec<TElement, TSelf> :

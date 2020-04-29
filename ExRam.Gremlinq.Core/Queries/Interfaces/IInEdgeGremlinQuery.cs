@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
     public interface IInEdgeGremlinQueryBase :
         IEdgeGremlinQueryBase
     {
-
+        new IEdgeGremlinQuery<object> Lower();
     }
 
     public partial interface IInEdgeGremlinQueryBase<TEdge, TInVertex> :
@@ -15,6 +15,8 @@ namespace ExRam.Gremlinq.Core
         IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> From<TOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IGremlinQuery<TOutVertex>> fromVertexTraversal);
 
         new IVertexGremlinQuery<TInVertex> InV();
+
+        new IEdgeGremlinQuery<TEdge> Lower();
     }
 
     public interface IInEdgeGremlinQueryBaseRec<TSelf> :

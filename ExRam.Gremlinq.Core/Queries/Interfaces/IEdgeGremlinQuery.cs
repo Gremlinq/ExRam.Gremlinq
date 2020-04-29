@@ -14,6 +14,8 @@ namespace ExRam.Gremlinq.Core
         IVertexGremlinQuery<object> InV();
         IVertexGremlinQuery<TVertex> InV<TVertex>();
 
+        new IEdgeOrVertexGremlinQuery<object> Lower();
+
         IEdgeGremlinQuery<TTarget> OfType<TTarget>();
 
         IVertexGremlinQuery<object> OtherV();
@@ -34,6 +36,8 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(Func<IVertexGremlinQueryBase, IVertexGremlinQuery<TOutVertex>> fromVertexTraversal);
         IOutEdgeGremlinQuery<TEdge, TOutVertex> From<TOutVertex>(StepLabel<TOutVertex> stepLabel);
+
+        new IEdgeOrVertexGremlinQuery<TEdge> Lower();
 
         IPropertyGremlinQuery<Property<TValue>> Properties<TValue>(params Expression<Func<TEdge, TValue>>[] projections);
 
