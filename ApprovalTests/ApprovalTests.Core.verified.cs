@@ -5,6 +5,15 @@ namespace ExRam.Gremlinq.Core
     public sealed class AddEStep : ExRam.Gremlinq.Core.AddElementStep
     {
         public AddEStep(ExRam.Gremlinq.Core.IGraphModel model, object value) { }
+        public sealed class FromLabelStep : ExRam.Gremlinq.Core.Step
+        {
+            public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
+            public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
+        }
+        public sealed class FromTraversalStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
+        {
+            public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
+        }
         public sealed class ToLabelStep : ExRam.Gremlinq.Core.Step
         {
             public ToLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
@@ -252,15 +261,6 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.FoldStep Instance;
         public FoldStep() { }
-    }
-    public sealed class FromLabelStep : ExRam.Gremlinq.Core.Step
-    {
-        public FromLabelStep(ExRam.Gremlinq.Core.StepLabel stepLabel) { }
-        public ExRam.Gremlinq.Core.StepLabel StepLabel { get; }
-    }
-    public sealed class FromTraversalStep : ExRam.Gremlinq.Core.SingleTraversalArgumentStep
-    {
-        public FromTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
     }
     public abstract class FullScanStep : ExRam.Gremlinq.Core.Step
     {
