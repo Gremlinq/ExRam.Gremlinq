@@ -4,11 +4,11 @@
     Bindings: {
       _a: 'TimeFrame',
       _b: 'Duration',
-      _c: '02:00:00',
+      _c: 7200000.0,
       _d: 'Enabled',
       _e: false,
       _f: 'StartTime',
-      _g: '08:00:00'
+      _g: 28800000.0
     }
   }
 ]

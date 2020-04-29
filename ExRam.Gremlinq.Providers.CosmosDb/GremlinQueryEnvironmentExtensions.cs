@@ -50,21 +50,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimeSpanSerializer : IGraphSONSerializer, IGraphSONDeserializer
-        {
-            public Dictionary<string, dynamic> Dictify(dynamic objectData, GraphSONWriter writer)
-            {
-                TimeSpan value = objectData;
-                return GraphSONUtil.ToTypedValue("Double", value.TotalMilliseconds);
-            }
-
-            public dynamic Objectify(JToken graphsonObject, GraphSONReader reader)
-            {
-                var duration = graphsonObject.ToObject<double>();
-                return TimeSpan.FromMilliseconds(duration);
-            }
-        }
-
         private sealed class TimespanConverter : IJTokenConverter
         {
             public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
@@ -90,8 +75,7 @@ namespace ExRam.Gremlinq.Core
                     transformation(
                         new CosmosDbConfigurationBuilder(
                             builder
-                                .SetGraphSONVersion(GraphsonVersion.V2)
-                                .AddGraphSONSerializer(typeof(TimeSpan), new TimeSpanSerializer()))))
+                                .SetGraphSONVersion(GraphsonVersion.V2))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)

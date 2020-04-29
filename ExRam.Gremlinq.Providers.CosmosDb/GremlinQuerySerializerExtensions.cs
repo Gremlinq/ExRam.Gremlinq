@@ -42,6 +42,7 @@ namespace ExRam.Gremlinq.Core
 
                         return overridden(step);
                     })
+                    .Override<TimeSpan>((t, overridden, recurse) => recurse.Serialize(t.TotalMilliseconds))
                     .Override<long>((l, overridden, recurse) =>
                     {
                         // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
