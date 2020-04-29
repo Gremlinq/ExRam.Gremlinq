@@ -237,7 +237,7 @@
           @type: 'g:Int64',
           @value: 45
         },
-        label: 'Language'
+        label: 'TimeFrame'
       }
     },
     {
@@ -245,9 +245,9 @@
       @value: {
         id: {
           @type: 'g:Int64',
-          @value: 50
+          @value: 49
         },
-        label: 'Person'
+        label: 'Language'
       }
     },
     {
@@ -265,7 +265,17 @@
       @value: {
         id: {
           @type: 'g:Int64',
-          @value: 53
+          @value: 54
+        },
+        label: 'Person'
+      }
+    },
+    {
+      @type: 'g:Vertex',
+      @value: {
+        id: {
+          @type: 'g:Int64',
+          @value: 57
         },
         label: 'Language'
       }

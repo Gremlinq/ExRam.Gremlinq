@@ -59,7 +59,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 49
+      @value: 53
     },
     value: {
       @type: 'g:Int32',
@@ -70,7 +70,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 48
+      @value: 52
     },
     value: {
       @type: 'g:Int32',
@@ -103,7 +103,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 47
+      @value: 51
     },
     value: 'en',
     label: 'IetfLanguageTag'
@@ -155,7 +155,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 57
+      @value: 61
     },
     value: 'GER',
     label: 'Name'
@@ -220,7 +220,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 60
+      @value: 64
     },
     value: '+4912345',
     label: 'PhoneNumbers'
@@ -228,7 +228,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 61
+      @value: 65
     },
     value: '+4923456',
     label: 'PhoneNumbers'
@@ -236,7 +236,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 59
+      @value: 63
     },
     value: {
       @type: 'g:Date',
@@ -288,7 +288,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 62
+      @value: 66
     },
     value: 'en',
     label: 'lang'
@@ -296,7 +296,37 @@
   {
     id: {
       @type: 'g:Int64',
+      @value: 48
+    },
+    value: {
+      @type: 'gx:Duration',
+      @value: 'PT8H'
+    },
+    label: 'StartTime'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 47
+    },
+    value: false,
+    label: 'Enabled'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
       @value: 46
+    },
+    value: {
+      @type: 'gx:Duration',
+      @value: 'PT2H'
+    },
+    label: 'Duration'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 50
     },
     value: 'en',
     label: 'IetfLanguageTag'
@@ -304,7 +334,15 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 52
+      @value: 62
+    },
+    value: 'GER',
+    label: 'Name'
+  },
+  {
+    id: {
+      @type: 'g:Int64',
+      @value: 56
     },
     value: {
       @type: 'g:Date',
@@ -315,7 +353,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 51
+      @value: 55
     },
     value: 'Marko',
     label: 'Name'
@@ -325,21 +363,13 @@
       @type: 'g:Int64',
       @value: 58
     },
-    value: 'GER',
-    label: 'Name'
-  },
-  {
-    id: {
-      @type: 'g:Int64',
-      @value: 54
-    },
     value: 'en',
     label: 'IetfLanguageTag'
   },
   {
     id: {
       @type: 'g:Int64',
-      @value: 56
+      @value: 60
     },
     value: 'Bob',
     label: 'Names'
@@ -347,7 +377,7 @@
   {
     id: {
       @type: 'g:Int64',
-      @value: 55
+      @value: 59
     },
     value: {
       @type: 'g:Date',

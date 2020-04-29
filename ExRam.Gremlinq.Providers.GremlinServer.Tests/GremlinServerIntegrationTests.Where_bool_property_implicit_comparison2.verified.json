@@ -1,1 +1,6 @@
-[]
+[
+  {
+    Id: 45,
+    Label: 'TimeFrame'
+  }
+]

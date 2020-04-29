@@ -35,5 +35,8 @@
   'FoundingDate',
   'FoundingDate',
   'lang',
+  'StartTime',
+  'Enabled',
+  'Duration',
   'Names'
 ]

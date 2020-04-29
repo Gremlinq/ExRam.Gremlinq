@@ -26,5 +26,6 @@
   'Person',
   'Company',
   'Company',
-  'Company'
+  'Company',
+  'TimeFrame'
 ]
