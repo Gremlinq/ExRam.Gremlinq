@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -103,6 +104,25 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureSerializer(serializer => serializer.ToGroovy())
                 .UseExecutor(GremlinQueryExecutor.Echo)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
+        }
+
+        public static IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this IGremlinQueryEnvironment environment)
+        {
+            return environment
+                .ConfigureSerializer(serializer => serializer
+                    .ConfigureFragmentSerializer(fragmentSerializer =>  fragmentSerializer
+                        .Override<TimeSpan>((t, overridden, recurse) =>
+                        {
+                            return recurse.Serialize(t.TotalMilliseconds);
+                        })))
+                .ConfigureDeserializer(deserializer => deserializer
+                    .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
+                        .Override<JToken>((jToken, type, env, overridden, recurse) =>
+                        {
+                            return type == typeof(TimeSpan) && recurse.TryDeserialize(jToken, typeof(double), env) is double value
+                                ? TimeSpan.FromMilliseconds(value)
+                                : overridden(jToken);
+                        })));
         }
     }
 }

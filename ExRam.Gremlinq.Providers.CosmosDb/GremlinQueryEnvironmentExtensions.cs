@@ -62,11 +62,11 @@ namespace ExRam.Gremlinq.Core
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                        .Override<CosmosDbKey>((key, overridden, recurse) => recurse.Serialize(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
+                        .Override<CosmosDbKey>((key, overridden, recurse) => recurse.Serialize(key.PartitionKey != null ? new[] {key.PartitionKey, key.Id} : (object)key.Id))
                         .Override<HasKeyStep>((step, overridden, recurse) =>
                         {
                             if (step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase)))
-                                return recurse.Serialize(new WhereTraversalStep(new Step[] { KeyStep.Instance, new IsStep(p) }));
+                                return recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}));
 
                             return overridden(step);
                         })
@@ -95,7 +95,6 @@ namespace ExRam.Gremlinq.Core
 
                             return overridden(step);
                         })
-                        .Override<TimeSpan>((t, overridden, recurse) => recurse.Serialize(t.TotalMilliseconds))
                         .Override<long>((l, overridden, recurse) =>
                         {
                             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
@@ -103,20 +102,7 @@ namespace ExRam.Gremlinq.Core
                         }))
                     .ToGroovy())
                 .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetGraphSONVersion(GraphsonVersion.V2))))
-                .ConfigureDeserializer(deserializer => deserializer
-                    .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
-                        .Override<JToken>((jToken, type, env, overridden, recurse) =>
-                        {
-                            if (type == typeof(TimeSpan))
-                            {
-                                if (recurse.TryDeserialize(jToken, typeof(double), env) is double value)
-                                {
-                                    return TimeSpan.FromMilliseconds(value);
-                                }
-                            }
-
-                            return overridden(jToken);
-                        })));
+                .StoreTimeSpansAsNumbers();
         }
     }
 }
