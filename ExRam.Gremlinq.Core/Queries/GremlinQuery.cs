@@ -798,7 +798,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var ret = this
-                .AddStepWithObjectTypes<TResult>(new ProjectStep(projections.Select(x => x.Key).ToArray()), QuerySemantics.None);
+                .AddStepWithObjectTypes<TResult>(new ProjectStep(projections.Select(x => x.Key).ToImmutableArray()), QuerySemantics.None);
 
             foreach (var projection in projections)
             {

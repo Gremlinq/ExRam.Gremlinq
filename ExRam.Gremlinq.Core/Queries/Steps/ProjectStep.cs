@@ -1,4 +1,6 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class ProjectStep : Step
     {
@@ -19,11 +21,11 @@
             public object Key { get; }
         }
 
-        public ProjectStep(params string[] projections)
+        public ProjectStep(ImmutableArray<string> projections)
         {
             Projections = projections;
         }
 
-        public string[] Projections { get; }
+        public ImmutableArray<string> Projections { get; }
     }
 }

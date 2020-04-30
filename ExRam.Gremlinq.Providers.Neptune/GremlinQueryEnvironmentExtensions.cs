@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
                         GremlinqOption.VertexProjectionSteps,
                         new Step[]
                         {
-                            new ProjectStep("id", "label", "properties"),
+                            new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
                             new ProjectStep.ByKeyStep(T.Id),
                             new ProjectStep.ByKeyStep(T.Label),
                             new ProjectStep.ByTraversalStep(new Step[]
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                                 new GroupStep.ByKeyStep(T.Label),
                                 new GroupStep.ByTraversalStep(new Step[]
                                 {
-                                    new ProjectStep("id", "label", "value"),
+                                    new ProjectStep(ImmutableArray.Create("id", "label", "value")),
                                     new ProjectStep.ByKeyStep(T.Id),
                                     new ProjectStep.ByKeyStep(T.Label),
                                     new ProjectStep.ByKeyStep(T.Value),

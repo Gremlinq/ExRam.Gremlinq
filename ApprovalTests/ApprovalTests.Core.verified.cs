@@ -1315,8 +1315,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
-        public ProjectStep(params string[] projections) { }
-        public string[] Projections { get; }
+        public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
+        public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.Step
         {
             public ByKeyStep(object key) { }
