@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Step>.Empty)
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.GraphsonWithJsonConverters(new TimespanConverter()));
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken(new TimespanConverter()));
         }
     }
 }

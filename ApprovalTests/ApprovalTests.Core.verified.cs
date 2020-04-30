@@ -339,12 +339,11 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryExecutionResultDeserializer
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Empty;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Graphson;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Invalid;
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToGraphson;
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToGraphsonString;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ToString;
-        public static ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params ExRam.Gremlinq.Core.IJTokenConverter[] additionalConverters) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer FromJToken(params ExRam.Gremlinq.Core.IJTokenConverter[] additionalConverters) { }
     }
     public static class GremlinQueryExecutor
     {

@@ -97,7 +97,7 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .UseSerializer(GremlinQuerySerializer.Default)
                 .UseExecutor(GremlinQueryExecutor.Echo)
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphson);
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphsonString);
         }
 
         public static IGremlinQueryEnvironment EchoGroovy(this IGremlinQueryEnvironment environment)

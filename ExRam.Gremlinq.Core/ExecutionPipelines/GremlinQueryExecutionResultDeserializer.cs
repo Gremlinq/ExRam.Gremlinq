@@ -93,7 +93,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphson = new ToGraphsonGremlinQueryExecutionResultDeserializer();
+        public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
 
@@ -101,10 +101,8 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
 
-        public static readonly IGremlinQueryExecutionResultDeserializer Graphson = new DefaultGraphsonDeserializer();
+        public static IGremlinQueryExecutionResultDeserializer FromJToken(params IJTokenConverter[] additionalConverters) => new DefaultGraphsonDeserializer(additionalConverters);
 
         public static readonly IGremlinQueryExecutionResultDeserializer Identity = new IdentityExecutionDeserializer();
-
-        public static IGremlinQueryExecutionResultDeserializer GraphsonWithJsonConverters(params IJTokenConverter[] additionalConverters) => new DefaultGraphsonDeserializer(additionalConverters);
     }
 }
