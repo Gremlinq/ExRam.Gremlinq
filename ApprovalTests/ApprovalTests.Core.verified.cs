@@ -1341,10 +1341,10 @@ namespace ExRam.Gremlinq.Core
     public sealed class PropertyStep : ExRam.Gremlinq.Core.Step
     {
         public PropertyStep(object key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        public PropertyStep(object key, object value, object[] metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        public PropertyStep(object key, object value, System.Collections.Immutable.ImmutableArray<object> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
         public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
         public object Key { get; }
-        public object[] MetaProperties { get; }
+        public System.Collections.Immutable.ImmutableArray<object> MetaProperties { get; }
         public object Value { get; }
     }
     public static class QueryFragmentSerializer

@@ -321,7 +321,7 @@ namespace ExRam.Gremlinq.Core
 
         private PropertyStep GetPropertyStep(object key, object value, Cardinality? cardinality)
         {
-            var metaProperties = Array.Empty<object>();
+            var metaProperties = ImmutableArray<object>.Empty;
 
             if (value is Property property)
             {
@@ -331,7 +331,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         metaProperties = dict
                             .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
-                            .ToArray() ?? Array.Empty<object>();
+                            .ToImmutableArray();
                     }
                 }
 

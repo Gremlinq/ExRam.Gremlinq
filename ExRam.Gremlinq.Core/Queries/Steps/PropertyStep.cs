@@ -1,17 +1,16 @@
-﻿using System;
+﻿using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertyStep : Step
     {
-        public PropertyStep(object key, object value, Cardinality? cardinality = default) : this(key, value, Array.Empty<object>(), cardinality)
+        public PropertyStep(object key, object value, Cardinality? cardinality = default) : this(key, value, ImmutableArray<object>.Empty, cardinality)
         {
 
         }
 
-        public PropertyStep(object key, object value, object[] metaProperties, Cardinality? cardinality = default)
+        public PropertyStep(object key, object value, ImmutableArray<object> metaProperties, Cardinality? cardinality = default)
         {
             Key = key;
             Value = value;
@@ -21,7 +20,7 @@ namespace ExRam.Gremlinq.Core
 
         public object Key { get; }
         public object Value { get; }
-        public object[] MetaProperties { get; }
         public Cardinality? Cardinality { get; }
+        public ImmutableArray<object> MetaProperties { get; }
     }
 }
