@@ -1167,8 +1167,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class InjectStep : ExRam.Gremlinq.Core.Step
     {
-        public InjectStep(object[] elements) { }
-        public object[] Elements { get; }
+        public InjectStep(System.Collections.Immutable.ImmutableArray<object> elements) { }
+        public System.Collections.Immutable.ImmutableArray<object> Elements { get; }
     }
     public sealed class IsStep : ExRam.Gremlinq.Core.Step
     {

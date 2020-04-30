@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class InjectStep : Step
     {
-        public object[] Elements { get; }
-
-        public InjectStep(object[] elements)
+        public InjectStep(ImmutableArray<object> elements)
         {
             Elements = elements;
         }
+
+        public ImmutableArray<object> Elements { get; }
     }
 }
