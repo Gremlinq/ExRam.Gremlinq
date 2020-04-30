@@ -16,7 +16,6 @@ namespace ExRam.Gremlinq.Core
     {
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseCosmosDb(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment env, System.Func<ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilder, ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithAuthKey> transformation) { }
     }
-    public static class GremlinQuerySerializerExtensions { }
     public interface ICosmosDbConfigurationBuilder
     {
         ExRam.Gremlinq.Core.ICosmosDbConfigurationBuilderWithUri At(System.Uri uri, string databaseName, string graphName);
