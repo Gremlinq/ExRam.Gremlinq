@@ -1576,8 +1576,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class WithoutStrategiesStep : ExRam.Gremlinq.Core.Step
     {
-        public WithoutStrategiesStep(System.Type[] strategyTypes) { }
-        public System.Type[] StrategyTypes { get; }
+        public WithoutStrategiesStep(System.Collections.Immutable.ImmutableArray<System.Type> strategyTypes) { }
+        public System.Collections.Immutable.ImmutableArray<System.Type> StrategyTypes { get; }
     }
 }
 namespace ExRam.Gremlinq.Core.GraphElements

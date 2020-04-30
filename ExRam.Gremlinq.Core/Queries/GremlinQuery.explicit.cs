@@ -416,8 +416,8 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
         {
             return (!Steps.IsEmpty && Steps.Peek() is WithoutStrategiesStep withoutStrategies)
-                ? ConfigureSteps<TElement>(steps => steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(strategyTypes).Distinct().ToArray())))
-                : AddStep(new WithoutStrategiesStep(strategyTypes));
+                ? ConfigureSteps<TElement>(steps => steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(strategyTypes).Distinct().ToImmutableArray())))
+                : AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
         }
     }
 }
