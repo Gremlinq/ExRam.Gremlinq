@@ -141,6 +141,14 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
+                if (ret is JObject jObject2)
+                {
+                    foreach(var property in jObject2)
+                    {
+                        jObject2[property.Key] = (JToken)recurse.TryDeserialize(jObject2[property.Key], typeof(JToken), env);
+                    }
+                }
+
                 return ret;
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
