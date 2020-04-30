@@ -31,8 +31,8 @@ namespace ExRam.Gremlinq.Core
                     _dict.SetItem(
                         typeof(TFragment),
                         InnerLookup(typeof(TFragment)) is Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> existingAtomSerializer
-                            ? new Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>((atom, baseSerializer, recurse) => serializer(atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse))
-                            : (atom, baseSerializer, recurse) => serializer(atom, _ => baseSerializer(_!), recurse)));
+                            ? (atom, baseSerializer, recurse) => serializer(atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse)
+                            : serializer));
             }
 
             private Delegate? TryGetSerializer(Type staticType, Type actualType)
