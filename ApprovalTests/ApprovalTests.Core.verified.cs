@@ -999,7 +999,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IQueryFragmentSerializer
     {
-        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(ExRam.Gremlinq.Core.QueryFragmentSerializer<TFragment> serializer);
+        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(System.Func<TFragment, System.Func<TFragment, object>, ExRam.Gremlinq.Core.IQueryFragmentSerializer, object> serializer);
         object Serialize<TFragment>(TFragment fragment);
     }
     public interface IStartGremlinQuery
@@ -1351,7 +1351,6 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IQueryFragmentSerializer Identity;
     }
-    public delegate object QueryFragmentSerializer<TFragment>(TFragment fragment, System.Func<TFragment, object> baseSerializer, ExRam.Gremlinq.Core.IQueryFragmentSerializer recurse);
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
         public RangeStep(long lower, long upper, Gremlin.Net.Process.Traversal.Scope scope) { }

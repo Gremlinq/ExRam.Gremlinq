@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
     {
         object Serialize<TFragment>(TFragment fragment);
 
-        IQueryFragmentSerializer Override<TFragment>(QueryFragmentSerializer<TFragment> serializer);
+        IQueryFragmentSerializer Override<TFragment>(Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> serializer);
     }
 
     public static class QueryFragmentSerializer
@@ -32,13 +32,13 @@ namespace ExRam.Gremlinq.Core
                     : fragment;
             }
 
-            public IQueryFragmentSerializer Override<TFragment>(QueryFragmentSerializer<TFragment> serializer)
+            public IQueryFragmentSerializer Override<TFragment>(Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> serializer)
             {
                 return new FragmentSerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
                         _dict.TryGetValue(typeof(TFragment), out var existingAtomSerializer)
-                            ? new QueryFragmentSerializer<TFragment>((atom, baseSerializer, recurse) => serializer(atom, _ => ((QueryFragmentSerializer<TFragment>)existingAtomSerializer)(_!, baseSerializer, recurse), recurse))
+                            ? new Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>((atom, baseSerializer, recurse) => serializer(atom, _ => ((Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>)existingAtomSerializer)(_!, baseSerializer, recurse), recurse))
                             : (atom, baseSerializer, recurse) => serializer(atom, _ => baseSerializer(_!), recurse)));
             }
 
@@ -110,6 +110,4 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IQueryFragmentSerializer Identity = new FragmentSerializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
     }
-
-    public delegate object QueryFragmentSerializer<TFragment>(TFragment fragment, Func<TFragment, object> baseSerializer, IQueryFragmentSerializer recurse);
 }
