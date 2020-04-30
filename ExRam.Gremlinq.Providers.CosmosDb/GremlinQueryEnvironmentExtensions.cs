@@ -2,7 +2,6 @@
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
-using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -65,35 +64,31 @@ namespace ExRam.Gremlinq.Core
                         .Override<CosmosDbKey>((key, overridden, recurse) => recurse.Serialize(key.PartitionKey != null ? new[] {key.PartitionKey, key.Id} : (object)key.Id))
                         .Override<HasKeyStep>((step, overridden, recurse) =>
                         {
-                            if (step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase)))
-                                return recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}));
-
-                            return overridden(step);
+                            return step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase))
+                                ? recurse.Serialize(new WhereTraversalStep(new Step[] {KeyStep.Instance, new IsStep(p)}))
+                                : overridden(step);
                         })
                         .Override<SkipStep>((step, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope)))
                         .Override<LimitStep>((step, overridden, recurse) =>
                         {
                             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                            if (step.Count > int.MaxValue)
-                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
-
-                            return overridden(step);
+                            return step.Count <= int.MaxValue
+                                ? overridden(step)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
                         })
                         .Override<TailStep>((step, overridden, recurse) =>
                         {
                             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                            if (step.Count > int.MaxValue)
-                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
-
-                            return overridden(step);
+                            return step.Count <= int.MaxValue
+                                ? overridden(step)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
                         })
                         .Override<RangeStep>((step, overridden, recurse) =>
                         {
                             // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                            if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
-                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-
-                            return overridden(step);
+                            return step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
+                                ? overridden(step)
+                                : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
                         })
                         .Override<long>((l, overridden, recurse) =>
                         {
