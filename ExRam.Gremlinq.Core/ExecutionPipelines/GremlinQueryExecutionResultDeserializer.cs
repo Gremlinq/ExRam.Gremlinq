@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
-                    if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
+                    if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is JObject propertiesToken)
                     {
                         if (propertiesToken.TryUnmap() is { } jObject)
                             propertiesToken = jObject;
@@ -155,62 +155,52 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
                 if (type == typeof(DateTimeOffset))
                 {
-                    if (jToken is JValue jValue)
+                    switch (jValue.Value)
                     {
-                        switch (jValue.Value)
+                        case DateTime dateTime:
+                            return new DateTimeOffset(dateTime);
+                        case DateTimeOffset dateTimeOffset:
+                            return dateTimeOffset;
+                        default:
                         {
-                            case DateTime dateTime:
-                                return new DateTimeOffset(dateTime);
-                            case DateTimeOffset dateTimeOffset:
-                                return dateTimeOffset;
-                            default:
-                            {
-                                if (jValue.Type == JTokenType.Integer)
-                                    return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                            if (jValue.Type == JTokenType.Integer)
+                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
 
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
 
                 return overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
                 if (type == typeof(DateTime))
                 {
-                    if (jToken is JValue jValue)
+                    switch (jValue.Value)
                     {
-                        switch (jValue.Value)
-                        {
-                            case DateTime dateTime:
-                                return dateTime;
-                            case DateTimeOffset dateTimeOffset:
-                                return dateTimeOffset.UtcDateTime;
-                        }
+                        case DateTime dateTime:
+                            return dateTime;
+                        case DateTimeOffset dateTimeOffset:
+                            return dateTimeOffset.UtcDateTime;
+                    }
 
-                        if (jValue.Type == JTokenType.Integer)
-                        {
-                            return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
-                        }
+                    if (jValue.Type == JTokenType.Integer)
+                    {
+                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
                     }
                 }
 
                 return overridden();
-
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (jToken is JObject jObject)
-                {
-                    if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
-                        return recurse.TryDeserialize(valueToken, type, env);
-                }
+                if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
+                    return recurse.TryDeserialize(valueToken, type, env);
 
                 return overridden();
             })
@@ -251,16 +241,15 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (jToken.TryUnmap() is { } jObject)
-                    return recurse.TryDeserialize(jObject, type, env);
-
-                return overridden();
+                return jObject.TryUnmap() is { } unmappedObject
+                    ? recurse.TryDeserialize(unmappedObject, type, env)
+                    : overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
-                if (type.IsArray && jToken is JArray jArray)
+                if (type.IsArray)
                 {
                     var elementType = type.GetElementType();
                     var array = new ArrayList(jArray.Count);
@@ -298,55 +287,52 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (jToken is JObject)
-                {
-                    var modelTypes = ModelTypes.GetValue(
-                        env.Model,
-                        closureModel =>
-                        {
-                            return closureModel
-                                .VerticesModel
-                                .Metadata
-                                .Concat(closureModel.EdgesModel.Metadata)
-                                .GroupBy(x => x.Value.Label)
-                                .ToDictionary(
-                                    group => group.Key,
-                                    group => group
-                                        .Select(x => x.Key)
-                                        .ToArray(),
-                                    StringComparer.OrdinalIgnoreCase);
-                        });
-
-
-                    var label = jToken["label"]?.ToString();
-
-                    var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                        ? types.FirstOrDefault(type => type.IsAssignableFrom(type))
-                        : default;
-
-                    if (modelType == null)
+                var modelTypes = ModelTypes.GetValue(
+                    env.Model,
+                    closureModel =>
                     {
-                        if (type == typeof(IVertex))
-                            modelType = typeof(VertexImpl);
-                        else if (type == typeof(IEdge))
-                            modelType = typeof(EdgeImpl);
-                    }
+                        return closureModel
+                            .VerticesModel
+                            .Metadata
+                            .Concat(closureModel.EdgesModel.Metadata)
+                            .GroupBy(x => x.Value.Label)
+                            .ToDictionary(
+                                group => group.Key,
+                                group => group
+                                    .Select(x => x.Key)
+                                    .ToArray(),
+                                StringComparer.OrdinalIgnoreCase);
+                    });
 
-                    if (modelType != null && modelType != type)
-                        return recurse.TryDeserialize(jToken, modelType, env);
+
+                var label = jObject["label"]?.ToString();
+
+                var modelType = label != null && modelTypes.TryGetValue(label, out var types)
+                    ? types.FirstOrDefault(type => type.IsAssignableFrom(type))
+                    : default;
+
+                if (modelType == null)
+                {
+                    if (type == typeof(IVertex))
+                        modelType = typeof(VertexImpl);
+                    else if (type == typeof(IEdge))
+                        modelType = typeof(EdgeImpl);
                 }
+
+                if (modelType != null && modelType != type)
+                    return recurse.TryDeserialize(jObject, modelType, env);
 
                 return overridden();
             })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 var nativeTypes = env.Model.NativeTypes;
 
                 if (nativeTypes.Contains(type) || (type.IsEnum && nativeTypes.Contains(type.GetEnumUnderlyingType())))
                 {
-                    if (jToken is JObject jObject && jObject.ContainsKey("value"))
+                    if (jObject.ContainsKey("value"))
                         return recurse.TryDeserialize(jObject["value"], type, env);
                 }
 

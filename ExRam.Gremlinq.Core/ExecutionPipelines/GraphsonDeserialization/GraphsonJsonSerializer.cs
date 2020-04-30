@@ -7,15 +7,14 @@ using ExRam.Gremlinq.Core.GraphElements;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class JTokenExtensions
     {
-        public static JObject? TryUnmap(this JToken jToken)
+        public static JObject? TryUnmap(this JObject jObject)
         {
-            if (jToken is JObject jObject && jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
+            if (jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
             {
                 if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray mapArray)
                 {

@@ -44,9 +44,9 @@ namespace ExRam.Gremlinq.Core
                 return new FragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
-                        _dict.TryGetValue(typeof(TSerialized), out var existingAtomSerializer)
+                        InnerLookup(typeof(TSerialized)) is Func<object, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?> existingAtomSerializer
                             ? new Func<object, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?>((atom, type, env, baseSerializer, recurse) => deserializer((TSerialized)atom, type, env, () => ((Func<object, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?>)existingAtomSerializer)(atom!, type, env, baseSerializer, recurse), recurse))
-                            : new Func<object, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?>((atom, type, env, baseSerializer, recurse) => deserializer((TSerialized)atom, type, env, baseSerializer, recurse))));
+                            : (atom, type, env, baseSerializer, recurse) => deserializer((TSerialized)atom, type, env, baseSerializer, recurse)));
             }
 
             private Delegate? TryGetDeserializer(Type staticType)
