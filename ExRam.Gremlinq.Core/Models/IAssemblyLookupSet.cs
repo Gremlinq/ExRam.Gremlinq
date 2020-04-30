@@ -5,6 +5,6 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IAssemblyLookupSet : IAssemblyLookupBuilder
     {
-        IImmutableList<Assembly> Assemblies { get; }
+        IImmutableSet<Assembly> Assemblies { get; }
     }
 }

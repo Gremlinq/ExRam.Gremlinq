@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
             if (edgeBaseType.IsAssignableFrom(vertexBaseType))
                 throw new ArgumentException($"{edgeBaseType} may not be in the inheritance hierarchy of {vertexBaseType}.");
 
-            var assemblies = assemblyLookupTransformation(new AssemblyLookupSet(new []{ vertexBaseType, edgeBaseType}, ImmutableList<Assembly>.Empty))
+            var assemblies = assemblyLookupTransformation(new AssemblyLookupSet(new[] { vertexBaseType, edgeBaseType }, ImmutableHashSet<Assembly>.Empty))
                 .Assemblies;
 
             var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblies, logger);

@@ -9,11 +9,11 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed class AssemblyLookupSet : IAssemblyLookupSet
     {
-        public static readonly IAssemblyLookupSet Empty = new AssemblyLookupSet(Array.Empty<Type>(), ImmutableList<Assembly>.Empty);
+        public static readonly IAssemblyLookupSet Empty = new AssemblyLookupSet(Array.Empty<Type>(), ImmutableHashSet<Assembly>.Empty);
 
         private readonly Type[] _baseTypes;
 
-        public AssemblyLookupSet(Type[] baseTypes, IImmutableList<Assembly> assemblies)
+        public AssemblyLookupSet(Type[] baseTypes, IImmutableSet<Assembly> assemblies)
         {
             _baseTypes = baseTypes;
             Assemblies = assemblies;
@@ -42,11 +42,9 @@ namespace ExRam.Gremlinq.Core
             return new AssemblyLookupSet(
                 _baseTypes,
                 Assemblies
-                    .Concat(assemblies)
-                    .Distinct()
-                    .ToImmutableList());
+                    .AddRange(assemblies));
         }
 
-        public IImmutableList<Assembly> Assemblies { get; }
+        public IImmutableSet<Assembly> Assemblies { get; }
     }
 }
