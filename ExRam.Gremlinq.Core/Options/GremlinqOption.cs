@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep.ByKeyStep(T.Label),
                 new ProjectStep.ByTraversalStep(new Step[]
                 {
-                    new PropertiesStep(Array.Empty<string>()),
+                    new PropertiesStep(ImmutableArray<string>.Empty),
                     GroupStep.Instance,
                     new GroupStep.ByKeyStep(T.Label),
                     new GroupStep.ByTraversalStep(new Step[]

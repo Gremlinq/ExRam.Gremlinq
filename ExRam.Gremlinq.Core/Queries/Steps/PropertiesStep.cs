@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertiesStep : Step
     {
-        public PropertiesStep(string[] keys)
+        public PropertiesStep(ImmutableArray<string> keys)
         {
             Keys = keys;
         }
 
-        public string[] Keys { get; }
+        public ImmutableArray<string> Keys { get; }
     }
 }

@@ -1329,8 +1329,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class PropertiesStep : ExRam.Gremlinq.Core.Step
     {
-        public PropertiesStep(string[] keys) { }
-        public string[] Keys { get; }
+        public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     public readonly struct PropertyMetadata
     {
