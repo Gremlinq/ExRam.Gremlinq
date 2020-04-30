@@ -266,17 +266,48 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
 
+
+
+
+
+
+
+
+
+
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
+
+
         public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                //TODO: This is very inefficient.
+                var populatingSerializer = PopulatingSerializers
+                    .GetValue(
+                        env,
+                        closureEnv => new ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>())
+                    .GetValue(
+                        recurse,
+                        closureRecurse => new GraphsonJsonSerializer(
+                            DefaultValueHandling.Populate,
+                            env,
+                            recurse));
+
+                var ignoringSerializer = IgnoringSerializers
+                    .GetValue(
+                        env,
+                        closureEnv => new ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>())
+                    .GetValue(
+                        recurse,
+                        closureRecurse => new GraphsonJsonSerializer(
+                            DefaultValueHandling.Ignore,
+                            env,
+                            recurse));
+
                 var ret = jToken.ToObject(
                     type,
-                    new GraphsonJsonSerializer(
-                        DefaultValueHandling.Populate,
-                        env,
-                        recurse));
+                    populatingSerializer);
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
@@ -285,18 +316,16 @@ namespace ExRam.Gremlinq.Core
                         if (propertiesToken.TryUnmap() is { } jObject)
                             propertiesToken = jObject;
 
-                        new GraphsonJsonSerializer(
-                            DefaultValueHandling.Ignore,
-                            env,
-                            recurse).Populate(new JTokenReader(propertiesToken), ret);
+                        ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                     }
                 }
 
-                if (ret is JObject jObject2)
+                if (ret is JObject newJObject)
                 {
-                    foreach(var property in jObject2)
+                    foreach (var property in newJObject)
                     {
-                        jObject2[property.Key] = (JToken)recurse.TryDeserialize(jObject2[property.Key], typeof(JToken), env);
+                        if (recurse.TryDeserialize(newJObject[property.Key], typeof(JToken), env) is JToken newToken)
+                            newJObject[property.Key] = newToken;
                     }
                 }
 
