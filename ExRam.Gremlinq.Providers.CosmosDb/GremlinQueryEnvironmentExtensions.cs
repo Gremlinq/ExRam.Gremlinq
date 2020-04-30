@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
                                 }
                             }
 
-                            return overridden(jToken);
+                            return overridden();
                         })));
         }
     }

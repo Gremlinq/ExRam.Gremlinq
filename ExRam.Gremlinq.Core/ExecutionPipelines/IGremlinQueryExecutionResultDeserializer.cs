@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
     {
         object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment);
 
-        IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?> deserializer);
+        IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?> deserializer);
     }
 
     public interface IGremlinQueryExecutionResultDeserializer
@@ -34,19 +34,19 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                return TryGetDeserializer(typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?> del
-                    ? del(serializedData, fragmentType, environment, _ => _, this)
+                return TryGetDeserializer(typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?> del
+                    ? del(serializedData, fragmentType, environment, () => throw new NotSupportedException(), this)
                     : serializedData;
             }
 
-            public IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?> deserializer)
+            public IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?> deserializer)
             {
                 return new FragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
                         _dict.TryGetValue(typeof(TSerialized), out var existingAtomSerializer)
-                            ? new Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?>((atom, type, env, baseSerializer, recurse) => deserializer(atom, type, env, _ => ((Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?>)existingAtomSerializer)(_!, type, env, baseSerializer, recurse), recurse))
-                            : (atom, type, env, baseSerializer, recurse) => deserializer(atom, type, env, _ => baseSerializer(_!), recurse)));
+                            ? (atom, type, env, baseSerializer, recurse) => deserializer(atom, type, env, () => ((Func<TSerialized, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?>)existingAtomSerializer)(atom!, type, env, baseSerializer, recurse), recurse)
+                            : deserializer));
             }
 
             private Delegate? TryGetDeserializer(Type staticType)

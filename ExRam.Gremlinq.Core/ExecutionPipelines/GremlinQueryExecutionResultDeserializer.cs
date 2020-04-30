@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -214,7 +214,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -237,7 +237,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jToken);
+                return overridden();
 
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
@@ -248,7 +248,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse.TryDeserialize(valueToken, type, env);
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -285,14 +285,14 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
                 if (jToken.TryUnmap() is { } jObject)
                     return recurse.TryDeserialize<JToken>(jObject, type, env);
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -332,7 +332,7 @@ namespace ExRam.Gremlinq.Core
                     return array.ToArray(elementType);
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -374,7 +374,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse.TryDeserialize(jToken, modelType, env);
                 }
 
-                return overridden(jToken);
+                return overridden();
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -386,7 +386,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse.TryDeserialize(jObject["value"], type, env);
                 }
 
-                return overridden(jToken);
+                return overridden();
             }));
 
         public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer.Identity);

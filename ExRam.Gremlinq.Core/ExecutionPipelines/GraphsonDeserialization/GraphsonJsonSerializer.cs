@@ -171,8 +171,6 @@ namespace ExRam.Gremlinq.Core
         }
         #endregion
 
-        private static readonly ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>> ModelTypes = new ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>>();
-
         public GraphsonJsonSerializer(
             DefaultValueHandling defaultValueHandling,
             IGremlinQueryEnvironment environment,
