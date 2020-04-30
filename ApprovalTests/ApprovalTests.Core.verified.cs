@@ -149,8 +149,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class EStep : ExRam.Gremlinq.Core.Step
     {
-        public EStep(object[] ids) { }
-        public object[] Ids { get; }
+        public EStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
     [System.Flags]
     public enum EdgeFeatures
@@ -1456,8 +1456,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class VStep : ExRam.Gremlinq.Core.Step
     {
-        public VStep(object[] ids) { }
-        public object[] Ids { get; }
+        public VStep(System.Collections.Immutable.ImmutableArray<object> ids) { }
+        public System.Collections.Immutable.ImmutableArray<object> Ids { get; }
     }
     public sealed class ValueMapStep : ExRam.Gremlinq.Core.Step
     {

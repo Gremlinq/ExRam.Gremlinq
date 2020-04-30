@@ -1,13 +1,15 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class VStep : Step
     {
-        public VStep(object[] ids)
+        public VStep(ImmutableArray<object> ids)
         {
             Ids = ids;
         }
 
-        public object[] Ids { get; }
+        public ImmutableArray<object> Ids { get; }
     }
 }
 
