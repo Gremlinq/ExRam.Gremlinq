@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryExecutionResultDeserializer
     {
         private static readonly ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>> ModelTypes = new ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
 
         private sealed class VertexImpl : IVertex
         {
@@ -265,19 +267,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
-
-
-
-
-
-
-
-
-
-
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
-
 
         public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer
             .Identity
