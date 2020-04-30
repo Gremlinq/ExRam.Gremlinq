@@ -997,7 +997,7 @@ namespace ExRam.Gremlinq.Core
     public interface IQueryFragmentDeserializer
     {
         ExRam.Gremlinq.Core.IQueryFragmentDeserializer Override<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<object?>, ExRam.Gremlinq.Core.IQueryFragmentDeserializer, object?> deserializer);
-        object? TryDeserialize<TSerialized>(TSerialized serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        object? TryDeserialize(object serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IQueryFragmentSerializer
     {

@@ -39,16 +39,13 @@ namespace ExRam.Gremlinq.Core
                 var result = _fragmentSerializer
                     .TryDeserialize(executionResult, typeof(TElement[]), environment);
 
-                if (result is IAsyncEnumerable<TElement> enumerable)
-                    return enumerable;
-
-                if (result is TElement[] elements)
-                    return elements.ToAsyncEnumerable();
-
-                if (result is TElement element)
-                    return AsyncEnumerableEx.Return(element);
-
-                throw new NotImplementedException();
+                return result switch
+                {
+                    TElement[] elements => elements.ToAsyncEnumerable(),
+                    IAsyncEnumerable<TElement> enumerable => enumerable,
+                    TElement element => AsyncEnumerableEx.Return(element),
+                    _ => throw new NotImplementedException()
+                };
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
@@ -115,44 +112,11 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class FromJTokenGremlinQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
-        {
-            private readonly IQueryFragmentDeserializer _fragmentDeserializer;
-
-            public FromJTokenGremlinQueryExecutionResultDeserializer(IQueryFragmentDeserializer fragmentDeserializer)
-            {
-                _fragmentDeserializer = fragmentDeserializer;
-            }
-
-            public IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment)
-            {
-                if (executionResult is JToken jToken)
-                {
-                    try
-                    {
-                        return ((TElement[])_fragmentDeserializer.TryDeserialize(jToken, typeof(TElement[]), environment))
-                            .ToAsyncEnumerable();
-                    }
-                    catch (JsonReaderException ex)
-                    {
-                        throw new GraphsonMappingException($"Error mapping\r\n\r\n{jToken}\r\n\r\nto an object of type {typeof(TElement[])}.", ex);
-                    }
-                }
-
-                throw new ArgumentException($"Cannot handle execution results of type {executionResult.GetType()}.");
-            }
-
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
-            {
-                return new FromJTokenGremlinQueryExecutionResultDeserializer(transformation(_fragmentDeserializer));
-            }
-        }
-
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
 
-        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new FromJTokenGremlinQueryExecutionResultDeserializer(QueryFragmentDeserializer
+        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
@@ -290,7 +254,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
                 if (jToken.TryUnmap() is { } jObject)
-                    return recurse.TryDeserialize<JToken>(jObject, type, env);
+                    return recurse.TryDeserialize(jObject, type, env);
 
                 return overridden();
             })
