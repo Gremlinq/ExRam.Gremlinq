@@ -30,8 +30,8 @@ namespace ExRam.Gremlinq.Core
                 return new FragmentSerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
-                        _dict.TryGetValue(typeof(TFragment), out var existingAtomSerializer)
-                            ? new Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>((atom, baseSerializer, recurse) => serializer(atom, _ => ((Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>)existingAtomSerializer)(_!, baseSerializer, recurse), recurse))
+                        InnerLookup(typeof(TFragment)) is Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> existingAtomSerializer
+                            ? new Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object>((atom, baseSerializer, recurse) => serializer(atom, _ => existingAtomSerializer(_!, baseSerializer, recurse), recurse))
                             : (atom, baseSerializer, recurse) => serializer(atom, _ => baseSerializer(_!), recurse)));
             }
 
