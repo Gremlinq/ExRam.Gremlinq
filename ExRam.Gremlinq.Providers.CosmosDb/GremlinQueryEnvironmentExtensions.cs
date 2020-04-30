@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
+using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json.Linq;
 
 namespace ExRam.Gremlinq.Core
@@ -49,7 +50,6 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, ICosmosDbConfigurationBuilderWithAuthKey> transformation)
         {
             return env
-                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetGraphSONVersion(GraphsonVersion.V2))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
@@ -57,12 +57,52 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.StringIds | VertexPropertyFeatures.UserSuppliedIds | VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
                     .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.StringIds | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty)
                     .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                .ConfigureSerializer(serializer => serializer
-                    .UseCosmosDbWorkarounds()
-                    .ToGroovy())
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Step>.Empty)
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
+                .ConfigureSerializer(serializer => serializer
+                    .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
+                        .Override<CosmosDbKey>((key, overridden, recurse) => recurse.Serialize(key.PartitionKey != null ? new[] { key.PartitionKey, key.Id } : (object)key.Id))
+                        .Override<HasKeyStep>((step, overridden, recurse) =>
+                        {
+                            if (step.Argument is P p && (!p.OperatorName.Equals("eq", StringComparison.OrdinalIgnoreCase)))
+                                return recurse.Serialize(new WhereTraversalStep(new Step[] { KeyStep.Instance, new IsStep(p) }));
+
+                            return overridden(step);
+                        })
+                        .Override<SkipStep>((step, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope)))
+                        .Override<LimitStep>((step, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
+
+                            return overridden(step);
+                        })
+                        .Override<TailStep>((step, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Count > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
+
+                            return overridden(step);
+                        })
+                        .Override<RangeStep>((step, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            if (step.Lower > int.MaxValue || step.Upper > int.MaxValue)
+                                throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
+
+                            return overridden(step);
+                        })
+                        .Override<TimeSpan>((t, overridden, recurse) => recurse.Serialize(t.TotalMilliseconds))
+                        .Override<long>((l, overridden, recurse) =>
+                        {
+                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
+                            return recurse.Serialize((int)l);
+                        }))
+                    .ToGroovy())
+                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetGraphSONVersion(GraphsonVersion.V2))))
                 .ConfigureDeserializer(deserializer => deserializer
                     .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
                         .Override<JToken>((jToken, type, env, overridden, recurse) =>
