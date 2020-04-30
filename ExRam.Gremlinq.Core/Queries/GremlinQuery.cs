@@ -576,7 +576,7 @@ namespace ExRam.Gremlinq.Core
 
             var stringKeys = keys
                 .OfType<string>()
-                .ToArray();
+                .ToImmutableArray();
 
             if (stringKeys.Length > 0 || !hasYielded)
                 yield return new ValuesStep(stringKeys);

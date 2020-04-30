@@ -1470,8 +1470,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class ValuesStep : ExRam.Gremlinq.Core.Step
     {
-        public ValuesStep(string[] keys) { }
-        public string[] Keys { get; }
+        public ValuesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     [System.Flags]
     public enum VariableFeatures
