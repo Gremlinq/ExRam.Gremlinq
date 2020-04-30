@@ -1,25 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IQueryFragmentDeserializer
-    {
-        object? TryDeserialize(object serializedData, Type fragmentType, IGremlinQueryEnvironment environment);
-
-        IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<object?>, IQueryFragmentDeserializer, object?> deserializer);
-    }
-
-    public interface IGremlinQueryExecutionResultDeserializer
-    {
-        IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, IGremlinQueryEnvironment environment);
-
-        IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation);
-    }
-
     public static class QueryFragmentDeserializer
     {
         private sealed class FragmentDeserializerImpl : IQueryFragmentDeserializer

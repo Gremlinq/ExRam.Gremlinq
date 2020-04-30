@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -23,6 +25,154 @@ namespace ExRam.Gremlinq.Core
         private sealed class EdgeImpl : IEdge
         {
             public object? Id { get; set; }
+        }
+
+        private sealed class GraphsonJsonSerializer : JsonSerializer
+        {
+            #region Nested
+            private sealed class GremlinContractResolver : DefaultContractResolver
+            {
+                private sealed class EmptyListValueProvider : IValueProvider
+                {
+                    private readonly object _defaultValue;
+                    private readonly IValueProvider _innerProvider;
+
+                    public EmptyListValueProvider(IValueProvider innerProvider, Type elementType)
+                    {
+                        _innerProvider = innerProvider;
+                        _defaultValue = Array.CreateInstance(elementType, 0);
+                    }
+
+                    public void SetValue(object target, object? value)
+                    {
+                        _innerProvider.SetValue(target, value ?? _defaultValue);
+                    }
+
+                    public object GetValue(object target)
+                    {
+                        return _innerProvider.GetValue(target) ?? _defaultValue;
+                    }
+                }
+
+                private sealed class EmptyDictionaryValueProvider : IValueProvider
+                {
+                    private readonly object _defaultValue;
+                    private readonly IValueProvider _innerProvider;
+
+                    public EmptyDictionaryValueProvider(IValueProvider innerProvider)
+                    {
+                        _innerProvider = innerProvider;
+                        _defaultValue = new Dictionary<string, object>();
+                    }
+
+                    public void SetValue(object target, object? value)
+                    {
+                        _innerProvider.SetValue(target, value ?? _defaultValue);
+                    }
+
+                    public object GetValue(object target)
+                    {
+                        return _innerProvider.GetValue(target) ?? _defaultValue;
+                    }
+                }
+
+                private readonly IGraphElementPropertyModel _model;
+
+                public GremlinContractResolver(IGraphElementPropertyModel model)
+                {
+                    _model = model;
+                }
+
+                protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+                {
+                    var property = base.CreateProperty(member, memberSerialization);
+
+                    if (_model.Metadata.TryGetValue(member, out var name))
+                        property.PropertyName = name.Name;
+
+                    return property;
+                }
+
+                protected override IValueProvider CreateMemberValueProvider(MemberInfo member)
+                {
+                    var provider = base.CreateMemberValueProvider(member);
+
+                    if (member is PropertyInfo propertyMember)
+                    {
+                        var propertyType = propertyMember.PropertyType;
+
+                        if (propertyType == typeof(IDictionary<string, object>) && propertyMember.Name == nameof(VertexProperty<object>.Properties) && typeof(IVertexProperty).IsAssignableFrom(propertyMember.DeclaringType))
+                            return new EmptyDictionaryValueProvider(provider);
+
+                        if (propertyType.IsArray)
+                            return new EmptyListValueProvider(provider, propertyType.GetElementType());
+                    }
+
+                    return provider;
+                }
+            }
+
+            private sealed class JTokenConverterConverter : JsonConverter
+            {
+                private readonly IGremlinQueryEnvironment _environment;
+                private readonly IQueryFragmentDeserializer _deserializer;
+
+                [ThreadStatic]
+                // ReSharper disable once StaticMemberInGenericType
+                private static bool _canConvert;
+
+                public JTokenConverterConverter(
+                    IQueryFragmentDeserializer deserializer,
+                    IGremlinQueryEnvironment environment)
+                {
+                    _deserializer = deserializer;
+                    _environment = environment;
+                }
+
+                public override bool CanConvert(Type objectType)
+                {
+                    if (!_canConvert)
+                    {
+                        _canConvert = true;
+
+                        return false;
+                    }
+
+                    return true;
+                }
+
+                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                {
+                    throw new NotSupportedException();
+                }
+
+                public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+                {
+                    var token = JToken.Load(reader);
+
+                    try
+                    {
+                        _canConvert = false;
+
+                        return _deserializer.TryDeserialize(token, objectType, _environment);
+                    }
+                    finally
+                    {
+                        _canConvert = true;
+                    }
+                }
+            }
+            #endregion
+
+            public GraphsonJsonSerializer(
+                DefaultValueHandling defaultValueHandling,
+                IGremlinQueryEnvironment environment,
+                IQueryFragmentDeserializer fragmentDeserializer)
+            {
+                DefaultValueHandling = defaultValueHandling;
+                ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
+                Converters.Add(new JTokenConverterConverter(fragmentDeserializer, environment));
+            }
         }
 
         private sealed class GremlinQueryExecutionResultDeserializerImpl : IGremlinQueryExecutionResultDeserializer
@@ -120,6 +270,7 @@ namespace ExRam.Gremlinq.Core
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
+                //TODO: This is very inefficient.
                 var ret = jToken.ToObject(
                     type,
                     new GraphsonJsonSerializer(
