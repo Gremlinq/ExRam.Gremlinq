@@ -1,12 +1,14 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System.Collections.Immutable;
+
+namespace ExRam.Gremlinq.Core
 {
     public sealed class ValueMapStep : Step
     {
-        public ValueMapStep(string[] keys)
+        public ValueMapStep(ImmutableArray<string> keys)
         {
             Keys = keys;
         }
 
-        public string[] Keys { get; }
+        public ImmutableArray<string> Keys { get; }
     }
 }

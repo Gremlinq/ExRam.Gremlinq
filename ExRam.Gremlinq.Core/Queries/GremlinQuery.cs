@@ -920,7 +920,7 @@ namespace ExRam.Gremlinq.Core
 
         private IValueGremlinQuery<TNewPropertyValue> Value<TNewPropertyValue>() => AddStepWithObjectTypes<TNewPropertyValue>(ValueStep.Instance, QuerySemantics.None);
 
-        private GremlinQuery<TNewElement, object, object, object, object, object> ValueMap<TNewElement>(string[] keys) => AddStepWithObjectTypes<TNewElement>(new ValueMapStep(keys), QuerySemantics.None);
+        private GremlinQuery<TNewElement, object, object, object, object, object> ValueMap<TNewElement>(ImmutableArray<string> keys) => AddStepWithObjectTypes<TNewElement>(new ValueMapStep(keys), QuerySemantics.None);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
@@ -929,7 +929,7 @@ namespace ExRam.Gremlinq.Core
 
             var stringKeys = GetKeys(projectionsArray)
                 .OfType<string>()
-                .ToArray();
+                .ToImmutableArray();
 
             if (stringKeys.Length != projectionsArray.Length)
                 throw new ExpressionNotSupportedException($"One of the expressions in {nameof(ValueMap)} maps to a {nameof(T)}-token. Can't have special tokens in {nameof(ValueMap)}.");

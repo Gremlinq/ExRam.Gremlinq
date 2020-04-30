@@ -1461,8 +1461,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class ValueMapStep : ExRam.Gremlinq.Core.Step
     {
-        public ValueMapStep(string[] keys) { }
-        public string[] Keys { get; }
+        public ValueMapStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
+        public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
     }
     public sealed class ValueStep : ExRam.Gremlinq.Core.Step
     {
