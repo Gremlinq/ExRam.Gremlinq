@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
-using LanguageExt;
 using Newtonsoft.Json.Linq;
 using Xunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
@@ -89,21 +88,21 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .NotBeSameAs(readToken2);
         }
 
-        [Fact]
-        public async Task GraphSon3ReferenceVertex()
-        {
-            var array = await _g
-                .WithExecutor(Graphson3ReferenceVertex)
-                .V()
-                .Cast<JObject>()
-                .ToArrayAsync();
+        //[Fact]
+        //public async Task GraphSon3ReferenceVertex()
+        //{
+        //    var array = await _g
+        //        .WithExecutor(Graphson3ReferenceVertex)
+        //        .V()
+        //        .Cast<JObject>()
+        //        .ToArrayAsync();
 
-            array.Should().HaveCount(1);
-            array[0]["id"]["@value"].ToObject<int>().Should().Be(1);
-            array[0]["label"].ToObject<string>().Should().Be("person");
-            array[0]["properties"]["name"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("marko");
-            array[0]["properties"]["location"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");
-        }
+        //    array.Should().HaveCount(1);
+        //    array[0]["id"]["@value"].ToObject<int>().Should().Be(1);
+        //    array[0]["label"].ToObject<string>().Should().Be("person");
+        //    array[0]["properties"]["name"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("marko");
+        //    array[0]["properties"]["location"].ToObject<string[]>(new GraphsonJsonSerializer(GremlinQueryEnvironment.Default)).Should().BeEquivalentTo("san diego", "santa cruz", "brussels", "santa fe");
+        //}
 
         [Fact]
         public async Task Configured_property_name()

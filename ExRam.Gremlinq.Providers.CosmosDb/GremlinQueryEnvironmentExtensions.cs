@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
-using Gremlin.Net.Process.Traversal;
-using Gremlin.Net.Structure.IO.GraphSON;
 using Newtonsoft.Json.Linq;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -50,32 +46,10 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class TimespanConverter : IJTokenConverter
-        {
-            public bool TryConvert(JToken jToken, Type objectType, IJTokenConverter recurse, out object? value)
-            {
-                if (objectType == typeof(TimeSpan))
-                {
-                    if (recurse.TryConvert(jToken, typeof(double), recurse, out value))
-                    {
-                        value = TimeSpan.FromMilliseconds((double)value);
-                        return true;
-                    }
-                }
-
-                value = null;
-                return false;
-            }
-        }
-
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, ICosmosDbConfigurationBuilderWithAuthKey> transformation)
         {
             return env
-                .UseWebSocket(builder =>
-                    transformation(
-                        new CosmosDbConfigurationBuilder(
-                            builder
-                                .SetGraphSONVersion(GraphsonVersion.V2))))
+                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetGraphSONVersion(GraphsonVersion.V2))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
@@ -89,7 +63,20 @@ namespace ExRam.Gremlinq.Core
                 .ConfigureOptions(options => options
                     .SetValue(GremlinqOption.VertexProjectionSteps, ImmutableList<Step>.Empty)
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken(new TimespanConverter()));
+                .ConfigureDeserializer(deserializer => deserializer
+                    .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
+                        .Override<JToken>((jToken, type, env, overridden, recurse) =>
+                        {
+                            if (type == typeof(TimeSpan))
+                            {
+                                if (recurse.TryDeserialize(jToken, typeof(double), env) is double value)
+                                {
+                                    return TimeSpan.FromMilliseconds(value);
+                                }
+                            }
+
+                            return overridden(jToken);
+                        })));
         }
     }
 }

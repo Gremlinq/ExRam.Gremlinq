@@ -261,7 +261,7 @@ namespace ExRam.Gremlinq.Core
         {
             return builderAction(new WebSocketConfigurationBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", _ => _, ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, QueryLoggingOptions.Default, new ConnectionPoolSettings()))
                 .Build()
-                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken());
+                .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken);
         }
     }
 }
