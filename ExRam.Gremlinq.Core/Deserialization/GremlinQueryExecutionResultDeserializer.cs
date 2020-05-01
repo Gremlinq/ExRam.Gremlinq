@@ -354,8 +354,10 @@ namespace ExRam.Gremlinq.Core
                             }
                             case JArray array:
                                 return recurse.TryDeserialize(array[0], itemType ?? type, env);
-                            case JValue jValue when jValue.Value == null && itemType != null:
+                            case JValue jValue when jValue.Value == null:
                                 return null;
+                            case JValue jValue when itemType != null:
+                                return recurse.TryDeserialize(jValue, itemType, env);
                         }
                     }
                 }
