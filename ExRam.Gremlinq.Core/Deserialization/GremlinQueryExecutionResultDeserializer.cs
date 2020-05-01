@@ -366,6 +366,12 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
+                return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
+                    ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
+                    : overridden(jToken);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
                 if (type == typeof(TimeSpan))
                 {
                     if (recurse.TryDeserialize(jToken, typeof(string), env) is string strValue)
