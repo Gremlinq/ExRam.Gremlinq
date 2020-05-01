@@ -10,7 +10,25 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphModelImpl : IGraphModel
         {
-            private static readonly IImmutableSet<Type> DefaultNativeTypes = new[] {typeof(bool), typeof(byte), typeof(byte[]), typeof(sbyte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(string), typeof(DateTime), typeof(DateTimeOffset)}.ToImmutableHashSet();
+            private static readonly IImmutableSet<Type> DefaultNativeTypes = new[]
+            {
+                typeof(bool),
+                typeof(byte),
+                typeof(byte[]),
+                typeof(sbyte),
+                typeof(short),
+                typeof(ushort),
+                typeof(int),
+                typeof(uint),
+                typeof(long),
+                typeof(ulong),
+                typeof(float),
+                typeof(double),
+                typeof(string),
+                typeof(TimeSpan),
+                typeof(DateTime),
+                typeof(DateTimeOffset)
+            }.ToImmutableHashSet();
 
             public GraphModelImpl(
                 IGraphElementModel verticesModel,
