@@ -1,36 +1,41 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Company'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Names'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Names"
         ]
       },
       {
-        OperatorName: 'properties'
+        "OperatorName": "properties",
+        "Arguments": []
       },
       {
-        OperatorName: 'where',
-        Arguments: [
+        "OperatorName": "where",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'key'
+                "OperatorName": "key",
+                "Arguments": []
               },
               {
-                OperatorName: 'is',
-                Arguments: [
-                  'someKey'
+                "OperatorName": "is",
+                "Arguments": [
+                  "someKey"
                 ]
               }
             ]

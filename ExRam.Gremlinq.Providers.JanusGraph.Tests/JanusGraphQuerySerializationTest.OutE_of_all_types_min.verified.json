@@ -1,45 +1,50 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'outE'
+        "OperatorName": "outE",
+        "Arguments": []
       },
       {
-        OperatorName: 'project',
-        Arguments: [
-          'id',
-          'label',
-          'properties'
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'id'
+            "EnumName": "T",
+            "EnumValue": "id"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'label'
+            "EnumName": "T",
+            "EnumValue": "label"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'valueMap'
+                "OperatorName": "valueMap",
+                "Arguments": []
               }
             ]
           }

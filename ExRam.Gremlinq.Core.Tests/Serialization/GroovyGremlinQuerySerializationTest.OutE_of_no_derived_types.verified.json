@@ -1,11 +1,11 @@
 [
   {
-    Script: 'V().outE(_a).project(_b, _c, _d).by(id).by(label).by(__.valueMap())',
-    Bindings: {
-      _a: 'String',
-      _b: 'id',
-      _c: 'label',
-      _d: 'properties'
+    "Script": "V().outE(_a).project(_b, _c, _d).by(id).by(label).by(__.valueMap())",
+    "Bindings": {
+      "_a": "String",
+      "_b": "id",
+      "_c": "label",
+      "_d": "properties"
     }
   }
 ]

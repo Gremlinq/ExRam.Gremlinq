@@ -1,42 +1,49 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'where',
-        Arguments: [
+        "OperatorName": "where",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'properties'
+                "OperatorName": "properties",
+                "Arguments": []
               }
             ]
           }
         ]
       },
       {
-        OperatorName: 'choose',
-        Arguments: [
+        "OperatorName": "choose",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'values'
+                "OperatorName": "values",
+                "Arguments": []
               }
             ]
           }
         ]
       },
       {
-        OperatorName: 'option',
-        Arguments: [
+        "OperatorName": "option",
+        "Arguments": [
           3,
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'constant',
-                Arguments: [
+                "OperatorName": "constant",
+                "Arguments": [
                   1
                 ]
               }

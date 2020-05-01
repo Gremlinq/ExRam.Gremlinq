@@ -1,9 +1,9 @@
 [
   {
-    Script: 'V().hasLabel(_a).has(id, _b)',
-    Bindings: {
-      _a: 'Language',
-      _b: 1
+    "Script": "V().hasLabel(_a).has(id, _b)",
+    "Bindings": {
+      "_a": "Language",
+      "_b": 1
     }
   }
 ]

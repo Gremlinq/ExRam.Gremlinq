@@ -1,35 +1,40 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Languages'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Languages"
         ]
       },
       {
-        OperatorName: 'where',
-        Arguments: [
+        "OperatorName": "where",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'label'
+                "OperatorName": "label",
+                "Arguments": []
               },
               {
-                OperatorName: 'is',
-                Arguments: [
+                "OperatorName": "is",
+                "Arguments": [
                   {
-                    OperatorName: 'neq',
-                    Value: 'label'
+                    "OperatorName": "neq",
+                    "Value": "label",
+                    "Other": null
                   }
                 ]
               }

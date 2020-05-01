@@ -1,119 +1,127 @@
 [
   {
-    SourceInstructions: [
+    "SourceInstructions": [
       {
-        OperatorName: 'withoutStrategies',
-        Arguments: [
-          'SubgraphStrategy',
-          'ElementIdStrategy'
+        "OperatorName": "withoutStrategies",
+        "Arguments": [
+          "Gremlin.Net.Process.Traversal.Strategy.Decoration.SubgraphStrategy, Gremlin.Net, Version=3.4.0.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711",
+          "Gremlin.Net.Process.Traversal.Strategy.Decoration.ElementIdStrategy, Gremlin.Net, Version=3.4.0.0, Culture=neutral, PublicKeyToken=d2035e9aa387a711"
         ]
       }
     ],
-    StepInstructions: [
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'project',
-        Arguments: [
-          'id',
-          'label',
-          'properties'
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'id'
+            "EnumName": "T",
+            "EnumValue": "id"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'label'
+            "EnumName": "T",
+            "EnumValue": "label"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'properties'
+                "OperatorName": "properties",
+                "Arguments": []
               },
               {
-                OperatorName: 'group'
+                "OperatorName": "group",
+                "Arguments": []
               },
               {
-                OperatorName: 'by',
-                Arguments: [
+                "OperatorName": "by",
+                "Arguments": [
                   {
-                    EnumName: 'T',
-                    EnumValue: 'label'
+                    "EnumName": "T",
+                    "EnumValue": "label"
                   }
                 ]
               },
               {
-                OperatorName: 'by',
-                Arguments: [
+                "OperatorName": "by",
+                "Arguments": [
                   {
-                    StepInstructions: [
+                    "SourceInstructions": [],
+                    "StepInstructions": [
                       {
-                        OperatorName: 'project',
-                        Arguments: [
-                          'id',
-                          'label',
-                          'value',
-                          'properties'
+                        "OperatorName": "project",
+                        "Arguments": [
+                          "id",
+                          "label",
+                          "value",
+                          "properties"
                         ]
                       },
                       {
-                        OperatorName: 'by',
-                        Arguments: [
+                        "OperatorName": "by",
+                        "Arguments": [
                           {
-                            EnumName: 'T',
-                            EnumValue: 'id'
+                            "EnumName": "T",
+                            "EnumValue": "id"
                           }
                         ]
                       },
                       {
-                        OperatorName: 'by',
-                        Arguments: [
+                        "OperatorName": "by",
+                        "Arguments": [
                           {
-                            EnumName: 'T',
-                            EnumValue: 'label'
+                            "EnumName": "T",
+                            "EnumValue": "label"
                           }
                         ]
                       },
                       {
-                        OperatorName: 'by',
-                        Arguments: [
+                        "OperatorName": "by",
+                        "Arguments": [
                           {
-                            EnumName: 'T',
-                            EnumValue: 'value'
+                            "EnumName": "T",
+                            "EnumValue": "value"
                           }
                         ]
                       },
                       {
-                        OperatorName: 'by',
-                        Arguments: [
+                        "OperatorName": "by",
+                        "Arguments": [
                           {
-                            StepInstructions: [
+                            "SourceInstructions": [],
+                            "StepInstructions": [
                               {
-                                OperatorName: 'valueMap'
+                                "OperatorName": "valueMap",
+                                "Arguments": []
                               }
                             ]
                           }
                         ]
                       },
                       {
-                        OperatorName: 'fold'
+                        "OperatorName": "fold",
+                        "Arguments": []
                       }
                     ]
                   }

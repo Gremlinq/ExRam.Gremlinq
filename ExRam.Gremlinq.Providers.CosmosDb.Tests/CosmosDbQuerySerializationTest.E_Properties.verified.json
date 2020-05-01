@@ -1,5 +1,6 @@
 [
   {
-    Script: 'E().properties()'
+    "Script": "E().properties()",
+    "Bindings": {}
   }
 ]

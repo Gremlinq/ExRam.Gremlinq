@@ -1,9 +1,9 @@
 [
   {
-    Script: 'V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))',
-    Bindings: {
-      _a: 'Person',
-      _b: 'Company'
+    "Script": "V().hasLabel(_a).repeat(__.inE().outV()).until(__.V().hasLabel(_b))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Company"
     }
   }
 ]

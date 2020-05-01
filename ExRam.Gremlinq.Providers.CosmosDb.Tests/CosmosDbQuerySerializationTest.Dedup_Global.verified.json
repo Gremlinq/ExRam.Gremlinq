@@ -1,5 +1,6 @@
 [
   {
-    Script: 'V().dedup()'
+    "Script": "V().dedup()",
+    "Bindings": {}
   }
 ]

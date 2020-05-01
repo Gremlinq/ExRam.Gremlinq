@@ -1,54 +1,54 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 8
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 8
           },
-          value: {
-            @type: 'g:Date',
-            @value: 1586270616000
+          "value": {
+            "@type": "g:Date",
+            "@value": 1586270616000
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 8
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 8
           },
-          value: {
-            @type: 'g:Int32',
-            @value: 0
+          "value": {
+            "@type": "g:Int32",
+            "@value": 0
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 8
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 8
           },
-          value: {
-            @type: 'g:Int32',
-            @value: 21
+          "value": {
+            "@type": "g:Int32",
+            "@value": 21
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 8
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 8
           },
-          value: 'Marko'
+          "value": "Marko"
         }
       }
     ]

@@ -1,9 +1,9 @@
 [
   {
-    Script: 'V().hasLabel(_a).has(_b)',
-    Bindings: {
-      _a: 'Company',
-      _b: 'PhoneNumbers'
+    "Script": "V().hasLabel(_a).has(_b)",
+    "Bindings": {
+      "_a": "Company",
+      "_b": "PhoneNumbers"
     }
   }
 ]

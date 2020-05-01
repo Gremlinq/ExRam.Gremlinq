@@ -1,10 +1,10 @@
 [
   {
-    Script: 'V().hasLabel(_a).properties(_b).has(id, _c)',
-    Bindings: {
-      _a: 'Country',
-      _b: 'Languages',
-      _c: 'id'
+    "Script": "V().hasLabel(_a).properties(_b).has(id, _c)",
+    "Bindings": {
+      "_a": "Country",
+      "_b": "Languages",
+      "_c": "id"
     }
   }
 ]

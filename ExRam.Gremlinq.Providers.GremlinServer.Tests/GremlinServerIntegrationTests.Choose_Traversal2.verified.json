@@ -1,132 +1,132 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 5
+                "@type": "g:Int64",
+                "@value": 5
               },
-              'label',
-              'Person',
-              'properties',
+              "label",
+              "Person",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'Gender',
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 7
+                            "@type": "g:Int64",
+                            "@value": 7
                           },
-                          'label',
-                          'Gender',
-                          'value',
+                          "label",
+                          "Gender",
+                          "value",
                           {
-                            @type: 'g:Int32',
-                            @value: 0
+                            "@type": "g:Int32",
+                            "@value": 0
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
                     ]
                   },
-                  'RegistrationDate',
+                  "RegistrationDate",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 9
+                            "@type": "g:Int64",
+                            "@value": 9
                           },
-                          'label',
-                          'RegistrationDate',
-                          'value',
+                          "label",
+                          "RegistrationDate",
+                          "value",
                           {
-                            @type: 'g:Date',
-                            @value: 1586270616000
+                            "@type": "g:Date",
+                            "@value": 1586270616000
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
                     ]
                   },
-                  'Age',
+                  "Age",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 6
+                            "@type": "g:Int64",
+                            "@value": 6
                           },
-                          'label',
-                          'Age',
-                          'value',
+                          "label",
+                          "Age",
+                          "value",
                           {
-                            @type: 'g:Int32',
-                            @value: 0
+                            "@type": "g:Int32",
+                            "@value": 0
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
                     ]
                   },
-                  'Name',
+                  "Name",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 8
+                            "@type": "g:Int64",
+                            "@value": 8
                           },
-                          'label',
-                          'Name',
-                          'value',
-                          'Bob',
-                          'properties',
+                          "label",
+                          "Name",
+                          "value",
+                          "Bob",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -139,46 +139,46 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 2
+                "@type": "g:Int64",
+                "@value": 2
               },
-              'label',
-              'Language',
-              'properties',
+              "label",
+              "Language",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'IetfLanguageTag',
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 3
+                            "@type": "g:Int64",
+                            "@value": 3
                           },
-                          'label',
-                          'IetfLanguageTag',
-                          'value',
-                          'en',
-                          'properties',
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -191,176 +191,176 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 900
+                "@type": "g:Int64",
+                "@value": 900
               },
-              'label',
-              'Language',
-              'properties',
+              "label",
+              "Language",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 2
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 14
+                "@type": "g:Int64",
+                "@value": 14
               },
-              'label',
-              'Country',
-              'properties',
+              "label",
+              "Country",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 2
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 19
+                "@type": "g:Int64",
+                "@value": 19
               },
-              'label',
-              'Country',
-              'properties',
+              "label",
+              "Country",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 400
+                "@type": "g:Int64",
+                "@value": 400
               },
-              'label',
-              'Language',
-              'properties',
+              "label",
+              "Language",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 2
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 24
+                "@type": "g:Int64",
+                "@value": 24
               },
-              'label',
-              'Country',
-              'properties',
+              "label",
+              "Country",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 26
+                "@type": "g:Int64",
+                "@value": 26
               },
-              'label',
-              'Language',
-              'properties',
+              "label",
+              "Language",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'IetfLanguageTag',
+                "@type": "g:Map",
+                "@value": [
+                  "IetfLanguageTag",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 27
+                            "@type": "g:Int64",
+                            "@value": 27
                           },
-                          'label',
-                          'IetfLanguageTag',
-                          'value',
-                          'en',
-                          'properties',
+                          "label",
+                          "IetfLanguageTag",
+                          "value",
+                          "en",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -373,46 +373,46 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 0
+                "@type": "g:Int64",
+                "@value": 0
               },
-              'label',
-              'Country',
-              'properties',
+              "label",
+              "Country",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'CountryCallingCode',
+                "@type": "g:Map",
+                "@value": [
+                  "CountryCallingCode",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 1
+                            "@type": "g:Int64",
+                            "@value": 1
                           },
-                          'label',
-                          'CountryCallingCode',
-                          'value',
-                          '+49',
-                          'properties',
+                          "label",
+                          "CountryCallingCode",
+                          "value",
+                          "+49",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -425,49 +425,49 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 37
+                "@type": "g:Int64",
+                "@value": 37
               },
-              'label',
-              'Company',
-              'properties',
+              "label",
+              "Company",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'FoundingDate',
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 38
+                            "@type": "g:Int64",
+                            "@value": 38
                           },
-                          'label',
-                          'FoundingDate',
-                          'value',
+                          "label",
+                          "FoundingDate",
+                          "value",
                           {
-                            @type: 'g:Date',
-                            @value: -62135596800000
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -480,26 +480,26 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 44
+                "@type": "g:Int64",
+                "@value": 44
               },
-              'label',
-              'Language',
-              'properties',
+              "label",
+              "Language",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }

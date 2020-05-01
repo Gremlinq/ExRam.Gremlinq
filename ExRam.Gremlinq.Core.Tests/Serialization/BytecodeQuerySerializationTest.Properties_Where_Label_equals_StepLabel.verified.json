@@ -1,47 +1,52 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'inject',
-        Arguments: [
-          'label'
+        "OperatorName": "inject",
+        "Arguments": [
+          "label"
         ]
       },
       {
-        OperatorName: 'as',
-        Arguments: [
-          'l1'
+        "OperatorName": "as",
+        "Arguments": [
+          "l1"
         ]
       },
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Languages'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Languages"
         ]
       },
       {
-        OperatorName: 'where',
-        Arguments: [
+        "OperatorName": "where",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'label'
+                "OperatorName": "label",
+                "Arguments": []
               },
               {
-                OperatorName: 'where',
-                Arguments: [
+                "OperatorName": "where",
+                "Arguments": [
                   {
-                    OperatorName: 'eq',
-                    Value: 'l1'
+                    "OperatorName": "eq",
+                    "Value": "l1",
+                    "Other": null
                   }
                 ]
               }

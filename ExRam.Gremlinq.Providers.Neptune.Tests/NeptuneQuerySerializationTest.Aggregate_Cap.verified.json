@@ -1,25 +1,27 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'aggregate',
-        Arguments: [
-          'l1'
+        "OperatorName": "aggregate",
+        "Arguments": [
+          "l1"
         ]
       },
       {
-        OperatorName: 'cap',
-        Arguments: [
-          'l1'
+        "OperatorName": "cap",
+        "Arguments": [
+          "l1"
         ]
       }
     ]

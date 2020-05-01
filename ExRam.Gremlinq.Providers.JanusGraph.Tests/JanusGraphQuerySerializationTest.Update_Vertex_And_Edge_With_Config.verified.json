@@ -1,120 +1,128 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'sideEffect',
-        Arguments: [
+        "OperatorName": "sideEffect",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'properties',
-                Arguments: [
-                  'Gender',
-                  'RegistrationDate'
+                "OperatorName": "properties",
+                "Arguments": [
+                  "Gender",
+                  "RegistrationDate"
                 ]
               },
               {
-                OperatorName: 'drop'
+                "OperatorName": "drop",
+                "Arguments": []
               }
             ]
           }
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
+        "OperatorName": "property",
+        "Arguments": [
           {
-            EnumName: 'Cardinality',
-            EnumValue: 'single'
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
           },
-          'Gender',
-          'Male'
+          "Gender",
+          0
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
+        "OperatorName": "property",
+        "Arguments": [
           {
-            EnumName: 'Cardinality',
-            EnumValue: 'single'
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
           },
-          'RegistrationDate',
-          DateTimeOffset_1
+          "RegistrationDate",
+          "2020-04-07T14:43:36+00:00"
         ]
       },
       {
-        OperatorName: 'outE',
-        Arguments: [
-          'WorksFor'
+        "OperatorName": "outE",
+        "Arguments": [
+          "WorksFor"
         ]
       },
       {
-        OperatorName: 'sideEffect',
-        Arguments: [
+        "OperatorName": "sideEffect",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'properties',
-                Arguments: [
-                  'To'
+                "OperatorName": "properties",
+                "Arguments": [
+                  "To"
                 ]
               },
               {
-                OperatorName: 'drop'
+                "OperatorName": "drop",
+                "Arguments": []
               }
             ]
           }
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
-          'To',
-          DateTimeOffset_1
+        "OperatorName": "property",
+        "Arguments": [
+          "To",
+          "2020-04-07T14:43:36+00:00"
         ]
       },
       {
-        OperatorName: 'project',
-        Arguments: [
-          'id',
-          'label',
-          'properties'
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'id'
+            "EnumName": "T",
+            "EnumValue": "id"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'label'
+            "EnumName": "T",
+            "EnumValue": "label"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'valueMap'
+                "OperatorName": "valueMap",
+                "Arguments": []
               }
             ]
           }

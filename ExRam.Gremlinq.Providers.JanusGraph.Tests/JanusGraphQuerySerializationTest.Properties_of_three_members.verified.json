@@ -1,21 +1,23 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Name',
-          'CountryCallingCode',
-          'Languages'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Name",
+          "CountryCallingCode",
+          "Languages"
         ]
       }
     ]

@@ -1,13 +1,13 @@
 [
   {
-    Script: 'E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())',
-    Bindings: {
-      _a: 'WorksFor',
-      _b: 'To',
-      _c: DateTimeOffset_1,
-      _d: 'id',
-      _e: 'label',
-      _f: 'properties'
+    "Script": "E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())",
+    "Bindings": {
+      "_a": "WorksFor",
+      "_b": "To",
+      "_c": "2020-04-07T14:43:36+00:00",
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties"
     }
   }
 ]

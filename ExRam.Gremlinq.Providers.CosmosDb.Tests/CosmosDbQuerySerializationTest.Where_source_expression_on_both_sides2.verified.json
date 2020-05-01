@@ -1,11 +1,11 @@
 [
   {
-    Script: 'V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d)',
-    Bindings: {
-      _a: 'EntityWithTwoIntProperties',
-      _b: 'l1',
-      _c: 'IntProperty1',
-      _d: 'IntProperty2'
+    "Script": "V().hasLabel(_a).as(_b).where(gt(_b)).by(_c).by(_d)",
+    "Bindings": {
+      "_a": "EntityWithTwoIntProperties",
+      "_b": "l1",
+      "_c": "IntProperty1",
+      "_d": "IntProperty2"
     }
   }
 ]

@@ -1,30 +1,34 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'properties'
+        "OperatorName": "properties",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasKey',
-        Arguments: [
-          'Age'
+        "OperatorName": "hasKey",
+        "Arguments": [
+          "Age"
         ]
       },
       {
-        OperatorName: 'hasValue',
-        Arguments: [
+        "OperatorName": "hasValue",
+        "Arguments": [
           {
-            OperatorName: 'lt',
-            Value: 10
+            "OperatorName": "lt",
+            "Value": 10,
+            "Other": null
           }
         ]
       }

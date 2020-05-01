@@ -1,34 +1,40 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'id'
+        "OperatorName": "id",
+        "Arguments": []
       },
       {
-        OperatorName: 'choose',
-        Arguments: [
+        "OperatorName": "choose",
+        "Arguments": [
           {
-            OperatorName: 'lt',
-            Value: 42
+            "OperatorName": "lt",
+            "Value": 42,
+            "Other": null
           },
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'constant',
-                Arguments: [
+                "OperatorName": "constant",
+                "Arguments": [
                   true
                 ]
               }
             ]
           },
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'constant',
-                Arguments: [
+                "OperatorName": "constant",
+                "Arguments": [
                   false
                 ]
               }

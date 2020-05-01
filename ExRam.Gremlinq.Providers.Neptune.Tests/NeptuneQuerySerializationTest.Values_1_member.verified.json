@@ -1,19 +1,21 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'values',
-        Arguments: [
-          'Age'
+        "OperatorName": "values",
+        "Arguments": [
+          "Age"
         ]
       }
     ]

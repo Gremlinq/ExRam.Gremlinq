@@ -1,14 +1,18 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'properties'
+        "OperatorName": "properties",
+        "Arguments": []
       },
       {
-        OperatorName: 'valueMap'
+        "OperatorName": "valueMap",
+        "Arguments": []
       }
     ]
   }

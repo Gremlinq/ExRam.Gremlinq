@@ -1,14 +1,14 @@
 [
   {
-    Script: 'E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)',
-    Bindings: {
-      _a: 0,
-      _b: 'WorksFor',
-      _c: 'From',
-      _d: 'Role',
-      _e: 'To',
-      _f: DateTimeOffset_1,
-      _g: 'Admin'
+    "Script": "E(_a).hasLabel(_b).sideEffect(__.properties(_c, _d, _e).drop()).property(_c, _f).property(_d, _g).property(_e, _f)",
+    "Bindings": {
+      "_a": 0,
+      "_b": "WorksFor",
+      "_c": "From",
+      "_d": "Role",
+      "_e": "To",
+      "_f": "2020-04-07T14:43:36+00:00",
+      "_g": "Admin"
     }
   }
 ]

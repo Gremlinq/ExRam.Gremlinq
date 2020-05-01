@@ -1,48 +1,48 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 600
+                "@type": "g:Int64",
+                "@value": 600
               },
-              'label',
-              'Country',
-              'properties',
+              "label",
+              "Country",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'Name',
+                "@type": "g:Map",
+                "@value": [
+                  "Name",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 61
+                            "@type": "g:Int64",
+                            "@value": 61
                           },
-                          'label',
-                          'Name',
-                          'value',
-                          'GER',
-                          'properties',
+                          "label",
+                          "Name",
+                          "value",
+                          "GER",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }

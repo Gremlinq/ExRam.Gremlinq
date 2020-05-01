@@ -1,34 +1,38 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'union',
-        Arguments: [
+        "OperatorName": "union",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'out',
-                Arguments: [
-                  'WorksFor'
+                "OperatorName": "out",
+                "Arguments": [
+                  "WorksFor"
                 ]
               }
             ]
           },
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'outE',
-                Arguments: [
-                  'LivesIn'
+                "OperatorName": "outE",
+                "Arguments": [
+                  "LivesIn"
                 ]
               }
             ]

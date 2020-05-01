@@ -1,136 +1,136 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 10
+                "@type": "g:Int64",
+                "@value": 10
               },
-              'label',
-              'LivesIn',
-              'properties',
+              "label",
+              "LivesIn",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 4
+                "@type": "g:Int64",
+                "@value": 4
               },
-              'label',
-              'Speaks',
-              'properties',
+              "label",
+              "Speaks",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 15
+                "@type": "g:Int64",
+                "@value": 15
               },
-              'label',
-              'LivesIn',
-              'properties',
+              "label",
+              "LivesIn",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 20
+                "@type": "g:Int64",
+                "@value": 20
               },
-              'label',
-              'LivesIn',
-              'properties',
+              "label",
+              "LivesIn",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 25
+                "@type": "g:Int64",
+                "@value": 25
               },
-              'label',
-              'LivesIn',
-              'properties',
+              "label",
+              "LivesIn",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'Since',
+                "@type": "g:Map",
+                "@value": [
+                  "Since",
                   {
-                    @type: 'g:Date',
-                    @value: 1586270616000
+                    "@type": "g:Date",
+                    "@value": 1586270616000
                   }
                 ]
               }
@@ -139,82 +139,82 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 30
+                "@type": "g:Int64",
+                "@value": 30
               },
-              'label',
-              'Speaks',
-              'properties',
+              "label",
+              "Speaks",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 36
+                "@type": "g:Int64",
+                "@value": 36
               },
-              'label',
-              'LivesIn',
-              'properties',
+              "label",
+              "LivesIn",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: []
+                "@type": "g:Map",
+                "@value": []
               }
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 42
+                "@type": "g:Int64",
+                "@value": 42
               },
-              'label',
-              'WorksFor',
-              'properties',
+              "label",
+              "WorksFor",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'To',
+                "@type": "g:Map",
+                "@value": [
+                  "To",
                   {
-                    @type: 'g:Date',
-                    @value: 1586270616000
+                    "@type": "g:Date",
+                    "@value": 1586270616000
                   }
                 ]
               }

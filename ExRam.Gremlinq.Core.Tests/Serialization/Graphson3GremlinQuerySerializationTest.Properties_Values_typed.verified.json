@@ -1,3 +1,3 @@
 [
-  '{"@type":"g:Bytecode","@value":{"step":[["V"],["properties"],["values"]]}}'
+  "{\"@type\":\"g:Bytecode\",\"@value\":{\"step\":[[\"V\"],[\"properties\"],[\"values\"]]}}"
 ]

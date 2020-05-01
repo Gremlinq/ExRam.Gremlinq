@@ -1,34 +1,38 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Name'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Name"
         ]
       },
       {
-        OperatorName: 'sideEffect',
-        Arguments: [
+        "OperatorName": "sideEffect",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'properties',
-                Arguments: [
-                  'metaKey'
+                "OperatorName": "properties",
+                "Arguments": [
+                  "metaKey"
                 ]
               },
               {
-                OperatorName: 'drop'
+                "OperatorName": "drop",
+                "Arguments": []
               }
             ]
           }

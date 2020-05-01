@@ -1,51 +1,51 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 800
+                "@type": "g:Int64",
+                "@value": 800
               },
-              'label',
-              'Company',
-              'properties',
+              "label",
+              "Company",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'FoundingDate',
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 63
+                            "@type": "g:Int64",
+                            "@value": 63
                           },
-                          'label',
-                          'FoundingDate',
-                          'value',
+                          "label",
+                          "FoundingDate",
+                          "value",
                           {
-                            @type: 'g:Date',
-                            @value: -62135596800000
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -58,49 +58,49 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 37
+                "@type": "g:Int64",
+                "@value": 37
               },
-              'label',
-              'Company',
-              'properties',
+              "label",
+              "Company",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'FoundingDate',
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 38
+                            "@type": "g:Int64",
+                            "@value": 38
                           },
-                          'label',
-                          'FoundingDate',
-                          'value',
+                          "label",
+                          "FoundingDate",
+                          "value",
                           {
-                            @type: 'g:Date',
-                            @value: -62135596800000
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
@@ -113,50 +113,50 @@
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 700
+                "@type": "g:Int64",
+                "@value": 700
               },
-              'label',
-              'Company',
-              'properties',
+              "label",
+              "Company",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'Names',
+                "@type": "g:Map",
+                "@value": [
+                  "Names",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 60
+                            "@type": "g:Int64",
+                            "@value": 60
                           },
-                          'label',
-                          'Names',
-                          'value',
-                          'Bob',
-                          'properties',
+                          "label",
+                          "Names",
+                          "value",
+                          "Bob",
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'ValidFrom',
+                            "@type": "g:Map",
+                            "@value": [
+                              "ValidFrom",
                               {
-                                @type: 'g:Date',
-                                @value: 1546304400000
+                                "@type": "g:Date",
+                                "@value": 1546304400000
                               }
                             ]
                           }
@@ -164,29 +164,29 @@
                       }
                     ]
                   },
-                  'FoundingDate',
+                  "FoundingDate",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 59
+                            "@type": "g:Int64",
+                            "@value": 59
                           },
-                          'label',
-                          'FoundingDate',
-                          'value',
+                          "label",
+                          "FoundingDate",
+                          "value",
                           {
-                            @type: 'g:Date',
-                            @value: -62135596800000
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }

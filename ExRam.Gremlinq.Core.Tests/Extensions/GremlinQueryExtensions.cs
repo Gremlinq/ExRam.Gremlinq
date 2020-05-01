@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Verify;
 using VerifyXunit;
 
@@ -17,9 +18,11 @@ namespace ExRam.Gremlinq.Core.Tests
         public static async Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
             await verifyBase.Verify(
-                await query
-                    .Cast<object>()
-                    .ToArrayAsync(),
+                JsonConvert.SerializeObject(
+                    await query
+                        .Cast<object>()
+                        .ToArrayAsync(),
+                    Formatting.Indented),
                 Settings);
         }
     }

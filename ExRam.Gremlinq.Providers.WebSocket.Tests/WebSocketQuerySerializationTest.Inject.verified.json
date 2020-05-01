@@ -1,9 +1,10 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'inject',
-        Arguments: [
+        "OperatorName": "inject",
+        "Arguments": [
           36,
           37,
           38

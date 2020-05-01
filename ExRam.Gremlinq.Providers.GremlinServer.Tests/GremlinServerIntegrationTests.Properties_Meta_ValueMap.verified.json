@@ -1,52 +1,52 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 38
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 38
           },
-          value: {
-            @type: 'g:Map',
-            @value: []
+          "value": {
+            "@type": "g:Map",
+            "@value": []
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'de',
-              'Deutschland',
-              'en',
-              'Germany'
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "de",
+              "Deutschland",
+              "en",
+              "Germany"
             ]
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'ValidFrom',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "ValidFrom",
               {
-                @type: 'g:Date',
-                @value: 1546304400000
+                "@type": "g:Date",
+                "@value": 1546304400000
               }
             ]
           }

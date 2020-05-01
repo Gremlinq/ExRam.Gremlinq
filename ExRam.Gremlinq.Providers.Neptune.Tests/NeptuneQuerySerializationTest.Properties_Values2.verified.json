@@ -1,16 +1,19 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'properties'
+        "OperatorName": "properties",
+        "Arguments": []
       },
       {
-        OperatorName: 'values',
-        Arguments: [
-          'MetaProperty'
+        "OperatorName": "values",
+        "Arguments": [
+          "MetaProperty"
         ]
       }
     ]

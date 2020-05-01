@@ -1,24 +1,24 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 8
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 8
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'Age',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Age",
               {
-                @type: 'g:List',
-                @value: [
+                "@type": "g:List",
+                "@value": [
                   {
-                    @type: 'g:Int32',
-                    @value: 21
+                    "@type": "g:Int32",
+                    "@value": 21
                   }
                 ]
               }

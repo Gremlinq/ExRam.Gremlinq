@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().outE(_a)',
-    Bindings: {
-      _a: 'String'
+    "Script": "V().outE(_a)",
+    "Bindings": {
+      "_a": "String"
     }
   }
 ]

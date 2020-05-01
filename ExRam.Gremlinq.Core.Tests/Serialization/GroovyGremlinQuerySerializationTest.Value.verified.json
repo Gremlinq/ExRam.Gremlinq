@@ -1,5 +1,6 @@
 [
   {
-    Script: 'V().properties().value()'
+    "Script": "V().properties().value()",
+    "Bindings": {}
   }
 ]

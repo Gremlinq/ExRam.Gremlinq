@@ -1,11 +1,11 @@
 [
   {
-    Script: 'inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().where(__.key().where(eq(_b)))',
-    Bindings: {
-      _a: 'hello',
-      _b: 'l1',
-      _c: 'Company',
-      _d: 'Names'
+    "Script": "inject(_a).as(_b).V().hasLabel(_c).properties(_d).properties().where(__.key().where(eq(_b)))",
+    "Bindings": {
+      "_a": "hello",
+      "_b": "l1",
+      "_c": "Company",
+      "_d": "Names"
     }
   }
 ]

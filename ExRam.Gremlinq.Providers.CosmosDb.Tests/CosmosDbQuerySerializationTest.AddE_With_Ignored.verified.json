@@ -1,18 +1,18 @@
 [
   {
-    Script: 'addE(_a).property(_b, _c).from(__.addV(_d).property(single, _e, _f).property(single, _g, _h)).to(__.addV(_i).property(single, _j, _k))',
-    Bindings: {
-      _a: 'WorksFor',
-      _b: 'To',
-      _c: DateTimeOffset_1,
-      _d: 'Person',
-      _e: 'Age',
-      _f: 0,
-      _g: 'Gender',
-      _h: 'Male',
-      _i: 'Company',
-      _j: 'FoundingDate',
-      _k: DateTimeOffset_2
+    "Script": "addE(_a).property(_b, _c).from(__.addV(_d).property(single, _e, _f).property(single, _g, _h)).to(__.addV(_i).property(single, _j, _k))",
+    "Bindings": {
+      "_a": "WorksFor",
+      "_b": "To",
+      "_c": "2020-04-07T14:43:36+00:00",
+      "_d": "Person",
+      "_e": "Age",
+      "_f": 0,
+      "_g": "Gender",
+      "_h": 0,
+      "_i": "Company",
+      "_j": "FoundingDate",
+      "_k": "0001-01-01T00:00:00+00:00"
     }
   }
 ]

@@ -1,10 +1,10 @@
 [
   {
-    Script: 'V().where(__.in()).where(__.out()).project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())',
-    Bindings: {
-      _a: 'Item1',
-      _b: 'Item2',
-      _c: 'Item3'
+    "Script": "V().where(__.in()).where(__.out()).project(_a, _b, _c).by(__.in()).by(__.out()).by(__.count())",
+    "Bindings": {
+      "_a": "Item1",
+      "_b": "Item2",
+      "_c": "Item3"
     }
   }
 ]

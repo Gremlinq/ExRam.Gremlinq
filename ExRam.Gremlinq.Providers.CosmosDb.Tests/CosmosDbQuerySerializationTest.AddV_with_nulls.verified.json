@@ -1,9 +1,9 @@
 [
   {
-    Script: 'addV(_a).property(id, _b)',
-    Bindings: {
-      _a: 'Language',
-      _b: 900
+    "Script": "addV(_a).property(id, _b)",
+    "Bindings": {
+      "_a": "Language",
+      "_b": 900
     }
   }
 ]

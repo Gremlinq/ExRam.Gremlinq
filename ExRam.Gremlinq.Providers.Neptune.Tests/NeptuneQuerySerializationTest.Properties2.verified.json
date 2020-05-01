@@ -1,11 +1,14 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'E'
+        "OperatorName": "E",
+        "Arguments": []
       },
       {
-        OperatorName: 'properties'
+        "OperatorName": "properties",
+        "Arguments": []
       }
     ]
   }

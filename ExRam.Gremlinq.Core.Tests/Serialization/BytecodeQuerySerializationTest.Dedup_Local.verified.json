@@ -1,18 +1,21 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'fold'
+        "OperatorName": "fold",
+        "Arguments": []
       },
       {
-        OperatorName: 'dedup',
-        Arguments: [
+        "OperatorName": "dedup",
+        "Arguments": [
           {
-            EnumName: 'Scope',
-            EnumValue: 'local'
+            "EnumName": "Scope",
+            "EnumValue": "local"
           }
         ]
       }

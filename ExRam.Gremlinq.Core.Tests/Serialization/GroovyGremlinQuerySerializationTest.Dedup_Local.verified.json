@@ -1,5 +1,6 @@
 [
   {
-    Script: 'V().fold().dedup(local)'
+    "Script": "V().fold().dedup(local)",
+    "Bindings": {}
   }
 ]

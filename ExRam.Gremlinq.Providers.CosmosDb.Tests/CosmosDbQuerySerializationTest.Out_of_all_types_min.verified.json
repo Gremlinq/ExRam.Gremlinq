@@ -1,5 +1,6 @@
 [
   {
-    Script: 'V().out()'
+    "Script": "V().out()",
+    "Bindings": {}
   }
 ]

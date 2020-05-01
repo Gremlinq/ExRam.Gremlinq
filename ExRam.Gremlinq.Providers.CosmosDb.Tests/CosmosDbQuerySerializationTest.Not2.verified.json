@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().not(__.hasLabel(_a))',
-    Bindings: {
-      _a: 'Language'
+    "Script": "V().not(__.hasLabel(_a))",
+    "Bindings": {
+      "_a": "Language"
     }
   }
 ]

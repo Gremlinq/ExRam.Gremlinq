@@ -1,10 +1,10 @@
 [
   {
-    Script: 'V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop())',
-    Bindings: {
-      _a: 'Company',
-      _b: 1,
-      _c: 'PhoneNumbers'
+    "Script": "V().hasLabel(_a).limit(_b).sideEffect(__.properties(_c).drop())",
+    "Bindings": {
+      "_a": "Company",
+      "_b": 1,
+      "_c": "PhoneNumbers"
     }
   }
 ]

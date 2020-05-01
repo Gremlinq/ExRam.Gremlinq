@@ -1,39 +1,43 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'values',
-        Arguments: [
-          'Age'
+        "OperatorName": "values",
+        "Arguments": [
+          "Age"
         ]
       },
       {
-        OperatorName: 'fold'
+        "OperatorName": "fold",
+        "Arguments": []
       },
       {
-        OperatorName: 'sum',
-        Arguments: [
+        "OperatorName": "sum",
+        "Arguments": [
           {
-            EnumName: 'Scope',
-            EnumValue: 'local'
+            "EnumName": "Scope",
+            "EnumValue": "local"
           }
         ]
       },
       {
-        OperatorName: 'is',
-        Arguments: [
+        "OperatorName": "is",
+        "Arguments": [
           {
-            OperatorName: 'lt',
-            Value: 100
+            "OperatorName": "lt",
+            "Value": 100,
+            "Other": null
           }
         ]
       }

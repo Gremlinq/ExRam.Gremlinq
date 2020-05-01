@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().hasLabel(_a).not(__.identity())',
-    Bindings: {
-      _a: 'Company'
+    "Script": "V().hasLabel(_a).not(__.identity())",
+    "Bindings": {
+      "_a": "Company"
     }
   }
 ]

@@ -1,9 +1,9 @@
 [
   {
-    Script: 'V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))',
-    Bindings: {
-      _a: 'Language',
-      _b: 'l1'
+    "Script": "V().hasLabel(_a).as(_b).V().hasLabel(_a).where(eq(_b))",
+    "Bindings": {
+      "_a": "Language",
+      "_b": "l1"
     }
   }
 ]

@@ -1,13 +1,13 @@
 [
   {
-    Script: 'V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b)).project(_c, _d, _e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c, _d, _f, _e).by(id).by(label).by(value).by(__.valueMap()).fold()))',
-    Bindings: {
-      _a: 'Language',
-      _b: 'l1',
-      _c: 'id',
-      _d: 'label',
-      _e: 'properties',
-      _f: 'value'
+    "Script": "V().hasLabel(_a).as(_b).V().hasLabel(_a).where(neq(_b)).project(_c, _d, _e).by(id).by(label).by(__.properties().group().by(label).by(__.project(_c, _d, _f, _e).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": "Language",
+      "_b": "l1",
+      "_c": "id",
+      "_d": "label",
+      "_e": "properties",
+      "_f": "value"
     }
   }
 ]

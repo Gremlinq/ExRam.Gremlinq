@@ -1,136 +1,136 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'Item1',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
               {
-                @type: 'g:Map',
-                @value: [
-                  'id',
+                "@type": "g:Map",
+                "@value": [
+                  "id",
                   {
-                    @type: 'g:Int64',
-                    @value: 31
+                    "@type": "g:Int64",
+                    "@value": 31
                   },
-                  'label',
-                  'Person',
-                  'properties',
+                  "label",
+                  "Person",
+                  "properties",
                   {
-                    @type: 'g:Map',
-                    @value: [
-                      'Gender',
+                    "@type": "g:Map",
+                    "@value": [
+                      "Gender",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 33
+                                "@type": "g:Int64",
+                                "@value": 33
                               },
-                              'label',
-                              'Gender',
-                              'value',
+                              "label",
+                              "Gender",
+                              "value",
                               {
-                                @type: 'g:Int32',
-                                @value: 0
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'RegistrationDate',
+                      "RegistrationDate",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 35
+                                "@type": "g:Int64",
+                                "@value": 35
                               },
-                              'label',
-                              'RegistrationDate',
-                              'value',
+                              "label",
+                              "RegistrationDate",
+                              "value",
                               {
-                                @type: 'g:Date',
-                                @value: 1586270616000
+                                "@type": "g:Date",
+                                "@value": 1586270616000
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'Age',
+                      "Age",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 32
+                                "@type": "g:Int64",
+                                "@value": 32
                               },
-                              'label',
-                              'Age',
-                              'value',
+                              "label",
+                              "Age",
+                              "value",
                               {
-                                @type: 'g:Int32',
-                                @value: 0
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'Name',
+                      "Name",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 34
+                                "@type": "g:Int64",
+                                "@value": 34
                               },
-                              'label',
-                              'Name',
-                              'value',
-                              'Bob',
-                              'properties',
+                              "label",
+                              "Name",
+                              "value",
+                              "Bob",
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
@@ -140,125 +140,125 @@
                   }
                 ]
               },
-              'Item2',
+              "Item2",
               {
-                @type: 'g:Map',
-                @value: [
-                  'id',
+                "@type": "g:Map",
+                "@value": [
+                  "id",
                   {
-                    @type: 'g:Int64',
-                    @value: 5
+                    "@type": "g:Int64",
+                    "@value": 5
                   },
-                  'label',
-                  'Person',
-                  'properties',
+                  "label",
+                  "Person",
+                  "properties",
                   {
-                    @type: 'g:Map',
-                    @value: [
-                      'Gender',
+                    "@type": "g:Map",
+                    "@value": [
+                      "Gender",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 7
+                                "@type": "g:Int64",
+                                "@value": 7
                               },
-                              'label',
-                              'Gender',
-                              'value',
+                              "label",
+                              "Gender",
+                              "value",
                               {
-                                @type: 'g:Int32',
-                                @value: 0
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'RegistrationDate',
+                      "RegistrationDate",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 9
+                                "@type": "g:Int64",
+                                "@value": 9
                               },
-                              'label',
-                              'RegistrationDate',
-                              'value',
+                              "label",
+                              "RegistrationDate",
+                              "value",
                               {
-                                @type: 'g:Date',
-                                @value: 1586270616000
+                                "@type": "g:Date",
+                                "@value": 1586270616000
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'Age',
+                      "Age",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 6
+                                "@type": "g:Int64",
+                                "@value": 6
                               },
-                              'label',
-                              'Age',
-                              'value',
+                              "label",
+                              "Age",
+                              "value",
                               {
-                                @type: 'g:Int32',
-                                @value: 0
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
-                              'properties',
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
                         ]
                       },
-                      'Name',
+                      "Name",
                       {
-                        @type: 'g:List',
-                        @value: [
+                        "@type": "g:List",
+                        "@value": [
                           {
-                            @type: 'g:Map',
-                            @value: [
-                              'id',
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
                               {
-                                @type: 'g:Int64',
-                                @value: 8
+                                "@type": "g:Int64",
+                                "@value": 8
                               },
-                              'label',
-                              'Name',
-                              'value',
-                              'Bob',
-                              'properties',
+                              "label",
+                              "Name",
+                              "value",
+                              "Bob",
+                              "properties",
                               {
-                                @type: 'g:Map',
-                                @value: []
+                                "@type": "g:Map",
+                                "@value": []
                               }
                             ]
                           }
@@ -268,21 +268,21 @@
                   }
                 ]
               },
-              'Item3',
+              "Item3",
               {
-                @type: 'g:Int64',
-                @value: 1
+                "@type": "g:Int64",
+                "@value": 1
               },
-              'Item4',
+              "Item4",
               {
-                @type: 'g:VertexProperty',
-                @value: {
-                  id: {
-                    @type: 'g:Int64',
-                    @value: 1
+                "@type": "g:VertexProperty",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 1
                   },
-                  value: '+49',
-                  label: 'CountryCallingCode'
+                  "value": "+49",
+                  "label": "CountryCallingCode"
                 }
               }
             ]

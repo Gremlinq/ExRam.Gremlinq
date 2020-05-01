@@ -1,5 +1,6 @@
 [
   {
-    Script: 'E()'
+    "Script": "E()",
+    "Bindings": {}
   }
 ]

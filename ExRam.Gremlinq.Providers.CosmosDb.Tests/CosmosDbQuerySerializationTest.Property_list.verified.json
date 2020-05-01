@@ -1,11 +1,11 @@
 [
   {
-    Script: 'V().hasLabel(_a).limit(_b).property(list, _c, _d)',
-    Bindings: {
-      _a: 'Company',
-      _b: 1,
-      _c: 'PhoneNumbers',
-      _d: '+4912345'
+    "Script": "V().hasLabel(_a).limit(_b).property(list, _c, _d)",
+    "Bindings": {
+      "_a": "Company",
+      "_b": 1,
+      "_c": "PhoneNumbers",
+      "_d": "+4912345"
     }
   }
 ]

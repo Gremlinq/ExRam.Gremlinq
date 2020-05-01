@@ -1,40 +1,46 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'fold'
+        "OperatorName": "fold",
+        "Arguments": []
       },
       {
-        OperatorName: 'as',
-        Arguments: [
-          'l1'
+        "OperatorName": "as",
+        "Arguments": [
+          "l1"
         ]
       },
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'not',
-        Arguments: [
+        "OperatorName": "not",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'where',
-                Arguments: [
+                "OperatorName": "where",
+                "Arguments": [
                   {
-                    OperatorName: 'within',
-                    Value: [
-                      'l1'
-                    ]
+                    "OperatorName": "within",
+                    "Value": [
+                      "l1"
+                    ],
+                    "Other": null
                   }
                 ]
               }
@@ -43,7 +49,8 @@
         ]
       },
       {
-        OperatorName: 'count'
+        "OperatorName": "count",
+        "Arguments": []
       }
     ]
   }

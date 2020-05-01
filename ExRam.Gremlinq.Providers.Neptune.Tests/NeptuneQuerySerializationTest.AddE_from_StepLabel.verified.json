@@ -1,91 +1,94 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'addV',
-        Arguments: [
-          'Country'
+        "OperatorName": "addV",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
+        "OperatorName": "property",
+        "Arguments": [
           {
-            EnumName: 'Cardinality',
-            EnumValue: 'single'
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
           },
-          'CountryCallingCode',
-          '+49'
+          "CountryCallingCode",
+          "+49"
         ]
       },
       {
-        OperatorName: 'as',
-        Arguments: [
-          'l1'
+        "OperatorName": "as",
+        "Arguments": [
+          "l1"
         ]
       },
       {
-        OperatorName: 'addV',
-        Arguments: [
-          'Language'
+        "OperatorName": "addV",
+        "Arguments": [
+          "Language"
         ]
       },
       {
-        OperatorName: 'property',
-        Arguments: [
+        "OperatorName": "property",
+        "Arguments": [
           {
-            EnumName: 'Cardinality',
-            EnumValue: 'single'
+            "EnumName": "Cardinality",
+            "EnumValue": "single"
           },
-          'IetfLanguageTag',
-          'en'
+          "IetfLanguageTag",
+          "en"
         ]
       },
       {
-        OperatorName: 'addE',
-        Arguments: [
-          'Speaks'
+        "OperatorName": "addE",
+        "Arguments": [
+          "Speaks"
         ]
       },
       {
-        OperatorName: 'from',
-        Arguments: [
-          'l1'
+        "OperatorName": "from",
+        "Arguments": [
+          "l1"
         ]
       },
       {
-        OperatorName: 'project',
-        Arguments: [
-          'id',
-          'label',
-          'properties'
+        "OperatorName": "project",
+        "Arguments": [
+          "id",
+          "label",
+          "properties"
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'id'
+            "EnumName": "T",
+            "EnumValue": "id"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            EnumName: 'T',
-            EnumValue: 'label'
+            "EnumName": "T",
+            "EnumValue": "label"
           }
         ]
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'valueMap'
+                "OperatorName": "valueMap",
+                "Arguments": []
               }
             ]
           }

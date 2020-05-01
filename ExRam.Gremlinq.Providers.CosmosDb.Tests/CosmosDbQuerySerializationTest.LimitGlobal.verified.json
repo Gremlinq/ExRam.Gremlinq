@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().limit(_a)',
-    Bindings: {
-      _a: 1
+    "Script": "V().limit(_a)",
+    "Bindings": {
+      "_a": 1
     }
   }
 ]

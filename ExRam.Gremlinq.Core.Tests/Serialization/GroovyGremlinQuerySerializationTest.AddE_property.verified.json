@@ -1,19 +1,19 @@
 [
   {
-    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.addV(_i)).project(_j, _k, _l).by(id).by(label).by(__.valueMap())',
-    Bindings: {
-      _a: 'Person',
-      _b: 'Age',
-      _c: 0,
-      _d: 'Gender',
-      _e: 'Male',
-      _f: 'LivesIn',
-      _g: 'Since',
-      _h: DateTimeOffset_1,
-      _i: 'Country',
-      _j: 'id',
-      _k: 'label',
-      _l: 'properties'
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.addV(_i)).project(_j, _k, _l).by(id).by(label).by(__.valueMap())",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 0,
+      "_d": "Gender",
+      "_e": 0,
+      "_f": "LivesIn",
+      "_g": "Since",
+      "_h": "2020-04-07T14:43:36+00:00",
+      "_i": "Country",
+      "_j": "id",
+      "_k": "label",
+      "_l": "properties"
     }
   }
 ]

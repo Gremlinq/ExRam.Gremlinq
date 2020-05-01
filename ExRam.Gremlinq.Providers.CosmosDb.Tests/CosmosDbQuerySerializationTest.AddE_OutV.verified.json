@@ -1,14 +1,14 @@
 [
   {
-    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.addV(_g)).outV()',
-    Bindings: {
-      _a: 'Person',
-      _b: 'Age',
-      _c: 0,
-      _d: 'Gender',
-      _e: 'Male',
-      _f: 'LivesIn',
-      _g: 'Country'
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).to(__.addV(_g)).outV()",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 0,
+      "_d": "Gender",
+      "_e": 0,
+      "_f": "LivesIn",
+      "_g": "Country"
     }
   }
 ]

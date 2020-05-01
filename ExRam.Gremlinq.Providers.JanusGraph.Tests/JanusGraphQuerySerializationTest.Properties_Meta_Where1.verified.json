@@ -1,28 +1,31 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Name'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Name"
         ]
       },
       {
-        OperatorName: 'has',
-        Arguments: [
-          'ValidFrom',
+        "OperatorName": "has",
+        "Arguments": [
+          "ValidFrom",
           {
-            OperatorName: 'gte',
-            Value: DateTimeOffset_1
+            "OperatorName": "gte",
+            "Value": "2019-01-01T01:00:00+00:00",
+            "Other": null
           }
         ]
       }

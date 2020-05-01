@@ -1,35 +1,35 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Property',
-            @value: {
-              key: 'de',
-              value: 'Deutschland'
+          "value": {
+            "@type": "g:Property",
+            "@value": {
+              "key": "de",
+              "value": "Deutschland"
             }
           }
         }
       },
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Property',
-            @value: {
-              key: 'en',
-              value: 'Germany'
+          "value": {
+            "@type": "g:Property",
+            "@value": {
+              "key": "en",
+              "value": "Germany"
             }
           }
         }

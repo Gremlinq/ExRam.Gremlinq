@@ -1,43 +1,50 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'local',
-        Arguments: [
+        "OperatorName": "local",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'count'
+                "OperatorName": "count",
+                "Arguments": []
               }
             ]
           }
         ]
       },
       {
-        OperatorName: 'order'
+        "OperatorName": "order",
+        "Arguments": []
       },
       {
-        OperatorName: 'by',
-        Arguments: [
+        "OperatorName": "by",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'identity'
+                "OperatorName": "identity",
+                "Arguments": []
               }
             ]
           },
           {
-            EnumName: 'Order',
-            EnumValue: 'incr'
+            "EnumName": "Order",
+            "EnumValue": "incr"
           }
         ]
       }

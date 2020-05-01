@@ -1,104 +1,104 @@
 [
   {
-    @type: 'g:List',
-    @value: [
+    "@type": "g:List",
+    "@value": [
       {
-        @type: 'g:Traverser',
-        @value: {
-          bulk: {
-            @type: 'g:Int64',
-            @value: 1
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
           },
-          value: {
-            @type: 'g:Map',
-            @value: [
-              'id',
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
               {
-                @type: 'g:Int64',
-                @value: 45
+                "@type": "g:Int64",
+                "@value": 45
               },
-              'label',
-              'TimeFrame',
-              'properties',
+              "label",
+              "TimeFrame",
+              "properties",
               {
-                @type: 'g:Map',
-                @value: [
-                  'StartTime',
+                "@type": "g:Map",
+                "@value": [
+                  "StartTime",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 48
+                            "@type": "g:Int64",
+                            "@value": 48
                           },
-                          'label',
-                          'StartTime',
-                          'value',
+                          "label",
+                          "StartTime",
+                          "value",
                           {
-                            @type: 'gx:Duration',
-                            @value: 'PT8H'
+                            "@type": "gx:Duration",
+                            "@value": "PT8H"
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
                     ]
                   },
-                  'Enabled',
+                  "Enabled",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 47
+                            "@type": "g:Int64",
+                            "@value": 47
                           },
-                          'label',
-                          'Enabled',
-                          'value',
+                          "label",
+                          "Enabled",
+                          "value",
                           false,
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }
                     ]
                   },
-                  'Duration',
+                  "Duration",
                   {
-                    @type: 'g:List',
-                    @value: [
+                    "@type": "g:List",
+                    "@value": [
                       {
-                        @type: 'g:Map',
-                        @value: [
-                          'id',
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
                           {
-                            @type: 'g:Int64',
-                            @value: 46
+                            "@type": "g:Int64",
+                            "@value": 46
                           },
-                          'label',
-                          'Duration',
-                          'value',
+                          "label",
+                          "Duration",
+                          "value",
                           {
-                            @type: 'gx:Duration',
-                            @value: 'PT2H'
+                            "@type": "gx:Duration",
+                            "@value": "PT2H"
                           },
-                          'properties',
+                          "properties",
                           {
-                            @type: 'g:Map',
-                            @value: []
+                            "@type": "g:Map",
+                            "@value": []
                           }
                         ]
                       }

@@ -1,10 +1,10 @@
 [
   {
-    Script: 'V().id().choose(eq(_a), __.constant(_b), __.constant(_c))',
-    Bindings: {
-      _a: 42,
-      _b: true,
-      _c: false
+    "Script": "V().id().choose(eq(_a), __.constant(_b), __.constant(_c))",
+    "Bindings": {
+      "_a": 42,
+      "_b": true,
+      "_c": false
     }
   }
 ]

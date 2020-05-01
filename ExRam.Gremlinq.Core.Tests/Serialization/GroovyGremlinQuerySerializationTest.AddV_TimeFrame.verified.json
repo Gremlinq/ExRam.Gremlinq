@@ -1,18 +1,18 @@
 [
   {
-    Script: 'addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).project(_h, _i, _j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h, _i, _k, _j).by(id).by(label).by(value).by(__.valueMap()).fold()))',
-    Bindings: {
-      _a: 'TimeFrame',
-      _b: 'Duration',
-      _c: '02:00:00',
-      _d: 'Enabled',
-      _e: false,
-      _f: 'StartTime',
-      _g: '08:00:00',
-      _h: 'id',
-      _i: 'label',
-      _j: 'properties',
-      _k: 'value'
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g).project(_h, _i, _j).by(id).by(label).by(__.properties().group().by(label).by(__.project(_h, _i, _k, _j).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": "TimeFrame",
+      "_b": "Duration",
+      "_c": "02:00:00",
+      "_d": "Enabled",
+      "_e": false,
+      "_f": "StartTime",
+      "_g": "08:00:00",
+      "_h": "id",
+      "_i": "label",
+      "_j": "properties",
+      "_k": "value"
     }
   }
 ]

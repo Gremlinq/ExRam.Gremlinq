@@ -1,25 +1,27 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Company'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Company"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Names'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Names"
         ]
       },
       {
-        OperatorName: 'hasKey',
-        Arguments: [
-          'someKey'
+        "OperatorName": "hasKey",
+        "Arguments": [
+          "someKey"
         ]
       }
     ]

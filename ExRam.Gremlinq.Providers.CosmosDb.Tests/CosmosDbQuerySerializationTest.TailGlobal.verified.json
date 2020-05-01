@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().tail(_a)',
-    Bindings: {
-      _a: 1
+    "Script": "V().tail(_a)",
+    "Bindings": {
+      "_a": 1
     }
   }
 ]

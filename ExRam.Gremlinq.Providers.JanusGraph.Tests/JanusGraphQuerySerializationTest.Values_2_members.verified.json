@@ -1,31 +1,36 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Person'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Person"
         ]
       },
       {
-        OperatorName: 'union',
-        Arguments: [
+        "OperatorName": "union",
+        "Arguments": [
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'id'
+                "OperatorName": "id",
+                "Arguments": []
               }
             ]
           },
           {
-            StepInstructions: [
+            "SourceInstructions": [],
+            "StepInstructions": [
               {
-                OperatorName: 'values',
-                Arguments: [
-                  'Name'
+                "OperatorName": "values",
+                "Arguments": [
+                  "Name"
                 ]
               }
             ]

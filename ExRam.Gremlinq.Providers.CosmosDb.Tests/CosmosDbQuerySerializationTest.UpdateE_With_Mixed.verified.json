@@ -1,10 +1,10 @@
 [
   {
-    Script: 'E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)',
-    Bindings: {
-      _a: 'WorksFor',
-      _b: 'To',
-      _c: DateTimeOffset_1
+    "Script": "E().hasLabel(_a).sideEffect(__.properties(_b).drop()).property(_b, _c)",
+    "Bindings": {
+      "_a": "WorksFor",
+      "_b": "To",
+      "_c": "2020-04-07T14:43:36+00:00"
     }
   }
 ]

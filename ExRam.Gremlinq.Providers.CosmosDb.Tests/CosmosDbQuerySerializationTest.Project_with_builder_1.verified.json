@@ -1,8 +1,8 @@
 [
   {
-    Script: 'V().where(__.in()).project(_a).by(__.in())',
-    Bindings: {
-      _a: 'in!'
+    "Script": "V().where(__.in()).project(_a).by(__.in())",
+    "Bindings": {
+      "_a": "in!"
     }
   }
 ]

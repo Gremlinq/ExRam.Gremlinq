@@ -1,25 +1,27 @@
 [
   {
-    StepInstructions: [
+    "SourceInstructions": [],
+    "StepInstructions": [
       {
-        OperatorName: 'V'
+        "OperatorName": "V",
+        "Arguments": []
       },
       {
-        OperatorName: 'hasLabel',
-        Arguments: [
-          'Country'
+        "OperatorName": "hasLabel",
+        "Arguments": [
+          "Country"
         ]
       },
       {
-        OperatorName: 'properties',
-        Arguments: [
-          'Languages'
+        "OperatorName": "properties",
+        "Arguments": [
+          "Languages"
         ]
       },
       {
-        OperatorName: 'hasValue',
-        Arguments: [
-          'de'
+        "OperatorName": "hasValue",
+        "Arguments": [
+          "de"
         ]
       }
     ]
