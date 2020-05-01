@@ -1,11 +1,10 @@
 [
   {
-    "Script": "V().both(_a, _b, _c, _d)",
+    "Script": "V().both(_a, _b, _c)",
     "Bindings": {
-      "_a": "Knows",
-      "_b": "LivesIn",
-      "_c": "Speaks",
-      "_d": "WorksFor"
+      "_a": "LivesIn",
+      "_b": "Speaks",
+      "_c": "WorksFor"
     }
   }
 ]

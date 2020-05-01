@@ -28,11 +28,6 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IncludeAssembliesOfBaseTypes())));
         }
 
-        private IVertexGremlinQuery<TVertex> V2<TVertex>(IGremlinQuerySource source) where TVertex : IVertex
-        {
-            return source.V<TVertex>();
-        }
-
         [Fact]
         public async Task AddE_from_StepLabel()
         {
@@ -185,9 +180,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 _g
                     .ConfigureEnvironment(env => env
                         .UseModel(GraphModel
-                            .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
+                            .FromBaseTypes<VertexWithListId, Edge>(lookup => lookup
                                 .IncludeAssembliesOfBaseTypes())))
-                    .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
+                    .AddV(new VertexWithListId { Id = new[] { "123", "456" } })
                     .Awaiting(async x => await x.FirstAsync())
                     .Should()
                     .Throw<NotSupportedException>();
@@ -279,9 +274,9 @@ namespace ExRam.Gremlinq.Core.Tests
                 .AddV(new Company
                 {
                     Id = 700,
-                    Names = new[]
+                    Locations = new[]
                     {
-                        new VertexProperty<string, PropertyValidity>("Bob")
+                        new VertexProperty<string, PropertyValidity>("Aachen")
                         {
                             Properties = new PropertyValidity
                             {
@@ -923,13 +918,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Fold()
                 .Unfold()
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Generic_constraint()
-        {
-            await V2<Person>(_g)
                 .Verify(this);
         }
 
@@ -1832,7 +1820,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Properties()
                 .Value()
                 .Verify(this);
@@ -1843,7 +1831,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Properties()
                 .Where(x => x.Key == "someKey")
                 .Verify(this);
@@ -1856,7 +1844,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Inject("hello")
                 .As((__, stepLabel) => __
                     .V<Company>()
-                    .Properties(x => x.Names)
+                    .Properties(x => x.Locations)
                     .Properties()
                     .Where(x => x.Key == stepLabel))
                 .Verify(this);
@@ -1877,7 +1865,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Properties()
                 .Verify(this);
         }
@@ -2046,7 +2034,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Where(x => x.Properties.ValidFrom == new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero))
                 .Verify(this);
         }
@@ -2056,12 +2044,11 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties.ValidFrom)
                 .Verify(this);
         }
-
-
+        
         [Fact]
         public async Task Properties_Where_neq_Label()
         {
@@ -2853,7 +2840,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Properties(x => x.Names)
+                .Properties(x => x.Locations)
                 .Where(x => x.Label == "someKey")
                 .Verify(this);
         }

@@ -623,7 +623,20 @@
             "@type": "g:Int64",
             "@value": 1
           },
-          "value": "Names"
+          "value": {
+            "@type": "g:Int64",
+            "@value": 59
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "Locations"
         }
       },
       {
@@ -636,19 +649,6 @@
           "value": {
             "@type": "g:Int64",
             "@value": 60
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
-            "@value": 59
           }
         }
       }

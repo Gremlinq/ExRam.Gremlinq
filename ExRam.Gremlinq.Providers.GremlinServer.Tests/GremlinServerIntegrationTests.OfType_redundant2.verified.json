@@ -177,7 +177,7 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Names",
+                  "Locations",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -190,9 +190,9 @@
                             "@value": 60
                           },
                           "label",
-                          "Names",
+                          "Locations",
                           "value",
-                          "Bob",
+                          "Aachen",
                           "properties",
                           {
                             "@type": "g:Map",

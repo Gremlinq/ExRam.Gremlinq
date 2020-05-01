@@ -17,10 +17,10 @@
     "Label": "Language"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 8,
@@ -35,20 +35,20 @@
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 1,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 200,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 11,
@@ -67,10 +67,10 @@
     "Label": "Country"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 16,
@@ -89,10 +89,10 @@
     "Label": "Country"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 21,
@@ -131,10 +131,10 @@
     "Label": "Country"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 34,
@@ -149,12 +149,12 @@
     "Label": "Person"
   },
   {
-    "Names": [],
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [
       "+4912345",
       "+4923456"
     ],
+    "Locations": [],
     "Name": null,
     "Id": 800,
     "Label": "Company"
@@ -165,9 +165,9 @@
     "Label": "Language"
   },
   {
-    "Names": [],
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
+    "Locations": [],
     "Name": null,
     "Id": 37,
     "Label": "Company"
@@ -211,10 +211,10 @@
     "Label": "Country"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 55,
@@ -234,19 +234,19 @@
     "Label": "Language"
   },
   {
-    "Names": [
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [
       {
         "Id": 60,
-        "Label": "Names",
+        "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
         },
-        "Value": "Bob",
+        "Value": "Aachen",
         "Key": null
       }
     ],
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
     "Name": null,
     "Id": 700,
     "Label": "Company"

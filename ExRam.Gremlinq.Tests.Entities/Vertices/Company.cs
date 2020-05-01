@@ -5,10 +5,10 @@ namespace ExRam.Gremlinq.Tests.Entities
 {
     public class Company : Authority
     {
-        public VertexProperty<string, PropertyValidity>[] Names { get; set; }
-
         public DateTime FoundingDate { get; set; }
 
         public string[] PhoneNumbers { get; set; }
+
+        public VertexProperty<string, PropertyValidity>[] Locations { get; set; }
     }
 }

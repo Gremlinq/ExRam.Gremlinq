@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Tests.Entities
         public VertexProperty<string> Name { get; set; }
 
         public string[] Languages { get; set; }
+
         public string CountryCallingCode { get; set; }
     }
 }

@@ -1,12 +1,11 @@
 [
   {
-    "Script": "V().hasLabel(_a).out(_b, _c, _d, _e)",
+    "Script": "V().hasLabel(_a).out(_b, _c, _d)",
     "Bindings": {
       "_a": "Person",
-      "_b": "Knows",
-      "_c": "LivesIn",
-      "_d": "Speaks",
-      "_e": "WorksFor"
+      "_b": "LivesIn",
+      "_c": "Speaks",
+      "_d": "WorksFor"
     }
   }
 ]

@@ -1,9 +1,9 @@
 [
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 8,
@@ -56,9 +56,9 @@
     "Label": "Country"
   },
   {
-    "Names": [],
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
+    "Locations": [],
     "Name": null,
     "Id": 37,
     "Label": "Company"

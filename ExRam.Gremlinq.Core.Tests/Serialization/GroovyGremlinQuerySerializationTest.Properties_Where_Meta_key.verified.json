@@ -3,7 +3,7 @@
     "Script": "V().hasLabel(_a).properties(_b).has(_c, _d)",
     "Bindings": {
       "_a": "Company",
-      "_b": "Names",
+      "_b": "Locations",
       "_c": "ValidFrom",
       "_d": "2019-01-01T01:00:00+00:00"
     }

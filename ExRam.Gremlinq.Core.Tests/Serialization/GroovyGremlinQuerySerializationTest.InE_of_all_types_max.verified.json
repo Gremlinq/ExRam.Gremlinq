@@ -1,14 +1,13 @@
 [
   {
-    "Script": "V().inE(_a, _b, _c, _d).project(_e, _f, _g).by(id).by(label).by(__.valueMap())",
+    "Script": "V().inE(_a, _b, _c).project(_d, _e, _f).by(id).by(label).by(__.valueMap())",
     "Bindings": {
-      "_a": "Knows",
-      "_b": "LivesIn",
-      "_c": "Speaks",
-      "_d": "WorksFor",
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties"
+      "_a": "LivesIn",
+      "_b": "Speaks",
+      "_c": "WorksFor",
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties"
     }
   }
 ]

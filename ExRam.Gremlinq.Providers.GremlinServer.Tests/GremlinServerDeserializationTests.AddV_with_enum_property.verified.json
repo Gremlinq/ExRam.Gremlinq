@@ -1,9 +1,9 @@
 [
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 1,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 200,

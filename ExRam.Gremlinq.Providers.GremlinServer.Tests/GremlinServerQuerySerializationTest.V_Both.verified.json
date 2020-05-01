@@ -9,7 +9,6 @@
       {
         "OperatorName": "both",
         "Arguments": [
-          "Knows",
           "LivesIn",
           "Speaks",
           "WorksFor"

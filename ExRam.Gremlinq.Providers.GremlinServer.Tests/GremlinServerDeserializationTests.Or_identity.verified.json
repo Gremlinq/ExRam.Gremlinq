@@ -1,9 +1,9 @@
 [
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 8,
@@ -18,50 +18,50 @@
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 1,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 200,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 11,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 16,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 21,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 34,
@@ -76,20 +76,20 @@
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
     "Id": 39,
     "Label": "Person"
   },
   {
-    "PhoneNumbers": [],
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
       "Id": 55,
