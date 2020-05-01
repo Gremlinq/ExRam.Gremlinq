@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core

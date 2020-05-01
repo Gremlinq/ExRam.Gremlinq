@@ -736,9 +736,9 @@ namespace ExRam.Gremlinq.Core
         {
             if (left.Steps.TryGetSingleStep() is { } leftStep && right.Steps.TryGetSingleStep() is { } rightStep)
             {
-                if (leftStep is HasPredicateStep leftHasPredicate && rightStep is HasPredicateStep rightHasPredicateStep)
+                switch (leftStep)
                 {
-                    if (leftHasPredicate.Key == rightHasPredicateStep.Key)
+                    case HasPredicateStep leftHasPredicate when rightStep is HasPredicateStep rightHasPredicateStep && leftHasPredicate.Key == rightHasPredicateStep.Key:
                     {
                         return Has(
                             leftHasPredicate.Key,
@@ -746,11 +746,10 @@ namespace ExRam.Gremlinq.Core
                                 ? leftP.Or(rightP)
                                 : null);
                     }
-                }
-                else
-                {
-                    if (leftStep is IsStep leftIsStep && rightStep is IsStep rightIsStep)
+                    case IsStep leftIsStep when rightStep is IsStep rightIsStep:
+                    {
                         return Is(leftIsStep.Predicate.Or(rightIsStep.Predicate));
+                    }
                 }
             }
 

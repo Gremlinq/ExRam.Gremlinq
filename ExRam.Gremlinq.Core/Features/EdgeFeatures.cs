@@ -19,6 +19,6 @@ namespace ExRam.Gremlinq.Core
         AddProperty     =  0b1000000000,
         StringIds       = 0b10000000000,
 
-        All             = 0b11111111111,
+        All             = 0b11111111111
     }
 }

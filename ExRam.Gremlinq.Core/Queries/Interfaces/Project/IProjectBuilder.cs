@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Core
         IImmutableDictionary<string, IGremlinQueryBase> Projections { get; }
     }
 
+    // ReSharper disable once UnusedTypeParameter
     public interface IProjectResult<TResult> : IProjectResult
     {
         

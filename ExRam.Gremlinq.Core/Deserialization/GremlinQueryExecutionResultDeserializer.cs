@@ -402,23 +402,22 @@ namespace ExRam.Gremlinq.Core
                                 itemType = type.GetGenericArguments()[0];
                         }
 
-                        if (jToken is JArray array)
+                        switch (jToken)
                         {
-                            if (array.Count != 1)
+                            case JArray array when array.Count != 1:
                             {
                                 if (array.Count == 0 && (type.IsClass || itemType != null))
                                 {
-                                    return default(object);
+                                    return default;
                                 }
 
                                 throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
                             }
-
-                            return recurse.TryDeserialize(array[0], itemType ?? type, env);
+                            case JArray array:
+                                return recurse.TryDeserialize(array[0], itemType ?? type, env);
+                            case JValue jValue when jValue.Value == null && itemType != null:
+                                return null;
                         }
-
-                        if (jToken is JValue jValue && jValue.Value == null && itemType != null)
-                            return null;
                     }
                 }
 

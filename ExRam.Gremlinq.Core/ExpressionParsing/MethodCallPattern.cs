@@ -12,6 +12,6 @@
         EnumerableContains,
         StringContains,
         StringStartsWith,
-        StringEndsWith,
+        StringEndsWith
     }
 }

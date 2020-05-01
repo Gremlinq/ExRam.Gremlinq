@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
                 _fragmentSerializer = fragmentSerializer
                     .Override<StepLabel>((stepLabel, @base, recurse) =>
                     {
-                        string stepLabelMapping = null;
+                        string? stepLabelMapping = null;
 
                         if (!(_stepLabelNames?.TryGetValue(stepLabel, out stepLabelMapping)).GetValueOrDefault())
                         {

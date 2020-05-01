@@ -46,15 +46,17 @@ namespace ExRam.Gremlinq.Core
                         (staticType, actualType),
                         (typeTuple, @this) =>
                         {
-                            if (@this.InnerLookup(typeTuple.actualType) is { } del)
+                            var (staticType, actualType) = typeTuple;
+
+                            if (@this.InnerLookup(actualType) is { } del)
                             {
                                 //return (TStatic fragment) => del((TActualType)fragment, (TActual _) => _, @this);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[0];
                                 var argument2Parameter = Expression.Parameter(effectiveType);
-                                var fragmentParameterExpression = Expression.Parameter(typeTuple.staticType);
+                                var fragmentParameterExpression = Expression.Parameter(staticType);
                                 var effectiveTypeFunc = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
-                                var staticTypeFunc = typeof(Func<,>).MakeGenericType(typeTuple.staticType, typeof(object));
+                                var staticTypeFunc = typeof(Func<,>).MakeGenericType(staticType, typeof(object));
 
                                 var retCall = Expression.Invoke(
                                     Expression.Constant(del),

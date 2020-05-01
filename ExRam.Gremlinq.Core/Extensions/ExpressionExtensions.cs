@@ -221,46 +221,52 @@ namespace ExRam.Gremlinq.Core
 
         public static WellKnownMember? TryGetWellKnownMember(this Expression expression)
         {
-            if (expression is MemberExpression memberExpression)
+            switch (expression)
             {
-                var member = memberExpression.Member;
-
-                if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
-                    return WellKnownMember.PropertyValue;
-
-                if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
-                    return WellKnownMember.PropertyKey;
-
-                if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
-                    return WellKnownMember.StepLabelValue;
-
-                if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
-                    return WellKnownMember.VertexPropertyLabel;
-            }
-            else if (expression is MethodCallExpression methodCallExpression)
-            {
-                var methodInfo = methodCallExpression.Method;
-
-                if (methodInfo.IsStatic)
+                case MemberExpression memberExpression:
                 {
-                    var thisExpression = methodCallExpression.Arguments[0].Strip();
+                    var member = memberExpression.Member;
 
-                    if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
-                    {
-                        return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsGenericMethod && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
-                            ? WellKnownMember.EnumerableIntersectAny
-                            : WellKnownMember.EnumerableAny;
-                    }
+                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
+                        return WellKnownMember.PropertyValue;
 
-                    if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
-                        return WellKnownMember.EnumerableContains;
+                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
+                        return WellKnownMember.PropertyKey;
+
+                    if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))
+                        return WellKnownMember.StepLabelValue;
+
+                    if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
+                        return WellKnownMember.VertexPropertyLabel;
+                    break;
                 }
-                else if (methodInfo == StringStartsWith)
-                    return WellKnownMember.StringStartsWith;
-                else if (methodInfo == StringEndsWith)
-                    return WellKnownMember.StringEndsWith;
-                else if (methodInfo == StringContains)
-                    return WellKnownMember.StringContains;
+                case MethodCallExpression methodCallExpression:
+                {
+                    var methodInfo = methodCallExpression.Method;
+
+                    if (methodInfo.IsStatic)
+                    {
+                        var thisExpression = methodCallExpression.Arguments[0].Strip();
+
+                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableAny)
+                        {
+                            return thisExpression is MethodCallExpression previousMethodCallExpression && previousMethodCallExpression.Method.IsGenericMethod && previousMethodCallExpression.Method.GetGenericMethodDefinition() == EnumerableIntersect
+                                ? WellKnownMember.EnumerableIntersectAny
+                                : WellKnownMember.EnumerableAny;
+                        }
+
+                        if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
+                            return WellKnownMember.EnumerableContains;
+                    }
+                    else if (methodInfo == StringStartsWith)
+                        return WellKnownMember.StringStartsWith;
+                    else if (methodInfo == StringEndsWith)
+                        return WellKnownMember.StringEndsWith;
+                    else if (methodInfo == StringContains)
+                        return WellKnownMember.StringContains;
+
+                    break;
+                }
             }
 
             return null;

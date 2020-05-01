@@ -16,6 +16,6 @@
         IsContainedIn,
         IsInfixOf,
         IsPrefixOf,
-        IsSuffixOf,
+        IsSuffixOf
     }
 }

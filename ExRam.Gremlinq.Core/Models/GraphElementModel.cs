@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
