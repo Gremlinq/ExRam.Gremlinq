@@ -1,34 +1,227 @@
 [
   {
-    Id: 36,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 4,
-    Label: 'Speaks'
-  },
-  {
-    Id: 10,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 15,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 20,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 25,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 30,
-    Label: 'Speaks'
-  },
-  {
-    Id: 42,
-    Label: 'WorksFor'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 36
+              },
+              'label',
+              'LivesIn',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 4
+              },
+              'label',
+              'Speaks',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 10
+              },
+              'label',
+              'LivesIn',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 15
+              },
+              'label',
+              'LivesIn',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 20
+              },
+              'label',
+              'LivesIn',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 25
+              },
+              'label',
+              'LivesIn',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'Since',
+                  {
+                    @type: 'g:Date',
+                    @value: 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 30
+              },
+              'label',
+              'Speaks',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 42
+              },
+              'label',
+              'WorksFor',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'To',
+                  {
+                    @type: 'g:Date',
+                    @value: 1586270616000
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]

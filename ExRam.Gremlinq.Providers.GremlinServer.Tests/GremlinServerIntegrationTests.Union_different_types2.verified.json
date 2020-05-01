@@ -1,22 +1,142 @@
 [
   {
-    Id: 15,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 20,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 25,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 36,
-    Label: 'LivesIn'
-  },
-  {
-    Id: 37,
-    Label: 'Company'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Edge',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 15
+              },
+              label: 'LivesIn',
+              inVLabel: 'Country',
+              outVLabel: 'Person',
+              inV: {
+                @type: 'g:Int64',
+                @value: 14
+              },
+              outV: {
+                @type: 'g:Int64',
+                @value: 11
+              }
+            }
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Edge',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 20
+              },
+              label: 'LivesIn',
+              inVLabel: 'Country',
+              outVLabel: 'Person',
+              inV: {
+                @type: 'g:Int64',
+                @value: 19
+              },
+              outV: {
+                @type: 'g:Int64',
+                @value: 16
+              }
+            }
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Edge',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 25
+              },
+              label: 'LivesIn',
+              inVLabel: 'Country',
+              outVLabel: 'Person',
+              inV: {
+                @type: 'g:Int64',
+                @value: 24
+              },
+              outV: {
+                @type: 'g:Int64',
+                @value: 21
+              }
+            }
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Edge',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 36
+              },
+              label: 'LivesIn',
+              inVLabel: 'Country',
+              outVLabel: 'Person',
+              inV: {
+                @type: 'g:Int64',
+                @value: 0
+              },
+              outV: {
+                @type: 'g:Int64',
+                @value: 31
+              }
+            }
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Vertex',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 37
+              },
+              label: 'Company'
+            }
+          }
+        }
+      }
+    ]
   }
 ]

@@ -13,7 +13,8 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
             g
                 .ConfigureEnvironment(env => env
                     .UseWebSocket(builder => builder
-                        .AtLocalhost())),
+                        .AtLocalhost())
+                    .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper)
         {
         }

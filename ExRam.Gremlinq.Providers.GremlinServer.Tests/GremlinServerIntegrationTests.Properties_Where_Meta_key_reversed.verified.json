@@ -1,10 +1,27 @@
 [
   {
-    id: {
-      @type: 'g:Int64',
-      @value: 60
-    },
-    value: 'Bob',
-    label: 'Names'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:VertexProperty',
+            @value: {
+              id: {
+                @type: 'g:Int64',
+                @value: 60
+              },
+              value: 'Bob',
+              label: 'Names'
+            }
+          }
+        }
+      }
+    ]
   }
 ]

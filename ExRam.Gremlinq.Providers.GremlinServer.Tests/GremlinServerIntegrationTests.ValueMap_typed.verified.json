@@ -1,90 +1,31 @@
 [
   {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'Age',
+              {
+                @type: 'g:List',
+                @value: [
+                  {
+                    @type: 'g:Int32',
+                    @value: 21
+                  }
+                ]
+              }
+            ]
+          }
         }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
-  },
-  {
-    Age: {
-      @type: 'g:List',
-      @value: [
-        {
-          @type: 'g:Int32',
-          @value: 21
-        }
-      ]
-    }
+      }
+    ]
   }
 ]

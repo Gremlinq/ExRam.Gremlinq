@@ -1,26 +1,134 @@
 [
-  5,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  200,
-  11,
-  16,
-  21,
-  31,
-  39,
-  54
+  {
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 5
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: {
+            @type: 'g:Int32',
+            @value: 0
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: 'Marko'
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 200
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 11
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 16
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 21
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 31
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 39
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Int64',
+            @value: 54
+          }
+        }
+      }
+    ]
+  }
 ]

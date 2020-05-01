@@ -1,6 +1,59 @@
 [
   {
-    Id: 100,
-    Label: 'Language'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 100
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 43
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]

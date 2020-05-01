@@ -1,6 +1,33 @@
 [
   {
-    Id: 44,
-    Label: 'Language'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 44
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]

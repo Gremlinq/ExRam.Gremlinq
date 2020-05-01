@@ -1,34 +1,56 @@
 [
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  1586270616000,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  21,
-  21,
-  21,
-  21,
-  21,
-  21,
-  21,
-  21,
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko',
-  'Marko'
+  {
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: {
+            @type: 'g:Date',
+            @value: 1586270616000
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: {
+            @type: 'g:Int32',
+            @value: 0
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: {
+            @type: 'g:Int32',
+            @value: 21
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: 'Marko'
+        }
+      }
+    ]
+  }
 ]

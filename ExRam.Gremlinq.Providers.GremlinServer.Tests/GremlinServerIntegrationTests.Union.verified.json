@@ -1,22 +1,192 @@
 [
   {
-    Id: 14,
-    Label: 'Country'
-  },
-  {
-    Id: 19,
-    Label: 'Country'
-  },
-  {
-    Id: 24,
-    Label: 'Country'
-  },
-  {
-    Id: 0,
-    Label: 'Country'
-  },
-  {
-    Id: 37,
-    Label: 'Company'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 14
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 19
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 24
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 0
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'CountryCallingCode',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 1
+                          },
+                          'label',
+                          'CountryCallingCode',
+                          'value',
+                          '+49',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 37
+              },
+              'label',
+              'Company',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'FoundingDate',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 38
+                          },
+                          'label',
+                          'FoundingDate',
+                          'value',
+                          {
+                            @type: 'g:Date',
+                            @value: -62135596800000
+                          },
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]

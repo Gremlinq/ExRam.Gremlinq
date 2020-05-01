@@ -1,74 +1,848 @@
 [
   {
-    Id: 0,
-    Label: 'Country'
-  },
-  {
-    Id: 2,
-    Label: 'Language'
-  },
-  {
-    Id: 900,
-    Label: 'Language'
-  },
-  {
-    Id: 1100,
-    Label: 'Language'
-  },
-  {
-    Id: 14,
-    Label: 'Country'
-  },
-  {
-    Id: 400,
-    Label: 'Language'
-  },
-  {
-    Id: 19,
-    Label: 'Country'
-  },
-  {
-    Id: 24,
-    Label: 'Country'
-  },
-  {
-    Id: 600,
-    Label: 'Country'
-  },
-  {
-    Id: 26,
-    Label: 'Language'
-  },
-  {
-    Id: 28,
-    Label: 'Country'
-  },
-  {
-    Id: 100,
-    Label: 'Language'
-  },
-  {
-    Id: 1000,
-    Label: 'Language'
-  },
-  {
-    Id: 44,
-    Label: 'Language'
-  },
-  {
-    Id: 45,
-    Label: 'TimeFrame'
-  },
-  {
-    Id: 49,
-    Label: 'Language'
-  },
-  {
-    Id: 500,
-    Label: 'Country'
-  },
-  {
-    Id: 57,
-    Label: 'Language'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 0
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'CountryCallingCode',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 1
+                          },
+                          'label',
+                          'CountryCallingCode',
+                          'value',
+                          '+49',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 2
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 3
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 900
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 1100
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 51
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 14
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 400
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 19
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 24
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 600
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'Name',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 61
+                          },
+                          'label',
+                          'Name',
+                          'value',
+                          'GER',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 26
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 27
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 28
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'CountryCallingCode',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 29
+                          },
+                          'label',
+                          'CountryCallingCode',
+                          'value',
+                          '+49',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 100
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 43
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 1000
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'lang',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 66
+                          },
+                          'label',
+                          'lang',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 44
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: []
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 45
+              },
+              'label',
+              'TimeFrame',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'StartTime',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 48
+                          },
+                          'label',
+                          'StartTime',
+                          'value',
+                          {
+                            @type: 'gx:Duration',
+                            @value: 'PT8H'
+                          },
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  'Enabled',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 47
+                          },
+                          'label',
+                          'Enabled',
+                          'value',
+                          false,
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  'Duration',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 46
+                          },
+                          'label',
+                          'Duration',
+                          'value',
+                          {
+                            @type: 'gx:Duration',
+                            @value: 'PT2H'
+                          },
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 49
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 50
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 500
+              },
+              'label',
+              'Country',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'Name',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 62
+                          },
+                          'label',
+                          'Name',
+                          'value',
+                          'GER',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: [
+                              'de',
+                              'Deutschland',
+                              'en',
+                              'Germany'
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 57
+              },
+              'label',
+              'Language',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'IetfLanguageTag',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 58
+                          },
+                          'label',
+                          'IetfLanguageTag',
+                          'value',
+                          'en',
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]

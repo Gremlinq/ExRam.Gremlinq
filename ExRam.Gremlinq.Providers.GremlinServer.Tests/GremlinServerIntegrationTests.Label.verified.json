@@ -1,31 +1,57 @@
 [
-  'Country',
-  'Country',
-  'Country',
-  'Country',
-  'Country',
-  'Country',
-  'Country',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Language',
-  'Person',
-  'Person',
-  'Person',
-  'Person',
-  'Person',
-  'Person',
-  'Person',
-  'Person',
-  'Company',
-  'Company',
-  'Company',
-  'TimeFrame'
+  {
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 7
+          },
+          value: 'Country'
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 10
+          },
+          value: 'Language'
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 8
+          },
+          value: 'Person'
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 3
+          },
+          value: 'Company'
+        }
+      },
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: 'TimeFrame'
+        }
+      }
+    ]
+  }
 ]

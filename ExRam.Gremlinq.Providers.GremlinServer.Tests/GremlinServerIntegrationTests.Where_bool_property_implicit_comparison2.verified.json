@@ -1,6 +1,115 @@
 [
   {
-    Id: 45,
-    Label: 'TimeFrame'
+    @type: 'g:List',
+    @value: [
+      {
+        @type: 'g:Traverser',
+        @value: {
+          bulk: {
+            @type: 'g:Int64',
+            @value: 1
+          },
+          value: {
+            @type: 'g:Map',
+            @value: [
+              'id',
+              {
+                @type: 'g:Int64',
+                @value: 45
+              },
+              'label',
+              'TimeFrame',
+              'properties',
+              {
+                @type: 'g:Map',
+                @value: [
+                  'StartTime',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 48
+                          },
+                          'label',
+                          'StartTime',
+                          'value',
+                          {
+                            @type: 'gx:Duration',
+                            @value: 'PT8H'
+                          },
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  'Enabled',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 47
+                          },
+                          'label',
+                          'Enabled',
+                          'value',
+                          false,
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  'Duration',
+                  {
+                    @type: 'g:List',
+                    @value: [
+                      {
+                        @type: 'g:Map',
+                        @value: [
+                          'id',
+                          {
+                            @type: 'g:Int64',
+                            @value: 46
+                          },
+                          'label',
+                          'Duration',
+                          'value',
+                          {
+                            @type: 'gx:Duration',
+                            @value: 'PT2H'
+                          },
+                          'properties',
+                          {
+                            @type: 'g:Map',
+                            @value: []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
   }
 ]
