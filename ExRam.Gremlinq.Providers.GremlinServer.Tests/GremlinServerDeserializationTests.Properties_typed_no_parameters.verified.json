@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": 3,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 9,
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": 7,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 6,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 8,
+    "value": "Bob",
+    "label": "Name"
+  },
+  {
+    "id": 53,
+    "value": 1,
+    "label": "Gender"
+  },
+  {
+    "id": 52,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 13,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 12,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 51,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 18,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 17,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 23,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 22,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 61,
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": 27,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 29,
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": 35,
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": 33,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 32,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 34,
+    "value": "Bob",
+    "label": "Name"
+  },
+  {
+    "id": 64,
+    "value": "+4912345",
+    "label": "PhoneNumbers"
+  },
+  {
+    "id": 65,
+    "value": "+4923456",
+    "label": "PhoneNumbers"
+  },
+  {
+    "id": 63,
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": 43,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 38,
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  },
+  {
+    "id": 41,
+    "value": 0,
+    "label": "Gender"
+  },
+  {
+    "id": 40,
+    "value": 0,
+    "label": "Age"
+  },
+  {
+    "id": 66,
+    "value": "en",
+    "label": "lang"
+  },
+  {
+    "id": 48,
+    "value": "PT8H",
+    "label": "StartTime"
+  },
+  {
+    "id": 47,
+    "value": false,
+    "label": "Enabled"
+  },
+  {
+    "id": 46,
+    "value": "PT2H",
+    "label": "Duration"
+  },
+  {
+    "id": 50,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 62,
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": 56,
+    "value": 1586270616000,
+    "label": "RegistrationDate"
+  },
+  {
+    "id": 55,
+    "value": "Marko",
+    "label": "Name"
+  },
+  {
+    "id": 58,
+    "value": "en",
+    "label": "IetfLanguageTag"
+  },
+  {
+    "id": 60,
+    "value": "Bob",
+    "label": "Names"
+  },
+  {
+    "id": 59,
+    "value": -62135596800000,
+    "label": "FoundingDate"
+  }
+]

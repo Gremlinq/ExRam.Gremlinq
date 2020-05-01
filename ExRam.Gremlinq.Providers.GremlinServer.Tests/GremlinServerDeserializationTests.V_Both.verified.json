@@ -1,0 +1,177 @@
+[
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 159,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 5,
+    "Label": "Person"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": 2,
+    "Label": "Language"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 179,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 31,
+    "Label": "Person"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "Id": 0,
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "Id": 0,
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "Id": 0,
+    "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "Id": 14,
+    "Label": "Country"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 167,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 11,
+    "Label": "Person"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "Id": 19,
+    "Label": "Country"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 171,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 16,
+    "Label": "Person"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "Id": 24,
+    "Label": "Country"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 175,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 21,
+    "Label": "Person"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "Id": 28,
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": 26,
+    "Label": "Language"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 183,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 39,
+    "Label": "Person"
+  },
+  {
+    "Names": [],
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Name": null,
+    "Id": 37,
+    "Label": "Company"
+  }
+]

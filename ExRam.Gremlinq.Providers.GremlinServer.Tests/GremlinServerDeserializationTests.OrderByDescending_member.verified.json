@@ -1,0 +1,56 @@
+[
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 55,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 54,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 8,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
+    "Id": 5,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 34,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
+    "Id": 31,
+    "Label": "Person"
+  }
+]

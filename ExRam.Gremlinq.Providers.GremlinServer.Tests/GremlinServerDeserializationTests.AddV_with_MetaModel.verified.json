@@ -1,0 +1,20 @@
+[
+  {
+    "Names": [
+      {
+        "Id": 60,
+        "Label": "Names",
+        "Properties": {
+          "ValidFrom": "2019-01-01T01:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      }
+    ],
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Name": null,
+    "Id": 700,
+    "Label": "Company"
+  }
+]

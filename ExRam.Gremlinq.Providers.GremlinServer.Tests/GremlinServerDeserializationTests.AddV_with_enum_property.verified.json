@@ -1,0 +1,12 @@
+[
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 1,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 200,
+    "Label": "Person"
+  }
+]

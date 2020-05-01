@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": 61,
+    "value": "GER",
+    "label": "Name"
+  },
+  {
+    "id": 29,
+    "value": "+49",
+    "label": "CountryCallingCode"
+  },
+  {
+    "id": 62,
+    "value": "GER",
+    "label": "Name"
+  }
+]

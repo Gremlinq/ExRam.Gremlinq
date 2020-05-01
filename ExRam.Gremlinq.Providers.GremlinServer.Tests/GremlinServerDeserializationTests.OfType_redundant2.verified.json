@@ -1,0 +1,39 @@
+[
+  {
+    "Names": [],
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [
+      "+4912345",
+      "+4923456"
+    ],
+    "Name": null,
+    "Id": 800,
+    "Label": "Company"
+  },
+  {
+    "Names": [],
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Name": null,
+    "Id": 37,
+    "Label": "Company"
+  },
+  {
+    "Names": [
+      {
+        "Id": 60,
+        "Label": "Names",
+        "Properties": {
+          "ValidFrom": "2019-01-01T01:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      }
+    ],
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Name": null,
+    "Id": 700,
+    "Label": "Company"
+  }
+]

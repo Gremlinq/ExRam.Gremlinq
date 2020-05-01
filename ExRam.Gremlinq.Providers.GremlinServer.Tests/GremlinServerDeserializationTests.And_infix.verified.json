@@ -1,0 +1,52 @@
+[
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 11,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 16,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 21,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 31,
+    "Label": "Person"
+  },
+  {
+    "PhoneNumbers": [],
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 39,
+    "Label": "Person"
+  }
+]
