@@ -61,6 +61,8 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQueryExecutor Empty = new GremlinQueryExecutorImpl(_ => AsyncEnumerable.Empty<object>());
 
+        public static IGremlinQueryExecutor Create(Func<object, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
+
         public static IGremlinQueryExecutor InterceptQuery(this IGremlinQueryExecutor baseExecutor, Func<object, object> transformation) => new QueryInterceptingGremlinQueryExecutor(baseExecutor, transformation);
 
         public static IGremlinQueryExecutor InterceptResult(this IGremlinQueryExecutor baseExecutor, Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> transformation) => new ResultInterceptingGremlinQueryExecutor(baseExecutor, transformation);
