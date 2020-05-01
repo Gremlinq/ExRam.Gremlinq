@@ -328,6 +328,42 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
+                if (!type.IsArray)
+                {
+                    if (!type.IsInstanceOfType(jToken))
+                    {
+                        var itemType = default(Type);
+
+                        if (type.IsGenericType)
+                        {
+                            var genericTypeDefinition = type.GetGenericTypeDefinition();
+                            if (genericTypeDefinition == typeof(Nullable<>))
+                                itemType = type.GetGenericArguments()[0];
+                        }
+
+                        switch (jToken)
+                        {
+                            case JArray array when array.Count != 1:
+                            {
+                                if (array.Count == 0 && (type.IsClass || itemType != null))
+                                {
+                                    return default;
+                                }
+
+                                throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
+                            }
+                            case JArray array:
+                                return recurse.TryDeserialize(array[0], itemType ?? type, env);
+                            case JValue jValue when jValue.Value == null && itemType != null:
+                                return null;
+                        }
+                    }
+                }
+
+                return overridden(jToken);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
                 if (type == typeof(TimeSpan))
                 {
                     if (recurse.TryDeserialize(jToken, typeof(string), env) is string strValue)
@@ -382,95 +418,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
-                    return recurse.TryDeserialize(valueToken, type, env);
-
-                return overridden(jObject);
-            })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
-            {
-                if (!type.IsArray)
-                {
-                    if (!type.IsInstanceOfType(jToken))
-                    {
-                        var itemType = default(Type);
-
-                        if (type.IsGenericType)
-                        {
-                            var genericTypeDefinition = type.GetGenericTypeDefinition();
-                            if (genericTypeDefinition == typeof(Nullable<>))
-                                itemType = type.GetGenericArguments()[0];
-                        }
-
-                        switch (jToken)
-                        {
-                            case JArray array when array.Count != 1:
-                            {
-                                if (array.Count == 0 && (type.IsClass || itemType != null))
-                                {
-                                    return default;
-                                }
-
-                                throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
-                            }
-                            case JArray array:
-                                return recurse.TryDeserialize(array[0], itemType ?? type, env);
-                            case JValue jValue when jValue.Value == null && itemType != null:
-                                return null;
-                        }
-                    }
-                }
-
-                return overridden(jToken);
-            })
-            .Override<JObject>((jObject, type, env, overridden, recurse) =>
-            {
-                return jObject.TryUnmap() is { } unmappedObject
-                    ? recurse.TryDeserialize(unmappedObject, type, env)
-                    : overridden(jObject);
-            })
-            .Override<JArray>((jArray, type, env, overridden, recurse) =>
-            {
-                if (type.IsArray)
-                {
-                    var elementType = type.GetElementType();
-                    var array = new ArrayList(jArray.Count);
-
-                    foreach (var jArrayItem in jArray)
-                    {
-                        var bulk = 1;
-                        var effectiveArrayItem = jArrayItem;
-
-                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
-                        {
-                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
-                            {
-                                if (recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
-                                    bulk = bulkObject;
-                            }
-
-                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                            {
-                                effectiveArrayItem = traverserValue;
-                            }
-                        }
-
-                        if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
-                        {
-                            for (var i = 0; i < bulk; i++)
-                            {
-                                array.Add(item);
-                            }
-                        }
-                    }
-
-                    return array.ToArray(elementType);
-                }
-
-                return overridden(jArray);
-            })
-            .Override<JObject>((jObject, type, env, overridden, recurse) =>
-            {
+                // Elements
                 var modelTypes = ModelTypes.GetValue(
                     env.Model,
                     closureModel =>
@@ -510,6 +458,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
+                //Vertex Properties
                 var nativeTypes = env.Model.NativeTypes;
 
                 if (nativeTypes.Contains(type) || (type.IsEnum && nativeTypes.Contains(type.GetEnumUnderlyingType())))
@@ -519,6 +468,62 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return overridden(jObject);
+            })
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            {
+                //@type == "g:Map"
+                if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
+                    return recurse.TryDeserialize(valueToken, type, env);
+
+                return overridden(jObject);
+            })
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            {
+                //@type == "g:Map"
+                return jObject.TryUnmap() is { } unmappedObject
+                    ? recurse.TryDeserialize(unmappedObject, type, env)
+                    : overridden(jObject);
+            })
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
+            {
+                //Traversers
+                if (type.IsArray)
+                {
+                    var elementType = type.GetElementType();
+                    var array = new ArrayList(jArray.Count);
+
+                    foreach (var jArrayItem in jArray)
+                    {
+                        var bulk = 1;
+                        var effectiveArrayItem = jArrayItem;
+
+                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
+                        {
+                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
+                            {
+                                if (recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
+                                    bulk = bulkObject;
+                            }
+
+                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                            {
+                                effectiveArrayItem = traverserValue;
+                            }
+                        }
+
+                        if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
+                        {
+                            for (var i = 0; i < bulk; i++)
+                            {
+                                array.Add(item);
+                            }
+                        }
+                    }
+
+                    return array.ToArray(elementType);
+                }
+
+                return overridden(jArray);
             }));
     }
 }
