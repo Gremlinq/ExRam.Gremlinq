@@ -83,9 +83,6 @@ namespace ExRam.Gremlinq.Core
             var serialized = environment.Serializer
                 .Serialize(query);
 
-            if (serialized == null)
-                return AsyncEnumerableEx.Throw<TElement>(new Exception("Can't serialize query."));
-
             return environment.Executor
                 .Execute(serialized)
                 .SelectMany(executionResult => environment.Deserializer

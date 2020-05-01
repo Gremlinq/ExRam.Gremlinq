@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core
                     });
             }
 
-            public object? Serialize(IGremlinQueryBase query)
+            public object Serialize(IGremlinQueryBase query)
             {
                 (_stepLabelNames ??= new Dictionary<StepLabel, string>()).Clear();
 
@@ -74,12 +74,7 @@ namespace ExRam.Gremlinq.Core
                 _projection = projection;
             }
 
-            public object? Serialize(IGremlinQueryBase query)
-            {
-                return (_baseSerializer.Serialize(query) is { } serialized)
-                    ? _projection(serialized)
-                    : null;
-            }
+            public object Serialize(IGremlinQueryBase query) => _projection(_baseSerializer.Serialize(query));
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IQueryFragmentSerializer, IQueryFragmentSerializer> transformation) => new SelectGremlinQuerySerializer(_baseSerializer.ConfigureFragmentSerializer(transformation), _projection);
         }
