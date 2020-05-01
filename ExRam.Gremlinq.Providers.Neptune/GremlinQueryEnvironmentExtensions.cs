@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Immutable;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 
@@ -20,31 +19,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureVertexFeatures(_ => VertexFeatures.AddVertices | VertexFeatures.RemoveVertices | VertexFeatures.MultiProperties | VertexFeatures.UserSuppliedIds | VertexFeatures.AddProperty | VertexFeatures.RemoveProperty | VertexFeatures.StringIds)
                     .ConfigureVertexPropertyFeatures(_ => VertexPropertyFeatures.RemoveProperty | VertexPropertyFeatures.NumericIds | VertexPropertyFeatures.StringIds | VertexPropertyFeatures.Properties | VertexPropertyFeatures.BooleanValues | VertexPropertyFeatures.ByteValues | VertexPropertyFeatures.DoubleValues | VertexPropertyFeatures.FloatValues | VertexPropertyFeatures.IntegerValues | VertexPropertyFeatures.LongValues | VertexPropertyFeatures.StringValues)
                     .ConfigureEdgeFeatures(_ => EdgeFeatures.AddEdges | EdgeFeatures.RemoveEdges | EdgeFeatures.UserSuppliedIds | EdgeFeatures.AddProperty | EdgeFeatures.RemoveProperty | EdgeFeatures.NumericIds | EdgeFeatures.StringIds | EdgeFeatures.UuidIds | EdgeFeatures.CustomIds | EdgeFeatures.AnyIds)
-                    .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues))
-                .ConfigureOptions(options => options
-                    .SetValue(
-                        GremlinqOption.VertexProjectionSteps,
-                        new Step[]
-                        {
-                            new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
-                            new ProjectStep.ByKeyStep(T.Id),
-                            new ProjectStep.ByKeyStep(T.Label),
-                            new ProjectStep.ByTraversalStep(new Step[]
-                            {
-                                new PropertiesStep(ImmutableArray<string>.Empty),
-                                GroupStep.Instance,
-                                new GroupStep.ByKeyStep(T.Label),
-                                new GroupStep.ByTraversalStep(new Step[]
-                                {
-                                    new ProjectStep(ImmutableArray.Create("id", "label", "value")),
-                                    new ProjectStep.ByKeyStep(T.Id),
-                                    new ProjectStep.ByKeyStep(T.Label),
-                                    new ProjectStep.ByKeyStep(T.Value),
-                                    FoldStep.Instance
-                                })
-                            })
-                        }
-                        .ToImmutableList()));
+                    .ConfigureEdgePropertyFeatures(_ => EdgePropertyFeatures.Properties | EdgePropertyFeatures.BooleanValues | EdgePropertyFeatures.ByteValues | EdgePropertyFeatures.DoubleValues | EdgePropertyFeatures.FloatValues | EdgePropertyFeatures.IntegerValues | EdgePropertyFeatures.LongValues | EdgePropertyFeatures.StringValues));
         }
     }
 }

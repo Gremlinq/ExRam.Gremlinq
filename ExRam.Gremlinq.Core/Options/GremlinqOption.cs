@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -24,6 +23,29 @@ namespace ExRam.Gremlinq.Core
                         new ProjectStep.ByKeyStep(T.Label),
                         new ProjectStep.ByKeyStep(T.Value),
                         new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty)),
+                        FoldStep.Instance
+                    })
+                })
+            }
+            .ToImmutableList());
+
+        public static GremlinqOption<IImmutableList<Step>> VertexProjectionWithoutMetaPropertiesSteps = new GremlinqOption<IImmutableList<Step>>(
+            new Step[]
+            {
+                new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
+                new ProjectStep.ByKeyStep(T.Id),
+                new ProjectStep.ByKeyStep(T.Label),
+                new ProjectStep.ByTraversalStep(new Step[]
+                {
+                    new PropertiesStep(ImmutableArray<string>.Empty),
+                    GroupStep.Instance,
+                    new GroupStep.ByKeyStep(T.Label),
+                    new GroupStep.ByTraversalStep(new Step[]
+                    {
+                        new ProjectStep(ImmutableArray.Create("id", "label", "value")),
+                        new ProjectStep.ByKeyStep(T.Id),
+                        new ProjectStep.ByKeyStep(T.Label),
+                        new ProjectStep.ByKeyStep(T.Value),
                         FoldStep.Instance
                     })
                 })

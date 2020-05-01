@@ -265,7 +265,11 @@ namespace ExRam.Gremlinq.Core
                 {
                     case QuerySemantics.Vertex:
                     {
-                        foreach (var step in Environment.Options.GetValue(GremlinqOption.VertexProjectionSteps))
+                        var option = Environment.FeatureSet.Supports(VertexFeatures.MetaProperties)
+                            ? GremlinqOption.VertexProjectionSteps
+                            : GremlinqOption.VertexProjectionWithoutMetaPropertiesSteps;
+
+                        foreach (var step in Environment.Options.GetValue(option))
                         {
                             yield return step;
                         }
