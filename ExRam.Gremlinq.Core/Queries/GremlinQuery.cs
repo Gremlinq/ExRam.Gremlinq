@@ -268,7 +268,7 @@ namespace ExRam.Gremlinq.Core
         {
             var ret = this;
             var props = element.Serialize(
-                Environment.Model.PropertiesModel,
+                Environment,
                 add
                     ? SerializationBehaviour.IgnoreOnAdd
                     : SerializationBehaviour.IgnoreOnUpdate);
@@ -327,7 +327,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (value is IVertexProperty)
                 {
-                    if (property.GetMetaProperties(Environment.Model.PropertiesModel) is { } dict)
+                    if (property.GetMetaProperties(Environment) is { } dict)
                     {
                         metaProperties = dict
                             .SelectMany(kvp => new[] {kvp.Key, kvp.Value})

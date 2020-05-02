@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -61,6 +62,16 @@ namespace ExRam.Gremlinq.Core
                 new ProjectStep.ByTraversalStep(new ValueMapStep(ImmutableArray<string>.Empty))
             }
             .ToImmutableList());
+
+        public static GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>>(
+            new Dictionary<T, SerializationBehaviour>
+            {
+                { T.Key, SerializationBehaviour.IgnoreOnUpdate },
+                { T.Id, SerializationBehaviour.IgnoreOnUpdate },
+                { T.Label, SerializationBehaviour.IgnoreAlways },
+                { T.Value, SerializationBehaviour.Default }
+            }
+            .ToImmutableDictionary());
 
         public static GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new GremlinqOption<FilterLabelsVerbosity>(Core.FilterLabelsVerbosity.Maximum);
         public static GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new GremlinqOption<DisabledTextPredicates>(Core.DisabledTextPredicates.None);
