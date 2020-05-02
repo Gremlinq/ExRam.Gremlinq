@@ -196,6 +196,7 @@ namespace ExRam.Gremlinq.Core
                     TElement[] elements => elements.ToAsyncEnumerable(),
                     IAsyncEnumerable<TElement> enumerable => enumerable,
                     TElement element => AsyncEnumerableEx.Return(element),
+                    IEnumerable enumerable => enumerable.Cast<TElement>().ToAsyncEnumerable(),
                     _ => throw new NotImplementedException()
                 };
             }
@@ -370,17 +371,11 @@ namespace ExRam.Gremlinq.Core
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
                     : overridden(jToken);
             })
-            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
-                if (type == typeof(TimeSpan))
-                {
-                    if (recurse.TryDeserialize(jToken, typeof(string), env) is string strValue)
-                    {
-                        return XmlConvert.ToTimeSpan(strValue);
-                    }
-                }
-
-                return overridden(jToken);
+                return type == typeof(TimeSpan)
+                    ? XmlConvert.ToTimeSpan(jValue.Value<string>())
+                    : overridden(jValue);
             })
             .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
@@ -395,7 +390,7 @@ namespace ExRam.Gremlinq.Core
                         default:
                         {
                             if (jValue.Type == JTokenType.Integer)
-                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>());
+                                return DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>());
 
                             break;
                         }
@@ -417,9 +412,7 @@ namespace ExRam.Gremlinq.Core
                     }
 
                     if (jValue.Type == JTokenType.Integer)
-                    {
-                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.ToObject<long>()).Ticks, DateTimeKind.Utc);
-                    }
+                        return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
                 }
 
                 return overridden(jValue);
@@ -495,43 +488,46 @@ namespace ExRam.Gremlinq.Core
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
-                if (type.IsArray)
+                if (!type.IsArray)
+                    return overridden(jArray);
+
+                var array = default(ArrayList);
+                var elementType = type.GetElementType();
+
+                for (var i = 0; i < jArray.Count; i++)
                 {
-                    var elementType = type.GetElementType();
-                    var array = new ArrayList(jArray.Count);
+                    var bulk = 1;
+                    var effectiveArrayItem = jArray[i];
 
-                    foreach (var jArrayItem in jArray)
+                    if (effectiveArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
                     {
-                        var bulk = 1;
-                        var effectiveArrayItem = jArrayItem;
+                        if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken) && recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
+                            bulk = bulkObject;
 
-                        if (jArrayItem is JObject traverserObject && traverserObject.TryGetValue("@type", out var nestedType) && "g:Traverser".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase) && traverserObject.TryGetValue("@value", out var valueToken) && valueToken is JObject nestedTraverserObject)
-                        {
-                            if (nestedTraverserObject.TryGetValue("bulk", out var bulkToken))
-                            {
-                                if (recurse.TryDeserialize(bulkToken, typeof(int), env) is int bulkObject)
-                                    bulk = bulkObject;
-                            }
-
-                            if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
-                            {
-                                effectiveArrayItem = traverserValue;
-                            }
-                        }
-
-                        if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
-                        {
-                            for (var i = 0; i < bulk; i++)
-                            {
-                                array.Add(item);
-                            }
-                        }
+                        if (nestedTraverserObject.TryGetValue("value", out var traverserValue))
+                            effectiveArrayItem = traverserValue;
                     }
 
-                    return array.ToArray(elementType);
+                    if (recurse.TryDeserialize(effectiveArrayItem, elementType, env) is { } item)
+                    {
+                        if (jArray.Count == 1 && bulk == 1)
+                        {
+                            var ret = Array.CreateInstance(elementType, 1);
+                            ret.SetValue(item, 0);
+
+                            return ret;
+                        }
+
+                        array ??= new ArrayList(jArray.Count);
+
+                        for (var j = 0; j < bulk; j++)
+                        {
+                            array.Add(item);
+                        }
+                    }
                 }
 
-                return overridden(jArray);
+                return array?.ToArray(elementType) ?? Array.Empty<object>();
             }));
     }
 }
