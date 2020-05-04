@@ -1,0 +1,47 @@
+[
+  [
+    [
+      {
+        "id": 6,
+        "label": "Language",
+        "type": "vertex",
+        "properties": {
+          "IetfLanguageTag": [
+            {
+              "id": 1,
+              "value": "en"
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "id": 7,
+        "label": "Language",
+        "type": "vertex",
+        "properties": {
+          "IetfLanguageTag": [
+            {
+              "id": 2,
+              "value": "de"
+            }
+          ]
+        }
+      },
+      {
+        "id": 8,
+        "label": "Language",
+        "type": "vertex",
+        "properties": {
+          "IetfLanguageTag": [
+            {
+              "id": 1,
+              "value": "en"
+            }
+          ]
+        }
+      }
+    ]
+  ]
+]

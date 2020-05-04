@@ -1,0 +1,27 @@
+[
+  {
+    "Age": 36,
+    "Gender": 1,
+    "RegistrationDate": "2016-12-14T21:14:36.295+00:00",
+    "PhoneNumbers": [
+      {
+        "Properties": {},
+        "Id": 4,
+        "Label": null,
+        "Value": "+123456",
+        "Key": null
+      },
+      {
+        "Properties": {},
+        "Id": 5,
+        "Label": null,
+        "Value": "+234567",
+        "Key": null
+      }
+    ],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": "13",
+    "Label": "Person"
+  }
+]

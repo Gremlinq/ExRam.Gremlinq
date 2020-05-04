@@ -1,0 +1,18 @@
+[
+  {
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 0,
+      "Label": "name",
+      "Properties": null,
+      "Value": "marko",
+      "Key": null
+    },
+    "Id": 1,
+    "Label": "person"
+  }
+]
