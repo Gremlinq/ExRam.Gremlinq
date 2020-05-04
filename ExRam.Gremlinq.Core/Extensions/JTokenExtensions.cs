@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class JTokenExtensions
     {
+        //TODO: Unmap must be able to handle non-string keys (dictionaries!)
         public static JObject? TryUnmap(this JObject jObject)
         {
             if (jObject.TryGetValue("@type", out var nestedType) && "g:Map".Equals(nestedType.Value<string>(), StringComparison.OrdinalIgnoreCase))
