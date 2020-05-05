@@ -338,7 +338,6 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryExecutionResultDeserializer
     {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Empty;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer FromJToken;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Invalid;

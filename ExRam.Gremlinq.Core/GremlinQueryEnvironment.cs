@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
             GraphModel.Empty,
             GremlinQuerySerializer.Identity,
             GremlinQueryExecutor.Empty,
-            GremlinQueryExecutionResultDeserializer.Empty,
+            GremlinQueryExecutionResultDeserializer.Identity,
             FeatureSet.Full,
             default,
             NullLogger.Instance);

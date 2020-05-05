@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownMember.StringStartsWith => ExpressionSemantics.StartsWith,
                                             WellKnownMember.StringContains => ExpressionSemantics.HasInfix,
                                             WellKnownMember.StringEndsWith => ExpressionSemantics.EndsWith,
-                                            _ => throw new ArgumentOutOfRangeException()
+                                            _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
                                         new ConstantExpressionFragment(stringValue));
                                 }

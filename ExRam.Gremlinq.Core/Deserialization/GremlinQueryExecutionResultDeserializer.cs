@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
 
                 public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
                 {
-                    throw new NotSupportedException();
+                    throw new NotSupportedException($"Cannot write to {nameof(JTokenConverterConverter)}.");
                 }
 
                 public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
@@ -197,7 +197,7 @@ namespace ExRam.Gremlinq.Core
                     IAsyncEnumerable<TElement> enumerable => enumerable,
                     TElement element => AsyncEnumerableEx.Return(element),
                     IEnumerable enumerable => enumerable.Cast<TElement>().ToAsyncEnumerable(),
-                    _ => throw new NotImplementedException()
+                    _ => throw new InvalidCastException($"A result of type {result.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}.")
                 };
             }
 
@@ -216,7 +216,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
             {
-                throw new NotSupportedException();
+                throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(Invalid)}.");
             }
         }
 
@@ -232,7 +232,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
             {
-                throw new NotSupportedException();
+                throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(GremlinQueryExecutionResultDeserializer.ToString)}.");
             }
         }
 
@@ -248,28 +248,13 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
             {
-                throw new NotSupportedException();
-            }
-        }
-
-        private sealed class EmptyQueryExecutionResultDeserializer : IGremlinQueryExecutionResultDeserializer
-        {
-            public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
-            {
-                return AsyncEnumerable.Empty<TElement>();
-            }
-
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
-            {
-                throw new NotSupportedException();
+                throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(ToGraphsonString)}.");
             }
         }
 
         public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer.Identity);
 
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
-
-        public static readonly IGremlinQueryExecutionResultDeserializer Empty = new EmptyQueryExecutionResultDeserializer();
 
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 

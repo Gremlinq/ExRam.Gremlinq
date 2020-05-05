@@ -53,9 +53,7 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.GreaterThanOrEqual => P.Gte(value),
                 ExpressionSemantics.LowerThanOrEqual => P.Lte(value),
                 ExpressionSemantics.IsContainedIn => P.Within(value),
-                ExpressionSemantics.IsInfixOf => throw new ExpressionNotSupportedException(),
-                ExpressionSemantics.IsSuffixOf => throw new ExpressionNotSupportedException(),
-                _ => throw new ArgumentOutOfRangeException(nameof(semantics), semantics, null)
+                _ => throw new ExpressionNotSupportedException()
             };
         }
 

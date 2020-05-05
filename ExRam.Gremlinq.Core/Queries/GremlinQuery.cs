@@ -126,15 +126,9 @@ namespace ExRam.Gremlinq.Core
 
             public TTargetQuery TargetQuery
             {
-                get
-                {
-                    if (_targetQuery == null)
-                        throw new InvalidOperationException();
-
-                    return _targetQuery
-                        .AsAdmin()
-                        .ChangeQueryType<TTargetQuery>();
-                }
+                get => _targetQuery
+                    .AsAdmin()
+                    .ChangeQueryType<TTargetQuery>();
             }
         }
 
@@ -391,7 +385,7 @@ namespace ExRam.Gremlinq.Core
             var targetQuery = transformation(new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(ImmutableStack<Step>.Empty, Environment, Semantics, StepLabelSemantics, (surfaceVisible ? Flags | QueryFlags.SurfaceVisible : Flags & ~QueryFlags.SurfaceVisible) | QueryFlags.IsAnonymous));
 
             if (targetQuery is GremlinQueryBase queryBase && (queryBase.Flags & QueryFlags.IsAnonymous) == QueryFlags.None)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("A query continuation must originate from query that was passed to the continuation function. Did you accidentally use 'g' in the continuation?");
 
             return targetQuery;
         }

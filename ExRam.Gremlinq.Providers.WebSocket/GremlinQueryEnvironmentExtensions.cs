@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
                         JsonConvert.SerializeObject(
                             new
                             {
-                                Script = query.Script,
+                                query.Script,
                                 Bindings = _loggingOptions.Verbosity == QueryLoggingVerbosity.QueryAndParameters
                                     ? query.Bindings
                                     : null
