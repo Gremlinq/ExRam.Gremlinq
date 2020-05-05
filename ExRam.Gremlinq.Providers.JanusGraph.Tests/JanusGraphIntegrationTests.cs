@@ -1,5 +1,6 @@
 ﻿#if RELEASE && NETCOREAPP3_1
-using ExRam.Gremlinq.Core;
+//Id generation on the JanusGraph docker image is too nondeterministic.
+/*using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Xunit.Abstractions;
@@ -18,5 +19,5 @@ namespace ExRam.Gremlinq.Providers.JanusGraph.Tests
         {
         }
     }
-}
+}*/
 #endif
