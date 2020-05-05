@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Core
             else
             {
                 if (!allowExplicitCardinality)
-                    throw new InvalidOperationException(/*TODO */);
+                    throw new NotSupportedException($"A value of type {propertyType} is not supported for property '{key}'.");
 
                 // ReSharper disable once PossibleNullReferenceException
                 if (propertyType.GetElementType().IsInstanceOfType(value))
