@@ -1163,6 +1163,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Mute()
+        {
+            await _g
+                .V()
+                .Mute()
+                .AddV(new Language { IetfLanguageTag = "en" })
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Nested_contradicting_Select_operations_does_not_throw()
         {
             await _g

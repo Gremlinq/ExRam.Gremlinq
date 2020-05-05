@@ -88,6 +88,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Map<TTargetQuery>(Func<TSelf, TTargetQuery> mapping) where TTargetQuery : IGremlinQueryBase;
 
+        TSelf Mute();
+
         TSelf Not(Func<TSelf, IGremlinQueryBase> notTraversal);
         TSelf None();
 

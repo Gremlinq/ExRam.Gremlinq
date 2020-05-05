@@ -7,6 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         None = 0,
         SurfaceVisible = 1,
-        IsAnonymous = 2
+        IsAnonymous = 2,
+        IsMuted = 4
     }
 }
