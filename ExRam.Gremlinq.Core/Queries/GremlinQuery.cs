@@ -289,20 +289,18 @@ namespace ExRam.Gremlinq.Core
 
         private IEnumerable<PropertyStep> GetPropertySteps(object key, object value, bool allowExplicitCardinality)
         {
-            var propertyType = value.GetType();
-
-            if (!propertyType.IsArray || propertyType == typeof(byte[]))
-                yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
-            else
+            if (value is IEnumerable enumerable && !Environment.Model.NativeTypes.Contains(value.GetType()))
             {
                 if (!allowExplicitCardinality)
-                    throw new NotSupportedException($"A value of type {propertyType} is not supported for property '{key}'.");
+                    throw new NotSupportedException($"A value of type {value.GetType()} is not supported for property '{key}'.");
 
-                foreach (var item in (IEnumerable)value)
+                foreach (var item in enumerable)
                 {
                     yield return GetPropertyStep(key, item, Cardinality.List);
                 }
             }
+            else
+                yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
         }
 
         private PropertyStep GetPropertyStep(object key, object value, Cardinality? cardinality)
