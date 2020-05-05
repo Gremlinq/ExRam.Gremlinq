@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
 
-        public static IEnumerable<(PropertyInfo property, object identifier, object value)> Serialize(
+        public static IEnumerable<(object identifier, object value)> Serialize(
             this object? obj,
             IGremlinQueryEnvironment environment,
             SerializationBehaviour ignoreMask)
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
                     var value = propertyInfo.GetValue(obj);
 
                     if (value != null)
-                        yield return (propertyInfo, identifier, value);
+                        yield return (identifier, value);
                 }
             }
         }

@@ -271,7 +271,7 @@ namespace ExRam.Gremlinq.Core
                     .Drop());
             }
 
-            foreach (var (property, identifier, value) in props)
+            foreach (var (identifier, value) in props)
             {
                 if (!allowUserSuppliedId && T.Id.Equals(identifier))
                     Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
