@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core
         RemoveProperty = 256,
         AddProperty = 512,
         StringIds = 1024,
-        All = 255,
+        All = 2047,
     }
     [System.Flags]
     public enum EdgePropertyFeatures
@@ -188,11 +188,11 @@ namespace ExRam.Gremlinq.Core
         MapValues = 4096,
         ByteArrayValues = 8192,
         FloatArrayValues = 16384,
-        BooleanValues = 65536,
-        ByteValues = 131072,
-        DoubleValues = 262144,
-        IntegerValues = 524288,
-        All = 255,
+        BooleanValues = 32768,
+        ByteValues = 65536,
+        DoubleValues = 131072,
+        IntegerValues = 262144,
+        All = 524287,
     }
     public readonly struct ElementMetadata
     {
@@ -294,7 +294,7 @@ namespace ExRam.Gremlinq.Core
         ThreadedTransactions = 16,
         Persistence = 32,
         ConcurrentAccess = 64,
-        All = 255,
+        All = 127,
     }
     public static class GraphModel
     {
@@ -1497,7 +1497,7 @@ namespace ExRam.Gremlinq.Core
         ByteValues = 65536,
         DoubleValues = 131072,
         IntegerValues = 262144,
-        All = 255,
+        All = 524287,
     }
     [System.Flags]
     public enum VertexFeatures
@@ -1517,7 +1517,7 @@ namespace ExRam.Gremlinq.Core
         RemoveProperty = 2048,
         AddProperty = 4096,
         StringIds = 8192,
-        All = 255,
+        All = 16383,
     }
     [System.Flags]
     public enum VertexPropertyFeatures
@@ -1549,7 +1549,7 @@ namespace ExRam.Gremlinq.Core
         ByteValues = 8388608,
         DoubleValues = 16777216,
         IntegerValues = 33554432,
-        All = 255,
+        All = 67108863,
     }
     public sealed class WherePredicateStep : ExRam.Gremlinq.Core.Step
     {
