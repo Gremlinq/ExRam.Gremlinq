@@ -1,0 +1,57 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'inject',
+        Arguments: [
+          'hello'
+        ]
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Company'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Names'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'key'
+              },
+              {
+                OperatorName: 'where',
+                Arguments: [
+                  {
+                    OperatorName: 'eq',
+                    Value: 'l1'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

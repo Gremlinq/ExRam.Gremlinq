@@ -1,0 +1,31 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'union',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'label'
+              }
+            ]
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'id'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

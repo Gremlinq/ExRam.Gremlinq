@@ -1,0 +1,25 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'has',
+        Arguments: [
+          'MetaKey',
+          'MetaValue'
+        ]
+      }
+    ]
+  }
+]

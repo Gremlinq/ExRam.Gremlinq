@@ -1,0 +1,33 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      },
+      {
+        OperatorName: 'hasKey',
+        Arguments: [
+          'Age'
+        ]
+      },
+      {
+        OperatorName: 'hasValue',
+        Arguments: [
+          {
+            OperatorName: 'lt',
+            Value: 10
+          }
+        ]
+      }
+    ]
+  }
+]

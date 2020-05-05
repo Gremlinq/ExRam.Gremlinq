@@ -1,0 +1,50 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'fold'
+      },
+      {
+        OperatorName: 'as',
+        Arguments: [
+          'l1'
+        ]
+      },
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'not',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'where',
+                Arguments: [
+                  {
+                    OperatorName: 'within',
+                    Value: [
+                      'l1'
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'count'
+      }
+    ]
+  }
+]

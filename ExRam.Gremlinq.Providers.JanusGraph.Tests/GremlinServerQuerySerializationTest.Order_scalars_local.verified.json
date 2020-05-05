@@ -1,0 +1,52 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'local',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'count'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'order',
+        Arguments: [
+          {
+            EnumName: 'Scope',
+            EnumValue: 'local'
+          }
+        ]
+      },
+      {
+        OperatorName: 'by',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'identity'
+              }
+            ]
+          },
+          {
+            EnumName: 'Order',
+            EnumValue: 'incr'
+          }
+        ]
+      }
+    ]
+  }
+]

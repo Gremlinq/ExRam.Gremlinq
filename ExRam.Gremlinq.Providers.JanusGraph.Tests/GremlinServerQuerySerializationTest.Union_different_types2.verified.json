@@ -1,0 +1,40 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Person'
+        ]
+      },
+      {
+        OperatorName: 'union',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'out',
+                Arguments: [
+                  'WorksFor'
+                ]
+              }
+            ]
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'outE',
+                Arguments: [
+                  'LivesIn'
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

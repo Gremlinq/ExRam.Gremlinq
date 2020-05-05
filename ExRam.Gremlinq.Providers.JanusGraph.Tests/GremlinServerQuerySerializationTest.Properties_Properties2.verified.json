@@ -1,0 +1,24 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'hasLabel',
+        Arguments: [
+          'Company'
+        ]
+      },
+      {
+        OperatorName: 'properties',
+        Arguments: [
+          'Names'
+        ]
+      },
+      {
+        OperatorName: 'properties'
+      }
+    ]
+  }
+]

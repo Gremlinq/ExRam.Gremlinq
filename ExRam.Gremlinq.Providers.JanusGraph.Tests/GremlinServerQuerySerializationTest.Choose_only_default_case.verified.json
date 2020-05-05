@@ -1,0 +1,52 @@
+[
+  {
+    StepInstructions: [
+      {
+        OperatorName: 'V'
+      },
+      {
+        OperatorName: 'where',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'properties'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'choose',
+        Arguments: [
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'values'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        OperatorName: 'option',
+        Arguments: [
+          {
+            EnumName: 'Pick',
+            EnumValue: 'none'
+          },
+          {
+            StepInstructions: [
+              {
+                OperatorName: 'constant',
+                Arguments: [
+                  1
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

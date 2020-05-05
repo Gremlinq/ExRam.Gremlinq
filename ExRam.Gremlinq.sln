@@ -50,9 +50,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.AspNet", "ExRam.Gremlinq.Providers.Neptune.AspNet\ExRam.Gremlinq.Providers.Neptune.AspNet.csproj", "{7C211878-D55B-444E-AFD0-4095A5B3573B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.JanusGraph", "ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph", "ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj", "{84D78612-38F6-4FE7-BAB1-4B94316D2299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "ExRam.Gremlinq.Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.AspNet", "ExRam.Gremlinq.Providers.JanusGraph.AspNet\ExRam.Gremlinq.Providers.JanusGraph.AspNet.csproj", "{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.JanusGraph.Tests", "ExRam.Gremlinq.Providers.JanusGraph.Tests\ExRam.Gremlinq.Providers.JanusGraph.Tests.csproj", "{A1DA8260-60D7-4D47-A7FA-C83E727653D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -144,6 +146,10 @@ Global
 		{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C738C8-37D2-41DB-A8DE-00E38B22BCA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1DA8260-60D7-4D47-A7FA-C83E727653D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +169,7 @@ Global
 		{B3DD7F6D-49DE-42CE-97BA-F90F9820D126} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{7C211878-D55B-444E-AFD0-4095A5B3573B} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
 		{69C738C8-37D2-41DB-A8DE-00E38B22BCA6} = {179A3F19-19B0-4DE2-B843-83AF4241244A}
+		{A1DA8260-60D7-4D47-A7FA-C83E727653D1} = {4E6D1C9D-C1F7-43CF-99F7-9D610B3D1989}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A76E21B-5855-4DA7-AAAE-4EBEE631CB3A}
