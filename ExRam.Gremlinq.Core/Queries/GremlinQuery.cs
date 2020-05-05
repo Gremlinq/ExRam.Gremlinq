@@ -277,7 +277,7 @@ namespace ExRam.Gremlinq.Core
                     Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
                 else
                 {
-                    foreach (var propertyStep in GetPropertySteps(property.PropertyType, identifier, value, allowExplicitCardinality))
+                    foreach (var propertyStep in GetPropertySteps(identifier, value, allowExplicitCardinality))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
@@ -287,8 +287,10 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        private IEnumerable<PropertyStep> GetPropertySteps(Type propertyType, object key, object value, bool allowExplicitCardinality)
+        private IEnumerable<PropertyStep> GetPropertySteps(object key, object value, bool allowExplicitCardinality)
         {
+            var propertyType = value.GetType();
+
             if (!propertyType.IsArray || propertyType == typeof(byte[]))
                 yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
             else
@@ -960,7 +962,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var ret = this;
 
-                    foreach (var propertyStep in GetPropertySteps(memberExpression.Type, identifier, value, true))
+                    foreach (var propertyStep in GetPropertySteps(identifier, value, true))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
