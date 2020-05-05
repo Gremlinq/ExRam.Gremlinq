@@ -10,14 +10,6 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    [Flags]
-    internal enum QueryFlags
-    {
-        None = 0,
-        SurfaceVisible = 1,
-        IsAnonymous = 2
-    }
-
     internal static class GremlinQuery
     {
         internal static readonly IImmutableStack<Step> AnonymousNoneSteps = ImmutableStack<Step>.Empty.Push(NoneStep.Instance);
