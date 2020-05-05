@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.Tests
         protected QuerySerializationTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(
             g
                 .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Echo)
+                    .UseExecutor(GremlinQueryExecutor.Identity)
                     .UseDeserializer(GremlinQueryExecutionResultDeserializer.Identity)),
             testOutputHelper,
             callerFilePath)

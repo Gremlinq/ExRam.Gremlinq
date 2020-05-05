@@ -346,8 +346,8 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryExecutor
     {
-        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Echo;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Empty;
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryExecutor Invalid;
         public static ExRam.Gremlinq.Core.IGremlinQueryExecutor Create(System.Func<object, System.Collections.Generic.IAsyncEnumerable<object>> executor) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryExecutor InterceptQuery(this ExRam.Gremlinq.Core.IGremlinQueryExecutor baseExecutor, System.Func<object, object> transformation) { }

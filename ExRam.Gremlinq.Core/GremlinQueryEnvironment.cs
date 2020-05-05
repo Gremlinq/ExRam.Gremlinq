@@ -94,7 +94,7 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .UseSerializer(GremlinQuerySerializer.Default)
-                .UseExecutor(GremlinQueryExecutor.Echo)
+                .UseExecutor(GremlinQueryExecutor.Identity)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphsonString);
         }
 
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
         {
             return environment
                 .ConfigureSerializer(serializer => serializer.ToGroovy())
-                .UseExecutor(GremlinQueryExecutor.Echo)
+                .UseExecutor(GremlinQueryExecutor.Identity)
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToString);
         }
 
