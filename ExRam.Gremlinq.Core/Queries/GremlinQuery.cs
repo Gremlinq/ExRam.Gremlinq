@@ -298,17 +298,9 @@ namespace ExRam.Gremlinq.Core
                 if (!allowExplicitCardinality)
                     throw new NotSupportedException($"A value of type {propertyType} is not supported for property '{key}'.");
 
-                // ReSharper disable once PossibleNullReferenceException
-                if (propertyType.GetElementType().IsInstanceOfType(value))
+                foreach (var item in (IEnumerable)value)
                 {
-                    yield return GetPropertyStep(key, value, Cardinality.List);
-                }
-                else
-                {
-                    foreach (var item in (IEnumerable)value)
-                    {
-                        yield return GetPropertyStep(key, item, Cardinality.List);
-                    }
+                    yield return GetPropertyStep(key, item, Cardinality.List);
                 }
             }
         }
