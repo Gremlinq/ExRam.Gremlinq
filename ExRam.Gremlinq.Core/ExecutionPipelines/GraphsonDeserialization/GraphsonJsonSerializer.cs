@@ -333,7 +333,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is { } propertiesToken)
                     {
-                        _ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
+                            _ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                     }
                 }
 
@@ -449,7 +449,8 @@ namespace ExRam.Gremlinq.Core
 
                         for (var i = 0; i < mapArray.Count / 2; i++)
                         {
-                            retObject.Add(mapArray[i * 2].Value<string>(), mapArray[i * 2 + 1]);
+                            if (recurse.TryConvert(mapArray[i * 2 + 1], typeof(JToken), recurse, out var propertyValue))
+                                retObject.Add(mapArray[i * 2].Value<string>(), (JToken)propertyValue);
                         }
 
                         return recurse.TryConvert(retObject, objectType, recurse, out value);
