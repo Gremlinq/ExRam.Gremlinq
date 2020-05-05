@@ -51,6 +51,15 @@ namespace ExRam.Gremlinq.ApprovalTests
         }
 
         [Fact]
+        public Task JanusGraph()
+        {
+            return Assembly
+                .Load("ExRam.Gremlinq.Providers.JanusGraph")
+                .GeneratePublicApi()
+                .VerifyCSharp(this);
+        }
+
+        [Fact]
         public Task WebSocket()
         {
             return Assembly
@@ -91,6 +100,15 @@ namespace ExRam.Gremlinq.ApprovalTests
         {
             return Assembly
                 .Load("ExRam.Gremlinq.Providers.Neptune.AspNet")
+                .GeneratePublicApi()
+                .VerifyCSharp(this);
+        }
+
+        [Fact]
+        public Task JanusGraphAspNet()
+        {
+            return Assembly
+                .Load("ExRam.Gremlinq.Providers.JanusGraph.AspNet")
                 .GeneratePublicApi()
                 .VerifyCSharp(this);
         }
