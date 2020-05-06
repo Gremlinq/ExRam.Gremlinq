@@ -204,7 +204,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.EmitStep Instance;
         public EmitStep() { }
     }
-    public static class EnumerableExtensions { }
     public sealed class ExplainStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ExplainStep Instance;
