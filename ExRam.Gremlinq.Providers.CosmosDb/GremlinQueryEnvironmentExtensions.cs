@@ -71,9 +71,9 @@ namespace ExRam.Gremlinq.Core
             {
                 if (objectType == typeof(TimeSpan))
                 {
-                    if (recurse.TryConvert(jToken, typeof(long), recurse, out value))
+                    if (recurse.TryConvert(jToken, typeof(double), recurse, out value))
                     {
-                        value = TimeSpan.FromMilliseconds((long)value);
+                        value = TimeSpan.FromMilliseconds((double)value);
                         return true;
                     }
                 }
