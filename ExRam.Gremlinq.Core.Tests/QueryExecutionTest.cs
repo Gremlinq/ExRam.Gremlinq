@@ -168,15 +168,18 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task AddV_list_cardinality_id()
         {
-            _g
-                .ConfigureEnvironment(env => env
-                    .UseModel(GraphModel
-                        .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
-                            .IncludeAssembliesOfBaseTypes())))
-                .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
-                .Awaiting(async x => await x.FirstAsync())
-                .Should()
-                .Throw<NotSupportedException>();
+            if (_g.Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
+            {
+                _g
+                    .ConfigureEnvironment(env => env
+                        .UseModel(GraphModel
+                            .FromBaseTypes<VertexWithListAsId, Edge>(lookup => lookup
+                                .IncludeAssembliesOfBaseTypes())))
+                    .AddV(new VertexWithListAsId { Id = new[] { "123", "456" } })
+                    .Awaiting(async x => await x.FirstAsync())
+                    .Should()
+                    .Throw<NotSupportedException>();
+            }
         }
 
         [Fact]
