@@ -13,11 +13,5 @@ namespace ExRam.Gremlinq.Core
 
             throw new ExpressionNotSupportedException(projection);
         }
-
-        public static IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, string name, Expression<Func<TElement, object>> projection)
-            where TSourceQuery : IElementGremlinQueryBase<TElement>
-        {
-            return projectBuilder.By(name, _ => _.Values(projection));
-        }
     }
 }
