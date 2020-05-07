@@ -117,11 +117,11 @@ namespace ExRam.Gremlinq.Core
                         })))
                 .ConfigureDeserializer(deserializer => deserializer
                     .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
-                        .Override<JToken>((jToken, type, env, overridden, recurse) =>
+                        .Override<JValue>((jValue, type, env, overridden, recurse) =>
                         {
-                            return type == typeof(TimeSpan) && recurse.TryDeserialize(jToken, typeof(double), env) is double value
-                                ? TimeSpan.FromMilliseconds(value)
-                                : overridden(jToken);
+                            return type == typeof(TimeSpan)
+                                ? TimeSpan.FromMilliseconds(jValue.Value<double>())
+                                : overridden(jValue);
                         })));
         }
     }
