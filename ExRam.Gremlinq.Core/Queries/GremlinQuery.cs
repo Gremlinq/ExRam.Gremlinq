@@ -863,7 +863,7 @@ namespace ExRam.Gremlinq.Core
             if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
                 return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), stepLabelSemantics);
 
-            throw new InvalidOperationException(/* TODO */ );
+            throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}-continuation or has previously been passed to an appropriate overload of {nameof(As)}.");
         }
 
         private GremlinQuery<TSelectedElement, object, object, object, object, TQuery> Cap<TQuery, TSelectedElement>(StepLabel<IArrayGremlinQuery<TSelectedElement, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, object, object, TQuery>(new CapStep(stepLabel), QuerySemantics.None);
@@ -1172,7 +1172,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (leftParameterFragment.Expression is MemberExpression && rightParameterFragment.Expression is MemberExpression rightMember)
                     {
-                        //TODO: Nur eine seite Expression?
                         return As(
                             new StepLabel<TElement>(),
                             (_, label) => _
