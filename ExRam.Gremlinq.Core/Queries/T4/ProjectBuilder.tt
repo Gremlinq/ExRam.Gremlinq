@@ -10,9 +10,12 @@ using System;
 
 namespace ExRam.Gremlinq.Core
 {
-<# for(var i = 2; i <= 16; i++) { #>
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i) #>> : IProjectResult<(<#= GetArgumentList("TItem{0}", i) #>)>
-        where TSourceQuery : IGremlinQueryBase
+<# for(var i = 1; i <= 16; i++) { #>
+    public interface IProjectTupleBuilder<out TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i) #>>
+    <# if (i >= 2) { #>
+    : IProjectResult<(<#= GetArgumentList("TItem{0}", i) #>)>
+    <# } #>
+    where TSourceQuery : IGremlinQueryBase
     {
 <# if (i < 16) { #>
         IProjectTupleBuilder<TSourceQuery, TElement, <#= GetArgumentList("TItem{0}", i + 1) #>> By<TItem<#= i + 1 #>>(Func<TSourceQuery, IGremlinQueryBase<TItem<#= i + 1 #>>> projection);

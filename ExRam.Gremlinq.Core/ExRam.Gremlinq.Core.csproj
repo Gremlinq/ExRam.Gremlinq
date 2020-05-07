@@ -15,7 +15,7 @@
   <ItemGroup>
     <None Update="Queries\T4\ProjectBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ProjectBuilder.generated.cs</LastGenOutput>
+      <LastGenOutput>ProjectBuilder.cs</LastGenOutput>
     </None>
     <None Update="Queries\GremlinQuery.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -34,7 +34,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="Queries\T4\ProjectBuilder.generated.cs">
+    <Compile Update="Queries\T4\ProjectBuilder.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ProjectBuilder.tt</DependentUpon>
