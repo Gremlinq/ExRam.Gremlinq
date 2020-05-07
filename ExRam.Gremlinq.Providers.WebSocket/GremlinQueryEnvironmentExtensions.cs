@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Driver.Messages;
@@ -22,10 +23,10 @@ namespace ExRam.Gremlinq.Core
             private readonly ILogger? _logger;
             private readonly QueryLoggingOptions _loggingOptions;
             private readonly Dictionary<string, string> _aliasArgs;
-            private readonly Lazy<IGremlinClient> _lazyGremlinClient;
+            private readonly Lazy<Task<IGremlinClient>> _lazyGremlinClient;
 
             public WebSocketGremlinQueryExecutor(
-                Func<IGremlinClient> clientFactory,
+                Func<CancellationToken, Task<IGremlinClient>> clientFactory,
                 string alias = "g",
                 ILogger? logger = null,
                 QueryLoggingOptions loggingOptions = default)
@@ -34,7 +35,7 @@ namespace ExRam.Gremlinq.Core
                 _logger = logger;
                 _loggingOptions = loggingOptions;
                 _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
-                _lazyGremlinClient = new Lazy<IGremlinClient>(clientFactory, LazyThreadSafetyMode.ExecutionAndPublication);
+                _lazyGremlinClient = new Lazy<Task<IGremlinClient>>(() => clientFactory(default), LazyThreadSafetyMode.ExecutionAndPublication);
             }
 
             public void Dispose()
@@ -56,8 +57,10 @@ namespace ExRam.Gremlinq.Core
 
                         try
                         {
-                            results = await _lazyGremlinClient
-                                .Value
+                            var client = await _lazyGremlinClient
+                                .Value;
+
+                            results = await client
                                 .SubmitAsync<JToken>($"{_alias}.{groovyScript.Script}", groovyScript.Bindings)
                                 .ConfigureAwait(false);
                         }
@@ -85,8 +88,10 @@ namespace ExRam.Gremlinq.Core
 
                         try
                         {
-                            results = await _lazyGremlinClient
-                                .Value
+                            var client = await _lazyGremlinClient
+                                .Value;
+
+                            results = await client
                                 .SubmitAsync<JToken>(requestMsg)
                                 .ConfigureAwait(false);
                         }
@@ -232,23 +237,25 @@ namespace ExRam.Gremlinq.Core
                 return _environment
                     .UseExecutor(
                         new WebSocketGremlinQueryExecutor(
-                            () => _clientTransformation(new GremlinClient(
-                                new GremlinServer(
-                                    (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
-                                    _uri.Port,
-                                    "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
-                                    _auth?.username,
-                                    _auth?.password),
-                                _version == GraphsonVersion.V2
-                                    ? new GraphSON2Reader(_additionalDeserializers)
-                                    : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
-                                _version == GraphsonVersion.V2
-                                    ? new GraphSON2Writer(_additionalSerializers)
-                                    : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
-                                _version == GraphsonVersion.V2
-                                    ? GremlinClient.GraphSON2MimeType
-                                    : GremlinClient.DefaultMimeType,
-                                _connectionPoolSettings)),
+                            async ct => _clientTransformation(await Task.Run(
+                                () => new GremlinClient(
+                                    new GremlinServer(
+                                        (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
+                                        _uri.Port,
+                                        "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
+                                        _auth?.username,
+                                        _auth?.password),
+                                    _version == GraphsonVersion.V2
+                                        ? new GraphSON2Reader(_additionalDeserializers)
+                                        : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
+                                    _version == GraphsonVersion.V2
+                                        ? new GraphSON2Writer(_additionalSerializers)
+                                        : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
+                                    _version == GraphsonVersion.V2
+                                        ? GremlinClient.GraphSON2MimeType
+                                        : GremlinClient.DefaultMimeType,
+                                    _connectionPoolSettings),
+                                ct)),
                             _alias,
                             _environment.Logger,
                             _queryLoggingOptions));
