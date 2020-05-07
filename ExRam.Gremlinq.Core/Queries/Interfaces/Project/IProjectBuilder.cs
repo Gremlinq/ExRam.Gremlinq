@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IProjectResult
     {
-        IImmutableDictionary<string, IGremlinQueryBase> Projections { get; }
+        IImmutableDictionary<string, Step> Projections { get; }
     }
 
     // ReSharper disable once UnusedTypeParameter

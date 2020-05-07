@@ -174,11 +174,11 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
 
-            public ProjectBuilder(GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(sourceQuery, ImmutableDictionary<string, IGremlinQueryBase>.Empty)
+            public ProjectBuilder(GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery) : this(sourceQuery, ImmutableDictionary<string, Step>.Empty)
             {
             }
 
-            private ProjectBuilder(GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, IImmutableDictionary<string, IGremlinQueryBase> projections)
+            private ProjectBuilder(GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, IImmutableDictionary<string, Step> projections)
             {
                 _sourceQuery = sourceQuery;
                 Projections = projections;
@@ -198,7 +198,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return new ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(
                     _sourceQuery,
-                    Projections.SetItem(name, _sourceQuery.Continue(projection, true)));
+                    Projections.SetItem(name, new ProjectStep.ByTraversalStep(_sourceQuery.Continue(projection, true).ToTraversal())));
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.ToTuple()
@@ -221,7 +221,7 @@ namespace ExRam.Gremlinq.Core
                 return By(name, projection);
             }
 
-            public IImmutableDictionary<string, IGremlinQueryBase> Projections { get; }
+            public IImmutableDictionary<string, Step> Projections { get; }
         }
 
         public GremlinQuery(
@@ -783,7 +783,7 @@ namespace ExRam.Gremlinq.Core
 
             foreach (var projection in projections)
             {
-                ret = ret.AddStep(new ProjectStep.ByTraversalStep(projection.Value.ToTraversal()), QuerySemantics.None);
+                ret = ret.AddStep(projection.Value, QuerySemantics.None);
             }
 
             return ret;
