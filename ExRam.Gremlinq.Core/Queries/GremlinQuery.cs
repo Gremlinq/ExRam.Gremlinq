@@ -71,13 +71,7 @@ namespace ExRam.Gremlinq.Core
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Decr);
 
-            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order)
-            {
-                if (projection.Body.Strip() is MemberExpression memberExpression)
-                    return new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(memberExpression), order)));
-
-                throw new ExpressionNotSupportedException(projection);
-            }
+            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(projection), order)));
 
             private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(_query.Continue(traversal).ToTraversal(), order)));
 
@@ -204,16 +198,9 @@ namespace ExRam.Gremlinq.Core
                 return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>($"Item{Projections.Count + 1}", projection);
             }
 
-            private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, LambdaExpression projection)
+            private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Expression projection)
             {
-                return projection.Body.Strip() is MemberExpression memberExpression
-                    ? By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, memberExpression)
-                    : throw new ExpressionNotSupportedException(projection);
-            }
-
-            private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, MemberExpression memberExpression)
-            {
-                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.Environment.Model.PropertiesModel.GetIdentifier(memberExpression)));
+                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.Environment.Model.PropertiesModel.GetIdentifier(projection)));
             }
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Step step)
@@ -835,7 +822,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, object? value)
         {
-            if (projection.Body.Strip() is MemberExpression memberExpression && Environment.Model.PropertiesModel.GetIdentifier(memberExpression) is string identifier)
+            if (Environment.Model.PropertiesModel.GetIdentifier(projection) is string identifier)
                 return Property(identifier, value);
 
             throw new ExpressionNotSupportedException(projection);
@@ -973,26 +960,23 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, object? value)
         {
-            if (projection.Body.Strip() is MemberExpression memberExpression)
+            var identifier = Environment.Model.PropertiesModel.GetIdentifier(projection);
+
+            if (value == null)
             {
-                var identifier = Environment.Model.PropertiesModel.GetIdentifier(memberExpression);
+                if (identifier is string stringKey)
+                    return DropProperties(stringKey);
+            }
+            else
+            {
+                var ret = this;
 
-                if (value == null)
+                foreach (var propertyStep in GetPropertySteps(identifier, value, true))
                 {
-                    if (identifier is string stringKey)
-                        return DropProperties(stringKey);
+                    ret = ret.AddStep(propertyStep);
                 }
-                else
-                {
-                    var ret = this;
 
-                    foreach (var propertyStep in GetPropertySteps(identifier, value, true))
-                    {
-                        ret = ret.AddStep(propertyStep);
-                    }
-
-                    return ret;
-                }
+                return ret;
             }
 
             throw new ExpressionNotSupportedException(projection);

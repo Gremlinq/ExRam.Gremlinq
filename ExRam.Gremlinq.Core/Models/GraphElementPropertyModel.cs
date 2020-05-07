@@ -55,11 +55,19 @@ namespace ExRam.Gremlinq.Core
                 metadata => action(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
-        internal static object GetIdentifier(this IGraphElementPropertyModel model, MemberExpression memberExpression)
+        internal static object GetIdentifier(this IGraphElementPropertyModel model, Expression expression)
         {
-            return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                ? model.GetIdentifier(sourceMemberExpression.Member)
-                : model.GetIdentifier(memberExpression.Member);
+            if (expression is LambdaExpression lambdaExpression)
+                return model.GetIdentifier(lambdaExpression.Body);
+
+            if (expression.Strip() is MemberExpression memberExpression)
+            {
+                return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
+                    ? model.GetIdentifier(sourceMemberExpression.Member)
+                    : model.GetIdentifier(memberExpression.Member);
+            }
+
+            throw new ExpressionNotSupportedException(expression);
         }
 
         private static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
