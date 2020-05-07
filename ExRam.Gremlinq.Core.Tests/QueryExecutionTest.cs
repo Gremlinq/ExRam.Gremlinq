@@ -1713,6 +1713,51 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Project2_with_Property()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __.In())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Age))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project3_with_Property()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Age))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project4_with_Property()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Where(__ => __.Properties())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Age)
+                    .By(__ => __.Properties()))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Properties_Meta()
         {
             await _g

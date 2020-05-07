@@ -1,0 +1,15 @@
+[
+  {
+    "Script": "V().hasLabel(_a).where(__.in()).project(_b, _c).by(__.in().project(_d, _e, _f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d, _e, _g, _f).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.values(_h))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties",
+      "_g": "value",
+      "_h": "Age"
+    }
+  }
+]

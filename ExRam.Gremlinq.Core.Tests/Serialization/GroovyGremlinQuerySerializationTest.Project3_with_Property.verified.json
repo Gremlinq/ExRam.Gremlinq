@@ -1,0 +1,16 @@
+[
+  {
+    "Script": "V().hasLabel(_a).where(__.in()).where(__.out()).project(_b, _c, _d).by(__.in().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e, _f, _h, _g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.out().project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e, _f, _h, _g).by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.values(_i))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Item1",
+      "_c": "Item2",
+      "_d": "Item3",
+      "_e": "id",
+      "_f": "label",
+      "_g": "properties",
+      "_h": "value",
+      "_i": "Age"
+    }
+  }
+]
