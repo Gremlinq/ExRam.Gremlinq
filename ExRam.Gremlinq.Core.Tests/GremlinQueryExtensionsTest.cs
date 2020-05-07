@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovy())
+                    .EchoGroovyString())
                 .V()
                 .OfType<Person>();
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes()))
-                    .EchoGraphson())
+                    .EchoGraphsonString())
                 .V()
                 .OfType<Person>();
 
@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.FromBaseTypes<IVertex, IEdge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes()))
-                    .EchoGroovy())
+                    .EchoGroovyString())
                 .V()
                 .OfType<Person>();
 

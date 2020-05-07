@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
                     .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
         }
 
-        public static IGremlinQueryEnvironment EchoGraphson(this IGremlinQueryEnvironment environment)
+        public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
         {
             return environment
                 .UseSerializer(GremlinQuerySerializer.Default)
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.ToGraphsonString);
         }
 
-        public static IGremlinQueryEnvironment EchoGroovy(this IGremlinQueryEnvironment environment)
+        public static IGremlinQueryEnvironment EchoGroovyString(this IGremlinQueryEnvironment environment)
         {
             return environment
                 .ConfigureSerializer(serializer => serializer.ToGroovy())

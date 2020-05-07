@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await g
                 .ConfigureEnvironment(env => env
-                    .EchoGroovy())
+                    .EchoGroovyString())
                 .V()
                 .Drop()
                 .Verify(this);
