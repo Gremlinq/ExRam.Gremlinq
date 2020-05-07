@@ -71,6 +71,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     case string str when allowEnumerableExpansion:
                     {
+                        // ReSharper disable once TailRecursiveCall
                         Append(str);
 
                         break;

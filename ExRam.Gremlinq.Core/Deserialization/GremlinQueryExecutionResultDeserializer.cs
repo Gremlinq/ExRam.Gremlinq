@@ -260,7 +260,8 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryExecutionResultDeserializer ToGraphsonString = new ToGraphsonGremlinQueryExecutionResultDeserializer();
 
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
-        
+
+        // ReSharper disable ConvertToLambdaExpression
         public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
@@ -515,5 +516,6 @@ namespace ExRam.Gremlinq.Core
 
                 return array?.ToArray(elementType) ?? Array.Empty<object>();
             }));
+            // ReSharper restore ConvertToLambdaExpression
     }
 }
