@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
 
             IOrderBuilderWithBy<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>> IOrderBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>.ByDescending(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal) => By(traversal, Gremlin.Net.Process.Traversal.Order.Decr);
 
-            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.Environment.Model.PropertiesModel.GetIdentifier(projection), order)));
+            private OrderBuilder By(Expression<Func<TElement, object?>> projection, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByMemberStep(_query.GetKey(projection), order)));
 
             private OrderBuilder By(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> traversal, Order order) => new OrderBuilder(_query.AddStep(new OrderStep.ByTraversalStep(_query.Continue(traversal).ToTraversal(), order)));
 
@@ -200,7 +200,7 @@ namespace ExRam.Gremlinq.Core
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Expression projection)
             {
-                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.Environment.Model.PropertiesModel.GetIdentifier(projection)));
+                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.GetKey(projection)));
             }
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Step step)
@@ -541,23 +541,16 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()), QuerySemantics.None);
         }
 
-        private object[] GetKeys(IEnumerable<LambdaExpression> projections)
-        {
-            return GetKeys(projections
-                .Select(projection =>
-                {
-                    if (projection.Body.Strip() is MemberExpression memberExpression)
-                        return memberExpression;
-
-                    throw new ExpressionNotSupportedException(projection);
-                }));
-        }
-
-        private object[] GetKeys(IEnumerable<MemberExpression> projections)
+        private object[] GetKeys(IEnumerable<Expression> projections)
         {
             return projections
-                .Select(projection => Environment.Model.PropertiesModel.GetIdentifier(projection))
+                .Select(projection => GetKey(projection))
                 .ToArray();
+        }
+
+        private object GetKey(Expression projection)
+        {
+            return Environment.Model.PropertiesModel.GetKey(projection);
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter
@@ -590,7 +583,7 @@ namespace ExRam.Gremlinq.Core
             return predicate.EqualsConstant(false)
                 ? None()
                 : Has(
-                    Environment.Model.PropertiesModel.GetIdentifier(expression),
+                    GetKey(expression),
                     predicate.EqualsConstant(true)
                         ? default
                         : predicate);
@@ -617,7 +610,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
         {
-            return AddStep(new HasTraversalStep(Environment.Model.PropertiesModel.GetIdentifier(expression), traversal.ToTraversal()));
+            return AddStep(new HasTraversalStep(GetKey(expression), traversal.ToTraversal()));
         }
 
         private GremlinQuery<object, object, object, object, object, object> Id() => AddStepWithObjectTypes<object>(IdStep.Instance, QuerySemantics.None);
@@ -822,7 +815,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, object? value)
         {
-            if (Environment.Model.PropertiesModel.GetIdentifier(projection) is string identifier)
+            if (GetKey(projection) is string identifier)
                 return Property(identifier, value);
 
             throw new ExpressionNotSupportedException(projection);
@@ -960,7 +953,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, object? value)
         {
-            var identifier = Environment.Model.PropertiesModel.GetIdentifier(projection);
+            var identifier = GetKey(projection);
 
             if (value == null)
             {
@@ -1113,10 +1106,10 @@ namespace ExRam.Gremlinq.Core
                                 {
                                     var ret = this
                                         .AddStep(new WherePredicateStep(effectivePredicate))
-                                        .AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftMemberExpression)));
+                                        .AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)));
 
                                     if (memberExpression.Member != leftMemberExpression.Member)
-                                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression)));
+                                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
 
                                     return ret;
                                 }
@@ -1137,7 +1130,7 @@ namespace ExRam.Gremlinq.Core
                                 var ret = AddStep(new WherePredicateStep(effectivePredicate));
 
                                 if (stepLabelExpressionFragment.Expression is MemberExpression memberExpression)
-                                    ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(memberExpression)));
+                                    ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
 
                                 return ret;
                             }
@@ -1165,10 +1158,10 @@ namespace ExRam.Gremlinq.Core
 
                         //TODO: What if x < x.Value.Prop ? i.e only one by operator?
                         if (leftConstantFragment.Expression is MemberExpression leftStepValueExpression)
-                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(leftStepValueExpression)));
+                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
 
                         if (rightConstantFragment.Expression is MemberExpression rightStepValueExpression)
-                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(Environment.Model.PropertiesModel.GetIdentifier(rightStepValueExpression)));
+                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
 
                         return ret;
                     }

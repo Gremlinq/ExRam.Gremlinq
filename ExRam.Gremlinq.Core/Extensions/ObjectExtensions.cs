@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
 
                             return (
                                 property: p,
-                                identifier: closureModel.GetIdentifier(metadata),
+                                identifier: closureModel.GetKey(metadata),
                                 serializationBehaviour: metadata.SerializationBehaviour);
                         })
                         .OrderBy(x => x.property.Name)

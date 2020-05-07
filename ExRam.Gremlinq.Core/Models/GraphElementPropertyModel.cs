@@ -55,22 +55,22 @@ namespace ExRam.Gremlinq.Core
                 metadata => action(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
-        internal static object GetIdentifier(this IGraphElementPropertyModel model, Expression expression)
+        internal static object GetKey(this IGraphElementPropertyModel model, Expression expression)
         {
             if (expression is LambdaExpression lambdaExpression)
-                return model.GetIdentifier(lambdaExpression.Body);
+                return model.GetKey(lambdaExpression.Body);
 
             if (expression.Strip() is MemberExpression memberExpression)
             {
                 return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                    ? model.GetIdentifier(sourceMemberExpression.Member)
-                    : model.GetIdentifier(memberExpression.Member);
+                    ? model.GetKey(sourceMemberExpression.Member)
+                    : model.GetKey(memberExpression.Member);
             }
 
             throw new ExpressionNotSupportedException(expression);
         }
 
-        private static object GetIdentifier(this IGraphElementPropertyModel model, MemberInfo member)
+        private static object GetKey(this IGraphElementPropertyModel model, MemberInfo member)
         {
             return IdentifierDict
                 .GetOrCreateValue(model)
@@ -105,7 +105,7 @@ namespace ExRam.Gremlinq.Core
                                     .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
                                     .OfType<PropertyInfo>()
                                     .Where(p => implementingGetters.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
-                                    .Select(closureModel.GetIdentifier)
+                                    .Select(closureModel.GetKey)
                                     .Distinct()
                                     .ToArray();
                                 
@@ -117,14 +117,14 @@ namespace ExRam.Gremlinq.Core
                             }
                         }
 
-                        return closureModel.GetIdentifier(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
+                        return closureModel.GetKey(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
                             ? metadata
                             : new PropertyMetadata(closureMember.Name));
                     },
                     model);
         }
 
-        internal static object GetIdentifier(this IGraphElementPropertyModel model, PropertyMetadata metadata)
+        internal static object GetKey(this IGraphElementPropertyModel model, PropertyMetadata metadata)
         {
             return model.SpecialNames.TryGetValue(metadata.Name, out var name)
                 ? (object)name
