@@ -328,17 +328,7 @@
       {
         "OperatorName": "by",
         "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "values",
-                "Arguments": [
-                  "Age"
-                ]
-              }
-            ]
-          }
+          "Age"
         ]
       },
       {

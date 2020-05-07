@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement,  TNewItem1> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement >.By<TNewItem1>(Expression<Func<TProjectElement, TNewItem1>> projection)
             {
-                return By< TNewItem1 , object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem1>(new[] { projection }));
+                return By< TNewItem1 , object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1,  TNewItem2> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1>.By<TNewItem2>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem2>> projection)
@@ -177,7 +177,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1,  TNewItem2> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1>.By<TNewItem2>(Expression<Func<TProjectElement, TNewItem2>> projection)
             {
-                return By<TItem1,  TNewItem2 , object, object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem2>(new[] { projection }));
+                return By<TItem1,  TNewItem2 , object, object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2,  TNewItem3> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2>.By<TNewItem3>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem3>> projection)
@@ -187,7 +187,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2,  TNewItem3> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2>.By<TNewItem3>(Expression<Func<TProjectElement, TNewItem3>> projection)
             {
-                return By<TItem1, TItem2,  TNewItem3 , object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem3>(new[] { projection }));
+                return By<TItem1, TItem2,  TNewItem3 , object, object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3,  TNewItem4> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3>.By<TNewItem4>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem4>> projection)
@@ -197,7 +197,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3,  TNewItem4> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3>.By<TNewItem4>(Expression<Func<TProjectElement, TNewItem4>> projection)
             {
-                return By<TItem1, TItem2, TItem3,  TNewItem4 , object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem4>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3,  TNewItem4 , object, object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4,  TNewItem5> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4>.By<TNewItem5>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem5>> projection)
@@ -207,7 +207,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4,  TNewItem5> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4>.By<TNewItem5>(Expression<Func<TProjectElement, TNewItem5>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4,  TNewItem5 , object, object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem5>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4,  TNewItem5 , object, object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5>.By<TNewItem6>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem6>> projection)
@@ -217,7 +217,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5>.By<TNewItem6>(Expression<Func<TProjectElement, TNewItem6>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6 , object, object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem6>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5,  TNewItem6 , object, object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>.By<TNewItem7>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem7>> projection)
@@ -227,7 +227,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6>.By<TNewItem7>(Expression<Func<TProjectElement, TNewItem7>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7 , object, object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem7>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6,  TNewItem7 , object, object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>.By<TNewItem8>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem8>> projection)
@@ -237,7 +237,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7>.By<TNewItem8>(Expression<Func<TProjectElement, TNewItem8>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8 , object, object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem8>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7,  TNewItem8 , object, object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>.By<TNewItem9>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem9>> projection)
@@ -247,7 +247,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8>.By<TNewItem9>(Expression<Func<TProjectElement, TNewItem9>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9 , object, object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem9>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8,  TNewItem9 , object, object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>.By<TNewItem10>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem10>> projection)
@@ -257,7 +257,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9>.By<TNewItem10>(Expression<Func<TProjectElement, TNewItem10>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10 , object, object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem10>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9,  TNewItem10 , object, object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>.By<TNewItem11>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem11>> projection)
@@ -267,7 +267,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10>.By<TNewItem11>(Expression<Func<TProjectElement, TNewItem11>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11 , object, object, object, object, object>(__ => __.ValuesForProjections<TNewItem11>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10,  TNewItem11 , object, object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>.By<TNewItem12>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem12>> projection)
@@ -277,7 +277,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11>.By<TNewItem12>(Expression<Func<TProjectElement, TNewItem12>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12 , object, object, object, object>(__ => __.ValuesForProjections<TNewItem12>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11,  TNewItem12 , object, object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>.By<TNewItem13>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem13>> projection)
@@ -287,7 +287,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12>.By<TNewItem13>(Expression<Func<TProjectElement, TNewItem13>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13 , object, object, object>(__ => __.ValuesForProjections<TNewItem13>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12,  TNewItem13 , object, object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>.By<TNewItem14>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem14>> projection)
@@ -297,7 +297,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13>.By<TNewItem14>(Expression<Func<TProjectElement, TNewItem14>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14 , object, object>(__ => __.ValuesForProjections<TNewItem14>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13,  TNewItem14 , object, object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>.By<TNewItem15>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem15>> projection)
@@ -307,7 +307,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14>.By<TNewItem15>(Expression<Func<TProjectElement, TNewItem15>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15 , object>(__ => __.ValuesForProjections<TNewItem15>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14,  TNewItem15 , object>(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>.By<TNewItem16>(Func<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase<TNewItem16>> projection)
@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Core
 
             IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16> IProjectTupleBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement , TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15>.By<TNewItem16>(Expression<Func<TProjectElement, TNewItem16>> projection)
             {
-                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16 >(__ => __.ValuesForProjections<TNewItem16>(new[] { projection }));
+                return By<TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15,  TNewItem16 >(_sourceQuery.GetKeys(new[] { projection })[0]);
             }
         }
     }
