@@ -400,5 +400,32 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<string>>();
         }
+
+        [Fact]
+        public void Project_16Tuple()
+        {
+            _g
+                .V<Vertex>()
+                .Project(p => p
+                    .ToTuple()
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String))
+                    .By(__ => __.Values(x => x.String)))
+                .Should()
+                .BeAssignableTo<IValueGremlinQuery<(string, string, string, string, string, string, string, string, string, string, string, string, string, string, string, string)>>();
+        }
     }
 }
