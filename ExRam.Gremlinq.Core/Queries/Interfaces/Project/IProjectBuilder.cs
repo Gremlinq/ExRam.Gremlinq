@@ -21,12 +21,6 @@ namespace ExRam.Gremlinq.Core
         IProjectDynamicBuilder<TSourceQuery, TElement> ToDynamic();
     }
 
-    public interface IProjectTupleBuilder<out TSourceQuery, TElement>
-        where TSourceQuery : IGremlinQueryBase
-    {
-        IProjectTupleBuilder<TSourceQuery, TElement, TItem1> By<TItem1>(Func<TSourceQuery, IGremlinQueryBase<TItem1>> projection);
-    }
-
     public interface IProjectDynamicBuilder<out TSourceQuery, TElement> : IProjectResult
         where TSourceQuery : IGremlinQueryBase
     {

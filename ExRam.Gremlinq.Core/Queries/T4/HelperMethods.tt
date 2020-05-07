@@ -58,14 +58,17 @@ private static string GetElement(string str)
     return GetTypeParameters(str).FirstOrDefault();
 }
 
-private static string GetArgumentList(string template, int argumentCount)
+private static string GetArgumentList(string template, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
 {
-    return GetArgumentList(template, ", ", argumentCount);
+    return GetArgumentList(template, ", ", argumentCount, hasPreceedingArguments, hasFollowingArguments);
 }
 
-private static string GetArgumentList(string template, string separator, int argumentCount)
+private static string GetArgumentList(string template, string separator, int argumentCount, bool hasPreceedingArguments = false, bool hasFollowingArguments = false)
 {
     var str = "";
+
+    if (argumentCount > 0 && hasPreceedingArguments)
+        str = str + separator;
 
     for (var i = 1; i <= argumentCount; i++)
     {
@@ -74,6 +77,9 @@ private static string GetArgumentList(string template, string separator, int arg
 
         str += string.Format(template, i);
     }
+
+    if (argumentCount > 0 && hasFollowingArguments)
+        str = str + separator;
 
     return str;
 }
