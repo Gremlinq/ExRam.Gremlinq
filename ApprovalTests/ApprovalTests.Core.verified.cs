@@ -884,6 +884,7 @@ namespace ExRam.Gremlinq.Core
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> By(System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> projection);
+        ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> By(System.Linq.Expressions.Expression<System.Func<TElement, object>> projection);
         ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> By(string name, System.Func<TSourceQuery, ExRam.Gremlinq.Core.IGremlinQueryBase> projection);
         ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> By(string name, System.Linq.Expressions.Expression<System.Func<TElement, object>> projection);
     }
@@ -1326,11 +1327,6 @@ namespace ExRam.Gremlinq.Core
     public sealed class ProfileStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ProfileStep Instance;
-    }
-    public static class ProjectBuilderExtensions
-    {
-        public static ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> By<TSourceQuery, TElement>(this ExRam.Gremlinq.Core.IProjectDynamicBuilder<TSourceQuery, TElement> projectBuilder, System.Linq.Expressions.Expression<System.Func<TElement, object>> projection)
-            where TSourceQuery : ExRam.Gremlinq.Core.IElementGremlinQueryBase<TElement> { }
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
