@@ -5,15 +5,15 @@
         IOutEdgeGremlinQueryBase,
         IInEdgeGremlinQueryBase
     {
-
+        new IEdgeOrVertexGremlinQuery<object> Lower();
     }
     
-    public partial interface IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
+    public interface IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex> :
         IBothEdgeGremlinQueryBase,
         IOutEdgeGremlinQueryBase<TEdge, TOutVertex>,
         IInEdgeGremlinQueryBase<TEdge, TInVertex>
     {
-
+        new IEdgeOrVertexGremlinQuery<TEdge> Lower();
     }
 
     public interface IBothEdgeGremlinQueryRec<TSelf> :
