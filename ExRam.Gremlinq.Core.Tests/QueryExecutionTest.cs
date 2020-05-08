@@ -1321,6 +1321,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Or_two_step_traversal()
+        {
+            await _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .Out<LivesIn>(),
+                    __ => __
+                        .OutE<LivesIn>()
+                        .InV())
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Or_infix()
         {
             await _g
