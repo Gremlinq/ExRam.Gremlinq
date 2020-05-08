@@ -51,3 +51,4 @@ jobs:
       run: dotnet nuget push **/*.nupkg
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --source https://api.nuget.org/v3/index.json
+        --no-symbols true
