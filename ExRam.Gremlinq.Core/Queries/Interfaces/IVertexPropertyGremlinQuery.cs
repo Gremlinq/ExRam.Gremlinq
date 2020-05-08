@@ -65,6 +65,8 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty> where TMeta : class
     {
+        new IElementGremlinQuery<TProperty> Lower();
+
         IPropertyGremlinQuery<Property<TTarget>> Properties<TTarget>(params Expression<Func<TMeta, TTarget>>[] projections);
 
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Property<TMetaValue>(Expression<Func<TMeta, TMetaValue>> projection, TMetaValue value);

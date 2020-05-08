@@ -176,6 +176,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Explain() => AddStepWithObjectTypes<string>(ExplainStep.Instance, QuerySemantics.None);
 
+        IElementGremlinQuery<TElement> IVertexPropertyGremlinQueryBase<TElement, TScalar, TMeta>.Lower() => this;
+
         IElementGremlinQuery<TElement> IVertexPropertyGremlinQueryBase<TElement, TScalar>.Lower() => this;
 
         IElementGremlinQuery<object> IVertexPropertyGremlinQueryBase.Lower() => Cast<object>();
