@@ -1713,6 +1713,35 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Project_with_identity()
+        {
+            await _g
+                .V()
+                .Where(__ => __.Properties())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __)
+                    .By(__ => __.Properties()))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project_with_named_identity()
+        {
+            await _g
+                .V()
+                .Where(__ => __.Properties())
+                .Project(__ => __
+                    .ToDynamic()
+                    .By("name", __ => __)
+                    .By(__ => __.Properties()))
+                .Verify(this);
+        }
+
+
+
+
+        [Fact]
         public async Task Project2_with_Property()
         {
             await _g

@@ -126,6 +126,11 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
+        public static bool IsIdentityExpression(this LambdaExpression expression)
+        {
+            return expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
+        }
+
         public static GremlinExpression? TryToGremlinExpression(this Expression body)
         {
             switch (body)

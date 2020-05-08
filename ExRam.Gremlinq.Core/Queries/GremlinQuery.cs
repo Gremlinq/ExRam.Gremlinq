@@ -200,7 +200,9 @@ namespace ExRam.Gremlinq.Core
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, Expression projection)
             {
-                return By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.GetKey(projection)));
+                return projection is LambdaExpression lambdaExpression && lambdaExpression.IsIdentityExpression()
+                    ? By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, __ => __.Identity())
+                    : By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(name, new ProjectStep.ByKeyStep(_sourceQuery.GetKey(projection)));
             }
 
             private ProjectBuilder<TProjectElement, TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16> By<TNewItem1, TNewItem2, TNewItem3, TNewItem4, TNewItem5, TNewItem6, TNewItem7, TNewItem8, TNewItem9, TNewItem10, TNewItem11, TNewItem12, TNewItem13, TNewItem14, TNewItem15, TNewItem16>(string name, ProjectStep.ByStep step)
@@ -237,9 +239,11 @@ namespace ExRam.Gremlinq.Core
 
             IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement> IProjectDynamicBuilder<GremlinQuery<TProjectElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TProjectElement>.By(Expression<Func<TProjectElement, object>> projection)
             {
-                return projection.Body.Strip() is MemberExpression memberExpression
-                    ? By<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(memberExpression.Member.Name, memberExpression)
-                    : throw new ExpressionNotSupportedException(projection);
+                return projection.IsIdentityExpression()
+                    ? By<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(__ => __.Identity())
+                    : projection.Body.Strip() is MemberExpression memberExpression
+                        ? By<object, object, object, object, object, object, object, object, object, object, object, object, object, object, object, object>(memberExpression.Member.Name, memberExpression)
+                        : throw new ExpressionNotSupportedException(projection);
             }
 
             public IImmutableDictionary<string, ProjectStep.ByStep> Projections { get; }
