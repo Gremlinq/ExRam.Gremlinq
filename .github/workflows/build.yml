@@ -1,10 +1,6 @@
-name: .NET Core
+name: Build + Test
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -42,9 +38,3 @@ jobs:
 
     - name: Test
       run: dotnet test --configuration Release --no-build --verbosity normal
-
-    - name: Publish NuGet packages
-      uses: actions/upload-artifact@v2-preview
-      with:
-        name: Packages
-        path: '**/*.nupkg'
