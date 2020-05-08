@@ -1,6 +1,4 @@
-﻿using NullGuard;
-
-namespace ExRam.Gremlinq.Core
+﻿namespace ExRam.Gremlinq.Core
 {
     public sealed class CosmosDbKey
     {

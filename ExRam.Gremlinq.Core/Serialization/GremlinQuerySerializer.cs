@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         string? stepLabelMapping = null;
 
-                        if (!(_stepLabelNames?.TryGetValue(stepLabel, out stepLabelMapping)).GetValueOrDefault())
+                        if (!_stepLabelNames!.TryGetValue(stepLabel, out stepLabelMapping))
                         {
                             stepLabelMapping = "l" + (_stepLabelNames.Count + 1);
                             _stepLabelNames.Add(stepLabel, stepLabelMapping);

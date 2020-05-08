@@ -197,8 +197,8 @@ namespace ExRam.Gremlinq.Core
                     IAsyncEnumerable<TElement> enumerable => enumerable,
                     TElement element => AsyncEnumerableEx.Return(element),
                     IEnumerable enumerable => enumerable.Cast<TElement>().ToAsyncEnumerable(),
-                    object obj => throw new InvalidCastException($"A result of type {obj.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}."),
-                    _ => AsyncEnumerable.Empty<TElement>(),
+                    { } obj => throw new InvalidCastException($"A result of type {obj.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}."),
+                    _ => AsyncEnumerable.Empty<TElement>()
                 };
             }
 

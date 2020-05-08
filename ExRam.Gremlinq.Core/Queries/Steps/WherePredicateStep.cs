@@ -1,5 +1,4 @@
 ﻿using Gremlin.Net.Process.Traversal;
-using NullGuard;
 
 namespace ExRam.Gremlinq.Core
 {
