@@ -4,7 +4,12 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ProjectStep : Step
     {
-        public sealed class ByTraversalStep : Step
+        public abstract class ByStep : Step
+        {
+
+        }
+
+        public sealed class ByTraversalStep : ByStep
         {
             public ByTraversalStep(Traversal traversal)
             {
@@ -14,7 +19,7 @@ namespace ExRam.Gremlinq.Core
             public Traversal Traversal { get; }
         }
 
-        public sealed class ByKeyStep : Step
+        public sealed class ByKeyStep : ByStep
         {
             public ByKeyStep(object key)
             {

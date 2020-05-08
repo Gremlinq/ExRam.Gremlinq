@@ -4,9 +4,12 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class OrderStep : Step
     {
-        public Scope Scope { get; }
+        public abstract class ByStep : Step
+        {
 
-        public sealed class ByLambdaStep : Step
+        }
+
+        public sealed class ByLambdaStep : ByStep
         {
             public ILambda Lambda { get; }
 
@@ -16,7 +19,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public sealed class ByMemberStep : Step
+        public sealed class ByMemberStep : ByStep
         {
             public ByMemberStep(object key, Order order)
             {
@@ -28,7 +31,7 @@ namespace ExRam.Gremlinq.Core
             public object Key { get; }
         }
 
-        public sealed class ByTraversalStep : Step
+        public sealed class ByTraversalStep : ByStep
         {
             public ByTraversalStep(Traversal traversal, Order order)
             {
@@ -47,5 +50,7 @@ namespace ExRam.Gremlinq.Core
         {
             Scope = scope;
         }
+
+        public Scope Scope { get; }
     }
 }

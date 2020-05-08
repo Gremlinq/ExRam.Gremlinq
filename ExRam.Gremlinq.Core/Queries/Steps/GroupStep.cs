@@ -2,7 +2,12 @@
 {
     public sealed class GroupStep : Step
     {
-        public sealed class ByTraversalStep : Step
+        public abstract class ByStep : Step
+        {
+
+        }
+
+        public sealed class ByTraversalStep : ByStep
         {
             public ByTraversalStep(Traversal traversal)
             {
@@ -12,7 +17,7 @@
             public Traversal Traversal { get; }
         }
 
-        public sealed class ByKeyStep : Step
+        public sealed class ByKeyStep : ByStep
         {
             public ByKeyStep(object key)
             {

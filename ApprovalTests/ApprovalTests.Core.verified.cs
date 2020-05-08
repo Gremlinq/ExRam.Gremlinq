@@ -415,12 +415,16 @@ namespace ExRam.Gremlinq.Core
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.GroupStep Instance;
-        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Step
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
             public ByKeyStep(object key) { }
             public object Key { get; }
         }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Step
+        public abstract class ByStep : ExRam.Gremlinq.Core.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
@@ -1303,18 +1307,22 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.OrderStep Local;
         public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
-        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.Step
+        public sealed class ByLambdaStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
             public ByLambdaStep(Gremlin.Net.Process.Traversal.ILambda lambda) { }
             public Gremlin.Net.Process.Traversal.ILambda Lambda { get; }
         }
-        public sealed class ByMemberStep : ExRam.Gremlinq.Core.Step
+        public sealed class ByMemberStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
             public ByMemberStep(object key, Gremlin.Net.Process.Traversal.Order order) { }
             public object Key { get; }
             public Gremlin.Net.Process.Traversal.Order Order { get; }
         }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Step
+        public abstract class ByStep : ExRam.Gremlinq.Core.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal, Gremlin.Net.Process.Traversal.Order order) { }
             public Gremlin.Net.Process.Traversal.Order Order { get; }
@@ -1349,12 +1357,16 @@ namespace ExRam.Gremlinq.Core
     {
         public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
         public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
-        public sealed class ByKeyStep : ExRam.Gremlinq.Core.Step
+        public sealed class ByKeyStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
         {
             public ByKeyStep(object key) { }
             public object Key { get; }
         }
-        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.Step
+        public abstract class ByStep : ExRam.Gremlinq.Core.Step
+        {
+            protected ByStep() { }
+        }
+        public sealed class ByTraversalStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
         {
             public ByTraversalStep(ExRam.Gremlinq.Core.Traversal traversal) { }
             public ExRam.Gremlinq.Core.Traversal Traversal { get; }
