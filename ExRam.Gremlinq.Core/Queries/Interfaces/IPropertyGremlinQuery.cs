@@ -3,12 +3,12 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IPropertyGremlinQueryBase : IGremlinQueryBase
+    public interface IPropertyGremlinQueryBase : IGremlinQueryBase
     {
         new IPropertyGremlinQuery<TResult> Cast<TResult>();
     }
 
-    public partial interface IPropertyGremlinQueryBase<TElement> :
+    public interface IPropertyGremlinQueryBase<TElement> :
         IPropertyGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {

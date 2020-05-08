@@ -5,7 +5,7 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IGremlinQueryBase : IStartGremlinQuery
+    public interface IGremlinQueryBase : IStartGremlinQuery
     {
         TaskAwaiter GetAwaiter();
 
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement, TQuery> Cap<TQuery, TElement>(StepLabel<IArrayGremlinQuery<TElement, TQuery>, TElement> label) where TQuery : IGremlinQueryBase;
     }
 
-    public partial interface IGremlinQueryBase<TElement> : IGremlinQueryBase
+    public interface IGremlinQueryBase<TElement> : IGremlinQueryBase
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 

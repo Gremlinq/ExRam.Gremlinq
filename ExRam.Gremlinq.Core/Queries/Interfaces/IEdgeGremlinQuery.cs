@@ -81,7 +81,7 @@ namespace ExRam.Gremlinq.Core
 
     }
 
-    public partial interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
+    public interface IInOrOutEdgeGremlinQueryBase<TEdge, TAdjacentVertex> :
         IInOrOutEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
     {

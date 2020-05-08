@@ -4,7 +4,7 @@ using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IVertexGremlinQueryBase :
+    public interface IVertexGremlinQueryBase :
         IEdgeOrVertexGremlinQueryBase
     {
         IVertexGremlinQuery<object> Both();
@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TEdge> OutE<TEdge>();
     }
 
-    public partial interface IVertexGremlinQueryBase<TVertex> :
+    public interface IVertexGremlinQueryBase<TVertex> :
         IVertexGremlinQueryBase,
         IEdgeOrVertexGremlinQueryBase<TVertex>
     {

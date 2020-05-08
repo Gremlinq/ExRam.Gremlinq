@@ -13,7 +13,7 @@
 
     }
 
-    public partial interface IArrayGremlinQueryBase<TArray, out TQuery> :
+    public interface IArrayGremlinQueryBase<TArray, out TQuery> :
         IArrayGremlinQueryBase,
         IValueGremlinQueryBase<TArray>
     {

@@ -3,13 +3,13 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IValueGremlinQueryBase :
+    public interface IValueGremlinQueryBase :
         IGremlinQueryBase
     {
         new IValueGremlinQuery<TResult> Cast<TResult>();
     }
 
-    public partial interface IValueGremlinQueryBase<TElement> :
+    public interface IValueGremlinQueryBase<TElement> :
         IValueGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {

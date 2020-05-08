@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public partial interface IEdgeOrVertexGremlinQueryBase :
+    public interface IEdgeOrVertexGremlinQueryBase :
         IElementGremlinQueryBase
     {
         new IEdgeOrVertexGremlinQuery<TResult> Cast<TResult>();
@@ -15,7 +15,7 @@
     {
     }
 
-    public partial interface IEdgeOrVertexGremlinQueryBase<TElement> :
+    public interface IEdgeOrVertexGremlinQueryBase<TElement> :
         IEdgeOrVertexGremlinQueryBase,
         IElementGremlinQueryBase<TElement>
     {

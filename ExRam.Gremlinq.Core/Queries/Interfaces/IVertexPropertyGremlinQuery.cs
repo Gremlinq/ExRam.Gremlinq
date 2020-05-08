@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    public partial interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
+    public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty>
     {
@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core
 
 
 
-    public partial interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> :
+    public interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty> where TMeta : class
     {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public partial interface IElementGremlinQueryBase :
+    public interface IElementGremlinQueryBase :
         IGremlinQueryBase
     {
         new IElementGremlinQuery<TResult> Cast<TResult>();
@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Property(string key, object? value);
     }
 
-    public partial interface IElementGremlinQueryBase<TElement> :
+    public interface IElementGremlinQueryBase<TElement> :
         IElementGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {

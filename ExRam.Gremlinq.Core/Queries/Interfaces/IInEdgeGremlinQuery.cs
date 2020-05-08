@@ -8,7 +8,7 @@ namespace ExRam.Gremlinq.Core
         new IEdgeGremlinQuery<object> Lower();
     }
 
-    public partial interface IInEdgeGremlinQueryBase<TEdge, TInVertex> :
+    public interface IInEdgeGremlinQueryBase<TEdge, TInVertex> :
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
     {
