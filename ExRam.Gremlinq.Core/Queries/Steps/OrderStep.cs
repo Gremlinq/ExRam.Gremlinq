@@ -28,14 +28,16 @@ namespace ExRam.Gremlinq.Core
             public object Key { get; }
         }
 
-        public sealed class ByTraversalStep : SingleTraversalArgumentStep
+        public sealed class ByTraversalStep : Step
         {
-            public Order Order { get; }
-
-            public ByTraversalStep(Traversal traversal, Order order) : base(traversal)
+            public ByTraversalStep(Traversal traversal, Order order)
             {
+                Traversal = traversal;
                 Order = order;
             }
+
+            public Order Order { get; }
+            public Traversal Traversal { get; }
         }
 
         public static readonly OrderStep Global = new OrderStep(Scope.Global);

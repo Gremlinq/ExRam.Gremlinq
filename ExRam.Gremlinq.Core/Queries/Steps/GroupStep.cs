@@ -2,11 +2,14 @@
 {
     public sealed class GroupStep : Step
     {
-        public sealed class ByTraversalStep : SingleTraversalArgumentStep
+        public sealed class ByTraversalStep : Step
         {
-            public ByTraversalStep(Traversal traversal) : base(traversal)
+            public ByTraversalStep(Traversal traversal)
             {
+                Traversal = traversal;
             }
+
+            public Traversal Traversal { get; }
         }
 
         public sealed class ByKeyStep : Step
@@ -19,11 +22,11 @@
             public object Key { get; }
         }
 
+        public static readonly GroupStep Instance = new GroupStep();
+
         private GroupStep()
         {
 
         }
-
-        public static readonly GroupStep Instance = new GroupStep();
     }
 }

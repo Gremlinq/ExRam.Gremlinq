@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class LocalStep : SingleTraversalArgumentStep
+    public sealed class LocalStep : Step
     {
-        public LocalStep(Traversal traversal) : base(traversal)
+        public LocalStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }

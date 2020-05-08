@@ -4,11 +4,14 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class ProjectStep : Step
     {
-        public sealed class ByTraversalStep : SingleTraversalArgumentStep
+        public sealed class ByTraversalStep : Step
         {
-            public ByTraversalStep(Traversal traversal) : base(traversal)
+            public ByTraversalStep(Traversal traversal)
             {
+                Traversal = traversal;
             }
+
+            public Traversal Traversal { get; }
         }
 
         public sealed class ByKeyStep : Step

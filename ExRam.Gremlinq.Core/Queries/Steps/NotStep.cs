@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class NotStep : SingleTraversalArgumentStep
+    public sealed class NotStep : Step
     {
-        public NotStep(Traversal traversal) : base(traversal)
+        public NotStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }

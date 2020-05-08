@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class MapStep : SingleTraversalArgumentStep
+    public sealed class MapStep : Step
     {
-        public MapStep(Traversal traversal) : base(traversal)
+        public MapStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }

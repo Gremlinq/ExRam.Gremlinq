@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class SideEffectStep : SingleTraversalArgumentStep
+    public sealed class SideEffectStep : Step
     {
-        public SideEffectStep(Traversal traversal) : base(traversal)
+        public SideEffectStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }

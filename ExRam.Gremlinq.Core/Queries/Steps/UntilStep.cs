@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class UntilStep : SingleTraversalArgumentStep
+    public sealed class UntilStep : Step
     {
-        public UntilStep(Traversal traversal) : base(traversal)
+        public UntilStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }

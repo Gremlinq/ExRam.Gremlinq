@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class OptionalStep : SingleTraversalArgumentStep
+    public sealed class OptionalStep : Step
     {
-        public OptionalStep(Traversal traversal) : base(traversal)
+        public OptionalStep(Traversal traversal)
         {
+            Traversal = traversal;
         }
+
+        public Traversal Traversal { get; }
     }
 }
