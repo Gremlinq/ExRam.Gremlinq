@@ -52,3 +52,12 @@ jobs:
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --source https://api.nuget.org/v3/index.json
         --no-symbols true
+
+    - uses: aarnott/nbgv@v0.3
+      id: nbgv
+
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.22.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CUSTOM_TAG: ${{ steps.nbgv.outputs.SemVer2 }}
