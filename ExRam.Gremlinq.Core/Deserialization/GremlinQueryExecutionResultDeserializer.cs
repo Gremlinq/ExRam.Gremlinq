@@ -514,7 +514,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return array?.ToArray(elementType) ?? Array.Empty<object>();
+                return array?.ToArray(elementType) ?? Array.CreateInstance(elementType, 0);
             }));
             // ReSharper restore ConvertToLambdaExpression
     }

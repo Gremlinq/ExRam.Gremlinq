@@ -193,6 +193,15 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task Empty_to_ints()
+        {
+            await Verify(await _g
+                .WithExecutor("[{ \"Item1\": [], \"Item2\": [] }]")
+                .V<(int[] ints, string[] strings)>()
+                .ToArrayAsync());   //Must be Verify(...).
+        }
+
+        [Fact]
         public async Task Mixed_Ids()
         {
             await _g
