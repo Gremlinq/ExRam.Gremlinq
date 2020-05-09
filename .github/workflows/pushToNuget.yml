@@ -61,3 +61,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CUSTOM_TAG: ${{ steps.nbgv.outputs.SemVer2 }}
+        RELEASE_BRANCHES: .*
