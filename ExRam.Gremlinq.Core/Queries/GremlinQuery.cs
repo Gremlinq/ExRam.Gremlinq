@@ -409,11 +409,15 @@ namespace ExRam.Gremlinq.Core
             where TStepLabel : StepLabel
             where TTargetQuery : IGremlinQueryBase
         {
-            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel1)
-                return continuation(this, existingStepLabel1);
+            var toContinue = this;
+
+            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel)
+                stepLabel = existingStepLabel;
+            else
+                toContinue = As(stepLabel);
 
             return continuation(
-                As(stepLabel),
+                toContinue,
                 stepLabel);
         }
 
