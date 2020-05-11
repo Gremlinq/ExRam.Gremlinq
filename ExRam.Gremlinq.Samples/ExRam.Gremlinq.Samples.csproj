@@ -10,12 +10,14 @@
     <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
     <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.GremlinServer\ExRam.Gremlinq.Providers.GremlinServer.csproj" />
     <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.Neptune\ExRam.Gremlinq.Providers.Neptune.csproj" />
+    <ProjectReference Include="..\..\ExRam.Gremlinq.Providers.JanusGraph\ExRam.Gremlinq.Providers.JanusGraph.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(SolutionName)' == 'ExRam.Gremlinq.Samples'">
-    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="8.0.0-preview-0242" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="8.0.0-preview-0242" />
-    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="8.0.0-preview-0242" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.CosmosDb" Version="8.0.0-preview-0586" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.Neptune" Version="8.0.0-preview-0586" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.GremlinServer" Version="8.0.0-preview-0586" />
+    <PackageReference Include="ExRam.Gremlinq.Providers.JanusGraph" Version="8.0.0-preview-0586" />
   </ItemGroup>
 
   <ItemGroup>

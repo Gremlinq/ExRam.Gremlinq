@@ -1,6 +1,7 @@
 ﻿#define GremlinServer
 //#define CosmosDB
 //#define AWSNeptune
+//#define JanusGraph
 
 using System;
 using System.Linq;
@@ -60,6 +61,13 @@ namespace ExRam.Gremlinq.Samples
                             //Enable logging by setting the verbosity to anything but None.
                             .ConfigureQueryLoggingOptions(o => o
                                 .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None)))));
+#elif JanusGraph
+                    .UseJanusGraph(builder => builder
+                        .AtLocalhost()
+                        //Disable query logging for a noise free console output.
+                        //Enable logging by setting the verbosity to anything but None.
+                        .ConfigureQueryLoggingOptions(o => o
+                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
 #endif
         }
 
@@ -93,7 +101,7 @@ namespace ExRam.Gremlinq.Samples
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
 
             // Uncomment to delete the whole graph on every run.
-            //await _g.V().Drop();
+            ///await _g.V().Drop();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
