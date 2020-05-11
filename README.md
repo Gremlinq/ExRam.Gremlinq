@@ -317,5 +317,6 @@ AWS Neptune since it doesn't support meta properties.
  - [Generic websocket](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)
  - [Gremlin Server](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer)
  - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
+ - [JanusGraph](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph)
  - [AWS Neptune](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)
 
