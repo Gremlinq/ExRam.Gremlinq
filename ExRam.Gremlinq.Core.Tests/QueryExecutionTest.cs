@@ -1384,6 +1384,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Or(
                     __ => __
+                        .OutE()
                         .None(),
                     __ => __
                         .OutE())
