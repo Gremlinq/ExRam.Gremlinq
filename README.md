@@ -1,18 +1,31 @@
-![](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/Logo.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/master/Assets/Logo.png" alt="Gremlinq mascor" title="Gremlinq mascot" />
+</p>
+
 
 ExRam.Gremlinq is a .NET object-graph-mapper for [Apache TinkerPop™](http://tinkerpop.apache.org/) Gremlin enabled databases.
 
 > Please note that these examples use preview packages
 
+![Build status](https://github.com/ExRam/ExRam.Gremlinq/workflows/Build%20+%20Test/badge.svg)
+
 ## Packages
 
-Package  | Link | 
--------- | :------------: | 
-ExRam.Gremlinq.Core | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)  |
-ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)   [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)|
-ExRam.Gremlinq.Providers.GremlinServer | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.GremlinServer.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.GremlinServer.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer)|
-ExRam.Gremlinq.Providers.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)|
-ExRam.Gremlinq.Providers.Neptune | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.Neptune.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune) [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.Neptune.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)|
+Package  | Stable | Preview
+-------  | ------ | ------- 
+ExRam.Gremlinq.Core | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core)  |
+ExRam.Gremlinq.Providers.WebSocket | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.WebSocket.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)|
+ExRam.Gremlinq.Providers.GremlinServer | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.GremlinServer.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.GremlinServer.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer)|
+ExRam.Gremlinq.Providers.CosmosDb | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.CosmosDb.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)|
+ExRam.Gremlinq.Providers.Neptune | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.Neptune.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.Neptune.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)|
+ExRam.Gremlinq.Providers.JanusGraph | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.JanusGraph.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.JanusGraph.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph)|
+ExRam.Gremlinq.Core.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Core.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Core.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Core.AspNet)  |
+ExRam.Gremlinq.Providers.WebSocket.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.WebSocket.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.WebSocket.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket.AspNet)|
+ExRam.Gremlinq.Providers.GremlinServer.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.GremlinServer.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.GremlinServer.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer.AspNet)|
+ExRam.Gremlinq.Providers.CosmosDb.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.CosmosDb.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.CosmosDb.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb.AspNet)|
+ExRam.Gremlinq.Providers.Neptune.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.Neptune.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.Neptune.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune.AspNet)|
+ExRam.Gremlinq.Providers.JanusGraph.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet)|
+
 
 ## Sample project
 
@@ -308,6 +321,3 @@ AWS Neptune since it doesn't support meta properties.
  - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
  - [AWS Neptune](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)
 
-## Acknowledgements
-
-The 'Gremlin'-graphic used in this project's logo on top of this page is a trademark of the Apache Software Foundation/Apache TinkerPop.
