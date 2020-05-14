@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core
                 _dict = dict;
             }
 
-            public object? TryDeserialize(object serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
+            public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
                 return TryGetDeserializer(serializedData.GetType()) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IQueryFragmentDeserializer, object?> del
                     ? del(serializedData, fragmentType, environment, _ => _, this)
