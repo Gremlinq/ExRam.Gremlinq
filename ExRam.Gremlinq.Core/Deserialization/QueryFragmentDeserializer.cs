@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Linq.Expressions;
 using System.Threading;
+using Type = System.Type;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -10,7 +12,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class FragmentDeserializerImpl : IQueryFragmentDeserializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private ConcurrentDictionary<Type, Delegate?>? _fastDict;
+            private ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>? _fastDict;
 
             public FragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
@@ -19,8 +21,8 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                return TryGetDeserializer(serializedData.GetType()) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IQueryFragmentDeserializer, object?> del
-                    ? del(serializedData, fragmentType, environment, _ => _, this)
+                return TryGetDeserializer(typeof(TSerialized), serializedData.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, object?> del
+                    ? del(serializedData, fragmentType, environment)
                     : serializedData;
             }
 
@@ -34,16 +36,58 @@ namespace ExRam.Gremlinq.Core
                             : (fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => baseSerializer(_!), recurse)));
             }
 
-            private Delegate? TryGetDeserializer(Type staticType)
+            private Delegate? TryGetDeserializer(Type staticType, Type actualType)
             {
                 var fastDict = Volatile.Read(ref _fastDict);
                 if (fastDict == null)
-                    Volatile.Write(ref _fastDict, fastDict = new ConcurrentDictionary<Type, Delegate?>());
+                    Volatile.Write(ref _fastDict, fastDict = new ConcurrentDictionary<(Type, Type), Delegate?>());
 
                 return fastDict
                     .GetOrAdd(
-                        staticType,
-                        (closureType, @this) => @this.InnerLookup(closureType),
+                        (staticType, actualType),
+                        (typeTuple, @this) =>
+                        {
+                            var (staticType, actualType) = typeTuple;
+
+                            if (@this.InnerLookup(actualType) is { } del)
+                            {
+                                //return (TStatic serialized, Type fragmentType, IGremlinQueryEnvironment environment) => del((TActualType)serialized, fragmentType, environment, (TActual _) => _, @this);
+
+                                var effectiveType = del.GetType().GetGenericArguments()[0];
+                                var argument4Parameter = Expression.Parameter(effectiveType);
+
+                                var serializedParameter = Expression.Parameter(staticType);
+                                var fragmentTypeParameter = Expression.Parameter(typeof(Type));
+                                var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
+                                
+                                var effectiveTypeFunc = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
+                                var staticTypeFunc = typeof(Func<,,,>).MakeGenericType(staticType, typeof(Type), typeof(IGremlinQueryEnvironment), typeof(object));
+
+                                var retCall = Expression.Invoke(
+                                    Expression.Constant(del),
+                                    Expression.Convert(
+                                        serializedParameter,
+                                        effectiveType),
+                                    fragmentTypeParameter,
+                                    environmentParameter,
+                                    Expression.Lambda(
+                                        effectiveTypeFunc,
+                                        Expression.Convert(argument4Parameter, typeof(object)),
+                                        argument4Parameter),
+                                    Expression.Constant(@this));
+
+                                return Expression
+                                    .Lambda(
+                                        staticTypeFunc,
+                                        retCall,
+                                        serializedParameter,
+                                        fragmentTypeParameter,
+                                        environmentParameter)
+                                    .Compile();
+                            }
+
+                            return null;
+                        },
                         this);
             }
 
