@@ -7,12 +7,12 @@ namespace ExRam.Gremlinq.Core
 {
     public static class QueryFragmentDeserializer
     {
-        private sealed class FragmentDeserializerImpl : IQueryFragmentDeserializer
+        private sealed class QueryFragmentDeserializerImpl : IQueryFragmentDeserializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
 
-            public FragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
+            public QueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
                 _dict = dict;
             }
@@ -26,7 +26,7 @@ namespace ExRam.Gremlinq.Core
 
             public IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?> deserializer)
             {
-                return new FragmentDeserializerImpl(
+                return new QueryFragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
                         InnerLookup(typeof(TSerialized)) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IQueryFragmentDeserializer, object?> existingFragmentSerializer
@@ -106,6 +106,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IQueryFragmentDeserializer Identity = new FragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly IQueryFragmentDeserializer Identity = new QueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
     }
 }
