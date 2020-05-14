@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (authenticationSection["Username"] is { } username && authenticationSection["Password"] is { } password)
                 builder = builder.AuthenticateBy(username, password);
 
-            if (Enum.TryParse<SerializationFormat>(loggingSection[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
+            if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
                 builder = builder.SetSerializationFormat(graphsonVersion);
 
             return builder;
