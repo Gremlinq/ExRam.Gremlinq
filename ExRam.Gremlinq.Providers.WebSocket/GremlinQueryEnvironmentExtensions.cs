@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly Uri? _uri;
             private readonly string _alias;
-            private readonly GraphsonVersion _version;
+            private readonly SerializationFormat _format;
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConnectionPoolSettings _connectionPoolSettings;
             private readonly QueryLoggingOptions _queryLoggingOptions;
@@ -153,7 +153,7 @@ namespace ExRam.Gremlinq.Core
             public WebSocketConfigurationBuilderImpl(
                 IGremlinQueryEnvironment environment,
                 Uri? uri,
-                GraphsonVersion version,
+                SerializationFormat format,
                 (string username, string password)? auth,
                 string @alias,
                 Func<IGremlinClient, IGremlinClient> clientTransformation,
@@ -164,7 +164,7 @@ namespace ExRam.Gremlinq.Core
                 _uri = uri;
                 _auth = auth;
                 _alias = alias;
-                _version = version;
+                _format = format;
                 _environment = environment;
                 _queryLoggingOptions = queryLoggingOptions;
                 _additionalSerializers = additionalSerializers;
@@ -175,27 +175,27 @@ namespace ExRam.Gremlinq.Core
 
             public IWebSocketConfigurationBuilder At(Uri uri)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, uri, _version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
-            public IWebSocketConfigurationBuilder SetGraphSONVersion(GraphsonVersion version)
+            public IWebSocketConfigurationBuilder SetSerializationFormat(SerializationFormat version)
             {
                 return new WebSocketConfigurationBuilderImpl(_environment, _uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder AuthenticateBy(string username, string password)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder SetAlias(string alias)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
@@ -208,22 +208,22 @@ namespace ExRam.Gremlinq.Core
 
                 transformation(newConnectionPoolSettings);
 
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, newConnectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _queryLoggingOptions, newConnectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _queryLoggingOptions, _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _queryLoggingOptions, _connectionPoolSettings);
             }
 
             public IWebSocketConfigurationBuilder ConfigureQueryLoggingOptions(Func<QueryLoggingOptions, QueryLoggingOptions> transformation)
             {
-                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, transformation(_queryLoggingOptions), _connectionPoolSettings);
+                return new WebSocketConfigurationBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, transformation(_queryLoggingOptions), _connectionPoolSettings);
             }
 
             public IGremlinQueryEnvironment Build()
@@ -245,13 +245,13 @@ namespace ExRam.Gremlinq.Core
                                         "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
                                         _auth?.username,
                                         _auth?.password),
-                                    _version == GraphsonVersion.V2
+                                    _format == SerializationFormat.GraphSonV2
                                         ? new GraphSON2Reader(_additionalDeserializers)
                                         : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
-                                    _version == GraphsonVersion.V2
+                                    _format == SerializationFormat.GraphSonV2
                                         ? new GraphSON2Writer(_additionalSerializers)
                                         : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
-                                    _version == GraphsonVersion.V2
+                                    _format == SerializationFormat.GraphSonV2
                                         ? GremlinClient.GraphSON2MimeType
                                         : GremlinClient.DefaultMimeType,
                                     _connectionPoolSettings),
@@ -266,7 +266,7 @@ namespace ExRam.Gremlinq.Core
             this IGremlinQueryEnvironment environment,
             Func<IWebSocketConfigurationBuilder, IGremlinQueryEnvironmentBuilder> builderAction)
         {
-            return builderAction(new WebSocketConfigurationBuilderImpl(environment, default, GraphsonVersion.V3, null, "g", _ => _, ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, QueryLoggingOptions.Default, new ConnectionPoolSettings()))
+            return builderAction(new WebSocketConfigurationBuilderImpl(environment, default, SerializationFormat.GraphSonV3, null, "g", _ => _, ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, QueryLoggingOptions.Default, new ConnectionPoolSettings()))
                 .Build()
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken);
         }

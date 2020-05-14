@@ -314,11 +314,6 @@ namespace ExRam.Gremlinq.Core
         public GraphsonMappingException(string message) { }
         public GraphsonMappingException(string message, System.Exception innerException) { }
     }
-    public enum GraphsonVersion
-    {
-        V2 = 0,
-        V3 = 1,
-    }
     public readonly struct GremlinQueryAwaiter<TElement> : System.Runtime.CompilerServices.ICriticalNotifyCompletion, System.Runtime.CompilerServices.INotifyCompletion
     {
         public bool IsCompleted { get; }
@@ -1424,6 +1419,11 @@ namespace ExRam.Gremlinq.Core
         IgnoreOnAdd = 1,
         IgnoreOnUpdate = 2,
         IgnoreAlways = 3,
+    }
+    public enum SerializationFormat
+    {
+        GraphSonV2 = 0,
+        GraphSonV3 = 1,
     }
     public sealed class SideEffectStep : ExRam.Gremlinq.Core.Step
     {

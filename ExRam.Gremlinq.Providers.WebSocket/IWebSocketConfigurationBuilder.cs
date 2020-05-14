@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
 
         IWebSocketConfigurationBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation);
 
-        IWebSocketConfigurationBuilder SetGraphSONVersion(GraphsonVersion version);
+        IWebSocketConfigurationBuilder SetSerializationFormat(SerializationFormat version);
 
         IWebSocketConfigurationBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 

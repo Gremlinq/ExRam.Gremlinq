@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public enum GraphsonVersion
+    public enum SerializationFormat
     {
-        V2,
-        V3
+        GraphSonV2,
+        GraphSonV3
     }
 }
