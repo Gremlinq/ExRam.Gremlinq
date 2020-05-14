@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-using System.Threading;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -11,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class FragmentSerializerImpl : IQueryFragmentSerializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>? _fastDict;
+            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
 
             public FragmentSerializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
@@ -37,11 +36,7 @@ namespace ExRam.Gremlinq.Core
 
             private Delegate? TryGetSerializer(Type staticType, Type actualType)
             {
-                var fastDict = Volatile.Read(ref _fastDict);
-                if (fastDict == null)
-                    Volatile.Write(ref _fastDict, fastDict = new ConcurrentDictionary<(Type, Type), Delegate?>());
-
-                return fastDict
+                return _fastDict
                     .GetOrAdd(
                         (staticType, actualType),
                         (typeTuple, @this) =>
