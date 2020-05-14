@@ -2,8 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
-using System.Threading;
-using Type = System.Type;
 
 namespace ExRam.Gremlinq.Core
 {
