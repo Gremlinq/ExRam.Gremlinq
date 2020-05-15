@@ -1,0 +1,687 @@
+[
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 11
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 193
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 194
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 165
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 167
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 16
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 195
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 196
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 169
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 171
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 21
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 197
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 198
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 173
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 175
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 31
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 199
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 201
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 177
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 179
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 39
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 202
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 203
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 181
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 183
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+]

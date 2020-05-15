@@ -3241,6 +3241,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Where()
+        {
+            await _g
+                .V<Person>()
+                .Where(_ => _
+                    .Where(_ => _.Out()))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_or_none_traversal()
         {
             await _g

@@ -765,7 +765,7 @@ namespace ExRam.Gremlinq.Core
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? None()
                 : subQueries!.Count == 1
-                    ? Where(subQueries[0].ToTraversal())
+                    ? Where(subQueries[0])
                     : AddStep(new OrStep(subQueries.Select(x => x.ToTraversal())));
         }
 
@@ -979,12 +979,16 @@ namespace ExRam.Gremlinq.Core
                 ? this
                 : filtered.IsNone()
                     ? None()
-                    : Where(filtered.ToTraversal());
+                    : Where(filtered);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(IGremlinQueryBase query)
         {
-            return AddStep(new WhereTraversalStep(traversal));
+            return AddStep(
+                new WhereTraversalStep(
+                    query.AsAdmin().Steps.TryGetSingleStep() is WhereTraversalStep whereTraversalStep
+                        ? whereTraversalStep.Traversal
+                        : query.ToTraversal()));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression expression)
