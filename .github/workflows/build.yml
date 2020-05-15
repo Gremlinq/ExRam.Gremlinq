@@ -28,6 +28,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+        source-url: https://nuget.pkg.github.com/exram/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         
     - name: .net SxS
       run: |
@@ -38,3 +41,6 @@ jobs:
 
     - name: Test
       run: dotnet test --configuration Release --no-build --verbosity normal
+
+    - name: Push NuGet packages
+      run: dotnet nuget push **/*.nupkg --no-symbols true
