@@ -196,7 +196,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
-            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && ReferenceEquals(asStep.StepLabel, label))
+            if (Steps.TryPeek() is AsStep asStep && ReferenceEquals(asStep.StepLabel, label))
                 return ChangeQueryType<TQuery>();
 
             return this
@@ -259,7 +259,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
         {
-            return (!Steps.IsEmpty && Steps.Peek() is WithoutStrategiesStep withoutStrategies)
+            return (Steps.TryPeek() is WithoutStrategiesStep withoutStrategies)
                 ? ConfigureSteps<TElement>(steps => steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(strategyTypes).Distinct().ToImmutableArray())))
                 : AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
         }

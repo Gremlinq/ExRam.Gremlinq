@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsNone(this IGremlinQueryBase query)
         {
-            return query is GremlinQueryBase gremlinQuery && !gremlinQuery.Steps.IsEmpty && gremlinQuery.Steps.Peek() is NoneStep;
+            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.TryPeek() is NoneStep;
         }
 
         internal static bool IsIdentity(this IGremlinQueryBase query)

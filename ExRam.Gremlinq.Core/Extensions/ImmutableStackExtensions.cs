@@ -10,5 +10,12 @@ namespace ExRam.Gremlinq.Core
                 ? step
                 : default;
         }
+
+        public static Step? TryPeek(this IImmutableStack<Step> steps)
+        {
+            return !steps.IsEmpty
+                ? steps.Peek()
+                : default;
+        }
     }
 }

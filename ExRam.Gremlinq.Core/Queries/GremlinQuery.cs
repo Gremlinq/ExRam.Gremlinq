@@ -397,7 +397,7 @@ namespace ExRam.Gremlinq.Core
         {
             var toContinue = this;
 
-            if (!Steps.IsEmpty && Steps.Peek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel)
+            if (Steps.TryPeek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel)
                 stepLabel = existingStepLabel;
             else
                 toContinue = As(stepLabel);
@@ -587,7 +587,7 @@ namespace ExRam.Gremlinq.Core
         {
             return ConfigureSteps<TElement>(steps =>
             {
-                if (!steps.IsEmpty && steps.Peek() is HasPredicateStep hasStep && hasStep.Key == key)
+                if (steps.TryPeek() is HasPredicateStep hasStep && hasStep.Key == key)
                 {
                     if (predicate == null)
                         return steps;
@@ -622,7 +622,7 @@ namespace ExRam.Gremlinq.Core
 
             return ConfigureSteps<TElement>(steps =>
             {
-                if (!steps.IsEmpty && steps.Peek() is IsStep isStep)
+                if (steps.TryPeek() is IsStep isStep)
                 {
                     steps = steps.Pop();
                     predicate = isStep.Predicate.And(predicate);
@@ -698,7 +698,7 @@ namespace ExRam.Gremlinq.Core
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
 
             return labels.Length > 0
-                ? !Steps.IsEmpty && Steps.Peek() is HasLabelStep hasLabelStep
+                ? Steps.TryPeek() is HasLabelStep hasLabelStep
                     ? ConfigureSteps<TTarget>(steps => steps
                         .Pop()
                         .Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToImmutableArray())))
