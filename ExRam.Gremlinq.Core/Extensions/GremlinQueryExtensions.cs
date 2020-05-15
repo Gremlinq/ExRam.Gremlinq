@@ -40,12 +40,12 @@ namespace ExRam.Gremlinq.Core
 
         internal static bool IsNone(this IGremlinQueryBase query)
         {
-            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.TryPeek() is NoneStep;
+            return query.AsAdmin().Steps.TryPeek() is NoneStep;
         }
 
         internal static bool IsIdentity(this IGremlinQueryBase query)
         {
-            return query is GremlinQueryBase gremlinQuery && gremlinQuery.Steps.IsEmpty;
+            return query.AsAdmin().Steps.IsEmpty;
         }
 
         internal static Traversal ToTraversal(this IGremlinQueryBase query)
