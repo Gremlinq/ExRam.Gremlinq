@@ -216,7 +216,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
-        IGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) => ConfigureSteps<object>(configurator);
+        IGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<object>(transformation);
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
 
@@ -255,7 +255,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> IGremlinQuerySource.ReplaceE<TNewEdge>(TNewEdge edge) => ((IGremlinQuerySource)this).E<TNewEdge>(edge.GetId(Environment.Model.PropertiesModel)).Update(edge);
 
-        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation) => new GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>(Steps, environmentTransformation(Environment), Semantics, StepLabelSemantics, Flags);
+        IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => ConfigureEnvironment(transformation);
 
         IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
         {
