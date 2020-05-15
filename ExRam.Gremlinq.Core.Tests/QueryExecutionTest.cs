@@ -3251,6 +3251,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Has()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                   .Where(t => t.Age == 36))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_or_none_traversal()
         {
             await _g

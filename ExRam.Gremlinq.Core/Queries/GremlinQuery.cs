@@ -991,10 +991,12 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(IGremlinQueryBase query)
         {
             return AddStep(
-                new WhereTraversalStep(
-                    query.AsAdmin().Steps.TryGetSingleStep() is WhereTraversalStep whereTraversalStep
-                        ? whereTraversalStep.Traversal
-                        : query.ToTraversal()));
+                query.AsAdmin().Steps.TryGetSingleStep() switch
+                {
+                    HasPredicateStep hasPredicateStep => hasPredicateStep,
+                    WhereTraversalStep whereTraversalStep => new WhereTraversalStep(whereTraversalStep.Traversal),
+                    _ => new WhereTraversalStep(query.ToTraversal())
+                });
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression expression)
