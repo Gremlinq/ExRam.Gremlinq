@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).or(__.outE())",
+    "Script": "V().hasLabel(_a).where(__.outE())",
     "Bindings": {
       "_a": "Person"
     }

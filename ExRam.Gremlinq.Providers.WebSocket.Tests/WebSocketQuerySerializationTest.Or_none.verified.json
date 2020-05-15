@@ -13,7 +13,7 @@
         ]
       },
       {
-        "OperatorName": "or",
+        "OperatorName": "where",
         "Arguments": [
           {
             "SourceInstructions": [],
