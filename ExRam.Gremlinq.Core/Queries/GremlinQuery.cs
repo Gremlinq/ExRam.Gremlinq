@@ -378,7 +378,9 @@ namespace ExRam.Gremlinq.Core
 
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
-                : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal())));
+                : (subQueries!.Count == 1)
+                    ? Where(subQueries[0])
+                    : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal())));
         }
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)

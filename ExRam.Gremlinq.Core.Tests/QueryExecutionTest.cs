@@ -17,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
     public abstract class QueryExecutionTest : VerifyBase
     {
         protected readonly IGremlinQuerySource _g;
-
+        
         private static readonly string id = "id";
 
         protected QueryExecutionTest(IGremlinQuerySource g, ITestOutputHelper testOutputHelper, [CallerFilePath] string callerFilePath = "") : base(testOutputHelper, callerFilePath)
@@ -405,6 +405,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And(
                     __ => __)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task And_single()
+        {
+            await _g
+                .V<Person>()
+                .And(
+                    __ => __.Out())
                 .Verify(this);
         }
 
