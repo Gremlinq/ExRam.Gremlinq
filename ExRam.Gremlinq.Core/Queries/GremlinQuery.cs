@@ -393,16 +393,20 @@ namespace ExRam.Gremlinq.Core
             return targetQuery;
         }
 
-        private TTargetQuery As<TStepLabel, TTargetQuery>(TStepLabel stepLabel, Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
-            where TStepLabel : StepLabel
+        private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
+            where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
         {
             var toContinue = this;
+            var stepLabel = default(TStepLabel);
 
             if (Steps.TryPeek() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel)
                 stepLabel = existingStepLabel;
             else
+            {
+                stepLabel = new TStepLabel();
                 toContinue = As(stepLabel);
+            }
 
             return continuation(
                 toContinue,
@@ -1192,8 +1196,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (leftParameterFragment.Expression is MemberExpression && rightParameterFragment.Expression is MemberExpression rightMember)
                         {
-                            return As(
-                                new StepLabel<TElement>(),
+                            return As<StepLabel<TElement>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(
                                 (_, label) => _
                                     .Where(
                                         leftParameterFragment,
