@@ -618,16 +618,7 @@ namespace ExRam.Gremlinq.Core
             if (predicate.Value == null)
                 throw new ExpressionNotSupportedException();
 
-            return ConfigureSteps<TElement>(steps =>
-            {
-                if (steps.PeekOrDefault() is IsStep isStep)
-                {
-                    steps = steps.Pop();
-                    predicate = isStep.Predicate.And(predicate);
-                }
-
-                return steps.Push(new IsStep(predicate));
-            });
+            return AddStep(new IsStep(predicate));
         }
 
         private GremlinQuery<string, object, object, object, object, object> Key() => AddStepWithObjectTypes<string>(KeyStep.Instance, QuerySemantics.None);

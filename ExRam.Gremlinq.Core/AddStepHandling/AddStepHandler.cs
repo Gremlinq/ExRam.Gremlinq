@@ -126,6 +126,17 @@ namespace ExRam.Gremlinq.Core
                 return steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                     ? steps
                     : steps.Push(step);
+            })
+            .Override<IsStep>((steps, step, recurse) =>
+            {
+                if (steps.PeekOrDefault() is IsStep isStep)
+                {
+                    return steps
+                        .Pop()
+                        .Push(new IsStep(isStep.Predicate.And(step.Predicate)));
+                }
+
+                return steps.Push(step);
             });
     }
 }
