@@ -68,12 +68,15 @@ namespace ExRam.Gremlinq.Core
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = Empty
+            .UseAddStepHandler(AddStepHandler.Default)
             .UseModel(GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain()))
             .UseSerializer(GremlinQuerySerializer.Default)
             .UseExecutor(GremlinQueryExecutor.Invalid);
 
         internal static readonly Step NoneWorkaround = new NotStep(IdentityStep.Instance);
+
+        public static IGremlinQueryEnvironment UseAddStepHandler(this IGremlinQueryEnvironment source, IAddStepHandler addStepHandler) => source.ConfigureAddStepHandler(_ => addStepHandler);
 
         public static IGremlinQueryEnvironment UseModel(this IGremlinQueryEnvironment source, IGraphModel model) => source.ConfigureModel(_ => model);
 

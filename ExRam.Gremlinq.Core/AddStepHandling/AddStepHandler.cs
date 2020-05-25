@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
@@ -88,5 +89,12 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static IAddStepHandler Empty = new AddStepHandlerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+
+        public static IAddStepHandler Default = Empty
+            .Override<HasLabelStep>((steps, step, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
+                ? steps
+                    .Pop()
+                    .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
+                : steps.Push(step));
     }
 }
