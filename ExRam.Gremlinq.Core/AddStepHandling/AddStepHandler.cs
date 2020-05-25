@@ -115,36 +115,18 @@ namespace ExRam.Gremlinq.Core
 
                 return steps.Push(step);
             })
-            .Override<WithoutStrategiesStep>((steps, step, recurse) =>
-            {
-                return (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
-                    ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
-                    : steps.Push(step);
-            })
-            .Override<SelectStep>((steps, step, recurse) =>
-            {
-                return steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
-                    ? steps
-                    : steps.Push(step);
-            })
-            .Override<IsStep>((steps, step, recurse) =>
-            {
-                if (steps.PeekOrDefault() is IsStep isStep)
-                {
-                    return steps
-                        .Pop()
-                        .Push(new IsStep(isStep.Predicate.And(step.Predicate)));
-                }
-
-                return steps.Push(step);
-            })
-            .Override<NoneStep>((steps, step, recurse) =>
-            {
-                if (steps.PeekOrDefault() is NoneStep)
-                    return steps;
-
-                return steps.Push(step);
-            });
+            .Override<WithoutStrategiesStep>((steps, step, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
+                ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
+                : steps.Push(step))
+            .Override<SelectStep>((steps, step, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
+                ? steps
+                : steps.Push(step))
+            .Override<IsStep>((steps, step, recurse) => steps.PeekOrDefault() is IsStep isStep
+                ? steps
+                    .Pop()
+                    .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
+                : steps.Push(step))
+            .Override<NoneStep>((steps, step, recurse) => steps.PeekOrDefault() is NoneStep ? steps : steps.Push(step));
     }
 }
 
