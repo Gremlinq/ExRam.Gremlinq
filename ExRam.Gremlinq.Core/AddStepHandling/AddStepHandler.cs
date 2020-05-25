@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core
             {
                 return (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                     ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
-                    : steps.Push(new WithoutStrategiesStep(step.StrategyTypes.ToImmutableArray()));
+                    : steps.Push(step);
             })
             .Override<SelectStep>((steps, step, recurse) =>
             {
