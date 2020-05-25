@@ -3972,5 +3972,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V()
                 .Verify(this);
         }
+
+        [Fact]
+        public async Task WithoutStrategies3()
+        {
+            await _g
+                .RemoveStrategies(typeof(SubgraphStrategy))
+                .RemoveStrategies(typeof(ElementIdStrategy))
+                .V()
+                .Verify(this);
+        }
     }
 }
