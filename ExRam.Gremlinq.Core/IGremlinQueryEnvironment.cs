@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryEnvironment
     {
+        IGremlinQueryEnvironment ConfigureAddStepHandler(Func<IAddStepHandler, IAddStepHandler> handlerTransformation);
         IGremlinQueryEnvironment ConfigureLogger(Func<ILogger, ILogger> loggerTransformation);
         IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation);
         IGremlinQueryEnvironment ConfigureOptions(Func<GremlinqOptions, GremlinqOptions> optionsTransformation);
@@ -18,6 +19,7 @@ namespace ExRam.Gremlinq.Core
         IGraphModel Model { get; }
         FeatureSet FeatureSet { get; }
         GremlinqOptions Options { get; }
+        IAddStepHandler AddStepHandler { get; }
         IGremlinQueryExecutor Executor { get; }
         IGremlinQuerySerializer Serializer { get; }
         IGremlinQueryExecutionResultDeserializer Deserializer { get; }
