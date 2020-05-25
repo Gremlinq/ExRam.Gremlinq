@@ -6,15 +6,33 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 8,
+      "Id": 67,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
       },
-      "Value": "Bob",
+      "Value": "Marko",
       "Key": null
     },
+    "Id": 66,
+    "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
     "Id": 5,
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 7,
     "Label": "Person"
   },
   {
@@ -30,10 +48,18 @@
   {
     "Age": 0,
     "Gender": 0,
-    "RegistrationDate": null,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
-    "Name": null,
+    "Name": {
+      "Id": 14,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
     "Id": 11,
     "Label": "Person"
   },
@@ -44,7 +70,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": 16,
+    "Id": 17,
     "Label": "Person"
   },
   {
@@ -54,26 +80,26 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": 21,
+    "Id": 22,
     "Label": "Person"
   },
   {
     "Age": 0,
     "Gender": 0,
-    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
-    "Name": {
-      "Id": 34,
-      "Label": "Name",
-      "Properties": {
-        "ValidFrom": "0001-01-01T00:00:00+00:00"
-      },
-      "Value": "Bob",
-      "Key": null
-    },
-    "Id": 31,
+    "Name": null,
+    "Id": 27,
     "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
+    "Id": 32,
+    "Label": "Company"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
@@ -87,21 +113,13 @@
     "Label": "Company"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
-    "Name": null,
-    "Id": 37,
-    "Label": "Company"
-  },
-  {
     "Age": 0,
     "Gender": 0,
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": null,
-    "Id": 39,
+    "Id": 34,
     "Label": "Person"
   },
   {
@@ -111,15 +129,33 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 55,
+      "Id": 46,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
       },
-      "Value": "Marko",
+      "Value": "Bob",
       "Key": null
     },
-    "Id": 54,
+    "Id": 43,
+    "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
+    "Id": 49,
+    "Label": "Company"
+  },
+  {
+    "Age": 0,
+    "Gender": 0,
+    "RegistrationDate": null,
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": null,
+    "Id": 51,
     "Label": "Person"
   },
   {
@@ -127,7 +163,7 @@
     "PhoneNumbers": [],
     "Locations": [
       {
-        "Id": 60,
+        "Id": 72,
         "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"

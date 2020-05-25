@@ -27,7 +27,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Date",
@@ -40,7 +40,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Int32",
@@ -53,7 +53,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Int32",
@@ -66,9 +66,22 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": "Marko"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": {
+            "@type": "g:Date",
+            "@value": -62135596800000
+          }
         }
       },
       {
@@ -86,12 +99,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 3
+            "@value": 1
           },
-          "value": {
-            "@type": "g:Date",
-            "@value": -62135596800000
-          }
+          "value": "+4912345"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "+4923456"
         }
       },
       {

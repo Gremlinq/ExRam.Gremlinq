@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 6
+                "@value": 8
               },
               "value": {
                 "@type": "g:Int32",
@@ -37,7 +37,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 52
+                "@value": 64
               },
               "value": {
                 "@type": "g:Int32",
@@ -83,7 +83,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 17
+                "@value": 18
               },
               "value": {
                 "@type": "g:Int32",
@@ -106,7 +106,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 22
+                "@value": 23
               },
               "value": {
                 "@type": "g:Int32",
@@ -129,7 +129,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 32
+                "@value": 28
               },
               "value": {
                 "@type": "g:Int32",
@@ -152,7 +152,53 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 40
+                "@value": 35
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 44
+              },
+              "value": {
+                "@type": "g:Int32",
+                "@value": 0
+              },
+              "label": "Age"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:VertexProperty",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 52
               },
               "value": {
                 "@type": "g:Int32",

@@ -37,26 +37,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 7
-          },
-          "value": "Gender"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 7
-          },
-          "value": "Age"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 5
           },
           "value": "Name"
@@ -67,9 +47,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 2
+            "@value": 5
           },
-          "value": "PhoneNumbers"
+          "value": "FoundingDate"
         }
       },
       {
@@ -77,9 +57,29 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 3
+            "@value": 9
           },
-          "value": "FoundingDate"
+          "value": "Gender"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 9
+          },
+          "value": "Age"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
+          },
+          "value": "PhoneNumbers"
         }
       },
       {

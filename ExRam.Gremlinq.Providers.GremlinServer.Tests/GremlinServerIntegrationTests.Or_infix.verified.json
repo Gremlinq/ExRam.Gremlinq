@@ -54,6 +54,25 @@
                 "@type": "g:Int64",
                 "@value": 5
               },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 7
+              },
               "label": "Person"
             }
           }
@@ -90,26 +109,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 14
-              },
-              "label": "Country"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 16
+                "@value": 17
               },
               "label": "Person"
             }
@@ -128,7 +128,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 19
+                "@value": 20
               },
               "label": "Country"
             }
@@ -147,7 +147,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 21
+                "@value": 22
               },
               "label": "Person"
             }
@@ -166,7 +166,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 24
+                "@value": 25
               },
               "label": "Country"
             }
@@ -185,26 +185,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 26
-              },
-              "label": "Language"
-            }
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Vertex",
-            "@value": {
-              "id": {
-                "@type": "g:Int64",
-                "@value": 31
+                "@value": 27
               },
               "label": "Person"
             }
@@ -223,7 +204,26 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 37
+                "@value": 30
+              },
+              "label": "Country"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 32
               },
               "label": "Company"
             }
@@ -242,7 +242,83 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 34
+              },
+              "label": "Person"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 38
+              },
+              "label": "Language"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 43
+              },
+              "label": "Person"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 49
+              },
+              "label": "Company"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 51
               },
               "label": "Person"
             }

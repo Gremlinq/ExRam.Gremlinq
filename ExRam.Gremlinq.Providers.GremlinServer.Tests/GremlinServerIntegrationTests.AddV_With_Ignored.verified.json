@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 54
+                "@value": 66
               },
               "label",
               "Person",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 56
+                            "@value": 68
                           },
                           "label",
                           "RegistrationDate",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 55
+                            "@value": 67
                           },
                           "label",
                           "Name",

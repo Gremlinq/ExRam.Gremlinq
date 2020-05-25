@@ -17,7 +17,21 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 5
+                    "@value": 66
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Int64",
+                "@value": 1
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 7
                   },
                   "label": "Person"
                 }
@@ -59,7 +73,7 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 16
+                    "@value": 17
                   },
                   "label": "Person"
                 }
@@ -73,7 +87,7 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 21
+                    "@value": 22
                   },
                   "label": "Person"
                 }
@@ -87,7 +101,7 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 31
+                    "@value": 27
                   },
                   "label": "Person"
                 }
@@ -101,7 +115,7 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 39
+                    "@value": 34
                   },
                   "label": "Person"
                 }
@@ -115,7 +129,21 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 54
+                    "@value": 43
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Int64",
+                "@value": 1
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 51
                   },
                   "label": "Person"
                 }

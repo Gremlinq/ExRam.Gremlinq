@@ -7,12 +7,47 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 2
           },
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "Since",
+              "key": "Role",
+              "value": "Admin"
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 2
+          },
+          "value": {
+            "@type": "g:Property",
+            "@value": {
+              "key": "From",
+              "value": {
+                "@type": "g:Date",
+                "@value": 1586270616000
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 3
+          },
+          "value": {
+            "@type": "g:Property",
+            "@value": {
+              "key": "To",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000
@@ -31,7 +66,7 @@
           "value": {
             "@type": "g:Property",
             "@value": {
-              "key": "To",
+              "key": "Since",
               "value": {
                 "@type": "g:Date",
                 "@value": 1586270616000

@@ -6,7 +6,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 159,
+      "Id": 193,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -14,7 +14,33 @@
       "Value": "Marko",
       "Key": null
     },
+    "Id": 66,
+    "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
     "Id": 5,
+    "Label": "Company"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 197,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 7,
     "Label": "Person"
   },
   {
@@ -24,7 +50,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 163,
+      "Id": 202,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -42,7 +68,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 167,
+      "Id": 206,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -60,7 +86,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 171,
+      "Id": 210,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -68,7 +94,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 16,
+    "Id": 17,
     "Label": "Person"
   },
   {
@@ -78,7 +104,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 175,
+      "Id": 214,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -86,7 +112,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 21,
+    "Id": 22,
     "Label": "Person"
   },
   {
@@ -96,7 +122,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 179,
+      "Id": 218,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -104,33 +130,36 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 31,
+    "Id": 27,
     "Label": "Person"
   },
   {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
+    "Id": 32,
+    "Label": "Company"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [
+      "+4912345",
+      "+4923456"
+    ],
     "Locations": [],
     "Name": null,
     "Id": 800,
     "Label": "Company"
   },
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [],
-    "Name": null,
-    "Id": 37,
-    "Label": "Company"
-  },
-  {
     "Age": 21,
     "Gender": 0,
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 183,
+      "Id": 222,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -138,7 +167,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 39,
+    "Id": 34,
     "Label": "Person"
   },
   {
@@ -148,7 +177,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 187,
+      "Id": 226,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -156,7 +185,33 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 54,
+    "Id": 43,
+    "Label": "Person"
+  },
+  {
+    "FoundingDate": "0001-01-01T00:00:00",
+    "PhoneNumbers": [],
+    "Locations": [],
+    "Name": null,
+    "Id": 49,
+    "Label": "Company"
+  },
+  {
+    "Age": 21,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 230,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "0001-01-01T00:00:00+00:00"
+      },
+      "Value": "Marko",
+      "Key": null
+    },
+    "Id": 51,
     "Label": "Person"
   },
   {
@@ -164,7 +219,7 @@
     "PhoneNumbers": [],
     "Locations": [
       {
-        "Id": 60,
+        "Id": 72,
         "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"

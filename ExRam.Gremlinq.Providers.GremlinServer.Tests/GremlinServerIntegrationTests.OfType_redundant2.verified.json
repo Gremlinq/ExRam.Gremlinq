@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 800
+                "@value": 5
               },
               "label",
               "Company",
@@ -23,50 +23,6 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "PhoneNumbers",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": 64
-                          },
-                          "label",
-                          "PhoneNumbers",
-                          "value",
-                          "+4912345",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      },
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": 65
-                          },
-                          "label",
-                          "PhoneNumbers",
-                          "value",
-                          "+4923456",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "FoundingDate",
                   {
                     "@type": "g:List",
@@ -77,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 63
+                            "@value": 6
                           },
                           "label",
                           "FoundingDate",
@@ -114,7 +70,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 37
+                "@value": 32
               },
               "label",
               "Company",
@@ -132,7 +88,161 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 38
+                            "@value": 33
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 800
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "PhoneNumbers",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 76
+                          },
+                          "label",
+                          "PhoneNumbers",
+                          "value",
+                          "+4912345",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      },
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 77
+                          },
+                          "label",
+                          "PhoneNumbers",
+                          "value",
+                          "+4923456",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 75
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 49
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 50
                           },
                           "label",
                           "FoundingDate",
@@ -187,7 +297,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 60
+                            "@value": 72
                           },
                           "label",
                           "Locations",
@@ -218,7 +328,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 59
+                            "@value": 71
                           },
                           "label",
                           "FoundingDate",

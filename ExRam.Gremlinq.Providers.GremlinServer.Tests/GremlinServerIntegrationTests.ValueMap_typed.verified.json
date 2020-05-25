@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Map",

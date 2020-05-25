@@ -19,7 +19,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 5
+                    "@value": 66
                   },
                   "label",
                   "Person",
@@ -27,34 +27,6 @@
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 7
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
                       "RegistrationDate",
                       {
                         "@type": "g:List",
@@ -65,7 +37,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 9
+                                "@value": 68
                               },
                               "label",
                               "RegistrationDate",
@@ -73,34 +45,6 @@
                               {
                                 "@type": "g:Date",
                                 "@value": 1586270616000
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 6
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
                               },
                               "properties",
                               {
@@ -121,12 +65,12 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 8
+                                "@value": 67
                               },
                               "label",
                               "Name",
                               "value",
-                              "Bob",
+                              "Marko",
                               "properties",
                               {
                                 "@type": "g:Map",
@@ -151,7 +95,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 5
+                        "@value": 66
                       },
                       "label",
                       "Person",
@@ -159,34 +103,6 @@
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 7
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
                           "RegistrationDate",
                           {
                             "@type": "g:List",
@@ -197,7 +113,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 9
+                                    "@value": 68
                                   },
                                   "label",
                                   "RegistrationDate",
@@ -205,34 +121,6 @@
                                   {
                                     "@type": "g:Date",
                                     "@value": 1586270616000
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 6
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
                                   },
                                   "properties",
                                   {
@@ -253,12 +141,12 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 8
+                                    "@value": 67
                                   },
                                   "label",
                                   "Name",
                                   "value",
-                                  "Bob",
+                                  "Marko",
                                   "properties",
                                   {
                                     "@type": "g:Map",
@@ -279,7 +167,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 5
+                        "@value": 66
                       },
                       "label",
                       "Person",
@@ -287,34 +175,6 @@
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 7
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
                           "RegistrationDate",
                           {
                             "@type": "g:List",
@@ -325,7 +185,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 9
+                                    "@value": 68
                                   },
                                   "label",
                                   "RegistrationDate",
@@ -333,34 +193,6 @@
                                   {
                                     "@type": "g:Date",
                                     "@value": 1586270616000
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 6
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
                                   },
                                   "properties",
                                   {
@@ -381,12 +213,257 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 8
+                                    "@value": 67
                                   },
                                   "label",
                                   "Name",
                                   "value",
-                                  "Bob",
+                                  "Marko",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 7
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 8
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 9
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Item2",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Item1",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 7
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 8
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 9
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Item2",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 7
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 8
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 9
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
                                   "properties",
                                   {
                                     "@type": "g:Map",
@@ -441,7 +518,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 52
+                                "@value": 64
                               },
                               "label",
                               "Age",
@@ -469,7 +546,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 53
+                                "@value": 65
                               },
                               "label",
                               "Gender",
@@ -520,7 +597,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 52
+                                    "@value": 64
                                   },
                                   "label",
                                   "Age",
@@ -548,7 +625,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 53
+                                    "@value": 65
                                   },
                                   "label",
                                   "Gender",
@@ -595,7 +672,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 52
+                                    "@value": 64
                                   },
                                   "label",
                                   "Age",
@@ -623,7 +700,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 53
+                                    "@value": 65
                                   },
                                   "label",
                                   "Gender",
@@ -676,6 +753,62 @@
                   {
                     "@type": "g:Map",
                     "@value": [
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 13
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "RegistrationDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 15
+                              },
+                              "label",
+                              "RegistrationDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": 1586270616000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
                       "Age",
                       {
                         "@type": "g:List",
@@ -704,797 +837,6 @@
                           }
                         ]
                       },
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 13
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "Item2",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Item1",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 11
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 12
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 13
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Item2",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 11
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 12
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 13
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "Item1",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 16
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 17
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 18
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "Item2",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Item1",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 16
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 17
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 18
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Item2",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 16
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 17
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 18
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "Item1",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 21
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 22
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 23
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "Item2",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Item1",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 21
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 22
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 23
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Item2",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "id",
-                      {
-                        "@type": "g:Int64",
-                        "@value": 21
-                      },
-                      "label",
-                      "Person",
-                      "properties",
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "Age",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 22
-                                  },
-                                  "label",
-                                  "Age",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "Gender",
-                          {
-                            "@type": "g:List",
-                            "@value": [
-                              {
-                                "@type": "g:Map",
-                                "@value": [
-                                  "id",
-                                  {
-                                    "@type": "g:Int64",
-                                    "@value": 23
-                                  },
-                                  "label",
-                                  "Gender",
-                                  "value",
-                                  {
-                                    "@type": "g:Int32",
-                                    "@value": 0
-                                  },
-                                  "properties",
-                                  {
-                                    "@type": "g:Map",
-                                    "@value": []
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "Item1",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "id",
-                  {
-                    "@type": "g:Int64",
-                    "@value": 31
-                  },
-                  "label",
-                  "Person",
-                  "properties",
-                  {
-                    "@type": "g:Map",
-                    "@value": [
-                      "Gender",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 33
-                              },
-                              "label",
-                              "Gender",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "RegistrationDate",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 35
-                              },
-                              "label",
-                              "RegistrationDate",
-                              "value",
-                              {
-                                "@type": "g:Date",
-                                "@value": 1586270616000
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      "Age",
-                      {
-                        "@type": "g:List",
-                        "@value": [
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "id",
-                              {
-                                "@type": "g:Int64",
-                                "@value": 32
-                              },
-                              "label",
-                              "Age",
-                              "value",
-                              {
-                                "@type": "g:Int32",
-                                "@value": 0
-                              },
-                              "properties",
-                              {
-                                "@type": "g:Map",
-                                "@value": []
-                              }
-                            ]
-                          }
-                        ]
-                      },
                       "Name",
                       {
                         "@type": "g:List",
@@ -1505,7 +847,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 34
+                                "@value": 14
                               },
                               "label",
                               "Name",
@@ -1535,7 +877,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 31
+                        "@value": 11
                       },
                       "label",
                       "Person",
@@ -1553,7 +895,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 33
+                                    "@value": 13
                                   },
                                   "label",
                                   "Gender",
@@ -1581,7 +923,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 35
+                                    "@value": 15
                                   },
                                   "label",
                                   "RegistrationDate",
@@ -1609,7 +951,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 32
+                                    "@value": 12
                                   },
                                   "label",
                                   "Age",
@@ -1637,7 +979,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 34
+                                    "@value": 14
                                   },
                                   "label",
                                   "Name",
@@ -1663,7 +1005,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 31
+                        "@value": 11
                       },
                       "label",
                       "Person",
@@ -1681,7 +1023,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 33
+                                    "@value": 13
                                   },
                                   "label",
                                   "Gender",
@@ -1709,7 +1051,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 35
+                                    "@value": 15
                                   },
                                   "label",
                                   "RegistrationDate",
@@ -1737,7 +1079,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 32
+                                    "@value": 12
                                   },
                                   "label",
                                   "Age",
@@ -1765,7 +1107,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 34
+                                    "@value": 14
                                   },
                                   "label",
                                   "Name",
@@ -1807,7 +1149,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 39
+                    "@value": 17
                   },
                   "label",
                   "Person",
@@ -1825,7 +1167,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 40
+                                "@value": 18
                               },
                               "label",
                               "Age",
@@ -1853,7 +1195,7 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 41
+                                "@value": 19
                               },
                               "label",
                               "Gender",
@@ -1886,7 +1228,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 39
+                        "@value": 17
                       },
                       "label",
                       "Person",
@@ -1904,7 +1246,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 40
+                                    "@value": 18
                                   },
                                   "label",
                                   "Age",
@@ -1932,7 +1274,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 41
+                                    "@value": 19
                                   },
                                   "label",
                                   "Gender",
@@ -1961,7 +1303,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 39
+                        "@value": 17
                       },
                       "label",
                       "Person",
@@ -1979,7 +1321,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 40
+                                    "@value": 18
                                   },
                                   "label",
                                   "Age",
@@ -2007,7 +1349,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 41
+                                    "@value": 19
                                   },
                                   "label",
                                   "Gender",
@@ -2052,7 +1394,7 @@
                   "id",
                   {
                     "@type": "g:Int64",
-                    "@value": 54
+                    "@value": 22
                   },
                   "label",
                   "Person",
@@ -2060,7 +1402,7 @@
                   {
                     "@type": "g:Map",
                     "@value": [
-                      "RegistrationDate",
+                      "Age",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -2070,14 +1412,14 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 56
+                                "@value": 23
                               },
                               "label",
-                              "RegistrationDate",
+                              "Age",
                               "value",
                               {
-                                "@type": "g:Date",
-                                "@value": 1586270616000
+                                "@type": "g:Int32",
+                                "@value": 0
                               },
                               "properties",
                               {
@@ -2088,7 +1430,7 @@
                           }
                         ]
                       },
-                      "Name",
+                      "Gender",
                       {
                         "@type": "g:List",
                         "@value": [
@@ -2098,12 +1440,15 @@
                               "id",
                               {
                                 "@type": "g:Int64",
-                                "@value": 55
+                                "@value": 24
                               },
                               "label",
-                              "Name",
+                              "Gender",
                               "value",
-                              "Marko",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
                               "properties",
                               {
                                 "@type": "g:Map",
@@ -2128,7 +1473,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 54
+                        "@value": 22
                       },
                       "label",
                       "Person",
@@ -2136,7 +1481,7 @@
                       {
                         "@type": "g:Map",
                         "@value": [
-                          "RegistrationDate",
+                          "Age",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -2146,14 +1491,14 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 56
+                                    "@value": 23
                                   },
                                   "label",
-                                  "RegistrationDate",
+                                  "Age",
                                   "value",
                                   {
-                                    "@type": "g:Date",
-                                    "@value": 1586270616000
+                                    "@type": "g:Int32",
+                                    "@value": 0
                                   },
                                   "properties",
                                   {
@@ -2164,7 +1509,7 @@
                               }
                             ]
                           },
-                          "Name",
+                          "Gender",
                           {
                             "@type": "g:List",
                             "@value": [
@@ -2174,12 +1519,15 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 55
+                                    "@value": 24
                                   },
                                   "label",
-                                  "Name",
+                                  "Gender",
                                   "value",
-                                  "Marko",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
                                   "properties",
                                   {
                                     "@type": "g:Map",
@@ -2200,7 +1548,7 @@
                       "id",
                       {
                         "@type": "g:Int64",
-                        "@value": 54
+                        "@value": 22
                       },
                       "label",
                       "Person",
@@ -2208,6 +1556,747 @@
                       {
                         "@type": "g:Map",
                         "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 23
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 24
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 27
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 28
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 29
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Item2",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Item1",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 27
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 28
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 29
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Item2",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 27
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 28
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 29
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 34
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 35
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 36
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Item2",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Item1",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 34
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 35
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 36
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Item2",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 34
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 35
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 36
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 43
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 45
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "RegistrationDate",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 47
+                              },
+                              "label",
+                              "RegistrationDate",
+                              "value",
+                              {
+                                "@type": "g:Date",
+                                "@value": 1586270616000
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 44
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Name",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 46
+                              },
+                              "label",
+                              "Name",
+                              "value",
+                              "Bob",
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Item2",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Item1",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 43
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 45
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
                           "RegistrationDate",
                           {
                             "@type": "g:List",
@@ -2218,7 +2307,7 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 56
+                                    "@value": 47
                                   },
                                   "label",
                                   "RegistrationDate",
@@ -2226,6 +2315,34 @@
                                   {
                                     "@type": "g:Date",
                                     "@value": 1586270616000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 44
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
                                   },
                                   "properties",
                                   {
@@ -2246,12 +2363,385 @@
                                   "id",
                                   {
                                     "@type": "g:Int64",
-                                    "@value": 55
+                                    "@value": 46
                                   },
                                   "label",
                                   "Name",
                                   "value",
-                                  "Marko",
+                                  "Bob",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Item2",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 43
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 45
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "RegistrationDate",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 47
+                                  },
+                                  "label",
+                                  "RegistrationDate",
+                                  "value",
+                                  {
+                                    "@type": "g:Date",
+                                    "@value": 1586270616000
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 44
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Name",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 46
+                                  },
+                                  "label",
+                                  "Name",
+                                  "value",
+                                  "Bob",
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "Item1",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "id",
+                  {
+                    "@type": "g:Int64",
+                    "@value": 51
+                  },
+                  "label",
+                  "Person",
+                  "properties",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "Age",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 52
+                              },
+                              "label",
+                              "Age",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "Gender",
+                      {
+                        "@type": "g:List",
+                        "@value": [
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "id",
+                              {
+                                "@type": "g:Int64",
+                                "@value": 53
+                              },
+                              "label",
+                              "Gender",
+                              "value",
+                              {
+                                "@type": "g:Int32",
+                                "@value": 0
+                              },
+                              "properties",
+                              {
+                                "@type": "g:Map",
+                                "@value": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Item2",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Item1",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 51
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 52
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 53
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Item2",
+                  {
+                    "@type": "g:Map",
+                    "@value": [
+                      "id",
+                      {
+                        "@type": "g:Int64",
+                        "@value": 51
+                      },
+                      "label",
+                      "Person",
+                      "properties",
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "Age",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 52
+                                  },
+                                  "label",
+                                  "Age",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
+                                  "properties",
+                                  {
+                                    "@type": "g:Map",
+                                    "@value": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "Gender",
+                          {
+                            "@type": "g:List",
+                            "@value": [
+                              {
+                                "@type": "g:Map",
+                                "@value": [
+                                  "id",
+                                  {
+                                    "@type": "g:Int64",
+                                    "@value": 53
+                                  },
+                                  "label",
+                                  "Gender",
+                                  "value",
+                                  {
+                                    "@type": "g:Int32",
+                                    "@value": 0
+                                  },
                                   "properties",
                                   {
                                     "@type": "g:Map",

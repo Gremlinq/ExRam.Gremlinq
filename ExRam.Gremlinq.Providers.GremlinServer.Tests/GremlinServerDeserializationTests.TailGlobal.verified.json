@@ -1,20 +1,7 @@
 [
   {
-    "FoundingDate": "0001-01-01T00:00:00",
-    "PhoneNumbers": [],
-    "Locations": [
-      {
-        "Id": 60,
-        "Label": "Locations",
-        "Properties": {
-          "ValidFrom": "2019-01-01T01:00:00+00:00"
-        },
-        "Value": "Aachen",
-        "Key": null
-      }
-    ],
-    "Name": null,
-    "Id": 700,
-    "Label": "Company"
+    "IetfLanguageTag": "en",
+    "Id": 61,
+    "Label": "Language"
   }
 ]

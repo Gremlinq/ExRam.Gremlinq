@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Date",
@@ -20,7 +20,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Int32",
@@ -33,7 +33,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": {
             "@type": "g:Int32",
@@ -46,7 +46,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 8
+            "@value": 10
           },
           "value": "Marko"
         }

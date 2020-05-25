@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 5
+                "@value": 66
               },
               "label",
               "Person",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 77
+                            "@value": 91
                           },
                           "label",
                           "Gender",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 142
+                            "@value": 172
                           },
                           "label",
                           "RegistrationDate",
@@ -89,7 +89,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 76
+                            "@value": 90
                           },
                           "label",
                           "Age",
@@ -117,7 +117,143 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 141
+                            "@value": 171
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 7
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 95
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 174
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 94
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 173
                           },
                           "label",
                           "Name",
@@ -169,7 +305,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 81
+                            "@value": 99
                           },
                           "label",
                           "Gender",
@@ -197,7 +333,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 144
+                            "@value": 176
                           },
                           "label",
                           "RegistrationDate",
@@ -225,7 +361,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 80
+                            "@value": 98
                           },
                           "label",
                           "Age",
@@ -253,7 +389,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 143
+                            "@value": 175
                           },
                           "label",
                           "Name",
@@ -305,7 +441,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 85
+                            "@value": 104
                           },
                           "label",
                           "Gender",
@@ -333,7 +469,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 146
+                            "@value": 178
                           },
                           "label",
                           "RegistrationDate",
@@ -361,7 +497,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 84
+                            "@value": 103
                           },
                           "label",
                           "Age",
@@ -389,7 +525,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 145
+                            "@value": 177
                           },
                           "label",
                           "Name",
@@ -423,7 +559,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 16
+                "@value": 17
               },
               "label",
               "Person",
@@ -441,7 +577,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 89
+                            "@value": 108
                           },
                           "label",
                           "Gender",
@@ -469,7 +605,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 148
+                            "@value": 180
                           },
                           "label",
                           "RegistrationDate",
@@ -497,7 +633,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 88
+                            "@value": 107
                           },
                           "label",
                           "Age",
@@ -525,7 +661,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 147
+                            "@value": 179
                           },
                           "label",
                           "Name",
@@ -559,7 +695,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 21
+                "@value": 22
               },
               "label",
               "Person",
@@ -577,7 +713,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 93
+                            "@value": 112
                           },
                           "label",
                           "Gender",
@@ -605,7 +741,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 150
+                            "@value": 182
                           },
                           "label",
                           "RegistrationDate",
@@ -633,7 +769,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 92
+                            "@value": 111
                           },
                           "label",
                           "Age",
@@ -661,7 +797,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 149
+                            "@value": 181
                           },
                           "label",
                           "Name",
@@ -695,7 +831,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 31
+                "@value": 27
               },
               "label",
               "Person",
@@ -713,7 +849,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 97
+                            "@value": 116
                           },
                           "label",
                           "Gender",
@@ -741,7 +877,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 152
+                            "@value": 184
                           },
                           "label",
                           "RegistrationDate",
@@ -769,7 +905,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 96
+                            "@value": 115
                           },
                           "label",
                           "Age",
@@ -797,7 +933,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 151
+                            "@value": 183
                           },
                           "label",
                           "Name",
@@ -831,7 +967,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 39
+                "@value": 34
               },
               "label",
               "Person",
@@ -849,7 +985,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 102
+                            "@value": 120
                           },
                           "label",
                           "Gender",
@@ -877,7 +1013,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 154
+                            "@value": 186
                           },
                           "label",
                           "RegistrationDate",
@@ -905,7 +1041,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 101
+                            "@value": 119
                           },
                           "label",
                           "Age",
@@ -933,7 +1069,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 153
+                            "@value": 185
                           },
                           "label",
                           "Name",
@@ -967,7 +1103,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 54
+                "@value": 43
               },
               "label",
               "Person",
@@ -985,7 +1121,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 106
+                            "@value": 124
                           },
                           "label",
                           "Gender",
@@ -1013,7 +1149,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 156
+                            "@value": 188
                           },
                           "label",
                           "RegistrationDate",
@@ -1041,7 +1177,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 105
+                            "@value": 123
                           },
                           "label",
                           "Age",
@@ -1069,7 +1205,143 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 155
+                            "@value": 187
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 51
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 128
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 190
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 127
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 21
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 189
                           },
                           "label",
                           "Name",

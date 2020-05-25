@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 5
+                "@value": 11
               },
               "label",
               "Person",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 7
+                            "@value": 13
                           },
                           "label",
                           "Gender",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 9
+                            "@value": 15
                           },
                           "label",
                           "RegistrationDate",
@@ -89,7 +89,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 6
+                            "@value": 12
                           },
                           "label",
                           "Age",
@@ -117,7 +117,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 8
+                            "@value": 14
                           },
                           "label",
                           "Name",
@@ -203,7 +203,62 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 14
+                "@value": 5
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 6
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 20
               },
               "label",
               "Country",
@@ -229,7 +284,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 19
+                "@value": 25
               },
               "label",
               "Country",
@@ -255,7 +310,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 24
+                "@value": 30
               },
               "label",
               "Country",
@@ -281,7 +336,62 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 26
+                "@value": 32
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 33
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 38
               },
               "label",
               "Language",
@@ -299,7 +409,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 27
+                            "@value": 39
                           },
                           "label",
                           "IetfLanguageTag",
@@ -385,7 +495,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 37
+                "@value": 49
               },
               "label",
               "Company",
@@ -403,7 +513,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 38
+                            "@value": 50
                           },
                           "label",
                           "FoundingDate",
