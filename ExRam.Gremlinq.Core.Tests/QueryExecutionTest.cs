@@ -145,6 +145,30 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task AddE_from_to()
+        {
+            var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
+
+            await _g
+                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .From(__ => __.AddV<Person>())
+                .To(__ => __.AddV<Company>())
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task AddE_to_from()
+        {
+            var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
+
+            await _g
+                .AddE(new WorksFor { From = now, To = now, Role = "Admin" })
+                .To(__ => __.AddV<Company>())
+                .From(__ => __.AddV<Person>())
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task AddV()
         {
             await _g
