@@ -120,6 +120,12 @@ namespace ExRam.Gremlinq.Core
                 return (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                     ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
                     : steps.Push(new WithoutStrategiesStep(step.StrategyTypes.ToImmutableArray()));
+            })
+            .Override<SelectStep>((steps, step, recurse) =>
+            {
+                return steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
+                    ? steps
+                    : steps.Push(step);
             });
     }
 }
