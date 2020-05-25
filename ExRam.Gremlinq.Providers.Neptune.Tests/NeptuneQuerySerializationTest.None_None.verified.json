@@ -27,20 +27,6 @@
         ]
       },
       {
-        "OperatorName": "not",
-        "Arguments": [
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "identity",
-                "Arguments": []
-              }
-            ]
-          }
-        ]
-      },
-      {
         "OperatorName": "project",
         "Arguments": [
           "id",

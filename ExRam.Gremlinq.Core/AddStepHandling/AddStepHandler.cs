@@ -137,6 +137,13 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return steps.Push(step);
+            })
+            .Override<NoneStep>((steps, step, recurse) =>
+            {
+                if (steps.PeekOrDefault() is NoneStep)
+                    return steps;
+
+                return steps.Push(step);
             });
     }
 }
