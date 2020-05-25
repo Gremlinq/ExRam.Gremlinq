@@ -39,7 +39,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeSameAs(query);
 
-            query.AsAdmin().ChangeQueryType<IGremlinQuery<Person>>()
+            query.AsAdmin().ChangeQueryType<IValueGremlinQuery<Person>>()
                 .Should()
                 .BeSameAs(query);
 

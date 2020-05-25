@@ -9,8 +9,6 @@
         "IEdgeGremlinQueryBase",
         "IPropertyGremlinQueryBase",
 
-
-        "IGremlinQuery<TElement>",
         "IValueGremlinQuery<TElement>",
         "IArrayGremlinQuery<TArray, TQuery>",
         "IElementGremlinQuery<TElement>",
