@@ -120,18 +120,21 @@ namespace ExRam.Gremlinq.Core
                     if (newPredicate == null)
                         return steps;
 
-                    steps = steps.Pop();
                     newPredicate = hasStep.Predicate is { } otherPredicate
                         ? otherPredicate.And(newPredicate)
                         : newPredicate;
 
-                    return steps.Push(new HasPredicateStep(hasStep.Key, newPredicate));
+                    return steps
+                        .Pop()
+                        .Push(new HasPredicateStep(hasStep.Key, newPredicate));
                 }
 
                 return overridden(steps, step);
             })
             .Override<WithoutStrategiesStep>((steps, step, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
-                ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
+                ? steps
+                    .Pop()
+                    .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
                 : overridden(steps, step))
             .Override<SelectStep>((steps, step, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                 ? steps
