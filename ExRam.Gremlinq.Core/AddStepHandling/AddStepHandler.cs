@@ -25,12 +25,14 @@ namespace ExRam.Gremlinq.Core
                     : steps.Push(step);
             }
 
-            public IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
+            public IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, Func<IImmutableStack<Step>, TStep, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
             {
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
                         typeof(TStep),
-                        addStepHandler));
+                        InnerLookup(typeof(TStep)) is Func<IImmutableStack<Step>, Step, Func<IImmutableStack<Step>, Step, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> existingAddHandler
+                            ? new Func<IImmutableStack<Step>, Step, Func<IImmutableStack<Step>, Step, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>>((steps, step, baseHandler, recurse) => addStepHandler(steps, (TStep)step, (_, __) => existingAddHandler(_, __!, baseHandler, recurse), recurse))
+                            : (steps, step, baseHandler, recurse) => addStepHandler(steps, (TStep)step, (_, __) => baseHandler(_, __!), recurse)));
             }
 
             private Delegate? TryGetAddHandler(Type staticType, Type actualType)
@@ -44,12 +46,21 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (IImmutableStack<Step> steps, TStatic step) => del(steps, (TActualType)step, @this);
+                                //return (IImmutableStack<Step> steps, TStatic step) => del(steps, (TActualType)step, (_, TStatic __) => _.Push(__), @this);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[1];
+
+                                var argument3Parameter1 = Expression.Parameter(typeof(IImmutableStack<Step>));
+                                var argument3Parameter2 = Expression.Parameter(staticType);
+
                                 var stepsParameterExpression = Expression.Parameter(typeof(IImmutableStack<Step>));
                                 var stepParameterExpression = Expression.Parameter(staticType);
                                 var staticTypeFunc = typeof(Func<,,>).MakeGenericType(typeof(IImmutableStack<Step>), staticType, typeof(IImmutableStack<Step>));
+
+                                var pushCall = Expression.Call(
+                                    argument3Parameter1,
+                                    typeof(IImmutableStack<Step>).GetMethod(nameof(IImmutableStack<Step>.Push)),
+                                    argument3Parameter2);
 
                                 var retCall = Expression.Invoke(
                                     Expression.Constant(del),
@@ -57,6 +68,10 @@ namespace ExRam.Gremlinq.Core
                                     Expression.Convert(
                                         stepParameterExpression,
                                         effectiveType),
+                                    Expression.Lambda(
+                                        pushCall,
+                                        argument3Parameter1,
+                                        argument3Parameter2),
                                     Expression.Constant(@this));
 
                                 return Expression
@@ -80,8 +95,8 @@ namespace ExRam.Gremlinq.Core
 
                 if (actualType.BaseType is { } baseType)
                 {
-                    if (InnerLookup(baseType) is { } baseSerializer)
-                        return baseSerializer;
+                    if (InnerLookup(baseType) is { } baseHandler)
+                        return baseHandler;
                 }
 
                 return null;
@@ -91,12 +106,12 @@ namespace ExRam.Gremlinq.Core
         public static IAddStepHandler Empty = new AddStepHandlerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
         public static IAddStepHandler Default = Empty
-            .Override<HasLabelStep>((steps, step, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
+            .Override<HasLabelStep>((steps, step, overridden, recurse) => steps.PeekOrDefault() is HasLabelStep hasLabelStep
                 ? steps
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
-                : steps.Push(step))
-            .Override<HasPredicateStep>((steps, step, recurse) =>
+                : overridden(steps, step))
+            .Override<HasPredicateStep>((steps, step, overridden, recurse) =>
             {
                 if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
                 {
@@ -113,20 +128,20 @@ namespace ExRam.Gremlinq.Core
                     return steps.Push(new HasPredicateStep(hasStep.Key, newPredicate));
                 }
 
-                return steps.Push(step);
+                return overridden(steps, step);
             })
-            .Override<WithoutStrategiesStep>((steps, step, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
+            .Override<WithoutStrategiesStep>((steps, step, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                 ? steps.Pop().Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
-                : steps.Push(step))
-            .Override<SelectStep>((steps, step, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
+                : overridden(steps, step))
+            .Override<SelectStep>((steps, step, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                 ? steps
-                : steps.Push(step))
-            .Override<IsStep>((steps, step, recurse) => steps.PeekOrDefault() is IsStep isStep
+                : overridden(steps, step))
+            .Override<IsStep>((steps, step, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
                 ? steps
                     .Pop()
                     .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
-                : steps.Push(step))
-            .Override<NoneStep>((steps, step, recurse) => steps.PeekOrDefault() is NoneStep ? steps : steps.Push(step));
+                : overridden(steps, step))
+            .Override<NoneStep>((steps, step, overridden, recurse) => steps.PeekOrDefault() is NoneStep ? steps : overridden(steps, step));
     }
 }
 

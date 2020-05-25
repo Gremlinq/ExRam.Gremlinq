@@ -7,6 +7,6 @@ namespace ExRam.Gremlinq.Core
     {
         IImmutableStack<Step> AddStep<TStep>(IImmutableStack<Step> steps, TStep step) where TStep : Step;
 
-        IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step;
+        IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, Func<IImmutableStack<Step>, TStep, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step;
     }
 }
