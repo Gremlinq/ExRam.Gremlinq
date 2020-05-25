@@ -196,11 +196,9 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
         {
-            return Steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, label)
-                ? ChangeQueryType<TQuery>()
-                : this
-                    .Select(label)
-                    .ChangeQueryType<TQuery>();
+            return this
+                .Select(label)
+                .ChangeQueryType<TQuery>();
         }
 
         IArrayGremlinQuery<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<IArrayGremlinQuery<TNewElement, TQuery>, TNewElement> label) => Cap(label);

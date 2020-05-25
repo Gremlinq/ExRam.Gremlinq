@@ -852,6 +852,9 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TSelectedElement, object, object, object, object, object> Select<TSelectedElement>(StepLabel<TSelectedElement> stepLabel)
         {
+            if (Steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, stepLabel))
+                return Cast<TSelectedElement, object, object, object, object, object>();
+
             if (StepLabelSemantics.TryGetValue(stepLabel, out var stepLabelSemantics))
                 return AddStepWithObjectTypes<TSelectedElement>(new SelectStep(ImmutableArray.Create<StepLabel>(stepLabel)), stepLabelSemantics);
 

@@ -19,12 +19,6 @@
         ]
       },
       {
-        "OperatorName": "select",
-        "Arguments": [
-          "l1"
-        ]
-      },
-      {
         "OperatorName": "project",
         "Arguments": [
           "id",
