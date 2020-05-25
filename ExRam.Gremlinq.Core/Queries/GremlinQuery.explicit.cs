@@ -195,12 +195,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, QuerySemantics.None);
 
-        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label)
-        {
-            return this
-                .Select(label)
-                .ChangeQueryType<TQuery>();
-        }
+        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => this.Select(label).ChangeQueryType<TQuery>();
 
         IArrayGremlinQuery<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<IArrayGremlinQuery<TNewElement, TQuery>, TNewElement> label) => Cap(label);
 
@@ -232,12 +227,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<object> IStartGremlinQuery.V(params object[] ids) => AddStepWithObjectTypes<object>(new VStep(ids.ToImmutableArray()), QuerySemantics.Vertex);
 
-        IVertexGremlinQuery<TNewVertex> IStartGremlinQuery.ReplaceV<TNewVertex>(TNewVertex vertex)
-        {
-            return ((IStartGremlinQuery)this)
-                .V<TNewVertex>(vertex.GetId(Environment.Model.PropertiesModel))
-                .Update(vertex);
-        }
+        IVertexGremlinQuery<TNewVertex> IStartGremlinQuery.ReplaceV<TNewVertex>(TNewVertex vertex) => ((IStartGremlinQuery)this).V<TNewVertex>(vertex.GetId(Environment.Model.PropertiesModel)).Update(vertex);
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>() => AddE(new TEdge());
 
@@ -255,10 +245,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => ConfigureEnvironment(transformation);
 
-        IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes)
-        {
-            return AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
-        }
+        IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes) => AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Mute() => Mute();
 
