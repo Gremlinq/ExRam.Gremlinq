@@ -205,9 +205,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
-        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
+        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
 
-        IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
+        IValueGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
 
         IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
 

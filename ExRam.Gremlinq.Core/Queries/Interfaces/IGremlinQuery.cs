@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> Explain();
 
-        IGremlinQuery<object> Lower();
+        IValueGremlinQuery<object> Lower();
 
         IValueGremlinQuery<string> Profile();
 
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
-        new IGremlinQuery<TElement> Lower();
+        new IValueGremlinQuery<TElement> Lower();
 
         IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
