@@ -95,6 +95,27 @@ namespace ExRam.Gremlinq.Core
                 ? steps
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
-                : steps.Push(step));
+                : steps.Push(step))
+            .Override<HasPredicateStep>((steps, step, recurse) =>
+            {
+                if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
+                {
+                    var newPredicate = step.Predicate;
+
+                    if (newPredicate == null)
+                        return steps;
+
+                    steps = steps.Pop();
+                    newPredicate = hasStep.Predicate is { } otherPredicate
+                        ? otherPredicate.And(newPredicate)
+                        : newPredicate;
+
+                    return steps.Push(new HasPredicateStep(hasStep.Key, newPredicate));
+                }
+
+                return steps.Push(step);
+            });
     }
 }
+
+

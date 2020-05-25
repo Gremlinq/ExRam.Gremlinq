@@ -597,21 +597,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(object key, P? predicate)
         {
-            return ConfigureSteps<TElement>(steps =>
-            {
-                if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == key)
-                {
-                    if (predicate == null)
-                        return steps;
-
-                    steps = steps.Pop();
-                    predicate = hasStep.Predicate is { } otherPredicate
-                        ? otherPredicate.And(predicate)
-                        : predicate;
-                }
-
-                return steps.Push(new HasPredicateStep(key, predicate));
-            });
+            return AddStep(new HasPredicateStep(key, predicate));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(MemberExpression expression, IGremlinQueryBase traversal)
@@ -710,11 +696,7 @@ namespace ExRam.Gremlinq.Core
                 .TryGetFilterLabels(typeof(TTarget), Environment.Options.GetValue(GremlinqOption.FilterLabelsVerbosity)) ?? ImmutableArray.Create(typeof(TTarget).Name);
 
             return labels.Length > 0
-                ? Steps.PeekOrDefault() is HasLabelStep hasLabelStep
-                    ? ConfigureSteps<TTarget>(steps => steps
-                        .Pop()
-                        .Push(new HasLabelStep(labels.Intersect(hasLabelStep.Labels).ToImmutableArray())))
-                    : AddStep<TTarget>(new HasLabelStep(labels), Semantics)
+                ? AddStep<TTarget>(new HasLabelStep(labels), Semantics)
                 : Cast<TTarget>();
         }
 
