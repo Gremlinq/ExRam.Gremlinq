@@ -1209,6 +1209,25 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task None()
+        {
+            await _g
+                .V<Person>()
+                .None()
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task None_None()
+        {
+            await _g
+                .V<Person>()
+                .None()
+                .None()
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Not1()
         {
             await _g
