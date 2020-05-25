@@ -8,6 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         public ConstantExpressionFragment(object? value, Expression? expression = default) : base(expression)
         {
+            //TODO: References string. Should work for any native type.
             if (value is IEnumerable enumerable && !(value is ICollection) && !(value is string))
                 value = enumerable.Cast<object>().ToArray();
 
