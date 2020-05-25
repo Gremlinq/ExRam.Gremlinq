@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Core
         IInEdgeGremlinQueryBase,
         IEdgeGremlinQueryBase<TEdge>
     {
-        IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> From<TOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IGremlinQueryBase<TOutVertex>> fromVertexTraversal);
+        IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> From<TOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TOutVertex>> fromVertexTraversal);
 
         new IVertexGremlinQuery<TInVertex> InV();
 

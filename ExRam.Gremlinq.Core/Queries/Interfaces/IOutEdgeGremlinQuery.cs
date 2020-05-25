@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
 
         new IVertexGremlinQuery<TOutVertex> OutV();
 
-        IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IGremlinQueryBase<TInVertex>> toVertexTraversal);
+        IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> To<TInVertex>(Func<IVertexGremlinQuery<TOutVertex>, IVertexGremlinQueryBase<TInVertex>> toVertexTraversal);
     }
 
     public interface IOutEdgeGremlinQueryBaseRec<TSelf> :
