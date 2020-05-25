@@ -11,7 +11,7 @@
         IVertexGremlinQuery<object> V(params object[] ids);
         IVertexGremlinQuery<TVertex> V<TVertex>(params object[] ids);
 
-        IGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
+        IValueGremlinQuery<TElement> Inject<TElement>(params TElement[] elements);
 
         IVertexGremlinQuery<TNewVertex> ReplaceV<TNewVertex>(TNewVertex vertex);
     }
