@@ -31,6 +31,11 @@ namespace ExRam.Gremlinq.Core
         protected AddElementStep(ExRam.Gremlinq.Core.IGraphElementModel elementModel, object value) { }
         public string Label { get; }
     }
+    public static class AddStepHandler
+    {
+        public static ExRam.Gremlinq.Core.IAddStepHandler Default;
+        public static ExRam.Gremlinq.Core.IAddStepHandler Empty;
+    }
     public sealed class AddVStep : ExRam.Gremlinq.Core.AddElementStep
     {
         public AddVStep(ExRam.Gremlinq.Core.IGraphModel model, object value) { }
@@ -329,6 +334,7 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment EchoGroovyString(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static System.Collections.Generic.IAsyncEnumerable<TElement> Execute<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment StoreTimeSpansAsNumbers(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseAddStepHandler(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, ExRam.Gremlinq.Core.IAddStepHandler addStepHandler) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseDeserializer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer deserializer) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseExecutor(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, ExRam.Gremlinq.Core.IGremlinQueryExecutor executor) { }
         public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseLogger(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment source, Microsoft.Extensions.Logging.ILogger logger) { }
@@ -455,6 +461,13 @@ namespace ExRam.Gremlinq.Core
     {
         public HasValueStep(object argument) { }
         public object Argument { get; }
+    }
+    public interface IAddStepHandler
+    {
+        System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> AddStep<TStep>(System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> steps, TStep step)
+            where TStep : ExRam.Gremlinq.Core.Step;
+        ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, TStep, ExRam.Gremlinq.Core.IAddStepHandler, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> addStepHandler)
+            where TStep : ExRam.Gremlinq.Core.Step;
     }
     public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
     {
@@ -764,6 +777,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryEnvironment
     {
+        ExRam.Gremlinq.Core.IAddStepHandler AddStepHandler { get; }
         ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryExecutor Executor { get; }
         ExRam.Gremlinq.Core.FeatureSet FeatureSet { get; }
@@ -771,6 +785,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGraphModel Model { get; }
         ExRam.Gremlinq.Core.GremlinqOptions Options { get; }
         ExRam.Gremlinq.Core.IGremlinQuerySerializer Serializer { get; }
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureAddStepHandler(System.Func<ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.IAddStepHandler> handlerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutor, ExRam.Gremlinq.Core.IGremlinQueryExecutor> executorTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.FeatureSet, ExRam.Gremlinq.Core.FeatureSet> featureSetTransformation);
