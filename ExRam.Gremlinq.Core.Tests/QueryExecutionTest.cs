@@ -153,18 +153,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_TimeFrame()
-        {
-            await _g
-                .AddV(new TimeFrame
-                {
-                    StartTime = TimeSpan.FromHours(8),
-                    Duration = TimeSpan.FromHours(2)
-                })
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task AddV_ignores_label()
         {
             await _g
@@ -187,6 +175,18 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Should()
                     .Throw<NotSupportedException>();
             }
+        }
+
+        [Fact]
+        public async Task AddV_TimeFrame()
+        {
+            await _g
+                .AddV(new TimeFrame
+                {
+                    StartTime = TimeSpan.FromHours(8),
+                    Duration = TimeSpan.FromHours(2)
+                })
+                .Verify(this);
         }
 
         [Fact]
@@ -409,16 +409,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_single()
-        {
-            await _g
-                .V<Person>()
-                .And(
-                    __ => __.Out())
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task And_infix()
         {
             await _g
@@ -474,6 +464,16 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .And(
                     __ => __,
+                    __ => __.Out())
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task And_single()
+        {
+            await _g
+                .V<Person>()
+                .And(
                     __ => __.Out())
                 .Verify(this);
         }
@@ -1331,20 +1331,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_two_step_traversal()
-        {
-            await _g
-                .V<Person>()
-                .Or(
-                    __ => __
-                        .Out<LivesIn>(),
-                    __ => __
-                        .OutE<LivesIn>()
-                        .InV())
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task Or_infix()
         {
             await _g
@@ -1398,6 +1384,20 @@ namespace ExRam.Gremlinq.Core.Tests
                         .None(),
                     __ => __
                         .OutE())
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Or_two_step_traversal()
+        {
+            await _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .Out<LivesIn>(),
+                    __ => __
+                        .OutE<LivesIn>()
+                        .InV())
                 .Verify(this);
         }
 
@@ -1692,52 +1692,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project2()
-        {
-            await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Project(__ => __
-                    .ToTuple()
-                    .By(__ => __.In())
-                    .By(__ => __.Out()))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Project3()
-        {
-            await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Project(__ => __
-                    .ToTuple()
-                    .By(__ => __.In())
-                    .By(__ => __.Out())
-                    .By(__ => __.Count()))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Project4()
-        {
-            await _g
-                .V()
-                .Where(__ => __.In())
-                .Where(__ => __.Out())
-                .Where(__ => __.Properties())
-                .Project(__ => __
-                    .ToTuple()
-                    .By(__ => __.In())
-                    .By(__ => __.Out())
-                    .By(__ => __.Count())
-                    .By(__ => __.Properties()))
-                .Verify(this);
-        }
-
-        [Fact]
         public async Task Project_with_identity()
         {
             await _g
@@ -1763,7 +1717,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-
+        [Fact]
+        public async Task Project2()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out()))
+                .Verify(this);
+        }
 
 
         [Fact]
@@ -1780,6 +1746,21 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Project3()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Project3_with_Property()
         {
             await _g
@@ -1791,6 +1772,23 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.In())
                     .By(__ => __.Out())
                     .By(__ => __.Age))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project4()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Where(__ => __.Properties())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count())
+                    .By(__ => __.Properties()))
                 .Verify(this);
         }
 
@@ -2157,7 +2155,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties.ValidFrom)
                 .Verify(this);
         }
-        
+
         [Fact]
         public async Task Properties_Where_neq_Label()
         {
@@ -3153,6 +3151,16 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Has()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                   .Where(t => t.Age == 36))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_has_conjunction_of_three()
         {
             await _g
@@ -3247,26 +3255,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _
                     .Or(_ => _))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Where_Where()
-        {
-            await _g
-                .V<Person>()
-                .Where(_ => _
-                    .Where(_ => _.Out()))
-                .Verify(this);
-        }
-
-        [Fact]
-        public async Task Where_Has()
-        {
-            await _g
-                .V<Person>()
-                .Where(__ => __
-                   .Where(t => t.Age == 36))
                 .Verify(this);
         }
 
@@ -3952,6 +3940,16 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(x => (int)x.Name.Id == 36)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_Where()
+        {
+            await _g
+                .V<Person>()
+                .Where(_ => _
+                    .Where(_ => _.Out()))
                 .Verify(this);
         }
 
