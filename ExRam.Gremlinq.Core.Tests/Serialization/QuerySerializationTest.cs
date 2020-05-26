@@ -42,5 +42,21 @@ namespace ExRam.Gremlinq.Core.Tests
                 .E()
                 .Verify(this);
         }
+
+        [Fact]
+        public async Task Multi_step_serialization_with_forgotten_serialize()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureSerializer(ser => ser
+                        .ConfigureFragmentSerializer(f => f
+                            .Override<EStep>((step, overridden, recurse) => new Step[]
+                            {
+                                new VStep(ImmutableArray<object>.Empty),
+                                new OutEStep(ImmutableArray<string>.Empty)
+                            }))))
+                .E()
+                .Verify(this);
+        }
     }
 }
