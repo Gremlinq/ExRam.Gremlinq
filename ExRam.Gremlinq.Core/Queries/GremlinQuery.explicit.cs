@@ -194,7 +194,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, QuerySemantics.None);
 
-        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => this.Select(label).ChangeQueryType<TQuery>();
+        TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>();
 
         IArrayGremlinQuery<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<IArrayGremlinQuery<TNewElement, TQuery>, TNewElement> label) => Cap(label);
 
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
-        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>();
+        TTargetQuery IGremlinQueryAdmin.ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<TElement>(transformation).ChangeQueryType<TTargetQuery>(false);
 
         TTargetQuery IGremlinQueryAdmin.AddStep<TTargetQuery>(Step step) => AddStep(step).ChangeQueryType<TTargetQuery>();
 

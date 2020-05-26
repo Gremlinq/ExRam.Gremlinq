@@ -2623,7 +2623,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-
         [Fact]
         public async Task Union_different_types2()
         {
