@@ -38,7 +38,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static GremlinqSetup UseConfigurationSection(this GremlinqSetup setup, string sectionName)
         {
-            return new GremlinqSetup(setup.ServiceCollection
+            return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider
                     .GetService<IConfiguration>()
                     .GetSection(sectionName)
@@ -47,14 +47,21 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static GremlinqSetup UseModel(this GremlinqSetup setup, IGraphModel model)
         {
-            return new GremlinqSetup(setup.ServiceCollection
+            return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton(model)
                 .AddSingleton<IGremlinQueryEnvironmentTransformation, UseModelTransformation>());
         }
 
+        public static GremlinqSetup RegisterTypes(this GremlinqSetup setup, Action<IServiceCollection> registration)
+        {
+            registration(setup.ServiceCollection);
+
+            return setup;
+        }
+
         public static GremlinqSetup ConfigureEnvironment(this GremlinqSetup setup, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
         {
-            return new GremlinqSetup(setup.ServiceCollection
+            return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinQueryEnvironmentTransformation>(new EnvironmentTransformation(environmentTransformation)));
         }
     }
