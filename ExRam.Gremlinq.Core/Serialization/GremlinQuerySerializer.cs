@@ -87,6 +87,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQuerySerializer Default = Identity
             .UseDefaultGremlinStepSerializationHandlers();
 
+        private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new ConcurrentDictionary<string, Instruction>();
 
         static GremlinQuerySerializer()
@@ -291,20 +292,19 @@ namespace ExRam.Gremlinq.Core
                     .Override<Traversal>((traversal, overridden, recurse) =>
                     {
                         var byteCode = new Bytecode();
+                        var steps = traversal.Steps;
 
-                        if (traversal.Steps.Length == 0 && recurse.Serialize(IdentityStep.Instance) is Instruction identityInstruction)
-                            byteCode.StepInstructions.Add(identityInstruction);
-                        else
+                        if (steps.Length == 0)
+                            steps = IdentitySteps;
+
+                        foreach (var step in steps)
                         {
-                            foreach (var step in traversal.Steps)
+                            if (recurse.Serialize(step) is Instruction instruction)
                             {
-                                if (recurse.Serialize(step) is Instruction instruction)
-                                {
-                                    if (instruction.OperatorName.Equals("withoutStrategies"))
-                                        byteCode.SourceInstructions.Add(instruction);
-                                    else
-                                        byteCode.StepInstructions.Add(instruction);
-                                }
+                                if (instruction.OperatorName.Equals("withoutStrategies"))
+                                    byteCode.SourceInstructions.Add(instruction);
+                                else
+                                    byteCode.StepInstructions.Add(instruction);
                             }
                         }
 
