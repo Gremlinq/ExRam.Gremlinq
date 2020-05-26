@@ -289,6 +289,7 @@ namespace ExRam.Gremlinq.Core
                     .Override<SkipStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("skip", recurse, step.Scope, step.Count)
                         : CreateInstruction("skip", recurse, step.Count))
+                    .Override<Step>((step, overridden, recurse) => Array.Empty<Instruction>())
                     .Override<Traversal>((traversal, overridden, recurse) =>
                     {
                         var byteCode = new Bytecode();
@@ -309,10 +310,7 @@ namespace ExRam.Gremlinq.Core
                                 }
                                 case Step step:
                                 {
-                                    var recursed = recurse.Serialize(step);
-
-                                    if (!object.ReferenceEquals(recursed, step))
-                                        Add(recursed);
+                                    Add(recurse.Serialize(step));
 
                                     break;
                                 }
