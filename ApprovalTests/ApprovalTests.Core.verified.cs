@@ -646,7 +646,8 @@ namespace ExRam.Gremlinq.Core
     {
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> Steps { get; }
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> AddStep(ExRam.Gremlinq.Core.Step step);
+        TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery ChangeQueryType<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> ConfigureSteps(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> configurator);
