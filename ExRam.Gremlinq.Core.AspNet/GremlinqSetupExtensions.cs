@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -20,6 +21,21 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
+        private sealed class EnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        {
+            private readonly Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> _environmentTransformation;
+
+            public EnvironmentTransformation(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+            {
+                _environmentTransformation = environmentTransformation;
+            }
+
+            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            {
+                return _environmentTransformation(environment);
+            }
+        }
+
         public static GremlinqSetup UseConfigurationSection(this GremlinqSetup setup, string sectionName)
         {
             return new GremlinqSetup(setup.ServiceCollection
@@ -34,6 +50,12 @@ namespace ExRam.Gremlinq.Core.AspNet
             return new GremlinqSetup(setup.ServiceCollection
                 .AddSingleton(model)
                 .AddSingleton<IGremlinQueryEnvironmentTransformation, UseModelTransformation>());
+        }
+
+        public static GremlinqSetup ConfigureEnvironment(this GremlinqSetup setup, Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> environmentTransformation)
+        {
+            return new GremlinqSetup(setup.ServiceCollection
+                .AddSingleton<IGremlinQueryEnvironmentTransformation>(new EnvironmentTransformation(environmentTransformation)));
         }
     }
 }
