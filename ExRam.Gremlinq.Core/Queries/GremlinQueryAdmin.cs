@@ -1,25 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
     internal static class GremlinQueryAdmin
     {
-        public static IGremlinQueryBase AddStep(this IGremlinQueryAdmin admin, Step step)
+        public static TTargetQuery AddSteps<TTargetQuery>(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
+            where TTargetQuery : IGremlinQueryBase
         {
-            return admin.ConfigureSteps(steps => steps.Push(step));
-        }
+            var ret = default(IGremlinQueryBase?);
 
-        public static IGremlinQueryBase AddSteps(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
-        {
-            return admin.ConfigureSteps(existingSteps =>
+            foreach (var step in steps)
             {
-                foreach (var step in steps)
-                {
-                    existingSteps = existingSteps.Push(step);
-                }
+                ret = admin.AddStep<IGremlinQueryBase>(step);
+                admin = ret.AsAdmin();
+            }
 
-                return existingSteps;
-            });
+            return ret == null
+                ? throw new ArgumentException($"{nameof(steps)} must contain at least one step.", nameof(steps))
+                : ret.AsAdmin().ChangeQueryType<TTargetQuery>();
         }
     }
 }

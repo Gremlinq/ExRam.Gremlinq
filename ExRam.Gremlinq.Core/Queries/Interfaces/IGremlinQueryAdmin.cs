@@ -5,7 +5,7 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryAdmin
     {
-        IValueGremlinQuery<object> ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator);
+        TTargetQuery ConfigureSteps<TTargetQuery>(Func<IImmutableStack<Step>, IImmutableStack<Step>> configurator) where TTargetQuery : IGremlinQueryBase;
         TTargetQuery AddStep<TTargetQuery>(Step step) where TTargetQuery : IGremlinQueryBase;
 
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;

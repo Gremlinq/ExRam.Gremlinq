@@ -33,11 +33,6 @@ namespace ExRam.Gremlinq.Core
             return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
         }
 
-        internal static IGremlinQueryBase AddStep(this IGremlinQueryBase query, Step step)
-        {
-            return query.AsAdmin().ConfigureSteps(steps => steps.Push(step));
-        }
-
         internal static bool IsNone(this IGremlinQueryBase query)
         {
             return query.AsAdmin().Steps.PeekOrDefault() is NoneStep;
@@ -108,11 +103,13 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    return _ => _
-                        .AsAdmin()
-                        .AddSteps(list)
-                        .AsAdmin()
-                        .ChangeQueryType<TTargetQuery>();
+                    return list.Count > 0
+                        ? new Func<TSourceQuery, TTargetQuery>(_ => _
+                            .AsAdmin()
+                            .AddSteps<TTargetQuery>(list))
+                        : _ => _
+                            .AsAdmin()
+                            .ChangeQueryType<TTargetQuery>();
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core
                         .Override<IGremlinQueryBase>((query, overridden, recurse) =>
                         {
                             if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
-                                query = query.AsAdmin().ConfigureSteps(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
+                                query = query.AsAdmin().ConfigureSteps<IGremlinQueryBase>(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
 
                             return overridden(query);
                         })));

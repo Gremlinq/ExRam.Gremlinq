@@ -650,7 +650,8 @@ namespace ExRam.Gremlinq.Core
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TTargetQuery ChangeQueryType<TTargetQuery>()
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
-        ExRam.Gremlinq.Core.IValueGremlinQuery<object> ConfigureSteps(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> configurator);
+        TTargetQuery ConfigureSteps<TTargetQuery>(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> configurator)
+            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.Traversal ToTraversal();
     }
     public interface IGremlinQueryBase : ExRam.Gremlinq.Core.IStartGremlinQuery
