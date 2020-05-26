@@ -16,6 +16,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,
+        IGremlinQuery<TElement>,
 
         IArrayGremlinQuery<TElement, TFoldedQuery>,
 
@@ -40,8 +41,6 @@ namespace ExRam.Gremlinq.Core
         TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
         IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
-
-        IValueGremlinQuery<TResult> IGremlinQueryBase.Cast<TResult>() => Cast<TResult>();
 
         IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TFoldedQuery>.Lower() => this;
 
@@ -187,7 +186,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> IGremlinQueryBase.Explain() => AddStepWithObjectTypes<string>(ExplainStep.Instance, QuerySemantics.None);
 
-        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQueryBase<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
+        TaskAwaiter IGremlinQueryBase.GetAwaiter() => ((Task)((IGremlinQuery<TElement>)this).ToAsyncEnumerable().LastOrDefaultAsync().AsTask()).GetAwaiter();
 
         GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new GremlinQueryAwaiter<TElement>((this).ToArrayAsync().AsTask().GetAwaiter());
 
@@ -201,11 +200,13 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
+        IGremlinQuery<TElement> IGremlinQueryBase<TElement>.Lower() => this;
 
-        IValueGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
+        IGremlinQuery<object> IGremlinQueryBase.Lower() => Cast<object>();
 
         IValueGremlinQuery<object> IGremlinQueryBase.Drop() => Drop();
+
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Mute() => Mute();
 
         IValueGremlinQuery<object> IGremlinQueryAdmin.ConfigureSteps(Func<IImmutableStack<Step>, IImmutableStack<Step>> transformation) => ConfigureSteps<object>(transformation);
 

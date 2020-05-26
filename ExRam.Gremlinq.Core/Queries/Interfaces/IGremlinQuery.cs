@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         TaskAwaiter GetAwaiter();
 
         IGremlinQueryAdmin AsAdmin();
-        IValueGremlinQuery<TResult> Cast<TResult>();
+        IGremlinQuery<TResult> Cast<TResult>();
         IValueGremlinQuery<long> Count();
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<string> Explain();
 
-        IValueGremlinQuery<object> Lower();
+        IGremlinQuery<object> Lower();
 
         IValueGremlinQuery<string> Profile();
 
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
-        new IValueGremlinQuery<TElement> Lower();
+        new IGremlinQuery<TElement> Lower();
 
         IAsyncEnumerable<TElement> ToAsyncEnumerable();
     }
@@ -136,5 +136,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectResult> continuation);
         IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
+    }
+
+    public interface IGremlinQuery<TElement> : IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>
+    {
     }
 }
