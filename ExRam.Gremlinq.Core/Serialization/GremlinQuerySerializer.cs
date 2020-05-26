@@ -206,6 +206,7 @@ namespace ExRam.Gremlinq.Core
                             : step.Argument))
                     .Override<IdentityStep>((step, overridden, recurse) => CreateInstruction("identity"))
                     .Override<IdStep>((step, overridden, recurse) => CreateInstruction("id"))
+                    .Override<IEnumerable<Step>>((steps, overridden, recurse) => recurse.Serialize(steps.Select(x => recurse.Serialize(x))))
                     .Override<IGremlinQueryBase>((query, overridden, recurse) => recurse.Serialize(query.ToTraversal()))
                     .Override<ILambda>((lambda, overridden, recurse) => lambda)
                     .Override<InjectStep>((step, overridden, recurse) => CreateInstruction("inject", recurse, step.Elements))
@@ -289,23 +290,43 @@ namespace ExRam.Gremlinq.Core
                     .Override<SkipStep>((step, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("skip", recurse, step.Scope, step.Count)
                         : CreateInstruction("skip", recurse, step.Count))
+                    .Override<Step[]>((steps, overridden, recurse) => recurse.Serialize(steps.Select(x => recurse.Serialize(x))))
                     .Override<Traversal>((traversal, overridden, recurse) =>
                     {
                         var byteCode = new Bytecode();
                         var steps = traversal.Steps;
+
+                        void Add(object serialized)
+                        {
+                            switch (serialized)
+                            {
+                                case Instruction instruction:
+                                {
+                                    if (instruction.OperatorName.Equals("withoutStrategies"))
+                                        byteCode.SourceInstructions.Add(instruction);
+                                    else
+                                        byteCode.StepInstructions.Add(instruction);
+
+                                    break;
+                                }
+                                case IEnumerable enumerable:
+                                {
+                                    foreach (var item in enumerable)
+                                    {
+                                        Add(item);
+                                    }
+
+                                    break;
+                                }
+                            }
+                        }
 
                         if (steps.Length == 0)
                             steps = IdentitySteps;
 
                         foreach (var step in steps)
                         {
-                            if (recurse.Serialize(step) is Instruction instruction)
-                            {
-                                if (instruction.OperatorName.Equals("withoutStrategies"))
-                                    byteCode.SourceInstructions.Add(instruction);
-                                else
-                                    byteCode.StepInstructions.Add(instruction);
-                            }
+                            Add(recurse.Serialize(step));
                         }
 
                         return byteCode;

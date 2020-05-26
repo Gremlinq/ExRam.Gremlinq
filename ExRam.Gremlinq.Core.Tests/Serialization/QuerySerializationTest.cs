@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using Xunit;
@@ -23,6 +24,22 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>("id")
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Multi_step_serialization()
+        {
+            await _g
+                .ConfigureEnvironment(env => env
+                    .ConfigureSerializer(ser => ser
+                        .ConfigureFragmentSerializer(f => f
+                            .Override<EStep>((step, overridden, recurse) => recurse.Serialize(new Step[]
+                            {
+                                new VStep(ImmutableArray<object>.Empty),
+                                new OutEStep(ImmutableArray<string>.Empty)
+                            })))))
+                .E()
                 .Verify(this);
         }
     }
