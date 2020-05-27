@@ -20,7 +20,6 @@ namespace ExRam.Gremlinq.Core
         private sealed class WebSocketGremlinQueryExecutor : IGremlinQueryExecutor, IDisposable
         {
             private readonly string _alias;
-            private readonly ILogger? _logger;
             private readonly QueryLoggingOptions _loggingOptions;
             private readonly Dictionary<string, string> _aliasArgs;
             private readonly Lazy<Task<IGremlinClient>> _lazyGremlinClient;
@@ -28,11 +27,9 @@ namespace ExRam.Gremlinq.Core
             public WebSocketGremlinQueryExecutor(
                 Func<CancellationToken, Task<IGremlinClient>> clientFactory,
                 string alias = "g",
-                ILogger? logger = null, //TODO: Use Environment logger!
                 QueryLoggingOptions loggingOptions = default)
             {
                 _alias = alias;
-                _logger = logger;
                 _loggingOptions = loggingOptions;
                 _aliasArgs = new Dictionary<string, string> { {"g", _alias} };
                 _lazyGremlinClient = new Lazy<Task<IGremlinClient>>(() => clientFactory(default), LazyThreadSafetyMode.ExecutionAndPublication);
@@ -53,7 +50,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (serializedQuery is GroovyGremlinQuery groovyScript)
                     {
-                        Log(groovyScript);
+                        Log(groovyScript, environment.Logger);
 
                         try
                         {
@@ -66,7 +63,7 @@ namespace ExRam.Gremlinq.Core
                         }
                         catch (Exception ex)
                         {
-                            _logger?.LogError(
+                            environment.Logger.LogError(
                                 "Error executing Gremlin query {0}:\r\n{1}",
                                 groovyScript.Script,
                                 ex);
@@ -76,8 +73,8 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (serializedQuery is Bytecode bytecode)
                     {
-                        if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
-                            Log(bytecode.ToGroovy());
+                        if (environment.Logger.IsEnabled(_loggingOptions.LogLevel) && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
+                            Log(bytecode.ToGroovy(), environment.Logger);
 
                         var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
@@ -97,7 +94,7 @@ namespace ExRam.Gremlinq.Core
                         }
                         catch (Exception ex)
                         {
-                            _logger?.LogError(
+                            environment.Logger.LogError(
                                 "Error executing Gremlin query {0}:\r\n{1}",
                                 JsonConvert.SerializeObject(requestMsg),
                                 ex);
@@ -118,11 +115,11 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(GroovyGremlinQuery query)
+            private void Log(GroovyGremlinQuery query, ILogger logger)
             {
-                if ((_logger?.IsEnabled(_loggingOptions.LogLevel)).GetValueOrDefault() && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
+                if (logger.IsEnabled(_loggingOptions.LogLevel) && _loggingOptions.Verbosity > QueryLoggingVerbosity.None)
                 {
-                    _logger?.Log(
+                    logger.Log(
                         _loggingOptions.LogLevel,
                         "Executing Gremlin query {0}.",
                         JsonConvert.SerializeObject(
@@ -257,7 +254,6 @@ namespace ExRam.Gremlinq.Core
                                     _connectionPoolSettings),
                                 ct)),
                             _alias,
-                            _environment.Logger,
                             _queryLoggingOptions));
             }
         }
