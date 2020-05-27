@@ -984,7 +984,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
-                    case ConstantExpression constantExpression when constantExpression.GetValue() is bool value:
+                    case ConstantExpression constantExpression when constantExpression.GetValue(Environment.Model) is bool value:
                     {
                         return value
                             ? this
@@ -1012,7 +1012,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                if (expression.TryToGremlinExpression() is { } gremlinExpression)
+                if (expression.TryToGremlinExpression(Environment.Model) is { } gremlinExpression)
                     return Where(gremlinExpression);
             }
             catch(ExpressionNotSupportedException ex)
@@ -1070,14 +1070,14 @@ namespace ExRam.Gremlinq.Core
                                                 return Where(__ => __
                                                     .Key()
                                                     .Where(
-                                                        ExpressionFragment.Create(leftMemberExpression.Expression),
+                                                        ExpressionFragment.Create(leftMemberExpression.Expression, Environment.Model),
                                                         semantics,
                                                         right));
                                             case WellKnownMember.VertexPropertyLabel when rightConstantFragment.Value is StepLabel:
                                                 return Where(__ => __
                                                     .Label()
                                                     .Where(
-                                                        ExpressionFragment.Create(leftMemberExpression.Expression),
+                                                        ExpressionFragment.Create(leftMemberExpression.Expression, Environment.Model),
                                                         semantics,
                                                         right));
                                             case WellKnownMember.VertexPropertyLabel:
@@ -1137,7 +1137,7 @@ namespace ExRam.Gremlinq.Core
 
                                     if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                     {
-                                        return Has(methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate);
+                                        return Has(methodCallExpression.Arguments[0].Strip().GetValue(Environment.Model), effectivePredicate);
                                     }
 
                                     break;

@@ -44,7 +44,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static object GetValue(this Expression expression)
+        public static object GetValue(this Expression expression, IGraphModel model)
         {
             var value = expression switch
             {
@@ -54,21 +54,20 @@ namespace ExRam.Gremlinq.Core
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
 
-            //TODO: References string. Should work for any native type.
-            if (value is IEnumerable enumerable && !(value is ICollection) && !(value is string))
+            if (value is IEnumerable enumerable && !(value is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()))
                 value = enumerable.Cast<object>().ToArray();
 
             return value;
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool TryParseStepLabelExpression(this Expression expression, IGraphModel model, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
             stepLabel = null;
             stepLabelValueMemberExpression = null;
 
             if (typeof(StepLabel).IsAssignableFrom(expression.Type))
             {
-                stepLabel = (StepLabel)expression.GetValue();
+                stepLabel = (StepLabel)expression.GetValue(model);
 
                 return true;
             }
@@ -77,7 +76,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (outerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                 {
-                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue();
+                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue(model);
 
                     return true;
                 }
@@ -88,7 +87,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                     {
-                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue();
+                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue(model);
 
                         return true;
                     }
@@ -138,23 +137,23 @@ namespace ExRam.Gremlinq.Core
             return expression.Parameters.Count == 1 && expression.Body.Strip() == expression.Parameters[0];
         }
 
-        public static GremlinExpression? TryToGremlinExpression(this Expression body)
+        public static GremlinExpression? TryToGremlinExpression(this Expression body, IGraphModel model)
         {
             switch (body)
             {
                 case MemberExpression memberExpression when memberExpression.RefersToParameter() && memberExpression.Member is PropertyInfo property && property.PropertyType == typeof(bool):
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(memberExpression),
+                        ExpressionFragment.Create(memberExpression, model),
                         ExpressionSemantics.Equals,
                         ExpressionFragment.True);
                 }
                 case BinaryExpression binaryExpression when binaryExpression.NodeType != ExpressionType.AndAlso && binaryExpression.NodeType != ExpressionType.OrElse:
                 {
                     return new GremlinExpression(
-                        ExpressionFragment.Create(binaryExpression.Left.Strip()),
+                        ExpressionFragment.Create(binaryExpression.Left.Strip(), model),
                         binaryExpression.NodeType.ToSemantics(),
-                        ExpressionFragment.Create(binaryExpression.Right.Strip()));
+                        ExpressionFragment.Create(binaryExpression.Right.Strip(), model));
                 }
                 case MethodCallExpression methodCallExpression:
                 {
@@ -168,23 +167,23 @@ namespace ExRam.Gremlinq.Core
                             var arguments = ((MethodCallExpression)thisExpression).Arguments;
 
                             return new GremlinExpression(
-                                ExpressionFragment.Create(arguments[0].Strip()),
+                                ExpressionFragment.Create(arguments[0].Strip(), model),
                                 ExpressionSemantics.Intersects,
-                                ExpressionFragment.Create(arguments[1].Strip()));
+                                ExpressionFragment.Create(arguments[1].Strip(), model));
                         }
                         case WellKnownMember.EnumerableAny:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(thisExpression),
+                                ExpressionFragment.Create(thisExpression, model),
                                 ExpressionSemantics.NotEquals,
                                 ExpressionFragment.Null);
                         }
                         case WellKnownMember.EnumerableContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(thisExpression),
+                                ExpressionFragment.Create(thisExpression, model),
                                 ExpressionSemantics.Contains,
-                                ExpressionFragment.Create(methodCallExpression.Arguments[1].Strip()));
+                                ExpressionFragment.Create(methodCallExpression.Arguments[1].Strip(), model));
                         }
                         case WellKnownMember.StringStartsWith:
                         case WellKnownMember.StringEndsWith:
@@ -195,20 +194,20 @@ namespace ExRam.Gremlinq.Core
 
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression is MemberExpression)
                             {
-                                if (instanceExpression.GetValue() is string stringValue)
+                                if (instanceExpression.GetValue(model) is string stringValue)
                                 {
                                     return new GremlinExpression(
                                         new ConstantExpressionFragment(stringValue),
                                         ExpressionSemantics.StartsWith,
-                                        ExpressionFragment.Create(argumentExpression));
+                                        ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
                             else if (instanceExpression is MemberExpression)
                             {
-                                if (argumentExpression.GetValue() is string stringValue)
+                                if (argumentExpression.GetValue(model) is string stringValue)
                                 {
                                     return new GremlinExpression(
-                                        ExpressionFragment.Create(instanceExpression),
+                                        ExpressionFragment.Create(instanceExpression, model),
                                         wellKnownMember switch
                                         {
                                             WellKnownMember.StringStartsWith => ExpressionSemantics.StartsWith,

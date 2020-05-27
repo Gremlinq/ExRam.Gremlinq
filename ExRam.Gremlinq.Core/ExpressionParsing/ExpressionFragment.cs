@@ -14,13 +14,13 @@ namespace ExRam.Gremlinq.Core
 
         public Expression? Expression { get; }
 
-        public static ExpressionFragment Create(Expression expression)
+        public static ExpressionFragment Create(Expression expression, IGraphModel model)
         {
             return expression.RefersToParameter()
                 ? (ExpressionFragment)new ParameterExpressionFragment(expression)
-                : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
+                : expression.TryParseStepLabelExpression(model, out var stepLabel, out var stepLabelExpression)
                     ? new StepLabelExpressionFragment(stepLabel!, stepLabelExpression)
-                    : new ConstantExpressionFragment(expression.GetValue());
+                    : new ConstantExpressionFragment(expression.GetValue(model));
         }
     }
 }
