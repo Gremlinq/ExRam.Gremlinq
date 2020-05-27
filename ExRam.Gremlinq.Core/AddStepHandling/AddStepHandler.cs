@@ -20,8 +20,8 @@ namespace ExRam.Gremlinq.Core
 
             public IImmutableStack<Step> AddStep<TStep>(IImmutableStack<Step> steps, TStep step, IGremlinQueryEnvironment environment) where TStep : Step
             {
-                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IImmutableStack<Step>> del
-                    ? del(steps, step, environment)
+                return TryGetAddHandler(typeof(TStep), step.GetType()) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> del
+                    ? del(steps, step, environment, this)
                     : steps.Push(step);
             }
 
@@ -30,9 +30,9 @@ namespace ExRam.Gremlinq.Core
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
                         typeof(TStep),
-                        InnerLookup(typeof(TStep)) is Func<IImmutableStack<Step>, Step, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, Step, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> existingAddHandler
-                            ? new Func<IImmutableStack<Step>, Step, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, Step, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>>((steps, step, env, baseHandler, recurse) => addStepHandler(steps, (TStep)step, env, (steps, step) => existingAddHandler(steps, step!, env, baseHandler, recurse), recurse))
-                            : (steps, step, env, baseHandler, recurse) => addStepHandler(steps, (TStep)step, env, (steps, step) => baseHandler(steps, step!), recurse)));
+                        TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> existingAddHandler
+                            ? (steps, step, env, baseHandler, recurse) => addStepHandler(steps, step, env, (steps, step) => existingAddHandler(steps, step, env, recurse), recurse)
+                            : addStepHandler));
             }
 
             private Delegate? TryGetAddHandler(Type staticType, Type actualType)
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (IImmutableStack<Step> steps, TStatic step, IGremlinQueryEnvironment environment) => del(steps, (TActualType)step, env, (steps, TStatic step) => _.Push(__), @this);
+                                //return (IImmutableStack<Step> steps, TStatic step, IGremlinQueryEnvironment environment, IAddStepHandler recurse) => del(steps, (TActualType)step, env, (steps, TStatic step) => _.Push(__), @this);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[1];
 
@@ -56,11 +56,13 @@ namespace ExRam.Gremlinq.Core
                                 var stepsParameterExpression = Expression.Parameter(typeof(IImmutableStack<Step>));
                                 var stepParameterExpression = Expression.Parameter(staticType);
                                 var environmentParameterExpression = Expression.Parameter(typeof(IGremlinQueryEnvironment));
+                                var recurseParameterExpression = Expression.Parameter(typeof(IAddStepHandler));
 
-                                var staticTypeFunc = typeof(Func<,,,>).MakeGenericType(
-                                    typeof(IImmutableStack<Step>),
+                                var staticTypeFunc = typeof(Func<,,,,>).MakeGenericType(
+                                    stepsParameterExpression.Type,
                                     staticType,
                                     environmentParameterExpression.Type,
+                                    recurseParameterExpression.Type,
                                     typeof(IImmutableStack<Step>));
 
                                 var pushCall = Expression.Call(
@@ -79,7 +81,7 @@ namespace ExRam.Gremlinq.Core
                                         pushCall,
                                         argument3Parameter1,
                                         argument3Parameter2),
-                                    Expression.Constant(@this));
+                                    recurseParameterExpression);
 
                                 return Expression
                                     .Lambda(
@@ -87,7 +89,8 @@ namespace ExRam.Gremlinq.Core
                                         retCall,
                                         stepsParameterExpression,
                                         stepParameterExpression,
-                                        environmentParameterExpression)
+                                        environmentParameterExpression,
+                                        recurseParameterExpression)
                                     .Compile();
                             }
 

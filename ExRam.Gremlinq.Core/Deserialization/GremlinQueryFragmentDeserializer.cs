@@ -19,8 +19,8 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                return TryGetDeserializer(typeof(TSerialized), serializedData.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, object?> del
-                    ? del(serializedData, fragmentType, environment)
+                return TryGetDeserializer(typeof(TSerialized), serializedData.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del
+                    ? del(serializedData, fragmentType, environment, this)
                     : serializedData;
             }
 
@@ -29,9 +29,9 @@ namespace ExRam.Gremlinq.Core
                 return new GremlinQueryFragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
-                        InnerLookup(typeof(TSerialized)) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IGremlinQueryFragmentDeserializer, object?> existingFragmentSerializer
-                            ? new Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IGremlinQueryFragmentDeserializer, object?>((fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => existingFragmentSerializer(_!, type, env, baseSerializer, recurse), recurse))
-                            : (fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => baseSerializer(_!), recurse)));
+                        TryGetDeserializer(typeof(TSerialized), typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> existingFragmentDeserializer
+                            ? (fragment, type, env, baseSerializer, recurse) => deserializer(fragment, type, env, _ => existingFragmentDeserializer(_, type, env, recurse), recurse)
+                            : deserializer));
             }
 
             private Delegate? TryGetDeserializer(Type staticType, Type actualType)
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (TStatic serialized, Type fragmentType, IGremlinQueryEnvironment environment) => del((TActualType)serialized, fragmentType, environment, (TActual _) => _, @this);
+                                //return (TStatic serialized, Type fragmentType, IGremlinQueryEnvironment environment, IGremlinQueryFragmentDeserializer recurse) => del((TActualType)serialized, fragmentType, environment, (TActual _) => _, recurse);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[0];
                                 var argument4Parameter = Expression.Parameter(effectiveType);
@@ -53,9 +53,15 @@ namespace ExRam.Gremlinq.Core
                                 var serializedParameter = Expression.Parameter(staticType);
                                 var fragmentTypeParameter = Expression.Parameter(typeof(Type));
                                 var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
-                                
+                                var recurseParameter = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
+
                                 var effectiveTypeFunc = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
-                                var staticTypeFunc = typeof(Func<,,,>).MakeGenericType(staticType, typeof(Type), typeof(IGremlinQueryEnvironment), typeof(object));
+                                var staticTypeFunc = typeof(Func<,,,,>).MakeGenericType(
+                                    staticType,
+                                    fragmentTypeParameter.Type,
+                                    environmentParameter.Type,
+                                    recurseParameter.Type,
+                                    typeof(object));
 
                                 var retCall = Expression.Invoke(
                                     Expression.Constant(del),
@@ -68,7 +74,7 @@ namespace ExRam.Gremlinq.Core
                                         effectiveTypeFunc,
                                         Expression.Convert(argument4Parameter, typeof(object)),
                                         argument4Parameter),
-                                    Expression.Constant(@this));
+                                    recurseParameter);
 
                                 return Expression
                                     .Lambda(
@@ -76,7 +82,8 @@ namespace ExRam.Gremlinq.Core
                                         retCall,
                                         serializedParameter,
                                         fragmentTypeParameter,
-                                        environmentParameter)
+                                        environmentParameter,
+                                        recurseParameter)
                                     .Compile();
                             }
 
