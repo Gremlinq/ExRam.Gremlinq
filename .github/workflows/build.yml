@@ -43,4 +43,4 @@ jobs:
       run: dotnet test --configuration Release --no-build --verbosity normal
 
     - name: Push NuGet packages
-      run: dotnet nuget push **/*.nupkg --no-symbols true
+      run: dotnet nuget push **/*.nupkg --no-symbols true --skip-duplicate
