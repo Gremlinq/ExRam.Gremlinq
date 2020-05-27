@@ -288,7 +288,15 @@ namespace ExRam.Gremlinq.Core
                             : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step));
                     })
                     .Override<ProjectStep>((step, env, overridden, recurse) => CreateInstruction("project", recurse, env, step.Projections))
-                    .Override<ProjectStep.ByTraversalStep>((step, env, overridden, recurse) => CreateInstruction("by", recurse, env, step.Traversal))
+                    .Override<ProjectStep.ByTraversalStep>((step, env, overridden, recurse) =>
+                    {
+                        var traversal = step.Traversal;
+
+                        if (traversal.Steps.Length == 1 && traversal.Steps[0] is LocalStep localStep)
+                            traversal = localStep.Traversal;
+
+                        return CreateInstruction("by", recurse, env, traversal);
+                    })
                     .Override<ProjectStep.ByKeyStep>((step, env, overridden, recurse) => CreateInstruction("by", recurse, env, step.Key))
                     .Override<RangeStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                         ? CreateInstruction("range", recurse, env, step.Scope, step.Lower, step.Upper)
