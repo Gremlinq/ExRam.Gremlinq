@@ -157,7 +157,6 @@ namespace ExRam.Gremlinq.Core
                     .Override<EmitStep>((step, overridden, recurse) => CreateInstruction("emit"))
                     .Override<EnumWrapper>((enumValue, overridden, recurse) => enumValue)
                     .Override<EStep>((step, overridden, recurse) => CreateInstruction("E", recurse, step.Ids))
-                    .Override<Expression>((expression, overridden, recurse) => recurse.Serialize(expression.GetValue()))
                     .Override<ExplainStep>((step, overridden, recurse) => CreateInstruction("explain"))
                     .Override<FoldStep>((step, overridden, recurse) => CreateInstruction("fold"))
                     .Override<FilterStep>((step, overridden, recurse) => CreateInstruction("filter", recurse, step.Lambda))
