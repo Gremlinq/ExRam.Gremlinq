@@ -81,11 +81,9 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGremlinQuerySerializer Invalid = new InvalidGremlinQuerySerializer();
 
-        public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(
-            QueryFragmentSerializer.Identity);
+        public static readonly IGremlinQuerySerializer Identity = new GremlinQuerySerializerImpl(QueryFragmentSerializer.Identity);
 
-        public static readonly IGremlinQuerySerializer Default = Identity
-            .UseDefaultGremlinStepSerializationHandlers();
+        public static readonly IGremlinQuerySerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
         private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new ConcurrentDictionary<string, Instruction>();
@@ -265,17 +263,23 @@ namespace ExRam.Gremlinq.Core
                     .Override<PropertiesStep>((step, overridden, recurse) => CreateInstruction("properties", recurse, step.Keys))
                     .Override<PropertyStep>((step, overridden, recurse) =>
                     {
-                        if (T.Id.Equals(step.Key))
+                        static IEnumerable<object> GetPropertyStepArguments(PropertyStep propertyStep)
                         {
-                            if (!Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
-                                throw new NotSupportedException("Cannot have an id property on non-single cardinality.");
+                            if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key))
+                                yield return propertyStep.Cardinality;
 
-                            return CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
+                            yield return propertyStep.Key;
+                            yield return propertyStep.Value;
+
+                            foreach (var metaProperty in propertyStep.MetaProperties)
+                            {
+                                yield return metaProperty;
+                            }
                         }
 
-                        return (step.Cardinality != null)
-                             ? CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).Prepend(step.Cardinality).ToArray())
-                             : CreateInstruction("property", recurse, step.MetaProperties.Prepend(step.Value).Prepend(step.Key).ToArray());
+                        return (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
+                            ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
+                            : CreateInstruction("property", recurse, GetPropertyStepArguments(step));
                     })
                     .Override<ProjectStep>((step, overridden, recurse) => CreateInstruction("project", recurse, step.Projections))
                     .Override<ProjectStep.ByTraversalStep>((step, overridden, recurse) => CreateInstruction("by", recurse, step.Traversal))
