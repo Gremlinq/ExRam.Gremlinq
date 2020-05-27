@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Providers.Tests
                 _json = json;
             }
 
-            public IAsyncEnumerable<object> Execute(object groovySerializedQuery)
+            public IAsyncEnumerable<object> Execute(object groovySerializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerableEx
                     .Return(JToken.Parse(_json));

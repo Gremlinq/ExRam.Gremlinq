@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
         public GremlinServerDeserializationTests(ITestOutputHelper testOutputHelper) : base(
             GremlinQuerySource.g
                 .ConfigureEnvironment(env => env
-                    .UseExecutor(GremlinQueryExecutor.Create(_ =>
+                    .UseExecutor(GremlinQueryExecutor.Create((query, env) =>
                     {
                         var jArray = JsonConvert.DeserializeObject<JArray>(
                             File.ReadAllText(Path.Combine(XUnitContext.SourceDirectory, "GremlinServerIntegrationTests." + XUnitContext.MethodName + ".verified.json")));

@@ -28,7 +28,7 @@ namespace ExRam.Gremlinq.Core
             public WebSocketGremlinQueryExecutor(
                 Func<CancellationToken, Task<IGremlinClient>> clientFactory,
                 string alias = "g",
-                ILogger? logger = null,
+                ILogger? logger = null, //TODO: Use Environment logger!
                 QueryLoggingOptions loggingOptions = default)
             {
                 _alias = alias;
@@ -43,7 +43,7 @@ namespace ExRam.Gremlinq.Core
                 _lazyGremlinClient.Value.Dispose();
             }
 
-            public IAsyncEnumerable<object> Execute(object serializedQuery)
+            public IAsyncEnumerable<object> Execute(object serializedQuery, IGremlinQueryEnvironment environment)
             {
                 return AsyncEnumerable.Create(Core);
 

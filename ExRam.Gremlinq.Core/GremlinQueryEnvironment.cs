@@ -94,9 +94,9 @@ namespace ExRam.Gremlinq.Core
                 .Serialize(query);
 
             return environment.Executor
-                .Execute(serialized)
+                .Execute(serialized, environment)
                 .SelectMany(executionResult => environment.Deserializer
-                    .Deserialize<TElement>(executionResult, query.AsAdmin().Environment));
+                    .Deserialize<TElement>(executionResult, environment));
         }
 
         public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
