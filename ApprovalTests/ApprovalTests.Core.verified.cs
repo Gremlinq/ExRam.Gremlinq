@@ -359,9 +359,6 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryExtensions
     {
-        public static System.Func<TSourceQuery, TTargetQuery> CreateContinuationFrom<TSourceQuery, TTargetQuery>(this TSourceQuery sourceQuery, TTargetQuery targetQuery)
-            where TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
-            where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
         public static System.Threading.Tasks.ValueTask<TElement> FirstAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement> FirstOrDefaultAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement> SingleAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
