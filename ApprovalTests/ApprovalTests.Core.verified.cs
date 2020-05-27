@@ -1372,6 +1372,7 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
+        public static readonly ExRam.Gremlinq.Core.ProjectStep Empty;
         public ProjectStep(System.Collections.Immutable.ImmutableArray<string> projections) { }
         public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
