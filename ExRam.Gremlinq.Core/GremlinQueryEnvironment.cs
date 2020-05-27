@@ -88,17 +88,6 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryEnvironment UseExecutor(this IGremlinQueryEnvironment environment, IGremlinQueryExecutor executor) => environment.ConfigureExecutor(_ => executor);
 
-        public static IAsyncEnumerable<TElement> Execute<TElement>(this IGremlinQueryEnvironment environment, IGremlinQueryBase<TElement> query)
-        {
-            var serialized = environment.Serializer
-                .Serialize(query);
-
-            return environment.Executor
-                .Execute(serialized, environment)
-                .SelectMany(executionResult => environment.Deserializer
-                    .Deserialize<TElement>(executionResult, environment));
-        }
-
         public static IGremlinQueryEnvironment EchoGraphsonString(this IGremlinQueryEnvironment environment)
         {
             return environment
