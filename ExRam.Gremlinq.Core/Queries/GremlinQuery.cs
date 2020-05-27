@@ -337,7 +337,7 @@ namespace ExRam.Gremlinq.Core
             var newSteps = Steps;
 
             if ((Flags & QueryFlags.IsMuted) == 0)
-                newSteps = Environment.AddStepHandler.AddStep(newSteps, step);
+                newSteps = Environment.AddStepHandler.AddStep(newSteps, step, Environment);
 
             return new GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, TNewPropertyValue, TNewMeta, TNewFoldedQuery>(newSteps, Environment, querySemantics ?? Semantics, stepLabelSemantics ?? StepLabelSemantics, Flags | additionalFlags);
         }
