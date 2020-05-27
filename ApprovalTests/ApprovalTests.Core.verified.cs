@@ -368,6 +368,14 @@ namespace ExRam.Gremlinq.Core
         public static System.Threading.Tasks.ValueTask<TElement> SingleOrDefaultAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
         public static System.Threading.Tasks.ValueTask<TElement[]> ToArrayAsync<TElement>(this ExRam.Gremlinq.Core.IGremlinQueryBase<TElement> query, System.Threading.CancellationToken ct = default) { }
     }
+    public static class GremlinQueryFragmentDeserializer
+    {
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer Identity;
+    }
+    public static class GremlinQueryFragmentSerializer
+    {
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer Identity;
+    }
     public static class GremlinQuerySerializer
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySerializer Default;
@@ -798,16 +806,26 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryExecutionResultDeserializer
     {
-        ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.IQueryFragmentDeserializer, ExRam.Gremlinq.Core.IQueryFragmentDeserializer> transformation);
+        ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer> transformation);
         System.Collections.Generic.IAsyncEnumerable<TElement> Deserialize<TElement>(object executionResult, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQueryExecutor
     {
         System.Collections.Generic.IAsyncEnumerable<object> Execute(object serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
+    public interface IGremlinQueryFragmentDeserializer
+    {
+        ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer Override<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TSerialized, object?>, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, object?> deserializer);
+        object? TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public interface IGremlinQueryFragmentSerializer
+    {
+        ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer Override<TFragment>(System.Func<TFragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TFragment, object>, ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer, object> serializer);
+        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
+    }
     public interface IGremlinQuerySerializer
     {
-        ExRam.Gremlinq.Core.IGremlinQuerySerializer ConfigureFragmentSerializer(System.Func<ExRam.Gremlinq.Core.IQueryFragmentSerializer, ExRam.Gremlinq.Core.IQueryFragmentSerializer> transformation);
+        ExRam.Gremlinq.Core.IGremlinQuerySerializer ConfigureFragmentSerializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer, ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer> transformation);
         object Serialize(ExRam.Gremlinq.Core.IGremlinQueryBase query);
     }
     public interface IGremlinQuerySource : ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource, ExRam.Gremlinq.Core.IStartGremlinQuery
@@ -1040,16 +1058,6 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreAlways<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
-    }
-    public interface IQueryFragmentDeserializer
-    {
-        ExRam.Gremlinq.Core.IQueryFragmentDeserializer Override<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TSerialized, object?>, ExRam.Gremlinq.Core.IQueryFragmentDeserializer, object?> deserializer);
-        object? TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
-    }
-    public interface IQueryFragmentSerializer
-    {
-        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(System.Func<TFragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TFragment, object>, ExRam.Gremlinq.Core.IQueryFragmentSerializer, object> serializer);
-        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
     }
     public interface IStartGremlinQuery
     {
@@ -1403,14 +1411,6 @@ namespace ExRam.Gremlinq.Core
         public object Key { get; }
         public System.Collections.Immutable.ImmutableArray<object> MetaProperties { get; }
         public object Value { get; }
-    }
-    public static class QueryFragmentDeserializer
-    {
-        public static readonly ExRam.Gremlinq.Core.IQueryFragmentDeserializer Identity;
-    }
-    public static class QueryFragmentSerializer
-    {
-        public static readonly ExRam.Gremlinq.Core.IQueryFragmentSerializer Identity;
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {

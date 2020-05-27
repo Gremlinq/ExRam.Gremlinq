@@ -6,6 +6,6 @@ namespace ExRam.Gremlinq.Core
     {
         object Serialize(IGremlinQueryBase query);
 
-        IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IQueryFragmentSerializer, IQueryFragmentSerializer> transformation);
+        IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation);
     }
 }

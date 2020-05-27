@@ -5,14 +5,14 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    public static class QueryFragmentDeserializer
+    public static class GremlinQueryFragmentDeserializer
     {
-        private sealed class QueryFragmentDeserializerImpl : IQueryFragmentDeserializer
+        private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
             private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
 
-            public QueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
+            public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
                 _dict = dict;
             }
@@ -24,13 +24,13 @@ namespace ExRam.Gremlinq.Core
                     : serializedData;
             }
 
-            public IQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IQueryFragmentDeserializer, object?> deserializer)
+            public IGremlinQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, object?>, IGremlinQueryFragmentDeserializer, object?> deserializer)
             {
-                return new QueryFragmentDeserializerImpl(
+                return new GremlinQueryFragmentDeserializerImpl(
                     _dict.SetItem(
                         typeof(TSerialized),
-                        InnerLookup(typeof(TSerialized)) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IQueryFragmentDeserializer, object?> existingFragmentSerializer
-                            ? new Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IQueryFragmentDeserializer, object?>((fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => existingFragmentSerializer(_!, type, env, baseSerializer, recurse), recurse))
+                        InnerLookup(typeof(TSerialized)) is Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IGremlinQueryFragmentDeserializer, object?> existingFragmentSerializer
+                            ? new Func<object, Type, IGremlinQueryEnvironment, Func<object, object?>, IGremlinQueryFragmentDeserializer, object?>((fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => existingFragmentSerializer(_!, type, env, baseSerializer, recurse), recurse))
                             : (fragment, type, env, baseSerializer, recurse) => deserializer((TSerialized)fragment, type, env, _ => baseSerializer(_!), recurse)));
             }
 
@@ -106,6 +106,6 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly IQueryFragmentDeserializer Identity = new QueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly IGremlinQueryFragmentDeserializer Identity = new GremlinQueryFragmentDeserializerImpl(ImmutableDictionary<Type, Delegate>.Empty);
     }
 }

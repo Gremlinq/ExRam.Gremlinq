@@ -16,8 +16,8 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryExecutionResultDeserializer
     {
         private static readonly ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>> ModelTypes = new ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>>();
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryEnvironment, ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>>();
 
         private sealed class VertexImpl : IVertex
         {
@@ -117,14 +117,14 @@ namespace ExRam.Gremlinq.Core
             private sealed class JTokenConverterConverter : JsonConverter
             {
                 private readonly IGremlinQueryEnvironment _environment;
-                private readonly IQueryFragmentDeserializer _deserializer;
+                private readonly IGremlinQueryFragmentDeserializer _deserializer;
 
                 [ThreadStatic]
                 // ReSharper disable once StaticMemberInGenericType
                 private static bool _canConvert;
 
                 public JTokenConverterConverter(
-                    IQueryFragmentDeserializer deserializer,
+                    IGremlinQueryFragmentDeserializer deserializer,
                     IGremlinQueryEnvironment environment)
                 {
                     _deserializer = deserializer;
@@ -169,7 +169,7 @@ namespace ExRam.Gremlinq.Core
             public GraphsonJsonSerializer(
                 DefaultValueHandling defaultValueHandling,
                 IGremlinQueryEnvironment environment,
-                IQueryFragmentDeserializer fragmentDeserializer)
+                IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
                 DefaultValueHandling = defaultValueHandling;
                 ContractResolver = new GremlinContractResolver(environment.Model.PropertiesModel);
@@ -179,9 +179,9 @@ namespace ExRam.Gremlinq.Core
 
         private sealed class GremlinQueryExecutionResultDeserializerImpl : IGremlinQueryExecutionResultDeserializer
         {
-            private readonly IQueryFragmentDeserializer _fragmentSerializer;
+            private readonly IGremlinQueryFragmentDeserializer _fragmentSerializer;
 
-            public GremlinQueryExecutionResultDeserializerImpl(IQueryFragmentDeserializer fragmentSerializer)
+            public GremlinQueryExecutionResultDeserializerImpl(IGremlinQueryFragmentDeserializer fragmentSerializer)
             {
                 _fragmentSerializer = fragmentSerializer;
             }
@@ -202,7 +202,7 @@ namespace ExRam.Gremlinq.Core
                 };
             }
 
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
+            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
             {
                 return new GremlinQueryExecutionResultDeserializerImpl(transformation(_fragmentSerializer));
             }
@@ -215,7 +215,7 @@ namespace ExRam.Gremlinq.Core
                 return AsyncEnumerableEx.Throw<TElement>(new InvalidOperationException($"{nameof(Deserialize)} must not be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQueryExecutionResultDeserializer)} on your {nameof(GremlinQuerySource)}."));
             }
 
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
+            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
             {
                 throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(Invalid)}.");
             }
@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Core
                 return AsyncEnumerableEx.Return((TElement)(object)result.ToString());
             }
 
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
+            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
             {
                 throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(GremlinQueryExecutionResultDeserializer.ToString)}.");
             }
@@ -247,13 +247,13 @@ namespace ExRam.Gremlinq.Core
                 return AsyncEnumerableEx.Return((TElement)(object)new GraphSON2Writer().WriteObject(result));
             }
 
-            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IQueryFragmentDeserializer, IQueryFragmentDeserializer> transformation)
+            public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
             {
                 throw new InvalidOperationException($"{nameof(ConfigureFragmentDeserializer)} cannot be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(ToGraphsonString)}.");
             }
         }
 
-        public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer.Identity);
+        public static readonly IGremlinQueryExecutionResultDeserializer Identity = new GremlinQueryExecutionResultDeserializerImpl(GremlinQueryFragmentDeserializer.Identity);
 
         public static readonly IGremlinQueryExecutionResultDeserializer Invalid = new InvalidQueryExecutionResultDeserializer();
 
@@ -262,14 +262,14 @@ namespace ExRam.Gremlinq.Core
         public static new readonly IGremlinQueryExecutionResultDeserializer ToString = new ToStringGremlinQueryExecutionResultDeserializer();
 
         // ReSharper disable ConvertToLambdaExpression
-        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(QueryFragmentDeserializer
+        public static readonly IGremlinQueryExecutionResultDeserializer FromJToken = new GremlinQueryExecutionResultDeserializerImpl(GremlinQueryFragmentDeserializer
             .Identity
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
                 var populatingSerializer = PopulatingSerializers
                     .GetValue(
                         env,
-                        closureEnv => new ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>())
+                        closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
                     .GetValue(
                         recurse,
                         closureRecurse => new GraphsonJsonSerializer(
@@ -280,7 +280,7 @@ namespace ExRam.Gremlinq.Core
                 var ignoringSerializer = IgnoringSerializers
                     .GetValue(
                         env,
-                        closureEnv => new ConditionalWeakTable<IQueryFragmentDeserializer, JsonSerializer>())
+                        closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
                     .GetValue(
                         recurse,
                         closureRecurse => new GraphsonJsonSerializer(
