@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
             public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment)
             {
-                return TryGetSerializer(typeof(TFragment), fragment.GetType()) is Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> del
+                return TryGetSerializer(typeof(TFragment), fragment!.GetType()) is Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> del
                     ? del(fragment, gremlinQueryEnvironment, this)
                     : fragment;
             }

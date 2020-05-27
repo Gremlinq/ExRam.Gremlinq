@@ -19,7 +19,7 @@ namespace ExRam.Gremlinq.Core
 
             public object? TryDeserialize<TSerialized>(TSerialized serializedData, Type fragmentType, IGremlinQueryEnvironment environment)
             {
-                return TryGetDeserializer(typeof(TSerialized), serializedData.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del
+                return TryGetDeserializer(typeof(TSerialized), serializedData!.GetType()) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> del
                     ? del(serializedData, fragmentType, environment, this)
                     : serializedData;
             }
