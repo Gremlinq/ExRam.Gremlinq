@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -45,13 +46,19 @@ namespace ExRam.Gremlinq.Core
 
         public static object GetValue(this Expression expression)
         {
-            return expression switch
+            var value = expression switch
             {
                 ConstantExpression constantExpression => constantExpression.Value,
                 MemberExpression memberExpression when memberExpression.Member is FieldInfo fieldInfo && memberExpression.Expression is ConstantExpression constant => fieldInfo.GetValue(constant.Value),
                 LambdaExpression lambdaExpression => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
+
+            //TODO: References string. Should work for any native type.
+            if (value is IEnumerable enumerable && !(value is ICollection) && !(value is string))
+                value = enumerable.Cast<object>().ToArray();
+
+            return value;
         }
 
         public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
