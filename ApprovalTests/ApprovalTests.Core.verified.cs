@@ -1049,8 +1049,8 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IQueryFragmentSerializer
     {
-        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(System.Func<TFragment, System.Func<TFragment, object>, ExRam.Gremlinq.Core.IQueryFragmentSerializer, object> serializer);
-        object Serialize<TFragment>(TFragment fragment);
+        ExRam.Gremlinq.Core.IQueryFragmentSerializer Override<TFragment>(System.Func<TFragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TFragment, object>, ExRam.Gremlinq.Core.IQueryFragmentSerializer, object> serializer);
+        object Serialize<TFragment>(TFragment fragment, ExRam.Gremlinq.Core.IGremlinQueryEnvironment gremlinQueryEnvironment);
     }
     public interface IStartGremlinQuery
     {

@@ -17,20 +17,20 @@ namespace ExRam.Gremlinq.Core
                 _dict = dict;
             }
 
-            public object Serialize<TFragment>(TFragment fragment)
+            public object Serialize<TFragment>(TFragment fragment, IGremlinQueryEnvironment gremlinQueryEnvironment)
             {
-                return TryGetSerializer(typeof(TFragment), fragment.GetType()) is Func<TFragment, object> del
-                    ? del(fragment)
+                return TryGetSerializer(typeof(TFragment), fragment.GetType()) is Func<TFragment, IGremlinQueryEnvironment, object> del
+                    ? del(fragment, gremlinQueryEnvironment)
                     : fragment;
             }
 
-            public IQueryFragmentSerializer Override<TFragment>(Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> serializer)
+            public IQueryFragmentSerializer Override<TFragment>(Func<TFragment, IGremlinQueryEnvironment, Func<TFragment, object>, IQueryFragmentSerializer, object> serializer)
             {
                 return new QueryFragmentSerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
-                        InnerLookup(typeof(TFragment)) is Func<TFragment, Func<TFragment, object>, IQueryFragmentSerializer, object> existingFragmentSerializer
-                            ? (fragment, baseSerializer, recurse) => serializer(fragment, _ => existingFragmentSerializer(_!, baseSerializer, recurse), recurse)
+                        InnerLookup(typeof(TFragment)) is Func<TFragment, IGremlinQueryEnvironment, Func<TFragment, object>, IQueryFragmentSerializer, object> existingFragmentSerializer
+                            ? (fragment, env, baseSerializer, recurse) => serializer(fragment, env, _ => existingFragmentSerializer(_!, env, baseSerializer, recurse), recurse)
                             : serializer));
             }
 
@@ -45,19 +45,21 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (TStatic fragment) => del((TActualType)fragment, (TActual _) => _, @this);
+                                //return (TStatic fragment, IGremlinQueryEnvironment environment) => del((TActualType)fragment, environment, (TActual _) => _, @this);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[0];
+                                var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
                                 var argument2Parameter = Expression.Parameter(effectiveType);
                                 var fragmentParameterExpression = Expression.Parameter(staticType);
                                 var effectiveTypeFunc = typeof(Func<,>).MakeGenericType(effectiveType, typeof(object));
-                                var staticTypeFunc = typeof(Func<,>).MakeGenericType(staticType, typeof(object));
+                                var staticTypeFunc = typeof(Func<,,>).MakeGenericType(staticType, typeof(IGremlinQueryEnvironment), typeof(object));
 
                                 var retCall = Expression.Invoke(
                                     Expression.Constant(del),
                                     Expression.Convert(
                                         fragmentParameterExpression,
                                         effectiveType),
+                                    environmentParameter,
                                     Expression.Lambda(
                                         effectiveTypeFunc,
                                         Expression.Convert(argument2Parameter, typeof(object)),
@@ -68,7 +70,8 @@ namespace ExRam.Gremlinq.Core
                                     .Lambda(
                                         staticTypeFunc,
                                         retCall,
-                                        fragmentParameterExpression)
+                                        fragmentParameterExpression,
+                                        environmentParameter)
                                     .Compile();
                             }
 

@@ -22,9 +22,9 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureEdgeFeatures(edgeProperties => edgeProperties & ~(EdgeFeatures.Upsert | EdgeFeatures.CustomIds)))
                 .ConfigureSerializer(s => s
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                        .Override<IGremlinQueryBase>((query, overridden, recurse) =>
+                        .Override<IGremlinQueryBase>((query, env, overridden, recurse) =>
                         {
-                            if (query.AsAdmin().Environment.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
+                            if (env.Options.GetValue(GremlinServerGremlinqOptions.WorkaroundTinkerpop2112))
                                 query = query.AsAdmin().ConfigureSteps<IGremlinQueryBase>(steps => ImmutableStack.Create(steps.Reverse().WorkaroundTINKERPOP_2112().ToArray()));
 
                             return overridden(query);

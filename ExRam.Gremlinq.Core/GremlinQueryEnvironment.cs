@@ -120,9 +120,9 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer =>  fragmentSerializer
-                        .Override<TimeSpan>((t, overridden, recurse) =>
+                        .Override<TimeSpan>((t, env, overridden, recurse) =>
                         {
-                            return recurse.Serialize(t.TotalMilliseconds);
+                            return recurse.Serialize(t.TotalMilliseconds, env);
                         })))
                 .ConfigureDeserializer(deserializer => deserializer
                     .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer

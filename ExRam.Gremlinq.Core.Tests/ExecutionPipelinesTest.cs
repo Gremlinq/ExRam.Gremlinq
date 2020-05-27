@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<FancyId>((key, overridden, recurse) => recurse.Serialize(key.Id)))))
+                            .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Verify(this);
         }
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<FancyId>((key, overridden, recurse) => recurse.Serialize(key.Id)))))
+                            .Override<FancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new EvenMoreFancyId { Id = "someId" })
                 .Verify(this);
         }
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<IFancyId>((key, overridden, recurse) => recurse.Serialize(key.Id)))))
+                            .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Verify(this);
         }
@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .EchoGroovyString()
                     .ConfigureSerializer(_ => _
                         .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
-                            .Override<IFancyId>((key, overridden, recurse) => recurse.Serialize(key.Id)))))
+                            .Override<IFancyId>((key, env, overridden, recurse) => recurse.Serialize(key.Id, env)))))
                 .V<Person>(new FancyId { Id = "someId" })
                 .Verify(this);
         }
