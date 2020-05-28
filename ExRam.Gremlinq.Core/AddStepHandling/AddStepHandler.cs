@@ -25,13 +25,13 @@ namespace ExRam.Gremlinq.Core
                     : steps.Push(step);
             }
 
-            public IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TStep, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
+            public IAddStepHandler Override<TStep>(Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>>, IAddStepHandler, IImmutableStack<Step>> addStepHandler) where TStep : Step
             {
                 return new AddStepHandlerImpl(
                     _dict.SetItem(
                         typeof(TStep),
                         TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> existingAddHandler
-                            ? (steps, step, env, baseHandler, recurse) => addStepHandler(steps, step, env, (steps, step) => existingAddHandler(steps, step, env, recurse), recurse)
+                            ? (steps, step, env, baseHandler, recurse) => addStepHandler(steps, step, env, existingAddHandler, recurse)
                             : addStepHandler));
             }
 
@@ -46,23 +46,32 @@ namespace ExRam.Gremlinq.Core
 
                             if (@this.InnerLookup(actualType) is { } del)
                             {
-                                //return (IImmutableStack<Step> steps, TStatic step, IGremlinQueryEnvironment environment, IAddStepHandler recurse) => del(steps, (TActualType)step, env, (steps, TStatic step) => _.Push(__), @this);
+                                //return (IImmutableStack<Step> steps, TStatic step, IGremlinQueryEnvironment environment, IAddStepHandler recurse) => del(steps, (TEffective)step, env, (steps, TEffective step, IGremlinQueryEnvironment, IAddStepHandler) => _.Push(__), recurse);
 
                                 var effectiveType = del.GetType().GetGenericArguments()[1];
 
                                 var argument3Parameter1 = Expression.Parameter(typeof(IImmutableStack<Step>));
-                                var argument3Parameter2 = Expression.Parameter(staticType);
+                                var argument3Parameter2 = Expression.Parameter(effectiveType);
+                                var argument3Parameter3 = Expression.Parameter(typeof(IGremlinQueryEnvironment));
+                                var argument3Parameter4 = Expression.Parameter(typeof(IAddStepHandler));
 
                                 var stepsParameterExpression = Expression.Parameter(typeof(IImmutableStack<Step>));
                                 var stepParameterExpression = Expression.Parameter(staticType);
                                 var environmentParameterExpression = Expression.Parameter(typeof(IGremlinQueryEnvironment));
                                 var recurseParameterExpression = Expression.Parameter(typeof(IAddStepHandler));
 
-                                var staticTypeFunc = typeof(Func<,,,,>).MakeGenericType(
+                                var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
                                     stepsParameterExpression.Type,
                                     staticType,
                                     environmentParameterExpression.Type,
                                     recurseParameterExpression.Type,
+                                    typeof(IImmutableStack<Step>));
+
+                                var overrideFuncType = typeof(Func<,,,,>).MakeGenericType(
+                                    argument3Parameter1.Type,
+                                    argument3Parameter2.Type,
+                                    argument3Parameter3.Type,
+                                    argument3Parameter4.Type,
                                     typeof(IImmutableStack<Step>));
 
                                 var pushCall = Expression.Call(
@@ -78,14 +87,17 @@ namespace ExRam.Gremlinq.Core
                                         effectiveType),
                                     environmentParameterExpression,
                                     Expression.Lambda(
+                                        overrideFuncType,
                                         pushCall,
                                         argument3Parameter1,
-                                        argument3Parameter2),
+                                        argument3Parameter2,
+                                        argument3Parameter3,
+                                        argument3Parameter4),
                                     recurseParameterExpression);
 
                                 return Expression
                                     .Lambda(
-                                        staticTypeFunc,
+                                        staticFuncType,
                                         retCall,
                                         stepsParameterExpression,
                                         stepParameterExpression,
@@ -121,7 +133,7 @@ namespace ExRam.Gremlinq.Core
                 ? steps
                     .Pop()
                     .Push(new HasLabelStep(step.Labels.Intersect(hasLabelStep.Labels).ToImmutableArray()))
-                : overridden(steps, step))
+                : overridden(steps, step, env, recurse))
             .Override<HasPredicateStep>((steps, step, env, overridden, recurse) =>
             {
                 if (steps.PeekOrDefault() is HasPredicateStep hasStep && hasStep.Key == step.Key)
@@ -140,22 +152,22 @@ namespace ExRam.Gremlinq.Core
                         .Push(new HasPredicateStep(hasStep.Key, newPredicate));
                 }
 
-                return overridden(steps, step);
+                return overridden(steps, step, env, recurse);
             })
             .Override<WithoutStrategiesStep>((steps, step, env, overridden, recurse) => (steps.PeekOrDefault() is WithoutStrategiesStep withoutStrategies)
                 ? steps
                     .Pop()
                     .Push(new WithoutStrategiesStep(withoutStrategies.StrategyTypes.Concat(step.StrategyTypes).Distinct().ToImmutableArray()))
-                : overridden(steps, step))
+                : overridden(steps, step, env, recurse))
             .Override<SelectStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && step.StepLabels.Length == 1 && ReferenceEquals(asStep.StepLabel, step.StepLabels[0])
                 ? steps
-                : overridden(steps, step))
+                : overridden(steps, step, env, recurse))
             .Override<IsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is IsStep isStep
                 ? steps
                     .Pop()
                     .Push(new IsStep(isStep.Predicate.And(step.Predicate)))
-                : overridden(steps, step))
-            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep ? steps : overridden(steps, step));
+                : overridden(steps, step, env, recurse))
+            .Override<NoneStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is NoneStep ? steps : overridden(steps, step, env, recurse));
     }
 }
 
