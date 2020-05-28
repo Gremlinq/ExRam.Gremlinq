@@ -1,0 +1,7 @@
+{
+  Labels: [
+    'label',
+    'added label override 2',
+    'added label override 1'
+  ]
+}
