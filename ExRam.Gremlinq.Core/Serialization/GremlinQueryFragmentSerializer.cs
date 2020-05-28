@@ -103,13 +103,18 @@ namespace ExRam.Gremlinq.Core
                 if (_dict.TryGetValue(actualType, out var ret))
                     return ret;
 
+                var baseType = actualType.BaseType;
+
                 foreach (var implementedInterface in actualType.GetInterfaces())
                 {
-                    if (InnerLookup(implementedInterface) is { } interfaceSerializer)
-                        return interfaceSerializer;
+                    if (baseType == null || !implementedInterface.IsAssignableFrom(baseType))
+                    {
+                        if (InnerLookup(implementedInterface) is { } interfaceSerializer)
+                            return interfaceSerializer;
+                    }
                 }
 
-                if (actualType.BaseType is { } baseType)
+                if (baseType != null)
                 {
                     if (InnerLookup(baseType) is { } baseSerializer)
                         return baseSerializer;
