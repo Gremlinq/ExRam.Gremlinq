@@ -113,16 +113,11 @@ namespace ExRam.Gremlinq.Core
 
             private Delegate? InnerLookup(Type actualType)
             {
-                if (_dict.TryGetValue(actualType, out var ret))
-                    return ret;
-
-                if (actualType.BaseType is { } baseType)
-                {
-                    if (InnerLookup(baseType) is { } baseHandler)
-                        return baseHandler;
-                }
-
-                return null;
+                return _dict.TryGetValue(actualType, out var ret)
+                    ? ret
+                    : actualType.BaseType is { } baseType && InnerLookup(baseType) is { } baseHandler
+                        ? baseHandler
+                        : null;
             }
         }
 

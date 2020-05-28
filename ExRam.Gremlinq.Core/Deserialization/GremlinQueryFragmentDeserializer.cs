@@ -114,20 +114,13 @@ namespace ExRam.Gremlinq.Core
 
                 foreach (var implementedInterface in actualType.GetInterfaces())
                 {
-                    if (baseType == null || !implementedInterface.IsAssignableFrom(baseType))
-                    {
-                        if (InnerLookup(implementedInterface) is { } interfaceSerializer)
-                            return interfaceSerializer;
-                    }
+                    if ((baseType == null || !implementedInterface.IsAssignableFrom(baseType)) && InnerLookup(implementedInterface) is { } interfaceSerializer)
+                        return interfaceSerializer;
                 }
 
-                if (baseType != null)
-                {
-                    if (InnerLookup(baseType) is { } baseSerializer)
-                        return baseSerializer;
-                }
-
-                return null;
+                return baseType != null && InnerLookup(baseType) is { } baseSerializer
+                    ? baseSerializer
+                    : null;
             }
         }
 
