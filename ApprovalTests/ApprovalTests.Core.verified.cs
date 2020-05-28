@@ -812,7 +812,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryFragmentDeserializer
     {
-        ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer Override<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TSerialized, object?>, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, object?> deserializer);
+        ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer Override<TSerialized>(System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<TSerialized, System.Type, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, object?>, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, object?> deserializer);
         object? TryDeserialize<TSerializedData>(TSerializedData serializedData, System.Type fragmentType, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public interface IGremlinQueryFragmentSerializer

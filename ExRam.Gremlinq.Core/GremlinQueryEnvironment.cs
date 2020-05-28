@@ -117,7 +117,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return type == typeof(TimeSpan)
                                 ? TimeSpan.FromMilliseconds(jValue.Value<double>())
-                                : overridden(jValue);
+                                : overridden(jValue, type, env, recurse);
                         })));
         }
     }

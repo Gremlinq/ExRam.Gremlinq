@@ -350,19 +350,19 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jToken);
+                return overridden(jToken, type, env, recurse);
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
-                    : overridden(jToken);
+                    : overridden(jToken, type, env, recurse);
             })
             .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
                 return type == typeof(TimeSpan)
                     ? XmlConvert.ToTimeSpan(jValue.Value<string>())
-                    : overridden(jValue);
+                    : overridden(jValue, type, env, recurse);
             })
             .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
@@ -384,7 +384,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                return overridden(jValue);
+                return overridden(jValue, type, env, recurse);
             })
             .Override<JValue>((jValue, type, env, overridden, recurse) =>
             {
@@ -402,7 +402,7 @@ namespace ExRam.Gremlinq.Core
                         return new DateTime(DateTimeOffset.FromUnixTimeMilliseconds(jValue.Value<long>()).Ticks, DateTimeKind.Utc);
                 }
 
-                return overridden(jValue);
+                return overridden(jValue, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
@@ -442,7 +442,7 @@ namespace ExRam.Gremlinq.Core
                 if (modelType != null && modelType != type)
                     return recurse.TryDeserialize(jObject, modelType, env);
 
-                return overridden(jObject);
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
@@ -455,7 +455,7 @@ namespace ExRam.Gremlinq.Core
                         return recurse.TryDeserialize(jObject["value"], type, env);
                 }
 
-                return overridden(jObject);
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
@@ -463,20 +463,20 @@ namespace ExRam.Gremlinq.Core
                 if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
                     return recurse.TryDeserialize(valueToken, type, env);
 
-                return overridden(jObject);
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 //@type == "g:Map"
                 return jObject.TryUnmap() is { } unmappedObject
                     ? recurse.TryDeserialize(unmappedObject, type, env)
-                    : overridden(jObject);
+                    : overridden(jObject, type, env, recurse);
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
                 if (!type.IsArray)
-                    return overridden(jArray);
+                    return overridden(jArray, type, env, recurse);
 
                 var array = default(ArrayList);
                 var elementType = type.GetElementType();
