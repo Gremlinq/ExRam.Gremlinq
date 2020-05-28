@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class GremlinQueryAdmin
+    public static class GremlinQueryAdmin
     {
         public static TTargetQuery AddSteps<TTargetQuery>(this IGremlinQueryAdmin admin, IEnumerable<Step> steps)
             where TTargetQuery : IGremlinQueryBase
