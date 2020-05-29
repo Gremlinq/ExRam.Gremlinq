@@ -1,11 +1,25 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+﻿using System;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
+using AutoFixture;
+using AutoFixture.Kernel;
+using ExRam.Gremlinq.Core.GraphElements;
 using FluentAssertions;
+using Gremlin.Net.Process.Traversal;
+using Gremlin.Net.Process.Traversal.Strategy.Decoration;
+using VerifyXunit;
 using Xunit;
+using Xunit.Abstractions;
+
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TypeSystemTest
+    public class TypeSystemTest : VerifyBase
     {
         private sealed class Vertex
         {
@@ -32,11 +46,84 @@ namespace ExRam.Gremlinq.Core.Tests
             public Property<string> StringEdgeProperty { get; }
         }
 
+        private sealed class SpecimenBuilder : ISpecimenBuilder
+        {
+            public object Create(object request, ISpecimenContext context)
+            {
+                var type = default(Type);
+
+                if (request is ParameterInfo parameter)
+                    type = parameter.ParameterType;
+                else if (request is Type typeRequest)
+                    type = typeRequest;
+
+                if (type == typeof(ImmutableArray<object>))
+                    return new object[] { context.Resolve(typeof(string)) }.ToImmutableArray();
+
+                if (type == typeof(ImmutableArray<string>))
+                    return new string[] { (string)context.Resolve(typeof(string)) }.ToImmutableArray();
+
+                if (type == typeof(ImmutableArray<Traversal>))
+                    return new Traversal[] { (Traversal)context.Resolve(typeof(Traversal)) }.ToImmutableArray();
+
+                if (type == typeof(ImmutableArray<StepLabel>))
+                    return new StepLabel[] { (StepLabel)context.Resolve(typeof(StepLabel)) }.ToImmutableArray();
+
+                if (type == typeof(ImmutableArray<Type>))
+                    return new Type[] { typeof(SubgraphStrategy) }.ToImmutableArray();
+
+                if (type == typeof(Traversal))
+                    return (Traversal)IdentityStep.Instance;
+
+                if (type == typeof(ILambda))
+                    return Lambda.Groovy("lambda");
+
+                if (type == typeof(string))
+                    return "string";
+
+                if (type == typeof(double))
+                    return 47.11;
+
+                if (type == typeof(int))
+                    return 4711;
+
+                if (type == typeof(long))
+                    return 4711;
+
+                return new NoSpecimen();
+            }
+        }
+
+        public static readonly Step[] AllSteps;
+
         private IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
 
-        public TypeSystemTest()
+        static TypeSystemTest()
         {
+            var fixture = new Fixture();
+            var stepTypes = typeof(Step).Assembly.DefinedTypes
+                .Where(type => typeof(Step).IsAssignableFrom(type))
+                .Where(type => !type.IsAbstract);
 
+
+            fixture.Customizations.Add(new SpecimenBuilder());
+            fixture.Customizations.Add(new TypeRelay(
+                typeof(StepLabel),
+                typeof(StepLabel<object>)));
+
+            AllSteps = stepTypes
+                .Select(type => (Step)fixture.Create(new SeededRequest(type, 4711), new SpecimenContext(fixture)))
+                .ToArray();
+        }
+
+        public TypeSystemTest(ITestOutputHelper output) : base(output)
+        {
+        }
+
+        [Fact]
+        public async Task All_Steps_can_be_created()
+        {
+            await Verify(AllSteps.Select(step => (step.GetType(), step)));
         }
 
         [Fact]

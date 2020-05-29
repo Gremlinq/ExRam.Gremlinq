@@ -1,0 +1,812 @@
+[
+  {
+    Item1: 'AddEStep',
+    Item2: {
+      Label: 'string'
+    }
+  },
+  {
+    Item1: 'AddEStep.FromLabelStep',
+    Item2: {
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'AddEStep.FromTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'AddEStep.ToLabelStep',
+    Item2: {
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'AddEStep.ToTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'AddVStep',
+    Item2: {
+      Label: 'string'
+    }
+  },
+  {
+    Item1: 'AggregateStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      },
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'AndStep',
+    Item2: {
+      Name: 'and',
+      Traversals: [
+        {
+          Steps: [
+            {}
+          ]
+        },
+        {
+          Steps: [
+            {}
+          ]
+        },
+        {
+          Steps: [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'AsStep',
+    Item2: {
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'BarrierStep',
+    Item2: {}
+  },
+  {
+    Item1: 'BothEStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'BothStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'BothVStep',
+    Item2: {}
+  },
+  {
+    Item1: 'CapStep',
+    Item2: {
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'ChooseOptionTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'ChoosePredicateStep',
+    Item2: {
+      Predicate: {
+        OperatorName: 'between',
+        Value: [
+          {},
+          {},
+          {}
+        ]
+      },
+      ThenTraversal: {
+        Steps: [
+          {}
+        ]
+      },
+      ElseTraversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'ChooseTraversalStep',
+    Item2: {
+      IfTraversal: {
+        Steps: [
+          {}
+        ]
+      },
+      ThenTraversal: {
+        Steps: [
+          {}
+        ]
+      },
+      ElseTraversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'CoalesceStep',
+    Item2: {
+      Traversals: [
+        {
+          Steps: [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'CoinStep',
+    Item2: {
+      Probability: 47.11
+    }
+  },
+  {
+    Item1: 'ConstantStep',
+    Item2: {
+      Value: {}
+    }
+  },
+  {
+    Item1: 'CountStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'DedupStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'DropStep',
+    Item2: {}
+  },
+  {
+    Item1: 'EmitStep',
+    Item2: {}
+  },
+  {
+    Item1: 'EStep',
+    Item2: {
+      Ids: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'ExplainStep',
+    Item2: {}
+  },
+  {
+    Item1: 'FilterStep',
+    Item2: {
+      Lambda: {
+        LambdaExpression: 'lambda',
+        Language: 'gremlin-groovy',
+        Arguments: -1
+      }
+    }
+  },
+  {
+    Item1: 'FlatMapStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'FoldStep',
+    Item2: {}
+  },
+  {
+    Item1: 'GroupStep',
+    Item2: {}
+  },
+  {
+    Item1: 'GroupStep.ByTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'GroupStep.ByKeyStep',
+    Item2: {
+      Key: {}
+    }
+  },
+  {
+    Item1: 'HasKeyStep',
+    Item2: {
+      Argument: {}
+    }
+  },
+  {
+    Item1: 'HasLabelStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'HasNotStep',
+    Item2: {
+      Key: {}
+    }
+  },
+  {
+    Item1: 'HasPredicateStep',
+    Item2: {
+      Key: {},
+      Predicate: {
+        OperatorName: 'between',
+        Value: [
+          {},
+          {},
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'HasTraversalStep',
+    Item2: {
+      Key: {},
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'HasValueStep',
+    Item2: {
+      Argument: {}
+    }
+  },
+  {
+    Item1: 'IdentityStep',
+    Item2: {}
+  },
+  {
+    Item1: 'IdStep',
+    Item2: {}
+  },
+  {
+    Item1: 'InEStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'InjectStep',
+    Item2: {
+      Elements: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'InStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'InVStep',
+    Item2: {}
+  },
+  {
+    Item1: 'IsStep',
+    Item2: {
+      Predicate: {
+        OperatorName: 'between',
+        Value: [
+          {},
+          {},
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'KeyStep',
+    Item2: {}
+  },
+  {
+    Item1: 'LabelStep',
+    Item2: {}
+  },
+  {
+    Item1: 'LimitStep',
+    Item2: {
+      Count: 4711,
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'LocalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'MapStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'MatchStep',
+    Item2: {
+      Traversals: [
+        {
+          Steps: [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'MaxStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'MeanStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'MinStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'NoneStep',
+    Item2: {}
+  },
+  {
+    Item1: 'NotStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'OptionalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'OptionTraversalStep',
+    Item2: {
+      Guard: {},
+      OptionTraversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'OrderStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'OrderStep.ByLambdaStep',
+    Item2: {
+      Lambda: {
+        LambdaExpression: 'lambda',
+        Language: 'gremlin-groovy',
+        Arguments: -1
+      }
+    }
+  },
+  {
+    Item1: 'OrderStep.ByMemberStep',
+    Item2: {
+      Order: {
+        EnumName: 'Order',
+        EnumValue: 'asc'
+      },
+      Key: {}
+    }
+  },
+  {
+    Item1: 'OrderStep.ByTraversalStep',
+    Item2: {
+      Order: {
+        EnumName: 'Order',
+        EnumValue: 'asc'
+      },
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'OrStep',
+    Item2: {
+      Name: 'or',
+      Traversals: [
+        {
+          Steps: [
+            {}
+          ]
+        },
+        {
+          Steps: [
+            {}
+          ]
+        },
+        {
+          Steps: [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'OtherVStep',
+    Item2: {}
+  },
+  {
+    Item1: 'OutEStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'OutStep',
+    Item2: {
+      Labels: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'OutVStep',
+    Item2: {}
+  },
+  {
+    Item1: 'ProfileStep',
+    Item2: {}
+  },
+  {
+    Item1: 'ProjectStep',
+    Item2: {
+      Projections: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'ProjectStep.ByTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'ProjectStep.ByKeyStep',
+    Item2: {
+      Key: {}
+    }
+  },
+  {
+    Item1: 'PropertiesStep',
+    Item2: {
+      Keys: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'PropertyStep',
+    Item2: {
+      Key: {},
+      Value: {},
+      Cardinality: {
+        EnumName: 'Cardinality',
+        EnumValue: 'list'
+      }
+    }
+  },
+  {
+    Item1: 'RangeStep',
+    Item2: {
+      Lower: 4711,
+      Upper: 4711,
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'RepeatStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'SelectStep',
+    Item2: {
+      StepLabels: [
+        {}
+      ]
+    }
+  },
+  {
+    Item1: 'SideEffectStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'SkipStep',
+    Item2: {
+      Count: 4711,
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'SumStep',
+    Item2: {
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'TailStep',
+    Item2: {
+      Count: 4711,
+      Scope: {
+        EnumName: 'Scope',
+        EnumValue: 'global'
+      }
+    }
+  },
+  {
+    Item1: 'TimesStep',
+    Item2: {
+      Count: 4711
+    }
+  },
+  {
+    Item1: 'UnfoldStep',
+    Item2: {}
+  },
+  {
+    Item1: 'UnionStep',
+    Item2: {
+      Traversals: [
+        {
+          Steps: [
+            {}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    Item1: 'UntilStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'ValueMapStep',
+    Item2: {
+      Keys: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'ValuesStep',
+    Item2: {
+      Keys: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'ValueStep',
+    Item2: {}
+  },
+  {
+    Item1: 'VStep',
+    Item2: {
+      Ids: [
+        'string'
+      ]
+    }
+  },
+  {
+    Item1: 'WherePredicateStep',
+    Item2: {
+      Predicate: {
+        OperatorName: 'between',
+        Value: [
+          {},
+          {},
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'WherePredicateStep.ByMemberStep',
+    Item2: {
+      Key: {}
+    }
+  },
+  {
+    Item1: 'WhereStepLabelAndPredicateStep',
+    Item2: {
+      Predicate: {
+        OperatorName: 'between',
+        Value: [
+          {},
+          {},
+          {}
+        ]
+      },
+      StepLabel: {}
+    }
+  },
+  {
+    Item1: 'WhereTraversalStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  },
+  {
+    Item1: 'WithoutStrategiesStep',
+    Item2: {
+      StrategyTypes: [
+        'SubgraphStrategy'
+      ]
+    }
+  },
+  {
+    Item1: 'WithStrategiesStep',
+    Item2: {
+      Traversal: {
+        Steps: [
+          {}
+        ]
+      }
+    }
+  }
+]
