@@ -169,7 +169,6 @@ namespace ExRam.Gremlinq.Core
                         : CreateInstruction("dedup"))
                     .Override<DropStep>((step, env, overridden, recurse) => CreateInstruction("drop"))
                     .Override<EmitStep>((step, env, overridden, recurse) => CreateInstruction("emit"))
-                    .Override<EnumWrapper>((enumValue, env, overridden, recurse) => enumValue)
                     .Override<EStep>((step, env, overridden, recurse) => CreateInstruction("E", recurse, env, step.Ids))
                     .Override<ExplainStep>((step, env, overridden, recurse) => CreateInstruction("explain"))
                     .Override<FoldStep>((step, env, overridden, recurse) => CreateInstruction("fold"))
@@ -220,7 +219,6 @@ namespace ExRam.Gremlinq.Core
                     .Override<IdentityStep>((step, env, overridden, recurse) => CreateInstruction("identity"))
                     .Override<IdStep>((step, env, overridden, recurse) => CreateInstruction("id"))
                     .Override<IGremlinQueryBase>((query, env, overridden, recurse) => recurse.Serialize(query.ToTraversal(), env))
-                    .Override<ILambda>((lambda, env, overridden, recurse) => lambda)
                     .Override<InjectStep>((step, env, overridden, recurse) => CreateInstruction("inject", recurse, env, step.Elements))
                     .Override<InEStep>((step, env, overridden, recurse) => CreateInstruction("inE", recurse, env, step.Labels))
                     .Override<InStep>((step, env, overridden, recurse) => CreateInstruction("in", recurse, env, step.Labels))
@@ -323,9 +321,9 @@ namespace ExRam.Gremlinq.Core
                         var byteCode = new Bytecode();
                         var steps = traversal.Steps;
 
-                        void Add(object serialized)
+                        void Add(object obj)
                         {
-                            switch (serialized)
+                            switch (obj)
                             {
                                 case Instruction instruction:
                                 {
