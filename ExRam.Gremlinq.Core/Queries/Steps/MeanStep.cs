@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly MeanStep Local = new MeanStep(Scope.Local);
         public static readonly MeanStep Global = new MeanStep(Scope.Global);
 
-        public MeanStep(Scope scope)
+        private MeanStep(Scope scope)
         {
             Scope = scope;
         }

@@ -4,6 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class EStep : Step
     {
+        public static readonly EStep Empty = new EStep(ImmutableArray<object>.Empty);
+
         public EStep(ImmutableArray<object> ids)
         {
             Ids = ids;
