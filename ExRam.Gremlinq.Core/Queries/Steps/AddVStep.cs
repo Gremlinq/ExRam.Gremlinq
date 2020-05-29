@@ -1,9 +1,12 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class AddVStep : AddElementStep
+    public sealed class AddVStep : Step
     {
-        public AddVStep(IGraphModel model, object value) : base(model.VerticesModel, value)
+        public AddVStep(string label)
         {
+            Label = label;
         }
+
+        public string Label { get; }
     }
 }

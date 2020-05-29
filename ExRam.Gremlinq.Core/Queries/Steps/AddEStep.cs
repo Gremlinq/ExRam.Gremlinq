@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class AddEStep : AddElementStep
+    public sealed class AddEStep : Step
     {
         public sealed class FromLabelStep : Step
         {
@@ -42,8 +42,11 @@
             public Traversal Traversal { get; }
         }
 
-        public AddEStep(IGraphModel model, object value) : base(model.EdgesModel, value)
+        public AddEStep(string label)
         {
+            Label = label;
         }
+
+        public string Label { get; }
     }
 }

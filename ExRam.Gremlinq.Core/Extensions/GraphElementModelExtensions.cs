@@ -5,16 +5,16 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
-    public abstract class AddElementStep : Step
+    internal static class GraphElementModelExtensions
     {
         private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string>> Cache = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, string>>();
 
-        protected AddElementStep(IGraphElementModel elementModel, object value)
+        public static string GetLabel(this IGraphElementModel elementModel, Type type)
         {
-            Label = Cache
+            return Cache
                 .GetOrCreateValue(elementModel)
                 .GetOrAdd(
-                    value.GetType(),
+                    type,
                     (closureType, closureModel) => closureType
                         .GetTypeHierarchy()
                         .Where(type => !type.IsAbstract)
@@ -24,7 +24,5 @@ namespace ExRam.Gremlinq.Core
                         .FirstOrDefault() ?? closureType.Name,
                     elementModel);
         }
-
-        public string Label { get; }
     }
 }

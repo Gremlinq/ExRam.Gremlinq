@@ -248,7 +248,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TEdge, TElement, object, object, object, object> AddE<TEdge>(TEdge newEdge)
         {
             return this
-                .AddStep<TEdge, TElement, object, object, object, object>(new AddEStep(Environment.Model, newEdge), QuerySemantics.Edge)
+                .AddStep<TEdge, TElement, object, object, object, object>(new AddEStep(Environment.Model.EdgesModel.GetLabel(newEdge!.GetType())), QuerySemantics.Edge)
                 .AddOrUpdate(newEdge, true, false, Environment.FeatureSet.Supports(EdgeFeatures.UserSuppliedIds));
         }
 
@@ -345,7 +345,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TVertex, object, object, object, object, object> AddV<TVertex>(TVertex vertex)
         {
             return this
-                .AddStepWithObjectTypes<TVertex>(new AddVStep(Environment.Model, vertex), QuerySemantics.Vertex)
+                .AddStepWithObjectTypes<TVertex>(new AddVStep(Environment.Model.VerticesModel.GetLabel(vertex!.GetType())), QuerySemantics.Vertex)
                 .AddOrUpdate(vertex, true, true, Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds));
         }
 
