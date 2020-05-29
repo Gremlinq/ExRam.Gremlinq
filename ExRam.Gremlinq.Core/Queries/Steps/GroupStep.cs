@@ -28,10 +28,5 @@
         }
 
         public static readonly GroupStep Instance = new GroupStep();
-
-        private GroupStep()
-        {
-
-        }
     }
 }

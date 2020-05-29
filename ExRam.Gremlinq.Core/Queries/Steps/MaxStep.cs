@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly MaxStep Local = new MaxStep(Scope.Local);
         public static readonly MaxStep Global = new MaxStep(Scope.Global);
 
-        private MaxStep(Scope scope)
+        public MaxStep(Scope scope)
         {
             Scope = scope;
         }

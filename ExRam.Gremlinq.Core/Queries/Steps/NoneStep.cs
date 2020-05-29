@@ -4,7 +4,7 @@
     {
         public static readonly NoneStep Instance = new NoneStep();
 
-        private NoneStep()
+        public NoneStep()
         {
         }
     }

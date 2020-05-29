@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly DedupStep Local = new DedupStep(Scope.Local);
         public static readonly DedupStep Global = new DedupStep(Scope.Global);
 
-        private DedupStep(Scope scope)
+        public DedupStep(Scope scope)
         {
             Scope = scope;
         }

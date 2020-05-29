@@ -3,9 +3,5 @@
     public sealed class KeyStep : Step
     {
         public static readonly KeyStep Instance = new KeyStep();
-
-        private KeyStep()
-        {
-        }
     }
 }

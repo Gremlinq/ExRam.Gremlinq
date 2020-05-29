@@ -121,12 +121,14 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.CountStep Global;
         public static readonly ExRam.Gremlinq.Core.CountStep Local;
+        public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.DedupStep Global;
         public static readonly ExRam.Gremlinq.Core.DedupStep Local;
+        public DedupStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class DerivedLabelNamesStep : ExRam.Gremlinq.Core.Step
@@ -415,6 +417,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.GroupStep Instance;
+        public GroupStep() { }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
             public ByKeyStep(object key) { }
@@ -1228,10 +1231,12 @@ namespace ExRam.Gremlinq.Core
     public sealed class KeyStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.KeyStep Instance;
+        public KeyStep() { }
     }
     public sealed class LabelStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.LabelStep Instance;
+        public LabelStep() { }
     }
     public sealed class LimitStep : ExRam.Gremlinq.Core.Step
     {
@@ -1266,18 +1271,21 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.MaxStep Global;
         public static readonly ExRam.Gremlinq.Core.MaxStep Local;
+        public MaxStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class MeanStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.MeanStep Global;
         public static readonly ExRam.Gremlinq.Core.MeanStep Local;
+        public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public sealed class MinStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.MinStep Global;
         public static readonly ExRam.Gremlinq.Core.MinStep Local;
+        public MinStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
     public abstract class MultiTraversalArgumentStep : ExRam.Gremlinq.Core.Step
@@ -1288,6 +1296,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class NoneStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.NoneStep Instance;
+        public NoneStep() { }
     }
     public sealed class NotStep : ExRam.Gremlinq.Core.Step
     {
@@ -1314,6 +1323,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.OrderStep Global;
         public static readonly ExRam.Gremlinq.Core.OrderStep Local;
+        public OrderStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
         public sealed class ByLambdaStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
@@ -1360,6 +1370,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class ProfileStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ProfileStep Instance;
+        public ProfileStep() { }
     }
     public sealed class ProjectStep : ExRam.Gremlinq.Core.Step
     {
@@ -1519,6 +1530,7 @@ namespace ExRam.Gremlinq.Core
     public sealed class ValueStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ValueStep Instance;
+        public ValueStep() { }
     }
     public sealed class ValuesStep : ExRam.Gremlinq.Core.Step
     {
