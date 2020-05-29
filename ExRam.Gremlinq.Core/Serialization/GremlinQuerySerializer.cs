@@ -16,8 +16,17 @@ namespace ExRam.Gremlinq.Core
             [ThreadStatic]
             private static Dictionary<StepLabel, string>? _stepLabelNames;
 
+            private static readonly string[] StepLabelNames;
+
             private readonly IGremlinQueryFragmentSerializer _fragmentSerializer;
             private readonly IGremlinQueryFragmentSerializer _originalfragmentSerializer;
+
+            static GremlinQuerySerializerImpl()
+            {
+                StepLabelNames = Enumerable.Range(1, 100)
+                    .Select(x => "l" + x)
+                    .ToArray();
+            }
 
             public GremlinQuerySerializerImpl(IGremlinQueryFragmentSerializer fragmentSerializer)
             {
@@ -26,11 +35,12 @@ namespace ExRam.Gremlinq.Core
                 _fragmentSerializer = fragmentSerializer
                     .Override<StepLabel>((stepLabel, env, @base, recurse) =>
                     {
-                        string? stepLabelMapping = null;
-
-                        if (!_stepLabelNames!.TryGetValue(stepLabel, out stepLabelMapping))
+                        if (!_stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
                         {
-                            stepLabelMapping = "l" + (_stepLabelNames.Count + 1);
+                            stepLabelMapping = _stepLabelNames.Count < StepLabelNames.Length
+                                ? StepLabelNames[_stepLabelNames.Count]
+                                : "l" + (_stepLabelNames.Count + 1).ToString();
+
                             _stepLabelNames.Add(stepLabel, stepLabelMapping);
                         }
 
