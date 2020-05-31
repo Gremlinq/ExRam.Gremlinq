@@ -132,9 +132,9 @@
       Predicate: {
         OperatorName: 'between',
         Value: [
-          {},
-          {},
-          {}
+          'string',
+          'string',
+          'string'
         ]
       },
       ThenTraversal: {
@@ -200,7 +200,7 @@
   {
     Item1: 'ConstantStep',
     Item2: {
-      Value: {}
+      Value: 'string'
     }
   },
   {
@@ -284,13 +284,13 @@
   {
     Item1: 'GroupStep.ByKeyStep',
     Item2: {
-      Key: {}
+      Key: 'string'
     }
   },
   {
     Item1: 'HasKeyStep',
     Item2: {
-      Argument: {}
+      Argument: 'string'
     }
   },
   {
@@ -306,19 +306,19 @@
   {
     Item1: 'HasNotStep',
     Item2: {
-      Key: {}
+      Key: 'string'
     }
   },
   {
     Item1: 'HasPredicateStep',
     Item2: {
-      Key: {},
+      Key: 'string',
       Predicate: {
         OperatorName: 'between',
         Value: [
-          {},
-          {},
-          {}
+          'string',
+          'string',
+          'string'
         ]
       }
     }
@@ -326,7 +326,7 @@
   {
     Item1: 'HasTraversalStep',
     Item2: {
-      Key: {},
+      Key: 'string',
       Traversal: {
         Steps: [
           {}
@@ -337,7 +337,7 @@
   {
     Item1: 'HasValueStep',
     Item2: {
-      Argument: {}
+      Argument: 'string'
     }
   },
   {
@@ -388,9 +388,9 @@
       Predicate: {
         OperatorName: 'between',
         Value: [
-          {},
-          {},
-          {}
+          'string',
+          'string',
+          'string'
         ]
       }
     }
@@ -509,7 +509,7 @@
   {
     Item1: 'OptionTraversalStep',
     Item2: {
-      Guard: {},
+      Guard: 'string',
       OptionTraversal: {
         Steps: [
           {}
@@ -543,7 +543,7 @@
         EnumName: 'Order',
         EnumValue: 'asc'
       },
-      Key: {}
+      Key: 'string'
     }
   },
   {
@@ -638,7 +638,7 @@
   {
     Item1: 'ProjectStep.ByKeyStep',
     Item2: {
-      Key: {}
+      Key: 'string'
     }
   },
   {
@@ -654,8 +654,8 @@
   {
     Item1: 'PropertyStep',
     Item2: {
-      Key: {},
-      Value: {},
+      Key: 'string',
+      Value: 'string',
       Cardinality: {
         EnumName: 'Cardinality',
         EnumValue: 'list'
@@ -814,9 +814,9 @@
       Predicate: {
         OperatorName: 'between',
         Value: [
-          {},
-          {},
-          {}
+          'string',
+          'string',
+          'string'
         ]
       }
     }
@@ -824,7 +824,7 @@
   {
     Item1: 'WherePredicateStep.ByMemberStep',
     Item2: {
-      Key: {}
+      Key: 'string'
     }
   },
   {
@@ -833,9 +833,9 @@
       Predicate: {
         OperatorName: 'between',
         Value: [
-          {},
-          {},
-          {}
+          'string',
+          'string',
+          'string'
         ]
       },
       StepLabel: {}
@@ -855,7 +855,9 @@
     Item1: 'WithoutStrategiesStep',
     Item2: {
       StrategyTypes: [
-        'SubgraphStrategy'
+        'Object',
+        'Object',
+        'Object'
       ]
     }
   },

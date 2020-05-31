@@ -57,38 +57,43 @@ namespace ExRam.Gremlinq.Core.Tests
                 else if (request is Type typeRequest)
                     type = typeRequest;
 
-                if (type == typeof(ImmutableArray<object>))
-                    return ((object[])context.Resolve(typeof(string[]))).ToImmutableArray();
+                if (type != null)
+                {
+                    if (type.IsConstructedGenericType && type.GetGenericTypeDefinition() == typeof(ImmutableArray<>))
+                    {
+                        var elementType = type.GetGenericArguments()[0];
+                        var arrayType = elementType.MakeArrayType();
+                        var array = context.Resolve(arrayType);
 
-                if (type == typeof(ImmutableArray<string>))
-                    return ((string[])context.Resolve(typeof(string[]))).ToImmutableArray();
+                        return typeof(ImmutableArray).GetMethods(BindingFlags.Public | BindingFlags.Static)
+                            .Where(x => x.Name == nameof(ImmutableArray.Create))
+                            .Where(x => x.GetParameters().Length == 1)
+                            .First(x => x.GetParameters()[0].ParameterType.IsArray)
+                            .MakeGenericMethod(elementType)
+                            .Invoke(null, new[] { array });
+                    }
 
-                if (type == typeof(ImmutableArray<Traversal>))
-                    return ((Traversal[])context.Resolve(typeof(Traversal[]))).ToImmutableArray();
+                    if (type == typeof(object))
+                        return context.Resolve(typeof(string));
 
-                if (type == typeof(ImmutableArray<StepLabel>))
-                    return ((StepLabel[])context.Resolve(typeof(StepLabel[]))).ToImmutableArray();
+                    if (type == typeof(Traversal))
+                        return (Traversal)IdentityStep.Instance;
 
-                if (type == typeof(ImmutableArray<Type>))
-                    return new Type[] { typeof(SubgraphStrategy) }.ToImmutableArray();
+                    if (type == typeof(ILambda))
+                        return Lambda.Groovy("lambda");
 
-                if (type == typeof(Traversal))
-                    return (Traversal)IdentityStep.Instance;
+                    if (type == typeof(string))
+                        return "string";
 
-                if (type == typeof(ILambda))
-                    return Lambda.Groovy("lambda");
+                    if (type == typeof(double))
+                        return 47.11;
 
-                if (type == typeof(string))
-                    return "string";
+                    if (type == typeof(int))
+                        return 4711;
 
-                if (type == typeof(double))
-                    return 47.11;
-
-                if (type == typeof(int))
-                    return 4711;
-
-                if (type == typeof(long))
-                    return 4711;
+                    if (type == typeof(long))
+                        return 4711;
+                }
 
                 return new NoSpecimen();
             }
