@@ -368,7 +368,9 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GremlinQueryFragmentSerializer
     {
+        public static readonly ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer Default;
         public static readonly ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer Identity;
+        public static ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.IGremlinQueryFragmentSerializer fragmentSerializer) { }
     }
     public static class GremlinQuerySerializer
     {
@@ -377,7 +379,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySerializer Invalid;
         public static ExRam.Gremlinq.Core.IGremlinQuerySerializer Select(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer, System.Func<object, object> projection) { }
         public static ExRam.Gremlinq.Core.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer) { }
-        public static ExRam.Gremlinq.Core.IGremlinQuerySerializer UseDefaultGremlinStepSerializationHandlers(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer) { }
     }
     public static class GremlinQuerySource
     {
