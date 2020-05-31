@@ -2,15 +2,12 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
 using AutoFixture;
 using AutoFixture.Kernel;
 using ExRam.Gremlinq.Core.GraphElements;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
-using Gremlin.Net.Process.Traversal.Strategy.Decoration;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
