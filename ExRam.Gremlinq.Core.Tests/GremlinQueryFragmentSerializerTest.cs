@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Moq;
+using System.Linq;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -77,6 +78,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Override<HasLabelStep>((step, env, overridden, recurse) => recurse.Serialize(new VStep(ImmutableArray.Create<object>("id")), env))
                 .Override<VStep>((step, env, overridden, recurse) => overridden(new VStep(step.Ids.Add("another id")), env, recurse))
                 .Serialize(new HasLabelStep(ImmutableArray.Create("label")), Mock.Of<IGremlinQueryEnvironment>()));
+        }
+
+        [Fact]
+        public async Task AllSteps()
+        {
+            await Verify(
+                TypeSystemTest.AllSteps
+                    .Select(step => (
+                        step.GetType(),
+                        GremlinQueryFragmentSerializer.Default
+                            .Serialize(step, GremlinQueryEnvironment.Empty)))
+                    .ToArray());
         }
     }
 }
