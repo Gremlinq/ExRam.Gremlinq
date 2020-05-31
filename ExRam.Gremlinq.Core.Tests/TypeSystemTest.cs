@@ -58,16 +58,16 @@ namespace ExRam.Gremlinq.Core.Tests
                     type = typeRequest;
 
                 if (type == typeof(ImmutableArray<object>))
-                    return new object[] { context.Resolve(typeof(string)) }.ToImmutableArray();
+                    return ((object[])context.Resolve(typeof(string[]))).ToImmutableArray();
 
                 if (type == typeof(ImmutableArray<string>))
-                    return new string[] { (string)context.Resolve(typeof(string)) }.ToImmutableArray();
+                    return ((string[])context.Resolve(typeof(string[]))).ToImmutableArray();
 
                 if (type == typeof(ImmutableArray<Traversal>))
-                    return new Traversal[] { (Traversal)context.Resolve(typeof(Traversal)) }.ToImmutableArray();
+                    return ((Traversal[])context.Resolve(typeof(Traversal[]))).ToImmutableArray();
 
                 if (type == typeof(ImmutableArray<StepLabel>))
-                    return new StepLabel[] { (StepLabel)context.Resolve(typeof(StepLabel)) }.ToImmutableArray();
+                    return ((StepLabel[])context.Resolve(typeof(StepLabel[]))).ToImmutableArray();
 
                 if (type == typeof(ImmutableArray<Type>))
                     return new Type[] { typeof(SubgraphStrategy) }.ToImmutableArray();
@@ -104,7 +104,6 @@ namespace ExRam.Gremlinq.Core.Tests
             var stepTypes = typeof(Step).Assembly.DefinedTypes
                 .Where(type => typeof(Step).IsAssignableFrom(type))
                 .Where(type => !type.IsAbstract);
-
 
             fixture.Customizations.Add(new SpecimenBuilder());
             fixture.Customizations.Add(new TypeRelay(
