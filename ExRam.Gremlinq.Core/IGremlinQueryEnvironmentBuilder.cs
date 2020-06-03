@@ -1,6 +1,4 @@
-﻿using ExRam.Gremlinq.Core;
-
-namespace ExRam.Gremlinq.Providers.WebSocket
+﻿namespace ExRam.Gremlinq.Core
 {
     public interface IGremlinQueryEnvironmentBuilder
     {
