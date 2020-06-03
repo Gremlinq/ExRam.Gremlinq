@@ -12,7 +12,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
     {
         public static ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilderWithUri At(this ExRam.Gremlinq.Providers.CosmosDb.ICosmosDbConfigurationBuilder builder, string uri, string databaseName, string graphName) { }
     }
-    public sealed class CosmosDbKey
+    public readonly struct CosmosDbKey
     {
         public CosmosDbKey(string id) { }
         public CosmosDbKey(string partitionKey, string id) { }

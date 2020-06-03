@@ -1,18 +1,32 @@
-﻿namespace ExRam.Gremlinq.Providers.CosmosDb
+﻿using System;
+
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public sealed class CosmosDbKey
+    public readonly struct CosmosDbKey
     {
-        public CosmosDbKey(string partitionKey, string id) : this(id)
+        private readonly string _id;
+
+        public CosmosDbKey(string id) : this(default, id, default)
         {
+        }
+
+        public CosmosDbKey(string partitionKey, string id) : this(partitionKey, id, default)
+        {
+        }
+
+        private CosmosDbKey(string? partitionKey, string id, bool dummy)
+        {
+            _id = id;
             PartitionKey = partitionKey;
         }
 
-        public CosmosDbKey(string id)
+        public string Id
         {
-            Id = id;
+            get
+            {
+                return _id ?? throw new InvalidOperationException($"Cannot access {nameof(Id)} property of an uninitialized {nameof(CosmosDbKey)}.");
+            }
         }
-
-        public string Id { get; }
 
         public string? PartitionKey { get; }
     }

@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                         .Override<CosmosDbKey>((key, env, overridden, recurse) => recurse.Serialize(
                             key.PartitionKey != null
-                                ? new[] {key.PartitionKey, key.Id}
+                                ? new[] { key.PartitionKey, key.Id }
                                 : (object)key.Id,
                             env))
                         .Override<HasKeyStep>((step, env, overridden, recurse) =>
