@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
 // Put this into static scope to access the default GremlinQuerySource as "g". 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
