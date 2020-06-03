@@ -444,16 +444,32 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam[] parameters)
         {
-            return parameters.Length == 0
-                ? CreateInstruction(name)
-                : CreateInstruction(name, recurse, env, (IEnumerable<TParam>)parameters);
+            if (parameters.Length == 0)
+                return CreateInstruction(name);
+
+            var data = new object[parameters.Length];
+
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                data[i] = recurse.Serialize(parameters[i], env);
+            }
+
+            return new Instruction(name, data);
         }
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, ImmutableArray<TParam> parameters)
         {
-            return parameters.Length == 0
-                ? CreateInstruction(name)
-                : CreateInstruction(name, recurse, env, (IEnumerable<TParam>)parameters);
+            if (parameters.Length == 0)
+                return CreateInstruction(name);
+
+            var data = new object[parameters.Length];
+
+            for (var i = 0; i < parameters.Length; i++)
+            {
+                data[i] = recurse.Serialize(parameters[i], env);
+            }
+
+            return new Instruction(name, data);
         }
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, IEnumerable<TParam> parameters)
