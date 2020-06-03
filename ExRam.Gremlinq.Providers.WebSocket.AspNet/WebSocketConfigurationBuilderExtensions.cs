@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class WebSocketConfigurationBuilderExtensions
     {
-        public static IWebSocketConfigurationBuilder Configure(this IWebSocketConfigurationBuilder builder, IConfiguration configuration)
+        public static IWebSocketGremlinQueryEnvironmentBuilder Configure(this IWebSocketGremlinQueryEnvironmentBuilder builder, IConfiguration configuration)
         {
             var loggingSection = configuration.GetSection("QueryLogging");
             var authenticationSection = configuration.GetSection("Authentication");

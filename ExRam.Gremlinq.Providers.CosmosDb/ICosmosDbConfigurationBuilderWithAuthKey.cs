@@ -5,6 +5,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public interface ICosmosDbConfigurationBuilderWithAuthKey : IGremlinQueryEnvironmentBuilder
     {
-        IGremlinQueryEnvironmentBuilder ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation);
+        IGremlinQueryEnvironmentBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> transformation);
     }
 }

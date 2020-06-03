@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
+        public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> transformation)
         {
             return environment
                 .ConfigureWebSocket(transformation)

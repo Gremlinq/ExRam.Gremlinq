@@ -3,7 +3,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureWebSocket(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder, ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder> builderAction) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureWebSocket(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder, ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder> builderAction) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.WebSocket
@@ -12,17 +12,17 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     {
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Build();
     }
-    public interface IWebSocketConfigurationBuilder : ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder
+    public interface IWebSocketGremlinQueryEnvironmentBuilder : ExRam.Gremlinq.Providers.WebSocket.IGremlinQueryEnvironmentBuilder
     {
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder AddGraphSONDeserializer(string typename, Gremlin.Net.Structure.IO.GraphSON.IGraphSONDeserializer serializer);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder AddGraphSONSerializer(System.Type type, Gremlin.Net.Structure.IO.GraphSON.IGraphSONSerializer serializer);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder At(System.Uri uri);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder AuthenticateBy(string username, string password);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureConnectionPool(System.Action<Gremlin.Net.Driver.ConnectionPoolSettings> transformation);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureGremlinClient(System.Func<Gremlin.Net.Driver.IGremlinClient, Gremlin.Net.Driver.IGremlinClient> transformation);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder ConfigureQueryLoggingOptions(System.Func<ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions, ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions> transformation);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder SetAlias(string alias);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONDeserializer(string typename, Gremlin.Net.Structure.IO.GraphSON.IGraphSONDeserializer serializer);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONSerializer(System.Type type, Gremlin.Net.Structure.IO.GraphSON.IGraphSONSerializer serializer);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder At(System.Uri uri);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AuthenticateBy(string username, string password);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureConnectionPool(System.Action<Gremlin.Net.Driver.ConnectionPoolSettings> transformation);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureGremlinClient(System.Func<Gremlin.Net.Driver.IGremlinClient, Gremlin.Net.Driver.IGremlinClient> transformation);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureQueryLoggingOptions(System.Func<ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions, ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions> transformation);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetAlias(string alias);
+        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
     }
     public readonly struct QueryLoggingOptions
     {
@@ -41,9 +41,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         QueryOnly = 1,
         QueryAndParameters = 2,
     }
-    public static class WebSocketConfigurationBuilderExtensions
+    public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
-        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder At(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder builder, string uri) { }
-        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder AtLocalhost(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketConfigurationBuilder builder) { }
+        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder At(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder, string uri) { }
+        public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AtLocalhost(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder) { }
     }
 }

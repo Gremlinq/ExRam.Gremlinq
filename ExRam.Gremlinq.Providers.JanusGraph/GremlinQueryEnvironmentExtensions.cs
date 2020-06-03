@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinQueryEnvironmentExtensions
     {
         public static IGremlinQueryEnvironment UseJanusGraph(this IGremlinQueryEnvironment environment,
-            Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> builderAction)
+            Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> builderAction)
         {
             return environment
                 .UseGremlinServer(builderAction)
