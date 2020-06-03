@@ -21,13 +21,13 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.AspNet
                 .UseCosmosDb(builder =>
                 {
                     return builder
-                        .ConfigureWebSocket(webSocketBuilder => webSocketBuilder
-                            .Configure(_configuration))
                         .At(
                             _configuration.GetRequiredConfiguration("Uri"),
                             _configuration.GetRequiredConfiguration("Database"),
                             _configuration.GetRequiredConfiguration("Graph"))
-                        .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"));
+                        .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"))
+                        .ConfigureWebSocket(webSocketBuilder => webSocketBuilder
+                            .Configure(_configuration));
                 });
         }
     }

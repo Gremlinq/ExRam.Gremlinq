@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using ExRam.Gremlinq.Providers.CosmosDb;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Process.Traversal;
 
@@ -33,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                     _collectionName);
             }
 
-            public ICosmosDbConfigurationBuilder ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
+            public IGremlinQueryEnvironmentBuilder ConfigureWebSocket(Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
             {
                 return new CosmosDbConfigurationBuilder(
                     transformation(_webSocketBuilder),
@@ -46,7 +47,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, ICosmosDbConfigurationBuilderWithAuthKey> transformation)
+        public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryEnvironmentBuilder> transformation)
         {
             return env
                 .ConfigureFeatureSet(featureSet => featureSet

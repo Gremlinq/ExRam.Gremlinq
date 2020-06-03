@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Core
+namespace ExRam.Gremlinq.Providers.CosmosDb
 {
     public static class CosmosDbConfigurationBuilderExtensions
     {
