@@ -226,7 +226,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryEnvironment Build()
             {
                 if (_uri == null)
-                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(UseWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
+                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(ConfigureWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
 
                 if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
@@ -258,7 +258,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IGremlinQueryEnvironment UseWebSocket(
+        public static IGremlinQueryEnvironment ConfigureWebSocket(
             this IGremlinQueryEnvironment environment,
             Func<IWebSocketConfigurationBuilder, IGremlinQueryEnvironmentBuilder> builderAction)
         {

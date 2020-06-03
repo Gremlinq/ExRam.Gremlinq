@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core
                             return recurse.Serialize((int)l, env);
                         }))
                     .ToGroovy())
-                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
+                .ConfigureWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
                 .StoreTimeSpansAsNumbers();
         }
     }

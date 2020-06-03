@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseNeptune(this IGremlinQueryEnvironment environment, Func<IWebSocketConfigurationBuilder, IWebSocketConfigurationBuilder> transformation)
         {
             return environment
-                .UseWebSocket(transformation)
+                .ConfigureWebSocket(transformation)
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
                         .Override<PropertyStep>((step, env, overridden, recurse) => overridden(Cardinality.List.Equals(step.Cardinality) ? new PropertyStep(step.Key, step.Value, step.MetaProperties, Cardinality.Set) : step, env, recurse))))
