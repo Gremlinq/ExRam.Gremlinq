@@ -5,12 +5,12 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        private sealed class UseGremlinServerGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        private sealed class UseJanusGraphGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseGremlinServerGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
+            public UseJanusGraphGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
             {
                 _configuration = configuration
                     .GetSection("JanusGraph");
@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.AspNet
 
         public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup)
         {
-            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseGremlinServerGremlinQueryEnvironmentTransformation>());
+            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseJanusGraphGremlinQueryEnvironmentTransformation>());
         }
     }
 }
