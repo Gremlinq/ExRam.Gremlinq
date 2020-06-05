@@ -32,13 +32,13 @@ namespace ExRam.Gremlinq.Core.AspNet
                     .ConfigureOptions(options =>
                     {
                         if (Enum.TryParse<QueryLogVerbosity>(loggingSection["Verbosity"], out var verbosity))
-                            options = options.SetValue(QueryLoggingGremlinqOptions.QueryLogVerbosity, verbosity);
+                            options = options.SetValue(WebSocketGremlinqOptions.QueryLogVerbosity, verbosity);
 
                         if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
-                            options = options.SetValue(QueryLoggingGremlinqOptions.QueryLogLogLevel, logLevel);
+                            options = options.SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, logLevel);
 
                         if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
-                            options = options.SetValue(QueryLoggingGremlinqOptions.QueryLogFormatting, formatting);
+                            options = options.SetValue(WebSocketGremlinqOptions.QueryLogFormatting, formatting);
 
                         return options;
                     });

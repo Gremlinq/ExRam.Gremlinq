@@ -25,15 +25,15 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         QueryOnly = 1,
         QueryAndParameters = 2,
     }
-    public static class QueryLoggingGremlinqOptions
-    {
-        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Providers.WebSocket.QueryLogVerbosity> QueryLogVerbosity;
-    }
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder At(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder, string uri) { }
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AtLocalhost(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder) { }
+    }
+    public static class WebSocketGremlinqOptions
+    {
+        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
+        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
+        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Providers.WebSocket.QueryLogVerbosity> QueryLogVerbosity;
     }
 }

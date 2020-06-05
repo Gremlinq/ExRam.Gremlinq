@@ -113,8 +113,8 @@ namespace ExRam.Gremlinq.Core
 
             private void Log(GroovyGremlinQuery query, IGremlinQueryEnvironment environment)
             {
-                var logLevel = environment.Options.GetValue(QueryLoggingGremlinqOptions.QueryLogLogLevel);
-                var verbosity = environment.Options.GetValue(QueryLoggingGremlinqOptions.QueryLogVerbosity);
+                var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
+                var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
 
                 if (environment.Logger.IsEnabled(logLevel) && verbosity > QueryLogVerbosity.None)
                 {

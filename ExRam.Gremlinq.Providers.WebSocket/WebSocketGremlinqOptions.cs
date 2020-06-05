@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public static class QueryLoggingGremlinqOptions
+    public static class WebSocketGremlinqOptions
     {
         public static GremlinqOption<LogLevel> QueryLogLogLevel = new GremlinqOption<LogLevel>(LogLevel.Debug);
         public static GremlinqOption<Formatting> QueryLogFormatting = new GremlinqOption<Formatting>(Formatting.None);
