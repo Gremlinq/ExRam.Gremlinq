@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public enum QueryLoggingVerbosity
+    public enum QueryLogVerbosity
     {
         None = 0,
         QueryOnly = 1,

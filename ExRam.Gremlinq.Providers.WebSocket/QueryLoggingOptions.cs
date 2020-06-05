@@ -1,36 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ExRam.Gremlinq.Core;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Providers.WebSocket
 {
-    public readonly struct QueryLoggingOptions
+    public static class QueryLoggingGremlinqOptions
     {
-        public static readonly QueryLoggingOptions Default = new QueryLoggingOptions(LogLevel.Debug, QueryLoggingVerbosity.QueryOnly, Formatting.None);
-
-        public QueryLoggingOptions(LogLevel logLevel, QueryLoggingVerbosity verbosity, Formatting formatting)
-        {
-            LogLevel = logLevel;
-            Verbosity = verbosity;
-            Formatting = formatting;
-        }
-
-        public QueryLoggingOptions SetLogLevel(LogLevel logLevel)
-        {
-            return new QueryLoggingOptions(logLevel, Verbosity, Formatting);
-        }
-
-        public QueryLoggingOptions SetQueryLoggingVerbosity(QueryLoggingVerbosity verbosity)
-        {
-            return new QueryLoggingOptions(LogLevel, verbosity, Formatting);
-        }
-
-        public QueryLoggingOptions SetFormatting(Formatting formatting)
-        {
-            return new QueryLoggingOptions(LogLevel, Verbosity, formatting);
-        }
-
-        public LogLevel LogLevel { get; }
-        public Formatting Formatting { get; }
-        public QueryLoggingVerbosity Verbosity { get; }
+        public static GremlinqOption<LogLevel> QueryLogLogLevel = new GremlinqOption<LogLevel>(LogLevel.Debug);
+        public static GremlinqOption<Formatting> QueryLogFormatting = new GremlinqOption<Formatting>(Formatting.None);
+        public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new GremlinqOption<QueryLogVerbosity>(WebSocket.QueryLogVerbosity.QueryOnly);
     }
 }

@@ -16,26 +16,20 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AuthenticateBy(string username, string password);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureConnectionPool(System.Action<Gremlin.Net.Driver.ConnectionPoolSettings> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureGremlinClient(System.Func<Gremlin.Net.Driver.IGremlinClient, Gremlin.Net.Driver.IGremlinClient> transformation);
-        ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder ConfigureQueryLoggingOptions(System.Func<ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions, ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions> transformation);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetAlias(string alias);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
     }
-    public readonly struct QueryLoggingOptions
-    {
-        public static readonly ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions Default;
-        public QueryLoggingOptions(Microsoft.Extensions.Logging.LogLevel logLevel, ExRam.Gremlinq.Providers.WebSocket.QueryLoggingVerbosity verbosity, Newtonsoft.Json.Formatting formatting) { }
-        public Newtonsoft.Json.Formatting Formatting { get; }
-        public Microsoft.Extensions.Logging.LogLevel LogLevel { get; }
-        public ExRam.Gremlinq.Providers.WebSocket.QueryLoggingVerbosity Verbosity { get; }
-        public ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions SetFormatting(Newtonsoft.Json.Formatting formatting) { }
-        public ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions SetLogLevel(Microsoft.Extensions.Logging.LogLevel logLevel) { }
-        public ExRam.Gremlinq.Providers.WebSocket.QueryLoggingOptions SetQueryLoggingVerbosity(ExRam.Gremlinq.Providers.WebSocket.QueryLoggingVerbosity verbosity) { }
-    }
-    public enum QueryLoggingVerbosity
+    public enum QueryLogVerbosity
     {
         None = 0,
         QueryOnly = 1,
         QueryAndParameters = 2,
+    }
+    public static class QueryLoggingGremlinqOptions
+    {
+        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
+        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
+        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Providers.WebSocket.QueryLogVerbosity> QueryLogVerbosity;
     }
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {

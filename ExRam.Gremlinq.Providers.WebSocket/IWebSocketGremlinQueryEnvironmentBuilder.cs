@@ -22,7 +22,5 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer);
 
         IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer);
-
-        IWebSocketGremlinQueryEnvironmentBuilder ConfigureQueryLoggingOptions(Func<QueryLoggingOptions, QueryLoggingOptions> transformation);
     }
 }
