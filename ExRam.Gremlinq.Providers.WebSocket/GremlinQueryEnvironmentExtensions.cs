@@ -116,7 +116,7 @@ namespace ExRam.Gremlinq.Core
                 var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);
 
-                if (environment.Logger.IsEnabled(logLevel) && verbosity > QueryLogVerbosity.None)
+                if (environment.Logger.IsEnabled(logLevel))
                 {
                     environment.Logger.Log(
                         logLevel,
@@ -125,7 +125,7 @@ namespace ExRam.Gremlinq.Core
                             new
                             {
                                 query.Script,
-                                Bindings = verbosity == QueryLogVerbosity.QueryAndParameters
+                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
                                     ? query.Bindings
                                     : null
                             }));

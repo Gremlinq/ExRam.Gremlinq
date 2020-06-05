@@ -1,9 +1,11 @@
-﻿namespace ExRam.Gremlinq.Providers.WebSocket
+﻿using System;
+
+namespace ExRam.Gremlinq.Providers.WebSocket
 {
+    [Flags]
     public enum QueryLogVerbosity
     {
-        None = 0,
-        QueryOnly = 1,
-        QueryAndParameters,
+        QueryOnly = 0,
+        IncludeParameters = 1
     }
 }

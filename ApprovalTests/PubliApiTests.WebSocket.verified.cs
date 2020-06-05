@@ -19,11 +19,11 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetAlias(string alias);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
     }
+    [System.Flags]
     public enum QueryLogVerbosity
     {
-        None = 0,
-        QueryOnly = 1,
-        QueryAndParameters = 2,
+        QueryOnly = 0,
+        IncludeParameters = 1,
     }
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
