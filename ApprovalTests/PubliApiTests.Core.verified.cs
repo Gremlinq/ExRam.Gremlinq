@@ -384,7 +384,7 @@ namespace ExRam.Gremlinq.Core
     {
         public static readonly ExRam.Gremlinq.Core.IConfigurableGremlinQuerySource g;
     }
-    public class GremlinqOption
+    public static class GremlinqOption
     {
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
@@ -392,20 +392,19 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionWithoutMetaPropertiesSteps;
-        public GremlinqOption() { }
     }
-    public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.GremlinqOption
+    public class GremlinqOption<TValue> : ExRam.Gremlinq.Core.IGremlinqOption
     {
         public GremlinqOption(TValue defaultValue) { }
         public TValue DefaultValue { get; }
     }
     public readonly struct GremlinqOptions
     {
-        public GremlinqOptions(System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.GremlinqOption, object> dictionary) { }
+        public GremlinqOptions(System.Collections.Immutable.IImmutableDictionary<ExRam.Gremlinq.Core.IGremlinqOption, object> dictionary) { }
         public ExRam.Gremlinq.Core.GremlinqOptions ConfigureValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, System.Func<TValue, TValue> configuration) { }
-        public bool Contains(ExRam.Gremlinq.Core.GremlinqOption option) { }
+        public bool Contains(ExRam.Gremlinq.Core.IGremlinqOption option) { }
         public TValue GetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option) { }
-        public ExRam.Gremlinq.Core.GremlinqOptions Remove(ExRam.Gremlinq.Core.GremlinqOption option) { }
+        public ExRam.Gremlinq.Core.GremlinqOptions Remove(ExRam.Gremlinq.Core.IGremlinqOption option) { }
         public ExRam.Gremlinq.Core.GremlinqOptions SetValue<TValue>(ExRam.Gremlinq.Core.GremlinqOption<TValue> option, TValue value) { }
     }
     public sealed class GroovyGremlinQuery
@@ -837,6 +836,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IGremlinqOption { }
     public interface IGroupBuilderWithKeyAndValue<out TSourceQuery, TKey, TValue> : ExRam.Gremlinq.Core.IGroupBuilderWithKey<TSourceQuery, TKey>
         where out TSourceQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
     {

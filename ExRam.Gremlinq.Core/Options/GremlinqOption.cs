@@ -4,7 +4,12 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public class GremlinqOption
+    public interface IGremlinqOption
+    {
+
+    }
+
+    public static class GremlinqOption
     {
         public static GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new GremlinqOption<IImmutableList<Step>>(
             new Step[]
@@ -77,7 +82,7 @@ namespace ExRam.Gremlinq.Core
         public static GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new GremlinqOption<DisabledTextPredicates>(Core.DisabledTextPredicates.None);
     }
 
-    public class GremlinqOption<TValue> : GremlinqOption
+    public class GremlinqOption<TValue> : IGremlinqOption
     {
         public GremlinqOption(TValue defaultValue)
         {

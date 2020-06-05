@@ -5,9 +5,9 @@ namespace ExRam.Gremlinq.Core
 {
     public readonly struct GremlinqOptions
     {
-        private readonly IImmutableDictionary<GremlinqOption, object>? _dictionary;
+        private readonly IImmutableDictionary<IGremlinqOption, object>? _dictionary;
 
-        public GremlinqOptions(IImmutableDictionary<GremlinqOption, object> dictionary)
+        public GremlinqOptions(IImmutableDictionary<IGremlinqOption, object> dictionary)
         {
             _dictionary = dictionary;
         }
@@ -19,24 +19,24 @@ namespace ExRam.Gremlinq.Core
                 : option.DefaultValue;
         }
 
-        public bool Contains(GremlinqOption option)
+        public bool Contains(IGremlinqOption option)
         {
             return (_dictionary?.ContainsKey(option)).GetValueOrDefault();
         }
 
         public GremlinqOptions ConfigureValue<TValue>(GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
         {
-            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<GremlinqOption, object>.Empty).SetItem(option, configuration(GetValue(option))));
+            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, configuration(GetValue(option))));
         }
 
         public GremlinqOptions SetValue<TValue>(GremlinqOption<TValue> option, TValue value)
         {
-            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<GremlinqOption, object>.Empty).SetItem(option, value));
+            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, value));
         }
 
-        public GremlinqOptions Remove(GremlinqOption option)
+        public GremlinqOptions Remove(IGremlinqOption option)
         {
-            return new GremlinqOptions(_dictionary?.Remove(option) ?? ImmutableDictionary<GremlinqOption, object>.Empty);
+            return new GremlinqOptions(_dictionary?.Remove(option) ?? ImmutableDictionary<IGremlinqOption, object>.Empty);
         }
     }
 }
