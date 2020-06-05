@@ -34,8 +34,13 @@ namespace ExRam.Gremlinq.Samples
                     //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                     //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                     //in a currently loaded assembly). We explicitly set a model here anyway.
-                    .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
-                        .IncludeAssembliesOfBaseTypes()))
+                    .UseModel(GraphModel
+                        .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                            .IncludeAssembliesOfBaseTypes())
+                        //For CosmosDB, we exclude the 'PartitionKey' property from being included in updates.
+                        .ConfigureProperties(model => model
+                            .ConfigureElement<Vertex>(conf => conf
+                                .IgnoreOnUpdate(x => x.PartitionKey))))
 
 #if GremlinServer
                     .UseGremlinServer(builder => builder
