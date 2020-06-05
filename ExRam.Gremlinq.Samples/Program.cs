@@ -45,37 +45,24 @@ namespace ExRam.Gremlinq.Samples
                         .ConfigureProperties(model => model
                             .ConfigureElement<Vertex>(conf => conf
                                 .IgnoreOnUpdate(x => x.PartitionKey))))
+                    //Disable query logging for a noise free console output.
+                    //Enable logging by setting the verbosity to anything but None.
+                    .ConfigureOptions(options => options
+                        .SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, LogLevel.None))
 
 #if GremlinServer
                     .UseGremlinServer(builder => builder
-                        .AtLocalhost()
-                        //Disable query logging for a noise free console output.
-                        //Enable logging by setting the verbosity to anything but None.
-                        .ConfigureQueryLoggingOptions(o => o
-                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
+                        .AtLocalhost()));
 #elif AWSNeptune
                     .UseNeptune(builder => builder
-                        .AtLocalhost()
-                        //Disable query logging for a noise free console output.
-                        //Enable logging by setting the verbosity to anything but None.
-                        .ConfigureQueryLoggingOptions(o => o
-                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
+                        .AtLocalhost()));
 #elif CosmosDB
                     .UseCosmosDb(builder => builder
-                        .At(uri, databaseName, graphName)
-                        .AuthenticateBy(authKey)
-                        .ConfigureWebSocket(builder => builder
-                            //Disable query logging for a noise free console output.
-                            //Enable logging by setting the verbosity to anything but None.
-                            .ConfigureQueryLoggingOptions(o => o
-                                .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None)))));
+                        .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"), "your database name", "your graph name")
+                        .AuthenticateBy("your auth key")));
 #elif JanusGraph
                     .UseJanusGraph(builder => builder
-                        .AtLocalhost()
-                        //Disable query logging for a noise free console output.
-                        //Enable logging by setting the verbosity to anything but None.
-                        .ConfigureQueryLoggingOptions(o => o
-                            .SetQueryLoggingVerbosity(QueryLoggingVerbosity.None))));
+                        .AtLocalhost()));
 #endif
         }
 
