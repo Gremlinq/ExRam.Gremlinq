@@ -6,6 +6,21 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed class MemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
     {
+        internal sealed class InnerMemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
+        {
+            public static readonly InnerMemberInfoEqualityComparer Instance = new InnerMemberInfoEqualityComparer();
+
+            public bool Equals(MemberInfo x, MemberInfo y)
+            {
+                return (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
+            }
+
+            public int GetHashCode(MemberInfo obj)
+            {
+                return (obj.DeclaringType, obj.MetadataToken).GetHashCode();
+            }
+        }
+
         public static readonly MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
 
         private MemberInfoEqualityComparer()
@@ -15,17 +30,12 @@ namespace ExRam.Gremlinq.Core
 
         public bool Equals(MemberInfo x, MemberInfo y)
         {
-            x = GetBaseMemberInfo(x);
-            y = GetBaseMemberInfo(y);
-
-            return (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
+            return InnerMemberInfoEqualityComparer.Instance.Equals(GetBaseMemberInfo(x), GetBaseMemberInfo(y));
         }
 
         public int GetHashCode(MemberInfo obj)
         {
-            obj = GetBaseMemberInfo(obj);
-
-            return (obj.DeclaringType, obj.MetadataToken).GetHashCode();
+            return InnerMemberInfoEqualityComparer.Instance.GetHashCode(GetBaseMemberInfo(obj));
         }
 
         private MemberInfo GetBaseMemberInfo(MemberInfo member)
@@ -43,7 +53,7 @@ namespace ExRam.Gremlinq.Core
 
                         for (var i = 0; i < interfaceMap.TargetMethods.Length; i++)
                         {
-                            if ((interfaceMap.TargetMethods[i].DeclaringType, interfaceMap.TargetMethods[i].MetadataToken) == (interfaceGetter.DeclaringType, interfaceGetter.MetadataToken))
+                            if (InnerMemberInfoEqualityComparer.Instance.Equals(interfaceMap.TargetMethods[i], interfaceGetter))
                                 return interfaceMap.InterfaceMethods[i];
                         }
                     }
