@@ -26,9 +26,16 @@ namespace ExRam.Gremlinq.Core
                     SpecialNames);
             }
 
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
+            public IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<string, T>, IImmutableDictionary<string, T>> transformation)
+            {
+                return new GraphElementPropertyModelImpl(
+                    Metadata,
+                    transformation(SpecialNames));
+            }
 
             public IImmutableDictionary<string, T> SpecialNames { get; }
+
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
         }
 
         public static readonly IGraphElementPropertyModel Default = new GraphElementPropertyModelImpl(
