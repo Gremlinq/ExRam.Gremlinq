@@ -47,21 +47,6 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>>();
 
-        public static IGraphElementPropertyModel ConfigureNames(this IGraphElementPropertyModel model, Func<MemberInfo, string, string> overrideTransformation)
-        {
-            return model.ConfigureMetadata(_ => _.ConfigureNames(overrideTransformation));
-        }
-        
-        public static IGraphElementPropertyModel UseCamelCaseNames(this IGraphElementPropertyModel model)
-        {
-            return model.ConfigureNames((member, name) => name.ToCamelCase());
-        }
-
-        public static IGraphElementPropertyModel UseLowerCaseNames(this IGraphElementPropertyModel model)
-        {
-            return model.ConfigureNames((member, name) => name.ToLower());
-        }
-
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
             where TElement : class
         {

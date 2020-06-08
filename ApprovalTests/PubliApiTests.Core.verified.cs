@@ -285,9 +285,6 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Default;
         public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> action)
             where TElement :  class { }
-        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureNames(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<System.Reflection.MemberInfo, string, string> overrideTransformation) { }
-        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel UseCamelCaseNames(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model) { }
-        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel UseLowerCaseNames(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model) { }
     }
     [System.Flags]
     public enum GraphFeatures
@@ -1209,7 +1206,11 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IdentityStep Instance;
         public IdentityStep() { }
     }
-    public static class ImmutableDictionaryExtensions { }
+    public static class ImmutableDictionaryExtensions
+    {
+        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> UseCamelCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> names) { }
+        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> UseLowerCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> names) { }
+    }
     public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
         public static readonly ExRam.Gremlinq.Core.InEStep Empty;

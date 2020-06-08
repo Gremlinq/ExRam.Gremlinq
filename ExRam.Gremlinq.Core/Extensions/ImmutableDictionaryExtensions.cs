@@ -18,5 +18,15 @@ namespace ExRam.Gremlinq.Core
                             transformation(kvp.Key, kvp.Value.Name),
                             kvp.Value.SerializationBehaviour))));
         }
+        
+        public static IImmutableDictionary<MemberInfo, PropertyMetadata> UseCamelCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> names)
+        {
+            return names.ConfigureNames((member, name) => name.ToCamelCase());
+        }
+
+        public static IImmutableDictionary<MemberInfo, PropertyMetadata> UseLowerCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> names)
+        {
+            return names.ConfigureNames((member, name) => name.ToLower());
+        }
     }
 }
