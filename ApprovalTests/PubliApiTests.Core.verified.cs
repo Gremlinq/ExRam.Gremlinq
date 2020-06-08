@@ -632,6 +632,7 @@ namespace ExRam.Gremlinq.Core
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> Metadata { get; }
         System.Collections.Immutable.IImmutableDictionary<string, Gremlin.Net.Process.Traversal.T> SpecialNames { get; }
+        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation);
     }
     public interface IGraphModel
     {

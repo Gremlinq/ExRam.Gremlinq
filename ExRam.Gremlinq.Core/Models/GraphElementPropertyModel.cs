@@ -18,6 +18,13 @@ namespace ExRam.Gremlinq.Core
                 Metadata = metadata;
                 SpecialNames = specialNames;
             }
+            
+            public IGraphElementPropertyModel ConfigureMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+            {
+                return new GraphElementPropertyModelImpl(
+                    transformation(Metadata),
+                    SpecialNames);
+            }
 
             public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
 
@@ -143,13 +150,6 @@ namespace ExRam.Gremlinq.Core
                         property => property,
                         property => new PropertyMetadata(property.Name),
                         MemberInfoEqualityComparer.Instance));
-        }
-
-        private static IGraphElementPropertyModel ConfigureMetadata(this IGraphElementPropertyModel model, Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
-        {
-            return new GraphElementPropertyModelImpl(
-                transformation(model.Metadata),
-                model.SpecialNames);
         }
     }
 }
