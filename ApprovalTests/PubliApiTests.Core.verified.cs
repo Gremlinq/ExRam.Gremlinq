@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq.Core
     public static class GraphElementPropertyModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Default;
-        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> action)
+        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation)
             where TElement :  class { }
     }
     [System.Flags]

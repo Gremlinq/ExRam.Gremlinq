@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Linq.Expressions;
@@ -39,19 +40,22 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphElementPropertyModel Default = new GraphElementPropertyModelImpl(
-            ImmutableDictionary<MemberInfo, PropertyMetadata>.Empty,
-            ImmutableDictionary<string, T>.Empty
+            ImmutableDictionary<MemberInfo, PropertyMetadata>
+                .Empty
+                .WithComparers(MemberInfoEqualityComparer.Instance),
+            ImmutableDictionary<string, T>
+                .Empty
                 .WithComparers(StringComparer.OrdinalIgnoreCase)
                 .Add("id", T.Id)
                 .Add("label", T.Label));
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>>();
 
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> action)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
             where TElement : class
         {
             return model.ConfigureMetadata(
-                metadata => action(new PropertyMetadataConfigurator<TElement>(metadata)));
+                metadata => transformation(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
         internal static object GetKey(this IGraphElementPropertyModel model, Expression expression)
@@ -133,15 +137,13 @@ namespace ExRam.Gremlinq.Core
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
             return Default
-                .ConfigureMetadata(_ => models
-                    .SelectMany(model => model.Metadata.Keys)
-                    .SelectMany(x => x.GetTypeHierarchy())
-                    .Distinct()
-                    .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                    .ToImmutableDictionary(
-                        property => property,
-                        property => new PropertyMetadata(property.Name),
-                        MemberInfoEqualityComparer.Instance));
+                .ConfigureMetadata(_ => _
+                    .AddRange(models
+                        .SelectMany(model => model.Metadata.Keys)
+                        .SelectMany(x => x.GetTypeHierarchy())
+                        .Distinct()
+                        .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                        .Select(property => new KeyValuePair<MemberInfo, PropertyMetadata>(property, new PropertyMetadata(property.Name)))));
         }
     }
 }
