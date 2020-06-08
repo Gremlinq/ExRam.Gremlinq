@@ -1,0 +1,18 @@
+{
+  Item1: [
+    {
+      Label: 'timeFrame'
+    }
+  ],
+  Item2: [
+    {
+      Name: 'registrationDate'
+    }
+  ],
+  Item3: [
+    {
+      Name: 'name',
+      SerializationBehaviour: 'IgnoreAlways'
+    }
+  ]
+}

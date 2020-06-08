@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
 using LanguageExt;
+using VerifyXunit;
+using Xunit.Abstractions;
+using System.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GraphModelTest
+    public class GraphModelTest : VerifyBase
     {
         private sealed class VertexOutsideHierarchy
         {
@@ -16,6 +20,10 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         private sealed class VertexInsideHierarchy : Vertex
+        {
+        }
+
+        public GraphModelTest(ITestOutputHelper output) : base(output)
         {
         }
 
@@ -31,111 +39,91 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void TryGetFilterLabels_does_not_include_abstract_type()
+        public async Task TryGetFilterLabels_does_not_include_abstract_type()
         {
             var model = GraphModel.Default(lookup => lookup
                 .IncludeAssembliesFromAppDomain());
 
-            (model.VerticesModel
-                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty)
-                .Should()
-                .Contain("Company").And
-                .Contain("Person").And
-                .NotContain("Authority");
+            await Verify(model.VerticesModel
+                .TryGetFilterLabels(typeof(Authority), FilterLabelsVerbosity.Maximum) ?? ImmutableArray<string>.Empty);
         }
 
         [Fact]
-        public void Hierarchy_inside_model()
+        public async Task Hierarchy_inside_model()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
-                .TryGetValue(typeof(Person))
-                .Map(x => x.Label)
-                .Should()
-                .BeSome("Person");
+                .TryGetValue(typeof(Person)));
         }
 
         [Fact]
-        public void Hierarchy_outside_model()
+        public async Task Hierarchy_outside_model()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
-                .TryGetValue(typeof(VertexInsideHierarchy))
-                .Should()
-                .BeNone();
+                .TryGetValue(typeof(VertexInsideHierarchy)));
         }
 
         [Fact]
-        public void Outside_hierarchy()
+        public async Task Outside_hierarchy()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .VerticesModel
                 .Metadata
-                .TryGetValue(typeof(VertexOutsideHierarchy))
-                .Should()
-                .BeNone();
+                .TryGetValue(typeof(VertexOutsideHierarchy)));
         }
 
         [Fact]
-        public void Lowercase()
+        public async Task Lowercase()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseLowerCaseLabels())
                 .VerticesModel
                 .Metadata
-                .TryGetValue(typeof(Person))
-                .Map(x => x.Label)
-                .Should()
-                .BeSome("person");
+                .TryGetValue(typeof(Person)));
         }
 
         [Fact]
-        public void CamelcaseLabel_Vertices()
+        public async Task CamelcaseLabel_Vertices()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .VerticesModel
                 .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
+                .TryGetValue(typeof(TimeFrame)));
         }
 
         [Fact]
-        public void Camelcase_Edges()
+        public async Task Camelcase_Edges()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels())
                 .EdgesModel
                 .Metadata
-                .TryGetValue(typeof(LivesIn))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("livesIn");
+                .TryGetValue(typeof(LivesIn)));
         }
 
         [Fact]
-        public void Camelcase_Identifier_By_MemberExpression()
+        public async Task Camelcase_Identifier_By_MemberExpression()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -143,16 +131,13 @@ namespace ExRam.Gremlinq.Core.Tests
                         .UseCamelCaseNames()))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
         }
 
         [Fact]
-        public void Camelcase_Identifier_By_ParameterExpression()
+        public async Task Camelcase_Identifier_By_ParameterExpression()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -160,14 +145,11 @@ namespace ExRam.Gremlinq.Core.Tests
                         .UseCamelCaseNames()))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
         }
 
         [Fact]
-        public void Camelcase_Mixed_Mode_Label()
+        public async Task Camelcase_Mixed_Mode_Label()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -176,25 +158,19 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMetadata(m => m
                         .UseCamelCaseNames()));
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeSome("TimeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
         [Fact]
-        public void Camelcase_Mixed_Mode_Identifier()
+        public async Task Camelcase_Mixed_Mode_Identifier()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -202,25 +178,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels());
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeEqual("RegistrationDate");
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
         [Fact]
-        public void Camelcase_Mixed_Mode_Combined()
+        public async Task Camelcase_Mixed_Mode_Combined()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -231,25 +201,19 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMetadata(m => m
                         .UseCamelCaseNames()));
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
         [Fact]
-        public void Camelcase_Mixed_Mode_Combined_Reversed()
+        public async Task Camelcase_Mixed_Mode_Combined_Reversed()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -260,27 +224,21 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
         [Fact]
-        public void Configuration_IgnoreOnUpdate()
+        public async Task Configuration_IgnoreOnUpdate()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -288,18 +246,13 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreOnUpdate));
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
         [Fact]
-        public void Configuration_can_be_found_for_base_class()
+        public async Task Configuration_can_be_found_for_base_class()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -307,18 +260,13 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Authority).GetProperty(nameof(Authority.Name)))
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreOnUpdate));
+                .TryGetValue(typeof(Authority).GetProperty(nameof(Authority.Name))));
         }
 
         [Fact]
-        public void Configuration_can_be_found_for_derived_class()
+        public async Task Configuration_can_be_found_for_derived_class()
         {
-            GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -326,41 +274,30 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreOnUpdate));
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
         [Fact]
-        public void Equivalent_configuration_does_not_add_entry()
+        public async Task Equivalent_configuration_does_not_add_entry()
         {
-            var model = GraphModel
+            var model1 = GraphModel
                 .Empty
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
-            model.PropertiesModel.Metadata
-                .Should()
-                .HaveCount(1);
-
-            model = model
+            var model2 = model1
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
-            model.PropertiesModel.Metadata
-                .Should()
-                .HaveCount(1);
+            await Verify(model1.PropertiesModel.Metadata.Count == model2.PropertiesModel.Metadata.Count);
         }
 
         [Fact]
-        public void Configuration_IgnoreAlways()
+        public async Task Configuration_IgnoreAlways()
         {
-            var maybeMetadata = GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
@@ -368,54 +305,36 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreAlways(p => p.Name)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
-
-            maybeMetadata
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreAlways));
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
         [Fact]
-        public void Configuration_IgnoreAlways_Id()
+        public async Task Configuration_IgnoreAlways_Id()
         {
-            var model = GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<IVertex>(conf => conf
-                        .IgnoreAlways(p => p.Id)));
-
-            model
+                        .IgnoreAlways(p => p.Id)))
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Id)))
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreAlways));
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Id))));
         }
 
         [Fact]
-        public void Configuration_Unconfigured()
+        public async Task Configuration_Unconfigured()
         {
-            var maybeMetadata = GraphModel
+            await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .PropertiesModel
                 .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
-
-            maybeMetadata.IsSome
-                .Should()
-                .BeTrue();
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
         [Fact]
-        public void Configuration_Before_Model_Changes()
+        public async Task Configuration_Before_Model_Changes()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -428,37 +347,23 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
-
-            var maybeMetadata = model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
-
-            maybeMetadata
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreAlways));
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))));
         }
 
         [Fact]
-        public void Configuration_After_Model_Changes()
+        public async Task Configuration_After_Model_Changes()
         {
             var model = GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -471,33 +376,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
 
-            model
-                .VerticesModel
-                .Metadata
-                .TryGetValue(typeof(TimeFrame))
-                .Map(x => x.Label)
-                .Should()
-                .BeEqual("timeFrame");
-
-            model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))
-                .Map(x => x.Name)
-                .Should()
-                .BeSome("registrationDate");
-
-            var maybeMetadata = model
-                .PropertiesModel
-                .Metadata
-                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
-
-            maybeMetadata
-                .Should()
-                .BeSome(metaData => metaData
-                    .SerializationBehaviour
-                    .Should()
-                    .Be(SerializationBehaviour.IgnoreAlways));
+            await Verify((
+                model
+                    .VerticesModel
+                    .Metadata
+                    .TryGetValue(typeof(TimeFrame)),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
+                model
+                    .PropertiesModel
+                    .Metadata
+                    .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))));
         }
     }
 }

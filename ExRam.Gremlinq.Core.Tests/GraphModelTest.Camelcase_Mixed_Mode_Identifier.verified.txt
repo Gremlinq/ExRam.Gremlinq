@@ -1,0 +1,12 @@
+{
+  Item1: [
+    {
+      Label: 'timeFrame'
+    }
+  ],
+  Item2: [
+    {
+      Name: 'RegistrationDate'
+    }
+  ]
+}
