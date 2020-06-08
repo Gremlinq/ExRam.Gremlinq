@@ -79,51 +79,9 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(model)
                 .GetOrAdd(
                     member,
-                    (closureMember, closureModel) =>
-                    {
-                        if (closureMember.DeclaringType != null && closureMember.DeclaringType.IsInterface)
-                        {
-                            var interfaceGetter = ((PropertyInfo)closureMember).GetMethod;
-
-                            var implementingGetters = closureModel.Metadata.Keys
-                                .Select(x => x.DeclaringType)
-                                .Distinct()
-                                .Where(declaringType => closureMember.DeclaringType.IsAssignableFrom(declaringType))
-                                .Select(declaringType =>
-                                {
-                                    var interfaceMap = declaringType
-                                        .GetInterfaceMap(closureMember.DeclaringType);
-
-                                    var index = Array.IndexOf(
-                                        interfaceMap.InterfaceMethods,
-                                        interfaceGetter);
-
-                                    return interfaceMap.TargetMethods[index];
-                                })
-                                .ToArray();
-
-                            if (implementingGetters.Length > 0)
-                            {
-                                var identifiers = closureModel.Metadata.Keys
-                                    .Where(m => closureMember.DeclaringType.IsAssignableFrom(m.DeclaringType))
-                                    .OfType<PropertyInfo>()
-                                    .Where(p => implementingGetters.Contains(p.GetMethod, MemberInfoEqualityComparer.Instance))
-                                    .Select(closureModel.GetKey)
-                                    .Distinct()
-                                    .ToArray();
-                                
-                                if (identifiers.Length > 1)
-                                    throw new InvalidOperationException($"Contradicting identifiers found for member {closureMember}.");
-
-                                if (identifiers.Length == 1)
-                                    return identifiers[0];
-                            }
-                        }
-
-                        return closureModel.GetKey(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
-                            ? metadata
-                            : new PropertyMetadata(closureMember.Name));
-                    },
+                    (closureMember, closureModel) => closureModel.GetKey(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
+                        ? metadata
+                        : new PropertyMetadata(closureMember.Name)),
                     model);
         }
 

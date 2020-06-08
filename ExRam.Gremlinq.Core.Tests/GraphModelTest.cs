@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using ExRam.Gremlinq.Core.GraphElements;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Xunit;
@@ -370,6 +371,27 @@ namespace ExRam.Gremlinq.Core.Tests
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)));
 
             maybeMetadata
+                .Should()
+                .BeSome(metaData => metaData
+                    .SerializationBehaviour
+                    .Should()
+                    .Be(SerializationBehaviour.IgnoreAlways));
+        }
+
+        [Fact]
+        public void Configuration_IgnoreAlways_Id()
+        {
+            var model = GraphModel
+                .FromBaseTypes<Vertex, Edge>(lookup => lookup
+                    .IncludeAssembliesOfBaseTypes())
+                .ConfigureProperties(pm => pm
+                    .ConfigureElement<IVertex>(conf => conf
+                        .IgnoreAlways(p => p.Id)));
+
+            model
+                .PropertiesModel
+                .Metadata
+                .TryGetValue(typeof(Person).GetProperty(nameof(Person.Id)))
                 .Should()
                 .BeSome(metaData => metaData
                     .SerializationBehaviour
