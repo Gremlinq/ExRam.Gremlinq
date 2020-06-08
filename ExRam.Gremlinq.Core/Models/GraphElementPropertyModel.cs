@@ -16,27 +16,27 @@ namespace ExRam.Gremlinq.Core
         {
             public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, IImmutableDictionary<string, T> specialNames)
             {
-                Metadata = metadata;
+                MemberMetadata = metadata;
                 SpecialNames = specialNames;
             }
             
             public IGraphElementPropertyModel ConfigureMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
-                    transformation(Metadata),
+                    transformation(MemberMetadata),
                     SpecialNames);
             }
 
             public IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<string, T>, IImmutableDictionary<string, T>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
-                    Metadata,
+                    MemberMetadata,
                     transformation(SpecialNames));
             }
 
             public IImmutableDictionary<string, T> SpecialNames { get; }
 
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
+            public IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
         }
 
         public static readonly IGraphElementPropertyModel Default = new GraphElementPropertyModelImpl(
@@ -79,7 +79,7 @@ namespace ExRam.Gremlinq.Core
                 .GetOrCreateValue(model)
                 .GetOrAdd(
                     member,
-                    (closureMember, closureModel) => closureModel.GetKey(closureModel.Metadata.TryGetValue(closureMember, out var metadata)
+                    (closureMember, closureModel) => closureModel.GetKey(closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata)
                         ? metadata
                         : new PropertyMetadata(closureMember.Name)),
                     model);

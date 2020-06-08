@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
         private static (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[] GetSerializationData(IGraphElementPropertyModel model, Type type)
         {
             return TypeProperties
-                .GetOrCreateValue(model.Metadata)
+                .GetOrCreateValue(model.MemberMetadata)
                 .GetOrAdd(
                     type,
                     (closureType, closureModel) => closureType
@@ -66,7 +66,7 @@ namespace ExRam.Gremlinq.Core
                         .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
                         .Select(p =>
                         {
-                            var metadata = closureModel.Metadata
+                            var metadata = closureModel.MemberMetadata
                                 .GetValueOrDefault(p, new PropertyMetadata(p.Name));
 
                             return (

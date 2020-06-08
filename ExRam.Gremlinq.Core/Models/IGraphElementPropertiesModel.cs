@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
 
         IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<string, T>, IImmutableDictionary<string, T>> transformation);
 
-        IImmutableDictionary<MemberInfo, PropertyMetadata> Metadata { get; }
+        IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
 
         IImmutableDictionary<string, T> SpecialNames { get; }
     }

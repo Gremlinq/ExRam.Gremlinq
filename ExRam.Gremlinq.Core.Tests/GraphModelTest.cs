@@ -130,7 +130,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMetadata(m => m
                         .UseCamelCaseNames()))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
         }
 
@@ -144,7 +144,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureMetadata(m => m
                         .UseCamelCaseNames()))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
         }
 
@@ -165,7 +165,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
@@ -185,7 +185,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
@@ -231,7 +231,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
         }
 
@@ -245,7 +245,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
@@ -259,7 +259,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Authority).GetProperty(nameof(Authority.Name))));
         }
 
@@ -273,7 +273,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Authority>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
@@ -291,7 +291,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreOnUpdate(p => p.Name)));
 
-            await Verify(model1.PropertiesModel.Metadata.Count == model2.PropertiesModel.Metadata.Count);
+            await Verify(model1.PropertiesModel.MemberMetadata.Count == model2.PropertiesModel.MemberMetadata.Count);
         }
 
         [Fact]
@@ -304,7 +304,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
@@ -318,7 +318,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .ConfigureElement<IVertex>(conf => conf
                         .IgnoreAlways(p => p.Id)))
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Id))));
         }
 
@@ -329,7 +329,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .PropertiesModel
-                .Metadata
+                .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name))));
         }
 
@@ -354,11 +354,11 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))));
         }
 
@@ -383,11 +383,11 @@ namespace ExRam.Gremlinq.Core.Tests
                     .TryGetValue(typeof(TimeFrame)),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
                 model
                     .PropertiesModel
-                    .Metadata
+                    .MemberMetadata
                     .TryGetValue(typeof(Person).GetProperty(nameof(Person.Name)))));
         }
     }
