@@ -39,13 +39,16 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
         }
 
-        public static readonly IGraphElementPropertyModel Default = new GraphElementPropertyModelImpl(
+        public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
             ImmutableDictionary<MemberInfo, PropertyMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance),
             ImmutableDictionary<string, T>
                 .Empty
-                .WithComparers(StringComparer.OrdinalIgnoreCase)
+                .WithComparers(StringComparer.OrdinalIgnoreCase));
+
+        public static readonly IGraphElementPropertyModel Default = Empty
+            .ConfigureSpecialNames(s => s
                 .Add("id", T.Id)
                 .Add("label", T.Label));
 
