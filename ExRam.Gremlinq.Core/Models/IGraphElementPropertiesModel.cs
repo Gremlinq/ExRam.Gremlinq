@@ -7,11 +7,11 @@ namespace ExRam.Gremlinq.Core
 {
     public interface IGraphElementPropertyModel
     {
-        IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation);
+        IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation);
 
         IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<MemberInfo, T>, IImmutableDictionary<MemberInfo, T>> transformation);
 
-        IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
+        IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
 
         IImmutableDictionary<MemberInfo, T> SpecialNames { get; }
     }

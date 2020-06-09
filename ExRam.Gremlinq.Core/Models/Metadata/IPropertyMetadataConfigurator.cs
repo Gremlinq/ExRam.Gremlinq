@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IPropertyMetadataConfigurator<TElement> : IImmutableDictionary<MemberInfo, PropertyMetadata>
+    public interface IPropertyMetadataConfigurator<TElement> : IImmutableDictionary<MemberInfo, MemberMetadata>
     {
         IPropertyMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression);
 

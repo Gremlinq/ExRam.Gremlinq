@@ -8,23 +8,23 @@ namespace ExRam.Gremlinq.Core
 {
     public static class ImmutableDictionaryExtensions
     {
-        internal static IImmutableDictionary<MemberInfo, PropertyMetadata> ConfigureNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, Func<MemberInfo, string, string> transformation)
+        internal static IImmutableDictionary<MemberInfo, MemberMetadata> ConfigureNames(this IImmutableDictionary<MemberInfo, MemberMetadata> metadata, Func<MemberInfo, string, string> transformation)
         {
             return metadata
                 .SetItems(metadata
-                    .Select(kvp => new KeyValuePair<MemberInfo, PropertyMetadata>(
+                    .Select(kvp => new KeyValuePair<MemberInfo, MemberMetadata>(
                         kvp.Key,
-                        new PropertyMetadata(
+                        new MemberMetadata(
                             transformation(kvp.Key, kvp.Value.Name),
                             kvp.Value.SerializationBehaviour))));
         }
         
-        public static IImmutableDictionary<MemberInfo, PropertyMetadata> UseCamelCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> names)
+        public static IImmutableDictionary<MemberInfo, MemberMetadata> UseCamelCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
             return names.ConfigureNames((member, name) => name.ToCamelCase());
         }
 
-        public static IImmutableDictionary<MemberInfo, PropertyMetadata> UseLowerCaseNames(this IImmutableDictionary<MemberInfo, PropertyMetadata> names)
+        public static IImmutableDictionary<MemberInfo, MemberMetadata> UseLowerCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
             return names.ConfigureNames((member, name) => name.ToLower());
         }

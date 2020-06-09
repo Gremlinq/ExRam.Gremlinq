@@ -14,13 +14,13 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, IImmutableDictionary<MemberInfo, T> specialNames)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata, IImmutableDictionary<MemberInfo, T> specialNames)
             {
                 MemberMetadata = metadata;
                 SpecialNames = specialNames;
             }
             
-            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
                     transformation(MemberMetadata),
@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
 
             public IImmutableDictionary<MemberInfo, T> SpecialNames { get; }
 
-            public IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
+            public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
 
         private sealed class KeyLookup
@@ -80,7 +80,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
-            ImmutableDictionary<MemberInfo, PropertyMetadata>
+            ImmutableDictionary<MemberInfo, MemberMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance),
             ImmutableDictionary<MemberInfo, T>
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             where TElement : class
         {
             return model.ConfigureMemberMetadata(
@@ -129,7 +129,7 @@ namespace ExRam.Gremlinq.Core
                         .SelectMany(x => x.GetTypeHierarchy())
                         .Distinct()
                         .SelectMany(type => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                        .Select(property => new KeyValuePair<MemberInfo, PropertyMetadata>(property, new PropertyMetadata(property.Name)))));
+                        .Select(property => new KeyValuePair<MemberInfo, MemberMetadata>(property, new MemberMetadata(property.Name)))));
         }
     }
 }

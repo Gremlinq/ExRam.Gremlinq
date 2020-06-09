@@ -283,7 +283,7 @@ namespace ExRam.Gremlinq.Core
     public static class GraphElementPropertyModel
     {
         public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Empty;
-        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation)
+        public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>> transformation)
             where TElement :  class { }
     }
     [System.Flags]
@@ -627,9 +627,9 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGraphElementPropertyModel
     {
-        System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> MemberMetadata { get; }
+        System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> MemberMetadata { get; }
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T> SpecialNames { get; }
-        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation);
+        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>> transformation);
         ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureSpecialNames(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>> transformation);
     }
     public interface IGraphModel
@@ -1051,7 +1051,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement> Where(System.Linq.Expressions.Expression<System.Func<TElement, bool>> predicate);
     }
     public interface IPropertyGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase, ExRam.Gremlinq.Core.IPropertyGremlinQueryBaseRec<ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IPropertyGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IPropertyGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
-    public interface IPropertyMetadataConfigurator<TElement> : System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>>, System.Collections.Generic.IReadOnlyDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>, System.Collections.IEnumerable, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>
+    public interface IPropertyMetadataConfigurator<TElement> : System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>>, System.Collections.Generic.IReadOnlyCollection<System.Collections.Generic.KeyValuePair<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>>, System.Collections.Generic.IReadOnlyDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>, System.Collections.IEnumerable, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>
     {
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> ConfigureName<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression, string name);
         ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement> IgnoreAlways<TProperty>(System.Linq.Expressions.Expression<System.Func<TElement, TProperty>> propertyExpression);
@@ -1208,8 +1208,8 @@ namespace ExRam.Gremlinq.Core
     }
     public static class ImmutableDictionaryExtensions
     {
-        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> UseCamelCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> names) { }
-        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> UseLowerCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> names) { }
+        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> UseCamelCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> names) { }
+        public static System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> UseLowerCaseNames(this System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> names) { }
     }
     public sealed class InEStep : ExRam.Gremlinq.Core.DerivedLabelNamesStep
     {
@@ -1288,6 +1288,12 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.MeanStep Local;
         public MeanStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
+    }
+    public readonly struct MemberMetadata
+    {
+        public MemberMetadata(string name, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
+        public string Name { get; }
+        public ExRam.Gremlinq.Core.SerializationBehaviour SerializationBehaviour { get; }
     }
     public sealed class MinStep : ExRam.Gremlinq.Core.Step
     {
@@ -1404,12 +1410,6 @@ namespace ExRam.Gremlinq.Core
     {
         public PropertiesStep(System.Collections.Immutable.ImmutableArray<string> keys) { }
         public System.Collections.Immutable.ImmutableArray<string> Keys { get; }
-    }
-    public readonly struct PropertyMetadata
-    {
-        public PropertyMetadata(string name, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
-        public string Name { get; }
-        public ExRam.Gremlinq.Core.SerializationBehaviour SerializationBehaviour { get; }
     }
     public sealed class PropertyStep : ExRam.Gremlinq.Core.Step
     {

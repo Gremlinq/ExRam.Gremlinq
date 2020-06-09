@@ -1,8 +1,8 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public readonly struct PropertyMetadata
+    public readonly struct MemberMetadata
     {
-        public PropertyMetadata(string name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
+        public MemberMetadata(string name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
         {
             Name = name;
             SerializationBehaviour = serializationBehaviour;

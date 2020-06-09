@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void PropertyMetadata_name_cannot_be_null()
         {
-            var m = default(PropertyMetadata);
+            var m = default(MemberMetadata);
 
             m
                 .Invoking(_ => _.Name)

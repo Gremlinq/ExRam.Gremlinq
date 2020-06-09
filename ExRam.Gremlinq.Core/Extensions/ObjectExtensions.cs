@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, PropertyMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
+        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
 
         public static IEnumerable<(object identifier, object value)> Serialize(
             this object? obj,
@@ -70,7 +70,7 @@ namespace ExRam.Gremlinq.Core
                                 property: p,
                                 identifier: closureModel.GetKey(p),
                                 serializationBehaviour: closureModel.MemberMetadata
-                                    .GetValueOrDefault(p, new PropertyMetadata(p.Name)).SerializationBehaviour);
+                                    .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour);
                         })
                         .OrderBy(x => x.property.Name)
                         .ToArray(),
