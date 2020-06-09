@@ -127,7 +127,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
                 .PropertiesModel
                 .MemberMetadata
@@ -141,7 +141,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
                 .PropertiesModel
                 .MemberMetadata
@@ -155,7 +155,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()));
 
             await Verify((
@@ -198,7 +198,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureElements(pm => pm
                     .UseCamelCaseLabels())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()));
 
             await Verify((
@@ -219,7 +219,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
@@ -342,7 +342,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .ConfigureProperties(pm => pm
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name))
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames()))
                 .ConfigureElements(em => em
                     .UseCamelCaseLabels());
@@ -369,7 +369,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
-                    .ConfigureMetadata(m => m
+                    .ConfigureMemberMetadata(m => m
                         .UseCamelCaseNames())
                     .ConfigureElement<Person>(conf => conf
                         .IgnoreAlways(p => p.Name)))

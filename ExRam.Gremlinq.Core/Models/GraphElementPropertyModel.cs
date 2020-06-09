@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
                 SpecialNames = specialNames;
             }
             
-            public IGraphElementPropertyModel ConfigureMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
+            public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, PropertyMetadata>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
                     transformation(MemberMetadata),
@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
             where TElement : class
         {
-            return model.ConfigureMetadata(
+            return model.ConfigureMemberMetadata(
                 metadata => transformation(new PropertyMetadataConfigurator<TElement>(metadata)));
         }
 
@@ -123,7 +123,7 @@ namespace ExRam.Gremlinq.Core
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
             return Empty
-                .ConfigureMetadata(_ => _
+                .ConfigureMemberMetadata(_ => _
                     .AddRange(models
                         .SelectMany(model => model.Metadata.Keys)
                         .SelectMany(x => x.GetTypeHierarchy())
