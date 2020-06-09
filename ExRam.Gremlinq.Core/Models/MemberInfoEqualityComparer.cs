@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
             return InnerMemberInfoEqualityComparer.Instance.GetHashCode(GetBaseMemberInfo(obj));
         }
 
-        private MemberInfo GetBaseMemberInfo(MemberInfo member)
+        private static MemberInfo GetBaseMemberInfo(MemberInfo member)
         {
             if (member is PropertyInfo propertyInfo)
             {

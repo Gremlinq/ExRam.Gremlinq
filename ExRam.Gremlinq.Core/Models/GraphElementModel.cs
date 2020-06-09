@@ -5,7 +5,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -34,12 +33,12 @@ namespace ExRam.Gremlinq.Core
                     type => new ElementMetadata(type.Name)));
         }
 
-        public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies, ILogger? logger)
+        public static IGraphElementModel FromBaseType<TType>(IEnumerable<Assembly>? assemblies)
         {
-            return FromBaseType(typeof(TType), assemblies, logger);
+            return FromBaseType(typeof(TType), assemblies);
         }
 
-        public static IGraphElementModel FromBaseType(Type baseType, IEnumerable<Assembly>? assemblies, ILogger? logger)
+        public static IGraphElementModel FromBaseType(Type baseType, IEnumerable<Assembly>? assemblies)
         {
             return FromTypes((assemblies ?? Enumerable.Empty<Assembly>())
                 .Distinct()
@@ -48,16 +47,15 @@ namespace ExRam.Gremlinq.Core
                     try
                     {
                         return assembly
-                            .DefinedTypes
-                            .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
-                            .Select(typeInfo => typeInfo);
+                            .DefinedTypes;
                     }
                     catch (ReflectionTypeLoadException ex)
                     {
-                        logger?.LogWarning(ex, $"{nameof(ReflectionTypeLoadException)} thrown during GraphModel creation.");
-                        return Array.Empty<TypeInfo>();
+                        return ex.Types
+                            .Where(x => x != null);
                     }
                 })
+                .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
                 .Prepend(baseType));
         }
 

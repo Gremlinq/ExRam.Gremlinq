@@ -92,17 +92,17 @@ namespace ExRam.Gremlinq.Core
             GraphElementModel.Empty,
             GraphElementPropertyModel.Default);
 
-        public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
+        public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
         {
-            return FromBaseTypes<IVertex, IEdge>(assemblyLookupTransformation, logger);
+            return FromBaseTypes<IVertex, IEdge>(assemblyLookupTransformation);
         }
 
-        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation, ILogger? logger = null)
+        public static IGraphModel FromBaseTypes<TVertex, TEdge>(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
         {
-            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation, logger);
+            return FromBaseTypes(typeof(TVertex), typeof(TEdge), assemblyLookupTransformation);
         }
 
-        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation,  ILogger? logger = null)
+        public static IGraphModel FromBaseTypes(Type vertexBaseType, Type edgeBaseType, Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
         {
             if (vertexBaseType.IsAssignableFrom(edgeBaseType))
                 throw new ArgumentException($"{vertexBaseType} may not be in the inheritance hierarchy of {edgeBaseType}.");
@@ -113,8 +113,8 @@ namespace ExRam.Gremlinq.Core
             var assemblies = assemblyLookupTransformation(new AssemblyLookupSet(new[] { vertexBaseType, edgeBaseType }, ImmutableHashSet<Assembly>.Empty))
                 .Assemblies;
 
-            var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblies, logger);
-            var edgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblies, logger);
+            var verticesModel = GraphElementModel.FromBaseType(vertexBaseType, assemblies);
+            var edgesModel = GraphElementModel.FromBaseType(edgeBaseType, assemblies);
 
             return new GraphModelImpl(
                 verticesModel,
