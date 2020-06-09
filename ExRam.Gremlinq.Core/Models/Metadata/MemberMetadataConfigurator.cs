@@ -7,55 +7,55 @@ using System.Reflection;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class PropertyMetadataConfigurator<TElement> : IPropertyMetadataConfigurator<TElement>
+    internal sealed class MemberMetadataConfigurator<TElement> : IMemberMetadataConfigurator<TElement>
     {
         private readonly IImmutableDictionary<MemberInfo, MemberMetadata> _metadata;
 
-        public PropertyMetadataConfigurator(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
+        public MemberMetadataConfigurator(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
         {
             _metadata = metadata;
         }
 
-        public IPropertyMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IMemberMetadataConfigurator<TElement> IgnoreOnAdd<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreOnAdd);
         }
 
-        public IPropertyMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IMemberMetadataConfigurator<TElement> IgnoreOnUpdate<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreOnUpdate);
         }
 
-        public IPropertyMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
+        public IMemberMetadataConfigurator<TElement> IgnoreAlways<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression)
         {
             return SetSerializationBehaviour(
                 propertyExpression,
                 behaviour => behaviour | SerializationBehaviour.IgnoreAlways);
         }
 
-        public IPropertyMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
+        public IMemberMetadataConfigurator<TElement> ConfigureName<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, string name)
         {
             return Configure(
                 propertyExpression,
                 metaData => new MemberMetadata(name, metaData.SerializationBehaviour));
         }
 
-        public IPropertyMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
+        public IMemberMetadataConfigurator<TElement> SetSerializationBehaviour<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<SerializationBehaviour, SerializationBehaviour> transformation)
         {
             return Configure(
                 propertyExpression,
                 metaData => new MemberMetadata(metaData.Name, transformation(metaData.SerializationBehaviour)));
         }
 
-        private IPropertyMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
+        private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)
         {
             var memberInfo = propertyExpression.GetMemberInfo();
             
-            return new PropertyMetadataConfigurator<TElement>(_metadata.SetItem(
+            return new MemberMetadataConfigurator<TElement>(_metadata.SetItem(
                 memberInfo,
                 transformation(_metadata.TryGetValue(memberInfo, out var metadata)
                     ? metadata

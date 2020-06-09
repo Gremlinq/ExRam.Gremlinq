@@ -89,11 +89,11 @@ namespace ExRam.Gremlinq.Core
 
         private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 
-        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
+        public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             where TElement : class
         {
             return model.ConfigureMemberMetadata(
-                metadata => transformation(new PropertyMetadataConfigurator<TElement>(metadata)));
+                metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));
         }
 
         internal static object GetKey(this IGraphElementPropertyModel model, Expression expression)
