@@ -66,13 +66,11 @@ namespace ExRam.Gremlinq.Core
                         .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
                         .Select(p =>
                         {
-                            var metadata = closureModel.MemberMetadata
-                                .GetValueOrDefault(p, new PropertyMetadata(p.Name));
-
                             return (
                                 property: p,
-                                identifier: closureModel.GetKey(metadata),
-                                serializationBehaviour: metadata.SerializationBehaviour);
+                                identifier: closureModel.GetKey(p),
+                                serializationBehaviour: closureModel.MemberMetadata
+                                    .GetValueOrDefault(p, new PropertyMetadata(p.Name)).SerializationBehaviour);
                         })
                         .OrderBy(x => x.property.Name)
                         .ToArray(),

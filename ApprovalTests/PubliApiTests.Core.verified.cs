@@ -282,7 +282,6 @@ namespace ExRam.Gremlinq.Core
     }
     public static class GraphElementPropertyModel
     {
-        public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Default;
         public static readonly ExRam.Gremlinq.Core.IGraphElementPropertyModel Empty;
         public static ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureElement<TElement>(this ExRam.Gremlinq.Core.IGraphElementPropertyModel model, System.Func<ExRam.Gremlinq.Core.IPropertyMetadataConfigurator<TElement>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation)
             where TElement :  class { }
@@ -629,9 +628,9 @@ namespace ExRam.Gremlinq.Core
     public interface IGraphElementPropertyModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata> MemberMetadata { get; }
-        System.Collections.Immutable.IImmutableDictionary<string, Gremlin.Net.Process.Traversal.T> SpecialNames { get; }
+        System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T> SpecialNames { get; }
         ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.PropertyMetadata>> transformation);
-        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureSpecialNames(System.Func<System.Collections.Immutable.IImmutableDictionary<string, Gremlin.Net.Process.Traversal.T>, System.Collections.Immutable.IImmutableDictionary<string, Gremlin.Net.Process.Traversal.T>> transformation);
+        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureSpecialNames(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>> transformation);
     }
     public interface IGraphModel
     {

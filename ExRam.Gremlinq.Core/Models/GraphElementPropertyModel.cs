@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, IImmutableDictionary<string, T> specialNames)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, PropertyMetadata> metadata, IImmutableDictionary<MemberInfo, T> specialNames)
             {
                 MemberMetadata = metadata;
                 SpecialNames = specialNames;
@@ -27,32 +27,67 @@ namespace ExRam.Gremlinq.Core
                     SpecialNames);
             }
 
-            public IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<string, T>, IImmutableDictionary<string, T>> transformation)
+            public IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<MemberInfo, T>, IImmutableDictionary<MemberInfo, T>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
                     MemberMetadata,
                     transformation(SpecialNames));
             }
 
-            public IImmutableDictionary<string, T> SpecialNames { get; }
+            public IImmutableDictionary<MemberInfo, T> SpecialNames { get; }
 
             public IImmutableDictionary<MemberInfo, PropertyMetadata> MemberMetadata { get; }
+        }
+
+        private sealed class KeyLookup
+        {
+            private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "id", T.Id },
+                { "label", T.Label }
+            };
+
+            private readonly HashSet<T> _configuredTs;
+            private readonly IGraphElementPropertyModel _model;
+            private readonly ConcurrentDictionary<MemberInfo, object> _members = new ConcurrentDictionary<MemberInfo, object>();
+
+            public KeyLookup(IGraphElementPropertyModel model)
+            {
+                _model = model;
+                _configuredTs = new HashSet<T>(model.SpecialNames
+                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key)
+                    .Keys);
+            }
+
+            public object GetKey(MemberInfo member)
+            {
+                return _members.GetOrAdd(
+                    member,
+                    (closureMember, closureModel) =>
+                    {
+                        if (closureModel.SpecialNames.TryGetValue(closureMember, out var specialName))
+                            return specialName;
+
+                        if (DefaultTs.TryGetValue(closureMember.Name, out var defaultT) && !_configuredTs.Contains(defaultT))
+                            return defaultT;
+
+                        return closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata)
+                            ? metadata.Name
+                            : closureMember.Name;
+                    },
+                    _model);
+            }
         }
 
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
             ImmutableDictionary<MemberInfo, PropertyMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance),
-            ImmutableDictionary<string, T>
+            ImmutableDictionary<MemberInfo, T>
                 .Empty
-                .WithComparers(StringComparer.OrdinalIgnoreCase));
+                .WithComparers(MemberInfoEqualityComparer.Instance));
 
-        public static readonly IGraphElementPropertyModel Default = Empty
-            .ConfigureSpecialNames(s => s
-                .Add("id", T.Id)
-                .Add("label", T.Label));
-
-        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, ConcurrentDictionary<MemberInfo, object>>();
+        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IPropertyMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, PropertyMetadata>> transformation)
             where TElement : class
@@ -76,28 +111,18 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(expression);
         }
 
-        private static object GetKey(this IGraphElementPropertyModel model, MemberInfo member)
+        internal static object GetKey(this IGraphElementPropertyModel model, MemberInfo member)
         {
             return IdentifierDict
-                .GetOrCreateValue(model)
-                .GetOrAdd(
-                    member,
-                    (closureMember, closureModel) => closureModel.GetKey(closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata)
-                        ? metadata
-                        : new PropertyMetadata(closureMember.Name)),
-                    model);
-        }
-
-        internal static object GetKey(this IGraphElementPropertyModel model, PropertyMetadata metadata)
-        {
-            return model.SpecialNames.TryGetValue(metadata.Name, out var name)
-                ? (object)name
-                : metadata.Name;
+                .GetValue(
+                    model,
+                    closureModel => new KeyLookup(closureModel))
+                .GetKey(member);
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)
         {
-            return Default
+            return Empty
                 .ConfigureMetadata(_ => _
                     .AddRange(models
                         .SelectMany(model => model.Metadata.Keys)

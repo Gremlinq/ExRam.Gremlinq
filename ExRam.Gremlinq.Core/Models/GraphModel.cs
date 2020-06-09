@@ -90,7 +90,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGraphModel Empty = new GraphModelImpl(
             GraphElementModel.Empty,
             GraphElementModel.Empty,
-            GraphElementPropertyModel.Default);
+            GraphElementPropertyModel.Empty);
 
         public static IGraphModel Default(Func<IAssemblyLookupBuilder, IAssemblyLookupSet> assemblyLookupTransformation)
         {
