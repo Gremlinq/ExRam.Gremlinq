@@ -26,12 +26,12 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinqOptions ConfigureValue<TValue>(GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
         {
-            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, configuration(GetValue(option))));
+            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, configuration(GetValue(option))!));
         }
 
         public GremlinqOptions SetValue<TValue>(GremlinqOption<TValue> option, TValue value)
         {
-            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, value));
+            return new GremlinqOptions((_dictionary ?? ImmutableDictionary<IGremlinqOption, object>.Empty).SetItem(option, value!));
         }
 
         public GremlinqOptions Remove(IGremlinqOption option)
