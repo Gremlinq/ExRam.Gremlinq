@@ -55,12 +55,19 @@ namespace ExRam.Gremlinq.Core
                     member,
                     (closureMember, closureModel) =>
                     {
-                        if (DefaultTs.TryGetValue(closureMember.Name, out var defaultT) && !_configuredTs.Contains(defaultT))
-                            return defaultT;
+                        var name = closureMember.Name;
 
-                        return closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata)
-                            ? metadata.Key
-                            : closureMember.Name;
+                        if (closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                        {
+                            if (metadata.Key.RawKey is T t)
+                                return t;
+
+                            name = (string)metadata.Key.RawKey;
+                        }
+
+                        return DefaultTs.TryGetValue(name, out var defaultT) && !_configuredTs.Contains(defaultT)
+                            ? (Key)defaultT
+                            : name;
                     },
                     _model);
             }
