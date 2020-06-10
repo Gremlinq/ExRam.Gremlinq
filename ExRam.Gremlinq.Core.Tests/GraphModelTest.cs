@@ -28,12 +28,23 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void PropertyMetadata_name_cannot_be_null()
+        public void MemberMetadata_name_cannot_be_null()
         {
             var m = default(MemberMetadata);
 
             m
                 .Invoking(_ => _.Key)
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void ElementMetadata_name_cannot_be_null()
+        {
+            var m = default(ElementMetadata);
+
+            m
+                .Invoking(_ => _.Label)
                 .Should()
                 .Throw<InvalidOperationException>();
         }

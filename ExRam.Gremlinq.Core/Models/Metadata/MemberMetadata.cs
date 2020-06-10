@@ -6,9 +6,9 @@ namespace ExRam.Gremlinq.Core
     {
         private readonly Key? _key;
 
-        public MemberMetadata(Key name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
+        public MemberMetadata(Key key, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
         {
-            _key = name;
+            _key = key;
             SerializationBehaviour = serializationBehaviour;
         }
 

@@ -1302,7 +1302,7 @@ namespace ExRam.Gremlinq.Core
     }
     public readonly struct MemberMetadata
     {
-        public MemberMetadata(ExRam.Gremlinq.Core.Key name, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
+        public MemberMetadata(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.SerializationBehaviour SerializationBehaviour { get; }
     }
