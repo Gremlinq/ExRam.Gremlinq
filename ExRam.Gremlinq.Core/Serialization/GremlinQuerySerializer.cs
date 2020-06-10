@@ -36,7 +36,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             stepLabelMapping = _stepLabelNames.Count < StepLabelNames.Length
                                 ? StepLabelNames[_stepLabelNames.Count]
-                                : "l" + (_stepLabelNames.Count + 1).ToString();
+                                : "l" + (_stepLabelNames.Count + 1);
 
                             _stepLabelNames.Add(stepLabel, stepLabelMapping);
                         }

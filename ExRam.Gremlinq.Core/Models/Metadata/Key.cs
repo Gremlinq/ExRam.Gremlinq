@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
 
         public override int GetHashCode()
         {
-            return (_key != null ? _key.GetHashCode() : 0);
+            return _key != null ? _key.GetHashCode() : 0;
         }
 
         public static bool operator == (Key key1, Key key2)
@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core
             get
             {
                 if (_key == null)
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException($"Cannot access the {nameof(RawKey)} property on an unititalized {nameof(Key)}.");
 
                 return _key;
             }
