@@ -67,5 +67,13 @@ namespace ExRam.Gremlinq.Core
             VertexPropertyFeatures.All,
             EdgeFeatures.All,
             EdgePropertyFeatures.All);
+
+        public static IFeatureSet None = new FeatureSetImpl(
+            GraphFeatures.None,
+            VariableFeatures.None,
+            VertexFeatures.None,
+            VertexPropertyFeatures.None,
+            EdgeFeatures.None,
+            EdgePropertyFeatures.None);
     }
 }

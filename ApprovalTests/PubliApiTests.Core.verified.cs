@@ -226,6 +226,7 @@ namespace ExRam.Gremlinq.Core
     public static class FeatureSet
     {
         public static ExRam.Gremlinq.Core.IFeatureSet Full;
+        public static ExRam.Gremlinq.Core.IFeatureSet None;
     }
     public static class FeatureSetExtensions
     {
