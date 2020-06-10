@@ -6,7 +6,9 @@
   ],
   Item2: [
     {
-      Name: 'registrationDate'
+      Key: {
+        RawKey: 'registrationDate'
+      }
     }
   ]
 }

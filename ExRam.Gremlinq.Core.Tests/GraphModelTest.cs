@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core.Tests
             var m = default(MemberMetadata);
 
             m
-                .Invoking(_ => _.Name)
+                .Invoking(_ => _.Key)
                 .Should()
                 .Throw<InvalidOperationException>();
         }

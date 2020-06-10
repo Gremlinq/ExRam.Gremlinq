@@ -381,7 +381,10 @@
     Item2: {
       OperatorName: 'by',
       Arguments: [
-        'string'
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
       ]
     }
   },
@@ -410,7 +413,10 @@
     Item2: {
       OperatorName: 'hasNot',
       Arguments: [
-        'string'
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
       ]
     }
   },
@@ -419,7 +425,10 @@
     Item2: {
       OperatorName: 'has',
       Arguments: [
-        'string',
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
         {
           OperatorName: 'between',
           Value: [
@@ -436,7 +445,10 @@
     Item2: {
       OperatorName: 'has',
       Arguments: [
-        'string',
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
         {
           StepInstructions: [
             {
@@ -706,7 +718,10 @@
     Item2: {
       OperatorName: 'by',
       Arguments: [
-        'string',
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
         {
           EnumName: 'Order',
           EnumValue: 'asc'
@@ -833,7 +848,10 @@
     Item2: {
       OperatorName: 'by',
       Arguments: [
-        'string'
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
       ]
     }
   },
@@ -854,10 +872,9 @@
       OperatorName: 'property',
       Arguments: [
         {
-          EnumName: 'Cardinality',
-          EnumValue: 'list'
+          EnumName: 'T',
+          EnumValue: 'id'
         },
-        'string',
         'string'
       ]
     }
@@ -1056,7 +1073,10 @@
     Item2: {
       OperatorName: 'by',
       Arguments: [
-        'string'
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
       ]
     }
   },

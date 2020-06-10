@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core
 
             private readonly HashSet<T> _configuredTs;
             private readonly IGraphElementPropertyModel _model;
-            private readonly ConcurrentDictionary<MemberInfo, object> _members = new ConcurrentDictionary<MemberInfo, object>();
+            private readonly ConcurrentDictionary<MemberInfo, Key> _members = new ConcurrentDictionary<MemberInfo, Key>();
 
             public KeyLookup(IGraphElementPropertyModel model)
             {
@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                     .Keys);
             }
 
-            public object GetKey(MemberInfo member)
+            public Key GetKey(MemberInfo member)
             {
                 return _members.GetOrAdd(
                     member,
@@ -72,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                             return defaultT;
 
                         return closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata)
-                            ? metadata.Name
+                            ? metadata.Key
                             : closureMember.Name;
                     },
                     _model);
@@ -87,7 +87,7 @@ namespace ExRam.Gremlinq.Core
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance));
 
-        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> IdentifierDict = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
+        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> KeyLookups = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             where TElement : class
@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
                 metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));
         }
 
-        internal static object GetKey(this IGraphElementPropertyModel model, Expression expression)
+        internal static Key GetKey(this IGraphElementPropertyModel model, Expression expression)
         {
             if (expression is LambdaExpression lambdaExpression)
                 return model.GetKey(lambdaExpression.Body);
@@ -111,9 +111,9 @@ namespace ExRam.Gremlinq.Core
             throw new ExpressionNotSupportedException(expression);
         }
 
-        internal static object GetKey(this IGraphElementPropertyModel model, MemberInfo member)
+        internal static Key GetKey(this IGraphElementPropertyModel model, MemberInfo member)
         {
-            return IdentifierDict
+            return KeyLookups
                 .GetValue(
                     model,
                     closureModel => new KeyLookup(closureModel))

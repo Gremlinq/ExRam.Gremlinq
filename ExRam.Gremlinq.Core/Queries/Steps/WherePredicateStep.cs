@@ -6,12 +6,12 @@ namespace ExRam.Gremlinq.Core
     {
         public sealed class ByMemberStep : Step
         {
-            public ByMemberStep(object? key = default)
+            public ByMemberStep(Key? key = default)
             {
                 Key = key;
             }
 
-            public object? Key { get; }
+            public Key? Key { get; }
         }
 
         public WherePredicateStep(P predicate)

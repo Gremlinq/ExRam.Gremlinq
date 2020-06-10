@@ -11,9 +11,9 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo, object, SerializationBehaviour)[]>>();
+        private static readonly ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]>> TypeProperties = new ConditionalWeakTable<IImmutableDictionary<MemberInfo, MemberMetadata>, ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>>();
 
-        public static IEnumerable<(object identifier, object value)> Serialize(
+        public static IEnumerable<(Key key, object value)> Serialize(
             this object? obj,
             IGremlinQueryEnvironment environment,
             SerializationBehaviour ignoreMask)
@@ -21,11 +21,11 @@ namespace ExRam.Gremlinq.Core
             if (obj == null)
                 yield break;
 
-            foreach (var (propertyInfo, identifier, serializationBehaviour) in GetSerializationData(environment.Model.PropertiesModel, obj.GetType()))
+            foreach (var (propertyInfo, key, serializationBehaviour) in GetSerializationData(environment.Model.PropertiesModel, obj.GetType()))
             {
                 var actualSerializationBehaviour = serializationBehaviour;
 
-                if (identifier is T t)
+                if (key.RawKey is T t)
                 {
                     actualSerializationBehaviour |= environment.Options
                         .GetValue(GremlinqOption.TSerializationBehaviourOverrides)
@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
                     var value = propertyInfo.GetValue(obj);
 
                     if (value != null)
-                        yield return (identifier, value);
+                        yield return (key, value);
                 }
             }
         }
@@ -45,7 +45,7 @@ namespace ExRam.Gremlinq.Core
         public static object GetId(this object element, IGraphElementPropertyModel model)
         {
             var (propertyInfo, _, _) = GetSerializationData(model, element.GetType())
-                .FirstOrDefault(info => T.Id.Equals(info.identifier));
+                .FirstOrDefault(info => info.key.RawKey is T t && T.Id.Equals(t));
 
             return propertyInfo == null
                 ? throw new InvalidOperationException($"Unable to determine Id for {element}")
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
         }
 
         // ReSharper disable once ReturnTypeCanBeEnumerable.Local
-        private static (PropertyInfo propertyInfo, object identifier, SerializationBehaviour serializationBehaviour)[] GetSerializationData(IGraphElementPropertyModel model, Type type)
+        private static (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(IGraphElementPropertyModel model, Type type)
         {
             return TypeProperties
                 .GetOrCreateValue(model.MemberMetadata)
@@ -68,7 +68,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             return (
                                 property: p,
-                                identifier: closureModel.GetKey(p),
+                                key: closureModel.GetKey(p),
                                 serializationBehaviour: closureModel.MemberMetadata
                                     .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour);
                         })

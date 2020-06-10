@@ -6,12 +6,16 @@
   ],
   Item2: [
     {
-      Name: 'registrationDate'
+      Key: {
+        RawKey: 'registrationDate'
+      }
     }
   ],
   Item3: [
     {
-      Name: 'name',
+      Key: {
+        RawKey: 'name'
+      },
       SerializationBehaviour: 'IgnoreAlways'
     }
   ]

@@ -89,8 +89,8 @@ namespace ExRam.Gremlinq.Core
                 {
                     var property = base.CreateProperty(member, memberSerialization);
 
-                    if (_model.MemberMetadata.TryGetValue(member, out var name))
-                        property.PropertyName = name.Name;
+                    if (_model.MemberMetadata.TryGetValue(member, out var key) && key.Key.RawKey is string name)
+                        property.PropertyName = name;
 
                     return property;
                 }

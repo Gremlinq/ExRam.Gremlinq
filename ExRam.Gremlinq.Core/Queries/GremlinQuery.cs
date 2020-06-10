@@ -266,19 +266,19 @@ namespace ExRam.Gremlinq.Core
                 ret = ret.SideEffect(_ => _
                     .Properties<object, object, object>(
                         props
-                            .Select(p => p.identifier)
+                            .Select(p => p.key.RawKey)
                             .OfType<string>(),
                         Semantics)
                     .Drop());
             }
 
-            foreach (var (identifier, value) in props)
+            foreach (var (key, value) in props)
             {
-                if (!allowUserSuppliedId && T.Id.Equals(identifier))
+                if (!allowUserSuppliedId && T.Id.Equals(key.RawKey))
                     Environment.Logger.LogWarning("User supplied ids are not supported according to the envrionment's FeatureSet.");
                 else
                 {
-                    foreach (var propertyStep in GetPropertySteps(identifier, value, allowExplicitCardinality))
+                    foreach (var propertyStep in GetPropertySteps(key, value, allowExplicitCardinality))
                     {
                         ret = ret.AddStep(propertyStep);
                     }
@@ -288,7 +288,7 @@ namespace ExRam.Gremlinq.Core
             return ret;
         }
 
-        private IEnumerable<PropertyStep> GetPropertySteps(object key, object value, bool allowExplicitCardinality)
+        private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
             if (value is IEnumerable enumerable && !Environment.Model.NativeTypes.Contains(value.GetType()))
             {
@@ -304,7 +304,7 @@ namespace ExRam.Gremlinq.Core
                 yield return GetPropertyStep(key, value, allowExplicitCardinality ? Cardinality.Single : default);
         }
 
-        private PropertyStep GetPropertyStep(object key, object value, Cardinality? cardinality)
+        private PropertyStep GetPropertyStep(Key key, object value, Cardinality? cardinality)
         {
             var metaProperties = ImmutableArray<object>.Empty;
 
@@ -315,7 +315,7 @@ namespace ExRam.Gremlinq.Core
                     if (property.GetMetaProperties(Environment) is { } dict)
                     {
                         metaProperties = dict
-                            .SelectMany(kvp => new[] {kvp.Key, kvp.Value})
+                            .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
                             .ToImmutableArray();
                     }
                 }
@@ -547,24 +547,24 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()), QuerySemantics.None);
         }
 
-        private object[] GetKeys(IEnumerable<Expression> projections)
+        private Key[] GetKeys(IEnumerable<Expression> projections)
         {
             return projections
                 .Select(projection => GetKey(projection))
                 .ToArray();
         }
 
-        private object GetKey(Expression projection)
+        private Key GetKey(Expression projection)
         {
             return Environment.Model.PropertiesModel.GetKey(projection);
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        private static IEnumerable<Step> GetStepsForKeys(object[] keys)
+        private static IEnumerable<Step> GetStepsForKeys(Key[] keys)
         {
             var hasYielded = false;
 
-            foreach (var t in keys.OfType<T>())
+            foreach (var t in keys.Select(x => x.RawKey).OfType<T>())
             {
                 if (T.Id.Equals(t))
                     yield return IdStep.Instance;
@@ -577,6 +577,7 @@ namespace ExRam.Gremlinq.Core
             }
 
             var stringKeys = keys
+                .Select(x => x.RawKey)
                 .OfType<string>()
                 .ToImmutableArray();
 
@@ -595,7 +596,7 @@ namespace ExRam.Gremlinq.Core
                         : predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(object key, P? predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(Key key, P? predicate)
         {
             return AddStep(new HasPredicateStep(key, predicate));
         }
@@ -794,16 +795,15 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property<TSource, TValue>(Expression<Func<TSource, TValue>> projection, object? value)
         {
-            if (GetKey(projection) is string identifier)
-                return Property(identifier, value);
-
-            throw new ExpressionNotSupportedException(projection);
+            return Property(GetKey(projection), value);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(string key, object? value)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Property(Key key, object? value)
         {
             return value == null
-                ? DropProperties(key)
+                ? key.RawKey is string name
+                    ? DropProperties(name)
+                    : throw new InvalidOperationException("Can't set a special property to null.")
                 : AddStep(new PropertyStep(key, value));
         }
 
@@ -904,6 +904,7 @@ namespace ExRam.Gremlinq.Core
                 .ToArray();
 
             var stringKeys = GetKeys(projectionsArray)
+                .Select(x => x.RawKey)
                 .OfType<string>()
                 .ToImmutableArray();
 
@@ -913,7 +914,7 @@ namespace ExRam.Gremlinq.Core
             return AddStepWithObjectTypes<TNewElement>(new ValueMapStep(stringKeys), QuerySemantics.None);
         }
 
-        private GremlinQuery<TValue, object, object, object, object, object> ValuesForKeys<TValue>(object[] keys)
+        private GremlinQuery<TValue, object, object, object, object, object> ValuesForKeys<TValue>(Key[] keys)
         {
             var stepsArray = GetStepsForKeys(keys)
                 .ToArray();
@@ -932,18 +933,18 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> VertexProperty(LambdaExpression projection, object? value)
         {
-            var identifier = GetKey(projection);
+            var key = GetKey(projection);
 
             if (value == null)
             {
-                if (identifier is string stringKey)
+                if (key.RawKey is string stringKey)
                     return DropProperties(stringKey);
             }
             else
             {
                 var ret = this;
 
-                foreach (var propertyStep in GetPropertySteps(identifier, value, true))
+                foreach (var propertyStep in GetPropertySteps(key, value, true))
                 {
                     ret = ret.AddStep(propertyStep);
                 }
@@ -1137,7 +1138,7 @@ namespace ExRam.Gremlinq.Core
 
                                     if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                     {
-                                        return Has(methodCallExpression.Arguments[0].Strip().GetValue(Environment.Model), effectivePredicate);
+                                        return Has((string)methodCallExpression.Arguments[0].Strip().GetValue(Environment.Model), effectivePredicate);
                                     }
 
                                     break;

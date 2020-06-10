@@ -21,12 +21,12 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class ByKeyStep : ByStep
         {
-            public ByKeyStep(object key)
+            public ByKeyStep(Key key)
             {
                 Key = key;
             }
 
-            public object Key { get; }
+            public Key Key { get; }
         }
 
         public static readonly ProjectStep Empty = new ProjectStep(ImmutableArray<string>.Empty);

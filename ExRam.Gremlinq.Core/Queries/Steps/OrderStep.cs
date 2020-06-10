@@ -21,14 +21,14 @@ namespace ExRam.Gremlinq.Core
 
         public sealed class ByMemberStep : ByStep
         {
-            public ByMemberStep(object key, Order order)
+            public ByMemberStep(Key key, Order order)
             {
                 Order = order;
                 Key = key;
             }
 
             public Order Order { get; }
-            public object Key { get; }
+            public Key Key { get; }
         }
 
         public sealed class ByTraversalStep : ByStep

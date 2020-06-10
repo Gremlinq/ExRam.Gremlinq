@@ -417,8 +417,8 @@ namespace ExRam.Gremlinq.Core
         public GroupStep() { }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.GroupStep.ByStep
         {
-            public ByKeyStep(object key) { }
-            public object Key { get; }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
         {
@@ -441,19 +441,19 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class HasNotStep : ExRam.Gremlinq.Core.Step
     {
-        public HasNotStep(object key) { }
-        public object Key { get; }
+        public HasNotStep(ExRam.Gremlinq.Core.Key key) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
     }
     public sealed class HasPredicateStep : ExRam.Gremlinq.Core.Step
     {
-        public HasPredicateStep(object key, Gremlin.Net.Process.Traversal.P? predicate = null) { }
-        public object Key { get; }
+        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P? predicate = null) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
         public Gremlin.Net.Process.Traversal.P? Predicate { get; }
     }
     public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Step
     {
-        public HasTraversalStep(object key, ExRam.Gremlinq.Core.Traversal traversal) { }
-        public object Key { get; }
+        public HasTraversalStep(ExRam.Gremlinq.Core.Key key, ExRam.Gremlinq.Core.Traversal traversal) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
     }
     public sealed class HasValueStep : ExRam.Gremlinq.Core.Step
@@ -1236,6 +1236,19 @@ namespace ExRam.Gremlinq.Core
         public IsStep(Gremlin.Net.Process.Traversal.P predicate) { }
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
+    public readonly struct Key
+    {
+        public Key(Gremlin.Net.Process.Traversal.T t) { }
+        public Key(string name) { }
+        public object RawKey { get; }
+        public bool Equals(ExRam.Gremlinq.Core.Key other) { }
+        public override bool Equals(object? obj) { }
+        public override int GetHashCode() { }
+        public static bool !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
+        public static bool ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
+        public static ExRam.Gremlinq.Core.Key op_Implicit(Gremlin.Net.Process.Traversal.T t) { }
+        public static ExRam.Gremlinq.Core.Key op_Implicit(string name) { }
+    }
     public sealed class KeyStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.KeyStep Instance;
@@ -1291,8 +1304,8 @@ namespace ExRam.Gremlinq.Core
     }
     public readonly struct MemberMetadata
     {
-        public MemberMetadata(string name, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
-        public string Name { get; }
+        public MemberMetadata(ExRam.Gremlinq.Core.Key name, ExRam.Gremlinq.Core.SerializationBehaviour serializationBehaviour = 0) { }
+        public ExRam.Gremlinq.Core.Key Key { get; }
         public ExRam.Gremlinq.Core.SerializationBehaviour SerializationBehaviour { get; }
     }
     public sealed class MinStep : ExRam.Gremlinq.Core.Step
@@ -1346,8 +1359,8 @@ namespace ExRam.Gremlinq.Core
         }
         public sealed class ByMemberStep : ExRam.Gremlinq.Core.OrderStep.ByStep
         {
-            public ByMemberStep(object key, Gremlin.Net.Process.Traversal.Order order) { }
-            public object Key { get; }
+            public ByMemberStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.Order order) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
             public Gremlin.Net.Process.Traversal.Order Order { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
@@ -1393,8 +1406,8 @@ namespace ExRam.Gremlinq.Core
         public System.Collections.Immutable.ImmutableArray<string> Projections { get; }
         public sealed class ByKeyStep : ExRam.Gremlinq.Core.ProjectStep.ByStep
         {
-            public ByKeyStep(object key) { }
-            public object Key { get; }
+            public ByKeyStep(ExRam.Gremlinq.Core.Key key) { }
+            public ExRam.Gremlinq.Core.Key Key { get; }
         }
         public abstract class ByStep : ExRam.Gremlinq.Core.Step
         {
@@ -1413,10 +1426,10 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class PropertyStep : ExRam.Gremlinq.Core.Step
     {
-        public PropertyStep(object key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        public PropertyStep(object key, object value, System.Collections.Immutable.ImmutableArray<object> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<object> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
         public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
-        public object Key { get; }
+        public ExRam.Gremlinq.Core.Key Key { get; }
         public System.Collections.Immutable.ImmutableArray<object> MetaProperties { get; }
         public object Value { get; }
     }
@@ -1628,8 +1641,8 @@ namespace ExRam.Gremlinq.Core
         public Gremlin.Net.Process.Traversal.P Predicate { get; }
         public sealed class ByMemberStep : ExRam.Gremlinq.Core.Step
         {
-            public ByMemberStep(object? key = null) { }
-            public object? Key { get; }
+            public ByMemberStep(ExRam.Gremlinq.Core.Key? key = default) { }
+            public ExRam.Gremlinq.Core.Key? Key { get; }
         }
     }
     public sealed class WhereStepLabelAndPredicateStep : ExRam.Gremlinq.Core.Step

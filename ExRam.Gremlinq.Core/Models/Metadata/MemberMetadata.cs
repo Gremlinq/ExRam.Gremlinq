@@ -1,14 +1,28 @@
-﻿namespace ExRam.Gremlinq.Core
+﻿using System;
+
+namespace ExRam.Gremlinq.Core
 {
     public readonly struct MemberMetadata
     {
-        public MemberMetadata(string name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
+        private readonly Key? _key;
+
+        public MemberMetadata(Key name, SerializationBehaviour serializationBehaviour = SerializationBehaviour.Default)
         {
-            Name = name;
+            _key = name;
             SerializationBehaviour = serializationBehaviour;
         }
 
-        public string Name { get; }
+        public Key Key
+        {
+            get
+            {
+                if (_key == null)
+                    throw new InvalidOperationException();
+
+                return _key.Value;
+            }
+        }
+
         public SerializationBehaviour SerializationBehaviour { get; }
     }
 }

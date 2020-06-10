@@ -2,13 +2,13 @@
 {
     public sealed class HasTraversalStep : Step
     { 
-        public HasTraversalStep(object key, Traversal traversal)
+        public HasTraversalStep(Key key, Traversal traversal)
         {
             Key = key;
             Traversal = traversal;
         }
 
-        public object Key { get; }
+        public Key Key { get; }
         public Traversal Traversal { get; }
     }
 }

@@ -2,11 +2,11 @@
 {
     public sealed class HasNotStep : Step
     {
-        public HasNotStep(object key)
+        public HasNotStep(Key key)
         {
             Key = key;
         }
 
-        public object Key { get; }
+        public Key Key { get; }
     }
 }

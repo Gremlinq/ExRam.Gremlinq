@@ -5,12 +5,12 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class PropertyStep : Step
     {
-        public PropertyStep(object key, object value, Cardinality? cardinality = default) : this(key, value, ImmutableArray<object>.Empty, cardinality)
+        public PropertyStep(Key key, object value, Cardinality? cardinality = default) : this(key, value, ImmutableArray<object>.Empty, cardinality)
         {
 
         }
 
-        public PropertyStep(object key, object value, ImmutableArray<object> metaProperties, Cardinality? cardinality = default)
+        public PropertyStep(Key key, object value, ImmutableArray<object> metaProperties, Cardinality? cardinality = default)
         {
             Key = key;
             Value = value;
@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
             MetaProperties = metaProperties;
         }
 
-        public object Key { get; }
+        public Key Key { get; }
         public object Value { get; }
         public Cardinality? Cardinality { get; }
         public ImmutableArray<object> MetaProperties { get; }

@@ -256,6 +256,7 @@ namespace ExRam.Gremlinq.Core
                     step.Predicate.OperatorName == "eq"
                         ? step.Predicate.Value
                         : step.Predicate))
+                .Override<Key>((key, env, overridden, recurse) => recurse.Serialize(key.RawKey, env))
                 .Override<KeyStep>((step, env, overridden, recurse) => CreateInstruction("key"))
                 .Override<LabelStep>((step, env, overridden, recurse) => CreateInstruction("label"))
                 .Override<LimitStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
@@ -305,7 +306,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     static IEnumerable<object> GetPropertyStepArguments(PropertyStep propertyStep)
                     {
-                        if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key))
+                        if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
                             yield return propertyStep.Cardinality;
 
                         yield return propertyStep.Key;
@@ -317,7 +318,7 @@ namespace ExRam.Gremlinq.Core
                         }
                     }
 
-                    return (T.Id.Equals(step.Key) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
+                    return (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
                         ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
                         : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step));
                 })

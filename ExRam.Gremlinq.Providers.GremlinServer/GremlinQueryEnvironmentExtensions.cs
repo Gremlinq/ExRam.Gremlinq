@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
                     {
                         if (propertySteps != null && propertySteps.Count > 0)
                         {
-                            propertySteps.Sort((x, y) => -(x.Key is T).CompareTo(y.Key is T));
+                            propertySteps.Sort((x, y) => -(x.Key.RawKey is T).CompareTo(y.Key.RawKey is T));
 
                             foreach (var replayPropertyStep in propertySteps)
                             {

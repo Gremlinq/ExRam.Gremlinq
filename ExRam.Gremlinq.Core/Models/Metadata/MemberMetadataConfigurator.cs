@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Core
         {
             return Configure(
                 propertyExpression,
-                metaData => new MemberMetadata(metaData.Name, transformation(metaData.SerializationBehaviour)));
+                metaData => new MemberMetadata(metaData.Key, transformation(metaData.SerializationBehaviour)));
         }
 
         private IMemberMetadataConfigurator<TElement> Configure<TProperty>(Expression<Func<TElement, TProperty>> propertyExpression, Func<MemberMetadata, MemberMetadata> transformation)

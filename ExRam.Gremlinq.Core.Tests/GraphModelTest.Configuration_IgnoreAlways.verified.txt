@@ -1,6 +1,8 @@
 [
   {
-    Name: 'Name',
+    Key: {
+      RawKey: 'Name'
+    },
     SerializationBehaviour: 'IgnoreAlways'
   }
 ]

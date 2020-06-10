@@ -284,7 +284,12 @@
   {
     Item1: 'GroupStep.ByKeyStep',
     Item2: {
-      Key: 'string'
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      }
     }
   },
   {
@@ -306,13 +311,23 @@
   {
     Item1: 'HasNotStep',
     Item2: {
-      Key: 'string'
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      }
     }
   },
   {
     Item1: 'HasPredicateStep',
     Item2: {
-      Key: 'string',
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      },
       Predicate: {
         OperatorName: 'between',
         Value: [
@@ -326,7 +341,12 @@
   {
     Item1: 'HasTraversalStep',
     Item2: {
-      Key: 'string',
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      },
       Traversal: {
         Steps: [
           {}
@@ -543,7 +563,12 @@
         EnumName: 'Order',
         EnumValue: 'asc'
       },
-      Key: 'string'
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      }
     }
   },
   {
@@ -638,7 +663,12 @@
   {
     Item1: 'ProjectStep.ByKeyStep',
     Item2: {
-      Key: 'string'
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      }
     }
   },
   {
@@ -654,11 +684,16 @@
   {
     Item1: 'PropertyStep',
     Item2: {
-      Key: 'string',
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      },
       Value: 'string',
       Cardinality: {
         EnumName: 'Cardinality',
-        EnumValue: 'list'
+        EnumValue: 'single'
       }
     }
   },
@@ -824,7 +859,12 @@
   {
     Item1: 'WherePredicateStep.ByMemberStep',
     Item2: {
-      Key: 'string'
+      Key: {
+        RawKey: {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      }
     }
   },
   {

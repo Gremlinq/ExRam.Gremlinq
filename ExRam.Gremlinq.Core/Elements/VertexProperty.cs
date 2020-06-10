@@ -24,8 +24,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
         //TODO: Honor Mask.
         internal override IDictionary<string, object>? GetMetaProperties(IGremlinQueryEnvironment environment) => Properties?
             .Serialize(environment, SerializationBehaviour.Default)
-            .Where(x => x.identifier is string)
-            .ToDictionary(x => (string)x.identifier, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
+            .Where(x => x.key.RawKey is string)
+            .ToDictionary(x => (string)x.key.RawKey, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
 
         public object? Id { get; set; }
         public string? Label { get; set; }
