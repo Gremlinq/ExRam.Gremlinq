@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static P WorkaroundLimitations(this P p, GremlinqOptions gremlinqOptions)
+        public static P WorkaroundLimitations(this P p, IGremlinqOptions gremlinqOptions)
         {
             if (p is TextP textP)
             {

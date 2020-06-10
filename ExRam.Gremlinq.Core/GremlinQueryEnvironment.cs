@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
                 IGremlinQueryExecutor executor,
                 IGremlinQueryExecutionResultDeserializer deserializer,
                 FeatureSet featureSet,
-                GremlinqOptions options,
+                IGremlinqOptions options,
                 ILogger logger)
             {
                 Model = model;
@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureModel(Func<IGraphModel, IGraphModel> modelTransformation) => new GremlinQueryEnvironmentImpl(modelTransformation(Model), AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
-            public IGremlinQueryEnvironment ConfigureOptions(Func<GremlinqOptions, GremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
+            public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
 
             public IGremlinQueryEnvironment ConfigureFeatureSet(Func<FeatureSet, FeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
 
@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
             public IGremlinQueryExecutionResultDeserializer Deserializer { get; }
-            public GremlinqOptions Options { get; }
+            public IGremlinqOptions Options { get; }
         }
 
         public static readonly IGremlinQueryEnvironment Empty = new GremlinQueryEnvironmentImpl(
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
             GremlinQueryExecutor.Empty,
             GremlinQueryExecutionResultDeserializer.Identity,
             FeatureSet.Full,
-            default,
+            GremlinqOptions.Empty,
             NullLogger.Instance);
 
         public static readonly IGremlinQueryEnvironment Default = Empty
