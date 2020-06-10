@@ -223,31 +223,18 @@ namespace ExRam.Gremlinq.Core
         public ExpressionNotSupportedException(string message) { }
         public ExpressionNotSupportedException(System.Linq.Expressions.Expression expression, System.Exception innerException) { }
     }
-    public readonly struct FeatureSet
+    public static class FeatureSet
     {
-        public static ExRam.Gremlinq.Core.FeatureSet Full;
-        public FeatureSet(ExRam.Gremlinq.Core.GraphFeatures graphFeatures, ExRam.Gremlinq.Core.VariableFeatures variableFeatures, ExRam.Gremlinq.Core.VertexFeatures vertexFeatures, ExRam.Gremlinq.Core.VertexPropertyFeatures vertexPropertyFeatures, ExRam.Gremlinq.Core.EdgeFeatures edgeFeatures, ExRam.Gremlinq.Core.EdgePropertyFeatures edgePropertyFeatures) { }
-        public ExRam.Gremlinq.Core.EdgeFeatures EdgeFeatures { get; }
-        public ExRam.Gremlinq.Core.EdgePropertyFeatures EdgePropertyFeatures { get; }
-        public ExRam.Gremlinq.Core.GraphFeatures GraphFeatures { get; }
-        public ExRam.Gremlinq.Core.VariableFeatures VariableFeatures { get; }
-        public ExRam.Gremlinq.Core.VertexFeatures VertexFeatures { get; }
-        public ExRam.Gremlinq.Core.VertexPropertyFeatures VertexPropertyFeatures { get; }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureEdgeFeatures(System.Func<ExRam.Gremlinq.Core.EdgeFeatures, ExRam.Gremlinq.Core.EdgeFeatures> config) { }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureEdgePropertyFeatures(System.Func<ExRam.Gremlinq.Core.EdgePropertyFeatures, ExRam.Gremlinq.Core.EdgePropertyFeatures> config) { }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureGraphFeatures(System.Func<ExRam.Gremlinq.Core.GraphFeatures, ExRam.Gremlinq.Core.GraphFeatures> config) { }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureVariableFeatures(System.Func<ExRam.Gremlinq.Core.VariableFeatures, ExRam.Gremlinq.Core.VariableFeatures> config) { }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureVertexFeatures(System.Func<ExRam.Gremlinq.Core.VertexFeatures, ExRam.Gremlinq.Core.VertexFeatures> config) { }
-        public ExRam.Gremlinq.Core.FeatureSet ConfigureVertexPropertyFeatures(System.Func<ExRam.Gremlinq.Core.VertexPropertyFeatures, ExRam.Gremlinq.Core.VertexPropertyFeatures> config) { }
+        public static ExRam.Gremlinq.Core.IFeatureSet Full;
     }
     public static class FeatureSetExtensions
     {
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.EdgeFeatures edgeFeatures) { }
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.EdgePropertyFeatures edgePropertyFeatures) { }
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.GraphFeatures graphFeatures) { }
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.VariableFeatures variableFeatures) { }
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.VertexFeatures vertexFeatures) { }
-        public static bool Supports(this ExRam.Gremlinq.Core.FeatureSet featureSet, ExRam.Gremlinq.Core.VertexPropertyFeatures vertexPropertyFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.EdgeFeatures edgeFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.EdgePropertyFeatures edgePropertyFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.GraphFeatures graphFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.VariableFeatures variableFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.VertexFeatures vertexFeatures) { }
+        public static bool Supports(this ExRam.Gremlinq.Core.IFeatureSet featureSet, ExRam.Gremlinq.Core.VertexPropertyFeatures vertexPropertyFeatures) { }
     }
     public enum FilterLabelsVerbosity
     {
@@ -616,6 +603,21 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<TTarget> Values<TTarget>(params System.Linq.Expressions.Expression<>[] projections);
     }
     public interface IElementGremlinQuery<TElement> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IElementGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
+    public interface IFeatureSet
+    {
+        ExRam.Gremlinq.Core.EdgeFeatures EdgeFeatures { get; }
+        ExRam.Gremlinq.Core.EdgePropertyFeatures EdgePropertyFeatures { get; }
+        ExRam.Gremlinq.Core.GraphFeatures GraphFeatures { get; }
+        ExRam.Gremlinq.Core.VariableFeatures VariableFeatures { get; }
+        ExRam.Gremlinq.Core.VertexFeatures VertexFeatures { get; }
+        ExRam.Gremlinq.Core.VertexPropertyFeatures VertexPropertyFeatures { get; }
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureEdgeFeatures(System.Func<ExRam.Gremlinq.Core.EdgeFeatures, ExRam.Gremlinq.Core.EdgeFeatures> config);
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureEdgePropertyFeatures(System.Func<ExRam.Gremlinq.Core.EdgePropertyFeatures, ExRam.Gremlinq.Core.EdgePropertyFeatures> config);
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureGraphFeatures(System.Func<ExRam.Gremlinq.Core.GraphFeatures, ExRam.Gremlinq.Core.GraphFeatures> config);
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureVariableFeatures(System.Func<ExRam.Gremlinq.Core.VariableFeatures, ExRam.Gremlinq.Core.VariableFeatures> config);
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureVertexFeatures(System.Func<ExRam.Gremlinq.Core.VertexFeatures, ExRam.Gremlinq.Core.VertexFeatures> config);
+        ExRam.Gremlinq.Core.IFeatureSet ConfigureVertexPropertyFeatures(System.Func<ExRam.Gremlinq.Core.VertexPropertyFeatures, ExRam.Gremlinq.Core.VertexPropertyFeatures> config);
+    }
     public interface IGraphElementModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Type, ExRam.Gremlinq.Core.ElementMetadata> Metadata { get; }
@@ -777,7 +779,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IAddStepHandler AddStepHandler { get; }
         ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer Deserializer { get; }
         ExRam.Gremlinq.Core.IGremlinQueryExecutor Executor { get; }
-        ExRam.Gremlinq.Core.FeatureSet FeatureSet { get; }
+        ExRam.Gremlinq.Core.IFeatureSet FeatureSet { get; }
         Microsoft.Extensions.Logging.ILogger Logger { get; }
         ExRam.Gremlinq.Core.IGraphModel Model { get; }
         ExRam.Gremlinq.Core.IGremlinqOptions Options { get; }
@@ -785,7 +787,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureAddStepHandler(System.Func<ExRam.Gremlinq.Core.IAddStepHandler, ExRam.Gremlinq.Core.IAddStepHandler> handlerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer, ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer> deserializerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureExecutor(System.Func<ExRam.Gremlinq.Core.IGremlinQueryExecutor, ExRam.Gremlinq.Core.IGremlinQueryExecutor> executorTransformation);
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.FeatureSet, ExRam.Gremlinq.Core.FeatureSet> featureSetTransformation);
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureFeatureSet(System.Func<ExRam.Gremlinq.Core.IFeatureSet, ExRam.Gremlinq.Core.IFeatureSet> featureSetTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureLogger(System.Func<Microsoft.Extensions.Logging.ILogger, Microsoft.Extensions.Logging.ILogger> loggerTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureModel(System.Func<ExRam.Gremlinq.Core.IGraphModel, ExRam.Gremlinq.Core.IGraphModel> modelTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);

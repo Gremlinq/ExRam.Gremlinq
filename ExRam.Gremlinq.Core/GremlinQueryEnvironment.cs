@@ -15,7 +15,7 @@ namespace ExRam.Gremlinq.Core
                 IGremlinQuerySerializer serializer,
                 IGremlinQueryExecutor executor,
                 IGremlinQueryExecutionResultDeserializer deserializer,
-                FeatureSet featureSet,
+                IFeatureSet featureSet,
                 IGremlinqOptions options,
                 ILogger logger)
             {
@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQueryEnvironment ConfigureOptions(Func<IGremlinqOptions, IGremlinqOptions> optionsTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, FeatureSet, optionsTransformation(Options), Logger);
 
-            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<FeatureSet, FeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
+            public IGremlinQueryEnvironment ConfigureFeatureSet(Func<IFeatureSet, IFeatureSet> featureSetTransformation) => new GremlinQueryEnvironmentImpl(Model, AddStepHandler, Serializer, Executor, Deserializer, featureSetTransformation(FeatureSet), Options, Logger);
 
             public IGremlinQueryEnvironment ConfigureAddStepHandler(Func<IAddStepHandler, IAddStepHandler> handlerTransformation) => new GremlinQueryEnvironmentImpl(Model, handlerTransformation(AddStepHandler), Serializer, Executor, Deserializer, FeatureSet, Options, Logger);
 
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
 
             public ILogger Logger { get; }
             public IGraphModel Model { get; }
-            public FeatureSet FeatureSet { get; }
+            public IFeatureSet FeatureSet { get; }
             public IAddStepHandler AddStepHandler { get; }
             public IGremlinQueryExecutor Executor { get; }
             public IGremlinQuerySerializer Serializer { get; }
