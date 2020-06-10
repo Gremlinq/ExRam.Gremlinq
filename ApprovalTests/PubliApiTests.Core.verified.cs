@@ -628,9 +628,7 @@ namespace ExRam.Gremlinq.Core
     public interface IGraphElementPropertyModel
     {
         System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata> MemberMetadata { get; }
-        System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T> SpecialNames { get; }
         ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureMemberMetadata(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, ExRam.Gremlinq.Core.MemberMetadata>> transformation);
-        ExRam.Gremlinq.Core.IGraphElementPropertyModel ConfigureSpecialNames(System.Func<System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>, System.Collections.Immutable.IImmutableDictionary<System.Reflection.MemberInfo, Gremlin.Net.Process.Traversal.T>> transformation);
     }
     public interface IGraphModel
     {

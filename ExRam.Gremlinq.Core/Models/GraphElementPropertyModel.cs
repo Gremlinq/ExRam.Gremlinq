@@ -14,27 +14,16 @@ namespace ExRam.Gremlinq.Core
     {
         private sealed class GraphElementPropertyModelImpl : IGraphElementPropertyModel
         {
-            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata, IImmutableDictionary<MemberInfo, T> specialNames)
+            public GraphElementPropertyModelImpl(IImmutableDictionary<MemberInfo, MemberMetadata> metadata)
             {
                 MemberMetadata = metadata;
-                SpecialNames = specialNames;
             }
             
             public IGraphElementPropertyModel ConfigureMemberMetadata(Func<IImmutableDictionary<MemberInfo, MemberMetadata>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             {
                 return new GraphElementPropertyModelImpl(
-                    transformation(MemberMetadata),
-                    SpecialNames);
+                    transformation(MemberMetadata));
             }
-
-            public IGraphElementPropertyModel ConfigureSpecialNames(Func<IImmutableDictionary<MemberInfo, T>, IImmutableDictionary<MemberInfo, T>> transformation)
-            {
-                return new GraphElementPropertyModelImpl(
-                    MemberMetadata,
-                    transformation(SpecialNames));
-            }
-
-            public IImmutableDictionary<MemberInfo, T> SpecialNames { get; }
 
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
@@ -54,8 +43,9 @@ namespace ExRam.Gremlinq.Core
             public KeyLookup(IGraphElementPropertyModel model)
             {
                 _model = model;
-                _configuredTs = new HashSet<T>(model.SpecialNames
-                    .ToDictionary(kvp => kvp.Value, kvp => kvp.Key)
+                _configuredTs = new HashSet<T>(model.MemberMetadata
+                    .Where(kvp => kvp.Value.Key.RawKey is T)
+                    .ToDictionary(kvp => (T)kvp.Value.Key.RawKey, kvp => kvp.Key)
                     .Keys);
             }
 
@@ -65,9 +55,6 @@ namespace ExRam.Gremlinq.Core
                     member,
                     (closureMember, closureModel) =>
                     {
-                        if (closureModel.SpecialNames.TryGetValue(closureMember, out var specialName))
-                            return specialName;
-
                         if (DefaultTs.TryGetValue(closureMember.Name, out var defaultT) && !_configuredTs.Contains(defaultT))
                             return defaultT;
 
@@ -81,9 +68,6 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
             ImmutableDictionary<MemberInfo, MemberMetadata>
-                .Empty
-                .WithComparers(MemberInfoEqualityComparer.Instance),
-            ImmutableDictionary<MemberInfo, T>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance));
 
