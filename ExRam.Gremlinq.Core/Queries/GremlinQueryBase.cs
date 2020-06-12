@@ -52,7 +52,7 @@ namespace ExRam.Gremlinq.Core
                         GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
                         GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
                         GetMatchingType(closureType, "TInVertex"),
-                        GetMatchingType(closureType, "TValue"),
+                        GetMatchingType(closureType, "TValue", "TArrayItem"),
                         GetMatchingType(closureType, "TMeta"),
                         GetMatchingType(closureType, "TQuery"));
 

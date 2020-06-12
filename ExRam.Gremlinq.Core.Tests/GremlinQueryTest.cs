@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(iface => typeof(IGremlinQueryBase).IsAssignableFrom(iface))
                 .Where(iface => !iface.Name.Contains("Rec"))
                 .Select(iface => iface.IsGenericTypeDefinition
-                    ? iface.MakeGenericType(iface.GetGenericArguments().Select(_ => typeof(object)).ToArray())
+                    ? iface.MakeGenericType(iface.GetGenericArguments().Select(_ => typeof(Person)).ToArray())
                     : iface)
                 .ToArray();
 
