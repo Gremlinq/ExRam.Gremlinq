@@ -3081,16 +3081,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(t => t.Name.Value.CompareTo("Some name") < 0)
                 .Verify(this);
         }
-
-        [Fact]
-        public async Task Where_property_greater_than_string()
-        {
-            await _g
-                .V<Person>()
-                .Where(t => t.Name.Value.CompareTo("Some name") > 0)
-                .Verify(this);
-        }
-
+        
         [Fact]
         public async Task Where_property_lower_than_or_equal_string()
         {
@@ -3101,6 +3092,24 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_property_equals_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") == 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_than_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") > 0)
+                .Verify(this);
+        }
+        
+        [Fact]
         public async Task Where_property_greater_than_or_equal_string()
         {
             await _g
@@ -3109,6 +3118,141 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+        [Fact]
+        public async Task Where_property_compared_to_string_always_false()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") < -1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_lower_than_string_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") <= -1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_lower_than_string_3()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") == -1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_or_equal_string_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") > -1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_compared_to_string_always_true()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") >= -1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_lower_than_or_equal_string_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") < 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_true()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") <= 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_than_string_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") == 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_false()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") > 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_than_string_3()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") >= 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_true_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") < 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_true_3()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") <= 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_false_2()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") == 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_false_3()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") > 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_always_false_4()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") >= 2)
+                .Verify(this);
+        }
+        
         [Fact]
         public async Task Where_complex_logical_expression()
         {

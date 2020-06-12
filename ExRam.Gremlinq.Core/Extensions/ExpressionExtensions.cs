@@ -22,6 +22,15 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringCompareTo = Get(() => string.Empty.CompareTo(string.Empty));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
+        private static readonly ExpressionSemantics[][] CompareToMatrix = new []
+        {
+            new [] { ExpressionSemantics.False, ExpressionSemantics.False,              ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True },
+            new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual,   ExpressionSemantics.True,             ExpressionSemantics.True },
+            new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.Equals,             ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
+            new [] { ExpressionSemantics.True,  ExpressionSemantics.True,               ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },
+            new [] { ExpressionSemantics.True,  ExpressionSemantics.GreaterThanOrEqual, ExpressionSemantics.GreaterThan,        ExpressionSemantics.False,            ExpressionSemantics.False }
+        };
+
         public static Expression Strip(this Expression expression)
         {
             while (true)
@@ -150,69 +159,14 @@ namespace ExRam.Gremlinq.Core
 
                     if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue(model) is int comparison)
                     {
-                        var semantics = expression.Semantics;
-                        comparison = Math.Min(2, Math.Max(-2, comparison));
+                        var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
 
-                        semantics = semantics switch
+                        return semantics switch
                         {
-                            ExpressionSemantics.LowerThan => comparison switch
-                            {
-                                -2 => ExpressionSemantics.False,
-                                -1 => ExpressionSemantics.False,
-                                 0 => ExpressionSemantics.LowerThan,
-                                 1 => ExpressionSemantics.LowerThanOrEqual,
-                                 2 => ExpressionSemantics.True,
-                                _ => throw new ArgumentOutOfRangeException()
-                            },
-                            ExpressionSemantics.LowerThanOrEqual => comparison switch
-                            {
-                                -2 => ExpressionSemantics.False,
-                                -1 => ExpressionSemantics.LowerThan,
-                                 0 => ExpressionSemantics.LowerThanOrEqual,
-                                 1 => ExpressionSemantics.True,
-                                 2 => ExpressionSemantics.True,
-                                _ => throw new ArgumentOutOfRangeException()
-                            },
-                            ExpressionSemantics.Equals => comparison switch
-                            {
-                                -2 => ExpressionSemantics.False,
-                                -1 => ExpressionSemantics.LowerThan,
-                                 0 => ExpressionSemantics.Equals,
-                                 1 => ExpressionSemantics.GreaterThan,
-                                 2 => ExpressionSemantics.False,
-                                _ => throw new ArgumentOutOfRangeException()
-                            },
-                            ExpressionSemantics.GreaterThanOrEqual => comparison switch
-                            {
-                                -2 => ExpressionSemantics.True,
-                                -1 => ExpressionSemantics.True,
-                                0 => ExpressionSemantics.GreaterThanOrEqual,
-                                1 => ExpressionSemantics.GreaterThan,
-                                2 => ExpressionSemantics.False,
-                                _ => throw new ArgumentOutOfRangeException()
-                            },
-                            ExpressionSemantics.GreaterThan => comparison switch
-                            {
-                                -2 => ExpressionSemantics.True,
-                                -1 => ExpressionSemantics.GreaterThanOrEqual,
-                                0 => ExpressionSemantics.GreaterThan,
-                                1 => ExpressionSemantics.False,
-                                2 => ExpressionSemantics.False,
-                                _ => throw new ArgumentOutOfRangeException()
-                            },
-                            _ => throw new ArgumentOutOfRangeException()
+                            ExpressionSemantics.True => GremlinExpression.True,
+                            ExpressionSemantics.False => GremlinExpression.False,
+                            _ => new GremlinExpression(ExpressionFragment.Create(leftMethodCallExpression.Object, model), semantics, ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
                         };
-
-                        if (semantics == ExpressionSemantics.True)
-                            return GremlinExpression.True;
-
-                        if (semantics == ExpressionSemantics.False)
-                            return GremlinExpression.False;
-
-                        return new GremlinExpression(
-                            ExpressionFragment.Create(leftMethodCallExpression.Object, model),
-                            semantics,
-                            ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model));
                     }
                 }
             }
