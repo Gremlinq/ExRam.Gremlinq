@@ -1,7 +1,21 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
+    internal static class ExpressionFragmentExtensions
+    {
+        public static object? GetValue(this ExpressionFragment expressionFragment, IGraphModel model)
+        {
+            return expressionFragment switch
+            {
+                ConstantExpressionFragment c => c.Value,
+                { } x=> x.Expression?.GetValue(model),
+                _ => throw new ArgumentException()
+            };
+        }
+    }
+
     internal abstract class ExpressionFragment
     {
         public static readonly ConstantExpressionFragment True = new ConstantExpressionFragment(true);

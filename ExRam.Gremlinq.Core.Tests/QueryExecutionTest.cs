@@ -3074,6 +3074,42 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_property_lower_than_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") < 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_than_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") > 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_lower_than_or_equal_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") <= 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_greater_than_or_equal_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => t.Name.Value.CompareTo("Some name") >= 0)
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_complex_logical_expression()
         {
             await _g

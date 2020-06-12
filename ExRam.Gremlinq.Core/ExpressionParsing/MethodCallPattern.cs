@@ -11,6 +11,7 @@
         EnumerableAny,
         EnumerableContains,
         StringContains,
+        StringCompareTo,
         StringStartsWith,
         StringEndsWith
     }

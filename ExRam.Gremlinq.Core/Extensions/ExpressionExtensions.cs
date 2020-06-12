@@ -19,6 +19,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(string.Empty));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
+        private static readonly MethodInfo StringCompareTo = Get(() => string.Empty.CompareTo(string.Empty));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
         public static Expression Strip(this Expression expression)
@@ -138,6 +139,88 @@ namespace ExRam.Gremlinq.Core
         }
 
         public static GremlinExpression? TryToGremlinExpression(this Expression body, IGraphModel model)
+        {
+            var maybeExpression = body.TryToGremlinExpressionImpl(model);
+
+            if (maybeExpression is { } expression)
+            {
+                if (expression.Left.Expression is MethodCallExpression leftMethodCallExpression)
+                {
+                    var wellKnownMember = leftMethodCallExpression.TryGetWellKnownMember();
+
+                    if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue(model) is int comparison)
+                    {
+                        var semantics = expression.Semantics;
+                        comparison = Math.Min(2, Math.Max(-2, comparison));
+
+                        semantics = semantics switch
+                        {
+                            ExpressionSemantics.LowerThan => comparison switch
+                            {
+                                -2 => ExpressionSemantics.False,
+                                -1 => ExpressionSemantics.False,
+                                 0 => ExpressionSemantics.LowerThan,
+                                 1 => ExpressionSemantics.LowerThanOrEqual,
+                                 2 => ExpressionSemantics.True,
+                                _ => throw new ArgumentOutOfRangeException()
+                            },
+                            ExpressionSemantics.LowerThanOrEqual => comparison switch
+                            {
+                                -2 => ExpressionSemantics.False,
+                                -1 => ExpressionSemantics.LowerThan,
+                                 0 => ExpressionSemantics.LowerThanOrEqual,
+                                 1 => ExpressionSemantics.True,
+                                 2 => ExpressionSemantics.True,
+                                _ => throw new ArgumentOutOfRangeException()
+                            },
+                            ExpressionSemantics.Equals => comparison switch
+                            {
+                                -2 => ExpressionSemantics.False,
+                                -1 => ExpressionSemantics.LowerThan,
+                                 0 => ExpressionSemantics.Equals,
+                                 1 => ExpressionSemantics.GreaterThan,
+                                 2 => ExpressionSemantics.False,
+                                _ => throw new ArgumentOutOfRangeException()
+                            },
+                            ExpressionSemantics.GreaterThanOrEqual => comparison switch
+                            {
+                                -2 => ExpressionSemantics.True,
+                                -1 => ExpressionSemantics.True,
+                                0 => ExpressionSemantics.GreaterThanOrEqual,
+                                1 => ExpressionSemantics.GreaterThan,
+                                2 => ExpressionSemantics.False,
+                                _ => throw new ArgumentOutOfRangeException()
+                            },
+                            ExpressionSemantics.GreaterThan => comparison switch
+                            {
+                                -2 => ExpressionSemantics.True,
+                                -1 => ExpressionSemantics.GreaterThanOrEqual,
+                                0 => ExpressionSemantics.GreaterThan,
+                                1 => ExpressionSemantics.False,
+                                2 => ExpressionSemantics.False,
+                                _ => throw new ArgumentOutOfRangeException()
+                            },
+                            _ => throw new ArgumentOutOfRangeException()
+                        };
+
+                        if (semantics == ExpressionSemantics.True)
+                            return GremlinExpression.True;
+
+                        if (semantics == ExpressionSemantics.False)
+                            return GremlinExpression.False;
+
+                        return new GremlinExpression(
+                            ExpressionFragment.Create(leftMethodCallExpression.Object, model),
+                            semantics,
+                            ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model));
+                    }
+                }
+            }
+
+            return maybeExpression;
+        }
+
+        private static GremlinExpression? TryToGremlinExpressionImpl(this Expression body, IGraphModel model)
         {
             switch (body)
             {
@@ -275,6 +358,8 @@ namespace ExRam.Gremlinq.Core
                         return WellKnownMember.StringEndsWith;
                     else if (methodInfo == StringContains)
                         return WellKnownMember.StringContains;
+                    else if (methodInfo == StringCompareTo)
+                        return WellKnownMember.StringCompareTo;
 
                     break;
                 }

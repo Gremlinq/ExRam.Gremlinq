@@ -2,6 +2,8 @@
 {
     internal enum ExpressionSemantics
     {
+        False,
+        True,
         LowerThan,
         LowerThanOrEqual,
         Equals,
