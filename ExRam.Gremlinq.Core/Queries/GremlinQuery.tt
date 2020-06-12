@@ -25,8 +25,8 @@ namespace ExRam.Gremlinq.Core
 
 <# foreach(var iface in Typed(substitutedBaseInterfaces))
 { #>
-        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IArrayGremlinQuery<TElement[], <#= iface #>>, TElement[]>(), continuation);
-        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.AggregateGlobal<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IArrayGremlinQuery<TElement[], <#= iface #>>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.Aggregate<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Local, new StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>(), continuation);
+        TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.AggregateGlobal<TTargetQuery>(Func<<#= iface #>, StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>, TTargetQuery> continuation) => Aggregate(Scope.Global, new StepLabel<IArrayGremlinQuery<TElement[], TElement, <#= iface #>>, TElement[]>(), continuation);
 
         TTargetQuery IGremlinQueryBaseRec<TElement, <#= iface #>>.As<TTargetQuery>(Func<<#= iface #>, StepLabel<<#= iface #>, TElement>, TTargetQuery> continuation) => As<StepLabel<<#= iface #>, TElement>, TTargetQuery>(continuation);
         <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.As(StepLabel<TElement> stepLabel) => As(stepLabel);
@@ -51,7 +51,7 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryBaseRec<<#= iface #>>.FlatMap<TTargetQuery>(Func<<#= iface #>, TTargetQuery> mapping) => FlatMap(mapping);
 
-        IArrayGremlinQuery<TElement[], <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Fold() => Fold<<#= iface #>>();
+        IArrayGremlinQuery<TElement[], TElement, <#= iface #>> IGremlinQueryBaseRec<TElement, <#= iface #>>.Fold() => Fold<<#= iface #>>();
 
         IValueGremlinQuery<IDictionary<TNewKey, TNewValue>> IGremlinQueryBaseRec<<#= iface #>>.Group<TNewKey, TNewValue>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKeyAndValue<<#= iface #>, TNewKey, TNewValue>> groupBuilder) => Group(groupBuilder);
         IValueGremlinQuery<IDictionary<TNewKey, object>> IGremlinQueryBaseRec<<#= iface #>>.Group<TNewKey>(Func<IGroupBuilder<<#= iface #>>, IGroupBuilderWithKey<<#= iface #>, TNewKey>> groupBuilder) => Group(groupBuilder);

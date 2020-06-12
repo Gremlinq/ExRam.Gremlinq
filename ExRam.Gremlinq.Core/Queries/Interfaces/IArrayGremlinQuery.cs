@@ -2,7 +2,14 @@
 {
     public interface IArrayGremlinQueryBase : IValueGremlinQueryBase
     {
+        IValueGremlinQuery<object> Unfold();
         new IValueGremlinQuery<object[]> Lower();
+    }
+
+    public interface IArrayGremlinQueryBase<TArrayItem> : IArrayGremlinQueryBase
+    {
+        new IValueGremlinQuery<TArrayItem> Unfold();
+        new IValueGremlinQuery<TArrayItem[]> Lower();
     }
 
     public interface IArrayGremlinQueryBaseRec<TSelf> :
@@ -13,8 +20,8 @@
 
     }
 
-    public interface IArrayGremlinQueryBase<TArray, out TQuery> :
-        IArrayGremlinQueryBase,
+    public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TQuery> :
+        IArrayGremlinQueryBase<TArrayItem>,
         IValueGremlinQueryBase<TArray>
     {
         new TQuery SumLocal();
@@ -25,21 +32,22 @@
 
         new TQuery MeanLocal();
 
-        TQuery Unfold();
+        new TQuery Unfold();
+
         new IValueGremlinQuery<TArray> Lower();
     }
 
-    public interface IArrayGremlinQueryBaseRec<TArray, out TQuery, TSelf> :
+    public interface IArrayGremlinQueryBaseRec<TArray, TArrayItem, out TQuery, TSelf> :
         IArrayGremlinQueryBaseRec<TSelf>,
-        IArrayGremlinQueryBase<TArray, TQuery>,
+        IArrayGremlinQueryBase<TArray, TArrayItem, TQuery>,
         IValueGremlinQueryBaseRec<TArray, TSelf>
-        where TSelf : IArrayGremlinQueryBaseRec<TArray, TQuery, TSelf>
+        where TSelf : IArrayGremlinQueryBaseRec<TArray, TArrayItem, TQuery, TSelf>
     {
 
     }
 
-    public interface IArrayGremlinQuery<TArray, TQuery> :
-        IArrayGremlinQueryBaseRec<TArray, TQuery, IArrayGremlinQuery<TArray, TQuery>>
+    public interface IArrayGremlinQuery<TArray, TArrayItem, TQuery> :
+        IArrayGremlinQueryBaseRec<TArray, TArrayItem, TQuery, IArrayGremlinQuery<TArray, TArrayItem, TQuery>>
     {
 
     }

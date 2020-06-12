@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core
         IGremlinQuerySource,
         IGremlinQuery<TElement>,
 
-        IArrayGremlinQuery<TElement, TFoldedQuery>,
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>,
 
         IElementGremlinQuery<TElement>,
 
@@ -36,23 +36,27 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>,
         IPropertyGremlinQuery<TElement> where TMeta : class
     {
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MeanLocal() => MeanLocal().ChangeQueryType<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MeanLocal() => MeanLocal().ChangeQueryType<TFoldedQuery>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
+
+        IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
+
+        IValueGremlinQuery<TScalar[]> IArrayGremlinQueryBase<TScalar>.Lower() => Cast<TScalar[]>();
 
         IValueGremlinQuery<object[]> IArrayGremlinQueryBase.Lower() => Cast<object[]>();
 
-        IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TFoldedQuery>.Lower() => this;
+        IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Lower() => this;
 
         TTargetQuery IValueGremlinQueryBase<TElement>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IValueGremlinQuery<TElement>, TTargetQuery> falseChoice) => Choose(predicate, trueChoice, falseChoice);
 
         TTargetQuery IValueGremlinQueryBase<TElement>.Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) => Choose(predicate, trueChoice);
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.SumLocal() => SumLocal().ChangeQueryType<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.SumLocal() => SumLocal().ChangeQueryType<TFoldedQuery>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MinLocal() => MinLocal().ChangeQueryType<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MinLocal() => MinLocal().ChangeQueryType<TFoldedQuery>();
 
-        TFoldedQuery IArrayGremlinQueryBase<TElement, TFoldedQuery>.MaxLocal() => MaxLocal().ChangeQueryType<TFoldedQuery>();
+        TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.MaxLocal() => MaxLocal().ChangeQueryType<TFoldedQuery>();
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Sum() => SumGlobal();
 
@@ -72,11 +76,11 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IArrayGremlinQuery<TElement, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TFoldedQuery>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TFoldedQuery>>> projection) => OrderGlobal(projection);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderGlobal(projection);
 
-        IArrayGremlinQuery<TElement, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TFoldedQuery>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TFoldedQuery>>> projection) => OrderLocal(projection);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderLocal(projection);
 
-        IArrayGremlinQuery<TElement, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TFoldedQuery>>.Mute() => Mute();
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Mute() => Mute();
 
         IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TInVertex>().Continue(fromVertexTraversal).ToTraversal()), QuerySemantics.Edge);
 
@@ -205,7 +209,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>();
 
-        IArrayGremlinQuery<TNewElement, TQuery> IGremlinQueryBase.Cap<TQuery, TNewElement>(StepLabel<IArrayGremlinQuery<TNewElement, TQuery>, TNewElement> label) => Cap(label);
+        IArrayGremlinQuery<TNewElement, TNewScalar, TQuery> IGremlinQueryBase.Cap<TNewElement, TNewScalar, TQuery>(StepLabel<IArrayGremlinQuery<TNewElement, TNewScalar, TQuery>, TNewElement> label) => Cap(label);
 
         IValueGremlinQuery<TLabelledElement> IGremlinQueryBase.Select<TLabelledElement>(StepLabel<TLabelledElement> label) => Select(label);
 
@@ -230,6 +234,8 @@ namespace ExRam.Gremlinq.Core
         Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl().ToImmutableArray();
 
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => AddE(edge);
+
+        IValueGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IValueGremlinQuery<TScalar>>();
 
         IVertexGremlinQuery<TVertex> IStartGremlinQuery.AddV<TVertex>(TVertex vertex) => AddV(vertex);
 
