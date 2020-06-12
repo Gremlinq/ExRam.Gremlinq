@@ -98,7 +98,6 @@ namespace ExRam.Gremlinq.Core
                     },
                     model);
 
-
             return labels.IsEmpty
                 ? default(ImmutableArray<string>?)
                 : labels.Length == model.Metadata.Count && verbosity == FilterLabelsVerbosity.Minimum
