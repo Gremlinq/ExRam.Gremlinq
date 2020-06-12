@@ -647,6 +647,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryAdmin
     {
+        System.Type ElementType { get; }
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step> Steps { get; }
         TTargetQuery AddStep<TTargetQuery>(ExRam.Gremlinq.Core.Step step)

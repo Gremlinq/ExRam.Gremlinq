@@ -233,6 +233,8 @@ namespace ExRam.Gremlinq.Core
 
         Traversal IGremlinQueryAdmin.ToTraversal() => ToTraversalImpl().ToImmutableArray();
 
+        Type IGremlinQueryAdmin.ElementType { get => typeof(TElement); }
+
         IEdgeGremlinQuery<TEdge> IStartGremlinQuery.AddE<TEdge>(TEdge edge) => AddE(edge);
 
         IValueGremlinQuery<TScalar> IArrayGremlinQueryBase<TScalar>.Unfold() => Unfold<IValueGremlinQuery<TScalar>>();

@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
 
         Traversal ToTraversal();
 
+        Type ElementType { get; }
         IImmutableStack<Step> Steps { get; }
         IGremlinQueryEnvironment Environment { get; }
     }
