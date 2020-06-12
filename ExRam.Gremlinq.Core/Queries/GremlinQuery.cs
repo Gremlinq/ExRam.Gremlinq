@@ -1014,9 +1014,15 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 if (expression.TryToGremlinExpression(Environment.Model) is { } gremlinExpression)
-                    return Where(gremlinExpression);
+                {
+                    return gremlinExpression.Equals(GremlinExpression.True)
+                        ? this
+                        : gremlinExpression.Equals(GremlinExpression.False)
+                            ? None()
+                            : Where(gremlinExpression);
+                }
             }
-            catch(ExpressionNotSupportedException ex)
+            catch (ExpressionNotSupportedException ex)
             {
                 throw new ExpressionNotSupportedException(expression, ex);
             }

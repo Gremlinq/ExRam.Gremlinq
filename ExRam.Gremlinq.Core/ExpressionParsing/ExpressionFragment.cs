@@ -5,6 +5,7 @@ namespace ExRam.Gremlinq.Core
     internal abstract class ExpressionFragment
     {
         public static readonly ConstantExpressionFragment True = new ConstantExpressionFragment(true);
+        public static readonly ConstantExpressionFragment False = new ConstantExpressionFragment(default);
         public static readonly ConstantExpressionFragment Null = new ConstantExpressionFragment(default);
 
         protected ExpressionFragment(Expression? expression = default)

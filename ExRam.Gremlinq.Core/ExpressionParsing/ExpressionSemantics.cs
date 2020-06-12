@@ -2,11 +2,11 @@
 {
     internal enum ExpressionSemantics
     {
-        Equals,
         LowerThan,
         LowerThanOrEqual,
-        GreaterThan,
+        Equals,
         GreaterThanOrEqual,
+        GreaterThan,
         Intersects,
         Contains,
         HasInfix,
