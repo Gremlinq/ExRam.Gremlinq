@@ -51,5 +51,15 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .NotBeSameAs(query);
         }
+
+        [Fact]
+        public void ChangeQueryType_takes_array_element_types_into_account()
+        {
+            var query = GremlinQuerySource.g.ConfigureEnvironment(_ => _).V<Person>();
+
+            query.AsAdmin().ChangeQueryType<IGremlinQueryBase<Person[]>>()
+                .Should()
+                .BeAssignableTo<IArrayGremlinQueryBase<Person>>();
+        }
     }
 }

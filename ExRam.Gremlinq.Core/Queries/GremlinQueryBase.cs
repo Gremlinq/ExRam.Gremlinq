@@ -48,13 +48,23 @@ namespace ExRam.Gremlinq.Core
                 closureType =>
                 {
                     var semantics = closureType.GetQuerySemantics();
+
+                    var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
+                    var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex");
+                    var inVertexType = GetMatchingType(closureType, "TInVertex");
+                    var sclarType = GetMatchingType(closureType, "TValue", "TArrayItem");
+                    var metaType = GetMatchingType(closureType, "TMeta");
+                    var queryType = GetMatchingType(closureType, "TQuery");
+
                     var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
-                        GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray"),
-                        GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex"),
-                        GetMatchingType(closureType, "TInVertex"),
-                        GetMatchingType(closureType, "TValue", "TArrayItem"),
-                        GetMatchingType(closureType, "TMeta"),
-                        GetMatchingType(closureType, "TQuery"));
+                        elementType,
+                        outVertexType ?? typeof(object),
+                        inVertexType ?? typeof(object),
+                        sclarType ?? (elementType.IsArray
+                            ? elementType.GetElementType()
+                            : typeof(object)),
+                        metaType ?? typeof(object),
+                        queryType ?? typeof(object));
 
                     var stepsParameter = Expression.Parameter(typeof(IImmutableStack<Step>));
                     var environmentParameter = Expression.Parameter(typeof(IGremlinQueryEnvironment));
@@ -91,7 +101,7 @@ namespace ExRam.Gremlinq.Core
             return (TTargetQuery)constructor(Steps, Environment, eraseSemantics ? QuerySemantics.None : Semantics, StepLabelSemantics, Flags);
         }
 
-        private static Type GetMatchingType(Type interfaceType, params string[] argumentNames)
+        private static Type? GetMatchingType(Type interfaceType, params string[] argumentNames)
         {
             if (interfaceType.IsGenericType)
             {
@@ -108,7 +118,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            return typeof(object);
+            return default;
         }
 
         protected internal QueryFlags Flags { get; }
