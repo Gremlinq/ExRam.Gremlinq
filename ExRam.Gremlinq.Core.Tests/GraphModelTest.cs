@@ -146,14 +146,14 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Camelcase_Identifier_By_ParameterExpression()
+        public async Task Lowercase_Identifier_By_ParameterExpression()
         {
             await Verify(GraphModel
                 .FromBaseTypes<Vertex, Edge>(lookup => lookup
                     .IncludeAssembliesOfBaseTypes())
                 .ConfigureProperties(pm => pm
                     .ConfigureMemberMetadata(m => m
-                        .UseCamelCaseNames()))
+                        .UseLowerCaseNames()))
                 .PropertiesModel
                 .MemberMetadata
                 .TryGetValue(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
