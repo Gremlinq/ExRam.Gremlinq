@@ -25,14 +25,10 @@ lines of code) executable project that successfully compiles but still exposes t
 * A pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting
 the expected behaviour. Again, this should be as small as possible to reduce any noise.
 
-* A gist containing a complete minimal working example of the unexpected behaviour. This has the
-nice advantage that it can be forked and modified by the community, possibly adding some value for
-everyone.
-
 In any case: Make it really, really as small as can be. Don't post tons of business POCOs or DTOs that
 are not really relevant for exposing the unexpected behaviour. Also, don't post any passwords.
 
-If I can't easily grab your example and run it quickly, I may just not bother and nobody else might. 
+If I can't easily grab your repro code and run it quickly, I may just not bother and nobody else might. 
 
 **Additional context**
 Add any other context about the problem here.
