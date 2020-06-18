@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
 
-        IGremlinQuerySource RemoveStrategies(params Type[] strategyTypes);
+        IGremlinQuerySource WithoutStrategies(params Type[] strategyTypes);
 
         IGremlinQueryEnvironment Environment { get; }
     }

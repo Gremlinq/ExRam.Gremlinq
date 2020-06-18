@@ -4194,7 +4194,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task WithoutStrategies1()
         {
             await _g
-                .RemoveStrategies(typeof(SubgraphStrategy))
+                .WithoutStrategies(typeof(SubgraphStrategy))
                 .V()
                 .Verify(this);
         }
@@ -4203,7 +4203,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task WithoutStrategies2()
         {
             await _g
-                .RemoveStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
+                .WithoutStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
                 .V()
                 .Verify(this);
         }
@@ -4212,8 +4212,8 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task WithoutStrategies3()
         {
             await _g
-                .RemoveStrategies(typeof(SubgraphStrategy))
-                .RemoveStrategies(typeof(ElementIdStrategy))
+                .WithoutStrategies(typeof(SubgraphStrategy))
+                .WithoutStrategies(typeof(ElementIdStrategy))
                 .V()
                 .Verify(this);
         }

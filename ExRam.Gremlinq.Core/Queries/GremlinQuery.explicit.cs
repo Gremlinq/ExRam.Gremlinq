@@ -263,7 +263,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuerySource IConfigurableGremlinQuerySource.ConfigureEnvironment(Func<IGremlinQueryEnvironment, IGremlinQueryEnvironment> transformation) => ConfigureEnvironment(transformation);
 
-        IGremlinQuerySource IGremlinQuerySource.RemoveStrategies(params Type[] strategyTypes) => AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
+        IGremlinQuerySource IGremlinQuerySource.WithoutStrategies(params Type[] strategyTypes) => AddStep(new WithoutStrategiesStep(strategyTypes.ToImmutableArray()));
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Mute() => Mute();
 

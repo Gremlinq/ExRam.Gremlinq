@@ -833,8 +833,8 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<object> E(params object[] ids);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TEdge> E<TEdge>(params object[] ids);
-        ExRam.Gremlinq.Core.IGremlinQuerySource RemoveStrategies(params System.Type[] strategyTypes);
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TNewEdge> ReplaceE<TNewEdge>(TNewEdge edge);
+        ExRam.Gremlinq.Core.IGremlinQuerySource WithoutStrategies(params System.Type[] strategyTypes);
     }
     public interface IGremlinQuery<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, ExRam.Gremlinq.Core.IGremlinQuery<TElement>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery { }
     public interface IGremlinqOption { }
