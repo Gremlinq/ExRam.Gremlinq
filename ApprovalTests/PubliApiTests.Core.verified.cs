@@ -768,6 +768,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery As<TTargetQuery>(System.Func<TSelf, ExRam.Gremlinq.Core.StepLabel<TSelf, TElement>, TTargetQuery> continuation)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
+        ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
         TSelf Inject(params TElement[] elements);
         [return: System.Runtime.CompilerServices.Dynamic(new bool[] {
                 false,
@@ -777,6 +778,17 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
+        ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> ForceArray();
+        ExRam.Gremlinq.Core.IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
+        ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement> ForceEdge();
+        ExRam.Gremlinq.Core.IInEdgeGremlinQuery<TElement, TInVertex> ForceInEdge<TInVertex>();
+        ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
+        ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement> ForceProperty();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> ForceValue();
+        ExRam.Gremlinq.Core.IVertexGremlinQuery<TElement> ForceVertex();
+        ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
+        ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>()
+            where TMeta :  class;
         ExRam.Gremlinq.Core.GremlinQueryAwaiter<TElement> GetAwaiter();
         ExRam.Gremlinq.Core.IGremlinQuery<TElement> Lower();
         System.Collections.Generic.IAsyncEnumerable<TElement> ToAsyncEnumerable();
