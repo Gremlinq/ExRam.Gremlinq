@@ -393,6 +393,12 @@ namespace ExRam.Gremlinq.Core
             return targetQuery;
         }
 
+        private TTargetQuery As<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery> continuation)
+            where TTargetQuery : IGremlinQueryBase
+        {
+            return As<StepLabel<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TElement>, TTargetQuery>(continuation);
+        }
+
         private TTargetQuery As<TStepLabel, TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TStepLabel, TTargetQuery> continuation)
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
@@ -626,7 +632,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<string, object, object, object, object, object> Label() => AddStepWithObjectTypes<string>(LabelStep.Instance, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Limit(long count)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> LimitGlobal(long count)
         {
             return AddStep(
                 count == 1
@@ -636,10 +642,18 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> LimitLocal(long count)
         {
-            return AddStep(
-                count == 1
-                    ? LimitStep.LimitLocal1
-                    : new LimitStep(count, Scope.Local));
+            return count == 1
+                ? Choose(
+                    __ => __
+                        .As((__, a) => __
+                            .Unfold()
+                            .Where(x => (object)x! == (object)a.Value!)),
+                    __ => __
+                        .AddStep(LimitStep.LimitLocal1),
+                    __ => __
+                        .AddStep(LimitStep.LimitLocal1)
+                        .AddStep(FoldStep.Instance, QuerySemantics.None))
+                : AddStep(new LimitStep(count, Scope.Local));
         }
 
         private TTargetQuery Local<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> localTraversal)
@@ -807,7 +821,23 @@ namespace ExRam.Gremlinq.Core
                 : AddStep(new PropertyStep(key, value));
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Range(long low, long high, Scope scope) => AddStep(new RangeStep(low, high, scope));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeGlobal(long low, long high) => AddStep(new RangeStep(low, high, Scope.Global));
+
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeLocal(long low, long high)
+        {
+            return high > -1 && high - low == 1
+                ? Choose(
+                    __ => __
+                        .As((__, a) => __
+                            .Unfold()
+                            .Where(x => (object)x! == (object)a.Value!)),
+                    __ => __
+                        .AddStep(new RangeStep(low, high, Scope.Local)),
+                    __ => __
+                        .AddStep(new RangeStep(low, high, Scope.Local))
+                        .AddStep(FoldStep.Instance, QuerySemantics.None))
+                : AddStep(new RangeStep(low, high, Scope.Local));
+        }
 
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal)
             where TTargetQuery : IGremlinQueryBase
@@ -889,15 +919,31 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> MeanGlobal() => AddStep(MeanStep.Global, QuerySemantics.None);
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Tail(long count) => AddStep(new TailStep(count, Scope.Global));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailGlobal(long count) => AddStep(new TailStep(count, Scope.Global));
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailLocal(long count) => AddStep(new TailStep(count, Scope.Local));
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailLocal(long count)
+        {
+            return count == 1
+                ? Choose(
+                    __ => __
+                        .As((__, a) => __
+                            .Unfold()
+                            .Where(x => (object)x! == (object)a.Value!)),
+                    __ => __
+                        .AddStep(TailStep.TailLocal1),
+                    __ => __
+                        .AddStep(TailStep.TailLocal1)
+                        .AddStep(FoldStep.Instance, QuerySemantics.None))
+                : AddStep(new TailStep(count, Scope.Local));
+        }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Times(int count) => AddStep(new TimesStep(count));
 
         private GremlinQuery<TNewElement, TNewOutVertex, TNewInVertex, object, object, object> To<TNewElement, TNewOutVertex, TNewInVertex>(StepLabel stepLabel) => AddStep<TNewElement, TNewOutVertex, TNewInVertex, object, object, object>(new AddEStep.ToLabelStep(stepLabel));
 
-        private TTargetQuery Unfold<TTargetQuery>() => AddStep(UnfoldStep.Instance).ChangeQueryType<TTargetQuery>();
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Unfold() => AddStep(UnfoldStep.Instance);
+
+        private TTargetQuery Unfold<TTargetQuery>() => Unfold().ChangeQueryType<TTargetQuery>();
 
         private TTargetQuery Union<TTargetQuery>(params Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery>[] unionTraversals) where TTargetQuery : IGremlinQueryBase
         {
@@ -993,6 +1039,12 @@ namespace ExRam.Gremlinq.Core
                     WhereTraversalStep whereTraversalStep => new WhereTraversalStep(whereTraversalStep.Traversal),
                     _ => new WhereTraversalStep(query.ToTraversal())
                 });
+        }
+
+        
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression)
+        {
+            return Where((Expression)expression);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression expression)

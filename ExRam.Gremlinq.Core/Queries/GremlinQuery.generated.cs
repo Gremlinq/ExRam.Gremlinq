@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -121,9 +121,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Repeat(Func<IGremlinQuery<TElement>, IGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -208,9 +208,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IValueGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IValueGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Repeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -224,7 +224,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -276,7 +276,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -295,9 +295,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IValueTupleGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IValueTupleGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IValueTupleGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Repeat(Func<IValueTupleGremlinQuery<TElement>, IValueTupleGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -363,7 +363,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Limit(long count) => Limit(count);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Limit(long count) => LimitGlobal(count);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -382,9 +382,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Project(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Project<TResult>(Func<IProjectBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Repeat(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -398,7 +398,7 @@ namespace ExRam.Gremlinq.Core
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Tail(long count) => Tail(count);
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Tail(long count) => TailGlobal(count);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.TailLocal(long count) => TailLocal(count);
 
@@ -450,7 +450,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -469,9 +469,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IElementGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IElementGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Repeat(Func<IElementGremlinQuery<TElement>, IElementGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -485,7 +485,7 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -537,7 +537,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -556,9 +556,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeOrVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IEdgeOrVertexGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IEdgeOrVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Repeat(Func<IEdgeOrVertexGremlinQuery<TElement>, IEdgeOrVertexGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -572,7 +572,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -624,7 +624,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -643,9 +643,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IVertexGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Repeat(Func<IVertexGremlinQuery<TElement>, IVertexGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -659,7 +659,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -711,7 +711,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -730,9 +730,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IEdgeGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IEdgeGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Repeat(Func<IEdgeGremlinQuery<TElement>, IEdgeGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -746,7 +746,7 @@ namespace ExRam.Gremlinq.Core
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 
@@ -798,7 +798,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Limit(long count) => Limit(count);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Limit(long count) => LimitGlobal(count);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -817,9 +817,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Project<TResult>(Func<IProjectBuilder<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IInOrOutEdgeGremlinQuery<TElement, TOutVertex>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -833,7 +833,7 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Tail(long count) => Tail(count);
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Tail(long count) => TailGlobal(count);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.TailLocal(long count) => TailLocal(count);
 
@@ -885,7 +885,7 @@ namespace ExRam.Gremlinq.Core
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Limit(long count) => Limit(count);
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Limit(long count) => LimitGlobal(count);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -904,9 +904,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Project(Func<IProjectBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Project<TResult>(Func<IProjectBuilder<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Repeat(Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -920,7 +920,7 @@ namespace ExRam.Gremlinq.Core
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Tail(long count) => Tail(count);
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Tail(long count) => TailGlobal(count);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.TailLocal(long count) => TailLocal(count);
 
@@ -972,7 +972,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Limit(long count) => Limit(count);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Limit(long count) => LimitGlobal(count);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -991,9 +991,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Project(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IInEdgeGremlinQuery<TElement, TInVertex>>.Project<TResult>(Func<IProjectBuilder<IInEdgeGremlinQuery<TElement, TInVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Repeat(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IInEdgeGremlinQuery<TElement, TInVertex>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Tail(long count) => Tail(count);
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Tail(long count) => TailGlobal(count);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.TailLocal(long count) => TailLocal(count);
 
@@ -1059,7 +1059,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Limit(long count) => Limit(count);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Limit(long count) => LimitGlobal(count);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -1078,9 +1078,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Project(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IOutEdgeGremlinQuery<TElement, TOutVertex>>.Project<TResult>(Func<IProjectBuilder<IOutEdgeGremlinQuery<TElement, TOutVertex>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Repeat(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IOutEdgeGremlinQuery<TElement, TOutVertex>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -1094,7 +1094,7 @@ namespace ExRam.Gremlinq.Core
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Tail(long count) => Tail(count);
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Tail(long count) => TailGlobal(count);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.TailLocal(long count) => TailLocal(count);
 
@@ -1146,7 +1146,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Limit(long count) => Limit(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Limit(long count) => LimitGlobal(count);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -1165,9 +1165,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IVertexPropertyGremlinQuery<TElement, TScalar>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -1181,7 +1181,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Tail(long count) => Tail(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Tail(long count) => TailGlobal(count);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.TailLocal(long count) => TailLocal(count);
 
@@ -1233,7 +1233,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Limit(long count) => Limit(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Limit(long count) => LimitGlobal(count);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -1252,9 +1252,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Project<TResult>(Func<IProjectBuilder<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Repeat(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -1268,7 +1268,7 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Tail(long count) => Tail(count);
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Tail(long count) => TailGlobal(count);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.TailLocal(long count) => TailLocal(count);
 
@@ -1320,7 +1320,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Inject(params TElement[] elements) => Inject(elements);
         
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Limit(long count) => Limit(count);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Limit(long count) => LimitGlobal(count);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -1339,9 +1339,9 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Project(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
         IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>.Project<TResult>(Func<IProjectBuilder<IPropertyGremlinQuery<TElement>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Range(long low, long high) => Range(low, high, Scope.Global);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Range(long low, long high) => RangeGlobal(low, high);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.RangeLocal(long low, long high) => Range(low, high, Scope.Local);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.RangeLocal(long low, long high) => RangeLocal(low, high);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Repeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> repeatTraversal) => Repeat(repeatTraversal);
 
@@ -1355,7 +1355,7 @@ namespace ExRam.Gremlinq.Core
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Tail(long count) => Tail(count);
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Tail(long count) => TailGlobal(count);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.TailLocal(long count) => TailLocal(count);
 

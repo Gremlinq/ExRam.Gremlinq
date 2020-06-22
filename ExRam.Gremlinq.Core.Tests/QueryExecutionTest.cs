@@ -923,6 +923,573 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task V_Limit0_Fold_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_Fold_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .Fold()
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit0_V_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(0)
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_Fold_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .Fold()
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit1_V_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(1)
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_Fold_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .Fold()
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_LimitLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .LimitLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_LimitLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .LimitLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_LimitLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .LimitLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_TailLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .TailLocal(0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_TailLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .TailLocal(1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_TailLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .TailLocal(2)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_RangeLocal_0()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .RangeLocal(0, 0)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_RangeLocal_1()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .RangeLocal(0, 1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task V_Limit2_V_RangeLocal_2()
+        {
+            await _g
+                .V()
+				.Limit(2)
+                .RangeLocal(0, 2)
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Fold_Fold_Unfold_Unfold()
         {
             await _g

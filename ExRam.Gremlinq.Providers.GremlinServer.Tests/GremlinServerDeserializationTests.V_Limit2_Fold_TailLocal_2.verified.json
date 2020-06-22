@@ -1,0 +1,24 @@
+[
+  [
+    {
+      "@type": "g:Vertex",
+      "@value": {
+        "id": {
+          "@type": "g:Int64",
+          "@value": 0
+        },
+        "label": "Country"
+      }
+    },
+    {
+      "@type": "g:Vertex",
+      "@value": {
+        "id": {
+          "@type": "g:Int64",
+          "@value": 2
+        },
+        "label": "Language"
+      }
+    }
+  ]
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Script": "V().limit(_a).choose(__.as(_b).unfold().where(eq(_b)), __.range(local, _c, _a), __.range(local, _c, _a).fold()).project(_d, _e, _f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d, _e, _g, _f).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": 1,
+      "_b": "l1",
+      "_c": 0,
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties",
+      "_g": "value"
+    }
+  }
+]

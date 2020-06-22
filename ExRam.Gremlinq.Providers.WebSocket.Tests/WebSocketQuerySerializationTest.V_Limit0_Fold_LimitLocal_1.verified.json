@@ -1,0 +1,85 @@
+[
+  {
+    "SourceInstructions": [],
+    "StepInstructions": [
+      {
+        "OperatorName": "V",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "limit",
+        "Arguments": [
+          0
+        ]
+      },
+      {
+        "OperatorName": "fold",
+        "Arguments": []
+      },
+      {
+        "OperatorName": "choose",
+        "Arguments": [
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "as",
+                "Arguments": [
+                  "l1"
+                ]
+              },
+              {
+                "OperatorName": "unfold",
+                "Arguments": []
+              },
+              {
+                "OperatorName": "where",
+                "Arguments": [
+                  {
+                    "OperatorName": "eq",
+                    "Value": "l1",
+                    "Other": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "limit",
+                "Arguments": [
+                  {
+                    "EnumName": "Scope",
+                    "EnumValue": "local"
+                  },
+                  1
+                ]
+              }
+            ]
+          },
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "limit",
+                "Arguments": [
+                  {
+                    "EnumName": "Scope",
+                    "EnumValue": "local"
+                  },
+                  1
+                ]
+              },
+              {
+                "OperatorName": "fold",
+                "Arguments": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

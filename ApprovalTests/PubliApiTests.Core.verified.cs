@@ -1551,6 +1551,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class TailStep : ExRam.Gremlinq.Core.Step
     {
+        public static readonly ExRam.Gremlinq.Core.TailStep TailGlobal1;
+        public static readonly ExRam.Gremlinq.Core.TailStep TailLocal1;
         public TailStep(long count, Gremlin.Net.Process.Traversal.Scope scope) { }
         public long Count { get; }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
