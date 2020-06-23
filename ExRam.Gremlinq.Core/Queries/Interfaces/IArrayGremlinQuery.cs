@@ -20,9 +20,15 @@
 
     }
 
-    public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TQuery> :
+    public interface IArrayGremlinQueryBase<TArray, TArrayItem> :
         IArrayGremlinQueryBase<TArrayItem>,
         IValueGremlinQueryBase<TArray>
+    {
+        new IValueGremlinQuery<TArray> Lower();
+    }
+
+    public interface IArrayGremlinQueryBase<TArray, TArrayItem, out TQuery> :
+        IArrayGremlinQueryBase<TArray, TArrayItem>
     {
         new TQuery SumLocal();
 

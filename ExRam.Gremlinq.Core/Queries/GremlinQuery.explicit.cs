@@ -40,6 +40,8 @@ namespace ExRam.Gremlinq.Core
 
         TFoldedQuery IArrayGremlinQueryBase<TElement, TScalar, TFoldedQuery>.Unfold() => Unfold<TFoldedQuery>();
 
+        IValueGremlinQuery<TElement> IArrayGremlinQueryBase<TElement, TScalar>.Lower() => this;
+
         IValueGremlinQuery<object> IArrayGremlinQueryBase.Unfold() => Unfold<IValueGremlinQuery<object>>();
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> IGremlinQueryBase<TElement>.ForceArray() => ChangeQueryType<IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>>>();
