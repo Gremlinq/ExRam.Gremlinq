@@ -785,6 +785,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>> ForceArray();
         ExRam.Gremlinq.Core.IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
         ExRam.Gremlinq.Core.IEdgeGremlinQuery<TElement> ForceEdge();
+        ExRam.Gremlinq.Core.IElementGremlinQuery<TElement> ForceElement();
         ExRam.Gremlinq.Core.IInEdgeGremlinQuery<TElement, TInVertex> ForceInEdge<TInVertex>();
         ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
         ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement> ForceProperty();

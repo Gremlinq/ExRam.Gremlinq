@@ -49,6 +49,8 @@ namespace ExRam.Gremlinq.Core
     {
         new GremlinQueryAwaiter<TElement> GetAwaiter();
 
+        IElementGremlinQuery<TElement> ForceElement();
+
         IVertexGremlinQuery<TElement> ForceVertex();
         IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>() where TMeta : class;
