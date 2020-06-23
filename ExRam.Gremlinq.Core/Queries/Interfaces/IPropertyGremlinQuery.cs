@@ -20,25 +20,9 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 
-    public interface IPropertyGremlinQueryBaseRec<TSelf> :
-        IPropertyGremlinQueryBase,
-        IGremlinQueryBaseRec<TSelf>
-        where TSelf : IPropertyGremlinQueryBaseRec<TSelf>
-    {
-
-    }
-
-    public interface IPropertyGremlinQueryBaseRec<TElement, TSelf> :
-        IPropertyGremlinQueryBaseRec<TSelf>,
-        IPropertyGremlinQueryBase<TElement>,
-        IGremlinQueryBaseRec<TElement, TSelf>
-        where TSelf : IPropertyGremlinQueryBaseRec<TElement, TSelf>
-    {
-
-    }
-
     public interface IPropertyGremlinQuery<TElement> :
-        IPropertyGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>
+        IPropertyGremlinQueryBase<TElement>,
+        IGremlinQueryBaseRec<TElement, IPropertyGremlinQuery<TElement>>
     {
 
     }

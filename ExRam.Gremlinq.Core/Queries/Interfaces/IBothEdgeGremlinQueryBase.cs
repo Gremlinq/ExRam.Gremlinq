@@ -15,28 +15,13 @@
     {
         new IEdgeOrVertexGremlinQuery<TEdge> Lower();
     }
-
-    public interface IBothEdgeGremlinQueryRec<TSelf> :
-        IBothEdgeGremlinQueryBase,
-        IInOrOutEdgeGremlinQueryBaseRec<TSelf>,
-        IOutEdgeGremlinQueryBaseRec<TSelf>,
-        IInEdgeGremlinQueryBaseRec<TSelf>
-        where TSelf : IBothEdgeGremlinQueryRec<TSelf>
-    {
-
-    }
-
-    public interface IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, TSelf> :
-        IBothEdgeGremlinQueryRec<TSelf>,
-        IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,
-        IEdgeGremlinQueryBaseRec<TEdge, TSelf>
-        where TSelf : IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, TSelf>
-    {
-
-    }
-
+    
     public interface IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex> :
-        IBothEdgeGremlinQueryRec<TEdge, TOutVertex, TInVertex, IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
+        IInOrOutEdgeGremlinQueryBaseRec<IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IOutEdgeGremlinQueryBaseRec<IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IInEdgeGremlinQueryBaseRec<IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>,
+        IBothEdgeGremlinQueryBase<TEdge, TOutVertex, TInVertex>,
+        IEdgeGremlinQueryBaseRec<TEdge, IBothEdgeGremlinQuery<TEdge, TOutVertex, TInVertex>>
     {
 
     }

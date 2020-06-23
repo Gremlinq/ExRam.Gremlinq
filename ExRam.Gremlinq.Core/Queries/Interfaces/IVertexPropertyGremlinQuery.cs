@@ -20,17 +20,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<IDictionary<string, object>> ValueMap(params string[] keys);
     }
 
-    public interface IVertexPropertyGremlinQueryBaseRec<TSelf> :
-        IVertexPropertyGremlinQueryBase,
-        IElementGremlinQueryBaseRec<TSelf>
-        where TSelf : IVertexPropertyGremlinQueryBaseRec<TSelf>
-    {
-
-    }
-
-
-
-
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue> :
         IVertexPropertyGremlinQueryBase,
         IElementGremlinQueryBase<TProperty>
@@ -44,22 +33,12 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TValue> Value();
     }
 
-    public interface IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, TSelf> :
-        IVertexPropertyGremlinQueryBaseRec<TSelf>,
-        IVertexPropertyGremlinQueryBase<TProperty, TValue>,
-        IElementGremlinQueryBaseRec<TProperty, TSelf>
-        where TSelf : IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, TSelf>
-    {
-
-    }
-
     public interface IVertexPropertyGremlinQuery<TProperty, TValue> :
-        IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, IVertexPropertyGremlinQuery<TProperty, TValue>>
+        IVertexPropertyGremlinQueryBase<TProperty, TValue>,
+        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue>>
     {
         
     }
-
-
 
     public interface IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta> :
         IVertexPropertyGremlinQueryBase,
@@ -78,18 +57,9 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> Where(Expression<Func<VertexProperty<TValue, TMeta>, bool>> predicate);
     }
 
-    public interface IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, TMeta, TSelf> :
-        IVertexPropertyGremlinQueryBaseRec<TSelf>,
-        IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta>,
-        IElementGremlinQueryBaseRec<TProperty, TSelf>
-        where TSelf : IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, TMeta, TSelf>
-        where TMeta : class
-    {
-
-    }
-
     public interface IVertexPropertyGremlinQuery<TProperty, TValue, TMeta> :
-        IVertexPropertyGremlinQueryBaseRec<TProperty, TValue, TMeta, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>
+        IVertexPropertyGremlinQueryBase<TProperty, TValue, TMeta>,
+        IElementGremlinQueryBaseRec<TProperty, IVertexPropertyGremlinQuery<TProperty, TValue, TMeta>>
         where TMeta : class
     {
 
