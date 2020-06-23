@@ -16,8 +16,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> Value();
         IValueGremlinQuery<TValue> Value<TValue>();
-
-        IPropertyGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 
     public interface IPropertyGremlinQuery<TElement> :

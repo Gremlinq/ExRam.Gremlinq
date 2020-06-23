@@ -27,8 +27,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<object> MeanLocal();
         IValueGremlinQuery<TElement> Mean();
-
-        IValueGremlinQuery<TElement> Where(Expression<Func<TElement, bool>> predicate);
     }
 
     public interface IValueGremlinQueryBaseRec<TSelf> :
