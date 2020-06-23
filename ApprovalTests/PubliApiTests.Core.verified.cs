@@ -451,12 +451,12 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IAddStepHandler Override<TStep>(System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, System.Func<System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>, TStep, ExRam.Gremlinq.Core.IGremlinQueryEnvironment, ExRam.Gremlinq.Core.IAddStepHandler, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>>, ExRam.Gremlinq.Core.IAddStepHandler, System.Collections.Immutable.IImmutableStack<ExRam.Gremlinq.Core.Step>> addStepHandler)
             where TStep : ExRam.Gremlinq.Core.Step;
     }
-    public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
+    public interface IArrayGremlinQueryBase : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IValueGremlinQuery<object[]> Lower();
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Unfold();
     }
-    public interface IArrayGremlinQueryBase<TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
+    public interface IArrayGremlinQueryBase<TArrayItem> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IStartGremlinQuery
     {
         ExRam.Gremlinq.Core.IValueGremlinQuery<TArrayItem[]> Lower();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TArrayItem> Unfold();
@@ -474,7 +474,7 @@ namespace ExRam.Gremlinq.Core
         TOriginalQuery SumLocal();
         TOriginalQuery Unfold();
     }
-    public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArrayItem>, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArray, TArrayItem>, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TArray, ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TArray>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TArray, ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TArray> { }
+    public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> : ExRam.Gremlinq.Core.IArrayGremlinQueryBase, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArrayItem>, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArray, TArrayItem>, ExRam.Gremlinq.Core.IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TArray, ExRam.Gremlinq.Core.IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>, ExRam.Gremlinq.Core.IGremlinQueryBase<TArray>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TArray> { }
     public interface IAssemblyLookupBuilder
     {
         ExRam.Gremlinq.Core.IAssemblyLookupSet IncludeAssemblies(System.Collections.Generic.IEnumerable<System.Reflection.Assembly> assemblies);

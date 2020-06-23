@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public interface IArrayGremlinQueryBase : IValueGremlinQueryBase
+    public interface IArrayGremlinQueryBase : IGremlinQueryBase
     {
         IValueGremlinQuery<object> Unfold();
 
@@ -39,7 +39,7 @@
 
     public interface IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery> :
         IArrayGremlinQueryBase<TArray, TArrayItem, TOriginalQuery>,
-        IValueGremlinQueryBaseRec<TArray, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
+        IGremlinQueryBaseRec<TArray, IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>>
     {
 
     }

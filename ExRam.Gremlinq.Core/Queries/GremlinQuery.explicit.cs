@@ -80,10 +80,6 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IValueGremlinQueryBase<TElement>.Where(Expression<Func<TElement, bool>> predicate) => Where(predicate);
 
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Order(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderGlobal(projection);
-
-        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IValueGremlinQueryBaseRec<TElement, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.OrderLocal(Func<IOrderBuilder<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>, IOrderBuilderWithBy<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>> projection) => OrderLocal(projection);
-
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Mute() => Mute();
 
         IBothEdgeGremlinQuery<TElement, TNewOutVertex, TInVertex> IInEdgeGremlinQueryBase<TElement, TInVertex>.From<TNewOutVertex>(Func<IVertexGremlinQuery<TInVertex>, IVertexGremlinQueryBase<TNewOutVertex>> fromVertexTraversal) => AddStep<TElement, TNewOutVertex, TInVertex, object, object, object>(new AddEStep.FromTraversalStep(Cast<TInVertex>().Continue(fromVertexTraversal).ToTraversal()), QuerySemantics.Edge);
