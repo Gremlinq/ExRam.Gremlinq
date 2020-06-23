@@ -54,7 +54,7 @@ namespace ExRam.Gremlinq.Core
                     var inVertexType = GetMatchingType(closureType, "TInVertex");
                     var sclarType = GetMatchingType(closureType, "TValue", "TArrayItem");
                     var metaType = GetMatchingType(closureType, "TMeta");
-                    var queryType = GetMatchingType(closureType, "TQuery");
+                    var queryType = GetMatchingType(closureType, "TOriginalQuery");
 
                     var genericType = typeof(GremlinQuery<,,,,,>).MakeGenericType(
                         elementType,

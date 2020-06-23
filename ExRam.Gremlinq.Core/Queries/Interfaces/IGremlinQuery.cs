@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
 
         TQuery Select<TQuery, TElement>(StepLabel<TQuery, TElement> label) where TQuery : IGremlinQueryBase;
 
-        IArrayGremlinQuery<TElement, TArrayItem, TQuery> Cap<TElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TQuery>, TElement> label) where TQuery : IGremlinQueryBase;
+        IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery> Cap<TElement, TArrayItem, TOriginalQuery>(StepLabel<IArrayGremlinQuery<TElement, TArrayItem, TOriginalQuery>, TElement> label) where TOriginalQuery : IGremlinQueryBase;
     }
 
     public interface IGremlinQueryBase<TElement> : IGremlinQueryBase

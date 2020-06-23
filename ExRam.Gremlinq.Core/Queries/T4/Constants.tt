@@ -12,7 +12,7 @@
 
         "IGremlinQuery<TElement>",
         "IValueGremlinQuery<TElement>",
-        "IArrayGremlinQuery<TArray, TArrayItem, TQuery>",
+        "IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>",
         "IElementGremlinQuery<TElement>",
         "IEdgeOrVertexGremlinQuery<TElement>",
         "IVertexGremlinQuery<TVertex>",
@@ -35,5 +35,5 @@
             .Replace("TValue", "TScalar")
             .Replace("TArrayItem", "TScalar")
             .Replace("TArray", "TElement")
-            .Replace("TQuery", "TFoldedQuery"));
+            .Replace("TOriginalQuery", "TFoldedQuery"));
 #>
