@@ -12,6 +12,7 @@
 
         "IGremlinQuery<TElement>",
         "IValueGremlinQuery<TElement>",
+        "IValueTupleGremlinQuery<TElement>",
         "IArrayGremlinQuery<TArray, TArrayItem, TOriginalQuery>",
         "IElementGremlinQuery<TElement>",
         "IEdgeOrVertexGremlinQuery<TElement>",

@@ -158,7 +158,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Inject(params TElement[] elements);
 
         IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectResult> continuation);
-        IValueGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
+        IValueTupleGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
 
         TSelf Where(Expression<Func<TElement, bool>> predicate);
     }

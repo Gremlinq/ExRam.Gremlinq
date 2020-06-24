@@ -23,6 +23,8 @@ namespace ExRam.Gremlinq.Core
         IElementGremlinQuery<TElement>,
 
         IValueGremlinQuery<TElement>,
+        IValueTupleGremlinQuery<TElement>,
+
         IEdgeOrVertexGremlinQuery<TElement>,
         IVertexGremlinQuery<TElement>,
         IEdgeGremlinQuery<TElement>,
@@ -470,5 +472,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
         }
+
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Mute() => Mute();
     }
 }

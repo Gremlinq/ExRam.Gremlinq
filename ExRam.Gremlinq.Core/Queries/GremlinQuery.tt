@@ -82,7 +82,7 @@ namespace ExRam.Gremlinq.Core
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Or(params Func<<#= iface #>, IGremlinQueryBase>[] orTraversals) => Or(orTraversals);
 
         IValueGremlinQuery<dynamic> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult> continuation) => Project<dynamic>(continuation);
-        IValueGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
+        IValueTupleGremlinQuery<TResult> IGremlinQueryBaseRec<TElement, <#= iface #>>.Project<TResult>(Func<IProjectBuilder<<#= iface #>, TElement>, IProjectResult<TResult>> continuation) => Project<TResult>(continuation);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Range(long low, long high) => Range(low, high, Scope.Global);
 
