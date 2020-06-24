@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -13,9 +12,6 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQueryBase,
         IGremlinQueryBase<TElement>
     {
-        TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice, Func<IValueGremlinQuery<TElement>, TTargetQuery> falseChoice) where TTargetQuery : IGremlinQueryBase;
-        TTargetQuery Choose<TTargetQuery>(Expression<Func<TElement, bool>> predicate, Func<IValueGremlinQuery<TElement>, TTargetQuery> trueChoice) where TTargetQuery : IGremlinQueryBase;
-
         IValueGremlinQuery<object> SumLocal();
         IValueGremlinQuery<TElement> Sum();
 
