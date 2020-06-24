@@ -849,6 +849,22 @@ namespace ExRam.Gremlinq.Core
             throw new InvalidOperationException($"Invalid use of unknown {nameof(StepLabel)} in {nameof(Select)}. Make sure you only pass in a {nameof(StepLabel)} that comes from a previous {nameof(As)}-continuation or has previously been passed to an appropriate overload of {nameof(As)}.");
         }
 
+        private TTargetQuery Select<TTargetQuery>(params Expression[] projections)
+        {
+            var keys = projections
+                .Select(projection =>
+                {
+                    if (projection is LambdaExpression lambdaExpression && lambdaExpression.Body is MemberExpression memberExpression && memberExpression.Expression == lambdaExpression.Parameters[0])
+                        return (Key)memberExpression.Member.Name;
+
+                    throw new ExpressionNotSupportedException(projection);
+                })
+                .ToImmutableArray();
+
+            return AddStep(new SelectKeysStep(keys))
+                .ChangeQueryType<TTargetQuery>();
+        }
+
         private GremlinQuery<TSelectedElement, object, object, TArrayItem, object, TQuery> Cap<TSelectedElement, TArrayItem, TQuery>(StepLabel<IArrayGremlinQuery<TSelectedElement, TArrayItem, TQuery>, TSelectedElement> stepLabel) where TQuery : IGremlinQueryBase => AddStep<TSelectedElement, object, object, TArrayItem, object, TQuery>(new CapStep(stepLabel), QuerySemantics.None);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> SideEffect(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => AddStep(new SideEffectStep(Continue(sideEffectTraversal).ToTraversal()));

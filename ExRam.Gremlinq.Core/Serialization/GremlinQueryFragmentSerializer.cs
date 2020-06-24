@@ -337,6 +337,7 @@ namespace ExRam.Gremlinq.Core
                     : CreateInstruction("range", recurse, env, step.Lower, step.Upper))
                 .Override<RepeatStep>((step, env, overridden, recurse) => CreateInstruction("repeat", recurse, env, step.Traversal))
                 .Override<SelectStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.StepLabels))
+                .Override<SelectKeysStep>((step, env, overridden, recurse) => CreateInstruction("select", recurse, env, step.Keys))
                 .Override<SideEffectStep>((step, env, overridden, recurse) => CreateInstruction("sideEffect", recurse, env, step.Traversal))
                 .Override<SkipStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("skip", recurse, env, step.Scope, step.Count)

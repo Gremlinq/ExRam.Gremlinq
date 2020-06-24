@@ -905,6 +905,26 @@
     }
   },
   {
+    Item1: 'SelectKeysStep',
+    Item2: {
+      OperatorName: 'select',
+      Arguments: [
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        },
+        {
+          EnumName: 'T',
+          EnumValue: 'id'
+        }
+      ]
+    }
+  },
+  {
     Item1: 'SelectStep',
     Item2: {
       OperatorName: 'select',

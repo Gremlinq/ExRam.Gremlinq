@@ -1819,6 +1819,40 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Project3_Select1()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Select(x => x.Item1)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project3_Select2()
+        {
+            await _g
+                .V()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Count()))
+                .Select(
+                    x => x.Item1,
+                    x => x.Item2)
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Project3_with_Property()
         {
             await _g
@@ -1830,6 +1864,24 @@ namespace ExRam.Gremlinq.Core.Tests
                     .By(__ => __.In())
                     .By(__ => __.Out())
                     .By(__ => __.Age))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Project3_with_Property_Select2()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __.In())
+                .Where(__ => __.Out())
+                .Project(__ => __
+                    .ToTuple()
+                    .By(__ => __.In())
+                    .By(__ => __.Out())
+                    .By(__ => __.Age))
+                .Select(
+                    x => x.Item1,
+                    x => x.Item3)
                 .Verify(this);
         }
 
