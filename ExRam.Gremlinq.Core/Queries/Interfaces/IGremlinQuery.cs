@@ -64,6 +64,7 @@ namespace ExRam.Gremlinq.Core
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> ForceBothEdge<TOutVertex, TInVertex>();
 
         IValueGremlinQuery<TElement> ForceValue();
+        IValueTupleGremlinQuery<TElement> ForceValueTuple();
 
         IArrayGremlinQuery<TElement[], TElement, IGremlinQueryBase<TElement>> ForceArray();
 

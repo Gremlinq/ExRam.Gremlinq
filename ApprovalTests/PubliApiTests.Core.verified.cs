@@ -786,6 +786,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IOutEdgeGremlinQuery<TElement, TOutVertex> ForceOutEdge<TOutVertex>();
         ExRam.Gremlinq.Core.IPropertyGremlinQuery<TElement> ForceProperty();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> ForceValue();
+        ExRam.Gremlinq.Core.IValueTupleGremlinQuery<TElement> ForceValueTuple();
         ExRam.Gremlinq.Core.IVertexGremlinQuery<TElement> ForceVertex();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue> ForceVertexProperty<TValue>();
         ExRam.Gremlinq.Core.IVertexPropertyGremlinQuery<TElement, TValue, TMeta> ForceVertexProperty<TValue, TMeta>()
