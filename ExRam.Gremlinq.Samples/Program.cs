@@ -18,6 +18,9 @@ namespace ExRam.Gremlinq.Samples
     public class Program
     {
         private Person _marko;
+        private Person _josh;
+        private Person _peter;
+        private Person _daniel; 
         private readonly IGremlinQuerySource _g;
 
         public Program()
@@ -81,6 +84,7 @@ namespace ExRam.Gremlinq.Samples
             await Create_vertices_and_a_relation_in_one_query();
 
             await Who_does_Marko_know();
+            await Who_Is_Known_By_Both_Marko_And_Peter(); //(Mutual friends between Marko and Peter)
             await Who_is_older_than_30();
             await Whose_name_starts_with_B();
             await Who_knows_who();
@@ -105,7 +109,7 @@ namespace ExRam.Gremlinq.Samples
             // found at http://tinkerpop.apache.org/docs/current/reference/#graph-computing.
 
             // Uncomment to delete the whole graph on every run.
-            ///await _g.V().Drop();
+            //await _g.V().Drop();
 
             _marko = await _g
                 .AddV(new Person { Name = "Marko", Age = 29 })
@@ -115,15 +119,15 @@ namespace ExRam.Gremlinq.Samples
                 .AddV(new Person { Name = "Vadas", Age = 27 })
                 .FirstAsync();
             
-            var josh = await _g
+             _josh = await _g
                 .AddV(new Person { Name = "Josh", Age = 32 })
                 .FirstAsync();
 
-            var peter = await _g
+             _peter = await _g
                 .AddV(new Person { Name = "Peter", Age = 35 })
                 .FirstAsync();
 
-            var daniel = await _g
+             _daniel = await _g
                 .AddV(new Person
                 {
                     Name = "Daniel",
@@ -167,7 +171,7 @@ namespace ExRam.Gremlinq.Samples
                 .V(_marko.Id)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(josh.Id))
+                    .V(_josh.Id))
                 .FirstAsync();
 
             await _g
@@ -178,42 +182,42 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             await _g
-                .V(josh.Id)
+                .V(_josh.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(ripple.Id))
                 .FirstAsync();
 
             await _g
-                .V(josh.Id)
+                .V(_josh.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
                 .FirstAsync();
 
             await _g
-                .V(peter.Id)
+                .V(_peter.Id)
                 .AddE<Created>()
                 .To(__ => __
                     .V(lop.Id))
                 .FirstAsync();
 
             await _g
-                .V(josh.Id)
+                .V(_josh.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(charlie.Id))
                 .FirstAsync();
 
             await _g
-                .V(josh.Id)
+                .V(_josh.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(luna.Id))
                 .FirstAsync();
 
             await _g
-                .V(daniel.Id)
+                .V(_daniel.Id)
                 .AddE<Owns>()
                 .To(__ => __
                     .V(catmanJohn.Id))
@@ -232,7 +236,7 @@ namespace ExRam.Gremlinq.Samples
                     .AddV(new Person { Name = "Jeff", Age = 27 }))
                 .FirstAsync();
         }
-
+        
         private async Task Who_does_Marko_know()
         {
             // From Marko, walk all the 'Knows' edge to all the persons
@@ -253,6 +257,37 @@ namespace ExRam.Gremlinq.Samples
                 Console.WriteLine($" Marko knows {person}.");
             }
 
+            Console.WriteLine();
+        }
+
+        private async Task Who_Is_Known_By_Both_Marko_And_Peter()
+        {
+            //Marko knows Vada (Added this on line number 163)
+            //Marko Knows Josh (Added this on line number 170)
+
+            await _g.V(_peter.Id).AddE<Knows>().To(__ => __
+                    .V(_josh.Id))
+                .FirstAsync();
+
+            await _g.V(_peter.Id).AddE<Knows>().To(__ => __
+                    .V(_daniel.Id))
+                .FirstAsync();
+
+            var whoIsKnownByBothMarkoAndPeter = await _g.V(_marko.Id)
+                .Both<Knows>()
+                .OfType<Person>()
+                .Fold()
+                .As((__, markosFriends) => __.V(_peter.Id)
+                    .Both<Knows>()
+                    .OfType<Person>()
+                    .Where(petersFriend => markosFriends.Value.Contains(petersFriend)).Dedup());
+
+            Console.WriteLine("Who is known by both Marko and Peter?");
+
+            foreach (var people in whoIsKnownByBothMarkoAndPeter)
+            {
+                Console.WriteLine($"{people.Name.Value} is known by both Marko and Peter");
+            }
             Console.WriteLine();
         }
 
