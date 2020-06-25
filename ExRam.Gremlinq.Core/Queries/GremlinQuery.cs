@@ -467,7 +467,7 @@ namespace ExRam.Gremlinq.Core
                 ? Continue(falseChoice)
                 : default;
 
-            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal()), QuerySemantics.None)
+            return AddStep(new ChooseTraversalStep(Continue(traversalPredicate).ToTraversal(), trueQuery.ToTraversal(), maybeFalseQuery?.ToTraversal()))
                 .ChangeQueryType<TTargetQuery>();
         }
 
