@@ -33,8 +33,11 @@ namespace ExRam.Gremlinq.Core
         {
             var targetQueryType = typeof(TTargetQuery);
 
-            if (targetQueryType.IsAssignableFrom(GetType()) && targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
-                return (TTargetQuery)(object)this;
+            if (targetQueryType.IsAssignableFrom(GetType()))
+            {
+                if (targetQueryType == GetType() || targetQueryType.IsGenericType && Semantics != QuerySemantics.None)
+                    return (TTargetQuery)(object)this;
+            }
 
             var genericTypeDef = targetQueryType.IsGenericType
                 ? targetQueryType.GetGenericTypeDefinition()
