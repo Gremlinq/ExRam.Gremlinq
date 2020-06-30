@@ -19,26 +19,16 @@
         ]
       },
       {
-        "OperatorName": "where",
+        "OperatorName": "has",
         "Arguments": [
           {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "label",
-                "Arguments": []
-              },
-              {
-                "OperatorName": "is",
-                "Arguments": [
-                  {
-                    "OperatorName": "neq",
-                    "Value": "label",
-                    "Other": null
-                  }
-                ]
-              }
-            ]
+            "EnumName": "T",
+            "EnumValue": "label"
+          },
+          {
+            "OperatorName": "neq",
+            "Value": "label",
+            "Other": null
           }
         ]
       }

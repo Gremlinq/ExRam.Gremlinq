@@ -406,8 +406,17 @@ namespace ExRam.Gremlinq.Core
                 {
                     var traversalSteps = step.Traversal.Steps;
 
-                    if (traversalSteps.Length == 2 && traversalSteps[1] is IsStep isStep && traversalSteps[0] is ValuesStep valuesStep && valuesStep.Keys.Length == 1)
-                        return new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate);
+                    if (traversalSteps.Length == 2 && traversalSteps[1] is IsStep isStep)
+                    {
+                        if (traversalSteps[0] is ValuesStep valuesStep && valuesStep.Keys.Length == 1)
+                            return new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate);
+
+                        if (traversalSteps[0] is IdStep)
+                            return new HasPredicateStep(T.Id, isStep.Predicate);
+
+                        if (traversalSteps[0] is LabelStep)
+                            return new HasPredicateStep(T.Label, isStep.Predicate);
+                    }
 
                     return CreateInstruction("where", recurse, env, step.Traversal);
                 })

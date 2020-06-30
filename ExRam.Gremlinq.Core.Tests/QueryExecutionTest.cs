@@ -4784,6 +4784,28 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Values_Id_Where()
+        {
+            await _g
+                .V<Person>()
+                .Where(x => x
+                    .Values(x => x.Id)
+                    .Where(id => (long)id == 1L))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_Values_Label_Where()
+        {
+            await _g
+                .V<Vertex>()
+                .Where(x => x
+                    .Values(x => x.Label)
+                    .Where(label => label == "Person"))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_VertexProperty_Value1()
         {
             await _g

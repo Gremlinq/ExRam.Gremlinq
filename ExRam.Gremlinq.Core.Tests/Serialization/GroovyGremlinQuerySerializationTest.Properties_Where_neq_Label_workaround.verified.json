@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).properties(_b).where(__.label().is(neq(_c)))",
+    "Script": "V().hasLabel(_a).properties(_b).has(label, neq(_c))",
     "Bindings": {
       "_a": "Country",
       "_b": "Languages",
