@@ -402,7 +402,15 @@ namespace ExRam.Gremlinq.Core
                 .Override<ValueMapStep>((step, env, overridden, recurse) => CreateInstruction("valueMap", recurse, env, step.Keys))
                 .Override<ValuesStep>((step, env, overridden, recurse) => CreateInstruction("values", recurse, env, step.Keys))
                 .Override<VStep>((step, env, overridden, recurse) => CreateInstruction("V", recurse, env, step.Ids))
-                .Override<WhereTraversalStep>((step, env, overridden, recurse) => CreateInstruction("where", recurse, env, step.Traversal))
+                .Override<WhereTraversalStep>((step, env, overridden, recurse) =>
+                {
+                    var traversalSteps = step.Traversal.Steps;
+
+                    if (traversalSteps.Length == 2 && traversalSteps[1] is IsStep isStep && traversalSteps[0] is ValuesStep valuesStep && valuesStep.Keys.Length == 1)
+                        return new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate);
+
+                    return CreateInstruction("where", recurse, env, step.Traversal);
+                })
                 .Override<WithStrategiesStep>((step, env, overridden, recurse) => CreateInstruction("withStrategies", recurse, env, step.Traversal))
                 .Override<WithoutStrategiesStep>((step, env, overridden, recurse) => CreateInstruction("withoutStrategies", recurse, env, step.StrategyTypes))
                 .Override<WherePredicateStep>((step, env, overridden, recurse) => CreateInstruction("where", recurse, env, step.Predicate))

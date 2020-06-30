@@ -4773,6 +4773,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Values_Where()
+        {
+            await _g
+                .V<Person>()
+                .Where(x => x
+                    .Values(x => x.Age)
+                    .Where(age => age > 36))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_VertexProperty_Value1()
         {
             await _g
