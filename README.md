@@ -263,7 +263,7 @@ recognizes these expressions!
 \
 This showcases the power of the fluent interface of ExRam.Gremlinq.
 Once we go from a `Person` to the `Created` edge, the entity we
-ame from is actually encoded in the interface, so on calling `OutV`,
+came from is actually encoded in the interface, so on calling `OutV`,
 ExRam.Gremlinq remembers that we're now on a `Person` again.
 ``` csharp
     var creators = await _g
