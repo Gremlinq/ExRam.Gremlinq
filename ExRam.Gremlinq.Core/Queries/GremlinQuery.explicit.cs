@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -181,6 +182,15 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryAdmin IGremlinQueryBase.AsAdmin() => this;
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => AddStepWithObjectTypes<TValue>(new ConstantStep(constant!), QuerySemantics.None);
+
+        string IGremlinQueryBase.Debug()
+        {
+            return JsonConvert.SerializeObject(
+                Environment.Serializer
+                    .ToGroovy()
+                    .Serialize(this),
+                Formatting.Indented);
+        }
 
         IValueGremlinQuery<long> IGremlinQueryBase.Count() => AddStepWithObjectTypes<long>(CountStep.Global, QuerySemantics.None);
 

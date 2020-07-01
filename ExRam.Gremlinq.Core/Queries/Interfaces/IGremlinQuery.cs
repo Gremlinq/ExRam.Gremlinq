@@ -16,6 +16,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
+        string Debug();
+
         IValueGremlinQuery<object> Drop();
 
         IValueGremlinQuery<string> Explain();
