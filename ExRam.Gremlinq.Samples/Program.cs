@@ -20,7 +20,8 @@ namespace ExRam.Gremlinq.Samples
         private Person _marko;
         private Person _josh;
         private Person _peter;
-        private Person _daniel; 
+        private Person _daniel;
+        private Person _vadas;
         private readonly IGremlinQuerySource _g;
 
         public Program()
@@ -115,30 +116,30 @@ namespace ExRam.Gremlinq.Samples
                 .AddV(new Person { Name = "Marko", Age = 29 })
                 .FirstAsync();
 
-            var vadas = await _g
+            _vadas = await _g
                 .AddV(new Person { Name = "Vadas", Age = 27 })
                 .FirstAsync();
-            
-             _josh = await _g
-                .AddV(new Person { Name = "Josh", Age = 32 })
-                .FirstAsync();
 
-             _peter = await _g
-                .AddV(new Person { Name = "Peter", Age = 35 })
-                .FirstAsync();
+            _josh = await _g
+               .AddV(new Person { Name = "Josh", Age = 32 })
+               .FirstAsync();
 
-             _daniel = await _g
-                .AddV(new Person
-                {
-                    Name = "Daniel",
-                    Age = 37,
-                    PhoneNumbers = new []
-                    {
+            _peter = await _g
+               .AddV(new Person { Name = "Peter", Age = 35 })
+               .FirstAsync();
+
+            _daniel = await _g
+               .AddV(new Person
+               {
+                   Name = "Daniel",
+                   Age = 37,
+                   PhoneNumbers = new[]
+                   {
                         "+491234567",
                         "+492345678"
-                    }
-                })
-                .FirstAsync();
+                   }
+               })
+               .FirstAsync();
 
             var charlie = await _g
                 .AddV(new Dog { Name = "Charlie", Age = 2 })
@@ -164,7 +165,7 @@ namespace ExRam.Gremlinq.Samples
                 .V(_marko.Id)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(vadas.Id))
+                    .V(_vadas.Id))
                 .FirstAsync();
 
             await _g
