@@ -662,6 +662,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> Count();
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> CountLocal();
+        string Debug();
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Drop();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
         System.Runtime.CompilerServices.TaskAwaiter GetAwaiter();
