@@ -28,13 +28,13 @@ namespace ExRam.Gremlinq.Core
                     : fragment;
             }
 
-            public IGremlinQueryFragmentSerializer Override<TFragment>(Func<TFragment, IGremlinQueryEnvironment, Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object>, IGremlinQueryFragmentSerializer, object> serializer)
+            public IGremlinQueryFragmentSerializer Override<TFragment>(GremlinQueryFragmentSerializerDelegate<TFragment> serializer)
             {
                 return new GremlinQueryFragmentSerializerImpl(
                     _dict.SetItem(
                         typeof(TFragment),
                         TryGetSerializer(typeof(TFragment), typeof(TFragment)) is Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> existingFragmentSerializer
-                            ? (fragment, env, baseSerializer, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
+                            ? (fragment, env, overridden, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
                             : serializer));
             }
 
