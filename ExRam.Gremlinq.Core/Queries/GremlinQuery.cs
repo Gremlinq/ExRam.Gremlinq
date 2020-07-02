@@ -379,7 +379,7 @@ namespace ExRam.Gremlinq.Core
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? this
                 : (subQueries!.Count == 1)
-                    ? Where(subQueries[0])
+                    ? Where(subQueries[0].ToTraversal())
                     : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal())));
         }
 
@@ -765,7 +765,7 @@ namespace ExRam.Gremlinq.Core
             return (subQueries?.Count).GetValueOrDefault() == 0
                 ? None()
                 : subQueries!.Count == 1
-                    ? Where(subQueries[0])
+                    ? Where(subQueries[0].ToTraversal())
                     : AddStep(new OrStep(subQueries.Select(x => x.ToTraversal())));
         }
 
@@ -1027,25 +1027,40 @@ namespace ExRam.Gremlinq.Core
                 ? this
                 : filtered.IsNone()
                     ? None()
-                    : Where(filtered);
+                    : Where(filtered.ToTraversal());
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(IGremlinQueryBase query)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Traversal traversal)
         {
-            return AddStep(
-                query.AsAdmin().Steps.TryGetSingleStep() switch
+            var traversalSteps = traversal.Steps;
+
+            if (traversalSteps.Length == 2)
+            {
+                if (traversalSteps[1] is IsStep isStep)
                 {
-                    HasPredicateStep hasPredicateStep => hasPredicateStep,
-                    WhereTraversalStep whereTraversalStep => new WhereTraversalStep(whereTraversalStep.Traversal),
-                    _ => new WhereTraversalStep(query.ToTraversal())
-                });
+                    if (traversalSteps[0] is ValuesStep valuesStep && valuesStep.Keys.Length == 1)
+                        return AddStep(new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate));
+
+                    if (traversalSteps[0] is IdStep)
+                        return AddStep(new HasPredicateStep(T.Id, isStep.Predicate));
+
+                    if (traversalSteps[0] is LabelStep)
+                        return AddStep(new HasPredicateStep(T.Label, isStep.Predicate));
+                }
+            }
+            else if (traversalSteps.Length == 1)
+            {
+                if (traversalSteps[0] is HasPredicateStep hasPredicateStep)
+                    return AddStep(hasPredicateStep);
+
+                if (traversalSteps[0] is WhereTraversalStep whereTraversalStep)
+                    return AddStep(whereTraversalStep);
+            }
+
+            return AddStep(new WhereTraversalStep(traversal));
         }
 
-        
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression)
-        {
-            return Where((Expression)expression);
-        }
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression expression)
         {
