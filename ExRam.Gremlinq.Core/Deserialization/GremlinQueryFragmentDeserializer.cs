@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Core
                     : serializedData;
             }
 
-            public IGremlinQueryFragmentDeserializer Override<TSerialized>(Func<TSerialized, Type, IGremlinQueryEnvironment, Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?>, IGremlinQueryFragmentDeserializer, object?> deserializer)
+            public IGremlinQueryFragmentDeserializer Override<TSerialized>(GremlinQueryFragmentDeserializerDelegate<TSerialized> deserializer)
             {
                 return new GremlinQueryFragmentDeserializerImpl(
                     _dict.SetItem(
