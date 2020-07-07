@@ -67,7 +67,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<TElement, <#= iface #>>.Inject(params TElement[] elements) => Inject(elements);
         
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => Limit(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Limit(long count) => LimitGlobal(count);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.LimitLocal(long count) => LimitLocal(count);
 
@@ -102,7 +102,7 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SkipLocal(long count) => Skip(count, Scope.Local);
 
-        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => Tail(count);
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Tail(long count) => TailGlobal(count);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.TailLocal(long count) => TailLocal(count);
 
