@@ -801,6 +801,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task CyclicPath()
+        {
+            await _g
+                .V()
+                .Out()
+                .Out()
+                .CyclicPath()
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Dedup_Global()
         {
             await _g

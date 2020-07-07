@@ -188,6 +188,7 @@ namespace ExRam.Gremlinq.Core
                 .Override<CountStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("count", recurse, env, step.Scope)
                     : CreateInstruction("count"))
+                .Override<CyclicPathStep>((step, env, overridden, recurse) => CreateInstruction("cyclicPath"))
                 .Override<DateTime>((dateTime, env, overridden, recurse) => recurse.Serialize(new DateTimeOffset(dateTime.ToUniversalTime()), env))
                 .Override<DedupStep>((step, env, overridden, recurse) => step.Scope.Equals(Scope.Local)
                     ? CreateInstruction("dedup", recurse, env, step.Scope)

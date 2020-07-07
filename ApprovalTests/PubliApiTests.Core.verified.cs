@@ -124,6 +124,10 @@ namespace ExRam.Gremlinq.Core
         public CountStep(Gremlin.Net.Process.Traversal.Scope scope) { }
         public Gremlin.Net.Process.Traversal.Scope Scope { get; }
     }
+    public sealed class CyclicPathStep : ExRam.Gremlinq.Core.Step
+    {
+        public CyclicPathStep() { }
+    }
     public sealed class DedupStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.DedupStep Global;
@@ -720,6 +724,7 @@ namespace ExRam.Gremlinq.Core
         TTargetQuery Coalesce<TTargetQuery>(params System.Func<, >[] traversals)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         TSelf Coin(double probability);
+        TSelf CyclicPath();
         TSelf Dedup();
         TSelf DedupLocal();
         TSelf Emit();

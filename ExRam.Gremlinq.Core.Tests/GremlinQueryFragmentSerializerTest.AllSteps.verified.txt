@@ -287,6 +287,12 @@
     }
   },
   {
+    Item1: 'CyclicPathStep',
+    Item2: {
+      OperatorName: 'cyclicPath'
+    }
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       OperatorName: 'dedup'

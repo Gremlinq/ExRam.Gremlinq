@@ -213,6 +213,10 @@
     }
   },
   {
+    Item1: 'CyclicPathStep',
+    Item2: {}
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       Scope: {

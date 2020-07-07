@@ -91,6 +91,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery Coalesce<TTargetQuery>(params Func<TSelf, TTargetQuery>[] traversals) where TTargetQuery : IGremlinQueryBase;
 
+        TSelf CyclicPath();
+
         TSelf Dedup();
         TSelf DedupLocal();
 
