@@ -293,6 +293,12 @@
     }
   },
   {
+    Item1: 'SimplePathStep',
+    Item2: {
+      OperatorName: 'simplePath'
+    }
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       OperatorName: 'dedup'

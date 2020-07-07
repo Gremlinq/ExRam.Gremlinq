@@ -217,6 +217,10 @@
     Item2: {}
   },
   {
+    Item1: 'SimplePathStep',
+    Item2: {}
+  },
+  {
     Item1: 'DedupStep',
     Item2: {
       Scope: {

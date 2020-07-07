@@ -1,0 +1,25 @@
+[
+  {
+    "Age": 36,
+    "Gender": 0,
+    "RegistrationDate": "2020-04-07T14:43:36+00:00",
+    "PhoneNumbers": [],
+    "SomeObscureProperty": null,
+    "Name": {
+      "Id": 14,
+      "Label": "Name",
+      "Properties": {
+        "ValidFrom": "2020-04-07T14:43:36+00:00"
+      },
+      "Value": "Bob",
+      "Key": null
+    },
+    "Id": 11,
+    "Label": "Person"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": 2,
+    "Label": "Language"
+  }
+]

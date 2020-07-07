@@ -749,6 +749,7 @@ namespace ExRam.Gremlinq.Core
         TSelf Repeat(System.Func<TSelf, TSelf> repeatTraversal);
         TSelf RepeatUntil(System.Func<TSelf, TSelf> repeatTraversal, System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> untilTraversal);
         TSelf SideEffect(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> sideEffectTraversal);
+        TSelf SimplePath();
         TSelf Skip(long count);
         TSelf SkipLocal(long count);
         TSelf Tail(long count);
@@ -1520,6 +1521,10 @@ namespace ExRam.Gremlinq.Core
     {
         public SideEffectStep(ExRam.Gremlinq.Core.Traversal traversal) { }
         public ExRam.Gremlinq.Core.Traversal Traversal { get; }
+    }
+    public sealed class SimplePathStep : ExRam.Gremlinq.Core.Step
+    {
+        public SimplePathStep() { }
     }
     public sealed class SkipStep : ExRam.Gremlinq.Core.Step
     {

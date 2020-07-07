@@ -3083,6 +3083,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task SimplePath()
+        {
+            await _g
+                .V()
+                .Out()
+                .Out()
+                .SimplePath()
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Skip_underflow()
         {
             _g

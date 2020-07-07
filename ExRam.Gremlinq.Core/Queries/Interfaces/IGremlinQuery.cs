@@ -128,6 +128,8 @@ namespace ExRam.Gremlinq.Core
 
         TSelf SideEffect(Func<TSelf, IGremlinQueryBase> sideEffectTraversal);
 
+        TSelf SimplePath();
+
         TSelf Skip(long count);
         TSelf SkipLocal(long count);
 

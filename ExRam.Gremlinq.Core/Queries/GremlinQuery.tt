@@ -100,6 +100,8 @@ namespace ExRam.Gremlinq.Core
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SideEffect(Func<<#= iface #>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SimplePath() => SimplePath();
+
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.Skip(long count) => Skip(count, Scope.Global);
 
         <#= iface #> IGremlinQueryBaseRec<<#= iface #>>.SkipLocal(long count) => Skip(count, Scope.Local);

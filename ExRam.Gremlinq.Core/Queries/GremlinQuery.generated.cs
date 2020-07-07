@@ -135,6 +135,8 @@ namespace ExRam.Gremlinq.Core
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.SideEffect(Func<IGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.SimplePath() => SimplePath();
+
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
         IGremlinQuery<TElement> IGremlinQueryBaseRec<IGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -223,6 +225,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.UntilRepeat(Func<IValueGremlinQuery<TElement>, IValueGremlinQuery<TElement>> repeatTraversal, Func<IValueGremlinQuery<TElement>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.SideEffect(Func<IValueGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.SimplePath() => SimplePath();
 
         IValueGremlinQuery<TElement> IGremlinQueryBaseRec<IValueGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -313,6 +317,8 @@ namespace ExRam.Gremlinq.Core
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.SideEffect(Func<IValueTupleGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.SimplePath() => SimplePath();
+
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
         IValueTupleGremlinQuery<TElement> IGremlinQueryBaseRec<IValueTupleGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -401,6 +407,8 @@ namespace ExRam.Gremlinq.Core
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.UntilRepeat(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>> repeatTraversal, Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.SideEffect(Func<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.SimplePath() => SimplePath();
 
         IArrayGremlinQuery<TElement, TScalar, TFoldedQuery> IGremlinQueryBaseRec<IArrayGremlinQuery<TElement, TScalar, TFoldedQuery>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -491,6 +499,8 @@ namespace ExRam.Gremlinq.Core
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.SideEffect(Func<IElementGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.SimplePath() => SimplePath();
+
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
         IElementGremlinQuery<TElement> IGremlinQueryBaseRec<IElementGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -579,6 +589,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.UntilRepeat(Func<IEdgeOrVertexGremlinQuery<TElement>, IEdgeOrVertexGremlinQuery<TElement>> repeatTraversal, Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.SideEffect(Func<IEdgeOrVertexGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.SimplePath() => SimplePath();
 
         IEdgeOrVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeOrVertexGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -669,6 +681,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.SideEffect(Func<IVertexGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.SimplePath() => SimplePath();
+
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
         IVertexGremlinQuery<TElement> IGremlinQueryBaseRec<IVertexGremlinQuery<TElement>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -757,6 +771,8 @@ namespace ExRam.Gremlinq.Core
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.UntilRepeat(Func<IEdgeGremlinQuery<TElement>, IEdgeGremlinQuery<TElement>> repeatTraversal, Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.SideEffect(Func<IEdgeGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.SimplePath() => SimplePath();
 
         IEdgeGremlinQuery<TElement> IGremlinQueryBaseRec<IEdgeGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -847,6 +863,8 @@ namespace ExRam.Gremlinq.Core
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.SideEffect(Func<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.SimplePath() => SimplePath();
+
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.Skip(long count) => Skip(count, Scope.Global);
 
         IInOrOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IInOrOutEdgeGremlinQuery<TElement, TOutVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -935,6 +953,8 @@ namespace ExRam.Gremlinq.Core
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.UntilRepeat(Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>> repeatTraversal, Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.SideEffect(Func<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.SimplePath() => SimplePath();
 
         IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex> IGremlinQueryBaseRec<IBothEdgeGremlinQuery<TElement, TOutVertex, TInVertex>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -1025,6 +1045,8 @@ namespace ExRam.Gremlinq.Core
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.SideEffect(Func<IInEdgeGremlinQuery<TElement, TInVertex>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.SimplePath() => SimplePath();
+
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.Skip(long count) => Skip(count, Scope.Global);
 
         IInEdgeGremlinQuery<TElement, TInVertex> IGremlinQueryBaseRec<IInEdgeGremlinQuery<TElement, TInVertex>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -1113,6 +1135,8 @@ namespace ExRam.Gremlinq.Core
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.UntilRepeat(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IOutEdgeGremlinQuery<TElement, TOutVertex>> repeatTraversal, Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.SideEffect(Func<IOutEdgeGremlinQuery<TElement, TOutVertex>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.SimplePath() => SimplePath();
 
         IOutEdgeGremlinQuery<TElement, TOutVertex> IGremlinQueryBaseRec<IOutEdgeGremlinQuery<TElement, TOutVertex>>.Skip(long count) => Skip(count, Scope.Global);
 
@@ -1203,6 +1227,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TScalar>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SimplePath() => SimplePath();
+
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.Skip(long count) => Skip(count, Scope.Global);
 
         IVertexPropertyGremlinQuery<TElement, TScalar> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -1292,6 +1318,8 @@ namespace ExRam.Gremlinq.Core
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SideEffect(Func<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
 
+        IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SimplePath() => SimplePath();
+
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Skip(long count) => Skip(count, Scope.Global);
 
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IGremlinQueryBaseRec<IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.SkipLocal(long count) => Skip(count, Scope.Local);
@@ -1380,6 +1408,8 @@ namespace ExRam.Gremlinq.Core
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.UntilRepeat(Func<IPropertyGremlinQuery<TElement>, IPropertyGremlinQuery<TElement>> repeatTraversal, Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase> untilTraversal) => UntilRepeat(repeatTraversal, untilTraversal);
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.SideEffect(Func<IPropertyGremlinQuery<TElement>, IGremlinQueryBase> sideEffectTraversal) => SideEffect(sideEffectTraversal);
+
+        IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.SimplePath() => SimplePath();
 
         IPropertyGremlinQuery<TElement> IGremlinQueryBaseRec<IPropertyGremlinQuery<TElement>>.Skip(long count) => Skip(count, Scope.Global);
 

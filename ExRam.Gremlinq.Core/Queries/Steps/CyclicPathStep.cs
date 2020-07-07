@@ -4,4 +4,9 @@
     {
 
     }
+
+    public sealed class SimplePathStep : Step
+    {
+
+    }
 }
