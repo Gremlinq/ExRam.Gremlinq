@@ -4799,9 +4799,61 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Person>()
-                .Where(x => x
+                .Where(__ => __
                     .Values(x => x.Age)
                     .Where(age => age > 36))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Or_Values_Where1()
+        {
+            await _g
+                .V<Person>()
+                .Or(__ => __
+                    .Values(x => x.Age)
+                    .Where(age => age > 36))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Or_Values_Where2()
+        {
+            await _g
+                .V<Person>()
+                .Or(
+                    __ => __
+                        .Values(x => x.Age)
+                        .Where(age => age > 36),
+                    __ => __
+                        .Values(x => x.Age)
+                        .Where(age => age < 72))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task And_Values_Where1()
+        {
+            await _g
+                .V<Person>()
+                .And(__ => __
+                    .Values(x => x.Age)
+                    .Where(age => age > 36))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task And_Values_Where2()
+        {
+            await _g
+                .V<Person>()
+                .And(
+                    __ => __
+                        .Values(x => x.Age)
+                        .Where(age => age > 36),
+                    __ => __
+                        .Values(x => x.Age)
+                        .Where(age => age < 72))
                 .Verify(this);
         }
 
