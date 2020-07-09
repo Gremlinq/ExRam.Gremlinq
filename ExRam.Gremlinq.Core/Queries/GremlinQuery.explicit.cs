@@ -189,7 +189,7 @@ namespace ExRam.Gremlinq.Core
                 Environment.Serializer
                     .ToGroovy()
                     .Serialize(this),
-                Formatting.Indented);
+                formatting);
         }
 
         IValueGremlinQuery<long> IGremlinQueryBase.Count() => AddStepWithObjectTypes<long>(CountStep.Global, QuerySemantics.None);
