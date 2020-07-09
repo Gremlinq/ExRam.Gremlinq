@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Gremlin.Net.Process.Traversal;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -16,7 +17,7 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<long> CountLocal();
         IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
 
-        string Debug();
+        string Debug(Formatting formatting = Formatting.None);
 
         IValueGremlinQuery<object> Drop();
 
