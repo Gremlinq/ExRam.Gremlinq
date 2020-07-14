@@ -229,7 +229,7 @@ namespace ExRam.Gremlinq.Core
                             var instanceExpression = methodCallExpression.Object.Strip();
                             var argumentExpression = methodCallExpression.Arguments[0].Strip();
 
-                            if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression is MemberExpression)
+                            if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.RefersToParameter())
                             {
                                 if (instanceExpression.GetValue(model) is string stringValue)
                                 {

@@ -4664,6 +4664,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_VertexProperty_starts_with_constant_with_TextP_support_indirection()
+        {
+            var tuple = ("456", 36);
+
+            await _g
+                .V<Country>()
+                .Where(c => c.Name.Value.StartsWith(tuple.Item1))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_property_starts_with_constant_without_TextP_support()
         {
             await _g
