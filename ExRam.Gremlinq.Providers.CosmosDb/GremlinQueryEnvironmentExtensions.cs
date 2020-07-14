@@ -76,29 +76,21 @@ namespace ExRam.Gremlinq.Core
                         .Override<SkipStep>((step, env, overridden, recurse) => recurse.Serialize(new RangeStep(step.Count, -1, step.Scope), env))
                         .Override<LimitStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Count <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Limit' outside the range of a 32-bit-integer.");
                         })
                         .Override<TailStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Count <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Tail' outside the range of a 32-bit-integer.");
                         })
                         .Override<RangeStep>((step, env, overridden, recurse) =>
                         {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
                             return step.Lower <= int.MaxValue && step.Upper <= int.MaxValue
                                 ? overridden(step, env, recurse)
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
-                        })
-                        .Override<long>((l, env, overridden, recurse) =>
-                        {
-                            // Workaround for https://feedback.azure.com/forums/263030-azure-cosmos-db/suggestions/33998623-cosmosdb-s-implementation-of-the-tinkerpop-dsl-has
-                            return recurse.Serialize((int)l, env);
                         }))
                     .ToGroovy())
                 .ConfigureWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
