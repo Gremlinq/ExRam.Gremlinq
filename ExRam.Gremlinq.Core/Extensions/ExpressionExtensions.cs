@@ -239,7 +239,7 @@ namespace ExRam.Gremlinq.Core
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
                             }
-                            else if (instanceExpression is MemberExpression)
+                            else if (instanceExpression.RefersToParameter())
                             {
                                 if (argumentExpression.GetValue(model) is string stringValue)
                                 {
