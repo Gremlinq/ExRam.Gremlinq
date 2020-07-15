@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
             Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> builderAction)
         {
             return environment
-                .ConfigureWebSocket(builderAction)
+                .UseWebSocket(builderAction)
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(graphFeatures => graphFeatures & ~(GraphFeatures.Transactions | GraphFeatures.ThreadedTransactions | GraphFeatures.ConcurrentAccess))
                     .ConfigureVertexFeatures(vertexFeatures => vertexFeatures & ~(VertexFeatures.Upsert | VertexFeatures.CustomIds))

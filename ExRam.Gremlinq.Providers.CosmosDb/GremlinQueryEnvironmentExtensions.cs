@@ -50,6 +50,7 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)
         {
             return env
+                .UseWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
                 .ConfigureFeatureSet(featureSet => featureSet
                     .ConfigureGraphFeatures(_ => GraphFeatures.Transactions | GraphFeatures.Persistence | GraphFeatures.ConcurrentAccess)
                     .ConfigureVariableFeatures(_ => VariableFeatures.BooleanValues | VariableFeatures.IntegerValues | VariableFeatures.ByteValues | VariableFeatures.DoubleValues | VariableFeatures.FloatValues | VariableFeatures.IntegerValues | VariableFeatures.LongValues | VariableFeatures.StringValues)
@@ -93,7 +94,6 @@ namespace ExRam.Gremlinq.Core
                                 : throw new ArgumentOutOfRangeException(nameof(step), "CosmosDb doesn't currently support values for 'Range' outside the range of a 32-bit-integer.");
                         }))
                     .ToGroovy())
-                .ConfigureWebSocket(builder => transformation(new CosmosDbConfigurationBuilder(builder.SetSerializationFormat(SerializationFormat.GraphSonV2))))
                 .StoreTimeSpansAsNumbers();
         }
     }
