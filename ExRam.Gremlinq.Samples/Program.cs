@@ -48,7 +48,7 @@ namespace ExRam.Gremlinq.Samples
                     //Disable query logging for a noise free console output.
                     //Enable logging by setting the verbosity to anything but None.
                     .ConfigureOptions(options => options
-                        .SetValue(WebSocketGremlinqOptions.QueryLogLogLevel, LogLevel.None))
+                        .SetValue(GremlinqOption.QueryLogLogLevel, LogLevel.None))
 
 #if GremlinServer
                     .UseGremlinServer(builder => builder
