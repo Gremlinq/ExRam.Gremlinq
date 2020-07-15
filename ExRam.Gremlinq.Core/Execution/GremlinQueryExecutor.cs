@@ -21,12 +21,12 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class QueryInterceptingGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class TransformQueryGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
             private readonly Func<object, object> _transformation;
 
-            public QueryInterceptingGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<object, object> transformation)
+            public TransformQueryGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<object, object> transformation)
             {
                 _transformation = transformation;
                 _baseExecutor = baseExecutor;
@@ -38,12 +38,12 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class ResultInterceptingGremlinQueryExecutor : IGremlinQueryExecutor
+        private sealed class TransformResultGremlinQueryExecutor : IGremlinQueryExecutor
         {
             private readonly IGremlinQueryExecutor _baseExecutor;
             private readonly Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> _transformation;
 
-            public ResultInterceptingGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> transformation)
+            public TransformResultGremlinQueryExecutor(IGremlinQueryExecutor baseExecutor, Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> transformation)
             {
                 _transformation = transformation;
                 _baseExecutor = baseExecutor;
@@ -63,8 +63,8 @@ namespace ExRam.Gremlinq.Core
 
         public static IGremlinQueryExecutor Create(Func<object, IGremlinQueryEnvironment, IAsyncEnumerable<object>> executor) => new GremlinQueryExecutorImpl(executor);
 
-        public static IGremlinQueryExecutor InterceptQuery(this IGremlinQueryExecutor baseExecutor, Func<object, object> transformation) => new QueryInterceptingGremlinQueryExecutor(baseExecutor, transformation);
+        public static IGremlinQueryExecutor TransformQuery(this IGremlinQueryExecutor baseExecutor, Func<object, object> transformation) => new TransformQueryGremlinQueryExecutor(baseExecutor, transformation);
 
-        public static IGremlinQueryExecutor InterceptResult(this IGremlinQueryExecutor baseExecutor, Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> transformation) => new ResultInterceptingGremlinQueryExecutor(baseExecutor, transformation);
+        public static IGremlinQueryExecutor TransformResult(this IGremlinQueryExecutor baseExecutor, Func<IAsyncEnumerable<object>, IAsyncEnumerable<object>> transformation) => new TransformResultGremlinQueryExecutor(baseExecutor, transformation);
     }
 }
