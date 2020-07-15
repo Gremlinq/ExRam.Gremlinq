@@ -3,7 +3,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions
     {
-        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGremlinServer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder> builderAction) { }
+        public static ExRam.Gremlinq.Core.IGremlinQueryEnvironment UseGremlinServer(this ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder> builderAction) { }
     }
 }
 namespace ExRam.Gremlinq.Providers.GremlinServer

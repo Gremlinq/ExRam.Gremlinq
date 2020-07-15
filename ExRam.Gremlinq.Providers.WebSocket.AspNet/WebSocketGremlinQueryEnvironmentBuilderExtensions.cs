@@ -8,8 +8,8 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
-        public static IWebSocketGremlinQueryEnvironmentBuilder Configure(
-            this IWebSocketGremlinQueryEnvironmentBuilder builder,
+        public static IWebSocketGremlinQueryExecutorBuilder Configure(
+            this IWebSocketGremlinQueryExecutorBuilder builder,
             IConfiguration configuration,
             IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
         {

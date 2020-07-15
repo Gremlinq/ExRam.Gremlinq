@@ -4,8 +4,8 @@ using ExRam.Gremlinq.Providers.WebSocket;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {
-    public interface ICosmosDbConfigurationBuilderWithAuthKey : IGremlinQueryEnvironmentBuilder
+    public interface ICosmosDbConfigurationBuilderWithAuthKey : IGremlinQueryExecutorBuilder
     {
-        IGremlinQueryEnvironmentBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryEnvironmentBuilder, IWebSocketGremlinQueryEnvironmentBuilder> transformation);
+        IGremlinQueryExecutorBuilder ConfigureWebSocket(Func<IWebSocketGremlinQueryExecutorBuilder, IWebSocketGremlinQueryExecutorBuilder> transformation);
     }
 }

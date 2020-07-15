@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private sealed class WebSocketGremlinQueryEnvironmentBuilderImpl : IWebSocketGremlinQueryEnvironmentBuilder
+        private sealed class WebSocketGremlinQueryExecutorBuilderImpl : IWebSocketGremlinQueryExecutorBuilder
         {
             private readonly Uri? _uri;
             private readonly string _alias;
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core
             private readonly ImmutableDictionary<Type, IGraphSONSerializer> _additionalSerializers;
             private readonly ImmutableDictionary<string, IGraphSONDeserializer> _additionalDeserializers;
 
-            public WebSocketGremlinQueryEnvironmentBuilderImpl(
+            public WebSocketGremlinQueryExecutorBuilderImpl(
                 IGremlinQueryEnvironment environment,
                 Uri? uri,
                 SerializationFormat format,
@@ -167,32 +167,32 @@ namespace ExRam.Gremlinq.Core
                 _clientTransformation = clientTransformation;
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder At(Uri uri)
+            public IWebSocketGremlinQueryExecutorBuilder At(Uri uri)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation)
+            public IWebSocketGremlinQueryExecutorBuilder ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, _auth, _alias, _ => transformation(_clientTransformation(_)), _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder SetSerializationFormat(SerializationFormat version)
+            public IWebSocketGremlinQueryExecutorBuilder SetSerializationFormat(SerializationFormat version)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, version, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder AuthenticateBy(string username, string password)
+            public IWebSocketGremlinQueryExecutorBuilder AuthenticateBy(string username, string password)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, (username, password), _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder SetAlias(string alias)
+            public IWebSocketGremlinQueryExecutorBuilder SetAlias(string alias)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, _auth, alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
+            public IWebSocketGremlinQueryExecutorBuilder ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
             {
                 var newConnectionPoolSettings = new ConnectionPoolSettings
                 {
@@ -202,59 +202,68 @@ namespace ExRam.Gremlinq.Core
 
                 transformation(newConnectionPoolSettings);
 
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, newConnectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers, newConnectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
+            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers.SetItem(type, serializer), _additionalDeserializers, _connectionPoolSettings);
             }
 
-            public IWebSocketGremlinQueryEnvironmentBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
+            public IWebSocketGremlinQueryExecutorBuilder AddGraphSONDeserializer(string typename, IGraphSONDeserializer deserializer)
             {
-                return new WebSocketGremlinQueryEnvironmentBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
+                return new WebSocketGremlinQueryExecutorBuilderImpl(_environment, _uri, _format, _auth, _alias, _clientTransformation, _additionalSerializers, _additionalDeserializers.SetItem(typename, deserializer), _connectionPoolSettings);
             }
 
-            public IGremlinQueryEnvironment Build()
+            public IGremlinQueryExecutor Build()
             {
                 if (_uri == null)
-                    throw new InvalidOperationException($"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(ConfigureWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
+                    throw new InvalidOperationException(
+                        $"No valid Gremlin endpoint found. Configure {nameof(GremlinQuerySource.g)} with {nameof(ConfigureWebSocket)} and use {nameof(At)} on the builder to set a valid Gremlin endpoint.");
 
                 if (!"ws".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase) && !"wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Expected the Uri-Scheme to be either \"ws\" or \"wss\".");
 
-                return _environment
-                    .UseExecutor(
-                        new WebSocketGremlinQueryExecutor(
-                            async ct => _clientTransformation(await Task.Run(
-                                () => new GremlinClient(
-                                    new GremlinServer(
-                                        (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
-                                        _uri.Port,
-                                        "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
-                                        _auth?.username,
-                                        _auth?.password),
-                                    _format == SerializationFormat.GraphSonV2
-                                        ? new GraphSON2Reader(_additionalDeserializers)
-                                        : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
-                                    _format == SerializationFormat.GraphSonV2
-                                        ? new GraphSON2Writer(_additionalSerializers)
-                                        : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
-                                    _format == SerializationFormat.GraphSonV2
-                                        ? GremlinClient.GraphSON2MimeType
-                                        : GremlinClient.DefaultMimeType,
-                                    _connectionPoolSettings),
-                                ct)),
-                            _alias));
+                return new WebSocketGremlinQueryExecutor(
+                    async ct => _clientTransformation(await Task.Run(
+                        () => new GremlinClient(
+                            new GremlinServer(
+                                (_uri.Host + _uri.AbsolutePath).TrimEnd('/'),
+                                _uri.Port,
+                                "wss".Equals(_uri.Scheme, StringComparison.OrdinalIgnoreCase),
+                                _auth?.username,
+                                _auth?.password),
+                            _format == SerializationFormat.GraphSonV2
+                                ? new GraphSON2Reader(_additionalDeserializers)
+                                : (GraphSONReader)new GraphSON3Reader(_additionalDeserializers),
+                            _format == SerializationFormat.GraphSonV2
+                                ? new GraphSON2Writer(_additionalSerializers)
+                                : (GraphSONWriter)new GraphSON3Writer(_additionalSerializers),
+                            _format == SerializationFormat.GraphSonV2
+                                ? GremlinClient.GraphSON2MimeType
+                                : GremlinClient.DefaultMimeType,
+                            _connectionPoolSettings),
+                        ct)),
+                    _alias);
             }
         }
 
         public static IGremlinQueryEnvironment ConfigureWebSocket(
             this IGremlinQueryEnvironment environment,
-            Func<IWebSocketGremlinQueryEnvironmentBuilder, IGremlinQueryEnvironmentBuilder> builderAction)
+            Func<IWebSocketGremlinQueryExecutorBuilder, IGremlinQueryExecutorBuilder> builderTransformation)
         {
-            return builderAction(new WebSocketGremlinQueryEnvironmentBuilderImpl(environment, default, SerializationFormat.GraphSonV3, null, "g", _ => _, ImmutableDictionary<Type, IGraphSONSerializer>.Empty, ImmutableDictionary<string, IGraphSONDeserializer>.Empty, new ConnectionPoolSettings()))
-                .Build()
+            var builder = new WebSocketGremlinQueryExecutorBuilderImpl(
+                environment,
+                default,
+                SerializationFormat.GraphSonV3,
+                null,
+                "g",
+                _ => _,
+                ImmutableDictionary<Type, IGraphSONSerializer>.Empty,
+                ImmutableDictionary<string, IGraphSONDeserializer>.Empty, new ConnectionPoolSettings());
+
+            return environment
+                .UseExecutor(builderTransformation(builder).Build())
                 .UseDeserializer(GremlinQueryExecutionResultDeserializer.FromJToken);
         }
     }

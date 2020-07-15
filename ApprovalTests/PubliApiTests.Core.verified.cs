@@ -826,10 +826,6 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureOptions(System.Func<ExRam.Gremlinq.Core.IGremlinqOptions, ExRam.Gremlinq.Core.IGremlinqOptions> optionsTransformation);
         ExRam.Gremlinq.Core.IGremlinQueryEnvironment ConfigureSerializer(System.Func<ExRam.Gremlinq.Core.IGremlinQuerySerializer, ExRam.Gremlinq.Core.IGremlinQuerySerializer> serializerTransformation);
     }
-    public interface IGremlinQueryEnvironmentBuilder
-    {
-        ExRam.Gremlinq.Core.IGremlinQueryEnvironment Build();
-    }
     public interface IGremlinQueryExecutionResultDeserializer
     {
         ExRam.Gremlinq.Core.IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(System.Func<ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer, ExRam.Gremlinq.Core.IGremlinQueryFragmentDeserializer> transformation);
@@ -838,6 +834,10 @@ namespace ExRam.Gremlinq.Core
     public interface IGremlinQueryExecutor
     {
         System.Collections.Generic.IAsyncEnumerable<object> Execute(object serializedQuery, ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public interface IGremlinQueryExecutorBuilder
+    {
+        ExRam.Gremlinq.Core.IGremlinQueryExecutor Build();
     }
     public interface IGremlinQueryFragmentDeserializer
     {
