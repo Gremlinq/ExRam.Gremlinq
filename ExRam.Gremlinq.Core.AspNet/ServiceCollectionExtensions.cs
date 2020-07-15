@@ -4,6 +4,7 @@ using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.AspNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -27,11 +28,41 @@ namespace Microsoft.Extensions.DependencyInjection
             }
         }
 
+        private sealed class ConfigureLoggingGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
+        {
+            private readonly IConfiguration _loggingSection;
+
+            public ConfigureLoggingGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
+            {
+                _loggingSection = configuration
+                    .GetSection("QueryLogging");
+            }
+
+            public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
+            {
+                return environment
+                    .ConfigureOptions(options =>
+                    {
+                        if (Enum.TryParse<QueryLogVerbosity>(_loggingSection["Verbosity"], out var verbosity))
+                            options = options.SetValue(GremlinqOption.QueryLogVerbosity, verbosity);
+
+                        if (Enum.TryParse<LogLevel>(_loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
+                            options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
+
+                        if (Enum.TryParse<Formatting>(_loggingSection[$"{nameof(Formatting)}"], out var formatting))
+                            options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
+
+                        return options;
+                    });
+            }
+        }
+
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetService<IConfiguration>().GetSection("Gremlinq")))
                 .AddSingleton<IGremlinQueryEnvironmentTransformation, UseLoggerGremlinQueryEnvironmentTransformation>()
+                .AddSingleton<IGremlinQueryEnvironmentTransformation, ConfigureLoggingGremlinQueryEnvironmentTransformation>()
                 .AddSingleton(c =>
                 {
                     var transformations = c.GetService<IEnumerable<IGremlinQueryEnvironmentTransformation>>();

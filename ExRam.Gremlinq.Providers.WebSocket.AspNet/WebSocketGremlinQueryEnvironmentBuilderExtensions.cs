@@ -2,90 +2,12 @@
 using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
-using Gremlin.Net.Structure.IO.GraphSON;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
-        private sealed class LogConfigurationWebSocketGremlinQueryEnvironmentBuilder : IWebSocketGremlinQueryEnvironmentBuilder
-        {
-            private readonly IConfiguration _configuration;
-            private readonly IWebSocketGremlinQueryEnvironmentBuilder _baseBuilder;
-
-            public LogConfigurationWebSocketGremlinQueryEnvironmentBuilder(
-                IWebSocketGremlinQueryEnvironmentBuilder baseBuilder,
-                IConfiguration configuration)
-            {
-                _baseBuilder = baseBuilder;
-                _configuration = configuration;
-            }
-
-            IGremlinQueryEnvironment IGremlinQueryEnvironmentBuilder.Build()
-            {
-                var loggingSection = _configuration.GetSection("QueryLogging");
-
-                return _baseBuilder
-                    .Build()
-                    .ConfigureOptions(options =>
-                    {
-                        if (Enum.TryParse<QueryLogVerbosity>(loggingSection["Verbosity"], out var verbosity))
-                            options = options.SetValue(GremlinqOption.QueryLogVerbosity, verbosity);
-
-                        if (Enum.TryParse<LogLevel>(loggingSection[$"{nameof(LogLevel)}"], out var logLevel))
-                            options = options.SetValue(GremlinqOption.QueryLogLogLevel, logLevel);
-
-                        if (Enum.TryParse<Formatting>(loggingSection[$"{nameof(Formatting)}"], out var formatting))
-                            options = options.SetValue(GremlinqOption.QueryLogFormatting, formatting);
-
-                        return options;
-                    });
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.At(Uri uri)
-            {
-                return _baseBuilder.At(uri);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.AuthenticateBy(string username, string password)
-            {
-                return _baseBuilder.AuthenticateBy(username, password);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.SetAlias(string alias)
-            {
-                return _baseBuilder.SetAlias(alias);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.ConfigureConnectionPool(Action<ConnectionPoolSettings> transformation)
-            {
-                return _baseBuilder.ConfigureConnectionPool(transformation);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.ConfigureGremlinClient(Func<IGremlinClient, IGremlinClient> transformation)
-            {
-                return _baseBuilder.ConfigureGremlinClient(transformation);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.SetSerializationFormat(SerializationFormat version)
-            {
-                return _baseBuilder.SetSerializationFormat(version);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.AddGraphSONSerializer(Type type, IGraphSONSerializer serializer)
-            {
-                return _baseBuilder.AddGraphSONSerializer(type, serializer);
-            }
-
-            IWebSocketGremlinQueryEnvironmentBuilder IWebSocketGremlinQueryEnvironmentBuilder.AddGraphSONDeserializer(string typename, IGraphSONDeserializer serializer)
-            {
-                return _baseBuilder.AddGraphSONDeserializer(typename, serializer);
-            }
-        }
-
         public static IWebSocketGremlinQueryEnvironmentBuilder Configure(
             this IWebSocketGremlinQueryEnvironmentBuilder builder,
             IConfiguration configuration,
@@ -119,7 +41,7 @@ namespace ExRam.Gremlinq.Core.AspNet
                 builder = webSocketTransformation.Transform(builder);
             }
 
-            return new LogConfigurationWebSocketGremlinQueryEnvironmentBuilder(builder, configuration);
+            return builder;
         }
     }
 }
