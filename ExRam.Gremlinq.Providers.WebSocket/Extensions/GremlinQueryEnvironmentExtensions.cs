@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    Log(requestMessage, requestMessage.RequestId, environment);
+                    Log(serializedQuery, requestMessage.RequestId, environment);
 
                     try
                     {
