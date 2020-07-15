@@ -45,10 +45,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     var results = default(ResultSet<JToken>);
 
+                    Log(serializedQuery, environment);
+
                     if (serializedQuery is GroovyGremlinQuery groovyScript)
                     {
-                        Log(groovyScript, environment);
-
                         try
                         {
                             var client = await _lazyGremlinClient
@@ -70,8 +70,6 @@ namespace ExRam.Gremlinq.Core
                     }
                     else if (serializedQuery is Bytecode bytecode)
                     {
-                        Log(bytecode.ToGroovy(), environment);
-
                         var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
                             .OverrideRequestId(Guid.NewGuid())
@@ -111,22 +109,29 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(GroovyGremlinQuery query, IGremlinQueryEnvironment environment)
+            private void Log(object serializedQuery, IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
 
                 if (environment.Logger.IsEnabled(logLevel))
                 {
+                    var gremlinQuery = serializedQuery switch
+                    {
+                        Bytecode bytecode => bytecode.ToGroovy(),
+                        GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
+                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
+                    };
+
                     environment.Logger.Log(
                         logLevel,
                         "Executing Gremlin query {0}.",
                         JsonConvert.SerializeObject(
                             new
                             {
-                                query.Script,
+                                gremlinQuery.Script,
                                 Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
-                                    ? query.Bindings
+                                    ? gremlinQuery.Bindings
                                     : null
                             }));
                 }
