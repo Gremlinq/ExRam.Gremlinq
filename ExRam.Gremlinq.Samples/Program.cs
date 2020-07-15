@@ -263,9 +263,6 @@ namespace ExRam.Gremlinq.Samples
 
         private async Task Who_Is_Known_By_Both_Marko_And_Peter()
         {
-            //Marko knows Vada (Added this on line number 163)
-            //Marko Knows Josh (Added this on line number 170)
-
             await _g.V(_peter.Id).AddE<Knows>().To(__ => __
                     .V(_josh.Id))
                 .FirstAsync();
@@ -287,7 +284,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var people in whoIsKnownByBothMarkoAndPeter)
             {
-                Console.WriteLine($"{people.Name.Value} is known by both Marko and Peter");
+                Console.WriteLine($" {people.Name.Value} is known by both Marko and Peter");
             }
             Console.WriteLine();
         }
@@ -388,7 +385,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var (person, does, what) in tuples)
             {
-                Console.WriteLine($" {person.Name} {does.Label} a {what.Label}.");
+                Console.WriteLine($" {person.Name.Value} {does.Label} a {what.Label}.");
             }
 
             Console.WriteLine();
