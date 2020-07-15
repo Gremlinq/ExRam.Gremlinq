@@ -263,11 +263,17 @@ namespace ExRam.Gremlinq.Samples
 
         private async Task Who_Is_Known_By_Both_Marko_And_Peter()
         {
-            await _g.V(_peter.Id).AddE<Knows>().To(__ => __
+            await _g
+                .V(_peter.Id)
+                .AddE<Knows>()
+                .To(__ => __
                     .V(_josh.Id))
                 .FirstAsync();
 
-            await _g.V(_peter.Id).AddE<Knows>().To(__ => __
+            await _g
+                .V(_peter.Id)
+                .AddE<Knows>()
+                .To(__ => __
                     .V(_daniel.Id))
                 .FirstAsync();
 
@@ -286,6 +292,7 @@ namespace ExRam.Gremlinq.Samples
             {
                 Console.WriteLine($" {people.Name.Value} is known by both Marko and Peter");
             }
+
             Console.WriteLine();
         }
 
