@@ -60,7 +60,7 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    Log(requestMessage, environment);
+                    Log(requestMessage, requestMessage.RequestId, environment);
 
                     try
                     {
@@ -91,35 +91,33 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(RequestMessage requestMessage, IGremlinQueryEnvironment environment)
+            private void Log(object serializedQuery, Guid requestId, IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
 
                 if (environment.Logger.IsEnabled(logLevel))
                 {
-                    if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var query))
+                    var gremlinQuery = serializedQuery switch
                     {
-                        var gremlinQuery = requestMessage.Arguments[Tokens.ArgsGremlin] switch
-                        {
-                            Bytecode bytecode => bytecode.ToGroovy(),
-                            GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
-                            _ => throw new ArgumentException($"Cannot handle serialized query of type {query.GetType()}.")
-                        };
+                        Bytecode bytecode => bytecode.ToGroovy(),
+                        GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
+                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
+                    };
 
-                        environment.Logger.Log(
-                            logLevel,
-                            "Executing Gremlin query {0}.",
-                            JsonConvert.SerializeObject(
-                                new
-                                {
-                                    requestMessage.RequestId,
-                                    gremlinQuery.Script,
-                                    Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
-                                        ? gremlinQuery.Bindings
-                                        : null
-                                }));
-                    }
+                    environment.Logger.Log(
+                        logLevel,
+                        "Executing Gremlin query {0}.",
+                        JsonConvert.SerializeObject(
+                            new
+                            {
+                                RequestId = requestId,
+                                gremlinQuery.Script,
+                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) >
+                                           QueryLogVerbosity.QueryOnly
+                                    ? gremlinQuery.Bindings
+                                    : null
+                            }));
                 }
             }
         }
