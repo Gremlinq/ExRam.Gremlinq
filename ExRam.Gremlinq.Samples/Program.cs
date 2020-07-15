@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Samples
             await Create_vertices_and_a_relation_in_one_query();
 
             await Who_does_Marko_know();
-            await Who_Is_Known_By_Both_Marko_And_Peter(); //(Mutual friends between Marko and Peter)
+            await Who_Is_Known_By_Both_Marko_And_Peter();
             await Who_is_older_than_30();
             await Whose_name_starts_with_B();
             await Who_knows_who();
