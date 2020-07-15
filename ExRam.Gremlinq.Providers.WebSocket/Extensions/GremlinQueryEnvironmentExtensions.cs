@@ -45,59 +45,41 @@ namespace ExRam.Gremlinq.Core
                 {
                     var results = default(ResultSet<JToken>);
 
-                    Log(serializedQuery, environment);
-
-                    if (serializedQuery is GroovyGremlinQuery groovyScript)
+                    var requestMessage = serializedQuery switch
                     {
-                        try
-                        {
-                            var client = await _lazyGremlinClient
-                                .Value;
-
-                            results = await client
-                                .SubmitAsync<JToken>($"{_alias}.{groovyScript.Script}", groovyScript.Bindings)
-                                .ConfigureAwait(false);
-                        }
-                        catch (Exception ex)
-                        {
-                            environment.Logger.LogError(
-                                "Error executing Gremlin query {0}:\r\n{1}",
-                                groovyScript.Script,
-                                ex);
-
-                            throw;
-                        }
-                    }
-                    else if (serializedQuery is Bytecode bytecode)
-                    {
-                        var requestMsg = RequestMessage.Build(Tokens.OpsBytecode)
+                        GroovyGremlinQuery groovyScript => RequestMessage
+                            .Build(Tokens.OpsEval)
+                            .AddArgument(Tokens.ArgsGremlin, $"{_alias}.{groovyScript.Script}")
+                            .AddArgument(Tokens.ArgsBindings, groovyScript.Bindings)
+                            .Create(),
+                        Bytecode bytecode => RequestMessage.Build(Tokens.OpsBytecode)
                             .Processor(Tokens.ProcessorTraversal)
-                            .OverrideRequestId(Guid.NewGuid())
                             .AddArgument(Tokens.ArgsGremlin, bytecode)
                             .AddArgument(Tokens.ArgsAliases, _aliasArgs)
-                            .Create();
+                            .Create(),
+                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
+                    };
 
-                        try
-                        {
-                            var client = await _lazyGremlinClient
-                                .Value;
+                    Log(requestMessage, environment);
 
-                            results = await client
-                                .SubmitAsync<JToken>(requestMsg)
-                                .ConfigureAwait(false);
-                        }
-                        catch (Exception ex)
-                        {
-                            environment.Logger.LogError(
-                                "Error executing Gremlin query {0}:\r\n{1}",
-                                JsonConvert.SerializeObject(requestMsg),
-                                ex);
+                    try
+                    {
+                        var client = await _lazyGremlinClient
+                            .Value;
 
-                            throw;
-                        }
+                        results = await client
+                            .SubmitAsync<JToken>(requestMessage)
+                            .ConfigureAwait(false);
                     }
-                    else
-                        throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.");
+                    catch (Exception ex)
+                    {
+                        environment.Logger.LogError(
+                            $"Error executing Gremlin query with {nameof(RequestMessage.RequestId)} {0}: {1}",
+                            requestMessage.RequestId,
+                            ex);
+
+                        throw;
+                    }
 
                     if (results != null)
                     {
@@ -109,31 +91,35 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(object serializedQuery, IGremlinQueryEnvironment environment)
+            private void Log(RequestMessage requestMessage, IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(GremlinqOption.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(GremlinqOption.QueryLogVerbosity);
 
                 if (environment.Logger.IsEnabled(logLevel))
                 {
-                    var gremlinQuery = serializedQuery switch
+                    if (requestMessage.Arguments.TryGetValue(Tokens.ArgsGremlin, out var query))
                     {
-                        Bytecode bytecode => bytecode.ToGroovy(),
-                        GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
-                        _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
-                    };
+                        var gremlinQuery = requestMessage.Arguments[Tokens.ArgsGremlin] switch
+                        {
+                            Bytecode bytecode => bytecode.ToGroovy(),
+                            GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
+                            _ => throw new ArgumentException($"Cannot handle serialized query of type {query.GetType()}.")
+                        };
 
-                    environment.Logger.Log(
-                        logLevel,
-                        "Executing Gremlin query {0}.",
-                        JsonConvert.SerializeObject(
-                            new
-                            {
-                                gremlinQuery.Script,
-                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
-                                    ? gremlinQuery.Bindings
-                                    : null
-                            }));
+                        environment.Logger.Log(
+                            logLevel,
+                            "Executing Gremlin query {0}.",
+                            JsonConvert.SerializeObject(
+                                new
+                                {
+                                    requestMessage.RequestId,
+                                    gremlinQuery.Script,
+                                    Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
+                                        ? gremlinQuery.Bindings
+                                        : null
+                                }));
+                    }
                 }
             }
         }
