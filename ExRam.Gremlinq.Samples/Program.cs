@@ -26,15 +26,14 @@ namespace ExRam.Gremlinq.Samples
 
         public Program()
         {
-            var logger = LoggerFactory
-                .Create(builder => builder
-                    .AddFilter(__ => true)
-                    .AddConsole())
-                .CreateLogger("Queries");
-
             _g = g
+                .ConfigureEnvironment(env => env //We call ConfigureEnvironment twice so that the logger is set on the environment from now on.
+                    .UseLogger(LoggerFactory
+                        .Create(builder => builder
+                            .AddFilter(__ => true)
+                            .AddConsole())
+                        .CreateLogger("Queries"))) 
                 .ConfigureEnvironment(env => env
-                    .UseLogger(logger)
                     //Since the Vertex and Edge classes contained in this sample implement IVertex resp. IEdge,
                     //setting a model is actually not required as long as these classes are discoverable (i.e. they reside
                     //in a currently loaded assembly). We explicitly set a model here anyway.
@@ -59,7 +58,15 @@ namespace ExRam.Gremlinq.Samples
 #elif CosmosDB
                     .UseCosmosDb(builder => builder
                         .At(new Uri("wss://your_gremlin_endpoint.gremlin.cosmos.azure.com:443/"), "your database name", "your graph name")
-                        .AuthenticateBy("your auth key")));
+                        .AuthenticateBy("your auth key")
+                        .ConfigureWebSocket(_ => _
+                            .ConfigureGremlinClient(client => client
+                                .ObserveResultStatusAttributes((requestMessage, statusAttributes) =>
+                                {
+                                    //Uncomment to log request charges for CosmosDB.
+                                    //if (statusAttributes.TryGetValue("x-ms-total-request-charge", out var requestCharge))
+                                    //    env.Logger.LogInformation($"Query {requestMessage.RequestId} had a RU charge of {requestCharge}.");
+                                })))));
 #elif JanusGraph
                     .UseJanusGraph(builder => builder
                         .AtLocalhost()));
