@@ -19,21 +19,9 @@ namespace ExRam.Gremlinq.Providers.WebSocket
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetAlias(string alias);
         ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder SetSerializationFormat(ExRam.Gremlinq.Core.SerializationFormat version);
     }
-    [System.Flags]
-    public enum QueryLogVerbosity
-    {
-        QueryOnly = 0,
-        IncludeParameters = 1,
-    }
     public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
     {
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder At(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder, string uri) { }
         public static ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder AtLocalhost(this ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryEnvironmentBuilder builder) { }
-    }
-    public static class WebSocketGremlinqOptions
-    {
-        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Providers.WebSocket.QueryLogVerbosity> QueryLogVerbosity;
     }
 }

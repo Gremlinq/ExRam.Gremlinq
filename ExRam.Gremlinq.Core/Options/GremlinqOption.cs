@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using Gremlin.Net.Process.Traversal;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -80,6 +82,10 @@ namespace ExRam.Gremlinq.Core
 
         public static GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new GremlinqOption<FilterLabelsVerbosity>(Core.FilterLabelsVerbosity.Maximum);
         public static GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new GremlinqOption<DisabledTextPredicates>(Core.DisabledTextPredicates.None);
+
+        public static GremlinqOption<LogLevel> QueryLogLogLevel = new GremlinqOption<LogLevel>(LogLevel.Debug);
+        public static GremlinqOption<Formatting> QueryLogFormatting = new GremlinqOption<Formatting>(Formatting.None);
+        public static GremlinqOption<QueryLogVerbosity> QueryLogVerbosity = new GremlinqOption<QueryLogVerbosity>(Core.QueryLogVerbosity.QueryOnly);
     }
 
     public class GremlinqOption<TValue> : IGremlinqOption

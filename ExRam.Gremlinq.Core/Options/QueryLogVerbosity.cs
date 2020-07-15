@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExRam.Gremlinq.Providers.WebSocket
+namespace ExRam.Gremlinq.Core
 {
     [Flags]
     public enum QueryLogVerbosity

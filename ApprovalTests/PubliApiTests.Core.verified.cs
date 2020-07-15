@@ -380,6 +380,9 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.DisabledTextPredicates> DisabledTextPredicates;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
+        public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
+        public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
+        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> VertexProjectionWithoutMetaPropertiesSteps;
@@ -1481,6 +1484,12 @@ namespace ExRam.Gremlinq.Core
         public ExRam.Gremlinq.Core.Key Key { get; }
         public System.Collections.Immutable.ImmutableArray<object> MetaProperties { get; }
         public object Value { get; }
+    }
+    [System.Flags]
+    public enum QueryLogVerbosity
+    {
+        QueryOnly = 0,
+        IncludeParameters = 1,
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {
