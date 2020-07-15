@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ExRam.Gremlinq.Providers.WebSocket;
 using Gremlin.Net.Driver;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -85,7 +86,10 @@ namespace ExRam.Gremlinq.Core.AspNet
             }
         }
 
-        public static IWebSocketGremlinQueryEnvironmentBuilder Configure(this IWebSocketGremlinQueryEnvironmentBuilder builder, IConfiguration configuration)
+        public static IWebSocketGremlinQueryEnvironmentBuilder Configure(
+            this IWebSocketGremlinQueryEnvironmentBuilder builder,
+            IConfiguration configuration,
+            IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
@@ -109,6 +113,11 @@ namespace ExRam.Gremlinq.Core.AspNet
 
             if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
                 builder = builder.SetSerializationFormat(graphsonVersion);
+
+            foreach (var webSocketTransformation in webSocketTransformations)
+            {
+                builder = webSocketTransformation.Transform(builder);
+            }
 
             return new LogConfigurationWebSocketGremlinQueryEnvironmentBuilder(builder, configuration);
         }

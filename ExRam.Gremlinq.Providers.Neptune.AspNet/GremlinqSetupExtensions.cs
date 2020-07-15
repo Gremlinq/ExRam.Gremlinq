@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -8,10 +9,14 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseNeptuneGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
+            private readonly IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseNeptuneGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
+            public UseNeptuneGremlinQueryEnvironmentTransformation(
+                IGremlinqConfiguration configuration,
+                IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
             {
+                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("Neptune");
             }
@@ -19,13 +24,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseNeptune(builder => builder.Configure(_configuration));
+                    .UseNeptune(builder => builder.Configure(_configuration, _webSocketTransformations));
             }
         }
 
         public static GremlinqSetup UseNeptune(this GremlinqSetup setup)
         {
-            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseNeptuneGremlinQueryEnvironmentTransformation>());
+            return setup
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseNeptuneGremlinQueryEnvironmentTransformation>());
         }
     }
 }

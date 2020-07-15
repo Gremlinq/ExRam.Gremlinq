@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExRam.Gremlinq.Core.AspNet
@@ -8,10 +9,14 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseJanusGraphGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
+            private readonly IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseJanusGraphGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
+            public UseJanusGraphGremlinQueryEnvironmentTransformation(
+                IGremlinqConfiguration configuration,
+                IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
             {
+                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("JanusGraph");
             }
@@ -19,13 +24,14 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseJanusGraph(builder => builder.Configure(_configuration));
+                    .UseJanusGraph(builder => builder.Configure(_configuration, _webSocketTransformations));
             }
         }
 
         public static GremlinqSetup UseJanusGraph(this GremlinqSetup setup)
         {
-            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseJanusGraphGremlinQueryEnvironmentTransformation>());
+            return setup
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseJanusGraphGremlinQueryEnvironmentTransformation>());
         }
     }
 }

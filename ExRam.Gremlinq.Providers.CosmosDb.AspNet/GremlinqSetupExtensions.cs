@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using ExRam.Gremlinq.Providers.CosmosDb;
 using Microsoft.Extensions.Configuration;
 
@@ -9,10 +10,14 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseCosmosDbGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
+            private readonly IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
-            public UseCosmosDbGremlinQueryEnvironmentTransformation(IGremlinqConfiguration configuration)
+            public UseCosmosDbGremlinQueryEnvironmentTransformation(
+                IGremlinqConfiguration configuration,
+                IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
             {
+                _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration
                     .GetSection("CosmosDb");
             }
@@ -28,15 +33,16 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 _configuration.GetRequiredConfiguration("Database"),
                                 _configuration.GetRequiredConfiguration("Graph"))
                             .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"))
-                            .ConfigureWebSocket(webSocketBuilder => webSocketBuilder
-                                .Configure(_configuration));
+                            .ConfigureWebSocket(builder => builder.Configure(_configuration, _webSocketTransformations));
                     });
             }
         }
 
         public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup)
         {
-            return new GremlinqSetup(setup.ServiceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseCosmosDbGremlinQueryEnvironmentTransformation>());
+            return setup
+                //.UseWebSocket()
+                .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseCosmosDbGremlinQueryEnvironmentTransformation>());
         }
     }
 }
