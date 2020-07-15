@@ -45,6 +45,8 @@ namespace ExRam.Gremlinq.Core
             {
                 return _webSocketBuilder.Build();
             }
+
+            public IGremlinQueryEnvironment Environment => _webSocketBuilder.Environment;
         }
 
         public static IGremlinQueryEnvironment UseCosmosDb(this IGremlinQueryEnvironment env, Func<ICosmosDbConfigurationBuilder, IGremlinQueryExecutorBuilder> transformation)

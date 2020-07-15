@@ -837,6 +837,7 @@ namespace ExRam.Gremlinq.Core
     }
     public interface IGremlinQueryExecutorBuilder
     {
+        ExRam.Gremlinq.Core.IGremlinQueryEnvironment Environment { get; }
         ExRam.Gremlinq.Core.IGremlinQueryExecutor Build();
     }
     public interface IGremlinQueryFragmentDeserializer
