@@ -17,6 +17,35 @@ namespace ExRam.Gremlinq.Core.Tests
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
     public abstract class QueryExecutionTest : VerifyBase
     {
+        private sealed class XunitLogger : ILogger, IDisposable
+        {
+            private ITestOutputHelper _output;
+
+            public XunitLogger(ITestOutputHelper output)
+            {
+                _output = output;
+            }
+
+            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception, string>? formatter)
+            {
+                _output.WriteLine(state.ToString());
+            }
+
+            public bool IsEnabled(LogLevel logLevel)
+            {
+                return true;
+            }
+
+            public IDisposable BeginScope<TState>(TState state)
+            {
+                return this;
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
         protected readonly IGremlinQuerySource _g;
         
         private static readonly string id = "id";
@@ -25,11 +54,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             _g = g
                 .ConfigureEnvironment(env => env
-                    .UseLogger(LoggerFactory
-                        .Create(builder => builder
-                            .AddFilter(__ => true)
-                            .AddConsole())
-                        .CreateLogger("Queries"))
+                    .UseLogger(new XunitLogger(testOutputHelper))
                     .UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())));
         }
