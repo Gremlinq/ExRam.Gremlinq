@@ -100,7 +100,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var gremlinQuery = serializedQuery switch
                     {
-                        Bytecode bytecode => bytecode.ToGroovy(),
+                        Bytecode bytecode => bytecode.ToGroovy(environment.Options.GetValue(GremlinqOption.QueryLogGroovyFormating)),
                         GroovyGremlinQuery groovyGremlinQuery => groovyGremlinQuery,
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
@@ -113,8 +113,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 RequestId = requestId,
                                 gremlinQuery.Script,
-                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) >
-                                           QueryLogVerbosity.QueryOnly
+                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
                                     ? gremlinQuery.Bindings
                                     : null
                             }));
