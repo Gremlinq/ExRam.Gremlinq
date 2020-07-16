@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -20,7 +21,7 @@ namespace ExRam.Gremlinq.Core
             var script = Script;
             var newBindings = new Dictionary<string, object>();
 
-            foreach (var kvp in Bindings)
+            foreach (var kvp in Bindings.OrderByDescending(kvp => kvp.Key))
             {
                 switch (kvp.Value)
                 {
