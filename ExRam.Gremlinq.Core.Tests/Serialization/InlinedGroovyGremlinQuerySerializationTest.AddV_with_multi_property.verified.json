@@ -1,0 +1,8 @@
+[
+  {
+    "Script": "addV('Company').property(single, 'FoundingDate', _a).property(id, 800).property(list, 'PhoneNumbers', '+4912345').property(list, 'PhoneNumbers', '+4923456').project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": "0001-01-01T00:00:00+00:00"
+    }
+  }
+]

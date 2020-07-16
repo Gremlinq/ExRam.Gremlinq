@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Person').values('Age').mean()",
+    "Bindings": {}
+  }
+]

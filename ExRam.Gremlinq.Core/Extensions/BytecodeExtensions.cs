@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class BytecodeExtensions
     {
-        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode)
+        public static GroovyGremlinQuery ToGroovy(this Bytecode bytecode, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
         {
             var builder = new StringBuilder();
             var bindings = new Dictionary<object, string>();
@@ -76,6 +76,12 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
+                    case string str when !allowEnumerableExpansion && formatting == GroovyFormatting.AllowInlining:
+                    {
+                        builder.Append($"'{str}'");
+
+                        break;
+                    }
                     case Type type:
                     {
                         builder.Append(type.Name);
@@ -97,26 +103,50 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
+                    case int number when formatting == GroovyFormatting.AllowInlining:
+                    {
+                        builder.Append(number.ToString());
+
+                        break;
+                    }
+                    case long number when formatting == GroovyFormatting.AllowInlining:
+                    {
+                        builder.Append(number.ToString());
+
+                        break;
+                    }
+                    case bool boolean when formatting == GroovyFormatting.AllowInlining:
+                    {
+                        builder.Append(boolean.ToString().ToLower());
+
+                        break;
+                    }
                     default:
                     {
-                        if (!bindings.TryGetValue(obj, out var bindingKey))
+                        if (formatting == GroovyFormatting.AllowInlining && obj.GetType().IsEnum && obj.GetType().GetEnumUnderlyingType() == typeof(int))
                         {
-                            var next = bindings.Count;
-
-                            do
-                            {
-                                bindingKey = (char)('a' + next % 26) + bindingKey;
-                                next /= 26;
-                            }
-                            while (next > 0);
-
-                            bindingKey = "_" + bindingKey;
-                            bindings.Add(obj, bindingKey);
-
-                            variables[bindingKey] = obj;
+                            builder.Append((int)obj);
                         }
+                        else
+                        {
+                            if (!bindings.TryGetValue(obj, out var bindingKey))
+                            {
+                                var next = bindings.Count;
 
-                        builder.Append(bindingKey);
+                                do
+                                {
+                                    bindingKey = (char)('a' + next % 26) + bindingKey;
+                                    next /= 26;
+                                } while (next > 0);
+
+                                bindingKey = "_" + bindingKey;
+                                bindings.Add(obj, bindingKey);
+
+                                variables[bindingKey] = obj;
+                            }
+
+                            builder.Append(bindingKey);
+                        }
 
                         break;
                     }

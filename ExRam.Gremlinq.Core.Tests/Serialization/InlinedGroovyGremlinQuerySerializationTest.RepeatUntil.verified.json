@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Person').repeat(__.inE().outV()).until(__.V().hasLabel('Company')).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {}
+  }
+]

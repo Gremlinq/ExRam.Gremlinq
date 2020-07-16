@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Country').properties('Name').properties().as('l1')",
+    "Bindings": {}
+  }
+]

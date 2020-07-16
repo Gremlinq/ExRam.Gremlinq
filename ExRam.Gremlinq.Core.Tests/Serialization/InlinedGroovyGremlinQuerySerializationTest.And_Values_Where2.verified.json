@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().hasLabel('Person').and(__.has('Age', gt(36)), __.has('Age', lt(72))).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {}
+  }
+]

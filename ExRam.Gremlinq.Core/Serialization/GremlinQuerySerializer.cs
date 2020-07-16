@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core
             return new SelectGremlinQuerySerializer(serializer, projection);
         }
 
-        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer)
+        public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
         {
             return serializer
                 .Select(serialized =>
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core
                     return serialized switch
                     {
                         GroovyGremlinQuery serializedQuery => serializedQuery,
-                        Bytecode bytecode => bytecode.ToGroovy(),
+                        Bytecode bytecode => bytecode.ToGroovy(formatting),
                         _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
                     };
                 });
