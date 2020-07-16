@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().fold().dedup(local)",
+    "Bindings": {}
+  }
+]

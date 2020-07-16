@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().limit(0).fold().choose(__.as('l1').unfold().where(eq('l1')), __.range(local, 0, 1), __.range(local, 0, 1).fold())",
+    "Bindings": {}
+  }
+]

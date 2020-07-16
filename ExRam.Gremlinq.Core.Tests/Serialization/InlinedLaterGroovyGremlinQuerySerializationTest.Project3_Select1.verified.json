@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "V().where(__.in()).where(__.out()).project('Item1', 'Item2', 'Item3').by(__.in().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.out().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))).by(__.count()).select('Item1')",
+    "Bindings": {}
+  }
+]

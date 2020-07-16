@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "inject('label').as('l1').V().hasLabel('Country').properties('Languages').where(__.label().where(eq('l1')))",
+    "Bindings": {}
+  }
+]

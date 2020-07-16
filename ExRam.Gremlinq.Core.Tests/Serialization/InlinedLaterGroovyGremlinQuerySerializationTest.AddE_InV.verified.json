@@ -1,0 +1,6 @@
+[
+  {
+    "Script": "addV('Person').property(single, 'Age', 0).property(single, 'Gender', 0).addE('LivesIn').to(__.addV('Country')).inV().project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {}
+  }
+]

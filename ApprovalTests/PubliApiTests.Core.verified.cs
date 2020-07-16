@@ -407,6 +407,7 @@ namespace ExRam.Gremlinq.Core
         public GroovyGremlinQuery(string script, System.Collections.Generic.Dictionary<string, object> bindings) { }
         public System.Collections.Generic.Dictionary<string, object> Bindings { get; }
         public string Script { get; }
+        public ExRam.Gremlinq.Core.GroovyGremlinQuery Inline() { }
         public override string ToString() { }
     }
     public sealed class GroupStep : ExRam.Gremlinq.Core.Step
