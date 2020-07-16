@@ -9,12 +9,12 @@ namespace ExRam.Gremlinq.Core.AspNet
         private sealed class UseNeptuneGremlinQueryEnvironmentTransformation : IGremlinQueryEnvironmentTransformation
         {
             private readonly IConfiguration _configuration;
-            private readonly IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> _webSocketTransformations;
+            private readonly IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> _webSocketTransformations;
 
             // ReSharper disable once SuggestBaseTypeForParameter
             public UseNeptuneGremlinQueryEnvironmentTransformation(
                 IGremlinqConfiguration configuration,
-                IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
+                IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
             {
                 _webSocketTransformations = webSocketTransformations;
                 _configuration = configuration

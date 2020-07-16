@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExRam.Gremlinq.Core.AspNet
 {
-    public static class WebSocketGremlinQueryEnvironmentBuilderExtensions
+    public static class WebSocketGremlinQueryExecutorBuilderExtensions
     {
         public static IWebSocketGremlinQueryExecutorBuilder Configure(
             this IWebSocketGremlinQueryExecutorBuilder builder,
             IConfiguration configuration,
-            IEnumerable<IWebSocketGremlinQueryEnvironmentBuilderTransformation> webSocketTransformations)
+            IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
