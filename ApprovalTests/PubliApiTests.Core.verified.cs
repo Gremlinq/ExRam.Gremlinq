@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
     }
     public static class BytecodeExtensions
     {
-        public static ExRam.Gremlinq.Core.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode) { }
+        public static ExRam.Gremlinq.Core.GroovyGremlinQuery ToGroovy(this Gremlin.Net.Process.Traversal.Bytecode bytecode, ExRam.Gremlinq.Core.GroovyFormatting formatting = 0) { }
     }
     public sealed class CapStep : ExRam.Gremlinq.Core.Step
     {
@@ -369,7 +369,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySerializer Identity;
         public static readonly ExRam.Gremlinq.Core.IGremlinQuerySerializer Invalid;
         public static ExRam.Gremlinq.Core.IGremlinQuerySerializer Select(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer, System.Func<object, object> projection) { }
-        public static ExRam.Gremlinq.Core.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer) { }
+        public static ExRam.Gremlinq.Core.IGremlinQuerySerializer ToGroovy(this ExRam.Gremlinq.Core.IGremlinQuerySerializer serializer, ExRam.Gremlinq.Core.GroovyFormatting formatting = 0) { }
     }
     public static class GremlinQuerySource
     {
@@ -381,6 +381,7 @@ namespace ExRam.Gremlinq.Core
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableList<ExRam.Gremlinq.Core.Step>> EdgeProjectionSteps;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.FilterLabelsVerbosity> FilterLabelsVerbosity;
         public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
+        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.GroovyFormatting> QueryLogGroovyFormating;
         public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
         public static ExRam.Gremlinq.Core.GremlinqOption<System.Collections.Immutable.IImmutableDictionary<Gremlin.Net.Process.Traversal.T, ExRam.Gremlinq.Core.SerializationBehaviour>> TSerializationBehaviourOverrides;
@@ -395,6 +396,11 @@ namespace ExRam.Gremlinq.Core
     public static class GremlinqOptions
     {
         public static readonly ExRam.Gremlinq.Core.IGremlinqOptions Empty;
+    }
+    public enum GroovyFormatting
+    {
+        BindingsOnly = 0,
+        AllowInlining = 1,
     }
     public sealed class GroovyGremlinQuery
     {
@@ -671,7 +677,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<TValue> Constant<TValue>(TValue constant);
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> Count();
         ExRam.Gremlinq.Core.IValueGremlinQuery<long> CountLocal();
-        string Debug(Newtonsoft.Json.Formatting formatting = 0);
+        string Debug(ExRam.Gremlinq.Core.GroovyFormatting groovyFormatting = 1, Newtonsoft.Json.Formatting jsonFormatting = 0);
         ExRam.Gremlinq.Core.IValueGremlinQuery<object> Drop();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
         System.Runtime.CompilerServices.TaskAwaiter GetAwaiter();

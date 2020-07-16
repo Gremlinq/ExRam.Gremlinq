@@ -183,13 +183,13 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TValue> IGremlinQueryBase.Constant<TValue>(TValue constant) => AddStepWithObjectTypes<TValue>(new ConstantStep(constant!), QuerySemantics.None);
 
-        string IGremlinQueryBase.Debug(Formatting formatting)
+        string IGremlinQueryBase.Debug(GroovyFormatting groovyFormatting, Formatting jsonFormatting)
         {
             return JsonConvert.SerializeObject(
                 Environment.Serializer
-                    .ToGroovy()
+                    .ToGroovy(groovyFormatting)
                     .Serialize(this),
-                formatting);
+                jsonFormatting);
         }
 
         IValueGremlinQuery<long> IGremlinQueryBase.Count() => AddStepWithObjectTypes<long>(CountStep.Global, QuerySemantics.None);
