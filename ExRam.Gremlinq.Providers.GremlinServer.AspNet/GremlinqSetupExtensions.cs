@@ -24,7 +24,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseGremlinServer(builder => builder.Configure(_configuration, _webSocketTransformations));
+                    .UseGremlinServer(builder => builder
+                        .Configure(_configuration)
+                        .Transform(_webSocketTransformations));
             }
         }
 

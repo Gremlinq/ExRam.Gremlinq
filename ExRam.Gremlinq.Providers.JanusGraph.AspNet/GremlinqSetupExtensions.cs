@@ -24,7 +24,9 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseJanusGraph(builder => builder.Configure(_configuration, _webSocketTransformations));
+                    .UseJanusGraph(builder => builder
+                        .Configure(_configuration)
+                        .Transform(_webSocketTransformations));
             }
         }
 

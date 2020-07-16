@@ -10,8 +10,7 @@ namespace ExRam.Gremlinq.Core.AspNet
     {
         public static IWebSocketGremlinQueryExecutorBuilder Configure(
             this IWebSocketGremlinQueryExecutorBuilder builder,
-            IConfiguration configuration,
-            IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+            IConfiguration configuration)
         {
             var authenticationSection = configuration.GetSection("Authentication");
             var connectionPoolSection = configuration.GetSection("ConnectionPool");
@@ -36,6 +35,13 @@ namespace ExRam.Gremlinq.Core.AspNet
             if (Enum.TryParse<SerializationFormat>(configuration[$"{nameof(SerializationFormat)}"], out var graphsonVersion))
                 builder = builder.SetSerializationFormat(graphsonVersion);
 
+            return builder;
+        }
+
+        public static IWebSocketGremlinQueryExecutorBuilder Transform(
+            this IWebSocketGremlinQueryExecutorBuilder builder,
+            IEnumerable<IWebSocketGremlinQueryExecutorBuilderTransformation> webSocketTransformations)
+        {
             foreach (var webSocketTransformation in webSocketTransformations)
             {
                 builder = webSocketTransformation.Transform(builder);

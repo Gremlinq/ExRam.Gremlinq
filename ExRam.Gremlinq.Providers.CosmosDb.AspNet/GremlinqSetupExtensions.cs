@@ -33,7 +33,9 @@ namespace ExRam.Gremlinq.Core.AspNet
                                 _configuration.GetRequiredConfiguration("Database"),
                                 _configuration.GetRequiredConfiguration("Graph"))
                             .AuthenticateBy(_configuration.GetRequiredConfiguration("AuthKey"))
-                            .ConfigureWebSocket(builder => builder.Configure(_configuration, _webSocketTransformations));
+                            .ConfigureWebSocket(builder => builder
+                                .Configure(_configuration)
+                                .Transform(_webSocketTransformations));
                     });
             }
         }
@@ -41,7 +43,6 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseCosmosDb(this GremlinqSetup setup)
         {
             return setup
-                //.UseWebSocket()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseCosmosDbGremlinQueryEnvironmentTransformation>());
         }
     }

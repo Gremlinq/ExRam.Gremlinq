@@ -24,7 +24,8 @@ namespace ExRam.Gremlinq.Core.AspNet
             public IGremlinQueryEnvironment Transform(IGremlinQueryEnvironment environment)
             {
                 return environment
-                    .UseNeptune(builder => builder.Configure(_configuration, _webSocketTransformations));
+                    .UseNeptune(builder => builder.Configure(_configuration)
+                        .Transform(_webSocketTransformations));
             }
         }
 
