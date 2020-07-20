@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core
 {
     public sealed class GroovyGremlinQuery
     {
+        private static readonly Regex BindingRegex = new Regex("_[a-z]+", RegexOptions.Compiled);
+
         public GroovyGremlinQuery(string script, Dictionary<string, object> bindings)
         {
             Script = script;
@@ -18,46 +21,47 @@ namespace ExRam.Gremlinq.Core
 
         public GroovyGremlinQuery Inline()
         {
-            var script = Script;
             var newBindings = new Dictionary<string, object>();
 
-            foreach (var kvp in Bindings.OrderByDescending(kvp => kvp.Key))
-            {
-                switch (kvp.Value)
+            var newScript = BindingRegex.Replace(
+                Script,
+                match =>
                 {
-                    case string str:
-                    {
-                        script = script.Replace(kvp.Key, $"'{str}'");
-                        break;
-                    }
-                    case int number:
-                    {
-                        script = script.Replace(kvp.Key, number.ToString());
-                        break;
-                    }
-                    case long number:
-                    {
-                        script = script.Replace(kvp.Key, number.ToString());
-                        break;
-                    }
-                    case bool boolean:
-                    {
-                        script = script.Replace(kvp.Key, boolean.ToString().ToLower());
-                        break;
-                    }
-                    case {} obj:
-                    {
-                        if (obj.GetType().IsEnum && obj.GetType().GetEnumUnderlyingType() == typeof(int))
-                            script = script.Replace(kvp.Key, ((int)obj).ToString());
-                        else
-                            newBindings[kvp.Key] = kvp.Value;
+                    var key = match.Value;
+                    var value = Bindings[key];
 
-                        break;
-                    }
-                }
-            }
+                    switch (value)
+                    {
+                        case string str:
+                        {
+                            return $"'{str}'";
+                        }
+                        case int number:
+                        {
+                            return number.ToString();
+                        }
+                        case long number:
+                        {
+                            return number.ToString();
+                        }
+                        case bool boolean:
+                        {
+                            return boolean.ToString().ToLower();
+                        }
+                        case { } obj when obj.GetType().IsEnum && obj.GetType().GetEnumUnderlyingType() == typeof(int):
+                        {
+                            return ((int)obj).ToString();
+                        }
+                        default:
+                        {
+                            newBindings[key] = value;
 
-            return new GroovyGremlinQuery(script, newBindings);
+                            return key;
+                        }
+                    }
+                });
+
+            return new GroovyGremlinQuery(newScript, newBindings);
         }
 
         public string Script { get; }
