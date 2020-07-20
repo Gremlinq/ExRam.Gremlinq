@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').values('Age').is(36)",
-    "Bindings": {}
-  }
-]

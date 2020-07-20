@@ -1,8 +1,8 @@
 [
   {
-    "Script": "V().hasLabel('Company').properties('Locations').has('ValidFrom', _a)",
+    "Script": "V().hasLabel('Company').properties('Locations').has('ValidFrom', _d)",
     "Bindings": {
-      "_a": "2019-01-01T01:00:00+00:00"
+      "_d": "2019-01-01T01:00:00+00:00"
     }
   }
 ]

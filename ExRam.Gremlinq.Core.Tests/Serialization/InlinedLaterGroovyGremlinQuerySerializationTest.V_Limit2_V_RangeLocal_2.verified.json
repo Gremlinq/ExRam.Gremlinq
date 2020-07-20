@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().limit(2).range(local, 0, 2).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Bindings": {}
-  }
-]

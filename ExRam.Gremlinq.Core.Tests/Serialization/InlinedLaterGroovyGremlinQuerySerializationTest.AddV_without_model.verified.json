@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "addV('Language').property(id, 1100).property(single, 'IetfLanguageTag', 'en').project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Bindings": {}
-  }
-]

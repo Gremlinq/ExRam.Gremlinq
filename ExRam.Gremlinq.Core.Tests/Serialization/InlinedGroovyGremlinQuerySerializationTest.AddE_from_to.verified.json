@@ -1,9 +1,9 @@
 [
   {
-    "Script": "addE('WorksFor').property('From', _a).property('Role', 'Admin').property('To', _a).from(__.addV('Person').property(single, 'Age', 0).property(single, 'Gender', 0)).to(__.addV('Company').property(single, 'FoundingDate', _b)).project('id', 'label', 'properties').by(id).by(label).by(__.valueMap())",
+    "Script": "addE('WorksFor').property('From', _c).property('Role', 'Admin').property('To', _c).from(__.addV('Person').property(single, 'Age', 0).property(single, 'Gender', 0)).to(__.addV('Company').property(single, 'FoundingDate', _n)).project('id', 'label', 'properties').by(id).by(label).by(__.valueMap())",
     "Bindings": {
-      "_a": "2020-04-07T14:43:36+00:00",
-      "_b": "0001-01-01T00:00:00+00:00"
+      "_c": "2020-04-07T14:43:36+00:00",
+      "_n": "0001-01-01T00:00:00+00:00"
     }
   }
 ]

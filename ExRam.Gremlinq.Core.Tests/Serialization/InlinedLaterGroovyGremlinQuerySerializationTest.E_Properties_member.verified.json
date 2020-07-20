@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "E().hasLabel('LivesIn').properties('Since')",
-    "Bindings": {}
-  }
-]

@@ -76,12 +76,6 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
-                    case string str when !allowEnumerableExpansion && formatting == GroovyFormatting.AllowInlining:
-                    {
-                        builder.Append($"'{str}'");
-
-                        break;
-                    }
                     case Type type:
                     {
                         builder.Append(type.Name);
@@ -103,50 +97,25 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
-                    case int number when formatting == GroovyFormatting.AllowInlining:
-                    {
-                        builder.Append(number.ToString());
-
-                        break;
-                    }
-                    case long number when formatting == GroovyFormatting.AllowInlining:
-                    {
-                        builder.Append(number.ToString());
-
-                        break;
-                    }
-                    case bool boolean when formatting == GroovyFormatting.AllowInlining:
-                    {
-                        builder.Append(boolean.ToString().ToLower());
-
-                        break;
-                    }
                     default:
                     {
-                        if (formatting == GroovyFormatting.AllowInlining && obj.GetType().IsEnum && obj.GetType().GetEnumUnderlyingType() == typeof(int))
+                        if (!bindings.TryGetValue(obj, out var bindingKey))
                         {
-                            builder.Append((int)obj);
-                        }
-                        else
-                        {
-                            if (!bindings.TryGetValue(obj, out var bindingKey))
+                            var next = bindings.Count;
+
+                            do
                             {
-                                var next = bindings.Count;
+                                bindingKey = (char)('a' + next % 26) + bindingKey;
+                                next /= 26;
+                            } while (next > 0);
 
-                                do
-                                {
-                                    bindingKey = (char)('a' + next % 26) + bindingKey;
-                                    next /= 26;
-                                } while (next > 0);
+                            bindingKey = "_" + bindingKey;
+                            bindings.Add(obj, bindingKey);
 
-                                bindingKey = "_" + bindingKey;
-                                bindings.Add(obj, bindingKey);
-
-                                variables[bindingKey] = obj;
-                            }
-
-                            builder.Append(bindingKey);
+                            variables[bindingKey] = obj;
                         }
+
+                        builder.Append(bindingKey);
 
                         break;
                     }
@@ -155,9 +124,13 @@ namespace ExRam.Gremlinq.Core
 
             Append(bytecode);
 
-            return new GroovyGremlinQuery(
+            var ret = new GroovyGremlinQuery(
                 builder.ToString(),
                 variables);
+
+            return formatting == GroovyFormatting.AllowInlining
+                ? ret.Inline()
+                : ret;
         }
     }
 }

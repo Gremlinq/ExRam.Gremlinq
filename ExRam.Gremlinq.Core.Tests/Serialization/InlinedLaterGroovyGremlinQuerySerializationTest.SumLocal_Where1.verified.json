@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').values('Age').fold().sum(local).is(100)",
-    "Bindings": {}
-  }
-]

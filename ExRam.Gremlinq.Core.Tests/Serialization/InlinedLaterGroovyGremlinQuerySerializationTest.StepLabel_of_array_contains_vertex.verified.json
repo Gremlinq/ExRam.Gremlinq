@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().fold().as('l1').V().hasLabel('Person').where(within('l1')).count()",
-    "Bindings": {}
-  }
-]

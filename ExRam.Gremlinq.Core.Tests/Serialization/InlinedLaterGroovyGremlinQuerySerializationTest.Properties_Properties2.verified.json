@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Company').properties('Locations').properties()",
-    "Bindings": {}
-  }
-]

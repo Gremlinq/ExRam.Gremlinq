@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Country').properties('Languages').has(id, 'id')",
-    "Bindings": {}
-  }
-]

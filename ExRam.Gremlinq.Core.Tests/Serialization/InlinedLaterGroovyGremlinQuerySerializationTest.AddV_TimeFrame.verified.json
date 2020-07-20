@@ -1,9 +1,0 @@
-[
-  {
-    "Script": "addV('TimeFrame').property(single, 'Duration', _c).property(single, 'Enabled', false).property(single, 'StartTime', _g).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
-    "Bindings": {
-      "_c": "02:00:00",
-      "_g": "08:00:00"
-    }
-  }
-]

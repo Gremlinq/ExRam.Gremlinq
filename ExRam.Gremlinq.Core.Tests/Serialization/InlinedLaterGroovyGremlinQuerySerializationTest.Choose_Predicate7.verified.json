@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().id().choose(gt(0).or(lt(42).and(neq(37))), __.constant(true), __.constant(false))",
-    "Bindings": {}
-  }
-]

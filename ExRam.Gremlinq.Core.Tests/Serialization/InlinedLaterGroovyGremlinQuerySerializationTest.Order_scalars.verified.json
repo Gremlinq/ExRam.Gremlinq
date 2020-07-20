@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').local(__.count()).order().by(__.identity(), incr)",
-    "Bindings": {}
-  }
-]

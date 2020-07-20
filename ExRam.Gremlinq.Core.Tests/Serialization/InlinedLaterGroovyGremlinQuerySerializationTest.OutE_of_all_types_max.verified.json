@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().outE('LivesIn', 'Speaks', 'WorksFor').project('id', 'label', 'properties').by(id).by(label).by(__.valueMap())",
-    "Bindings": {}
-  }
-]

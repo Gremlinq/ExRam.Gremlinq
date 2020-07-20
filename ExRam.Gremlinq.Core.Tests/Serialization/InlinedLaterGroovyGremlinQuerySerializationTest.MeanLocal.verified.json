@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').values('Age').fold().mean(local)",
-    "Bindings": {}
-  }
-]

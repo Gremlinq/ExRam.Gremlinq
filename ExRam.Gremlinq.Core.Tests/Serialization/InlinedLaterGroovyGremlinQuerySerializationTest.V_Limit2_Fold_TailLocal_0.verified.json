@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().limit(2).fold().tail(local, 0)",
-    "Bindings": {}
-  }
-]

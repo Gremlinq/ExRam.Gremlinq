@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "addV('Country').property(single, 'CountryCallingCode', '+49').as('l1').addV('Language').property(single, 'IetfLanguageTag', 'en').addE('Speaks').from('l1').project('id', 'label', 'properties').by(id).by(label).by(__.valueMap())",
-    "Bindings": {}
-  }
-]

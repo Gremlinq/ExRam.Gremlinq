@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').properties().has('MetaKey', lt(100))",
-    "Bindings": {}
-  }
-]

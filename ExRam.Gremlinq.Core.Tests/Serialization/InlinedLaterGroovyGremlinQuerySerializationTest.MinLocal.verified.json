@@ -1,6 +1,0 @@
-[
-  {
-    "Script": "V().hasLabel('Person').values('Age').fold().min(local)",
-    "Bindings": {}
-  }
-]
