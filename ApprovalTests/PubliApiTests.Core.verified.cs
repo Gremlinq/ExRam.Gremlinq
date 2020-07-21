@@ -404,8 +404,8 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class GroovyGremlinQuery
     {
-        public GroovyGremlinQuery(string script, System.Collections.Generic.Dictionary<string, object> bindings) { }
-        public System.Collections.Generic.Dictionary<string, object> Bindings { get; }
+        public GroovyGremlinQuery(string script, System.Collections.Generic.IReadOnlyDictionary<string, object> bindings) { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Bindings { get; }
         public string Script { get; }
         public ExRam.Gremlinq.Core.GroovyGremlinQuery Inline() { }
         public override string ToString() { }
