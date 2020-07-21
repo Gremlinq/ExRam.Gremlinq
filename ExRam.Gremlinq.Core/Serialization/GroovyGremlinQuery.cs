@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core
@@ -10,11 +11,11 @@ namespace ExRam.Gremlinq.Core
 
         private readonly bool _createdInternally;
 
-        public GroovyGremlinQuery(string script, Dictionary<string, object> bindings) : this(script, bindings, false)
+        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(script, bindings, false)
         {
         }
 
-        internal GroovyGremlinQuery(string script, Dictionary<string, object> bindings, bool createdInternally)
+        internal GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally)
         {
             Script = script;
             Bindings = bindings;
@@ -35,7 +36,7 @@ namespace ExRam.Gremlinq.Core
             if (!_createdInternally)
                 throw new InvalidOperationException($"Can't inline this {nameof(GroovyGremlinQuery)} since it was created by user code.");
 
-            var newBindings = new Dictionary<string, object>();
+            var newBindings = default(Dictionary<string, object>);
 
             var newScript = BindingRegex.Replace(
                 Script,
@@ -68,17 +69,17 @@ namespace ExRam.Gremlinq.Core
                         }
                         default:
                         {
-                            newBindings[key] = value;
+                            (newBindings ??= new Dictionary<string, object>())[key] = value;
 
                             return key;
                         }
                     }
                 });
 
-            return new GroovyGremlinQuery(newScript, newBindings, true);
+            return new GroovyGremlinQuery(newScript, ((IReadOnlyDictionary<string, object>?)newBindings) ?? ImmutableDictionary<string, object>.Empty, true);
         }
 
         public string Script { get; }
-        public Dictionary<string, object> Bindings { get; }
+        public IReadOnlyDictionary<string, object> Bindings { get; }
     }
 }
