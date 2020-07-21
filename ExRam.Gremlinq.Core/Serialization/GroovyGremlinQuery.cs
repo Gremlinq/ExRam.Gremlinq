@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace ExRam.Gremlinq.Core
@@ -8,11 +8,19 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly Regex BindingRegex = new Regex("_[a-z]+", RegexOptions.Compiled);
 
-        public GroovyGremlinQuery(string script, Dictionary<string, object> bindings)
+        private readonly bool _createdInternally;
+
+        public GroovyGremlinQuery(string script, Dictionary<string, object> bindings) : this(script, bindings, false)
+        {
+        }
+
+        internal GroovyGremlinQuery(string script, Dictionary<string, object> bindings, bool createdInternally)
         {
             Script = script;
             Bindings = bindings;
+            _createdInternally = createdInternally;
         }
+
 
         public override string ToString()
         {
@@ -21,6 +29,9 @@ namespace ExRam.Gremlinq.Core
 
         public GroovyGremlinQuery Inline()
         {
+            if (!_createdInternally)
+                throw new InvalidOperationException($"Can't inline this {nameof(GroovyGremlinQuery)} since it was created by user code.");
+
             var newBindings = new Dictionary<string, object>();
 
             var newScript = BindingRegex.Replace(
@@ -61,7 +72,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 });
 
-            return new GroovyGremlinQuery(newScript, newBindings);
+            return new GroovyGremlinQuery(newScript, newBindings, true);
         }
 
         public string Script { get; }

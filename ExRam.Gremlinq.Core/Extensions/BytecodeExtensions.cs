@@ -126,7 +126,8 @@ namespace ExRam.Gremlinq.Core
 
             var ret = new GroovyGremlinQuery(
                 builder.ToString(),
-                variables);
+                variables,
+                true);
 
             return formatting == GroovyFormatting.AllowInlining
                 ? ret.Inline()
