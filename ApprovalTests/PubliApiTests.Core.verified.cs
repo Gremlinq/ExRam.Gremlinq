@@ -1497,7 +1497,7 @@ namespace ExRam.Gremlinq.Core
     public enum QueryLogVerbosity
     {
         QueryOnly = 0,
-        IncludeParameters = 1,
+        IncludeBindings = 1,
     }
     public sealed class RangeStep : ExRam.Gremlinq.Core.Step
     {

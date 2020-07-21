@@ -115,7 +115,7 @@ namespace ExRam.Gremlinq.Core
                             {
                                 RequestId = requestId,
                                 gremlinQuery.Script,
-                                Bindings = (verbosity & QueryLogVerbosity.IncludeParameters) > QueryLogVerbosity.QueryOnly
+                                Bindings = (verbosity & QueryLogVerbosity.IncludeBindings) > QueryLogVerbosity.QueryOnly
                                     ? gremlinQuery.Bindings
                                     : null
                             }));
