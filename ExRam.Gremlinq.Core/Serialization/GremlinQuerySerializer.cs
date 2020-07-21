@@ -108,7 +108,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     return serialized switch
                     {
-                        GroovyGremlinQuery serializedQuery => serializedQuery,
+                        GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.AllowInlining
+                            ? serializedQuery.Inline()
+                            : serializedQuery,
                         Bytecode bytecode => bytecode.ToGroovy(formatting),
                         _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
                     };
