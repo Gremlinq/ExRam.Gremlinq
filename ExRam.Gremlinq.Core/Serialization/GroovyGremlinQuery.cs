@@ -9,28 +9,26 @@ namespace ExRam.Gremlinq.Core
     {
         private static readonly Regex BindingRegex = new Regex("_[a-z]+", RegexOptions.Compiled);
 
+        private readonly bool _isInlined;
         private readonly bool _createdInternally;
 
-        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(script, bindings, false)
+        public GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings) : this(script, bindings, false, false)
         {
         }
 
-        internal GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally)
+        internal GroovyGremlinQuery(string script, IReadOnlyDictionary<string, object> bindings, bool createdInternally, bool isInlined)
         {
             Script = script;
             Bindings = bindings;
+            _isInlined = isInlined;
             _createdInternally = createdInternally;
         }
 
-
-        public override string ToString()
-        {
-            return Script;
-        }
+        public override string ToString() => Script;
 
         public GroovyGremlinQuery Inline()
         {
-            if (Bindings.Count == 0)
+            if (_isInlined || Bindings.Count == 0)
                 return this;
 
             if (!_createdInternally)
@@ -76,10 +74,15 @@ namespace ExRam.Gremlinq.Core
                     }
                 });
 
-            return new GroovyGremlinQuery(newScript, ((IReadOnlyDictionary<string, object>?)newBindings) ?? ImmutableDictionary<string, object>.Empty, true);
+            return new GroovyGremlinQuery(
+                newScript,
+                ((IReadOnlyDictionary<string, object>?)newBindings) ?? ImmutableDictionary<string, object>.Empty,
+                true,
+                true);
         }
 
         public string Script { get; }
+
         public IReadOnlyDictionary<string, object> Bindings { get; }
     }
 }
