@@ -29,6 +29,9 @@ namespace ExRam.Gremlinq.Core
 
         public GroovyGremlinQuery Inline()
         {
+            if (Bindings.Count == 0)
+                return this;
+
             if (!_createdInternally)
                 throw new InvalidOperationException($"Can't inline this {nameof(GroovyGremlinQuery)} since it was created by user code.");
 
