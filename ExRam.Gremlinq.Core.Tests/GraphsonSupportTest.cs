@@ -3,9 +3,9 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
-using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
+using Verify;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -92,17 +92,17 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task GraphSon3ReferenceVertex()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(Graphson3ReferenceVertex)
                 .V()
                 .Cast<JObject>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Configured_property_name()
         {
-            await _g
+            await Verify(await _g
                 .ConfigureEnvironment(env => env
                     .ConfigureModel(model => model
                         .ConfigureProperties(prop => prop
@@ -110,86 +110,86 @@ namespace ExRam.Gremlinq.Providers.Tests
                                 .ConfigureName(x => x.Name, "replacement")))))
                 .WithExecutor("[ { \"id\": 13, \"label\": \"Person\", \"type\": \"vertex\", \"properties\": { \"replacement\": [ { \"id\": 1, \"value\": \"nameValue\" } ] } } ]")
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task IsDescribedIn()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleWorksFor)
                 .E<WorksFor>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task DynamicData()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleWorksFor)
                 .V()
                 .Project(_ => _
                     .ToDynamic()
                     .By("in!", __ => __.In()))
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task WorksFor_with_Graphson3()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("{\"@type\":\"g:List\",\"@value\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:Int64\",\"@value\":23},\"label\":\"WorksFor\",\"inVLabel\":\"Company\",\"outVLabel\":\"Person\",\"inV\":\"companyId\",\"outV\":\"personId\",\"properties\":{\"Role\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"Role\",\"value\":\"Admin\"}},\"ActiveFrom\":{\"@type\":\"g:Property\",\"@value\":{\"key\":\"ActiveFrom\",\"value\":{\"@type\":\"g:Int64\",\"@value\":1523879885819}}}}}}]}")
                 .E<WorksFor>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Empty1()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[]")
                 .V()
                 .Drop()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Empty2()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[]")
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task String_Ids()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ \"id1\", \"id2\" ]")
                 .V()
                 .Id()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task String_Ids2()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ \"1\", \"2\" ]")
                 .V()
                 .Id()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Int_Ids()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ 1, 2 ]")
                 .V()
                 .Id()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
@@ -204,192 +204,192 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Mixed_Ids()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ 1, \"id2\" ]")
                 .V()
                 .Id()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task DateTime_is_UTC()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleCompanyJson)
                 .V<Company>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_unknown_type()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleLanguageJson)
                 .V<object>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_unknown_type_without_model()
         {
-            await _g
+            await Verify(await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
                 .WithExecutor(SingleLanguageJson)
                 .V()
                 .Cast<object>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleLanguageJson)
                 .V<Language>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_strongly_typed_without_model()
         {
-            await _g
+            await Verify(await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
                 .WithExecutor(SingleLanguageJson)
                 .V()
                 .Cast<Language>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_to_generic_vertex()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleLanguageJson)
                 .V<Vertex>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Languages_to_object()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(ArrayOfLanguages)
                 .V<object>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Person_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SinglePersonJson)
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Person_with_null()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SinglePersonWithNullJson)
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Person_StringId()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SinglePersonStringId)
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Person_lowercase_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SinglePersonLowercasePropertiesJson)
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Person_without_PhoneNumbers_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SinglePersonWithoutPhoneNumbersJson)
                 .V<Person>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task TimeFrame_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleTimeFrameJson)
                 .V<TimeFrame>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact(Skip = "Not standard behaviour!")]
         public async Task TimeFrame_with_numbers_strongly_typed()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleTimeFrameWithNumbersJson)
                 .V<TimeFrame>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Language_by_vertex_inheritance()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(SingleLanguageJson)
                 .V()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Tuple()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(TupleOfPersonLanguageJson)
                 .V()
                 .Cast<(Person, Language)>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Tuple_vertex_vertex()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(TupleOfPersonLanguageJson)
                 .V()
                 .Cast<(Vertex, Vertex)>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task NamedTuple()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(NamedTupleOfPersonLanguageJson)
                 .V()
                 .Cast<PersonLanguageTuple>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Graphson3_Tuple()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(Graphson3TupleOfPersonLanguageJson)
                 .V()
                 .Cast<(Person, Language)>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
@@ -416,126 +416,134 @@ namespace ExRam.Gremlinq.Providers.Tests
         [Fact]
         public async Task Array()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(ArrayOfLanguages)
                 .V()
                 .Cast<Language[]>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Nested_Array()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(NestedArrayOfLanguagesJson)
                 .V()
                 .Cast<Language[][]>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Scalar()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ 36 ]")
                 .V()
                 .Cast<int>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Meta_Properties()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(CountryWithMetaProperties)
                 .V<Country>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task VertexProperties()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(GetJson("VertexProperties"))
                 .V()
                 .Properties()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task VertexProperties_with_model()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(GetJson("VertexProperties"))
                 .V()
                 .Properties()
                 .Meta<MetaPoco>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task MetaProperties()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(GetJson("Properties"))
                 .V()
                 .Properties()
                 .Properties()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task VertexPropertyWithoutProperties()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]")
                 .V<Person>()
                 .Properties(x => x.SomeObscureProperty)
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task VertexPropertyWithDateTimeOffset()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]")
                 .V<Person>()
                 .Properties(x => x.Name)
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task PropertyWithDateTimeOffset()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("{ \"@type\": \"g:List\",\"@value\": [ { \"@type\": \"g:Property\", \"@value\": { \"key\": \"ValidFrom\", \"value\": { \"@type\": \"g:Date\", \"@value\": 1548169812555 } } } ] }")
                 .V<Person>()
                 .Properties(x => x.Name)
                 .Properties(x => x.ValidFrom)
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Traverser()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor(ThreeCompaniesAsTraverser)
                 .V<Company>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         [Fact]
         public async Task Nullable()
         {
-            await _g
+            await Verify(await _g
                 .WithExecutor("[ { \"Item1\": [],  \"Item2\": [], \"Item3\": \"someString\", \"Item4\": \"someString\", \"Item5\": [],  \"Item5\": null } ]")
                 .V<(string, string?, string, string?, int?, int?)>()
-                .Verify(this);
+                .ToArrayAsync());
         }
 
         private static string GetJson(string name)
         {
             return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")).ReadToEnd();
+        }
+
+        private Task Verify<TElement>(TElement element)
+        {
+            var settings = new VerifySettings();
+            settings.UseExtension("json");
+
+            return base.Verify(element, settings);
         }
     }
 }

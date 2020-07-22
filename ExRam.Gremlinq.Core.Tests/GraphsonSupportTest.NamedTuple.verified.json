@@ -1,36 +1,18 @@
 [
   {
-    "key": {
-      "id": 16,
-      "label": "Person",
-      "type": "vertex",
-      "properties": {
-        "Name": [
-          {
-            "id": 1,
-            "value": "Name of some base entity"
-          }
-        ],
-        "Age": [
-          {
-            "id": 2,
-            "value": "36"
-          }
-        ]
-      }
+    Key: {
+      Age: 36,
+      Name: {
+        Id: 1,
+        Value: 'Name of some base entity'
+      },
+      Id: 16,
+      Label: 'Person'
     },
-    "value": {
-      "id": 17,
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "id": 3,
-            "value": "de"
-          }
-        ]
-      }
+    Value: {
+      IetfLanguageTag: 'de',
+      Id: 17,
+      Label: 'Language'
     }
   }
 ]

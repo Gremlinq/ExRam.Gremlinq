@@ -1,17 +1,17 @@
 [
   {
-    "value": 1540202009475,
-    "label": "Property1",
-    "properties": {
-      "metaKey": "MetaValue"
-    }
+    Properties: {
+      metaKey: 'MetaValue'
+    },
+    Label: 'Property1',
+    Value: 1540202009475
   },
   {
-    "value": "Some string",
-    "label": "Property2"
+    Label: 'Property2',
+    Value: 'Some string'
   },
   {
-    "value": 36,
-    "label": "Property3"
+    Label: 'Property3',
+    Value: 36
   }
 ]

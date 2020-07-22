@@ -1,9 +1,8 @@
 [
   {
-    "Enabled": false,
-    "StartTime": "06:00:00",
-    "Duration": "16:00:00",
-    "Id": 11,
-    "Label": "TimeFrame"
+    StartTime: '06:00:00',
+    Duration: '16:00:00',
+    Id: 11,
+    Label: 'TimeFrame'
   }
 ]

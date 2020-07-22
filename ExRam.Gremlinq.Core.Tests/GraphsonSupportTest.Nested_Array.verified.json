@@ -2,45 +2,21 @@
   [
     [
       {
-        "id": 6,
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "IetfLanguageTag": [
-            {
-              "id": 1,
-              "value": "en"
-            }
-          ]
-        }
+        IetfLanguageTag: 'en',
+        Id: 6,
+        Label: 'Language'
       }
     ],
     [
       {
-        "id": 7,
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "IetfLanguageTag": [
-            {
-              "id": 2,
-              "value": "de"
-            }
-          ]
-        }
+        IetfLanguageTag: 'de',
+        Id: 7,
+        Label: 'Language'
       },
       {
-        "id": 8,
-        "label": "Language",
-        "type": "vertex",
-        "properties": {
-          "IetfLanguageTag": [
-            {
-              "id": 1,
-              "value": "en"
-            }
-          ]
-        }
+        IetfLanguageTag: 'en',
+        Id: 8,
+        Label: 'Language'
       }
     ]
   ]

@@ -1,30 +1,14 @@
 [
   [
     {
-      "id": 1,
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "id": 1,
-            "value": "de"
-          }
-        ]
-      }
+      IetfLanguageTag: 'de',
+      Id: 1,
+      Label: 'Language'
     },
     {
-      "id": 2,
-      "label": "Language",
-      "type": "vertex",
-      "properties": {
-        "IetfLanguageTag": [
-          {
-            "id": 2,
-            "value": "en"
-          }
-        ]
-      }
+      IetfLanguageTag: 'en',
+      Id: 2,
+      Label: 'Language'
     }
   ]
 ]

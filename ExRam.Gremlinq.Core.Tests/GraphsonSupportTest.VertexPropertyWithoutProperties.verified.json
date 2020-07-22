@@ -1,7 +1,7 @@
 [
   {
-    "id": 166,
-    "value": "bob",
-    "label": "Name"
+    Id: 166,
+    Label: 'Name',
+    Value: 'bob'
   }
 ]
