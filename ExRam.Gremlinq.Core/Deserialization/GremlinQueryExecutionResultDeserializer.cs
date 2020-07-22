@@ -352,6 +352,12 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(jToken, type, env, recurse);
             })
+            .Override<JToken>((jObject, type, env, overridden, recurse) =>
+            {
+                return type.IsArray
+                    ? recurse.TryDeserialize(new JArray(jObject), type, env)
+                    : overridden(jObject, type, env, recurse);
+            })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType

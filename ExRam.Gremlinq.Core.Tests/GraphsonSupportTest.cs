@@ -393,6 +393,27 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task SingleVertex_as_array()
+        {
+            await Verify(await _g
+                .WithExecutor("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]")
+                .V<Person>()
+                .Fold()
+                .ToArrayAsync());
+        }
+
+        [Fact]
+        public async Task SingleVertex_as_array_of_arrays()
+        {
+            await Verify(await _g
+                .WithExecutor("[ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27\", \"label\": \"vertex\", \"type\": \"vertex\", \"properties\": { \"PartitionKey\": [ { \"id\": \"3110d0db-17c0-4f82-89d8-0a7e9ae41c27|PartitionKey\", \"value\": \"p\" } ] } } ]")
+                .V<Person>()
+                .Fold()
+                .Fold()
+                .ToArrayAsync());
+        }
+
+        [Fact]
         public async Task Array()
         {
             await _g
