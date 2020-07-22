@@ -434,7 +434,7 @@ namespace ExRam.Gremlinq.Core
                 var label = jObject["label"]?.ToString();
 
                 var modelType = label != null && modelTypes.TryGetValue(label, out var types)
-                    ? types.FirstOrDefault(type => type.IsAssignableFrom(type))
+                    ? types.FirstOrDefault(possibleType => type.IsAssignableFrom(possibleType))
                     : default;
 
                 if (modelType == null)
