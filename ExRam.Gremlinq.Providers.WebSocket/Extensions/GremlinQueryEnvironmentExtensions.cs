@@ -44,6 +44,7 @@ namespace ExRam.Gremlinq.Core
                 async IAsyncEnumerator<object> Core(CancellationToken ct)
                 {
                     var results = default(ResultSet<JToken>);
+                    var client = await _lazyGremlinClient.Value;
 
                     var requestMessage = serializedQuery switch
                     {
@@ -60,15 +61,14 @@ namespace ExRam.Gremlinq.Core
                         _ => throw new ArgumentException($"Cannot handle serialized query of type {serializedQuery.GetType()}.")
                     };
 
-                    Log(serializedQuery, requestMessage.RequestId, environment);
-
                     try
                     {
-                        var client = await _lazyGremlinClient
-                            .Value;
+                        var task = client
+                            .SubmitAsync<JToken>(requestMessage);
 
-                        results = await client
-                            .SubmitAsync<JToken>(requestMessage)
+                        Log(serializedQuery, requestMessage.RequestId, environment);
+
+                        results = await task
                             .ConfigureAwait(false);
                     }
                     catch (Exception ex)
