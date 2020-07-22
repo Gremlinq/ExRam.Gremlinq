@@ -352,11 +352,11 @@ namespace ExRam.Gremlinq.Core
 
                 return overridden(jToken, type, env, recurse);
             })
-            .Override<JToken>((jObject, type, env, overridden, recurse) =>
+            .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
                 return type.IsArray
-                    ? recurse.TryDeserialize(new JArray(jObject), type, env)
-                    : overridden(jObject, type, env, recurse);
+                    ? recurse.TryDeserialize(new JArray(jToken), type, env)
+                    : overridden(jToken, type, env, recurse);
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
