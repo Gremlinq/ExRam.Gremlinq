@@ -1,144 +1,54 @@
 [
   [
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 66
-        },
-        "label": "Person"
-      }
+      "id": 66,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "id": 7,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 7
-        },
-        "label": "Person"
-      }
+      "id": 200,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "id": 11,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 200
-        },
-        "label": "Person"
-      }
+      "id": 17,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "id": 22,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 11
-        },
-        "label": "Person"
-      }
+      "id": 27,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "id": 34,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 17
-        },
-        "label": "Person"
-      }
+      "id": 43,
+      "label": "Person"
     },
+    1,
     {
-      "@type": "g:Int64",
-      "@value": 1
+      "id": 51,
+      "label": "Person"
     },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 22
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 27
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 34
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 43
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    },
-    {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 51
-        },
-        "label": "Person"
-      }
-    },
-    {
-      "@type": "g:Int64",
-      "@value": 1
-    }
+    1
   ]
 ]

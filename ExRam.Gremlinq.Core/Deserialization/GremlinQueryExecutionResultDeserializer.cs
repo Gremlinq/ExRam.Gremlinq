@@ -480,6 +480,12 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
+                return type.IsAssignableFrom(typeof(JArray)) && recurse.TryDeserialize(jArray, typeof(JToken[]), env) is JToken[] tokens
+                    ? new JArray(tokens)
+                    : overridden(jArray, type, env, recurse);
+            })
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
+            {
                 //Traversers
                 if (!type.IsArray)
                     return overridden(jArray, type, env, recurse);

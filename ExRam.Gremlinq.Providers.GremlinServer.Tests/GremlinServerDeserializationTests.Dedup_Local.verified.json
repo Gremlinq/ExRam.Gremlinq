@@ -1,334 +1,136 @@
 [
   [
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 0
-        },
-        "label": "Country"
-      }
+      "id": 0,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 2
-        },
-        "label": "Language"
-      }
+      "id": 2,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 66
-        },
-        "label": "Person"
-      }
+      "id": 66,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 900
-        },
-        "label": "Language"
-      }
+      "id": 900,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 5
-        },
-        "label": "Company"
-      }
+      "id": 5,
+      "label": "Company"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 69
-        },
-        "label": "Language"
-      }
+      "id": 69,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 7
-        },
-        "label": "Person"
-      }
+      "id": 7,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 200
-        },
-        "label": "Person"
-      }
+      "id": 200,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 11
-        },
-        "label": "Person"
-      }
+      "id": 11,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 1100
-        },
-        "label": "Language"
-      }
+      "id": 1100,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 400
-        },
-        "label": "Language"
-      }
+      "id": 400,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 17
-        },
-        "label": "Person"
-      }
+      "id": 17,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 20
-        },
-        "label": "Country"
-      }
+      "id": 20,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 22
-        },
-        "label": "Person"
-      }
+      "id": 22,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 600
-        },
-        "label": "Country"
-      }
+      "id": 600,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 25
-        },
-        "label": "Country"
-      }
+      "id": 25,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 27
-        },
-        "label": "Person"
-      }
+      "id": 27,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 30
-        },
-        "label": "Country"
-      }
+      "id": 30,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 32
-        },
-        "label": "Company"
-      }
+      "id": 32,
+      "label": "Company"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 800
-        },
-        "label": "Company"
-      }
+      "id": 800,
+      "label": "Company"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 34
-        },
-        "label": "Person"
-      }
+      "id": 34,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 100
-        },
-        "label": "Language"
-      }
+      "id": 100,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 38
-        },
-        "label": "Language"
-      }
+      "id": 38,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 40
-        },
-        "label": "Country"
-      }
+      "id": 40,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 1000
-        },
-        "label": "Language"
-      }
+      "id": 1000,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 43
-        },
-        "label": "Person"
-      }
+      "id": 43,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 49
-        },
-        "label": "Company"
-      }
+      "id": 49,
+      "label": "Company"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 51
-        },
-        "label": "Person"
-      }
+      "id": 51,
+      "label": "Person"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 500
-        },
-        "label": "Country"
-      }
+      "id": 500,
+      "label": "Country"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 56
-        },
-        "label": "Language"
-      }
+      "id": 56,
+      "label": "Language"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 57
-        },
-        "label": "TimeFrame"
-      }
+      "id": 57,
+      "label": "TimeFrame"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 700
-        },
-        "label": "Company"
-      }
+      "id": 700,
+      "label": "Company"
     },
     {
-      "@type": "g:Vertex",
-      "@value": {
-        "id": {
-          "@type": "g:Int64",
-          "@value": 61
-        },
-        "label": "Language"
-      }
+      "id": 61,
+      "label": "Language"
     }
   ]
 ]

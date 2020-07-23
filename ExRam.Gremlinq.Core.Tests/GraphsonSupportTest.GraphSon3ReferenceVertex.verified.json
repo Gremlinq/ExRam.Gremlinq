@@ -5,96 +5,45 @@
     properties: {
       name: [
         {
-          @type: 'g:VertexProperty',
-          @value: {
-            id: {
-              @type: 'g:Int64',
-              @value: 0
-            },
-            value: 'marko',
-            label: 'name'
-          }
+          id: 0,
+          value: 'marko',
+          label: 'name'
         }
       ],
       location: [
         {
-          @type: 'g:VertexProperty',
-          @value: {
-            id: {
-              @type: 'g:Int64',
-              @value: 6
-            },
-            value: 'san diego',
-            label: 'location',
-            properties: {
-              startTime: {
-                @type: 'g:Int32',
-                @value: 1997
-              },
-              endTime: {
-                @type: 'g:Int32',
-                @value: 2001
-              }
-            }
+          id: 6,
+          value: 'san diego',
+          label: 'location',
+          properties: {
+            startTime: 1997,
+            endTime: 2001
           }
         },
         {
-          @type: 'g:VertexProperty',
-          @value: {
-            id: {
-              @type: 'g:Int64',
-              @value: 7
-            },
-            value: 'santa cruz',
-            label: 'location',
-            properties: {
-              startTime: {
-                @type: 'g:Int32',
-                @value: 2001
-              },
-              endTime: {
-                @type: 'g:Int32',
-                @value: 2004
-              }
-            }
+          id: 7,
+          value: 'santa cruz',
+          label: 'location',
+          properties: {
+            startTime: 2001,
+            endTime: 2004
           }
         },
         {
-          @type: 'g:VertexProperty',
-          @value: {
-            id: {
-              @type: 'g:Int64',
-              @value: 8
-            },
-            value: 'brussels',
-            label: 'location',
-            properties: {
-              startTime: {
-                @type: 'g:Int32',
-                @value: 2004
-              },
-              endTime: {
-                @type: 'g:Int32',
-                @value: 2005
-              }
-            }
+          id: 8,
+          value: 'brussels',
+          label: 'location',
+          properties: {
+            startTime: 2004,
+            endTime: 2005
           }
         },
         {
-          @type: 'g:VertexProperty',
-          @value: {
-            id: {
-              @type: 'g:Int64',
-              @value: 9
-            },
-            value: 'santa fe',
-            label: 'location',
-            properties: {
-              startTime: {
-                @type: 'g:Int32',
-                @value: 2005
-              }
-            }
+          id: 9,
+          value: 'santa fe',
+          label: 'location',
+          properties: {
+            startTime: 2005
           }
         }
       ]
