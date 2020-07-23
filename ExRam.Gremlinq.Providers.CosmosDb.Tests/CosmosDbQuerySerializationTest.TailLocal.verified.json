@@ -1,9 +1,8 @@
 [
   {
-    "Script": "V().choose(__.as(_a).unfold().where(eq(_a)), __.tail(local, _b), __.tail(local, _b).fold())",
+    "Script": "V().tail(local, _a)",
     "Bindings": {
-      "_a": "l1",
-      "_b": 1
+      "_a": 1
     }
   }
 ]

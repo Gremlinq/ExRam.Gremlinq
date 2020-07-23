@@ -645,16 +645,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> LimitLocal(long count)
         {
             return count == 1
-                ? Choose(
-                    __ => __
-                        .As((__, a) => __
-                            .Unfold()
-                            .Where(x => (object)x! == (object)a.Value!)),
-                    __ => __
-                        .AddStep(LimitStep.LimitLocal1),
-                    __ => __
-                        .AddStep(LimitStep.LimitLocal1)
-                        .AddStep(FoldStep.Instance, QuerySemantics.None))
+                ? AddStep(LimitStep.LimitLocal1)
                 : AddStep(new LimitStep(count, Scope.Local));
         }
 
@@ -827,18 +818,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> RangeLocal(long low, long high)
         {
-            return high > -1 && high - low == 1
-                ? Choose(
-                    __ => __
-                        .As((__, a) => __
-                            .Unfold()
-                            .Where(x => (object)x! == (object)a.Value!)),
-                    __ => __
-                        .AddStep(new RangeStep(low, high, Scope.Local)),
-                    __ => __
-                        .AddStep(new RangeStep(low, high, Scope.Local))
-                        .AddStep(FoldStep.Instance, QuerySemantics.None))
-                : AddStep(new RangeStep(low, high, Scope.Local));
+            return AddStep(new RangeStep(low, high, Scope.Local));
         }
 
         private TTargetQuery Repeat<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> repeatTraversal)
@@ -928,16 +908,7 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> TailLocal(long count)
         {
             return count == 1
-                ? Choose(
-                    __ => __
-                        .As((__, a) => __
-                            .Unfold()
-                            .Where(x => (object)x! == (object)a.Value!)),
-                    __ => __
-                        .AddStep(TailStep.TailLocal1),
-                    __ => __
-                        .AddStep(TailStep.TailLocal1)
-                        .AddStep(FoldStep.Instance, QuerySemantics.None))
+                ? AddStep(TailStep.TailLocal1)
                 : AddStep(new TailStep(count, Scope.Local));
         }
 

@@ -10,19 +10,14 @@
             "@value": 1
           },
           "value": {
-            "@type": "g:List",
-            "@value": [
-              {
-                "@type": "g:Vertex",
-                "@value": {
-                  "id": {
-                    "@type": "g:Int64",
-                    "@value": 2
-                  },
-                  "label": "Language"
-                }
-              }
-            ]
+            "@type": "g:Vertex",
+            "@value": {
+              "id": {
+                "@type": "g:Int64",
+                "@value": 2
+              },
+              "label": "Language"
+            }
           }
         }
       }

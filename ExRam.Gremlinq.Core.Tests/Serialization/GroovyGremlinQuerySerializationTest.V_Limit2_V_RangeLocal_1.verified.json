@@ -1,15 +1,14 @@
 [
   {
-    "Script": "V().limit(_a).choose(__.as(_b).unfold().where(eq(_b)), __.range(local, _c, _d), __.range(local, _c, _d).fold()).project(_e, _f, _g).by(id).by(label).by(__.properties().group().by(label).by(__.project(_e, _f, _h, _g).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "V().limit(_a).range(local, _b, _c).project(_d, _e, _f).by(id).by(label).by(__.properties().group().by(label).by(__.project(_d, _e, _g, _f).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": 2,
-      "_b": "l1",
-      "_c": 0,
-      "_d": 1,
-      "_e": "id",
-      "_f": "label",
-      "_g": "properties",
-      "_h": "value"
+      "_b": 0,
+      "_c": 1,
+      "_d": "id",
+      "_e": "label",
+      "_f": "properties",
+      "_g": "value"
     }
   }
 ]

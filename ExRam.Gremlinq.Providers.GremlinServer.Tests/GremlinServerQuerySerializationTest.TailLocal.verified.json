@@ -7,67 +7,13 @@
         "Arguments": []
       },
       {
-        "OperatorName": "choose",
+        "OperatorName": "tail",
         "Arguments": [
           {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "as",
-                "Arguments": [
-                  "l1"
-                ]
-              },
-              {
-                "OperatorName": "unfold",
-                "Arguments": []
-              },
-              {
-                "OperatorName": "where",
-                "Arguments": [
-                  {
-                    "OperatorName": "eq",
-                    "Value": "l1",
-                    "Other": null
-                  }
-                ]
-              }
-            ]
+            "EnumName": "Scope",
+            "EnumValue": "local"
           },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "tail",
-                "Arguments": [
-                  {
-                    "EnumName": "Scope",
-                    "EnumValue": "local"
-                  },
-                  1
-                ]
-              }
-            ]
-          },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "tail",
-                "Arguments": [
-                  {
-                    "EnumName": "Scope",
-                    "EnumValue": "local"
-                  },
-                  1
-                ]
-              },
-              {
-                "OperatorName": "fold",
-                "Arguments": []
-              }
-            ]
-          }
+          1
         ]
       },
       {

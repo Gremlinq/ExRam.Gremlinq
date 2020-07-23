@@ -1,10 +1,9 @@
 [
   {
-    "Script": "V().limit(_a).choose(__.as(_b).unfold().where(eq(_b)), __.limit(local, _c), __.limit(local, _c).fold())",
+    "Script": "V().limit(_a).limit(local, _b)",
     "Bindings": {
       "_a": 0,
-      "_b": "l1",
-      "_c": 1
+      "_b": 1
     }
   }
 ]
