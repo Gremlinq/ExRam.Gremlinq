@@ -32,7 +32,7 @@ namespace ExRam.Gremlinq.Providers.WebSocket
     public static class WebSocketGremlinqOptions
     {
         public static ExRam.Gremlinq.Core.GremlinqOption<Newtonsoft.Json.Formatting> QueryLogFormatting;
-        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.GroovyFormatting> QueryLogGroovyFormating;
+        public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.GroovyFormatting> QueryLogGroovyFormatting;
         public static ExRam.Gremlinq.Core.GremlinqOption<Microsoft.Extensions.Logging.LogLevel> QueryLogLogLevel;
         public static ExRam.Gremlinq.Core.GremlinqOption<ExRam.Gremlinq.Core.QueryLogVerbosity> QueryLogVerbosity;
     }
