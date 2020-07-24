@@ -32,6 +32,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         public static GremlinqSetup UseNeptune(this GremlinqSetup setup)
         {
             return setup
+                .UseWebSocket()
                 .RegisterTypes(serviceCollection => serviceCollection.AddSingleton<IGremlinQueryEnvironmentTransformation, UseNeptuneGremlinQueryEnvironmentTransformation>());
         }
     }

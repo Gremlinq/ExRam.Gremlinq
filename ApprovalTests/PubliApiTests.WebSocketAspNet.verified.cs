@@ -3,7 +3,8 @@ namespace ExRam.Gremlinq.Core.AspNet
 {
     public static class GremlinqSetupExtensions
     {
-        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup ConfigureWebSocket(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder> transformation) { }
+        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup ConfigureWebSocketBuilder(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup, System.Func<ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder, ExRam.Gremlinq.Providers.WebSocket.IWebSocketGremlinQueryExecutorBuilder> transformation) { }
+        public static ExRam.Gremlinq.Core.AspNet.GremlinqSetup UseWebSocket(this ExRam.Gremlinq.Core.AspNet.GremlinqSetup setup) { }
     }
     public interface IWebSocketGremlinQueryExecutorBuilderTransformation
     {
