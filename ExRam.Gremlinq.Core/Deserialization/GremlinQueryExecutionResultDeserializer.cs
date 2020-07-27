@@ -316,7 +316,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                if (!type.IsArray)
+                if (!type.IsArray || env.Model.NativeTypes.Contains(type))
                 {
                     if (!type.IsInstanceOfType(jToken))
                     {
@@ -354,7 +354,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                return type.IsArray
+                return type.IsArray && !env.Model.NativeTypes.Contains(type)
                     ? recurse.TryDeserialize(new JArray(jToken), type, env)
                     : overridden(jToken, type, env, recurse);
             })
@@ -409,6 +409,12 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return overridden(jValue, type, env, recurse);
+            })
+            .Override<JValue>((jValue, type, env, overridden, recurse) =>
+            {
+                return type == typeof(byte[]) && jValue.Type == JTokenType.String
+                    ? Convert.FromBase64String(jValue.Value<string>())
+                    : overridden(jValue, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
@@ -487,7 +493,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
-                if (!type.IsArray)
+                if (!type.IsArray || env.Model.NativeTypes.Contains(type))
                     return overridden(jArray, type, env, recurse);
 
                 var array = default(ArrayList);

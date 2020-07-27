@@ -17,11 +17,13 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public static async Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
         {
+            var data = await query
+                .Cast<object>()
+                .ToArrayAsync();
+
             await verifyBase.Verify(
                 JsonConvert.SerializeObject(
-                    await query
-                        .Cast<object>()
-                        .ToArrayAsync(),
+                    data,
                     Formatting.Indented),
                 Settings);
         }
