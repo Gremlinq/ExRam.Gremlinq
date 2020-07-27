@@ -2,6 +2,6 @@
 {
     public class VertexWithListId
     {
-        public object[] Id { get; set; }
+        public object[]? Id { get; set; }
     }
 }

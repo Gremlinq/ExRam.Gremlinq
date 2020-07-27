@@ -18,7 +18,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         private class FancyId : IFancyId
         {
-            public string Id { get; set; }
+            public string? Id { get; set; }
         }
 
         public ExecutionPipelinesTest(ITestOutputHelper output) : base(output)

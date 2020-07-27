@@ -11,8 +11,8 @@ namespace ExRam.Gremlinq.Tests.Entities
 
         public DateTimeOffset? RegistrationDate { get; set; }
 
-        public VertexProperty<string>[] PhoneNumbers { get; set; }
+        public VertexProperty<string>[]? PhoneNumbers { get; set; }
 
-        public VertexProperty<object> SomeObscureProperty { get; set; }
+        public VertexProperty<object>? SomeObscureProperty { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
-using NullGuard;
 using Xunit;
 using Xunit.Abstractions;
 using VerifyXunit;
@@ -18,7 +17,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public class Item : VertexBase
         {
-            public string Value { get; set; }
+            public string? Value { get; set; }
         }
 
         public abstract class VertexBaseAbstract : IVertex
@@ -29,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public class ItemOverride : VertexBaseAbstract
         {
-            public string Value { get; set; }
+            public string? Value { get; set; }
 
             public override string PartitionKey { get; set; } = "MyKey";
         }

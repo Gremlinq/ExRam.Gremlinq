@@ -7,8 +7,8 @@ namespace ExRam.Gremlinq.Tests.Entities
     {
         public DateTime FoundingDate { get; set; }
 
-        public string[] PhoneNumbers { get; set; }
+        public string[]? PhoneNumbers { get; set; }
 
-        public VertexProperty<string, PropertyValidity>[] Locations { get; set; }
+        public VertexProperty<string, PropertyValidity>[]? Locations { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Moq;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;

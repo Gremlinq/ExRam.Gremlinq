@@ -2,6 +2,6 @@
 {
     public class EdgeWithStringId
     {
-        public string Id { get; }
+        public string? Id { get; }
     }
 }

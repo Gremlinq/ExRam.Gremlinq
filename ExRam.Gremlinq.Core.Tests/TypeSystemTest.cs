@@ -20,27 +20,27 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private sealed class Vertex
         {
-            public string String { get; }
-            public string[] Strings { get; }
+            public string? String { get; }
+            public string[]? Strings { get; }
 
-            public VertexProperty<string> StringVertexProperty { get; }
-            public VertexProperty<string>[] StringVertexProperties { get; }
+            public VertexProperty<string>? StringVertexProperty { get; }
+            public VertexProperty<string>[]? StringVertexProperties { get; }
 
-            public VertexProperty<int> IntVertexProperty { get; }
-            public VertexProperty<int>[] IntVertexProperties { get; }
+            public VertexProperty<int>? IntVertexProperty { get; }
+            public VertexProperty<int>[]? IntVertexProperties { get; }
 
-            public VertexProperty<string, object> MetaStringVertexProperty { get; }
-            public VertexProperty<string, object>[] MetaStringVertexProperties { get; }
+            public VertexProperty<string, object>? MetaStringVertexProperty { get; }
+            public VertexProperty<string, object>[]? MetaStringVertexProperties { get; }
 
-            public VertexProperty<object, object> MetaObjectVertexProperty { get; }
-            public VertexProperty<object, object>[] MetaObjectVertexProperties { get; }
+            public VertexProperty<object, object>? MetaObjectVertexProperty { get; }
+            public VertexProperty<object, object>[]? MetaObjectVertexProperties { get; }
         }
 
         private sealed class Edge
         {
-            public string String { get; }
+            public string? String { get; }
             
-            public Property<string> StringEdgeProperty { get; }
+            public Property<string>? StringEdgeProperty { get; }
         }
 
         private sealed class SpecimenBuilder : ISpecimenBuilder
@@ -101,7 +101,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
         public static readonly Step[] AllSteps;
 
-        private IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
+        private readonly IGremlinQuerySource _g = g.ConfigureEnvironment(_ => _);
 
         static TypeSystemTest()
         {

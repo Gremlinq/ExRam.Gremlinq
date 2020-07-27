@@ -4,6 +4,6 @@ namespace ExRam.Gremlinq.Tests.Entities
 {
     public abstract class Authority : Vertex, IAuthority
     {
-        public VertexProperty<string, PropertyValidity> Name { get; set; }
+        public VertexProperty<string, PropertyValidity>? Name { get; set; }
     }
 }

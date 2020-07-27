@@ -2,6 +2,6 @@
 {
     public class VertexWithStringId
     {
-        public string Id { get; }
+        public string? Id { get; }
     }
 }

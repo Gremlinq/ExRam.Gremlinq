@@ -36,7 +36,7 @@ namespace LanguageExt
                     .BecauseOf(because, becauseArgs)
                     .FailWith("Expected Some, but found None.");
 
-                someAction(Subject.IfNoneUnsafe(default(T)));
+                someAction(Subject.IfNoneUnsafe(default(T)!));
 
                 return new AndConstraint<OptionAssertions<T>>(this);
             }

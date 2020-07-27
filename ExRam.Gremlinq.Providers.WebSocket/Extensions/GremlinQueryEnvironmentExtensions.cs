@@ -92,7 +92,7 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private void Log(object serializedQuery, Guid requestId, IGremlinQueryEnvironment environment)
+            private static void Log(object serializedQuery, Guid requestId, IGremlinQueryEnvironment environment)
             {
                 var logLevel = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogLogLevel);
                 var verbosity = environment.Options.GetValue(WebSocketGremlinqOptions.QueryLogVerbosity);

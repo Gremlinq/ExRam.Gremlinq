@@ -17,13 +17,13 @@ namespace ExRam.Gremlinq.Providers.Tests
     {
         private sealed class MetaPoco
         {
-            public string MetaKey { get; set; }
+            public string? MetaKey { get; set; }
         }
 
         private sealed class PersonLanguageTuple
         {
-            public Person Key { get; set; }
-            public Language Value { get; set; }
+            public Person? Key { get; set; }
+            public Language? Value { get; set; }
         }
 
         private static readonly string SinglePersonJson;
@@ -490,7 +490,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await Verify(await _g
                 .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\" } ]")
                 .V<Person>()
-                .Properties(x => x.SomeObscureProperty)
+                .Properties(x => x.SomeObscureProperty!)
                 .ToArrayAsync());
         }
 
@@ -500,7 +500,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await Verify(await _g
                 .WithExecutor("[ { \"id\": 166, \"value\": \"bob\", \"label\": \"Name\", \"properties\": { \"ValidFrom\": 1548112365431 } } ]")
                 .V<Person>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Name!)
                 .ToArrayAsync());
         }
 
@@ -510,7 +510,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             await Verify(await _g
                 .WithExecutor("{ \"@type\": \"g:List\",\"@value\": [ { \"@type\": \"g:Property\", \"@value\": { \"key\": \"ValidFrom\", \"value\": { \"@type\": \"g:Date\", \"@value\": 1548169812555 } } } ] }")
                 .V<Person>()
-                .Properties(x => x.Name)
+                .Properties(x => x.Name!)
                 .Properties(x => x.ValidFrom)
                 .ToArrayAsync());
         }

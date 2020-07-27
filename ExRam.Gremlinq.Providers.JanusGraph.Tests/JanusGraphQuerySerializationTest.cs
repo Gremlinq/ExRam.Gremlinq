@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using ExRam.Gremlinq.Core;
+﻿using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
-using ExRam.Gremlinq.Providers.GremlinServer;
 using ExRam.Gremlinq.Providers.WebSocket;
-using ExRam.Gremlinq.Tests.Entities;
-using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 

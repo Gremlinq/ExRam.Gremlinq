@@ -2,6 +2,6 @@
 {
     public class Language : Vertex
     {
-        public string IetfLanguageTag { get; set; }
+        public string? IetfLanguageTag { get; set; }
     }
 }

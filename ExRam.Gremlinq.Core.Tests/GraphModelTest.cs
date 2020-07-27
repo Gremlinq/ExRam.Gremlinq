@@ -8,7 +8,6 @@ using Xunit;
 using LanguageExt;
 using VerifyXunit;
 using Xunit.Abstractions;
-using System.Linq;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -16,7 +15,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private sealed class VertexOutsideHierarchy
         {
-            public object Id { get; set; }
+            public object? Id { get; set; }
         }
 
         private sealed class VertexInsideHierarchy : Vertex
