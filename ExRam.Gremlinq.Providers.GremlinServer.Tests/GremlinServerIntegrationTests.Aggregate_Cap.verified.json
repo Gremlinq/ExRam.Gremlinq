@@ -17,7 +17,7 @@
                 "@value": {
                   "id": {
                     "@type": "g:Int64",
-                    "@value": 66
+                    "@value": 69
                   },
                   "label": "Person"
                 }
@@ -46,6 +46,20 @@
                   "id": {
                     "@type": "g:Int64",
                     "@value": 200
+                  },
+                  "label": "Person"
+                }
+              },
+              {
+                "@type": "g:Int64",
+                "@value": 1
+              },
+              {
+                "@type": "g:Vertex",
+                "@value": {
+                  "id": {
+                    "@type": "g:Int64",
+                    "@value": 201
                   },
                   "label": "Person"
                 }

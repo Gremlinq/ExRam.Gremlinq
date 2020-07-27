@@ -37,19 +37,6 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 66
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Int64",
             "@value": 900
           }
         }
@@ -103,6 +90,32 @@
           "value": {
             "@type": "g:Int64",
             "@value": 200
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 72
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 201
           }
         }
       },

@@ -11,7 +11,7 @@
           },
           "value": {
             "@type": "g:Int64",
-            "@value": 66
+            "@value": 69
           }
         }
       },
@@ -20,7 +20,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": {
             "@type": "g:Int32",
@@ -33,7 +33,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": "Marko"
         }
@@ -61,6 +61,19 @@
           "value": {
             "@type": "g:Int64",
             "@value": 200
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Int64",
+            "@value": 201
           }
         }
       },

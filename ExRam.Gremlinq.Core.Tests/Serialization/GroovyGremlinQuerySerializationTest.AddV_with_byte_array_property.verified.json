@@ -1,0 +1,19 @@
+[
+  {
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).property(single, _g, _h).project(_i, _j, _k).by(id).by(label).by(__.properties().group().by(label).by(__.project(_i, _j, _l, _k).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 0,
+      "_d": "Gender",
+      "_e": 0,
+      "_f": 201,
+      "_g": "Image",
+      "_h": "AQIDBAUGBwg=",
+      "_i": "id",
+      "_j": "label",
+      "_k": "properties",
+      "_l": "value"
+    }
+  }
+]

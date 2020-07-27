@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 64
+                            "@value": 67
                           },
                           "label",
                           "Age",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 65
+                            "@value": 68
                           },
                           "label",
                           "Gender",

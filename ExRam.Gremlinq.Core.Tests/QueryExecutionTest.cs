@@ -253,6 +253,18 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task AddV_with_byte_array_property()
+        {
+            await _g
+                .AddV(new Person
+                {
+                    Id = 201,
+                    Image = new byte [] { 1, 2, 3, 4, 5, 6, 7, 8 }
+                })
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task AddV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);

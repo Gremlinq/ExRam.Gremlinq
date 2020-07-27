@@ -1,12 +1,12 @@
 [
   {
     "Item1": {
-      "id": 66,
+      "id": 69,
       "label": "Person",
       "properties": {
         "RegistrationDate": [
           {
-            "id": 68,
+            "id": 71,
             "label": "RegistrationDate",
             "value": 1586270616000,
             "properties": {}
@@ -14,7 +14,7 @@
         ],
         "Name": [
           {
-            "id": 67,
+            "id": 70,
             "label": "Name",
             "value": "Marko",
             "properties": {}
@@ -24,12 +24,12 @@
     },
     "Item2": {
       "Item1": {
-        "id": 66,
+        "id": 69,
         "label": "Person",
         "properties": {
           "RegistrationDate": [
             {
-              "id": 68,
+              "id": 71,
               "label": "RegistrationDate",
               "value": 1586270616000,
               "properties": {}
@@ -37,7 +37,7 @@
           ],
           "Name": [
             {
-              "id": 67,
+              "id": 70,
               "label": "Name",
               "value": "Marko",
               "properties": {}
@@ -46,12 +46,12 @@
         }
       },
       "Item2": {
-        "id": 66,
+        "id": 69,
         "label": "Person",
         "properties": {
           "RegistrationDate": [
             {
-              "id": 68,
+              "id": 71,
               "label": "RegistrationDate",
               "value": 1586270616000,
               "properties": {}
@@ -59,7 +59,7 @@
           ],
           "Name": [
             {
-              "id": 67,
+              "id": 70,
               "label": "Name",
               "value": "Marko",
               "properties": {}
@@ -146,7 +146,7 @@
       "properties": {
         "Age": [
           {
-            "id": 64,
+            "id": 67,
             "label": "Age",
             "value": 0,
             "properties": {}
@@ -154,7 +154,7 @@
         ],
         "Gender": [
           {
-            "id": 65,
+            "id": 68,
             "label": "Gender",
             "value": 1,
             "properties": {}
@@ -169,7 +169,7 @@
         "properties": {
           "Age": [
             {
-              "id": 64,
+              "id": 67,
               "label": "Age",
               "value": 0,
               "properties": {}
@@ -177,7 +177,7 @@
           ],
           "Gender": [
             {
-              "id": 65,
+              "id": 68,
               "label": "Gender",
               "value": 1,
               "properties": {}
@@ -191,6 +191,70 @@
         "properties": {
           "Age": [
             {
+              "id": 67,
+              "label": "Age",
+              "value": 0,
+              "properties": {}
+            }
+          ],
+          "Gender": [
+            {
+              "id": 68,
+              "label": "Gender",
+              "value": 1,
+              "properties": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "Item1": {
+      "id": 201,
+      "label": "Person",
+      "properties": {
+        "Image": [
+          {
+            "id": 66,
+            "label": "Image",
+            "value": "AQIDBAUGBwg=",
+            "properties": {}
+          }
+        ],
+        "Age": [
+          {
+            "id": 64,
+            "label": "Age",
+            "value": 0,
+            "properties": {}
+          }
+        ],
+        "Gender": [
+          {
+            "id": 65,
+            "label": "Gender",
+            "value": 0,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    "Item2": {
+      "Item1": {
+        "id": 201,
+        "label": "Person",
+        "properties": {
+          "Image": [
+            {
+              "id": 66,
+              "label": "Image",
+              "value": "AQIDBAUGBwg=",
+              "properties": {}
+            }
+          ],
+          "Age": [
+            {
               "id": 64,
               "label": "Age",
               "value": 0,
@@ -201,7 +265,37 @@
             {
               "id": 65,
               "label": "Gender",
-              "value": 1,
+              "value": 0,
+              "properties": {}
+            }
+          ]
+        }
+      },
+      "Item2": {
+        "id": 201,
+        "label": "Person",
+        "properties": {
+          "Image": [
+            {
+              "id": 66,
+              "label": "Image",
+              "value": "AQIDBAUGBwg=",
+              "properties": {}
+            }
+          ],
+          "Age": [
+            {
+              "id": 64,
+              "label": "Age",
+              "value": 0,
+              "properties": {}
+            }
+          ],
+          "Gender": [
+            {
+              "id": 65,
+              "label": "Gender",
+              "value": 0,
               "properties": {}
             }
           ]

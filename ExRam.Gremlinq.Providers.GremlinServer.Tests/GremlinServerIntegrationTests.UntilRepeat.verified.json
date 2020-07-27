@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 66
+                "@value": 69
               },
               "label",
               "Person",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 68
+                            "@value": 71
                           },
                           "label",
                           "RegistrationDate",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 80
+                            "@value": 83
                           },
                           "label",
                           "Age",
@@ -89,7 +89,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 67
+                            "@value": 70
                           },
                           "label",
                           "Name",
@@ -147,7 +147,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 81
+                            "@value": 84
                           },
                           "label",
                           "Age",
@@ -230,7 +230,118 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 82
+                            "@value": 85
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 36
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 68
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 1
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": 201
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Image",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 66
+                          },
+                          "label",
+                          "Image",
+                          "value",
+                          {
+                            "@type": "gx:ByteBuffer",
+                            "@value": "AQIDBAUGBwg="
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": 86
                           },
                           "label",
                           "Age",
@@ -265,7 +376,7 @@
                           "value",
                           {
                             "@type": "g:Int32",
-                            "@value": 1
+                            "@value": 0
                           },
                           "properties",
                           {
@@ -369,7 +480,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 83
+                            "@value": 87
                           },
                           "label",
                           "Age",
@@ -455,7 +566,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 84
+                            "@value": 88
                           },
                           "label",
                           "Age",
@@ -538,7 +649,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 85
+                            "@value": 89
                           },
                           "label",
                           "Age",
@@ -621,7 +732,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 86
+                            "@value": 90
                           },
                           "label",
                           "Age",
@@ -704,7 +815,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 87
+                            "@value": 91
                           },
                           "label",
                           "Age",
@@ -843,7 +954,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 88
+                            "@value": 92
                           },
                           "label",
                           "Age",
@@ -929,7 +1040,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 89
+                            "@value": 93
                           },
                           "label",
                           "Age",

@@ -7,7 +7,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": {
             "@type": "g:Date",
@@ -20,7 +20,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": {
             "@type": "g:Int32",
@@ -33,7 +33,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": {
             "@type": "g:Int32",
@@ -46,9 +46,22 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
+            "@value": 11
           },
           "value": "Marko"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:ByteBuffer",
+            "@value": "AQIDBAUGBwg="
+          }
         }
       }
     ]

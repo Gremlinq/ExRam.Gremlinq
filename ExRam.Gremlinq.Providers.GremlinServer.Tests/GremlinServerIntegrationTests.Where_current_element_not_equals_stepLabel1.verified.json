@@ -41,7 +41,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 69
+                "@value": 72
               },
               "label",
               "Language",
@@ -59,7 +59,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 70
+                            "@value": 73
                           },
                           "label",
                           "IetfLanguageTag",
@@ -293,7 +293,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 78
+                            "@value": 81
                           },
                           "label",
                           "lang",

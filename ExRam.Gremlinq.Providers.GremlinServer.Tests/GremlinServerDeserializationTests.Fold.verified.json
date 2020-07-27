@@ -9,10 +9,6 @@
       "label": "Language"
     },
     {
-      "id": 66,
-      "label": "Person"
-    },
-    {
       "id": 900,
       "label": "Language"
     },
@@ -22,7 +18,7 @@
     },
     {
       "id": 69,
-      "label": "Language"
+      "label": "Person"
     },
     {
       "id": 7,
@@ -30,6 +26,14 @@
     },
     {
       "id": 200,
+      "label": "Person"
+    },
+    {
+      "id": 72,
+      "label": "Language"
+    },
+    {
+      "id": 201,
       "label": "Person"
     },
     {

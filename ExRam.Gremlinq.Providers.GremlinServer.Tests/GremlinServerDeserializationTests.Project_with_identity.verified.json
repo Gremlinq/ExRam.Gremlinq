@@ -43,35 +43,6 @@
   },
   {
     "Item1": {
-      "id": 66,
-      "label": "Person",
-      "properties": {
-        "RegistrationDate": [
-          {
-            "id": 68,
-            "label": "RegistrationDate",
-            "value": 1586270616000,
-            "properties": {}
-          }
-        ],
-        "Name": [
-          {
-            "id": 67,
-            "label": "Name",
-            "value": "Marko",
-            "properties": {}
-          }
-        ]
-      }
-    },
-    "Item2": {
-      "id": 68,
-      "value": 1586270616000,
-      "label": "RegistrationDate"
-    }
-  },
-  {
-    "Item1": {
       "id": 5,
       "label": "Company",
       "properties": {
@@ -94,22 +65,30 @@
   {
     "Item1": {
       "id": 69,
-      "label": "Language",
+      "label": "Person",
       "properties": {
-        "IetfLanguageTag": [
+        "RegistrationDate": [
+          {
+            "id": 71,
+            "label": "RegistrationDate",
+            "value": 1586270616000,
+            "properties": {}
+          }
+        ],
+        "Name": [
           {
             "id": 70,
-            "label": "IetfLanguageTag",
-            "value": "en",
+            "label": "Name",
+            "value": "Marko",
             "properties": {}
           }
         ]
       }
     },
     "Item2": {
-      "id": 70,
-      "value": "en",
-      "label": "IetfLanguageTag"
+      "id": 71,
+      "value": 1586270616000,
+      "label": "RegistrationDate"
     }
   },
   {
@@ -148,6 +127,64 @@
       "properties": {
         "Age": [
           {
+            "id": 67,
+            "label": "Age",
+            "value": 0,
+            "properties": {}
+          }
+        ],
+        "Gender": [
+          {
+            "id": 68,
+            "label": "Gender",
+            "value": 1,
+            "properties": {}
+          }
+        ]
+      }
+    },
+    "Item2": {
+      "id": 68,
+      "value": 1,
+      "label": "Gender"
+    }
+  },
+  {
+    "Item1": {
+      "id": 72,
+      "label": "Language",
+      "properties": {
+        "IetfLanguageTag": [
+          {
+            "id": 73,
+            "label": "IetfLanguageTag",
+            "value": "en",
+            "properties": {}
+          }
+        ]
+      }
+    },
+    "Item2": {
+      "id": 73,
+      "value": "en",
+      "label": "IetfLanguageTag"
+    }
+  },
+  {
+    "Item1": {
+      "id": 201,
+      "label": "Person",
+      "properties": {
+        "Image": [
+          {
+            "id": 66,
+            "label": "Image",
+            "value": "AQIDBAUGBwg=",
+            "properties": {}
+          }
+        ],
+        "Age": [
+          {
             "id": 64,
             "label": "Age",
             "value": 0,
@@ -158,7 +195,7 @@
           {
             "id": 65,
             "label": "Gender",
-            "value": 1,
+            "value": 0,
             "properties": {}
           }
         ]
@@ -166,7 +203,7 @@
     },
     "Item2": {
       "id": 65,
-      "value": 1,
+      "value": 0,
       "label": "Gender"
     }
   },
@@ -301,7 +338,7 @@
       "properties": {
         "Name": [
           {
-            "id": 73,
+            "id": 76,
             "label": "Name",
             "value": "GER",
             "properties": {}
@@ -310,7 +347,7 @@
       }
     },
     "Item2": {
-      "id": 73,
+      "id": 76,
       "value": "GER",
       "label": "Name"
     }
@@ -372,13 +409,13 @@
       "properties": {
         "PhoneNumbers": [
           {
-            "id": 76,
+            "id": 79,
             "label": "PhoneNumbers",
             "value": "+4912345",
             "properties": {}
           },
           {
-            "id": 77,
+            "id": 80,
             "label": "PhoneNumbers",
             "value": "+4923456",
             "properties": {}
@@ -386,7 +423,7 @@
         ],
         "FoundingDate": [
           {
-            "id": 75,
+            "id": 78,
             "label": "FoundingDate",
             "value": -62135596800000,
             "properties": {}
@@ -395,7 +432,7 @@
       }
     },
     "Item2": {
-      "id": 76,
+      "id": 79,
       "value": "+4912345",
       "label": "PhoneNumbers"
     }
@@ -499,7 +536,7 @@
       "properties": {
         "lang": [
           {
-            "id": 78,
+            "id": 81,
             "label": "lang",
             "value": "en",
             "properties": {}
@@ -508,7 +545,7 @@
       }
     },
     "Item2": {
-      "id": 78,
+      "id": 81,
       "value": "en",
       "label": "lang"
     }
@@ -615,7 +652,7 @@
       "properties": {
         "Name": [
           {
-            "id": 74,
+            "id": 77,
             "label": "Name",
             "value": "GER",
             "properties": {
@@ -627,7 +664,7 @@
       }
     },
     "Item2": {
-      "id": 74,
+      "id": 77,
       "value": "GER",
       "label": "Name"
     }
@@ -676,7 +713,7 @@
       "properties": {
         "Locations": [
           {
-            "id": 72,
+            "id": 75,
             "label": "Locations",
             "value": "Aachen",
             "properties": {
@@ -686,7 +723,7 @@
         ],
         "FoundingDate": [
           {
-            "id": 71,
+            "id": 74,
             "label": "FoundingDate",
             "value": -62135596800000,
             "properties": {}
@@ -695,7 +732,7 @@
       }
     },
     "Item2": {
-      "id": 71,
+      "id": 74,
       "value": -62135596800000,
       "label": "FoundingDate"
     }

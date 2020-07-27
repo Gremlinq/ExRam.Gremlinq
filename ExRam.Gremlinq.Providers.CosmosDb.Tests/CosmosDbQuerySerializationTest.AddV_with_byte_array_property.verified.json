@@ -1,0 +1,15 @@
+[
+  {
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).property(single, _g, _h)",
+    "Bindings": {
+      "_a": "Person",
+      "_b": "Age",
+      "_c": 0,
+      "_d": "Gender",
+      "_e": 0,
+      "_f": 201,
+      "_g": "Image",
+      "_h": "AQIDBAUGBwg="
+    }
+  }
+]

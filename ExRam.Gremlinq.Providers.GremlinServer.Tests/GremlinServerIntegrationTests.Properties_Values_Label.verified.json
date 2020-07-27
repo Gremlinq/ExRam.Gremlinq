@@ -27,6 +27,16 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 5
+          },
+          "value": "FoundingDate"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 3
           },
           "value": "RegistrationDate"
@@ -47,17 +57,7 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": "FoundingDate"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 9
+            "@value": 10
           },
           "value": "Gender"
         }
@@ -67,9 +67,19 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 9
+            "@value": 10
           },
           "value": "Age"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "Image"
         }
       },
       {

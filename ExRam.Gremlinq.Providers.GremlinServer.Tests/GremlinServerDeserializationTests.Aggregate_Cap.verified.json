@@ -1,7 +1,7 @@
 [
   [
     {
-      "id": 66,
+      "id": 69,
       "label": "Person"
     },
     1,
@@ -12,6 +12,11 @@
     1,
     {
       "id": 200,
+      "label": "Person"
+    },
+    1,
+    {
+      "id": 201,
       "label": "Person"
     },
     1,
