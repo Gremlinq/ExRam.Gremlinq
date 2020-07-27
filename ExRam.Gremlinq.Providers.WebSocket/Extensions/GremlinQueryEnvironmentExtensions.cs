@@ -75,7 +75,7 @@ namespace ExRam.Gremlinq.Core
                     catch (Exception ex)
                     {
                         environment.Logger.LogError(
-                            $"Error executing Gremlin query with {nameof(RequestMessage.RequestId)} {0}: {1}",
+                            "Error executing Gremlin query with {nameof(RequestMessage.RequestId)} {0}: {1}",
                             requestMessage.RequestId,
                             ex);
 
