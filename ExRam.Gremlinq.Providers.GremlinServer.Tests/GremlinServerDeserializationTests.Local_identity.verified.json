@@ -14,6 +14,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -50,6 +51,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -60,6 +62,7 @@
   {
     "Age": 0,
     "Gender": 1,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -70,6 +73,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -98,6 +102,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -115,6 +120,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -145,6 +151,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -181,6 +188,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -213,6 +221,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": "2020-04-07T14:43:36+00:00",
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
@@ -239,6 +248,7 @@
   {
     "Age": 0,
     "Gender": 0,
+    "Image": "",
     "RegistrationDate": null,
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
