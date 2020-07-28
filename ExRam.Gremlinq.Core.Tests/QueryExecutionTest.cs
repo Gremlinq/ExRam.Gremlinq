@@ -3996,6 +3996,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+        [Fact]
+        public async Task Where_value_of_property_is_null_in2()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(__ => __
+                        .Where(x => x == null)))
+                .Verify(this);
+        }
+
         [Fact(Skip="Optimizable")]
         public async Task Where_conjunction_optimizable()
         {

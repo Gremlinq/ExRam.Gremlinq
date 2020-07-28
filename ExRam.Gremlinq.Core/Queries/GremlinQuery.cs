@@ -1005,7 +1005,9 @@ namespace ExRam.Gremlinq.Core
 
             return traversal.Steps.Length == 1 && traversal.Steps[0] is HasPredicateStep hasPredicateStep
                 ? AddStep(hasPredicateStep)
-                : AddStep(new WhereTraversalStep(traversal));
+                : traversal.Steps.Length == 1 && traversal.Steps[0] is IsStep isStep
+                    ? AddStep(isStep)
+                    : AddStep(new WhereTraversalStep(traversal));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
