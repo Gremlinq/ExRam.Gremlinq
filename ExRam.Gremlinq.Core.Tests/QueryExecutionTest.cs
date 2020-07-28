@@ -3971,6 +3971,19 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
+        [Fact]
+        public async Task Where_out_vertex_property()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Out<WorksFor>()
+                    .OfType<Company>()
+                    .Values(x => x.Name.Value)
+                    .Where(x => x == "MyCompany"))
+                .Verify(this);
+        }
+
         [Fact(Skip="Optimizable")]
         public async Task Where_conjunction_optimizable()
         {

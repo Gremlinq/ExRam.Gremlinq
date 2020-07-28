@@ -8,18 +8,24 @@ namespace ExRam.Gremlinq.Core
         {
             var traversalSteps = traversal.Steps;
 
-            if (traversalSteps.Length == 2)
+            if (traversalSteps.Length >= 2)
             {
-                if (traversalSteps[1] is IsStep isStep)
+                if (traversalSteps[traversalSteps.Length - 1] is IsStep isStep)
                 {
-                    if (traversalSteps[0] is ValuesStep valuesStep && valuesStep.Keys.Length == 1)
-                        return new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate);
+                    var newStep = traversalSteps[traversalSteps.Length - 2] switch
+                    {
+                        ValuesStep valuesStep when valuesStep.Keys.Length == 1 => new HasPredicateStep(valuesStep.Keys[0], isStep.Predicate),
+                        IdStep _ => new HasPredicateStep(T.Id, isStep.Predicate),
+                        LabelStep _ => new HasPredicateStep(T.Label, isStep.Predicate),
+                        _ => default
+                    };
 
-                    if (traversalSteps[0] is IdStep)
-                        return new HasPredicateStep(T.Id, isStep.Predicate);
-
-                    if (traversalSteps[0] is LabelStep)
-                        return new HasPredicateStep(T.Label, isStep.Predicate);
+                    if (newStep != null)
+                    {
+                        return traversalSteps.Length == 2
+                            ? (Traversal)newStep
+                            : traversalSteps.SetItem(traversalSteps.Length - 2, newStep).RemoveAt(traversalSteps.Length - 1);
+                    }
                 }
             }
             else if (traversalSteps.Length == 1)
