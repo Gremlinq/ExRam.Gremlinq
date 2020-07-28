@@ -1003,6 +1003,7 @@ namespace ExRam.Gremlinq.Core
         {
             traversal = traversal.RewriteForWhereContext();
 
+            //TODO: Common interface for Filtersteps will help greatly.
             return traversal.Steps.Length == 1 && traversal.Steps[0] is HasPredicateStep hasPredicateStep
                 ? AddStep(hasPredicateStep)
                 : traversal.Steps.Length == 1 && traversal.Steps[0] is IsStep isStep
