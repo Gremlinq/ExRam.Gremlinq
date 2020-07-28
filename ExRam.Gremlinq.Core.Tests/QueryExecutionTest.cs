@@ -3685,9 +3685,10 @@ namespace ExRam.Gremlinq.Core.Tests
             _g
                 .V<Person>()
                 .Invoking(x => x
-                    .Where(y => y != null))
+                    .Where(y => y != null)
+                    .Debug())
                 .Should()
-                .Throw<ExpressionNotSupportedException>();
+                .Throw<NotSupportedException>();
         }
 
         [Fact]
@@ -3981,6 +3982,17 @@ namespace ExRam.Gremlinq.Core.Tests
                     .OfType<Company>()
                     .Values(x => x.Name.Value)
                     .Where(x => x == "MyCompany"))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_value_of_property_is_null()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(x => x == null))
                 .Verify(this);
         }
 

@@ -289,17 +289,23 @@ namespace ExRam.Gremlinq.Core
                 .Override<OutEStep>((step, env, overridden, recurse) => CreateInstruction("outE", recurse, env, step.Labels))
                 .Override<OutVStep>((step, env, overridden, recurse) => CreateInstruction("outV"))
                 .Override<OtherVStep>((step, env, overridden, recurse) => CreateInstruction("otherV"))
-                .Override<P>((p, env, overridden, recurse) => new P(
-                    p.OperatorName,
-                    !(p.Value is string) && p.Value is IEnumerable enumerable
-                        ? enumerable
-                            .Cast<object>()
-                            .Select(x => recurse.Serialize(x, env))
-                            .ToArray()
-                        : recurse.Serialize(p.Value, env),
-                    p.Other is { } other
-                        ? recurse.Serialize(other, env) as P
-                        : null))
+                .Override<P>((p, env, overridden, recurse) =>
+                {
+                    if (p.Value is null)
+                        throw new NotSupportedException("Cannot serialize a P-predicate with a null-value.");
+
+                    return new P(
+                        p.OperatorName,
+                        !(p.Value is string) && p.Value is IEnumerable enumerable
+                            ? enumerable
+                                .Cast<object>()
+                                .Select(x => recurse.Serialize(x, env))
+                                .ToArray()
+                            : recurse.Serialize(p.Value, env),
+                        p.Other is { } other
+                            ? recurse.Serialize(other, env) as P
+                            : null);
+                })
                 .Override<ProfileStep>((step, env, overridden, recurse) => CreateInstruction("profile"))
                 .Override<PropertiesStep>((step, env, overridden, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
                 .Override<PropertyStep>((step, env, overridden, recurse) =>
