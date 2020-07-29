@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -36,6 +38,56 @@ namespace ExRam.Gremlinq.Core
             }
 
             return traversal;
+        }
+
+        public static IEnumerable<Traversal> Fuse(
+            this IEnumerable<Traversal> traversals,
+            Func<P?, P?, P?> fuse)
+        {
+            if (traversals.Any())
+            {
+                if (traversals.All(x => x.Steps.Length == 1))
+                {
+                    if (traversals.All(x => x.Steps[0] is HasPredicateStep))
+                    {
+                        var groups = traversals
+                            .Select(x => x.Steps[0])
+                            .OfType<HasPredicateStep>()
+                            .GroupBy(x => x.Key);
+
+                        foreach (var group in groups)
+                        {
+                            var effective = group
+                                .Select(x => x.Predicate)
+                                .Aggregate(fuse);
+
+                            yield return new HasPredicateStep(group.Key, effective);
+                        }
+
+                        yield break;
+                    }
+
+                    if (traversals.All(x => x.Steps[0] is IsStep))
+                    {
+                        var effective = traversals
+                            .Select(x => x.Steps[0])
+                            .OfType<IsStep>()
+                            .Select(x => x.Predicate)
+                            .Aggregate(fuse);
+
+                        if (effective != null)
+                        {
+                            yield return new IsStep(effective);
+                            yield break;
+                        }
+                    }
+                }
+
+                foreach (var traversal in traversals)
+                {
+                    yield return traversal;
+                }
+            }
         }
     }
 }

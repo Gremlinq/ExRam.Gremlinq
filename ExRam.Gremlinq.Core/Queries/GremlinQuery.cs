@@ -382,7 +382,7 @@ namespace ExRam.Gremlinq.Core
             if (andTraversalTransformations.Length == 0)
                 return AddStep(AndStep.Infix);
 
-            var subQueries = default(List<IGremlinQueryBase>);
+            var subQueries = new List<IGremlinQueryBase>();
 
             foreach (var transformation in andTraversalTransformations)
             {
@@ -395,11 +395,18 @@ namespace ExRam.Gremlinq.Core
                     (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
             }
 
-            return (subQueries?.Count).GetValueOrDefault() == 0
-                ? this
-                : (subQueries!.Count == 1)
-                    ? Where(subQueries[0].ToTraversal())
-                    : AddStep(new AndStep(subQueries.Select(x => x.ToTraversal().RewriteForWhereContext())));
+            var fusedTraversals = subQueries
+                .Select(x => x.ToTraversal().RewriteForWhereContext())
+                .Fuse(
+                    (p1, p2) => p1?.And(p2))
+                .ToArray();
+
+            return fusedTraversals.Length switch
+            {
+                0 => this,
+                1 => Where(fusedTraversals[0]),
+                _ => AddStep(new AndStep(fusedTraversals))
+            };
         }
 
         private TTargetQuery Continue<TTargetQuery>(Func<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TTargetQuery> transformation, bool surfaceVisible = false)
@@ -726,38 +733,12 @@ namespace ExRam.Gremlinq.Core
             return Or(orTraversalTransformations.Select(transformation => Continue(transformation)).ToArray());
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(
-            GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> left,
-            GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> right)
-        {
-            if (left.Steps.TryGetSingleStep() is { } leftStep && right.Steps.TryGetSingleStep() is { } rightStep)
-            {
-                switch (leftStep)
-                {
-                    case HasPredicateStep leftHasPredicate when rightStep is HasPredicateStep rightHasPredicateStep && leftHasPredicate.Key == rightHasPredicateStep.Key:
-                    {
-                        return Has(
-                            leftHasPredicate.Key,
-                            leftHasPredicate.Predicate is { } leftP && rightHasPredicateStep.Predicate is { } rightP
-                                ? leftP.Or(rightP)
-                                : null);
-                    }
-                    case IsStep leftIsStep when rightStep is IsStep rightIsStep:
-                    {
-                        return Is(leftIsStep.Predicate.Or(rightIsStep.Predicate));
-                    }
-                }
-            }
-
-            return Or(new IGremlinQueryBase[] { left, right });
-        }
-
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Or(params IGremlinQueryBase[] orTraversals)
         {
             if (orTraversals.Length == 0)
                 return AddStep(OrStep.Infix);
 
-            var subQueries = default(List<IGremlinQueryBase>);
+            var subQueries = new List<IGremlinQueryBase>();
 
             foreach (var transformed in orTraversals)
             {
@@ -768,11 +749,18 @@ namespace ExRam.Gremlinq.Core
                     (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
             }
 
-            return (subQueries?.Count).GetValueOrDefault() == 0
-                ? None()
-                : subQueries!.Count == 1
-                    ? Where(subQueries[0].ToTraversal())
-                    : AddStep(new OrStep(subQueries.Select(x => x.ToTraversal().RewriteForWhereContext())));
+            var fusedTraversals = subQueries
+                .Select(x => x.ToTraversal().RewriteForWhereContext())
+                .Fuse(
+                    (p1, p2) => p1?.Or(p2))
+                .ToArray();
+
+            return fusedTraversals.Length switch
+            {
+                0 => None(),
+                1 => Where(fusedTraversals[0]),
+                _ => AddStep(new OrStep(fusedTraversals))
+            };
         }
 
         private TTargetQuery OrderGlobal<TTargetQuery>(Func<OrderBuilder, IOrderBuilderWithBy<TTargetQuery>> projection) where TTargetQuery : IGremlinQueryBase<TElement> => Order(projection, OrderStep.Global);

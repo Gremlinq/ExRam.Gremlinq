@@ -1,6 +1,6 @@
 [
   {
-    "Script": "V().hasLabel(_a).or(__.has(_b, gt(_c)), __.has(_b, lt(_d)))",
+    "Script": "V().hasLabel(_a).has(_b, gt(_c).or(lt(_d)))",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",

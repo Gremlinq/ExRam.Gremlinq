@@ -13,39 +13,21 @@
         ]
       },
       {
-        "OperatorName": "and",
+        "OperatorName": "has",
         "Arguments": [
+          "Age",
           {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "has",
-                "Arguments": [
-                  "Age",
-                  {
-                    "OperatorName": "gt",
-                    "Value": 36,
-                    "Other": null
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "SourceInstructions": [],
-            "StepInstructions": [
-              {
-                "OperatorName": "has",
-                "Arguments": [
-                  "Age",
-                  {
-                    "OperatorName": "lt",
-                    "Value": 72,
-                    "Other": null
-                  }
-                ]
-              }
-            ]
+            "OperatorName": "and",
+            "Value": {
+              "OperatorName": "gt",
+              "Value": 36,
+              "Other": null
+            },
+            "Other": {
+              "OperatorName": "lt",
+              "Value": 72,
+              "Other": null
+            }
           }
         ]
       },
