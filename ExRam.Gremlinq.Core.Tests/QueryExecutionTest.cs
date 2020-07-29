@@ -4042,6 +4042,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_Values_Or_WhereWhere()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Or(
+                        __ => __.Where(x => x! == null),
+                        __ => __.Where(x => (object)x! == "")))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_value_of_property_is_null_and_string_reversed()
         {
             await _g
