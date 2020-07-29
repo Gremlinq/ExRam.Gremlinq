@@ -31,9 +31,6 @@ namespace ExRam.Gremlinq.Core
             }
             else if (traversalSteps.Length == 1)
             {
-                if (traversalSteps[0] is HasPredicateStep hasPredicateStep)
-                    return hasPredicateStep;
-
                 if (traversalSteps[0] is WhereTraversalStep whereTraversalStep)
                     return whereTraversalStep.Traversal.RewriteForWhereContext();
             }
