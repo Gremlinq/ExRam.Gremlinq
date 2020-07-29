@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
@@ -69,5 +70,11 @@ namespace ExRam.Gremlinq.Core
 
             return p;
         }
+
+        public static bool ContainsNullArgument(this P p) => p.Value == null || (p.Value is P firstP && ContainsNullArgument(firstP)) || (p.Other is { } otherP && ContainsNullArgument(otherP));
+
+        public static bool IsAnd(this P p) => p.OperatorName.Equals("and", StringComparison.OrdinalIgnoreCase);
+
+        public static bool IsOr(this P p) => p.OperatorName.Equals("or", StringComparison.OrdinalIgnoreCase);
     }
 }

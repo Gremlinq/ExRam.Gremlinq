@@ -19,7 +19,7 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "hasNot",
+                "OperatorName": "has",
                 "Arguments": [
                   "Name"
                 ]

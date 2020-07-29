@@ -13,13 +13,13 @@
         ]
       },
       {
-        "OperatorName": "or",
+        "OperatorName": "and",
         "Arguments": [
           {
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "hasNot",
+                "OperatorName": "has",
                 "Arguments": [
                   "Name"
                 ]

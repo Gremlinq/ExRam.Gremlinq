@@ -23,11 +23,9 @@ namespace ExRam.Gremlinq.Core
 
                     if (newStep != null)
                     {
-                        var unwound = UnwindHasPredicateStep(newStep);
-
                         return traversalSteps.Length == 2
-                            ? (Traversal)unwound
-                            : traversalSteps.SetItem(traversalSteps.Length - 2, unwound).RemoveAt(traversalSteps.Length - 1);
+                            ? (Traversal)newStep
+                            : traversalSteps.SetItem(traversalSteps.Length - 2, newStep).RemoveAt(traversalSteps.Length - 1);
                     }
                 }
             }
@@ -41,25 +39,6 @@ namespace ExRam.Gremlinq.Core
             }
 
             return traversal;
-        }
-
-        private static Step UnwindHasPredicateStep(HasPredicateStep step)
-        {
-            if (step.Predicate is {} p && ContainsNull(p))
-            {
-                if (p.OperatorName.Equals("or", StringComparison.OrdinalIgnoreCase))
-                    return new OrStep(new Traversal[] { UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Value is P innerP ? innerP : P.Eq(p.Value))), UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Other)) });
-
-                if (p.OperatorName.Equals("and", StringComparison.OrdinalIgnoreCase))
-                    return new AndStep(new Traversal[] { UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Value is P innerP ? innerP : P.Eq(p.Value))), UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Other)) });
-            }
-
-            return step;
-        }
-
-        private static bool ContainsNull(P? p)
-        {
-            return p?.Value == null || p?.Other?.Value == null || (p?.Value is P firstP && ContainsNull(firstP)) || (p?.Other?.Value is P otherP && ContainsNull(otherP));
         }
     }
 }

@@ -212,6 +212,32 @@ namespace ExRam.Gremlinq.Core
                         : step.Argument))
                 .Override<HasPredicateStep>((step, env, overridden, recurse) =>
                 {
+                    static Step UnwindHasPredicateStep(HasPredicateStep step)
+                    {
+                        if (step.Predicate is { } p && p.ContainsNullArgument())
+                        {
+                            if (p.IsAnd() || p.IsOr())
+                            {
+                                var replacement = new Traversal[]
+                                {
+                                    UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Value is P innerP ? innerP : P.Eq(p.Value))),
+                                    UnwindHasPredicateStep(new HasPredicateStep(step.Key, p.Other))
+                                };
+
+                                if (p.IsOr())
+                                    return new OrStep(replacement);
+
+                                if (p.IsAnd())
+                                    return new AndStep(replacement);
+                            }
+                        }
+
+                        return step;
+                    };
+
+                    if (UnwindHasPredicateStep(step) is Step unwound && unwound != step)
+                        return recurse.Serialize(unwound, env);
+
                     var stepName = "has";
                     var argument = (object?)step.Predicate;
 

@@ -4029,8 +4029,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(x => x == null && x == "hello"))
                 .Verify(this);
         }
-
-
+        
         [Fact]
         public async Task Where_value_of_property_is_null_or_string_reversed()
         {
@@ -4050,6 +4049,28 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(__ => __
                     .Values(x => x.Name.Value)
                     .Where(x => x == "hello" && x == null))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_value_of_property_is_not_null_or_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(x => x != null || x == "hello"))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_value_of_property_is_not_null_and_string()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(x => x != null && x == "hello"))
                 .Verify(this);
         }
 

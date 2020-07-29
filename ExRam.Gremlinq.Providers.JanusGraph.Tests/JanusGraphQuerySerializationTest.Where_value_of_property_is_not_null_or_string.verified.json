@@ -19,7 +19,7 @@
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "hasNot",
+                "OperatorName": "has",
                 "Arguments": [
                   "Name"
                 ]
@@ -100,8 +100,7 @@
                         "Arguments": [
                           "id",
                           "label",
-                          "value",
-                          "properties"
+                          "value"
                         ]
                       },
                       {
@@ -128,20 +127,6 @@
                           {
                             "EnumName": "T",
                             "EnumValue": "value"
-                          }
-                        ]
-                      },
-                      {
-                        "OperatorName": "by",
-                        "Arguments": [
-                          {
-                            "SourceInstructions": [],
-                            "StepInstructions": [
-                              {
-                                "OperatorName": "valueMap",
-                                "Arguments": []
-                              }
-                            ]
                           }
                         ]
                       },

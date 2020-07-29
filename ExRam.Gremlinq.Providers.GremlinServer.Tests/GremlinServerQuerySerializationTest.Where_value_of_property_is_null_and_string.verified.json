@@ -13,37 +13,27 @@
         ]
       },
       {
-        "OperatorName": "where",
+        "OperatorName": "and",
         "Arguments": [
           {
             "SourceInstructions": [],
             "StepInstructions": [
               {
-                "OperatorName": "and",
+                "OperatorName": "hasNot",
                 "Arguments": [
-                  {
-                    "SourceInstructions": [],
-                    "StepInstructions": [
-                      {
-                        "OperatorName": "hasNot",
-                        "Arguments": [
-                          "Name"
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "SourceInstructions": [],
-                    "StepInstructions": [
-                      {
-                        "OperatorName": "has",
-                        "Arguments": [
-                          "Name",
-                          "hello"
-                        ]
-                      }
-                    ]
-                  }
+                  "Name"
+                ]
+              }
+            ]
+          },
+          {
+            "SourceInstructions": [],
+            "StepInstructions": [
+              {
+                "OperatorName": "has",
+                "Arguments": [
+                  "Name",
+                  "hello"
                 ]
               }
             ]
