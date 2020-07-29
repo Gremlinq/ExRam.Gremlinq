@@ -44,13 +44,15 @@ namespace ExRam.Gremlinq.Core
             this IEnumerable<Traversal> traversals,
             Func<P?, P?, P?> fuse)
         {
-            if (traversals.Any())
+            var traversalsArray = traversals.ToArray();
+
+            if (traversalsArray.Any())
             {
-                if (traversals.All(x => x.Steps.Length == 1))
+                if (traversalsArray.All(x => x.Steps.Length == 1))
                 {
-                    if (traversals.All(x => x.Steps[0] is HasPredicateStep))
+                    if (traversalsArray.All(x => x.Steps[0] is HasPredicateStep))
                     {
-                        var groups = traversals
+                        var groups = traversalsArray
                             .Select(x => x.Steps[0])
                             .OfType<HasPredicateStep>()
                             .GroupBy(x => x.Key);
@@ -67,9 +69,9 @@ namespace ExRam.Gremlinq.Core
                         yield break;
                     }
 
-                    if (traversals.All(x => x.Steps[0] is IsStep))
+                    if (traversalsArray.All(x => x.Steps[0] is IsStep))
                     {
-                        var effective = traversals
+                        var effective = traversalsArray
                             .Select(x => x.Steps[0])
                             .OfType<IsStep>()
                             .Select(x => x.Predicate)
@@ -83,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                foreach (var traversal in traversals)
+                foreach (var traversal in traversalsArray)
                 {
                     yield return traversal;
                 }
