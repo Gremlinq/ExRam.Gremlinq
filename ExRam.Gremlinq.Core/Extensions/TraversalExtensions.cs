@@ -42,7 +42,7 @@ namespace ExRam.Gremlinq.Core
 
         public static IEnumerable<Traversal> Fuse(
             this IEnumerable<Traversal> traversals,
-            Func<P?, P?, P?> fuse)
+            Func<P, P, P> fuse)
         {
             var traversalsArray = traversals.ToArray();
 

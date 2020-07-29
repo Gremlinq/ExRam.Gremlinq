@@ -398,7 +398,7 @@ namespace ExRam.Gremlinq.Core
             var fusedTraversals = subQueries
                 .Select(x => x.ToTraversal().RewriteForWhereContext())
                 .Fuse(
-                    (p1, p2) => p1?.And(p2))
+                    (p1, p2) => p1.And(p2))
                 .ToArray();
 
             return fusedTraversals.Length switch
@@ -625,12 +625,10 @@ namespace ExRam.Gremlinq.Core
                 ? None()
                 : Has(
                     GetKey(expression),
-                    predicate.EqualsConstant(true)
-                        ? default
-                        : predicate);
+                    predicate);
         }
 
-        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(Key key, P? predicate)
+        private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(Key key, P predicate)
         {
             return AddStep(new HasPredicateStep(key, predicate));
         }
@@ -752,7 +750,7 @@ namespace ExRam.Gremlinq.Core
             var fusedTraversals = subQueries
                 .Select(x => x.ToTraversal().RewriteForWhereContext())
                 .Fuse(
-                    (p1, p2) => p1?.Or(p2))
+                    (p1, p2) => p1.Or(p2))
                 .ToArray();
 
             return fusedTraversals.Length switch

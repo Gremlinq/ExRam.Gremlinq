@@ -441,9 +441,9 @@ namespace ExRam.Gremlinq.Core
     }
     public sealed class HasPredicateStep : ExRam.Gremlinq.Core.Step
     {
-        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P? predicate = null) { }
+        public HasPredicateStep(ExRam.Gremlinq.Core.Key key, Gremlin.Net.Process.Traversal.P predicate) { }
         public ExRam.Gremlinq.Core.Key Key { get; }
-        public Gremlin.Net.Process.Traversal.P? Predicate { get; }
+        public Gremlin.Net.Process.Traversal.P Predicate { get; }
     }
     public sealed class HasTraversalStep : ExRam.Gremlinq.Core.Step
     {
