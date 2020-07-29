@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class HasNotStep : Step
+    public sealed class HasNotStep : Step, IIsOptimizableInWhere
     {
         public HasNotStep(Key key)
         {

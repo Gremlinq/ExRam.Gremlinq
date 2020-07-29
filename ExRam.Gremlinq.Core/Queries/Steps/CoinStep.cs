@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class CoinStep : Step
+    public sealed class CoinStep : Step, IIsOptimizableInWhere
     {
         public CoinStep(double probability)
         {

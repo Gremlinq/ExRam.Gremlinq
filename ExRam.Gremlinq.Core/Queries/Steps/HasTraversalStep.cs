@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class HasTraversalStep : Step
+    public sealed class HasTraversalStep : Step, IIsOptimizableInWhere
     { 
         public HasTraversalStep(Key key, Traversal traversal)
         {

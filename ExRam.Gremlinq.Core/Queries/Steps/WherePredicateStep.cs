@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class WherePredicateStep : Step
+    public sealed class WherePredicateStep : Step, IIsOptimizableInWhere
     {
         public sealed class ByMemberStep : Step
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ExRam.Gremlinq.Core
 {
-    public sealed class OrStep : LogicalStep<OrStep>
+    public sealed class OrStep : LogicalStep<OrStep>, IIsOptimizableInWhere
     {
         public static readonly OrStep Infix = new OrStep(Array.Empty<Traversal>());
 

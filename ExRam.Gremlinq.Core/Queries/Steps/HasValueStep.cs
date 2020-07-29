@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class HasValueStep : Step
+    public sealed class HasValueStep : Step, IIsOptimizableInWhere
     {
         public HasValueStep(object argument)
         {

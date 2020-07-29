@@ -1,6 +1,6 @@
 ﻿namespace ExRam.Gremlinq.Core
 {
-    public sealed class NotStep : Step
+    public sealed class NotStep : Step, IIsOptimizableInWhere
     {
         public NotStep(Traversal traversal)
         {

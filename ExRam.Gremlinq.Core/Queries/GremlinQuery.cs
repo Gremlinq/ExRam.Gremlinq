@@ -1003,12 +1003,9 @@ namespace ExRam.Gremlinq.Core
         {
             traversal = traversal.RewriteForWhereContext();
 
-            //TODO: Common interface for Filtersteps will help greatly.
-            return traversal.Steps.Length == 1 && traversal.Steps[0] is HasPredicateStep hasPredicateStep
-                ? AddStep(hasPredicateStep)
-                : traversal.Steps.Length == 1 && traversal.Steps[0] is IsStep isStep
-                    ? AddStep(isStep)
-                    : AddStep(new WhereTraversalStep(traversal));
+            return traversal.Steps.Length == 1 && traversal.Steps[0] is IIsOptimizableInWhere
+                ? AddStep(traversal.Steps[0])
+                : AddStep(new WhereTraversalStep(traversal));
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(Expression<Func<TElement, bool>> expression) => Where((Expression)expression);
