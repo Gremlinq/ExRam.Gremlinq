@@ -28,7 +28,8 @@ are not really relevant for exposing the unexpected behaviour.**
 - a pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting
 the expected behaviour. Again, this should be minimal to reduce noise.
 
-If the issue contains neither of these things, it will be labelled accordingly and become stale.
+**In any case: The repro code must be able to checkout and run in the matter of minutes.**
+If the issue contains neither of these things and/or just incomplete code snippets it may be labelled accordingly and become stale.
 Please understand that I ask for this much effort from you in exchange for my work since
 it is tedious and time-consuming to isolate the relevant bits from an issue each time just to setup
 a new project that might not even fail then.
