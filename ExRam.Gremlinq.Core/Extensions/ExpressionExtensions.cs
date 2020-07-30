@@ -39,6 +39,9 @@ namespace ExRam.Gremlinq.Core
                 {
                     case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
                     {
+                        if (expression.CanGetValue())
+                            return Expression.Constant(unaryExpression.GetValue(null));
+
                         expression = unaryExpression.Operand;
                         break;
                     }
@@ -54,7 +57,19 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static object GetValue(this Expression expression, IGraphModel model)
+        public static bool CanGetValue(this Expression expression)
+        {
+            return expression switch
+            {
+                ConstantExpression constantExpression when constantExpression.Value != null => true,
+                MemberExpression memberExpression => memberExpression.Expression.CanGetValue(),
+                LambdaExpression lambdaExpression => lambdaExpression.Parameters.Count == 0,
+                UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.Operand.CanGetValue(),
+                _ => false
+            };
+        }
+
+        public static object GetValue(this Expression expression, IGraphModel? model)
         {
             var value = expression switch
             {
@@ -64,8 +79,11 @@ namespace ExRam.Gremlinq.Core
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
 
-            if (value is IEnumerable enumerable && !(value is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()))
-                value = enumerable.Cast<object>().ToArray();
+            if (model != null)
+            {
+                if (value is IEnumerable enumerable && !(value is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()))
+                    value = enumerable.Cast<object>().ToArray();
+            }
 
             return value;
         }

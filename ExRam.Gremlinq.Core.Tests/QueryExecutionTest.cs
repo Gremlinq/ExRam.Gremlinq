@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -3957,6 +3958,31 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_property_comparison_to_string_with_cast_enum_variable()
+        {
+            var variable = ListSortDirection.Ascending;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_with_cast_enum_on_field()
+        {
+            var variable = new
+            {
+                Field = ListSortDirection.Ascending
+            };
+
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") == (int)variable.Field)
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_complex_logical_expression()
         {
             await _g
@@ -4697,7 +4723,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Values(x => x.Age)
                 .As((__, a) => __
                     .V<Person>()
-                    .Where(l2 => l2.Age > a))
+                    .Where(l2 => l2.Age > a.Value))
                 .Verify(this);
         }
 
