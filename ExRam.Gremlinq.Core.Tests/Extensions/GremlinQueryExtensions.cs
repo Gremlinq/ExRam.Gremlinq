@@ -13,7 +13,10 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             Settings.UseExtension("json");
             Settings.DisableDiff();
+
+#if (DEBUG)
             Settings.AutoVerify();
+#endif
         }
 
         public static async Task Verify(this IGremlinQueryBase query, VerifyBase verifyBase)
