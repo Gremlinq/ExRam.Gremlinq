@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
@@ -10,7 +12,7 @@ namespace ExRam.Gremlinq.Core
             return expressionFragment switch
             {
                 ConstantExpressionFragment c => c.Value,
-                { } x=> x.Expression?.GetValue(model),
+                { } x => x.Expression?.GetValue(model),
                 _ => throw new ArgumentException()
             };
         }
@@ -35,7 +37,12 @@ namespace ExRam.Gremlinq.Core
                 ? (ExpressionFragment)new ParameterExpressionFragment(expression)
                 : expression.TryParseStepLabelExpression(model, out var stepLabel, out var stepLabelExpression)
                     ? new StepLabelExpressionFragment(stepLabel!, stepLabelExpression)
-                    : new ConstantExpressionFragment(expression.GetValue(model));
+                    : new ConstantExpressionFragment(expression.GetValue(model) switch
+                    {
+                        IEnumerable enumerable when !(enumerable is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
+                        { } val => val,
+                        _ => null
+                    });
         }
     }
 }

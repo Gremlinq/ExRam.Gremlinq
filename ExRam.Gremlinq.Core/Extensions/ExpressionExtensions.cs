@@ -71,21 +71,13 @@ namespace ExRam.Gremlinq.Core
 
         public static object GetValue(this Expression expression, IGraphModel? model)
         {
-            var value = expression switch
+            return expression switch
             {
                 ConstantExpression constantExpression => constantExpression.Value,
                 MemberExpression memberExpression when memberExpression.Member is FieldInfo fieldInfo && memberExpression.Expression is ConstantExpression constant => fieldInfo.GetValue(constant.Value),
                 LambdaExpression lambdaExpression => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
-
-            if (model != null)
-            {
-                if (value is IEnumerable enumerable && !(value is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()))
-                    value = enumerable.Cast<object>().ToArray();
-            }
-
-            return value;
         }
 
         public static bool TryParseStepLabelExpression(this Expression expression, IGraphModel model, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
