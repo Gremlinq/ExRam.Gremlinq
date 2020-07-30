@@ -61,10 +61,12 @@ namespace ExRam.Gremlinq.Core
         {
             return expression switch
             {
-                ConstantExpression constantExpression when constantExpression.Value != null => true,
+                ConstantExpression _ => true,
                 MemberExpression memberExpression => memberExpression.Expression.CanGetValue(),
                 LambdaExpression lambdaExpression => lambdaExpression.Parameters.Count == 0,
-                UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.Operand.CanGetValue(),
+                UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.NodeType == ExpressionType.Convert
+                    ? !(unaryExpression.Type.IsValueType && unaryExpression.Operand.Type.IsClass) && unaryExpression.Operand.CanGetValue()
+                    : unaryExpression.Operand.CanGetValue(),
                 _ => false
             };
         }

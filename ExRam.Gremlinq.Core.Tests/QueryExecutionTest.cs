@@ -4046,6 +4046,19 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_value_of_property_is_greater_than_null_variable()
+        {
+            string? variable = null;
+
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(x => (int)(object)x > (int)(object)variable))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_value_of_property_is_greater_than_null()
         {
             await _g
