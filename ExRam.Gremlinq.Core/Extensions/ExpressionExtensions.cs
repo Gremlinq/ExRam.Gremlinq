@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core
                     case UnaryExpression unaryExpression when expression.NodeType == ExpressionType.Convert:
                     {
                         if (expression.CanGetValue())
-                            return Expression.Constant(unaryExpression.GetValue(null));
+                            return Expression.Constant(unaryExpression.GetValue());
 
                         expression = unaryExpression.Operand;
                         break;
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static object GetValue(this Expression expression, IGraphModel? model)
+        public static object GetValue(this Expression expression)
         {
             return expression switch
             {
@@ -80,14 +80,14 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static bool TryParseStepLabelExpression(this Expression expression, IGraphModel model, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
+        public static bool TryParseStepLabelExpression(this Expression expression, out StepLabel? stepLabel, out MemberExpression? stepLabelValueMemberExpression)
         {
             stepLabel = null;
             stepLabelValueMemberExpression = null;
 
             if (typeof(StepLabel).IsAssignableFrom(expression.Type))
             {
-                stepLabel = (StepLabel)expression.GetValue(model);
+                stepLabel = (StepLabel)expression.GetValue();
 
                 return true;
             }
@@ -96,7 +96,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (outerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                 {
-                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue(model);
+                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue();
 
                     return true;
                 }
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                     {
-                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue(model);
+                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue();
 
                         return true;
                     }
@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     var wellKnownMember = leftMethodCallExpression.TryGetWellKnownMember();
 
-                    if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue(model) is int comparison)
+                    if (wellKnownMember == WellKnownMember.StringCompareTo && expression.Right.GetValue() is int comparison)
                     {
                         var semantics = CompareToMatrix[(int)expression.Semantics - 2][Math.Min(2, Math.Max(-2, comparison)) + 2];
 
@@ -241,7 +241,7 @@ namespace ExRam.Gremlinq.Core
 
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.RefersToParameter())
                             {
-                                if (instanceExpression.GetValue(model) is string stringValue)
+                                if (instanceExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
                                         new ConstantExpressionFragment(stringValue),
@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Core
                             }
                             else if (instanceExpression.RefersToParameter())
                             {
-                                if (argumentExpression.GetValue(model) is string stringValue)
+                                if (argumentExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
                                         ExpressionFragment.Create(instanceExpression, model),

@@ -1021,7 +1021,7 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (expression)
                 {
-                    case ConstantExpression constantExpression when constantExpression.GetValue(Environment.Model) is bool value:
+                    case ConstantExpression constantExpression when constantExpression.GetValue() is bool value:
                     {
                         return value
                             ? this
@@ -1180,7 +1180,7 @@ namespace ExRam.Gremlinq.Core
 
                                     if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                     {
-                                        return Has((string)methodCallExpression.Arguments[0].Strip().GetValue(Environment.Model), effectivePredicate);
+                                        return Has((string)methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate);
                                     }
 
                                     break;
