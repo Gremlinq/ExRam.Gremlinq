@@ -3944,7 +3944,18 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(t => t.Name!.Value.CompareTo("Some name") >= 2)
                 .Verify(this);
         }
-        
+
+        [Fact]
+        public async Task Where_property_comparison_to_string_with_variable()
+        {
+            var variable = 0;
+
+            await _g
+                .V<Person>()
+                .Where(t => t.Name!.Value.CompareTo("Some name") == variable)
+                .Verify(this);
+        }
+
         [Fact]
         public async Task Where_complex_logical_expression()
         {
@@ -4005,6 +4016,17 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Values(x => x.Name.Value)
                     .Where(__ => __
                         .Where(x => x == null)))
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Where_value_of_property_is_greater_than_null()
+        {
+            await _g
+                .V<Person>()
+                .Where(__ => __
+                    .Values(x => x.Name.Value)
+                    .Where(x => (int)(object)x > (int)(object)null))
                 .Verify(this);
         }
 
