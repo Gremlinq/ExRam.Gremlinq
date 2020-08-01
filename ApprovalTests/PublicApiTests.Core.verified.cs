@@ -604,8 +604,6 @@ namespace ExRam.Gremlinq.Core
     public interface IElementGremlinQueryBaseRec<TElement, TSelf> : ExRam.Gremlinq.Core.IElementGremlinQueryBase, ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IElementGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery
         where TSelf : ExRam.Gremlinq.Core.IElementGremlinQueryBaseRec<TElement, TSelf>
     {
-        TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
-        TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
         TSelf Property<TProjectedValue>(System.Linq.Expressions.Expression<System.Func<TElement, TProjectedValue>> projection, TProjectedValue value);
         TSelf Where<TProjection>(System.Linq.Expressions.Expression<System.Func<TElement, TProjection>> projection, System.Func<ExRam.Gremlinq.Core.IGremlinQueryBase<TProjection>, ExRam.Gremlinq.Core.IGremlinQueryBase> propertyTraversal);
     }
@@ -750,6 +748,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Not(System.Func<TSelf, ExRam.Gremlinq.Core.IGremlinQueryBase> notTraversal);
         TSelf Optional(System.Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params System.Func<, >[] orTraversals);
+        TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
+        TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
         TSelf Repeat(System.Func<TSelf, TSelf> repeatTraversal);
@@ -784,6 +784,8 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> Fold();
         ExRam.Gremlinq.Core.IArrayGremlinQuery<TElement[], TElement, TSelf> ForceArray();
         TSelf Inject(params TElement[] elements);
+        TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
+        TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TElement, TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TElement, TSelf>> projection);
         [return: System.Runtime.CompilerServices.Dynamic(new bool[] {
                 false,
                 true})]
@@ -1113,11 +1115,7 @@ namespace ExRam.Gremlinq.Core
     public interface IValueGremlinQueryBaseRec<TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
         where TSelf : ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TSelf> { }
     public interface IValueGremlinQueryBaseRec<TElement, TSelf> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBaseRec<TElement, TSelf>, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase, ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TSelf>, ExRam.Gremlinq.Core.IValueGremlinQueryBase<TElement>
-        where TSelf : ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TElement, TSelf>
-    {
-        TSelf Order(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
-        TSelf OrderLocal(System.Func<ExRam.Gremlinq.Core.IOrderBuilder<TSelf>, ExRam.Gremlinq.Core.IOrderBuilderWithBy<TSelf>> projection);
-    }
+        where TSelf : ExRam.Gremlinq.Core.IValueGremlinQueryBaseRec<TElement, TSelf> { }
     public interface IValueGremlinQueryBase<TElement> : ExRam.Gremlinq.Core.IGremlinQueryBase, ExRam.Gremlinq.Core.IGremlinQueryBase<TElement>, ExRam.Gremlinq.Core.IStartGremlinQuery, ExRam.Gremlinq.Core.IValueGremlinQueryBase
     {
         ExRam.Gremlinq.Core.IValueGremlinQuery<TElement> Max();

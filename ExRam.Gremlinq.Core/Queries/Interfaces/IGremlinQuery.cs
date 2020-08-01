@@ -120,6 +120,9 @@ namespace ExRam.Gremlinq.Core
         TSelf Optional(Func<TSelf, TSelf> optionalTraversal);
         TSelf Or(params Func<TSelf, IGremlinQueryBase>[] orTraversals);
 
+        TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
+        TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
+
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
 
@@ -167,6 +170,9 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<dynamic> Project(Func<IProjectBuilder<TSelf, TElement>, IProjectResult> continuation);
         IValueTupleGremlinQuery<TResult> Project<TResult>(Func<IProjectBuilder<TSelf, TElement>, IProjectResult<TResult>> continuation);
+
+        TSelf Order(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
+        TSelf OrderLocal(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
 
         TSelf Where(Expression<Func<TElement, bool>> predicate);
     }

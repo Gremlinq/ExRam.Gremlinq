@@ -46,9 +46,6 @@ namespace ExRam.Gremlinq.Core
         IGremlinQueryBaseRec<TElement, TSelf>
         where TSelf : IElementGremlinQueryBaseRec<TElement, TSelf>
     {
-        TSelf Order(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
-        TSelf OrderLocal(Func<IOrderBuilder<TElement, TSelf>, IOrderBuilderWithBy<TElement, TSelf>> projection);
-
         TSelf Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal);
 
         TSelf Property<TProjectedValue>(Expression<Func<TElement, TProjectedValue>> projection, TProjectedValue value);
