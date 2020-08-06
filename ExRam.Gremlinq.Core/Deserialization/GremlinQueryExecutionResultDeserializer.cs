@@ -471,7 +471,6 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                //@type == "g:Map"
                 if (jObject.ContainsKey("@type") && jObject.TryGetValue("@value", out var valueToken))
                     return recurse.TryDeserialize(valueToken, type, env);
 
@@ -483,6 +482,36 @@ namespace ExRam.Gremlinq.Core
                 return jObject.TryUnmap() is { } unmappedObject
                     ? recurse.TryDeserialize(unmappedObject, type, env)
                     : overridden(jObject, type, env, recurse);
+            })
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            {
+                if (type.IsArray && !env.Model.NativeTypes.Contains(type))
+                {
+                    var elementType = type.GetElementType();
+
+                    if (jObject.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (jObject.TryGetValue("@value", out var valueToken) && valueToken is JArray setArray)
+                        {
+                            var array = new ArrayList();
+
+                            for (var i = 0; i < setArray.Count; i += 2)
+                            {
+                                var element = recurse.TryDeserialize(setArray[i], elementType, env);
+                                var bulk = (int)recurse.TryDeserialize(setArray[i + 1], typeof(int), env)!;
+
+                                for (var j = 0; j < bulk; j++)
+                                {
+                                    array.Add(element);
+                                }
+                            }
+
+                            return array.ToArray(elementType);
+                        }
+                    }
+                }
+
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {

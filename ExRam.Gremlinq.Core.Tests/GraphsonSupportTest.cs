@@ -516,6 +516,15 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task BulkSet()
+        {
+            await Verify(await _g
+                .WithExecutor("{ \"@type\": \"g:BulkSet\", \"@value\": [ { \"@type\": \"g:Vertex\", \"@value\": { \"id\": { \"@type\": \"g:Int64\", \"@value\": 69 }, \"label\": \"Person\" } }, { \"@type\": \"g:Int64\", \"@value\": 1 } ] }")
+                .V<Person>()
+                .ToArrayAsync());
+        }
+
+        [Fact]
         public async Task Traverser()
         {
             await Verify(await _g
