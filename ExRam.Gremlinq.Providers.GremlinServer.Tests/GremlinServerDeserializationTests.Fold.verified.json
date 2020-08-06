@@ -1,140 +1,271 @@
 [
   [
     {
-      "id": 0,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 0,
+      "Label": "Country"
     },
     {
-      "id": 2,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 2,
+      "Label": "Language"
     },
     {
-      "id": 900,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 900,
+      "Label": "Language"
     },
     {
-      "id": 5,
-      "label": "Company"
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": 5,
+      "Label": "Company"
     },
     {
-      "id": 69,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 69,
+      "Label": "Person"
     },
     {
-      "id": 7,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 7,
+      "Label": "Person"
     },
     {
-      "id": 200,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 200,
+      "Label": "Person"
     },
     {
-      "id": 72,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 72,
+      "Label": "Language"
     },
     {
-      "id": 201,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 201,
+      "Label": "Person"
     },
     {
-      "id": 11,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 11,
+      "Label": "Person"
     },
     {
-      "id": 1100,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 1100,
+      "Label": "Language"
     },
     {
-      "id": 400,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 400,
+      "Label": "Language"
     },
     {
-      "id": 17,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 17,
+      "Label": "Person"
     },
     {
-      "id": 20,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 20,
+      "Label": "Country"
     },
     {
-      "id": 22,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 22,
+      "Label": "Person"
     },
     {
-      "id": 600,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 600,
+      "Label": "Country"
     },
     {
-      "id": 25,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 25,
+      "Label": "Country"
     },
     {
-      "id": 27,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 27,
+      "Label": "Person"
     },
     {
-      "id": 30,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 30,
+      "Label": "Country"
     },
     {
-      "id": 32,
-      "label": "Company"
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": 32,
+      "Label": "Company"
     },
     {
-      "id": 800,
-      "label": "Company"
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": 800,
+      "Label": "Company"
     },
     {
-      "id": 34,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 34,
+      "Label": "Person"
     },
     {
-      "id": 100,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 100,
+      "Label": "Language"
     },
     {
-      "id": 38,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 38,
+      "Label": "Language"
     },
     {
-      "id": 40,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 40,
+      "Label": "Country"
     },
     {
-      "id": 1000,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 1000,
+      "Label": "Language"
     },
     {
-      "id": 43,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 43,
+      "Label": "Person"
     },
     {
-      "id": 49,
-      "label": "Company"
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": 49,
+      "Label": "Company"
     },
     {
-      "id": 51,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 51,
+      "Label": "Person"
     },
     {
-      "id": 500,
-      "label": "Country"
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": null,
+      "Id": 500,
+      "Label": "Country"
     },
     {
-      "id": 56,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 56,
+      "Label": "Language"
     },
     {
-      "id": 57,
-      "label": "TimeFrame"
+      "Enabled": false,
+      "StartTime": "00:00:00",
+      "Duration": "00:00:00",
+      "Id": 57,
+      "Label": "TimeFrame"
     },
     {
-      "id": 700,
-      "label": "Company"
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": 700,
+      "Label": "Company"
     },
     {
-      "id": 61,
-      "label": "Language"
+      "IetfLanguageTag": null,
+      "Id": 61,
+      "Label": "Language"
     }
   ]
 ]

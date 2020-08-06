@@ -1,12 +1,16 @@
 [
   {
-    "id": 76,
-    "value": "GER",
-    "label": "Name"
+    "Id": 76,
+    "Label": "Name",
+    "Properties": null,
+    "Value": "GER",
+    "Key": null
   },
   {
-    "id": 77,
-    "value": "GER",
-    "label": "Name"
+    "Id": 77,
+    "Label": "Name",
+    "Properties": null,
+    "Value": "GER",
+    "Key": null
   }
 ]

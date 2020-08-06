@@ -1,247 +1,345 @@
 [
   {
-    "id": 1,
-    "value": "+49",
-    "label": "CountryCallingCode"
+    "Properties": {},
+    "Id": 1,
+    "Label": "CountryCallingCode",
+    "Value": "+49",
+    "Key": null
   },
   {
-    "id": 3,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 3,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 6,
-    "value": -62135596800000,
-    "label": "FoundingDate"
+    "Properties": {},
+    "Id": 6,
+    "Label": "FoundingDate",
+    "Value": -62135596800000,
+    "Key": null
   },
   {
-    "id": 71,
-    "value": 1586270616000,
-    "label": "RegistrationDate"
+    "Properties": {},
+    "Id": 71,
+    "Label": "RegistrationDate",
+    "Value": 1586270616000,
+    "Key": null
   },
   {
-    "id": 70,
-    "value": "Marko",
-    "label": "Name"
+    "Properties": {},
+    "Id": 70,
+    "Label": "Name",
+    "Value": "Marko",
+    "Key": null
   },
   {
-    "id": 9,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 9,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 8,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 8,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 68,
-    "value": 1,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 68,
+    "Label": "Gender",
+    "Value": 1,
+    "Key": null
   },
   {
-    "id": 67,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 67,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 73,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 73,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 65,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 65,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 66,
-    "value": "AQIDBAUGBwg=",
-    "label": "Image"
+    "Properties": {},
+    "Id": 66,
+    "Label": "Image",
+    "Value": "AQIDBAUGBwg=",
+    "Key": null
   },
   {
-    "id": 64,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 64,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 15,
-    "value": 1586270616000,
-    "label": "RegistrationDate"
+    "Properties": {},
+    "Id": 15,
+    "Label": "RegistrationDate",
+    "Value": 1586270616000,
+    "Key": null
   },
   {
-    "id": 13,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 13,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 12,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 12,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 14,
-    "value": "Bob",
-    "label": "Name"
+    "Properties": {},
+    "Id": 14,
+    "Label": "Name",
+    "Value": "Bob",
+    "Key": null
   },
   {
-    "id": 63,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 63,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 19,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 19,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 18,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 18,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 24,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 24,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 23,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 23,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 76,
-    "value": "GER",
-    "label": "Name"
+    "Properties": {},
+    "Id": 76,
+    "Label": "Name",
+    "Value": "GER",
+    "Key": null
   },
   {
-    "id": 29,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 29,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 28,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 28,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 33,
-    "value": -62135596800000,
-    "label": "FoundingDate"
+    "Properties": {},
+    "Id": 33,
+    "Label": "FoundingDate",
+    "Value": -62135596800000,
+    "Key": null
   },
   {
-    "id": 79,
-    "value": "+4912345",
-    "label": "PhoneNumbers"
+    "Properties": {},
+    "Id": 79,
+    "Label": "PhoneNumbers",
+    "Value": "+4912345",
+    "Key": null
   },
   {
-    "id": 80,
-    "value": "+4923456",
-    "label": "PhoneNumbers"
+    "Properties": {},
+    "Id": 80,
+    "Label": "PhoneNumbers",
+    "Value": "+4923456",
+    "Key": null
   },
   {
-    "id": 78,
-    "value": -62135596800000,
-    "label": "FoundingDate"
+    "Properties": {},
+    "Id": 78,
+    "Label": "FoundingDate",
+    "Value": -62135596800000,
+    "Key": null
   },
   {
-    "id": 36,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 36,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 35,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 35,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 55,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 55,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 39,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 39,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 41,
-    "value": "+49",
-    "label": "CountryCallingCode"
+    "Properties": {},
+    "Id": 41,
+    "Label": "CountryCallingCode",
+    "Value": "+49",
+    "Key": null
   },
   {
-    "id": 81,
-    "value": "en",
-    "label": "lang"
+    "Properties": {},
+    "Id": 81,
+    "Label": "lang",
+    "Value": "en",
+    "Key": null
   },
   {
-    "id": 47,
-    "value": 1586270616000,
-    "label": "RegistrationDate"
+    "Properties": {},
+    "Id": 47,
+    "Label": "RegistrationDate",
+    "Value": 1586270616000,
+    "Key": null
   },
   {
-    "id": 45,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 45,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 44,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 44,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 46,
-    "value": "Bob",
-    "label": "Name"
+    "Properties": {},
+    "Id": 46,
+    "Label": "Name",
+    "Value": "Bob",
+    "Key": null
   },
   {
-    "id": 50,
-    "value": -62135596800000,
-    "label": "FoundingDate"
+    "Properties": {},
+    "Id": 50,
+    "Label": "FoundingDate",
+    "Value": -62135596800000,
+    "Key": null
   },
   {
-    "id": 53,
-    "value": 0,
-    "label": "Gender"
+    "Properties": {},
+    "Id": 53,
+    "Label": "Gender",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 52,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 52,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 77,
-    "value": "GER",
-    "label": "Name"
+    "Properties": {},
+    "Id": 77,
+    "Label": "Name",
+    "Value": "GER",
+    "Key": null
   },
   {
-    "id": 60,
-    "value": "PT8H",
-    "label": "StartTime"
+    "Properties": {},
+    "Id": 60,
+    "Label": "StartTime",
+    "Value": "PT8H",
+    "Key": null
   },
   {
-    "id": 59,
-    "value": false,
-    "label": "Enabled"
+    "Properties": {},
+    "Id": 59,
+    "Label": "Enabled",
+    "Value": false,
+    "Key": null
   },
   {
-    "id": 58,
-    "value": "PT2H",
-    "label": "Duration"
+    "Properties": {},
+    "Id": 58,
+    "Label": "Duration",
+    "Value": "PT2H",
+    "Key": null
   },
   {
-    "id": 74,
-    "value": -62135596800000,
-    "label": "FoundingDate"
+    "Properties": {},
+    "Id": 74,
+    "Label": "FoundingDate",
+    "Value": -62135596800000,
+    "Key": null
   },
   {
-    "id": 75,
-    "value": "Aachen",
-    "label": "Locations"
+    "Properties": {},
+    "Id": 75,
+    "Label": "Locations",
+    "Value": "Aachen",
+    "Key": null
   },
   {
-    "id": 62,
-    "value": "en",
-    "label": "IetfLanguageTag"
+    "Properties": {},
+    "Id": 62,
+    "Label": "IetfLanguageTag",
+    "Value": "en",
+    "Key": null
   }
 ]

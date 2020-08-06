@@ -3327,6 +3327,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Union<IGremlinQueryBase>(
                     __ => __.Out<WorksFor>(),
                     __ => __.OutE<LivesIn>())
+                .Cast<object>()
                 .Verify(this);
         }
 

@@ -1,7 +1,9 @@
 [
-  {
-    "IetfLanguageTag": null,
-    "Id": 2,
-    "Label": "Language"
-  }
+  [
+    {
+      "IetfLanguageTag": null,
+      "Id": 2,
+      "Label": "Language"
+    }
+  ]
 ]

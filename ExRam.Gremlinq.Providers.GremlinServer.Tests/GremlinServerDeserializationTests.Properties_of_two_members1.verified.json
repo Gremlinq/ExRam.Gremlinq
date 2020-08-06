@@ -1,22 +1,30 @@
 [
   {
-    "id": 1,
-    "value": "+49",
-    "label": "CountryCallingCode"
+    "Properties": {},
+    "Id": 1,
+    "Label": "CountryCallingCode",
+    "Value": "+49",
+    "Key": null
   },
   {
-    "id": 76,
-    "value": "GER",
-    "label": "Name"
+    "Properties": {},
+    "Id": 76,
+    "Label": "Name",
+    "Value": "GER",
+    "Key": null
   },
   {
-    "id": 41,
-    "value": "+49",
-    "label": "CountryCallingCode"
+    "Properties": {},
+    "Id": 41,
+    "Label": "CountryCallingCode",
+    "Value": "+49",
+    "Key": null
   },
   {
-    "id": 77,
-    "value": "GER",
-    "label": "Name"
+    "Properties": {},
+    "Id": 77,
+    "Label": "Name",
+    "Value": "GER",
+    "Key": null
   }
 ]

@@ -1,52 +1,72 @@
 [
   {
-    "id": 8,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 8,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 67,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 67,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 64,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 64,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 12,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 12,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 18,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 18,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 23,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 23,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 28,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 28,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 35,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 35,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 44,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 44,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   },
   {
-    "id": 52,
-    "value": 0,
-    "label": "Age"
+    "Properties": {},
+    "Id": 52,
+    "Label": "Age",
+    "Value": 0,
+    "Key": null
   }
 ]

@@ -1,16 +1,7 @@
 [
   {
-    "id": 1100,
-    "label": "Language",
-    "properties": {
-      "IetfLanguageTag": [
-        {
-          "id": 63,
-          "label": "IetfLanguageTag",
-          "value": "en",
-          "properties": {}
-        }
-      ]
-    }
+    "IetfLanguageTag": "en",
+    "Id": 1100,
+    "Label": "Language"
   }
 ]

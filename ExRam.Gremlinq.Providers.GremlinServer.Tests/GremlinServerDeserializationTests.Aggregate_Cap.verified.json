@@ -1,59 +1,125 @@
 [
   [
     {
-      "id": 69,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 69,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 7,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 7,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 200,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 200,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 201,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 201,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 11,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 11,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 17,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 17,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 22,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 22,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 27,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 27,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 34,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 34,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 43,
-      "label": "Person"
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 43,
+      "Label": "Person"
     },
-    1,
     {
-      "id": 51,
-      "label": "Person"
-    },
-    1
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": 51,
+      "Label": "Person"
+    }
   ]
 ]

@@ -1,80 +1,42 @@
 [
   {
     "Item1": {
-      "id": 43,
-      "label": "Person",
-      "properties": {
-        "Gender": [
-          {
-            "id": 45,
-            "label": "Gender",
-            "value": 0,
-            "properties": {}
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": 47,
-            "label": "RegistrationDate",
-            "value": 1586270616000,
-            "properties": {}
-          }
-        ],
-        "Age": [
-          {
-            "id": 44,
-            "label": "Age",
-            "value": 0,
-            "properties": {}
-          }
-        ],
-        "Name": [
-          {
-            "id": 46,
-            "label": "Name",
-            "value": "Bob",
-            "properties": {}
-          }
-        ]
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": 46,
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": 43,
+      "Label": "Person"
     },
     "Item2": {
-      "id": 11,
-      "label": "Person",
-      "properties": {
-        "Gender": [
-          {
-            "id": 13,
-            "label": "Gender",
-            "value": 0,
-            "properties": {}
-          }
-        ],
-        "RegistrationDate": [
-          {
-            "id": 15,
-            "label": "RegistrationDate",
-            "value": 1586270616000,
-            "properties": {}
-          }
-        ],
-        "Age": [
-          {
-            "id": 12,
-            "label": "Age",
-            "value": 0,
-            "properties": {}
-          }
-        ],
-        "Name": [
-          {
-            "id": 14,
-            "label": "Name",
-            "value": "Bob",
-            "properties": {}
-          }
-        ]
-      }
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": 14,
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Bob",
+        "Key": null
+      },
+      "Id": 11,
+      "Label": "Person"
     },
     "Item3": 1
   }

@@ -1,17 +1,23 @@
 [
   {
-    "id": 70,
-    "value": "Marko",
-    "label": "Name"
+    "Id": 70,
+    "Label": "Name",
+    "Properties": null,
+    "Value": "Marko",
+    "Key": null
   },
   {
-    "id": 14,
-    "value": "Bob",
-    "label": "Name"
+    "Id": 14,
+    "Label": "Name",
+    "Properties": null,
+    "Value": "Bob",
+    "Key": null
   },
   {
-    "id": 46,
-    "value": "Bob",
-    "label": "Name"
+    "Id": 46,
+    "Label": "Name",
+    "Properties": null,
+    "Value": "Bob",
+    "Key": null
   }
 ]
