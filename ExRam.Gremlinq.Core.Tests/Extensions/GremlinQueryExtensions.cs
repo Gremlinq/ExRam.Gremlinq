@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Verify;
 using VerifyXunit;
 
@@ -25,6 +26,10 @@ namespace ExRam.Gremlinq.Core.Tests
             if (verifyBase is QuerySerializationTest && typeof(TElement) != typeof(object))
             {
                 await query.Cast<object>().Verify(verifyBase);
+            }
+            else if (verifyBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
+            {
+                await query.Cast<JToken>().Verify(verifyBase);
             }
             else
             {

@@ -7,7 +7,7 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
 {
-    public class GremlinServerIntegrationTests : QueryExecutionTest
+    public class GremlinServerIntegrationTests : QueryIntegrationTest
     {
         public GremlinServerIntegrationTests(ITestOutputHelper testOutputHelper) : base(
             g
