@@ -2,18 +2,11 @@
   {
     "Age": 0,
     "in!": {
-      "id": 0,
-      "label": "Country",
-      "properties": {
-        "CountryCallingCode": [
-          {
-            "id": 1,
-            "label": "CountryCallingCode",
-            "value": "+49",
-            "properties": {}
-          }
-        ]
-      }
+      "Name": null,
+      "Languages": [],
+      "CountryCallingCode": "+49",
+      "Id": 0,
+      "Label": "Country"
     }
   }
 ]

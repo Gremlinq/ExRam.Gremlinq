@@ -277,11 +277,14 @@ namespace ExRam.Gremlinq.Core
                             env,
                             recurse));
 
+                if (type == typeof(object))
+                    return jToken.ToObject<IDictionary<string, object>>(populatingSerializer);
+
                 var ret = jToken.ToObject(
                     type,
                     populatingSerializer);
 
-                if (!(ret is JToken) && jToken is JObject element)
+                if (!(ret is JToken) && type != typeof(IDictionary<string, object>) && jToken is JObject element)
                 {
                     var ignoringSerializer = IgnoringSerializers
                         .GetValue(
