@@ -306,7 +306,7 @@ namespace ExRam.Gremlinq.Core
                     }
                 }
 
-                if (ret is JObject newJObject)
+                if (ret is JObject newJObject && newJObject.Count > 0)
                 {
                     foreach (var property in newJObject)
                     {
