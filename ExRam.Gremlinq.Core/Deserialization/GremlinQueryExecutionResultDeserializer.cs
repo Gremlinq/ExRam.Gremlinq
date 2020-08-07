@@ -360,6 +360,14 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
+                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? jToken.Value is null
+                        ? null
+                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                    : jToken.ToObject(type);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
                 return typeof(Property).IsAssignableFrom(type) && type.IsGenericType
                     ? Activator.CreateInstance(type, recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env))
                     : overridden(jToken, type, env, recurse);
