@@ -284,7 +284,7 @@ namespace ExRam.Gremlinq.Core
                     type,
                     populatingSerializer);
 
-                if (!(ret is JToken) && type != typeof(IDictionary<string, object>) && jToken is JObject element)
+                if (!(ret is JToken) && (!(ret is IDictionary<string, object>)) && jToken is JObject element)
                 {
                     var ignoringSerializer = IgnoringSerializers
                         .GetValue(
@@ -526,8 +526,8 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
-                return type.IsAssignableFrom(typeof(JArray)) && recurse.TryDeserialize(jArray, typeof(JToken[]), env) is JToken[] tokens
-                    ? new JArray(tokens)
+                return type.IsAssignableFrom(typeof(object[])) && recurse.TryDeserialize(jArray, typeof(object[]), env) is object[] tokens
+                    ? tokens
                     : overridden(jArray, type, env, recurse);
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>

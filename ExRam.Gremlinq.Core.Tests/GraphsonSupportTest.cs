@@ -95,7 +95,6 @@ namespace ExRam.Gremlinq.Providers.Tests
             await Verify(await _g
                 .WithExecutor(Graphson3ReferenceVertex)
                 .V()
-                .Cast<JObject>()
                 .ToArrayAsync());
         }
 
