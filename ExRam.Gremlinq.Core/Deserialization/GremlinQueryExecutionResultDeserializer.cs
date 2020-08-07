@@ -277,23 +277,23 @@ namespace ExRam.Gremlinq.Core
                             env,
                             recurse));
 
-                var ignoringSerializer = IgnoringSerializers
-                    .GetValue(
-                        env,
-                        closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
-                    .GetValue(
-                        recurse,
-                        closureRecurse => new GraphsonJsonSerializer(
-                            DefaultValueHandling.Ignore,
-                            env,
-                            recurse));
-
                 var ret = jToken.ToObject(
                     type,
                     populatingSerializer);
 
                 if (!(ret is JToken) && jToken is JObject element)
                 {
+                    var ignoringSerializer = IgnoringSerializers
+                        .GetValue(
+                            env,
+                            closureEnv => new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>())
+                        .GetValue(
+                            recurse,
+                            closureRecurse => new GraphsonJsonSerializer(
+                                DefaultValueHandling.Ignore,
+                                env,
+                                recurse));
+
                     if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is JObject propertiesToken)
                     {
                         if (propertiesToken.TryUnmap() is { } jObject)
