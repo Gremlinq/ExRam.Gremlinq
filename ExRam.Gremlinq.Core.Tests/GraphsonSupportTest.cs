@@ -220,6 +220,15 @@ namespace ExRam.Gremlinq.Providers.Tests
         }
 
         [Fact]
+        public async Task SingleCompany_dynamic()
+        {
+            await Verify(await _g
+                .WithExecutor(SingleCompanyJson)
+                .V<dynamic>()
+                .ToArrayAsync());
+        }
+
+        [Fact]
         public async Task Language_unknown_type()
         {
             await Verify(await _g

@@ -10,6 +10,12 @@
           value: 'de'
         }
       ]
-    }
+    },
+    IetfLanguageTag: [
+      {
+        id: 1,
+        value: 'de'
+      }
+    ]
   }
 ]

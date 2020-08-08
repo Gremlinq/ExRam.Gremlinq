@@ -284,7 +284,7 @@ namespace ExRam.Gremlinq.Core
                     type,
                     populatingSerializer);
 
-                if (!(ret is JToken) && (!(ret is IDictionary<string, object>)) && jToken is JObject element)
+                if (!(ret is JToken) && jToken is JObject element)
                 {
                     var ignoringSerializer = IgnoringSerializers
                         .GetValue(
