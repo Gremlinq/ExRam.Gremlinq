@@ -305,9 +305,17 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                return type.IsArray && !env.Model.NativeTypes.Contains(type)
-                    ? recurse.TryDeserialize(new JArray(jToken), type, env)
-                    : overridden(jToken, type, env, recurse);
+                if (type.IsArray && !env.Model.NativeTypes.Contains(type))
+                {
+                    type = type.GetElementType();
+
+                    var array = Array.CreateInstance(type, 1);
+                    array.SetValue(recurse.TryDeserialize(jToken, type, env), 0);
+
+                    return array;
+                }
+
+                return overridden(jToken, type, env, recurse);
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
