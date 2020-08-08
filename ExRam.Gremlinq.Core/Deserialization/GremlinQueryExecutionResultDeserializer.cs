@@ -305,31 +305,6 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                if (!type.IsArray || env.Model.NativeTypes.Contains(type))
-                {
-                    if (!type.IsInstanceOfType(jToken))
-                    {
-                        switch (jToken)
-                        {
-                            case JArray array when array.Count != 1:
-                            {
-                                if (array.Count == 0 && type.IsClass)
-                                    return default;
-
-                                throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
-                            }
-                            case JArray array:
-                                return recurse.TryDeserialize(array[0], type, env);
-                            case JValue jValue when jValue.Value == null:
-                                return null;
-                        }
-                    }
-                }
-
-                return overridden(jToken, type, env, recurse);
-            })
-            .Override<JToken>((jToken, type, env, overridden, recurse) =>
-            {
                 return type.IsArray && !env.Model.NativeTypes.Contains(type)
                     ? recurse.TryDeserialize(new JArray(jToken), type, env)
                     : overridden(jToken, type, env, recurse);
@@ -508,6 +483,19 @@ namespace ExRam.Gremlinq.Core
                 }
 
                 return overridden(jObject, type, env, recurse);
+            })
+            .Override<JArray>((jArray, type, env, overridden, recurse) =>
+            {
+                if ((!type.IsArray || env.Model.NativeTypes.Contains(type)) && !type.IsInstanceOfType(jArray))
+                {
+                    return jArray.Count != 1
+                        ? jArray.Count == 0 && type.IsClass
+                            ? (object?)default
+                            : throw new JsonReaderException($"Cannot convert array\r\n\r\n{jArray}\r\n\r\nto scalar value of type {type}.")
+                        : recurse.TryDeserialize(jArray[0], type, env);
+                }
+
+                return overridden(jArray, type, env, recurse);
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
