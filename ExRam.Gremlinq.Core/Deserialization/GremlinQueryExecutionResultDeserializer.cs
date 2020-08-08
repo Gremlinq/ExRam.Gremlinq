@@ -309,32 +309,19 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (!type.IsInstanceOfType(jToken))
                     {
-                        var itemType = default(Type);
-
-                        if (type.IsGenericType)
-                        {
-                            var genericTypeDefinition = type.GetGenericTypeDefinition();
-                            if (genericTypeDefinition == typeof(Nullable<>))
-                                itemType = type.GetGenericArguments()[0];
-                        }
-
                         switch (jToken)
                         {
                             case JArray array when array.Count != 1:
                             {
-                                if (array.Count == 0 && (type.IsClass || itemType != null))
-                                {
+                                if (array.Count == 0 && type.IsClass)
                                     return default;
-                                }
 
                                 throw new JsonReaderException($"Cannot convert array\r\n\r\n{array}\r\n\r\nto scalar value of type {type}.");
                             }
                             case JArray array:
-                                return recurse.TryDeserialize(array[0], itemType ?? type, env);
+                                return recurse.TryDeserialize(array[0], type, env);
                             case JValue jValue when jValue.Value == null:
                                 return null;
-                            case JValue jValue when itemType != null:
-                                return recurse.TryDeserialize(jValue, itemType, env);
                         }
                     }
                 }
@@ -347,13 +334,17 @@ namespace ExRam.Gremlinq.Core
                     ? recurse.TryDeserialize(new JArray(jToken), type, env)
                     : overridden(jToken, type, env, recurse);
             })
-            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
                 return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
-                    ? jToken.Value is null
+                    ? jToken.Type == JTokenType.Null
                         ? null
                         : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
-                    : jToken.ToObject(type);
+                    : overridden(jToken, type, env, recurse);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
+                return jToken.ToObject(type);
             })
             .Override<JValue>((jToken, type, env, overridden, recurse) =>
             {
@@ -412,6 +403,14 @@ namespace ExRam.Gremlinq.Core
                 return type == typeof(byte[]) && jValue.Type == JTokenType.String
                     ? Convert.FromBase64String(jValue.Value<string>())
                     : overridden(jValue, type, env, recurse);
+            })
+            .Override<JValue>((jToken, type, env, overridden, recurse) =>
+            {
+                return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
+                    ? jToken.Value is null
+                        ? null
+                        : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
+                    : overridden(jToken, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
