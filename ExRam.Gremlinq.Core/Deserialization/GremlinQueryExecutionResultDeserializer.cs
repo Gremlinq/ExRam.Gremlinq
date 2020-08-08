@@ -301,15 +301,6 @@ namespace ExRam.Gremlinq.Core
                         ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
                 }
 
-                if (ret is JObject newJObject && newJObject.Count > 0)
-                {
-                    foreach (var property in newJObject)
-                    {
-                        if (recurse.TryDeserialize(newJObject[property.Key], typeof(JToken), env) is JToken newToken)
-                            newJObject[property.Key] = newToken;
-                    }
-                }
-
                 return ret;
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
