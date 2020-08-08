@@ -297,13 +297,8 @@ namespace ExRam.Gremlinq.Core
                                 env,
                                 recurse));
 
-                    if (element.ContainsKey("id") && element.TryGetValue("label", out var label) && label.Type == JTokenType.String && element["properties"] is JObject propertiesToken)
-                    {
-                        if (propertiesToken.TryUnmap() is { } jObject)
-                            propertiesToken = jObject;
-
+                    if (element.TryGetElementProperties() is { } propertiesToken)
                         ignoringSerializer.Populate(new JTokenReader(propertiesToken), ret);
-                    }
                 }
 
                 if (ret is JObject newJObject && newJObject.Count > 0)

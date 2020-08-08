@@ -25,5 +25,14 @@ namespace ExRam.Gremlinq.Core
 
             return null;
         }
+
+        public static JObject? TryGetElementProperties(this JObject jObject)
+        {
+            return jObject.ContainsKey("id") && jObject.TryGetValue("label", out var label) && label.Type == JTokenType.String && jObject["properties"] is JObject propertiesToken
+                ? propertiesToken.TryUnmap() is { } unmapped
+                    ? unmapped
+                    : propertiesToken
+                : null;
+        }
     }
 }
