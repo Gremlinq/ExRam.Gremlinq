@@ -12,8 +12,6 @@ namespace ExRam.Gremlinq.Core
         Key GetKey(MemberInfo member);
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
 
-        IGraphElementModelCache EdgesModelCache { get; }
-        IGraphElementModelCache VerticesModelCache { get; }
         IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
     }
 }

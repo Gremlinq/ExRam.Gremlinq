@@ -165,32 +165,6 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
-            private sealed class GraphElementModelCache : IGraphElementModelCache
-            {
-                private readonly IGraphElementModel _model;
-                private readonly ConcurrentDictionary<Type, string> _dict = new ConcurrentDictionary<Type, string>();
-
-                public GraphElementModelCache(IGraphElementModel model)
-                {
-                    _model = model;
-                }
-
-                public string GetLabel(Type type)
-                {
-                    return _dict
-                        .GetOrAdd(
-                            type,
-                            (closureType, closureModel) => closureType
-                                .GetTypeHierarchy()
-                                .Where(type => !type.IsAbstract)
-                                .Select(type => closureModel.Metadata.TryGetValue(type, out var metadata)
-                                    ? metadata.Label
-                                    : null)
-                                .FirstOrDefault() ?? closureType.Name,
-                            _model);
-                }
-            }
-
             private sealed class KeyLookup
             {
                 private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
@@ -258,9 +232,6 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
 
-                EdgesModelCache = new GraphElementModelCache(_environment.Model.EdgesModel);
-                VerticesModelCache = new GraphElementModelCache(_environment.Model.VerticesModel);
-
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
@@ -308,8 +279,6 @@ namespace ExRam.Gremlinq.Core
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 
-            public IGraphElementModelCache EdgesModelCache { get; }
-            public IGraphElementModelCache VerticesModelCache { get; }
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
 
@@ -319,7 +288,7 @@ namespace ExRam.Gremlinq.Core
         {
             return Caches.GetValue(
                 environment,
-                closure => new GremlinQueryEnvironmentCacheImpl(environment));
+                closure => new GremlinQueryEnvironmentCacheImpl(closure));
         }
     }
 }
