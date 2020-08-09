@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -168,6 +169,7 @@ namespace ExRam.Gremlinq.Core
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
+            private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>();
 
             private static readonly ConcurrentDictionary<Type, string> EdgeLabels = new ConcurrentDictionary<Type, string>();
             private static readonly ConcurrentDictionary<Type, string> VertexLabels = new ConcurrentDictionary<Type, string>();
@@ -215,6 +217,29 @@ namespace ExRam.Gremlinq.Core
 
             public string GetEdgeLabel(Type type) => GetLabel(EdgeLabels, _environment.Model.EdgesModel, type);
 
+            public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
+            {
+                return _typeProperties
+                    .GetOrAdd(
+                        type,
+                        (closureType, closureModel) => closureType
+                            .GetTypeHierarchy()
+                            .SelectMany(typeInHierarchy => typeInHierarchy
+                                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
+                            .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
+                            .Select(p =>
+                            {
+                                return (
+                                    property: p,
+                                    key: closureModel.GetKey(p),
+                                    serializationBehaviour: closureModel.MemberMetadata
+                                        .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour);
+                            })
+                            .OrderBy(x => x.property.Name)
+                            .ToArray(),
+                        _environment.Model.PropertiesModel);
+            }
+            
             private string GetLabel(ConcurrentDictionary<Type, string> dict, IGraphElementModel elementModel, Type type)
             {
                 return dict
