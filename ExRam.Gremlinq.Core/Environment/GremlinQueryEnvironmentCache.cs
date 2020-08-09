@@ -216,9 +216,22 @@ namespace ExRam.Gremlinq.Core
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>();
 
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _populatingSerializerFactory;
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _ignorigingSerializerFactory;
+
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
+
+                _populatingSerializerFactory = closure => new GraphsonJsonSerializer(
+                    DefaultValueHandling.Populate,
+                    _environment,
+                    closure);
+
+                _ignorigingSerializerFactory = closure => new GraphsonJsonSerializer(
+                    DefaultValueHandling.Ignore,
+                    _environment,
+                    closure);
 
                 ModelTypes = environment.Model
                     .VerticesModel
@@ -237,24 +250,17 @@ namespace ExRam.Gremlinq.Core
 
             public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
-                return _populatingSerializers
-                    .GetValue(
-                        fragmentDeserializer,
-                        closureRecurse => new GraphsonJsonSerializer(
-                            DefaultValueHandling.Populate,
-                            _environment,
-                            fragmentDeserializer));
+                return _populatingSerializers.GetValue(
+                    fragmentDeserializer,
+                    _populatingSerializerFactory);
             }
 
             public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
-                return _ignoringSerializers
-                    .GetValue(
-                        fragmentDeserializer,
-                        closureRecurse => new GraphsonJsonSerializer(
-                            DefaultValueHandling.Ignore,
-                            _environment,
-                            fragmentDeserializer));
+                return _ignoringSerializers.GetValue(
+                    fragmentDeserializer,
+                    _ignorigingSerializerFactory);
+                       
             }
 
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
