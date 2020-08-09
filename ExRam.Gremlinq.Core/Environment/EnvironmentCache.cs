@@ -5,7 +5,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
@@ -274,14 +273,11 @@ namespace ExRam.Gremlinq.Core
                             .SelectMany(typeInHierarchy => typeInHierarchy
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
                             .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
-                            .Select(p =>
-                            {
-                                return (
-                                    property: p,
-                                    key: closureEnvironment.GetCache().GetKey(p),
-                                    serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
-                                        .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour);
-                            })
+                            .Select(p => (
+                                property: p,
+                                key: closureEnvironment.GetCache().GetKey(p),
+                                serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
+                                    .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour))
                             .OrderBy(x => x.property.Name)
                             .ToArray(),
                         _environment);
