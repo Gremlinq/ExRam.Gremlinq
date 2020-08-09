@@ -170,9 +170,8 @@ namespace ExRam.Gremlinq.Core
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>();
-
-            private static readonly ConcurrentDictionary<Type, string> EdgeLabels = new ConcurrentDictionary<Type, string>();
-            private static readonly ConcurrentDictionary<Type, string> VertexLabels = new ConcurrentDictionary<Type, string>();
+            private readonly ConcurrentDictionary<Type, string> _edgeLabels = new ConcurrentDictionary<Type, string>();
+            private readonly ConcurrentDictionary<Type, string> _vertexLabels = new ConcurrentDictionary<Type, string>();
 
             public EnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
@@ -213,9 +212,9 @@ namespace ExRam.Gremlinq.Core
                             fragmentDeserializer));
             }
 
-            public string GetVertexLabel(Type type) => GetLabel(VertexLabels, _environment.Model.VerticesModel, type);
+            public string GetVertexLabel(Type type) => GetLabel(_vertexLabels, _environment.Model.VerticesModel, type);
 
-            public string GetEdgeLabel(Type type) => GetLabel(EdgeLabels, _environment.Model.EdgesModel, type);
+            public string GetEdgeLabel(Type type) => GetLabel(_edgeLabels, _environment.Model.EdgesModel, type);
 
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
             {
