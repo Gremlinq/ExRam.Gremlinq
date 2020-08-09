@@ -290,7 +290,7 @@ namespace ExRam.Gremlinq.Core
 
         private IEnumerable<PropertyStep> GetPropertySteps(Key key, object value, bool allowExplicitCardinality)
         {
-            if (value is IEnumerable enumerable && !Environment.Model.NativeTypes.Contains(value.GetType()))
+            if (value is IEnumerable enumerable && !Environment.GetCache().FastNativeTypes.ContainsKey(value.GetType()))
             {
                 if (!allowExplicitCardinality)
                     throw new NotSupportedException($"A value of type {value.GetType()} is not supported for property '{key}'.");

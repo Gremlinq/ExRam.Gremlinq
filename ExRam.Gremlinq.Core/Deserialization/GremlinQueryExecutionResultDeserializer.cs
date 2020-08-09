@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JToken>((jToken, type, env, overridden, recurse) =>
             {
-                if (type.IsArray && !env.Model.NativeTypes.Contains(type))
+                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
                     type = type.GetElementType();
 
@@ -253,9 +253,9 @@ namespace ExRam.Gremlinq.Core
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 //Vertex Properties
-                var nativeTypes = env.Model.NativeTypes;
-
-                if (nativeTypes.Contains(type) || (type.IsEnum && nativeTypes.Contains(type.GetEnumUnderlyingType())))
+                var nativeTypes = env.GetCache().FastNativeTypes;
+                    
+                if (nativeTypes.ContainsKey(type) || (type.IsEnum && nativeTypes.ContainsKey(type.GetEnumUnderlyingType())))
                 {
                     if (jObject.TryGetValue("value", out var valueToken))
                         return recurse.TryDeserialize(valueToken, type, env);
@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
-                if (type.IsArray && !env.Model.NativeTypes.Contains(type))
+                if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
                     var elementType = type.GetElementType();
 
@@ -309,7 +309,7 @@ namespace ExRam.Gremlinq.Core
             })
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
-                if ((!type.IsArray || env.Model.NativeTypes.Contains(type)) && !type.IsInstanceOfType(jArray))
+                if ((!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type)) && !type.IsInstanceOfType(jArray))
                 {
                     return jArray.Count != 1
                         ? jArray.Count == 0 && type.IsClass
@@ -329,7 +329,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JArray>((jArray, type, env, overridden, recurse) =>
             {
                 //Traversers
-                if (!type.IsArray || env.Model.NativeTypes.Contains(type))
+                if (!type.IsArray || env.GetCache().FastNativeTypes.ContainsKey(type))
                     return overridden(jArray, type, env, recurse);
 
                 var array = default(ArrayList);

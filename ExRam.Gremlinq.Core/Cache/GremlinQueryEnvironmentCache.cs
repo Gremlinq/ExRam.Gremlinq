@@ -245,6 +245,9 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
 
+                FastNativeTypes = environment.Model.NativeTypes
+                    .ToDictionary(x => x, x => default(object?));
+
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
@@ -260,7 +263,6 @@ namespace ExRam.Gremlinq.Core
                 return _ignoringSerializers.GetValue(
                     fragmentDeserializer,
                     _ignorigingSerializerFactory);
-                       
             }
 
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
@@ -282,6 +284,8 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         _environment);
             }
+
+            public IReadOnlyDictionary<Type, object?> FastNativeTypes { get; }
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 
