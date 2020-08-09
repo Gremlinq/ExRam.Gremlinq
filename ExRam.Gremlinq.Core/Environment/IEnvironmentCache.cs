@@ -9,6 +9,9 @@ namespace ExRam.Gremlinq.Core
         JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
         JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
 
+        string GetVertexLabel(Type type);
+        string GetEdgeLabel(Type type);
+
         IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
     }
 }

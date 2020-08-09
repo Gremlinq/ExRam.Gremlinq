@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+
 using ExRam.Gremlinq.Core.GraphElements;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -166,6 +169,9 @@ namespace ExRam.Gremlinq.Core
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
 
+            private static readonly ConcurrentDictionary<Type, string> EdgeLabels = new ConcurrentDictionary<Type, string>();
+            private static readonly ConcurrentDictionary<Type, string> VertexLabels = new ConcurrentDictionary<Type, string>();
+
             public EnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
@@ -203,6 +209,25 @@ namespace ExRam.Gremlinq.Core
                             DefaultValueHandling.Ignore,
                             _environment,
                             fragmentDeserializer));
+            }
+
+            public string GetVertexLabel(Type type) => GetLabel(VertexLabels, _environment.Model.VerticesModel, type);
+
+            public string GetEdgeLabel(Type type) => GetLabel(EdgeLabels, _environment.Model.EdgesModel, type);
+
+            private string GetLabel(ConcurrentDictionary<Type, string> dict, IGraphElementModel elementModel, Type type)
+            {
+                return dict
+                    .GetOrAdd(
+                        type,
+                        (closureType, closureModel) => closureType
+                            .GetTypeHierarchy()
+                            .Where(type => !type.IsAbstract)
+                            .Select(type => closureModel.Metadata.TryGetValue(type, out var metadata)
+                                ? metadata.Label
+                                : null)
+                            .FirstOrDefault() ?? closureType.Name,
+                        elementModel);
             }
 
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
