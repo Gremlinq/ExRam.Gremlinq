@@ -12,6 +12,7 @@ namespace ExRam.Gremlinq.Core
 
         string GetVertexLabel(Type type);
         string GetEdgeLabel(Type type);
+        Key GetKey(MemberInfo member);
         (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type);
             
         IReadOnlyDictionary<string, Type[]> ModelTypes { get; }

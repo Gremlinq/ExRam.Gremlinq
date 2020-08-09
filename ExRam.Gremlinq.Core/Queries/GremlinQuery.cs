@@ -590,7 +590,7 @@ namespace ExRam.Gremlinq.Core
 
         private Key GetKey(Expression projection)
         {
-            return Environment.Model.PropertiesModel.GetKey(projection);
+            return Environment.GetKey(projection);
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter

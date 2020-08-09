@@ -28,57 +28,10 @@ namespace ExRam.Gremlinq.Core
             public IImmutableDictionary<MemberInfo, MemberMetadata> MemberMetadata { get; }
         }
 
-        private sealed class KeyLookup
-        {
-            private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "id", T.Id },
-                { "label", T.Label }
-            };
-
-            private readonly HashSet<T> _configuredTs;
-            private readonly IGraphElementPropertyModel _model;
-            private readonly ConcurrentDictionary<MemberInfo, Key> _members = new ConcurrentDictionary<MemberInfo, Key>();
-
-            public KeyLookup(IGraphElementPropertyModel model)
-            {
-                _model = model;
-                _configuredTs = new HashSet<T>(model.MemberMetadata
-                    .Where(kvp => kvp.Value.Key.RawKey is T)
-                    .ToDictionary(kvp => (T)kvp.Value.Key.RawKey, kvp => kvp.Key)
-                    .Keys);
-            }
-
-            public Key GetKey(MemberInfo member)
-            {
-                return _members.GetOrAdd(
-                    member,
-                    (closureMember, closureModel) =>
-                    {
-                        var name = closureMember.Name;
-
-                        if (closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata))
-                        {
-                            if (metadata.Key.RawKey is T t)
-                                return t;
-
-                            name = (string)metadata.Key.RawKey;
-                        }
-
-                        return DefaultTs.TryGetValue(name, out var defaultT) && !_configuredTs.Contains(defaultT)
-                            ? (Key)defaultT
-                            : name;
-                    },
-                    _model);
-            }
-        }
-
         public static readonly IGraphElementPropertyModel Empty = new GraphElementPropertyModelImpl(
             ImmutableDictionary<MemberInfo, MemberMetadata>
                 .Empty
                 .WithComparers(MemberInfoEqualityComparer.Instance));
-
-        private static readonly ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup> KeyLookups = new ConditionalWeakTable<IGraphElementPropertyModel, KeyLookup>();
 
         public static IGraphElementPropertyModel ConfigureElement<TElement>(this IGraphElementPropertyModel model, Func<IMemberMetadataConfigurator<TElement>, IImmutableDictionary<MemberInfo, MemberMetadata>> transformation)
             where TElement : class
@@ -87,28 +40,19 @@ namespace ExRam.Gremlinq.Core
                 metadata => transformation(new MemberMetadataConfigurator<TElement>(metadata)));
         }
 
-        internal static Key GetKey(this IGraphElementPropertyModel model, Expression expression)
+        internal static Key GetKey(this IGremlinQueryEnvironment environment, Expression expression)
         {
             if (expression is LambdaExpression lambdaExpression)
-                return model.GetKey(lambdaExpression.Body);
+                return environment.GetKey(lambdaExpression.Body);
 
             if (expression.Strip() is MemberExpression memberExpression)
             {
                 return memberExpression.TryGetWellKnownMember() == WellKnownMember.PropertyValue && memberExpression.Expression is MemberExpression sourceMemberExpression
-                    ? model.GetKey(sourceMemberExpression.Member)
-                    : model.GetKey(memberExpression.Member);
+                    ? environment.GetCache().GetKey(sourceMemberExpression.Member)
+                    : environment.GetCache().GetKey(memberExpression.Member);
             }
 
             throw new ExpressionNotSupportedException(expression);
-        }
-
-        internal static Key GetKey(this IGraphElementPropertyModel model, MemberInfo member)
-        {
-            return KeyLookups
-                .GetValue(
-                    model,
-                    closureModel => new KeyLookup(closureModel))
-                .GetKey(member);
         }
 
         internal static IGraphElementPropertyModel FromGraphElementModels(params IGraphElementModel[] models)

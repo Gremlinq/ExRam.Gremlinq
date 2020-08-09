@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using ExRam.Gremlinq.Core.GraphElements;
-
+using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -166,6 +166,52 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
+            private sealed class KeyLookup
+            {
+                private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "id", T.Id },
+                    { "label", T.Label }
+                };
+
+                private readonly HashSet<T> _configuredTs;
+                private readonly IGraphElementPropertyModel _model;
+                private readonly ConcurrentDictionary<MemberInfo, Key> _members = new ConcurrentDictionary<MemberInfo, Key>();
+
+                public KeyLookup(IGraphElementPropertyModel model)
+                {
+                    _model = model;
+                    _configuredTs = new HashSet<T>(model.MemberMetadata
+                        .Where(kvp => kvp.Value.Key.RawKey is T)
+                        .ToDictionary(kvp => (T)kvp.Value.Key.RawKey, kvp => kvp.Key)
+                        .Keys);
+                }
+
+                public Key GetKey(MemberInfo member)
+                {
+                    return _members.GetOrAdd(
+                        member,
+                        (closureMember, closureModel) =>
+                        {
+                            var name = closureMember.Name;
+
+                            if (closureModel.MemberMetadata.TryGetValue(closureMember, out var metadata))
+                            {
+                                if (metadata.Key.RawKey is T t)
+                                    return t;
+
+                                name = (string)metadata.Key.RawKey;
+                            }
+
+                            return DefaultTs.TryGetValue(name, out var defaultT) && !_configuredTs.Contains(defaultT)
+                                ? (Key)defaultT
+                                : name;
+                        },
+                        _model);
+                }
+            }
+
+            private readonly KeyLookup _keyLookup;
             private readonly IGremlinQueryEnvironment _environment;
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
@@ -188,6 +234,8 @@ namespace ExRam.Gremlinq.Core
                             .Select(x => x.Key)
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
+
+                _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
 
             public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
@@ -221,7 +269,7 @@ namespace ExRam.Gremlinq.Core
                 return _typeProperties
                     .GetOrAdd(
                         type,
-                        (closureType, closureModel) => closureType
+                        (closureType, closureEnvironment) => closureType
                             .GetTypeHierarchy()
                             .SelectMany(typeInHierarchy => typeInHierarchy
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
@@ -230,13 +278,13 @@ namespace ExRam.Gremlinq.Core
                             {
                                 return (
                                     property: p,
-                                    key: closureModel.GetKey(p),
-                                    serializationBehaviour: closureModel.MemberMetadata
+                                    key: closureEnvironment.GetCache().GetKey(p),
+                                    serializationBehaviour: closureEnvironment.Model.PropertiesModel.MemberMetadata
                                         .GetValueOrDefault(p, new MemberMetadata(p.Name)).SerializationBehaviour);
                             })
                             .OrderBy(x => x.property.Name)
                             .ToArray(),
-                        _environment.Model.PropertiesModel);
+                        _environment);
             }
             
             private string GetLabel(ConcurrentDictionary<Type, string> dict, IGraphElementModel elementModel, Type type)
@@ -253,6 +301,8 @@ namespace ExRam.Gremlinq.Core
                             .FirstOrDefault() ?? closureType.Name,
                         elementModel);
             }
+
+            public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
