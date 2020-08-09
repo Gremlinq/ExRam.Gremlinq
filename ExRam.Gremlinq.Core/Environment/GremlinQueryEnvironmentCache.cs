@@ -13,9 +13,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class EnvironmentCache
+    internal static class GremlinQueryEnvironmentCache
     {
-        private sealed class EnvironmentCacheImpl : IEnvironmentCache
+        private sealed class GremlinQueryEnvironmentCacheImpl : IGremlinQueryEnvironmentCache
         {
             private sealed class GraphsonJsonSerializer : JsonSerializer
             {
@@ -218,7 +218,7 @@ namespace ExRam.Gremlinq.Core
             private readonly ConcurrentDictionary<Type, string> _edgeLabels = new ConcurrentDictionary<Type, string>();
             private readonly ConcurrentDictionary<Type, string> _vertexLabels = new ConcurrentDictionary<Type, string>();
 
-            public EnvironmentCacheImpl(IGremlinQueryEnvironment environment)
+            public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
 
@@ -303,13 +303,13 @@ namespace ExRam.Gremlinq.Core
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
 
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IEnvironmentCache> Caches = new ConditionalWeakTable<IGremlinQueryEnvironment, IEnvironmentCache>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache>();
 
-        public static IEnvironmentCache GetCache(this IGremlinQueryEnvironment environment)
+        public static IGremlinQueryEnvironmentCache GetCache(this IGremlinQueryEnvironment environment)
         {
             return Caches.GetValue(
                 environment,
-                closure => new EnvironmentCacheImpl(environment));
+                closure => new GremlinQueryEnvironmentCacheImpl(environment));
         }
     }
 }

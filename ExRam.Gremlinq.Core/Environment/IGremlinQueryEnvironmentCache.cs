@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal interface IEnvironmentCache
+    internal interface IGremlinQueryEnvironmentCache
     {
         JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
         JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
