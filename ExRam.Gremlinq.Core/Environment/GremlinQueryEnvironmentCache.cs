@@ -165,6 +165,32 @@ namespace ExRam.Gremlinq.Core
                 }
             }
 
+            private sealed class GraphElementModelCache : IGraphElementModelCache
+            {
+                private readonly IGraphElementModel _model;
+                private readonly ConcurrentDictionary<Type, string> _dict = new ConcurrentDictionary<Type, string>();
+
+                public GraphElementModelCache(IGraphElementModel model)
+                {
+                    _model = model;
+                }
+
+                public string GetLabel(Type type)
+                {
+                    return _dict
+                        .GetOrAdd(
+                            type,
+                            (closureType, closureModel) => closureType
+                                .GetTypeHierarchy()
+                                .Where(type => !type.IsAbstract)
+                                .Select(type => closureModel.Metadata.TryGetValue(type, out var metadata)
+                                    ? metadata.Label
+                                    : null)
+                                .FirstOrDefault() ?? closureType.Name,
+                            _model);
+                }
+            }
+
             private sealed class KeyLookup
             {
                 private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
@@ -215,8 +241,6 @@ namespace ExRam.Gremlinq.Core
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
             private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>();
-            private readonly ConcurrentDictionary<Type, string> _edgeLabels = new ConcurrentDictionary<Type, string>();
-            private readonly ConcurrentDictionary<Type, string> _vertexLabels = new ConcurrentDictionary<Type, string>();
 
             public GremlinQueryEnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
@@ -233,6 +257,9 @@ namespace ExRam.Gremlinq.Core
                             .Select(x => x.Key)
                             .ToArray(),
                         StringComparer.OrdinalIgnoreCase);
+
+                EdgesModelCache = new GraphElementModelCache(_environment.Model.EdgesModel);
+                VerticesModelCache = new GraphElementModelCache(_environment.Model.VerticesModel);
 
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }
@@ -259,10 +286,6 @@ namespace ExRam.Gremlinq.Core
                             fragmentDeserializer));
             }
 
-            public string GetVertexLabel(Type type) => GetLabel(_vertexLabels, _environment.Model.VerticesModel, type);
-
-            public string GetEdgeLabel(Type type) => GetLabel(_edgeLabels, _environment.Model.EdgesModel, type);
-
             public (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[] GetSerializationData(Type type)
             {
                 return _typeProperties
@@ -282,24 +305,11 @@ namespace ExRam.Gremlinq.Core
                             .ToArray(),
                         _environment);
             }
-            
-            private string GetLabel(ConcurrentDictionary<Type, string> dict, IGraphElementModel elementModel, Type type)
-            {
-                return dict
-                    .GetOrAdd(
-                        type,
-                        (closureType, closureModel) => closureType
-                            .GetTypeHierarchy()
-                            .Where(type => !type.IsAbstract)
-                            .Select(type => closureModel.Metadata.TryGetValue(type, out var metadata)
-                                ? metadata.Label
-                                : null)
-                            .FirstOrDefault() ?? closureType.Name,
-                        elementModel);
-            }
 
             public Key GetKey(MemberInfo member) => _keyLookup.GetKey(member);
 
+            public IGraphElementModelCache EdgesModelCache { get; }
+            public IGraphElementModelCache VerticesModelCache { get; }
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
 
