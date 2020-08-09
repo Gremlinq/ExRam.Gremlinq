@@ -442,8 +442,8 @@ namespace ExRam.Gremlinq.Core
 
                 if (nativeTypes.Contains(type) || (type.IsEnum && nativeTypes.Contains(type.GetEnumUnderlyingType())))
                 {
-                    if (jObject.ContainsKey("value"))
-                        return recurse.TryDeserialize(jObject["value"], type, env);
+                    if (jObject.TryGetValue("value", out var valueToken))
+                        return recurse.TryDeserialize(valueToken, type, env);
                 }
 
                 return overridden(jObject, type, env, recurse);
