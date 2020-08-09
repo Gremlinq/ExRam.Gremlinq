@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -162,17 +163,29 @@ namespace ExRam.Gremlinq.Core
             }
 
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> PopulatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> IgnoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
 
             public EnvironmentCacheImpl(IGremlinQueryEnvironment environment)
             {
                 _environment = environment;
+
+                ModelTypes = environment.Model
+                    .VerticesModel
+                    .Metadata
+                    .Concat(environment.Model.EdgesModel.Metadata)
+                    .GroupBy(x => x.Value.Label)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .Select(x => x.Key)
+                            .ToArray(),
+                        StringComparer.OrdinalIgnoreCase);
             }
 
             public JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
-                return PopulatingSerializers
+                return _populatingSerializers
                     .GetValue(
                         fragmentDeserializer,
                         closureRecurse => new GraphsonJsonSerializer(
@@ -183,7 +196,7 @@ namespace ExRam.Gremlinq.Core
 
             public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
-                return IgnoringSerializers
+                return _ignoringSerializers
                     .GetValue(
                         fragmentDeserializer,
                         closureRecurse => new GraphsonJsonSerializer(
@@ -191,6 +204,8 @@ namespace ExRam.Gremlinq.Core
                             _environment,
                             fragmentDeserializer));
             }
+
+            public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
 
         private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IEnvironmentCache> Caches = new ConditionalWeakTable<IGremlinQueryEnvironment, IEnvironmentCache>();

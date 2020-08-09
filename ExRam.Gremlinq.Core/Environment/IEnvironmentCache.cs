@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
@@ -6,5 +8,7 @@ namespace ExRam.Gremlinq.Core
     {
         JsonSerializer GetPopulatingJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
         JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer);
+
+        IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
     }
 }

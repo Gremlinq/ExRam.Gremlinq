@@ -15,8 +15,6 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryExecutionResultDeserializer
     {
-        private static readonly ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>> ModelTypes = new ConditionalWeakTable<IGraphModel, IDictionary<string, Type[]>>();
-
         private sealed class VertexImpl : IVertex
         {
             public object? Id { get; set; }
@@ -232,24 +230,7 @@ namespace ExRam.Gremlinq.Core
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
                 // Elements
-                var modelTypes = ModelTypes.GetValue(
-                    env.Model,
-                    closureModel =>
-                    {
-                        return closureModel
-                            .VerticesModel
-                            .Metadata
-                            .Concat(closureModel.EdgesModel.Metadata)
-                            .GroupBy(x => x.Value.Label)
-                            .ToDictionary(
-                                group => group.Key,
-                                group => group
-                                    .Select(x => x.Key)
-                                    .ToArray(),
-                                StringComparer.OrdinalIgnoreCase);
-                    });
-
-
+                var modelTypes = env.GetCache().ModelTypes;
                 var label = jObject["label"]?.ToString();
 
                 var modelType = label != null && modelTypes.TryGetValue(label, out var types)
