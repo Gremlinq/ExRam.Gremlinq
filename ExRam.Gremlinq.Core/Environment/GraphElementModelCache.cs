@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -11,6 +12,7 @@ namespace ExRam.Gremlinq.Core
         {
             private readonly IGraphElementModel _model;
             private readonly ConcurrentDictionary<Type, string> _dict = new ConcurrentDictionary<Type, string>();
+            private readonly ConcurrentDictionary<Type, ImmutableArray<string>> _derivedLabels = new ConcurrentDictionary<Type, ImmutableArray<string>>();
 
             public GraphElementModelCacheImpl(IGraphElementModel model)
             {
@@ -30,6 +32,19 @@ namespace ExRam.Gremlinq.Core
                                     ? metadata.Label
                                     : null)
                             .FirstOrDefault() ?? closureType.Name,
+                        _model);
+            }
+
+            public ImmutableArray<string> GetDerivedLabels(Type type)
+            {
+                return _derivedLabels
+                    .GetOrAdd(
+                        type,
+                        (closureType, closureModel) => closureModel.Metadata
+                            .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
+                            .Select(kvp => kvp.Value.Label)
+                            .OrderBy(x => x)
+                            .ToImmutableArray(),
                         _model);
             }
         }

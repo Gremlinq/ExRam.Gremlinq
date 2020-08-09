@@ -22,8 +22,6 @@ namespace ExRam.Gremlinq.Core
 
         public static readonly IGraphElementModel Empty = new GraphElementModelImpl(ImmutableDictionary<Type, ElementMetadata>.Empty);
 
-        private static readonly ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, ImmutableArray<string>>> DerivedLabels = new ConditionalWeakTable<IGraphElementModel, ConcurrentDictionary<Type, ImmutableArray<string>>>();
-
         public static IGraphElementModel FromTypes(IEnumerable<Type> types)
         {
             return new GraphElementModelImpl(types
@@ -84,19 +82,7 @@ namespace ExRam.Gremlinq.Core
 
         public static ImmutableArray<string>? TryGetFilterLabels(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)
         {
-            var labels = DerivedLabels
-                .GetOrCreateValue(model)
-                .GetOrAdd(
-                    type,
-                    (closureType, closureModel) =>
-                    {
-                        return closureModel.Metadata
-                            .Where(kvp => !kvp.Key.IsAbstract && closureType.IsAssignableFrom(kvp.Key))
-                            .Select(kvp => kvp.Value.Label)
-                            .OrderBy(x => x)
-                            .ToImmutableArray();
-                    },
-                    model);
+            var labels = model.GetCache().GetDerivedLabels(type);
 
             return labels.IsEmpty
                 ? default(ImmutableArray<string>?)
