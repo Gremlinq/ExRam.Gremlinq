@@ -21,20 +21,11 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
-    - name: Setup .NET Core 2.2
+    - name: Setup .NET Core 3.1.6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.2.207
-
-    - name: Setup .NET Core 3.1
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
+        dotnet-version: 3.1.106
         
-    - name: .net SxS
-      run: |
-        rsync -a ${DOTNET_ROOT/3.1.101/2.2.207}/* $DOTNET_ROOT/
-
     - name: Build
       run: dotnet build --configuration Release
 
