@@ -80,6 +80,6 @@ namespace ExRam.Gremlinq.Core
         IEdgeOrVertexGremlinQueryBaseRec<TVertex, IVertexGremlinQuery<TVertex>>
     {
         IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue[]>> projection, TProjectedValue value);
-        IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, TProjectedValue>> projection, VertexProperty<TProjectedValue> value);
+        IVertexGremlinQuery<TVertex> Property<TProjectedValue>(Expression<Func<TVertex, VertexProperty<TProjectedValue>>> projection, VertexProperty<TProjectedValue> value);
     }
 }
