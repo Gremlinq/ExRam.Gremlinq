@@ -262,6 +262,8 @@ namespace ExRam.Gremlinq.Core
 
             public JsonSerializer GetIgnoringJsonSerializer(IGremlinQueryFragmentDeserializer fragmentDeserializer)
             {
+                GraphsonJsonSerializer.JTokenConverterConverter._canConvert = true;
+
                 return _ignoringSerializers.GetValue(
                     fragmentDeserializer,
                     _ignoringSerializerFactory);
