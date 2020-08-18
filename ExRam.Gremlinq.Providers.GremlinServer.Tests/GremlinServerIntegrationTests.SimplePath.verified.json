@@ -89,7 +89,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 87
+                            "@value": 98
                           },
                           "label",
                           "Age",
@@ -101,7 +101,10 @@
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "Meta",
+                              "value"
+                            ]
                           }
                         ]
                       }

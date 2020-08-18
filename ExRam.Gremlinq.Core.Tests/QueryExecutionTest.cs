@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -2982,7 +2983,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Limit(1)
-                .Property(x => x.PhoneNumbers!, null!)
+                .Property(x => x.PhoneNumbers!, (string)null!)
                 .Verify(this);
         }
 
@@ -2992,6 +2993,21 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Property(x => x.Age, 36)
+                .Verify(this);
+        }
+
+        [Fact]
+        public async Task Property_single_with_meta()
+        {
+            await _g
+                .V<Person>()
+                .Property(x => x.Age, new VertexProperty<int>(36)
+                {
+                    Properties = new Dictionary<string, object>
+                    {
+                        { "Meta", "value" } 
+                    }
+                })
                 .Verify(this);
         }
 
