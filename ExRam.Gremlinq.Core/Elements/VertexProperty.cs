@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         public VertexProperty(TValue value) : base(value)
         {
+            if (value is IVertexProperty)
+                throw new InvalidOperationException($"Cannot assign a value of type {value.GetType().Name} to a property of type {nameof(VertexProperty<TValue, TMeta>)}.");
         }
 
         public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
