@@ -3012,6 +3012,38 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Property_single_with_dictionary_meta1()
+        {
+            await _g
+                .V<Country>()
+                .Property(x => x.LocalizableDescription, new VertexProperty<object, IDictionary<string, string>>("")
+                {
+                    Properties = new Dictionary<string, string>
+                    {
+                        { "key", "value" }
+                    }
+                })
+                .Verify(this);
+        }
+
+        [Fact]
+        public void Property_single_with_dictionary_meta2()
+        {
+            _g
+                .V<Country>()
+                .Invoking(_ => _
+                    .Property(x => x.LocalizableDescription, new VertexProperty<string, IDictionary<string, string>>("")
+                    {
+                        Properties = new Dictionary<string, string>
+                        {
+                            { "key", "value" }
+                        }
+                    }))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [Fact]
         public void Range_underflow()
         {
             _g

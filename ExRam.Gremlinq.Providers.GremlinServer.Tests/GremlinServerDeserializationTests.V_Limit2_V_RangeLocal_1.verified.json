@@ -3,7 +3,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 94,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 0,
     "Label": "Country"
   },

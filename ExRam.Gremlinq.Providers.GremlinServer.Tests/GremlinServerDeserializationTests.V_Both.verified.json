@@ -7,7 +7,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 236,
+      "Id": 243,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -31,7 +31,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 256,
+      "Id": 263,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -46,7 +46,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 94,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 0,
     "Label": "Country"
   },
@@ -54,7 +62,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 94,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 0,
     "Label": "Country"
   },
@@ -62,7 +78,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 94,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 0,
     "Label": "Country"
   },
@@ -74,7 +98,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 224,
+      "Id": 231,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -97,7 +121,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 95,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 20,
     "Label": "Country"
   },
@@ -109,7 +141,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 240,
+      "Id": 247,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -124,7 +156,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 97,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 25,
     "Label": "Country"
   },
@@ -136,7 +176,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 244,
+      "Id": 251,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -151,7 +191,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 98,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 30,
     "Label": "Country"
   },
@@ -163,7 +211,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 248,
+      "Id": 255,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -182,7 +230,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 252,
+      "Id": 259,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -205,7 +253,15 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
+    "LocalizableDescription": {
+      "Id": 99,
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
     "Id": 40,
     "Label": "Country"
   },
@@ -222,7 +278,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 260,
+      "Id": 267,
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"

@@ -19,6 +19,16 @@
             "@type": "g:Int64",
             "@value": 7
           },
+          "value": ""
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 7
+          },
           "value": "en"
         }
       },
