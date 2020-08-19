@@ -4,6 +4,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 0,
       "Label": "Country"
     },
@@ -110,6 +111,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 20,
       "Label": "Country"
     },
@@ -128,6 +130,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 600,
       "Label": "Country"
     },
@@ -135,6 +138,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 25,
       "Label": "Country"
     },
@@ -153,6 +157,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 30,
       "Label": "Country"
     },
@@ -197,6 +202,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 40,
       "Label": "Country"
     },
@@ -239,6 +245,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 500,
       "Label": "Country"
     },

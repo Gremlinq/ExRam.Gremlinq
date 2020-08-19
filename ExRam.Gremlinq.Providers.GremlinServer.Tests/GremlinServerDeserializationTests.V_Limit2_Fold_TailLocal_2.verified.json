@@ -4,6 +4,7 @@
       "Name": null,
       "Languages": [],
       "CountryCallingCode": null,
+      "LocalizableDescription": null,
       "Id": 0,
       "Label": "Country"
     },

@@ -1,4 +1,5 @@
-﻿using ExRam.Gremlinq.Core.GraphElements;
+﻿using System.Collections.Generic;
+using ExRam.Gremlinq.Core.GraphElements;
 
 namespace ExRam.Gremlinq.Tests.Entities
 {
@@ -9,5 +10,7 @@ namespace ExRam.Gremlinq.Tests.Entities
         public string[]? Languages { get; set; }
 
         public string? CountryCallingCode { get; set; }
+        
+        public VertexProperty<object, IDictionary<string, string>>? LocalizableDescription { get; set; }
     }
 }

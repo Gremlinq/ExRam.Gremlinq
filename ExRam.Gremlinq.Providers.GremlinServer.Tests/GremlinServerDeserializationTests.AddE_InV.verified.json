@@ -3,6 +3,7 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
+    "LocalizableDescription": null,
     "Id": 20,
     "Label": "Country"
   }

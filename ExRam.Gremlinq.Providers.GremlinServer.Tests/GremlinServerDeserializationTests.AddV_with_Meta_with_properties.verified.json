@@ -12,6 +12,7 @@
     },
     "Languages": [],
     "CountryCallingCode": null,
+    "LocalizableDescription": null,
     "Id": 500,
     "Label": "Country"
   }
