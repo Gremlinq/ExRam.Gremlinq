@@ -609,6 +609,20 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Cast_to_same_type_yields_same_query()
+        {
+            var original = _g
+                .V<Person>();
+
+            var cast = original
+                .Cast<Person>();
+
+            original
+                .Should()
+                .BeSameAs(cast);
+        }
+
+        [Fact]
         public async Task Choose_one_case()
         {
             await _g
