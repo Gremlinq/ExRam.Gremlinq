@@ -59,7 +59,7 @@ namespace ExRam.Gremlinq.Core
                                 var argument4Parameter3 = Expression.Parameter(typeof(IGremlinQueryEnvironment));
                                 var argument4Parameter4 = Expression.Parameter(typeof(IGremlinQueryFragmentDeserializer));
 
-                                var statucFuncType = typeof(Func<,,,,>).MakeGenericType(
+                                var staticFuncType = typeof(Func<,,,,>).MakeGenericType(
                                     staticType,
                                     fragmentTypeParameter.Type,
                                     environmentParameter.Type,
@@ -91,7 +91,7 @@ namespace ExRam.Gremlinq.Core
 
                                 return Expression
                                     .Lambda(
-                                        statucFuncType,
+                                        staticFuncType,
                                         retCall,
                                         serializedParameter,
                                         fragmentTypeParameter,
