@@ -306,14 +306,13 @@ namespace ExRam.Gremlinq.Core
 
         private PropertyStep GetPropertyStep(Key key, object value, Cardinality? cardinality)
         {
-            var metaProperties = ImmutableArray<object>.Empty;
+            var metaProperties = ImmutableArray<KeyValuePair<string, object>>.Empty;
 
             if (value is IProperty property)
             {
                 if (property is IVertexProperty vertexProperty)
                 {
                     metaProperties = vertexProperty.GetProperties(Environment)
-                        .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
                         .ToImmutableArray();
                 }
 

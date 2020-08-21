@@ -346,7 +346,8 @@ namespace ExRam.Gremlinq.Core
 
                         foreach (var metaProperty in propertyStep.MetaProperties)
                         {
-                            yield return metaProperty;
+                            yield return metaProperty.Key;
+                            yield return metaProperty.Value;
                         }
                     }
 

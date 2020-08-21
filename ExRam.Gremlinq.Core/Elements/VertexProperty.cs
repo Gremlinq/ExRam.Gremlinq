@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 namespace ExRam.Gremlinq.Core.GraphElements
@@ -23,15 +22,15 @@ namespace ExRam.Gremlinq.Core.GraphElements
             return $"vp[{Label}->{GetValue()}]";
         }
 
-        protected virtual IDictionary<string, object> GetProperties(IGremlinQueryEnvironment environment)
+        protected virtual IEnumerable<KeyValuePair<string, object>> GetProperties(IGremlinQueryEnvironment environment)
         {
             return Properties?
                 .Serialize(environment, SerializationBehaviour.Default)
                 .Where(x => x.key.RawKey is string)
-                .ToDictionary(x => (string)x.key.RawKey, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
+                .Select(x => new KeyValuePair<string, object>((string)x.key.RawKey, x.value)) ?? Enumerable.Empty<KeyValuePair<string, object>>();
         }
 
-        IDictionary<string, object> IVertexProperty.GetProperties(IGremlinQueryEnvironment environment) => GetProperties(environment);
+        IEnumerable<KeyValuePair<string, object>> IVertexProperty.GetProperties(IGremlinQueryEnvironment environment) => GetProperties(environment);
 
         public object? Id { get; set; }
         public string? Label { get; set; }
@@ -51,6 +50,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
-        protected override IDictionary<string, object> GetProperties(IGremlinQueryEnvironment environment) => Properties!;
+        protected override IEnumerable<KeyValuePair<string, object>> GetProperties(IGremlinQueryEnvironment environment) => Properties!;
     }
 }

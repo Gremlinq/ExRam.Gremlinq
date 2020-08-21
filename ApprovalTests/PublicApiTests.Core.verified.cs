@@ -1481,10 +1481,10 @@ namespace ExRam.Gremlinq.Core
     public sealed class PropertyStep : ExRam.Gremlinq.Core.Step
     {
         public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
-        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<object> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
+        public PropertyStep(ExRam.Gremlinq.Core.Key key, object value, System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> metaProperties, Gremlin.Net.Process.Traversal.Cardinality? cardinality = null) { }
         public Gremlin.Net.Process.Traversal.Cardinality? Cardinality { get; }
         public ExRam.Gremlinq.Core.Key Key { get; }
-        public System.Collections.Immutable.ImmutableArray<object> MetaProperties { get; }
+        public System.Collections.Immutable.ImmutableArray<System.Collections.Generic.KeyValuePair<string, object>> MetaProperties { get; }
         public object Value { get; }
     }
     [System.Flags]
@@ -1752,7 +1752,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public interface IVertex : ExRam.Gremlinq.Core.GraphElements.IElement { }
     public interface IVertexProperty : ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IProperty
     {
-        System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+        System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
     }
     public abstract class Property : ExRam.Gremlinq.Core.GraphElements.IProperty
     {
@@ -1773,7 +1773,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public class VertexProperty<TValue> : ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, System.Collections.Generic.IDictionary<string, object>>
     {
         public VertexProperty(TValue value) { }
-        protected override System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        protected override System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue[] value) { }
@@ -1785,7 +1785,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public object? Id { get; set; }
         public string? Label { get; set; }
         public TMeta Properties { get; set; }
-        protected virtual System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
+        protected virtual System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public override string ToString() { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<, >[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue value) { }
