@@ -143,9 +143,9 @@
   },
   {
     "Name": {
-      "Properties": {},
       "Id": 76,
       "Label": "Name",
+      "Properties": {},
       "Value": "GER",
       "Key": null
     },
@@ -275,12 +275,12 @@
   },
   {
     "Name": {
+      "Id": 77,
+      "Label": "Name",
       "Properties": {
         "de": "Deutschland",
         "en": "Germany"
       },
-      "Id": 77,
-      "Label": "Name",
       "Value": "GER",
       "Key": null
     },

@@ -9,9 +9,9 @@
       "Label": "Country"
     },
     "Item2": {
-      "Properties": {},
       "Id": 1,
       "Label": "CountryCallingCode",
+      "Properties": {},
       "Value": "+49",
       "Key": null
     }
@@ -23,9 +23,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 3,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -40,9 +40,9 @@
       "Label": "Company"
     },
     "Item2": {
-      "Properties": {},
       "Id": 6,
       "Label": "FoundingDate",
+      "Properties": {},
       "Value": -62135596800000,
       "Key": null
     }
@@ -68,9 +68,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 71,
       "Label": "RegistrationDate",
+      "Properties": {},
       "Value": 1586270616000,
       "Key": null
     }
@@ -88,9 +88,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 9,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -108,9 +108,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 68,
       "Label": "Gender",
+      "Properties": {},
       "Value": 1,
       "Key": null
     }
@@ -122,9 +122,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 73,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -142,9 +142,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 65,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -170,9 +170,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 15,
       "Label": "RegistrationDate",
+      "Properties": {},
       "Value": 1586270616000,
       "Key": null
     }
@@ -184,9 +184,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 63,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -204,9 +204,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 19,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -224,9 +224,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 24,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -234,9 +234,9 @@
   {
     "Item1": {
       "Name": {
-        "Properties": {},
         "Id": 76,
         "Label": "Name",
+        "Properties": {},
         "Value": "GER",
         "Key": null
       },
@@ -247,9 +247,9 @@
       "Label": "Country"
     },
     "Item2": {
-      "Properties": {},
       "Id": 76,
       "Label": "Name",
+      "Properties": {},
       "Value": "GER",
       "Key": null
     }
@@ -267,9 +267,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 29,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -284,9 +284,9 @@
       "Label": "Company"
     },
     "Item2": {
-      "Properties": {},
       "Id": 33,
       "Label": "FoundingDate",
+      "Properties": {},
       "Value": -62135596800000,
       "Key": null
     }
@@ -304,9 +304,9 @@
       "Label": "Company"
     },
     "Item2": {
-      "Properties": {},
       "Id": 79,
       "Label": "PhoneNumbers",
+      "Properties": {},
       "Value": "+4912345",
       "Key": null
     }
@@ -324,9 +324,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 36,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -338,9 +338,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 55,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -352,9 +352,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 39,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -369,9 +369,9 @@
       "Label": "Country"
     },
     "Item2": {
-      "Properties": {},
       "Id": 41,
       "Label": "CountryCallingCode",
+      "Properties": {},
       "Value": "+49",
       "Key": null
     }
@@ -383,9 +383,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 81,
       "Label": "lang",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }
@@ -411,9 +411,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 47,
       "Label": "RegistrationDate",
+      "Properties": {},
       "Value": 1586270616000,
       "Key": null
     }
@@ -428,9 +428,9 @@
       "Label": "Company"
     },
     "Item2": {
-      "Properties": {},
       "Id": 50,
       "Label": "FoundingDate",
+      "Properties": {},
       "Value": -62135596800000,
       "Key": null
     }
@@ -448,9 +448,9 @@
       "Label": "Person"
     },
     "Item2": {
-      "Properties": {},
       "Id": 53,
       "Label": "Gender",
+      "Properties": {},
       "Value": 0,
       "Key": null
     }
@@ -458,12 +458,12 @@
   {
     "Item1": {
       "Name": {
+        "Id": 77,
+        "Label": "Name",
         "Properties": {
           "de": "Deutschland",
           "en": "Germany"
         },
-        "Id": 77,
-        "Label": "Name",
         "Value": "GER",
         "Key": null
       },
@@ -474,9 +474,9 @@
       "Label": "Country"
     },
     "Item2": {
-      "Properties": {},
       "Id": 77,
       "Label": "Name",
+      "Properties": {},
       "Value": "GER",
       "Key": null
     }
@@ -490,9 +490,9 @@
       "Label": "TimeFrame"
     },
     "Item2": {
-      "Properties": {},
       "Id": 60,
       "Label": "StartTime",
+      "Properties": {},
       "Value": "PT8H",
       "Key": null
     }
@@ -517,9 +517,9 @@
       "Label": "Company"
     },
     "Item2": {
-      "Properties": {},
       "Id": 74,
       "Label": "FoundingDate",
+      "Properties": {},
       "Value": -62135596800000,
       "Key": null
     }
@@ -531,9 +531,9 @@
       "Label": "Language"
     },
     "Item2": {
-      "Properties": {},
       "Id": 62,
       "Label": "IetfLanguageTag",
+      "Properties": {},
       "Value": "en",
       "Key": null
     }

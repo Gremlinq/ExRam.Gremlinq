@@ -1,9 +1,9 @@
 [
   {
+    Label: 'Property1',
     Properties: {
       metaKey: 'MetaValue'
     },
-    Label: 'Property1',
     Value: 1540202009475
   },
   {

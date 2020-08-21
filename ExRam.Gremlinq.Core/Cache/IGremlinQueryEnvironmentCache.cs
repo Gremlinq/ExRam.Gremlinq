@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core

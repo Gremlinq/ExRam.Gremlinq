@@ -1,344 +1,344 @@
 [
   {
-    "Properties": {},
     "Id": 1,
     "Label": "CountryCallingCode",
+    "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 3,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 6,
     "Label": "FoundingDate",
+    "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 71,
     "Label": "RegistrationDate",
+    "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 70,
     "Label": "Name",
+    "Properties": {},
     "Value": "Marko",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 9,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 8,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 68,
     "Label": "Gender",
+    "Properties": {},
     "Value": 1,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 67,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 73,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 65,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 66,
     "Label": "Image",
+    "Properties": {},
     "Value": "AQIDBAUGBwg=",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 64,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 15,
     "Label": "RegistrationDate",
+    "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 13,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 12,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 14,
     "Label": "Name",
+    "Properties": {},
     "Value": "Bob",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 63,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 19,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 18,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 24,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 23,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 76,
     "Label": "Name",
+    "Properties": {},
     "Value": "GER",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 29,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 28,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 33,
     "Label": "FoundingDate",
+    "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 79,
     "Label": "PhoneNumbers",
+    "Properties": {},
     "Value": "+4912345",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 80,
     "Label": "PhoneNumbers",
+    "Properties": {},
     "Value": "+4923456",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 78,
     "Label": "FoundingDate",
+    "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 36,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 35,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 55,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 39,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 41,
     "Label": "CountryCallingCode",
+    "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 81,
     "Label": "lang",
+    "Properties": {},
     "Value": "en",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 47,
     "Label": "RegistrationDate",
+    "Properties": {},
     "Value": 1586270616000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 45,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 44,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 46,
     "Label": "Name",
+    "Properties": {},
     "Value": "Bob",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 50,
     "Label": "FoundingDate",
+    "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 53,
     "Label": "Gender",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 52,
     "Label": "Age",
+    "Properties": {},
     "Value": 0,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 77,
     "Label": "Name",
+    "Properties": {},
     "Value": "GER",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 60,
     "Label": "StartTime",
+    "Properties": {},
     "Value": "PT8H",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 59,
     "Label": "Enabled",
+    "Properties": {},
     "Value": false,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 58,
     "Label": "Duration",
+    "Properties": {},
     "Value": "PT2H",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 74,
     "Label": "FoundingDate",
+    "Properties": {},
     "Value": -62135596800000,
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 75,
     "Label": "Locations",
+    "Properties": {},
     "Value": "Aachen",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 62,
     "Label": "IetfLanguageTag",
+    "Properties": {},
     "Value": "en",
     "Key": null
   }

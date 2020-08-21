@@ -40,9 +40,9 @@
     },
     "Item3": 1,
     "Item4": {
-      "Properties": {},
       "Id": 1,
       "Label": "CountryCallingCode",
+      "Properties": {},
       "Value": "+49",
       "Key": null
     }

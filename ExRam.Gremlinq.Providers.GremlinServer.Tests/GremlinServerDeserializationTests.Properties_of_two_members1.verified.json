@@ -1,29 +1,29 @@
 [
   {
-    "Properties": {},
     "Id": 1,
     "Label": "CountryCallingCode",
+    "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 76,
     "Label": "Name",
+    "Properties": {},
     "Value": "GER",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 41,
     "Label": "CountryCallingCode",
+    "Properties": {},
     "Value": "+49",
     "Key": null
   },
   {
-    "Properties": {},
     "Id": 77,
     "Label": "Name",
+    "Properties": {},
     "Value": "GER",
     "Key": null
   }

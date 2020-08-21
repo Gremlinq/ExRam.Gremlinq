@@ -23,11 +23,15 @@ namespace ExRam.Gremlinq.Core.GraphElements
             return $"vp[{Label}->{GetValue()}]";
         }
 
-        //TODO: Honor Mask.
-        internal override IDictionary<string, object>? GetMetaProperties(IGremlinQueryEnvironment environment) => Properties?
-            .Serialize(environment, SerializationBehaviour.Default)
-            .Where(x => x.key.RawKey is string)
-            .ToDictionary(x => (string)x.key.RawKey, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
+        protected virtual IDictionary<string, object> GetProperties(IGremlinQueryEnvironment environment)
+        {
+            return Properties?
+                .Serialize(environment, SerializationBehaviour.Default)
+                .Where(x => x.key.RawKey is string)
+                .ToDictionary(x => (string)x.key.RawKey, x => x.value) ?? (IDictionary<string, object>)ImmutableDictionary<string, object>.Empty;
+        }
+
+        IDictionary<string, object> IVertexProperty.GetProperties(IGremlinQueryEnvironment environment) => GetProperties(environment);
 
         public object? Id { get; set; }
         public string? Label { get; set; }
@@ -47,8 +51,6 @@ namespace ExRam.Gremlinq.Core.GraphElements
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
-        internal override IDictionary<string, object>? GetMetaProperties(IGremlinQueryEnvironment environment) => Properties;
-
-        public new IDictionary<string, object> Properties { get; set; }
+        protected override IDictionary<string, object> GetProperties(IGremlinQueryEnvironment environment) => Properties!;
     }
 }

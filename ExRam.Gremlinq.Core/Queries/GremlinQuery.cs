@@ -308,19 +308,16 @@ namespace ExRam.Gremlinq.Core
         {
             var metaProperties = ImmutableArray<object>.Empty;
 
-            if (value is Property property)
+            if (value is IProperty property)
             {
-                if (value is IVertexProperty)
+                if (property is IVertexProperty vertexProperty)
                 {
-                    if (property.GetMetaProperties(Environment) is { } dict)
-                    {
-                        metaProperties = dict
-                            .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
-                            .ToImmutableArray();
-                    }
+                    metaProperties = vertexProperty.GetProperties(Environment)
+                        .SelectMany(kvp => new[] { kvp.Key, kvp.Value })
+                        .ToImmutableArray();
                 }
 
-                value = property.GetValue();
+                value = property.Value!; //TODO!!
             }
 
             return new PropertyStep(key, value, metaProperties, cardinality);

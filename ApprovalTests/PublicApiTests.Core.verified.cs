@@ -1745,18 +1745,27 @@ namespace ExRam.Gremlinq.Core.GraphElements
     {
         object? Id { get; set; }
     }
+    public interface IProperty
+    {
+        object? Value { get; }
+    }
     public interface IVertex : ExRam.Gremlinq.Core.GraphElements.IElement { }
-    public interface IVertexProperty : ExRam.Gremlinq.Core.GraphElements.IElement { }
-    public abstract class Property
+    public interface IVertexProperty : ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IProperty
+    {
+        System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public abstract class Property : ExRam.Gremlinq.Core.GraphElements.IProperty
     {
         protected Property() { }
         public string? Key { get; set; }
+        protected abstract object GetValue();
         public override string ToString() { }
     }
     public class Property<TValue> : ExRam.Gremlinq.Core.GraphElements.Property
     {
         public Property(TValue value) { }
         public TValue Value { get; }
+        protected override object GetValue() { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.Property<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(TValue value) { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(TValue[] value) { }
@@ -1764,18 +1773,19 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public class VertexProperty<TValue> : ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, System.Collections.Generic.IDictionary<string, object>>
     {
         public VertexProperty(TValue value) { }
-        public System.Collections.Generic.IDictionary<string, object> Properties { get; set; }
+        protected override System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue> op_Implicit(TValue[] value) { }
     }
-    public class VertexProperty<TValue, TMeta> : ExRam.Gremlinq.Core.GraphElements.Property<TValue>, ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IVertexProperty
+    public class VertexProperty<TValue, TMeta> : ExRam.Gremlinq.Core.GraphElements.Property<TValue>, ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IProperty, ExRam.Gremlinq.Core.GraphElements.IVertexProperty
         where TMeta :  class
     {
         public VertexProperty(TValue value) { }
         public object? Id { get; set; }
         public string? Label { get; set; }
         public TMeta Properties { get; set; }
+        protected virtual System.Collections.Generic.IDictionary<string, object> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment) { }
         public override string ToString() { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(ExRam.Gremlinq.Core.GraphElements.VertexProperty<, >[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.VertexProperty<TValue, TMeta> op_Implicit(TValue value) { }

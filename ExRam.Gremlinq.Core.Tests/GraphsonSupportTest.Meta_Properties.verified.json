@@ -1,11 +1,11 @@
 [
   {
     Name: {
+      Id: 1,
       Properties: {
         de: 'Deutschland',
         en: 'Germany'
       },
-      Id: 1,
       Value: 'GER'
     },
     Id: 3,
