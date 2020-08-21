@@ -9,6 +9,7 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
+using LanguageExt;
 using Microsoft.Extensions.Logging;
 using VerifyXunit;
 using Xunit;
@@ -334,6 +335,20 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .AddV(new Country { Id = 600, Name = "GER"})
                 .Verify(this);
+        }
+
+        [Fact]
+        public void VertexProperty_throws_on_null_value()
+        {
+            Unit.Default
+                .Invoking(_ => new VertexProperty<string>(null))
+                .Should()
+                .Throw<ArgumentNullException>();
+
+            new VertexProperty<string>("")
+                .Invoking(_ => _.Value = null)
+                .Should()
+                .Throw<ArgumentNullException>();
         }
 
         [Fact]

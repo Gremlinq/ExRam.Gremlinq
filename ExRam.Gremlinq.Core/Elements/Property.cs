@@ -13,15 +13,16 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         public string? Key { get; set; }
 
-        object? IProperty.Value { get => GetValue(); }
+        object IProperty.Value { get => GetValue(); }
     }
 
     public class Property<TValue> : Property
     {
+        private TValue _value;
+
         public Property(TValue value)
         {
-            //TODO: Null?!?!
-            Value = value;
+            _value = value;
         }
 
         public static implicit operator Property<TValue>(TValue value) => new Property<TValue>(value);
@@ -30,6 +31,16 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         protected override object GetValue() => Value!;
 
-        public TValue Value { get; }
+        public TValue Value
+        {
+            get => _value;
+            set
+            {
+                if (value is null)
+                    throw new ArgumentNullException(nameof(value));
+
+                _value = value;
+            }
+        }
     }
 }

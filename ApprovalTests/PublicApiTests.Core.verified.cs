@@ -1747,7 +1747,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     }
     public interface IProperty
     {
-        object? Value { get; }
+        object Value { get; }
     }
     public interface IVertex : ExRam.Gremlinq.Core.GraphElements.IElement { }
     public interface IVertexProperty : ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IProperty
@@ -1764,7 +1764,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public class Property<TValue> : ExRam.Gremlinq.Core.GraphElements.Property
     {
         public Property(TValue value) { }
-        public TValue Value { get; }
+        public TValue Value { get; set; }
         protected override object GetValue() { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(ExRam.Gremlinq.Core.GraphElements.Property<>[] value) { }
         public static ExRam.Gremlinq.Core.GraphElements.Property<TValue> op_Implicit(TValue value) { }

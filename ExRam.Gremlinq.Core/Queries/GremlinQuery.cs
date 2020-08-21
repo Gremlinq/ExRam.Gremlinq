@@ -317,7 +317,7 @@ namespace ExRam.Gremlinq.Core
                         .ToImmutableArray();
                 }
 
-                value = property.Value!; //TODO!!
+                value = property.Value;
             }
 
             return new PropertyStep(key, value, metaProperties, cardinality);
