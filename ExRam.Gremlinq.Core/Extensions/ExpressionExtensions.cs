@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -298,6 +297,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (typeof(IVertexProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(VertexProperty<object>.Label))
                         return WellKnownMember.VertexPropertyLabel;
+
                     break;
                 }
                 case MethodCallExpression methodCallExpression:
