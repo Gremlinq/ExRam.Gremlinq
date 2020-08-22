@@ -287,10 +287,10 @@ namespace ExRam.Gremlinq.Core
                 {
                     var member = memberExpression.Member;
 
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Value))
+                    if (typeof(IProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(IProperty.Value))
                         return WellKnownMember.PropertyValue;
 
-                    if (typeof(Property).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
+                    if (typeof(IProperty).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(Property<object>.Key))
                         return WellKnownMember.PropertyKey;
 
                     if (typeof(StepLabel).IsAssignableFrom(member.DeclaringType) && member.Name == nameof(StepLabel<object>.Value))

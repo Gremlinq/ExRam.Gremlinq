@@ -5205,6 +5205,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_IVertexProperty_Value()
+        {
+            await _g
+                .V<Person>()
+                .Where(x => ((IVertexProperty)x.Name!).Value == (object)"SomeName")
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_VertexProperty_Value2()
         {
             await _g
