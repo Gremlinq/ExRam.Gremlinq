@@ -42,7 +42,7 @@
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))" >
     <Content Include="..\xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200519-01" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
     <PackageReference Include="Moq" Version="4.13.0" />
@@ -51,6 +51,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))">
-    <PackageReference Include="NullGuard.Fody" Version="3.0.0-beta1" PrivateAssets="All" />
+    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
