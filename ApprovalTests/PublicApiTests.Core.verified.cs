@@ -1298,10 +1298,10 @@ namespace ExRam.Gremlinq.Core
         public bool Equals(ExRam.Gremlinq.Core.Key other) { }
         public override bool Equals(object? obj) { }
         public override int GetHashCode() { }
-        public static bool !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
-        public static bool ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
         public static ExRam.Gremlinq.Core.Key op_Implicit(Gremlin.Net.Process.Traversal.T t) { }
         public static ExRam.Gremlinq.Core.Key op_Implicit(string name) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.Key key1, ExRam.Gremlinq.Core.Key key2) { }
     }
     public sealed class KeyStep : ExRam.Gremlinq.Core.Step
     {
@@ -1555,11 +1555,11 @@ namespace ExRam.Gremlinq.Core
     {
         public StepLabel() { }
         public TElement Value { get; }
-        public static bool !=(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
-        public static bool !=(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
-        public static bool ==(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
-        public static bool ==(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
         public static TElement op_Implicit(ExRam.Gremlinq.Core.StepLabel<TElement> stepLabel) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
+        public static bool operator !=(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
+        public static bool operator ==(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
     }
     public class StepLabel<TQuery, TElement> : ExRam.Gremlinq.Core.StepLabel<TElement>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
