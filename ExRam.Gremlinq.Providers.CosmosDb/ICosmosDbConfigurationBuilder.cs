@@ -1,5 +1,4 @@
 ﻿using System;
-using ExRam.Gremlinq.Core;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb
 {

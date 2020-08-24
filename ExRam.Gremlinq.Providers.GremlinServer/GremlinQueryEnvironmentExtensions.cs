@@ -44,8 +44,7 @@ namespace ExRam.Gremlinq.Core
 
                     if (hasNext && e.Current is PropertyStep propertyStep)
                     {
-                        if (propertySteps == null)
-                            propertySteps = new List<PropertyStep>();
+                        propertySteps ??= new List<PropertyStep>();
 
                         propertySteps.Add(propertyStep);
                     }

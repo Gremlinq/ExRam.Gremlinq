@@ -21,8 +21,7 @@ namespace ExRam.Gremlinq.Core
         private static readonly MethodInfo StringCompareTo = Get(() => string.Empty.CompareTo(string.Empty));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
-        private static readonly ExpressionSemantics[][] CompareToMatrix = new []
-        {
+        private static readonly ExpressionSemantics[][] CompareToMatrix = {
             new [] { ExpressionSemantics.False, ExpressionSemantics.False,              ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual, ExpressionSemantics.True },
             new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.LowerThanOrEqual,   ExpressionSemantics.True,             ExpressionSemantics.True },
             new [] { ExpressionSemantics.False, ExpressionSemantics.LowerThan,          ExpressionSemantics.Equals,             ExpressionSemantics.GreaterThan,      ExpressionSemantics.False },

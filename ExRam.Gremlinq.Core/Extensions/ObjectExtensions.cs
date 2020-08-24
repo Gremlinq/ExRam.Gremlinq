@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> _serializerDict = new ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>>();
 
         public static IEnumerable<(Key key, object value)> Serialize(
             this object? obj,
@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Core
             if (obj == null)
                 return Array.Empty<(Key key, object value)>();
 
-            var func = _serializerDict
+            var func = SerializerDict
                 .GetOrAdd(
                     obj.GetType(),
                     closureType =>

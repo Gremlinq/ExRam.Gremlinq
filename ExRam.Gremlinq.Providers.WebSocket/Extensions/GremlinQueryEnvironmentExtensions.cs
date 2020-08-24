@@ -137,7 +137,7 @@ namespace ExRam.Gremlinq.Core
                 Uri? uri,
                 SerializationFormat format,
                 (string username, string password)? auth,
-                string @alias,
+                string alias,
                 Func<IGremlinClient, IGremlinClient> clientTransformation,
                 ImmutableDictionary<Type, IGraphSONSerializer> additionalSerializers,
                 ImmutableDictionary<string, IGraphSONDeserializer> additionalDeserializers,

@@ -233,9 +233,9 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         return step;
-                    };
+                    }
 
-                    if (UnwindHasPredicateStep(step) is Step unwound && unwound != step)
+                    if (UnwindHasPredicateStep(step) is { } unwound && unwound != step)
                         return recurse.Serialize(unwound, env);
 
                     var stepName = "has";

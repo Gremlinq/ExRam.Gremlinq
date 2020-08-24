@@ -41,10 +41,9 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Working()
         {
-            var _g = g.ConfigureEnvironment(env => env
-                .EchoGroovyString());
-
-            await _g
+            await g
+                .ConfigureEnvironment(env => env
+                    .EchoGroovyString())
                 .AddV(new Item { Value = "MyValue" })
                 .Cast<string>()
                 .Verify(this);
@@ -53,10 +52,9 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Buggy()
         {
-            var _g = g.ConfigureEnvironment(env => env
-                .EchoGroovyString());
-
-            await _g
+            await g
+                .ConfigureEnvironment(env => env
+                    .EchoGroovyString())
                 .AddV(new ItemOverride { Value = "MyValue" })
                 .Cast<string>()
                 .Verify(this);
