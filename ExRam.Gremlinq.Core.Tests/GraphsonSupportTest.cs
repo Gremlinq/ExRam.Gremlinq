@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -489,6 +490,15 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V()
                 .Properties()
                 .Properties()
+                .ToArrayAsync());
+        }
+
+        [Fact]
+        public async Task Guid()
+        {
+            await Verify(await _g
+                .WithExecutor("[ \"FCE0765A-454F-4D00-83DA-D76790156E29\" ]")
+                .V<Guid>()
                 .ToArrayAsync());
         }
 
