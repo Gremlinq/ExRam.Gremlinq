@@ -4745,6 +4745,15 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Where_property_is_contained_in_list()
+        {
+            await _g
+                .V<Person>()
+                .Where(t => new List<int> { 36, 37, 38 }.Contains(t.Age))
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Where_property_is_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
@@ -4871,7 +4880,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-        [Fact]
+       [Fact]
         public async Task Where_property_is_not_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();

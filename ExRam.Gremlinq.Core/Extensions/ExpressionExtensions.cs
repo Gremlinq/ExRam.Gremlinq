@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -205,13 +207,12 @@ namespace ExRam.Gremlinq.Core
                 case MethodCallExpression methodCallExpression:
                 {
                     var wellKnownMember = methodCallExpression.TryGetWellKnownMember();
-                    var thisExpression = methodCallExpression.Arguments[0].Strip();
 
                     switch (wellKnownMember)
                     {
                         case WellKnownMember.EnumerableIntersectAny:
                         {
-                            var arguments = ((MethodCallExpression)thisExpression).Arguments;
+                            var arguments = ((MethodCallExpression)methodCallExpression.Arguments[0].Strip()).Arguments;
 
                             return new GremlinExpression(
                                 ExpressionFragment.Create(arguments[0].Strip(), model),
@@ -221,16 +222,23 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownMember.EnumerableAny:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(thisExpression, model),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
                                 ExpressionSemantics.NotEquals,
                                 ExpressionFragment.Null);
                         }
                         case WellKnownMember.EnumerableContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(thisExpression, model),
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model),
                                 ExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[1].Strip(), model));
+                        }
+                        case WellKnownMember.ListContains:
+                        {
+                            return new GremlinExpression(
+                                ExpressionFragment.Create(methodCallExpression.Object, model),
+                                ExpressionSemantics.Contains,
+                                ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model));
                         }
                         case WellKnownMember.StringStartsWith:
                         case WellKnownMember.StringEndsWith:
@@ -317,14 +325,19 @@ namespace ExRam.Gremlinq.Core
                         if (methodInfo.IsGenericMethod && methodInfo.GetGenericMethodDefinition() == EnumerableContainsElement)
                             return WellKnownMember.EnumerableContains;
                     }
-                    else if (methodInfo == StringStartsWith)
-                        return WellKnownMember.StringStartsWith;
-                    else if (methodInfo == StringEndsWith)
-                        return WellKnownMember.StringEndsWith;
-                    else if (methodInfo == StringContains)
-                        return WellKnownMember.StringContains;
-                    else if (methodInfo == StringCompareTo)
-                        return WellKnownMember.StringCompareTo;
+                    else
+                    {
+                        if (typeof(IList).IsAssignableFrom(methodInfo.DeclaringType) && methodInfo.Name == nameof(List<object>.Contains))
+                            return WellKnownMember.ListContains;
+                        else if (methodInfo == StringStartsWith)
+                            return WellKnownMember.StringStartsWith;
+                        else if (methodInfo == StringEndsWith)
+                            return WellKnownMember.StringEndsWith;
+                        else if (methodInfo == StringContains)
+                            return WellKnownMember.StringContains;
+                        else if (methodInfo == StringCompareTo)
+                            return WellKnownMember.StringCompareTo;
+                    }
 
                     break;
                 }

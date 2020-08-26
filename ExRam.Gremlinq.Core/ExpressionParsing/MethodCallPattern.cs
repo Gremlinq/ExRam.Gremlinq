@@ -10,6 +10,9 @@
         EnumerableIntersectAny,
         EnumerableAny,
         EnumerableContains,
+
+        ListContains,
+
         StringContains,
         StringCompareTo,
         StringStartsWith,
