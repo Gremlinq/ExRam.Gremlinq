@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Issue45 : VerifyBase
+    [UsesVerify]
+    public class Issue45 : XunitContextBase
     {
         public Issue45(ITestOutputHelper output) : base(output)
         {

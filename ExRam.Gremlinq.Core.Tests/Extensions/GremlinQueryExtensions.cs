@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Verify;
+using VerifyTests;
 using VerifyXunit;
+using Xunit;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
@@ -20,26 +21,26 @@ namespace ExRam.Gremlinq.Core.Tests
 #endif
         }
 
-        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, VerifyBase verifyBase)
+        public static async Task Verify<TElement>(this IGremlinQueryBase<TElement> query, XunitContextBase contextBase)
         {
-            if (verifyBase is QuerySerializationTest && typeof(TElement) != typeof(object))
+            if (contextBase is QuerySerializationTest && typeof(TElement) != typeof(object))
             {
-                await query.Cast<object>().Verify(verifyBase);
+                await query.Cast<object>().Verify(contextBase);
             }
-            else if (verifyBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
+            else if (contextBase is QueryIntegrationTest && typeof(TElement) != typeof(JToken))
             {
-                await query.Cast<JToken>().Verify(verifyBase);
+                await query.Cast<JToken>().Verify(contextBase);
             }
             else
             {
                 var data = await query
                     .ToArrayAsync();
 
-                await verifyBase.Verify(
+                await Verifier.Verify(
                     JsonConvert.SerializeObject(
                         data,
                         Formatting.Indented),
-                    Settings);
+                    Settings, contextBase.SourceFile);
             }
         }
     }

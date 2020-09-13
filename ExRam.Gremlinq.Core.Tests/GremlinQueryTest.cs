@@ -5,17 +5,13 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryTest : VerifyBase
+    [UsesVerify]
+    public class GremlinQueryTest
     {
-        public GremlinQueryTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public void ChangeQueryType()
         {
@@ -73,7 +69,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Debug()
         {
-            await Verify(g
+            await Verifier.Verify(g
                 .ConfigureEnvironment(_ => _)
                 .V<Person>()
                 .Where(x => x.Age > 36)

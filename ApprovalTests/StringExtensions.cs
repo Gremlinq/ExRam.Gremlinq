@@ -1,17 +1,18 @@
-﻿using System.Threading.Tasks;
-using Verify;
+﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using VerifyTests;
 using VerifyXunit;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
     public static class StringExtensions
     {
-        public static Task VerifyCSharp(this string s, VerifyBase verifyBase)
+        public static Task VerifyCSharp(this string s, [CallerFilePath] string sourceFile = "")
         {
             var verifySettings = new VerifySettings();
             verifySettings.UseExtension("cs");
 
-            return verifyBase.Verify(s, verifySettings);
+            return Verifier.Verify(s, verifySettings, sourceFile);
         }
     }
 }

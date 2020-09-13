@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
-using Verify;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
-    public class GraphsonSupportTest : VerifyBase
+    [UsesVerify]
+    public class GraphsonSupportTest
     {
         private sealed class MetaPoco
         {
@@ -69,7 +69,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             SinglePersonStringId = GetJson("Single_Person_String_Id");
         }
 
-        public GraphsonSupportTest(ITestOutputHelper output) : base(output)
+        public GraphsonSupportTest()
         {
             _g = g
                 .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup
@@ -560,7 +560,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var settings = new VerifySettings();
             settings.UseExtension("json");
 
-            return base.Verify(element, settings);
+            return Verifier.Verify(element, settings);
         }
     }
 }
