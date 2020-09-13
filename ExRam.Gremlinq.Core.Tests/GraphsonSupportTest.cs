@@ -8,13 +8,12 @@ using Newtonsoft.Json.Linq;
 using VerifyTests;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
     [UsesVerify]
-    public class GraphsonSupportTest : XunitContextBase
+    public class GraphsonSupportTest
     {
         private sealed class MetaPoco
         {
@@ -70,7 +69,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             SinglePersonStringId = GetJson("Single_Person_String_Id");
         }
 
-        public GraphsonSupportTest(ITestOutputHelper output) : base(output)
+        public GraphsonSupportTest()
         {
             _g = g
                 .ConfigureEnvironment(env => env.UseModel(GraphModel.FromBaseTypes<Vertex, Edge>(lookup => lookup

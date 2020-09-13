@@ -7,12 +7,11 @@ using FluentAssertions;
 using Xunit;
 using LanguageExt;
 using VerifyXunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class GraphModelTest : XunitContextBase
+    public class GraphModelTest
     {
         private sealed class VertexOutsideHierarchy
         {
@@ -20,10 +19,6 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         private sealed class VertexInsideHierarchy : Vertex
-        {
-        }
-
-        public GraphModelTest(ITestOutputHelper output) : base(output)
         {
         }
 

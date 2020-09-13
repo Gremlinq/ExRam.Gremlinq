@@ -10,14 +10,13 @@ using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class TypeSystemTest : XunitContextBase
+    public class TypeSystemTest
     {
         private sealed class Vertex
         {
@@ -119,10 +118,6 @@ namespace ExRam.Gremlinq.Core.Tests
             AllSteps = stepTypes
                 .Select(type => (Step)fixture.Create(new SeededRequest(type, 4711), new SpecimenContext(fixture)))
                 .ToArray();
-        }
-
-        public TypeSystemTest(ITestOutputHelper output) : base(output)
-        {
         }
 
         [Fact]

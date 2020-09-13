@@ -4,17 +4,12 @@ using Moq;
 using System.Linq;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class GremlinQueryFragmentSerializerTest : XunitContextBase
+    public class GremlinQueryFragmentSerializerTest
     {
-        public GremlinQueryFragmentSerializerTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public async Task Empty()
         {

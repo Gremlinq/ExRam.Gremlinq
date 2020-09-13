@@ -5,18 +5,13 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class GremlinQueryTest : XunitContextBase
+    public class GremlinQueryTest
     {
-        public GremlinQueryTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public void ChangeQueryType()
         {

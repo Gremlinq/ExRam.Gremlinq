@@ -3,17 +3,12 @@ using Moq;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class GremlinQueryFragmentDeserializerTest : XunitContextBase
+    public class GremlinQueryFragmentDeserializerTest
     {
-        public GremlinQueryFragmentDeserializerTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public async Task Empty()
         {

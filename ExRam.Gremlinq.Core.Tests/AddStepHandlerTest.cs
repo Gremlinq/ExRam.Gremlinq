@@ -3,17 +3,12 @@ using System.Threading.Tasks;
 using Moq;
 using VerifyXunit;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
     [UsesVerify]
-    public class AddStepHandlerTest : XunitContextBase
+    public class AddStepHandlerTest
     {
-        public AddStepHandlerTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public async Task Empty()
         {
