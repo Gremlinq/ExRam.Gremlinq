@@ -10,7 +10,8 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryTest : VerifyBase
+    [UsesVerify]
+    public class GremlinQueryTest : XunitContextBase
     {
         public GremlinQueryTest(ITestOutputHelper output) : base(output)
         {
@@ -73,7 +74,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task Debug()
         {
-            await Verify(g
+            await Verifier.Verify(g
                 .ConfigureEnvironment(_ => _)
                 .V<Person>()
                 .Where(x => x.Age > 36)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
-    public class PublicApiTests : VerifyBase
+    public class PublicApiTests : XunitContextBase
     {
         public PublicApiTests(ITestOutputHelper output) : base(output)
         {

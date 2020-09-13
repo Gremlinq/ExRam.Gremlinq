@@ -16,7 +16,8 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class TypeSystemTest : VerifyBase
+    [UsesVerify]
+    public class TypeSystemTest : XunitContextBase
     {
         private sealed class Vertex
         {
@@ -39,7 +40,7 @@ namespace ExRam.Gremlinq.Core.Tests
         private sealed class Edge
         {
             public string? String { get; }
-            
+
             public Property<string>? StringEdgeProperty { get; }
         }
 
@@ -127,7 +128,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public async Task All_Steps_can_be_created()
         {
-            await Verify(AllSteps.Select(step => (step.GetType(), step)));
+            await Verifier.Verify(AllSteps.Select(step => (step.GetType(), step)));
         }
 
         [Fact]
@@ -375,7 +376,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<string>>();
         }
-        
+
         [Fact]
         public void V_Values_String_Strings()
         {
@@ -431,7 +432,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Should()
                 .BeAssignableTo<IValueGremlinQuery<object>>();
         }
-        
+
         [Fact]
         public void E_Properties_String()
         {

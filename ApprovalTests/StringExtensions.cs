@@ -1,17 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Verify;
+using VerifyTests;
 using VerifyXunit;
+using Xunit;
 
 namespace ExRam.Gremlinq.ApprovalTests
 {
     public static class StringExtensions
     {
-        public static Task VerifyCSharp(this string s, VerifyBase verifyBase)
+        public static Task VerifyCSharp(this string s, XunitContextBase contextBase)
         {
             var verifySettings = new VerifySettings();
             verifySettings.UseExtension("cs");
 
-            return verifyBase.Verify(s, verifySettings);
+            return Verifier.Verify(s, verifySettings, contextBase.SourceFile);
         }
     }
 }

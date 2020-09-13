@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Tests.Entities;
 using Newtonsoft.Json.Linq;
-using Verify;
+using VerifyTests;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,7 +13,8 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.Tests
 {
-    public class GraphsonSupportTest : VerifyBase
+    [UsesVerify]
+    public class GraphsonSupportTest : XunitContextBase
     {
         private sealed class MetaPoco
         {
@@ -560,7 +561,7 @@ namespace ExRam.Gremlinq.Providers.Tests
             var settings = new VerifySettings();
             settings.UseExtension("json");
 
-            return base.Verify(element, settings);
+            return Verifier.Verify(element, settings);
         }
     }
 }

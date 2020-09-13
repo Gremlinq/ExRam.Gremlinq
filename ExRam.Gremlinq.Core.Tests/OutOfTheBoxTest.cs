@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class OutOfTheBoxTest : VerifyBase
+    [UsesVerify]
+    public class OutOfTheBoxTest : XunitContextBase
     {
         private class SomeEntity
         {

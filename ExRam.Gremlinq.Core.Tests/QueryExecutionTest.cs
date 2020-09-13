@@ -17,8 +17,9 @@ using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
+    [UsesVerify]
     [TestCaseOrderer("ExRam.Gremlinq.Core.Tests.SideEffectTestCaseOrderer", "ExRam.Gremlinq.Core.Tests")]
-    public abstract class QueryExecutionTest : VerifyBase
+    public abstract class QueryExecutionTest : XunitContextBase
     {
         private sealed class XunitLogger : ILogger, IDisposable
         {
@@ -50,7 +51,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         protected readonly IGremlinQuerySource _g;
-        
+
         private static readonly string Id = "id";
 
         // ReSharper disable once ExplicitCallerInfoArgument
@@ -3035,7 +3036,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 {
                     Properties = new Dictionary<string, object>
                     {
-                        { "Meta", "value" } 
+                        { "Meta", "value" }
                     }
                 })
                 .Verify(this);
@@ -3853,7 +3854,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(t => t.Name!.Value.CompareTo("Some name") < 0)
                 .Verify(this);
         }
-        
+
         [Fact]
         public async Task Where_property_lower_than_or_equal_string()
         {
@@ -3880,7 +3881,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(t => t.Name!.Value.CompareTo("Some name") > 0)
                 .Verify(this);
         }
-        
+
         [Fact]
         public async Task Where_property_greater_than_or_equal_string()
         {
@@ -4169,7 +4170,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .Where(x => x == null && x == "hello"))
                 .Verify(this);
         }
-        
+
         [Fact]
         public async Task Where_value_of_property_is_null_or_string_reversed()
         {

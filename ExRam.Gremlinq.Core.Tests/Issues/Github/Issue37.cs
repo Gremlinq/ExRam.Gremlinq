@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using ExRam.Gremlinq.Core.GraphElements;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class Issue37 : VerifyBase
+    [UsesVerify]
+    public class Issue37 : XunitContextBase
     {
         public class VertexBase : IVertex
         {

@@ -2,14 +2,15 @@
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
+using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
-using VerifyXunit;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class ExecutionPipelinesTest : VerifyBase
+    [UsesVerify]
+    public class ExecutionPipelinesTest : XunitContextBase
     {
         private interface IFancyId
         {

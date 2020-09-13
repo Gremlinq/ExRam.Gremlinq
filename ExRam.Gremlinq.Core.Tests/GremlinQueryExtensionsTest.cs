@@ -1,14 +1,13 @@
-﻿using VerifyXunit;
-
+﻿using Xunit;
 using Xunit.Abstractions;
 
 namespace ExRam.Gremlinq.Core.Tests
 {
-    public class GremlinQueryExtensionsTest : VerifyBase
+    public class GremlinQueryExtensionsTest : XunitContextBase
     {
         public GremlinQueryExtensionsTest(ITestOutputHelper output) : base(output)
         {
 
-        }        
+        }
     }
 }
