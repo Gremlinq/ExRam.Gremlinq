@@ -34,4 +34,5 @@ jobs:
       run: dotnet test --configuration Release --no-build --verbosity normal
 
     - name: Push NuGet packages
+      if: github.event_name == 'push'
       run: dotnet nuget push **/*.nupkg --no-symbols true --skip-duplicate
