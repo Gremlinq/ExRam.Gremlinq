@@ -255,6 +255,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery IGremlinQueryAdmin.ChangeQueryType<TTargetQuery>() => ChangeQueryType<TTargetQuery>();
 
+        IGremlinQuerySource IGremlinQueryAdmin.GetSource() => GremlinQuery.Create<object>(Environment);
+
         IImmutableStack<Step> IGremlinQueryAdmin.Steps => Steps;
 
         IGremlinQueryEnvironment IGremlinQueryAdmin.Environment => Environment;

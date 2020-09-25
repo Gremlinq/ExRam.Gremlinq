@@ -10,6 +10,8 @@ namespace ExRam.Gremlinq.Core
 
         TTargetQuery ChangeQueryType<TTargetQuery>() where TTargetQuery : IGremlinQueryBase;
 
+        IGremlinQuerySource GetSource();
+
         Traversal ToTraversal();
 
         Type ElementType { get; }
