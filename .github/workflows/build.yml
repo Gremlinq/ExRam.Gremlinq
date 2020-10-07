@@ -34,11 +34,11 @@ jobs:
       run: dotnet test --configuration Release --no-build --verbosity normal
 
     - name: Push NuGet packages to GitHub packages
-      if: ${{ github.event_name == 'push' &&  github.ref != 'refs/heads/rel' }}
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       run: dotnet nuget push **/*.nupkg --no-symbols true --skip-duplicate
       
     - name: Push NuGet packages to NuGet.org
-      if: github.ref == 'refs/heads/rel'
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
       run: dotnet nuget push **/*.nupkg
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --source https://api.nuget.org/v3/index.json
