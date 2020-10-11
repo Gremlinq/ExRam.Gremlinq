@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
@@ -223,6 +224,22 @@ namespace ExRam.Gremlinq.Core
                         ? null
                         : recurse.TryDeserialize(jToken, type.GetGenericArguments()[0], env)
                     : overridden(jToken, type, env, recurse);
+            })
+            .Override<JObject>((jObject, type, env, overridden, recurse) =>
+            {
+                if (type == typeof(object))
+                {
+                    var expando = (IDictionary<string, object>)new ExpandoObject();
+
+                    foreach (var property in jObject)
+                    {
+                        expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env)!);
+                    }
+
+                    return expando;
+                }
+
+                return overridden(jObject, type, env, recurse);
             })
             .Override<JObject>((jObject, type, env, overridden, recurse) =>
             {
