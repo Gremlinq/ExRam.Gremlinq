@@ -130,15 +130,14 @@ namespace ExRam.Gremlinq.Core
             IGroupBuilder<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>,
             IGroupBuilderWithKeyAndValue<GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>, TKey, TValue>
         {
+            private readonly IGremlinQueryBase<TKey>? _keyQuery;
+            private readonly IGremlinQueryBase<TValue>? _valueQuery;
             private readonly GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> _sourceQuery;
 
             public GroupBuilder(GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> sourceQuery, IGremlinQueryBase<TKey>? keyQuery = default, IGremlinQueryBase<TValue>? valueQuery = default)
             {
-#pragma warning disable CS8601 // Possible null reference assignment.
-                KeyQuery = keyQuery;
-                ValueQuery = valueQuery;
-#pragma warning restore CS8601 // Possible null reference assignment.
-
+                _keyQuery = keyQuery;
+                _valueQuery = valueQuery;
                 _sourceQuery = sourceQuery;
             }
 
@@ -157,9 +156,27 @@ namespace ExRam.Gremlinq.Core
                     _sourceQuery.Continue(valueSelector));
             }
 
-            public IGremlinQueryBase<TKey> KeyQuery { get; }
+            public IGremlinQueryBase<TKey> KeyQuery
+            {
+                get
+                {
+                    if (_keyQuery is { } keyQuery)
+                        return keyQuery;
 
-            public IGremlinQueryBase<TValue> ValueQuery { get; }
+                    throw new InvalidOperationException();
+                }
+            }
+
+            public IGremlinQueryBase<TValue> ValueQuery
+            {
+                get
+                {
+                    if (_valueQuery is { } valueQuery)
+                        return valueQuery;
+
+                    throw new InvalidOperationException();
+                }
+            }
         }
 
         private sealed partial class ProjectBuilder<TProjectElement, TItem1, TItem2, TItem3, TItem4, TItem5, TItem6, TItem7, TItem8, TItem9, TItem10, TItem11, TItem12, TItem13, TItem14, TItem15, TItem16> :
