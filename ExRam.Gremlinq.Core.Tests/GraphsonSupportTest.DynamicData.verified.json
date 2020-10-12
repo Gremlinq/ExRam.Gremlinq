@@ -1,7 +1,6 @@
 [
   {
-    Role: 'Admin',
-    Id: 9,
-    Label: 'WorksFor'
+    values: [],
+    count: 36
   }
 ]

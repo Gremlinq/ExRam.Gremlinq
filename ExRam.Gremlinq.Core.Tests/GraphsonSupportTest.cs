@@ -126,11 +126,12 @@ namespace ExRam.Gremlinq.Providers.Tests
         public async Task DynamicData()
         {
             await Verify(await _g
-                .WithExecutor(SingleWorksFor)
+                .WithExecutor("{ \"values\": [ ], \"count\": { \"@type\": \"g:Int32\", \"@value\": 36 } }")
                 .V()
                 .Project(_ => _
                     .ToDynamic()
-                    .By("in!", __ => __.In()))
+                    .By("values", __ => __.Values())
+                    .By("count", __ => __.Count()))
                 .ToArrayAsync());
         }
 
