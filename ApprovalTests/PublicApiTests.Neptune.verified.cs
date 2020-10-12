@@ -1,4 +1,4 @@
-[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.1", FrameworkDisplayName="")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core
 {
     public static class GremlinQueryEnvironmentExtensions

@@ -1,4 +1,4 @@
-﻿#if RELEASE && NETCOREAPP3_1
+﻿#if RELEASE && NET5_0
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
