@@ -42,7 +42,11 @@ namespace ExRam.Gremlinq.Core
                     TElement[] elements => elements.ToAsyncEnumerable(),
                     IAsyncEnumerable<TElement> enumerable => enumerable,
                     TElement element => AsyncEnumerableEx.Return(element),
-                    IEnumerable enumerable => enumerable.Cast<TElement>().ToAsyncEnumerable(),
+                    IEnumerable enumerable => enumerable
+                        .Cast<TElement>()
+                        .Where(x => x is not null)
+                        .Select(x => x!)
+                        .ToAsyncEnumerable(),
                     { } obj => throw new InvalidCastException($"A result of type {obj.GetType()} can't be interpreted as {nameof(IAsyncEnumerable<TElement>)}."),
                     _ => AsyncEnumerable.Empty<TElement>()
                 };
@@ -74,7 +78,10 @@ namespace ExRam.Gremlinq.Core
                 if (!typeof(TElement).IsAssignableFrom(typeof(string)))
                     throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
 
-                return AsyncEnumerableEx.Return((TElement)(object)result.ToString());
+                if (result.ToString() is { } str)
+                    return AsyncEnumerableEx.Return((TElement)(object)str);
+
+                return AsyncEnumerable.Empty<TElement>();
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
@@ -134,13 +141,13 @@ namespace ExRam.Gremlinq.Core
             {
                 if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
-                    type = type.GetElementType();
+                    type = type.GetElementType()!;
 
                     var array = Array.CreateInstance(type, 1);
                     array.SetValue(recurse.TryDeserialize(jToken, type, env), 0);
 
                     return array;
-                }
+                    }
 
                 return overridden(jToken, type, env, recurse);
             })
@@ -226,11 +233,11 @@ namespace ExRam.Gremlinq.Core
             {
                 if (type == typeof(object))
                 {
-                    var expando = (IDictionary<string, object>)new ExpandoObject();
+                    var expando = (IDictionary<string, object?>)new ExpandoObject();
 
                     foreach (var property in jObject)
                     {
-                        expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env)!);
+                        expando.Add(property.Key, recurse.TryDeserialize(property.Value, typeof(object), env));
                     }
 
                     return expando;
@@ -292,7 +299,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (type.IsArray && !env.GetCache().FastNativeTypes.ContainsKey(type))
                 {
-                    var elementType = type.GetElementType();
+                    var elementType = type.GetElementType()!;
 
                     if (jObject.TryGetValue("@type", out var typeToken) && "g:BulkSet".Equals(typeToken.Value<string>(), StringComparison.OrdinalIgnoreCase))
                     {
@@ -344,7 +351,7 @@ namespace ExRam.Gremlinq.Core
                     return overridden(jArray, type, env, recurse);
 
                 var array = default(ArrayList);
-                var elementType = type.GetElementType();
+                var elementType = type.GetElementType()!;
 
                 for (var i = 0; i < jArray.Count; i++)
                 {

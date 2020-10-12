@@ -11,8 +11,8 @@ namespace ExRam.Gremlinq.Core
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default))?.GetGenericMethodDefinition()!;
-        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!))?.GetGenericMethodDefinition()!;
 #pragma warning disable 8625
         private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
 #pragma warning restore 8625
@@ -47,7 +47,7 @@ namespace ExRam.Gremlinq.Core
                     }
                     case MemberExpression memberExpression when memberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue:
                     {
-                        return memberExpression.Expression;
+                        return memberExpression.Expression!;
                     }
                     default:
                     {
@@ -62,7 +62,7 @@ namespace ExRam.Gremlinq.Core
             return expression switch
             {
                 ConstantExpression _ => true,
-                MemberExpression memberExpression => memberExpression.Expression.CanGetValue(),
+                MemberExpression memberExpression => (memberExpression.Expression?.CanGetValue()).GetValueOrDefault(),
                 LambdaExpression lambdaExpression => lambdaExpression.Parameters.Count == 0,
                 UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.NodeType == ExpressionType.Convert
                     ? !(unaryExpression.Type.IsValueType && unaryExpression.Operand.Type.IsClass) && unaryExpression.Operand.CanGetValue()
@@ -71,7 +71,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        public static object GetValue(this Expression expression)
+        public static object? GetValue(this Expression expression)
         {
             return expression switch
             {
@@ -89,7 +89,7 @@ namespace ExRam.Gremlinq.Core
 
             if (typeof(StepLabel).IsAssignableFrom(expression.Type))
             {
-                stepLabel = (StepLabel)expression.GetValue();
+                stepLabel = (StepLabel?)expression.GetValue();
 
                 return true;
             }
@@ -98,7 +98,7 @@ namespace ExRam.Gremlinq.Core
             {
                 if (outerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                 {
-                    stepLabel = (StepLabel)outerMemberExpression.Expression.GetValue();
+                    stepLabel = (StepLabel?)outerMemberExpression.Expression?.GetValue();
 
                     return true;
                 }
@@ -109,7 +109,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     if (innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                     {
-                        stepLabel = (StepLabel)innerMemberExpression.Expression.GetValue();
+                        stepLabel = (StepLabel?)innerMemberExpression.Expression?.GetValue();
 
                         return true;
                     }
@@ -121,11 +121,16 @@ namespace ExRam.Gremlinq.Core
 
         public static bool RefersToParameter(this Expression expression)
         {
+            var actualExpression = (Expression?)expression;
+
             while (true)
             {
-                expression = expression.Strip();
+                if (actualExpression is null)
+                    return false;
 
-                switch (expression)
+                actualExpression = actualExpression.Strip();
+
+                switch (actualExpression)
                 {
                     case ParameterExpression _:
                     {
@@ -133,17 +138,17 @@ namespace ExRam.Gremlinq.Core
                     }
                     case LambdaExpression lambdaExpression:
                     {
-                        expression = lambdaExpression.Body;
+                        actualExpression = lambdaExpression.Body;
                         break;
                     }
                     case MemberExpression memberExpression:
                     {
-                        expression = memberExpression.Expression;
+                        actualExpression = memberExpression.Expression;
                         break;
                     }
                     case MethodCallExpression methodCallExpression:
                     {
-                        expression = methodCallExpression.Object;
+                        actualExpression = methodCallExpression.Object;
                         break;
                     }
                     default:
@@ -177,7 +182,7 @@ namespace ExRam.Gremlinq.Core
                         {
                             ExpressionSemantics.True => GremlinExpression.True,
                             ExpressionSemantics.False => GremlinExpression.False,
-                            _ => new GremlinExpression(ExpressionFragment.Create(leftMethodCallExpression.Object, model), semantics, ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
+                            _ => new GremlinExpression(ExpressionFragment.Create(leftMethodCallExpression.Object!, model), semantics, ExpressionFragment.Create(leftMethodCallExpression.Arguments[0], model))
                         };
                     }
                 }
@@ -236,7 +241,7 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownMember.ListContains:
                         {
                             return new GremlinExpression(
-                                ExpressionFragment.Create(methodCallExpression.Object, model),
+                                ExpressionFragment.Create(methodCallExpression.Object!, model),
                                 ExpressionSemantics.Contains,
                                 ExpressionFragment.Create(methodCallExpression.Arguments[0].Strip(), model));
                         }
@@ -244,7 +249,7 @@ namespace ExRam.Gremlinq.Core
                         case WellKnownMember.StringEndsWith:
                         case WellKnownMember.StringContains:
                         {
-                            var instanceExpression = methodCallExpression.Object.Strip();
+                            var instanceExpression = methodCallExpression.Object!.Strip();
                             var argumentExpression = methodCallExpression.Arguments[0].Strip();
 
                             if (wellKnownMember == WellKnownMember.StringStartsWith && argumentExpression.RefersToParameter())

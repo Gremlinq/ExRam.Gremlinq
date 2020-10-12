@@ -7,10 +7,12 @@ namespace ExRam.Gremlinq.Core
     {
         public static IEnumerable<Type> GetTypeHierarchy(this Type type)
         {
-            while (type != null)
+            var currentType = (Type?)type;
+
+            while (currentType != null)
             {
-                yield return type;
-                type = type.BaseType;
+                yield return currentType;
+                currentType = currentType.BaseType;
             }
         }
 

@@ -64,7 +64,7 @@ namespace ExRam.Gremlinq.Core
                         outVertexType ?? typeof(object),
                         inVertexType ?? typeof(object),
                         sclarType ?? (elementType.IsArray
-                            ? elementType.GetElementType()
+                            ? elementType.GetElementType()!
                             : typeof(object)),
                         metaType ?? typeof(object),
                         queryType ?? typeof(object));
@@ -85,7 +85,7 @@ namespace ExRam.Gremlinq.Core
                                     semanticsParameter.Type,
                                     stepLabelSemanticsParameter.Type,
                                     flagsParameter.Type
-                                }),
+                                })!,
                                 stepsParameter,
                                 environmentParameter,
                                 semantics != null

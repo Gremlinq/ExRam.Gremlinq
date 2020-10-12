@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core
                                 return new EmptyDictionaryValueProvider(provider);
 
                             if (propertyType.IsArray)
-                                return new EmptyListValueProvider(provider, propertyType.GetElementType());
+                                return new EmptyListValueProvider(provider, propertyType.GetElementType()!);
                         }
 
                         return provider;
@@ -278,7 +278,7 @@ namespace ExRam.Gremlinq.Core
                             .GetTypeHierarchy()
                             .SelectMany(typeInHierarchy => typeInHierarchy
                                 .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly))
-                            .Where(p => p.GetMethod.GetBaseDefinition() == p.GetMethod)
+                            .Where(p => p.GetMethod?.GetBaseDefinition() == p.GetMethod)
                             .Select(p => (
                                 property: p,
                                 key: closureEnvironment.GetCache().GetKey(p),

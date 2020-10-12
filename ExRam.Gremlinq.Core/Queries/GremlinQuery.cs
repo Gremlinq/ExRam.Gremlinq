@@ -660,7 +660,7 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Identity() => this;
 
-        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().ToImmutableArray()), QuerySemantics.None);
+        private GremlinQuery<TNewElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Inject<TNewElement>(IEnumerable<TNewElement> elements) => AddStep<TNewElement>(new InjectStep(elements.Cast<object>().Where(x => x is not null).Select(x => x!).ToImmutableArray()), QuerySemantics.None);
 
         private GremlinQuery<TNewElement, object, object, object, object, object> InV<TNewElement>() => AddStepWithObjectTypes<TNewElement>(InVStep.Instance, QuerySemantics.Vertex);
 
@@ -1118,9 +1118,9 @@ namespace ExRam.Gremlinq.Core
                                 case MemberExpression leftMemberExpression:
                                 {
                                     var memberSemantics = leftMemberExpression.TryGetWellKnownMember();
-                                    var leftMemberExpressionExpression = leftMemberExpression.Expression.Strip();
+                                    var leftMemberExpressionExpression = leftMemberExpression.Expression?.Strip();
 
-                                    if (leftMemberExpressionExpression is ParameterExpression)
+                                    if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                                     {
                                         switch (memberSemantics)
                                         {
@@ -1131,14 +1131,14 @@ namespace ExRam.Gremlinq.Core
                                                 return Where(__ => __
                                                     .Key()
                                                     .Where(
-                                                        ExpressionFragment.Create(leftMemberExpression.Expression, Environment.Model),
+                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
                                                         semantics,
                                                         right));
                                             case WellKnownMember.VertexPropertyLabel when rightConstantFragment.Value is StepLabel:
                                                 return Where(__ => __
                                                     .Label()
                                                     .Where(
-                                                        ExpressionFragment.Create(leftMemberExpression.Expression, Environment.Model),
+                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
                                                         semantics,
                                                         right));
                                             case WellKnownMember.VertexPropertyLabel:
@@ -1194,11 +1194,12 @@ namespace ExRam.Gremlinq.Core
                                 }
                                 case MethodCallExpression methodCallExpression:
                                 {
-                                    var targetExpression = methodCallExpression.Object.Strip();
+                                    var targetExpression = methodCallExpression.Object?.Strip();
 
                                     if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
                                     {
-                                        return Has((string)methodCallExpression.Arguments[0].Strip().GetValue(), effectivePredicate);
+                                        if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
+                                            return Has(key, effectivePredicate);
                                     }
 
                                     break;

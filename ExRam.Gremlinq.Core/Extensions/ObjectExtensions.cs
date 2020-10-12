@@ -33,7 +33,7 @@ namespace ExRam.Gremlinq.Core
                             if (iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IDictionary<,>))
                             {
                                 var method = typeof(ObjectExtensions)
-                                    .GetMethod(nameof(SerializeDictionary), BindingFlags.Static | BindingFlags.NonPublic)
+                                    .GetMethod(nameof(SerializeDictionary), BindingFlags.Static | BindingFlags.NonPublic)!
                                     .MakeGenericMethod(iface.GetGenericArguments()[0], iface.GetGenericArguments()[1]);
 
                                 var closureObjParameter = Expression.Parameter(typeof(object));
@@ -61,17 +61,17 @@ namespace ExRam.Gremlinq.Core
             var (propertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
                 .FirstOrDefault(info => info.key.RawKey is T t && T.Id.Equals(t));
 
-            return propertyInfo == null
-                ? throw new InvalidOperationException($"Unable to determine Id for {element}")
-                : propertyInfo.GetValue(element);
+            return propertyInfo is not null && propertyInfo.GetValue(element) is { } value
+                ? value
+                : throw new InvalidOperationException($"Unable to determine Id for {element}");
         }
 
         private static IEnumerable<(Key key, object value)> SerializeDictionary<TKey, TValue>(IDictionary<TKey, TValue> dict)
         {
             foreach (var kvp in dict)
             {
-                if (kvp.Key is {} key && kvp.Value is { } value)
-                    yield return (key.ToString(), (object)value);
+                if (kvp.Key is {} key && kvp.Value is { } value && key.ToString() is { } stringKey)
+                    yield return (stringKey, value);
             }
         }
 

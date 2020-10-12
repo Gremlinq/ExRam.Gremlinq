@@ -76,7 +76,7 @@ namespace ExRam.Gremlinq.Core
 
                                 var pushCall = Expression.Call(
                                     argument3Parameter1,
-                                    typeof(IImmutableStack<Step>).GetMethod(nameof(IImmutableStack<Step>.Push)),
+                                    typeof(IImmutableStack<Step>).GetMethod(nameof(IImmutableStack<Step>.Push))!,
                                     argument3Parameter2);
 
                                 var retCall = Expression.Invoke(

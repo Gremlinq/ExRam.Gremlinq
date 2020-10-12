@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
         {
             public static readonly InnerMemberInfoEqualityComparer Instance = new InnerMemberInfoEqualityComparer();
 
-            public bool Equals(MemberInfo x, MemberInfo y)
+            public bool Equals(MemberInfo? x, MemberInfo? y)
             {
                 return (x?.DeclaringType, x?.MetadataToken).Equals((y?.DeclaringType, y?.MetadataToken));
             }
@@ -27,8 +27,14 @@ namespace ExRam.Gremlinq.Core
             
         }
 
-        public bool Equals(MemberInfo x, MemberInfo y)
+        public bool Equals(MemberInfo? x, MemberInfo? y)
         {
+            if (x is null)
+                return y is null;
+
+            if (y is null)
+                return false;
+
             return InnerMemberInfoEqualityComparer.Instance.Equals(GetBaseMemberInfo(x), GetBaseMemberInfo(y));
         }
 
@@ -41,24 +47,25 @@ namespace ExRam.Gremlinq.Core
         {
             if (member is PropertyInfo propertyInfo)
             {
-                var interfaceGetter = propertyInfo.GetMethod;
-
-                if (member.DeclaringType != null && !member.DeclaringType.IsInterface)
+                if (propertyInfo.GetMethod is { } interfaceGetter)
                 {
-                    foreach (var iface in member.DeclaringType.GetInterfaces())
+                    if (member.DeclaringType != null && !member.DeclaringType.IsInterface)
                     {
-                        var interfaceMap = member.DeclaringType
-                            .GetInterfaceMap(iface);
-
-                        for (var i = 0; i < interfaceMap.TargetMethods.Length; i++)
+                        foreach (var iface in member.DeclaringType.GetInterfaces())
                         {
-                            if (InnerMemberInfoEqualityComparer.Instance.Equals(interfaceMap.TargetMethods[i], interfaceGetter))
-                                return interfaceMap.InterfaceMethods[i];
+                            var interfaceMap = member.DeclaringType
+                                .GetInterfaceMap(iface);
+
+                            for (var i = 0; i < interfaceMap.TargetMethods.Length; i++)
+                            {
+                                if (InnerMemberInfoEqualityComparer.Instance.Equals(interfaceMap.TargetMethods[i], interfaceGetter))
+                                    return interfaceMap.InterfaceMethods[i];
+                            }
                         }
                     }
-                }
 
-                return interfaceGetter;
+                    return interfaceGetter;
+                }
             }
 
             return member;

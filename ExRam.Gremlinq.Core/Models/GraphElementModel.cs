@@ -48,7 +48,8 @@ namespace ExRam.Gremlinq.Core
                     catch (ReflectionTypeLoadException ex)
                     {
                         return ex.Types
-                            .Where(x => x != null);
+                            .Where(x => x is not null)
+                            .Select(x => x!);
                     }
                 })
                 .Where(type => type != baseType && !type.IsNestedPrivate && baseType.IsAssignableFrom(type))
