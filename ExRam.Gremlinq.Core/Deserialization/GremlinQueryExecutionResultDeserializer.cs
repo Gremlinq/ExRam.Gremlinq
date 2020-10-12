@@ -116,9 +116,6 @@ namespace ExRam.Gremlinq.Core
                     .GetCache()
                     .GetPopulatingJsonSerializer(recurse);
 
-                if (type == typeof(object))
-                    return jToken.ToObject<IDictionary<string, object>>(populatingSerializer);
-
                 var ret = jToken.ToObject(type, populatingSerializer);
 
                 if (!(ret is JToken) && jToken is JObject element)
