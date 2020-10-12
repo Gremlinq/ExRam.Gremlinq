@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006</NoWarn>
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
