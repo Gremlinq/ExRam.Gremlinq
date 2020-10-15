@@ -3,6 +3,8 @@ using PublicApiGenerator;
 using Xunit;
 using VerifyXunit;
 using System.Threading.Tasks;
+using VerifyTests;
+using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.PublicApi.Tests
 {
@@ -10,111 +12,52 @@ namespace ExRam.Gremlinq.PublicApi.Tests
     public class PublicApiTests
     {
         [Fact]
-        public Task Core()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Core")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task Core() => Verify("ExRam.Gremlinq.Core");
 
         [Fact]
-        public Task CosmosDb()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.CosmosDb")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task CosmosDb() => Verify("ExRam.Gremlinq.Providers.CosmosDb");
 
         [Fact]
-        public Task GremlinServer()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.GremlinServer")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task GremlinServer() => Verify("ExRam.Gremlinq.Providers.GremlinServer");
 
         [Fact]
-        public Task Neptune()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.Neptune")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task Neptune() => Verify("ExRam.Gremlinq.Providers.Neptune");
 
         [Fact]
-        public Task JanusGraph()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.JanusGraph")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task JanusGraph() => Verify("ExRam.Gremlinq.Providers.JanusGraph");
 
         [Fact]
-        public Task WebSocket()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.WebSocket")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task WebSocket() => Verify("ExRam.Gremlinq.Providers.WebSocket");
 
         [Fact]
-        public Task CoreAspNet()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Core.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task CoreAspNet() => Verify("ExRam.Gremlinq.Core.AspNet");
 
         [Fact]
-        public Task CosmosDbAspNet()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.CosmosDb.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task CosmosDbAspNet() => Verify("ExRam.Gremlinq.Providers.CosmosDb.AspNet");
 
         [Fact]
-        public Task GremlinServerAspNet()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.GremlinServer.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task GremlinServerAspNet() => Verify("ExRam.Gremlinq.Providers.GremlinServer.AspNet");
 
         [Fact]
-        public Task NeptuneAspNet()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.Neptune.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task NeptuneAspNet() => Verify("ExRam.Gremlinq.Providers.Neptune.AspNet");
 
         [Fact]
-        public Task JanusGraphAspNet()
-        {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.JanusGraph.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
-        }
+        public Task JanusGraphAspNet() => Verify("ExRam.Gremlinq.Providers.JanusGraph.AspNet");
 
         [Fact]
-        public Task WebSocketAspNet()
+        public Task WebSocketAspNet() => Verify("ExRam.Gremlinq.Providers.WebSocket.AspNet");
+
+        private static Task Verify(string assemblyName, [CallerFilePath] string sourceFile = "")
         {
-            return Assembly
-                .Load("ExRam.Gremlinq.Providers.WebSocket.AspNet")
-                .GeneratePublicApi()
-                .VerifyCSharp();
+            var verifySettings = new VerifySettings();
+            verifySettings.UseExtension("cs");
+
+            return Verifier.Verify(
+                Assembly
+                    .Load(assemblyName)
+                    .GeneratePublicApi(),
+                verifySettings,
+                sourceFile);
         }
     }
 }
