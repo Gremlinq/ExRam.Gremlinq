@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Neptune.Tests", "ExRam.Gremlinq.Providers.Neptune.Tests\ExRam.Gremlinq.Providers.Neptune.Tests.csproj", "{C6EA6478-0A18-4D8F-B475-8370413C79BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.ApprovalTests", "ApprovalTests\ExRam.Gremlinq.ApprovalTests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.PublicApi.Tests", "ExRam.Gremlinq.PublicApi.Tests\ExRam.Gremlinq.PublicApi.Tests.csproj", "{D4BB3324-E416-4C41-9FCB-1C1FDA5FE7E4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Core.AspNet", "ExRam.Gremlinq.Core.AspNet\ExRam.Gremlinq.Core.AspNet.csproj", "{6E351A4C-C1E6-4EEB-A956-3E241CB377A9}"
 EndProject

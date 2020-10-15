@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
 
-namespace ExRam.Gremlinq.ApprovalTests
+namespace ExRam.Gremlinq.PublicApi.Tests
 {
     public static class StringExtensions
     {

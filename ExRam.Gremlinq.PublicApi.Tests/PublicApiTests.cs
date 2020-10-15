@@ -4,7 +4,7 @@ using Xunit;
 using VerifyXunit;
 using System.Threading.Tasks;
 
-namespace ExRam.Gremlinq.ApprovalTests
+namespace ExRam.Gremlinq.PublicApi.Tests
 {
     [UsesVerify]
     public class PublicApiTests
