@@ -1,5 +1,3 @@
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ExRam.Gremlinq.Core.Tests")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core
 {
     public sealed class AddEStep : ExRam.Gremlinq.Core.Step

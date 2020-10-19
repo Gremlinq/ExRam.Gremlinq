@@ -1,4 +1,3 @@
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v5.0", FrameworkDisplayName="")]
 namespace ExRam.Gremlinq.Core.AspNet
 {
     public readonly struct GremlinqSetup

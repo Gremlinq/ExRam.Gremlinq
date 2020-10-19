@@ -52,10 +52,15 @@ namespace ExRam.Gremlinq.PublicApi.Tests
             var verifySettings = new VerifySettings();
             verifySettings.UseExtension("cs");
 
+            var options = new ApiGeneratorOptions
+            {
+                IncludeAssemblyAttributes = false
+            };
+
             return Verifier.Verify(
                 Assembly
                     .Load(assemblyName)
-                    .GeneratePublicApi(),
+                    .GeneratePublicApi(options),
                 verifySettings,
                 sourceFile);
         }
