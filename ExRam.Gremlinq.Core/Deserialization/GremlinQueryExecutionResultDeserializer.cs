@@ -147,7 +147,7 @@ namespace ExRam.Gremlinq.Core
                     array.SetValue(recurse.TryDeserialize(jToken, type, env), 0);
 
                     return array;
-                    }
+                }
 
                 return overridden(jToken, type, env, recurse);
             })
