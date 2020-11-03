@@ -9,7 +9,6 @@ using ExRam.Gremlinq.Tests.Entities;
 using FluentAssertions;
 using Gremlin.Net.Process.Traversal;
 using Gremlin.Net.Process.Traversal.Strategy.Decoration;
-using LanguageExt;
 using Microsoft.Extensions.Logging;
 using VerifyXunit;
 using Xunit;
@@ -342,7 +341,7 @@ namespace ExRam.Gremlinq.Core.Tests
         [Fact]
         public void VertexProperty_throws_on_null_value()
         {
-            Unit.Default
+            default(int)
                 .Invoking(_ => new VertexProperty<string>(null))
                 .Should()
                 .Throw<ArgumentNullException>();
