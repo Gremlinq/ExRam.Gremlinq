@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Moq;
 using Newtonsoft.Json.Linq;
 using VerifyXunit;
 using Xunit;
@@ -13,7 +12,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task Empty()
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -21,7 +20,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<object>((serialized, type, env, overridden, recurse) => "overridden")
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -29,7 +28,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<JObject>((serialized, type, env, overridden, recurse) => "should not be here")
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -37,7 +36,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => overridden("overridden", type, env, recurse))
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -46,7 +45,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => overridden("overridden 1", type, env, recurse))
                 .Override<string>((serialized, type, env, overridden, recurse) => overridden("overridden 2", type, env, recurse))
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -54,7 +53,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -63,7 +62,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<int>((serialized, type, env, overridden, recurse) => overridden(37, type, env, recurse))
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
 
         [Fact]
@@ -72,7 +71,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await Verifier.Verify(GremlinQueryFragmentDeserializer.Identity
                 .Override<string>((serialized, type, env, overridden, recurse) => recurse.TryDeserialize(36, type, env))
                 .Override<int>((serialized, type, env, overridden, recurse) => overridden(37, type, env, recurse))
-                .TryDeserialize("serialized", typeof(string), Mock.Of<IGremlinQueryEnvironment>()));
+                .TryDeserialize("serialized", typeof(string), GremlinQueryEnvironment.Empty));
         }
     }
 }
