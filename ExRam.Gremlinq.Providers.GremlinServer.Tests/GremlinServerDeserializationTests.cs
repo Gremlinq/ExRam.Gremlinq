@@ -24,7 +24,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                             File.ReadAllText(Path.Combine(XUnitContext.SourceDirectory, "GremlinServerIntegrationTests." + XUnitContext.MethodName + ".verified.json")));
 
                         return jArray.Count == 1
-                            ? AsyncEnumerableEx.Return<object>(jArray[0])
+                            ? new [] { jArray[0] }.ToAsyncEnumerable()
                             : jArray.Count == 0
                                 ? AsyncEnumerable.Empty<object>()
                                 : throw new NotSupportedException();

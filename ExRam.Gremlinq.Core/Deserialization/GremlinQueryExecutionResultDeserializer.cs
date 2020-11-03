@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Threading;
 using System.Xml;
 using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Structure.IO.GraphSON;
@@ -41,7 +42,7 @@ namespace ExRam.Gremlinq.Core
                 {
                     TElement[] elements => elements.ToAsyncEnumerable(),
                     IAsyncEnumerable<TElement> enumerable => enumerable,
-                    TElement element => AsyncEnumerableEx.Return(element),
+                    TElement element => new[] { element }.ToAsyncEnumerable(),
                     IEnumerable enumerable => enumerable
                         .Cast<TElement>()
                         .Where(x => x is not null)
@@ -62,7 +63,12 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
             {
-                return AsyncEnumerableEx.Throw<TElement>(new InvalidOperationException($"{nameof(Deserialize)} must not be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQueryExecutionResultDeserializer)} on your {nameof(GremlinQuerySource)}."));
+                return AsyncEnumerable.Create(Core);
+
+                static IAsyncEnumerator<TElement> Core(CancellationToken ct)
+                {
+                    throw new InvalidOperationException($"{nameof(Deserialize)} must not be called on {nameof(GremlinQueryExecutionResultDeserializer)}.{nameof(Invalid)}. If you are getting this exception while executing a query, configure a proper {nameof(IGremlinQueryExecutionResultDeserializer)} on your {nameof(GremlinQuerySource)}.");
+                };
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
@@ -75,13 +81,16 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
             {
-                if (!typeof(TElement).IsAssignableFrom(typeof(string)))
-                    throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
+                return AsyncEnumerable.Create(Core);
 
-                if (result.ToString() is { } str)
-                    return AsyncEnumerableEx.Return((TElement)(object)str);
+                async IAsyncEnumerator<TElement> Core(CancellationToken ct)
+                {
+                    if (!typeof(TElement).IsAssignableFrom(typeof(string)))
+                        throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
 
-                return AsyncEnumerable.Empty<TElement>();
+                    if (result.ToString() is { } str)
+                        yield return (TElement)(object)str;
+                }
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)
@@ -94,10 +103,15 @@ namespace ExRam.Gremlinq.Core
         {
             public IAsyncEnumerable<TElement> Deserialize<TElement>(object result, IGremlinQueryEnvironment environment)
             {
-                if (!typeof(TElement).IsAssignableFrom(typeof(string)))
-                    throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
+                return AsyncEnumerable.Create(Core);
 
-                return AsyncEnumerableEx.Return((TElement)(object)new GraphSON2Writer().WriteObject(result));
+                async IAsyncEnumerator<TElement> Core(CancellationToken ct)
+                {
+                    if (!typeof(TElement).IsAssignableFrom(typeof(string)))
+                        throw new InvalidOperationException($"Can't deserialize a string to {typeof(TElement).Name}. Make sure you cast call Cast<string>() on the query before executing it.");
+
+                    yield return (TElement)(object)new GraphSON2Writer().WriteObject(result);
+                }
             }
 
             public IGremlinQueryExecutionResultDeserializer ConfigureFragmentDeserializer(Func<IGremlinQueryFragmentDeserializer, IGremlinQueryFragmentDeserializer> transformation)

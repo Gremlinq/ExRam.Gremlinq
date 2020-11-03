@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
     <LangVersion>9.0</LangVersion>
-    <NoWarn>$(NoWarn);IDE1006</NoWarn>
+    <NoWarn>$(NoWarn);IDE1006;CS1998</NoWarn>
     <Nullable>enable</Nullable>
     <Authors>Daniel Weber</Authors>
     <Company>ExRam Innovations GmbH</Company>
