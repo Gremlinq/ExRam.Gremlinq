@@ -1,22 +1,16 @@
 {
-  Item1: [
-    {
-      Label: 'timeFrame'
+  Item1: {
+    Label: 'timeFrame'
+  },
+  Item2: {
+    Key: {
+      RawKey: 'registrationDate'
     }
-  ],
-  Item2: [
-    {
-      Key: {
-        RawKey: 'registrationDate'
-      }
-    }
-  ],
-  Item3: [
-    {
-      Key: {
-        RawKey: 'name'
-      },
-      SerializationBehaviour: 'IgnoreAlways'
-    }
-  ]
+  },
+  Item3: {
+    Key: {
+      RawKey: 'name'
+    },
+    SerializationBehaviour: 'IgnoreAlways'
+  }
 }

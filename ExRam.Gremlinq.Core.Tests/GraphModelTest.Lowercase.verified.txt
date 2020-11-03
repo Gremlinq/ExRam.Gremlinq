@@ -1,5 +1,3 @@
-[
-  {
-    Label: 'person'
-  }
-]
+{
+  Label: 'person'
+}

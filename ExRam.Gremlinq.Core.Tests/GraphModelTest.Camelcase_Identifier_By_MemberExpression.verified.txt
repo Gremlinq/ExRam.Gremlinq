@@ -1,7 +1,5 @@
-[
-  {
-    Key: {
-      RawKey: 'registrationDate'
-    }
+{
+  Key: {
+    RawKey: 'registrationDate'
   }
-]
+}

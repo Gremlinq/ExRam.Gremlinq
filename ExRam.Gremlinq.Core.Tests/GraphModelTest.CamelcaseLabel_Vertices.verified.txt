@@ -1,5 +1,3 @@
-[
-  {
-    Label: 'timeFrame'
-  }
-]
+{
+  Label: 'timeFrame'
+}
