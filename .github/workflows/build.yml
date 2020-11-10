@@ -46,7 +46,7 @@ jobs:
         --no-symbols true
         --skip-duplicate
         
-    - uses: aarnott/nbgv@v0.3
+    - uses: dotnet/nbgv@master
       id: nbgv
 
     - name: Bump version and push tag
