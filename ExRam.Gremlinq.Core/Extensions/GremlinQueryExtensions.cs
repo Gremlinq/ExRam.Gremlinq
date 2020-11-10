@@ -16,9 +16,9 @@ namespace ExRam.Gremlinq.Core
             return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstAsync(ct);
         }
 
-        public static ValueTask<TElement> FirstOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
+        public static async ValueTask<TElement?> FirstOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
-            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstOrDefaultAsync(ct);
+            return await query.Cast<TElement>().Limit(1).ToAsyncEnumerable().FirstOrDefaultAsync(ct);
         }
 
         public static ValueTask<TElement> SingleAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
@@ -26,9 +26,9 @@ namespace ExRam.Gremlinq.Core
             return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleAsync(ct);
         }
 
-        public static ValueTask<TElement> SingleOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
+        public static async ValueTask<TElement?> SingleOrDefaultAsync<TElement>(this IGremlinQueryBase<TElement> query, CancellationToken ct = default)
         {
-            return query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
+            return await query.Cast<TElement>().Limit(1).ToAsyncEnumerable().SingleOrDefaultAsync(ct);
         }
 
         internal static bool IsNone(this IGremlinQueryBase query)
