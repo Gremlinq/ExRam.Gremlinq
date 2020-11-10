@@ -30,11 +30,11 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddGremlinq(this IServiceCollection serviceCollection, Action<GremlinqSetup> configuration)
         {
             serviceCollection
-                .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetService<IConfiguration>().GetSection("Gremlinq")))
+                .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider.GetServiceOrThrow<IConfiguration>().GetSection("Gremlinq")))
                 .AddSingleton<IGremlinQueryEnvironmentTransformation, UseLoggerGremlinQueryEnvironmentTransformation>()
                 .AddSingleton(c =>
                 {
-                    var transformations = c.GetService<IEnumerable<IGremlinQueryEnvironmentTransformation>>();
+                    var transformations = c.GetServiceOrThrow<IEnumerable<IGremlinQueryEnvironmentTransformation>>();
 
                     return g
                         .ConfigureEnvironment(env =>

@@ -40,7 +40,7 @@ namespace ExRam.Gremlinq.Core.AspNet
         {
             return setup.RegisterTypes(serviceCollection => serviceCollection
                 .AddSingleton<IGremlinqConfiguration>(serviceProvider => new GremlinqConfiguration(serviceProvider
-                    .GetService<IConfiguration>()
+                    .GetServiceOrThrow<IConfiguration>()
                     .GetSection(sectionName)
                     .GetSection("Gremlinq"))));
         }
