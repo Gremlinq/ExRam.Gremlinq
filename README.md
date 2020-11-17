@@ -25,10 +25,6 @@ ExRam.Gremlinq.Providers.Neptune.AspNet | [![#](https://img.shields.io/nuget/v/E
 ExRam.Gremlinq.Providers.JanusGraph.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet)|
 
 
-## Sample project
-
-A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples.
-
 ## Features
 
 The following snippets are part of the sample project mentioned above. They showcase
