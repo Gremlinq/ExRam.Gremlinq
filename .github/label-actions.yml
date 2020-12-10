@@ -1,0 +1,12 @@
+# Configuration for Label Actions - https://github.com/dessant/label-actions
+
+issues:
+  actions:
+    # Actions taken when the `heated` label is added
+    "Repro repository missing":
+      # Post a comment
+      comment: >
+        Hello @{issue-author},
+
+
+        thanks for your interest in ExRam.Gremlinq. The issue was labelled "Repro repository missing" because although the issue template asks for either "a link to GitHub repository containing a minimal executable project structure that exposes the unexpected behaviour" or "a pull request to ExRam.Gremlinq that adds a failing unit test to the ExRam.Gremlinq tests asserting the expected behaviour", it seems you provided neither. Most problems already solve themselves when isolated and if they don't, you will have made it easier for the maintainer of this project to investigate a possible bug.
