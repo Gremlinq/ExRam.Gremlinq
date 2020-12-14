@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Providers.Tests", "test\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj", "{CCC2B0E4-FD5D-49E0-9872-2EA0A720EB1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples", "ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.csproj", "{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Samples", "src\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples\ExRam.Gremlinq.Samples.csproj", "{AF5D779D-C31B-4C2F-80EC-29C2FC648DFE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExRam.Gremlinq.Tests.Entities", "test\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj", "{65F0D284-7DD6-40DA-8B89-BDAA02326DF0}"
 EndProject
