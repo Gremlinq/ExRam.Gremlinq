@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="**\*.verified.json" />
+    <None Remove="**\*.received.json" />
+    <None Remove="Json\Array_of_Languages.json" />
+    <None Remove="Json\Country_with_meta_properties.json" />
+    <None Remove="Json\Graphson3ReferenceVertex.json" />
+    <None Remove="Json\Graphson3_Tuple_of_Person_Language.json" />
+    <None Remove="Json\Named_tuple_of_Person_Language.json" />
+    <None Remove="Json\Nested_array_of_Languages.json" />
+    <None Remove="Json\Properties.json" />
+    <None Remove="Json\Single_Company.json" />
+    <None Remove="Json\Single_Language.json" />
+    <None Remove="Json\Single_Person.json" />
+    <None Remove="Json\Single_Person_lowercase_properties.json" />
+    <None Remove="Json\Single_Person_String_Id.json" />
+    <None Remove="Json\Single_Person_without_PhoneNumbers.json" />
+    <None Remove="Json\Single_Person_with_null.json" />
+    <None Remove="Json\Single_TimeFrame.json" />
+    <None Remove="Json\Single_TimeFrame_with_numbers.json" />
+    <None Remove="Json\Single_WorksFor.json" />
+    <None Remove="Json\Traverser.json" />
+    <None Remove="Json\Tuple_of_Person_Language.json" />
+    <None Remove="Json\VertexProperties.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Json\Array_of_Languages.json" />
+    <EmbeddedResource Include="Json\Country_with_meta_properties.json" />
+    <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
+    <EmbeddedResource Include="Json\Graphson3_Tuple_of_Person_Language.json" />
+    <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
+    <EmbeddedResource Include="Json\Properties.json" />
+    <EmbeddedResource Include="Json\Single_Person_with_null.json" />
+    <EmbeddedResource Include="Json\Traverser.json" />
+    <EmbeddedResource Include="Json\Single_Company.json" />
+    <EmbeddedResource Include="Json\Single_Language.json" />
+    <EmbeddedResource Include="Json\Single_Person.json" />
+    <EmbeddedResource Include="Json\Single_Person_lowercase_properties.json" />
+    <EmbeddedResource Include="Json\Single_Person_String_Id.json" />
+    <EmbeddedResource Include="Json\Single_Person_without_PhoneNumbers.json" />
+    <EmbeddedResource Include="Json\Single_TimeFrame.json" />
+    <EmbeddedResource Include="Json\Single_TimeFrame_with_numbers.json" />
+    <EmbeddedResource Include="Json\Single_WorksFor.json" />
+    <EmbeddedResource Include="Json\Named_tuple_of_Person_Language.json" />
+    <EmbeddedResource Include="Json\Tuple_of_Person_Language.json" />
+    <EmbeddedResource Include="Json\VertexProperties.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Core\ExRam.Gremlinq.Core.csproj" />
+    <ProjectReference Include="..\ExRam.Gremlinq.Tests.Entities\ExRam.Gremlinq.Tests.Entities.csproj" />
+  </ItemGroup>
+
+  </Project>

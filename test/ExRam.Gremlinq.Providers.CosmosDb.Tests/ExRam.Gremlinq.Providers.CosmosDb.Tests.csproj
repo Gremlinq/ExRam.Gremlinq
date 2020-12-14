@@ -7,7 +7,7 @@
   <ItemGroup>
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
+    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.CosmosDb\ExRam.Gremlinq.Providers.CosmosDb.csproj" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
   </ItemGroup>
 

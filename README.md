@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/Assets/Logo.png" alt="Gremlinq mascor" title="Gremlinq mascot" />
+  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/assets/Logo.png" alt="Gremlinq mascor" title="Gremlinq mascot" />
 </p>
 
 
@@ -32,7 +32,7 @@ A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples
 ## Commercial support
 
 For commercial support, contact<br/>
-![#](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/Assets/SupportEmailAddress.png)
+![#](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/assets/SupportEmailAddress.png)
 
 ## Features
 

@@ -32,11 +32,11 @@
   </PropertyGroup>
 
   <ItemGroup     Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
-    <None Include="..\Assets\$(PackageIcon)">
+    <None Include="..\..\assets\$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="..\LICENSE.md">
+    <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

@@ -8,7 +8,7 @@
     <None Remove="*.verified.json" />
     <None Remove="*.received.json" />
     <ProjectReference Include="..\ExRam.Gremlinq.Providers.Tests\ExRam.Gremlinq.Providers.Tests.csproj" />
-    <ProjectReference Include="..\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
+    <ProjectReference Include="..\..\src\ExRam.Gremlinq.Providers.WebSocket\ExRam.Gremlinq.Providers.WebSocket.csproj" />
   </ItemGroup>
 
 </Project>
