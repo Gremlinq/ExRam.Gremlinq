@@ -1,0 +1,41 @@
+<Project>
+  <Import Project="..\Directory.Build.props" />
+  
+  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))" >
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
+    <PackageIcon>grey-icon.png</PackageIcon>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
+    <PackageIconUrl />
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('CosmosDb'))">blue-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>    
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
+    <None Include="..\..\assets\$(PackageIcon)">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))">
+    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
+  </ItemGroup>
+</Project>

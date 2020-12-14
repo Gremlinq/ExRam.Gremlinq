@@ -1,5 +1,4 @@
 <Project>
-
   <PropertyGroup>
     <PublicRelease>true</PublicRelease>
     <LangVersion>9.0</LangVersion>
@@ -9,52 +8,4 @@
     <Company>ExRam Innovations GmbH</Company>
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
   </PropertyGroup>
-
-  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples'))" >
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
-    <PackageIcon>grey-icon.png</PackageIcon>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <PackageTags>Gremlin;Tinkerpop;CosmosDB;JanusGraph;Neptune;Graph;GraphDB;</PackageTags>
-    <PackageIconUrl />
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('CosmosDb'))">blue-icon.png</PackageIcon>
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>    
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <ItemGroup     Condition="!$(MSBuildProjectName.EndsWith('Tests')) AND !$(MSBuildProjectName.EndsWith('Tests.Entities')) AND !$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
-    <None Include="..\..\assets\$(PackageIcon)">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(MSBuildProjectName.EndsWith('Tests'))" >
-    <Content Include="..\xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.0-preview-20201020-06" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageReference Include="FluentAssertions" Version="5.9.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="Verify.Xunit" Version="7.0.2" />
-    <PackageReference Include="XunitContext" Version="3.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))">
-    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
-  </ItemGroup>
 </Project>
