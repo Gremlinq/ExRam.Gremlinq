@@ -8,7 +8,7 @@
 
     public class Software : Vertex
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public ProgrammingLanguage Language { get; set; }
     }
 }

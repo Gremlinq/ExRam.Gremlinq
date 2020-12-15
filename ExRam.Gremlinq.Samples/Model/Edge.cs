@@ -4,7 +4,7 @@ namespace ExRam.Gremlinq.Samples
 {
     public class Edge : IEdge
     {
-        public object Id { get; set; }
-        public string Label { get; set; }
+        public object? Id { get; set; }
+        public string? Label { get; set; }
     }
 }

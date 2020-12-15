@@ -17,11 +17,11 @@ namespace ExRam.Gremlinq.Samples
 {
     public class Program
     {
-        private Person _marko;
-        private Person _josh;
-        private Person _peter;
-        private Person _daniel;
-        private Person _vadas;
+        private Person? _marko;
+        private Person? _josh;
+        private Person? _peter;
+        private Person? _daniel;
+        private Person? _vadas;
         private readonly IGremlinQuerySource _g;
 
         public Program()
@@ -156,66 +156,66 @@ namespace ExRam.Gremlinq.Samples
                 .FirstAsync();
 
             await _g
-                .V(_marko.Id)
+                .V(_marko.Id!)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(_vadas.Id))
+                    .V(_vadas.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_marko.Id)
+                .V(_marko.Id!)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(_josh.Id))
+                    .V(_josh.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_marko.Id)
+                .V(_marko.Id!)
                 .AddE<Created>()
                 .To(__ => __
-                    .V(lop.Id))
+                    .V(lop.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_josh.Id)
+                .V(_josh.Id!)
                 .AddE<Created>()
                 .To(__ => __
-                    .V(ripple.Id))
+                    .V(ripple.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_josh.Id)
+                .V(_josh.Id!)
                 .AddE<Created>()
                 .To(__ => __
-                    .V(lop.Id))
+                    .V(lop.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_peter.Id)
+                .V(_peter.Id!)
                 .AddE<Created>()
                 .To(__ => __
-                    .V(lop.Id))
+                    .V(lop.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_josh.Id)
+                .V(_josh.Id!)
                 .AddE<Owns>()
                 .To(__ => __
-                    .V(charlie.Id))
+                    .V(charlie.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_josh.Id)
+                .V(_josh.Id!)
                 .AddE<Owns>()
                 .To(__ => __
-                    .V(luna.Id))
+                    .V(luna.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_daniel.Id)
+                .V(_daniel.Id!)
                 .AddE<Owns>()
                 .To(__ => __
-                    .V(catmanJohn.Id))
+                    .V(catmanJohn.Id!))
                 .FirstAsync();
         }
 
@@ -237,12 +237,12 @@ namespace ExRam.Gremlinq.Samples
             // From Marko, walk all the 'Knows' edge to all the persons
             // that he knows and order them by their name.
             var knownPersonsToMarko = await _g
-                .V(_marko.Id)
+                .V(_marko!.Id!)
                 .Out<Knows>()
                 .OfType<Person>()
                 .Order(x => x
                     .By(x => x.Name))
-                .Values(x => x.Name)
+                .Values(x => x.Name!)
                 .ToArrayAsync();
 
             Console.WriteLine("Who does Marko know?");
@@ -258,24 +258,24 @@ namespace ExRam.Gremlinq.Samples
         private async Task Who_Is_Known_By_Both_Marko_And_Peter()
         {
             await _g
-                .V(_peter.Id)
+                .V(_peter!.Id!)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(_josh.Id))
+                    .V(_josh!.Id!))
                 .FirstAsync();
 
             await _g
-                .V(_peter.Id)
+                .V(_peter.Id!)
                 .AddE<Knows>()
                 .To(__ => __
-                    .V(_daniel.Id))
+                    .V(_daniel!.Id!))
                 .FirstAsync();
 
-            var whoIsKnownByBothMarkoAndPeter = await _g.V(_marko.Id)
+            var whoIsKnownByBothMarkoAndPeter = await _g.V(_marko!.Id!)
                 .Both<Knows>()
                 .OfType<Person>()
                 .Fold()
-                .As((__, markosFriends) => __.V(_peter.Id)
+                .As((__, markosFriends) => __.V(_peter.Id!)
                     .Both<Knows>()
                     .OfType<Person>()
                     .Where(petersFriend => markosFriends.Value.Contains(petersFriend)).Dedup());
@@ -284,7 +284,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var people in whoIsKnownByBothMarkoAndPeter)
             {
-                Console.WriteLine($" {people.Name.Value} is known by both Marko and Peter");
+                Console.WriteLine($" {people.Name?.Value} is known by both Marko and Peter");
             }
 
             Console.WriteLine();
@@ -311,7 +311,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var person in personsOlderThan30)
             {
-                Console.WriteLine($" {person.Name.Value} is older than 30.");
+                Console.WriteLine($" {person.Name!.Value} is older than 30.");
             }
 
             Console.WriteLine();
@@ -325,14 +325,14 @@ namespace ExRam.Gremlinq.Samples
 
             var nameStartsWithB = await _g
                 .V<Person>()
-                .Where(x => x.Name.Value.StartsWith("B"))
+                .Where(x => x.Name!.Value.StartsWith("B"))
                 .ToArrayAsync();
 
             Console.WriteLine("Whose name starts with 'B'?");
 
             foreach (var person in nameStartsWithB)
             {
-                Console.WriteLine($" {person.Name.Value}'s name starts with a 'B'.");
+                Console.WriteLine($" {person.Name?.Value}'s name starts with a 'B'.");
             }
 
             Console.WriteLine();
@@ -362,7 +362,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var (person1, person2) in friendTuples)
             {
-                Console.WriteLine($" {person1.Name.Value} knows {person2.Name.Value}.");
+                Console.WriteLine($" {person1.Name?.Value} knows {person2.Name?.Value}.");
             }
 
             Console.WriteLine();
@@ -386,7 +386,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var (person, does, what) in tuples)
             {
-                Console.WriteLine($" {person.Name.Value} {does.Label} a {what.Label}.");
+                Console.WriteLine($" {person.Name?.Value} {does.Label} a {what.Label}.");
             }
 
             Console.WriteLine();
@@ -404,7 +404,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var pet in pets)
             {
-                Console.WriteLine($" There's a {pet.GetType().Name} named {pet.Name.Value}.");
+                Console.WriteLine($" There's a {pet.GetType().Name} named {pet.Name?.Value}.");
             }
 
             Console.WriteLine();
@@ -422,7 +422,7 @@ namespace ExRam.Gremlinq.Samples
                 .V<Person>()
                 .Project(b => b
                     .ToDynamic()
-                    .By(person => person.Name)
+                    .By(person => person.Name!)
                     .By(
                         "count",
                         __ => __
@@ -451,12 +451,12 @@ namespace ExRam.Gremlinq.Samples
             var personWithThatPhoneNumber = await _g
                 .V<Person>()
                 .Where(person => person
-                    .PhoneNumbers
+                    .PhoneNumbers!
                     .Contains("+491234567"))
                 .FirstOrDefaultAsync();
 
             Console.WriteLine(personWithThatPhoneNumber != null
-                ? $" {personWithThatPhoneNumber.Name.Value} has a phone with the number +491234567"
+                ? $" {personWithThatPhoneNumber.Name?.Value} has a phone with the number +491234567"
                 : " Nobody got a phone with the phone number +491234567");
 
             Console.WriteLine();
@@ -472,12 +472,12 @@ namespace ExRam.Gremlinq.Samples
             var personsWithPhoneNumber = await _g
                 .V<Person>()
                 .Where(person => person
-                    .PhoneNumbers
+                    .PhoneNumbers!
                     .Any());
 
             foreach (var person in personsWithPhoneNumber)
             {
-                Console.WriteLine($" {person.Name.Value} has a phone!");
+                Console.WriteLine($" {person.Name?.Value} has a phone!");
             }
 
             Console.WriteLine();
@@ -521,7 +521,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach (var creator in creators)
             {
-                Console.WriteLine($" {creator.Name.Value} created some software.");
+                Console.WriteLine($" {creator.Name?.Value} created some software.");
             }
 
             Console.WriteLine();
@@ -550,7 +550,7 @@ namespace ExRam.Gremlinq.Samples
 
             foreach(var person in personsWithSpecificAges)
             {
-                Console.WriteLine($" {person.Name.Value}'s age is either 29, 30 or 31.");
+                Console.WriteLine($" {person.Name?.Value}'s age is either 29, 30 or 31.");
             }
 
             Console.WriteLine();
@@ -566,8 +566,8 @@ namespace ExRam.Gremlinq.Samples
             if (_g.Environment.FeatureSet.Supports(VertexFeatures.MetaProperties))
             {
                 await _g
-                    .V<Person>(_marko.Id)
-                    .Properties(x => x.Name)
+                    .V<Person>(_marko!.Id!)
+                    .Properties(x => x.Name!)
                     .Property(x => x.Creator, "Stephen")
                     .Property(x => x.Date, DateTimeOffset.Now)
                     .ToArrayAsync();
