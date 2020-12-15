@@ -25,7 +25,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
             _value = value;
         }
 
-        public static implicit operator Property<TValue>(TValue value) => new Property<TValue>(value);
+        public static implicit operator Property<TValue>(TValue value) => new(value);
         public static implicit operator Property<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator Property<TValue>(Property<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 

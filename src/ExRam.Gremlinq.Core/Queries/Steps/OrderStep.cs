@@ -43,8 +43,8 @@ namespace ExRam.Gremlinq.Core
             public Traversal Traversal { get; }
         }
 
-        public static readonly OrderStep Global = new OrderStep(Scope.Global);
-        public static readonly OrderStep Local = new OrderStep(Scope.Local);
+        public static readonly OrderStep Global = new(Scope.Global);
+        public static readonly OrderStep Local = new(Scope.Local);
 
         public OrderStep(Scope scope)
         {

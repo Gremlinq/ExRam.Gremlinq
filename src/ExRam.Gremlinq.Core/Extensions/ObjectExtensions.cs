@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
 {
     internal static class ObjectExtensions
     {
-        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>>();
+        private static readonly ConcurrentDictionary<Type, Func<object, IGremlinQueryEnvironment, SerializationBehaviour, IEnumerable<(Key key, object value)>>> SerializerDict = new();
 
         public static IEnumerable<(Key key, object value)> Serialize(
             this object? obj,

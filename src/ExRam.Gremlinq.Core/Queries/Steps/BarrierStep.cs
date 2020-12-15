@@ -2,6 +2,6 @@
 {
     public sealed class BarrierStep : Step
     {
-        public static readonly BarrierStep Instance = new BarrierStep();
+        public static readonly BarrierStep Instance = new();
     }
 }

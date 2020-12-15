@@ -13,7 +13,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
                 throw new InvalidOperationException($"Cannot assign a value of type {value.GetType().Name} to a property of type {nameof(VertexProperty<TValue, TMeta>)}.");
         }
 
-        public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new VertexProperty<TValue, TMeta>(value);
+        public static implicit operator VertexProperty<TValue, TMeta>(TValue value) => new(value);
         public static implicit operator VertexProperty<TValue, TMeta>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator VertexProperty<TValue, TMeta>(VertexProperty<TValue, TMeta>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 
@@ -46,7 +46,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
             Properties = new Dictionary<string, object>();
         }
 
-        public static implicit operator VertexProperty<TValue>(TValue value) => new VertexProperty<TValue>(value);
+        public static implicit operator VertexProperty<TValue>(TValue value) => new(value);
         public static implicit operator VertexProperty<TValue>(TValue[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
         public static implicit operator VertexProperty<TValue>(VertexProperty<TValue>[] value) => throw new NotSupportedException("This conversion is only intended to be used in expressions. It can't be executed reasonably.");
 

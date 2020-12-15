@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
     {
         internal sealed class InnerMemberInfoEqualityComparer : IEqualityComparer<MemberInfo>
         {
-            public static readonly InnerMemberInfoEqualityComparer Instance = new InnerMemberInfoEqualityComparer();
+            public static readonly InnerMemberInfoEqualityComparer Instance = new();
 
             public bool Equals(MemberInfo? x, MemberInfo? y)
             {
@@ -20,7 +20,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static readonly MemberInfoEqualityComparer Instance = new MemberInfoEqualityComparer();
+        public static readonly MemberInfoEqualityComparer Instance = new();
 
         private MemberInfoEqualityComparer()
         {

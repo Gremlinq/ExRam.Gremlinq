@@ -2,6 +2,6 @@
 {
     public sealed class KeyStep : Step
     {
-        public static readonly KeyStep Instance = new KeyStep();
+        public static readonly KeyStep Instance = new();
     }
 }

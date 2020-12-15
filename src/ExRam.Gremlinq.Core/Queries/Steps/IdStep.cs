@@ -2,6 +2,6 @@
 {
     public sealed class IdStep : Step
     {
-        public static readonly IdStep Instance = new IdStep();
+        public static readonly IdStep Instance = new();
     }
 }

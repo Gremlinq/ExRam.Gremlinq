@@ -167,7 +167,7 @@ namespace ExRam.Gremlinq.Core
 
             private sealed class KeyLookup
             {
-                private static readonly Dictionary<string, T> DefaultTs = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase)
+                private static readonly Dictionary<string, T> DefaultTs = new(StringComparer.OrdinalIgnoreCase)
                 {
                     { "id", T.Id },
                     { "label", T.Label }
@@ -175,7 +175,7 @@ namespace ExRam.Gremlinq.Core
 
                 private readonly HashSet<T> _configuredTs;
                 private readonly IGraphElementPropertyModel _model;
-                private readonly ConcurrentDictionary<MemberInfo, Key> _members = new ConcurrentDictionary<MemberInfo, Key>();
+                private readonly ConcurrentDictionary<MemberInfo, Key> _members = new();
 
                 public KeyLookup(IGraphElementPropertyModel model)
                 {
@@ -212,9 +212,9 @@ namespace ExRam.Gremlinq.Core
 
             private readonly KeyLookup _keyLookup;
             private readonly IGremlinQueryEnvironment _environment;
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
-            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>();
-            private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new ConcurrentDictionary<Type, (PropertyInfo, Key, SerializationBehaviour)[]>();
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _populatingSerializers = new();
+            private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer> _ignoringSerializers = new();
+            private readonly ConcurrentDictionary<Type, (PropertyInfo propertyInfo, Key key, SerializationBehaviour serializationBehaviour)[]> _typeProperties = new();
 
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _populatingSerializerFactory;
             private readonly ConditionalWeakTable<IGremlinQueryFragmentDeserializer, JsonSerializer>.CreateValueCallback _ignoringSerializerFactory;
@@ -296,7 +296,7 @@ namespace ExRam.Gremlinq.Core
             public IReadOnlyDictionary<string, Type[]> ModelTypes { get; }
         }
 
-        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache>();
+        private static readonly ConditionalWeakTable<IGremlinQueryEnvironment, IGremlinQueryEnvironmentCache> Caches = new();
 
         public static IGremlinQueryEnvironmentCache GetCache(this IGremlinQueryEnvironment environment)
         {

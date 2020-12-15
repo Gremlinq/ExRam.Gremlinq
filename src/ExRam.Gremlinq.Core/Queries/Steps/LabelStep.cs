@@ -2,6 +2,6 @@
 {
     public sealed class LabelStep : Step
     {
-        public static readonly LabelStep Instance = new LabelStep();
+        public static readonly LabelStep Instance = new();
     }
 }

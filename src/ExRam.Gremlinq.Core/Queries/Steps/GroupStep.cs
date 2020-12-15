@@ -27,6 +27,6 @@
             public Key Key { get; }
         }
 
-        public static readonly GroupStep Instance = new GroupStep();
+        public static readonly GroupStep Instance = new();
     }
 }

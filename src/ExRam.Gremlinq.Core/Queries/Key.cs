@@ -44,12 +44,12 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Key(T t)
         {
-            return new Key(t);
+            return new(t);
         }
 
         public static implicit operator Key(string name)
         {
-            return new Key(name);
+            return new(name);
         }
 
         public object RawKey

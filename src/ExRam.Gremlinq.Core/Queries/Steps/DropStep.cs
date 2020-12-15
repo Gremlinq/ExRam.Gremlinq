@@ -2,6 +2,6 @@
 {
     public sealed class DropStep : Step
     {
-        public static readonly DropStep Instance = new DropStep();
+        public static readonly DropStep Instance = new();
     }
 }

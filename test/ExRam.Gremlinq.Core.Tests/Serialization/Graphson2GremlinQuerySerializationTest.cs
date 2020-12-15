@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public sealed class Graphson2GremlinQuerySerializationTest : QuerySerializationTest
     {
-        private static readonly GraphSON2Writer Writer = new GraphSON2Writer();
+        private static readonly GraphSON2Writer Writer = new();
 
         public Graphson2GremlinQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             GremlinQuerySource.g.ConfigureEnvironment(_ => _

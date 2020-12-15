@@ -18,17 +18,17 @@ namespace ExRam.Gremlinq.Core
 
         public static implicit operator Traversal(Step[] steps)
         {
-            return new Traversal(steps);
+            return new(steps);
         }
 
         public static implicit operator Traversal(ImmutableArray<Step> steps)
         {
-            return new Traversal(steps);
+            return new(steps);
         }
 
         public static implicit operator Traversal(Step step)
         {
-            return new Traversal(ImmutableArray.Create(step));
+            return new(ImmutableArray.Create(step));
         }
     }
 }

@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class MaxStep : Step
     {
-        public static readonly MaxStep Local = new MaxStep(Scope.Local);
-        public static readonly MaxStep Global = new MaxStep(Scope.Global);
+        public static readonly MaxStep Local = new(Scope.Local);
+        public static readonly MaxStep Global = new(Scope.Global);
 
         public MaxStep(Scope scope)
         {

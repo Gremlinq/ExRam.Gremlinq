@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQueryFragmentSerializerImpl : IGremlinQueryFragmentSerializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
+            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
 
             public GremlinQueryFragmentSerializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {
@@ -126,7 +126,7 @@ namespace ExRam.Gremlinq.Core
         public static readonly IGremlinQueryFragmentSerializer Default = Identity.UseDefaultGremlinStepSerializationHandlers();
 
         private static readonly ImmutableArray<Step> IdentitySteps = ImmutableArray.Create((Step)IdentityStep.Instance);
-        private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new ConcurrentDictionary<string, Instruction>();
+        private static readonly ConcurrentDictionary<string, Instruction> SimpleInstructions = new();
 
         public static IGremlinQueryFragmentSerializer UseDefaultGremlinStepSerializationHandlers(this IGremlinQueryFragmentSerializer fragmentSerializer)
         {
@@ -456,14 +456,14 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam parameter)
         {
-            return new Instruction(
+            return new(
                 name,
                 recurse.Serialize(parameter, env));
         }
 
         private static Instruction CreateInstruction<TParam1, TParam2>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2)
         {
-            return new Instruction(
+            return new(
                 name,
                 recurse.Serialize(parameter1, env),
                 recurse.Serialize(parameter2, env));
@@ -471,7 +471,7 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction<TParam1, TParam2, TParam3>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, TParam1 parameter1, TParam2 parameter2, TParam3 parameter3)
         {
-            return new Instruction(
+            return new(
                 name,
                 recurse.Serialize(parameter1, env),
                 recurse.Serialize(parameter2, env),
@@ -510,7 +510,7 @@ namespace ExRam.Gremlinq.Core
 
         private static Instruction CreateInstruction<TParam>(string name, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env, IEnumerable<TParam> parameters)
         {
-            return new Instruction(
+            return new(
                 name,
                 parameters
                     .Select(x => recurse.Serialize(x, env))

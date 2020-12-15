@@ -7,7 +7,7 @@ namespace ExRam.Gremlinq.Core
 {
     public sealed class GroovyGremlinQuery
     {
-        private static readonly Regex BindingRegex = new Regex("_[a-z]+", RegexOptions.Compiled);
+        private static readonly Regex BindingRegex = new("_[a-z]+", RegexOptions.Compiled);
 
         private readonly bool _isInlined;
         private readonly bool _createdInternally;

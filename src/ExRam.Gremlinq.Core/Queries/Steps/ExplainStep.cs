@@ -2,6 +2,6 @@
 {
     public sealed class ExplainStep : Step
     {
-        public static readonly ExplainStep Instance = new ExplainStep();
+        public static readonly ExplainStep Instance = new();
     }
 }

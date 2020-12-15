@@ -11,8 +11,8 @@ namespace ExRam.Gremlinq.Core
         private sealed class GraphElementModelCacheImpl : IGraphElementModelCache
         {
             private readonly IGraphElementModel _model;
-            private readonly ConcurrentDictionary<Type, string> _dict = new ConcurrentDictionary<Type, string>();
-            private readonly ConcurrentDictionary<Type, ImmutableArray<string>> _derivedLabels = new ConcurrentDictionary<Type, ImmutableArray<string>>();
+            private readonly ConcurrentDictionary<Type, string> _dict = new();
+            private readonly ConcurrentDictionary<Type, ImmutableArray<string>> _derivedLabels = new();
 
             public GraphElementModelCacheImpl(IGraphElementModel model)
             {
@@ -49,7 +49,7 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        private static readonly ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache> Caches = new ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache>();
+        private static readonly ConditionalWeakTable<IGraphElementModel, IGraphElementModelCache> Caches = new();
 
         public static IGraphElementModelCache GetCache(this IGraphElementModel model)
         {

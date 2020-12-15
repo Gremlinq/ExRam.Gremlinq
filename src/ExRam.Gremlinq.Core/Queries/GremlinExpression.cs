@@ -4,8 +4,8 @@ namespace ExRam.Gremlinq.Core
 {
     internal readonly struct GremlinExpression : IEquatable<GremlinExpression>
     {
-        public static readonly GremlinExpression True = new GremlinExpression(ExpressionFragment.True, ExpressionSemantics.Equals, ExpressionFragment.True);
-        public static readonly GremlinExpression False = new GremlinExpression(ExpressionFragment.True, ExpressionSemantics.Equals, ExpressionFragment.False);
+        public static readonly GremlinExpression True = new(ExpressionFragment.True, ExpressionSemantics.Equals, ExpressionFragment.True);
+        public static readonly GremlinExpression False = new(ExpressionFragment.True, ExpressionSemantics.Equals, ExpressionFragment.False);
 
         public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {

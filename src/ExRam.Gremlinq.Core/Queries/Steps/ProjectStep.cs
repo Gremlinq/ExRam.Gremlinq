@@ -29,7 +29,7 @@ namespace ExRam.Gremlinq.Core
             public Key Key { get; }
         }
 
-        public static readonly ProjectStep Empty = new ProjectStep(ImmutableArray<string>.Empty);
+        public static readonly ProjectStep Empty = new(ImmutableArray<string>.Empty);
 
         public ProjectStep(ImmutableArray<string> projections)
         {

@@ -2,6 +2,6 @@
 {
     public sealed class ValueStep : Step
     {
-        public static readonly ValueStep Instance = new ValueStep();
+        public static readonly ValueStep Instance = new();
     }
 }

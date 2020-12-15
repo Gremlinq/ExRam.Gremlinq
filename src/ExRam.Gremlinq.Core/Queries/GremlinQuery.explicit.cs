@@ -220,7 +220,7 @@ namespace ExRam.Gremlinq.Core
 
         IValueGremlinQuery<TElement> IGremlinQueryBase<TElement>.ForceValue() => this;
 
-        GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new GremlinQueryAwaiter<TElement>((this).ToArrayAsync().AsTask().GetAwaiter());
+        GremlinQueryAwaiter<TElement> IGremlinQueryBase<TElement>.GetAwaiter() => new((this).ToArrayAsync().AsTask().GetAwaiter());
 
         IAsyncEnumerable<TElement> IGremlinQueryBase<TElement>.ToAsyncEnumerable()
         {

@@ -2,6 +2,6 @@
 {
     public sealed class InVStep : Step
     {
-        public static readonly InVStep Instance = new InVStep();
+        public static readonly InVStep Instance = new();
     }
 }

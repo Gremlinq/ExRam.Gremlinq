@@ -2,6 +2,6 @@
 {
     public sealed class OtherVStep : Step
     {
-        public static readonly OtherVStep Instance = new OtherVStep();
+        public static readonly OtherVStep Instance = new();
     }
 }

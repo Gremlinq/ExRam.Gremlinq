@@ -10,7 +10,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class GremlinQueryFragmentDeserializerImpl : IGremlinQueryFragmentDeserializer
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
+            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
 
             public GremlinQueryFragmentDeserializerImpl(IImmutableDictionary<Type, Delegate> dict)
             {

@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core.Tests
 {
     public static class GremlinQueryExtensions
     {
-        private static readonly VerifySettings Settings = new VerifySettings();
+        private static readonly VerifySettings Settings = new();
 
         static GremlinQueryExtensions()
         {

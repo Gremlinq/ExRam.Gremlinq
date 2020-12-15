@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core
         private sealed class AddStepHandlerImpl : IAddStepHandler
         {
             private readonly IImmutableDictionary<Type, Delegate> _dict;
-            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new ConcurrentDictionary<(Type staticType, Type actualType), Delegate?>();
+            private readonly ConcurrentDictionary<(Type staticType, Type actualType), Delegate?> _fastDict = new();
 
             public AddStepHandlerImpl(IImmutableDictionary<Type, Delegate> dict)
             {

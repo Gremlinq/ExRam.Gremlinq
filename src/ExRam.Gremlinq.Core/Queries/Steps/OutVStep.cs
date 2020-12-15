@@ -2,6 +2,6 @@
 {
     public sealed class OutVStep : Step
     {
-        public static readonly OutVStep Instance = new OutVStep();
+        public static readonly OutVStep Instance = new();
     }
 }

@@ -2,6 +2,6 @@
 {
     public sealed class EmitStep : Step
     {
-        public static readonly EmitStep Instance = new EmitStep();
+        public static readonly EmitStep Instance = new();
     }
 }
