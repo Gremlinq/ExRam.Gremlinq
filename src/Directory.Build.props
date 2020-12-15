@@ -1,7 +1,7 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
   
-  <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))" >
+  <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   
