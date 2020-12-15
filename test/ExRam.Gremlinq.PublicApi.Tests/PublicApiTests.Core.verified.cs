@@ -303,7 +303,7 @@ namespace ExRam.Gremlinq.Core
         public static TTargetQuery AddSteps<TTargetQuery>(this ExRam.Gremlinq.Core.IGremlinQueryAdmin admin, System.Collections.Generic.IEnumerable<ExRam.Gremlinq.Core.Step> steps)
             where TTargetQuery : ExRam.Gremlinq.Core.IGremlinQueryBase { }
     }
-    public readonly struct GremlinQueryAwaiter<TElement> : System.Runtime.CompilerServices.ICriticalNotifyCompletion, System.Runtime.CompilerServices.INotifyCompletion
+    public struct GremlinQueryAwaiter<TElement> : System.Runtime.CompilerServices.ICriticalNotifyCompletion, System.Runtime.CompilerServices.INotifyCompletion
     {
         public bool IsCompleted { get; }
         public TElement[] GetResult() { }

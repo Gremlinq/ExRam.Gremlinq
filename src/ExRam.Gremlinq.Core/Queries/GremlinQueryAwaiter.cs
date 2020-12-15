@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace ExRam.Gremlinq.Core
 {
-    public readonly struct GremlinQueryAwaiter<TElement> : ICriticalNotifyCompletion
+    public struct GremlinQueryAwaiter<TElement> : ICriticalNotifyCompletion
     {
-        private readonly TaskAwaiter<TElement[]> _valueTaskAwaiter;
+        private TaskAwaiter<TElement[]> _valueTaskAwaiter;
 
         internal GremlinQueryAwaiter(TaskAwaiter<TElement[]> valueTaskAwaiter)
         {
