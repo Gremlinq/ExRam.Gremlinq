@@ -26,8 +26,7 @@ namespace ExRam.Gremlinq.Core
 
         public IAssemblyLookupSet IncludeAssembliesFromStackTrace()
         {
-            return IncludeAssemblies(new StackTrace()
-                .GetFrames()
+            return IncludeAssemblies((new StackTrace().GetFrames() ?? Array.Empty<StackFrame>())
                 .Select(frame => frame.GetMethod()?.DeclaringType?.Assembly)
                 .Where(assembly => assembly != null)
                 .Select(assembly => assembly!));

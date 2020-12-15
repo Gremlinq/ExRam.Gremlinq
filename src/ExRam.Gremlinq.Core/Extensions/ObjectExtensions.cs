@@ -61,7 +61,7 @@ namespace ExRam.Gremlinq.Core
             var (propertyInfo, _, _) = environment.GetCache().GetSerializationData(element.GetType())
                 .FirstOrDefault(info => info.key.RawKey is T t && T.Id.Equals(t));
 
-            return propertyInfo is not null && propertyInfo.GetValue(element) is { } value
+            return propertyInfo?.GetValue(element) is { } value
                 ? value
                 : throw new InvalidOperationException($"Unable to determine Id for {element}");
         }

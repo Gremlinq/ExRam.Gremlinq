@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
 
         private static Exception Unwrap(Exception ex)
         {
-            return ex is ExpressionNotSupportedException exprEx && exprEx.Message == StandardMessage && exprEx.InnerException is { } innerException
+            return ex is ExpressionNotSupportedException {Message: StandardMessage, InnerException: { } innerException}
                 ? innerException
                 : ex;
         }

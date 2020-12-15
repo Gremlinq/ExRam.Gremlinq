@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
                         }
 
                         if (hasNext)
-                            yield return e.Current;
+                            yield return e.Current!;
                     }
 
                     if (!hasNext)

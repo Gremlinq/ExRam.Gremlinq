@@ -11,15 +11,16 @@ namespace ExRam.Gremlinq.Core
     internal static class ExpressionExtensions
     {
         // ReSharper disable ReturnValueOfPureMethodIsNotUsed
-        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!))?.GetGenericMethodDefinition()!;
-        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableAny = Get(() => Enumerable.Any<object>(default!)).GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableIntersect = Get(() => Enumerable.Intersect<object>(default!, default!)).GetGenericMethodDefinition()!;
 #pragma warning disable 8625
-        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default, default))?.GetGenericMethodDefinition()!;
+        private static readonly MethodInfo EnumerableContainsElement = Get(() => Enumerable.Contains<object>(default!, default)).GetGenericMethodDefinition()!;
 #pragma warning restore 8625
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
         private static readonly MethodInfo StringStartsWith = Get(() => string.Empty.StartsWith(string.Empty));
         private static readonly MethodInfo StringContains = Get(() => string.Empty.Contains(string.Empty));
         private static readonly MethodInfo StringEndsWith = Get(() => string.Empty.EndsWith(string.Empty));
+        // ReSharper disable once StringCompareToIsCultureSpecific
         private static readonly MethodInfo StringCompareTo = Get(() => string.Empty.CompareTo(string.Empty));
         // ReSharper restore ReturnValueOfPureMethodIsNotUsed
 
@@ -61,7 +62,7 @@ namespace ExRam.Gremlinq.Core
         {
             return expression switch
             {
-                ConstantExpression _ => true,
+                ConstantExpression => true,
                 MemberExpression memberExpression => (memberExpression.Expression?.CanGetValue()).GetValueOrDefault(),
                 LambdaExpression lambdaExpression => lambdaExpression.Parameters.Count == 0,
                 UnaryExpression unaryExpression when !typeof(StepLabel).IsAssignableFrom(unaryExpression.Operand.Type) => unaryExpression.NodeType == ExpressionType.Convert
@@ -76,7 +77,7 @@ namespace ExRam.Gremlinq.Core
             return expression switch
             {
                 ConstantExpression constantExpression => constantExpression.Value,
-                MemberExpression memberExpression when memberExpression.Member is FieldInfo fieldInfo && memberExpression.Expression is ConstantExpression constant => fieldInfo.GetValue(constant.Value),
+                MemberExpression {Member: FieldInfo fieldInfo, Expression: ConstantExpression constant} => fieldInfo.GetValue(constant.Value),
                 LambdaExpression lambdaExpression => lambdaExpression.Compile().DynamicInvoke(),
                 _ => Expression.Lambda<Func<object>>(expression.Type.IsClass ? expression : Expression.Convert(expression, typeof(object))).Compile()()
             };
@@ -132,7 +133,7 @@ namespace ExRam.Gremlinq.Core
 
                 switch (actualExpression)
                 {
-                    case ParameterExpression _:
+                    case ParameterExpression:
                     {
                         return true;
                     }

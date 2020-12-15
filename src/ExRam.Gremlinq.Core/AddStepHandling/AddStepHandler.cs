@@ -138,9 +138,6 @@ namespace ExRam.Gremlinq.Core
                 {
                     var newPredicate = step.Predicate;
 
-                    if (newPredicate == null)
-                        return steps;
-
                     newPredicate = hasStep.Predicate is { } otherPredicate
                         ? otherPredicate.And(newPredicate)
                         : newPredicate;

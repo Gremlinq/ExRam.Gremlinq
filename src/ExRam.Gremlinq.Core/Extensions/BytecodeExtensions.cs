@@ -37,7 +37,7 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
-                    case P p when p.Value is P p1:
+                    case P {Value: P p1} p:
                     {
                         Append(p1);
                         builder.Append($".{p.OperatorName}(");

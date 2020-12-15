@@ -16,14 +16,14 @@ namespace ExRam.Gremlinq.Core
 
             public TValue GetValue<TValue>(GremlinqOption<TValue> option)
             {
-                return (_dictionary != null && _dictionary.TryGetValue(option, out var value))
+                return (_dictionary.TryGetValue(option, out var value))
                     ? (TValue)value
                     : option.DefaultValue;
             }
 
             public bool Contains(IGremlinqOption option)
             {
-                return (_dictionary?.ContainsKey(option)).GetValueOrDefault();
+                return _dictionary.ContainsKey(option);
             }
 
             public IGremlinqOptions ConfigureValue<TValue>(GremlinqOption<TValue> option, Func<TValue, TValue> configuration)
