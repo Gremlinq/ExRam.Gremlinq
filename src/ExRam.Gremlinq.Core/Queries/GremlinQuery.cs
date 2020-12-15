@@ -395,7 +395,7 @@ namespace ExRam.Gremlinq.Core
             if (andTraversalTransformations.Length == 0)
                 return AddStep(AndStep.Infix);
 
-            var subQueries = new List<IGremlinQueryBase>();
+            List<IGremlinQueryBase>? subQueries = default;
 
             foreach (var transformation in andTraversalTransformations)
             {
@@ -408,17 +408,17 @@ namespace ExRam.Gremlinq.Core
                     (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
             }
 
-            var fusedTraversals = subQueries
+            var fusedTraversals = subQueries?
                 .Select(x => x.ToTraversal().RewriteForWhereContext())
                 .Fuse(
                     (p1, p2) => p1.And(p2))
                 .ToArray();
 
-            return fusedTraversals.Length switch
+            return fusedTraversals?.Length switch
             {
-                0 => this,
+                null or 0 => this,
                 1 => Where(fusedTraversals[0]),
-                _ => AddStep(new AndStep(fusedTraversals))
+                _ => AddStep(new AndStep(fusedTraversals!))
             };
         }
 
@@ -754,7 +754,7 @@ namespace ExRam.Gremlinq.Core
             if (orTraversals.Length == 0)
                 return AddStep(OrStep.Infix);
 
-            var subQueries = new List<IGremlinQueryBase>();
+            List<IGremlinQueryBase>? subQueries = default;
 
             foreach (var transformed in orTraversals)
             {
@@ -765,15 +765,15 @@ namespace ExRam.Gremlinq.Core
                     (subQueries ??= new List<IGremlinQueryBase>()).Add(transformed);
             }
 
-            var fusedTraversals = subQueries
+            var fusedTraversals = subQueries?
                 .Select(x => x.ToTraversal().RewriteForWhereContext())
                 .Fuse(
                     (p1, p2) => p1.Or(p2))
                 .ToArray();
 
-            return fusedTraversals.Length switch
+            return fusedTraversals?.Length switch
             {
-                0 => None(),
+                null or 0 => None(),
                 1 => Where(fusedTraversals[0]),
                 _ => AddStep(new OrStep(fusedTraversals))
             };
