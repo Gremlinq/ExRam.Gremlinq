@@ -1,5 +1,4 @@
-﻿
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
@@ -1596,5 +1595,3 @@ namespace ExRam.Gremlinq.Core
         IVertexPropertyGremlinQuery<TElement, TScalar, TMeta> IElementGremlinQueryBaseRec<TElement, IVertexPropertyGremlinQuery<TElement, TScalar, TMeta>>.Where<TProjection>(Expression<Func<TElement, TProjection>> projection, Func<IGremlinQueryBase<TProjection>, IGremlinQueryBase> propertyTraversal) => Where(projection, propertyTraversal);
    }
 }
-
-
