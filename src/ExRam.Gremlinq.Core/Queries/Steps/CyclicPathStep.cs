@@ -5,6 +5,11 @@
 
     }
 
+    public sealed class PathStep : Step
+    {
+
+    }
+
     public sealed class SimplePathStep : Step
     {
 

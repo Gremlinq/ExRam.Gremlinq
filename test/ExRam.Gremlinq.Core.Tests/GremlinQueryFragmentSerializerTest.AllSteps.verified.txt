@@ -824,6 +824,12 @@
     }
   },
   {
+    Item1: 'PathStep',
+    Item2: {
+      OperatorName: 'path'
+    }
+  },
+  {
     Item1: 'ProfileStep',
     Item2: {
       OperatorName: 'profile'

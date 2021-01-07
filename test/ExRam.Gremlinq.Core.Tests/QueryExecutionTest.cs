@@ -2346,6 +2346,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public async Task Path()
+        {
+            await _g
+                .V()
+                .Out()
+                .Out()
+                .Path()
+                .Verify(this);
+        }
+
+        [Fact]
         public async Task Project_to_property_with_builder()
         {
             await _g

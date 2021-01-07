@@ -21,7 +21,7 @@ namespace ExRam.Gremlinq.Providers.GremlinServer.Tests
                     .UseExecutor(GremlinQueryExecutor.Create((query, env) =>
                     {
                         var jArray = JsonConvert.DeserializeObject<JArray>(
-                            File.ReadAllText(Path.Combine(XUnitContext.SourceDirectory, "GremlinServerIntegrationTests." + XUnitContext.MethodName + ".verified.json")));
+                            File.ReadAllText(System.IO.Path.Combine(XUnitContext.SourceDirectory, "GremlinServerIntegrationTests." + XUnitContext.MethodName + ".verified.json")));
 
                         return jArray.Count == 1
                             ? new [] { jArray[0] }.ToAsyncEnumerable()

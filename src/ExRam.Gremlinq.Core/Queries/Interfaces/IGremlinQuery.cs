@@ -123,6 +123,8 @@ namespace ExRam.Gremlinq.Core
         TSelf Order(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
         TSelf OrderLocal(Func<IOrderBuilder<TSelf>, IOrderBuilderWithBy<TSelf>> projection);
 
+        TSelf Path();
+
         TSelf Range(long low, long high);
         TSelf RangeLocal(long low, long high);
 
