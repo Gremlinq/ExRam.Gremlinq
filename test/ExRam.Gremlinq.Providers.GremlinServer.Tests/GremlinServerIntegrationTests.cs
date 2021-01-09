@@ -1,4 +1,4 @@
-﻿#if RELEASE && NET5_0
+﻿#if RELEASE && NET5_0 && !SKIPINTEGRATIONTESTS
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
 using ExRam.Gremlinq.Providers.WebSocket;
