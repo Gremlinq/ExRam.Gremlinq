@@ -1,7 +1,7 @@
 [
   {
-    Role: 'Admin',
+    Role: Admin,
     Id: 23,
-    Label: 'WorksFor'
+    Label: WorksFor
   }
 ]

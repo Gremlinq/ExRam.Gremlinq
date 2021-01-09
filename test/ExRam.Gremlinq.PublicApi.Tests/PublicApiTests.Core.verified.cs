@@ -680,8 +680,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Profile();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TStepElement> Select<TStepElement>(ExRam.Gremlinq.Core.StepLabel<TStepElement> label);
         TQuery Select<TQuery, TElement>(ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> label)
-            where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
-        ;
+            where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase;
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.ValueTuple<T1, T2>> Select<T1, T2>(ExRam.Gremlinq.Core.StepLabel<T1> label1, ExRam.Gremlinq.Core.StepLabel<T2> label2);
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.ValueTuple<T1, T2, T3>> Select<T1, T2, T3>(ExRam.Gremlinq.Core.StepLabel<T1> label1, ExRam.Gremlinq.Core.StepLabel<T2> label2, ExRam.Gremlinq.Core.StepLabel<T3> label3);
         ExRam.Gremlinq.Core.IValueGremlinQuery<System.ValueTuple<T1, T2, T3, T4>> Select<T1, T2, T3, T4>(ExRam.Gremlinq.Core.StepLabel<T1> label1, ExRam.Gremlinq.Core.StepLabel<T2> label2, ExRam.Gremlinq.Core.StepLabel<T3> label3, ExRam.Gremlinq.Core.StepLabel<T4> label4);

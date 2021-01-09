@@ -1,5 +1,5 @@
 {
   Labels: [
-    'label'
+    label
   ]
 }

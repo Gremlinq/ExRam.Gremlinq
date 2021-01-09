@@ -1,19 +1,19 @@
 [
   {
     Age: 36,
-    Gender: 'Female',
+    Gender: Female,
     RegistrationDate: DateTimeOffset_1,
     PhoneNumbers: [
       {
         Id: 4,
-        Value: '+123456'
+        Value: +123456
       },
       {
         Id: 5,
-        Value: '+234567'
+        Value: +234567
       }
     ],
     Id: 13,
-    Label: 'Person'
+    Label: Person
   }
 ]

@@ -3,19 +3,19 @@
     {
       Labels: [
         [
-          'edge'
+          edge
         ]
       ],
       Objects: [
         {
-          IetfLanguageTag: 'de',
+          IetfLanguageTag: de,
           Id: 1,
-          Label: 'Language'
+          Label: Language
         },
         {
-          IetfLanguageTag: 'en',
+          IetfLanguageTag: en,
           Id: 2,
-          Label: 'Language'
+          Label: Language
         }
       ]
     }

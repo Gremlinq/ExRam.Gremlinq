@@ -3,27 +3,27 @@
     FoundingDate: DateTime_1,
     Name: {
       Id: Guid_1,
-      Value: 'Company!'
+      Value: Company!
     },
     Id: Guid_2,
-    Label: 'Company'
+    Label: Company
   },
   {
     FoundingDate: DateTime_1,
     Name: {
       Id: Guid_1,
-      Value: 'Company!'
+      Value: Company!
     },
     Id: Guid_2,
-    Label: 'Company'
+    Label: Company
   },
   {
     FoundingDate: DateTime_1,
     Name: {
       Id: Guid_1,
-      Value: 'Company!'
+      Value: Company!
     },
     Id: Guid_2,
-    Label: 'Company'
+    Label: Company
   }
 ]

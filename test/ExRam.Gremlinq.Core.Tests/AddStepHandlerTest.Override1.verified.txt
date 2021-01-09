@@ -1,8 +1,8 @@
 [
   {
     Labels: [
-      'label',
-      'added label'
+      label,
+      added label
     ]
   }
 ]

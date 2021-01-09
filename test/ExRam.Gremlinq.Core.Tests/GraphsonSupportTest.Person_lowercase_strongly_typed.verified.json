@@ -5,14 +5,14 @@
     PhoneNumbers: [
       {
         Id: 3,
-        Value: '+123456'
+        Value: +123456
       },
       {
         Id: 4,
-        Value: '+234567'
+        Value: +234567
       }
     ],
     Id: 14,
-    Label: 'Person'
+    Label: Person
   }
 ]

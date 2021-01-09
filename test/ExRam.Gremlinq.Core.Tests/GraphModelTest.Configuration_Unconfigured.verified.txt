@@ -1,5 +1,5 @@
 {
   Key: {
-    RawKey: 'Name'
+    RawKey: Name
   }
 }

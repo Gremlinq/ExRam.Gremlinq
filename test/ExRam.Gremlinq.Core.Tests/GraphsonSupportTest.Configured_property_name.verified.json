@@ -2,9 +2,9 @@
   {
     Name: {
       Id: 1,
-      Value: 'nameValue'
+      Value: nameValue
     },
     Id: 13,
-    Label: 'Person'
+    Label: Person
   }
 ]

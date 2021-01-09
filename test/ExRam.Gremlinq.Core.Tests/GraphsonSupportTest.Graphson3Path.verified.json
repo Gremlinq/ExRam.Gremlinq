@@ -10,11 +10,11 @@
         {
           Name: {
             Id: 0,
-            Label: 'name',
-            Value: 'marko'
+            Label: name,
+            Value: marko
           },
           Id: 1,
-          Label: 'person'
+          Label: person
         }
       ]
     }

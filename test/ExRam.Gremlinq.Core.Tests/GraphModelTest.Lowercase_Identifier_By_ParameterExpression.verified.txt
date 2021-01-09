@@ -1,5 +1,5 @@
 {
   Key: {
-    RawKey: 'registrationdate'
+    RawKey: registrationdate
   }
 }

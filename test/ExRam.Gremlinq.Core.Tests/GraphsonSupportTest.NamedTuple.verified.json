@@ -4,15 +4,15 @@
       Age: 36,
       Name: {
         Id: 1,
-        Value: 'Name of some base entity'
+        Value: Name of some base entity
       },
       Id: 16,
-      Label: 'Person'
+      Label: Person
     },
     Value: {
-      IetfLanguageTag: 'de',
+      IetfLanguageTag: de,
       Id: 17,
-      Label: 'Language'
+      Label: Language
     }
   }
 ]

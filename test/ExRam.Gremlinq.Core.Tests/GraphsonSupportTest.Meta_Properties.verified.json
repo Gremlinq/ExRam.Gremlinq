@@ -3,12 +3,12 @@
     Name: {
       Id: 1,
       Properties: {
-        de: 'Deutschland',
-        en: 'Germany'
+        de: Deutschland,
+        en: Germany
       },
-      Value: 'GER'
+      Value: GER
     },
     Id: 3,
-    Label: 'Country'
+    Label: Country
   }
 ]

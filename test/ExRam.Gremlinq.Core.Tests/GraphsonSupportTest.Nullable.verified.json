@@ -1,6 +1,6 @@
 [
   {
-    Item3: 'someString',
-    Item4: 'someString'
+    Item3: someString,
+    Item4: someString
   }
 ]

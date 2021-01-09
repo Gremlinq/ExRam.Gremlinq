@@ -1,10 +1,10 @@
 [
   {
     Id: 166,
-    Label: 'Name',
+    Label: Name,
     Properties: {
       ValidFrom: DateTimeOffset_1
     },
-    Value: 'bob'
+    Value: bob
   }
 ]

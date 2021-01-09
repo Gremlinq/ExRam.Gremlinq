@@ -1,8 +1,8 @@
 [
   {
     Ids: [
-      'id',
-      'another id'
+      id,
+      another id
     ]
   }
 ]

@@ -3,6 +3,6 @@
     Age: 36,
     RegistrationDate: DateTimeOffset_1,
     Id: 15,
-    Label: 'Person'
+    Label: Person
   }
 ]
