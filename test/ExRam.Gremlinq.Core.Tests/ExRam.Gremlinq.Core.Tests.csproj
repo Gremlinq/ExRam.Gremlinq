@@ -35,6 +35,8 @@
     <EmbeddedResource Include="Json\Graphson3ReferenceVertex.json" />
     <EmbeddedResource Include="Json\Graphson3_Tuple_of_Person_Language.json" />
     <EmbeddedResource Include="Json\Nested_array_of_Languages.json" />
+    <EmbeddedResource Include="Json\Graphson2_Paths.json" />
+    <EmbeddedResource Include="Json\Graphson3_Paths.json" />
     <EmbeddedResource Include="Json\Properties.json" />
     <EmbeddedResource Include="Json\Single_Person_with_null.json" />
     <EmbeddedResource Include="Json\Traverser.json" />

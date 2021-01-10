@@ -676,6 +676,7 @@ namespace ExRam.Gremlinq.Core
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Explain();
         System.Runtime.CompilerServices.TaskAwaiter GetAwaiter();
         ExRam.Gremlinq.Core.IGremlinQuery<object> Lower();
+        ExRam.Gremlinq.Core.IValueGremlinQuery<ExRam.Gremlinq.Core.GraphElements.Path> Path();
         ExRam.Gremlinq.Core.IValueGremlinQuery<string> Profile();
         ExRam.Gremlinq.Core.IValueGremlinQuery<TStepElement> Select<TStepElement>(ExRam.Gremlinq.Core.StepLabel<TStepElement> label);
         TQuery Select<TQuery, TElement>(ExRam.Gremlinq.Core.StepLabel<TQuery, TElement> label)
@@ -1447,6 +1448,11 @@ namespace ExRam.Gremlinq.Core
         public static readonly ExRam.Gremlinq.Core.OutVStep Instance;
         public OutVStep() { }
     }
+    public sealed class PathStep : ExRam.Gremlinq.Core.Step
+    {
+        public static readonly ExRam.Gremlinq.Core.PathStep Instance;
+        public PathStep() { }
+    }
     public sealed class ProfileStep : ExRam.Gremlinq.Core.Step
     {
         public static readonly ExRam.Gremlinq.Core.ProfileStep Instance;
@@ -1752,6 +1758,12 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public interface IVertexProperty : ExRam.Gremlinq.Core.GraphElements.IElement, ExRam.Gremlinq.Core.GraphElements.IProperty
     {
         System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<string, object>> GetProperties(ExRam.Gremlinq.Core.IGremlinQueryEnvironment environment);
+    }
+    public sealed class Path
+    {
+        public Path() { }
+        public System.String[][]? Labels { get; set; }
+        public object[]? Objects { get; set; }
     }
     public abstract class Property : ExRam.Gremlinq.Core.GraphElements.IProperty
     {

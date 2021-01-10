@@ -233,6 +233,8 @@ namespace ExRam.Gremlinq.Core
                     .Deserialize<TElement>(executionResult, Environment));
         }
 
+        IValueGremlinQuery<Path> IGremlinQueryBase.Path() => AddStepWithObjectTypes<Path>(PathStep.Instance, QuerySemantics.None);
+
         IValueGremlinQuery<string> IGremlinQueryBase.Profile() => AddStepWithObjectTypes<string>(ProfileStep.Instance, QuerySemantics.None);
 
         TQuery IGremlinQueryBase.Select<TQuery, TStepElement>(StepLabel<TQuery, TStepElement> label) => Select(label).ChangeQueryType<TQuery>();

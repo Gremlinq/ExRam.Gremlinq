@@ -1,0 +1,50 @@
+[
+  {
+    "Labels": [
+      [],
+      [],
+      []
+    ],
+    "Objects": [
+      {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": 1,
+        "Label": "person"
+      },
+      {
+        "id": 10,
+        "label": "software",
+        "properties": {
+          "name": [
+            {
+              "id": 4,
+              "value": "gremlin",
+              "vertex": 10,
+              "label": "name"
+            }
+          ]
+        }
+      },
+      {
+        "id": 11,
+        "label": "software",
+        "properties": {
+          "name": [
+            {
+              "id": 5,
+              "value": "tinkergraph",
+              "vertex": 11,
+              "label": "name"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

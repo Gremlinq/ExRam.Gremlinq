@@ -29,6 +29,8 @@ namespace ExRam.Gremlinq.Providers.Tests
 
         private static readonly string SinglePersonJson;
         private static readonly string ArrayOfLanguages;
+        private static readonly string Graphson2Paths;
+        private static readonly string Graphson3Paths;
         private static readonly string SingleCompanyJson;
         private static readonly string SinglePersonStringId;
         private static readonly string SingleLanguageJson;
@@ -60,6 +62,8 @@ namespace ExRam.Gremlinq.Providers.Tests
             TupleOfPersonLanguageJson = GetJson("Tuple_of_Person_Language");
             NamedTupleOfPersonLanguageJson = GetJson("Named_tuple_of_Person_Language");
             ArrayOfLanguages = GetJson("Array_of_Languages");
+            Graphson2Paths = GetJson("Graphson2_Paths");
+            Graphson3Paths = GetJson("Graphson3_Paths");
             NestedArrayOfLanguagesJson = GetJson("Nested_array_of_Languages");
             SingleTimeFrameJson = GetJson("Single_TimeFrame");
             SingleTimeFrameWithNumbersJson = GetJson("Single_TimeFrame_with_numbers");
@@ -420,6 +424,26 @@ namespace ExRam.Gremlinq.Providers.Tests
                 .V<Person>()
                 .Fold()
                 .Fold()
+                .ToArrayAsync());
+        }
+
+        [Fact]
+        public async Task Graphson2Path()
+        {
+            await Verify(await _g
+                .WithExecutor(Graphson2Paths)
+                .V<Language>()
+                .Cast<Core.GraphElements.Path[]>()
+                .ToArrayAsync());
+        }
+
+        [Fact]
+        public async Task Graphson3Path()
+        {
+            await Verify(await _g
+                .WithExecutor(Graphson3Paths)
+                .V<Person>()
+                .Cast<Core.GraphElements.Path[]>()
                 .ToArrayAsync());
         }
 

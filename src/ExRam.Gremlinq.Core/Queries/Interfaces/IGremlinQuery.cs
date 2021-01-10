@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using ExRam.Gremlinq.Core.GraphElements;
 using Gremlin.Net.Process.Traversal;
 using Newtonsoft.Json;
 
@@ -24,6 +25,8 @@ namespace ExRam.Gremlinq.Core
         IValueGremlinQuery<string> Explain();
 
         IGremlinQuery<object> Lower();
+
+        IValueGremlinQuery<Path> Path();
 
         IValueGremlinQuery<string> Profile();
 

@@ -332,6 +332,7 @@ namespace ExRam.Gremlinq.Core
                             ? recurse.Serialize(other, env) as P
                             : null);
                 })
+                .Override<PathStep>((step, env, overridden, recurse) => CreateInstruction("path"))
                 .Override<ProfileStep>((step, env, overridden, recurse) => CreateInstruction("profile"))
                 .Override<PropertiesStep>((step, env, overridden, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
                 .Override<PropertyStep>((step, env, overridden, recurse) =>

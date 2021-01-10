@@ -645,6 +645,10 @@
     Item2: {}
   },
   {
+    Item1: 'PathStep',
+    Item2: {}
+  },
+  {
     Item1: 'ProfileStep',
     Item2: {}
   },
