@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
     public sealed class Path
     {
-        public string[][]? Labels { get; set; }
-        public object[]? Objects { get; set; }
+        public string[][] Labels { get; set; } = Array.Empty<string[]>();
+        public object[] Objects { get; set; } = Array.Empty<object>();
     }
 }

@@ -1761,8 +1761,8 @@ namespace ExRam.Gremlinq.Core.GraphElements
     public sealed class Path
     {
         public Path() { }
-        public System.String[][]? Labels { get; set; }
-        public object[]? Objects { get; set; }
+        public string[][] Labels { get; set; }
+        public object[] Objects { get; set; }
     }
     public abstract class Property : ExRam.Gremlinq.Core.GraphElements.IProperty
     {
