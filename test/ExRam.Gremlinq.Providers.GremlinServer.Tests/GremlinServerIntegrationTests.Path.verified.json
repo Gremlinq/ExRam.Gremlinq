@@ -1,70 +1,139 @@
 [
-	{
-	  "@type" : "g:Path",
-	  "@value" : {
-		"labels" : [ [ ], [ ], [ ] ],
-		"objects" : [ {
-		  "@type" : "g:Vertex",
-		  "@value" : {
-			"id" : {
-			  "@type" : "g:Int32",
-			  "@value" : 1
-			},
-			"label" : "person"
-		  }
-		}, {
-		  "@type" : "g:Vertex",
-		  "@value" : {
-			"id" : {
-			  "@type" : "g:Int32",
-			  "@value" : 10
-			},
-			"label" : "software",
-			"properties" : {
-			  "name" : [ {
-				"@type" : "g:VertexProperty",
-				"@value" : {
-				  "id" : {
-					"@type" : "g:Int64",
-					"@value" : 4
-				  },
-				  "value" : "gremlin",
-				  "vertex" : {
-					"@type" : "g:Int32",
-					"@value" : 10
-				  },
-				  "label" : "name"
-				}
-			  } ]
-			}
-		  }
-		}, {
-		  "@type" : "g:Vertex",
-		  "@value" : {
-			"id" : {
-			  "@type" : "g:Int32",
-			  "@value" : 11
-			},
-			"label" : "software",
-			"properties" : {
-			  "name" : [ {
-				"@type" : "g:VertexProperty",
-				"@value" : {
-				  "id" : {
-					"@type" : "g:Int64",
-					"@value" : 5
-				  },
-				  "value" : "tinkergraph",
-				  "vertex" : {
-					"@type" : "g:Int32",
-					"@value" : 11
-				  },
-				  "label" : "name"
-				}
-			  } ]
-			}
-		  }
-		} ]
-	  }
-	}
+  {
+    "@type": "g:List",
+    "@value": [
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Path",
+            "@value": {
+              "labels": {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  },
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  },
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  }
+                ]
+              },
+              "objects": {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 43
+                      },
+                      "label": "Person"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 0
+                      },
+                      "label": "Country"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 11
+                      },
+                      "label": "Person"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Path",
+            "@value": {
+              "labels": {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  },
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  },
+                  {
+                    "@type": "g:Set",
+                    "@value": []
+                  }
+                ]
+              },
+              "objects": {
+                "@type": "g:List",
+                "@value": [
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 43
+                      },
+                      "label": "Person"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 0
+                      },
+                      "label": "Country"
+                    }
+                  },
+                  {
+                    "@type": "g:Vertex",
+                    "@value": {
+                      "id": {
+                        "@type": "g:Int64",
+                        "@value": 2
+                      },
+                      "label": "Language"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
 ]

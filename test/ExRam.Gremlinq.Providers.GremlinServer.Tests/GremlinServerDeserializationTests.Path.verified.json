@@ -14,36 +14,60 @@
         "PhoneNumbers": [],
         "SomeObscureProperty": null,
         "Name": null,
-        "Id": 1,
-        "Label": "person"
+        "Id": 43,
+        "Label": "Person"
       },
       {
-        "id": 10,
-        "label": "software",
-        "properties": {
-          "name": [
-            {
-              "id": 4,
-              "value": "gremlin",
-              "vertex": 10,
-              "label": "name"
-            }
-          ]
-        }
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": 0,
+        "Label": "Country"
       },
       {
-        "id": 11,
-        "label": "software",
-        "properties": {
-          "name": [
-            {
-              "id": 5,
-              "value": "tinkergraph",
-              "vertex": 11,
-              "label": "name"
-            }
-          ]
-        }
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": 11,
+        "Label": "Person"
+      }
+    ]
+  },
+  {
+    "Labels": [
+      [],
+      [],
+      []
+    ],
+    "Objects": [
+      {
+        "Age": 0,
+        "Gender": 0,
+        "Image": "",
+        "RegistrationDate": null,
+        "PhoneNumbers": [],
+        "SomeObscureProperty": null,
+        "Name": null,
+        "Id": 43,
+        "Label": "Person"
+      },
+      {
+        "Name": null,
+        "Languages": [],
+        "CountryCallingCode": null,
+        "LocalizableDescription": null,
+        "Id": 0,
+        "Label": "Country"
+      },
+      {
+        "IetfLanguageTag": null,
+        "Id": 2,
+        "Label": "Language"
       }
     ]
   }
