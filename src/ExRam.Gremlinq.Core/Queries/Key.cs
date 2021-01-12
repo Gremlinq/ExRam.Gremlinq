@@ -57,7 +57,7 @@ namespace ExRam.Gremlinq.Core
             get
             {
                 if (_key == null)
-                    throw new InvalidOperationException($"Cannot access the {nameof(RawKey)} property on an unititalized {nameof(Key)}.");
+                    throw new InvalidOperationException($"Cannot access the {nameof(RawKey)} property on an uninitialized {nameof(Key)}.");
 
                 return _key;
             }
