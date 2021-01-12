@@ -1559,11 +1559,11 @@ namespace ExRam.Gremlinq.Core
     {
         public StepLabel() { }
         public TElement Value { get; }
-        public static TElement op_Implicit(ExRam.Gremlinq.Core.StepLabel<TElement> stepLabel) { }
-        public static bool operator !=(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
-        public static bool operator !=(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
-        public static bool operator ==(ExRam.Gremlinq.Core.StepLabel<TElement> b, TElement a) { }
-        public static bool operator ==(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement> b) { }
+        public static TElement op_Implicit(ExRam.Gremlinq.Core.StepLabel<TElement>? stepLabel) { }
+        public static bool operator !=(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement a) { }
+        public static bool operator !=(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement>? b) { }
+        public static bool operator ==(ExRam.Gremlinq.Core.StepLabel<TElement>? b, TElement a) { }
+        public static bool operator ==(TElement a, ExRam.Gremlinq.Core.StepLabel<TElement>? b) { }
     }
     public class StepLabel<TQuery, TElement> : ExRam.Gremlinq.Core.StepLabel<TElement>
         where TQuery : ExRam.Gremlinq.Core.IGremlinQueryBase
