@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ExRam.Gremlinq.Core.GraphElements
 {
@@ -24,10 +23,14 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         protected virtual IEnumerable<KeyValuePair<string, object>> GetProperties(IGremlinQueryEnvironment environment)
         {
-            return Properties?
-                .Serialize(environment, SerializationBehaviour.Default)
-                .Where(x => x.key.RawKey is string)
-                .Select(x => new KeyValuePair<string, object>((string)x.key.RawKey, x.value)) ?? Enumerable.Empty<KeyValuePair<string, object>>();
+            if (Properties is { } properties)
+            {
+                foreach (var (key, value) in properties.Serialize(environment, SerializationBehaviour.Default))
+                {
+                    if (key.RawKey is string str)
+                        yield return new KeyValuePair<string, object>(str, value);
+                }
+            }
         }
 
         IEnumerable<KeyValuePair<string, object>> IVertexProperty.GetProperties(IGremlinQueryEnvironment environment) => GetProperties(environment);
