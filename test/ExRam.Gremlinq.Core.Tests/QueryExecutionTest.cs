@@ -2735,7 +2735,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .V<Company>()
                     .Properties(x => x.Locations!)
                     .Properties()
-                    .Where(x => x.Key! == stepLabel))
+                    .Where(x => x.Key == stepLabel))
                 .Verify(this);
         }
 
@@ -2914,7 +2914,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Country>()
                     .Properties(x => x.Languages!)
-                    .Where(x => x.Label! == l))
+                    .Where(x => x.Label == l))
                 .Verify(this);
         }
 

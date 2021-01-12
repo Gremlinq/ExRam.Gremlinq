@@ -107,18 +107,12 @@ namespace ExRam.Gremlinq.Core
             return environment
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer =>  fragmentSerializer
-                        .Override<TimeSpan>((t, env, overridden, recurse) =>
-                        {
-                            return recurse.Serialize(t.TotalMilliseconds, env);
-                        })))
+                        .Override<TimeSpan>((t, env, overridden, recurse) => recurse.Serialize(t.TotalMilliseconds, env))))
                 .ConfigureDeserializer(deserializer => deserializer
                     .ConfigureFragmentDeserializer(fragmentDeserializer => fragmentDeserializer
-                        .Override<JValue>((jValue, type, env, overridden, recurse) =>
-                        {
-                            return type == typeof(TimeSpan)
-                                ? TimeSpan.FromMilliseconds(jValue.Value<double>())
-                                : overridden(jValue, type, env, recurse);
-                        })));
+                        .Override<JValue>((jValue, type, env, overridden, recurse) => type == typeof(TimeSpan)
+                            ? TimeSpan.FromMilliseconds(jValue.Value<double>())
+                            : overridden(jValue, type, env, recurse))));
         }
     }
 }
