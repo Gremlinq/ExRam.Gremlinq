@@ -31,7 +31,7 @@ namespace ExRam.Gremlinq.Core
                     _dict.SetItem(
                         typeof(TStep),
                         TryGetAddHandler(typeof(TStep), typeof(TStep)) is Func<IImmutableStack<Step>, TStep, IGremlinQueryEnvironment, IAddStepHandler, IImmutableStack<Step>> existingAddHandler
-                            ? (steps, step, env, baseHandler, recurse) => addStepHandler(steps, step, env, existingAddHandler, recurse)
+                            ? (steps, step, env, _, recurse) => addStepHandler(steps, step, env, existingAddHandler, recurse)
                             : addStepHandler));
             }
 

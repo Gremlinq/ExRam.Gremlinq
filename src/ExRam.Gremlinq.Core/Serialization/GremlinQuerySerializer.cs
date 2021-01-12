@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
                 _originalfragmentSerializer = fragmentSerializer;
 
                 _fragmentSerializer = fragmentSerializer
-                    .Override<StepLabel>((stepLabel, env, @base, recurse) =>
+                    .Override<StepLabel>((stepLabel, env, _, recurse) =>
                     {
                         if (!_stepLabelNames!.TryGetValue(stepLabel, out var stepLabelMapping))
                         {

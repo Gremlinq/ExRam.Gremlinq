@@ -65,12 +65,12 @@ namespace ExRam.Gremlinq.Core
 
         public static IGraphElementModel UseCamelCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToCamelCase());
+            return model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToCamelCase());
         }
 
         public static IGraphElementModel UseLowerCaseLabels(this IGraphElementModel model)
         {
-            return model.ConfigureLabels((type, proposedLabel) => proposedLabel.ToLower());
+            return model.ConfigureLabels((_, proposedLabel) => proposedLabel.ToLower());
         }
 
         internal static ImmutableArray<string> GetFilterLabelsOrDefault(this IGraphElementModel model, Type type, FilterLabelsVerbosity verbosity)

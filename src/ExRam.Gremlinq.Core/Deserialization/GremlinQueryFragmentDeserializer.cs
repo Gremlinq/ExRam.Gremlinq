@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
                     _dict.SetItem(
                         typeof(TSerialized),
                         TryGetDeserializer(typeof(TSerialized), typeof(TSerialized)) is Func<TSerialized, Type, IGremlinQueryEnvironment, IGremlinQueryFragmentDeserializer, object?> existingFragmentDeserializer
-                            ? (fragment, type, env, baseSerializer, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
+                            ? (fragment, type, env, _, recurse) => deserializer(fragment, type, env, existingFragmentDeserializer, recurse)
                             : deserializer));
             }
 

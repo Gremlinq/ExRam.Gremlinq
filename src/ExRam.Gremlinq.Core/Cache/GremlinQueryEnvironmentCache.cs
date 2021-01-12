@@ -246,7 +246,7 @@ namespace ExRam.Gremlinq.Core
                         StringComparer.OrdinalIgnoreCase);
 
                 FastNativeTypes = environment.Model.NativeTypes
-                    .ToDictionary(x => x, x => default(object?));
+                    .ToDictionary(x => x, _ => default(object?));
 
                 _keyLookup = new KeyLookup(_environment.Model.PropertiesModel);
             }

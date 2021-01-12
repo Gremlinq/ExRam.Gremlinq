@@ -21,14 +21,14 @@ namespace ExRam.Gremlinq.Core
         
         public static IImmutableDictionary<MemberInfo, MemberMetadata> UseCamelCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
-            return names.ConfigureNames((member, key) => key.RawKey is string name
+            return names.ConfigureNames((_, key) => key.RawKey is string name
                 ? name.ToCamelCase()
                 : key);
         }
 
         public static IImmutableDictionary<MemberInfo, MemberMetadata> UseLowerCaseNames(this IImmutableDictionary<MemberInfo, MemberMetadata> names)
         {
-            return names.ConfigureNames((member, key) => key.RawKey is string name
+            return names.ConfigureNames((_, key) => key.RawKey is string name
                 ? name.ToLower()
                 : key);
         }
