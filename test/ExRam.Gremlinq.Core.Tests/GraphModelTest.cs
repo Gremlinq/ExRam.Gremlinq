@@ -136,7 +136,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .UseCamelCaseNames()))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
 
         [Fact]
@@ -150,7 +150,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .UseLowerCaseNames()))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!));
         }
 
         [Fact]
@@ -171,7 +171,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
         [Fact]
@@ -191,7 +191,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
         [Fact]
@@ -214,7 +214,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
         [Fact]
@@ -237,7 +237,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!)));
         }
 
         [Fact]
@@ -251,7 +251,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
         [Fact]
@@ -265,7 +265,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Authority).GetProperty(nameof(Authority.Name))));
+                .GetValueOrDefault(typeof(Authority).GetProperty(nameof(Authority.Name))!));
         }
 
         [Fact]
@@ -279,7 +279,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreOnUpdate(p => p.Name)))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
         [Fact]
@@ -310,7 +310,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreAlways(p => p.Name)))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
         [Fact]
@@ -324,7 +324,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .IgnoreAlways(p => p.Id)))
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Id))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Id))!));
         }
 
         [Fact]
@@ -335,7 +335,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .IncludeAssembliesOfBaseTypes())
                 .PropertiesModel
                 .MemberMetadata
-                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))));
+                .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!));
         }
 
         [Fact]
@@ -360,11 +360,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!)));
         }
 
         [Fact]
@@ -389,11 +389,11 @@ namespace ExRam.Gremlinq.Core.Tests
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))),
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.RegistrationDate))!),
                 model
                     .PropertiesModel
                     .MemberMetadata
-                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name)))));
+                    .GetValueOrDefault(typeof(Person).GetProperty(nameof(Person.Name))!)));
         }
     }
 }

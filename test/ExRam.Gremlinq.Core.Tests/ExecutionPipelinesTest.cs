@@ -14,7 +14,7 @@ namespace ExRam.Gremlinq.Core.Tests
     {
         private interface IFancyId
         {
-            string Id { get; set; }
+            string? Id { get; set; }
         }
 
         private class FancyId : IFancyId

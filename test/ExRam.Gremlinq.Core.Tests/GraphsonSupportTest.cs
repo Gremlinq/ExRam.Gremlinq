@@ -587,7 +587,7 @@ namespace ExRam.Gremlinq.Providers.Tests
 
         private static string GetJson(string name)
         {
-            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")).ReadToEnd();
+            return new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExRam.Gremlinq.Core.Tests.Json.{name}.json")!).ReadToEnd();
         }
 
         private Task Verify<TElement>(TElement element)

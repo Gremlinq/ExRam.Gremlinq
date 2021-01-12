@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -320,7 +321,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     Id = 500,
                     Name = new VertexProperty<string>("GER")
                     {
-                        Properties =
+                        Properties = new Dictionary<string, object>
                         {
                             { "de", "Deutschland" },
                             { "en", "Germany" }
@@ -342,12 +343,12 @@ namespace ExRam.Gremlinq.Core.Tests
         public void VertexProperty_throws_on_null_value()
         {
             default(int)
-                .Invoking(_ => new VertexProperty<string>(null))
+                .Invoking(_ => new VertexProperty<string>(null!))
                 .Should()
                 .Throw<ArgumentNullException>();
 
             new VertexProperty<string>("")
-                .Invoking(_ => _.Value = null)
+                .Invoking(_ => _.Value = null!)
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -964,7 +965,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .E<LivesIn>()
-                .Properties(x => x.Since)
+                .Properties(x => x.Since!)
                 .Verify(this);
         }
 
@@ -2856,7 +2857,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Properties()
 #pragma warning disable 252,253
-                .Where(x => x.Properties["MetaKey"] == "MetaValue")
+                .Where(x => x.Properties!["MetaKey"] == "MetaValue")
 #pragma warning restore 252,253
                 .Verify(this);
         }
@@ -2867,7 +2868,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Properties()
-                .Where(x => (int)x.Properties["MetaKey"] < 100)
+                .Where(x => (int)x.Properties!["MetaKey"] < 100)
                 .Verify(this);
         }
 
@@ -2913,7 +2914,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .As((__, l) => __
                     .V<Country>()
                     .Properties(x => x.Languages!)
-                    .Where(x => x.Label == l))
+                    .Where(x => x.Label! == l))
                 .Verify(this);
         }
 
@@ -2933,7 +2934,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Company>()
                 .Properties(x => x.Locations!)
-                .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties.ValidFrom)
+                .Where(x => new DateTimeOffset(2019, 01, 01, 01, 00, 00, TimeSpan.Zero) == x.Properties!.ValidFrom)
                 .Verify(this);
         }
 
@@ -3738,7 +3739,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .E<LivesIn>()
-                .Values(x => x.Since)
+                .Values(x => x.Since!)
                 .Verify(this);
         }
 
@@ -3806,7 +3807,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
+                .Where(t => !new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -3815,7 +3816,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
+                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4107,7 +4108,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Where(__ => __
                     .Out<WorksFor>()
                     .OfType<Company>()
-                    .Values(x => x.Name.Value)
+                    .Values(x => x.Name!.Value)
                     .Where(x => x == "MyCompany"))
                 .Verify(this);
         }
@@ -4118,8 +4119,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x == null))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == null!))
                 .Verify(this);
         }
 
@@ -4129,7 +4130,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
+                    .Values(x => x.Name!.Value)
                     .Where(__ => __
                         .Where(x => x == null)))
                 .Verify(this);
@@ -4143,8 +4144,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => (int)(object)x > (int)(object)variable))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => (int)(object)x > (int)(object)variable!))
                 .Verify(this);
         }
 
@@ -4154,8 +4155,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => (int)(object)x > (int)(object)null))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => (int)(object)x > (int)(object)null!))
                 .Verify(this);
         }
 
@@ -4165,8 +4166,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x == null || x == "hello"))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == null! || x == "hello"))
                 .Verify(this);
         }
 
@@ -4176,8 +4177,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x == null && x == "hello"))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == null! && x == "hello"))
                 .Verify(this);
         }
 
@@ -4187,8 +4188,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x == "hello" || x == null))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == "hello" || x == null!))
                 .Verify(this);
         }
 
@@ -4198,9 +4199,9 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
+                    .Values(x => x.Name!.Value)
                     .Or(
-                        __ => __.Where(x => x! == null),
+                        __ => __.Where(x => x! == null!),
                         __ => __.Where(x => (object)x! == "")))
                 .Verify(this);
         }
@@ -4211,8 +4212,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x == "hello" && x == null))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x == "hello" && x == null!))
                 .Verify(this);
         }
 
@@ -4222,8 +4223,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x != null || x == "hello"))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x != null! || x == "hello"))
                 .Verify(this);
         }
 
@@ -4233,8 +4234,8 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .V<Person>()
                 .Where(__ => __
-                    .Values(x => x.Name.Value)
-                    .Where(x => x != null && x == "hello"))
+                    .Values(x => x.Name!.Value)
+                    .Where(x => x != null! && x == "hello"))
                 .Verify(this);
         }
 
@@ -4332,7 +4333,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !new string[0].Intersect(t.PhoneNumbers).Any())
+                .Where(t => !new string[0].Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4341,7 +4342,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => new string[0].Intersect(t.PhoneNumbers).Any())
+                .Where(t => new string[0].Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4483,7 +4484,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => t.PhoneNumbers.Contains("+4912345"))
+                .Where(t => t.PhoneNumbers!.Contains("+4912345"))
                 .Verify(this);
         }
 
@@ -4494,7 +4495,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Inject("+4912345")
                 .As((__, t) => __
                     .V<Company>()
-                    .Where(c => c.PhoneNumbers.Contains(t)))
+                    .Where(c => c.PhoneNumbers!.Contains(t)))
                 .Verify(this);
         }
 
@@ -4503,7 +4504,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !t.PhoneNumbers.Contains("+4912345"))
+                .Where(t => !t.PhoneNumbers!.Contains("+4912345"))
                 .Verify(this);
         }
 
@@ -4512,7 +4513,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
+                .Where(t => !t.PhoneNumbers!.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Verify(this);
         }
 
@@ -4521,7 +4522,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !t.PhoneNumbers.Intersect(new string[0]).Any())
+                .Where(t => !t.PhoneNumbers!.Intersect(new string[0]).Any())
                 .Verify(this);
         }
 
@@ -4530,7 +4531,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => t.PhoneNumbers.Intersect(new[] { "+4912345", "+4923456" }).Any())
+                .Where(t => t.PhoneNumbers!.Intersect(new[] { "+4912345", "+4923456" }).Any())
                 .Verify(this);
         }
 
@@ -4539,7 +4540,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers).Any())
+                .Where(t => new[] { "+4912345", "+4923456" }.Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4548,7 +4549,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => t.PhoneNumbers.Intersect(new string[0]).Any())
+                .Where(t => t.PhoneNumbers!.Intersect(new string[0]).Any())
                 .Verify(this);
         }
 
@@ -4560,7 +4561,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .As((__, t) => __
                     .V<Company>()
-                    .Where(c => c.PhoneNumbers.Intersect(t.Value).Any()))
+                    .Where(c => c.PhoneNumbers!.Intersect(t.Value).Any()))
                 .Verify(this);
         }
 
@@ -4572,7 +4573,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Fold()
                 .As((__, t) => __
                     .V<Company>()
-                    .Where(c => t.Value.Intersect(c.PhoneNumbers).Any()))
+                    .Where(c => t.Value.Intersect(c.PhoneNumbers!).Any()))
                 .Verify(this);
         }
 
@@ -4581,7 +4582,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !t.PhoneNumbers.Any())
+                .Where(t => !t.PhoneNumbers!.Any())
                 .Verify(this);
         }
 
@@ -4590,7 +4591,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => t.PhoneNumbers.Any())
+                .Where(t => t.PhoneNumbers!.Any())
                 .Verify(this);
         }
 
@@ -4927,7 +4928,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Country>()
-                .Where(c => "+49123".StartsWith(c.CountryCallingCode))
+                .Where(c => "+49123".StartsWith(c.CountryCallingCode!))
                 .Verify(this);
         }
 
@@ -4936,7 +4937,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Country>()
-                .Where(c => "".StartsWith(c.CountryCallingCode))
+                .Where(c => "".StartsWith(c.CountryCallingCode!))
                 .Verify(this);
         }
 
@@ -4947,7 +4948,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .V<Country>()
-                .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode))
+                .Where(c => str.Substring(0, 6).StartsWith(c.CountryCallingCode!))
                 .Verify(this);
         }
 
@@ -4958,7 +4959,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
             await _g
                 .V<Country>()
-                .Where(c => str.StartsWith(c.CountryCallingCode))
+                .Where(c => str.StartsWith(c.CountryCallingCode!))
                 .Verify(this);
         }
 
