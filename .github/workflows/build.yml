@@ -48,6 +48,8 @@ jobs:
         
     - uses: dotnet/nbgv@master
       id: nbgv
+      with:
+        path: src
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/rel'
