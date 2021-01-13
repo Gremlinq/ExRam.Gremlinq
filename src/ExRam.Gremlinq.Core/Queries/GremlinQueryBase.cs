@@ -55,7 +55,7 @@ namespace ExRam.Gremlinq.Core
                     var elementType = GetMatchingType(closureType, "TElement", "TVertex", "TEdge", "TProperty", "TArray") ?? typeof(object);
                     var outVertexType = GetMatchingType(closureType, "TOutVertex", "TAdjacentVertex");
                     var inVertexType = GetMatchingType(closureType, "TInVertex");
-                    var sclarType = GetMatchingType(closureType, "TValue", "TArrayItem");
+                    var scalarType = GetMatchingType(closureType, "TValue", "TArrayItem");
                     var metaType = GetMatchingType(closureType, "TMeta");
                     var queryType = GetMatchingType(closureType, "TOriginalQuery");
 
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
                         elementType,
                         outVertexType ?? typeof(object),
                         inVertexType ?? typeof(object),
-                        sclarType ?? (elementType.IsArray
+                        scalarType ?? (elementType.IsArray
                             ? elementType.GetElementType()!
                             : typeof(object)),
                         metaType ?? typeof(object),
