@@ -1,5 +1,5 @@
 {
-  "version": "8.1.0-preview.{height}",
+  "version": "8.1.1-preview.{height}",
   "publicReleaseRefSpec": [
     "^refs/heads/main$",           // -> Github Packages
     "^refs/heads/rel$"  // -> Nuget
