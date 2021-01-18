@@ -22,6 +22,17 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
+        public void Fody_works()
+        {
+            GremlinQuerySource.g
+                .Invoking(_ => _
+                    .ConfigureEnvironment(null!))
+                .Should()
+                .ThrowExactly<ArgumentNullException>()
+                .WithMessage("[NullGuard] transformation is null. (Parameter 'transformation')");
+        }
+
+        [Fact]
         public void MemberMetadata_name_cannot_be_null()
         {
             var m = default(MemberMetadata);
