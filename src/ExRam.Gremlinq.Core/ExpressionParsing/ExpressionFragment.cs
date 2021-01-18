@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal static class ExpressionFragmentExtensions
-    {
-        public static object? GetValue(this ExpressionFragment expressionFragment)
-        {
-            return expressionFragment switch
-            {
-                ConstantExpressionFragment c => c.Value,
-                { } x => x.Expression?.GetValue(),
-                _ => throw new ArgumentException()
-            };
-        }
-    }
-
     internal abstract class ExpressionFragment
     {
         public static readonly ConstantExpressionFragment True = new(true);
