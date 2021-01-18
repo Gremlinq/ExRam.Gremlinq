@@ -3,6 +3,11 @@
   
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
+    <WeaverConfiguration>
+      <Weavers>
+        <NullGuard />
+      </Weavers>
+    </WeaverConfiguration>
   </PropertyGroup>
   
   <ItemGroup>
