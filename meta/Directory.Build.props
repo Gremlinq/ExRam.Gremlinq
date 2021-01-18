@@ -2,6 +2,7 @@
   <Import Project="..\Directory.Build.props" />
   
   <PropertyGroup>
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <IncludeSymbols>false</IncludeSymbols>
