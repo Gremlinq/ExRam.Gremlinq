@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
                     _dict.SetItem(
                         typeof(TFragment),
                         TryGetSerializer(typeof(TFragment), typeof(TFragment)) is Func<TFragment, IGremlinQueryEnvironment, IGremlinQueryFragmentSerializer, object> existingFragmentSerializer
-                            ? (fragment, env, overridden, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
+                            ? (fragment, env, _, recurse) => serializer(fragment, env, existingFragmentSerializer, recurse)
                             : serializer));
             }
 
@@ -322,7 +322,7 @@ namespace ExRam.Gremlinq.Core
 
                     return new P(
                         p.OperatorName,
-                        !(p.Value is string) && p.Value is IEnumerable enumerable
+                        p.Value is IEnumerable enumerable && !env.Model.NativeTypes.Contains(enumerable.GetType())
                             ? enumerable
                                 .Cast<object>()
                                 .Select(x => recurse.Serialize(x, env))

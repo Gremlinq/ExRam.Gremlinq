@@ -16,7 +16,7 @@ namespace ExRam.Gremlinq.Core
             private static readonly string[] StepLabelNames;
 
             private readonly IGremlinQueryFragmentSerializer _fragmentSerializer;
-            private readonly IGremlinQueryFragmentSerializer _originalfragmentSerializer;
+            private readonly IGremlinQueryFragmentSerializer _originalFragmentSerializer;
 
             static GremlinQuerySerializerImpl()
             {
@@ -27,7 +27,7 @@ namespace ExRam.Gremlinq.Core
 
             public GremlinQuerySerializerImpl(IGremlinQueryFragmentSerializer fragmentSerializer)
             {
-                _originalfragmentSerializer = fragmentSerializer;
+                _originalFragmentSerializer = fragmentSerializer;
 
                 _fragmentSerializer = fragmentSerializer
                     .Override<StepLabel>((stepLabel, env, _, recurse) =>
@@ -56,7 +56,7 @@ namespace ExRam.Gremlinq.Core
 
             public IGremlinQuerySerializer ConfigureFragmentSerializer(Func<IGremlinQueryFragmentSerializer, IGremlinQueryFragmentSerializer> transformation)
             {
-                return new GremlinQuerySerializerImpl(transformation(_originalfragmentSerializer));
+                return new GremlinQuerySerializerImpl(transformation(_originalFragmentSerializer));
             }
         }
 
