@@ -32,7 +32,7 @@ jobs:
 
     - name: Push NuGet packages to GitHub packages
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-      run: dotnet nuget push **/*.nupkg
+      run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
         --no-symbols true
@@ -40,7 +40,7 @@ jobs:
       
     - name: Push NuGet packages to NuGet.org
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
-      run: dotnet nuget push **/*.nupkg
+      run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --no-symbols true
@@ -48,8 +48,6 @@ jobs:
         
     - uses: dotnet/nbgv@master
       id: nbgv
-      with:
-        path: src
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/rel'

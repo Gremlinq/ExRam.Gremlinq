@@ -8,4 +8,8 @@
     <Copyright>©2017-2019 ExRam EDV GmbH &amp; Co. KG, 2020 ExRam Innovations GmbH</Copyright>
     <DefineConstants Condition=" '$(SkipIntegrationTests)' == 'true' ">$(DefineConstants);SKIPINTEGRATIONTESTS</DefineConstants>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Condition="!$(MSBuildProjectName.EndsWith('Samples'))" Include="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" />
+  </ItemGroup>
 </Project>
