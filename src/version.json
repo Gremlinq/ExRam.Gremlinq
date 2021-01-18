@@ -1,7 +1,7 @@
 {
   "version": "8.1.0-preview.{height}",
   "publicReleaseRefSpec": [
-    "master",           // -> Github Packages
+    "^refs/heads/main$",           // -> Github Packages
     "^refs/heads/rel$"  // -> Nuget
   ],
   "cloudBuild": {

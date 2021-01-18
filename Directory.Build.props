@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <PublicRelease>true</PublicRelease>
     <LangVersion>9.0</LangVersion>
     <NoWarn>$(NoWarn);IDE1006;CS1998</NoWarn>
     <Nullable>enable</Nullable>
