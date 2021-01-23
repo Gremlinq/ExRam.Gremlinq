@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples'))">
+    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="All" />
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>
