@@ -1,15 +1,9 @@
 <Project>
   <Import Project="..\Directory.Build.props" />
-  
+    
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
-    <WeaverConfiguration>
-      <Weavers>
-        <NullGuard />
-      </Weavers>
-    </WeaverConfiguration>
   </PropertyGroup>
-  
   <ItemGroup>
     <Content Include="..\xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.0-preview-20210106-01" />

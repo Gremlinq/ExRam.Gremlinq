@@ -3,6 +3,11 @@
   
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WeaverConfiguration>
+      <Weavers>
+        <NullGuard />
+      </Weavers>
+    </WeaverConfiguration>
   </PropertyGroup>
   
   <PropertyGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
