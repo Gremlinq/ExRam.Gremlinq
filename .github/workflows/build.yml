@@ -24,8 +24,14 @@ jobs:
       with:
         dotnet-version: 5.0.100
 
+    - name: Install dotnet-validate
+      run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.51
+
     - name: Build
       run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
+
+    - name: Validate nuget packages
+      run: dotnet validate package local **/ExRam.*.nupkg
 
     - name: Test
       run: dotnet test  --configuration Release --no-build --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
