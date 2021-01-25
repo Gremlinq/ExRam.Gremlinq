@@ -24,20 +24,31 @@ namespace ExRam.Gremlinq.Core
                         if (builder.Length > 0)
                             builder.Append("__");
 
-                        foreach (var instruction in byteCode.SourceInstructions.Concat(byteCode.StepInstructions))
+                        foreach (var instruction in byteCode.SourceInstructions)
                         {
-                            if (builder.Length != 0)
-                                builder.Append('.');
-
-                            builder
-                                .Append(instruction.OperatorName)
-                                .Append('(');
-
-                            Append(instruction.Arguments, true);
-
-                            builder
-                                .Append(')');
+                            Append(instruction);
                         }
+
+                        foreach (var instruction in byteCode.StepInstructions)
+                        {
+                            Append(instruction);
+                        }
+
+                        break;
+                    }
+                    case Instruction instruction:
+                    {
+                        if (builder.Length != 0)
+                            builder.Append('.');
+
+                        builder
+                            .Append(instruction.OperatorName)
+                            .Append('(');
+
+                        Append(instruction.Arguments, true);
+
+                        builder
+                            .Append(')');
 
                         break;
                     }
