@@ -104,16 +104,13 @@ namespace ExRam.Gremlinq.Core
         public static IGremlinQuerySerializer ToGroovy(this IGremlinQuerySerializer serializer, GroovyFormatting formatting = GroovyFormatting.BindingsOnly)
         {
             return serializer
-                .Select(serialized =>
+                .Select(serialized => serialized switch
                 {
-                    return serialized switch
-                    {
-                        GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.AllowInlining
-                            ? serializedQuery.Inline()
-                            : serializedQuery,
-                        Bytecode bytecode => bytecode.ToGroovy(formatting),
-                        _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
-                    };
+                    GroovyGremlinQuery serializedQuery => formatting == GroovyFormatting.AllowInlining
+                        ? serializedQuery.Inline()
+                        : serializedQuery,
+                    Bytecode byteCode => byteCode.ToGroovy(formatting),
+                    _ => throw new NotSupportedException($"Can't convert serialized query of type {serialized.GetType()} to {nameof(GroovyGremlinQuery)}.")
                 });
         }
     }
