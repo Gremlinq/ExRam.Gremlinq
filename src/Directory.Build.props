@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
     <WeaverConfiguration>
       <Weavers>
         <NullGuard />
@@ -20,11 +21,12 @@
     <PackageIcon Condition="$(MSBuildProjectName.Contains('GremlinServer'))">green-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('JanusGraph'))">purple-icon.png</PackageIcon>
     <PackageIcon Condition="$(MSBuildProjectName.Contains('Neptune'))">orange-icon.png</PackageIcon>
-    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>    
+    <PackageIcon Condition="$(MSBuildProjectName.Contains('WebSocket'))">yellow-icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup Condition="!$(MSBuildProjectName.EndsWith('Samples')) AND '$(Configuration)' == 'Release'" >
