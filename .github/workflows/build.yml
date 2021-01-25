@@ -28,7 +28,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Test
-      run: dotnet test --configuration Release --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
+      run: dotnet test  --configuration Release --no-build --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
 
     - name: Push NuGet packages to GitHub packages
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
