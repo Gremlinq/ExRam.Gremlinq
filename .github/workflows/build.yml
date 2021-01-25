@@ -25,7 +25,7 @@ jobs:
         dotnet-version: 5.0.100
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
 
     - name: Test
       run: dotnet test  --configuration Release --no-build --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
