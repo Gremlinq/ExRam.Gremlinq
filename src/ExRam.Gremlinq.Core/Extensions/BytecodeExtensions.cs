@@ -109,6 +109,21 @@ namespace ExRam.Gremlinq.Core
 
                         break;
                     }
+                    case object[] objectArray when allowEnumerableExpansion:
+                    {
+                        var comma = false;
+                        foreach (var argument in objectArray)
+                        {
+                            if (comma)
+                                builder.Append(", ");
+                            else
+                                comma = true;
+
+                            Append(argument);
+                        }
+
+                        break;
+                    }
                     case IEnumerable enumerable when allowEnumerableExpansion:
                     {
                         var comma = false;
