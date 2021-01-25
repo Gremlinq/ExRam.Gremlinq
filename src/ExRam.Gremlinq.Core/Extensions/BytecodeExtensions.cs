@@ -19,20 +19,24 @@ namespace ExRam.Gremlinq.Core
             {
                 switch (obj)
                 {
-                    case Bytecode bytecode:
+                    case Bytecode byteCode:
                     {
                         if (builder.Length > 0)
                             builder.Append("__");
 
-                        foreach (var instruction in bytecode.SourceInstructions.Concat(bytecode.StepInstructions))
+                        foreach (var instruction in byteCode.SourceInstructions.Concat(byteCode.StepInstructions))
                         {
-                            builder.Append(builder.Length != 0
-                                ? $".{instruction.OperatorName}("
-                                : $"{instruction.OperatorName}(");
+                            if (builder.Length != 0)
+                                builder.Append('.');
+
+                            builder
+                                .Append(instruction.OperatorName)
+                                .Append('(');
 
                             Append(instruction.Arguments, true);
 
-                            builder.Append(")");
+                            builder
+                                .Append(')');
                         }
 
                         break;
@@ -40,32 +44,44 @@ namespace ExRam.Gremlinq.Core
                     case P {Value: P p1} p:
                     {
                         Append(p1);
-                        builder.Append($".{p.OperatorName}(");
+
+                        builder
+                            .Append('.')
+                            .Append(p.OperatorName)
+                            .Append('(');
+
                         Append(p.Other);
 
-                        builder.Append(")");
+                        builder
+                            .Append(')');
 
                         break;
                     }
                     case P p:
                     {
-                        builder.Append($"{p.OperatorName}(");
+                        builder
+                            .Append(p.OperatorName)
+                            .Append('(');
 
                         Append(p.Value, true);
 
-                        builder.Append(")");
+                        builder
+                            .Append(')');
 
                         break;
                     }
                     case EnumWrapper t:
                     {
-                        builder.Append($"{t.EnumValue}");
+                        builder.Append(t.EnumValue);
 
                         break;
                     }
                     case ILambda lambda:
                     {
-                        builder.Append($"{{{lambda.LambdaExpression}}}");
+                        builder
+                            .Append('{')
+                            .Append(lambda.LambdaExpression)
+                            .Append('}');
 
                         break;
                     }
