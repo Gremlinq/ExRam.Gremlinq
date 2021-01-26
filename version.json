@@ -1,5 +1,8 @@
 {
   "version": "8.1.1-preview.{height}",
+  "nugetPackageVersion": {
+     "semVer": 2
+  },
   "publicReleaseRefSpec": [
     "^refs/heads/main$",           // -> Github Packages
     "^refs/heads/rel$"  // -> Nuget
