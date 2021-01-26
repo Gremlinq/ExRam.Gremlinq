@@ -6,7 +6,7 @@ namespace ExRam.Gremlinq.Core
 {
     public static class GremlinqOption
     {
-        public static GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new(
+        public static readonly GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -30,7 +30,7 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableList());
 
-        public static GremlinqOption<IImmutableList<Step>> VertexProjectionWithoutMetaPropertiesSteps = new(
+        public static readonly GremlinqOption<IImmutableList<Step>> VertexProjectionWithoutMetaPropertiesSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -53,7 +53,7 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableList());
 
-        public static GremlinqOption<IImmutableList<Step>> EdgeProjectionSteps = new(
+        public static readonly GremlinqOption<IImmutableList<Step>> EdgeProjectionSteps = new(
             new Step[]
             {
                 new ProjectStep(ImmutableArray.Create("id", "label", "properties")),
@@ -63,7 +63,7 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableList());
 
-        public static GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new(
+        public static readonly GremlinqOption<IImmutableDictionary<T, SerializationBehaviour>> TSerializationBehaviourOverrides = new(
             new Dictionary<T, SerializationBehaviour>
             {
                 { T.Key, SerializationBehaviour.IgnoreOnUpdate },
@@ -73,8 +73,8 @@ namespace ExRam.Gremlinq.Core
             }
             .ToImmutableDictionary());
 
-        public static GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
-        public static GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
+        public static readonly GremlinqOption<FilterLabelsVerbosity> FilterLabelsVerbosity = new(Core.FilterLabelsVerbosity.Maximum);
+        public static readonly GremlinqOption<DisabledTextPredicates> DisabledTextPredicates = new(Core.DisabledTextPredicates.None);
     }
 
     public class GremlinqOption<TValue> : IGremlinqOption
