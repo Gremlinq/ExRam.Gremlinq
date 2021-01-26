@@ -4,11 +4,6 @@ using Gremlin.Net.Process.Traversal;
 
 namespace ExRam.Gremlinq.Core
 {
-    public interface IGremlinqOption
-    {
-
-    }
-
     public static class GremlinqOption
     {
         public static GremlinqOption<IImmutableList<Step>> VertexProjectionSteps = new(
