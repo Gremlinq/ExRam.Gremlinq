@@ -11,7 +11,7 @@ namespace ExRam.Gremlinq.Core.GraphElements
 
         protected abstract object GetValue();
 
-        public string? Key { get; set; }
+        public string? Key { get; set; }    //TODO: Remove setter? Remove nullability?
 
         object IProperty.Value { get => GetValue(); }
     }
