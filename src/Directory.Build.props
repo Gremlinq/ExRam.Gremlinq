@@ -2,7 +2,6 @@
   <Import Project="..\Directory.Build.props" />
   
   <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Deterministic>true</Deterministic>
     <WeaverConfiguration>
       <Weavers>
