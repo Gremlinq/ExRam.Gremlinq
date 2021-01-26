@@ -12,13 +12,13 @@ namespace ExRam.Gremlinq.Core
     {
         public static implicit operator TElement(StepLabel<TElement>? stepLabel) => ThrowConversion();
 
-        public static bool operator ==(TElement a, StepLabel<TElement>? b) => ThrowEquality();
+        public static bool operator ==(TElement? a, StepLabel<TElement>? b) => ThrowEquality();
 
-        public static bool operator !=(TElement a, StepLabel<TElement>? b) => ThrowEquality();
+        public static bool operator !=(TElement? a, StepLabel<TElement>? b) => ThrowEquality();
 
-        public static bool operator ==(StepLabel<TElement>? b, TElement a) => ThrowEquality();
+        public static bool operator ==(StepLabel<TElement>? b, TElement? a) => ThrowEquality();
 
-        public static bool operator !=(StepLabel<TElement>? b, TElement a) => ThrowEquality();
+        public static bool operator !=(StepLabel<TElement>? b, TElement? a) => ThrowEquality();
 
         public TElement Value
         {
