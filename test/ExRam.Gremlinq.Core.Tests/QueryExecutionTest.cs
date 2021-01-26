@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿#pragma warning disable xUnit1004
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -4333,7 +4333,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !new string[0].Intersect(t.PhoneNumbers!).Any())
+                .Where(t => !Array.Empty<string>().Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4342,7 +4342,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => new string[0].Intersect(t.PhoneNumbers!).Any())
+                .Where(t => Array.Empty<string>().Intersect(t.PhoneNumbers!).Any())
                 .Verify(this);
         }
 
@@ -4440,7 +4440,7 @@ namespace ExRam.Gremlinq.Core.Tests
                 .V<Person>()
                 .Where(_ => _
                     .Or(_ => _
-                        .Where(x => new object[0].Contains(x.Id))))
+                        .Where(x => Array.Empty<object>().Contains(x.Id))))
                 .Verify(this);
         }
 
@@ -4473,9 +4473,7 @@ namespace ExRam.Gremlinq.Core.Tests
                     .UseModel(GraphModel.FromBaseTypes<VertexWithStringId, EdgeWithStringId>(lookup => lookup
                         .IncludeAssembliesOfBaseTypes())))
                 .V<VertexWithStringId>()
-#pragma warning disable 252,253
                 .Where(x => x.Id == (object)0)
-#pragma warning restore 252,253
                 .Verify(this);
         }
 
@@ -4522,7 +4520,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => !t.PhoneNumbers!.Intersect(new string[0]).Any())
+                .Where(t => !t.PhoneNumbers!.Intersect(Array.Empty<string>()).Any())
                 .Verify(this);
         }
 
@@ -4549,7 +4547,7 @@ namespace ExRam.Gremlinq.Core.Tests
         {
             await _g
                 .V<Company>()
-                .Where(t => t.PhoneNumbers!.Intersect(new string[0]).Any())
+                .Where(t => t.PhoneNumbers!.Intersect(Array.Empty<string>()).Any())
                 .Verify(this);
         }
 

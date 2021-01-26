@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace ExRam.Gremlinq.Core
 {
-    partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> :
+    internal partial class GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> :
         IGremlinQueryAdmin,
 
         IGremlinQuerySource,

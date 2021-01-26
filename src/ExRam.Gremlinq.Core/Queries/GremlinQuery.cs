@@ -1,4 +1,5 @@
-﻿// ReSharper disable ArrangeThisQualifier
+﻿#pragma warning disable IDE0003
+// ReSharper disable ArrangeThisQualifier
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -442,10 +443,10 @@ namespace ExRam.Gremlinq.Core
             where TStepLabel : StepLabel, new()
             where TTargetQuery : IGremlinQueryBase
         {
+            TStepLabel stepLabel;
             var toContinue = this;
-            var stepLabel = default(TStepLabel);
 
-            if (Steps.PeekOrDefault() is AsStep asStep && asStep.StepLabel is TStepLabel existingStepLabel)
+            if (Steps.PeekOrDefault() is AsStep { StepLabel: TStepLabel existingStepLabel })
                 stepLabel = existingStepLabel;
             else
             {
