@@ -600,11 +600,13 @@ namespace ExRam.Gremlinq.Core
                 .AddStep(new GroupStep.ByTraversalStep(group.KeyQuery.ToTraversal()), QuerySemantics.None);
         }
 
-        private Key[] GetKeys(IEnumerable<Expression> projections)
+        private IEnumerable<string> GetStringKeys(Expression[] projections)
         {
-            return projections
-                .Select(projection => GetKey(projection))
-                .ToArray();
+            foreach (var projection in projections)
+            {
+                if (GetKey(projection).RawKey is string str)
+                    yield return str;
+            }
         }
 
         private Key GetKey(Expression projection)
@@ -613,29 +615,37 @@ namespace ExRam.Gremlinq.Core
         }
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        private static IEnumerable<Step> GetStepsForKeys(Key[] keys)
+        private static IEnumerable<Step> GetStepsForKeys(IEnumerable<Key> keys)
         {
             var hasYielded = false;
+            var stringKeys = default(List<string>?);
 
-            foreach (var t in keys.Select(x => x.RawKey).OfType<T>())
+            foreach (var key in keys)
             {
-                if (T.Id.Equals(t))
-                    yield return IdStep.Instance;
-                else if (T.Label.Equals(t))
-                    yield return LabelStep.Instance;
-                else
-                    throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
+                switch (key.RawKey)
+                {
+                    case T t:
+                    {
+                        if (T.Id.Equals(t))
+                            yield return IdStep.Instance;
+                        else if (T.Label.Equals(t))
+                            yield return LabelStep.Instance;
+                        else
+                            throw new ExpressionNotSupportedException($"Can't find an appropriate Gremlin step for {t}.");
 
-                hasYielded = true;
+                        hasYielded = true;
+                        break;
+                    }
+                    case string str:
+                    {
+                        (stringKeys ??= new List<string>()).Add(str);
+                        break;
+                    }
+                }
             }
 
-            var stringKeys = keys
-                .Select(x => x.RawKey)
-                .OfType<string>()
-                .ToImmutableArray();
-
-            if (stringKeys.Length > 0 || !hasYielded)
-                yield return new ValuesStep(stringKeys);
+            if (stringKeys?.Count > 0 || !hasYielded)
+                yield return new ValuesStep(stringKeys?.ToImmutableArray() ?? ImmutableArray<string>.Empty);
         }
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Has(MemberExpression expression, P predicate)
@@ -956,11 +966,9 @@ namespace ExRam.Gremlinq.Core
         private GremlinQuery<TNewElement, object, object, object, object, object> ValueMap<TNewElement>(IEnumerable<LambdaExpression> projections)
         {
             var projectionsArray = projections
-                .ToArray();
+                .ToArray<Expression>();
 
-            var stringKeys = GetKeys(projectionsArray)
-                .Select(x => x.RawKey)
-                .OfType<string>()
+            var stringKeys = GetStringKeys(projectionsArray)
                 .ToImmutableArray();
 
             if (stringKeys.Length != projectionsArray.Length)
@@ -969,7 +977,7 @@ namespace ExRam.Gremlinq.Core
             return AddStepWithObjectTypes<TNewElement>(new ValueMapStep(stringKeys), QuerySemantics.None);
         }
 
-        private GremlinQuery<TValue, object, object, object, object, object> ValuesForKeys<TValue>(Key[] keys)
+        private GremlinQuery<TValue, object, object, object, object, object> ValuesForKeys<TValue>(IEnumerable<Key> keys)
         {
             var stepsArray = GetStepsForKeys(keys)
                 .ToArray();
@@ -982,7 +990,7 @@ namespace ExRam.Gremlinq.Core
             };
         }
 
-        private GremlinQuery<TValue, object, object, object, object, object> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(GetKeys(projections));
+        private GremlinQuery<TValue, object, object, object, object, object> ValuesForProjections<TValue>(IEnumerable<LambdaExpression> projections) => ValuesForKeys<TValue>(projections.Select(projection => GetKey(projection)));
 
         private GremlinQuery<VertexProperty<TNewPropertyValue>, object, object, TNewPropertyValue, object, object> VertexProperties<TNewPropertyValue>(LambdaExpression[] projections) => Properties<VertexProperty<TNewPropertyValue>, TNewPropertyValue, object>(QuerySemantics.VertexProperty, projections);
 
