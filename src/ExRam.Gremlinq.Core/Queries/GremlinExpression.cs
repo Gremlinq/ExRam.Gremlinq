@@ -23,15 +23,9 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public bool Equals(GremlinExpression other)
-        {
-            return Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;
-        }
+        public bool Equals(GremlinExpression other) => Left.Equals(other.Left) && Right.Equals(other.Right) && Semantics == other.Semantics;
 
-        public override bool Equals(object? obj)
-        {
-            return obj is GremlinExpression other && Equals(other);
-        }
+        public override bool Equals(object? obj) => obj is GremlinExpression other && Equals(other);
 
         public override int GetHashCode()
         {
