@@ -1110,146 +1110,134 @@ namespace ExRam.Gremlinq.Core
 
         private GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery> Where(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            switch (right)
+            if (right is ConstantExpressionFragment rightConstantFragment)
             {
-                case ConstantExpressionFragment rightConstantFragment:
+                var effectivePredicate = semantics
+                    .ToP(rightConstantFragment.GetValue())
+                    .WorkaroundLimitations(Environment.Options);
+
+                if (left is ParameterExpressionFragment leftParameterFragment)
                 {
-                    var effectivePredicate = semantics
-                        .ToP(rightConstantFragment.GetValue())
-                        .WorkaroundLimitations(Environment.Options);
-
-                    switch (left)
+                    switch (leftParameterFragment.Expression)
                     {
-                        case ParameterExpressionFragment leftParameterFragment:
+                        case MemberExpression leftMemberExpression:
                         {
-                            switch (leftParameterFragment.Expression)
+                            var memberSemantics = leftMemberExpression.TryGetWellKnownMember();
+                            var leftMemberExpressionExpression = leftMemberExpression.Expression?.Strip();
+
+                            if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
                             {
-                                case MemberExpression leftMemberExpression:
+                                switch (memberSemantics)
                                 {
-                                    var memberSemantics = leftMemberExpression.TryGetWellKnownMember();
-                                    var leftMemberExpressionExpression = leftMemberExpression.Expression?.Strip();
-
-                                    if (leftMemberExpressionExpression is ParameterExpression parameterExpression)
-                                    {
-                                        switch (memberSemantics)
-                                        {
-                                            // x => x.Value == P.xy(...)
-                                            case WellKnownMember.PropertyValue when !(rightConstantFragment.GetValue() is StepLabel):
-                                                return AddStep(new HasValueStep(effectivePredicate));
-                                            case WellKnownMember.PropertyKey:
-                                                return Where(__ => __
-                                                    .Key()
-                                                    .Where(
-                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                        semantics,
-                                                        right));
-                                            case WellKnownMember.VertexPropertyLabel when rightConstantFragment.GetValue() is StepLabel:
-                                                return Where(__ => __
-                                                    .Label()
-                                                    .Where(
-                                                        ExpressionFragment.Create(parameterExpression, Environment.Model),
-                                                        semantics,
-                                                        right));
-                                            case WellKnownMember.VertexPropertyLabel:
-                                                return AddStep(new HasKeyStep(effectivePredicate));
-                                        }
-                                    }
-                                    else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
-                                    {
-                                        // x => x.Name.Value == P.xy(...)
-                                        if (memberSemantics == WellKnownMember.PropertyValue)
-                                            leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
-                                    }
-                                    else
-                                        break;
-
-                                    // x => x.Name == P.xy(...)
-                                    if (rightConstantFragment.GetValue() is StepLabel)
-                                    {
-                                        if (rightConstantFragment.Expression is MemberExpression memberExpression)
-                                        {
-                                            var ret = this
-                                                .AddStep(new WherePredicateStep(effectivePredicate))
-                                                .AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)));
-
-                                            if (memberExpression.Member != leftMemberExpression.Member)
-                                                ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
-
-                                            return ret;
-                                        }
-
-                                        return Has(
-                                            leftMemberExpression,
-                                            Continue(__ => __
-                                                .AddStep(new WherePredicateStep(effectivePredicate))));
-                                    }
-
-                                    return Has(leftMemberExpression, effectivePredicate);
+                                    // x => x.Value == P.xy(...)
+                                    case WellKnownMember.PropertyValue when !(rightConstantFragment.GetValue() is StepLabel):
+                                        return AddStep(new HasValueStep(effectivePredicate));
+                                    case WellKnownMember.PropertyKey:
+                                        return Where(__ => __
+                                            .Key()
+                                            .Where(
+                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                semantics,
+                                                right));
+                                    case WellKnownMember.VertexPropertyLabel when rightConstantFragment.GetValue() is StepLabel:
+                                        return Where(__ => __
+                                            .Label()
+                                            .Where(
+                                                ExpressionFragment.Create(parameterExpression, Environment.Model),
+                                                semantics,
+                                                right));
+                                    case WellKnownMember.VertexPropertyLabel:
+                                        return AddStep(new HasKeyStep(effectivePredicate));
                                 }
-                                case ParameterExpression _:
+                            }
+                            else if (leftMemberExpressionExpression is MemberExpression leftLeftMemberExpression)
+                            {
+                                // x => x.Name.Value == P.xy(...)
+                                if (memberSemantics == WellKnownMember.PropertyValue)
+                                    leftMemberExpression = leftLeftMemberExpression;    //TODO: What else ?
+                            }
+                            else
+                                break;
+
+                            // x => x.Name == P.xy(...)
+                            if (rightConstantFragment.GetValue() is StepLabel)
+                            {
+                                if (rightConstantFragment.Expression is MemberExpression memberExpression)
                                 {
-                                    // x => x == P.xy(...)
-                                    if (rightConstantFragment.GetValue() is StepLabel)
-                                    {
-                                        var ret = AddStep(new WherePredicateStep(effectivePredicate));
+                                    var ret = this
+                                        .AddStep(new WherePredicateStep(effectivePredicate))
+                                        .AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftMemberExpression)));
 
-                                        if (rightConstantFragment.Expression is MemberExpression memberExpression)
-                                            ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
+                                    if (memberExpression.Member != leftMemberExpression.Member)
+                                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
 
-                                        return ret;
-                                    }
-
-                                    return Is(effectivePredicate);
+                                    return ret;
                                 }
-                                case MethodCallExpression methodCallExpression:
-                                {
-                                    var targetExpression = methodCallExpression.Object?.Strip();
 
-                                    if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
-                                    {
-                                        if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
-                                            return Has(key, effectivePredicate);
-                                    }
+                                return Has(
+                                    leftMemberExpression,
+                                    Continue(__ => __
+                                        .AddStep(new WherePredicateStep(effectivePredicate))));
+                            }
 
-                                    break;
-                                }
+                            return Has(leftMemberExpression, effectivePredicate);
+                        }
+                        case ParameterExpression _:
+                        {
+                            // x => x == P.xy(...)
+                            if (rightConstantFragment.GetValue() is StepLabel)
+                            {
+                                var ret = AddStep(new WherePredicateStep(effectivePredicate));
+
+                                if (rightConstantFragment.Expression is MemberExpression memberExpression)
+                                    ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
+
+                                return ret;
+                            }
+
+                            return Is(effectivePredicate);
+                        }
+                        case MethodCallExpression methodCallExpression:
+                        {
+                            var targetExpression = methodCallExpression.Object?.Strip();
+
+                            if (targetExpression != null && typeof(IDictionary<string, object>).IsAssignableFrom(targetExpression.Type) && methodCallExpression.Method.Name == "get_Item")
+                            {
+                                if (methodCallExpression.Arguments[0].Strip()!.GetValue() is string key)
+                                    return Has(key, effectivePredicate);
                             }
 
                             break;
                         }
-                        case ConstantExpressionFragment leftConstantFragment when leftConstantFragment.GetValue() is StepLabel leftStepLabel && rightConstantFragment.GetValue() is StepLabel:
-                        {
-                            var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
-
-                            //TODO: What if x < x.Value.Prop ? i.e only one by operator?
-                            if (leftConstantFragment.Expression is MemberExpression leftStepValueExpression)
-                                ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
-
-                            if (rightConstantFragment.Expression is MemberExpression rightStepValueExpression)
-                                ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
-
-                            return ret;
-                        }
                     }
-
-                    break;
                 }
-                case ParameterExpressionFragment rightParameterFragment:
+                else if (left is ConstantExpressionFragment leftConstantFragment && leftConstantFragment.GetValue() is StepLabel leftStepLabel && rightConstantFragment.GetValue() is StepLabel)
                 {
-                    if (left is ParameterExpressionFragment leftParameterFragment)
-                    {
-                        if (leftParameterFragment.Expression is MemberExpression && rightParameterFragment.Expression is MemberExpression rightMember)
-                        {
-                            return As<StepLabel<TElement>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(
-                                (_, label) => _
-                                    .Where(
-                                        leftParameterFragment,
-                                        semantics,
-                                        new ConstantExpressionFragment(label, rightMember)));
-                        }
-                    }
+                    var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
-                    break;
+                    //TODO: What if x < x.Value.Prop ? i.e only one by operator?
+                    if (leftConstantFragment.Expression is MemberExpression leftStepValueExpression)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(leftStepValueExpression)));
+
+                    if (rightConstantFragment.Expression is MemberExpression rightStepValueExpression)
+                        ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(rightStepValueExpression)));
+
+                    return ret;
+                }
+            }
+            else if (right is ParameterExpressionFragment rightParameterFragment)
+            {
+                if (left is ParameterExpressionFragment leftParameterFragment)
+                {
+                    if (leftParameterFragment.Expression is MemberExpression && rightParameterFragment.Expression is MemberExpression rightMember)
+                    {
+                        return As<StepLabel<TElement>, GremlinQuery<TElement, TOutVertex, TInVertex, TScalar, TMeta, TFoldedQuery>>(
+                            (_, label) => _
+                                .Where(
+                                    leftParameterFragment,
+                                    semantics,
+                                    new ConstantExpressionFragment(label, rightMember)));
+                    }
                 }
             }
 
