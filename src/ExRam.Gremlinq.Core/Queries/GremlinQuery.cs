@@ -1189,7 +1189,7 @@ namespace ExRam.Gremlinq.Core
                                 case ParameterExpression _:
                                 {
                                     // x => x == P.xy(...)
-                                    if (rightConstantFragment is ConstantExpressionFragment constantExpressionFragment && constantExpressionFragment.Value is StepLabel)
+                                    if (rightConstantFragment is { Value: StepLabel } constantExpressionFragment)
                                     {
                                         var ret = AddStep(new WherePredicateStep(effectivePredicate));
 
