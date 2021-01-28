@@ -65,6 +65,7 @@ jobs:
     - uses: release-drafter/release-drafter@v5.13.0
       if: ${{ github.event_name == 'push' }}
       with:
-        version: ${{ steps.nbgv.outputs.SemVer2 }}
+        name: ${{ steps.nbgv.outputs.SemVer2 }}
+        tag: ${{ steps.nbgv.outputs.SemVer2 }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
