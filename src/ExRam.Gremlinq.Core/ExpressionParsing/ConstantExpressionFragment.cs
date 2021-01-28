@@ -4,11 +4,13 @@ namespace ExRam.Gremlinq.Core
 {
     internal sealed class ConstantExpressionFragment : ExpressionFragment
     {
+        private readonly object? _value;
+
         public ConstantExpressionFragment(object? value, Expression? expression = default) : base(expression)
         {
-            Value = value;
+            _value = value;
         }
 
-        public object? Value { get; }
+        public override object? GetValue() => _value;
     }
 }
