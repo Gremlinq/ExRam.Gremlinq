@@ -1,13 +1,13 @@
 template: |
-  # What's Changed
+  # Changes
 
   $CHANGES
 categories:
-  - title: 'Breaking'
+  - title: 'Breaking changes'
     label: 'type: breaking'
-  - title: 'New'
+  - title: 'New features'
     label: 'type: feature'
-  - title: 'Bug Fixes'
+  - title: 'Bug fixes'
     label: 'type: bug'
   - title: 'Maintenance'
     label: 'type: maintenance'
@@ -15,6 +15,8 @@ categories:
     label: 'type: docs'
   - title: 'Dependency Updates'
     label: 'type: dependencies'
+  - title: 'Performance enhancements'
+    label: 'type: performance'
 
 exclude-labels:
   - 'skip-changelog'
