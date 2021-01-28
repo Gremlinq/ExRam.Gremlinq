@@ -4,12 +4,6 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal enum ExpressionFragmentType
-    {
-        Constant,
-        Parameter,
-    }
-
     internal sealed class ExpressionFragment
     {
         private readonly object? _value;
