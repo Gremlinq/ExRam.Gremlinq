@@ -61,3 +61,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CUSTOM_TAG: ${{ steps.nbgv.outputs.SemVer2 }}
+
+    - uses: release-drafter/release-drafter@v5.13.0
+      if: ${{ github.event_name == 'push' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
