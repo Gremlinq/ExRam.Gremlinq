@@ -9,7 +9,7 @@ namespace ExRam.Gremlinq.Core
 
         public GremlinExpression(ExpressionFragment left, ExpressionSemantics semantics, ExpressionFragment right)
         {
-            if (!(left is ParameterExpressionFragment) && right is ParameterExpressionFragment)
+            if (left.Type != ExpressionFragmentType.Parameter && right.Type == ExpressionFragmentType.Parameter)
             {
                 Left = right;
                 Semantics = semantics.Flip();

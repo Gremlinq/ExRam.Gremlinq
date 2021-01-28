@@ -1,37 +1,55 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal abstract class ExpressionFragment
+    internal enum ExpressionFragmentType
     {
-        public static readonly ConstantExpressionFragment True = new(true);
-        public static readonly ConstantExpressionFragment False = new(false);
-        public static readonly ConstantExpressionFragment Null = new(default);
+        Constant,
+        Parameter,
+    }
 
-        protected ExpressionFragment(Expression? expression = default)
+    internal sealed class ExpressionFragment
+    {
+        private readonly object? _value;
+
+        public static readonly ExpressionFragment True = Constant(true);
+        public static readonly ExpressionFragment False = Constant(false);
+        public static readonly ExpressionFragment Null = Constant(default);
+
+        private ExpressionFragment(ExpressionFragmentType type, object? value, Expression? expression = default)
         {
+            Type = type;
+            _value = value;
             Expression = expression;
         }
+        
+        public object? GetValue() => Type == ExpressionFragmentType.Constant ? _value : Expression?.GetValue();
 
         public Expression? Expression { get; }
 
-        public virtual object? GetValue() => Expression?.GetValue();
+        public ExpressionFragmentType Type { get; }
 
         public static ExpressionFragment Create(Expression expression, IGraphModel model)
         {
             return expression.RefersToParameter()
-                ? (ExpressionFragment)new ParameterExpressionFragment(expression)
+                ? Parameter(expression)
                 : expression.TryParseStepLabelExpression(out var stepLabel, out var stepLabelExpression)
-                    ? new ConstantExpressionFragment(stepLabel!, stepLabelExpression)
-                    : new ConstantExpressionFragment(expression.GetValue() switch
+                    ? StepLabel(stepLabel!, stepLabelExpression)
+                    : Constant(expression.GetValue() switch
                     {
                         IEnumerable enumerable when !(enumerable is ICollection) && !model.NativeTypes.Contains(enumerable.GetType()) => enumerable.Cast<object>().ToArray(),
                         { } val => val,
                         _ => null
                     });
         }
+
+        public static ExpressionFragment Constant(object? value) => new(ExpressionFragmentType.Constant, value);
+
+        public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.Constant, value, expression);
+
+        public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, expression);
+
     }
 }
