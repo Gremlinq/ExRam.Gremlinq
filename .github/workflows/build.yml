@@ -70,3 +70,15 @@ jobs:
         tag: ${{ steps.nbgv.outputs.SemVer2 }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: ethomson/send-tweet-action@v1
+      with:
+        #status: |
+        #  Announcing the new ${{ steps.nbgv.outputs.SemVer2 }} release of ExRam Gremlinq!
+        #  
+        #  ExRam.Gremlinq is the first @dotnet object-graph-mapper for @apachetinkerpop #gremlin enabled #graphdb‎s like @AzureCosmosDB, AWS #Neptune and @JanusGraph.
+        status: Test ${{ steps.nbgv.outputs.SemVer2 }}
+        consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+        consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+        access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
