@@ -1189,11 +1189,11 @@ namespace ExRam.Gremlinq.Core
                                 case ParameterExpression _:
                                 {
                                     // x => x == P.xy(...)
-                                    if (rightConstantFragment is StepLabelExpressionFragment stepLabelExpressionFragment)
+                                    if (rightConstantFragment is ConstantExpressionFragment constantExpressionFragment && constantExpressionFragment.Value is StepLabel)
                                     {
                                         var ret = AddStep(new WherePredicateStep(effectivePredicate));
 
-                                        if (stepLabelExpressionFragment.Expression is MemberExpression memberExpression)
+                                        if (constantExpressionFragment.Expression is MemberExpression memberExpression)
                                             ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
 
                                         return ret;
@@ -1245,7 +1245,7 @@ namespace ExRam.Gremlinq.Core
                                     .Where(
                                         leftParameterFragment,
                                         semantics,
-                                        new StepLabelExpressionFragment(label, rightMember)));
+                                        new ConstantExpressionFragment(label, rightMember)));
                         }
                     }
 

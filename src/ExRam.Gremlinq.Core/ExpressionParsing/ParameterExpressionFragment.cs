@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    internal class ParameterExpressionFragment : ExpressionFragment
+    internal sealed class ParameterExpressionFragment : ExpressionFragment
     {
         public ParameterExpressionFragment(Expression expression) : base(expression)
         {
