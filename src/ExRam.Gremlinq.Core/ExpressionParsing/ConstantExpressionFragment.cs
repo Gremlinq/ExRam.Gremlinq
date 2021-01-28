@@ -2,7 +2,7 @@
 
 namespace ExRam.Gremlinq.Core
 {
-    internal class ConstantExpressionFragment : ExpressionFragment
+    internal sealed class ConstantExpressionFragment : ExpressionFragment
     {
         public ConstantExpressionFragment(object? value, Expression? expression = default) : base(expression)
         {
