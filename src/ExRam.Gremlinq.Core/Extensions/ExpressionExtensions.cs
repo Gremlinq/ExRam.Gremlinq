@@ -104,16 +104,12 @@ namespace ExRam.Gremlinq.Core
                     return true;
                 }
 
-                stepLabelValueMemberExpression = outerMemberExpression;
-
-                if (outerMemberExpression.Expression is MemberExpression innerMemberExpression)
+                if (outerMemberExpression.Expression is MemberExpression innerMemberExpression && innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
                 {
-                    if (innerMemberExpression.TryGetWellKnownMember() == WellKnownMember.StepLabelValue)
-                    {
-                        stepLabel = (StepLabel?)innerMemberExpression.Expression?.GetValue();
+                    stepLabelValueMemberExpression = outerMemberExpression;
+                    stepLabel = (StepLabel?)innerMemberExpression.Expression?.GetValue();
 
-                        return true;
-                    }
+                    return true;
                 }
             }
 
