@@ -254,7 +254,7 @@ namespace ExRam.Gremlinq.Core
                                 if (instanceExpression.GetValue() is string stringValue)
                                 {
                                     return new GremlinExpression(
-                                        new ConstantExpressionFragment(stringValue),
+                                        ExpressionFragment.Constant(stringValue),
                                         ExpressionSemantics.StartsWith,
                                         ExpressionFragment.Create(argumentExpression, model));
                                 }
@@ -272,7 +272,7 @@ namespace ExRam.Gremlinq.Core
                                             WellKnownMember.StringEndsWith => ExpressionSemantics.EndsWith,
                                             _ => throw new ExpressionNotSupportedException(methodCallExpression)
                                         },
-                                        new ConstantExpressionFragment(stringValue));
+                                        ExpressionFragment.Constant(stringValue));
                                 }
                             }
 
