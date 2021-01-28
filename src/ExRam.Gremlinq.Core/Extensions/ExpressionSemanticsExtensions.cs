@@ -34,7 +34,7 @@ namespace ExRam.Gremlinq.Core
         {
             return semantics switch
             {
-                ExpressionSemantics.Contains => P.Eq(value),
+                ExpressionSemantics.Contains => new P("eq", value),
                 ExpressionSemantics.IsPrefixOf when value is string stringValue => P.Within(SubStrings(stringValue)),
                 ExpressionSemantics.HasInfix when value is string stringValue => stringValue.Length > 0
                     ? TextP.Containing(stringValue)
@@ -45,13 +45,13 @@ namespace ExRam.Gremlinq.Core
                 ExpressionSemantics.EndsWith when value is string stringValue => stringValue.Length > 0
                     ? TextP.EndingWith(stringValue)
                     : PNeqNull,
-                ExpressionSemantics.LowerThan => P.Lt(value),
-                ExpressionSemantics.GreaterThan => P.Gt(value),
-                ExpressionSemantics.Equals => P.Eq(value),
-                ExpressionSemantics.NotEquals => P.Neq(value),
+                ExpressionSemantics.LowerThan => new P("lt", value),
+                ExpressionSemantics.GreaterThan => new P("gt", value),
+                ExpressionSemantics.Equals => new P("eq", value),
+                ExpressionSemantics.NotEquals => new P("neq", value),
                 ExpressionSemantics.Intersects => P.Within(value),
-                ExpressionSemantics.GreaterThanOrEqual => P.Gte(value),
-                ExpressionSemantics.LowerThanOrEqual => P.Lte(value),
+                ExpressionSemantics.GreaterThanOrEqual => new P("gte", value),
+                ExpressionSemantics.LowerThanOrEqual => new P("lte", value),
                 ExpressionSemantics.IsContainedIn => P.Within(value),
                 _ => throw new ExpressionNotSupportedException()
             };
