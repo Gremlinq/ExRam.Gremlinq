@@ -27,6 +27,10 @@ jobs:
     - name: Install dotnet-validate
       run: dotnet tool install -g dotnet-validate --version 0.0.1-preview.51
 
+    - name: Determine semantic version
+      uses: dotnet/nbgv@master
+      id: nbgv
+
     - name: Build
       run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
 
@@ -51,9 +55,6 @@ jobs:
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
         --no-symbols true
         --skip-duplicate
-        
-    - uses: dotnet/nbgv@master
-      id: nbgv
 
     - name: Bump version and push tag
       if: github.ref == 'refs/heads/rel'
@@ -62,8 +63,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CUSTOM_TAG: ${{ steps.nbgv.outputs.SemVer2 }}
 
-    - uses: release-drafter/release-drafter@v5.13.0
+    - name: Draft release
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
+      uses: release-drafter/release-drafter@v5.13.0
       with:
         name: ${{ steps.nbgv.outputs.SemVer2 }}
         prerelease: ${{ !!steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen }}
