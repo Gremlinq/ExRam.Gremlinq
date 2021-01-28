@@ -67,9 +67,10 @@ jobs:
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
       uses: release-drafter/release-drafter@v5.13.0
       with:
-        name: ${{ steps.nbgv.outputs.SemVer2 }}
+        name: ExRam.Gremlinq ${{ steps.nbgv.outputs.SemVer2 }}
         prerelease: ${{ !!steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen }}
         tag: ${{ steps.nbgv.outputs.SemVer2 }}
+        publish: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
