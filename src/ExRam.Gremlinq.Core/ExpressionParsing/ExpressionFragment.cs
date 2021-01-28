@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -16,6 +17,8 @@ namespace ExRam.Gremlinq.Core
         }
 
         public Expression? Expression { get; }
+
+        public virtual object? GetValue() => Expression?.GetValue();
 
         public static ExpressionFragment Create(Expression expression, IGraphModel model)
         {

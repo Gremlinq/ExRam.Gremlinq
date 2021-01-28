@@ -1115,7 +1115,7 @@ namespace ExRam.Gremlinq.Core
                 case ConstantExpressionFragment rightConstantFragment:
                 {
                     var effectivePredicate = semantics
-                        .ToP(rightConstantFragment.Value)
+                        .ToP(rightConstantFragment.GetValue())
                         .WorkaroundLimitations(Environment.Options);
 
                     switch (left)
@@ -1134,7 +1134,7 @@ namespace ExRam.Gremlinq.Core
                                         switch (memberSemantics)
                                         {
                                             // x => x.Value == P.xy(...)
-                                            case WellKnownMember.PropertyValue when !(rightConstantFragment.Value is StepLabel):
+                                            case WellKnownMember.PropertyValue when !(rightConstantFragment.GetValue() is StepLabel):
                                                 return AddStep(new HasValueStep(effectivePredicate));
                                             case WellKnownMember.PropertyKey:
                                                 return Where(__ => __
@@ -1143,7 +1143,7 @@ namespace ExRam.Gremlinq.Core
                                                         ExpressionFragment.Create(parameterExpression, Environment.Model),
                                                         semantics,
                                                         right));
-                                            case WellKnownMember.VertexPropertyLabel when rightConstantFragment.Value is StepLabel:
+                                            case WellKnownMember.VertexPropertyLabel when rightConstantFragment.GetValue() is StepLabel:
                                                 return Where(__ => __
                                                     .Label()
                                                     .Where(
@@ -1164,7 +1164,7 @@ namespace ExRam.Gremlinq.Core
                                         break;
 
                                     // x => x.Name == P.xy(...)
-                                    if (rightConstantFragment.Value is StepLabel)
+                                    if (rightConstantFragment.GetValue() is StepLabel)
                                     {
                                         if (rightConstantFragment.Expression is MemberExpression memberExpression)
                                         {
@@ -1189,11 +1189,11 @@ namespace ExRam.Gremlinq.Core
                                 case ParameterExpression _:
                                 {
                                     // x => x == P.xy(...)
-                                    if (rightConstantFragment is { Value: StepLabel } constantExpressionFragment)
+                                    if (rightConstantFragment.GetValue() is StepLabel)
                                     {
                                         var ret = AddStep(new WherePredicateStep(effectivePredicate));
 
-                                        if (constantExpressionFragment.Expression is MemberExpression memberExpression)
+                                        if (rightConstantFragment.Expression is MemberExpression memberExpression)
                                             ret = ret.AddStep(new WherePredicateStep.ByMemberStep(GetKey(memberExpression)));
 
                                         return ret;
@@ -1217,7 +1217,7 @@ namespace ExRam.Gremlinq.Core
 
                             break;
                         }
-                        case ConstantExpressionFragment leftConstantFragment when leftConstantFragment.Value is StepLabel leftStepLabel && rightConstantFragment.Value is StepLabel:
+                        case ConstantExpressionFragment leftConstantFragment when leftConstantFragment.GetValue() is StepLabel leftStepLabel && rightConstantFragment.GetValue() is StepLabel:
                         {
                             var ret = AddStep(new WhereStepLabelAndPredicateStep(leftStepLabel, effectivePredicate));
 
