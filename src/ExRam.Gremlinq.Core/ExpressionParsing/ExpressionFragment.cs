@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ExRam.Gremlinq.Core
 {
-    internal sealed class ExpressionFragment
+    internal readonly struct ExpressionFragment
     {
         private readonly object? _value;
 
@@ -18,8 +18,23 @@ namespace ExRam.Gremlinq.Core
             _value = value;
             Expression = expression;
         }
-        
+
         public object? GetValue() => Type == ExpressionFragmentType.Constant ? _value : Expression?.GetValue();
+
+        public bool Equals(ExpressionFragment other) => Equals(_value, other._value) && Equals(Expression, other.Expression) && Type == other.Type;
+
+        public override bool Equals(object? obj) => obj is ExpressionFragment other && Equals(other);
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (_value != null ? _value.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Expression != null ? Expression.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int) Type;
+                return hashCode;
+            }
+        }
 
         public Expression? Expression { get; }
 
@@ -44,6 +59,5 @@ namespace ExRam.Gremlinq.Core
         public static ExpressionFragment StepLabel(StepLabel value, MemberExpression? expression) => new(ExpressionFragmentType.Constant, value, expression);
 
         public static ExpressionFragment Parameter(Expression expression) => new(ExpressionFragmentType.Parameter, default, expression);
-
     }
 }
