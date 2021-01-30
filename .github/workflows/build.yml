@@ -40,7 +40,7 @@ jobs:
       with:
         name: NuGetPackages
         path: ./**/ExRam.*.nupkg
-        if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+        if-no-files-found: error
 
   test:
     runs-on: ubuntu-latest
