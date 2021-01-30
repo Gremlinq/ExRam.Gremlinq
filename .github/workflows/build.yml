@@ -3,31 +3,7 @@ name: Build + Test
 on: [push, pull_request]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    services:
-      redis:
-        image: tinkerpop/gremlin-server
-        ports:
-          - 8182:8182
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        submodules: 'true'
-
-    - name: Setup .NET Core 5.0.102
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.102
-
-    - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
-
   build:
-    needs: test
     runs-on: ubuntu-latest
 
     outputs:
@@ -64,11 +40,35 @@ jobs:
       with:
         name: NuGetPackages
         path: ./**/ExRam.*.nupkg
-        if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
+        if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: tinkerpop/gremlin-server
+        ports:
+          - 8182:8182
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: 'true'
+
+    - name: Setup .NET Core 5.0.102
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.102
+
+    - name: Test
+      run: dotnet test  --configuration Release --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
 
   publish:
-    needs: build
+    needs: [ build, test ]
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
 
     steps:
     - name: Setup .NET Core 5.0.102
@@ -80,11 +80,8 @@ jobs:
       with:
         name: NuGetPackages
 
-    - name: Display structure of downloaded files
-      run: ls -R
-
     - name: Push NuGet packages to GitHub packages
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/main' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://nuget.pkg.github.com/exram/index.json
         --api-key ${{ secrets.GITHUB_TOKEN }}
@@ -92,7 +89,7 @@ jobs:
         --skip-duplicate
 
     - name: Push NuGet packages to NuGet.org
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
+      if: ${{ github.ref == 'refs/heads/rel' }}
       run: dotnet nuget push **/ExRam.*.nupkg
         --source https://api.nuget.org/v3/index.json
         --api-key ${{ secrets.NUGET_DEPLOY_KEY }}
@@ -100,7 +97,7 @@ jobs:
         --skip-duplicate
 
   announce:
-    needs: build
+    needs: [ build, publish ]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
 
