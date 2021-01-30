@@ -27,8 +27,8 @@ namespace ExRam.Gremlinq.Core
     }
     public static class AddStepHandler
     {
-        public static ExRam.Gremlinq.Core.IAddStepHandler Default;
-        public static ExRam.Gremlinq.Core.IAddStepHandler Empty;
+        public static readonly ExRam.Gremlinq.Core.IAddStepHandler Default;
+        public static readonly ExRam.Gremlinq.Core.IAddStepHandler Empty;
     }
     public sealed class AddVStep : ExRam.Gremlinq.Core.Step
     {

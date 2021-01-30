@@ -121,9 +121,9 @@ namespace ExRam.Gremlinq.Core
             }
         }
 
-        public static IAddStepHandler Empty = new AddStepHandlerImpl(ImmutableDictionary<Type, Delegate>.Empty);
+        public static readonly IAddStepHandler Empty = new AddStepHandlerImpl(ImmutableDictionary<Type, Delegate>.Empty);
 
-        public static IAddStepHandler Default = Empty
+        public static readonly IAddStepHandler Default = Empty
             .Override<AsStep>((steps, step, env, overridden, recurse) => steps.PeekOrDefault() is AsStep asStep && ReferenceEquals(asStep.StepLabel, step.StepLabel)
                 ? steps
                 : overridden(steps, step, env, recurse))
