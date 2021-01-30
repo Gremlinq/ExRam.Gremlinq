@@ -78,14 +78,16 @@ namespace ExRam.Gremlinq.Core
 
         private static IEnumerable<(Key key, object value)> SerializeObject(object obj, IGremlinQueryEnvironment environment, SerializationBehaviour ignoreMask)
         {
+            var serializationBehaviourOverrides = environment.Options
+                .GetValue(GremlinqOption.TSerializationBehaviourOverrides);
+
             foreach (var (propertyInfo, key, serializationBehaviour) in environment.GetCache().GetSerializationData(obj.GetType()))
             {
                 var actualSerializationBehaviour = serializationBehaviour;
 
                 if (key.RawKey is T t)
                 {
-                    actualSerializationBehaviour |= environment.Options
-                        .GetValue(GremlinqOption.TSerializationBehaviourOverrides)
+                    actualSerializationBehaviour |= serializationBehaviourOverrides
                         .GetValueOrDefault(t, SerializationBehaviour.Default);
                 }
 
