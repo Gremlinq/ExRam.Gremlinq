@@ -3,7 +3,9 @@
     
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
+    <DefineConstants Condition=" '$(SkipIntegrationTests)' == 'true' ">$(DefineConstants);SKIPINTEGRATIONTESTS</DefineConstants>
   </PropertyGroup>
+
   <ItemGroup>
     <Content Include="..\xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.0-preview-20210106-01" />
