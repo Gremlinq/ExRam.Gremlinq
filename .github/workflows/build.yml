@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      redis:
+      gremlinServer:
         image: tinkerpop/gremlin-server
         ports:
           - 8182:8182
