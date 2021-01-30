@@ -1,4 +1,4 @@
-﻿#if FALSE   //Maybe on CosmosDb emulator one day...
+﻿//#if FALSE   //Maybe on CosmosDb emulator one day...
 using System;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
@@ -7,16 +7,19 @@ using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbIntegrationTests : QueryExecutionTest
+    public class CosmosDbIntegrationTests : QueryIntegrationTest
     {
         public CosmosDbIntegrationTests(ITestOutputHelper testOutputHelper) : base(
             g.ConfigureEnvironment(env => env
+                .ConfigureAddStepHandler(stepHandler => stepHandler
+                    .Override<AddVStep>((steps, step, env, overridden, recurse) => overridden(steps, step, env, recurse)
+                        .Push(new PropertyStep("PartitionKey", "PartitionKey"))))
                 .UseCosmosDb(builder => builder
-                    .At(new Uri("wss://xyz.gremlin.cosmosdb.azure.com"), "db", "graph")
-                    .AuthenticateBy("authkey"))),
+                    .At(new Uri("ws://localhost:8901"), "db", "graph")
+                    .AuthenticateBy("C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))),
             testOutputHelper)
         {
         }
     }
 }
-#endif
+//#endif
