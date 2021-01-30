@@ -60,6 +60,30 @@ jobs:
     - name: Validate nuget packages
       run: dotnet validate package local **/ExRam.*.nupkg
 
+    - name: Copy NuGet packages to artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: NuGetPackages
+        path: ./**/ExRam.*.nupkg
+        if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup .NET Core 5.0.102
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.102
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: NuGetPackages
+
+    - name: Display structure of downloaded files
+      run: ls -R
+
     - name: Push NuGet packages to GitHub packages
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       run: dotnet nuget push **/ExRam.*.nupkg
@@ -67,7 +91,7 @@ jobs:
         --api-key ${{ secrets.GITHUB_TOKEN }}
         --no-symbols true
         --skip-duplicate
-      
+
     - name: Push NuGet packages to NuGet.org
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/rel' }}
       run: dotnet nuget push **/ExRam.*.nupkg
