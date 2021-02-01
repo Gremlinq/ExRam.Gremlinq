@@ -65,7 +65,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_from_StepLabel()
+        public virtual async Task AddE_from_StepLabel()
         {
             await _g
                 .AddV(new Country { CountryCallingCode = "+49" })
@@ -77,7 +77,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_from_traversal()
+        public virtual async Task AddE_from_traversal()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
@@ -95,7 +95,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_InV()
+        public virtual async Task AddE_InV()
         {
             await _g
                 .AddV<Person>()
@@ -107,7 +107,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_OutV()
+        public virtual async Task AddE_OutV()
         {
             await _g
                 .AddV<Person>()
@@ -119,7 +119,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_property()
+        public virtual async Task AddE_property()
         {
             await _g
                 .AddV<Person>()
@@ -133,7 +133,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_to_StepLabel()
+        public virtual async Task AddE_to_StepLabel()
         {
             await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
@@ -145,7 +145,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_to_traversal()
+        public virtual async Task AddE_to_traversal()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
@@ -163,7 +163,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_With_Ignored()
+        public virtual async Task AddE_With_Ignored()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -181,7 +181,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_from_to()
+        public virtual async Task AddE_from_to()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -193,7 +193,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddE_to_from()
+        public virtual async Task AddE_to_from()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -205,7 +205,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV()
+        public virtual async Task AddV()
         {
             await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
@@ -213,7 +213,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_ignores_label()
+        public virtual async Task AddV_ignores_label()
         {
             await _g
                 .AddV(new Language {Label = "Language"})
@@ -221,7 +221,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_list_cardinality_id()
+        public virtual async Task AddV_list_cardinality_id()
         {
             if (_g.Environment.FeatureSet.Supports(VertexFeatures.UserSuppliedIds))
             {
@@ -238,7 +238,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_TimeFrame()
+        public virtual async Task AddV_TimeFrame()
         {
             await _g
                 .AddV(new TimeFrame
@@ -250,7 +250,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_enum_property()
+        public virtual async Task AddV_with_enum_property()
         {
             await _g
                 .AddV(new Person { Gender = Gender.Female })
@@ -258,7 +258,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_byte_array_property()
+        public virtual async Task AddV_with_byte_array_property()
         {
             await _g
                 .AddV(new Person
@@ -269,7 +269,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_With_Ignored()
+        public virtual async Task AddV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -286,7 +286,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_ignored_id_property()
+        public virtual async Task AddV_with_ignored_id_property()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -299,7 +299,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_ignored_property()
+        public virtual async Task AddV_with_ignored_property()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -312,7 +312,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_Meta_with_properties()
+        public virtual async Task AddV_with_Meta_with_properties()
         {
             await _g
                 .AddV(new Country
@@ -330,7 +330,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_Meta_without_properties()
+        public virtual async Task AddV_with_Meta_without_properties()
         {
             await _g
                 .AddV(new Country { Name = "GER"})
@@ -338,7 +338,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void VertexProperty_throws_on_null_value()
+        public virtual void VertexProperty_throws_on_null_value()
         {
             default(int)
                 .Invoking(_ => new VertexProperty<string>(null!))
@@ -352,7 +352,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_MetaModel()
+        public virtual async Task AddV_with_MetaModel()
         {
             await _g
                 .AddV(new Company
@@ -372,7 +372,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_multi_property()
+        public virtual async Task AddV_with_multi_property()
         {
             await _g
                 .AddV(new Company { PhoneNumbers = new[] { "+4912345", "+4923456" } })
@@ -380,7 +380,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_nulls()
+        public virtual async Task AddV_with_nulls()
         {
             await _g
                 .AddV(new Language())
@@ -388,7 +388,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_with_overridden_name()
+        public virtual async Task AddV_with_overridden_name()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -401,7 +401,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_without_id()
+        public virtual async Task AddV_without_id()
         {
             await _g
                 .AddV(new Language { IetfLanguageTag = "en" })
@@ -409,7 +409,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task AddV_without_model()
+        public virtual async Task AddV_without_model()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -419,7 +419,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Aggregate_Cap()
+        public virtual async Task Aggregate_Cap()
         {
             await _g
                 .V<Person>()
@@ -429,7 +429,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Aggregate_Cap_type()
+        public virtual async Task Aggregate_Cap_type()
         {
             _g
                 .V<Person>()
@@ -440,7 +440,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Aggregate_Cap_unfold()
+        public virtual async Task Aggregate_Cap_unfold()
         {
             await _g
                 .V<Person>()
@@ -451,7 +451,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Aggregate_Global()
+        public virtual async Task Aggregate_Global()
         {
             await _g
                 .V()
@@ -460,7 +460,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Aggregate_Local()
+        public virtual async Task Aggregate_Local()
         {
             await _g
                 .V()
@@ -469,7 +469,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And()
+        public virtual async Task And()
         {
             await _g
                 .V<Person>()
@@ -482,7 +482,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_identity()
+        public virtual async Task And_identity()
         {
             await _g
                 .V<Person>()
@@ -492,7 +492,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_infix()
+        public virtual async Task And_infix()
         {
             await _g
                 .V<Person>()
@@ -502,7 +502,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_nested()
+        public virtual async Task And_nested()
         {
             await _g
                 .V<Person>()
@@ -519,7 +519,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_nested_or_optimization()
+        public virtual async Task And_nested_or_optimization()
         {
             await _g
                 .V<Person>()
@@ -531,7 +531,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_none()
+        public virtual async Task And_none()
         {
             await _g
                 .V<Person>()
@@ -541,7 +541,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_optimization()
+        public virtual async Task And_optimization()
         {
             await _g
                 .V<Person>()
@@ -552,7 +552,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_single()
+        public virtual async Task And_single()
         {
             await _g
                 .V<Person>()
@@ -562,7 +562,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task As_followed_by_Select()
+        public virtual async Task As_followed_by_Select()
         {
             await _g
                 .V<Person>()
@@ -572,7 +572,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task As_idempotency_is_detected()
+        public virtual async Task As_idempotency_is_detected()
         {
             await _g
                 .V<Person>()
@@ -583,7 +583,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task As_inlined_nested_Select()
+        public virtual async Task As_inlined_nested_Select()
         {
             await _g
                 .V<Person>()
@@ -596,7 +596,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task As_inlined_nested_Select2()
+        public virtual async Task As_inlined_nested_Select2()
         {
             await _g
                 .V<Person>()
@@ -610,7 +610,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task As_with_type_change()
+        public virtual async Task As_with_type_change()
         {
             IGremlinQueryBaseRec<Person, IVertexGremlinQuery<Person>> g = _g
                 .V<Person>();
@@ -623,7 +623,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Cast_to_same_type_yields_same_query()
+        public virtual void Cast_to_same_type_yields_same_query()
         {
             var original = _g
                 .V<Person>();
@@ -637,7 +637,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_one_case()
+        public virtual async Task Choose_one_case()
         {
             await _g
                 .V()
@@ -649,7 +649,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_only_default_case()
+        public virtual async Task Choose_only_default_case()
         {
             await _g
                 .V()
@@ -661,7 +661,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate1()
+        public virtual async Task Choose_Predicate1()
         {
             await _g
                 .V()
@@ -674,7 +674,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate2()
+        public virtual async Task Choose_Predicate2()
         {
             await _g
                 .V()
@@ -686,7 +686,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate3()
+        public virtual async Task Choose_Predicate3()
         {
             await _g
                 .V()
@@ -700,7 +700,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate4()
+        public virtual async Task Choose_Predicate4()
         {
             await _g
                 .V()
@@ -714,7 +714,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate5()
+        public virtual async Task Choose_Predicate5()
         {
             await _g
                 .V()
@@ -728,7 +728,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate6()
+        public virtual async Task Choose_Predicate6()
         {
             await _g
                 .V()
@@ -742,7 +742,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Predicate7()
+        public virtual async Task Choose_Predicate7()
         {
             await _g
                 .V()
@@ -756,7 +756,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Traversal1()
+        public virtual async Task Choose_Traversal1()
         {
             await _g
                 .V()
@@ -768,7 +768,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_Traversal2()
+        public virtual async Task Choose_Traversal2()
         {
             await _g
                 .V()
@@ -779,7 +779,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_two_cases()
+        public virtual async Task Choose_two_cases()
         {
             await _g
                 .V()
@@ -792,7 +792,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Choose_two_cases_default()
+        public virtual async Task Choose_two_cases_default()
         {
             await _g
                 .V()
@@ -806,7 +806,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Coalesce()
+        public virtual async Task Coalesce()
         {
             await _g
                 .V()
@@ -817,7 +817,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Coalesce_empty()
+        public virtual async Task Coalesce_empty()
         {
             _g
                 .V()
@@ -827,7 +827,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Coalesce_identity()
+        public virtual async Task Coalesce_identity()
         {
             await _g
                 .V()
@@ -838,7 +838,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Constant()
+        public virtual async Task Constant()
         {
             await _g
                 .V()
@@ -847,7 +847,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Count()
+        public virtual async Task Count()
         {
             await _g
                 .V()
@@ -856,7 +856,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task CountGlobal()
+        public virtual async Task CountGlobal()
         {
             await _g
                 .V()
@@ -865,7 +865,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task CountLocal()
+        public virtual async Task CountLocal()
         {
             await _g
                 .V()
@@ -874,7 +874,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task CyclicPath()
+        public virtual async Task CyclicPath()
         {
             await _g
                 .V()
@@ -885,7 +885,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Dedup_Global()
+        public virtual async Task Dedup_Global()
         {
             await _g
                 .V()
@@ -894,7 +894,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Dedup_Local()
+        public virtual async Task Dedup_Local()
         {
             await _g
                 .V()
@@ -904,7 +904,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Drop()
+        public virtual async Task Drop()
         {
             await _g
                 .V<Person>()
@@ -914,7 +914,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
 
         [Fact]
-        public async Task Drop_in_local()
+        public virtual async Task Drop_in_local()
         {
             await _g
                 .Inject(1)
@@ -925,7 +925,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task E_of_all_types1()
+        public virtual async Task E_of_all_types1()
         {
             await _g
                 .E<object>()
@@ -933,7 +933,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task E_of_all_types2()
+        public virtual async Task E_of_all_types2()
         {
             await _g
                 .E()
@@ -941,7 +941,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task E_of_concrete_type()
+        public virtual async Task E_of_concrete_type()
         {
             await _g
                 .E<WorksFor>()
@@ -949,7 +949,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task E_Properties()
+        public virtual async Task E_Properties()
         {
             await _g
                 .E()
@@ -958,7 +958,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task E_Properties_member()
+        public virtual async Task E_Properties_member()
         {
             await _g
                 .E<LivesIn>()
@@ -967,7 +967,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Explicit_As()
+        public virtual async Task Explicit_As()
         {
             var stepLabel = new StepLabel<Person>();
 
@@ -979,7 +979,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task FilterWithLambda()
+        public virtual async Task FilterWithLambda()
         {
             await _g
                 .V<Person>()
@@ -989,7 +989,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task FlatMap()
+        public virtual async Task FlatMap()
         {
             await _g
                 .V<Person>()
@@ -998,7 +998,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Fold()
+        public virtual async Task Fold()
         {
             await _g
                 .V()
@@ -1007,7 +1007,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_LimitLocal_0()
+        public virtual async Task V_Limit0_Fold_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1018,7 +1018,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_LimitLocal_1()
+        public virtual async Task V_Limit0_Fold_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1029,7 +1029,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_LimitLocal_2()
+        public virtual async Task V_Limit0_Fold_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1040,7 +1040,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_TailLocal_0()
+        public virtual async Task V_Limit0_Fold_TailLocal_0()
         {
             await _g
                 .V()
@@ -1051,7 +1051,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_TailLocal_1()
+        public virtual async Task V_Limit0_Fold_TailLocal_1()
         {
             await _g
                 .V()
@@ -1062,7 +1062,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_TailLocal_2()
+        public virtual async Task V_Limit0_Fold_TailLocal_2()
         {
             await _g
                 .V()
@@ -1073,7 +1073,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_RangeLocal_0()
+        public virtual async Task V_Limit0_Fold_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1084,7 +1084,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_RangeLocal_1()
+        public virtual async Task V_Limit0_Fold_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1095,7 +1095,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_Fold_RangeLocal_2()
+        public virtual async Task V_Limit0_Fold_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1106,7 +1106,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_LimitLocal_0()
+        public virtual async Task V_Limit0_V_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1116,7 +1116,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_LimitLocal_1()
+        public virtual async Task V_Limit0_V_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1126,7 +1126,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_LimitLocal_2()
+        public virtual async Task V_Limit0_V_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1136,7 +1136,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_TailLocal_0()
+        public virtual async Task V_Limit0_V_TailLocal_0()
         {
             await _g
                 .V()
@@ -1146,7 +1146,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_TailLocal_1()
+        public virtual async Task V_Limit0_V_TailLocal_1()
         {
             await _g
                 .V()
@@ -1156,7 +1156,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_TailLocal_2()
+        public virtual async Task V_Limit0_V_TailLocal_2()
         {
             await _g
                 .V()
@@ -1166,7 +1166,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_RangeLocal_0()
+        public virtual async Task V_Limit0_V_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1176,7 +1176,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_RangeLocal_1()
+        public virtual async Task V_Limit0_V_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1186,7 +1186,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit0_V_RangeLocal_2()
+        public virtual async Task V_Limit0_V_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1196,7 +1196,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_LimitLocal_0()
+        public virtual async Task V_Limit1_Fold_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1207,7 +1207,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_LimitLocal_1()
+        public virtual async Task V_Limit1_Fold_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1218,7 +1218,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_LimitLocal_2()
+        public virtual async Task V_Limit1_Fold_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1229,7 +1229,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_TailLocal_0()
+        public virtual async Task V_Limit1_Fold_TailLocal_0()
         {
             await _g
                 .V()
@@ -1240,7 +1240,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_TailLocal_1()
+        public virtual async Task V_Limit1_Fold_TailLocal_1()
         {
             await _g
                 .V()
@@ -1251,7 +1251,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_TailLocal_2()
+        public virtual async Task V_Limit1_Fold_TailLocal_2()
         {
             await _g
                 .V()
@@ -1262,7 +1262,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_RangeLocal_0()
+        public virtual async Task V_Limit1_Fold_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1273,7 +1273,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_RangeLocal_1()
+        public virtual async Task V_Limit1_Fold_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1284,7 +1284,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_Fold_RangeLocal_2()
+        public virtual async Task V_Limit1_Fold_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1295,7 +1295,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_LimitLocal_0()
+        public virtual async Task V_Limit1_V_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1305,7 +1305,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_LimitLocal_1()
+        public virtual async Task V_Limit1_V_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1315,7 +1315,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_LimitLocal_2()
+        public virtual async Task V_Limit1_V_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1325,7 +1325,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_TailLocal_0()
+        public virtual async Task V_Limit1_V_TailLocal_0()
         {
             await _g
                 .V()
@@ -1335,7 +1335,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_TailLocal_1()
+        public virtual async Task V_Limit1_V_TailLocal_1()
         {
             await _g
                 .V()
@@ -1345,7 +1345,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_TailLocal_2()
+        public virtual async Task V_Limit1_V_TailLocal_2()
         {
             await _g
                 .V()
@@ -1355,7 +1355,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_RangeLocal_0()
+        public virtual async Task V_Limit1_V_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1365,7 +1365,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_RangeLocal_1()
+        public virtual async Task V_Limit1_V_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1375,7 +1375,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit1_V_RangeLocal_2()
+        public virtual async Task V_Limit1_V_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1385,7 +1385,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_LimitLocal_0()
+        public virtual async Task V_Limit2_Fold_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1396,7 +1396,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_LimitLocal_1()
+        public virtual async Task V_Limit2_Fold_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1407,7 +1407,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_LimitLocal_2()
+        public virtual async Task V_Limit2_Fold_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1418,7 +1418,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_TailLocal_0()
+        public virtual async Task V_Limit2_Fold_TailLocal_0()
         {
             await _g
                 .V()
@@ -1429,7 +1429,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_TailLocal_1()
+        public virtual async Task V_Limit2_Fold_TailLocal_1()
         {
             await _g
                 .V()
@@ -1440,7 +1440,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_TailLocal_2()
+        public virtual async Task V_Limit2_Fold_TailLocal_2()
         {
             await _g
                 .V()
@@ -1451,7 +1451,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_RangeLocal_0()
+        public virtual async Task V_Limit2_Fold_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1462,7 +1462,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_RangeLocal_1()
+        public virtual async Task V_Limit2_Fold_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1473,7 +1473,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_Fold_RangeLocal_2()
+        public virtual async Task V_Limit2_Fold_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1484,7 +1484,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_LimitLocal_0()
+        public virtual async Task V_Limit2_V_LimitLocal_0()
         {
             await _g
                 .V()
@@ -1494,7 +1494,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_LimitLocal_1()
+        public virtual async Task V_Limit2_V_LimitLocal_1()
         {
             await _g
                 .V()
@@ -1504,7 +1504,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_LimitLocal_2()
+        public virtual async Task V_Limit2_V_LimitLocal_2()
         {
             await _g
                 .V()
@@ -1514,7 +1514,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_TailLocal_0()
+        public virtual async Task V_Limit2_V_TailLocal_0()
         {
             await _g
                 .V()
@@ -1524,7 +1524,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_TailLocal_1()
+        public virtual async Task V_Limit2_V_TailLocal_1()
         {
             await _g
                 .V()
@@ -1534,7 +1534,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_TailLocal_2()
+        public virtual async Task V_Limit2_V_TailLocal_2()
         {
             await _g
                 .V()
@@ -1544,7 +1544,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_RangeLocal_0()
+        public virtual async Task V_Limit2_V_RangeLocal_0()
         {
             await _g
                 .V()
@@ -1554,7 +1554,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_RangeLocal_1()
+        public virtual async Task V_Limit2_V_RangeLocal_1()
         {
             await _g
                 .V()
@@ -1564,7 +1564,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Limit2_V_RangeLocal_2()
+        public virtual async Task V_Limit2_V_RangeLocal_2()
         {
             await _g
                 .V()
@@ -1574,7 +1574,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Fold_Fold_Unfold_Unfold()
+        public virtual async Task Fold_Fold_Unfold_Unfold()
         {
             await _g
                 .V()
@@ -1586,7 +1586,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Fold_SideEffect()
+        public virtual async Task Fold_SideEffect()
         {
             await _g
                 .V()
@@ -1597,7 +1597,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Fold_Unfold()
+        public virtual async Task Fold_Unfold()
         {
             await _g
                 .V()
@@ -1607,7 +1607,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Group_with_key()
+        public virtual async Task Group_with_key()
         {
             await _g
                 .V()
@@ -1617,7 +1617,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Identity()
+        public virtual async Task Identity()
         {
             await _g
                 .V<Person>()
@@ -1626,7 +1626,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Identity_Identity()
+        public virtual async Task Identity_Identity()
         {
             await _g
                 .V<Person>()
@@ -1637,7 +1637,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
 
         [Fact]
-        public async Task In()
+        public virtual async Task In()
         {
             await _g
                 .V<Person>()
@@ -1646,7 +1646,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task In_of_all_types_max()
+        public virtual async Task In_of_all_types_max()
         {
             await _g
                 .V()
@@ -1655,7 +1655,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task In_of_all_types_min()
+        public virtual async Task In_of_all_types_min()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -1667,7 +1667,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task InE_of_all_types_max()
+        public virtual async Task InE_of_all_types_max()
         {
             await _g
                 .V()
@@ -1676,7 +1676,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task InE_of_all_types_min()
+        public virtual async Task InE_of_all_types_min()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -1688,7 +1688,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Inject()
+        public virtual async Task Inject()
         {
             await _g
                 .Inject(36, 37, 38)
@@ -1696,7 +1696,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Label()
+        public virtual async Task Label()
         {
             await _g
                 .V()
@@ -1705,7 +1705,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Limit_underflow()
+        public virtual async Task Limit_underflow()
         {
             _g
                 .V()
@@ -1715,7 +1715,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task LimitGlobal()
+        public virtual async Task LimitGlobal()
         {
             await _g
                 .V()
@@ -1724,7 +1724,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task LimitLocal()
+        public virtual async Task LimitLocal()
         {
             await _g
                 .V()
@@ -1733,7 +1733,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Local_identity()
+        public virtual async Task Local_identity()
         {
             await _g
                 .V()
@@ -1742,7 +1742,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Map()
+        public virtual async Task Map()
         {
             await _g
                 .V<Person>()
@@ -1751,7 +1751,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Map_Identity()
+        public virtual async Task Map_Identity()
         {
             await _g
                 .V<Person>()
@@ -1760,7 +1760,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Map_Select_operation()
+        public virtual async Task Map_Select_operation()
         {
             await _g
                 .V<Person>()
@@ -1772,7 +1772,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MaxGlobal()
+        public virtual async Task MaxGlobal()
         {
             await _g
                 .V<Person>()
@@ -1782,7 +1782,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MaxLocal()
+        public virtual async Task MaxLocal()
         {
             await _g
                 .V<Person>()
@@ -1793,7 +1793,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MeanGlobal()
+        public virtual async Task MeanGlobal()
         {
             await _g
                 .V<Person>()
@@ -1803,7 +1803,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MeanLocal()
+        public virtual async Task MeanLocal()
         {
             await _g
                 .V<Person>()
@@ -1814,7 +1814,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Mid_query_g_throws()
+        public virtual void Mid_query_g_throws()
         {
             _g
                 .V()
@@ -1827,7 +1827,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MinGlobal()
+        public virtual async Task MinGlobal()
         {
             await _g
                 .V<Person>()
@@ -1837,7 +1837,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task MinLocal()
+        public virtual async Task MinLocal()
         {
             await _g
                 .V<Person>()
@@ -1848,7 +1848,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Mute()
+        public virtual async Task Mute()
         {
             await _g
                 .V()
@@ -1858,7 +1858,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Nested_contradicting_Select_operations_does_not_throw()
+        public virtual async Task Nested_contradicting_Select_operations_does_not_throw()
         {
             await _g
                 .V<Person>()
@@ -1871,7 +1871,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Nested_Select_operations()
+        public virtual async Task Nested_Select_operations()
         {
             await _g
                 .V<Person>()
@@ -1884,7 +1884,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task None()
+        public virtual async Task None()
         {
             await _g
                 .V<Person>()
@@ -1893,7 +1893,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task None_None()
+        public virtual async Task None_None()
         {
             await _g
                 .V<Person>()
@@ -1903,7 +1903,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Not1()
+        public virtual async Task Not1()
         {
             await _g
                 .V()
@@ -1912,7 +1912,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Not2()
+        public virtual async Task Not2()
         {
             await _g
                 .V()
@@ -1921,7 +1921,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Not3()
+        public virtual async Task Not3()
         {
             await _g
                 .V()
@@ -1930,7 +1930,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void NullGuard_works()
+        public virtual void NullGuard_works()
         {
             _g
                 .Invoking(_ => _
@@ -1940,7 +1940,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OfType_abstract()
+        public virtual async Task OfType_abstract()
         {
             await _g
                 .V()
@@ -1949,7 +1949,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OfType_redundant1()
+        public virtual async Task OfType_redundant1()
         {
             await _g
                 .V()
@@ -1959,7 +1959,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OfType_redundant2()
+        public virtual async Task OfType_redundant2()
         {
             await _g
                 .V()
@@ -1969,7 +1969,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OfType_redundant3()
+        public virtual async Task OfType_redundant3()
         {
             await _g
                 .V()
@@ -1980,7 +1980,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OfType_redundant4()
+        public virtual async Task OfType_redundant4()
         {
             await _g
                 .V()
@@ -1990,7 +1990,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Optional()
+        public virtual async Task Optional()
         {
             await _g
                 .V()
@@ -2000,7 +2000,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or()
+        public virtual async Task Or()
         {
             await _g
                 .V<Person>()
@@ -2013,7 +2013,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_identity()
+        public virtual async Task Or_identity()
         {
             await _g
                 .V<Person>()
@@ -2025,7 +2025,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_infix()
+        public virtual async Task Or_infix()
         {
             await _g
                 .V<Person>()
@@ -2036,7 +2036,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_nested()
+        public virtual async Task Or_nested()
         {
             await _g
                 .V<Person>()
@@ -2053,7 +2053,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_nested_and_optimization()
+        public virtual async Task Or_nested_and_optimization()
         {
             await _g
                 .V<Person>()
@@ -2068,7 +2068,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_none()
+        public virtual async Task Or_none()
         {
             await _g
                 .V<Person>()
@@ -2082,7 +2082,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_two_step_traversal()
+        public virtual async Task Or_two_step_traversal()
         {
             await _g
                 .V<Person>()
@@ -2096,7 +2096,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Order_Fold_Unfold()
+        public virtual async Task Order_Fold_Unfold()
         {
             await _g
                 .V<IVertex>()
@@ -2108,7 +2108,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Order_scalars()
+        public virtual async Task Order_scalars()
         {
             await _g
                 .V<Person>()
@@ -2119,7 +2119,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Order_scalars_local()
+        public virtual async Task Order_scalars_local()
         {
             await _g
                 .V<Person>()
@@ -2130,7 +2130,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_lambda()
+        public virtual async Task OrderBy_lambda()
         {
             await _g
                 .V<Person>()
@@ -2141,7 +2141,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_member()
+        public virtual async Task OrderBy_member()
         {
             await _g
                 .V<Person>()
@@ -2152,7 +2152,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_member_ThenBy_member()
+        public virtual async Task OrderBy_member_ThenBy_member()
         {
             await _g
                 .V<Person>()
@@ -2166,7 +2166,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_ThenBy_lambda()
+        public virtual async Task OrderBy_ThenBy_lambda()
         {
             await _g
                 .V<Person>()
@@ -2179,7 +2179,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_ThenByDescending_member()
+        public virtual async Task OrderBy_ThenByDescending_member()
         {
             await _g
                 .V<Person>()
@@ -2192,7 +2192,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_ThenByDescending_traversal()
+        public virtual async Task OrderBy_ThenByDescending_traversal()
         {
             await _g
                 .V<Person>()
@@ -2205,7 +2205,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_traversal()
+        public virtual async Task OrderBy_traversal()
         {
             await _g
                 .V<Person>()
@@ -2216,7 +2216,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_traversal_ThenBy()
+        public virtual async Task OrderBy_traversal_ThenBy()
         {
             await _g
                 .V<Person>()
@@ -2229,7 +2229,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderBy_traversal_ThenBy_traversal()
+        public virtual async Task OrderBy_traversal_ThenBy_traversal()
         {
             await _g
                 .V<Person>()
@@ -2242,7 +2242,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderByDescending_member()
+        public virtual async Task OrderByDescending_member()
         {
             await _g
                 .V<Person>()
@@ -2253,7 +2253,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderByDescending_traversal()
+        public virtual async Task OrderByDescending_traversal()
         {
             await _g
                 .V<Person>()
@@ -2264,7 +2264,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OrderLocal_by_member()
+        public virtual async Task OrderLocal_by_member()
         {
             await _g
                 .V<Person>()
@@ -2275,7 +2275,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Out()
+        public virtual async Task Out()
         {
             await _g
                 .V<Person>()
@@ -2284,7 +2284,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Out_does_not_include_abstract_edge()
+        public virtual async Task Out_does_not_include_abstract_edge()
         {
             await _g
                 .V<Person>()
@@ -2293,7 +2293,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Out_of_all_types_max()
+        public virtual async Task Out_of_all_types_max()
         {
             await _g
                 .V()
@@ -2302,7 +2302,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Out_of_all_types_min()
+        public virtual async Task Out_of_all_types_min()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -2314,7 +2314,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OutE_of_all_types_max()
+        public virtual async Task OutE_of_all_types_max()
         {
             await _g
                 .V()
@@ -2323,7 +2323,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OutE_of_all_types_min()
+        public virtual async Task OutE_of_all_types_min()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -2335,7 +2335,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task OutE_of_no_derived_types()
+        public virtual async Task OutE_of_no_derived_types()
         {
             await _g
                 .V()
@@ -2344,7 +2344,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Path()
+        public virtual async Task Path()
         {
             await _g
                 .V()
@@ -2355,7 +2355,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_to_property_with_builder()
+        public virtual async Task Project_to_property_with_builder()
         {
             await _g
                 .V<Person>()
@@ -2368,7 +2368,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_with_builder_1()
+        public virtual async Task Project_with_builder_1()
         {
             await _g
                 .V()
@@ -2380,7 +2380,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_with_builder_4()
+        public virtual async Task Project_with_builder_4()
         {
             await _g
                 .V()
@@ -2397,7 +2397,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_with_identity()
+        public virtual async Task Project_with_identity()
         {
             await _g
                 .V()
@@ -2410,7 +2410,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_with_named_identity()
+        public virtual async Task Project_with_named_identity()
         {
             await _g
                 .V()
@@ -2423,7 +2423,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project_with_local()
+        public virtual async Task Project_with_local()
         {
             await _g
                 .V()
@@ -2438,7 +2438,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project2()
+        public virtual async Task Project2()
         {
             await _g
                 .V()
@@ -2453,7 +2453,7 @@ namespace ExRam.Gremlinq.Core.Tests
 
 
         [Fact]
-        public async Task Project2_with_Property()
+        public virtual async Task Project2_with_Property()
         {
             await _g
                 .V<Person>()
@@ -2466,7 +2466,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project3()
+        public virtual async Task Project3()
         {
             await _g
                 .V()
@@ -2481,7 +2481,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project3_Select1()
+        public virtual async Task Project3_Select1()
         {
             await _g
                 .V()
@@ -2497,7 +2497,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project3_Select2()
+        public virtual async Task Project3_Select2()
         {
             await _g
                 .V()
@@ -2515,7 +2515,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project3_with_Property()
+        public virtual async Task Project3_with_Property()
         {
             await _g
                 .V<Person>()
@@ -2530,7 +2530,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project3_with_Property_Select2()
+        public virtual async Task Project3_with_Property_Select2()
         {
             await _g
                 .V<Person>()
@@ -2548,7 +2548,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project4()
+        public virtual async Task Project4()
         {
             await _g
                 .V()
@@ -2565,7 +2565,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Project4_with_Property()
+        public virtual async Task Project4_with_Property()
         {
             await _g
                 .V<Person>()
@@ -2582,7 +2582,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Meta()
+        public virtual async Task Properties_Meta()
         {
             await _g
                 .V<Country>()
@@ -2592,7 +2592,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Meta_ValueMap()
+        public virtual async Task Properties_Meta_ValueMap()
         {
             await _g
                 .V()
@@ -2603,7 +2603,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Meta_Values()
+        public virtual async Task Properties_Meta_Values()
         {
             await _g
                 .V()
@@ -2614,7 +2614,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Meta_Values_Projected()
+        public virtual async Task Properties_Meta_Values_Projected()
         {
             await _g
                 .V()
@@ -2625,7 +2625,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Meta_Where1()
+        public virtual async Task Properties_Meta_Where1()
         {
             await _g
                 .V<Country>()
@@ -2636,7 +2636,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_of_member()
+        public virtual async Task Properties_of_member()
         {
             await _g
                 .V<Country>()
@@ -2645,7 +2645,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_of_three_members()
+        public virtual async Task Properties_of_three_members()
         {
             await _g
                 .V<Country>()
@@ -2657,7 +2657,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_of_two_members1()
+        public virtual async Task Properties_of_two_members1()
         {
             await _g
                 .V<Country>()
@@ -2668,7 +2668,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_of_two_members2()
+        public virtual async Task Properties_of_two_members2()
         {
             await _g
                 .V<Country>()
@@ -2679,7 +2679,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties_as_select()
+        public virtual async Task Properties_Properties_as_select()
         {
             await _g
                 .V<Country>()
@@ -2691,7 +2691,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties_key()
+        public virtual async Task Properties_Properties_key()
         {
             await _g
                 .V<Country>()
@@ -2702,7 +2702,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties_Value()
+        public virtual async Task Properties_Properties_Value()
         {
             await _g
                 .V<Company>()
@@ -2713,7 +2713,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties_Where_key()
+        public virtual async Task Properties_Properties_Where_key()
         {
             await _g
                 .V<Company>()
@@ -2724,7 +2724,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties_Where_key_equals_stepLabel()
+        public virtual async Task Properties_Properties_Where_key_equals_stepLabel()
         {
             await _g
                 .Inject("hello")
@@ -2737,7 +2737,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties1()
+        public virtual async Task Properties_Properties1()
         {
             await _g
                 .V<Country>()
@@ -2747,7 +2747,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Properties2()
+        public virtual async Task Properties_Properties2()
         {
             await _g
                 .V<Company>()
@@ -2757,7 +2757,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_typed_no_parameters()
+        public virtual async Task Properties_typed_no_parameters()
         {
             await _g
                 .V()
@@ -2766,7 +2766,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_ValueMap_typed()
+        public virtual async Task Properties_ValueMap_typed()
         {
             await _g
                 .V()
@@ -2776,7 +2776,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_ValueMap_untyped()
+        public virtual async Task Properties_ValueMap_untyped()
         {
             await _g
                 .V()
@@ -2786,7 +2786,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_Id()
+        public virtual async Task Properties_Values_Id()
         {
             await _g
                 .V()
@@ -2796,7 +2796,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_Id_Label()
+        public virtual async Task Properties_Values_Id_Label()
         {
             await _g
                 .V()
@@ -2808,7 +2808,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_Label()
+        public virtual async Task Properties_Values_Label()
         {
             await _g
                 .V()
@@ -2818,7 +2818,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_typed()
+        public virtual async Task Properties_Values_typed()
         {
             await _g
                 .V()
@@ -2828,7 +2828,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values_untyped()
+        public virtual async Task Properties_Values_untyped()
         {
             await _g
                 .V()
@@ -2838,7 +2838,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Values2()
+        public virtual async Task Properties_Values2()
         {
             await _g
                 .V()
@@ -2848,7 +2848,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Dictionary_key1()
+        public virtual async Task Properties_Where_Dictionary_key1()
         {
             await _g
                 .V<Person>()
@@ -2860,7 +2860,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Dictionary_key2()
+        public virtual async Task Properties_Where_Dictionary_key2()
         {
             await _g
                 .V<Person>()
@@ -2870,7 +2870,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Id()
+        public virtual async Task Properties_Where_Id()
         {
             await _g
                 .V<Country>()
@@ -2882,7 +2882,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Id_equals_static_field()
+        public virtual async Task Properties_Where_Id_equals_static_field()
         {
             await _g
                 .V<Country>()
@@ -2894,7 +2894,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Label_2()
+        public virtual async Task Properties_Where_Label_2()
         {
             await _g
                 .V<Country>()
@@ -2904,7 +2904,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Label_equals_StepLabel()
+        public virtual async Task Properties_Where_Label_equals_StepLabel()
         {
             await _g
                 .Inject("label")
@@ -2916,7 +2916,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Meta_key()
+        public virtual async Task Properties_Where_Meta_key()
         {
             await _g
                 .V<Company>()
@@ -2926,7 +2926,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_Meta_key_reversed()
+        public virtual async Task Properties_Where_Meta_key_reversed()
         {
             await _g
                 .V<Company>()
@@ -2936,7 +2936,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_neq_Label()
+        public virtual async Task Properties_Where_neq_Label()
         {
             await _g
                 .V<Country>()
@@ -2946,7 +2946,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_neq_Label_workaround()
+        public virtual async Task Properties_Where_neq_Label_workaround()
         {
             await _g
                 .V<Country>()
@@ -2958,7 +2958,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where_reversed()
+        public virtual async Task Properties_Where_reversed()
         {
             await _g
                 .V<Country>()
@@ -2968,7 +2968,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where1()
+        public virtual async Task Properties_Where1()
         {
             await _g
                 .V<Country>()
@@ -2978,7 +2978,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties_Where2()
+        public virtual async Task Properties_Where2()
         {
             await _g
                 .V<Person>()
@@ -2989,7 +2989,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties1()
+        public virtual async Task Properties1()
         {
             await _g
                 .V()
@@ -2998,7 +2998,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Properties2()
+        public virtual async Task Properties2()
         {
             await _g
                 .E()
@@ -3007,7 +3007,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Property_list()
+        public virtual async Task Property_list()
         {
             await _g
                 .V<Company>()
@@ -3017,7 +3017,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Property_null()
+        public virtual async Task Property_null()
         {
             await _g
                 .V<Company>()
@@ -3027,7 +3027,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Property_single()
+        public virtual async Task Property_single()
         {
             await _g
                 .V<Person>()
@@ -3036,7 +3036,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Property_single_with_meta()
+        public virtual async Task Property_single_with_meta()
         {
             await _g
                 .V<Person>()
@@ -3051,7 +3051,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Property_single_with_dictionary_meta1()
+        public virtual async Task Property_single_with_dictionary_meta1()
         {
             await _g
                 .V<Country>()
@@ -3066,7 +3066,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Property_single_with_dictionary_meta2()
+        public virtual void Property_single_with_dictionary_meta2()
         {
             _g
                 .V<Country>()
@@ -3083,7 +3083,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Range_underflow()
+        public virtual void Range_underflow()
         {
             _g
                 .V()
@@ -3093,7 +3093,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task RangeGlobal()
+        public virtual async Task RangeGlobal()
         {
             await _g
                 .V()
@@ -3102,7 +3102,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task RangeLocal()
+        public virtual async Task RangeLocal()
         {
             await _g
                 .V()
@@ -3111,7 +3111,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Repeat_Out()
+        public virtual async Task Repeat_Out()
         {
             await _g
                 .V<Person>()
@@ -3122,7 +3122,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task RepeatUntil()
+        public virtual async Task RepeatUntil()
         {
             await _g
                 .V<Person>()
@@ -3134,7 +3134,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ReplaceE()
+        public virtual async Task ReplaceE()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -3146,7 +3146,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ReplaceE_With_Config()
+        public virtual async Task ReplaceE_With_Config()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
             var worksFor = new WorksFor { Id = 0, From = now, To = now, Role = "Admin" };
@@ -3162,7 +3162,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ReplaceV()
+        public virtual async Task ReplaceV()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -3173,7 +3173,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ReplaceV_With_Config()
+        public virtual async Task ReplaceV_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Id = 0, Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -3189,7 +3189,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Set_Meta_Property_to_null()
+        public virtual async Task Set_Meta_Property_to_null()
         {
             await _g
                 .V<Country>()
@@ -3199,7 +3199,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Set_Meta_Property1()
+        public virtual async Task Set_Meta_Property1()
         {
             await _g
                 .V<Country>()
@@ -3209,7 +3209,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Set_Meta_Property2()
+        public virtual async Task Set_Meta_Property2()
         {
             var d = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
@@ -3221,7 +3221,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SimplePath()
+        public virtual async Task SimplePath()
         {
             await _g
                 .V()
@@ -3232,7 +3232,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Skip_underflow()
+        public virtual void Skip_underflow()
         {
             _g
                 .V()
@@ -3242,7 +3242,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SkipGlobal()
+        public virtual async Task SkipGlobal()
         {
             await _g
                 .V()
@@ -3251,7 +3251,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SkipLocal()
+        public virtual async Task SkipLocal()
         {
             await _g
                 .V()
@@ -3260,7 +3260,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_array_contains_element()
+        public virtual async Task StepLabel_of_array_contains_element()
         {
             await _g
                 .Inject(1, 2, 3)
@@ -3272,7 +3272,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_array_contains_element_graphson()
+        public virtual async Task StepLabel_of_array_contains_element_graphson()
         {
             await _g
                 .Inject(1, 2, 3)
@@ -3284,7 +3284,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_array_contains_vertex()
+        public virtual async Task StepLabel_of_array_contains_vertex()
         {
             await _g
                 .V()
@@ -3297,7 +3297,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_array_does_not_contain_vertex()
+        public virtual async Task StepLabel_of_array_does_not_contain_vertex()
         {
             await _g
                 .V()
@@ -3310,7 +3310,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task StepLabel_of_object_array_contains_element()
+        public virtual async Task StepLabel_of_object_array_contains_element()
         {
             await _g
                 .Inject(1, 2, 3)
@@ -3323,7 +3323,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SumGlobal()
+        public virtual async Task SumGlobal()
         {
             await _g
                 .V<Person>()
@@ -3333,7 +3333,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SumLocal()
+        public virtual async Task SumLocal()
         {
             await _g
                 .V<Person>()
@@ -3344,7 +3344,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SumLocal_Where1()
+        public virtual async Task SumLocal_Where1()
         {
             await _g
                 .V<Person>()
@@ -3356,7 +3356,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task SumLocal_Where2()
+        public virtual async Task SumLocal_Where2()
         {
             await _g
                 .V<Person>()
@@ -3368,7 +3368,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Tail_underflow()
+        public virtual void Tail_underflow()
         {
             _g
                 .V()
@@ -3378,7 +3378,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task TailGlobal()
+        public virtual async Task TailGlobal()
         {
             await _g
                 .V()
@@ -3387,7 +3387,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task TailLocal()
+        public virtual async Task TailLocal()
         {
             await _g
                 .V()
@@ -3396,7 +3396,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Union()
+        public virtual async Task Union()
         {
             await _g
                 .V<Person>()
@@ -3407,7 +3407,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Union_different_types()
+        public virtual async Task Union_different_types()
         {
             await _g
                 .V<Person>()
@@ -3419,7 +3419,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Union_different_types2()
+        public virtual async Task Union_different_types2()
         {
             await _g
                 .V<Person>()
@@ -3436,7 +3436,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UntilRepeat()
+        public virtual async Task UntilRepeat()
         {
             await _g
                 .V<Person>()
@@ -3448,7 +3448,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Update_Vertex_And_Edge_No_Config()
+        public virtual async Task Update_Vertex_And_Edge_No_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
@@ -3464,7 +3464,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Update_Vertex_And_Edge_With_Config()
+        public virtual async Task Update_Vertex_And_Edge_With_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var edgeNow = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
@@ -3489,7 +3489,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateE_With_Ignored()
+        public virtual async Task UpdateE_With_Ignored()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -3506,7 +3506,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateE_With_Mixed()
+        public virtual async Task UpdateE_With_Mixed()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -3523,7 +3523,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateE_With_Readonly()
+        public virtual async Task UpdateE_With_Readonly()
         {
             var now = new DateTime(2020, 4, 7, 14, 43, 36, DateTimeKind.Utc);
 
@@ -3540,7 +3540,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateV_No_Config()
+        public virtual async Task UpdateV_No_Config()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
 
@@ -3551,7 +3551,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateV_With_Ignored()
+        public virtual async Task UpdateV_With_Ignored()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -3569,7 +3569,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateV_With_Mixed()
+        public virtual async Task UpdateV_With_Mixed()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -3587,7 +3587,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task UpdateV_With_Readonly()
+        public virtual async Task UpdateV_With_Readonly()
         {
             var now = new DateTimeOffset(2020, 4, 7, 14, 43, 36, TimeSpan.Zero);
             var person = new Person { Age = 21, Gender = Gender.Male, Name = "Marko", RegistrationDate = now };
@@ -3605,7 +3605,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_Both()
+        public virtual async Task V_Both()
         {
             await _g
                 .V()
@@ -3614,7 +3614,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_IAuthority()
+        public virtual async Task V_IAuthority()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -3628,7 +3628,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_of_abstract_type()
+        public virtual async Task V_of_abstract_type()
         {
             await _g
                 .V<Authority>()
@@ -3636,7 +3636,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_of_all_types1()
+        public virtual async Task V_of_all_types1()
         {
             await _g
                 .V<object>()
@@ -3644,7 +3644,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_of_all_types2()
+        public virtual async Task V_of_all_types2()
         {
             await _g
                 .V()
@@ -3652,7 +3652,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_of_concrete_type()
+        public virtual async Task V_of_concrete_type()
         {
             await _g
                 .V<Person>()
@@ -3660,7 +3660,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task V_untyped()
+        public virtual async Task V_untyped()
         {
             await _g
                 .V()
@@ -3668,7 +3668,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Value()
+        public virtual async Task Value()
         {
             await _g
                 .V()
@@ -3678,7 +3678,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task ValueMap_typed()
+        public virtual async Task ValueMap_typed()
         {
             await _g
                 .V<Person>()
@@ -3687,7 +3687,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_1_member()
+        public virtual async Task Values_1_member()
         {
             await _g
                 .V<Person>()
@@ -3696,7 +3696,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_2_members()
+        public virtual async Task Values_2_members()
         {
             await _g
                 .V<Person>()
@@ -3705,7 +3705,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_3_members()
+        public virtual async Task Values_3_members()
         {
             await _g
                 .V<Person>()
@@ -3714,7 +3714,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_id_member()
+        public virtual async Task Values_id_member()
         {
             await _g
                 .V<Person>()
@@ -3723,7 +3723,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_no_member()
+        public virtual async Task Values_no_member()
         {
             await _g
                 .V<Person>()
@@ -3732,7 +3732,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_of_Edge()
+        public virtual async Task Values_of_Edge()
         {
             await _g
                 .E<LivesIn>()
@@ -3741,7 +3741,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_of_Vertex1()
+        public virtual async Task Values_of_Vertex1()
         {
             await _g
                 .V<Person>()
@@ -3750,7 +3750,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Values_of_Vertex2()
+        public virtual async Task Values_of_Vertex2()
         {
             await _g
                 .V<Person>()
@@ -3759,7 +3759,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Variable_wrap()
+        public virtual async Task Variable_wrap()
         {
             await _g
                 .V()
@@ -3769,7 +3769,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Vertex_comparison_with_null_throws()
+        public virtual void Vertex_comparison_with_null_throws()
         {
             _g
                 .V<Person>()
@@ -3781,7 +3781,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task VertexProperties_Where_label()
+        public virtual async Task VertexProperties_Where_label()
         {
             await _g
                 .V<Company>()
@@ -3791,7 +3791,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_anonymous()
+        public virtual async Task Where_anonymous()
         {
             await _g
                 .V<Person>()
@@ -3800,7 +3800,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_array_does_not_intersect_property_array()
+        public virtual async Task Where_array_does_not_intersect_property_array()
         {
             await _g
                 .V<Company>()
@@ -3809,7 +3809,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_array_intersects_property_aray()
+        public virtual async Task Where_array_intersects_property_aray()
         {
             await _g
                 .V<Company>()
@@ -3818,7 +3818,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_bool_property_explicit_comparison1()
+        public virtual async Task Where_bool_property_explicit_comparison1()
         {
             await _g
                 .V<TimeFrame>()
@@ -3828,7 +3828,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_bool_property_explicit_comparison2()
+        public virtual async Task Where_bool_property_explicit_comparison2()
         {
             await _g
                 .V<TimeFrame>()
@@ -3837,7 +3837,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_bool_property_implicit_comparison1()
+        public virtual async Task Where_bool_property_implicit_comparison1()
         {
             await _g
                 .V<TimeFrame>()
@@ -3846,7 +3846,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_bool_property_implicit_comparison2()
+        public virtual async Task Where_bool_property_implicit_comparison2()
         {
             await _g
                 .V<TimeFrame>()
@@ -3855,7 +3855,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_lower_than_string()
+        public virtual async Task Where_property_lower_than_string()
         {
             await _g
                 .V<Person>()
@@ -3864,7 +3864,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_lower_than_or_equal_string()
+        public virtual async Task Where_property_lower_than_or_equal_string()
         {
             await _g
                 .V<Person>()
@@ -3873,7 +3873,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_string()
+        public virtual async Task Where_property_equals_string()
         {
             await _g
                 .V<Person>()
@@ -3882,7 +3882,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_greater_than_string()
+        public virtual async Task Where_property_greater_than_string()
         {
             await _g
                 .V<Person>()
@@ -3891,7 +3891,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_greater_than_or_equal_string()
+        public virtual async Task Where_property_greater_than_or_equal_string()
         {
             await _g
                 .V<Person>()
@@ -3900,7 +3900,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_compared_to_string_always_false()
+        public virtual async Task Where_property_compared_to_string_always_false()
         {
             await _g
                 .V<Person>()
@@ -3909,7 +3909,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_lower_than_string_2()
+        public virtual async Task Where_property_lower_than_string_2()
         {
             await _g
                 .V<Person>()
@@ -3918,7 +3918,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_lower_than_string_3()
+        public virtual async Task Where_property_lower_than_string_3()
         {
             await _g
                 .V<Person>()
@@ -3927,7 +3927,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_greater_or_equal_string_2()
+        public virtual async Task Where_property_greater_or_equal_string_2()
         {
             await _g
                 .V<Person>()
@@ -3936,7 +3936,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_compared_to_string_always_true()
+        public virtual async Task Where_property_compared_to_string_always_true()
         {
             await _g
                 .V<Person>()
@@ -3945,7 +3945,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_lower_than_or_equal_string_2()
+        public virtual async Task Where_property_lower_than_or_equal_string_2()
         {
             await _g
                 .V<Person>()
@@ -3954,7 +3954,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_true()
+        public virtual async Task Where_property_comparison_to_string_always_true()
         {
             await _g
                 .V<Person>()
@@ -3963,7 +3963,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_greater_than_string_2()
+        public virtual async Task Where_property_greater_than_string_2()
         {
             await _g
                 .V<Person>()
@@ -3972,7 +3972,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_false()
+        public virtual async Task Where_property_comparison_to_string_always_false()
         {
             await _g
                 .V<Person>()
@@ -3981,7 +3981,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_greater_than_string_3()
+        public virtual async Task Where_property_greater_than_string_3()
         {
             await _g
                 .V<Person>()
@@ -3990,7 +3990,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_true_2()
+        public virtual async Task Where_property_comparison_to_string_always_true_2()
         {
             await _g
                 .V<Person>()
@@ -3999,7 +3999,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_true_3()
+        public virtual async Task Where_property_comparison_to_string_always_true_3()
         {
             await _g
                 .V<Person>()
@@ -4008,7 +4008,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_false_2()
+        public virtual async Task Where_property_comparison_to_string_always_false_2()
         {
             await _g
                 .V<Person>()
@@ -4017,7 +4017,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_false_3()
+        public virtual async Task Where_property_comparison_to_string_always_false_3()
         {
             await _g
                 .V<Person>()
@@ -4026,7 +4026,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_always_false_4()
+        public virtual async Task Where_property_comparison_to_string_always_false_4()
         {
             await _g
                 .V<Person>()
@@ -4035,7 +4035,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_with_variable()
+        public virtual async Task Where_property_comparison_to_string_with_variable()
         {
             var variable = 0;
 
@@ -4046,7 +4046,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_with_cast_enum_variable()
+        public virtual async Task Where_property_comparison_to_string_with_cast_enum_variable()
         {
             var variable = ListSortDirection.Ascending;
 
@@ -4057,7 +4057,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_comparison_to_string_with_cast_enum_on_field()
+        public virtual async Task Where_property_comparison_to_string_with_cast_enum_on_field()
         {
             var variable = new
             {
@@ -4071,7 +4071,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_complex_logical_expression()
+        public virtual async Task Where_complex_logical_expression()
         {
             await _g
                 .V<Person>()
@@ -4080,7 +4080,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_complex_logical_expression_with_null()
+        public virtual async Task Where_complex_logical_expression_with_null()
         {
             await _g
                 .V<Person>()
@@ -4089,7 +4089,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_conjunction()
+        public virtual async Task Where_conjunction()
         {
             await _g
                 .V<Person>()
@@ -4098,7 +4098,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_out_vertex_property()
+        public virtual async Task Where_out_vertex_property()
         {
             await _g
                 .V<Person>()
@@ -4111,7 +4111,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null()
+        public virtual async Task Where_value_of_property_is_null()
         {
             await _g
                 .V<Person>()
@@ -4122,7 +4122,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null_in2()
+        public virtual async Task Where_value_of_property_is_null_in2()
         {
             await _g
                 .V<Person>()
@@ -4134,7 +4134,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_greater_than_null_variable()
+        public virtual async Task Where_value_of_property_is_greater_than_null_variable()
         {
             string? variable = null;
 
@@ -4147,7 +4147,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_greater_than_null()
+        public virtual async Task Where_value_of_property_is_greater_than_null()
         {
             await _g
                 .V<Person>()
@@ -4158,7 +4158,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null_or_string()
+        public virtual async Task Where_value_of_property_is_null_or_string()
         {
             await _g
                 .V<Person>()
@@ -4169,7 +4169,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null_and_string()
+        public virtual async Task Where_value_of_property_is_null_and_string()
         {
             await _g
                 .V<Person>()
@@ -4180,7 +4180,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null_or_string_reversed()
+        public virtual async Task Where_value_of_property_is_null_or_string_reversed()
         {
             await _g
                 .V<Person>()
@@ -4191,7 +4191,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Values_Or_WhereWhere()
+        public virtual async Task Where_Values_Or_WhereWhere()
         {
             await _g
                 .V<Person>()
@@ -4204,7 +4204,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_null_and_string_reversed()
+        public virtual async Task Where_value_of_property_is_null_and_string_reversed()
         {
             await _g
                 .V<Person>()
@@ -4215,7 +4215,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_not_null_or_string()
+        public virtual async Task Where_value_of_property_is_not_null_or_string()
         {
             await _g
                 .V<Person>()
@@ -4226,7 +4226,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_value_of_property_is_not_null_and_string()
+        public virtual async Task Where_value_of_property_is_not_null_and_string()
         {
             await _g
                 .V<Person>()
@@ -4237,7 +4237,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact(Skip="Optimizable")]
-        public async Task Where_conjunction_optimizable()
+        public virtual async Task Where_conjunction_optimizable()
         {
             await _g
                 .V<Person>()
@@ -4246,7 +4246,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_conjunction_with_different_fields()
+        public virtual async Task Where_conjunction_with_different_fields()
         {
             await _g
                 .V<Person>()
@@ -4255,7 +4255,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_converted_Id_equals_constant()
+        public virtual async Task Where_converted_Id_equals_constant()
         {
             await _g
                 .V<Language>()
@@ -4264,7 +4264,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_current_element_equals_stepLabel1()
+        public virtual async Task Where_current_element_equals_stepLabel1()
         {
             await _g
                 .V<Language>()
@@ -4275,7 +4275,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_current_element_equals_stepLabel2()
+        public virtual async Task Where_current_element_equals_stepLabel2()
         {
             await _g
                 .V<Language>()
@@ -4286,7 +4286,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_current_element_not_equals_stepLabel1()
+        public virtual async Task Where_current_element_not_equals_stepLabel1()
         {
             await _g
                 .V<Language>()
@@ -4297,7 +4297,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_current_element_not_equals_stepLabel2()
+        public virtual async Task Where_current_element_not_equals_stepLabel2()
         {
             await _g
                 .V<Language>()
@@ -4308,7 +4308,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_disjunction()
+        public virtual async Task Where_disjunction()
         {
             await _g
                 .V<Person>()
@@ -4317,7 +4317,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_disjunction_with_different_fields()
+        public virtual async Task Where_disjunction_with_different_fields()
         {
             await _g
                 .V<Person>()
@@ -4326,7 +4326,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_empty_array_does_not_intersect_property_array()
+        public virtual async Task Where_empty_array_does_not_intersect_property_array()
         {
             await _g
                 .V<Company>()
@@ -4335,7 +4335,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_empty_array_intersects_property_array()
+        public virtual async Task Where_empty_array_intersects_property_array()
         {
             await _g
                 .V<Company>()
@@ -4344,7 +4344,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Has()
+        public virtual async Task Where_Has()
         {
             await _g
                 .V<Person>()
@@ -4354,7 +4354,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_has_conjunction_of_three()
+        public virtual async Task Where_has_conjunction_of_three()
         {
             await _g
                 .V<Person>()
@@ -4363,7 +4363,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_has_disjunction_of_three()
+        public virtual async Task Where_has_disjunction_of_three()
         {
             await _g
                 .V<Person>()
@@ -4372,7 +4372,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact(Skip = "Optimization opportunity.")]
-        public async Task Where_has_disjunction_of_three_with_or()
+        public virtual async Task Where_has_disjunction_of_three_with_or()
         {
             await _g
                 .V<Person>()
@@ -4384,7 +4384,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Id_equals_constant()
+        public virtual async Task Where_Id_equals_constant()
         {
             await _g
                 .V<Language>()
@@ -4393,7 +4393,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_identity()
+        public virtual async Task Where_identity()
         {
             await _g
                 .V<Person>()
@@ -4402,7 +4402,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_identity_with_type_change()
+        public virtual async Task Where_identity_with_type_change()
         {
             await _g
                 .V<Person>()
@@ -4411,7 +4411,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_none_traversal()
+        public virtual async Task Where_none_traversal()
         {
             await _g
                 .V<Person>()
@@ -4420,7 +4420,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_not_none()
+        public virtual async Task Where_not_none()
         {
             await _g
                 .V<Person>()
@@ -4431,7 +4431,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_or_dead_traversal()
+        public virtual async Task Where_or_dead_traversal()
         {
             await _g
                 .V<Person>()
@@ -4442,7 +4442,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_or_identity()
+        public virtual async Task Where_or_identity()
         {
             await _g
                 .V<Person>()
@@ -4452,7 +4452,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_or_none_traversal()
+        public virtual async Task Where_or_none_traversal()
         {
             await _g
                 .V<Person>()
@@ -4463,7 +4463,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_outside_model()
+        public virtual async Task Where_outside_model()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -4475,7 +4475,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_contains_element()
+        public virtual async Task Where_property_array_contains_element()
         {
             await _g
                 .V<Company>()
@@ -4484,7 +4484,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_contains_stepLabel()
+        public virtual async Task Where_property_array_contains_stepLabel()
         {
             await _g
                 .Inject("+4912345")
@@ -4495,7 +4495,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_does_not_contain_element()
+        public virtual async Task Where_property_array_does_not_contain_element()
         {
             await _g
                 .V<Company>()
@@ -4504,7 +4504,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_does_not_intersect_array()
+        public virtual async Task Where_property_array_does_not_intersect_array()
         {
             await _g
                 .V<Company>()
@@ -4513,7 +4513,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_does_not_intersect_empty_array()
+        public virtual async Task Where_property_array_does_not_intersect_empty_array()
         {
             await _g
                 .V<Company>()
@@ -4522,7 +4522,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_intersects_array1()
+        public virtual async Task Where_property_array_intersects_array1()
         {
             await _g
                 .V<Company>()
@@ -4531,7 +4531,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_intersects_array2()
+        public virtual async Task Where_property_array_intersects_array2()
         {
             await _g
                 .V<Company>()
@@ -4540,7 +4540,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_intersects_empty_array()
+        public virtual async Task Where_property_array_intersects_empty_array()
         {
             await _g
                 .V<Company>()
@@ -4549,7 +4549,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_intersects_stepLabel1()
+        public virtual async Task Where_property_array_intersects_stepLabel1()
         {
             await _g
                 .Inject("+4912345")
@@ -4561,7 +4561,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_intersects_stepLabel2()
+        public virtual async Task Where_property_array_intersects_stepLabel2()
         {
             await _g
                 .Inject("+4912345")
@@ -4573,7 +4573,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_is_empty()
+        public virtual async Task Where_property_array_is_empty()
         {
             await _g
                 .V<Company>()
@@ -4582,7 +4582,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_array_is_not_empty()
+        public virtual async Task Where_property_array_is_not_empty()
         {
             await _g
                 .V<Company>()
@@ -4591,7 +4591,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_contains_constant_with_TextP_support()
+        public virtual async Task Where_property_contains_constant_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -4600,7 +4600,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public void Where_property_contains_constant_without_TextP_support()
+        public virtual void Where_property_contains_constant_without_TextP_support()
         {
             _g
                 .ConfigureEnvironment(env => env
@@ -4614,7 +4614,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_contains_empty_string_with_TextP_support()
+        public virtual async Task Where_property_contains_empty_string_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -4623,7 +4623,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_contains_empty_string_without_TextP_support()
+        public virtual async Task Where_property_contains_empty_string_without_TextP_support()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -4635,7 +4635,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_ends_with_constant_with_TextP_support()
+        public virtual async Task Where_property_ends_with_constant_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -4644,7 +4644,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_ends_with_constant_without_TextP_support()
+        public virtual async Task Where_property_ends_with_constant_without_TextP_support()
         {
             _g
                 .ConfigureEnvironment(env => env
@@ -4658,7 +4658,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_ends_with_empty_string_with_TextP_support()
+        public virtual async Task Where_property_ends_with_empty_string_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -4667,7 +4667,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_ends_with_empty_string_without_TextP_support()
+        public virtual async Task Where_property_ends_with_empty_string_without_TextP_support()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -4679,7 +4679,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_constant()
+        public virtual async Task Where_property_equals_constant()
         {
             await _g
                 .V<Person>()
@@ -4688,7 +4688,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_converted_expression()
+        public virtual async Task Where_property_equals_converted_expression()
         {
             await _g
                 .V<Person>()
@@ -4697,7 +4697,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_expression()
+        public virtual async Task Where_property_equals_expression()
         {
             const int i = 18;
 
@@ -4708,7 +4708,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_local_string_constant()
+        public virtual async Task Where_property_equals_local_string_constant()
         {
             const int local = 1;
 
@@ -4719,7 +4719,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_stepLabel()
+        public virtual async Task Where_property_equals_stepLabel()
         {
             await _g
                 .V<Language>()
@@ -4731,7 +4731,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_equals_value_of_anonymous_object()
+        public virtual async Task Where_property_equals_value_of_anonymous_object()
         {
             var local = new { Value = 1 };
 
@@ -4742,7 +4742,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_contained_in_array()
+        public virtual async Task Where_property_is_contained_in_array()
         {
             await _g
                 .V<Person>()
@@ -4751,7 +4751,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_contained_in_list()
+        public virtual async Task Where_property_is_contained_in_list()
         {
             await _g
                 .V<Person>()
@@ -4760,7 +4760,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_contained_in_empty_enumerable()
+        public virtual async Task Where_property_is_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
@@ -4771,7 +4771,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_contained_in_enumerable()
+        public virtual async Task Where_property_is_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
@@ -4783,7 +4783,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_greater_or_equal_than_constant()
+        public virtual async Task Where_property_is_greater_or_equal_than_constant()
         {
             await _g
                 .V<Person>()
@@ -4792,7 +4792,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_greater_than_constant()
+        public virtual async Task Where_property_is_greater_than_constant()
         {
             await _g
                 .V<Person>()
@@ -4801,7 +4801,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_greater_than_or_equal_stepLabel()
+        public virtual async Task Where_property_is_greater_than_or_equal_stepLabel()
         {
             await _g
                 .V<Person>()
@@ -4813,7 +4813,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_greater_than_or_equal_stepLabel_value()
+        public virtual async Task Where_property_is_greater_than_or_equal_stepLabel_value()
         {
             await _g
                 .V<Person>()
@@ -4824,7 +4824,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_greater_than_stepLabel()
+        public virtual async Task Where_property_is_greater_than_stepLabel()
         {
             await _g
                 .V<Person>()
@@ -4836,7 +4836,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_lower_or_equal_than_constant()
+        public virtual async Task Where_property_is_lower_or_equal_than_constant()
         {
             await _g
                 .V<Person>()
@@ -4845,7 +4845,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_lower_than_constant()
+        public virtual async Task Where_property_is_lower_than_constant()
         {
             await _g
                 .V<Person>()
@@ -4854,7 +4854,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_lower_than_or_equal_stepLabel()
+        public virtual async Task Where_property_is_lower_than_or_equal_stepLabel()
         {
             await _g
                 .V<Person>()
@@ -4866,7 +4866,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_lower_than_stepLabel()
+        public virtual async Task Where_property_is_lower_than_stepLabel()
         {
             await _g
                 .V<Person>()
@@ -4878,7 +4878,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_not_contained_in_array()
+        public virtual async Task Where_property_is_not_contained_in_array()
         {
             await _g
                 .V<Person>()
@@ -4887,7 +4887,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
        [Fact]
-        public async Task Where_property_is_not_contained_in_empty_enumerable()
+        public virtual async Task Where_property_is_not_contained_in_empty_enumerable()
         {
             var enumerable = Enumerable.Empty<int>();
 
@@ -4898,7 +4898,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_not_contained_in_enumerable()
+        public virtual async Task Where_property_is_not_contained_in_enumerable()
         {
             var enumerable = new[] { "36", "37", "38" }
                 .Select(int.Parse);
@@ -4910,7 +4910,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_not_present()
+        public virtual async Task Where_property_is_not_present()
         {
             await _g
                 .V<Person>()
@@ -4919,7 +4919,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_prefix_of_constant()
+        public virtual async Task Where_property_is_prefix_of_constant()
         {
             await _g
                 .V<Country>()
@@ -4928,7 +4928,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_prefix_of_empty_string()
+        public virtual async Task Where_property_is_prefix_of_empty_string()
         {
             await _g
                 .V<Country>()
@@ -4937,7 +4937,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_prefix_of_expression()
+        public virtual async Task Where_property_is_prefix_of_expression()
         {
             const string str = "+49123xxx";
 
@@ -4948,7 +4948,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_prefix_of_variable()
+        public virtual async Task Where_property_is_prefix_of_variable()
         {
             const string str = "+49123";
 
@@ -4959,7 +4959,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_is_present()
+        public virtual async Task Where_property_is_present()
         {
             await _g
                 .V<Person>()
@@ -4968,7 +4968,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_not_equals_constant()
+        public virtual async Task Where_property_not_equals_constant()
         {
             await _g
                 .V<Person>()
@@ -4977,7 +4977,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_starts_with_constant_with_TextP_support()
+        public virtual async Task Where_property_starts_with_constant_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -4986,7 +4986,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_VertexProperty_starts_with_constant_with_TextP_support_indirection()
+        public virtual async Task Where_VertexProperty_starts_with_constant_with_TextP_support_indirection()
         {
             var tuple = ("456", 36);
 
@@ -4997,7 +4997,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_starts_with_constant_without_TextP_support()
+        public virtual async Task Where_property_starts_with_constant_without_TextP_support()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -5009,7 +5009,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_starts_with_empty_string_with_TextP_support()
+        public virtual async Task Where_property_starts_with_empty_string_with_TextP_support()
         {
             await _g
                 .V<Country>()
@@ -5018,7 +5018,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_starts_with_empty_string_without_TextP_support()
+        public virtual async Task Where_property_starts_with_empty_string_without_TextP_support()
         {
             await _g
                 .ConfigureEnvironment(env => env
@@ -5030,7 +5030,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_property_traversal()
+        public virtual async Task Where_property_traversal()
         {
             await _g
                 .V<Person>()
@@ -5042,7 +5042,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_scalar_element_equals_constant()
+        public virtual async Task Where_scalar_element_equals_constant()
         {
             await _g
                 .V<Person>()
@@ -5052,7 +5052,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_sequential()
+        public virtual async Task Where_sequential()
         {
             await _g
                 .V<Person>()
@@ -5062,7 +5062,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_source_expression_on_both_sides1()
+        public virtual async Task Where_source_expression_on_both_sides1()
         {
             await _g
                 .V<Country>()
@@ -5073,7 +5073,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_source_expression_on_both_sides2()
+        public virtual async Task Where_source_expression_on_both_sides2()
         {
             await _g
                 .V<EntityWithTwoIntProperties>()
@@ -5082,7 +5082,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact(Skip="Gremlin server fuckup")]
-        public async Task Where_stepLabel_is_lower_than_stepLabel()
+        public virtual async Task Where_stepLabel_is_lower_than_stepLabel()
         {
             await _g
                 .V<Person>()
@@ -5098,7 +5098,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_stepLabel_value_is_greater_than_or_equal_stepLabel_value()
+        public virtual async Task Where_stepLabel_value_is_greater_than_or_equal_stepLabel_value()
         {
             await _g
                 .V<Person>()
@@ -5110,7 +5110,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_traversal()
+        public virtual async Task Where_traversal()
         {
             await _g
                 .V<Person>()
@@ -5119,7 +5119,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_true()
+        public virtual async Task Where_true()
         {
             await _g
                 .V<Person>()
@@ -5128,7 +5128,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Values_Where()
+        public virtual async Task Where_Values_Where()
         {
             await _g
                 .V<Person>()
@@ -5139,7 +5139,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_Values_Where1()
+        public virtual async Task Or_Values_Where1()
         {
             await _g
                 .V<Person>()
@@ -5150,7 +5150,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Or_Values_Where2()
+        public virtual async Task Or_Values_Where2()
         {
             await _g
                 .V<Person>()
@@ -5165,7 +5165,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_Values_Where1()
+        public virtual async Task And_Values_Where1()
         {
             await _g
                 .V<Person>()
@@ -5176,7 +5176,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task And_Values_Where2()
+        public virtual async Task And_Values_Where2()
         {
             await _g
                 .V<Person>()
@@ -5191,7 +5191,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Values_Id_Where()
+        public virtual async Task Where_Values_Id_Where()
         {
             await _g
                 .V<Person>()
@@ -5202,7 +5202,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Values_Label_Where()
+        public virtual async Task Where_Values_Label_Where()
         {
             await _g
                 .V<Vertex>()
@@ -5213,7 +5213,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_VertexProperty_Value1()
+        public virtual async Task Where_VertexProperty_Value1()
         {
             await _g
                 .V<Person>()
@@ -5222,7 +5222,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_IVertexProperty_Value()
+        public virtual async Task Where_IVertexProperty_Value()
         {
             await _g
                 .V<Person>()
@@ -5231,7 +5231,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_VertexProperty_Value2()
+        public virtual async Task Where_VertexProperty_Value2()
         {
             await _g
                 .V<Person>()
@@ -5240,7 +5240,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact(Skip="Feature!")]
-        public async Task Where_VertexProperty_Value3()
+        public virtual async Task Where_VertexProperty_Value3()
         {
             await _g
                 .V<Person>()
@@ -5249,7 +5249,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task Where_Where()
+        public virtual async Task Where_Where()
         {
             await _g
                 .V<Person>()
@@ -5259,7 +5259,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task WithoutStrategies1()
+        public virtual async Task WithoutStrategies1()
         {
             await _g
                 .WithoutStrategies(typeof(SubgraphStrategy))
@@ -5268,7 +5268,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task WithoutStrategies2()
+        public virtual async Task WithoutStrategies2()
         {
             await _g
                 .WithoutStrategies(typeof(SubgraphStrategy), typeof(ElementIdStrategy))
@@ -5277,7 +5277,7 @@ namespace ExRam.Gremlinq.Core.Tests
         }
 
         [Fact]
-        public async Task WithoutStrategies3()
+        public virtual async Task WithoutStrategies3()
         {
             await _g
                 .WithoutStrategies(typeof(SubgraphStrategy))
