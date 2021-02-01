@@ -55,6 +55,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
+        fetch-depth: 0
         submodules: 'true'
 
     - name: Setup .NET Core 5.0.102
