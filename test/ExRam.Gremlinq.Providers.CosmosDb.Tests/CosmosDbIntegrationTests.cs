@@ -1,17 +1,18 @@
-﻿#if RELEASE && NET5_0 && !SKIPINTEGRATIONTESTS
+﻿#if RELEASE && NET5_0 && RUNCOSMOSDBEMULATORINTEGRATIONTESTS
 using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
 using ExRam.Gremlinq.Core.Tests;
+
 using Xunit;
 using Xunit.Abstractions;
 using static ExRam.Gremlinq.Core.GremlinQuerySource;
 
 namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
 {
-    public class CosmosDbIntegrationTests : QueryIntegrationTest
+    public class CosmosDbIntegrationTests : QueryIntegrationTest, IClassFixture<CosmosDbEmulatorFixture>
     {
-        public CosmosDbIntegrationTests(ITestOutputHelper testOutputHelper) : base(
+        public CosmosDbIntegrationTests(CosmosDbEmulatorFixture fixture, ITestOutputHelper testOutputHelper) : base(
             g.ConfigureEnvironment(env => env
                 .AddFakePartitionKey()
                 .UseCosmosDb(builder => builder
@@ -20,6 +21,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
                         "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="))),
             testOutputHelper)
         {
+            fixture.Create().Wait();
         }
 
         [Fact(Skip = "x")]
