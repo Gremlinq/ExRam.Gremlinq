@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 20
+                "@value": "scrubbed id"
               },
               "label",
               "Country",

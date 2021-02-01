@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 400
+                "@value": "scrubbed id"
               },
               "label",
               "Language",

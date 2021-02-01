@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 500
+                "@value": "scrubbed id"
               },
               "label",
               "Country",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 77
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Name",

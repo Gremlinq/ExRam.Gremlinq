@@ -4,7 +4,7 @@
     "PhoneNumbers": [],
     "Locations": [
       {
-        "Id": 75,
+        "Id": "scrubbed id",
         "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -14,7 +14,7 @@
       }
     ],
     "Name": null,
-    "Id": 700,
+    "Id": "scrubbed id",
     "Label": "Company"
   }
 ]

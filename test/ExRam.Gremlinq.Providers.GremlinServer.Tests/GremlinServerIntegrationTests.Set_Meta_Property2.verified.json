@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 70
+                "@value": "scrubbed id"
               },
               "value": "Marko",
               "label": "Name"
@@ -34,7 +34,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 14
+                "@value": "scrubbed id"
               },
               "value": "Bob",
               "label": "Name"
@@ -54,7 +54,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 46
+                "@value": "scrubbed id"
               },
               "value": "Bob",
               "label": "Name"

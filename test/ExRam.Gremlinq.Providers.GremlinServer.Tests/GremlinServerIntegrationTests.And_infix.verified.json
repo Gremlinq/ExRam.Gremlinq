@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 7
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -33,7 +33,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 17
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -52,7 +52,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 22
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -71,7 +71,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 27
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -90,7 +90,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 34
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -109,7 +109,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 43
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }
@@ -128,7 +128,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 51
+                "@value": "scrubbed id"
               },
               "label": "Person"
             }

@@ -4,7 +4,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 5,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -12,7 +12,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 95,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -20,7 +20,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 20,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -28,7 +28,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 97,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -36,7 +36,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 25,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -44,7 +44,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 98,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -52,7 +52,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 30,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -60,7 +60,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 32,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -68,7 +68,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": 94,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -76,7 +76,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 0,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -84,7 +84,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 49,
+    "Id": "scrubbed id",
     "Label": "Company"
   }
 ]

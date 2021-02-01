@@ -7,7 +7,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 247,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -15,7 +15,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 17,
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
@@ -26,7 +26,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 251,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -34,7 +34,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 22,
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
@@ -45,7 +45,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 255,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -53,7 +53,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 27,
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
@@ -64,7 +64,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 263,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -72,7 +72,7 @@
       "Value": "Marko",
       "Key": null
     },
-    "Id": 43,
+    "Id": "scrubbed id",
     "Label": "Person"
   }
 ]

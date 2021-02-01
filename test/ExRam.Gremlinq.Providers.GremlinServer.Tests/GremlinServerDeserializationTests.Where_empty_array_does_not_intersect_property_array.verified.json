@@ -4,7 +4,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 5,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -12,7 +12,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 32,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -23,7 +23,7 @@
     ],
     "Locations": [],
     "Name": null,
-    "Id": 800,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -31,7 +31,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 49,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -39,7 +39,7 @@
     "PhoneNumbers": [],
     "Locations": [
       {
-        "Id": 75,
+        "Id": "scrubbed id",
         "Label": "Locations",
         "Properties": {
           "ValidFrom": "2019-01-01T01:00:00+00:00"
@@ -49,7 +49,7 @@
       }
     ],
     "Name": null,
-    "Id": 700,
+    "Id": "scrubbed id",
     "Label": "Company"
   }
 ]

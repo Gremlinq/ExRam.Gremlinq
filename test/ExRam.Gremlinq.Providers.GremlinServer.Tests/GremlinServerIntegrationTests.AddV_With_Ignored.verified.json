@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 69
+                "@value": "scrubbed id"
               },
               "label",
               "Person",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 71
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "RegistrationDate",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 70
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Name",

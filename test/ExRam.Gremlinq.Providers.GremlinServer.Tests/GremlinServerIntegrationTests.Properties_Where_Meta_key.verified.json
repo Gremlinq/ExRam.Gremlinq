@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 75
+                "@value": "scrubbed id"
               },
               "value": "Aachen",
               "label": "Locations"

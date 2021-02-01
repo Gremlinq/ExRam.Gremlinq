@@ -37,7 +37,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 43
+                        "@value": "scrubbed id"
                       },
                       "label": "Person"
                     }
@@ -47,7 +47,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 0
+                        "@value": "scrubbed id"
                       },
                       "label": "Country"
                     }
@@ -57,7 +57,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 11
+                        "@value": "scrubbed id"
                       },
                       "label": "Person"
                     }
@@ -103,7 +103,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 43
+                        "@value": "scrubbed id"
                       },
                       "label": "Person"
                     }
@@ -113,7 +113,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 0
+                        "@value": "scrubbed id"
                       },
                       "label": "Country"
                     }
@@ -123,7 +123,7 @@
                     "@value": {
                       "id": {
                         "@type": "g:Int64",
-                        "@value": 2
+                        "@value": "scrubbed id"
                       },
                       "label": "Language"
                     }

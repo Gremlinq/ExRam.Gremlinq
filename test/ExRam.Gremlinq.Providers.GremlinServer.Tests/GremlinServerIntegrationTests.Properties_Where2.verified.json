@@ -14,7 +14,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 8
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -37,7 +37,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 67
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -60,7 +60,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 64
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -83,7 +83,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 12
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -106,7 +106,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 18
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -129,7 +129,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 23
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -152,7 +152,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 28
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -175,7 +175,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 35
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -198,7 +198,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 44
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",
@@ -221,7 +221,7 @@
             "@value": {
               "id": {
                 "@type": "g:Int64",
-                "@value": 52
+                "@value": "scrubbed id"
               },
               "value": {
                 "@type": "g:Int32",

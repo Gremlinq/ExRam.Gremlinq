@@ -4,7 +4,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": 94,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -12,7 +12,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 0,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -20,7 +20,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": 99,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -28,7 +28,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 40,
+    "Id": "scrubbed id",
     "Label": "Country"
   }
 ]
