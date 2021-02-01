@@ -1,14 +1,15 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).property(single, _f, _g)",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(single, _e, _f).property(single, _g, _h)",
     "Bindings": {
       "_a": "TimeFrame",
-      "_b": "Duration",
-      "_c": 7200000.0,
-      "_d": "Enabled",
-      "_e": false,
-      "_f": "StartTime",
-      "_g": 28800000.0
+      "_b": "PartitionKey",
+      "_c": "Duration",
+      "_d": 7200000.0,
+      "_e": "Enabled",
+      "_f": false,
+      "_g": "StartTime",
+      "_h": 28800000.0
     }
   }
 ]

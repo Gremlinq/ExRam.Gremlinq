@@ -1,8 +1,9 @@
 [
   {
-    "Script": "addV(_a)",
+    "Script": "addV(_a).property(_b, _b)",
     "Bindings": {
-      "_a": "Language"
+      "_a": "Language",
+      "_b": "PartitionKey"
     }
   }
 ]

@@ -1,12 +1,13 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e)",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(single, _e, _f)",
     "Bindings": {
       "_a": "Person",
-      "_b": "Name",
-      "_c": "Marko",
-      "_d": "RegistrationDate",
-      "_e": "2020-04-07T14:43:36+00:00"
+      "_b": "PartitionKey",
+      "_c": "Name",
+      "_d": "Marko",
+      "_e": "RegistrationDate",
+      "_f": "2020-04-07T14:43:36+00:00"
     }
   }
 ]
