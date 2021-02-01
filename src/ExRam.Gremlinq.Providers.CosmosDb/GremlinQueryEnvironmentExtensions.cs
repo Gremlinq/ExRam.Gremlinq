@@ -65,6 +65,7 @@ namespace ExRam.Gremlinq.Core
                     .SetValue(GremlinqOption.EdgeProjectionSteps, ImmutableList<Step>.Empty))
                 .ConfigureSerializer(serializer => serializer
                     .ConfigureFragmentSerializer(fragmentSerializer => fragmentSerializer
+                        .Override<byte[]>((bytes, env, overridden, recurse) => recurse.Serialize(Convert.ToBase64String(bytes), env))
                         .Override<CosmosDbKey>((key, env, overridden, recurse) => recurse.Serialize(
                             key.PartitionKey != null
                                 ? new[] { key.PartitionKey, key.Id }
