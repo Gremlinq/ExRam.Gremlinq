@@ -1,4 +1,4 @@
-﻿//#if FALSE   //Maybe on CosmosDb emulator one day...
+﻿#if RELEASE && NET5_0 && !SKIPINTEGRATIONTESTS
 using System;
 using System.Threading.Tasks;
 using ExRam.Gremlinq.Core;
@@ -148,4 +148,4 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
     }
 }
-//#endif
+#endif
