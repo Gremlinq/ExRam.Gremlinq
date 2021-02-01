@@ -337,24 +337,24 @@ namespace ExRam.Gremlinq.Core
                 .Override<PropertiesStep>((step, env, overridden, recurse) => CreateInstruction("properties", recurse, env, step.Keys))
                 .Override<PropertyStep>((step, env, overridden, recurse) =>
                 {
-                    static IEnumerable<object> GetPropertyStepArguments(PropertyStep propertyStep)
+                    static IEnumerable<object> GetPropertyStepArguments(PropertyStep propertyStep, IGremlinQueryFragmentSerializer recurse, IGremlinQueryEnvironment env)
                     {
                         if (propertyStep.Cardinality != null && !T.Id.Equals(propertyStep.Key.RawKey))
                             yield return propertyStep.Cardinality;
 
                         yield return propertyStep.Key;
-                        yield return propertyStep.Value;
+                        yield return recurse.Serialize(propertyStep.Value, env);
 
                         foreach (var metaProperty in propertyStep.MetaProperties)
                         {
                             yield return metaProperty.Key;
-                            yield return metaProperty.Value;
+                            yield return recurse.Serialize(metaProperty.Value, env);
                         }
                     }
 
                     return (T.Id.Equals(step.Key.RawKey) && !Cardinality.Single.Equals(step.Cardinality ?? Cardinality.Single))
                         ? throw new NotSupportedException("Cannot have an id property on non-single cardinality.")
-                        : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step));
+                        : CreateInstruction("property", recurse, env, GetPropertyStepArguments(step, recurse, env));
                 })
                 .Override<ProjectStep>((step, env, overridden, recurse) => CreateInstruction("project", recurse, env, step.Projections))
                 .Override<ProjectStep.ByTraversalStep>((step, env, overridden, recurse) =>
