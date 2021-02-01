@@ -37,19 +37,6 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 5
-          },
-          "value": {
-            "@type": "g:Date",
-            "@value": -62135596800000
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 11
           },
           "value": {
@@ -68,6 +55,19 @@
           "value": {
             "@type": "g:Int32",
             "@value": 0
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "gx:ByteBuffer",
+            "@value": "AQIDBAUGBwg="
           }
         }
       },
@@ -99,12 +99,22 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 1
+            "@value": 5
           },
           "value": {
-            "@type": "gx:ByteBuffer",
-            "@value": "AQIDBAUGBwg="
+            "@type": "g:Date",
+            "@value": -62135596800000
           }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "Aachen"
         }
       },
       {
@@ -171,16 +181,6 @@
             "@type": "gx:Duration",
             "@value": "PT2H"
           }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": "Aachen"
         }
       }
     ]

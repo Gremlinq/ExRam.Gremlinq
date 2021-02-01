@@ -24,11 +24,6 @@
     "Label": "Language"
   },
   {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "FoundingDate": "0001-01-01T00:00:00",
     "PhoneNumbers": [],
     "Locations": [],
@@ -72,6 +67,11 @@
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
   },
   {
     "Name": null,

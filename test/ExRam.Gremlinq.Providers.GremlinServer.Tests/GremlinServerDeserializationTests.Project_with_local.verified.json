@@ -29,6 +29,36 @@
   {
     "Item2": {
       "id": "scrubbed id",
+      "value": "en",
+      "label": "IetfLanguageTag"
+    },
+    "name": {
+      "IetfLanguageTag": "en",
+      "Id": "scrubbed id",
+      "Label": "Language"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
+      "value": 0,
+      "label": "Gender"
+    },
+    "name": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "AQIDBAUGBwg=",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
       "value": -62135596800000,
       "label": "FoundingDate"
     },
@@ -39,6 +69,42 @@
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Company"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
+      "value": 1,
+      "label": "Gender"
+    },
+    "name": {
+      "Age": 0,
+      "Gender": 1,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
+      "value": 0,
+      "label": "Gender"
+    },
+    "name": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
     }
   },
   {
@@ -63,72 +129,6 @@
         "Value": "Marko",
         "Key": null
       },
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
-    },
-    "name": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": 1,
-      "label": "Gender"
-    },
-    "name": {
-      "Age": 0,
-      "Gender": 1,
-      "Image": "",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": "en",
-      "label": "IetfLanguageTag"
-    },
-    "name": {
-      "IetfLanguageTag": "en",
-      "Id": "scrubbed id",
-      "Label": "Language"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
-    },
-    "name": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "AQIDBAUGBwg=",
-      "RegistrationDate": null,
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": null,
       "Id": "scrubbed id",
       "Label": "Person"
     }
@@ -174,19 +174,26 @@
   {
     "Item2": {
       "id": "scrubbed id",
-      "value": 0,
-      "label": "Gender"
+      "value": -62135596800000,
+      "label": "FoundingDate"
     },
     "name": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": null,
+      "FoundingDate": "0001-01-01T00:00:00",
       "PhoneNumbers": [],
-      "SomeObscureProperty": null,
+      "Locations": [
+        {
+          "Id": "scrubbed id",
+          "Label": "Locations",
+          "Properties": {
+            "ValidFrom": "2019-01-01T01:00:00+00:00"
+          },
+          "Value": "Aachen",
+          "Key": null
+        }
+      ],
       "Name": null,
       "Id": "scrubbed id",
-      "Label": "Person"
+      "Label": "Company"
     }
   },
   {
@@ -231,6 +238,30 @@
   {
     "Item2": {
       "id": "scrubbed id",
+      "value": "GER",
+      "label": "Name"
+    },
+    "name": {
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": "Name",
+        "Properties": {
+          "de": "Deutschland",
+          "en": "Germany"
+        },
+        "Value": "GER",
+        "Key": null
+      },
+      "Languages": [],
+      "CountryCallingCode": null,
+      "LocalizableDescription": null,
+      "Id": "scrubbed id",
+      "Label": "Country"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
       "value": 0,
       "label": "Gender"
     },
@@ -244,21 +275,6 @@
       "Name": null,
       "Id": "scrubbed id",
       "Label": "Person"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": -62135596800000,
-      "label": "FoundingDate"
-    },
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": [],
-      "Locations": [],
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Company"
     }
   },
   {
@@ -301,12 +317,45 @@
     "Item2": {
       "id": "scrubbed id",
       "value": "en",
-      "label": "IetfLanguageTag"
+      "label": "lang"
     },
     "name": {
-      "IetfLanguageTag": "en",
+      "IetfLanguageTag": null,
       "Id": "scrubbed id",
       "Label": "Language"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
+      "value": -62135596800000,
+      "label": "FoundingDate"
+    },
+    "name": {
+      "FoundingDate": "0001-01-01T00:00:00",
+      "PhoneNumbers": [],
+      "Locations": [],
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Company"
+    }
+  },
+  {
+    "Item2": {
+      "id": "scrubbed id",
+      "value": 0,
+      "label": "Gender"
+    },
+    "name": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": null,
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
     }
   },
   {
@@ -334,18 +383,6 @@
       "LocalizableDescription": null,
       "Id": "scrubbed id",
       "Label": "Country"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": "en",
-      "label": "lang"
-    },
-    "name": {
-      "IetfLanguageTag": null,
-      "Id": "scrubbed id",
-      "Label": "Language"
     }
   },
   {
@@ -410,25 +447,13 @@
   {
     "Item2": {
       "id": "scrubbed id",
-      "value": "GER",
-      "label": "Name"
+      "value": "en",
+      "label": "IetfLanguageTag"
     },
     "name": {
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": "Name",
-        "Properties": {
-          "de": "Deutschland",
-          "en": "Germany"
-        },
-        "Value": "GER",
-        "Key": null
-      },
-      "Languages": [],
-      "CountryCallingCode": null,
-      "LocalizableDescription": null,
+      "IetfLanguageTag": "en",
       "Id": "scrubbed id",
-      "Label": "Country"
+      "Label": "Language"
     }
   },
   {
@@ -443,31 +468,6 @@
       "Duration": "02:00:00",
       "Id": "scrubbed id",
       "Label": "TimeFrame"
-    }
-  },
-  {
-    "Item2": {
-      "id": "scrubbed id",
-      "value": -62135596800000,
-      "label": "FoundingDate"
-    },
-    "name": {
-      "FoundingDate": "0001-01-01T00:00:00",
-      "PhoneNumbers": [],
-      "Locations": [
-        {
-          "Id": "scrubbed id",
-          "Label": "Locations",
-          "Properties": {
-            "ValidFrom": "2019-01-01T01:00:00+00:00"
-          },
-          "Value": "Aachen",
-          "Key": null
-        }
-      ],
-      "Name": null,
-      "Id": "scrubbed id",
-      "Label": "Company"
     }
   },
   {

@@ -16,6 +16,28 @@
     "Label": "Country"
   },
   {
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": "Name",
+      "Properties": {},
+      "Value": "GER",
+      "Key": null
+    },
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": {
+      "Id": "scrubbed id",
+      "Label": "LocalizableDescription",
+      "Properties": {
+        "key": "value"
+      },
+      "Value": "",
+      "Key": "value"
+    },
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
     "Name": null,
     "Languages": [],
     "CountryCallingCode": null,
@@ -35,7 +57,10 @@
     "Name": {
       "Id": "scrubbed id",
       "Label": "Name",
-      "Properties": {},
+      "Properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
       "Value": "GER",
       "Key": null
     },
@@ -89,31 +114,6 @@
     "Name": null,
     "Languages": [],
     "CountryCallingCode": "+49",
-    "LocalizableDescription": {
-      "Id": "scrubbed id",
-      "Label": "LocalizableDescription",
-      "Properties": {
-        "key": "value"
-      },
-      "Value": "",
-      "Key": "value"
-    },
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "Name": {
-      "Id": "scrubbed id",
-      "Label": "Name",
-      "Properties": {
-        "de": "Deutschland",
-        "en": "Germany"
-      },
-      "Value": "GER",
-      "Key": null
-    },
-    "Languages": [],
-    "CountryCallingCode": null,
     "LocalizableDescription": {
       "Id": "scrubbed id",
       "Label": "LocalizableDescription",

@@ -1,11 +1,10 @@
 [
   {
-    "Script": "addV(_a).property(id, _b).property(single, _c, _d)",
+    "Script": "addV(_a).property(single, _b, _c)",
     "Bindings": {
       "_a": "Country",
-      "_b": 600,
-      "_c": "Name",
-      "_d": "GER"
+      "_b": "Name",
+      "_c": "GER"
     }
   }
 ]

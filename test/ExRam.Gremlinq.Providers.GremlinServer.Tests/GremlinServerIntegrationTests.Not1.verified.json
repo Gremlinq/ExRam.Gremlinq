@@ -126,250 +126,6 @@
               "properties",
               {
                 "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "FoundingDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Person",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "RegistrationDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "RegistrationDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": 1586270616000
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Name",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Name",
-                          "value",
-                          "Marko",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Person",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Age",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Age",
-                          "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 0
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Gender",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Gender",
-                          "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 1
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
                 "@value": [
                   "IetfLanguageTag",
                   {
@@ -529,6 +285,224 @@
                 "@value": "scrubbed id"
               },
               "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Age",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 1
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "RegistrationDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "RegistrationDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": 1586270616000
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "Marko",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
               "Person",
               "properties",
               {
@@ -743,12 +717,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Person",
+              "Company",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Age",
+                  "Locations",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -761,22 +735,25 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "Age",
+                          "Locations",
                           "value",
-                          {
-                            "@type": "g:Int32",
-                            "@value": 0
-                          },
+                          "Aachen",
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "ValidFrom",
+                              {
+                                "@type": "g:Date",
+                                "@value": 1546304400000
+                              }
+                            ]
                           }
                         ]
                       }
                     ]
                   },
-                  "Gender",
+                  "FoundingDate",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -789,11 +766,11 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "Gender",
+                          "FoundingDate",
                           "value",
                           {
-                            "@type": "g:Int32",
-                            "@value": 0
+                            "@type": "g:Date",
+                            "@value": -62135596800000
                           },
                           "properties",
                           {
@@ -805,32 +782,6 @@
                     ]
                   }
                 ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
               }
             ]
           }
@@ -1013,6 +964,63 @@
                 "@value": "scrubbed id"
               },
               "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "GER",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "de",
+                              "Deutschland",
+                              "en",
+                              "Germany"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
               "Person",
               "properties",
               {
@@ -1064,87 +1072,6 @@
                           {
                             "@type": "g:Int32",
                             "@value": 0
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": []
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "FoundingDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
                           },
                           "properties",
                           {
@@ -1276,12 +1203,64 @@
                 "@value": "scrubbed id"
               },
               "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
               "Language",
               "properties",
               {
                 "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Person",
+              "properties",
+              {
+                "@type": "g:Map",
                 "@value": [
-                  "IetfLanguageTag",
+                  "Age",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -1294,9 +1273,173 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "IetfLanguageTag",
+                          "Age",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "Gender",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Gender",
+                          "value",
+                          {
+                            "@type": "g:Int32",
+                            "@value": 0
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Language",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "lang",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "lang",
                           "value",
                           "en",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Company",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "FoundingDate",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "FoundingDate",
+                          "value",
+                          {
+                            "@type": "g:Date",
+                            "@value": -62135596800000
+                          },
                           "properties",
                           {
                             "@type": "g:Map",
@@ -1432,58 +1575,6 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Language",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "lang",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "lang",
-                          "value",
-                          "en",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
               "Person",
               "properties",
               {
@@ -1675,12 +1766,12 @@
                 "@value": "scrubbed id"
               },
               "label",
-              "Country",
+              "Language",
               "properties",
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Name",
+                  "IetfLanguageTag",
                   {
                     "@type": "g:List",
                     "@value": [
@@ -1693,18 +1784,13 @@
                             "@value": "scrubbed id"
                           },
                           "label",
-                          "Name",
+                          "IetfLanguageTag",
                           "value",
-                          "GER",
+                          "en",
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": [
-                              "de",
-                              "Deutschland",
-                              "en",
-                              "Germany"
-                            ]
+                            "@value": []
                           }
                         ]
                       }
@@ -1834,92 +1920,6 @@
                           {
                             "@type": "gx:Duration",
                             "@value": "PT2H"
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Company",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "Locations",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Locations",
-                          "value",
-                          "Aachen",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "ValidFrom",
-                              {
-                                "@type": "g:Date",
-                                "@value": 1546304400000
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "FoundingDate",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "FoundingDate",
-                          "value",
-                          {
-                            "@type": "g:Date",
-                            "@value": -62135596800000
                           },
                           "properties",
                           {

@@ -1,11 +1,10 @@
 [
   {
-    "Script": "addV(_a).property(id, _b).property(single, _c, _d)",
+    "Script": "addV(_a).property(single, _b, _c)",
     "Bindings": {
       "_a": "Language",
-      "_b": 1100,
-      "_c": "IetfLanguageTag",
-      "_d": "en"
+      "_b": "IetfLanguageTag",
+      "_c": "en"
     }
   }
 ]

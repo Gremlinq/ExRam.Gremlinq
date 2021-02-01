@@ -5,7 +5,7 @@
     "Label": "Language"
   },
   {
-    "IetfLanguageTag": null,
+    "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
   }

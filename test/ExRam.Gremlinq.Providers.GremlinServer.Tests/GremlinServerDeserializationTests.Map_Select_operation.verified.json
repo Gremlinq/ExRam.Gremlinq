@@ -3,47 +3,7 @@
     "Item1": {
       "Age": 0,
       "Gender": 0,
-      "Image": "",
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Marko",
-        "Key": null
-      },
-      "Id": "scrubbed id",
-      "Label": "Person"
-    },
-    "Item2": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
-      "RegistrationDate": "2020-04-07T14:43:36+00:00",
-      "PhoneNumbers": [],
-      "SomeObscureProperty": null,
-      "Name": {
-        "Id": "scrubbed id",
-        "Label": "Name",
-        "Properties": {
-          "ValidFrom": "0001-01-01T00:00:00+00:00"
-        },
-        "Value": "Marko",
-        "Key": null
-      },
-      "Id": "scrubbed id",
-      "Label": "Person"
-    }
-  },
-  {
-    "Item1": {
-      "Age": 0,
-      "Gender": 0,
-      "Image": "",
+      "Image": "AQIDBAUGBwg=",
       "RegistrationDate": null,
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
@@ -54,7 +14,7 @@
     "Item2": {
       "Age": 0,
       "Gender": 0,
-      "Image": "",
+      "Image": "AQIDBAUGBwg=",
       "RegistrationDate": null,
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
@@ -91,7 +51,7 @@
     "Item1": {
       "Age": 0,
       "Gender": 0,
-      "Image": "AQIDBAUGBwg=",
+      "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
@@ -102,11 +62,51 @@
     "Item2": {
       "Age": 0,
       "Gender": 0,
-      "Image": "AQIDBAUGBwg=",
+      "Image": "",
       "RegistrationDate": null,
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": null,
+      "Id": "scrubbed id",
+      "Label": "Person"
+    }
+  },
+  {
+    "Item1": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Marko",
+        "Key": null
+      },
+      "Id": "scrubbed id",
+      "Label": "Person"
+    },
+    "Item2": {
+      "Age": 0,
+      "Gender": 0,
+      "Image": "",
+      "RegistrationDate": "2020-04-07T14:43:36+00:00",
+      "PhoneNumbers": [],
+      "SomeObscureProperty": null,
+      "Name": {
+        "Id": "scrubbed id",
+        "Label": "Name",
+        "Properties": {
+          "ValidFrom": "0001-01-01T00:00:00+00:00"
+        },
+        "Value": "Marko",
+        "Key": null
+      },
       "Id": "scrubbed id",
       "Label": "Person"
     }

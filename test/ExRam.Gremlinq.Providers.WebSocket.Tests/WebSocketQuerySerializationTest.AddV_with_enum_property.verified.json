@@ -31,16 +31,6 @@
         ]
       },
       {
-        "OperatorName": "property",
-        "Arguments": [
-          {
-            "EnumName": "T",
-            "EnumValue": "id"
-          },
-          200
-        ]
-      },
-      {
         "OperatorName": "project",
         "Arguments": [
           "id",

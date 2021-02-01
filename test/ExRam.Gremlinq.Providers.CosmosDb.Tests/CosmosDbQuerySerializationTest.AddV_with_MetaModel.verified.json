@@ -1,15 +1,14 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(id, _d).property(list, _e, _f, _g, _h)",
+    "Script": "addV(_a).property(single, _b, _c).property(list, _d, _e, _f, _g)",
     "Bindings": {
       "_a": "Company",
       "_b": "FoundingDate",
       "_c": "0001-01-01T00:00:00+00:00",
-      "_d": 700,
-      "_e": "Locations",
-      "_f": "Aachen",
-      "_g": "ValidFrom",
-      "_h": "2019-01-01T01:00:00+00:00"
+      "_d": "Locations",
+      "_e": "Aachen",
+      "_f": "ValidFrom",
+      "_g": "2019-01-01T01:00:00+00:00"
     }
   }
 ]

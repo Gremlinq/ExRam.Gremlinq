@@ -23,6 +23,34 @@
               {
                 "@type": "g:Map",
                 "@value": [
+                  "Image",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Image",
+                          "value",
+                          {
+                            "@type": "gx:ByteBuffer",
+                            "@value": "AQIDBAUGBwg="
+                          },
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "Age",
                   {
                     "@type": "g:List",
@@ -189,34 +217,6 @@
               {
                 "@type": "g:Map",
                 "@value": [
-                  "Image",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Image",
-                          "value",
-                          {
-                            "@type": "gx:ByteBuffer",
-                            "@value": "AQIDBAUGBwg="
-                          },
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": []
-                          }
-                        ]
-                      }
-                    ]
-                  },
                   "Age",
                   {
                     "@type": "g:List",

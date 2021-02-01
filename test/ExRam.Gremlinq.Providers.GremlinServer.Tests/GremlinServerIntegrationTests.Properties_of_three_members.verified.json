@@ -56,8 +56,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "+49",
-              "label": "CountryCallingCode"
+              "value": "GER",
+              "label": "Name"
             }
           }
         }
@@ -76,8 +76,8 @@
                 "@type": "g:Int64",
                 "@value": "scrubbed id"
               },
-              "value": "GER",
-              "label": "Name"
+              "value": "+49",
+              "label": "CountryCallingCode"
             }
           }
         }

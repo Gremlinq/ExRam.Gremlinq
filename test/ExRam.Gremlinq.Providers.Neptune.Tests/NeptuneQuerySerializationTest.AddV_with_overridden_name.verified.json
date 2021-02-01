@@ -12,16 +12,6 @@
         "OperatorName": "property",
         "Arguments": [
           {
-            "EnumName": "T",
-            "EnumValue": "id"
-          },
-          1000
-        ]
-      },
-      {
-        "OperatorName": "property",
-        "Arguments": [
-          {
             "EnumName": "Cardinality",
             "EnumValue": "single"
           },

@@ -15,55 +15,6 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "RegistrationDate",
-    "Properties": {},
-    "Value": 1586270616000,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Name",
-    "Properties": {},
-    "Value": "Marko",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Gender",
-    "Properties": {},
-    "Value": 1,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Age",
-    "Properties": {},
-    "Value": 0,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
     "Label": "IetfLanguageTag",
     "Properties": {},
     "Value": "en",
@@ -88,6 +39,55 @@
     "Label": "Age",
     "Properties": {},
     "Value": 0,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": -62135596800000,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Gender",
+    "Properties": {},
+    "Value": 1,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": 0,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Gender",
+    "Properties": {},
+    "Value": 0,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": 0,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "RegistrationDate",
+    "Properties": {},
+    "Value": 1586270616000,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": {},
+    "Value": "Marko",
     "Key": null
   },
   {
@@ -127,16 +127,16 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Gender",
+    "Label": "FoundingDate",
     "Properties": {},
-    "Value": 0,
+    "Value": -62135596800000,
     "Key": null
   },
   {
     "Id": "scrubbed id",
-    "Label": "Age",
+    "Label": "Locations",
     "Properties": {},
-    "Value": 0,
+    "Value": "Aachen",
     "Key": null
   },
   {
@@ -162,6 +162,13 @@
   },
   {
     "Id": "scrubbed id",
+    "Label": "Name",
+    "Properties": {},
+    "Value": "GER",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
     "Label": "Gender",
     "Properties": {},
     "Value": 0,
@@ -172,13 +179,6 @@
     "Label": "Age",
     "Properties": {},
     "Value": 0,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
     "Key": null
   },
   {
@@ -218,9 +218,30 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "IetfLanguageTag",
+    "Label": "lang",
     "Properties": {},
     "Value": "en",
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "FoundingDate",
+    "Properties": {},
+    "Value": -62135596800000,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Gender",
+    "Properties": {},
+    "Value": 0,
+    "Key": null
+  },
+  {
+    "Id": "scrubbed id",
+    "Label": "Age",
+    "Properties": {},
+    "Value": 0,
     "Key": null
   },
   {
@@ -235,13 +256,6 @@
     "Label": "CountryCallingCode",
     "Properties": {},
     "Value": "+49",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "lang",
-    "Properties": {},
-    "Value": "en",
     "Key": null
   },
   {
@@ -295,9 +309,9 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "Name",
+    "Label": "IetfLanguageTag",
     "Properties": {},
-    "Value": "GER",
+    "Value": "en",
     "Key": null
   },
   {
@@ -319,20 +333,6 @@
     "Label": "Duration",
     "Properties": {},
     "Value": "PT2H",
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "FoundingDate",
-    "Properties": {},
-    "Value": -62135596800000,
-    "Key": null
-  },
-  {
-    "Id": "scrubbed id",
-    "Label": "Locations",
-    "Properties": {},
-    "Value": "Aachen",
     "Key": null
   },
   {

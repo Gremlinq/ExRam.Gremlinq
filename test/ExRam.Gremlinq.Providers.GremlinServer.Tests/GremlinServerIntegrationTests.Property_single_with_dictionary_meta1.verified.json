@@ -130,6 +130,86 @@
                         ]
                       }
                     ]
+                  },
+                  "Name",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "Name",
+                          "value",
+                          "GER",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": {
+            "@type": "g:Map",
+            "@value": [
+              "id",
+              {
+                "@type": "g:Int64",
+                "@value": "scrubbed id"
+              },
+              "label",
+              "Country",
+              "properties",
+              {
+                "@type": "g:Map",
+                "@value": [
+                  "LocalizableDescription",
+                  {
+                    "@type": "g:List",
+                    "@value": [
+                      {
+                        "@type": "g:Map",
+                        "@value": [
+                          "id",
+                          {
+                            "@type": "g:Int64",
+                            "@value": "scrubbed id"
+                          },
+                          "label",
+                          "LocalizableDescription",
+                          "value",
+                          "",
+                          "properties",
+                          {
+                            "@type": "g:Map",
+                            "@value": [
+                              "key",
+                              "value"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -205,7 +285,12 @@
                           "properties",
                           {
                             "@type": "g:Map",
-                            "@value": []
+                            "@value": [
+                              "de",
+                              "Deutschland",
+                              "en",
+                              "Germany"
+                            ]
                           }
                         ]
                       }
@@ -395,91 +480,6 @@
                             "@value": [
                               "key",
                               "value"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": {
-            "@type": "g:Map",
-            "@value": [
-              "id",
-              {
-                "@type": "g:Int64",
-                "@value": "scrubbed id"
-              },
-              "label",
-              "Country",
-              "properties",
-              {
-                "@type": "g:Map",
-                "@value": [
-                  "LocalizableDescription",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "LocalizableDescription",
-                          "value",
-                          "",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "key",
-                              "value"
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "Name",
-                  {
-                    "@type": "g:List",
-                    "@value": [
-                      {
-                        "@type": "g:Map",
-                        "@value": [
-                          "id",
-                          {
-                            "@type": "g:Int64",
-                            "@value": "scrubbed id"
-                          },
-                          "label",
-                          "Name",
-                          "value",
-                          "GER",
-                          "properties",
-                          {
-                            "@type": "g:Map",
-                            "@value": [
-                              "de",
-                              "Deutschland",
-                              "en",
-                              "Germany"
                             ]
                           }
                         ]

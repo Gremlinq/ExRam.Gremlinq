@@ -13,11 +13,6 @@
     "Label": "Language"
   },
   {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "IetfLanguageTag": "en",
     "Id": "scrubbed id",
     "Label": "Language"
@@ -31,14 +26,6 @@
     "IetfLanguageTag": null,
     "Id": "scrubbed id",
     "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
   },
   {
     "Name": {
@@ -63,37 +50,6 @@
     "Label": "Country"
   },
   {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": null,
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "IetfLanguageTag": "en",
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
-    "Name": null,
-    "Languages": [],
-    "CountryCallingCode": "+49",
-    "LocalizableDescription": null,
-    "Id": "scrubbed id",
-    "Label": "Country"
-  },
-  {
-    "IetfLanguageTag": null,
-    "Id": "scrubbed id",
-    "Label": "Language"
-  },
-  {
     "Name": {
       "Id": "scrubbed id",
       "Label": "Name",
@@ -109,6 +65,50 @@
     "LocalizableDescription": null,
     "Id": "scrubbed id",
     "Label": "Country"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "IetfLanguageTag": null,
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
+  },
+  {
+    "Name": null,
+    "Languages": [],
+    "CountryCallingCode": "+49",
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  },
+  {
+    "IetfLanguageTag": "en",
+    "Id": "scrubbed id",
+    "Label": "Language"
   },
   {
     "IetfLanguageTag": null,

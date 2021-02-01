@@ -27,9 +27,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 5
+            "@value": 11
           },
-          "value": "Company"
+          "value": "Person"
         }
       },
       {
@@ -37,9 +37,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 11
+            "@value": 5
           },
-          "value": "Person"
+          "value": "Company"
         }
       },
       {

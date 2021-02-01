@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addV('Language').property(id, 400).project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "addV('Language').project('id', 'label', 'properties').by(id).by(label).by(__.properties().group().by(label).by(__.project('id', 'label', 'value', 'properties').by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {}
   }
 ]

@@ -1,17 +1,16 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).property(id, _f).project(_g, _h, _i).by(id).by(label).by(__.properties().group().by(label).by(__.project(_g, _h, _j, _i).by(id).by(label).by(value).by(__.valueMap()).fold()))",
+    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).project(_f, _g, _h).by(id).by(label).by(__.properties().group().by(label).by(__.project(_f, _g, _i, _h).by(id).by(label).by(value).by(__.valueMap()).fold()))",
     "Bindings": {
       "_a": "Person",
       "_b": "Age",
       "_c": 0,
       "_d": "Gender",
       "_e": 1,
-      "_f": 200,
-      "_g": "id",
-      "_h": "label",
-      "_i": "properties",
-      "_j": "value"
+      "_f": "id",
+      "_g": "label",
+      "_h": "properties",
+      "_i": "value"
     }
   }
 ]

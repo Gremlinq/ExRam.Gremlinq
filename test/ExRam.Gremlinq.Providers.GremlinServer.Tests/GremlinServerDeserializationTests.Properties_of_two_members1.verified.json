@@ -15,16 +15,16 @@
   },
   {
     "Id": "scrubbed id",
-    "Label": "CountryCallingCode",
+    "Label": "Name",
     "Properties": {},
-    "Value": "+49",
+    "Value": "GER",
     "Key": null
   },
   {
     "Id": "scrubbed id",
-    "Label": "Name",
+    "Label": "CountryCallingCode",
     "Properties": {},
-    "Value": "GER",
+    "Value": "+49",
     "Key": null
   }
 ]

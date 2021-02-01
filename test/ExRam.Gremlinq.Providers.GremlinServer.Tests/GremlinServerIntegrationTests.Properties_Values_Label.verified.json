@@ -27,6 +27,36 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
+            "@value": 10
+          },
+          "value": "Gender"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 1
+          },
+          "value": "Image"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
+            "@value": 10
+          },
+          "value": "Age"
+        }
+      },
+      {
+        "@type": "g:Traverser",
+        "@value": {
+          "bulk": {
+            "@type": "g:Int64",
             "@value": 5
           },
           "value": "FoundingDate"
@@ -57,29 +87,9 @@
         "@value": {
           "bulk": {
             "@type": "g:Int64",
-            "@value": 10
-          },
-          "value": "Gender"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 10
-          },
-          "value": "Age"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
             "@value": 1
           },
-          "value": "Image"
+          "value": "Locations"
         }
       },
       {
@@ -130,16 +140,6 @@
             "@value": 1
           },
           "value": "Duration"
-        }
-      },
-      {
-        "@type": "g:Traverser",
-        "@value": {
-          "bulk": {
-            "@type": "g:Int64",
-            "@value": 1
-          },
-          "value": "Locations"
         }
       }
     ]

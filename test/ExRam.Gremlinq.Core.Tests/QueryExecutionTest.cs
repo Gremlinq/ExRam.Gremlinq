@@ -208,7 +208,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task AddV()
         {
             await _g
-                .AddV(new Language { Id = 100, IetfLanguageTag = "en" })
+                .AddV(new Language { IetfLanguageTag = "en" })
                 .Verify(this);
         }
 
@@ -253,7 +253,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task AddV_with_enum_property()
         {
             await _g
-                .AddV(new Person { Id = 200, Gender = Gender.Female })
+                .AddV(new Person { Gender = Gender.Female })
                 .Verify(this);
         }
 
@@ -263,7 +263,6 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .AddV(new Person
                 {
-                    Id = 201,
                     Image = new byte [] { 1, 2, 3, 4, 5, 6, 7, 8 }
                 })
                 .Verify(this);
@@ -308,7 +307,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureProperties(_ => _
                             .ConfigureElement<Language>(conf => conf
                                 .IgnoreOnAdd(p => p.IetfLanguageTag)))))
-                .AddV(new Language { Id = 400, IetfLanguageTag = "en" })
+                .AddV(new Language { IetfLanguageTag = "en" })
                 .Verify(this);
         }
 
@@ -318,7 +317,6 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .AddV(new Country
                 {
-                    Id = 500,
                     Name = new VertexProperty<string>("GER")
                     {
                         Properties = new Dictionary<string, object>
@@ -335,7 +333,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task AddV_with_Meta_without_properties()
         {
             await _g
-                .AddV(new Country { Id = 600, Name = "GER"})
+                .AddV(new Country { Name = "GER"})
                 .Verify(this);
         }
 
@@ -359,7 +357,6 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .AddV(new Company
                 {
-                    Id = 700,
                     Locations = new[]
                     {
                         new VertexProperty<string, PropertyValidity>("Aachen")
@@ -378,7 +375,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task AddV_with_multi_property()
         {
             await _g
-                .AddV(new Company { Id = 800, PhoneNumbers = new[] { "+4912345", "+4923456" } })
+                .AddV(new Company { PhoneNumbers = new[] { "+4912345", "+4923456" } })
                 .Verify(this);
         }
 
@@ -386,7 +383,7 @@ namespace ExRam.Gremlinq.Core.Tests
         public async Task AddV_with_nulls()
         {
             await _g
-                .AddV(new Language { Id = 900 })
+                .AddV(new Language())
                 .Verify(this);
         }
 
@@ -399,7 +396,7 @@ namespace ExRam.Gremlinq.Core.Tests
                         .ConfigureProperties(propModel => propModel
                             .ConfigureElement<Language>(conf => conf
                                 .ConfigureName(x => x.IetfLanguageTag, "lang")))))
-                .AddV(new Language { Id = 1000, IetfLanguageTag = "en" })
+                .AddV(new Language { IetfLanguageTag = "en" })
                 .Verify(this);
         }
 
@@ -417,7 +414,7 @@ namespace ExRam.Gremlinq.Core.Tests
             await _g
                 .ConfigureEnvironment(env => env
                     .UseModel(GraphModel.Empty))
-                .AddV(new Language { Id = 1100, IetfLanguageTag = "en" })
+                .AddV(new Language { IetfLanguageTag = "en" })
                 .Verify(this);
         }
 
