@@ -1,10 +1,11 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c)",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d)",
     "Bindings": {
       "_a": "Language",
-      "_b": "lang",
-      "_c": "en"
+      "_b": "PartitionKey",
+      "_c": "lang",
+      "_d": "en"
     }
   }
 ]

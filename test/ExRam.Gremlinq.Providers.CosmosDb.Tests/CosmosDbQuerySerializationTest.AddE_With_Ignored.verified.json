@@ -1,18 +1,19 @@
 [
   {
-    "Script": "addE(_a).property(_b, _c).from(__.addV(_d).property(single, _e, _f).property(single, _g, _h)).to(__.addV(_i).property(single, _j, _k))",
+    "Script": "addE(_a).property(_b, _c).from(__.addV(_d).property(_e, _e).property(single, _f, _g).property(single, _h, _i)).to(__.addV(_j).property(_e, _e).property(single, _k, _l))",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "To",
       "_c": "2020-04-07T14:43:36+00:00",
       "_d": "Person",
-      "_e": "Age",
-      "_f": 0,
-      "_g": "Gender",
-      "_h": 0,
-      "_i": "Company",
-      "_j": "FoundingDate",
-      "_k": "0001-01-01T00:00:00+00:00"
+      "_e": "PartitionKey",
+      "_f": "Age",
+      "_g": 0,
+      "_h": "Gender",
+      "_i": 0,
+      "_j": "Company",
+      "_k": "FoundingDate",
+      "_l": "0001-01-01T00:00:00+00:00"
     }
   }
 ]

@@ -1,16 +1,17 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c).property(single, _d, _e).addE(_f).property(_g, _h).to(__.addV(_i))",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d).property(single, _e, _f).addE(_g).property(_h, _i).to(__.addV(_j).property(_b, _b))",
     "Bindings": {
       "_a": "Person",
-      "_b": "Age",
-      "_c": 0,
-      "_d": "Gender",
-      "_e": 0,
-      "_f": "LivesIn",
-      "_g": "Since",
-      "_h": "2020-04-07T14:43:36+00:00",
-      "_i": "Country"
+      "_b": "PartitionKey",
+      "_c": "Age",
+      "_d": 0,
+      "_e": "Gender",
+      "_f": 0,
+      "_g": "LivesIn",
+      "_h": "Since",
+      "_i": "2020-04-07T14:43:36+00:00",
+      "_j": "Country"
     }
   }
 ]

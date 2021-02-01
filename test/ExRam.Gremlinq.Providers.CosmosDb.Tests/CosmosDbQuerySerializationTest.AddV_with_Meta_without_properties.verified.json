@@ -1,10 +1,11 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c)",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d)",
     "Bindings": {
       "_a": "Country",
-      "_b": "Name",
-      "_c": "GER"
+      "_b": "PartitionKey",
+      "_c": "Name",
+      "_d": "GER"
     }
   }
 ]

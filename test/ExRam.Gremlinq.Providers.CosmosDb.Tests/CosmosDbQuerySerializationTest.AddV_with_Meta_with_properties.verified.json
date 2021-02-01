@@ -1,14 +1,15 @@
 [
   {
-    "Script": "addV(_a).property(single, _b, _c, _d, _e, _f, _g)",
+    "Script": "addV(_a).property(_b, _b).property(single, _c, _d, _e, _f, _g, _h)",
     "Bindings": {
       "_a": "Country",
-      "_b": "Name",
-      "_c": "GER",
-      "_d": "de",
-      "_e": "Deutschland",
-      "_f": "en",
-      "_g": "Germany"
+      "_b": "PartitionKey",
+      "_c": "Name",
+      "_d": "GER",
+      "_e": "de",
+      "_f": "Deutschland",
+      "_g": "en",
+      "_h": "Germany"
     }
   }
 ]

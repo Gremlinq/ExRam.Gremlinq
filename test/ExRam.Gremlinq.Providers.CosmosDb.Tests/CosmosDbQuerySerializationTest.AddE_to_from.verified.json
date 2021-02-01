@@ -1,6 +1,6 @@
 [
   {
-    "Script": "addE(_a).property(_b, _c).property(_d, _e).property(_f, _c).to(__.addV(_g).property(single, _h, _i)).from(__.addV(_j).property(single, _k, _l).property(single, _m, _n))",
+    "Script": "addE(_a).property(_b, _c).property(_d, _e).property(_f, _c).to(__.addV(_g).property(_h, _h).property(single, _i, _j)).from(__.addV(_k).property(_h, _h).property(single, _l, _m).property(single, _n, _o))",
     "Bindings": {
       "_a": "WorksFor",
       "_b": "From",
@@ -9,13 +9,14 @@
       "_e": "Admin",
       "_f": "To",
       "_g": "Company",
-      "_h": "FoundingDate",
-      "_i": "0001-01-01T00:00:00+00:00",
-      "_j": "Person",
-      "_k": "Age",
-      "_l": 0,
-      "_m": "Gender",
-      "_n": 0
+      "_h": "PartitionKey",
+      "_i": "FoundingDate",
+      "_j": "0001-01-01T00:00:00+00:00",
+      "_k": "Person",
+      "_l": "Age",
+      "_m": 0,
+      "_n": "Gender",
+      "_o": 0
     }
   }
 ]
