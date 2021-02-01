@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 5
+                "@value": "scrubbed id"
               },
               "label",
               "Company",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 6
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "FoundingDate",
@@ -70,7 +70,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 32
+                "@value": "scrubbed id"
               },
               "label",
               "Company",
@@ -88,7 +88,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 33
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "FoundingDate",
@@ -125,7 +125,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 49
+                "@value": "scrubbed id"
               },
               "label",
               "Company",
@@ -143,7 +143,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 50
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "FoundingDate",
@@ -180,7 +180,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 700
+                "@value": "scrubbed id"
               },
               "label",
               "Company",
@@ -198,7 +198,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 75
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Locations",
@@ -229,7 +229,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 74
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "FoundingDate",

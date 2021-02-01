@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 700
+                "@value": "scrubbed id"
               },
               "label",
               "Company",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 75
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Locations",
@@ -64,7 +64,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 74
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "FoundingDate",

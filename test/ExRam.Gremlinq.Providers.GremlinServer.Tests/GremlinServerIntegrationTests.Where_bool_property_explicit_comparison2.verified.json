@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 57
+                "@value": "scrubbed id"
               },
               "label",
               "TimeFrame",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 60
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "StartTime",
@@ -61,7 +61,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 59
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Enabled",
@@ -86,7 +86,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 58
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "Duration",

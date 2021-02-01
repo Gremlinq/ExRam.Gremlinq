@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 2
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 3
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",
@@ -67,7 +67,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 900
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -93,7 +93,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 72
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -111,7 +111,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 73
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",
@@ -145,7 +145,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 1100
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -163,7 +163,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 63
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",
@@ -197,7 +197,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 400
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -223,7 +223,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 100
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -241,7 +241,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 55
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",
@@ -275,7 +275,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 38
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -293,7 +293,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 39
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",
@@ -327,7 +327,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 1000
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -345,7 +345,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 81
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "lang",
@@ -379,7 +379,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 56
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -405,7 +405,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 61
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -423,7 +423,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 62
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",

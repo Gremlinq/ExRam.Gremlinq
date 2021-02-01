@@ -7,7 +7,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 14,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "2020-04-07T14:43:36+00:00"
@@ -15,12 +15,12 @@
       "Value": "Bob",
       "Key": null
     },
-    "Id": 11,
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": 2,
+    "Id": "scrubbed id",
     "Label": "Language"
   }
 ]

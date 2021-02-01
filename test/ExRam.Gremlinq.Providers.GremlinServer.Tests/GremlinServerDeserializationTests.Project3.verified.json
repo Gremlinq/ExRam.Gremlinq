@@ -8,7 +8,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": 46,
+        "Id": "scrubbed id",
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -16,7 +16,7 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": 43,
+      "Id": "scrubbed id",
       "Label": "Person"
     },
     "Item2": {
@@ -27,7 +27,7 @@
       "PhoneNumbers": [],
       "SomeObscureProperty": null,
       "Name": {
-        "Id": 14,
+        "Id": "scrubbed id",
         "Label": "Name",
         "Properties": {
           "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -35,7 +35,7 @@
         "Value": "Bob",
         "Key": null
       },
-      "Id": 11,
+      "Id": "scrubbed id",
       "Label": "Person"
     },
     "Item3": 1

@@ -4,7 +4,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": 94,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -12,7 +12,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 0,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -20,7 +20,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 95,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -28,12 +28,12 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 20,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
     "Name": {
-      "Id": 76,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {},
       "Value": "GER",
@@ -42,7 +42,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 96,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -50,7 +50,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 600,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -58,7 +58,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 97,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -66,7 +66,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 25,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -74,7 +74,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 98,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -82,7 +82,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 30,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -90,7 +90,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": {
-      "Id": 99,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -98,12 +98,12 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 40,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
     "Name": {
-      "Id": 77,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "de": "Deutschland",
@@ -115,7 +115,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": {
-      "Id": 101,
+      "Id": "scrubbed id",
       "Label": "LocalizableDescription",
       "Properties": {
         "key": "value"
@@ -123,7 +123,7 @@
       "Value": "",
       "Key": "value"
     },
-    "Id": 500,
+    "Id": "scrubbed id",
     "Label": "Country"
   }
 ]

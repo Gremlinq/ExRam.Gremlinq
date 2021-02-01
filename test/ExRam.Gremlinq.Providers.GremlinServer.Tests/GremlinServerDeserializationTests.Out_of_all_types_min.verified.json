@@ -7,7 +7,7 @@
     "PhoneNumbers": [],
     "SomeObscureProperty": null,
     "Name": {
-      "Id": 14,
+      "Id": "scrubbed id",
       "Label": "Name",
       "Properties": {
         "ValidFrom": "0001-01-01T00:00:00+00:00"
@@ -15,12 +15,12 @@
       "Value": "Bob",
       "Key": null
     },
-    "Id": 11,
+    "Id": "scrubbed id",
     "Label": "Person"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": 2,
+    "Id": "scrubbed id",
     "Label": "Language"
   },
   {
@@ -28,7 +28,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 5,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
@@ -36,7 +36,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": 20,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -44,7 +44,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": 25,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -52,7 +52,7 @@
     "Languages": [],
     "CountryCallingCode": null,
     "LocalizableDescription": null,
-    "Id": 30,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -60,12 +60,12 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 32,
+    "Id": "scrubbed id",
     "Label": "Company"
   },
   {
     "IetfLanguageTag": "en",
-    "Id": 38,
+    "Id": "scrubbed id",
     "Label": "Language"
   },
   {
@@ -73,7 +73,7 @@
     "Languages": [],
     "CountryCallingCode": "+49",
     "LocalizableDescription": null,
-    "Id": 0,
+    "Id": "scrubbed id",
     "Label": "Country"
   },
   {
@@ -81,7 +81,7 @@
     "PhoneNumbers": [],
     "Locations": [],
     "Name": null,
-    "Id": 49,
+    "Id": "scrubbed id",
     "Label": "Company"
   }
 ]

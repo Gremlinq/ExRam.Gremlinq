@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 61
+                "@value": "scrubbed id"
               },
               "label",
               "Language",
@@ -33,7 +33,7 @@
                           "id",
                           {
                             "@type": "g:Int64",
-                            "@value": 62
+                            "@value": "scrubbed id"
                           },
                           "label",
                           "IetfLanguageTag",

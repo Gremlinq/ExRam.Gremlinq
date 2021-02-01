@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 37
+                "@value": "scrubbed id"
               },
               "label",
               "WorksFor",
@@ -54,7 +54,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 54
+                "@value": "scrubbed id"
               },
               "label",
               "WorksFor",
@@ -86,7 +86,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 10
+                "@value": "scrubbed id"
               },
               "label",
               "WorksFor",

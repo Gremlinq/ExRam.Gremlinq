@@ -15,7 +15,7 @@
               "id",
               {
                 "@type": "g:Int64",
-                "@value": 37
+                "@value": "scrubbed id"
               },
               "label",
               "WorksFor",
