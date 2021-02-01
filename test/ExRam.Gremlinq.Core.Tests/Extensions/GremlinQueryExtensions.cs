@@ -11,7 +11,8 @@ namespace ExRam.Gremlinq.Core.Tests
     public static class GremlinQueryExtensions
     {
         private static readonly VerifySettings Settings = new();
-        private static readonly Regex IdRegex = new Regex("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s*{}]+)(\\s*})");
+        private static readonly Regex IdRegex1 = new Regex("(\"id\"\\s*[:,]\\s*{\\s*\"@type\"\\s*:\\s*\"g:Int64\"\\s*,\\s*\"@value\":\\s*)([^\\s{}]+)(\\s*})", RegexOptions.IgnoreCase);
+        private static readonly Regex IdRegex2 = new Regex("\"[0-9a-f]{8}[-]?([0-9a-f]{4}[-]?){3}[0-9a-f]{12}([|]PartitionKey)?\"", RegexOptions.IgnoreCase);
 
         static GremlinQueryExtensions()
         {
@@ -41,7 +42,11 @@ namespace ExRam.Gremlinq.Core.Tests
                     Formatting.Indented);
 
                 var serialized = contextBase is QueryIntegrationTest
-                    ? IdRegex.Replace(data, "$1\"scrubbed id\"$3")
+                    ? IdRegex2.Replace(
+                        IdRegex1.Replace(
+                            data,
+                            "$1\"scrubbed id\"$3"),
+                        "\"scrubbed id\"")
                     : data;
 
                 await Verifier.Verify(
