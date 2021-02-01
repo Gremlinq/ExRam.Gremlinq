@@ -13,9 +13,7 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         public CosmosDbQuerySerializationTest(ITestOutputHelper testOutputHelper) : base(
             GremlinQuerySource.g
                 .ConfigureEnvironment(env => env
-                    .ConfigureAddStepHandler(stepHandler => stepHandler
-                        .Override<AddVStep>((steps, step, env, overridden, recurse) => overridden(steps, step, env, recurse)
-                            .Push(new PropertyStep("PartitionKey", "PartitionKey"))))
+                    .AddFakePartitionKey()
                     .UseCosmosDb(builder => builder
                         .At(new Uri("wss://localhost"), "database", "graph")
                         .AuthenticateBy("authKey"))),
