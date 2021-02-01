@@ -912,7 +912,6 @@ namespace ExRam.Gremlinq.Core.Tests
                 .Verify(this);
         }
 
-
         [Fact]
         public virtual async Task Drop_in_local()
         {
