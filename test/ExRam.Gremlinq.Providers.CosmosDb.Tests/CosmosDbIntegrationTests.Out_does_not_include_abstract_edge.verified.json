@@ -1,0 +1,60 @@
+[
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "CountryCallingCode": [
+        {
+          "id": "scrubbed id",
+          "value": "+49"
+        }
+      ]
+    }
+  }
+]

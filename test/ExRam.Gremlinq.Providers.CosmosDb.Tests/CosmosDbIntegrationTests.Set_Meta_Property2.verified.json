@@ -1,0 +1,26 @@
+[
+  {
+    "id": "scrubbed id",
+    "value": "Bob",
+    "label": "Name",
+    "properties": {
+      "ValidFrom": 1586270616000
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "value": "Bob",
+    "label": "Name",
+    "properties": {
+      "ValidFrom": 1586270616000
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "value": "Marko",
+    "label": "Name",
+    "properties": {
+      "ValidFrom": 1586270616000
+    }
+  }
+]

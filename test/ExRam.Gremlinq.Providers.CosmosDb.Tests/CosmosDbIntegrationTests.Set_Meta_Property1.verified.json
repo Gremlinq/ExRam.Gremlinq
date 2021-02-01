@@ -1,0 +1,20 @@
+[
+  {
+    "id": "scrubbed id",
+    "value": "GER",
+    "label": "Name",
+    "properties": {
+      "metaKey": 1
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "value": "GER",
+    "label": "Name",
+    "properties": {
+      "de": "Deutschland",
+      "en": "Germany",
+      "metaKey": 1
+    }
+  }
+]

@@ -1,0 +1,184 @@
+[
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "CountryCallingCode": [
+        {
+          "id": "scrubbed id",
+          "value": "+49"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "CountryCallingCode": [
+        {
+          "id": "scrubbed id",
+          "value": "+49"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "Name": [
+        {
+          "id": "scrubbed id",
+          "value": "GER"
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "scrubbed id",
+    "label": "Country",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "Name": [
+        {
+          "id": "scrubbed id",
+          "value": "GER",
+          "properties": {
+            "de": "Deutschland",
+            "en": "Germany"
+          }
+        }
+      ],
+      "LocalizableDescription": [
+        {
+          "id": "scrubbed id",
+          "value": "",
+          "properties": {
+            "key": "value"
+          }
+        }
+      ]
+    }
+  }
+]

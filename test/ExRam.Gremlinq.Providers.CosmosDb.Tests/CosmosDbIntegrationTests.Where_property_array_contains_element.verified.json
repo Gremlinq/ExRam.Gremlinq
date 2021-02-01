@@ -1,0 +1,31 @@
+[
+  {
+    "id": "scrubbed id",
+    "label": "Company",
+    "type": "vertex",
+    "properties": {
+      "PartitionKey": [
+        {
+          "id": "scrubbed id",
+          "value": "PartitionKey"
+        }
+      ],
+      "FoundingDate": [
+        {
+          "id": "scrubbed id",
+          "value": -62135596800000
+        }
+      ],
+      "PhoneNumbers": [
+        {
+          "id": "scrubbed id",
+          "value": "+4912345"
+        },
+        {
+          "id": "scrubbed id",
+          "value": "+4923456"
+        }
+      ]
+    }
+  }
+]
