@@ -46,7 +46,7 @@ jobs:
         path: ./**/ExRam.*.nupkg
         if-no-files-found: error
 
-  test:
+  test-linux:
     runs-on: ubuntu-latest
 
     services:
@@ -70,7 +70,7 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
 
-  testWindows:
+  test-windows:
     runs-on: windows-latest
 
     #services:
@@ -95,7 +95,7 @@ jobs:
       run: dotnet test  --configuration Release --verbosity normal #-p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
 
   publish:
-    needs: [ build, test ]
+    needs: [ build, test-linux, test-windows ]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
 
