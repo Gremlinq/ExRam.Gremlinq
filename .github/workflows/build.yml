@@ -70,6 +70,30 @@ jobs:
     - name: Test
       run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
 
+  testWindows:
+    runs-on: windows-latest
+
+    #services:
+    #  gremlinServer:
+    #    image: tinkerpop/gremlin-server
+    #    ports:
+    #      - 8182:8182
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: 'true'
+
+    - name: Setup .NET Core 5.0.102
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.102
+
+    - name: Test
+      run: dotnet test  --configuration Release --verbosity normal #-p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
+
   publish:
     needs: [ build, test ]
     runs-on: ubuntu-latest
