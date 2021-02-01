@@ -3,7 +3,7 @@
     
   <PropertyGroup>
     <TargetFrameworks>net5.0</TargetFrameworks>
-    <DefineConstants Condition=" '$(SkipIntegrationTests)' == 'true' ">$(DefineConstants);SKIPINTEGRATIONTESTS</DefineConstants>
+    <DefineConstants Condition=" '$(RunGremlinServerIntegrationTests)' == 'true' ">$(DefineConstants);RUNGREMLINSERVERINTEGRATIONTESTS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

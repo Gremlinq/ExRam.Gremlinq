@@ -68,7 +68,7 @@ jobs:
         dotnet-version: 5.0.102
 
     - name: Test
-      run: dotnet test  --configuration Release --verbosity normal -p:SkipIntegrationTests=${{ github.event_name == 'pull_request'}}
+      run: dotnet test  --configuration Release --verbosity normal -p:RunGremlinServerIntegrationTests=${{ github.event_name == 'push' }}
 
   publish:
     needs: [ build, test ]
