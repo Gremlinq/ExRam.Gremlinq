@@ -43,12 +43,6 @@ namespace ExRam.Gremlinq.Providers.CosmosDb.Tests
         }
 
         [Fact(Skip = "x")]
-        public override async Task AddV_with_byte_array_property()
-        {
-            //Gremlin Malformed Request: Unknown GraphSON type encountered: gx: ByteBuffer.Path: 'args.bindings._h', Line: 1, Position: 383.
-        }
-
-        [Fact(Skip = "x")]
         public override async Task Aggregate_Global()
         {
             //Gremlin Query Compilation Error: Unable to bind to method 'aggregate', with arguments of type: (Scope, String) @ line 1, column 16.
