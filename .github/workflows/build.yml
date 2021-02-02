@@ -21,6 +21,9 @@ jobs:
         fetch-depth: 0
         submodules: 'true'
 
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+
     - name: Setup .NET Core 5.0.102
       uses: actions/setup-dotnet@v1
       with:
@@ -35,6 +38,9 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release -p:ContinuousIntegrationBuild=true
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
 
     - name: Validate nuget packages
       run: dotnet validate package local **/ExRam.*.nupkg
