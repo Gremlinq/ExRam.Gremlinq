@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/Assets/Logo.png" alt="Gremlinq mascor" title="Gremlinq mascot" />
+  <img src="https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/assets/Logo.png" alt="Gremlinq mascot" title="Gremlinq mascot" />
 </p>
 
 
@@ -24,6 +24,15 @@ ExRam.Gremlinq.Providers.CosmosDb.AspNet | [![#](https://img.shields.io/nuget/v/
 ExRam.Gremlinq.Providers.Neptune.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.Neptune.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.Neptune.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune.AspNet)|
 ExRam.Gremlinq.Providers.JanusGraph.AspNet | [![#](https://img.shields.io/nuget/v/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet) | [![#](https://img.shields.io/nuget/vpre/ExRam.Gremlinq.Providers.JanusGraph.AspNet.svg)](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph.AspNet)|
 
+
+## Sample project
+
+A sample project can be found at https://github.com/ExRam/ExRam.Gremlinq.Samples.
+
+## Commercial support
+
+For commercial support, contact<br/>
+![#](https://raw.githubusercontent.com/ExRam/ExRam.Gremlinq/main/assets/SupportEmailAddress.png)
 
 ## Features
 
@@ -259,7 +268,7 @@ recognizes these expressions!
 \
 This showcases the power of the fluent interface of ExRam.Gremlinq.
 Once we go from a `Person` to the `Created` edge, the entity we
-ame from is actually encoded in the interface, so on calling `OutV`,
+came from is actually encoded in the interface, so on calling `OutV`,
 ExRam.Gremlinq remembers that we're now on a `Person` again.
 ``` csharp
     var creators = await _g
@@ -313,5 +322,6 @@ AWS Neptune since it doesn't support meta properties.
  - [Generic websocket](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.WebSocket)
  - [Gremlin Server](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.GremlinServer)
  - [Azure CosmosDB / CosmosDB Emulator](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.CosmosDb)
+ - [JanusGraph](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.JanusGraph)
  - [AWS Neptune](https://www.nuget.org/packages/ExRam.Gremlinq.Providers.Neptune)
 
