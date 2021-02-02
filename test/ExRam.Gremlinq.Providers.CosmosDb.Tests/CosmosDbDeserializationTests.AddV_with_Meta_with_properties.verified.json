@@ -1,0 +1,19 @@
+[
+  {
+    "Name": {
+      "Id": "scrubbed id",
+      "Label": null,
+      "Properties": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
+      "Value": "GER",
+      "Key": null
+    },
+    "Languages": [],
+    "CountryCallingCode": null,
+    "LocalizableDescription": null,
+    "Id": "scrubbed id",
+    "Label": "Country"
+  }
+]
